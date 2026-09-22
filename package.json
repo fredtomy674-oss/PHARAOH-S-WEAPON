@@ -1,0 +1,27 @@
+{
+  "name": "al-farouq-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AL FAROUQ AI — AI Tutor: an interactive AI private tutor platform for Egyptian curricula first, expandable to other Arab countries.",
+  "type": "module",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace server & npm run dev --workspace web",
+    "dev:server": "npm run dev --workspace server",
+    "dev:web": "npm run dev --workspace web",
+    "build": "npm run build --workspace server && npm run build --workspace web",
+    "typecheck": "npm run typecheck --workspace server && npm run typecheck --workspace web",
+    "lint": "npm run lint --workspace server && npm run lint --workspace web",
+    "test": "npm run test --workspace server",
+    "db:generate": "npm run db:generate --workspace server",
+    "db:migrate": "npm run db:migrate --workspace server",
+    "db:seed": "npm run db:seed --workspace server",
+    "check": "npm run typecheck && npm run lint && npm run test"
+  }
+}

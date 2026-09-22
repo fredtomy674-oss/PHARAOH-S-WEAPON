@@ -1,0 +1,34 @@
+# Secrets / env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Node
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+
+# Drizzle
+server/drizzle/meta/_journal.json
+server/drizzle/meta/0000_snapshot.json
+
+# Data files (local DB, uploads)
+*.sqlite
+*.sqlite3
+*.db
+server/data/
+server/uploads/
+web/uploads/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
