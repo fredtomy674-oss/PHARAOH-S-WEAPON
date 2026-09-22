@@ -23,5 +23,9 @@
     "db:migrate": "npm run db:migrate --workspace server",
     "db:seed": "npm run db:seed --workspace server",
     "check": "npm run typecheck && npm run lint && npm run test"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.3",
+    "vitest": "^5.0.1"
   }
 }
