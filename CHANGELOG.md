@@ -34,4 +34,9 @@
 - DECISIONS: D-013 (بنية E2E + قرار rate-limit قابل للضبط وتمرير الرسائل).
 - Commit: `phase9-playwright-e2e`.
 
+## 2026-09-22 — جولة audit (إعادة زيارة D-011 بعد E2E)
+- إعادة فحص `npm audit`: 4 moderate dev-only عبر `drizzle-kit → esbuild` (كما في D-011).
+- محاولة إغلاقها بجذر via `overrides` على `@esbuild-kit/core-utils/esbuild`: أُثبت عملها ميكانيكيًا في عزلة (audit 0)، لكن على الشجرة الحقيقية يُخرج npm `npm ls`/`npm ci` قيمة `invalid` (`ELSPROBLEMS`) لأن الحزمة متروكة ولها مسارات متعددة — إذن audit نظيف ≠ tree سليم عبر overrides؛ رُفض patch-package لسلسلة dev-only.
+- العودة للحالة المعروفة الجيدة (إزالة الـoverride + استعادة الـlock) → تراجع كامل أخضر: `check` (61/61)، `build`، E2E 10/10. توثيق النتائج في D-011.
+
 ## (أعمدة لاحقة تُضاف هنا كل مرحلة)

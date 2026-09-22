@@ -55,9 +55,10 @@
 **لماذا**: cost-awareness صبريًا؛ تقدير التكلفة يُحسب من عمود النموذج في حالة توفره.
 
 ## D-011 — قبول ثغرات dev-only المتبقية (4 moderate)
-**القرار**: قبول 4 ثغرات moderate متبقية في `npm audit` — كلها dev-only عبر سلسلة `drizzle-kit → esbuild`.  
-**لماذا**: لا تدخل في حزمة الإنتاج runtime؛ الشفاء يتطلب ترقية esbuild قد تكسر drizzle-kit. أعيدت المراجعة عند كل `npm install` (يظهر العدد نفسه 4).  
-**فضلاً**: إن أُصدر esbuild مصحح متوافق → `npm audit fix` وإغلاق السجل.
+**القرار**: قبول 4 ثغرات moderate متبقية في `npm audit` — كلها dev-only عبر سلسلة `drizzle-kit → @esbuild-kit/esm-loader → @esbuild-kit/core-utils → esbuild@0.18.20`.  
+**لماذا**: لا تدخل في حزمة الإنتاج runtime؛ لا شيء هنا يستخدم `esbuild serve` (الوضع المتأثر بالثغرة) — vite وtsx يستخدمان transform فقط، وكل مثيلات esbuild الأخرى موسّعة (0.25.12/0.28.2).  
+**جولة 2026-09-22 (تحقّق إضافي)**: حُوّل لإغلاقها عبر `overrides` (رفع esbuild المتداخل إلى إصدار مصحح) — أُثبت ميكانيكيًا في عزلة أنه يعمل، لكن على شجرة المشروع الحقيقية (مسارات متعددة: vite + tsx + drizzle-kit) يتجاهل npm الـoverride في فحص `npm ls`/`npm ci` ويُخرج `ELSPROBLEMS invalid` (حزمة core-utils متروكة `deprecated: Merged into tsx`، ونطاقها `~0.18.20` ثابت). لذا: **إما audit نظيف أو `npm ls`/`ci` سليم — لا كلاهما** عبر overrides. رُفض تعقيد patch-package لسلسلة dev-only → الإبقاء على D-011.  
+**فضلاً لاحقًا**: عندما يُسقط drizzle-kit `@esbuild-kit/esm-loader` (أو يُستبدل core-utils) → `npm audit fix` وإغلاق السجل.
 
 ## D-012 — سلوك Fastify مع JSON فارغ + مواصفات جسم الـAPI
 **القرار**: عميل الويب يرسل `Content-Type: application/json` فقط عند وجود جسم فعلي.  
