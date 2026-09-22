@@ -76,8 +76,17 @@
 - [x] E2E عبر المتصفح الحقيقي V1–V3 (ملف حقيقي → بروكسي → Fastify → SQLite → mock → عرض + GET بالمستخدم) — **13/13 أخضر**
 - [x] `npm run check` أخضر (70/70) + `npm run build` أخضر + docs sync (DECISIONS D-014) + commit
 
+### PHASE 11 — Voice conversation (سؤال بصوت) ✅
+- [x] طبقة صوتية كاملة في المتصفح عبر Web Speech APIs (قرار D-015): `web/src/voice.ts` —
+  STT عبر `SpeechRecognition` (و`webkitSpeechRecognition` للتوافق) وTTS عبر `speechSynthesis`؛
+  بلا مفاتيح وبلا تغيير في الخادم → الدردشة النصية وVision بلا أي انحدار
+- [x] «التحدث بدل الكتابة»: زر 🎙️ (+ حالة استماع مع إيقاف) ينسخ ناتج التعرف في حقل الرسالة **للمراجعة والتعديل** (لغة عربية `ar-EG`، يدعم Chrome/Edge على localhost/HTTPS، ورسالة واضحة «غير مدعوم في هذا المتصفح» عند غياب STT)
+- [x] سماع الرد: تشغيل تلقائي لرد المدرس عند إرسال سؤال صوتي + زر 🔊 «استمع» على كل فقاعة رد + شارة «جارٍ الاستماع إلى رد المدرس…» مع زر ⏹ إيقاف (`speechSynthesis.cancel`)؛ انتخاب صوت عربي إن وُجد مع إصلاح محرك يرفض كائن صوت غير مطابق (try/catch — اكتشفته E2E)
+- [x] E2E حتمية عبر stubs مُحقنة في المتصفح (لا يمكن أتمتة ميكروفون حقيقي): A1 (صوت → نص للمراجعة → تعديل → إرسال → رد مُنطق تلقائيًا → إيقاف)، A2 (رسالة مكتوبة لا تُنطق تلقائيًا؛ 🔊 يعمل ويُوقف)، A3 (عند غياب STT → خطأ واضح) — **16/16 أخضر**
+- [x] `npm run check` أخضر (70/70) + `npm run build` أخضر + docs sync (DECISIONS D-015) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
-- [ ] 🔴 Voice conversation (STT/TTS) — واجهات AI جاهزة (placeholder موثق)
+- [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
 - [ ] 🟡 PDF/DOCX extractors حقيقية + معالجة صور
 - [ ] 🟡 Parent dashboard + Admin dashboard
@@ -86,7 +95,7 @@
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
 - [ ] 🟡 Analytics + إحصاءات
 - [ ] 🟡 وضع multi-country seed (السعودية مثلًا)
-- [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 13/13 (PHASE 9 + 10)
+- [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 16/16 (PHASE 9 + 10 + 11)
 - [ ] 🟡 Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز)
 
 ---

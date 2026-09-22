@@ -11,6 +11,14 @@ import {
   type Message,
   type User,
 } from "./api.js";
+import {
+  speakText,
+  speechRecognitionSupported,
+  startTranscription,
+  stopSpeaking,
+  ttsSupported,
+  type SttHandle,
+} from "./voice.js";
 
 interface Props {
   user: User;
@@ -37,8 +45,13 @@ export function ChatScreen({ session, onEnded }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [remaining, setRemaining] = useState<number | null>(null);
   const [tripwire, setTripwire] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const sttRef = useRef<SttHandle | null>(null);
+  const activeUtterance = useRef<SpeechSynthesisUtterance | null>(null);
+  const voiceTurnRef = useRef(false);
 
   useEffect(() => {
     lessonBreadcrumb(session.lessonId).then((b) => setBc(b)).catch(() => undefined);
@@ -54,7 +67,61 @@ export function ChatScreen({ session, onEnded }: Props) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, pending]);
 
-  const send = async (content: string, image?: string | null) => {
+  // Stop any voice activity when leaving the chat room.
+  useEffect(
+    () => () => {
+      stopSpeaking();
+      sttRef.current?.stop();
+    },
+    [],
+  );
+
+  const speak = (text: string) => {
+    if (!ttsSupported()) return;
+    const utterance = speakText(text, () => {
+      if (activeUtterance.current === utterance) setSpeaking(false);
+    });
+    if (!utterance) return;
+    activeUtterance.current = utterance;
+    setSpeaking(true);
+  };
+
+  const stopReading = () => {
+    stopSpeaking();
+    activeUtterance.current = null;
+    setSpeaking(false);
+  };
+
+  const toggleTranscription = () => {
+    if (listening) {
+      sttRef.current?.stop();
+      return;
+    }
+    if (!speechRecognitionSupported()) {
+      setError("التعرف على الكلام غير مدعوم في هذا المتصفح — جرّب Chrome أو Edge");
+      return;
+    }
+    setError(null);
+    const handle = startTranscription({
+      onTranscript: (transcript) => {
+        voiceTurnRef.current = true;
+        setInput((prev) => (prev ? `${prev.trimEnd()} ${transcript}` : transcript));
+      },
+      onEnd: () => setListening(false),
+      onError: (message) => {
+        setListening(false);
+        if (message) setError(message);
+      },
+    });
+    if (!handle) {
+      setError("تعذر بدء التعرف على الكلام — أعد المحاولة");
+      return;
+    }
+    sttRef.current = handle;
+    setListening(true);
+  };
+
+  const send = async (content: string, image?: string | null, speakReply = false) => {
     const text = content.trim();
     if ((!text && !image) || pending) return;
     setPending(true);
@@ -68,6 +135,7 @@ export function ChatScreen({ session, onEnded }: Props) {
       if (turn.safetyTripwire) setTripwire(true);
       setInput("");
       setPreview(null);
+      if (speakReply) speak(turn.tutorMessage.content);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "تعذر إرسال الرسالة");
     } finally {
@@ -110,7 +178,7 @@ export function ChatScreen({ session, onEnded }: Props) {
           <strong>{b ? b.lesson.title : "الجلسة"}</strong>
           {b && (
             <span className="muted small">
-              {b.country.nameAr} • {b.grade.nameAr} • {b.subject.nameAr} — {b.unit.title}
+              {b.country.nameAr} • {b.system.nameAr} • {b.grade.nameAr} • {b.subject.nameAr} — {b.unit.title}
             </span>
           )}
         </div>
@@ -166,6 +234,17 @@ export function ChatScreen({ session, onEnded }: Props) {
                   </div>
                 )}
                 <p>{m.content}</p>
+                {m.role === "tutor" && (
+                  <button
+                    data-testid="speak-reply"
+                    type="button"
+                    className="btn small speak-btn"
+                    aria-label="الاستماع إلى الرد"
+                    onClick={() => speak(m.content)}
+                  >
+                    🔊 استمع
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -180,10 +259,10 @@ export function ChatScreen({ session, onEnded }: Props) {
 
       <footer className="chat-footer">
         <div className="quick-row">
-          <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅")}>
+          <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅", null, false)}>
             فهمت
           </button>
-          <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك")}>
+          <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك", null, false)}>
             مش فاهم
           </button>
         </div>
@@ -199,7 +278,9 @@ export function ChatScreen({ session, onEnded }: Props) {
           className="composer"
           onSubmit={(e) => {
             e.preventDefault();
-            void send(input, preview);
+            const speakReply = voiceTurnRef.current;
+            voiceTurnRef.current = false;
+            void send(input, preview, speakReply);
           }}
         >
           <input
@@ -213,6 +294,17 @@ export function ChatScreen({ session, onEnded }: Props) {
               e.target.value = "";
             }}
           />
+          <button
+            data-testid="voice-input"
+            type="button"
+            className={`btn small ghost voice-btn${listening ? " active" : ""}`}
+            aria-label="التحدث بدل الكتابة"
+            aria-pressed={listening}
+            disabled={pending}
+            onClick={toggleTranscription}
+          >
+            {listening ? "🔴" : "🎙️"} سؤال بصوت
+          </button>
           <button
             data-testid="attach-image"
             type="button"
@@ -236,6 +328,22 @@ export function ChatScreen({ session, onEnded }: Props) {
             إرسال
           </button>
         </form>
+        {listening && (
+          <div className="voice-status" data-testid="voice-listening">
+            🎙️ جارٍ الاستماع… راجِع النص ثم عدّله واضغط إرسال.
+            <button data-testid="voice-stop" type="button" className="btn small ghost" onClick={toggleTranscription}>
+              إيقاف الاستماع
+            </button>
+          </div>
+        )}
+        {speaking && (
+          <div className="voice-status speaking" data-testid="speak-status">
+            🔊 جارٍ الاستماع إلى رد المدرس…
+            <button data-testid="stop-tts" type="button" className="btn small ghost" onClick={stopReading}>
+              ⏹ إيقاف
+            </button>
+          </div>
+        )}
       </footer>
     </div>
   );

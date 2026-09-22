@@ -15,6 +15,87 @@ export const NO_RETRIEVED_PLACEHOLDER = "لا يوجد محتوى مسترجع";
 /** Mock provider marker: the tutor reply contains this when a photo was attached. */
 export const VISION_MARKER = "قرأت الصورة المرفقة";
 
+/** Stable transcript emitted by the fake SpeechRecognition stub in voice tests. */
+export const STT_TRANSCRIPT = "اذكر مثالًا على الجمع مع إعادة التجميع";
+
+export interface VoiceTestState {
+  /** Utterances handed to speechSynthesis.speak, in order (text + lang). */
+  spoken: Array<{ text: string; lang: string }>;
+  /** How many times speechSynthesis.cancel() was called. */
+  cancelCount: number;
+}
+
+/**
+ * Installs deterministic in-browser stubs for the Web Speech APIs so voice UI
+ * flows can be automated without a real microphone or audio output:
+ *  - SpeechRecognition: emits exactly ONE final result with `transcript`, then
+ *    `onend` (mimics Chrome after a short pause on a spoken sentence).
+ *  - speechSynthesis: records every spoken utterance + every cancel; plays no
+ *    real audio.
+ * The recorded state is exposed as `window.__voiceTest` for assertions.
+ */
+export async function installVoiceStubs(page: Page, transcript: string = STT_TRANSCRIPT): Promise<void> {
+  await page.addInitScript((t: string) => {
+    const state: VoiceTestState = { spoken: [], cancelCount: 0 };
+    (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
+
+    // One-shot SpeechRecognition: one final result, then end.
+    class FakeSpeechRecognition {
+      lang = "ar-EG";
+      continuous = false;
+      interimResults = false;
+      maxAlternatives = 1;
+      onresult: ((event: unknown) => void) | null = null;
+      onerror: ((event: unknown) => void) | null = null;
+      onend: (() => void) | null = null;
+      start(): void {
+        setTimeout(() => {
+          if (typeof this.onresult === "function") {
+            this.onresult({ results: [{ isFinal: true, 0: { transcript: t } }] });
+          }
+          if (typeof this.onend === "function") this.onend();
+        }, 400);
+      }
+      stop(): void {
+        if (typeof this.onend === "function") this.onend();
+      }
+    }
+    (window as unknown as { SpeechRecognition: unknown }).SpeechRecognition = FakeSpeechRecognition;
+
+    // Recording speechSynthesis: no real audio.
+    const pending: Array<{ text: string; lang: string }> = [];
+    const fakeSynth = {
+      getVoices: () => [
+        { lang: "ar-EG", name: "Test Arabic Voice", default: false, localService: true, voiceURI: "test-ar" },
+      ],
+      speak(u: { text: string; lang: string }): void {
+        pending.length = 0;
+        state.spoken.push({ text: u.text, lang: u.lang });
+        pending.push(u);
+      },
+      cancel(): void {
+        state.cancelCount += 1;
+        pending.length = 0;
+      },
+      paused: false,
+      pendingSpeech: pending,
+      get speaking(): boolean {
+        return pending.length > 0;
+      },
+    };
+    Object.defineProperty(window, "speechSynthesis", {
+      value: fakeSynth,
+      configurable: true,
+      writable: true,
+    });
+  }, transcript);
+}
+
+/** Reads the recorded voice-test state (only meaningful after installVoiceStubs). */
+export async function voiceTestState(page: Page): Promise<VoiceTestState> {
+  return page.evaluate(() => (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest);
+}
+
 /** 1x1 transparent PNG (base64) used to simulate a photographed question. */
 export const TINY_PNG_BASE64 =
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";

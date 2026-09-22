@@ -582,3 +582,39 @@ p {
   border: 1px solid rgba(0, 0, 0, 0.12);
   display: block;
 }
+
+/* --- Voice conversation (سؤال بصوت) --- */
+.voice-btn.active {
+  background: #fdecec;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.voice-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #e7f6ee;
+  border: 1px solid #bfe3d2;
+  color: var(--primary-dark);
+  border-radius: 10px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.voice-status.speaking {
+  background: #fdf1dd;
+  border-color: #f0d9a8;
+  color: var(--warn);
+}
+
+.speak-btn {
+  margin-top: 0.4rem;
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+}
+
+.speak-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.28);
+}
