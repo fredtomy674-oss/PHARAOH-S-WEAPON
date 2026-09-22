@@ -46,8 +46,10 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
     },
   });
   await app.register(rateLimit, {
-    max: 120,
+    max: config.RATE_LIMIT_MAX,
     timeWindow: "1 minute",
+    // Health probes (dev tooling / uptime checks) must never be rate-limited.
+    allowList: (request) => request.url === "/api/health",
     // Consistent JSON shape with the rest of the API.
     errorResponseBuilder: () => ({
       error: { code: "RATE_LIMITED", message: "طلبات كثيرة خلال دقيقة — حاول بعد قليل" },
@@ -65,6 +67,17 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
         error: {
           code: error.code,
           message: error.expose ? error.message : "حدث خطأ داخلي، حاول مرة أخرى",
+        },
+      });
+    }
+    // @fastify/rate-limit throws { statusCode: 429, error: { code, message } } —
+    // pass its clear payload through instead of degrading it to INTERNAL.
+    const fastifyErr = error as { statusCode?: number; error?: { code?: string; message?: string } };
+    if (typeof fastifyErr.statusCode === "number" && fastifyErr.statusCode >= 400 && fastifyErr.statusCode < 500 && fastifyErr.error) {
+      return reply.code(fastifyErr.statusCode).send({
+        error: {
+          code: fastifyErr.error.code ?? "BAD_REQUEST",
+          message: fastifyErr.error.message ?? "طلب غير صالح",
         },
       });
     }

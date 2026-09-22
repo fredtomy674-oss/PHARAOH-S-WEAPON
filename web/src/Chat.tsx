@@ -80,8 +80,12 @@ export function ChatScreen({ session, onEnded }: Props) {
           )}
         </div>
         <div className="row-gap">
-          {remaining !== null && <span className="muted small">متبقي اليوم: {remaining}</span>}
-          <button className="btn small ghost" onClick={end}>
+          {remaining !== null && (
+            <span data-testid="remaining-budget" className="muted small">
+              متبقي اليوم: {remaining}
+            </span>
+          )}
+          <button data-testid="end-session" className="btn small ghost" onClick={end}>
             إنهاء الجلسة
           </button>
         </div>
@@ -89,18 +93,28 @@ export function ChatScreen({ session, onEnded }: Props) {
 
       <main className="chat-body">
         {tripwire && (
-          <div className="notice">🛡️ محتوى مخالف أُوقف تلقائيًا — أبقِ أسئلتك ضمن درسنا.</div>
+          <div data-testid="notice-tripwire" className="notice">
+            🛡️ محتوى مخالف أُوقف تلقائيًا — أبقِ أسئلتك ضمن درسنا.
+          </div>
         )}
-        {error && <div className="notice error">{error}</div>}
+        {error && (
+          <div data-testid="chat-error" className="notice error" role="alert">
+            {error}
+          </div>
+        )}
 
-        <div className="messages">
+        <div className="messages" data-testid="messages">
           {messages.length === 0 && (
             <p className="muted center">
               مرحبًا بك! اسألني عن أي شيء في درسنا — مثلًا: «اشرح لي الجمع مع إعادة التجميع».
             </p>
           )}
           {messages.map((m) => (
-            <div key={m.id} className={`msg ${m.role === "user" ? "mine" : "theirs"}`}>
+            <div
+              key={m.id}
+              className={`msg ${m.role === "user" ? "mine" : "theirs"}`}
+              data-testid={m.role === "user" ? "msg-user" : "msg-tutor"}
+            >
               <div className="bubble">
                 {m.kind !== "safety" && KIND_LABEL[m.kind] && <span className="kind-tag">{KIND_LABEL[m.kind]}</span>}
                 <p>{m.content}</p>
@@ -108,7 +122,7 @@ export function ChatScreen({ session, onEnded }: Props) {
             </div>
           ))}
           {pending && (
-            <div className="msg theirs">
+            <div className="msg theirs" data-testid="typing">
               <div className="bubble typing">يكتب…</div>
             </div>
           )}
@@ -118,10 +132,10 @@ export function ChatScreen({ session, onEnded }: Props) {
 
       <footer className="chat-footer">
         <div className="quick-row">
-          <button className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅")}>
+          <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅")}>
             فهمت
           </button>
-          <button className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك")}>
+          <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك")}>
             مش فاهم
           </button>
         </div>
@@ -133,13 +147,15 @@ export function ChatScreen({ session, onEnded }: Props) {
           }}
         >
           <input
+            data-testid="chat-input"
+            aria-label="رسالتك"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="اكتب سؤالك هنا…"
             maxLength={4000}
             autoFocus
           />
-          <button className="btn primary" disabled={pending || !input.trim()}>
+          <button data-testid="send-message" className="btn primary" disabled={pending || !input.trim()}>
             إرسال
           </button>
         </form>

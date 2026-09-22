@@ -37,10 +37,10 @@ export function AuthScreen({ onAuthed }: Props) {
 
       <form className="card auth-card" onSubmit={submit}>
         <div className="tabs">
-          <button type="button" className={mode === "login" ? "tab active" : "tab"} onClick={() => setMode("login")}>
+          <button type="button" data-testid="tab-login" className={mode === "login" ? "tab active" : "tab"} onClick={() => setMode("login")}>
             تسجيل الدخول
           </button>
-          <button type="button" className={mode === "register" ? "tab active" : "tab"} onClick={() => setMode("register")}>
+          <button type="button" data-testid="tab-register" className={mode === "register" ? "tab active" : "tab"} onClick={() => setMode("register")}>
             حساب جديد
           </button>
         </div>
@@ -48,23 +48,27 @@ export function AuthScreen({ onAuthed }: Props) {
         {mode === "register" && (
           <label className="field">
             <span>الاسم</span>
-            <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} required minLength={2} maxLength={80} placeholder="مثال: أحمد محمد" />
+            <input data-testid="input-display-name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} required minLength={2} maxLength={80} placeholder="مثال: أحمد محمد" />
           </label>
         )}
 
         <label className="field">
           <span>البريد الإلكتروني</span>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" dir="ltr" />
+          <input data-testid="input-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" dir="ltr" />
         </label>
 
         <label className="field">
           <span>كلمة المرور</span>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} placeholder="٨ أحرف على الأقل" />
+          <input data-testid="input-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} placeholder="٨ أحرف على الأقل" />
         </label>
 
-        {error && <p className="error-text">{error}</p>}
+        {error && (
+          <p data-testid="auth-error" className="error-text">
+            {error}
+          </p>
+        )}
 
-        <button className="btn primary block" disabled={busy}>
+        <button data-testid="submit-auth" className="btn primary block" disabled={busy}>
           {busy ? "…جارِ التنفيذ" : mode === "login" ? "دخول" : "إنشاء الحساب"}
         </button>
 

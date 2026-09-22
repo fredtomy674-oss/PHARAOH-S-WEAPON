@@ -24,4 +24,14 @@
 - DECISIONS: NOTE — قبول 4 ثغرات moderate dev-only (drizzle-kit→esbuild)؛ توثيق سلوك Fastify للـJSON الفارغ.
 - Commits: multi (phase2…phase8) بأسلوب Conventional Commits.
 
+## 2026-09-22 — الجلسة الثالثة (اختبارات Browser E2E بـ Playwright)
+- PHASE 9: تثبيت `@playwright/test` + Chromium؛ `playwright.config.ts` يدير خادمين تلقائيًا (backend اختبار 3107 بقاعدة SQLite مؤقتة تُزرع كل تشغيل + Vite 5173 يوجّه بروكسيته لخادم الاختبار عبر `VITE_API_PROXY_TARGET`).
+- سكربتات: `e2e`/`e2e:install`/`e2e:report`/`e2e:backend` (reset-db + seed + start) + `start:src` في الـserver.
+- الواجهة: `data-testid` منظمة (auth/onboarding/chat/home) + `aria-label` لحقل الدردشة + `data-session-id` لصفوف الجلسات (بلا إعادة تصميم).
+- أول تشغيل E2E كشف **عيبين حقيقيين في الخادم**: (1) معالج الأخطاء كان يبتلع رسالة rate-limit (RATE_LIMITED) ويحوّلها إلى 500 عام — الآن تمر حمولة الخطأ كما هي؛ (2) حد 120/دقيقة ثابت يكفي لتجربة يدهنها الـhealth-poll + مجموعة آلية — الآن `RATE_LIMIT_MAX` عبر env + `/api/health` مستثنى (`allowList`).
+- 10/10 اختبارات E2E خضراء عبر متصفح حقيقي (رحلة كاملة + A..I: خطأ بيانات، حماية غير مسجّل، عزل طالب جديد، رسالة فارغة، خطأ API عبر CSRF منتهي، استئناف جلسة، استهلاك رصيد، tripwire حقن، RTL/لوحة مفاتيح).
+- بعد E2E: `npm run check` أخضر (61/61 Vitest + typecheck + lint) و `npm run build` أخضر.
+- DECISIONS: D-013 (بنية E2E + قرار rate-limit قابل للضبط وتمرير الرسائل).
+- Commit: `phase9-playwright-e2e`.
+
 ## (أعمدة لاحقة تُضاف هنا كل مرحلة)

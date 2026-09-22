@@ -30,6 +30,10 @@ const EnvSchema = z.object({
   // Cost guardrails
   DAILY_MESSAGE_LIMIT: z.coerce.number().int().nonnegative().default(50),
 
+  // Rate limiting (per-IP, per minute). Default protects dev/prod; tests raise
+  // it via env so automated suites never trip false 429s.
+  RATE_LIMIT_MAX: z.coerce.number().int().positive().default(120),
+
   // RAG
   RAG_TOP_K: z.coerce.number().int().positive().default(5),
   RAG_ENABLE_RERANK: boolFromString.default("true"),

@@ -52,6 +52,19 @@
 - [x] إصلاح معرِف في الويب: لا تُرسل `Content-Type: application/json` لطلبات POST بلا جسم (Fastify يرفض 400 FST_ERR_CTP_EMPTY_JSON_BODY)
 - [x] docs sync (TASKS/CHANGELOG/DECISIONS) + commits لكل مرحلة
 
+### PHASE 9 — Browser E2E (Playwright) ✅
+- [x] تثبيت `@playwright/test` + Chromium (`npm run e2e:install`)؛ `playwright.config.ts` يدير خادمين تلقائيًا:
+  خادم اختبار على **3107** بقاعدة SQLite مؤقتة تُحذف/تُزرع كل تشغيل (`e2e/reset-db.mjs` + seed؛ لا تمسّ قاعدة التطوير)
+  + Vite حقيقي على **5173** يوجّه بروكسيته لخادم الاختبار (`VITE_API_PROXY_TARGET` → 3107)
+- [x] تحسين الواجهة للملاحة: `data-testid` منظمة (auth/onboarding/chat/home) + `aria-label` لحقل الدردشة + `data-session-id` لصفوف الجلسات
+- [x] 10 اختبارات E2E عبر متصفح حقيقي تمر المسار FULL (Browser→React→Vite proxy→Fastify→SQLite→RAG→AI provider→DB→Browser) — **10/10 أخضر**:
+  الرحلة الكاملة (login→catalog walk→جلسة→رد RAG بدليل `وفقًا لمحتوى الدرس`→«مش فاهم» بنفس الجلسة→progress→end→قائمة منتهية→logout)،
+  C عزل طالب جديد، A بيانات خاطئة، B حماية غير مسجّل (401 عبر البروكسي)، I RTL/عربي/لوحة مفاتيح،
+  D رسالة فارغة، E خطأ API واضح (CSRF منتهي → «رمز التحقق غير صالح»)، F استئناف جلسة، G استهلاك الرصيد، H tripwire للحقن
+- [x] إصلاحان حقيقيان بالخادم اكتشفتهما E2E: (1) رسالة rate-limit (RATE_LIMITED) تمر للعميل كما هي بدل أن تتحول إلى 500 عام — معالج الأخطاء يعبر حمولة `error`، (2) `/api/health` مستثنى من حد المعدل + `RATE_LIMIT_MAX` قابل للضبط عبر env
+- [x] `npm run check` أخضر (61/61) + `npm run build` أخضر بعد كل إضافات E2E
+- [x] docs sync (TASKS/CHANGELOG/TEST_PLAN/README/DECISIONS D-013) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [ ] 🔴 Voice conversation (STT/TTS) — واجهات AI جاهزة (placeholder موثق)
 - [ ] 🔴 Vision upload (سؤال مصور)
@@ -62,7 +75,7 @@
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
 - [ ] 🟡 Analytics + إحصاءات
 - [ ] 🟡 وضع multi-country seed (السعودية مثلًا)
-- [ ] 🟡 اختبار UI آلي حقيقي (Playwright/WebdriverIO) عبر المتصفح
+- [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 10/10 (PHASE 9)
 - [ ] 🟡 Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز)
 
 ---

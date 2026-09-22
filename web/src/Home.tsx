@@ -25,35 +25,35 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout }: Props) {
         <div className="topbar-inner">
           <strong>المعلم الفاروق</strong>
           <span className="muted">معلمك الخصوصي الذكي</span>
-          <button className="btn ghost" onClick={onLogout}>
+          <button className="btn ghost" onClick={onLogout} data-testid="logout">
             خروج
           </button>
         </div>
       </header>
 
-      <main className="container">
+      <main className="container" data-testid="home-screen">
         <section className="hero card">
           <h2>أهلاً {studentName} 👋</h2>
           <p className="muted">اختر درسك من المنهج وابدأ جلسة تعلّم معي. أنا أشرح، وأسأل، ونتأكد معًا أنك فهمت فعلًا.</p>
-          <button className="btn primary big" onClick={onStartLesson}>
+          <button data-testid="start-lesson" className="btn primary big" onClick={onStartLesson}>
             ابدأ درسًا جديدًا
           </button>
         </section>
 
         {progress && (
-          <section className="card">
+          <section className="card" data-testid="progress-card">
             <h3>تقدّمك</h3>
             <div className="stats">
               <div className="stat">
-                <b>{progress.progress.concepts.length}</b>
+                <b data-testid="stat-concepts">{progress.progress.concepts.length}</b>
                 <span className="muted">مفهوم تم تتبعه</span>
               </div>
               <div className="stat">
-                <b>{progress.tutorUsageToday}</b>
+                <b data-testid="stat-usage-today">{progress.tutorUsageToday}</b>
                 <span className="muted">رسالة اليوم</span>
               </div>
               <div className="stat">
-                <b>{progress.progress.strengths.length}</b>
+                <b data-testid="stat-strengths">{progress.progress.strengths.length}</b>
                 <span className="muted">نقطة قوة</span>
               </div>
             </div>
@@ -73,17 +73,19 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout }: Props) {
         <section className="card">
           <h3>جلساتي السابقة</h3>
           {sessions.length === 0 ? (
-            <p className="muted">لا توجد جلسات بعد — ابدأ أول درس لنا!</p>
+            <p className="muted" data-testid="no-sessions">
+              لا توجد جلسات بعد — ابدأ أول درس لنا!
+            </p>
           ) : (
-            <ul className="session-list">
+            <ul className="session-list" data-testid="session-list">
               {sessions.map((s) => (
-                <li key={s.id} className="session-row">
+                <li key={s.id} className="session-row" data-testid="session-row" data-session-id={s.id} data-session-status={s.status}>
                   <div>
                     <span className={`badge ${s.status === "active" ? "ok" : "off"}`}>{s.status === "active" ? "مفتوحة" : "منتهية"}</span>
                     <span className="muted">{new Date(s.startedAt).toLocaleString("ar-EG")}</span>
                   </div>
                   {s.status === "active" && (
-                    <button className="btn small primary" onClick={() => onResume(s)}>
+                    <button data-testid="resume-session" className="btn small primary" onClick={() => onResume(s)}>
                       متابعة
                     </button>
                   )}

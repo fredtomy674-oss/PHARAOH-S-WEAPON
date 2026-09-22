@@ -53,8 +53,24 @@ GEMINI_API_KEY=اكتب-مفتاحك-هنا
 | `npm run db:seed` | زرع المنهج والمعرفة النموذجية |
 | `npm run typecheck` | فحص الأنواع (كل الأعمال) |
 | `npm run lint` | ESLint |
-| `npm run test` | كل الاختبارات (أوفلاين) |
+| `npm run test` | كل الاختبارات (أوفلاين Vitest 61/61) |
 | `npm run check` | typecheck + lint + test |
+| `npm run e2e` | اختبارات Browser E2E (Playwright) — 10/10 |
+| `npm run e2e:install` | تنزيل Chromium (مرة واحدة) |
+| `npm run e2e:report` | فتح تقرير HTML للاختبارات |
+
+## اختبارات المتصفح (Playwright E2E)
+
+اختبارات حقيقية عبر Chromium تمر المسار الكامل: **Browser → React → Vite proxy → Fastify → SQLite → RAG → AI provider → DB → Browser**. لا يستخدمون أي Mock للـAPI، والمزوّد الافتراضي هو Development Provider المدمج (`mock`).
+
+```bash
+npm run e2e:install   # مرة واحدة فقط
+npm run e2e           # يُشغّل كل شيء تلقائيًا
+```
+
+- **عزل تام للبيانات**: اختبارات Playwright تشغّل خادمها الخاص على منفذ **3107** بقاعدة SQLite مؤقتة تُزرع من جديد عند كل تشغيل — لا تُمسّ بيانات التطوير أبدًا. واجهة الويب تُختبر على المنفذ القياسي **5173** وبروكسيتها تُوجّه لخادم الاختبار (المتغير `VITE_API_PROXY_TARGET`).
+- **الحساب التجريبي**: `student@alfarouq.test` / `student-demo-123` (يُزرَع في كل قاعدة اختبار).
+- **المتطلبات**: منفذا 3107 و5173 حرّان (اختبار Playwright يرفض ميناءً مشغولًا حتى لا يلمس بيئة التطوير). التفاصيل والقيود في `TEST_PLAN.md` §5–8.
 
 ## بنية المستودع
 

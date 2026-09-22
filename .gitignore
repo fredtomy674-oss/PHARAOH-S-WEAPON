@@ -27,6 +27,11 @@ logs/
 *.log
 npm-debug.log*
 
+# Playwright artifacts
+playwright-report/
+test-results/
+e2e/.last-demo-session.json
+
 # OS / editor
 .DS_Store
 Thumbs.db

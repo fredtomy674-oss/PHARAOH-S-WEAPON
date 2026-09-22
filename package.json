@@ -22,10 +22,17 @@
     "db:generate": "npm run db:generate --workspace server",
     "db:migrate": "npm run db:migrate --workspace server",
     "db:seed": "npm run db:seed --workspace server",
-    "check": "npm run typecheck && npm run lint && npm run test"
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "e2e": "playwright test",
+    "e2e:install": "playwright install chromium",
+    "e2e:report": "playwright show-report",
+    "e2e:backend": "node e2e/reset-db.mjs && npm run db:seed --workspace server && npm run start:src --workspace server"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.3",
     "vitest": "^5.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1"
   }
 }
