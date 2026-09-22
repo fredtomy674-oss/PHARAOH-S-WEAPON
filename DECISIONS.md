@@ -54,5 +54,15 @@
 **القرار**: كل استدعاء LLM يمر عبر `UsageTracker` (سجل `ai_usage_logs`) + caching في `AiCache` للاستجابات الشائعة + router يختار النماذج الرخيصة لمهام معينة (classifier أصغر).  
 **لماذا**: cost-awareness صبريًا؛ تقدير التكلفة يُحسب من عمود النموذج في حالة توفره.
 
+## D-011 — قبول ثغرات dev-only المتبقية (4 moderate)
+**القرار**: قبول 4 ثغرات moderate متبقية في `npm audit` — كلها dev-only عبر سلسلة `drizzle-kit → esbuild`.  
+**لماذا**: لا تدخل في حزمة الإنتاج runtime؛ الشفاء يتطلب ترقية esbuild قد تكسر drizzle-kit. أعيدت المراجعة عند كل `npm install` (يظهر العدد نفسه 4).  
+**فضلاً**: إن أُصدر esbuild مصحح متوافق → `npm audit fix` وإغلاق السجل.
+
+## D-012 — سلوك Fastify مع JSON فارغ + مواصفات جسم الـAPI
+**القرار**: عميل الويب يرسل `Content-Type: application/json` فقط عند وجود جسم فعلي.  
+**لماذا**: Fastify يرفض `POST` يحمل content-type=json مع جسم فارغ (400 `FST_ERR_CTP_EMPTY_JSON_BODY`). أثر ذلك: `logout`/`endSession` كانت ستفشل في الويب قبل الإصلاح.  
+**ملاحظة للاختبارات الخارجية**: المحاكاة عبر curl بلا content-type بلا جسم تعمل (`{"ok":true}`)؛ النقطة النهائية idempotent (إنهاء جلسة منتهية لا يعيد خطأ).
+
 ## سجلات قرارات مستقبلية
 - (فارغ — يُضاف عند اتخاذ قرارات جديدة، لا تُحذف القديمة)
