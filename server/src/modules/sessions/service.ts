@@ -1,14 +1,16 @@
 import { and, asc, eq } from "drizzle-orm";
 import { config } from "../../config/env.js";
 import type { Db } from "../../db/index.js";
-import { learningSessions, messages, students as studentsTable } from "../../db/schema.js";
+import { learningSessions, messageAttachments, messages, students as studentsTable } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
 import { Errors } from "../../utils/errors.js";
+import type { ImageInput } from "../ai/types.js";
 import type { CurriculumService } from "../curriculum/service.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import type { TutorEngine } from "../tutor/tutorEngine.js";
 import type { AuditService } from "../audit/service.js";
 import type { AiService } from "../ai/aiService.js";
+import { parseImageDataUrl } from "./attachments.js";
 
 export interface StartSessionInput {
   studentId: string;
@@ -74,23 +76,62 @@ export class SessionService {
 
   async getWithMessages(sessionId: string, studentId: string) {
     const session = await this.getOwned(sessionId, studentId);
-    const msgs = await this.db.db.select().from(messages).where(eq(messages.sessionId, sessionId)).orderBy(asc(messages.createdAt));
-    return { session, messages: msgs };
+    const [msgs, attachments] = await Promise.all([
+      this.db.db.select().from(messages).where(eq(messages.sessionId, sessionId)).orderBy(asc(messages.createdAt)),
+      this.db.db.select().from(messageAttachments).where(eq(messageAttachments.sessionId, sessionId)),
+    ]);
+    const byMessage = new Map<string, AttachmentSummary[]>();
+    for (const a of attachments) {
+      const list = byMessage.get(a.messageId) ?? [];
+      list.push(attachmentSummary(a));
+      byMessage.set(a.messageId, list);
+    }
+    return { session, messages: msgs.map((m) => ({ ...m, attachments: byMessage.get(m.id) ?? [] })) };
   }
 
-  /** The full vertical slice: user message → tutor turn → persisted replies. */
-  async sendMessage(input: { sessionId: string; studentId: string; content: string }) {
+  /** The full vertical slice: user message (+optional photo) → tutor turn → persisted replies. */
+  async sendMessage(input: {
+    sessionId: string;
+    studentId: string;
+    content?: string;
+    image?: { dataUrl: string; fileName?: string };
+  }) {
     const session = await this.getOwned(input.sessionId, input.studentId);
     if (session.status !== "active") throw Errors.badRequest("الجلسة منتهية — ابدأ جلسة جديدة", "SESSION_ENDED");
 
-    const content = input.content.trim().slice(0, 4000);
-    if (content.length < 1) throw Errors.badRequest("الرسالة فارغة");
+    const content = (input.content ?? "").trim().slice(0, 4000);
+    const image = input.image
+      ? parseImageDataUrl(input.image.dataUrl, { maxBytes: config.MAX_IMAGE_KB * 1024, fileName: input.image.fileName })
+      : null;
+    if (content.length < 1 && !image) throw Errors.badRequest("الرسالة فارغة");
 
     const now = new Date();
-    const userMessage = await this.db.db
-      .insert(messages)
-      .values({ id: newId("msg"), sessionId: session.id, role: "user", kind: "text", content, createdAt: now })
-      .returning();
+    const userMessage = (
+      await this.db.db
+        .insert(messages)
+        .values({ id: newId("msg"), sessionId: session.id, role: "user", kind: "text", content, createdAt: now })
+        .returning()
+    )[0]!;
+
+    let attachment: typeof messageAttachments.$inferSelect | null = null;
+    if (image) {
+      attachment = (
+        await this.db.db
+          .insert(messageAttachments)
+          .values({
+            id: newId("att"),
+            messageId: userMessage.id,
+            sessionId: session.id,
+            mimeType: image.mimeType,
+            fileName: image.fileName,
+            sizeBytes: image.sizeBytes,
+            sha256: image.sha256,
+            data: image.bytes,
+            createdAt: now,
+          })
+          .returning()
+      )[0]!;
+    }
 
     const breadcrumb = session.lessonId
       ? await this.curriculum.lessonBreadcrumb(session.lessonId)
@@ -100,34 +141,50 @@ export class SessionService {
     const studentRow = await this.db.db.select().from(studentsTable).where(eq(studentsTable.id, session.studentId)).get();
     if (!studentRow) throw Errors.internal("بروفايل الطالب مفقود");
 
+    const images: ImageInput[] | undefined = image ? [{ mimeType: image.mimeType, base64: image.base64 }] : undefined;
     const result = await this.tutor.handle({
       student: studentRow,
       session,
       question: content,
+      images,
       breadcrumb,
       userId: studentRow.userId,
     });
 
     const kind = mapKind(result.reply);
-    const tutorMessage = await this.db.db
-      .insert(messages)
-      .values({
-        id: newId("msg"),
-        sessionId: session.id,
-        role: "tutor",
-        kind,
-        content: result.reply.content,
-        createdAt: new Date(),
-      })
-      .returning();
+    const tutorMessage = (
+      await this.db.db
+        .insert(messages)
+        .values({
+          id: newId("msg"),
+          sessionId: session.id,
+          role: "tutor",
+          kind,
+          content: result.reply.content,
+          createdAt: new Date(),
+        })
+        .returning()
+    )[0]!;
 
     return {
-      userMessage: userMessage[0]!,
-      tutorMessage: tutorMessage[0]!,
+      userMessage: { ...userMessage, attachments: attachment ? [attachmentSummary(attachment)] : [] },
+      tutorMessage: tutorMessage!,
       contextChunkCount: result.contextChunkCount,
       remainingBudget: await this.remainingDaily(userIdOf(studentRow)),
       safetyTripwire: result.intent.intent === "admin_bypass_attempt",
     };
+  }
+
+  /** Fetch a message attachment's bytes, enforcing session ownership first. */
+  async getAttachment(sessionId: string, studentId: string, attachmentId: string): Promise<typeof messageAttachments.$inferSelect> {
+    await this.getOwned(sessionId, studentId);
+    const row = await this.db.db
+      .select()
+      .from(messageAttachments)
+      .where(and(eq(messageAttachments.id, attachmentId), eq(messageAttachments.sessionId, sessionId)))
+      .get();
+    if (!row) throw Errors.notFound("المرفق غير موجود");
+    return row;
   }
 
   async end(sessionId: string, studentId: string, reason = "user_request"): Promise<void> {
@@ -152,6 +209,18 @@ export class SessionService {
     const used = await this.ai.usage.countTutorCallsForUserToday(userId);
     return Math.max(0, limit - used);
   }
+}
+
+export interface AttachmentSummary {
+  id: string;
+  messageId: string;
+  mimeType: string;
+  fileName: string | null;
+  sizeBytes: number;
+}
+
+function attachmentSummary(row: { id: string; messageId: string; mimeType: string; fileName: string | null; sizeBytes: number }): AttachmentSummary {
+  return { id: row.id, messageId: row.messageId, mimeType: row.mimeType, fileName: row.fileName, sizeBytes: row.sizeBytes };
 }
 
 function mapKind(reply: { parts?: Array<{ type: "text" | "hint" | "question" | "example" }> }): "text" | "hint" | "question" | "example" {

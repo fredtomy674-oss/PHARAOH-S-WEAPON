@@ -1,5 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { endSession, getSession, lessonBreadcrumb, sendMessage, ApiError, type Breadcrumb, type LearningSession, type Message, type User } from "./api.js";
+import {
+  endSession,
+  getSession,
+  lessonBreadcrumb,
+  sendMessage,
+  attachmentUrl,
+  ApiError,
+  type Breadcrumb,
+  type LearningSession,
+  type Message,
+  type User,
+} from "./api.js";
 
 interface Props {
   user: User;
@@ -14,15 +25,20 @@ const KIND_LABEL: Record<string, string> = {
   text: "",
 };
 
+// Mirrors the server cap (MAX_IMAGE_KB default 5000) for a friendlier UX error.
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+
 export function ChatScreen({ session, onEnded }: Props) {
   const [bc, setBc] = useState<Breadcrumb["breadcrumb"] | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [preview, setPreview] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [remaining, setRemaining] = useState<number | null>(null);
   const [tripwire, setTripwire] = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const fileRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     lessonBreadcrumb(session.lessonId).then((b) => setBc(b)).catch(() => undefined);
@@ -38,22 +54,41 @@ export function ChatScreen({ session, onEnded }: Props) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, pending]);
 
-  const send = async (content: string) => {
+  const send = async (content: string, image?: string | null) => {
     const text = content.trim();
-    if (!text || pending) return;
+    if ((!text && !image) || pending) return;
     setPending(true);
     setError(null);
     try {
-      const turn = await sendMessage(session.id, text);
+      const turn = image
+        ? await sendMessage(session.id, text, { dataUrl: image })
+        : await sendMessage(session.id, text);
       setMessages((m) => [...m, turn.userMessage, turn.tutorMessage]);
       setRemaining(turn.remainingBudget);
       if (turn.safetyTripwire) setTripwire(true);
       setInput("");
+      setPreview(null);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "تعذر إرسال الرسالة");
     } finally {
       setPending(false);
     }
+  };
+
+  const onPickFile = (file: File | undefined) => {
+    if (!file) return;
+    if (!/^image\/(png|jpeg|webp)$/i.test(file.type)) {
+      setError("صيغة الصورة غير مدعومة (PNG أو JPEG أو WebP فقط)");
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      setError("الصورة كبيرة جدًا — الحد الأقصى 5 ميجابايت");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => setPreview(typeof reader.result === "string" ? reader.result : null);
+    reader.onerror = () => setError("تعذر قراءة الصورة المرفقة");
+    reader.readAsDataURL(file);
   };
 
   const end = async () => {
@@ -117,6 +152,19 @@ export function ChatScreen({ session, onEnded }: Props) {
             >
               <div className="bubble">
                 {m.kind !== "safety" && KIND_LABEL[m.kind] && <span className="kind-tag">{KIND_LABEL[m.kind]}</span>}
+                {m.attachments && m.attachments.length > 0 && (
+                  <div className="bubble-attachments">
+                    {m.attachments.map((a) => (
+                      <img
+                        key={a.id}
+                        data-testid="msg-attachment"
+                        className="bubble-image"
+                        src={attachmentUrl(m.sessionId, a.id)}
+                        alt="صورة السؤال المرفق"
+                      />
+                    ))}
+                  </div>
+                )}
                 <p>{m.content}</p>
               </div>
             </div>
@@ -139,13 +187,42 @@ export function ChatScreen({ session, onEnded }: Props) {
             مش فاهم
           </button>
         </div>
+        {preview && (
+          <div className="attachment-preview" data-testid="image-preview">
+            <img className="attachment-preview-img" src={preview} alt="معاينة الصورة المرفقة" />
+            <button data-testid="remove-image" type="button" className="btn small ghost" disabled={pending} onClick={() => setPreview(null)}>
+              إزالة
+            </button>
+          </div>
+        )}
         <form
           className="composer"
           onSubmit={(e) => {
             e.preventDefault();
-            void send(input);
+            void send(input, preview);
           }}
         >
+          <input
+            data-testid="attach-input"
+            ref={fileRef}
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            className="visually-hidden"
+            onChange={(e) => {
+              onPickFile(e.target.files?.[0]);
+              e.target.value = "";
+            }}
+          />
+          <button
+            data-testid="attach-image"
+            type="button"
+            className="btn small ghost"
+            aria-label="إرفاق صورة سؤال"
+            disabled={pending}
+            onClick={() => fileRef.current?.click()}
+          >
+            📷 صورة سؤال
+          </button>
           <input
             data-testid="chat-input"
             aria-label="رسالتك"
@@ -155,7 +232,7 @@ export function ChatScreen({ session, onEnded }: Props) {
             maxLength={4000}
             autoFocus
           />
-          <button data-testid="send-message" className="btn primary" disabled={pending || !input.trim()}>
+          <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview)}>
             إرسال
           </button>
         </form>

@@ -78,5 +78,17 @@
 - المتصفح: Chromium (افتراضي) — القابل للتوسعة عبر `projects`.
 - حقل الدردشة `maxLength=4000` يمنع تجاوز الطول من المستخدم حقًا؛ لذلك اختبار «خطأ API واضح» استخدم سيناريو CSRF منتهي (E) بدل رسالة طويلة (كانت ستمر عبر المتصفح قبل الوصول للخادم).
 
+## D-014 — Vision Upload (سؤال مصور): base64-JSON في MVP + تخزين BLOB + نقاط أمان
+**القرار** (PHASE 10):
+1. الرفع عبر `POST /messages` في JSON الحالي بجسم `image: { dataUrl, fileName }` (base64) بدل multipart — يبقي العقود والحدود (schema zod + Fastify validation) والـCSRF في مكانها.
+2. التخزين BLOB في جدول `message_attachments` (message_id فريد، session_id للعزل/الحذف، sha256 + size + mime) — بلا نظام ملفات خارجي، يخدم قاعدة الاختبارات المؤقتة بلا أثر.
+3. الخدمة عبر `GET /sessions/:id/attachments/:attId` بفحص ملكية (`getOwned`) + رؤوس `content-type` (قائمة بيضاء)، `x-content-type-options: nosniff`, `content-security-policy: default-src 'none'; sandbox`, `cache-control: private`.
+4. قائمة بيضاء صارمة للصيغ (PNG/JPEG/WebP) + حد `MAX_IMAGE_KB` (افتراضي 5000؛ الاختبارات 1)؛ رسالة بلا نص مقبولة إذا وُجدت صورة.
+5. AI: `LLMRequest.images` (مستقل عن cache/classifier) → Gemini `inlineData`؛ mock يصدر عبارة «قرأت الصورة المرفقة» حتمية لأتمتة الاختبارات.
+6. Grounding: عندما يكون النص فارغًا مع صورة، الاسترجاع يستخدم استعلامًا محايدًا («سؤال مصور في هذا الدرس») فلا ينخفض `contextChunkCount` إلى صفر.
+**لماذا**: MVP بسيط وقابل للاختبار عبر المسار الحقيقي كاملًا (Browser→proxy→Fastify→SQLite→AI→GET بالمستخدم)؛ لا نفترض مزود تخزين خارجي بعد.
+**بدائل**: multipart upload (يضيف `@fastify/multipart` وقواعد حجم/تعقيد للعقود)؛ تخزين ملفات على القرص (تعقيد إدارة مسار في الاختبارات المؤقتة) — نُرجئان للإنتاج.
+**إنتاج لاحقًا**: multipart + تخزين كائنات + فحص MAGIC bytes أعمق (مستوى الصورة «تدقيق سطحي»).
+
 ## سجلات قرارات مستقبلية
 - (فارغ — يُضاف عند اتخاذ قرارات جديدة، لا تُحذف القديمة)

@@ -12,6 +12,23 @@ export const NO_RAG_PHRASE = "لم أستطع الوصول لمحتوى الدر
 /** Emitted by the mock provider when zero chunks were retrieved — must NOT appear on a real RAG turn. */
 export const NO_RETRIEVED_PLACEHOLDER = "لا يوجد محتوى مسترجع";
 
+/** Mock provider marker: the tutor reply contains this when a photo was attached. */
+export const VISION_MARKER = "قرأت الصورة المرفقة";
+
+/** 1x1 transparent PNG (base64) used to simulate a photographed question. */
+export const TINY_PNG_BASE64 =
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+
+/** Attaches an image through the real UI's file input (returns the preview locator). */
+export async function attachImage(page: Page, base64 = TINY_PNG_BASE64): Promise<void> {
+  await page.getByTestId("attach-input").setInputFiles({
+    name: "question.png",
+    mimeType: "image/png",
+    buffer: Buffer.from(base64, "base64"),
+  });
+  await expect(page.getByTestId("image-preview")).toBeVisible({ timeout: 10_000 });
+}
+
 export async function login(
   page: Page,
   email = DEMO_STUDENT.email,

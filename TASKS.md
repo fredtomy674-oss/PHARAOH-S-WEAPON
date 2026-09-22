@@ -65,9 +65,20 @@
 - [x] `npm run check` أخضر (61/61) + `npm run build` أخضر بعد كل إضافات E2E
 - [x] docs sync (TASKS/CHANGELOG/TEST_PLAN/README/DECISIONS D-013) + commit
 
+### PHASE 10 — Vision Upload (سؤال مصور) ✅
+- [x] جدول `message_attachments` (BLOB + mime + sha256 + size) — migration `0001_careful_norrin_radd.sql` تُطبَّق تلقائيًا عند الإقلاع
+- [x] واجهات AI متعددة الوسائط: `LLMRequest.images` → Gemini `inlineData` (رسالة المستخدم الأخيرة) + mock يقرّ «قرأت الصورة المرفقة» (عبارة حتمية للاختبارات)
+- [x] `POST /api/sessions/:id/messages` يستقبل `image: { dataUrl, fileName }` (PNG/JPEG/WebP، حد `MAX_IMAGE_KB`=5000 افتراضيًا) + رسالة بلا نص مقبولة؛ رفض واضح للصيغة غير المدعومة والحجم الزائد
+- [x] `GET /api/sessions/:id/attachments/:attId` يعيد بايتات الصورة للمالك فقط (getOwned) مع رؤوس أمان (nosniff + CSP sandbox + private cache)
+- [x] الويب: زر «📷 صورة سؤال» + معاينة قبل الإرسال + إزالة + عرض الصورة داخل فقاعة رسالة المستخدم (تحميل عبر الـAPI بالكوكي — بلا CSRF للـGET)
+- [x] Grounding محفوظ مع الصورة فقط: استرجاع احتياطي لسؤال فارغ («سؤال مصور في هذا الدرس») + PromptBuilder يُعلم النموذج بوجود صورة
+- [x] اختبارات: unit (mock vision ×2) + API (7: إرفاق+رد+توثيق، صورة بلا نص، رسالة فارغة، صيغة مرفوضة، حجم زائد، جلب المرفق بالرؤوس الآمنة، عزل عبر الطلاب) — **70/70 أخضر**
+- [x] E2E عبر المتصفح الحقيقي V1–V3 (ملف حقيقي → بروكسي → Fastify → SQLite → mock → عرض + GET بالمستخدم) — **13/13 أخضر**
+- [x] `npm run check` أخضر (70/70) + `npm run build` أخضر + docs sync (DECISIONS D-014) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [ ] 🔴 Voice conversation (STT/TTS) — واجهات AI جاهزة (placeholder موثق)
-- [ ] 🔴 Vision upload (سؤال مصور)
+- [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
 - [ ] 🟡 PDF/DOCX extractors حقيقية + معالجة صور
 - [ ] 🟡 Parent dashboard + Admin dashboard
 - [ ] 🟡 حماية رفع ملفات بمستويات فحص عميقة
@@ -75,7 +86,7 @@
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
 - [ ] 🟡 Analytics + إحصاءات
 - [ ] 🟡 وضع multi-country seed (السعودية مثلًا)
-- [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 10/10 (PHASE 9)
+- [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 13/13 (PHASE 9 + 10)
 - [ ] 🟡 Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز)
 
 ---

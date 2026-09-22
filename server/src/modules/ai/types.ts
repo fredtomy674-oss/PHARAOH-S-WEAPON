@@ -10,12 +10,20 @@ export interface LLMMessage {
   content: string;
 }
 
+/** Inline image attachment for a multimodal turn (Vision upload). */
+export interface ImageInput {
+  mimeType: string;
+  base64: string;
+}
+
 /** High-level capabilities used for routing (cost-aware: classifier uses a cheap model). */
 export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding";
 
 export interface LLMRequest {
   operation: AIOperation;
   messages: LLMMessage[];
+  /** Images attached to the latest user turn (multimodal providers only). */
+  images?: ImageInput[];
   /** Ask the provider for JSON via its native structured-output path when supported. */
   json?: boolean;
   temperature?: number;

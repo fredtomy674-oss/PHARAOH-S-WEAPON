@@ -34,6 +34,10 @@ const EnvSchema = z.object({
   // it via env so automated suites never trip false 429s.
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(120),
 
+  // Vision: max size (KB) for a photo attached to a tutor message. MVP accepts
+  // PNG/JPEG/WebP images up to this size (5 MB default).
+  MAX_IMAGE_KB: z.coerce.number().int().positive().default(5000),
+
   // RAG
   RAG_TOP_K: z.coerce.number().int().positive().default(5),
   RAG_ENABLE_RERANK: boolFromString.default("true"),

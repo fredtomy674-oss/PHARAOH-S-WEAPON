@@ -22,6 +22,8 @@ export interface BuildPromptInput {
   chunks: RankedChunk[];
   memory: StudentMemorySnapshot;
   studentName: string;
+  /** True when the turn carries an attached photo (Vision upload). */
+  hasImage?: boolean;
 }
 
 /** Fixed pedagogical rules — separate from curriculum content by design. */
@@ -56,6 +58,12 @@ export class PromptBuilder {
 
     const memoryLine = buildMemoryLine(input.memory);
     const context = input.chunks.length > 0 ? input.chunks.map((c, i) => `[مصدر ${i + 1}]\n${c.content}`).join("\n\n---\n\n") : "";
+    const imageLine = input.hasImage
+      ? "- أرفق الطالب صورة لسؤاله (نص/أرقام/شكل هندسي). اقرأ ما فيها وأجب عنه واربطه بمحتوى الدرس.\n"
+      : "";
+    const askLine = input.hasImage && input.question.trim().length === 0
+      ? "الطالب أرفق صورة سؤاله (لا نص مكتوب) — اقرأ الصورة وأجب وفقها."
+      : `الطالب يسأل: «${input.question}» (نية السؤال: ${describeIntent(input.intent)})`;
 
     const system = [
       SYSTEM_RULES,
@@ -66,7 +74,7 @@ export class PromptBuilder {
       "",
       context ? `<context>\n${context}\n</context>` : "<context>\n(لا يوجد محتوى مسترجع لهذا السؤال)\n</context>",
       "",
-      `# المطلوب الآن\nالطالب يسأل: «${input.question}» (نية السؤال: ${describeIntent(input.intent)})\nأجب بالعربية وفق القواعد أعلاه، وأعد النتيجة بصيغة JSON مطابقة تمامًا لهذا المخطط:\n` +
+      `# المطلوب الآن\n${imageLine}${askLine}\nأجب بالعربية وفق القواعد أعلاه، وأعد النتيجة بصيغة JSON مطابقة تمامًا لهذا المخطط:\n` +
         `{ "content": "الرد الكامل للمعروض", "parts": [ { "type": "text|question|hint|example", "text": "جزء" } ], "assessment": { "conceptsTouched": ["أسماء مفاهيم"], "confidence": 0-1 } }`,
     ].join("\n");
 

@@ -15,10 +15,18 @@ const startBodySchema = {
 
 const messageBodySchema = {
   type: "object",
-  required: ["content"],
   additionalProperties: false,
   properties: {
-    content: { type: "string", minLength: 1, maxLength: 4000 },
+    content: { type: "string", minLength: 0, maxLength: 4000 },
+    image: {
+      type: "object",
+      additionalProperties: false,
+      required: ["dataUrl"],
+      properties: {
+        dataUrl: { type: "string", minLength: 1, maxLength: 7_000_000 },
+        fileName: { type: "string", maxLength: 255 },
+      },
+    },
   },
 };
 
@@ -66,13 +74,30 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content: string };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string } };
     const result = await app.sessions.sendMessage({
       sessionId,
       studentId: auth.student.id,
       content: body.content,
+      image: body.image,
     });
     return reply.send(result);
+  });
+
+  app.get("/:sessionId/attachments/:attachmentId", { preHandler: requireAuth }, async (request, reply) => {
+    const auth = request.auth!;
+    if (!auth.student) {
+      return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
+    }
+    const { sessionId, attachmentId } = request.params as { sessionId: string; attachmentId: string };
+    const attachment = await app.sessions.getAttachment(sessionId, auth.student.id, attachmentId);
+    // Viewer-safe image bytes only; served to the owning student's own browser.
+    void reply.header("content-type", attachment.mimeType);
+    void reply.header("content-length", String(attachment.sizeBytes));
+    void reply.header("cache-control", "private, max-age=3600");
+    void reply.header("x-content-type-options", "nosniff");
+    void reply.header("content-security-policy", "default-src 'none'; sandbox");
+    return reply.send(attachment.data);
   });
 
   app.post("/:sessionId/end", { preHandler: requireAuth }, async (request, reply) => {

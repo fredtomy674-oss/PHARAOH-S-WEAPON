@@ -39,4 +39,14 @@
 - محاولة إغلاقها بجذر via `overrides` على `@esbuild-kit/core-utils/esbuild`: أُثبت عملها ميكانيكيًا في عزلة (audit 0)، لكن على الشجرة الحقيقية يُخرج npm `npm ls`/`npm ci` قيمة `invalid` (`ELSPROBLEMS`) لأن الحزمة متروكة ولها مسارات متعددة — إذن audit نظيف ≠ tree سليم عبر overrides؛ رُفض patch-package لسلسلة dev-only.
 - العودة للحالة المعروفة الجيدة (إزالة الـoverride + استعادة الـlock) → تراجع كامل أخضر: `check` (61/61)، `build`، E2E 10/10. توثيق النتائج في D-011.
 
+## 2026-09-22 — الجلسة الرابعة (PHASE 10: Vision Upload — سؤال مصور)
+- جدول `message_attachments` (BLOB + mimeType + sha256 + sizeBytes، فهارس session/message) → migration `0001_careful_norrin_radd.sql` تُطبَّق تلقائيًا عند الإقلاع.
+- AI متعدد الوسائط: `ImageInput` على `LLMRequest` → Gemini `inlineData` في آخر رسالة مستخدم (multimodal) + mock يصدر عبارة «قرأت الصورة المرفقة» (IMAGEREAD_MARKER حتمي للاختبارات).
+- POST messages يقبل `image: { dataUrl, fileName }` (PNG/JPEG/WebP؛ حد `MAX_IMAGE_KB`=5000 افتراضيًا، في الاختبارات 1) ورسالة بلا نص مقبولة عندما توجد صورة؛ أخطاء 400 واضحة (UNSUPPORTED_IMAGE_TYPE/IMAGE_TOO_LARGE/INVALID_IMAGE_FORMAT).
+- GET `attachments/:attId` يخدم بايتات الصورة للمالك فقط (getOwned) مع `nosniff` + `CSP sandbox` + `cache-control: private` — اختبارا عزل: طالب آخر ← 403/404.
+- Grounding مع صورة فقط: استرجاع احتياطي «سؤال مصور في هذا الدرس» عند فراغ النص + PromptBuilder يُعلِم النموذج بالصورة.
+- الويب: زر «📷 صورة سؤال» + معاينة/إزالة + عرض المرفق داخل فقاعة المستخدم (GET عبر الكوكي بلا CSRF) + فحص مسبق للصيغة والحجم.
+- اختبارات: unit mockVision (2) + API vision (7) → **70/70**؛ E2E V1–V3 (إرفاق حقيقي بالملف، صورة بلا نص، رفض حجم زائد) → **13/13**.
+- `npm run check` أخضر (70/70) + `npm run build` أخضر؛ DECISIONS D-014 (base64 JSON في MVP + تخزين BLOB + نقاط أمان) + commit.
+
 ## (أعمدة لاحقة تُضاف هنا كل مرحلة)

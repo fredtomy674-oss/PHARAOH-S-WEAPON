@@ -49,6 +49,7 @@ export class MockLLMProvider implements LLMProvider {
 
     const system = request.messages.find((m) => m.role === "system")?.content ?? "";
     const lastUser = [...request.messages].reverse().find((m) => m.role === "user")?.content ?? "";
+    const images = request.images ?? [];
 
     // Extract the context block (curriculum content) if present, similar to
     // what the real provider receives.
@@ -57,25 +58,32 @@ export class MockLLMProvider implements LLMProvider {
 
     if (request.json) {
       const content = JSON.stringify({
-        content: buildTutorText({ user: lastUser, context }),
+        content: buildTutorText({ user: lastUser, context, images }),
         tone: "friendly",
-        parts: [{ type: "text", text: buildTutorText({ user: lastUser, context }) }],
+        parts: [{ type: "text", text: buildTutorText({ user: lastUser, context, images }) }],
         assessment: { conceptsTouched: [], confidence: 0.5 },
       });
       return { content, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(content), latencyMs: Date.now() - started };
     }
 
-    const body = buildTutorText({ user: lastUser, context });
+    const body = buildTutorText({ user: lastUser, context, images });
     return { content: body, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(body), latencyMs: Date.now() - started };
   }
 }
 
-function buildTutorText(args: { user: string; context: string }): string {
-  const { user, context } = args;
+/** Stable marker the tutor reply contains when an image was attached (used by tests/E2E). */
+export const IMAGE_READ_MARKER = "قرأت الصورة المرفقة";
+
+function buildTutorText(args: { user: string; context: string; images?: { mimeType: string; base64: string }[] }): string {
+  const { user, context, images = [] } = args;
   const contextNote = context
     ? `\n\nوفقًا لمحتوى الدرس: ${context.slice(0, 900)}`
     : "\n\nلم أستطع الوصول لمحتوى الدرس في الوقت الحالي؛ راجع المدرس المباشر.";
+  const imageNote = images.length > 0
+    ? `📸 ${IMAGE_READ_MARKER} (${images.length}) — سأشرح حلها اعتمادًا على درسنا خطوة بخطوة.`
+    : "";
   const parts: string[] = [];
+  if (imageNote) parts.push(imageNote);
   if (/سؤال|مثال|تمرين|حل/.test(user)) {
     parts.push("هيا نبدأ خطوة بخطوة. أعتقد أنك تقصد جزءًا من الدرس الحالي.");
   }

@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, real, uniqueIndex, index, primaryKey } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, real, blob, uniqueIndex, index, primaryKey } from "drizzle-orm/sqlite-core";
 
 /** Helper types for SQLite (Drizzle). */
 const id = () => text("id").primaryKey();
@@ -372,6 +372,29 @@ export const messages = sqliteTable(
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("messages_session_idx").on(t.sessionId)],
+);
+
+/**
+ * Images attached to a user message (Vision: student photos a homework
+ * question). MVP stores bytes as BLOB; ownership is enforced via session.
+ */
+export const messageAttachments = sqliteTable(
+  "message_attachments",
+  {
+    id: id(),
+    messageId: text("message_id").notNull().references(() => messages.id, { onDelete: "cascade" }),
+    sessionId: text("session_id").notNull().references(() => learningSessions.id, { onDelete: "cascade" }),
+    mimeType: text("mime_type").notNull(),
+    fileName: text("file_name"),
+    sizeBytes: integer("size_bytes").notNull(),
+    sha256: text("sha256").notNull(),
+    data: blob("data", { mode: "buffer" }).notNull(),
+    createdAt: ts("created_at").notNull(),
+  },
+  (t) => [
+    index("attachments_session_idx").on(t.sessionId),
+    uniqueIndex("attachments_message_unique").on(t.messageId),
+  ],
 );
 
 export const sessionRecaps = sqliteTable(

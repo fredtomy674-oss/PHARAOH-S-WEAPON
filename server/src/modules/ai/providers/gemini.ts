@@ -25,7 +25,17 @@ export class GeminiLLMProvider implements LLMProvider {
     const system = request.messages.filter((m) => m.role === "system").map((m) => m.content).join("\n\n");
     const contents = request.messages
       .filter((m) => m.role !== "system")
-      .map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] }));
+      .map((m, i) => {
+        const parts: { text?: string; inlineData?: { mimeType: string; data: string } }[] = [{ text: m.content }];
+        // Attach images to the LAST user turn (multimodal input).
+        const isLastUser = i === request.messages.length - 1 && m.role === "user";
+        if (isLastUser && request.images && request.images.length > 0) {
+          for (const img of request.images) {
+            parts.push({ inlineData: { mimeType: img.mimeType, data: img.base64 } });
+          }
+        }
+        return { role: m.role === "assistant" ? "model" : "user", parts };
+      });
 
     const body: Record<string, unknown> = {
       contents,

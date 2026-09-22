@@ -107,6 +107,14 @@ export interface LearningSession {
   endedAt: string | null;
 }
 
+export interface MessageAttachment {
+  id: string;
+  messageId: string;
+  mimeType: string;
+  fileName: string | null;
+  sizeBytes: number;
+}
+
 export interface Message {
   id: string;
   sessionId: string;
@@ -114,6 +122,8 @@ export interface Message {
   kind: string;
   content: string;
   createdAt: string;
+  /** Photos attached to this message (owner-loaded via attachmentUrl). */
+  attachments?: MessageAttachment[];
 }
 
 export interface TurnResult {
@@ -276,8 +286,20 @@ export async function getSession(sessionId: string): Promise<{ session: Learning
   return api(`/sessions/${encodeURIComponent(sessionId)}`);
 }
 
-export async function sendMessage(sessionId: string, content: string): Promise<TurnResult> {
-  return api<TurnResult>(`/sessions/${encodeURIComponent(sessionId)}/messages`, { method: "POST", body: { content } });
+export async function sendMessage(
+  sessionId: string,
+  content: string,
+  image?: { dataUrl: string; fileName?: string },
+): Promise<TurnResult> {
+  return api<TurnResult>(`/sessions/${encodeURIComponent(sessionId)}/messages`, {
+    method: "POST",
+    body: { content, ...(image ? { image } : {}) },
+  });
+}
+
+/** Browser URL to load an attachment's bytes (auth via cookie; GET-only → no CSRF). */
+export function attachmentUrl(sessionId: string, attachmentId: string): string {
+  return `/api/sessions/${encodeURIComponent(sessionId)}/attachments/${encodeURIComponent(attachmentId)}`;
 }
 
 export async function endSession(sessionId: string): Promise<void> {

@@ -538,3 +538,47 @@ p {
     max-width: 92%;
   }
 }
+
+/* --- Vision upload (سؤال مصور) --- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.attachment-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+.attachment-preview-img {
+  max-height: 90px;
+  max-width: 160px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.bubble-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.bubble-image {
+  max-width: 210px;
+  max-height: 190px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  display: block;
+}

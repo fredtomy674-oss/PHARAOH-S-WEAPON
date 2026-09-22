@@ -2,6 +2,7 @@ import { config } from "../../config/env.js";
 import type { Db } from "../../db/index.js";
 import type { LearningSession, Student } from "../../db/schema.js";
 import type { AiService } from "../ai/aiService.js";
+import type { ImageInput } from "../ai/types.js";
 import type { CurriculumBreadcrumb } from "../curriculum/service.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
@@ -14,6 +15,8 @@ export interface TutorHandleInput {
   student: Student;
   session: LearningSession;
   question: string;
+  /** Photos attached to this turn (Vision: a student's photographed question). */
+  images?: ImageInput[];
   breadcrumb: CurriculumBreadcrumb;
   userId: string;
 }
@@ -63,9 +66,11 @@ export class TutorEngine {
       return { reply: SAFE_REFUSAL, intent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock" };
     }
 
-    // 4) Scope-guarded retrieval.
+    // 4) Scope-guarded retrieval. A photo-only turn has no text query, so we
+    // retrieve against a neutral lesson query to keep grounding (never zero).
+    const retrievalQuery = input.question.trim().length > 0 ? input.question : "سؤال مصور في هذا الدرس";
     const retrieveResult = await this.retrieval.retrieve({
-      question: input.question,
+      question: retrievalQuery,
       scope: {
         countryId: input.breadcrumb.country.id,
         educationSystemId: input.breadcrumb.system.id,
@@ -101,12 +106,14 @@ export class TutorEngine {
       chunks: retrieveResult.chunks,
       memory,
       studentName: input.student.displayName,
+      hasImage: (input.images?.length ?? 0) > 0,
     });
 
     const llmResponse = await this.ai.complete({
       operation: "tutor",
       messages,
       json: true,
+      images: input.images,
       contextUserId: input.userId,
       contextSessionId: input.session.id,
     });
