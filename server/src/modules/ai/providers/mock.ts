@@ -1,5 +1,5 @@
 import { cyrb128 } from "../../../utils/ids.js";
-import type { EmbeddingProvider, EmbeddingResponse, LLMProvider, LLMResponse, LLMRequest } from "../types.js";
+import type { DocumentInput, EmbeddingProvider, EmbeddingResponse, LLMProvider, LLMResponse, LLMRequest } from "../types.js";
 
 const MOCK_DIM = 64;
 
@@ -50,6 +50,7 @@ export class MockLLMProvider implements LLMProvider {
     const system = request.messages.find((m) => m.role === "system")?.content ?? "";
     const lastUser = [...request.messages].reverse().find((m) => m.role === "user")?.content ?? "";
     const images = request.images ?? [];
+    const documents = request.documents ?? [];
 
     // Extract the context block (curriculum content) if present, similar to
     // what the real provider receives.
@@ -58,15 +59,15 @@ export class MockLLMProvider implements LLMProvider {
 
     if (request.json) {
       const content = JSON.stringify({
-        content: buildTutorText({ user: lastUser, context, images }),
+        content: buildTutorText({ user: lastUser, context, images, documents }),
         tone: "friendly",
-        parts: [{ type: "text", text: buildTutorText({ user: lastUser, context, images }) }],
+        parts: [{ type: "text", text: buildTutorText({ user: lastUser, context, images, documents }) }],
         assessment: { conceptsTouched: [], confidence: 0.5 },
       });
       return { content, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(content), latencyMs: Date.now() - started };
     }
 
-    const body = buildTutorText({ user: lastUser, context, images });
+    const body = buildTutorText({ user: lastUser, context, images, documents });
     return { content: body, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(body), latencyMs: Date.now() - started };
   }
 }
@@ -74,16 +75,32 @@ export class MockLLMProvider implements LLMProvider {
 /** Stable marker the tutor reply contains when an image was attached (used by tests/E2E). */
 export const IMAGE_READ_MARKER = "قرأت الصورة المرفقة";
 
-function buildTutorText(args: { user: string; context: string; images?: { mimeType: string; base64: string }[] }): string {
-  const { user, context, images = [] } = args;
+/** Stable marker the tutor reply contains when a document was attached (used by tests/E2E). */
+export const DOCUMENT_READ_MARKER = "قرأت الملف المرفق";
+
+/** How many leading characters of the extracted document text are echoed into the mock reply. */
+const DOC_SNIPPET_CHARS = 60;
+
+function buildTutorText(args: {
+  user: string;
+  context: string;
+  images?: { mimeType: string; base64: string }[];
+  documents?: DocumentInput[];
+}): string {
+  const { user, context, images = [], documents = [] } = args;
   const contextNote = context
     ? `\n\nوفقًا لمحتوى الدرس: ${context.slice(0, 900)}`
     : "\n\nلم أستطع الوصول لمحتوى الدرس في الوقت الحالي؛ راجع المدرس المباشر.";
   const imageNote = images.length > 0
     ? `📸 ${IMAGE_READ_MARKER} (${images.length}) — سأشرح حلها اعتمادًا على درسنا خطوة بخطوة.`
     : "";
+  const doc = documents[0];
+  const docNote = doc
+    ? `📄 ${DOCUMENT_READ_MARKER} «${doc.fileName ?? "بدون اسم"}» — قرأته وسأشرح سؤالك اعتمادًا عليه وعلى الدرس. أهم ما ورد فيه: "${doc.text.slice(0, DOC_SNIPPET_CHARS)}".`
+    : "";
   const parts: string[] = [];
   if (imageNote) parts.push(imageNote);
+  if (docNote) parts.push(docNote);
   if (/سؤال|مثال|تمرين|حل/.test(user)) {
     parts.push("هيا نبدأ خطوة بخطوة. أعتقد أنك تقصد جزءًا من الدرس الحالي.");
   }

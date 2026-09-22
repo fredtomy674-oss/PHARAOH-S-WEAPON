@@ -57,4 +57,15 @@
 - E2E حتمية عبر stubs مُحقنة (لا يمكن أتمتة ميكروفون حقيقي): `installVoiceStubs` (نتيجة نطق واحدة + تسجيل speak/cancel) — A1 صوت→مراجعة→إرسال→رد مُنطق→إيقاف، A2 مكتوب لا يُنطق تلقائيًا + 🔊 يعمل ويُوقِف، A3 غياب STT→خطأ واضح؛ تأكيدات إلغاء نسبية (React StrictMode في dev يعيد التركيب فينفّذ cleanup «مغادرة الغرفة» مبكرًا) — **16/16 E2E أخضر**.
 - `npm run check` أخضر (70/70) + `npm run build` أخضر + docs sync (DECISIONS D-015) + commit.
 
+## 2026-09-23 — الجلسة السادسة (PHASE 12: Student Documents in Chat — Path A)
+- جدول `message_attachments` يُوسَّع بـ`extracted_text` (nullable) — migration `0002_material_virginia_dare.sql` تُطبَّق تلقائيًا؛ `POST messages` يقبل `document: { dataUrl, fileName }` (PDF/DOCX/TXT/MD) مع **صورة XOR مستند** (400 `MULTIPLE_ATTACHMENTS`)؛ env جديدان `MAX_FILE_KB` (10000) و`MAX_DOCUMENT_CHARS` (20000)؛ `bodyLimit` لـFastify → 32MB.
+- استخراج نص آمن **خواص JS نقية** (في الذاكرة، بلا نظام ملفات): PDF عبر **`pdfjs-dist`** (legacy ESM، بلا worker) — استُبعد `pdf-parse` بعد فشل ثابت: فرع الـdebug فيه يُفعَّل تحت ESM `import()` (ENOENT) وحتى عبر CJS يتقلّب على Node 24 («bad XRef entry» لنفس الملف)، بينما pdfjs-dist مستقر؛ DOCX عبر `mammoth@1.12.3` (فوق نطاق GHSA-rmjr-87wv-gf87)؛ TXT/MD UTF-8 + إزالة BOM؛ الفشل/الممسوح ضوئيًا → نص فارغ (**OCR مؤجل صراحةً**).
+- مولد fixtures وليد Node خالص (`scripts/make-doc-fixtures.mjs`): PDF بيدوي بإزاحات xref محسوبة + ZIP بيدوي (STORED + CRC-32) — `Compress-Archive`/.NET Framework يكتبان أسماء إدخالات بشرطة مائلة عكسية فترفضها OPC/المخطوطات الجاهزة؛ المولد الآن بلا أي اعتماد على shell.
+- AI: `LLMRequest.documents` (`DocumentInput`) → Gemini يلحق نصوص المستندات بآخر رسالة مستخدم + mock يعترف «قرأت الملف المرفق» (عبارة حتمية للاختبارات) ويعيد أول 60 حرفًا من النص؛ PromptBuilder يضيف قاعدة نظام: محتوى `<document>` مستخدم **غير موثوق**؛ **tripwire الحقن يعيد فحص نص المستند خادميًا (classifyIntent) قبل أي استدعاء نموذج** → SAFE_REFUSAL بلا استدعاء؛ استرجاع احتياطي doc-only «سؤال عن محتوى الملف المرفق في هذا الدرس».
+- الويب: زر «📄 إرفاق ملف» (PDF/DOCX/TXT/MD، مرآة عميل 10MB) + معاينة/إزالة + فقاعة chip `msg-document` + منع الجمع مع الصورة.
+- مسار B (إدخال PDF/DOCX في قاعدة المعرفة) **غير ممسوس** — `rag/extractors.ts` يرفض pdf/docx كما كان (S7).
+- اختبارات: unit documents (6) + mockDocument (3) + API documents (9: إرفاق+استخراج+RAG، مستند بلا نص، صورة+مستند مرفوض، صيغة مرفوضة، حجم زائد، حقن → رفض آمن بلا استدعاء، ممسوح → لا انهيار، جلب المرفق بالرؤوس الآمنة، عزل عبر الطلاب) → **88/88**.
+- E2E D1–D3 (`document.spec.ts` عبر متصفح حقيقي): D1 PDF+نص → قراءة + اقتطاع النص + RAG + chip؛ D2 DOCX بلا نص → زر الإرسال مفعّل + قراءة؛ D3 حقن داخل TXT → رفض آمن «أنا هنا لمساعدتك في درسنا فقط» بلا علامة قراءة → **19/19 أخضر**.
+- `npm run check` أخضر (88/88) + `npm run build` أخضر + docs sync (DECISIONS D-016/TASKS/README/TEST_PLAN/.env.example) + commit.
+
 ## (أعمدة لاحقة تُضاف هنا كل مرحلة)

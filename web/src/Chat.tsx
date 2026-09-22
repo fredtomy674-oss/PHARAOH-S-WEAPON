@@ -35,12 +35,27 @@ const KIND_LABEL: Record<string, string> = {
 
 // Mirrors the server cap (MAX_IMAGE_KB default 5000) for a friendlier UX error.
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+// Mirrors the server cap (MAX_FILE_KB default 10000) for a friendlier UX error.
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const ALLOWED_DOCUMENT_MIMES = [
+  "application/pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "text/plain",
+  "text/markdown",
+];
+
+interface PendingDocument {
+  name: string;
+  size: number;
+  dataUrl: string;
+}
 
 export function ChatScreen({ session, onEnded }: Props) {
   const [bc, setBc] = useState<Breadcrumb["breadcrumb"] | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
+  const [docFile, setDocFile] = useState<PendingDocument | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [remaining, setRemaining] = useState<number | null>(null);
@@ -49,6 +64,7 @@ export function ChatScreen({ session, onEnded }: Props) {
   const [speaking, setSpeaking] = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const docRef = useRef<HTMLInputElement | null>(null);
   const sttRef = useRef<SttHandle | null>(null);
   const activeUtterance = useRef<SpeechSynthesisUtterance | null>(null);
   const voiceTurnRef = useRef(false);
@@ -121,20 +137,23 @@ export function ChatScreen({ session, onEnded }: Props) {
     setListening(true);
   };
 
-  const send = async (content: string, image?: string | null, speakReply = false) => {
+  const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, speakReply = false) => {
     const text = content.trim();
-    if ((!text && !image) || pending) return;
+    if ((!text && !image && !doc) || pending) return;
     setPending(true);
     setError(null);
     try {
-      const turn = image
-        ? await sendMessage(session.id, text, { dataUrl: image })
-        : await sendMessage(session.id, text);
+      const turn = doc
+        ? await sendMessage(session.id, text, undefined, { dataUrl: doc.dataUrl, fileName: doc.name })
+        : image
+          ? await sendMessage(session.id, text, { dataUrl: image })
+          : await sendMessage(session.id, text);
       setMessages((m) => [...m, turn.userMessage, turn.tutorMessage]);
       setRemaining(turn.remainingBudget);
       if (turn.safetyTripwire) setTripwire(true);
       setInput("");
       setPreview(null);
+      setDocFile(null);
       if (speakReply) speak(turn.tutorMessage.content);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "تعذر إرسال الرسالة");
@@ -154,9 +173,39 @@ export function ChatScreen({ session, onEnded }: Props) {
       return;
     }
     const reader = new FileReader();
-    reader.onload = () => setPreview(typeof reader.result === "string" ? reader.result : null);
+    reader.onload = () => {
+      setPreview(typeof reader.result === "string" ? reader.result : null);
+      setDocFile(null);
+    };
     reader.onerror = () => setError("تعذر قراءة الصورة المرفقة");
     reader.readAsDataURL(file);
+  };
+
+  const onPickDocument = (file: File | undefined) => {
+    if (!file) return;
+    if (!ALLOWED_DOCUMENT_MIMES.includes(file.type)) {
+      setError("صيغة الملف غير مدعومة (PDF أو DOCX أو TXT أو MD فقط)");
+      return;
+    }
+    if (file.size > MAX_FILE_BYTES) {
+      setError("الملف كبير جدًا — الحد الأقصى 10 ميجابايت");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setDocFile({ name: file.name, size: file.size, dataUrl: reader.result });
+        setPreview(null);
+      }
+    };
+    reader.onerror = () => setError("تعذر قراءة الملف المرفق");
+    reader.readAsDataURL(file);
+  };
+
+  const formatSize = (bytes: number): string => {
+    if (bytes < 1024) return `${bytes} بايت`;
+    if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} كيلوبايت`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} ميجابايت`;
   };
 
   const end = async () => {
@@ -222,15 +271,21 @@ export function ChatScreen({ session, onEnded }: Props) {
                 {m.kind !== "safety" && KIND_LABEL[m.kind] && <span className="kind-tag">{KIND_LABEL[m.kind]}</span>}
                 {m.attachments && m.attachments.length > 0 && (
                   <div className="bubble-attachments">
-                    {m.attachments.map((a) => (
-                      <img
-                        key={a.id}
-                        data-testid="msg-attachment"
-                        className="bubble-image"
-                        src={attachmentUrl(m.sessionId, a.id)}
-                        alt="صورة السؤال المرفق"
-                      />
-                    ))}
+                    {m.attachments.map((a) =>
+                      a.mimeType.startsWith("image/") ? (
+                        <img
+                          key={a.id}
+                          data-testid="msg-attachment"
+                          className="bubble-image"
+                          src={attachmentUrl(m.sessionId, a.id)}
+                          alt="صورة السؤال المرفق"
+                        />
+                      ) : (
+                        <span key={a.id} data-testid="msg-document" className="bubble-document" title={a.mimeType}>
+                          📄 {a.fileName ?? "ملف مرفق"} <small>({formatSize(a.sizeBytes)})</small>
+                        </span>
+                      ),
+                    )}
                   </div>
                 )}
                 <p>{m.content}</p>
@@ -259,10 +314,10 @@ export function ChatScreen({ session, onEnded }: Props) {
 
       <footer className="chat-footer">
         <div className="quick-row">
-          <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅", null, false)}>
+          <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅", null, null, false)}>
             فهمت
           </button>
-          <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك", null, false)}>
+          <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك", null, null, false)}>
             مش فاهم
           </button>
         </div>
@@ -274,13 +329,23 @@ export function ChatScreen({ session, onEnded }: Props) {
             </button>
           </div>
         )}
+        {docFile && (
+          <div className="attachment-preview" data-testid="document-preview">
+            <span className="document-preview-name">
+              📄 {docFile.name} <small>({formatSize(docFile.size)})</small>
+            </span>
+            <button data-testid="remove-document" type="button" className="btn small ghost" disabled={pending} onClick={() => setDocFile(null)}>
+              إزالة
+            </button>
+          </div>
+        )}
         <form
           className="composer"
           onSubmit={(e) => {
             e.preventDefault();
             const speakReply = voiceTurnRef.current;
             voiceTurnRef.current = false;
-            void send(input, preview, speakReply);
+            void send(input, preview, docFile, speakReply);
           }}
         >
           <input
@@ -291,6 +356,17 @@ export function ChatScreen({ session, onEnded }: Props) {
             className="visually-hidden"
             onChange={(e) => {
               onPickFile(e.target.files?.[0]);
+              e.target.value = "";
+            }}
+          />
+          <input
+            data-testid="attach-document-input"
+            ref={docRef}
+            type="file"
+            accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown,.pdf,.docx,.txt,.md"
+            className="visually-hidden"
+            onChange={(e) => {
+              onPickDocument(e.target.files?.[0]);
               e.target.value = "";
             }}
           />
@@ -315,6 +391,16 @@ export function ChatScreen({ session, onEnded }: Props) {
           >
             📷 صورة سؤال
           </button>
+          <button
+            data-testid="attach-document"
+            type="button"
+            className="btn small ghost"
+            aria-label="إرفاق ملف سؤال"
+            disabled={pending}
+            onClick={() => docRef.current?.click()}
+          >
+            📄 ملف سؤال
+          </button>
           <input
             data-testid="chat-input"
             aria-label="رسالتك"
@@ -324,7 +410,7 @@ export function ChatScreen({ session, onEnded }: Props) {
             maxLength={4000}
             autoFocus
           />
-          <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview)}>
+          <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview && !docFile)}>
             إرسال
           </button>
         </form>

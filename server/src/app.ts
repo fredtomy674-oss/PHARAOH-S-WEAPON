@@ -29,6 +29,9 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
   const app = Fastify({
     logger: opts.logger ?? { level: isProd ? "info" : "warn" },
     trustProxy: isProd,
+    // Document uploads ship as base64 data-URLs inside JSON (up to 10 MB default),
+    // so the default 1 MB Fastify body limit would silently reject them.
+    bodyLimit: 32 * 1024 * 1024,
     // Ajv does not support all JSON schema formats by default; email is fine.
     ajv: { customOptions: { removeAdditional: "all", coerceTypes: true, useDefaults: true } },
   });

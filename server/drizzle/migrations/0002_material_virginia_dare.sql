@@ -1,0 +1,1 @@
+ALTER TABLE `message_attachments` ADD `extracted_text` text;

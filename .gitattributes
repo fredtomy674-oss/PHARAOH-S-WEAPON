@@ -1,0 +1,13 @@
+# Binary assets: never run line-ending conversion (core.autocrlf=true would turn
+# LF into CRLF on checkout for "text-looking" binaries — e.g. the byte-accurate
+# PDF fixture whose xref offsets depend on 1-byte LFs — and corrupt them).
+*.pdf   binary
+*.docx  binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary

@@ -389,6 +389,8 @@ export const messageAttachments = sqliteTable(
     sizeBytes: integer("size_bytes").notNull(),
     sha256: text("sha256").notNull(),
     data: blob("data", { mode: "buffer" }).notNull(),
+    /** Document attachments only: extracted plain text (null for images / empty extractions). */
+    extractedText: text("extracted_text"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [

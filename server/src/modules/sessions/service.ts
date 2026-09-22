@@ -4,13 +4,14 @@ import type { Db } from "../../db/index.js";
 import { learningSessions, messageAttachments, messages, students as studentsTable } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
 import { Errors } from "../../utils/errors.js";
-import type { ImageInput } from "../ai/types.js";
+import type { DocumentInput, ImageInput } from "../ai/types.js";
 import type { CurriculumService } from "../curriculum/service.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import type { TutorEngine } from "../tutor/tutorEngine.js";
 import type { AuditService } from "../audit/service.js";
 import type { AiService } from "../ai/aiService.js";
 import { parseImageDataUrl } from "./attachments.js";
+import { parseDocumentDataUrl } from "./documents.js";
 
 export interface StartSessionInput {
   studentId: string;
@@ -89,21 +90,33 @@ export class SessionService {
     return { session, messages: msgs.map((m) => ({ ...m, attachments: byMessage.get(m.id) ?? [] })) };
   }
 
-  /** The full vertical slice: user message (+optional photo) → tutor turn → persisted replies. */
+  /** The full vertical slice: user message (+optional photo/file) → tutor turn → persisted replies. */
   async sendMessage(input: {
     sessionId: string;
     studentId: string;
     content?: string;
     image?: { dataUrl: string; fileName?: string };
+    document?: { dataUrl: string; fileName?: string };
   }) {
     const session = await this.getOwned(input.sessionId, input.studentId);
     if (session.status !== "active") throw Errors.badRequest("الجلسة منتهية — ابدأ جلسة جديدة", "SESSION_ENDED");
+
+    if (input.image && input.document) {
+      throw Errors.badRequest("أرفِق صورةً واحدةً أو ملفًا واحدًا وليس كلاهما", "MULTIPLE_ATTACHMENTS");
+    }
 
     const content = (input.content ?? "").trim().slice(0, 4000);
     const image = input.image
       ? parseImageDataUrl(input.image.dataUrl, { maxBytes: config.MAX_IMAGE_KB * 1024, fileName: input.image.fileName })
       : null;
-    if (content.length < 1 && !image) throw Errors.badRequest("الرسالة فارغة");
+    const document = input.document
+      ? await parseDocumentDataUrl(input.document.dataUrl, {
+          maxBytes: config.MAX_FILE_KB * 1024,
+          maxChars: config.MAX_DOCUMENT_CHARS,
+          fileName: input.document.fileName,
+        })
+      : null;
+    if (content.length < 1 && !image && !document) throw Errors.badRequest("الرسالة فارغة");
 
     const now = new Date();
     const userMessage = (
@@ -127,6 +140,25 @@ export class SessionService {
             sizeBytes: image.sizeBytes,
             sha256: image.sha256,
             data: image.bytes,
+            extractedText: null,
+            createdAt: now,
+          })
+          .returning()
+      )[0]!;
+    } else if (document) {
+      attachment = (
+        await this.db.db
+          .insert(messageAttachments)
+          .values({
+            id: newId("att"),
+            messageId: userMessage.id,
+            sessionId: session.id,
+            mimeType: document.mimeType,
+            fileName: document.fileName,
+            sizeBytes: document.sizeBytes,
+            sha256: document.sha256,
+            data: document.bytes,
+            extractedText: document.text.length > 0 ? document.text : null,
             createdAt: now,
           })
           .returning()
@@ -142,11 +174,16 @@ export class SessionService {
     if (!studentRow) throw Errors.internal("بروفايل الطالب مفقود");
 
     const images: ImageInput[] | undefined = image ? [{ mimeType: image.mimeType, base64: image.base64 }] : undefined;
+    const documents: DocumentInput[] | undefined =
+      document && document.text.trim().length > 0
+        ? [{ fileName: document.fileName, mimeType: document.mimeType, text: document.text }]
+        : undefined;
     const result = await this.tutor.handle({
       student: studentRow,
       session,
       question: content,
       images,
+      documents,
       breadcrumb,
       userId: studentRow.userId,
     });
@@ -167,7 +204,10 @@ export class SessionService {
     )[0]!;
 
     return {
-      userMessage: { ...userMessage, attachments: attachment ? [attachmentSummary(attachment)] : [] },
+      userMessage: {
+        ...userMessage,
+        attachments: attachment ? [attachmentSummary(attachment, document)] : [],
+      },
       tutorMessage: tutorMessage!,
       contextChunkCount: result.contextChunkCount,
       remainingBudget: await this.remainingDaily(userIdOf(studentRow)),
@@ -217,10 +257,21 @@ export interface AttachmentSummary {
   mimeType: string;
   fileName: string | null;
   sizeBytes: number;
+  /** Document attachments only: extracted text length (0 when no text was extracted). */
+  textChars?: number;
+  /** Document attachments only: true when the text was cut to the chars budget. */
+  truncated?: boolean;
 }
 
-function attachmentSummary(row: { id: string; messageId: string; mimeType: string; fileName: string | null; sizeBytes: number }): AttachmentSummary {
-  return { id: row.id, messageId: row.messageId, mimeType: row.mimeType, fileName: row.fileName, sizeBytes: row.sizeBytes };
+function attachmentSummary(row: { id: string; messageId: string; mimeType: string; fileName: string | null; sizeBytes: number }, document?: { text: string; truncated: boolean } | null): AttachmentSummary {
+  return {
+    id: row.id,
+    messageId: row.messageId,
+    mimeType: row.mimeType,
+    fileName: row.fileName,
+    sizeBytes: row.sizeBytes,
+    ...(document ? { textChars: document.text.length, truncated: document.truncated } : {}),
+  };
 }
 
 function mapKind(reply: { parts?: Array<{ type: "text" | "hint" | "question" | "example" }> }): "text" | "hint" | "question" | "example" {

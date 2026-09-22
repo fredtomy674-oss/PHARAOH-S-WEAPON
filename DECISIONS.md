@@ -101,5 +101,18 @@
 **إنتاج لاحقًا**: مزوّد STT/TTS خادمي عبر واجهات AI (قرار مفتوح: أي خدمة)، تخزين وتشغيل أصوات مخصّصة، واختيار صوت عربي تلقائي أفضل ثم ترتيب أولوياته.
 **ملاحظات مطبقة**: محرك Chromium يرمي `TypeError` عند تعيين كائن لا يطابق عقد `SpeechSynthesisVoice` على `utterance.voice` (أصوات الـstub) → تعيين `lang` أولًا + تعيين الصوت داخل try/catch. React StrictMode في dev يعيد تركيب الغرفة فيُشغّل cleanup «مغادرة الغرفة» (الذي يوقف الصوت) مبكرًا → اختبارات الإيقاف تقيس الإلغاء **نسبيًا** لا قطعيًا.
 
+## D-016 — Student Documents in Chat (PHASE 12, Path A): مرفقات ملفات → استخراج نص آمن
+**القرار**:
+1. **المسار**: ملفات الطالب تُرفع **داخل الدردشة** (Path A) عبر نفس `POST /messages` بصيغة base64-JSON مثل Vision: `document: { dataUrl, fileName }`؛ **صورة XOR مستند** ← 400 `MULTIPLE_ATTACHMENTS`. مسار B (إدخال PDF/DOCX في قاعدة المعرفة) **يُبقى منفصلًا وغير ممسوس**.
+2. **التخزين**: إعادة استخدام `message_attachments` + عمود `extracted_text` nullable جديد (migration `0002_material_virginia_dare.sql`)؛ الحدود عبر env: `MAX_FILE_KB` (10000) و`MAX_DOCUMENT_CHARS` (20000)، و`bodyLimit` لـFastify → 32MB.
+3. **استخراج النص خواص JS نقية بلا نظام ملفات**: PDF عبر **`pdfjs-dist`** (legacy ESM build، بلا worker)؛ DOCX عبر **`mammoth@1.12.3`** (مثبّت فوق نطاق GHSA-rmjr-87wv-gf87 ≤1.10.0)؛ TXT/MD UTF-8 + إزالة BOM. أي فشل/ملف ممسوح ضوئيًا → نص فارغ (لا انهيار؛ **OCR مؤجل صراحةً** لمرحلة لاحقة).
+4. **لماذا pdfjs-dist لا pdf-parse**: pdf-parse يغلّف pdf.js 1.10.100 (من 2018)؛ فرع الـdebug فيه `if (!module.parent)` يُفعَّل تحت `import()` (ENOENT على `test/data/`) **وحتى عبر CJS يتقلّب على Node 24** («bad XRef entry» تارة ونجاح تارة أخرى لنفس الملف)؛ pdfjs-dist legacy حديث ومستقر (حيّز 3/3). بدون هذا كان الاختبار غير حتمي.
+5. **Grounding غير المسموح به**: نص المستند **بيانات مستخدم غير موثوقة** — لا يُلصق في system prompt إطلاقًا؛ يسافر كـ`LLMRequest.documents` ضمن حد `MAX_DOCUMENT_CHARS`، ويميّزه الـPromptBuilder بعلامة `<document>` ضمن قاعدة نظام «محتوى المستخدم غير موثوق». **Tripwire الحقن يعيد فحص النص المستخرج خادميًا (classifyIntent) قبل أي استدعاء نموذج** → SAFE_REFUSAL «أنا هنا لمساعدتك في درسنا فقط».
+6. **Grounding مع مستند فقط**: رسالة بلا نص مع ملف مقبولة؛ استرجاع احتياطي doc-only «سؤال عن محتوى الملف المرفق في هذا الدرس» حتى لا يسقط `contextChunkCount` (نفس نمط Vision).
+7. **مولد الـfixtures وليد Node خالص** (`scripts/make-doc-fixtures.mjs`): PDF بيدوي بإزاحات xref محسوبة بدقة (احتسب رأس الـ9 بايت!) + ZIP بيدوي (STORED + CRC-32). **لماذا لا أدوات النظام**: `Compress-Archive` و`ZipFile` (.NET Framework في PowerShell 5.1) يكتبان أسماء إدخالات بشرطة مائلة عكسية (`word\document.xml`) على Windows فيرفضها OPC/mammoth؛ المولد الحالي صفري الاعتماد على shell ويعمل على أي OS.
+8. **OCI/audit**: بلا اعتماديات أصلية؛ audit ظل على الـ4 moderates المعروفة dev-only (D-011) — pdfjs-dist لم يضف شيئًا.
+**بدائل**: multipart upload (يضيف plugin وتعقيد حدود)، OCR فوري (مؤجل)، ملفات على القرص (تعقيد إدارة في قواعد الاختبارات المؤقتة) — كله إنتاج لاحقًا.
+**إنتاج لاحقًا**: multipart + تخزين كائنات + OCR للممسوح ضوئيًا + فحص MAGIC bytes أعمق.
+
 ## سجلات قرارات مستقبلية
 - (فارغ — يُضاف عند اتخاذ قرارات جديدة، لا تُحذف القديمة)

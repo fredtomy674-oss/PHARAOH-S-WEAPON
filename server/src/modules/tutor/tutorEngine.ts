@@ -2,7 +2,7 @@ import { config } from "../../config/env.js";
 import type { Db } from "../../db/index.js";
 import type { LearningSession, Student } from "../../db/schema.js";
 import type { AiService } from "../ai/aiService.js";
-import type { ImageInput } from "../ai/types.js";
+import type { DocumentInput, ImageInput } from "../ai/types.js";
 import type { CurriculumBreadcrumb } from "../curriculum/service.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
@@ -17,6 +17,8 @@ export interface TutorHandleInput {
   question: string;
   /** Photos attached to this turn (Vision: a student's photographed question). */
   images?: ImageInput[];
+  /** Documents attached to this turn (student-uploaded file, extracted text is untrusted). */
+  documents?: DocumentInput[];
   breadcrumb: CurriculumBreadcrumb;
   userId: string;
 }
@@ -60,15 +62,30 @@ export class TutorEngine {
     // 2) Intent (cheap, no tokens).
     const intent = classifyIntent(input.question);
 
-    // 3) Prompt-injection tripwire — no model call, no retrieval.
-    if (intent.intent === "admin_bypass_attempt") {
+    // 3) Prompt-injection tripwire — no model call, no retrieval. A student
+    // file must never change the system's rules: the extracted document text
+    // is re-scanned for bypass phrasing just like the typed question.
+    const documentBypass = (input.documents ?? []).some(
+      (d) => classifyIntent(d.text).intent === "admin_bypass_attempt",
+    );
+    if (intent.intent === "admin_bypass_attempt" || documentBypass) {
       const memory = await this.memory.snapshot(input.student.id);
-      return { reply: SAFE_REFUSAL, intent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock" };
+      const effectiveIntent: ReturnType<typeof classifyIntent> = documentBypass
+        ? { intent: "admin_bypass_attempt", confidence: 0.95, concepts: intent.concepts }
+        : intent;
+      return { reply: SAFE_REFUSAL, intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock" };
     }
 
-    // 4) Scope-guarded retrieval. A photo-only turn has no text query, so we
-    // retrieve against a neutral lesson query to keep grounding (never zero).
-    const retrievalQuery = input.question.trim().length > 0 ? input.question : "سؤال مصور في هذا الدرس";
+    // 4) Scope-guarded retrieval. Photo-only or document-only turns have no
+    // text query, so we retrieve against a neutral lesson query to keep
+    // grounding (never zero).
+    const hasDocument = (input.documents?.length ?? 0) > 0;
+    const retrievalQuery =
+      input.question.trim().length > 0
+        ? input.question
+        : hasDocument
+          ? "سؤال عن محتوى الملف المرفق في هذا الدرس"
+          : "سؤال مصور في هذا الدرس";
     const retrieveResult = await this.retrieval.retrieve({
       question: retrievalQuery,
       scope: {
@@ -107,6 +124,7 @@ export class TutorEngine {
       memory,
       studentName: input.student.displayName,
       hasImage: (input.images?.length ?? 0) > 0,
+      documents: input.documents,
     });
 
     const llmResponse = await this.ai.complete({
@@ -114,6 +132,7 @@ export class TutorEngine {
       messages,
       json: true,
       images: input.images,
+      documents: input.documents,
       contextUserId: input.userId,
       contextSessionId: input.session.id,
     });

@@ -38,6 +38,12 @@ const EnvSchema = z.object({
   // PNG/JPEG/WebP images up to this size (5 MB default).
   MAX_IMAGE_KB: z.coerce.number().int().positive().default(5000),
 
+  // Document upload (student-attached PDF/DOCX/TXT/MD in chat): max raw file
+  // size in KB (10 MB default) and the cap on extracted text (chars) that is
+  // actually shipped to the AI provider (cost guardrail).
+  MAX_FILE_KB: z.coerce.number().int().positive().default(10000),
+  MAX_DOCUMENT_CHARS: z.coerce.number().int().positive().default(20000),
+
   // RAG
   RAG_TOP_K: z.coerce.number().int().positive().default(5),
   RAG_ENABLE_RERANK: boolFromString.default("true"),

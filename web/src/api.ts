@@ -113,6 +113,10 @@ export interface MessageAttachment {
   mimeType: string;
   fileName: string | null;
   sizeBytes: number;
+  /** Document attachments only: extracted text length (0 when none). */
+  textChars?: number;
+  /** Document attachments only: true when the text was cut to the chars budget. */
+  truncated?: boolean;
 }
 
 export interface Message {
@@ -290,10 +294,15 @@ export async function sendMessage(
   sessionId: string,
   content: string,
   image?: { dataUrl: string; fileName?: string },
+  document?: { dataUrl: string; fileName?: string },
 ): Promise<TurnResult> {
   return api<TurnResult>(`/sessions/${encodeURIComponent(sessionId)}/messages`, {
     method: "POST",
-    body: { content, ...(image ? { image } : {}) },
+    body: {
+      content,
+      ...(image ? { image } : {}),
+      ...(document ? { document } : {}),
+    },
   });
 }
 

@@ -16,6 +16,17 @@ export interface ImageInput {
   base64: string;
 }
 
+/**
+ * Inline document attachment for a tutor turn (student-uploaded file in chat).
+ * The text is ALWAYS server-extracted, untrusted user data, already bounded by
+ * MAX_DOCUMENT_CHARS — never interpolated into the system prompt.
+ */
+export interface DocumentInput {
+  fileName: string | null;
+  mimeType: string;
+  text: string;
+}
+
 /** High-level capabilities used for routing (cost-aware: classifier uses a cheap model). */
 export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding";
 
@@ -24,6 +35,8 @@ export interface LLMRequest {
   messages: LLMMessage[];
   /** Images attached to the latest user turn (multimodal providers only). */
   images?: ImageInput[];
+  /** Documents attached to the latest user turn (extracted text, untrusted). */
+  documents?: DocumentInput[];
   /** Ask the provider for JSON via its native structured-output path when supported. */
   json?: boolean;
   temperature?: number;

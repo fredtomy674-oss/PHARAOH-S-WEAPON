@@ -27,6 +27,16 @@ const messageBodySchema = {
         fileName: { type: "string", maxLength: 255 },
       },
     },
+    document: {
+      type: "object",
+      additionalProperties: false,
+      required: ["dataUrl"],
+      properties: {
+        // base64 of up to MAX_FILE_KB (10 MB default) ≈ 13.4M chars + JSON overhead.
+        dataUrl: { type: "string", minLength: 1, maxLength: 14_000_000 },
+        fileName: { type: "string", maxLength: 255 },
+      },
+    },
   },
 };
 
@@ -74,12 +84,13 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string } };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string } };
     const result = await app.sessions.sendMessage({
       sessionId,
       studentId: auth.student.id,
       content: body.content,
       image: body.image,
+      document: body.document,
     });
     return reply.send(result);
   });

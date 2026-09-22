@@ -85,10 +85,23 @@
 - [x] E2E حتمية عبر stubs مُحقنة في المتصفح (لا يمكن أتمتة ميكروفون حقيقي): A1 (صوت → نص للمراجعة → تعديل → إرسال → رد مُنطق تلقائيًا → إيقاف)، A2 (رسالة مكتوبة لا تُنطق تلقائيًا؛ 🔊 يعمل ويُوقف)، A3 (عند غياب STT → خطأ واضح) — **16/16 أخضر**
 - [x] `npm run check` أخضر (70/70) + `npm run build` أخضر + docs sync (DECISIONS D-015) + commit
 
+### PHASE 12 — Student Documents in Chat (Path A) ✅
+- [x] التخزين: عمود `extracted_text` nullable على `message_attachments` — migration `0002_material_virginia_dare.sql` تُطبَّق تلقائيًا؛ env `MAX_FILE_KB`=10000 و`MAX_DOCUMENT_CHARS`=20000؛ `bodyLimit` Fastify → 32MB
+- [x] `POST /api/sessions/:id/messages` يقبل `document: { dataUrl, fileName }` (PDF/DOCX/TXT/MD) — **صورة XOR مستند** ← 400 `MULTIPLE_ATTACHMENTS`؛ رسالة بلا نص مقبولة مع ملف؛ أخطاء 400 واضحة (UNSUPPORTED_DOCUMENT_TYPE/DOCUMENT_TOO_LARGE/INVALID_DOCUMENT_FORMAT/EMPTY_DOCUMENT)
+- [x] استخراج نص آمن بخواص JS نقية (في الذاكرة): PDF عبر **`pdfjs-dist`** legacy ESM (استُبعد `pdf-parse`: فرع debug عند استيراد ESM + تقلّب على Node 24)؛ DOCX عبر `mammoth@1.12.3` (فوق نطاق GHSA-rmjr-87wv-gf87)؛ TXT/MD UTF-8 + إزالة BOM؛ الاقتطاع لـ`MAX_DOCUMENT_CHARS` بـ«…»؛ الفشل/الممسوح → نص فارغ (OCR مؤجل)
+- [x] AI آمن: `LLMRequest.documents` → Gemini يلحق النصوص بآخر رسالة مستخدم + mock «قرأت الملف المرفق» + أول 60 حرفًا؛ PromptBuilder: قاعدة نظام «محتوى `<document>` مستخدم غير موثوق»؛ **tripwire يعيد فحص نص المستند خادميًا قبل أي استدعاء** → SAFE_REFUSAL؛ استرجاع doc-only «سؤال عن محتوى الملف المرفق في هذا الدرس»
+- [x] الويب: زر «📄 إرفاق ملف» + معاينة/إزالة + chip `msg-document` في فقاعة المستخدم + مرآة عميل 10MB + منع الجمع مع الصورة
+- [x] مولد fixtures وليد Node خالص (`scripts/make-doc-fixtures.mjs`): PDF بيدوي + ZIP بيدوي (STORED+CRC-32؛ لأن أرشيفات Windows تكتب شرطات مائلة عكسية) → `e2e/fixtures/{question.pdf, question.docx, injection.txt}`
+- [x] اختبارات: unit documents (6: PDF، DOCX، TXT، اقتطاع، تالف لا يرمي، ممسوح → فارغ) + mockDocument (3) + API documents (9) — **88/88 أخضر**
+- [x] E2E D1–D3 (`document.spec.ts`): PDF+نص → قراءة+اقتطاع+RAG+chip؛ DOCX بلا نص → قراءة؛ حقن داخل TXT → رفض آمن بلا استدعاء — **19/19 أخضر**
+- [x] `npm run check` أخضر (88/88) + `npm run build` أخضر + docs sync (DECISIONS D-016) + commit
+- [ ] Path B (لاحقًا): إتاحة PDF/DOCX في قاعدة المعرفة (ingestion) + OCR للمستندات الممسوحة — **خارج نطاق Path A ولا يُخلط معه**
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
-- [ ] 🟡 PDF/DOCX extractors حقيقية + معالجة صور
+- [x] ✅ Student files in chat (Path A — PDF/DOCX/TXT/MD) — 3 E2E + 18 اختبارات (PHASE 12)؛ OCR مؤجل
+- [ ] 🟡 Path B: PDF/DOCX في قاعدة المعرفة (ingestion) + OCR للمسموح ضوئيًا
 - [ ] 🟡 Parent dashboard + Admin dashboard
 - [ ] 🟡 حماية رفع ملفات بمستويات فحص عميقة
 - [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل

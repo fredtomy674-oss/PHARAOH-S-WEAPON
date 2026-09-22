@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { type Locator, type Page, expect } from "@playwright/test";
 
 /** Demo student seeded into every fresh E2E DB by `npm run e2e:backend`. */
@@ -14,6 +17,12 @@ export const NO_RETRIEVED_PLACEHOLDER = "لا يوجد محتوى مسترجع";
 
 /** Mock provider marker: the tutor reply contains this when a photo was attached. */
 export const VISION_MARKER = "قرأت الصورة المرفقة";
+
+/** Mock provider marker: the tutor reply contains this when a document was attached. */
+export const DOCUMENT_MARKER = "قرأت الملف المرفق";
+
+/** Start of the tutor's safe-refusal reply (prompt-injection tripwire). */
+export const SAFE_REFUSAL_PHRASE = "أنا هنا لمساعدتك في درسنا فقط";
 
 /** Stable transcript emitted by the fake SpeechRecognition stub in voice tests. */
 export const STT_TRANSCRIPT = "اذكر مثالًا على الجمع مع إعادة التجميع";
@@ -108,6 +117,30 @@ export async function attachImage(page: Page, base64 = TINY_PNG_BASE64): Promise
     buffer: Buffer.from(base64, "base64"),
   });
   await expect(page.getByTestId("image-preview")).toBeVisible({ timeout: 10_000 });
+}
+
+const e2eFixturesDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "fixtures");
+
+/** Reads a binary fixture from e2e/fixtures/ (used by the document spec). */
+export function docFixture(fileName: string): Buffer {
+  return readFileSync(path.join(e2eFixturesDir, fileName));
+}
+
+const DOCUMENT_MIME: Record<string, string> = {
+  pdf: "application/pdf",
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  txt: "text/plain",
+};
+
+/** Attaches a document through the real UI's file input (returns when the preview shows). */
+export async function attachDocument(page: Page, fileName: string, buffer: Buffer): Promise<void> {
+  const ext = fileName.split(".").pop() ?? "";
+  await page.getByTestId("attach-document-input").setInputFiles({
+    name: fileName,
+    mimeType: DOCUMENT_MIME[ext] ?? "application/octet-stream",
+    buffer,
+  });
+  await expect(page.getByTestId("document-preview")).toBeVisible({ timeout: 10_000 });
 }
 
 export async function login(

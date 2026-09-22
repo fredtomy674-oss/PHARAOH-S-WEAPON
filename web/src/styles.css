@@ -583,6 +583,29 @@ p {
   display: block;
 }
 
+.bubble-document {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+  padding: 0.35rem 0.6rem;
+  background: #fdf6e3;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  word-break: break-word;
+}
+
+.bubble-document small,
+.document-preview-name small {
+  color: var(--muted, #6b7280);
+}
+
+.document-preview-name {
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
 /* --- Voice conversation (سؤال بصوت) --- */
 .voice-btn.active {
   background: #fdecec;

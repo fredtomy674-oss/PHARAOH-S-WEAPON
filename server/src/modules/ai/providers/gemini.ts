@@ -34,6 +34,13 @@ export class GeminiLLMProvider implements LLMProvider {
             parts.push({ inlineData: { mimeType: img.mimeType, data: img.base64 } });
           }
         }
+        // Attach extracted document text to the LAST user turn as plain-text
+        // parts, clearly delimited as the student's untrusted uploaded file.
+        if (isLastUser && request.documents && request.documents.length > 0) {
+          for (const doc of request.documents) {
+            parts.push({ text: `— محتوى الملف المرفق «${doc.fileName ?? "بدون اسم"}» —\n${doc.text}` });
+          }
+        }
         return { role: m.role === "assistant" ? "model" : "user", parts };
       });
 
