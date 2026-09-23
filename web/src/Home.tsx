@@ -24,7 +24,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
     <div className="layout">
       <header className="topbar">
         <div className="topbar-inner">
-          <strong>المعلم الفاروق</strong>
+          <strong>سلاح الفرعون</strong>
           <span className="muted">معلمك الخصوصي الذكي</span>
           <button className="btn ghost" onClick={onLogout} data-testid="logout">
             خروج

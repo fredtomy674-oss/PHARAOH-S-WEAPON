@@ -30,8 +30,8 @@ export function AuthScreen({ onAuthed }: Props) {
   return (
     <div className="auth-wrap">
       <div className="brand">
-        <div className="brand-mark">الف</div>
-        <h1>المعلم الفاروق</h1>
+        <div className="brand-mark">س</div>
+        <h1>سلاح الفرعون</h1>
         <p className="muted">معلمك الخصوصي الذكي — يشرح دروسك بالمنهج المدرسي خطوة بخطوة</p>
       </div>
 

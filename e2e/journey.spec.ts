@@ -23,7 +23,7 @@ let demoSessionId = "";
 test("journey: login → lesson → RAG tutor reply → re-explain → end → progress → logout", async ({ page }) => {
   // 1) Login gate
   await page.goto("/");
-  await expect(page.getByText("المعلم الفاروق")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByText("سلاح الفرعون")).toBeVisible({ timeout: 20_000 });
   await login(page);
 
   // 2) Student home

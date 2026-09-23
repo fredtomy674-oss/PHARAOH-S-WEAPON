@@ -2,7 +2,7 @@
   "name": "al-farouq-ai",
   "version": "0.1.0",
   "private": true,
-  "description": "AL FAROUQ AI — AI Tutor: an interactive AI private tutor platform for Egyptian curricula first, expandable to other Arab countries.",
+  "description": "سلاح الفرعون — AI Tutor: an interactive AI private tutor platform for Egyptian + Saudi curricula first, expandable to other Arab countries.",
   "type": "module",
   "workspaces": [
     "server",

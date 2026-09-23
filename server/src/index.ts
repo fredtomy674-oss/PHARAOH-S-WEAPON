@@ -17,7 +17,7 @@ async function main(): Promise<void> {
   process.on("SIGTERM", () => void shutdown("SIGTERM"));
 
   await app.listen({ port: config.PORT, host: config.HOST });
-  app.log.info(`AL FAROUQ AI tutor listening on http://${config.HOST}:${config.PORT} (LLM=${app.ai.providers.llm.id}, RAG=${config.RAG_TOP_K} chunks)`);
+  app.log.info(`سلاح الفرعون tutor listening on http://${config.HOST}:${config.PORT} (LLM=${app.ai.providers.llm.id}, RAG=${config.RAG_TOP_K} chunks)`);
 }
 
 main().catch((err) => {
