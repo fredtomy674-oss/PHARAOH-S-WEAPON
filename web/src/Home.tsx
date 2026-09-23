@@ -41,6 +41,16 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
           </button>
         </section>
 
+        {user.linkCode && (
+          <section className="card" data-testid="parent-link-card">
+            <h3>كود ولي الأمر</h3>
+            <p className="muted">شارك هذا الكود مع ولي أمرك ليطّلع على تقدّمك وجلساتك (قراءة فقط):</p>
+            <code className="link-code" data-testid="link-code-value">
+              {user.linkCode}
+            </code>
+          </section>
+        )}
+
         {progress && (
           <section className="card" data-testid="progress-card">
             <h3>تقدّمك</h3>

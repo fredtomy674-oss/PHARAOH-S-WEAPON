@@ -135,13 +135,22 @@
 - [x] اختبارات API (2): رفض الطالب (403 FORBIDDEN) + عدّادات مطابقة للنشاط الفعلي (جلسة نشأت وانتهت برسالتين → 4 رسائل، مستندات الكوربس جاهزة بمقاطعها)
 - [x] **127/127 أخضر** (125 + 2 adminStats) + `npm run build` أخضر + E2E 22/22 (لا انحدار في تدفق الإدارة) + docs sync (DECISIONS D-021/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 18 — Parent Dashboard (لوحة أولياء الأمور) ✅
+- [x] `students.parentLinkCode` (text، unique) — كود مشاركة بلغ 8 رموز يمنحه الطالب لوليّ أمره — migration `0004_fixed_james_howlett.sql` تُطبَّق تلقائيًا؛ المولّد `parentLinkCode()` في `utils/ids.ts` بأبجدية بلا محارف ملتبسة (I/O/0/1)
+- [x] مصادقة: `POST /auth/register` يقبل `role: "student"|"parent"` — مسار الوالد ينشئ `users`(parent)+`parents`+`profiles` (بلا الصف الدراسي)؛ `buildAuthUser`/`AuthUser` يحملان `parent?`؛ `publicUser` يعرض `linkCode` للطالب في `/auth/me`
+- [x] وحدة جديدة `server/src/modules/parent/`: `POST /parent/link {code}` (400 `INVALID_LINK_CODE`، 409 `ALREADY_LINKED`)، `GET /parent/children`، `GET /parent/children/:studentId` (هوية + تقدّم + ملخصات جلسات)، `DELETE /parent/children/:studentId` — الكل بِـ`requireAuth` + فحص دور؛ **العزل بنيوي**: كل قراءة تعيد التحقق من رابط الوالد↔الطفل (أجنبي → 404 بلا مؤشر وجود)؛ **بلا محتوى رسائل خام إطلاقًا — عدّادات فقط** (PHASE MVP)
+- [x] Seed: حساب والد تجريبي `parent@alfarouq.test`/`parent-demo-123` (قابل للتخصيص عبر `SEED_PARENT_*`) + كود ثابت `SLH7KQ9M` (إعادة ملء للطلاب القدامى بلا كود) + ربط idempotent مع الطالب التجريبي
+- [x] الويب: `Parent.tsx` (نموذج ربط + بطاقات الأبناء + تفاصيل الطفل: مفاهيم/نقاط قوة/ضعف + ملخصات جلسات + إلغاء الربط)؛ فرع role في `App.tsx`؛ كرت «كود ولي الأمر» في Home للطالب
+- [x] اختبارات API (11): register parent، كود في /me، ربط ناجح/خاطئ/مكرر، عزل B (قائمة فارغة + 404)، تفاصيل بلا تسريب للرسائل، 403 متبادل بين الأدوار، unlink + 404 دائم — **138/138 أخضر**
+- [x] E2E `parent.spec.ts` (3): ولي الأمر يرى ابنه المربوط وتفاصيله المجمّعة، الطالب يرى كود الربط، كود خاطئ → خطأ واضح — **25/25 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-022/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
 - [x] ✅ Student files in chat (Path A — PDF/DOCX/TXT/MD) — 3 E2E + 18 اختبارات (PHASE 12)؛ OCR مؤجل
 - [x] ✅ Curriculum files in knowledge base (Path B — PDF/DOCX/TXT/MD عبر `ingest-file`) — 14 اختبارًا (PHASE 13)؛ OCR مؤجل
 - [ ] 🟡 OCR للمستندات الممسوحة ضوئيًا (المساران A وB) — تُفتح كمرحلة مستقلة
-- [ ] 🟡 Parent dashboard
+- [x] ✅ Parent dashboard (لوحة أولياء الأمور — ربط بالكود + قراءة فقط للمجموعات) — PHASE 18
 - [x] ✅ Admin dashboard (لوحة استيراد ملفات المنهج PDF/DOCX عبر الواجهة) — PHASE 14
 - [x] ✅ حماية رفع الملفات: فحص MAGIC bytes (تُرفض الانتحالات قبل الاستخراج/التخزين) — PHASE 15؛ OCR يبقى مؤجلًا
 - [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل

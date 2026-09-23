@@ -16,6 +16,14 @@ export function randomToken(bytes = 32): string {
   return Array.from(buf, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+/** Parent-linking code: uppercase alnum without confusable chars (I/O/0/1). */
+const LINK_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+
+export function parentLinkCode(bytes = 8): string {
+  const buf = crypto.getRandomValues(new Uint8Array(bytes));
+  return Array.from(buf, (b) => LINK_ALPHABET[b % LINK_ALPHABET.length]).join("");
+}
+
 export function sha256Hex(value: string): string {
   const buf = createHash("sha256").update(value).digest();
   return Array.from(buf, (b) => b.toString(16).padStart(2, "0")).join("");

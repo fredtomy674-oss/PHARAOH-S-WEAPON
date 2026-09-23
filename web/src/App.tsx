@@ -5,6 +5,7 @@ import { HomeScreen } from "./Home.js";
 import { OnboardingScreen } from "./Onboarding.js";
 import { ChatScreen } from "./Chat.js";
 import { AdminScreen } from "./Admin.js";
+import { ParentScreen } from "./Parent.js";
 
 type Screen = "loading" | "auth" | "home" | "onboarding" | "chat" | "admin";
 
@@ -71,6 +72,10 @@ export function App() {
 
   if (screen === "admin" && user.role === "admin") {
     return <AdminScreen user={user} onBack={() => setScreen("home")} onLogout={handleLogout} />;
+  }
+
+  if (user.role === "parent") {
+    return <ParentScreen user={user} onLogout={handleLogout} />;
   }
 
   return (

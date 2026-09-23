@@ -29,6 +29,13 @@
       "when": 1790166104606,
       "tag": "0003_many_namor",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1790193530114,
+      "tag": "0004_fixed_james_howlett",
+      "breakpoints": true
     }
   ]
 }

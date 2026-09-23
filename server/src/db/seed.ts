@@ -14,7 +14,9 @@ import {
   educationSystems,
   grades,
   lessons,
+  parents,
   students,
+  studentsParents,
   subjects,
   terms,
   units,
@@ -264,7 +266,12 @@ async function seedUsers(db: DbHandle, curriculum: CurriculumService, seeded: Se
   const demoStudentPassword = process.env.SEED_STUDENT_PASSWORD ?? "student-demo-123";
   const demoAdminEmail = process.env.SEED_ADMIN_EMAIL ?? "admin@alfarouq.test";
   const demoAdminPassword = process.env.SEED_ADMIN_PASSWORD ?? "admin-demo-123";
+  const demoParentEmail = process.env.SEED_PARENT_EMAIL ?? "parent@alfarouq.test";
+  const demoParentPassword = process.env.SEED_PARENT_PASSWORD ?? "parent-demo-123";
+  // Fixed, known code: lets the demo parent link the demo student in E2E/dev.
+  const demoLinkCode = process.env.SEED_PARENT_LINK_CODE ?? "SLH7KQ9M";
 
+  let studentId: string | null = null;
   const studentAccount = await db.db.select().from(users).where(eq(users.email, demoStudentEmail)).get();
   if (!studentAccount) {
     const now = new Date();
@@ -278,13 +285,14 @@ async function seedUsers(db: DbHandle, curriculum: CurriculumService, seeded: Se
       createdAt: now,
       updatedAt: now,
     });
-    const studentId = newId("stu");
+    studentId = newId("stu");
     await db.db.insert(students).values({
       id: studentId,
       userId,
       displayName: "طالب تجريبي",
       countryId: seeded.countryId,
       gradeId: seeded.gradeId,
+      parentLinkCode: demoLinkCode,
       createdAt: now,
       updatedAt: now,
     });
@@ -292,6 +300,16 @@ async function seedUsers(db: DbHandle, curriculum: CurriculumService, seeded: Se
     console.log(`  ✓ Demo student created: ${demoStudentEmail}`);
   } else {
     console.log(`  ↺ Demo student exists: ${demoStudentEmail}`);
+    // Backfill the link code on re-runs (students created before PHASE 18 lack one).
+    const existing = await db.db.select().from(students).where(eq(students.userId, studentAccount.id)).get();
+    studentId = existing?.id ?? null;
+    if (existing && !existing.parentLinkCode) {
+      await db.db
+        .update(students)
+        .set({ parentLinkCode: demoLinkCode, updatedAt: new Date() })
+        .where(eq(students.userId, studentAccount.id));
+      console.log(`  ✓ Demo student parent-link code backfilled: ${demoLinkCode}`);
+    }
   }
 
   const adminAccount = await db.db.select().from(users).where(eq(users.email, demoAdminEmail)).get();
@@ -311,7 +329,49 @@ async function seedUsers(db: DbHandle, curriculum: CurriculumService, seeded: Se
     console.log(`  ↺ Demo admin exists: ${demoAdminEmail}`);
   }
 
-  console.log(`\nDemo logins (dev only): student ${demoStudentEmail} / admin ${demoAdminEmail} — insecure defaults, change in production via env.`);
+  const parentAccount = await db.db.select().from(users).where(eq(users.email, demoParentEmail)).get();
+  if (!parentAccount) {
+    const now = new Date();
+    const userId = newId("usr");
+    await db.db.insert(users).values({
+      id: userId,
+      email: demoParentEmail,
+      passwordHash: await bcrypt.hash(demoParentPassword, 12),
+      role: "parent",
+      status: "active",
+      createdAt: now,
+      updatedAt: now,
+    });
+    await db.db.insert(parents).values({ id: newId("par"), userId });
+    console.log(`  ✓ Demo parent created: ${demoParentEmail}`);
+  } else {
+    console.log(`  ↺ Demo parent exists: ${demoParentEmail}`);
+  }
+
+  // PHASE 18: pre-link the demo parent ↔ demo student (idempotent).
+  // Re-fetch the parent account: it may have just been created above.
+  const parentRowForLink = await db.db.select().from(users).where(eq(users.email, demoParentEmail)).get();
+  if (studentId && parentRowForLink) {
+    const parentRow = await db.db.select().from(parents).where(eq(parents.userId, parentRowForLink.id)).get();
+    const studentRow = await db.db.select().from(students).where(eq(students.id, studentId)).get();
+    if (parentRow && studentRow) {
+      const alreadyLinked = await db.db
+        .select()
+        .from(studentsParents)
+        .where(and(eq(studentsParents.studentId, studentRow.id), eq(studentsParents.parentId, parentRow.id)))
+        .get();
+      if (!alreadyLinked) {
+        await db.db.insert(studentsParents).values({ studentId: studentRow.id, parentId: parentRow.id });
+        console.log(`  ✓ Demo parent linked to demo student (${demoLinkCode})`);
+      } else {
+        console.log("  ↺ Demo parent already linked to demo student");
+      }
+    }
+  } else {
+    console.log("  ↺ Demo student missing — skipping parent↔student link");
+  }
+
+  console.log(`\nDemo logins (dev only): student ${demoStudentEmail} / admin ${demoAdminEmail} / parent ${demoParentEmail} — insecure defaults, change in production via env.`);
 }
 
 main().catch((err) => {

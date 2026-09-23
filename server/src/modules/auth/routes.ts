@@ -11,6 +11,8 @@ const jsonRegister = {
     password: { type: "string", minLength: 8, maxLength: 128 },
     displayName: { type: "string", minLength: 2, maxLength: 80 },
     gradeId: { type: "string", maxLength: 64 },
+    // PHASE 18: parents register with role "parent"; students are the default.
+    role: { type: "string", enum: ["student", "parent"] },
   },
 };
 
@@ -26,7 +28,7 @@ const jsonLogin = {
 
 export const authRoutes: FastifyPluginAsync = async (app) => {
   app.post("/register", { schema: { body: jsonRegister } }, async (request, reply) => {
-    const body = request.body as { email: string; password: string; displayName: string; gradeId?: string };
+    const body = request.body as { email: string; password: string; displayName: string; gradeId?: string; role?: "student" | "parent" };
     const { user, session } = await app.authService.register(body);
     app.setSessionCookie(reply, session.token, session.expiresAt.getTime() - Date.now());
     await app.audit.record({ actorUserId: user.user.id, action: "auth.register", entityType: "user", entityId: user.user.id, ip: request.ip });
@@ -56,7 +58,7 @@ export const authRoutes: FastifyPluginAsync = async (app) => {
   });
 };
 
-export function publicUser(authUser: { user: { id: string; email: string; role: string; createdAt: Date }; student?: { id: string; displayName: string; gradeId: string | null } | undefined }) {
+export function publicUser(authUser: { user: { id: string; email: string; role: string; createdAt: Date }; student?: { id: string; displayName: string; gradeId: string | null; parentLinkCode: string | null } | undefined }) {
   return {
     id: authUser.user.id,
     email: authUser.user.email,
@@ -65,5 +67,7 @@ export function publicUser(authUser: { user: { id: string; email: string; role: 
     student: authUser.student
       ? { id: authUser.student.id, displayName: authUser.student.displayName, gradeId: authUser.student.gradeId ?? null }
       : undefined,
+    // PHASE 18: the student's parent-linking code (null until it exists).
+    linkCode: authUser.student?.parentLinkCode ?? null,
   };
 }

@@ -6,6 +6,7 @@ import { AuditService } from "../modules/audit/service.js";
 import { AuthService } from "../modules/auth/service.js";
 import { CurriculumService } from "../modules/curriculum/service.js";
 import { KnowledgeService } from "../modules/knowledge/service.js";
+import { ParentService } from "../modules/parent/service.js";
 import { RetrievalService } from "../modules/rag/retrieval.js";
 import { SqliteVectorStore } from "../modules/rag/vectorStore.js";
 import { SessionService } from "../modules/sessions/service.js";
@@ -25,6 +26,7 @@ declare module "fastify" {
     memory: MemoryService;
     tutor: TutorEngine;
     sessions: SessionService;
+    parents: ParentService;
     setSessionCookie: (reply: FastifyReply, token: string, maxAgeMs: number) => void;
     clearSessionCookie: (reply: FastifyReply) => void;
   }
@@ -52,6 +54,7 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   const tutor = new TutorEngine(db, ai, retrieval, memory);
   const knowledge = new KnowledgeService(db, ai, vectorStore);
   const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai);
+  const parents = new ParentService(db, memory);
 
   app.decorate("db", db);
   app.decorate("ai", ai);
@@ -64,4 +67,5 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   app.decorate("memory", memory);
   app.decorate("tutor", tutor);
   app.decorate("sessions", sessions);
+  app.decorate("parents", parents);
 });

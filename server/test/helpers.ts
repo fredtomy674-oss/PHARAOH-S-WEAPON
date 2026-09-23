@@ -55,15 +55,27 @@ export function cookieValueOf(setCookieHeader: string | string[] | undefined): s
   return setCookieHeader.split(";")[0]!;
 }
 
-export async function registerStudent(app: FastifyInstance, email: string, password = "password-123", displayName = "طالب اختبار"): Promise<AuthSession> {
+export async function registerStudent(app: FastifyInstance, email: string, password = "password-123", displayName = "طالب اختبار", gradeId?: string): Promise<AuthSession> {
   const res = await app.inject({
     method: "POST",
     url: "/api/auth/register",
-    payload: { email, password, displayName },
+    payload: { email, password, displayName, ...(gradeId ? { gradeId } : {}) },
   });
   expectStatus(res.statusCode, 201, res.body);
   const body = res.json() as { user: { id: string; student: { id: string } }; csrfToken: string };
   return { cookie: cookieValueOf(res.headers["set-cookie"]), csrfToken: body.csrfToken, userId: body.user.id, studentId: body.user.student.id };
+}
+
+export async function registerParent(app: FastifyInstance, email: string, password = "password-123", displayName = "ولي أمر اختبار"): Promise<AuthSession> {
+  const res = await app.inject({
+    method: "POST",
+    url: "/api/auth/register",
+    payload: { email, password, displayName, role: "parent" },
+  });
+  expectStatus(res.statusCode, 201, res.body);
+  const body = res.json() as { user: { id: string; role: string }; csrfToken: string };
+  if (body.user.role !== "parent") throw new Error(`expected parent role, got ${body.user.role}`);
+  return { cookie: cookieValueOf(res.headers["set-cookie"]), csrfToken: body.csrfToken, userId: body.user.id };
 }
 
 export async function login(app: FastifyInstance, email: string, password: string): Promise<AuthSession> {

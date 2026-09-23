@@ -105,3 +105,14 @@
 - واجهة: قسم «إحصاءات سريعة» (بطاقات `admin-stats-*`) في أعلى لوحة الإدارة مع تنسيق `admin-stats-grid`؛ الجلب متسامح فلا يعطّل تدفق الرفع أبدًا (تحقق منه E2E A1).
 - اختبارات API (2): الطالب يُرفض 403 FORBIDDEN + العدّادات تطابق النشاط الفعلي (جلسة → رسائل → إنهاء → مستندات/مقاطع الكوربس).
 - 127/127 Vitest (125 + 2) + build أخضر + E2E 22/22 (لا انحدار) + docs sync (DECISIONS D-021/TASKS/TEST_PLAN/README/API_SPEC).
+
+## 2026-09-23 — الجلسة الثانية عشرة (PHASE 18: Parent Dashboard — لوحة أولياء الأمور)
+- **نموذج البيانات مهيّأ أصلًا** (جداول `parents` + `students_parents` موجودة منذ PHASE 2) — ما أُضيف فعليًا: عمود `students.parentLinkCode` (text، unique) + migration `0004_fixed_james_howlett.sql` (تُطبَّق تلقائيًا عند الإقلاع) ومولّد `parentLinkCode()` في `server/src/utils/ids.ts` (أبجدية `A-HJ-NP-Z2-9` بلا محارف ملتبسة، طول 8).
+- **القرار D-022**: الربط بِـ**كود مشاركة قصير** (لا بريد إلكتروني — لا يثبت صلة قرابة) يظهر للطالب في صفحته الرئيسية ويُعرض في `/auth/me` كـ`linkCode`؛ كود ثابت للطالب التجريبي `SLH7KQ9M` مع إعادة ملء تلقائية للطلاب القدامى عند `db:seed` (env-overridable `SEED_PARENT_*`).
+- **المصادقة**: `register` يقبل `role: "student"|"parent"` — مسار الوالد ينشئ `users`(parent)+`parents`+`profiles` بدون صف؛ `AuthUser`/`buildAuthUser` يحملان `parent?`؛ `publicUser` يعرض `linkCode` للطالب.
+- **وحدة `server/src/modules/parent/`** (مسارات `/api/parent/*` بِـ`requireAuth` + فحص دور): `POST /link` (`INVALID_LINK_CODE`/`ALREADY_LINKED`)، `GET /children` (بطاقات: اسم/صف/مناهج/آخر جلسة/عدد جلسات)، `GET /children/:studentId` (هوية + تقدم `progressDetail` + ملخصات جلسات مع عدّادات رسائل)، `DELETE /children/:studentId`. **العزل بنيوي**: كل قراءة تعيد التحقق من رابط الوالد↔الطفل → أجنبي 404 (لا مؤشر وجود)؛ **لا يُكشف محتوى رسائل خام إطلاقًا — عدّادات فقط** (حدود MVP).
+- **Seed**: حساب والد تجريبي `parent@alfarouq.test`/`parent-demo-123` + ربط idempotent مع الطالب التجريبي.
+- **الويب**: شاشة `Parent.tsx` (ربط بالكود + بطاقات أبناء + تفاصيل الطفل مع قوائم المفاهيم/القوة/الضعف والجلسات + إلغاء الربط) وراء فرع role في `App.tsx`؛ كرت «كود ولي الأمر» في Home للطالب.
+- **اختبارات**: API `parent.test.ts` (11: دور الوالد في /me، كود في /me بصيغة مولّدة، ربط ×4، عزل B 404، تفاصيل بلا تسريب رسائل، 403 متبادل، unlink + 404) → **138/138 أخضر**؛ E2E `parent.spec.ts` P1–P3 (الأم يرى ابنه وتفاصيله المجمّعة، الطالب يرى كوده، كود خاطئ → خطأ واضح) → **25/25 أخضر**.
+- إصلاح في seed أثناء التطوير: إعادة جلب صف الوالد بعد الإنشاء (كان `const parentAccount` يحمل `undefined` لأنه جُلب قبل الإدراج) — الربط يعمل على قواعد جديدة وقديمة.
+- `npm run check` أخضر (138/138) + `npm run build` أخضر + docs sync (DECISIONS D-022/TASKS/TEST_PLAN/README/API_SPEC).

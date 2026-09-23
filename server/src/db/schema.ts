@@ -45,10 +45,15 @@ export const students = sqliteTable(
     countryId: text("country_id").references(() => countries.id, { onDelete: "set null" }),
     gradeId: text("grade_id").references(() => grades.id, { onDelete: "set null" }),
     birthYear: integer("birth_year"),
+    /** Sharing code a parent enters to link/observe this child (PHASE 18). */
+    parentLinkCode: text("parent_link_code"),
     createdAt: ts("created_at").notNull(),
     updatedAt: ts("updated_at").notNull(),
   },
-  (t) => [uniqueIndex("students_user_id_unique").on(t.userId)],
+  (t) => [
+    uniqueIndex("students_user_id_unique").on(t.userId),
+    uniqueIndex("students_parent_link_code_unique").on(t.parentLinkCode),
+  ],
 );
 
 export const parents = sqliteTable(

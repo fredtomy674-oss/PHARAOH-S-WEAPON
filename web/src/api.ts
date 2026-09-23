@@ -8,6 +8,8 @@ export interface User {
   role: string;
   createdAt: string;
   student?: { id: string; displayName: string; gradeId: string | null };
+  /** Student only: the sharing code a parent enters to link/observe them (PHASE 18). */
+  linkCode?: string | null;
 }
 
 export interface Country {
@@ -317,6 +319,70 @@ export async function endSession(sessionId: string): Promise<void> {
 
 export async function myProgress(): Promise<ProgressDetail> {
   return api<ProgressDetail>("/progress/me");
+}
+
+// --- Parent dashboard (PHASE 18) -------------------------------------------
+
+export interface ParentLastSession {
+  id: string;
+  lessonTitle: string | null;
+  status: "active" | "ended" | "abandoned";
+  startedAt: string;
+}
+
+export interface ParentChild {
+  studentId: string;
+  displayName: string;
+  gradeNameAr: string | null;
+  curricula: string[];
+  lastSession: ParentLastSession | null;
+  sessionCount: number;
+}
+
+export interface ParentSessionSummary {
+  id: string;
+  lessonId: string | null;
+  lessonTitle: string | null;
+  status: "active" | "ended" | "abandoned";
+  startedAt: string;
+  endedAt: string | null;
+  userMessages: number;
+  tutorMessages: number;
+  totalMessages: number;
+}
+
+export interface ParentChildDetail {
+  child: {
+    studentId: string;
+    displayName: string;
+    gradeNameAr: string | null;
+    curricula: string[];
+    sessionCount: number;
+  };
+  progress: {
+    concepts: Array<{ conceptId: string; title: string; mastery: number }>;
+    strengths: string[];
+    weaknesses: string[];
+  };
+  sessions: ParentSessionSummary[];
+}
+
+export async function linkParentChild(code: string): Promise<ParentChild> {
+  const res = await api<{ child: ParentChild }>("/parent/link", { method: "POST", body: { code } });
+  return res.child;
+}
+
+export async function listParentChildren(): Promise<ParentChild[]> {
+  const res = await api<{ children: ParentChild[] }>("/parent/children");
+  return res.children;
+}
+
+export async function getParentChildDetail(studentId: string): Promise<ParentChildDetail> {
+  return api<ParentChildDetail>(`/parent/children/${encodeURIComponent(studentId)}`);
+}
+
+export async function unlinkParentChild(studentId: string): Promise<void> {
+  await api(`/parent/children/${encodeURIComponent(studentId)}`, { method: "DELETE" });
 }
 
 /** Admin-only: a curriculum document as shown in the admin dashboard. */

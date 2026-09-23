@@ -9,6 +9,15 @@ export const DEMO_STUDENT = {
   password: "student-demo-123",
 };
 
+/** Demo parent (PHASE 18): pre-linked to the demo student in the seed. */
+export const DEMO_PARENT = {
+  email: "parent@alfarouq.test",
+  password: "parent-demo-123",
+};
+
+/** The demo student's fixed parent linking code (set by the seeder). */
+export const DEMO_LINK_CODE = "SLH7KQ9M";
+
 /** Phrase the dev (mock) LLM provider only emits when RAG context was retrieved. */
 export const RAG_CONTEXT_PHRASE = "وفقًا لمحتوى الدرس";
 export const NO_RAG_PHRASE = "لم أستطع الوصول لمحتوى الدرس";
@@ -147,13 +156,14 @@ export async function login(
   page: Page,
   email = DEMO_STUDENT.email,
   password = DEMO_STUDENT.password,
+  expectedTestId = "home-screen",
 ): Promise<void> {
   await page.goto("/");
   await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
   await page.getByTestId("input-email").fill(email);
   await page.getByTestId("input-password").fill(password);
   await page.getByTestId("submit-auth").click();
-  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId(expectedTestId)).toBeVisible({ timeout: 20_000 });
 }
 
 /** Picks the first real option of a dropdown (never the placeholder). Returns its value. */

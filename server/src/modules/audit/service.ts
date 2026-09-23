@@ -11,6 +11,8 @@ export interface AuditRecordInput {
     | "document.ingest"
     | "session.start"
     | "session.end"
+    | "parent.link"
+    | "parent.unlink"
     | "forbidden.access";
   entityType: string;
   entityId?: string | null;

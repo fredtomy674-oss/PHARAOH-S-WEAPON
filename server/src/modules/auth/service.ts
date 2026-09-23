@@ -1,15 +1,18 @@
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import type { Db } from "../../db/index.js";
-import { profiles, sessions, students, users } from "../../db/schema.js";
-import { newId, randomToken, safeEqual, sha256Hex } from "../../utils/ids.js";
+import { parents, profiles, sessions, students, users } from "../../db/schema.js";
+import { newId, parentLinkCode, randomToken, safeEqual, sha256Hex } from "../../utils/ids.js";
 import { Errors } from "../../utils/errors.js";
 
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
+export type RegisterRole = "student" | "parent";
+
 export interface AuthUser {
   user: typeof users.$inferSelect;
   student?: typeof students.$inferSelect;
+  parent?: typeof parents.$inferSelect;
 }
 
 export interface CreatedSession {
@@ -21,7 +24,7 @@ export interface CreatedSession {
 export class AuthService {
   constructor(private readonly db: Db) {}
 
-  async register(input: { email: string; password: string; displayName: string; gradeId?: string }): Promise<{ user: AuthUser; session: CreatedSession }> {
+  async register(input: { email: string; password: string; displayName: string; gradeId?: string; role?: RegisterRole }): Promise<{ user: AuthUser; session: CreatedSession }> {
     const email = input.email.trim().toLowerCase();
     const existing = await this.db.db.select().from(users).where(eq(users.email, email)).get();
     if (existing) throw Errors.conflict("هذا البريد مسجل بالفعل");
@@ -30,25 +33,33 @@ export class AuthService {
     const passwordHash = await bcrypt.hash(input.password, 12);
     const now = new Date();
 
+    const role: RegisterRole = input.role === "parent" ? "parent" : "student";
     const userId = newId("usr");
     await this.db.db.insert(users).values({
       id: userId,
       email,
       passwordHash,
-      role: "student",
+      role,
       status: "active",
       createdAt: now,
       updatedAt: now,
     });
-    const studentId = newId("stu");
-    await this.db.db.insert(students).values({
-      id: studentId,
-      userId,
-      displayName: input.displayName.trim().slice(0, 80),
-      gradeId: input.gradeId ?? null,
-      createdAt: now,
-      updatedAt: now,
-    });
+
+    if (role === "parent") {
+      await this.db.db.insert(parents).values({ id: newId("par"), userId });
+    } else {
+      const studentId = newId("stu");
+      await this.db.db.insert(students).values({
+        id: studentId,
+        userId,
+        displayName: input.displayName.trim().slice(0, 80),
+        gradeId: input.gradeId ?? null,
+        // A sharing code a parent enters to link/observe this child (PHASE 18).
+        parentLinkCode: parentLinkCode(),
+        createdAt: now,
+        updatedAt: now,
+      });
+    }
     await this.db.db.insert(profiles).values({ id: newId("prf"), userId, locale: "ar-EG", uiTheme: "light" });
 
     const built = await this.buildAuthUser(userId);
@@ -86,6 +97,10 @@ export class AuthService {
   async buildAuthUser(userId: string): Promise<AuthUser> {
     const user = await this.db.db.select().from(users).where(eq(users.id, userId)).get();
     if (!user) throw Errors.internal("المستخدم غير موجود");
+    if (user.role === "parent") {
+      const parent = await this.db.db.select().from(parents).where(eq(parents.userId, userId)).get();
+      return { user, parent: parent ?? undefined };
+    }
     const student = await this.db.db.select().from(students).where(eq(students.userId, userId)).get();
     return { user, student: student ?? undefined };
   }

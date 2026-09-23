@@ -14,6 +14,7 @@ import { curriculumRoutes } from "./modules/curriculum/routes.js";
 import { sessionsRoutes } from "./modules/sessions/routes.js";
 import { progressRoutes } from "./modules/progress/routes.js";
 import { adminRoutes } from "./modules/admin/routes.js";
+import { parentRoutes } from "./modules/parent/routes.js";
 
 export interface BuildAppOptions {
   forceProvider?: "mock" | "gemini";
@@ -110,6 +111,7 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
       await api.register(sessionsRoutes, { prefix: "/sessions" });
       await api.register(progressRoutes, { prefix: "/progress" });
       await api.register(adminRoutes, { prefix: "/admin" });
+      await api.register(parentRoutes, { prefix: "/parent" });
     },
     { prefix: "/api" },
   );
