@@ -116,6 +116,12 @@
 - [x] E2E `admin.spec.ts` (متصفح حقيقي): A1 رفع `curriculum.pdf` للدرس **الثاني** (الضرب والقسمة — عزل عن نطاقات بقية specs) → نجاح + صف في اللائحة باسم الدرس و`chunkCount>0`؛ A2 إعادة رفع نفس البايتات → خطأ «مستورد مسبقًا» (dedup حقيقي عبر UI)؛ A3 الطالب لا يرى زر الإدارة إطلاقًا — **22/22 أخضر**
 - [x] `npm run check` أخضر (106/106) + `npm run build` أخضر + docs sync (DECISIONS D-018/TASKS/CHANGELOG/TEST_PLAN/README) + commit
 
+### PHASE 15 — حماية رفع الملفات: فحص توقيع الملفات (MAGIC bytes) ✅
+- [x] وحدة نقية `utils/fileTypes.ts`: `detectFileKind(bytes)` يشمّ البايتات الخام — PDF عبر رأس `%PDF-` خلال أول 1024 بايتًا (يسمح بـ junk-prefix وفق مواصفة PDF)، DOCX عبر رأس `PK\x03\x04` + وجود `[Content_Types].xml` في أول 64KB، وكل ما سواهما = نص؛ + `kindForDeclaredMime` (التطابق مع MIME المعلن) وأخطاء `FILE_TYPE_MISMATCH`
+- [x] الربط في نقطة مشتركة `parseDocumentDataUrl` (المساران A وB معًا): بعد فك الترميز وقبل أي استخراج/تخزين يُقارَن النوع المكتشف بالمعلن — تطابق فقط يمر؛ انتحال ممتد (نص → .pdf، ZIP عام → .docx، PDF → نص) → `400 FILE_TYPE_MISMATCH`؛ **النص المُقرأ داخل المُستخرج الفعلي** يبقى عبر mime المعلن المطابق
+- [x] اختبارات: unit `fileTypes` (7) + API Path A انتحال نص-كـ-PDF (10) + API Path B (15): نص→PDF، ZIP→DOCX، PDF→نص، مع تصحيح اختبار «الممسوح» لرأس PDF **حقيقي** (%PDF-1.4 بلا نص) ليُبقي `EMPTY_DOCUMENT` — **117/117 أخضر**
+- [x] `npm run check` أخضر (117/117) + `npm run build` أخضر + E2E 22/22 (لا انحدار في مسار الرفع) + docs sync (DECISIONS D-019/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -124,7 +130,7 @@
 - [ ] 🟡 OCR للمستندات الممسوحة ضوئيًا (المساران A وB) — تُفتح كمرحلة مستقلة
 - [ ] 🟡 Parent dashboard
 - [x] ✅ Admin dashboard (لوحة استيراد ملفات المنهج PDF/DOCX عبر الواجهة) — PHASE 14
-- [ ] 🟡 حماية رفع ملفات بمستويات فحص عميقة
+- [x] ✅ حماية رفع الملفات: فحص MAGIC bytes (تُرفض الانتحالات قبل الاستخراج/التخزين) — PHASE 15؛ OCR يبقى مؤجلًا
 - [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
 - [ ] 🟡 Analytics + إحصاءات

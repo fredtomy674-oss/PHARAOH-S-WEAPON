@@ -201,9 +201,31 @@ describe("curriculum file import (Path B) — API", () => {
   });
 
   it("rejects a scanned/empty PDF with EMPTY_DOCUMENT (OCR deferred)", async () => {
-    const res = await ingestFile(Buffer.from("this PDF has no readable text %PDF fake", "utf8"), PDF_MIME, "scanned.pdf", scopeA);
+    // A REAL PDF header (MAGIC sniffing passes) but no text to extract.
+    const scannedPdf = Buffer.from("%PDF-1.4\n% minimal no-text\n%%EOF", "utf8");
+    const res = await ingestFile(scannedPdf, PDF_MIME, "scanned.pdf", scopeA);
     expect(res.statusCode).toBe(400);
     expect(res.json().error.code).toBe("EMPTY_DOCUMENT");
+  });
+
+  it("rejects a spoofed PDF: text bytes declared as application/pdf (FILE_TYPE_MISMATCH)", async () => {
+    const spoofed = Buffer.from("محتوى نصي عادي ينتحل صفة PDF", "utf8");
+    const res = await ingestFile(spoofed, PDF_MIME, "fake.pdf", scopeA);
+    expect(res.statusCode).toBe(400);
+    expect(res.json().error.code).toBe("FILE_TYPE_MISMATCH");
+  });
+
+  it("rejects a generic ZIP declared as DOCX (not an OOXML document)", async () => {
+    const zip = Buffer.concat([Buffer.from([0x50, 0x4b, 0x03, 0x04]), Buffer.from("archive payload without content types", "latin1")]);
+    const res = await ingestFile(zip, DOCX_MIME, "fake.docx", scopeA);
+    expect(res.statusCode).toBe(400);
+    expect(res.json().error.code).toBe("FILE_TYPE_MISMATCH");
+  });
+
+  it("rejects a real PDF declared as text (binary disguised as plain text)", async () => {
+    const res = await ingestFile(readFixture("curriculum.pdf"), "text/plain", "notes.txt", scopeA);
+    expect(res.statusCode).toBe(400);
+    expect(res.json().error.code).toBe("FILE_TYPE_MISMATCH");
   });
 
   it("rejects a scope missing lessonId (Ajv validation)", async () => {

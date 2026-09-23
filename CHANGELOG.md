@@ -85,4 +85,10 @@
 - E2E `e2e/admin.spec.ts` (متصفح حقيقي): A1 رفع `curriculum.pdf` للدرس الثاني (الضرب والقسمة — عزل نطاقي عن بقية المجموعة) → نجاح + صف اللائحة باسم الدرس و`chunkCount>0`؛ A2 إعادة رفع نفس البايتات → 409 «مستورد مسبقًا» عبر UI؛ A3 الطالب لا يرى زر الإدارة — **22/22 أخضر**.
 - `npm run check` أخضر (106/106 Vitest) + `npm run build` أخضر + docs sync (TASKS/DECISIONS D-018/TEST_PLAN/README/CHANGELOG) + commit.
 
+## 2026-09-23 — الجلسة التاسعة (PHASE 15: حماية رفع الملفات — فحص MAGIC bytes)
+- وحدة نقية جديدة `server/src/utils/fileTypes.ts`: `detectFileKind(bytes)` تفحص البايتات الخام (PDF: رأس `%PDF-` بأول 1024 بايتًا وفق مواصفة PDF؛ DOCX: رأس ZIP `PK\x03\x04` + `[Content_Types].xml` بأول 64KB؛ غيرها = نص) + `kindForDeclaredMime` لخريطة التطابق.
+- رُبط الفحص في **نقطة مشتركة** `parseDocumentDataUrl` فيغطي المسارين دفعة واحدة: A (مرفق الطالب في الدردشة) وB (استيراد ملفات المناهج). لا استخراج ولا تخزين لأي ملف لا يطابق نوعه المعلن: نص مُعاد تسميته `.pdf`/`.docx`، ZIP عام مدّعٍ أنه مستند Word، أو PDF متنكّر بنص → `400 FILE_TYPE_MISMATCH`.
+- اختبارات: unit `fileTypes` (7) + API Path A انتحال (documents 10) + API Path B انتحالات ×3 (adminFile 15) — وصُحح اختبار «الممسوح» لاستخدام **رأس PDF حقيقي** (`%PDF-1.4` بلا نص) كي يبقى `EMPTY_DOCUMENT` حقيقيًا — **117/117 أخضر**.
+- `npm run check` أخضر (117/117) + `npm run build` أخضر + E2E **22/22** (لا انحدار في مسار الرفع الحقيقي) + docs sync (DECISIONS D-019/TASKS/TEST_PLAN/README/API_SPEC).
+
 ## (أعمدة لاحقة تُضاف هنا كل مرحلة)

@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { Errors } from "../../utils/errors.js";
+import { detectFileKind, kindForDeclaredMime } from "../../utils/fileTypes.js";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import mammoth from "mammoth";
 
@@ -13,6 +14,9 @@ import mammoth from "mammoth";
  *    is wrapped/flagged as user-provided content. The prompt-injection tripwire
  *    re-scan runs over the extracted text server-side before the model is ever
  *    called.
+ *  - Declared MIME must agree with MAGIC-byte sniffing (PHASE 15): a spoofed
+ *    extension (text → .pdf, plain ZIP → .docx, …) is rejected with
+ *    FILE_TYPE_MISMATCH before any extraction or storage.
  *  - Extraction runs against the in-memory buffer only (never the filesystem),
  *    pure-JS parsers: pdfjs-dist (pdf.js, legacy ESM build, no workers) and
  *    mammoth (DOCX via zip+OOXML). Scanned/OCR-needing files yield empty text —
@@ -73,6 +77,19 @@ export async function parseDocumentDataUrl(dataUrl: string, opts: ParseDocumentO
       "DOCUMENT_TOO_LARGE",
     );
   }
+
+  // Magic-byte agreement (PHASE 15): the declared MIME must match what the
+  // bytes actually are. A spoofed extension (text renamed to .pdf, a plain ZIP
+  // claimed as .docx, …) is rejected up front — never extracted or stored.
+  const declaredKind = kindForDeclaredMime(mimeType);
+  const detectedKind = detectFileKind(bytes);
+  if (declaredKind === null || detectedKind !== declaredKind) {
+    throw Errors.badRequest(
+      "محتوى الملف لا يطابق الصيغة المعلنة — تحقق من الامتداد أو نوع الملف",
+      "FILE_TYPE_MISMATCH",
+    );
+  }
+
   const { text, truncated } = await extractDocumentText(bytes, mimeType, opts.maxChars);
   return {
     mimeType,

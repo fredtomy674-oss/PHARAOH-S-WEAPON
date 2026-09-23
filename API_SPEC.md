@@ -49,15 +49,15 @@
 | GET | `/api/admin/documents` | قائمة المستندات (مع حالة ingestion) |
 
 قيود `ingest-file`:
-- النوع يُشتق من `Content-Type` في dataUrl: `application/pdf` → pdf، `...wordprocessingml.document` → docx، غير ذلك → text.
+- النوع يُشتق من `Content-Type` في dataUrl: `application/pdf` → pdf، `...wordprocessingml.document` → docx، غير ذلك → text — **مع فحص توافق MAGIC bytes** (PHASE 15): البايتات الفعلية يجب أن تطابق النوع المعلن، وإلا `400 FILE_TYPE_MISMATCH` (نص مُعاد تسميته `.pdf`، ZIP عام مدّعٍ أنه `.docx`، PDF متنكّر بنص — يُرفض قبل أي استخراج/تخزين). النقطة مشتركة (`parseDocumentDataUrl`) فتغطي مسار الطالب في §3 أيضًا.
 - سقف الحجم: `MAX_CURRICULUM_FILE_KB` (افتراضي 20480 = 20MB) والنص المُستخرج `MAX_CURRICULUM_DOCUMENT_CHARS` (افتراضي 200000).
-- ممسوح ضوئيًا (بلا نص يُستخرج) → `400 EMPTY_DOCUMENT` (OCR مؤجل).
+- ممسوح ضوئيًا (رأس PDF سليم بلا نص يُستخرج) → `400 EMPTY_DOCUMENT` (OCR مؤجل).
 - تكرار نفس البايتات لنفس المنهج → `409 DOCUMENT_ALREADY_INGESTED`.
 - المحتوى المستورد يُسترجَع في `<context>` فقط (محتوى منهج، ليس تعليمات) — تمامًا كمسار النص.
 
 ## 5. Response errors
 
-- 400 validation، 401 غير مصادق، 403 منع/مُرتد، 404 غير موجود، 429 معدل مفرط، 500 خطأ خادم.
+- 400 validation (بينها رموز أخطاء إدارة المستندات: `EMPTY_DOCUMENT`، `DOCUMENT_TOO_LARGE`، `UNSUPPORTED_DOCUMENT_TYPE`، `INVALID_DOCUMENT_FORMAT`، `FILE_TYPE_MISMATCH`)، 401 غير مصادق، 403 منع/مُرتد، 404 غير موجود، 409 تعارض (مثل `DOCUMENT_ALREADY_INGESTED`)، 429 معدل مفرط، 500 خطأ خادم.
 - الشكل: `{ error: { code, message } }` — بدون تفاصيل داخلية.
 
 ## 6. مثال المسار العمودي

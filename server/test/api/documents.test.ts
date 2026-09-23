@@ -149,14 +149,15 @@ describe("document upload (ملف سؤال في الدردشة) — API", () => 
   });
 
   it("handles a file with no extractable text (scanned PDF — OCR deferred) without crashing", async () => {
-    const garbage = Buffer.from("this PDF has no readable text %PDF fake", "utf8");
+    // A REAL PDF header (so MAGIC sniffing passes) but no text to extract.
+    const scannedPdf = Buffer.from("%PDF-1.4\n% minimal no-text\n%%EOF", "utf8");
     const res = await api.app.inject({
       method: "POST",
       url: `/api/sessions/${sessionId}/messages`,
       headers: csrfHeaders(s),
       payload: {
         content: "اقرأ الملف إن أمكن",
-        document: { dataUrl: toDataUrl(garbage, PDF_MIME), fileName: "scanned.pdf" },
+        document: { dataUrl: toDataUrl(scannedPdf, PDF_MIME), fileName: "scanned.pdf" },
       },
     });
     expect(res.statusCode).toBe(200);
@@ -165,6 +166,21 @@ describe("document upload (ملف سؤال في الدردشة) — API", () => 
     // The tutor still answers grounded in the lesson (no document text leaked).
     expect(turn.tutorMessage.content).not.toContain(DOCUMENT_READ_MARKER);
     expect(turn.tutorMessage.content).toContain("وفقًا لمحتوى الدرس");
+  });
+
+  it("rejects a spoofed PDF: text bytes declared as application/pdf (MAGIC-byte mismatch)", async () => {
+    const spoofed = Buffer.from("هذا ملف نصي عادي أُعيدت تسميته ليبدو PDF", "utf8");
+    const res = await api.app.inject({
+      method: "POST",
+      url: `/api/sessions/${sessionId}/messages`,
+      headers: csrfHeaders(s),
+      payload: {
+        content: "اقرأ الملف",
+        document: { dataUrl: toDataUrl(spoofed, PDF_MIME), fileName: "fake.pdf" },
+      },
+    });
+    expect(res.statusCode).toBe(400);
+    expect(res.json().error.code).toBe("FILE_TYPE_MISMATCH");
   });
 
   it("serves the document bytes to its owner with viewer-safe headers", async () => {
