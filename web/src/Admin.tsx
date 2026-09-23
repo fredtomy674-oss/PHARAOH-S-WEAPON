@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  getAdminStats,
   ingestCurriculumFile,
   listAdminDocuments,
   listCountries,
@@ -12,6 +13,7 @@ import {
   listUnits,
   ApiError,
   type AdminDocument,
+  type AdminStats,
   type Country,
   type Curriculum,
   type EduSystem,
@@ -69,6 +71,7 @@ export function AdminScreen({ onBack, onLogout }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<IngestFileResult | null>(null);
   const [documents, setDocuments] = useState<AdminDocument[]>([]);
+  const [stats, setStats] = useState<AdminStats | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -111,6 +114,11 @@ export function AdminScreen({ onBack, onLogout }: Props) {
 
   useEffect(() => {
     listAdminDocuments().then(setDocuments).catch(() => undefined);
+  }, []);
+
+  // PHASE 17 — operational statistics (tolerant: never blocks the admin flow).
+  useEffect(() => {
+    getAdminStats().then(setStats).catch(() => undefined);
   }, []);
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -180,6 +188,38 @@ export function AdminScreen({ onBack, onLogout }: Props) {
       </header>
 
       <main className="container">
+        {stats && (
+          <section className="card" data-testid="admin-stats">
+            <h3>إحصاءات سريعة</h3>
+            <div className="admin-stats-grid">
+              <div className="admin-stat" data-testid="admin-stat-users">
+                <b>{stats.users.total}</b>
+                <span>مستخدم</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-students">
+                <b>{stats.users.students}</b>
+                <span>طالب</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-sessions">
+                <b>{stats.sessions.total}</b>
+                <span>جلسة ({stats.sessions.active} نشطة)</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-messages">
+                <b>{stats.messages.total}</b>
+                <span>رسالة ({stats.messages.tutor} رد مدرس)</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-documents">
+                <b>{stats.documents.ready}</b>
+                <span>مستند جاهز ({stats.documents.total})</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-chunks">
+                <b>{stats.chunks}</b>
+                <span>مقطع معرفي</span>
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="card">
           <h2>استيراد ملف منهجي</h2>
           <p className="muted">اختَر الدرس ثم ارفع ملف الدرس — يُستخرج نصه ويُضاف إلى قاعدة المعرفة الخاصة بذلك الدرس فقط.</p>

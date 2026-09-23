@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from "fastify";
 import { count, desc, eq } from "drizzle-orm";
-import { chunks, documents, lessons } from "../../db/schema.js";
+import { chunks, curricula, documents, learningSessions, lessons, messages, students, users } from "../../db/schema.js";
 import { requireAdmin } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 import { config } from "../../config/env.js";
@@ -196,5 +196,35 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
       .orderBy(desc(documents.createdAt))
       .limit(100);
     return { documents: rows };
+  });
+
+  app.get("/stats", { preHandler: requireAdmin }, async () => {
+    // PHASE 17 — operational statistics for the admin dashboard. Pure
+    // aggregations over existing tables; no new storage, admin-only.
+    const usersTotal = (await app.db.db.select({ value: count() }).from(users).get())!;
+    const studentUsers = (await app.db.db.select({ value: count() }).from(students).get())!;
+    const sessionsTotal = (await app.db.db.select({ value: count() }).from(learningSessions).get())!;
+    const sessionsActive = (await app.db.db.select({ value: count() }).from(learningSessions).where(eq(learningSessions.status, "active")).get())!;
+    const sessionsEnded = (await app.db.db.select({ value: count() }).from(learningSessions).where(eq(learningSessions.status, "ended")).get())!;
+    const messagesTotal = (await app.db.db.select({ value: count() }).from(messages).get())!;
+    const messagesUser = (await app.db.db.select({ value: count() }).from(messages).where(eq(messages.role, "user")).get())!;
+    const messagesTutor = (await app.db.db.select({ value: count() }).from(messages).where(eq(messages.role, "tutor")).get())!;
+    const documentsTotal = (await app.db.db.select({ value: count() }).from(documents).get())!;
+    const documentsReady = (await app.db.db.select({ value: count() }).from(documents).where(eq(documents.status, "ready")).get())!;
+    const chunksTotal = (await app.db.db.select({ value: count() }).from(chunks).get())!;
+    const curriculaTotal = (await app.db.db.select({ value: count() }).from(curricula).get())!;
+    const lessonsTotal = (await app.db.db.select({ value: count() }).from(lessons).get())!;
+
+    return {
+      stats: {
+        users: { total: usersTotal.value, students: studentUsers.value },
+        sessions: { total: sessionsTotal.value, active: sessionsActive.value, ended: sessionsEnded.value },
+        messages: { total: messagesTotal.value, user: messagesUser.value, tutor: messagesTutor.value },
+        documents: { total: documentsTotal.value, ready: documentsReady.value },
+        chunks: chunksTotal.value,
+        curricula: curriculaTotal.value,
+        lessons: lessonsTotal.value,
+      },
+    };
   });
 };

@@ -357,6 +357,22 @@ export async function listAdminDocuments(): Promise<AdminDocument[]> {
   return res.documents;
 }
 
+/** Admin-only: operational statistics shown on the dashboard (PHASE 17). */
+export interface AdminStats {
+  users: { total: number; students: number };
+  sessions: { total: number; active: number; ended: number };
+  messages: { total: number; user: number; tutor: number };
+  documents: { total: number; ready: number };
+  chunks: number;
+  curricula: number;
+  lessons: number;
+}
+
+export async function getAdminStats(): Promise<AdminStats> {
+  const res = await api<{ stats: AdminStats }>("/admin/stats");
+  return res.stats;
+}
+
 export async function ingestCurriculumFile(input: {
   fileName: string;
   dataUrl: string;

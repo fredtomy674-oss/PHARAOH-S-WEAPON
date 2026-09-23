@@ -49,6 +49,7 @@
 | POST | `/api/admin/documents/ingest` | إضافة مستند نصي/CSV `{title, content, kind?, scope, source?, conceptIds?}` → ingestion كامل (chunk+embed) |
 | POST | `/api/admin/documents/ingest-file` | **استيراد ملف منهج PDF/DOCX (و txt/md)** `{fileName, dataUrl, scope, title?, source?, conceptIds?}` — dataUrl قاعدة64، استخراج النص ثم chunk+embed، تخزين البايتات الخام (BLOB) + sha256 على النسخة؛ `kind` يُشتق من mime |
 | GET | `/api/admin/documents` | قائمة المستندات (مع حالة ingestion) |
+| GET | `/api/admin/stats` | **إحصاءات تشغيلية (PHASE 17)** — عدّادات لحظية بلا جداول جديدة: `users{total,students}`, `sessions{total,active,ended}`, `messages{total,user,tutor}`, `documents{total,ready}`, `chunks`, `curricula`, `lessons` |
 
 قيود `ingest-file`:
 - النوع يُشتق من `Content-Type` في dataUrl: `application/pdf` → pdf، `...wordprocessingml.document` → docx، غير ذلك → text — **مع فحص توافق MAGIC bytes** (PHASE 15): البايتات الفعلية يجب أن تطابق النوع المعلن، وإلا `400 FILE_TYPE_MISMATCH` (نص مُعاد تسميته `.pdf`، ZIP عام مدّعٍ أنه `.docx`، PDF متنكّر بنص — يُرفض قبل أي استخراج/تخزين). النقطة مشتركة (`parseDocumentDataUrl`) فتغطي مسار الطالب في §3 أيضًا.

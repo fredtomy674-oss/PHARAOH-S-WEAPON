@@ -129,6 +129,12 @@
 - [x] إصلاح E2E: بعد إضافة السعودية أصبحت مترتبة أبجديًا قبل «مصر» فأصبح «أول خيار» سعوديًا — أُضيف `selectOptionByLabel(page, testId, label)` في `e2e/helpers.ts` واختيار «مصر» صراحةً في `startFirstLesson` و`pickSecondLesson` (admin.spec) — اختبارات حتمية بلا اعتماد على الترتيب
 - [x] **125/125 أخضر** (117 + 8 multiCountry) + `npm run build` أخضر + E2E 22/22 مع البذرة الجديدة + docs sync (DECISIONS D-020/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 17 — Analytics: إحصاءات المسؤول ✅
+- [x] نهاية خادمية `GET /api/admin/stats` (محصّنة بـ`requireAdmin`): تجميعات صافية من الجداول القائمة فقط — مستخدمون/طلاب، جلسات (إجمالي/نشطة/منتهية)، رسائل (إجمالي/طالب/مدرس)، مستندات (إجمالي/جاهزة)، مقاطع معرفية، مناهج، دروس — بلا تخزين جديد ولا جداول
+- [x] واجهة: قسم «إحصاءات سريعة» في أعلى لوحة الإدارة (`Admin.tsx`) ببطاقات `admin-stats-*` (مستخدم/طالب/جلسة/رسالة/مستند/مقطع) + تنسيق `admin-stats-grid` — الجلب متسامح (لا يعطّل رفع الملفات أبدًا)
+- [x] اختبارات API (2): رفض الطالب (403 FORBIDDEN) + عدّادات مطابقة للنشاط الفعلي (جلسة نشأت وانتهت برسالتين → 4 رسائل، مستندات الكوربس جاهزة بمقاطعها)
+- [x] **127/127 أخضر** (125 + 2 adminStats) + `npm run build` أخضر + E2E 22/22 (لا انحدار في تدفق الإدارة) + docs sync (DECISIONS D-021/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -140,7 +146,7 @@
 - [x] ✅ حماية رفع الملفات: فحص MAGIC bytes (تُرفض الانتحالات قبل الاستخراج/التخزين) — PHASE 15؛ OCR يبقى مؤجلًا
 - [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
-- [ ] 🟡 Analytics + إحصاءات
+- [x] ✅ Analytics + إحصاءات المسؤول في اللوحة (نهاية `GET /api/admin/stats` بلا جداول جديدة) — PHASE 17
 - [x] ✅ زرع منهج سعودي multi-country (وزارة التعليم/السادس/رياضيات — أثبت أن العمارة إقليمية) — PHASE 16
 - [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 16/16 (PHASE 9 + 10 + 11)
 - [ ] 🟡 Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز)
