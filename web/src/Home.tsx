@@ -6,9 +6,10 @@ interface Props {
   onStartLesson: () => void;
   onResume: (s: LearningSession) => void;
   onLogout: () => void;
+  onOpenAdmin: () => void;
 }
 
-export function HomeScreen({ user, onStartLesson, onResume, onLogout }: Props) {
+export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmin }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
 
@@ -67,6 +68,16 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout }: Props) {
                 <span className="pill warn">نقاط تحتاج تركيزًا:</span> {progress.progress.weaknesses.join("، ")}
               </p>
             )}
+          </section>
+        )}
+
+        {user.role === "admin" && (
+          <section className="card" data-testid="admin-card">
+            <h3>الإدارة</h3>
+            <p className="muted">استيراد ملفات المنهج (PDF/DOCX) إلى قاعدة معرفة الدروس.</p>
+            <button data-testid="open-admin" className="btn ghost" onClick={onOpenAdmin}>
+              لوحة الإدارة
+            </button>
           </section>
         )}
 

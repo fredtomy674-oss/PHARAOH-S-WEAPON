@@ -78,4 +78,11 @@
 - إصلاح مرافق في مزوّد `mock`: استخراج كتلة `<context>` الحقيقية (آخر وسم) بدل أول تواجد داخل نثر قواعد النظام → صدى الرد في التطوير يعكس المحتوى المسترجع الفعلي (بلا أثر على مسار الطالب في أي وقت).
 - `npm run check` أخضر (106/106) + `npm run build` أخضر + docs sync (DECISIONS D-017/TASKS/API_SPEC §4+§7/RAG_SYSTEM §1+§6/TEST_PLAN/.env.example + مولد fixtures).
 
+## 2026-09-23 — الجلسة الثامنة (PHASE 14: Admin Dashboard — استيراد ملفات المنهج عبر الواجهة)
+- شاشة `web/src/Admin.tsx` جديدة (role-gated عبر `user.role === "admin"` في `App`): زر «لوحة الإدارة» يظهر في Home للـadmin فقط (A3 يثبت غيابه للطالب)؛ بطاقة استيراد بملف (PDF/DOCX/TXT/MD → dataUrl client-side، مرآة 20MB) + عنوان/مصدر اختياريين + اختيار **نطاق الدرس** بنفس نمط picker المنهج ثم `POST /api/admin/documents/ingest-file`؛ نجاح يعرض عدد المقاطع والخطأ (مثل «مستورد مسبقًا») يُعرض بوضوح.
+- `GET /api/admin/documents` أُثرِي خادميًا: LEFT JOIN على `chunks`+`lessons` + `count` → عمود الدرس (`lessonId`/`lessonTitle`) و`chunkCount` لكل مستند — لوحة مفيدة فعلًا (أي ملف يغذي أي درس وكم أضاف) مع بقاء اختبارات القائمة الحالية خضراء.
+- `web/src/api.ts`: `listAdminDocuments`/`ingestCurriculumFile` + أنواع `AdminDocument`/`CurriculumIngestScope`/`IngestFileResult`؛ CSS جديد (`admin-*`/`admin-table`) في `styles.css`.
+- E2E `e2e/admin.spec.ts` (متصفح حقيقي): A1 رفع `curriculum.pdf` للدرس الثاني (الضرب والقسمة — عزل نطاقي عن بقية المجموعة) → نجاح + صف اللائحة باسم الدرس و`chunkCount>0`؛ A2 إعادة رفع نفس البايتات → 409 «مستورد مسبقًا» عبر UI؛ A3 الطالب لا يرى زر الإدارة — **22/22 أخضر**.
+- `npm run check` أخضر (106/106 Vitest) + `npm run build` أخضر + docs sync (TASKS/DECISIONS D-018/TEST_PLAN/README/CHANGELOG) + commit.
+
 ## (أعمدة لاحقة تُضاف هنا كل مرحلة)

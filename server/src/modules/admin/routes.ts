@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from "fastify";
-import { desc, eq } from "drizzle-orm";
-import { documents } from "../../db/schema.js";
+import { count, desc, eq } from "drizzle-orm";
+import { chunks, documents, lessons } from "../../db/schema.js";
 import { requireAdmin } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 import { config } from "../../config/env.js";
@@ -67,7 +67,8 @@ const ingestFileBodySchema = {
 
 /**
  * Admin-only knowledge-base management: ingest curriculum documents
- * (text/csv in the MVP), which are chunked, embedded and scoped for RAG.
+ * (text/csv or uploaded PDF/DOCX/TXT/MD files) which are chunked, embedded
+ * and scoped for RAG.
  */
 export const adminRoutes: FastifyPluginAsync = async (app) => {
   app.post("/documents/ingest", { preHandler: requireAdmin, schema: { body: ingestBodySchema } }, async (request, reply) => {
@@ -172,10 +173,26 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
   });
 
   app.get("/documents", { preHandler: requireAdmin }, async () => {
+    // Join per-document chunk aggregates so the admin dashboard can show which
+    // lesson each document feeds (scope linkage) and how much content it added.
     const rows = await app.db.db
-      .select()
+      .select({
+        id: documents.id,
+        kind: documents.kind,
+        title: documents.title,
+        status: documents.status,
+        source: documents.source,
+        createdAt: documents.createdAt,
+        updatedAt: documents.updatedAt,
+        lessonId: chunks.lessonId,
+        lessonTitle: lessons.title,
+        chunkCount: count(chunks.id),
+      })
       .from(documents)
+      .leftJoin(chunks, eq(chunks.documentId, documents.id))
+      .leftJoin(lessons, eq(lessons.id, chunks.lessonId))
       .where(eq(documents.status, "ready"))
+      .groupBy(documents.id)
       .orderBy(desc(documents.createdAt))
       .limit(100);
     return { documents: rows };

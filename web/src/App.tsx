@@ -4,8 +4,9 @@ import { AuthScreen } from "./Auth.js";
 import { HomeScreen } from "./Home.js";
 import { OnboardingScreen } from "./Onboarding.js";
 import { ChatScreen } from "./Chat.js";
+import { AdminScreen } from "./Admin.js";
 
-type Screen = "loading" | "auth" | "home" | "onboarding" | "chat";
+type Screen = "loading" | "auth" | "home" | "onboarding" | "chat" | "admin";
 
 export function App() {
   const [screen, setScreen] = useState<Screen>("loading");
@@ -68,6 +69,10 @@ export function App() {
     return <OnboardingScreen user={user} onStarted={handleSessionStarted} onBack={() => setScreen("home")} />;
   }
 
+  if (screen === "admin" && user.role === "admin") {
+    return <AdminScreen user={user} onBack={() => setScreen("home")} onLogout={handleLogout} />;
+  }
+
   return (
     <HomeScreen
       user={user}
@@ -77,6 +82,7 @@ export function App() {
         setScreen("chat");
       }}
       onLogout={handleLogout}
+      onOpenAdmin={() => setScreen("admin")}
     />
   );
 }

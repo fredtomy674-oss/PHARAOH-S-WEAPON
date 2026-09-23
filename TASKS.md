@@ -109,13 +109,21 @@
 - [x] `npm run check` أخضر (106/106) + `npm run build` أخضر + docs sync (DECISIONS D-017، API_SPEC §4/§7، RAG_SYSTEM §1/§6، TEST_PLAN) + commit
 - [ ] OCR للمستندات الممسوحة ضوئيًا (مؤجل صراحةً — يُفتح كمرحلة مستقلة)
 
+### PHASE 14 — Admin Dashboard: استيراد ملفات المنهج عبر الواجهة ✅
+- [x] شاشة `Admin.tsx` في الويب (مسار role-gated في `App`؛ زر «لوحة الإدارة» يظهر في Home للـadmin فقط — لا يظهر للطالب إطلاقًا)
+- [x] بطاقة «استيراد ملف منهجي»: اختيار ملف (PDF/DOCX/TXT/MD) + عنوان/مصدر اختياريان + **نطاق الدرس** بنفس نمط picker الخاص بالمنهج (دولة→نظام→صف→مادة→منهج→فصل→وحدة→درس)؛ رفع الملف يُقرأ client-side كـ dataUrl (مرآة سقف المنهج 20MB) ثم `POST /api/admin/documents/ingest-file` (CSRF يُرفق تلقائيًا) → رسالة نجاح بعدد المقاطع؛ أخطاء الخادم (مثل `DOCUMENT_ALREADY_INGESTED`) تُعرض بوضوح
+- [x] قائمة «المستندات المستوردة»: `GET /api/admin/documents` أُثري خادميًا بعمود الدرس (`lessonId`/`lessonTitle`) و`chunkCount` (LEFT JOIN chunks+lessons + `count`) كي تكون اللوحة مفيدة فعلًا (أي مستند يغذي أي درس وكم أضاف مقاطع) — بلا تغيير في شكل الاعتماد الحالي للاختبارات
+- [x] E2E `admin.spec.ts` (متصفح حقيقي): A1 رفع `curriculum.pdf` للدرس **الثاني** (الضرب والقسمة — عزل عن نطاقات بقية specs) → نجاح + صف في اللائحة باسم الدرس و`chunkCount>0`؛ A2 إعادة رفع نفس البايتات → خطأ «مستورد مسبقًا» (dedup حقيقي عبر UI)؛ A3 الطالب لا يرى زر الإدارة إطلاقًا — **22/22 أخضر**
+- [x] `npm run check` أخضر (106/106) + `npm run build` أخضر + docs sync (DECISIONS D-018/TASKS/CHANGELOG/TEST_PLAN/README) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
 - [x] ✅ Student files in chat (Path A — PDF/DOCX/TXT/MD) — 3 E2E + 18 اختبارات (PHASE 12)؛ OCR مؤجل
 - [x] ✅ Curriculum files in knowledge base (Path B — PDF/DOCX/TXT/MD عبر `ingest-file`) — 14 اختبارًا (PHASE 13)؛ OCR مؤجل
 - [ ] 🟡 OCR للمستندات الممسوحة ضوئيًا (المساران A وB) — تُفتح كمرحلة مستقلة
-- [ ] 🟡 Parent dashboard + Admin dashboard
+- [ ] 🟡 Parent dashboard
+- [x] ✅ Admin dashboard (لوحة استيراد ملفات المنهج PDF/DOCX عبر الواجهة) — PHASE 14
 - [ ] 🟡 حماية رفع ملفات بمستويات فحص عميقة
 - [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج

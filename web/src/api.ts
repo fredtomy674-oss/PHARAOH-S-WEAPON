@@ -318,3 +318,55 @@ export async function endSession(sessionId: string): Promise<void> {
 export async function myProgress(): Promise<ProgressDetail> {
   return api<ProgressDetail>("/progress/me");
 }
+
+/** Admin-only: a curriculum document as shown in the admin dashboard. */
+export interface AdminDocument {
+  id: string;
+  kind: string;
+  title: string;
+  status: string;
+  source: string | null;
+  createdAt: string;
+  updatedAt: string;
+  /** Lesson this document feeds (via its chunks). */
+  lessonId: string | null;
+  lessonTitle: string | null;
+  chunkCount: number;
+}
+
+/** RAG scope for an ingested curriculum document (lessonId is mandatory). */
+export interface CurriculumIngestScope {
+  countryId: string;
+  educationSystemId?: string;
+  gradeId: string;
+  subjectId: string;
+  curriculumId: string;
+  termId?: string;
+  unitId?: string;
+  lessonId: string;
+}
+
+export interface IngestFileResult {
+  documentId: string;
+  versionId: string;
+  chunkCount: number;
+}
+
+export async function listAdminDocuments(): Promise<AdminDocument[]> {
+  const res = await api<{ documents: AdminDocument[] }>("/admin/documents");
+  return res.documents;
+}
+
+export async function ingestCurriculumFile(input: {
+  fileName: string;
+  dataUrl: string;
+  title?: string;
+  source?: string;
+  scope: CurriculumIngestScope;
+}): Promise<IngestFileResult> {
+  const res = await api<{ document: IngestFileResult }>("/admin/documents/ingest-file", {
+    method: "POST",
+    body: input,
+  });
+  return res.document;
+}

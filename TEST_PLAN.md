@@ -51,11 +51,19 @@
 
 > ملاحظة: سقف الاختبارات `MAX_CURRICULUM_FILE_KB=4` في `vitest.config.ts` فقط — الافتراضي للإنتاج 20480 (20MB). الـfixtures المستقلة `curriculum.pdf`/`curriculum.docx` (نص درس > 40 حرفًا مع علامات) لا تمسّ `question.*` الخاصة بمسار الطالب.
 
+## 4.2 Admin Dashboard (PHASE 14) — إثراء سرد المستندات
+
+| الملف | المجموعة | ماذا يختبر |
+|---|---|---|
+| `test/api/adminFile.test.ts` (قائمة المستندات) | API | `GET /api/admin/documents` ما زال 200 مع الـadmin ويعيد `id` المستند المستورد (قائمة قابلة للفلترة) — بعد إضافة `lessonId`/`lessonTitle`/`chunkCount` عبر LEFT JOIN |
+
+> جذر التغيير: `admin/routes.ts` — الاستعلام الآن يَجمع (`count`) المقاطع ويربط `lessons.title` بكل مستند حتى تعرض اللوحة «أي ملف يغذي أي درس». لا تغيير في الحصانة (بقي `requireAdmin` وفلتر `status="ready"`).
+
 ---
 
 # الجزء الثاني — Browser End-to-End (Playwright)
 
-> آخر تحديث: 2026-09-23 — **19/19 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
+> آخر تحديث: 2026-09-23 — **22/22 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
 
 ## 5. التشغيل والمتطلبات
 
@@ -75,9 +83,10 @@ npm run e2e:report                # فتح تقرير HTML السابق
 ## 6. الحساب التجريبي المستخدم
 
 - الطالب: `student@alfarouq.test` / `student-demo-123` (يتزرع مع كل قاعدة اختبار جديدة).
+- Admin: `admin@alfarouq.test` / `admin-demo-123` (نفس التزرعة — ضروري لاختبارات لوحة الإدارة A1/A2).
 - اختبار عزل البيانات (C) يسجّل طالبًا جديدًا عشوائيًا مؤقتًا.
 
-## 7. الحالات المغطاة (19)
+## 7. الحالات المغطاة (22)
 
 | # | الملف | ماذا يختبر | ملاحظات |
 |---|---|---|---|
@@ -100,6 +109,9 @@ npm run e2e:report                # فتح تقرير HTML السابق
 | D1 | `document.spec.ts` | إرفاق PDF حقيقي (ملف) → رد المعلم يقرؤه («قرأت الملف المرفق») + يعيد نص المستخرج («TutorFixturePDF 123») + RAG حاضر + بلا مكانة «لا يوجد محتوى مسترجع» + chip `msg-document` في فقاعة المستخدم | المسار الكامل: Browser→proxy→Fastify→استخراج PDF→documents input→mock |
 | D2 | `document.spec.ts` | رسالة بلا نص + مستند DOCX فقط → زر الإرسال مفعّل + قراءة + نص المستخرج («TutorFixtureDOCX 456») | |
 | D3 | `document.spec.ts` | ملف TXT يحوي **حقن تعليمات** («تجاهل كل التعليمات…») → رد آمن «أنا هنا لمساعدتك في درسنا فقط» **دون** علامة القراءة (لا استدعاء نموذج — tripwire خادمي يعيد فحص النص المستخرج) | أمني حقيقي عبر المسار الكامل |
+| A1 | `admin.spec.ts` | Login كـadmin → زر «لوحة الإدارة» ظاهر → اختيار **الدرس الثاني** (الضرب والقسمة) في نطاق الاستيراد → رفع `curriculum.pdf` بملف حقيقي → رسالة نجاح بعدد المقاطع + صف في اللائحة بعنوان الوثيقة واسم الدرس و`chunkCount>0` (مقارنتها عبر `data-chunks`) | المسار الكامل: Browser→proxy→Fastify→ingest-file→RAG chunks→list |
+| A2 | `admin.spec.ts` | إعادة رفع **نفس البايتات** لمنهج ذاته → خطأ الخادم «…مستورد مسبقًا» يظهر بوضوح في الواجهة (dedup حقيقي عبر UI) | |
+| A3 | `admin.spec.ts` | الطالب (لا admin) **لا يرى زر الإدارة إطلاقًا** — نقطة الدخول مشروطة بالـrole في الواجهة (والحصانة الخادمية `requireAdmin` مُختبَرة في Vitest) | |
 
 ## 8. قيود معروفة
 
