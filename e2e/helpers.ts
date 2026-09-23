@@ -168,10 +168,26 @@ export async function selectFirst(page: Page, testId: string): Promise<string> {
   return value!;
 }
 
+/**
+ * Selects a dropdown option by its displayed label — deterministic even when
+ * the option ordering changes (e.g. multi-country seeds: PHASE 16 adds Saudi,
+ * which sorts ahead of Egypt alphabetically, so "first option" is no longer مصر).
+ */
+export async function selectOptionByLabel(page: Page, testId: string, label: string): Promise<string> {
+  const select = page.getByTestId(testId);
+  await expect(select).toBeVisible({ timeout: 20_000 });
+  const option = select.locator("option", { hasText: label }).first();
+  await expect(option).toBeAttached({ timeout: 20_000 });
+  const value = await option.getAttribute("value");
+  expect(value, `expected a "${label}" option in ${testId}`).toBeTruthy();
+  await select.selectOption(value!);
+  return value!;
+}
+
 /** Full onboarding walk: country → system → grade → subject → curriculum → term → unit → first lesson. */
 export async function startFirstLesson(page: Page): Promise<void> {
   await page.getByTestId("start-lesson").click();
-  await selectFirst(page, "select-country");
+  await selectOptionByLabel(page, "select-country", "مصر");
   await selectFirst(page, "select-system");
   await selectFirst(page, "select-grade");
   await selectFirst(page, "select-subject");

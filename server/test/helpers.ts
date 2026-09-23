@@ -1,4 +1,5 @@
 import type { FastifyInstance } from "fastify";
+import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { applyMigrations, createDb, type Db } from "../src/db/index.js";
 import { buildApp } from "../src/app.js";
@@ -153,6 +154,61 @@ export async function seedMiniCorpus(api: TestApi): Promise<MiniCorpus> {
   });
 
   return { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonA: lessonA.id, lessonB: lessonB.id };
+}
+
+export interface SaudiCorpus {
+  countryId: string;
+  systemId: string;
+  gradeId: string;
+  subjectId: string;
+  curriculumId: string;
+  termId: string;
+  unitId: string;
+  lessonId: string;
+}
+
+/**
+ * Seeds a Saudi (KSA) secondary corpus ON TOP of an existing corpus, reusing
+ * the global `math` subject — mirrors the real seeder's country isolation.
+ * PHASE 16: proves the catalog + RAG are regional, not Egypt-only.
+ */
+export async function seedSaudiCorpus(api: TestApi): Promise<SaudiCorpus> {
+  const db = api.db.db;
+  const now = new Date();
+  const c = { id: newId("c"), code: "sa", name: "Saudi Arabia", nameAr: "السعودية" };
+  await db.insert(countries).values(c);
+  const sys = { id: newId("sys"), countryId: c.id, code: "sa-ministry", name: "Ministry", nameAr: "وزارة التعليم", sortOrder: 1 };
+  await db.insert(educationSystems).values(sys);
+  const g = { id: newId("g"), educationSystemId: sys.id, code: "sa-grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 };
+  await db.insert(grades).values(g);
+  const subj = (await db.select().from(subjects).where(eq(subjects.code, "math")).get())!;
+  const cur = { id: newId("cur"), countryId: c.id, educationSystemId: sys.id, gradeId: g.id, subjectId: subj.id, code: "sa-g6-math", title: "الرياضيات للصف السادس الابتدائي — السعودية", version: "1.0", isActive: true, createdAt: now };
+  await db.insert(curricula).values(cur);
+  const term = { id: newId("t"), curriculumId: cur.id, code: "sa-term-1", title: "الفصل الدراسي الأول", sortOrder: 1 };
+  await db.insert(terms).values(term);
+  const unit = { id: newId("u"), termId: term.id, code: "sa-unit-1", title: "الأعداد والعمليات عليها", sortOrder: 1 };
+  await db.insert(units).values(unit);
+  const lesson = { id: newId("l"), unitId: unit.id, code: "l-sa-ops", title: "العمليات على الأعداد الطبيعية", sortOrder: 1 };
+  await db.insert(lessons).values(lesson);
+  await db.insert(concepts).values({
+    id: newId("con"),
+    lessonId: lesson.id,
+    code: "c-sa-1",
+    title: "الجمع مع إعادة التجميع",
+    description: "مفهوم سعودي",
+  });
+
+  const scope = { countryId: c.id, educationSystemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonId: lesson.id };
+  await api.knowledge.ingestText({
+    title: "العمليات على الأعداد الطبيعية",
+    content:
+      "العمليات على الأعداد الطبيعية: عند الجمع مع إعادة التجميع في سوق مدينة الرياض نبدأ من الآحاد ثم ننقل كل تجميع للمنزلة الأعلى. الضرب في مضاعفات العشرة يكون بضرب العدد ثم إضافة الصفر. مثال: اشترى خالد في الرياض دفترًا بسعر 9 ريالات سعودية، فدفع عن 15 دفترًا 135 ريالًا. عبارة الزعفرانة النبتة الاستوائية غير موجودة في هذا الدرس.",
+    kind: "text",
+    source: "test-corpus-saudi",
+    scope,
+  });
+
+  return { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonId: lesson.id };
 }
 
 function expectStatus(actual: number, expected: number, body: string): void {

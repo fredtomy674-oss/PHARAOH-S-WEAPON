@@ -122,6 +122,13 @@
 - [x] اختبارات: unit `fileTypes` (7) + API Path A انتحال نص-كـ-PDF (10) + API Path B (15): نص→PDF، ZIP→DOCX، PDF→نص، مع تصحيح اختبار «الممسوح» لرأس PDF **حقيقي** (%PDF-1.4 بلا نص) ليُبقي `EMPTY_DOCUMENT` — **117/117 أخضر**
 - [x] `npm run check` أخضر (117/117) + `npm run build` أخضر + E2E 22/22 (لا انحدار في مسار الرفع) + docs sync (DECISIONS D-019/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 16 — زرع منهج سعودي (multi-country) ✅
+- [x] إعادة هيكلة `db/seed.ts` إلى بذر عام `seedCountry(db, knowledge, spec)` بمواصفات `CountrySeedSpec` — تُبذر مصر (الأصل، نصوصها حرفيًا) ثم **السعودية**: `sa` / وزارة التعليم / الصف السادس / منهج `sa-g6-math` بدروس `l-sa-ops` و`l-sa-units` بمحتوى سعودي (الرياض/جدة/الريال السعودي) ومفعّل RAG عبر نفس أنبوب `ingestText`
+- [x] **الكتالوج العالمي المشترك**: جدول `subjects` عالمي بلا countryId — السلالة الجديدة تعيد استخدام صفّ `math` الموجود ولا تُكرّره أبدًا (إلا مع قيد uniqueness موجود `subjects_code_unique`)
+- [x] العزل لا يتطلب تغييرًا في الخدمة (مرشحات countryId موجودة أصلًا): اختبارات عزل الكتالوج (نظام/صف/منهج/فصل/وحدة/درس لكل بلد) + تكامل RAG ثنائي الاتجاه: جلسة سعودية تتأرض بمحتوى سعودي («الرياض» حاضر، «مقارنة الكسور» غائب) وجلسة مصرية عكس ذلك
+- [x] إصلاح E2E: بعد إضافة السعودية أصبحت مترتبة أبجديًا قبل «مصر» فأصبح «أول خيار» سعوديًا — أُضيف `selectOptionByLabel(page, testId, label)` في `e2e/helpers.ts` واختيار «مصر» صراحةً في `startFirstLesson` و`pickSecondLesson` (admin.spec) — اختبارات حتمية بلا اعتماد على الترتيب
+- [x] **125/125 أخضر** (117 + 8 multiCountry) + `npm run build` أخضر + E2E 22/22 مع البذرة الجديدة + docs sync (DECISIONS D-020/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -134,7 +141,7 @@
 - [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
 - [ ] 🟡 Analytics + إحصاءات
-- [ ] 🟡 وضع multi-country seed (السعودية مثلًا)
+- [x] ✅ زرع منهج سعودي multi-country (وزارة التعليم/السادس/رياضيات — أثبت أن العمارة إقليمية) — PHASE 16
 - [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 16/16 (PHASE 9 + 10 + 11)
 - [ ] 🟡 Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز)
 

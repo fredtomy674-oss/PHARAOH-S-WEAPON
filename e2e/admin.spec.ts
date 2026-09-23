@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { docFixture, login, selectFirst } from "./helpers.js";
+import { docFixture, login, selectFirst, selectOptionByLabel } from "./helpers.js";
 
 /**
  * Admin dashboard — curriculum file import (Path B, PHASE 14):
@@ -12,9 +12,9 @@ test.describe.configure({ mode: "serial" });
 
 const ADMIN = { email: "admin@alfarouq.test", password: "admin-demo-123" };
 
-/** Walks the admin scope picker to the SECOND lesson of the seeded unit. */
+/** Walks the admin scope picker to the SECOND lesson of the seeded Egyptian unit. */
 async function pickSecondLesson(page: Page): Promise<void> {
-  await selectFirst(page, "select-country");
+  await selectOptionByLabel(page, "select-country", "مصر");
   await selectFirst(page, "select-system");
   await selectFirst(page, "select-grade");
   await selectFirst(page, "select-subject");
