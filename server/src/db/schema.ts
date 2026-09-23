@@ -255,6 +255,8 @@ export const documentVersions = sqliteTable(
     filePath: text("file_path"),
     sha256: text("sha256"),
     sizeBytes: integer("size_bytes").notNull().default(0),
+    /** Raw uploaded file bytes (curriculum file imports only; null for text ingest). */
+    data: blob("data", { mode: "buffer" }),
     status: text("status", { enum: ["processed", "failed", "pending"] }).notNull().default("pending"),
     createdAt: ts("created_at").notNull(),
   },
@@ -289,7 +291,9 @@ export const chunks = sqliteTable(
     createdAt: ts("created_at").notNull(),
   },
   (t) => [
-    uniqueIndex("chunks_content_hash_unique").on(t.contentHash),
+    // Duplicate-content prevention is SCOPED to the lesson (content_hash alone
+    // would silently drop the second lesson's copy of identical text).
+    uniqueIndex("chunks_content_hash_lesson_unique").on(t.contentHash, t.lessonId),
     index("chunks_scope_idx").on(t.countryId, t.educationSystemId, t.gradeId, t.subjectId, t.curriculumId, t.termId, t.unitId, t.lessonId),
     index("chunks_document_idx").on(t.documentId),
   ],

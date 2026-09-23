@@ -35,4 +35,15 @@ describe("migrations (in-memory)", () => {
     expect(row).toBeTruthy();
     db.sqlite.close();
   });
+
+  it("applies the Path B migration: raw-file `data` column + lesson-scoped content dedup index", () => {
+    const db = createDb();
+    applyMigrations(db);
+    const cols = (db.sqlite.prepare("PRAGMA table_info(document_versions)").all() as Array<{ name: string }>).map((c) => c.name);
+    expect(cols).toContain("data");
+    const indexes = (db.sqlite.prepare("SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='chunks'").all() as Array<{ name: string }>).map((r) => r.name);
+    expect(indexes).toContain("chunks_content_hash_lesson_unique");
+    expect(indexes).not.toContain("chunks_content_hash_unique");
+    db.sqlite.close();
+  });
 });

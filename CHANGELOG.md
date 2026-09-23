@@ -68,4 +68,14 @@
 - E2E D1–D3 (`document.spec.ts` عبر متصفح حقيقي): D1 PDF+نص → قراءة + اقتطاع النص + RAG + chip؛ D2 DOCX بلا نص → زر الإرسال مفعّل + قراءة؛ D3 حقن داخل TXT → رفض آمن «أنا هنا لمساعدتك في درسنا فقط» بلا علامة قراءة → **19/19 أخضر**.
 - `npm run check` أخضر (88/88) + `npm run build` أخضر + docs sync (DECISIONS D-016/TASKS/README/TEST_PLAN/.env.example) + commit.
 
+## 2026-09-23 — الجلسة السابعة (PHASE 13: Curriculum File Import — Path B)
+- مسار جديد بالكامل لإدخال ملفات المناهج في قاعدة المعرفة — **بلا أي تعديل على مسار الطالب (Path A)**: `POST /api/admin/documents/ingest-file` (admin+CSRF) يقبل `{ fileName, dataUrl, scope, title?, source?, conceptIds? }`؛ النوع يُشتق من mime (pdf/docx/text) ويُعاد استخدام `parseDocumentDataUrl`/`extractDocumentText` من `sessions/documents.js` كما هي.
+- التخزين: `document_versions.data` (BLOB للبايتات الخام) + `sha256` = تجزئة بايتات الملف (هوية إزالة التكرار) — migration `0003_many_namor.sql` (مع استبدال الفهرس الفريد العام بـ`chunks_content_hash_lesson_unique (content_hash, lesson_id)` ليجعل إزالة تكرار chunks مرتكزةً على الدرس).
+- env جديدان: `MAX_CURRICULUM_FILE_KB` (20480/20MB — b64 ≈27.96M ضمن حدود Ajv 28M وbodyLimit 32MB) و`MAX_CURRICULUM_DOCUMENT_CHARS` (200000)؛ الاختبارات بسقف `MAX_CURRICULUM_FILE_KB=4`.
+- `KnowledgeService.ingestFile`: بايتات+تجزئة + دوبليكات 409 `DOCUMENT_ALREADY_INGESTED` + clean→chunk→embed→chunks/vectors + `EMPTY_DOCUMENT` للمسح الضوئي (**OCR مؤجل**)؛ `fileKindFromMime` + `fileSha256`؛ `ingestText` دوبليكاته أصبحت مرتكزة على الدرس.
+- fixtures مناهج مستقلة `curriculum.pdf`/`curriculum.docx` من المولّد (نص درس واقعي >40 حرفًا وعلامات `TutorFixturePDF 123`/`TutorFixtureDOCX 456`) — `question.*` لم يتغيّر بايتًا-بايت (593B/1297B معتمدة)؛ MediaBox PDF وُسّع إلى 1500 حتى يستخرج pdfjs السطر كاملًا عند غياب مقاييس الخطوط القياسية.
+- اختبارات: unit `knowledgeFile` (5) + API `adminFile` (12: 201/403/حدود/استرجاع فعلي/عزل S8/S6 عبر الملف/progress) + migrations (عمود + فهرس) → **106/106 أخضر**؛ **بلا E2E هذه المرحلة** (مصادقة النطاق: API+unit فقط).
+- إصلاح مرافق في مزوّد `mock`: استخراج كتلة `<context>` الحقيقية (آخر وسم) بدل أول تواجد داخل نثر قواعد النظام → صدى الرد في التطوير يعكس المحتوى المسترجع الفعلي (بلا أثر على مسار الطالب في أي وقت).
+- `npm run check` أخضر (106/106) + `npm run build` أخضر + docs sync (DECISIONS D-017/TASKS/API_SPEC §4+§7/RAG_SYSTEM §1+§6/TEST_PLAN/.env.example + مولد fixtures).
+
 ## (أعمدة لاحقة تُضاف هنا كل مرحلة)

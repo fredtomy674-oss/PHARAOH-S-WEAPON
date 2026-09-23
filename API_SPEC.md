@@ -1,6 +1,6 @@
 # API SPEC — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-22 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
+> آخر تحديث: 2026-09-23 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
 > Base: `/api` — Auth: session cookie (`alfarouq_session`) httpOnly + CSRF header للـmutations.
 
 ## 1. المصادقة
@@ -40,13 +40,20 @@
 | POST | `/api/sessions/:id/end` | إنهاء الجلسة (ينشئ recap للذاكرة) |
 | GET | `/api/progress/:studentId/concepts` | إتقان المفاهيم + نقاط القوة/الضعف |
 
-## 4. المعرفة (إدارة) — للمستخدم admin (البنية جاهزة)
+## 4. المعرفة (إدارة) — للمستخدم admin فقط
 
 | Method | Route | الوصف |
 |---|---|---|
-| POST | `/api/admin/documents` | تحميل/إنشاء مستند نصي وإضافته (ingestion كامل) |
-| POST | `/api/admin/documents/:id/reingest` | إعادة معالجة إصدار جديد |
+| POST | `/api/admin/documents/ingest` | إضافة مستند نصي/CSV `{title, content, kind?, scope, source?, conceptIds?}` → ingestion كامل (chunk+embed) |
+| POST | `/api/admin/documents/ingest-file` | **استيراد ملف منهج PDF/DOCX (و txt/md)** `{fileName, dataUrl, scope, title?, source?, conceptIds?}` — dataUrl قاعدة64، استخراج النص ثم chunk+embed، تخزين البايتات الخام (BLOB) + sha256 على النسخة؛ `kind` يُشتق من mime |
 | GET | `/api/admin/documents` | قائمة المستندات (مع حالة ingestion) |
+
+قيود `ingest-file`:
+- النوع يُشتق من `Content-Type` في dataUrl: `application/pdf` → pdf، `...wordprocessingml.document` → docx، غير ذلك → text.
+- سقف الحجم: `MAX_CURRICULUM_FILE_KB` (افتراضي 20480 = 20MB) والنص المُستخرج `MAX_CURRICULUM_DOCUMENT_CHARS` (افتراضي 200000).
+- ممسوح ضوئيًا (بلا نص يُستخرج) → `400 EMPTY_DOCUMENT` (OCR مؤجل).
+- تكرار نفس البايتات لنفس المنهج → `409 DOCUMENT_ALREADY_INGESTED`.
+- المحتوى المستورد يُسترجَع في `<context>` فقط (محتوى منهج، ليس تعليمات) — تمامًا كمسار النص.
 
 ## 5. Response errors
 
@@ -67,4 +74,17 @@
 9) POST /api/sessions {..lessonId}
 10) POST /api/sessions/:id/messages {content:"اشرح موضوع الجمع"}
 11) GET  /api/sessions/:id (تاريخ الحوار)
+```
+
+## 7. استيراد ملف منهج (مثال)
+
+```
+1) تسجيل دخول admin → cookie + CSRF
+2) POST /api/admin/documents/ingest-file
+   { fileName: "unit1.pdf",
+     dataUrl: "data:application/pdf;base64,JVBERi0...",
+     scope: { countryId, gradeId, subjectId, curriculumId, unitId, lessonId },
+     title: "الوحدة 1" }
+   → 201 { document: { documentId, versionId, chunkCount } }
+3) GET  /api/admin/documents (list)
 ```

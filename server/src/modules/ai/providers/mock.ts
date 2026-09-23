@@ -52,10 +52,12 @@ export class MockLLMProvider implements LLMProvider {
     const images = request.images ?? [];
     const documents = request.documents ?? [];
 
-    // Extract the context block (curriculum content) if present, similar to
-    // what the real provider receives.
-    const contextMatch = system.match(/<context>([\s\S]*?)<\/context>/);
-    const context = contextMatch?.[1]?.trim() ?? "";
+    // Extract the REAL context block (curriculum content) if present, similar to
+    // what the real provider receives. The system rules contain a literal
+    // "<context>" in prose BEFORE the actual block, so the last open tag in the
+    // system message is the real one — a first-match regex would capture the
+    // whole middle of the prompt instead of the curriculum content.
+    const context = extractContextBlock(system);
 
     if (request.json) {
       const content = JSON.stringify({
@@ -80,6 +82,21 @@ export const DOCUMENT_READ_MARKER = "قرأت الملف المرفق";
 
 /** How many leading characters of the extracted document text are echoed into the mock reply. */
 const DOC_SNIPPET_CHARS = 60;
+
+/**
+ * Pulls the curriculum `<context>` block out of a system prompt. The prompt
+ * builder places the real block last, but the fixed rules may mention a literal
+ * "<context>" in prose before it — so we take the LAST open tag and its
+ * closing tag. The "no retrieval" placeholder is treated as an empty context.
+ */
+function extractContextBlock(system: string): string {
+  const open = system.lastIndexOf("<context>");
+  if (open < 0) return "";
+  const close = system.indexOf("</context>", open + "<context>".length);
+  if (close < 0) return "";
+  const ctx = system.slice(open + "<context>".length, close).trim();
+  return ctx === "(لا يوجد محتوى مسترجع لهذا السؤال)" ? "" : ctx;
+}
 
 function buildTutorText(args: {
   user: string;

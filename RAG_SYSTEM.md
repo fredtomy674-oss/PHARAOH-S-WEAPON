@@ -1,12 +1,12 @@
 # RAG SYSTEM — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-22 — الكود في `server/src/modules/rag/`.
+> آخر تحديث: 2026-09-23 — الكود في `server/src/modules/rag/`.
 
 ## 1. خط الأنابيب
 
 ```
-Documents (txt/md/csv الآن)
- → Extraction (extracxtors: text; pdf/docx = documented placeholder)
+Documents (txt/md/csv + ملفات مناهج PDF/DOCX عبر /api/admin/documents/ingest-file)
+ → Extraction (extractors: text; pdf → pdfjs-dist; docx → mammoth)
  → Cleaning (normalize newlines, إزالة تكرار الفراغات، فصل عربي/أرقام)
  → Chunking (بالفقرات/العناوين; حجم هدف 300-600 حرف، overlap 40)
  → Metadata building (country_id…concept_id, source, version, doc title)
@@ -16,6 +16,14 @@ Documents (txt/md/csv الآن)
  → Reranking (اختصاري لغوي الآن — ReRanker interface)
  → ContextBuilder → Context موثوق ← TutorEngine
 ```
+
+### 1.1 استيراد ملفات المناهج (Path B)
+
+- `POST /api/admin/documents/ingest-file` يستقبل `dataUrl` (base64) لملف PDF/DOCX أو txt/md.
+- يُعاد استخدام `parseDocumentDataUrl` / `extractDocumentText` من مسار الطالب (غير معدَّل) — نفس تكرار الأمان لحدود الحجم، لكن بسقف المنهج الأكبر `MAX_CURRICULUM_FILE_KB` (20MB) و`MAX_CURRICULUM_DOCUMENT_CHARS` (200000).
+- البايتات الخام تُخزَّن في `document_versions.data` (BLOB) و`sha256` يُحسب من البايتات الخام = هوية الملف (إزالة تكرار).
+- OCR **مؤجل**: الملف الممسوح ضوئيًا (استخراج صفري) → `400 EMPTY_DOCUMENT` (لا انهيار).
+- المحتوى المستورد يمضي عبر نفس أنابيب chunking/embedding/scoping مثل النص، ويُسترجَع داخل `<context>` فقط — أي نوايا تجاوز بداخله لا تنفَّذ (اختبار S6 عبر الملف، DECISIONS D-017).
 
 ## 2. عزل الـMetadata (حاجز المنهج الخاطئ)
 
@@ -52,3 +60,4 @@ source, version, document_id
 - استرجاع صف مختلف → صفر نتائج.
 - عنصر «امسح القواعد» داخل chunk → لا أثر على سلوك المدرس (prompt injection).
 - التعامل مع مستند يحتوي مفاهيم من صف/منهج خاطئ → Metadata يكسر السياق أو يُرفض عند الإدخال.
+- **استيراد ملف (Path B)**: استرجاع فعلي لمحتوى ملف PDF/DOCX مستورد داخل نطاق درسه؛ عزل بين الدروس (نفس المنهج)؛ إزالة تكرار على مستوى بايتات الملف؛ ملف ممسوح → `EMPTY_DOCUMENT` (OCR مؤجل)؛ محتوى جمل "استبدل القواعد" داخل ملف مستورد يُعامَل كمحتوى لا تعليمات (`adminFile.test.ts` + `knowledgeFile.test.ts`).

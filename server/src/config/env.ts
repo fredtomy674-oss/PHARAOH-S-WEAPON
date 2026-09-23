@@ -44,6 +44,12 @@ const EnvSchema = z.object({
   MAX_FILE_KB: z.coerce.number().int().positive().default(10000),
   MAX_DOCUMENT_CHARS: z.coerce.number().int().positive().default(20000),
 
+  // Curriculum file import (Path B, admin): max raw file size in KB (20 MB
+  // default) and the cap on extracted text (chars) chunked+embedded into the
+  // knowledge base. Separate from the student-file caps by design.
+  MAX_CURRICULUM_FILE_KB: z.coerce.number().int().positive().default(20480),
+  MAX_CURRICULUM_DOCUMENT_CHARS: z.coerce.number().int().positive().default(200000),
+
   // RAG
   RAG_TOP_K: z.coerce.number().int().positive().default(5),
   RAG_ENABLE_RERANK: boolFromString.default("true"),

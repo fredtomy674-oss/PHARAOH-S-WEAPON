@@ -95,13 +95,26 @@
 - [x] اختبارات: unit documents (6: PDF، DOCX، TXT، اقتطاع، تالف لا يرمي، ممسوح → فارغ) + mockDocument (3) + API documents (9) — **88/88 أخضر**
 - [x] E2E D1–D3 (`document.spec.ts`): PDF+نص → قراءة+اقتطاع+RAG+chip؛ DOCX بلا نص → قراءة؛ حقن داخل TXT → رفض آمن بلا استدعاء — **19/19 أخضر**
 - [x] `npm run check` أخضر (88/88) + `npm run build` أخضر + docs sync (DECISIONS D-016) + commit
-- [ ] Path B (لاحقًا): إتاحة PDF/DOCX في قاعدة المعرفة (ingestion) + OCR للمستندات الممسوحة — **خارج نطاق Path A ولا يُخلط معه**
+- [x] Path B منفصل تمامًا (لا يُخلط مع مسار الطالب) — يُنفَّذ في PHASE 13
+
+### PHASE 13 — Curriculum File Import (Path B) ✅
+- [x] استكشاف + 6 قرارات موثقة (D-017) + موافقة البداية: إعادة استخدام `extractDocumentText`/`parseDocumentDataUrl` من `sessions/documents.js` (صفري التعديل على Path A)؛ BLOB للبايتات الخام + sha256 كـ«هوية الملف»؛ إزالة تكرار chunks مرتبطة بالدرس `(content_hash, lesson_id)` بدل الفهرس العام
+- [x] Schema + migration `0003_many_namor.sql`: عمود `document_versions.data` (BLOB) + الفهرس المركب الجديد (حذف `chunks_content_hash_unique`)
+- [x] env: `MAX_CURRICULUM_FILE_KB`=20480 (20MB؛ b64 ≈27.96M < Ajv 28M وbodyLimit 32MB) و`MAX_CURRICULUM_DOCUMENT_CHARS`=200000 — وسقف اختبار `MAX_CURRICULUM_FILE_KB=4` (vitest.config + .env.example)
+- [x] `KnowledgeService.ingestFile` (raw sha256+size+data، دوبليكات 409 `DOCUMENT_ALREADY_INGESTED`، clean→chunk→embed→chunks/vectors، `EMPTY_DOCUMENT` للفارغ) + `fileKindFromMime` + `fileSha256(Buffer)`؛ `ingestText` دوبليكاته أصبح مرتكزة على الدرس
+- [x] `POST /api/admin/documents/ingest-file` (admin + CSRF؛ schema: dataUrl ≤ 28_000_000، scope كامل إلزامي) → 201 `{ document: { documentId, versionId, chunkCount } }`
+- [x] fixtures مناهج مستقلة `curriculum.pdf`/`curriculum.docx` (نص درس واقعي > 40 حرفًا + علامات `TutorFixturePDF 123`/`TutorFixtureDOCX 456`) — المولّد يُوسَّع وبقي `question.*` مطابقًا بايتًا-بايت (593B/1297B) وMediaBox PDF أوسع (1500) حتى يستخرج pdfjs السطر كاملًا
+- [x] اختبارات: unit `knowledgeFile` (PDF بايتات+شُعب+متجهات، DOCX، دوبليكات، ممسوح، عزل درس فريد) + API `adminFile` (201/403/خطوط الحدود/استرجاع فعلي/عزل S8/S6 عبر الملف) + migrations (عمود data + فهرس) — **106/106 أخضر** (بلا E2E هذه المرحلة)
+- [x] إصلاح مُرافق في مزوّد `mock`: استخراج كتلة `<context>` الحقيقية (آخر وسم) بدل أول تواجد داخل قواعد النظام — صدى الرد في dev يطابق المحتوى المسترجع فعليًا
+- [x] `npm run check` أخضر (106/106) + `npm run build` أخضر + docs sync (DECISIONS D-017، API_SPEC §4/§7، RAG_SYSTEM §1/§6، TEST_PLAN) + commit
+- [ ] OCR للمستندات الممسوحة ضوئيًا (مؤجل صراحةً — يُفتح كمرحلة مستقلة)
 
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
 - [x] ✅ Student files in chat (Path A — PDF/DOCX/TXT/MD) — 3 E2E + 18 اختبارات (PHASE 12)؛ OCR مؤجل
-- [ ] 🟡 Path B: PDF/DOCX في قاعدة المعرفة (ingestion) + OCR للمسموح ضوئيًا
+- [x] ✅ Curriculum files in knowledge base (Path B — PDF/DOCX/TXT/MD عبر `ingest-file`) — 14 اختبارًا (PHASE 13)؛ OCR مؤجل
+- [ ] 🟡 OCR للمستندات الممسوحة ضوئيًا (المساران A وB) — تُفتح كمرحلة مستقلة
 - [ ] 🟡 Parent dashboard + Admin dashboard
 - [ ] 🟡 حماية رفع ملفات بمستويات فحص عميقة
 - [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل

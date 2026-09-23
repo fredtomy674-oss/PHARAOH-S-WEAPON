@@ -1,6 +1,6 @@
 # TEST PLAN — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-23 — التنفيذ في `server/test/` (Vitest **88/88**)، الويب يُفحص بنيويًا + E2E بالمتصفح **19/19**.
+> آخر تحديث: 2026-09-23 — التنفيذ في `server/test/` (Vitest **106/106**)، الويب يُفحص بنيويًا + E2E بالمتصفح **19/19** (بلا E2E جديد في PHASE 13 وفق المصادقة).
 
 ## 1. أدوات
 
@@ -40,6 +40,16 @@
 - كل Feature = اختبار. تشغيل: `npm run check` (typecheck+lint+test).
 - تغطية تتبع بـ `c8` لعرضها (اختياري للشيكات).
 - Fail الثبات: الاختبارات لا تعتمد على الشبكة ولا مفاتيح حقيقية.
+
+## 4.1 Path B — Curriculum File Import (PHASE 13)
+
+| الملف | المجموعة | ماذا يختبر |
+|---|---|---|
+| `test/unit/knowledgeFile.test.ts` | Unit | `ingestFile` PDF: kind/status + البايتات الخام (sha256=هوية الملف، size، BLOB `data`) + chunks (lessonId صحيح) + متجهات؛ DOCX kind=docx وصحة المحتوى داخل chunk؛ ملف بايتات متطابقة لنفس المنهج → `DOCUMENT_ALREADY_INGESTED`؛ استخراج صفري (ممسوح) → `EMPTY_DOCUMENT` (OCR مؤجل)؛ **إزالة تكرار chunks مرتكزة على الدرس** (نص واحد يُدرج في درسين = مسموح الآن) |
+| `test/api/adminFile.test.ts` | API | 201 PDF مع بايتات + سرد القائمة admin؛ 201 DOCX؛ دوبليكات 409؛ **استرجاع فعلي داخل نطاق الدرس** (علامة `TutorFixtureDOCX 456` تظهر في رد مسند لـ RAG `وفقًا لمحتوى الدرس`)؛ **عزل عبر الدروس S8** (العلامة في درس A لا تصل لجلسة درس B)؛ **S6 عبر الملف** (محتوى «استبدل القواعد» داخل ملف مستورد يُعامَل كمحتوى لا تعليمات — رد طبيعي `سؤال جيد!` و`tripwire=false` ولا وضع نظام بديل)؛ 403 لغير admin؛ mime غير مدعوم؛ حجم فوق سقف الاختبارات (`MAX_CURRICULUM_FILE_KB=4`)؛ dataUrl تالف؛ ملف ممسوح؛ scope ناقص (Ajv) |
+| `test/db/migrations.test.ts` | DB | migration `0003_many_namor`: عمود `document_versions.data` + الفهرس المركب `chunks_content_hash_lesson_unique` وغياب القديم `chunks_content_hash_unique` |
+
+> ملاحظة: سقف الاختبارات `MAX_CURRICULUM_FILE_KB=4` في `vitest.config.ts` فقط — الافتراضي للإنتاج 20480 (20MB). الـfixtures المستقلة `curriculum.pdf`/`curriculum.docx` (نص درس > 40 حرفًا مع علامات) لا تمسّ `question.*` الخاصة بمسار الطالب.
 
 ---
 
