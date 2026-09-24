@@ -19,7 +19,7 @@ async function main(): Promise<void> {
   await app.listen({ port: config.PORT, host: config.HOST });
   app.log.info(
     `سلاح الفرعون tutor listening on http://${config.HOST}:${config.PORT} ` +
-      `(LLM=${app.ai.providers.llm.id}, VectorStore=${config.VECTOR_STORE}, Reranker=${config.RAG_ENABLE_RERANK ? config.RAG_RERANKER : "off"}, RAG=${config.RAG_TOP_K} chunks)`,
+      `(LLM=${app.ai.providers.llm.id}, VectorStore=${config.VECTOR_STORE}, Reranker=${config.RAG_ENABLE_RERANK ? config.RAG_RERANKER : "off"}, Cache=${config.AI_CACHE_ENABLED ? "on" : "off"}, RAG=${config.RAG_TOP_K} chunks)`,
   );
 }
 

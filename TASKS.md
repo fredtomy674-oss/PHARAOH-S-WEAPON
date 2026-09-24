@@ -177,6 +177,16 @@
 - [x] اختبارات: وحدة `qdrantVectorStore.test.ts` (8 — خادم Qdrant **وهمي في العملية** بـnode:http على منفذ عابر بلا Docker: إنشاء تلقائي، roundtrip، عزل نطاق payload، id حتمي بلا تكرار، remove، مجموعة غير منشأة → `[]`، mismatch أبعاد، انقطاع شبكة عبر `fetchImpl` → upsert يرمي/search `[]`) + وحدة `modelReranker.test.ts` (7 — مزوّد مقيد حتمي: إعادة ترتيب، جزئية، تجاوز ≤1، ردّ غير JSON، مؤشرات غير صالحة، انهيار مزوّد، parseRanking) + وحدة `ragFactory.test.ts` (5 — اختيارات المصنع) — **195/195 أخضر**
 - [x] E2E غير متأثر (qlite+lexical افتراضيًا — لا تغيير UI) — **29/29 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-025/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/RAG_SYSTEM/.env.example) + commit
 
+### PHASE 22 — تفعيل التخزين المؤقت (AiCache جاهز منذ PHASE 6) ✅
+
+**القرار D-026**: العمليات **الحتمية** فحسب تُخدم من LRU داخل العملية — كل ضربة = صفر استدعاء مزوّد حقيقي = صفر صف استخدام.
+- [x] **`cache.ts`**: `AiCache<T>` أصبح **عامًا** (ثلاث نسخ: LLM/embedding/OCR) + عدّادات `hits/misses` + `stats()` + `set(key, value, ttlMs?)` اختياري لكل إدخال
+- [x] **`aiService.ts`**: `complete` يخزّن `classifier` + `rerank` فقط (المعلّم/recap/feedback **ديناميكية لا تُخزَّن أبدًا**)؛ `embed` يُخزَّن بمفتاح `embedding:{model}:{sha256(texts)}`؛ `ocr` بمفتاح `ocr:{model}:{sha256(mime:base64)}` — **الاستخدام يُسجَّل عند الغياب فقط**؛ مفتاح `cacheEnabled` في ctor (قدرة اختبار) + `cacheStats()` تُجمّع الثلاث
+- [x] **`env.ts`**: `AI_CACHE_ENABLED` (افتراضي true)، `AI_CACHE_TTL_MS` (5 د)، `AI_CACHE_EMBEDDING_TTL_MS` (ساعة)، `AI_CACHE_OCR_TTL_MS` (24 س)، `AI_CACHE_MAX_ENTRIES` (256) + `.env.example`
+- [x] **`app.ts`**: `GET /api/health` يعرض `cache: {hits, misses, size, maxEntries}` (مراقبة «استدعاءات المزوّد الحقيقي الموفَّرة») + سطر إقلاع `index.ts` يوضح حالة الـcache
+- [x] اختبارات: وحدة `aiCache.test.ts` (5 — roundtrip+عدّادات، TTL انتهاء، TTL لكل إدخال، إخلاء LRU الأقدم، key محتوى-العنوان+clear) + وحدة `aiCaching.test.ts` (6 — عبر AiService حقيقي بمزوّدات mock: classifier مرّتان → نفس المحتوى+صفّ استخدام+miss/hit، rerank مخزَّن، tutor **لا** يُخزَّن (صفّان)، embed متطابقتان → نفس المتجهات، ocr بايتات متطابقة → نصّ نفسه + صفّ واحد، `cacheEnabled:false` → الكل يسجّل) — **206/206 أخضر**؛ `ocr.test.ts` (API) عُدّل: بايتات ممسوحة متطابقة (Path A ثم B في نفس العملية) → نمو الاستخدام 0/+1 فقط (لا شحنة مكررة)
+- [x] E2E غير متأثر (المعلّم لا يُخزَّن — النصوص/الأوامر نفسها) — **29/29 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-026/TASKS/CHANGELOG/TEST_PLAN/README/.env.example) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -191,7 +201,7 @@
 - [x] ✅ Analytics + إحصاءات المسؤول في اللوحة (نهاية `GET /api/admin/stats` بلا جداول جديدة) — PHASE 17
 - [x] ✅ زرع منهج سعودي multi-country (وزارة التعليم/السادس/رياضيات — أثبت أن العمارة إقليمية) — PHASE 16
 - [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 16/16 (PHASE 9 + 10 + 11)
-- [ ] 🟡 Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز)
+- [x] ✅ Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز) — classifier/rerank/embedding/ocr حتمية تُخدم من LRU؛ المعلّم ديناميكي لا يُخزَّن؛ عدّادات على `/api/health` — 5+6 وحدة (PHASE 22)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

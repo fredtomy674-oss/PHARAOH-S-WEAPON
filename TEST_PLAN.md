@@ -1,6 +1,6 @@
 # TEST PLAN — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-24 — التنفيذ في `server/test/` (Vitest **195/195**)، الويب يُفحص بنيويًا + E2E بالمتصفح **29/29**.
+> آخر تحديث: 2026-09-24 — التنفيذ في `server/test/` (Vitest **206/206**)، الويب يُفحص بنيويًا + E2E بالمتصفح **29/29**.
 
 ## 1. أدوات
 
@@ -105,7 +105,7 @@
 | الملف | المجموعة | ماذا يختبر |
 |---|---|---|
 | `test/unit/ocr.test.ts` | Unit (7) | `OcrService.recognize`: MIME مؤهّل (PDF → يُستدعى المزوّد)؛ TXT/MD **لا تُقرأ OCR إطلاقًا** (صفر calls)؛ `maxChars` يقصّ بفاصلة «…» + `truncated:true`؛ فشل المزوّد → `{text:"", truncated:false}` (هبوط آمن — لا استثناء)؛ Mock OCR حتمي: ملفات بايتات مختلفة → نصوص مختلفة، والملف ذاته → ذات النص (استقرار)؛ `AiService.ocr` يُسجّل الاستخدام `operation="ocr"` في دفتر الاستهلاك |
-| `test/api/ocr.test.ts` | API (4) | **A**: رفع ممسوح (`scanned.pdf`) في جلسة → `ocrApplied=true` + `ocrUsed=true` + رد المعلم يحمل `OCR_TEXT_MARKER` + شارة `msg-ocr-badge` في `messageAttachments.ocr`؛ **A**: PDF بطبقة نصية → OCR لا يُستدعى (صفر `operation=ocr` في سجل الاستخدام) مع `ocrUsed=false`؛ **B**: استيراد ممسوح → 201 + chunks تحمل `OCR_TEXT_MARKER` + `ocrApplied` في afterJson سجل التدقيق + استرجاع داخل نطاق الدرس؛ **B**: TXT قصير صادق يبقى `EMPTY_DOCUMENT` (لا OCR) |
+| `test/api/ocr.test.ts` | API (4) | **A**: رفع ممسوح (`scanned.pdf`) في جلسة → `ocrApplied=true` + `ocrUsed=true` + رد المعلم يحمل `OCR_TEXT_MARKER` + شارة `msg-ocr-badge` في `messageAttachments.ocr`؛ **A**: PDF بطبقة نصية → OCR لا يُستدعى (صفر `operation=ocr` في سجل الاستخدام) — **PHASE 22**: استيراد إداري لبايتات `scanned.pdf` المتطابقة (سبق التعرف عليها لطالب Path A في نفس العملية) → النص يصل للمعرفة والاستخدام ينمو 0 أو +1 فقط (لا شحنة مكررة — ضربة الـcache)؛ **B**: TXT قصير صادق يبقى `EMPTY_DOCUMENT` (لا OCR) |
 | `test/unit/documents.test.ts` (+1) | Unit | scan/mock: fixture `scanned.pdf` صالح وصفحته الواحدة بلا طبقة نص — pdfjs يستخرج منه `""` (تثبيت شكل المسح الضوئي) |
 | `server/src/modules/ocr/service.ts` | بنية | حارس `OCR_ELIGIBLE_MIMES` (PDF/DOCX)، قصّ `MAX_OCR_CHARS`، فشل المزوّد → نص فارغ لا انهيار؛ حُقن في `SessionService` (Path A) و`admin/routes.ts` (Path B) عبر `container.ts` |
 
@@ -131,6 +131,15 @@
 | `test/unit/ragFactory.test.ts` | Unit (5) | `createVectorStore`: sqlite افتراضيًا + بقسر → `SqliteVectorStore`، qdrant بقسر → `QdrantVectorStore`؛ `createReranker`: `enabled:false` → `NoopReranker`، lexical → `LexicalReranker`، model → `ModelReranker` |
 
 > فلسفة التغطية: لا يمكن تشغيل Qdrant حقيقي (لا Docker في البيئة) — الخادم الوهمي في العملية يختبر **عقد النقل الفعلي** (نفس المسارات/الحمولات/رموز الحالة) فيبقى كل شيء أوفلاين وحتميًا؛ `ModelReranker` يُختبر بمزوّد مقيد لأن النموذج الحتمي (mock) يُفشل بصدق في تحليل الرد — مسار الهبوط الآمن هو ما يهم. الافتراضي (sqlite + lexical) مطابق لسلوك PHASE 20 → لا انحدار.
+
+## 4.10 تفعيل التخزين المؤقت (PHASE 22 — AiCache يخدم العمليات الحتمية)
+
+| الملف | المجموعة | ماذا يختبر |
+|---|---|---|
+| `test/unit/aiCache.test.ts` | Unit (5) | roundtrip get/set + عدّادات `hits/misses` دقيقة؛ انتهاء TTL (ساعة وهمية → miss + إزالة الصف)؛ TTL اختياري لكل إدخال مضبوط؛ إخلاء **الأقدم** عند الامتلاء (LRU)؛ `key()` محتوى-العنوان (نفس الرسائل → نفس المفتاح، رسالة مختلفة → مفتاح مختلف) و`clear()` تفرّغ |
+| `test/unit/aiCaching.test.ts` | Unit (6) | عبر `AiService` حقيقي بمزوّدات mock: `classifier` بطلبات متطابقة → مرّتان نفس المحتوى + **صف استخدام واحد** + `cacheStats()={hits:1,misses:1}`؛ `rerank` يُخزَّن كذلك؛ `tutor` بطلبات متطابقة → **صفّا استخدام** و`hits=0` (لا يُخزَّن أبدًا)؛ `embed` بنصوص متطابقة → متجهات متطابقة وإجمالي `hits=1`؛ `ocr` ببايتات متطابقة → نص واحد وصفّ استخدام واحد و`hits=1`؛ `cacheEnabled:false` → كل استدعاء يمر للمزوّد ويُسجَّل (`hits/misses=0`) |
+
+> فلسفة التغطية: `AI_CACHE_ENABLED` يُحلَّل في استيراد الوحدة (لا يتجاوز لكل اختبار) — لذلك يأخذ `AiService` مفتاح `cacheEnabled` في المنشئ لاختبار مسار الإيقاف حتميًا؛ سلوك «الفواتير تعكس الاستدعاءات الحقيقية» يُثبت بالعدَّاد (صفوف `ai_usage_logs`) لا بنص الرد، لأن الاستجابات في mock متطابقة أيضًا.
 
 ---
 

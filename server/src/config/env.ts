@@ -31,6 +31,17 @@ const EnvSchema = z.object({
   AI_ROUTING_LLM: z.string().default("default"),
   AI_ROUTING_EMBEDDING: z.string().default("default"),
 
+  // AI caching (PHASE 22 / D-026): repeated deterministic calls hit an
+  // in-memory LRU instead of the real provider. Only deterministic operations
+  // are served from cache: classifier + rerank (LLM), embeddings (same texts →
+  // same vectors) and OCR (same bytes → same text). Cache hits do NOT write
+  // usage rows (zero provider cost). Tutor/recap/feedback stay uncached.
+  AI_CACHE_ENABLED: boolFromString.default("true"),
+  AI_CACHE_TTL_MS: z.coerce.number().int().positive().default(300000),
+  AI_CACHE_EMBEDDING_TTL_MS: z.coerce.number().int().positive().default(3600000),
+  AI_CACHE_OCR_TTL_MS: z.coerce.number().int().positive().default(86400000),
+  AI_CACHE_MAX_ENTRIES: z.coerce.number().int().positive().default(256),
+
   // Cost guardrails
   DAILY_MESSAGE_LIMIT: z.coerce.number().int().nonnegative().default(50),
   /** Premium plan daily budget (PHASE 20). 0 = unlimited — the MVP upsell

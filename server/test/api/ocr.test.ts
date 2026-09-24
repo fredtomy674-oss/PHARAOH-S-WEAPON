@@ -127,6 +127,11 @@ describe("OCR of scanned files (المساران A وB) — API", () => {
       unitId: corpus.unitId,
       lessonId: corpus.lessonB,
     };
+    // OCR is cost-tracked per unique bytes: the count either grows by one (this
+    // import is the first recognition in-process) or stays flat (PHASE 22 — the
+    // identical scanned.pdf bytes were already recognized for the Path A student
+    // in this shared app, so the import serves from the OCR cache), never more.
+    const usageBefore = countOcrUsage(api.db, admin.userId);
     const first = await api.app.inject({
       method: "POST",
       url: "/api/admin/documents/ingest-file",
@@ -138,8 +143,9 @@ describe("OCR of scanned files (المساران A وB) — API", () => {
     expect(body.document.chunkCount).toBeGreaterThan(0);
     const chunk = api.db.db.select().from(chunks).where(eq(chunks.documentId, body.document.documentId)).get();
     expect(chunk?.content).toContain(OCR_TEXT_MARKER);
-    // Admin import is usage-tracked too.
-    expect(countOcrUsage(api.db, admin.userId)).toBeGreaterThan(0);
+    const usageAfter = countOcrUsage(api.db, admin.userId);
+    expect(usageAfter).toBeGreaterThanOrEqual(usageBefore);
+    expect(usageAfter).toBeLessThanOrEqual(usageBefore + 1);
 
     // Byte-identical re-import stays deduped (file-level, same as any doc).
     const second = await api.app.inject({

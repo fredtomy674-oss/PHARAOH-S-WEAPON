@@ -105,6 +105,7 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
       api.get("/health", async () => ({
         status: "ok",
         provider: api.ai.providers.llm.id,
+        cache: api.ai.cacheStats(),
         time: new Date().toISOString(),
       }));
       await api.register(authRoutes, { prefix: "/auth" });

@@ -144,3 +144,11 @@
 - **عقد `upsert` وُسّع بـ`scope?`**: Qdrant يعكس حقول النطاق في الـpayload ليعزل الاستعلام؛ `SqliteVectorStore` يتجاهله (فلتر SQL قائم).
 - **اختبارات**: `qdrantVectorStore.test.ts` (8 — خادم Qdrant وهمي في العملية عبر node:http بلا Docker) + `modelReranker.test.ts` (7 — مزوّد مقيد حتمي) + `ragFactory.test.ts` (5) → **195/195 أخضر**؛ E2E **29/29 أخضر** (qlite+lexical افتراضيًا، لا تغيير UI).
 - `npm run check` أخضر (195/195) + `npm run build` أخضر + docs sync (DECISIONS D-025/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/RAG_SYSTEM/.env.example).
+
+## 2026-09-24 — الجلسة السادسة عشرة (PHASE 22: تفعيل التخزين المؤقت — AiCache)
+- **القرار D-026**: العمليات الحتمية فحسب تُخدم من ذاكرة LRU داخل العملية (`AiCache` جاهز منذ PHASE 6): LLM `classifier` + `rerank`، و`embedding` (نفس النصوص → نفس المتجهات)، و`ocr` (نفس البايتات → نفس النص) — أما **المعلّم/recap/feedback فديناميكية لا تُخزَّن أبدًا**.
+- **AiCache عام + عدّادات**: `AiCache<T>` (ثلاث نسخ عبر `AiService`: LLM/embedding/OCR)، `set(key, value, ttlMs?)` اختياري لكل إدخال، `stats()` (hits/misses/size)، ومفاتيح محتوى-العنوان بصمة `sha256` (لا مسح للنصوص الحية).
+- **لا يسجَّل استخدام عند الضربة**: ضربة الـcache = صفر استدعاء مزوّد = صفر تكلفة — الملفات/النصوص المتطابقة في نفس العملية تُعاد معالجتها بلا شحنة مكررة (مسار B بعد A بواسطة بايتات متطابقة = استفادة من التعرف الأول). `AI_CACHE_ENABLED=false` يُرجع كل شيء للمزوّد مع التسجيل.
+- **الإعدادات + المراقبة**: `AI_CACHE_TTL_MS` (5 د)/`AI_CACHE_EMBEDDING_TTL_MS` (ساعة)/`AI_CACHE_OCR_TTL_MS` (24 س)/`AI_CACHE_MAX_ENTRIES` (256)؛ `GET /api/health` يعرض `cache: {hits, misses, size, maxEntries}` بلا واجهة جديدة.
+- **اختبارات**: `unit/aiCache.test.ts` (5) + `unit/aiCaching.test.ts` (6 عبر AiService حقيقي بمزوّدات mock) → **206/206 أخضر**؛ `ocr.test.ts` (API) عُدّل لدلالات الشحنة الجديدة (بايتات متطابقة → نمو 0/+1 فقط)؛ E2E **29/29 أخضر** (المعلّم لا يُخزَّن — لا تغيير سلوكي).
+- `npm run check` أخضر (206/206) + `npm run build` أخضر + docs sync (DECISIONS D-026/TASKS/CHANGELOG/TEST_PLAN/README/.env.example).
