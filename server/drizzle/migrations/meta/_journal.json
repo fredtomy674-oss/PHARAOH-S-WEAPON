@@ -43,6 +43,13 @@
       "when": 1790197980082,
       "tag": "0005_zippy_logan",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1790242508574,
+      "tag": "0006_sharp_toad",
+      "breakpoints": true
     }
   ]
 }

@@ -8,11 +8,14 @@ import {
   listGrades,
   listLessons,
   listSubjects,
+  listSubscriptions,
   listSystems,
   listTerms,
   listUnits,
+  setStudentSubscription,
   ApiError,
   type AdminDocument,
+  type AdminSubscriptionRow,
   type AdminStats,
   type Country,
   type Curriculum,
@@ -73,6 +76,28 @@ export function AdminScreen({ onBack, onLogout }: Props) {
   const [documents, setDocuments] = useState<AdminDocument[]>([]);
   const [stats, setStats] = useState<AdminStats | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
+
+  // PHASE 20 — subscription management (billing without a payment gateway).
+  const [subscriptions, setSubscriptions] = useState<AdminSubscriptionRow[]>([]);
+  const [subBusy, setSubBusy] = useState<string | null>(null);
+  const [subError, setSubError] = useState<string | null>(null);
+
+  useEffect(() => {
+    listSubscriptions().then(setSubscriptions).catch(() => setSubError("تعذر تحميل الاشتراكات"));
+  }, []);
+
+  const grantPlan = async (studentId: string, plan: "free" | "premium") => {
+    setSubBusy(studentId);
+    setSubError(null);
+    try {
+      await setStudentSubscription(studentId, { plan, status: "active" });
+      setSubscriptions(await listSubscriptions());
+    } catch (err) {
+      setSubError(err instanceof ApiError ? err.message : "تعذر تحديث الاشتراك");
+    } finally {
+      setSubBusy(null);
+    }
+  };
 
   useEffect(() => {
     listCountries().then(setCountries).catch(() => setError("تعذر تحميل الدول"));
@@ -424,6 +449,63 @@ export function AdminScreen({ onBack, onLogout }: Props) {
                     <td>{d.lessonTitle ?? "—"}</td>
                     <td>{d.chunkCount}</td>
                     <td className="muted small">{new Date(d.createdAt).toLocaleDateString("ar-EG")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </section>
+
+        <section className="card" data-testid="admin-subscriptions">
+          <h3>الاشتراكات ({subscriptions.length})</h3>
+          <p className="muted">إدارة الخطط يدويًا (فوترة بلا بوابة دفع في MVP) — «مميزة» ترفع حد الرسائل اليومي للطالب.</p>
+          {subError && <p className="error-text">{subError}</p>}
+          {subscriptions.length === 0 ? (
+            <p className="muted">لا توجد اشتراكات بعد — تنشأ تلقائيًا عند أول نشاط لكل طالب.</p>
+          ) : (
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>الطالب</th>
+                  <th>الخطة</th>
+                  <th>الحالة</th>
+                  <th>منذ</th>
+                  <th>إجراء</th>
+                </tr>
+              </thead>
+              <tbody>
+                {subscriptions.map((s) => (
+                  <tr key={s.studentId} data-testid="admin-sub-row" data-student-id={s.studentId} data-plan={s.plan}>
+                    <td>
+                      <b>{s.studentName ?? s.studentEmail}</b>
+                      <span className="muted small block">{s.studentEmail}</span>
+                    </td>
+                    <td>
+                      <span data-testid={`sub-plan-${s.studentId}`}>{s.plan === "premium" ? "مميزة" : "مجانية"}</span>
+                    </td>
+                    <td className="muted small">{s.status}</td>
+                    <td className="muted small">{new Date(s.startedAt).toLocaleDateString("ar-EG")}</td>
+                    <td>
+                      {s.plan === "premium" ? (
+                        <button
+                          data-testid={`sub-downgrade-${s.studentId}`}
+                          className="btn small ghost"
+                          disabled={subBusy === s.studentId}
+                          onClick={() => grantPlan(s.studentId, "free")}
+                        >
+                          {subBusy === s.studentId ? "…" : "إلغاء المميزة"}
+                        </button>
+                      ) : (
+                        <button
+                          data-testid={`sub-upgrade-${s.studentId}`}
+                          className="btn small primary"
+                          disabled={subBusy === s.studentId}
+                          onClick={() => grantPlan(s.studentId, "premium")}
+                        >
+                          {subBusy === s.studentId ? "…" : "ترقية إلى مميزة"}
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

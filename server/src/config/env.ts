@@ -33,6 +33,9 @@ const EnvSchema = z.object({
 
   // Cost guardrails
   DAILY_MESSAGE_LIMIT: z.coerce.number().int().nonnegative().default(50),
+  /** Premium plan daily budget (PHASE 20). 0 = unlimited — the MVP upsell
+   *  cliff: free students are capped by DAILY_MESSAGE_LIMIT, premium by this. */
+  PREMIUM_DAILY_MESSAGE_LIMIT: z.coerce.number().int().nonnegative().default(0),
 
   // Rate limiting (per-IP, per minute). Default protects dev/prod; tests raise
   // it via env so automated suites never trip false 429s.

@@ -21,6 +21,11 @@ export interface TutorHandleInput {
   documents?: DocumentInput[];
   breadcrumb: CurriculumBreadcrumb;
   userId: string;
+  /**
+   * PHASE 20 — daily tutor-call allowance for this student's plan (0 = unlimited).
+   * Computed by the caller from the subscription; falls back to the global config.
+   */
+  dailyLimit?: number;
 }
 
 export interface TutorHandleResult {
@@ -53,10 +58,11 @@ export class TutorEngine {
   ) {}
 
   async handle(input: TutorHandleInput): Promise<TutorHandleResult> {
-    // 1) Daily budget (cost guardrail).
+    // 1) Daily budget (cost guardrail) — plan-derived (free vs premium, PHASE 20).
     const todayCalls = await this.ai.usage.countTutorCallsForUserToday(input.userId);
-    if (config.DAILY_MESSAGE_LIMIT > 0 && todayCalls >= config.DAILY_MESSAGE_LIMIT) {
-      throw Errors.tooMany(`وصلت إلى الحد اليومي (${config.DAILY_MESSAGE_LIMIT} رسالة). عد غدًا لمتابعة المذاكرة!`);
+    const limit = input.dailyLimit ?? config.DAILY_MESSAGE_LIMIT;
+    if (limit > 0 && todayCalls >= limit) {
+      throw Errors.tooMany(`وصلت إلى الحد اليومي (${limit} رسالة). عد غدًا لمتابعة المذاكرة!`);
     }
 
     // 2) Intent (cheap, no tokens).

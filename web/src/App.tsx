@@ -6,8 +6,9 @@ import { OnboardingScreen } from "./Onboarding.js";
 import { ChatScreen } from "./Chat.js";
 import { AdminScreen } from "./Admin.js";
 import { ParentScreen } from "./Parent.js";
+import { AchievementsScreen } from "./Achievements.js";
 
-type Screen = "loading" | "auth" | "home" | "onboarding" | "chat" | "admin";
+type Screen = "loading" | "auth" | "home" | "onboarding" | "chat" | "admin" | "achievements";
 
 export function App() {
   const [screen, setScreen] = useState<Screen>("loading");
@@ -74,6 +75,10 @@ export function App() {
     return <AdminScreen user={user} onBack={() => setScreen("home")} onLogout={handleLogout} />;
   }
 
+  if (screen === "achievements" && user.role === "student") {
+    return <AchievementsScreen user={user} onBack={() => setScreen("home")} />;
+  }
+
   if (user.role === "parent") {
     return <ParentScreen user={user} onLogout={handleLogout} />;
   }
@@ -88,6 +93,7 @@ export function App() {
       }}
       onLogout={handleLogout}
       onOpenAdmin={() => setScreen("admin")}
+      onOpenAchievements={() => setScreen("achievements")}
     />
   );
 }

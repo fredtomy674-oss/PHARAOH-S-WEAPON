@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `achievement_definitions_code_unique` ON `achievement_definitions` (`code`);

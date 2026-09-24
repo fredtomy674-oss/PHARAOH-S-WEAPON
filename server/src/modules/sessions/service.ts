@@ -4,6 +4,9 @@ import type { Db } from "../../db/index.js";
 import { learningSessions, messageAttachments, messages, students as studentsTable } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
 import { Errors } from "../../utils/errors.js";
+import type { AchievementEvent } from "../achievements/service.js";
+import type { AchievementService } from "../achievements/service.js";
+import type { SubscriptionService } from "../subscription/service.js";
 import type { DocumentInput, ImageInput } from "../ai/types.js";
 import type { CurriculumService } from "../curriculum/service.js";
 import type { MemoryService } from "../tutor/memoryService.js";
@@ -31,6 +34,8 @@ export class SessionService {
     private readonly audit: AuditService,
     private readonly ai: AiService,
     private readonly ocr: OcrService,
+    private readonly subscriptions: SubscriptionService,
+    private readonly achievements: AchievementService,
   ) {}
 
   async start(input: StartSessionInput): Promise<typeof learningSessions.$inferSelect> {
@@ -205,6 +210,9 @@ export class SessionService {
       document && documentText.trim().length > 0
         ? [{ fileName: document.fileName, mimeType: document.mimeType, text: documentText }]
         : undefined;
+    // PHASE 20 — the daily tutor budget is plan-derived now: free students are
+    // capped by DAILY_MESSAGE_LIMIT, premium by PREMIUM_DAILY_MESSAGE_LIMIT (0 = unlimited).
+    const dailyLimit = await this.subscriptions.dailyLimitFor(studentRow.id);
     const result = await this.tutor.handle({
       student: studentRow,
       session,
@@ -213,6 +221,7 @@ export class SessionService {
       documents,
       breadcrumb,
       userId: studentRow.userId,
+      dailyLimit,
     });
 
     const kind = mapKind(result.reply);
@@ -230,6 +239,11 @@ export class SessionService {
         .returning()
     )[0]!;
 
+    // PHASE 20 — achievements are best-effort: they never break the turn.
+    await this.award(studentRow.id, "user_message");
+    if (image) await this.award(studentRow.id, "vision_attached");
+    else if (document) await this.award(studentRow.id, "document_attached");
+
     return {
       userMessage: {
         ...userMessage,
@@ -237,7 +251,7 @@ export class SessionService {
       },
       tutorMessage: tutorMessage!,
       contextChunkCount: result.contextChunkCount,
-      remainingBudget: await this.remainingDaily(userIdOf(studentRow)),
+      remainingBudget: await this.remainingDaily(studentRow.id, userIdOf(studentRow)),
       safetyTripwire: result.intent.intent === "admin_bypass_attempt",
       ocrUsed,
     };
@@ -269,13 +283,25 @@ export class SessionService {
       // Recaps are best-effort; never fail session end because of them.
     }
     await this.audit.record({ actorUserId: undefined, action: "session.end", entityType: "learning_session", entityId: session.id, afterJson: JSON.stringify({ reason }) });
+
+    // PHASE 20 — completing sessions feeds the achievement counters (best-effort).
+    await this.award(studentId, "session_ended");
   }
 
-  private async remainingDaily(userId: string): Promise<number> {
-    const limit = config.DAILY_MESSAGE_LIMIT;
+  private async remainingDaily(studentId: string, userId: string): Promise<number> {
+    const limit = await this.subscriptions.dailyLimitFor(studentId);
     if (limit === 0) return -1;
     const used = await this.ai.usage.countTutorCallsForUserToday(userId);
     return Math.max(0, limit - used);
+  }
+
+  /** Best-effort achievement evaluation — failures must never break the flow. */
+  private async award(studentId: string, event: AchievementEvent): Promise<void> {
+    try {
+      await this.achievements.evaluate(studentId, event);
+    } catch {
+      // gamification is optional behavior; a DB hiccup must not fail a turn.
+    }
   }
 }
 

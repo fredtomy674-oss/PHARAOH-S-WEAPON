@@ -1,6 +1,7 @@
 import type { FastifyInstance, FastifyPluginAsync, FastifyReply } from "fastify";
 import fp from "fastify-plugin";
 import type { Db } from "../db/index.js";
+import { AchievementService } from "../modules/achievements/service.js";
 import { AiService } from "../modules/ai/aiService.js";
 import { AuditService } from "../modules/audit/service.js";
 import { AuthService } from "../modules/auth/service.js";
@@ -11,6 +12,7 @@ import { ParentService } from "../modules/parent/service.js";
 import { RetrievalService } from "../modules/rag/retrieval.js";
 import { SqliteVectorStore } from "../modules/rag/vectorStore.js";
 import { SessionService } from "../modules/sessions/service.js";
+import { SubscriptionService } from "../modules/subscription/service.js";
 import { MemoryService } from "../modules/tutor/memoryService.js";
 import { TutorEngine } from "../modules/tutor/tutorEngine.js";
 
@@ -29,6 +31,8 @@ declare module "fastify" {
     tutor: TutorEngine;
     sessions: SessionService;
     parents: ParentService;
+    subscriptions: SubscriptionService;
+    achievements: AchievementService;
     setSessionCookie: (reply: FastifyReply, token: string, maxAgeMs: number) => void;
     clearSessionCookie: (reply: FastifyReply) => void;
   }
@@ -56,7 +60,9 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   const tutor = new TutorEngine(db, ai, retrieval, memory);
   const knowledge = new KnowledgeService(db, ai, vectorStore);
   const ocr = new OcrService(ai);
-  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr);
+  const subscriptions = new SubscriptionService(db);
+  const achievements = new AchievementService(db);
+  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements);
   const parents = new ParentService(db, memory);
 
   app.decorate("db", db);
@@ -72,4 +78,6 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   app.decorate("tutor", tutor);
   app.decorate("sessions", sessions);
   app.decorate("parents", parents);
+  app.decorate("subscriptions", subscriptions);
+  app.decorate("achievements", achievements);
 });

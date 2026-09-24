@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listSessions, myProgress, type User, type LearningSession, type ProgressDetail } from "./api.js";
+import { getMySubscription, listSessions, myProgress, type SubscriptionInfo, type User, type LearningSession, type ProgressDetail } from "./api.js";
 
 interface Props {
   user: User;
@@ -7,16 +7,21 @@ interface Props {
   onResume: (s: LearningSession) => void;
   onLogout: () => void;
   onOpenAdmin: () => void;
+  onOpenAchievements: () => void;
 }
 
-export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmin }: Props) {
+export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmin, onOpenAchievements }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
+  const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
 
   useEffect(() => {
     listSessions().then(setSessions).catch(() => undefined);
     myProgress().then(setProgress).catch(() => undefined);
-  }, []);
+    if (user.role === "student") {
+      getMySubscription().then(setSubscription).catch(() => undefined);
+    }
+  }, [user.role]);
 
   const studentName = user.student?.displayName ?? user.email;
 
@@ -48,6 +53,35 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
             <code className="link-code" data-testid="link-code-value">
               {user.linkCode}
             </code>
+          </section>
+        )}
+
+        {user.role === "student" && (
+          <section className="card" data-testid="subscription-card">
+            <div className="row-between">
+              <div>
+                <h3>خطتك</h3>
+                {subscription ? (
+                  <p className="muted">
+                    <span className={`pill ${subscription.plan === "premium" ? "ok-pill" : "off-pill"}`} data-testid="subscription-plan">
+                      {subscription.plan === "premium" ? "مميزة" : "مجانية"}
+                    </span>
+                    {subscription.expiresAt && (
+                      <span> — تنتهي {new Date(subscription.expiresAt).toLocaleDateString("ar-EG")}</span>
+                    )}
+                    {" "}
+                    <span data-testid="subscription-limit">
+                      {subscription.dailyLimit === 0 ? "رسائل اليوم: غير محدودة" : `رسائل اليوم: ${subscription.dailyLimit}`}
+                    </span>
+                  </p>
+                ) : (
+                  <p className="muted">خطتك مجانية — ارفعها عبر لوحة الإدارة.</p>
+                )}
+                <button className="btn ghost" onClick={onOpenAchievements} data-testid="open-achievements">
+                  🏆 إنجازاتي
+                </button>
+              </div>
+            </div>
           </section>
         )}
 

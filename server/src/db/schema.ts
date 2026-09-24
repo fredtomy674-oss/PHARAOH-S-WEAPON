@@ -475,13 +475,17 @@ export const assessments = sqliteTable(
 // Gamification (schema ready)
 // ---------------------------------------------------------------------------
 
-export const achievementDefinitions = sqliteTable("achievement_definitions", {
-  id: id(),
-  code: text("code").notNull(),
-  title: text("title").notNull(),
-  description: text("description"),
-  criteriaJson: text("criteria_json"),
-});
+export const achievementDefinitions = sqliteTable(
+  "achievement_definitions",
+  {
+    id: id(),
+    code: text("code").notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    criteriaJson: text("criteria_json"),
+  },
+  (t) => [uniqueIndex("achievement_definitions_code_unique").on(t.code)],
+);
 
 export const achievements = sqliteTable(
   "achievements",

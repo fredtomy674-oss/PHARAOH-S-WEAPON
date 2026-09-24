@@ -106,3 +106,16 @@
 | DELETE | `/api/parent/children/:studentId` | فك الربط → 204؛ غير مربوط → 404 | parent فقط |
 
 **عزل الأدوار**: الطالب على أي `/api/parent/*` → `403 FORBIDDEN`؛ ولي الأمر على `/api/sessions` (POST) و`/api/progress/me` → `403 FORBIDDEN` (و`GET /api/sessions` = قائمة فارغة). التسجيل: `POST /api/auth/register` مع `role: "parent"`. `GET /api/auth/me` للطالب يعرض `linkCode` (مولّد بـ`parentLinkCode()` — 8 محارف من `A-HJ-NP-Z2-9`).
+
+## 9. الاشتراكات والإنجازات (PHASE 20) — فوترة بلا بوابة دفع
+
+> بطاقة «خطتك» في الواجهة تقرأ هذه النهايات؛ `dailyLimit` رقم فعلي: مجاني = `DAILY_MESSAGE_LIMIT` (خادميًا في محرك المدرّس)، مميز ساري = `PREMIUM_DAILY_MESSAGE_LIMIT` (0 = بلا حدود). الخطة المميزة «سارية» فقط عند `status ∈ trialing|active` **و** `expiresAt` غير ماضٍ — وإلا تهبط تلقائيًا لحدود المجاني (الصف يبقى معلنًا بالخطة الممنوحة).
+
+| Method | Route | الوصف | Auth |
+|---|---|---|---|
+| GET | `/api/me/subscription` | ملخص اشتراكي (يُنشأ **كسولًا** `free`/`trialing` عند أول قراءة): `{plan, status, startedAt, expiresAt?, dailyLimit}` | student فقط |
+| GET | `/api/achievements/me` | شاراتي: `{total, earned, achievements: [{code, title, description, icon, awardedAt|null, threshold}]}` — 6 تعريفات (أول خطوة/مستكشف/عالِم صغير/بارع الحوار/قارئ نهم/مصوّر الأسئلة) | student فقط |
+| GET | `/api/admin/subscriptions` | قائمة الاشتراكات (صفوف الطلاب الموجودين): `{studentId, studentEmail, plan, status, startedAt, expiresAt?, dailyLimit}` — أحدث بدء أولًا | admin فقط |
+| PUT | `/api/admin/subscriptions/students/:studentId` | منح/إلغاء: `{plan: "free"|"premium", status?: "trialing"|"active"|"past_due"|"cancelled", expiresAt?}` → upsert + سجل تدقيق `subscription.update` | admin فقط |
+
+**عزل الأدوار**: والد أو admin على `GET /api/me/subscription` و`/api/achievements/me` → `403`؛ طالب على `/api/admin/subscriptions*` → `403`؛ طالب مجهول على PUT → `404`. **منح الإنجازات خادمي بحت** — يُطلق من `SessionService` على أحداث (`session_ended`, `user_message`, `document_attached`, `vision_attached`) بمنح `onConflictDoNothing` مضاد للتكرار وبعدّادات مقيّدة بجلسات الطالب نفسه؛ فشل أي منح لا يكسر الجلسة (best-effort).

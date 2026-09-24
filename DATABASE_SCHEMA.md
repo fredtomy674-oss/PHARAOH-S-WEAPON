@@ -1,6 +1,6 @@
 # DATABASE SCHEMA — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-22 — مرآة لـ `server/src/db/schema.ts` (المصدر الحقيقي).
+> آخر تحديث: 2026-09-24 — مرآة لـ `server/src/db/schema.ts` (المصدر الحقيقي).
 > migrations مولّدة بـ drizzle-kit ومطبقة تلقائيًا عند إقلاع السيرفر.
 
 ## 1. ملاحظة استراتيجية
@@ -19,7 +19,7 @@
 - `parents(id, user_id UNIQUE)`
 - `profiles(id, user_id UNIQUE, locale, ui_theme, voice_enabled…)`
 - `students_parents(student_id, parent_id, relationship)` — علاقة رباعية
-- `subscriptions(id, student_id, plan, status, started_at, expires_at)` — بنية جاهزة (بلا تفعيل)
+- `subscriptions(id, student_id UNIQUE, plan: free|premium, status: trialing|active|past_due|cancelled|expired, started_at, expires_at?)` — **مُفعَّل (PHASE 20)**: يُنشأ كسولًا عند أول قراءة (`free`/`trialing`)؛ مميز ساري فقط عند `trialing|active` وغير منتهٍ؛ الحد اليومي: مجاني `DAILY_MESSAGE_LIMIT` / مميز `PREMIUM_DAILY_MESSAGE_LIMIT` (0 = بلا حدود)
 
 ### المناهج (`countries → education_systems → grades → subjects → curricula → terms → units → lessons → concepts`)
 
@@ -42,6 +42,8 @@
 - `student_progress(id, student_id, concept_id, mastery DOUBLE 0..1, attempts, correct, last_seen_at, UNIQUE(student_id, concept_id))`
 - `student_memories(id, student_id, kind, key, value_json, importance, created_at, updated_at)` — ذاكرة طويلة المدى للمدرس (نقاط قوة/ضعف، تفضيلات)
 - `assessments(id, session_id?, student_id, type, result_json, total, correct, score, created_at)`
+- `achievement_definitions(id, code UNIQUE, title, description, icon, event, threshold, criteria_json)` — **مُفعَّلة (PHASE 20)**: 6 تعريفات ثابتة تُبذر حتميًا بالكود (upsert على `code`؛ فهرس فريد `achievement_definitions_code_unique` migration `0006`)
+- `achievements(id, student_id, definition_id, awarded_at, UNIQUE(student_id, definition_id))` — **مُفعَّلة (PHASE 20)**: منح مضاد للتكرار `onConflictDoNothing` على أحداث دورة الحياة (جلسة منتهية/رسالة/مرفق مستند/مرفق صورة)
 
 ### الجلسات والتفاعل — `learning_sessions`, `messages`
 

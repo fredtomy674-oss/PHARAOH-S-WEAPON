@@ -456,3 +456,65 @@ export async function ingestCurriculumFile(input: {
   });
   return res.document;
 }
+
+// --- PHASE 20 — subscriptions & achievements ---------------------------------
+
+export type SubscriptionPlan = "free" | "premium";
+
+export interface SubscriptionInfo {
+  plan: SubscriptionPlan;
+  status: "trialing" | "active" | "past_due" | "cancelled";
+  startedAt: string | null;
+  expiresAt: string | null;
+  /** Daily tutor-call allowance from the effective plan (0 = unlimited). */
+  dailyLimit: number;
+}
+
+export async function getMySubscription(): Promise<SubscriptionInfo> {
+  return api<SubscriptionInfo>("/me/subscription");
+}
+
+export interface AchievementInfo {
+  code: string;
+  title: string;
+  description: string | null;
+  /** ISO timestamp when earned, or null while still locked. */
+  awardedAt: string | null;
+}
+
+export interface AchievementsResult {
+  achievements: AchievementInfo[];
+  earned: number;
+  total: number;
+}
+
+export async function getMyAchievements(): Promise<AchievementsResult> {
+  return api<AchievementsResult>("/achievements/me");
+}
+
+/** Admin-only: every student's subscription row (PHASE 20). */
+export interface AdminSubscriptionRow {
+  studentId: string;
+  plan: SubscriptionPlan;
+  status: string;
+  startedAt: string;
+  expiresAt: string | null;
+  studentName: string | null;
+  studentEmail: string;
+}
+
+export async function listSubscriptions(): Promise<AdminSubscriptionRow[]> {
+  const res = await api<{ subscriptions: AdminSubscriptionRow[] }>("/admin/subscriptions");
+  return res.subscriptions;
+}
+
+export async function setStudentSubscription(
+  studentId: string,
+  body: { plan: SubscriptionPlan; status?: string; expiresAt?: string | null },
+): Promise<SubscriptionInfo> {
+  const res = await api<{ subscription: SubscriptionInfo }>(`/admin/subscriptions/students/${encodeURIComponent(studentId)}`, {
+    method: "PUT",
+    body,
+  });
+  return res.subscription;
+}

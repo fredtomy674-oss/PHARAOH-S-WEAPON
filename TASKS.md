@@ -154,6 +154,19 @@
 - [x] اختبارات: وحدة `ocr.test.ts` (7) + وحدة `documents.test.ts` (+1 scanned) + API `ocr.test.ts` (4: المساران + مبدأ «مستند نصي لا يمر بالـOCR» + TXT قصير لا يمر + تتبع التكلفة) + تحديث اختباري «OCR مؤجل» القديمين إلى السلوك الجديد — **150/150 أخضر**
 - [x] E2E `ocr.spec.ts` (2): O1 الطالب يرفق ممسوحًا → الرد يحمل `DOCUMENT_READ_MARKER`+`OCR_MARKER` + الشارة ظاهرة؛ O2 الإدارة تستورد ممسوحًا → نجاح + chunks > 0 — **27/27 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-023/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/RAG_SYSTEM) + commit
 
+### PHASE 20 — Billing/Subscriptions (بلا بوابة دفع) + Achievements ✅
+
+**القرار D-024**: الجدولان جاهزان منذ PHASE 2 — ما أُضيف في هذه المرحلة هو التفعيل فقط (مثل نمط PHASE 18 مع `parents`).
+- [x] **المخطط**: فهرس فريد `achievement_definitions_code_unique` (migration `0006_sharp_toad.sql` — تُطبَّق تلقائيًا عند الإقلاع) لضمان بذر حتمي بالكود؛ env جديد `PREMIUM_DAILY_MESSAGE_LIMIT` (افتراضي 0 = بلا حدود) في `server/src/config/env.ts` + `.env.example`
+- [x] **`server/src/modules/subscription/service.ts`**: `ensure()` يُنشئ صف الاشتراك **كسولًا** (`free`/`trialing`) عند أول قراءة؛ `summaryForStudent` (الخطة/الحالة/التواريخ/`dailyLimit` الفعلي)؛ `dailyLimitFor` = مميز ساري (`plan=premium` + `status∈trialing|active` + غير منتهٍ) → `PREMIUM_DAILY_MESSAGE_LIMIT` وإلا `DAILY_MESSAGE_LIMIT`؛ `setPlan` upsert للمنح/الإلغاء الإداري؛ `effectivePlan` للمعالجة
+- [x] **`server/src/modules/achievements/service.ts`**: `ACHIEVEMENT_DEFINITIONS` (6 ثوابت) + بذر idempotent عبر `ensureDefinitions()` (upsert بالكود)؛ `listForStudent` (تعريفات + `awardedAt` أو قفل)؛ `evaluate(event)` يعدّ أحداث دورة الحياة (**مقيدة بجلسات الطالب نفسه** عبر joins): `session_ended` (أول خطوة=1، مستكشف=5، عالِم صغير=10)، `user_message` (بارع الحوار=50)، `document_attached` (قارئ نهم — أول PDF/DOCX)، `vision_attached` (مصوّر الأسئلة — أول صورة)؛ **منح مضاد للتكرار** `onConflictDoNothing` (فهرس فريد `student+definition`)
+- [x] **مسار الطالب**: `GET /api/me/subscription` (إنشاء كسول + ملخص) + `GET /api/achievements/me` (تعريفات + حالة) — طالب فقط؛ والد/إدارة ← 403
+- [x] **مسار الإدارة**: `GET /api/admin/subscriptions` (قائمة بها `studentId`/البريد/الخطة/الحالة/الانتهاء) + `PUT /api/admin/subscriptions/students/:studentId` (`{plan, status?, expiresAt?}` → upsert + سجل تدقيق `subscription.update` — union وُسّع)؛ طالب ← 403؛ طالب مجهول ← 404
+- [x] **`sessions/service.ts`**: حقن `SubscriptionService`/`AchievementService` في الـcontainer؛ `dailyLimit` يُمرَّر لـ`TutorHandleInput` ويقع مجددًا على الإعداد عند الغياب؛ خطافات `award()` **best-effort try/catch** في `sendMessage` (`user_message`+`vision_attached`/`document_attached`) و`end()` (`session_ended`) — فشل الإنجازات لا يكسر الجلسة أبدًا؛ `remainingDaily(studentId, userId)` تُحدِّث العدّاد برقم حد الخطة
+- [x] **الويب**: `api.ts` (`getMySubscription`, `getMyAchievements`, `listSubscriptions`, `setStudentSubscription`)؛ بطاقة «خطتك» في `Home.tsx` (`data-testid="subscription-card"`/`subscription-plan` + «🏆 إنجازاتي»)؛ شاشة `Achievements.tsx` (مكتسب/مقفل `data-earned` + تقدم)؛ قسم «الاشتراكات» في `Admin.tsx` (صفوف `admin-sub-row` + ترقية/إلغاء `sub-upgrade-*`/`sub-revoke-*`)؛ شاشة `achievements` في `App.tsx`؛ أنماط `.pill.off-pill`/`.row-between`/`.block`/`.achievement-*` في `styles.css`
+- [x] اختبارات: وحدة `subscription.test.ts` (5) + وحدة `achievements.test.ts` (7) + API `subscription.test.ts` (7) + API `achievements.test.ts` (6) — **175/175 أخضر** (فلسفة: `dailyLimitFor` يُختبر وحدويًا لأن env بسياق الوحدة؛ واجهات API تثبت أن `remainingBudget` يعكس الخطة — مجاني N−1 / مميز دون حد؛ الـ429 نفسه منطق ثابت)
+- [x] E2E `achievements.spec.ts` (2): E1 طالب جديد يُنهي أول جلسة → شارة «أول خطوة» + بطاقة «مجانية»؛ E2 الإدارة ترفع الخطة عبر اللوحة → الطالب يرى «مميزة» — **29/29 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-024/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/DATABASE_SCHEMA/.env.example) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -163,7 +176,7 @@
 - [x] ✅ Parent dashboard (لوحة أولياء الأمور — ربط بالكود + قراءة فقط للمجموعات) — PHASE 18
 - [x] ✅ Admin dashboard (لوحة استيراد ملفات المنهج PDF/DOCX عبر الواجهة) — PHASE 14
 - [x] ✅ حماية رفع الملفات: فحص MAGIC bytes (تُرفض الانتحالات قبل الاستخراج/التخزين) — PHASE 15
-- [ ] 🟡 Billing/Subscriptions تفعيل + Achievements تفعيل
+- [x] ✅ Billing/Subscriptions (بلا بوابة دفع — منح/إلغاء إداري) + Achievements (6 شارات أحداث دورة حياة) — 5+7 وحدة + 7+6 API + 2 E2E (PHASE 20)
 - [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
 - [x] ✅ Analytics + إحصاءات المسؤول في اللوحة (نهاية `GET /api/admin/stats` بلا جداول جديدة) — PHASE 17
 - [x] ✅ زرع منهج سعودي multi-country (وزارة التعليم/السادس/رياضيات — أثبت أن العمارة إقليمية) — PHASE 16

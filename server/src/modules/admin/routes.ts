@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from "fastify";
 import { count, desc, eq } from "drizzle-orm";
-import { chunks, curricula, documents, learningSessions, lessons, messages, students, users } from "../../db/schema.js";
+import { chunks, curricula, documents, learningSessions, lessons, messages, students, subscriptions, users } from "../../db/schema.js";
 import { requireAdmin } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 import { config } from "../../config/env.js";
@@ -64,6 +64,23 @@ const ingestFileBodySchema = {
     conceptIds: { type: "array", items: { type: "string", maxLength: 64 }, maxItems: 20 },
     scope: ingestFileScopeSchema,
   },
+};
+
+const setSubscriptionBodySchema = {
+  type: "object",
+  required: ["plan"],
+  additionalProperties: false,
+  properties: {
+    plan: { type: "string", enum: ["free", "premium"] },
+    status: { type: "string", enum: ["trialing", "active", "past_due", "cancelled"] },
+    expiresAt: { type: ["string", "null"], maxLength: 64 },
+  },
+};
+
+const studentIdParamsSchema = {
+  type: "object",
+  required: ["studentId"],
+  properties: { studentId: { type: "string", maxLength: 64 } },
 };
 
 /**
@@ -249,4 +266,69 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
       },
     };
   });
+
+  // --- PHASE 20 — subscriptions (billing without a payment gateway) ---------
+  // Admin manages plans; students only read their own via /api/me/subscription.
+  // No external provider: granting/revoking is the MVP billing flow.
+
+  app.get("/subscriptions", { preHandler: requireAdmin }, async () => {
+    const rows = await app.db.db
+      .select({
+        studentId: subscriptions.studentId,
+        plan: subscriptions.plan,
+        status: subscriptions.status,
+        startedAt: subscriptions.startedAt,
+        expiresAt: subscriptions.expiresAt,
+        studentName: students.displayName,
+        studentEmail: users.email,
+      })
+      .from(subscriptions)
+      .innerJoin(students, eq(subscriptions.studentId, students.id))
+      .innerJoin(users, eq(students.userId, users.id))
+      .orderBy(desc(subscriptions.startedAt))
+      .limit(200);
+    return {
+      subscriptions: rows.map((r) => ({
+        studentId: r.studentId,
+        plan: r.plan,
+        status: r.status,
+        startedAt: r.startedAt.toISOString(),
+        expiresAt: r.expiresAt ? r.expiresAt.toISOString() : null,
+        studentName: r.studentName,
+        studentEmail: r.studentEmail,
+      })),
+    };
+  });
+
+  app.put(
+    "/subscriptions/students/:studentId",
+    { preHandler: requireAdmin, schema: { body: setSubscriptionBodySchema, params: studentIdParamsSchema } },
+    async (request, reply) => {
+      const auth = request.auth!;
+      const { studentId } = request.params as { studentId: string };
+      const body = request.body as {
+        plan: "free" | "premium";
+        status?: "trialing" | "active" | "past_due" | "cancelled";
+        expiresAt?: string | null;
+      };
+
+      const student = await app.db.db.select().from(students).where(eq(students.id, studentId)).get();
+      if (!student) throw Errors.notFound("الطالب غير موجود");
+
+      if (body.expiresAt !== undefined && body.expiresAt !== null && Number.isNaN(new Date(body.expiresAt).getTime())) {
+        throw Errors.badRequest("تاريخ انتهاء غير صالح", "INVALID_EXPIRES_AT");
+      }
+
+      const subscription = await app.subscriptions.setPlan(studentId, body);
+      await app.audit.record({
+        actorUserId: auth.user.id,
+        action: "subscription.update",
+        entityType: "student",
+        entityId: studentId,
+        afterJson: JSON.stringify({ plan: subscription.plan, status: subscription.status, expiresAt: subscription.expiresAt }),
+        ip: request.ip,
+      });
+      return reply.code(200).send({ subscription });
+    },
+  );
 };

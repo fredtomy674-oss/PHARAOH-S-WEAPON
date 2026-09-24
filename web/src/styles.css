@@ -624,6 +624,60 @@ p {
   text-align: center;
 }
 
+/* --- PHASE 20 — subscriptions & achievements --- */
+.pill.off-pill {
+  background: #eee;
+  color: var(--muted);
+}
+
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.block {
+  display: block;
+}
+
+.achievement-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.achievement-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.achievement-row.locked {
+  opacity: 0.6;
+}
+
+.achievement-icon {
+  font-size: 1.4rem;
+}
+
+.achievement-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.achievement-title {
+  font-size: 0.95rem;
+}
+
 @media (max-width: 600px) {
   .grid-2 {
     grid-template-columns: 1fr;
