@@ -42,6 +42,8 @@
 | POST | `/api/sessions/:id/end` | إنهاء الجلسة (ينشئ recap للذاكرة) |
 | GET | `/api/progress/:studentId/concepts` | إتقان المفاهيم + نقاط القوة/الضعف |
 
+> مرفقات الطالب (§3): `POST /api/sessions/:id/messages` يقبل `{content, image?, document?}` حيث `document = {dataUrl, fileName}` (النوع يُشتق من dataUrl؛ حد `MAX_FILE_KB`، فحص MAGIC bytes، استخراج محدود `MAX_DOCUMENT_CHARS`). ممسوح ضوئيًا (PDF/DOCX بلا نص) → **قراءة تلقائية بالـOCR** (PHASE 19/D-023) تُخزَّن في `messageAttachments.ocrApplied` وتُعلّم الرد بـ`ocrUsed:true` و`messageAttachments[].ocr:true` (شارة «نص ممسوح ضوئيًا» في الواجهة)؛ فشل المزوّد → يحمل الرد النص كما لو كان استخراجًا صفريًا (لا انهيار).
+
 ## 4. المعرفة (إدارة) — للمستخدم admin فقط
 
 | Method | Route | الوصف |
@@ -54,7 +56,7 @@
 قيود `ingest-file`:
 - النوع يُشتق من `Content-Type` في dataUrl: `application/pdf` → pdf، `...wordprocessingml.document` → docx، غير ذلك → text — **مع فحص توافق MAGIC bytes** (PHASE 15): البايتات الفعلية يجب أن تطابق النوع المعلن، وإلا `400 FILE_TYPE_MISMATCH` (نص مُعاد تسميته `.pdf`، ZIP عام مدّعٍ أنه `.docx`، PDF متنكّر بنص — يُرفض قبل أي استخراج/تخزين). النقطة مشتركة (`parseDocumentDataUrl`) فتغطي مسار الطالب في §3 أيضًا.
 - سقف الحجم: `MAX_CURRICULUM_FILE_KB` (افتراضي 20480 = 20MB) والنص المُستخرج `MAX_CURRICULUM_DOCUMENT_CHARS` (افتراضي 200000).
-- ممسوح ضوئيًا (رأس PDF سليم بلا نص يُستخرج) → `400 EMPTY_DOCUMENT` (OCR مؤجل).
+- ممسوح ضوئيًا (رأس PDF/DOCX سليم بلا نص يُستخرج) → **إنقاذ تلقائي بالـOCR** (`AI_OCR_PROVIDER`: mock افتراضيًا/Gemini في الإنتاج، سقف `MAX_OCR_CHARS`) قبل `ingestFile` — النص المعترف به يدخل أنابيب chunking/embedding ويبقى **محتوى `<context>`**؛ فشل المزوّد → هبوط آمن `400 EMPTY_DOCUMENT` (لا انهيار)؛ TXT/MD لا تُقرأ OCR إطلاقًا (ملف قصير صادق يبقى `EMPTY_DOCUMENT`).
 - تكرار نفس البايتات لنفس المنهج → `409 DOCUMENT_ALREADY_INGESTED`.
 - المحتوى المستورد يُسترجَع في `<context>` فقط (محتوى منهج، ليس تعليمات) — تمامًا كمسار النص.
 

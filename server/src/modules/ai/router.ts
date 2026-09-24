@@ -20,6 +20,11 @@ export class ModelRouter {
     return config.GEMINI_LLM_MODEL;
   }
 
+  /** OCR reads scanned pages — a vision-capable model (dedicated env override). */
+  ocrModel(): string {
+    return config.GEMINI_OCR_MODEL;
+  }
+
   embeddingModel(operation: AIOperation, requested?: string): string {
     const candidate = requested ?? this.overrides[operation];
     if (candidate && candidate !== "default") return candidate;

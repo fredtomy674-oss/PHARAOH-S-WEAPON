@@ -1,12 +1,12 @@
 # TEST PLAN — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-23 — التنفيذ في `server/test/` (Vitest **138/138**)، الويب يُفحص بنيويًا + E2E بالمتصفح **25/25**.
+> آخر تحديث: 2026-09-24 — التنفيذ في `server/test/` (Vitest **150/150**)، الويب يُفحص بنيويًا + E2E بالمتصفح **27/27**.
 
 ## 1. أدوات
 
 - Vitest (Node, TS-native) — DB مختبري: SQLite `:memory:` أو ملف temp فريد لكل مجموعة.
 - API tests عبر `app.inject()` (لا socket — أسرع ويغطي hooks/validation/cookies).
-- AI tests: `MockLLMProvider`/`MockEmbeddingProvider` (أوفلاين، تحديث محدد) — **اختبارات حية فقط بـ`RUN_LIVE_TESTS=true`**.
+- AI tests: `MockLLMProvider`/`MockEmbeddingProvider`/`MockOcrProvider` (أوفلاين، تحديث محدد، OCR حتمي باشتقاق من تجزئة البايتات) — **اختبارات حية فقط بـ`RUN_LIVE_TESTS=true`**.
 
 ## 2. المجموعات
 
@@ -45,7 +45,7 @@
 
 | الملف | المجموعة | ماذا يختبر |
 |---|---|---|
-| `test/unit/knowledgeFile.test.ts` | Unit | `ingestFile` PDF: kind/status + البايتات الخام (sha256=هوية الملف، size، BLOB `data`) + chunks (lessonId صحيح) + متجهات؛ DOCX kind=docx وصحة المحتوى داخل chunk؛ ملف بايتات متطابقة لنفس المنهج → `DOCUMENT_ALREADY_INGESTED`؛ استخراج صفري (ممسوح) → `EMPTY_DOCUMENT` (OCR مؤجل)؛ **إزالة تكرار chunks مرتكزة على الدرس** (نص واحد يُدرج في درسين = مسموح الآن) |
+| `test/unit/knowledgeFile.test.ts` | Unit | `ingestFile` PDF: kind/status + البايتات الخام (sha256=هوية الملف، size، BLOB `data`) + chunks (lessonId صحيح) + متجهات؛ DOCX kind=docx وصحة المحتوى داخل chunk؛ ملف بايتات متطابقة لنفس المنهج → `DOCUMENT_ALREADY_INGESTED`؛ استخراج صفري (ممسوح) → `EMPTY_DOCUMENT` (بلا OCR — خارج نطاق الوحدة؛ الإنقاذ في `admin/routes.ts`)؛ **إزالة تكرار chunks مرتكزة على الدرس** (نص واحد يُدرج في درسين = مسموح الآن) |
 | `test/api/adminFile.test.ts` | API | 201 PDF مع بايتات + سرد القائمة admin؛ 201 DOCX؛ دوبليكات 409؛ **استرجاع فعلي داخل نطاق الدرس** (علامة `TutorFixtureDOCX 456` تظهر في رد مسند لـ RAG `وفقًا لمحتوى الدرس`)؛ **عزل عبر الدروس S8** (العلامة في درس A لا تصل لجلسة درس B)؛ **S6 عبر الملف** (محتوى «استبدل القواعد» داخل ملف مستورد يُعامَل كمحتوى لا تعليمات — رد طبيعي `سؤال جيد!` و`tripwire=false` ولا وضع نظام بديل)؛ 403 لغير admin؛ mime غير مدعوم؛ حجم فوق سقف الاختبارات (`MAX_CURRICULUM_FILE_KB=4`)؛ dataUrl تالف؛ ملف ممسوح؛ scope ناقص (Ajv) |
 | `test/db/migrations.test.ts` | DB | migration `0003_many_namor`: عمود `document_versions.data` + الفهرس المركب `chunks_content_hash_lesson_unique` وغياب القديم `chunks_content_hash_unique` |
 
@@ -64,8 +64,8 @@
 | الملف | المجموعة | ماذا يختبر |
 |---|---|---|
 | `test/unit/fileTypes.test.ts` | Unit | `detectFileKind`: PDF حقيقي (رأس `%PDF-`)؛ PDF بعد junk-prefix ضمن 1024 بايت؛ DOCX (ZIP + `[Content_Types].xml`)؛ ZIP عام بلا content-types → ليس docx؛ نص UTF-8 (بـBOM وبدونه) → text؛ فارغ → text. `kindForDeclaredMime`: التطابق مع الـ4 MIME المدعومة وnull لغيره |
-| `test/api/documents.test.ts` | API (Path A) | انتحال: بايتات نصية تُعلن `application/pdf` → `400 FILE_TYPE_MISMATCH`؛ مستند ممسوح **حقيقي** (`%PDF-1.4` بلا نص) يظل 200 مع `textChars=0` وRAG حاضر |
-| `test/api/adminFile.test.ts` | API (Path B) | انتحالات ×3: نص→PDF، ZIP عام→DOCX، PDF→`text/plain` → `400 FILE_TYPE_MISMATCH`؛ ممسوح حقيقي → `EMPTY_DOCUMENT` (OCR مؤجل) |
+| `test/api/documents.test.ts` | API (Path A) | انتحال: بايتات نصية تُعلن `application/pdf` → `400 FILE_TYPE_MISMATCH`؛ مستند ممسوح **حقيقي** (`%PDF-1.4` بلا نص) يظل 200 مع OCR يحوله إلى نص غير فارغ (fixture `scanned.pdf`) وRAG حاضر |
+| `test/api/adminFile.test.ts` | API (Path B) | انتحالات ×3: نص→PDF، ZIP عام→DOCX، PDF→`text/plain` → `400 FILE_TYPE_MISMATCH`؛ ممسوح حقيقي → OCR ينقذه قبل `ingestFile` (مستند جاهز بـ`ocrApplied=true` في سجل التدقيق)؛ TXT قصير صادق يبقى `EMPTY_DOCUMENT` بلا OCR |
 
 > القاعدة: لا استخراج ولا تخزين لأي ملف لا يطابق توقيعه الفعلي نوعه المعلن — نقطة الفحص مشتركة (`parseDocumentDataUrl`) تغطي المسارين A وB دفعة واحدة.
 
@@ -98,13 +98,24 @@
 | `server/src/modules/auth/` | بنية | `register` يقبل `role` — مسار الوالد ينشئ `users(parent)+parents+profiles` بلا صف؛ `publicUser` يعرض `linkCode` للطالب |
 | `web/src/Parent.tsx` | UI | نموذج ربط + بطاقات أبناء + تفاصيل الطفل (مفاهيم/قوة/ضعف/جلسات) + إلغاء ربط؛ كرت «كود ولي الأمر» في Home للطالب |
 
-> العزل **بنيوي** (لا دفاعي): لا يمكن لولي الأمر رؤية أي طفل غير مربوط بصريح صفّ في `students_parents`. حدود MVP: عدّادات فقط للرسائل — لا محتوى خام. OCR والتفاصيل العميقة مراحل مستقلة لاحقًا.
+> العزل **بنيوي** (لا دفاعي): لا يمكن لولي الأمر رؤية أي طفل غير مربوط بصريح صفّ في `students_parents`. حدود MVP: عدّادات فقط للرسائل — لا محتوى خام. تفاصيل المحادثة مرحلة مستقلة لاحقًا (OCR أُنفِّذ في PHASE 19).
+
+## 4.7 OCR للمستندات الممسوحة ضوئيًا (PHASE 19) — المساران A وB عبر مزود AI
+
+| الملف | المجموعة | ماذا يختبر |
+|---|---|---|
+| `test/unit/ocr.test.ts` | Unit (7) | `OcrService.recognize`: MIME مؤهّل (PDF → يُستدعى المزوّد)؛ TXT/MD **لا تُقرأ OCR إطلاقًا** (صفر calls)؛ `maxChars` يقصّ بفاصلة «…» + `truncated:true`؛ فشل المزوّد → `{text:"", truncated:false}` (هبوط آمن — لا استثناء)؛ Mock OCR حتمي: ملفات بايتات مختلفة → نصوص مختلفة، والملف ذاته → ذات النص (استقرار)؛ `AiService.ocr` يُسجّل الاستخدام `operation="ocr"` في دفتر الاستهلاك |
+| `test/api/ocr.test.ts` | API (4) | **A**: رفع ممسوح (`scanned.pdf`) في جلسة → `ocrApplied=true` + `ocrUsed=true` + رد المعلم يحمل `OCR_TEXT_MARKER` + شارة `msg-ocr-badge` في `messageAttachments.ocr`؛ **A**: PDF بطبقة نصية → OCR لا يُستدعى (صفر `operation=ocr` في سجل الاستخدام) مع `ocrUsed=false`؛ **B**: استيراد ممسوح → 201 + chunks تحمل `OCR_TEXT_MARKER` + `ocrApplied` في afterJson سجل التدقيق + استرجاع داخل نطاق الدرس؛ **B**: TXT قصير صادق يبقى `EMPTY_DOCUMENT` (لا OCR) |
+| `test/unit/documents.test.ts` (+1) | Unit | scan/mock: fixture `scanned.pdf` صالح وصفحته الواحدة بلا طبقة نص — pdfjs يستخرج منه `""` (تثبيت شكل المسح الضوئي) |
+| `server/src/modules/ocr/service.ts` | بنية | حارس `OCR_ELIGIBLE_MIMES` (PDF/DOCX)، قصّ `MAX_OCR_CHARS`، فشل المزوّد → نص فارغ لا انهيار؛ حُقن في `SessionService` (Path A) و`admin/routes.ts` (Path B) عبر `container.ts` |
+
+> القاعدة: `AI_OCR_PROVIDER` (mock افتراضيًا أوفلاين حتمي — `GEMINI_OCR_MODEL`/`MAX_OCR_CHARS` جاهزان للإنتاج). نص OCR **محتوى غير موثوق**: المسار A يعيد فحصه بتريبواير الحقن قبل أي استدعاء للمدرّس، والمسار B يسترجعه كمحتوى `<context>` فقط.
 
 ---
 
 # الجزء الثاني — Browser End-to-End (Playwright)
 
-> آخر تحديث: 2026-09-23 — **25/25 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
+> آخر تحديث: 2026-09-24 — **27/27 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
 
 ## 5. التشغيل والمتطلبات
 
@@ -128,7 +139,7 @@ npm run e2e:report                # فتح تقرير HTML السابق
 - **ولي الأمر: `parent@alfarouq.test` / `parent-demo-123`** (نفس التزرعة — مربوط مسبقًا بالطالب التجريبي؛ كود الربط الثابت `SLH7KQ9M`).
 - اختبار عزل البيانات (C) يسجّل طالبًا جديدًا عشوائيًا مؤقتًا.
 
-## 7. الحالات المغطاة (25)
+## 7. الحالات المغطاة (27)
 
 | # | الملف | ماذا يختبر | ملاحظات |
 |---|---|---|---|
@@ -157,6 +168,8 @@ npm run e2e:report                # فتح تقرير HTML السابق
 | P1 | `parent.spec.ts` | ولي الأمر (دور جديد قابل للتسجيل) يرى ابنه المربوط `parent-child-row` → يفتح تفاصيله: بطاقة تقدم ظاهرة + قسم الجلسات (قائمة ملخصات `parent-session-row` بعناوين/حالات/«رسائل: n» **أو** حالة الفارغة — الطالب التجريبي تتراكم عليه جلسات من اختبارات سابقة في القاعدة المشتركة فتقبَل الحالتان بـ`locator.or`) → زر عودة لقائمة الأبناء | serial |
 | P2 | `parent.spec.ts` | الطالب يرى بطاقة «كود ولي الأمر» في الرئيسية وقيمتها (`link-code-value`) تساوي `SLH7KQ9M` — رمز المشاركة الذي يوظفه الوالد للربط | |
 | P3 | `parent.spec.ts` | إدخال كود ربط خاطئ → خطأ «رمز الربط غير صحيح» يظهر بوضوح ويبقى نموذج الربط | |
+| O1 | `ocr.spec.ts` | الطالب يرفع PDF ممسوحًا ضوئيًا (`scanned.pdf`) → المدرّس يقرؤه عبر OCR («قرأت الملف المرفق» + نص يحوي `OCR_MARKER`) + RAG حاضر + شارة «نص ممسوح ضوئيًا» (غير موجودة في ملف بطبقة نصية) | المسار الكامل: Browser→proxy→استخراج صفري→OCR (mock)→tripwire→mock |
+| O2 | `ocr.spec.ts` | admin يستورد PDF ممسوحًا ضوئيًا على درس → نجاح بعدد مقاطع + صف في اللائحة بـ`chunkCount>0` | المسار الكامل: ingest ← OCR ← chunks RAG |
 
 ## 8. قيود معروفة
 

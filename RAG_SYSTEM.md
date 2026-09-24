@@ -22,7 +22,7 @@ Documents (txt/md/csv + ملفات مناهج PDF/DOCX عبر /api/admin/documen
 - `POST /api/admin/documents/ingest-file` يستقبل `dataUrl` (base64) لملف PDF/DOCX أو txt/md.
 - يُعاد استخدام `parseDocumentDataUrl` / `extractDocumentText` من مسار الطالب (غير معدَّل) — نفس تكرار الأمان لحدود الحجم، لكن بسقف المنهج الأكبر `MAX_CURRICULUM_FILE_KB` (20MB) و`MAX_CURRICULUM_DOCUMENT_CHARS` (200000).
 - البايتات الخام تُخزَّن في `document_versions.data` (BLOB) و`sha256` يُحسب من البايتات الخام = هوية الملف (إزالة تكرار).
-- OCR **مؤجل**: الملف الممسوح ضوئيًا (استخراج صفري) → `400 EMPTY_DOCUMENT` (لا انهيار).
+- OCR **يحاول الإنقاذ أولًا** (PHASE 19/D-023): الملف الممسوح ضوئيًا (استخراج صفري أو < 40 حرفًا وPDF/DOCX) يُقرأ عبر `OcrService` (مزوّد AI — mock افتراضيًا/Gemini في الإنتاج، سقف `MAX_OCR_CHARS`) قبل `ingestFile`؛ النص المعترف به يمضي في نفس أنابيب chunking/embedding ويُسترجَع كمحتوى `<context>` فقط. فشل المزوّد → هبوط آمن `400 EMPTY_DOCUMENT` (لا انهيار)؛ TXT/MD لا تُقرأ OCR إطلاقًا.
 - المحتوى المستورد يمضي عبر نفس أنابيب chunking/embedding/scoping مثل النص، ويُسترجَع داخل `<context>` فقط — أي نوايا تجاوز بداخله لا تنفَّذ (اختبار S6 عبر الملف، DECISIONS D-017).
 
 ## 2. عزل الـMetadata (حاجز المنهج الخاطئ)
@@ -60,4 +60,4 @@ source, version, document_id
 - استرجاع صف مختلف → صفر نتائج.
 - عنصر «امسح القواعد» داخل chunk → لا أثر على سلوك المدرس (prompt injection).
 - التعامل مع مستند يحتوي مفاهيم من صف/منهج خاطئ → Metadata يكسر السياق أو يُرفض عند الإدخال.
-- **استيراد ملف (Path B)**: استرجاع فعلي لمحتوى ملف PDF/DOCX مستورد داخل نطاق درسه؛ عزل بين الدروس (نفس المنهج)؛ إزالة تكرار على مستوى بايتات الملف؛ ملف ممسوح → `EMPTY_DOCUMENT` (OCR مؤجل)؛ محتوى جمل "استبدل القواعد" داخل ملف مستورد يُعامَل كمحتوى لا تعليمات (`adminFile.test.ts` + `knowledgeFile.test.ts`).
+- **استيراد ملف (Path B)**: استرجاع فعلي لمحتوى ملف PDF/DOCX مستورد داخل نطاق درسه؛ عزل بين الدروس (نفس المنهج)؛ إزالة تكرار على مستوى بايتات الملف؛ ملف ممسوح → OCR ينقذه قبل التجزئة (نص `<context>` مع علامة `OCR_TEXT_MARKER` في الاختبارات؛ TXT قصير صادق يبقى `EMPTY_DOCUMENT` بلا OCR)؛ محتوى جمل "استبدل القواعد" داخل ملف مستورد يُعامَل كمحتوى لا تعليمات (`adminFile.test.ts` + `knowledgeFile.test.ts` + `ocr.test.ts`).

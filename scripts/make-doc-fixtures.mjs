@@ -66,6 +66,39 @@ function minimalPdf(text) {
   return Buffer.from(`%PDF-1.4\n${out.join("")}${xref}${trailer}`, "ascii");
 }
 
+/**
+ * A VALID one-page PDF whose content stream is EMPTY — the exact shape a
+ * scanned page has from the text layer's point of view: nothing extractable,
+ * so pdf.js yields "" and the OCR fallback (PHASE 19) takes over.
+ */
+function blankPdf() {
+  const objects = [
+    ["1 0 obj", "<< /Type /Catalog /Pages 2 0 R >>", "endobj"],
+    ["2 0 obj", "<< /Type /Pages /Kids [3 0 R] /Count 1 >>", "endobj"],
+    ["3 0 obj", "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << >> /Contents 4 0 R >>", "endobj"],
+    ["4 0 obj", "<< /Length 0 >>", "stream", "", "endstream", "endobj"],
+  ];
+
+  const out = [];
+  const offsets = [];
+  let size = Buffer.byteLength("%PDF-1.4\n", "ascii");
+  for (const body of objects) {
+    offsets.push(size);
+    for (const line of body) {
+      out.push(line, "\n");
+      size += Buffer.byteLength(line, "ascii") + 1;
+    }
+  }
+
+  const xrefStart = size;
+  let xref = `xref\n0 ${objects.length + 1}\n${"0000000000 65535 f \n"}`;
+  for (const off of offsets) {
+    xref += `${String(off).padStart(10, "0")} 00000 n \n`;
+  }
+  const trailer = `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF\n`;
+  return Buffer.from(`%PDF-1.4\n${out.join("")}${xref}${trailer}`, "ascii");
+}
+
 // --- ZIP (STORED method, forward-slash names, UTF-8 flag) --------------------
 const CRC_TABLE = (() => {
   const table = new Uint32Array(256);
@@ -193,5 +226,8 @@ writeFileSync(path.join(fixturesDir, "question.pdf"), minimalPdf(QUESTION_PDF_TE
 writeFileSync(path.join(fixturesDir, "question.docx"), makeZip(makeDocxParts(QUESTION_DOCX_TEXT)));
 writeFileSync(path.join(fixturesDir, "curriculum.pdf"), minimalPdf(CURRICULUM_PDF_TEXT));
 writeFileSync(path.join(fixturesDir, "curriculum.docx"), makeZip(makeDocxParts(CURRICULUM_DOCX_TEXT)));
+// Scanned fixture: a valid PDF with NO text layer (empty content stream) —
+// exactly what an image-only scan looks like to the extractor.
+writeFileSync(path.join(fixturesDir, "scanned.pdf"), blankPdf());
 
 console.log(`fixtures written to ${fixturesDir}`);

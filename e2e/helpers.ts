@@ -30,6 +30,9 @@ export const VISION_MARKER = "قرأت الصورة المرفقة";
 /** Mock provider marker: the tutor reply contains this when a document was attached. */
 export const DOCUMENT_MARKER = "قرأت الملف المرفق";
 
+/** Mock provider marker: OCR (PHASE 19) recognized text always contains this — proves a scanned file was read. */
+export const OCR_MARKER = "نص الصفحة الممسوحة ضوئيًا";
+
 /** Start of the tutor's safe-refusal reply (prompt-injection tripwire). */
 export const SAFE_REFUSAL_PHRASE = "أنا هنا لمساعدتك في درسنا فقط";
 

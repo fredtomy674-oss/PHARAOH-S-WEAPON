@@ -1,0 +1,1 @@
+ALTER TABLE `message_attachments` ADD `ocr_applied` integer DEFAULT false;

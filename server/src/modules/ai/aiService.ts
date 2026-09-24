@@ -3,10 +3,10 @@ import type { Db } from "../../db/index.js";
 import { AiCache } from "./cache.js";
 import { ModelRouter } from "./router.js";
 import { UsageTracker } from "./usage.js";
-import { GeminiEmbeddingProvider, GeminiLLMProvider } from "./providers/gemini.js";
-import { MockEmbeddingProvider, MockLLMProvider } from "./providers/mock.js";
+import { GeminiEmbeddingProvider, GeminiLLMProvider, GeminiOcrProvider } from "./providers/gemini.js";
+import { MockEmbeddingProvider, MockLLMProvider, MockOcrProvider } from "./providers/mock.js";
 import { Errors } from "../../utils/errors.js";
-import type { AIProviders, EmbeddingRequest, EmbeddingResponse, LLMRequest, LLMResponse } from "./types.js";
+import type { AIProviders, EmbeddingRequest, EmbeddingResponse, LLMRequest, LLMResponse, OcrRequest, OcrResponse } from "./types.js";
 
 /**
  * Facade for all AI access. Constructed once per app; modules depend on this
@@ -21,11 +21,13 @@ export class AiService {
   constructor(db: Db, opts?: { forceProvider?: "mock" | "gemini"; overrides?: Partial<Record<"classifier" | "tutor" | "recap" | "feedback" | "embedding", string>> }) {
     const llmChoice = opts?.forceProvider ?? config.AI_LLM_PROVIDER;
     const embedChoice = opts?.forceProvider ?? config.AI_EMBEDDING_PROVIDER;
+    const ocrChoice = opts?.forceProvider ?? config.AI_OCR_PROVIDER;
 
     const llm = llmChoice === "gemini" ? new GeminiLLMProvider() : new MockLLMProvider();
     const embeddings = embedChoice === "gemini" ? new GeminiEmbeddingProvider() : new MockEmbeddingProvider();
+    const ocr = ocrChoice === "gemini" ? new GeminiOcrProvider() : new MockOcrProvider();
 
-    this.providers = { llm, embeddings };
+    this.providers = { llm, embeddings, ocr };
     this.router = new ModelRouter({ overrides: opts?.overrides });
     this.usage = new UsageTracker(db);
     this.cache = new AiCache();
@@ -72,6 +74,24 @@ export class AiService {
       inputTokens: response.vectors.length,
       outputTokens: 0,
       latencyMs: 0,
+    });
+    return response;
+  }
+
+  /** Single entry point for OCR calls (scanned file recognition + usage log). */
+  async ocr(request: OcrRequest): Promise<OcrResponse> {
+    const model = this.router.ocrModel();
+    const started = Date.now();
+    const response = await this.providers.ocr.ocr({ ...request, model });
+    await this.usage.record({
+      userId: request.contextUserId,
+      sessionId: request.contextSessionId,
+      operation: "ocr",
+      provider: this.providers.ocr.id,
+      model: response.model,
+      inputTokens: response.inputTokens,
+      outputTokens: response.outputTokens,
+      latencyMs: Date.now() - started,
     });
     return response;
   }

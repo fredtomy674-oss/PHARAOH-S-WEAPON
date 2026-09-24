@@ -21,9 +21,13 @@ const EnvSchema = z.object({
 
   AI_LLM_PROVIDER: z.enum(["mock", "gemini"]).default("mock"),
   AI_EMBEDDING_PROVIDER: z.enum(["mock", "gemini"]).default("mock"),
+  /** OCR of scanned files (Path A chats + Path B curriculum import): which provider reads the pages. */
+  AI_OCR_PROVIDER: z.enum(["mock", "gemini"]).default("mock"),
   GEMINI_API_KEY: z.string().optional(),
   GEMINI_LLM_MODEL: z.string().default("gemini-2.0-flash"),
   GEMINI_EMBEDDING_MODEL: z.string().default("text-embedding-004"),
+  /** Vision-capable model used to read scanned PDF/DOCX pages (inline input). */
+  GEMINI_OCR_MODEL: z.string().default("gemini-2.0-flash"),
   AI_ROUTING_LLM: z.string().default("default"),
   AI_ROUTING_EMBEDDING: z.string().default("default"),
 
@@ -43,6 +47,10 @@ const EnvSchema = z.object({
   // actually shipped to the AI provider (cost guardrail).
   MAX_FILE_KB: z.coerce.number().int().positive().default(10000),
   MAX_DOCUMENT_CHARS: z.coerce.number().int().positive().default(20000),
+
+  // OCR: cap on recognized text returned by the OCR provider per file (same
+  // cost-guardrail idea as MAX_DOCUMENT_CHARS; Path B uses its own larger cap).
+  MAX_OCR_CHARS: z.coerce.number().int().positive().default(20000),
 
   // Curriculum file import (Path B, admin): max raw file size in KB (20 MB
   // default) and the cap on extracted text (chars) chunked+embedded into the

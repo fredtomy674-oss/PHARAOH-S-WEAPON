@@ -165,7 +165,7 @@ export class KnowledgeService {
     const cleaned = cleanText(input.text);
     if (cleaned.trim().length < 40) {
       throw Errors.badRequest(
-        "لم يُستخرج نص كافٍ من الملف (أقل من 40 حرفًا) — الملف ممسوح ضوئيًا أو بلا نص؟ استخراج OCR مؤجل في هذه المرحلة",
+        "لم يُستخرج نص كافٍ من الملف (أقل من 40 حرفًا) حتى بعد محاولة OCR — تأكد أن الملف نصي أو صورة ممسوحة مقروءة",
         "EMPTY_DOCUMENT",
       );
     }

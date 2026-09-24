@@ -18,7 +18,8 @@ import {
  * pure-JS parsers, feeds it to the tutor as document input (never the system
  * prompt), and the mock provider acknowledges it. Also exercises the
  * prompt-injection tripwire that re-scans the extracted file text server-side
- * before any model call. OCR for scanned PDFs is explicitly deferred.
+ * before any model call. Scanned files (no text layer) fall back to OCR —
+ * covered separately in ocr.spec.ts (PHASE 19).
  */
 test.describe.configure({ mode: "serial" });
 

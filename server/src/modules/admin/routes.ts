@@ -5,6 +5,7 @@ import { requireAdmin } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 import { config } from "../../config/env.js";
 import { parseDocumentDataUrl } from "../sessions/documents.js";
+import { OCR_ELIGIBLE_MIMES } from "../ocr/service.js";
 
 const ingestBodySchema = {
   type: "object",
@@ -148,11 +149,32 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
       fileName: body.fileName,
     });
 
+    // Path B — OCR (PHASE 19): when a scanned PDF/DOCX yields no usable text
+    // layer, recognize its pages through the AI OCR provider so the curriculum
+    // content still reaches the knowledge base. OCR results are treated exactly
+    // like extracted text (content, never instructions). Plain TXT/MD stays
+    // untouched: a genuinely too-short text file still fails with EMPTY_DOCUMENT.
+    let text = parsed.text;
+    let ocrApplied = false;
+    if (text.trim().length < 40 && OCR_ELIGIBLE_MIMES.has(parsed.mimeType)) {
+      const recognized = await app.ocr.recognize({
+        mimeType: parsed.mimeType,
+        base64: parsed.base64,
+        fileName: parsed.fileName,
+        maxChars: config.MAX_CURRICULUM_DOCUMENT_CHARS,
+        contextUserId: auth.user.id,
+      });
+      if (recognized.text.trim().length > 0) {
+        text = recognized.text;
+        ocrApplied = true;
+      }
+    }
+
     const result = await app.knowledge.ingestFile({
       fileName: body.fileName,
       mimeType: parsed.mimeType,
       bytes: parsed.bytes,
-      text: parsed.text,
+      text,
       title: body.title,
       source: body.source,
       uploaderUserId: auth.user.id,
@@ -165,7 +187,7 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
       action: "document.ingest",
       entityType: "document",
       entityId: result.documentId,
-      afterJson: JSON.stringify({ title: body.title ?? body.fileName, mimeType: parsed.mimeType, chunkCount: result.chunkCount }),
+      afterJson: JSON.stringify({ title: body.title ?? body.fileName, mimeType: parsed.mimeType, chunkCount: result.chunkCount, ...(ocrApplied ? { ocrApplied: true } : {}) }),
       ip: request.ip,
     });
 

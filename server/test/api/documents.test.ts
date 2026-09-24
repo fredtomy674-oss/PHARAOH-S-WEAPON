@@ -4,7 +4,7 @@ import { describe, expect, it, beforeAll, afterAll } from "vitest";
 import { eq } from "drizzle-orm";
 import { messageAttachments } from "../../src/db/schema.js";
 import { makeApp, seedMiniCorpus, registerStudent, csrfHeaders, type AuthSession, type MiniCorpus, type TestApi } from "../helpers.js";
-import { DOCUMENT_READ_MARKER } from "../../src/modules/ai/providers/mock.js";
+import { DOCUMENT_READ_MARKER, OCR_TEXT_MARKER } from "../../src/modules/ai/providers/mock.js";
 
 const fixturesDir = new URL("../../../e2e/fixtures/", import.meta.url);
 const readFixture = (name: string): Buffer => readFileSync(fileURLToPath(new URL(name, fixturesDir)));
@@ -16,10 +16,11 @@ const DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingm
 const nth = (n: number) => `doc-${n}@test.local`;
 
 interface TurnShape {
-  userMessage: { id: string; content: string; attachments: Array<{ id: string; mimeType: string; fileName: string | null; textChars?: number; truncated?: boolean }> };
+  userMessage: { id: string; content: string; attachments: Array<{ id: string; mimeType: string; fileName: string | null; textChars?: number; truncated?: boolean; ocr?: boolean }> };
   tutorMessage: { content: string };
   contextChunkCount: number;
   safetyTripwire: boolean;
+  ocrUsed?: boolean;
 }
 
 describe("document upload (ملف سؤال في الدردشة) — API", () => {
@@ -148,8 +149,9 @@ describe("document upload (ملف سؤال في الدردشة) — API", () => 
     expect(turn.contextChunkCount).toBe(0);
   });
 
-  it("handles a file with no extractable text (scanned PDF — OCR deferred) without crashing", async () => {
-    // A REAL PDF header (so MAGIC sniffing passes) but no text to extract.
+  it("PHASE 19 — OCR: a scanned PDF (no text layer) is recognized and its text reaches the tutor", async () => {
+    // A REAL PDF header (so MAGIC sniffing passes) but no extractable text —
+    // exactly what an image-only scan looks like. The AI OCR fallback kicks in.
     const scannedPdf = Buffer.from("%PDF-1.4\n% minimal no-text\n%%EOF", "utf8");
     const res = await api.app.inject({
       method: "POST",
@@ -162,10 +164,20 @@ describe("document upload (ملف سؤال في الدردشة) — API", () => 
     });
     expect(res.statusCode).toBe(200);
     const turn = res.json() as TurnShape;
-    expect(turn.userMessage.attachments[0]!.textChars).toBe(0);
-    // The tutor still answers grounded in the lesson (no document text leaked).
-    expect(turn.tutorMessage.content).not.toContain(DOCUMENT_READ_MARKER);
+    expect(turn.ocrUsed).toBe(true);
+    const att = turn.userMessage.attachments[0]!;
+    expect(att.textChars).toBeGreaterThan(0);
+    expect(att.ocr).toBe(true);
+    // The tutor reads the recognized text like any document — proof the OCR
+    // result reached the model turn (and is echo-tagged as recognized text).
+    expect(turn.tutorMessage.content).toContain(DOCUMENT_READ_MARKER);
+    expect(turn.tutorMessage.content).toContain(OCR_TEXT_MARKER);
     expect(turn.tutorMessage.content).toContain("وفقًا لمحتوى الدرس");
+
+    // The recognized text is persisted on the attachment (like extracted text).
+    const row = await api.db.db.select().from(messageAttachments).where(eq(messageAttachments.id, att.id)).get();
+    expect(row?.ocrApplied).toBe(true);
+    expect(row?.extractedText).toContain(OCR_TEXT_MARKER);
   });
 
   it("rejects a spoofed PDF: text bytes declared as application/pdf (MAGIC-byte mismatch)", async () => {

@@ -6,6 +6,7 @@ import { AuditService } from "../modules/audit/service.js";
 import { AuthService } from "../modules/auth/service.js";
 import { CurriculumService } from "../modules/curriculum/service.js";
 import { KnowledgeService } from "../modules/knowledge/service.js";
+import { OcrService } from "../modules/ocr/service.js";
 import { ParentService } from "../modules/parent/service.js";
 import { RetrievalService } from "../modules/rag/retrieval.js";
 import { SqliteVectorStore } from "../modules/rag/vectorStore.js";
@@ -21,6 +22,7 @@ declare module "fastify" {
     authService: AuthService;
     curriculum: CurriculumService;
     knowledge: KnowledgeService;
+    ocr: OcrService;
     retrieval: RetrievalService;
     vectorStore: SqliteVectorStore;
     memory: MemoryService;
@@ -53,7 +55,8 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   const memory = new MemoryService(db);
   const tutor = new TutorEngine(db, ai, retrieval, memory);
   const knowledge = new KnowledgeService(db, ai, vectorStore);
-  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai);
+  const ocr = new OcrService(ai);
+  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr);
   const parents = new ParentService(db, memory);
 
   app.decorate("db", db);
@@ -62,6 +65,7 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   app.decorate("authService", authService);
   app.decorate("curriculum", curriculum);
   app.decorate("knowledge", knowledge);
+  app.decorate("ocr", ocr);
   app.decorate("retrieval", retrieval);
   app.decorate("vectorStore", vectorStore);
   app.decorate("memory", memory);

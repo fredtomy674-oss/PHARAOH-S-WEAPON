@@ -46,6 +46,12 @@ describe("document text extraction (مسار الطالب في الدردشة)",
     expect(truncated).toBe(false);
   });
 
+  it("returns empty text for a scanned (no-text-layer) PDF — the OCR fallback (PHASE 19) takes over upstream", async () => {
+    const { text, truncated } = await extractDocumentText(readFixture("scanned.pdf"), PDF_MIME, 20_000);
+    expect(text).toBe("");
+    expect(truncated).toBe(false);
+  });
+
   it("parseDocumentDataUrl validates mime whitelist and computes sha256/size", async () => {
     expect(ALLOWED_DOCUMENT_MIMES.has("text/markdown")).toBe(true);
     const bytes = readFixture("question.pdf");

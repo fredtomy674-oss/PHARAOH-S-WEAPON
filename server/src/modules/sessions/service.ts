@@ -10,6 +10,7 @@ import type { MemoryService } from "../tutor/memoryService.js";
 import type { TutorEngine } from "../tutor/tutorEngine.js";
 import type { AuditService } from "../audit/service.js";
 import type { AiService } from "../ai/aiService.js";
+import { OcrService, OCR_ELIGIBLE_MIMES } from "../ocr/service.js";
 import { parseImageDataUrl } from "./attachments.js";
 import { parseDocumentDataUrl } from "./documents.js";
 
@@ -29,6 +30,7 @@ export class SessionService {
     private readonly memory: MemoryService,
     private readonly audit: AuditService,
     private readonly ai: AiService,
+    private readonly ocr: OcrService,
   ) {}
 
   async start(input: StartSessionInput): Promise<typeof learningSessions.$inferSelect> {
@@ -84,7 +86,7 @@ export class SessionService {
     const byMessage = new Map<string, AttachmentSummary[]>();
     for (const a of attachments) {
       const list = byMessage.get(a.messageId) ?? [];
-      list.push(attachmentSummary(a));
+      list.push(attachmentSummary(a, undefined, a.ocrApplied ?? false));
       byMessage.set(a.messageId, list);
     }
     return { session, messages: msgs.map((m) => ({ ...m, attachments: byMessage.get(m.id) ?? [] })) };
@@ -117,6 +119,33 @@ export class SessionService {
         })
       : null;
     if (content.length < 1 && !image && !document) throw Errors.badRequest("الرسالة فارغة");
+
+    const studentRow = await this.db.db.select().from(studentsTable).where(eq(studentsTable.id, session.studentId)).get();
+    if (!studentRow) throw Errors.internal("بروفايل الطالب مفقود");
+
+    // PHASE 19 — OCR: a scanned PDF/DOCX with no text layer falls back to page
+    // recognition through the AI OCR provider. The recognized text travels
+    // exactly like extracted document text downstream (bounded by
+    // MAX_OCR_CHARS, tripwire re-scanned, unused when empty).
+    let documentText = document ? document.text : "";
+    let ocrUsed = false;
+    let ocrTruncated = false;
+    if (document && documentText.trim().length === 0 && OCR_ELIGIBLE_MIMES.has(document.mimeType)) {
+      const recognized = await this.ocr.recognize({
+        mimeType: document.mimeType,
+        base64: document.base64,
+        fileName: document.fileName,
+        maxChars: config.MAX_OCR_CHARS,
+        contextUserId: studentRow.userId,
+        contextSessionId: session.id,
+      });
+      if (recognized.text.trim().length > 0) {
+        documentText = recognized.text;
+        ocrUsed = true;
+        ocrTruncated = recognized.truncated;
+      }
+    }
+    const docInfo = document ? { text: documentText, truncated: ocrUsed ? ocrTruncated : document.truncated } : null;
 
     const now = new Date();
     const userMessage = (
@@ -158,7 +187,8 @@ export class SessionService {
             sizeBytes: document.sizeBytes,
             sha256: document.sha256,
             data: document.bytes,
-            extractedText: document.text.length > 0 ? document.text : null,
+            extractedText: documentText.length > 0 ? documentText : null,
+            ocrApplied: ocrUsed,
             createdAt: now,
           })
           .returning()
@@ -170,13 +200,10 @@ export class SessionService {
       : null;
     if (!breadcrumb) throw Errors.badRequest("جلسة بدون درس غير مدعومة بعد — ابدأ جلسة من درس محدد", "NO_LESSON");
 
-    const studentRow = await this.db.db.select().from(studentsTable).where(eq(studentsTable.id, session.studentId)).get();
-    if (!studentRow) throw Errors.internal("بروفايل الطالب مفقود");
-
     const images: ImageInput[] | undefined = image ? [{ mimeType: image.mimeType, base64: image.base64 }] : undefined;
     const documents: DocumentInput[] | undefined =
-      document && document.text.trim().length > 0
-        ? [{ fileName: document.fileName, mimeType: document.mimeType, text: document.text }]
+      document && documentText.trim().length > 0
+        ? [{ fileName: document.fileName, mimeType: document.mimeType, text: documentText }]
         : undefined;
     const result = await this.tutor.handle({
       student: studentRow,
@@ -206,12 +233,13 @@ export class SessionService {
     return {
       userMessage: {
         ...userMessage,
-        attachments: attachment ? [attachmentSummary(attachment, document)] : [],
+        attachments: attachment ? [attachmentSummary(attachment, docInfo, ocrUsed)] : [],
       },
       tutorMessage: tutorMessage!,
       contextChunkCount: result.contextChunkCount,
       remainingBudget: await this.remainingDaily(userIdOf(studentRow)),
       safetyTripwire: result.intent.intent === "admin_bypass_attempt",
+      ocrUsed,
     };
   }
 
@@ -261,9 +289,15 @@ export interface AttachmentSummary {
   textChars?: number;
   /** Document attachments only: true when the text was cut to the chars budget. */
   truncated?: boolean;
+  /** Document attachments only: true when the text came from OCR (scanned file). */
+  ocr?: boolean;
 }
 
-function attachmentSummary(row: { id: string; messageId: string; mimeType: string; fileName: string | null; sizeBytes: number }, document?: { text: string; truncated: boolean } | null): AttachmentSummary {
+function attachmentSummary(
+  row: { id: string; messageId: string; mimeType: string; fileName: string | null; sizeBytes: number },
+  document?: { text: string; truncated: boolean } | null,
+  ocr = false,
+): AttachmentSummary {
   return {
     id: row.id,
     messageId: row.messageId,
@@ -271,6 +305,7 @@ function attachmentSummary(row: { id: string; messageId: string; mimeType: strin
     fileName: row.fileName,
     sizeBytes: row.sizeBytes,
     ...(document ? { textChars: document.text.length, truncated: document.truncated } : {}),
+    ...(ocr ? { ocr: true } : {}),
   };
 }
 

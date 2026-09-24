@@ -28,7 +28,7 @@ export interface DocumentInput {
 }
 
 /** High-level capabilities used for routing (cost-aware: classifier uses a cheap model). */
-export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding";
+export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr";
 
 export interface LLMRequest {
   operation: AIOperation;
@@ -77,9 +77,39 @@ export interface EmbeddingProvider {
   embed(request: EmbeddingRequest): Promise<EmbeddingResponse>;
 }
 
+/**
+ * OCR (scanned files) provider. The file itself is UNTRUSTED user content; the
+ * provider is asked to read it verbatim and nothing else. The extracted text is
+ * treated exactly like extracted PDF/DOCX text everywhere downstream.
+ */
+export interface OcrRequest {
+  mimeType: string;
+  base64: string;
+  fileName?: string | null;
+  /** Explicit model override (the router picks the default OCR model otherwise). */
+  model?: string;
+  /** Server-side trace context (never sent to the provider). */
+  contextUserId?: string;
+  contextSessionId?: string;
+}
+
+export interface OcrResponse {
+  text: string;
+  model: string;
+  inputTokens: number;
+  outputTokens: number;
+  latencyMs: number;
+}
+
+export interface OcrProvider {
+  readonly id: string;
+  ocr(request: OcrRequest): Promise<OcrResponse>;
+}
+
 export interface AIProviders {
   llm: LLMProvider;
   embeddings: EmbeddingProvider;
+  ocr: OcrProvider;
 }
 
 /** Estimated USD cost per 1M tokens per model (approx; usage logs are estimates). */

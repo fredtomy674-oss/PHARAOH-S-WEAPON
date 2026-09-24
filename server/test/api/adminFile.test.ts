@@ -3,8 +3,9 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { eq } from "drizzle-orm";
-import { documentVersions, documents } from "../../src/db/schema.js";
+import { chunks, documentVersions, documents } from "../../src/db/schema.js";
 import { makeAdmin, makeApp, registerStudent, seedMiniCorpus, type AuthSession, type MiniCorpus, type TestApi, csrfHeaders, headers } from "../helpers.js";
+import { OCR_TEXT_MARKER } from "../../src/modules/ai/providers/mock.js";
 
 const fixturesDir = new URL("../../../e2e/fixtures/", import.meta.url);
 const readFixture = (name: string): Buffer => readFileSync(fileURLToPath(new URL(name, fixturesDir)));
@@ -200,12 +201,22 @@ describe("curriculum file import (Path B) — API", () => {
     expect(res.json().error.code).toBe("INVALID_DOCUMENT_FORMAT");
   });
 
-  it("rejects a scanned/empty PDF with EMPTY_DOCUMENT (OCR deferred)", async () => {
-    // A REAL PDF header (MAGIC sniffing passes) but no text to extract.
+  it("PHASE 19 — OCR rescues a scanned PDF (no text layer) into the knowledge base", async () => {
+    // A REAL PDF header (MAGIC sniffing passes) but no text to extract —
+    // exactly what an image-only scan looks like. The AI OCR fallback reads it.
     const scannedPdf = Buffer.from("%PDF-1.4\n% minimal no-text\n%%EOF", "utf8");
     const res = await ingestFile(scannedPdf, PDF_MIME, "scanned.pdf", scopeA);
-    expect(res.statusCode).toBe(400);
-    expect(res.json().error.code).toBe("EMPTY_DOCUMENT");
+    expect(res.statusCode).toBe(201);
+    const body = res.json() as IngestResponse;
+    expect(body.document.chunkCount).toBeGreaterThan(0);
+
+    const doc = api.db.db.select().from(documents).where(eq(documents.id, body.document.documentId)).get();
+    expect(doc?.kind).toBe("pdf");
+    expect(doc?.status).toBe("ready");
+
+    // The OCR'd curriculum text actually reaches the knowledge base chunks.
+    const chunk = api.db.db.select().from(chunks).where(eq(chunks.documentId, body.document.documentId)).get();
+    expect(chunk?.content).toContain(OCR_TEXT_MARKER);
   });
 
   it("rejects a spoofed PDF: text bytes declared as application/pdf (FILE_TYPE_MISMATCH)", async () => {

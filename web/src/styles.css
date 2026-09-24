@@ -695,6 +695,20 @@ p {
   color: var(--muted, #6b7280);
 }
 
+/* PHASE 19 — OCR badge: shown on a document bubble when the file's text was
+   recognized from a scanned page (no text layer) instead of extracted. */
+.ocr-badge {
+  display: block;
+  margin-top: 0.3rem;
+  padding: 0.15rem 0.45rem;
+  background: #e8f0fe;
+  border: 1px dashed #4f83cc;
+  border-radius: 8px;
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 .document-preview-name {
   font-size: 0.9rem;
   word-break: break-word;

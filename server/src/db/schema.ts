@@ -400,6 +400,8 @@ export const messageAttachments = sqliteTable(
     data: blob("data", { mode: "buffer" }).notNull(),
     /** Document attachments only: extracted plain text (null for images / empty extractions). */
     extractedText: text("extracted_text"),
+    /** Document attachments only: true when `extractedText` came from OCR (scanned file). */
+    ocrApplied: integer("ocr_applied", { mode: "boolean" }).default(false),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [

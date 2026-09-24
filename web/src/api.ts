@@ -119,6 +119,8 @@ export interface MessageAttachment {
   textChars?: number;
   /** Document attachments only: true when the text was cut to the chars budget. */
   truncated?: boolean;
+  /** Document attachments only: true when the text came from OCR (scanned file, PHASE 19). */
+  ocr?: boolean;
 }
 
 export interface Message {
@@ -138,6 +140,8 @@ export interface TurnResult {
   contextChunkCount: number;
   remainingBudget: number;
   safetyTripwire: boolean;
+  /** True when the attached document had no text layer and was read via OCR (PHASE 19). */
+  ocrUsed: boolean;
 }
 
 export interface ProgressConcept {

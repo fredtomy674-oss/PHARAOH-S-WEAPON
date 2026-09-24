@@ -283,6 +283,11 @@ export function ChatScreen({ session, onEnded }: Props) {
                       ) : (
                         <span key={a.id} data-testid="msg-document" className="bubble-document" title={a.mimeType}>
                           📄 {a.fileName ?? "ملف مرفق"} <small>({formatSize(a.sizeBytes)})</small>
+                          {a.ocr && (
+                            <span className="ocr-badge" data-testid="msg-ocr-badge">
+                              🖨️ نص ممسوح ضوئيًا — قُرئ تلقائيًا
+                            </span>
+                          )}
                         </span>
                       ),
                     )}

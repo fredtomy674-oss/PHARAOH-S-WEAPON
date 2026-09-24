@@ -1,5 +1,5 @@
-import { cyrb128 } from "../../../utils/ids.js";
-import type { DocumentInput, EmbeddingProvider, EmbeddingResponse, LLMProvider, LLMResponse, LLMRequest } from "../types.js";
+import { cyrb128, sha256Hex } from "../../../utils/ids.js";
+import type { DocumentInput, EmbeddingProvider, EmbeddingResponse, LLMProvider, LLMResponse, LLMRequest, OcrProvider, OcrRequest, OcrResponse } from "../types.js";
 
 const MOCK_DIM = 64;
 
@@ -125,6 +125,36 @@ function buildTutorText(args: {
   parts.push("💡 تلميح: جرب التفكير في المثال الأول في الدرس قبل الإجابة، وأخبرني بما توصلت إليه.");
   parts.push("هل تريد أن أشرح مرة أخرى بطريقة مختلفة، أم ننتقل لسؤال للتأكد من الفهم؟");
   return parts.join("\n\n");
+}
+
+/** Stable marker the mock OCR provider puts in every recognized text (used by tests/E2E). */
+export const OCR_TEXT_MARKER = "نص الصفحة الممسوحة ضوئيًا";
+
+/**
+ * Deterministic offline OCR provider: scanned PDF/DOCX pages always yield a
+ * fixed, curriculum-shaped Arabic fixture (bytes-derived token so distinct
+ * files produce distinct-but-stable text — never identical chunk content).
+ * Real OCR of actual page images comes from the `gemini` provider.
+ */
+export class MockOcrProvider implements OcrProvider {
+  readonly id = "mock";
+
+  async ocr(request: OcrRequest): Promise<OcrResponse> {
+    const started = Date.now();
+    const token = sha256Hex(request.base64).slice(0, 8);
+    const text = [
+      `${OCR_TEXT_MARKER} — صفحة من كتاب الرياضيات (الصف السادس).`,
+      `نص الصفحة: «جمع الأعداد الطبيعية حتى 999 مع إعادة التجميع — مثال محلول: 487 + 358 = 845 (الرمز ${token}).»`,
+      "ثمة تمرين مطلوب: اكتب مسودة الحل ثم تحقق من التقدير قبل الإجابة النهائية.",
+    ].join("\n");
+    return {
+      text,
+      model: "mock-ocr",
+      inputTokens: Math.ceil(request.base64.length / 4),
+      outputTokens: estimateTokens(text),
+      latencyMs: Date.now() - started,
+    };
+  }
 }
 
 function estimateTokens(text: string): number {
