@@ -65,6 +65,16 @@ const EnvSchema = z.object({
   RAG_TOP_K: z.coerce.number().int().positive().default(5),
   RAG_ENABLE_RERANK: boolFromString.default("true"),
   RAG_MAX_CONTEXT_CHARS: z.coerce.number().int().positive().default(12000),
+  /** Reranker flavor: lexical (fast, deterministic, default) | model (LLM-scored, opt-in). */
+  RAG_RERANKER: z.enum(["lexical", "model"]).default("lexical"),
+
+  // Vector store adapter (PHASE 21). sqlite = local MVP (default, zero deps);
+  // qdrant = Qdrant over HTTP (Docker/Qdrant Cloud) — plain fetch, no client dep.
+  VECTOR_STORE: z.enum(["sqlite", "qdrant"]).default("sqlite"),
+  QDRANT_URL: z.string().url().default("http://127.0.0.1:6333"),
+  QDRANT_COLLECTION: z.string().min(1).default("alfarouq"),
+  /** Optional fixed vector dimension; when absent the store adopts the first embedding's dim. */
+  QDRANT_DIMENSION: z.coerce.number().int().positive().optional(),
 
   // Frontend
   WEB_ORIGIN: z.string().default("http://localhost:5173"),

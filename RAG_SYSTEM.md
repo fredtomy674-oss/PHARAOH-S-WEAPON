@@ -1,6 +1,6 @@
 # RAG SYSTEM — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-23 — الكود في `server/src/modules/rag/`.
+> آخر تحديث: 2026-09-24 — الكود في `server/src/modules/rag/` (PHASE 21: مزوّد متجهات Qdrant + إعادة تصنيف عبر نموذج).
 
 ## 1. خط الأنابيب
 
@@ -11,9 +11,9 @@ Documents (txt/md/csv + ملفات مناهج PDF/DOCX عبر /api/admin/documen
  → Chunking (بالفقرات/العناوين; حجم هدف 300-600 حرف، overlap 40)
  → Metadata building (country_id…concept_id, source, version, doc title)
  → Embedding (EmbeddingProvider: mock | gemini)
- → VectorStore (SqliteVectorStore — جدول `rag_vectors`)
+ → VectorStore (SqliteVectorStore — جدول `rag_vectors` | QdrantVectorStore عبر HTTP — `VECTOR_STORE=sqlite|qdrant`)
  → Retrieval (query → embeddings + scopeFilter → top-k)
- → Reranking (اختصاري لغوي الآن — ReRanker interface)
+ → Reranking (LexicalReranker الافتراضي — حتمي سريع | ModelReranker عبر LLM — عملية `rerank`، هبوط آمن)
  → ContextBuilder → Context موثوق ← TutorEngine
 ```
 
@@ -38,11 +38,12 @@ source, version, document_id
 - `retrieve()` لا يقبل استدعاء بلا scope كامل: يطرح خطأ validation إذا غاب `curriculum_id` أو `lesson_id` (وفق نطاق الجلسة).
 - فلتر SQL على هذه الأعمدة قبل حساب التشابه → استحالة استرجاع content من صف/منهج آخر.
 
-## 3. Vector Store المحلي (اختيار MVP)
+## 3. Vector Store (مزوّد قابل للتبديل — PHASE 21/D-025)
 
-- `SqliteVectorStore`: جدول `rag_vectors(chunk_id UNIQUE, embedding BLOB f32, dim)`
-- البحث = cosine similarity في JS على ناتج فلتر SQL (دقيق، صفر إضافات أصلية، يكفي ≤ 100k chunk على هذا الجهاز).
-- الواجهة `VectorStore` تسمح بـ pgvector/Chroma/Qdrant لاحقاً (DECISIONS.md).
+- **`VECTOR_STORE=sqlite` (الافتراضي — اختيار MVP)** — `SqliteVectorStore`: جدول `rag_vectors(chunk_id UNIQUE, embedding BLOB f32, dim)`. البحث = cosine similarity في JS على ناتج فلتر SQL (دقيق، صفر إضافات أصلية، يكفي ≤ 100k chunk على هذا الجهاز).
+- **`VECTOR_STORE=qdrant` (اختياري — Docker أو Qdrant Cloud)** — `QdrantVectorStore`: عميل HTTP صافٍ (بلا اعتماديات) عبر `QDRANT_URL`/`QDRANT_COLLECTION` (افتراضي `alfarouq`) و`QDRANT_DIMENSION` (اختياري — يُعتمد بُعد أول متجه). محتوى الـchunks وMetadata **يبقى في SQLite**؛ Qdrant يحمل chunkId + المتجه + حقول النطاق المعكوسة في الـpayload، وعزلّ الاستعلام (**نفس AND-semantics كفلتر SQL**) يتم عبر فلتر payload — «معرفية علائقية للإدارة، مخزن متجهات للبحث».
+- **فشل غير متماثل** (D-025): `upsert`/`remove` ترمي `503 VECTOR_STORE_UNAVAILABLE` (استيراد الإدارة يُعلن)؛ `search` يعود `[]` (لا انهيار لجلسة الطالب). id النقطة **UUID حتمي** من `sha256(chunkId)`؛ `QDRANT_DIMENSION` مخالف → `400 VECTOR_DIMENSION_MISMATCH` قبل اللمس الشبكي.
+- **pgvector** مؤجل حتى تتوفر Postgres في البيئة — نفس واجهة `VectorStore` (ادapter جديد فقط، صفر تغيير في `rag/`).
 - إذا كان `AI_EMBEDDING_PROVIDER=gemini` فتوليد المتجهات خارجي (بلا تخزين محتوى خارجياً أبداً — تُرسل الجمل فقط).
 
 ## 4. أداء وحدود

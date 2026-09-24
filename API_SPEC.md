@@ -62,7 +62,7 @@
 
 ## 5. Response errors
 
-- 400 validation (بينها رموز أخطاء إدارة المستندات: `EMPTY_DOCUMENT`، `DOCUMENT_TOO_LARGE`، `UNSUPPORTED_DOCUMENT_TYPE`، `INVALID_DOCUMENT_FORMAT`، `FILE_TYPE_MISMATCH`)، 401 غير مصادق، 403 منع/مُرتد، 404 غير موجود، 409 تعارض (مثل `DOCUMENT_ALREADY_INGESTED`)، 429 معدل مفرط، 500 خطأ خادم.
+- 400 validation (بينها رموز أخطاء إدارة المستندات: `EMPTY_DOCUMENT`، `DOCUMENT_TOO_LARGE`، `UNSUPPORTED_DOCUMENT_TYPE`، `INVALID_DOCUMENT_FORMAT`، `FILE_TYPE_MISMATCH`، ومن PHASE 21 `VECTOR_DIMENSION_MISMATCH`)، 401 غير مصادق، 403 منع/مُرتد، 404 غير موجود، 409 تعارض (مثل `DOCUMENT_ALREADY_INGESTED`)، 429 معدل مفرط، 500 خطأ خادم، 503 خدمة خارجية غير متاحة (`VECTOR_STORE_UNAVAILABLE` — المعترف به عند `VECTOR_STORE=qdrant` ومخزنه منقطع؛ الاسترجاع نفسه يهبط آمنًا ولا يُخطئ).
 - الشكل: `{ error: { code, message } }` — بدون تفاصيل داخلية.
 
 ## 6. مثال المسار العمودي

@@ -28,7 +28,7 @@ export interface DocumentInput {
 }
 
 /** High-level capabilities used for routing (cost-aware: classifier uses a cheap model). */
-export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr";
+export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr" | "rerank";
 
 export interface LLMRequest {
   operation: AIOperation;

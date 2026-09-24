@@ -32,14 +32,17 @@ export interface RankedChunk {
   position: number;
 }
 
+/** Storage abstraction. sqlite (local, default) and qdrant (HTTP) both implement it. */
 export interface VectorStore {
-  upsert(input: { chunkId: string; embedding: number[]; model: string }): Promise<void>;
+  /** scope is mirrored into the external store's payload for filter-based isolation (sqlite ignores it — its SQL filter already bounds candidates). */
+  upsert(input: { chunkId: string; embedding: number[]; model: string; scope?: CurriculumScope }): Promise<void>;
   remove(chunkId: string): Promise<void>;
   search(input: { query: number[]; scope: CurriculumScope; topK: number; maxCandidates?: number }): Promise<Array<{ chunkId: string; score: number }>>;
 }
 
+/** Reranker interface (async — a model-based reranker is an LLM call). */
 export interface Reranker {
-  rerank(query: string, chunks: RankedChunk[]): RankedChunk[];
+  rerank(query: string, chunks: RankedChunk[]): Promise<RankedChunk[]>;
 }
 
 export interface RetrieveInput {

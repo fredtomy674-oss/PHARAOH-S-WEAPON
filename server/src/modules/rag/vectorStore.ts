@@ -12,7 +12,7 @@ import type { CurriculumScope, VectorStore } from "./types.js";
 export class SqliteVectorStore implements VectorStore {
   constructor(private readonly db: Db) {}
 
-  async upsert(input: { chunkId: string; embedding: number[]; model: string }): Promise<void> {
+  async upsert(input: { chunkId: string; embedding: number[]; model: string; scope?: CurriculumScope }): Promise<void> {
     await this.db.db
       .insert(ragVectors)
       .values({

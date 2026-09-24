@@ -167,6 +167,16 @@
 - [x] اختبارات: وحدة `subscription.test.ts` (5) + وحدة `achievements.test.ts` (7) + API `subscription.test.ts` (7) + API `achievements.test.ts` (6) — **175/175 أخضر** (فلسفة: `dailyLimitFor` يُختبر وحدويًا لأن env بسياق الوحدة؛ واجهات API تثبت أن `remainingBudget` يعكس الخطة — مجاني N−1 / مميز دون حد؛ الـ429 نفسه منطق ثابت)
 - [x] E2E `achievements.spec.ts` (2): E1 طالب جديد يُنهي أول جلسة → شارة «أول خطوة» + بطاقة «مجانية»؛ E2 الإدارة ترفع الخطة عبر اللوحة → الطالب يرى «مميزة» — **29/29 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-024/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/DATABASE_SCHEMA/.env.example) + commit
 
+### PHASE 21 — Qdrant adapter + إعادة تصنيف عبر نموذج ✅
+
+**القرار D-025**: واجهتا `VectorStore`/`Reranker` جاهزتان منذ PHASE 5 — هذه المرحلة تحوّلهما إلى مزوّدين (نفس واجهات، بلا تغييرات في `rag/` عند الاستخدام).
+- [x] **`server/src/modules/rag/qdrant.ts`** — `QdrantVectorStore implements VectorStore` (HTTP صافٍ بلا اعتماديات): point id **UUID حتمي** من `sha256(chunkId)` (`pointUuid` مصدَّر)، عزل الفلترة على **payload النطاق** المعكَس في كل نقطة (`scopePayload` + `scopeFilter` AND-مجاميع)، إنشاء المجموعة تلقائيًا (Cosine + dimension من أول متجه، أو `QDRANT_DIMENSION`)، رفض `400 VECTOR_DIMENSION_MISMATCH` قبل اللمس الشبكي عند ضبط البعد، مهلة `AbortController` (5000ms)، **فشل غير متماثل**: `upsert`/`remove` ترمي `503 VECTOR_STORE_UNAVAILABLE` (خطأ خادمي `Errors.serviceUnavailable`) بينما `search` يهبط آمنًا إلى `[]` (لا انهيار لجلسة الطالب)
+- [x] **`server/src/modules/rag/factory.ts`** — `createVectorStore(db, {kind})`: `VECTOR_STORE=sqlite|qdrant` (افتراضي sqlite = صفر تغيير سلوكي) + `QDRANT_URL`/`QDRANT_COLLECTION`/`QDRANT_DIMENSION`؛ `createReranker(ai, {enabled, kind})`: `RAG_RERANKER=lexical|model` + توصيل `RAG_ENABLE_RERANK` المعلّق (false → `NoopReranker` جديد)؛ رُبط في `container.ts` (تزيين `vectorStore: VectorStore`) و`seed.ts` (مصنع بقسر sqlite) وسطر إقلاع `index.ts` يعرض المخزون وطريقة إعادة التصنيف
+- [x] **`server/src/modules/rag/modelReranker.ts`** — `ModelReranker implements Reranker` (واجهة صارت **غير متزامنة**؛ `LexicalReranker` بلا تغيير): استدعاء العملية `"rerank"` الجديدة في `AIOperation` (يُحتسب في الاستخدام والـrouter كباقي العمليات) بطلب JSON صارم؛ **هبوط آمن**: أي فشل يعيد ترتيب الإدخال كما هو؛ الترتيب على `position` فقط؛ تجاوز استدعاء عند ≤1 مقطع؛ `parseRanking` صارم مصدَّر (منتج في كود حقيقي)
+- [x] **`knowledge/service.ts`**: عقد `VectorStore.upsert` وُسّع بـ`scope?` — `SqliteVectorStore` يتجاهله (فلتر SQL قائم)، و`QdrantVectorStore` يعكس حقول النطاق في الـpayload (فلاتر البحث عليها) — استدعاءا الـupsert يمرّران `input.scope`
+- [x] اختبارات: وحدة `qdrantVectorStore.test.ts` (8 — خادم Qdrant **وهمي في العملية** بـnode:http على منفذ عابر بلا Docker: إنشاء تلقائي، roundtrip، عزل نطاق payload، id حتمي بلا تكرار، remove، مجموعة غير منشأة → `[]`، mismatch أبعاد، انقطاع شبكة عبر `fetchImpl` → upsert يرمي/search `[]`) + وحدة `modelReranker.test.ts` (7 — مزوّد مقيد حتمي: إعادة ترتيب، جزئية، تجاوز ≤1، ردّ غير JSON، مؤشرات غير صالحة، انهيار مزوّد، parseRanking) + وحدة `ragFactory.test.ts` (5 — اختيارات المصنع) — **195/195 أخضر**
+- [x] E2E غير متأثر (qlite+lexical افتراضيًا — لا تغيير UI) — **29/29 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-025/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/RAG_SYSTEM/.env.example) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -177,7 +187,7 @@
 - [x] ✅ Admin dashboard (لوحة استيراد ملفات المنهج PDF/DOCX عبر الواجهة) — PHASE 14
 - [x] ✅ حماية رفع الملفات: فحص MAGIC bytes (تُرفض الانتحالات قبل الاستخراج/التخزين) — PHASE 15
 - [x] ✅ Billing/Subscriptions (بلا بوابة دفع — منح/إلغاء إداري) + Achievements (6 شارات أحداث دورة حياة) — 5+7 وحدة + 7+6 API + 2 E2E (PHASE 20)
-- [ ] 🟡 Qdrant/pgvector adapter + إعادة تصنيف عبر نموذج
+- [x] ✅ Qdrant adapter (HTTP بلا اعتماديات — عبر مصنع `VECTOR_STORE=sqlite|qdrant`) + إعادة تصنيف عبر نموذج (`ModelReranker` عبر عملية `rerank`، افتراضي lexicon آمن) — 8+7+5 وحدة (PHASE 21)
 - [x] ✅ Analytics + إحصاءات المسؤول في اللوحة (نهاية `GET /api/admin/stats` بلا جداول جديدة) — PHASE 17
 - [x] ✅ زرع منهج سعودي multi-country (وزارة التعليم/السادس/رياضيات — أثبت أن العمارة إقليمية) — PHASE 16
 - [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 16/16 (PHASE 9 + 10 + 11)

@@ -139,7 +139,7 @@ export class KnowledgeService {
 
       const vector = vectors[i];
       if (vector && vector.length > 0) {
-        await this.vectorStore.upsert({ chunkId, embedding: vector, model: embedResult.model });
+        await this.vectorStore.upsert({ chunkId, embedding: vector, model: embedResult.model, scope: input.scope });
       }
       chunkCount++;
     }
@@ -262,7 +262,7 @@ export class KnowledgeService {
 
       const vector = vectors[i];
       if (vector && vector.length > 0) {
-        await this.vectorStore.upsert({ chunkId, embedding: vector, model: embedResult.model });
+        await this.vectorStore.upsert({ chunkId, embedding: vector, model: embedResult.model, scope: input.scope });
       }
       chunkCount++;
     }

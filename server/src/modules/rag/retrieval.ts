@@ -7,7 +7,7 @@ import type { ChunkMetadata, RankedChunk, Reranker, RetrieveInput, RetrieveResul
 import { REQUIRED_SCOPE_FIELDS } from "./types.js";
 
 export class LexicalReranker implements Reranker {
-  rerank(query: string, items: RankedChunk[]): RankedChunk[] {
+  async rerank(query: string, items: RankedChunk[]): Promise<RankedChunk[]> {
     const tokens = new Set(
       query
         .toLowerCase()
@@ -23,6 +23,13 @@ export class LexicalReranker implements Reranker {
         return { ...item, score: item.score + overlap * 0.05 };
       })
       .sort((a, b) => b.score - a.score);
+  }
+}
+
+/** Reranking disabled (`RAG_ENABLE_RERANK=false`) — vector order preserved. */
+export class NoopReranker implements Reranker {
+  async rerank(_query: string, chunks: RankedChunk[]): Promise<RankedChunk[]> {
+    return chunks;
   }
 }
 
@@ -86,7 +93,7 @@ export class RetrievalService {
       })
       .filter((x): x is RankedChunk => x !== null);
 
-    const finalChunks = this.reranker.rerank(input.question, ranked).slice(0, topK);
+    const finalChunks = (await this.reranker.rerank(input.question, ranked)).slice(0, topK);
     const contextText = finalChunks.map((c, i) => `[مصدر ${i + 1}]\n${c.content}`).join("\n\n---\n\n");
     return { chunks: finalChunks, contextText, model: embedResult.model };
   }

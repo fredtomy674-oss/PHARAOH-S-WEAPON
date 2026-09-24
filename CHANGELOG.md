@@ -135,3 +135,12 @@
 - **الويب**: بطاقة «خطتك» (مجانية/مميزة + انتهاء + حد اليوم + زر «🏆 إنجازاتي») في Home؛ شاشة إنجازات تعرض المكتسب والمقفل؛ قسم «الاشتراكات» في لوحة الإدارة (قائمة + ترقية/إلغاء).
 - **اختبارات**: وحدة `subscription.test.ts` (5) + وحدة `achievements.test.ts` (7) + API `subscription.test.ts` (7) + API `achievements.test.ts` (6) → **175/175 أخضر**؛ E2E `achievements.spec.ts` (2: E1 شارة + بطاقة مجانية؛ E2 ترقية إدارية → مميزة) → **29/29 أخضر**.
 - `npm run check` أخضر (175/175) + `npm run build` أخضر + docs sync (DECISIONS D-024/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/DATABASE_SCHEMA/.env.example).
+
+## 2026-09-24 — الجلسة الخامسة عشرة (PHASE 21: Qdrant adapter + إعادة تصنيف عبر نموذج)
+- **القرار D-025**: واجهتا `VectorStore`/`Reranker` (منذ PHASE 5) صارتا مزوّدَين — نفس الواجهات، سلوك افتراضي مطابق، واختيار التنفيذ من الإعداد (نفس نمط مزوّدي AI: mock افتراضيًا، خارجي اختياري).
+- **`QdrantVectorStore` (HTTP صافٍ بلا اعتماديات)**: point id **UUID حتمي** من `sha256(chunkId)`، عزل الفلترة على **payload النطاق** المعكَس في كل نقطة، إنشاء المجموعة تلقائيًا (Cosine + بُعد المتجه)، مهلة `AbortController`، **فشل غير متماثل**: `upsert`/`remove` ترمي `503 VECTOR_STORE_UNAVAILABLE` (خطأ `Errors.serviceUnavailable` جديد) أما `search` فيعود `[]` (جلسة الطالب لا تنهار أبدًا مع مخزن متجهات منقطع). pgvector مؤجل حتى توفر Postgres (نفس الواجهة).
+- **المصنع**: `VECTOR_STORE=sqlite|qdrant` + `QDRANT_URL`/`QDRANT_COLLECTION`/`QDRANT_DIMENSION`؛ رُبط في `container.ts` و`seed.ts` (بقسر sqlite ليبقى البذر محليًا) وسطر إقلاع `index.ts`.
+- **`ModelReranker` (إعادة تصنيف عبر النموذج)**: واجهة `Reranker` صارت غير متزامنة؛ العملية `"rerank"` أُضيفت لـ`AIOperation`/الـrouter (يُحتسب استهلاكها كباقي العمليات)؛ طلب JSON صارم مع **هبوط آمن** (أي فشل/ردّ غير صالح → ترتيب الإدخال كما هو)؛ الترتيب على `position` فقط. `RAG_RERANKER=lexical|model` (الافتراضي lexicon المحددة الحتمية) + `RAG_ENABLE_RERANK=false` → `NoopReranker` (المفتاح المعلّق في env وُصل أخيرًا).
+- **عقد `upsert` وُسّع بـ`scope?`**: Qdrant يعكس حقول النطاق في الـpayload ليعزل الاستعلام؛ `SqliteVectorStore` يتجاهله (فلتر SQL قائم).
+- **اختبارات**: `qdrantVectorStore.test.ts` (8 — خادم Qdrant وهمي في العملية عبر node:http بلا Docker) + `modelReranker.test.ts` (7 — مزوّد مقيد حتمي) + `ragFactory.test.ts` (5) → **195/195 أخضر**؛ E2E **29/29 أخضر** (qlite+lexical افتراضيًا، لا تغيير UI).
+- `npm run check` أخضر (195/195) + `npm run build` أخضر + docs sync (DECISIONS D-025/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC/RAG_SYSTEM/.env.example).

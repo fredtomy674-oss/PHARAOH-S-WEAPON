@@ -38,6 +38,10 @@ export const Errors = {
   internal(message = "حدث خطأ داخلي، حاول مرة أخرى", code = "INTERNAL") {
     return new AppError(500, code, message, false);
   },
+  /** Dependency (external service) is temporarily unreachable — retry later. */
+  serviceUnavailable(message = "الخدمة غير متاحة حاليًا، حاول لاحقًا", code = "SERVICE_UNAVAILABLE") {
+    return new AppError(503, code, message);
+  },
 };
 
 /** Marks a feature as deliberately unsupported with a documented reason. */

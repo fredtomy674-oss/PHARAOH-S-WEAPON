@@ -5,7 +5,7 @@ import { openDbAndMigrate } from "./index.js";
 import { AiService } from "../modules/ai/aiService.js";
 import { CurriculumService } from "../modules/curriculum/service.js";
 import { KnowledgeService } from "../modules/knowledge/service.js";
-import { SqliteVectorStore } from "../modules/rag/vectorStore.js";
+import { createVectorStore } from "../modules/rag/factory.js";
 import {
   chunks,
   concepts,
@@ -153,7 +153,8 @@ const SAUDI_SPEC: CountrySeedSpec = {
 async function main(): Promise<void> {
   const db = openDbAndMigrate();
   const ai = new AiService(db, { forceProvider: "mock" });
-  const vectorStore = new SqliteVectorStore(db);
+  // Seed always writes locally — the default factory flavor stays sqlite unless env says otherwise.
+  const vectorStore = createVectorStore(db, { kind: "sqlite" });
   const knowledge = new KnowledgeService(db, ai, vectorStore);
   const curriculum = new CurriculumService(db);
 
