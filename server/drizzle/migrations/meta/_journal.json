@@ -50,6 +50,13 @@
       "when": 1790242508574,
       "tag": "0006_sharp_toad",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1790248688174,
+      "tag": "0007_abandoned_celestials",
+      "breakpoints": true
     }
   ]
 }

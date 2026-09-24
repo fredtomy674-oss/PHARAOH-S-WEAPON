@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react";
 import {
   getParentChildDetail,
+  getParentSessionDetail,
   linkParentChild,
   listParentChildren,
   unlinkParentChild,
   type ParentChild,
   type ParentChildDetail,
+  type ParentSessionDetail,
+  type ParentSessionSummary,
   type User,
 } from "./api.js";
+
+const KIND_LABEL: Record<string, string> = {
+  text: "نص",
+  hint: "تلميح",
+  question: "سؤال",
+  example: "مثال",
+  feedback: "تغذية راجعة",
+  system: "نظام",
+};
 
 interface Props {
   user: User;
@@ -27,6 +39,8 @@ export function ParentScreen({ user, onLogout }: Props) {
   const [listError, setListError] = useState<string | null>(null);
   const [detail, setDetail] = useState<ParentChildDetail | null>(null);
   const [detailError, setDetailError] = useState<string | null>(null);
+  const [sessionDetail, setSessionDetail] = useState<ParentSessionDetail | null>(null);
+  const [sessionDetailError, setSessionDetailError] = useState<string | null>(null);
 
   useEffect(() => {
     listParentChildren().then(setChildren).catch(() => undefined);
@@ -36,6 +50,18 @@ export function ParentScreen({ user, onLogout }: Props) {
     listParentChildren()
       .then(setChildren)
       .catch(() => undefined);
+
+  const openSession = async (child: { studentId: string }, session: ParentSessionSummary) => {
+    setBusy(true);
+    setSessionDetailError(null);
+    try {
+      setSessionDetail(await getParentSessionDetail(child.studentId, session.id));
+    } catch (e) {
+      setSessionDetailError(e instanceof Error ? e.message : "تعذر تحميل تفاصيل الجلسة");
+    } finally {
+      setBusy(false);
+    }
+  };
 
   const handleLink = async () => {
     setBusy(true);
@@ -77,6 +103,104 @@ export function ParentScreen({ user, onLogout }: Props) {
       setBusy(false);
     }
   };
+
+  if (sessionDetail) {
+    const s = sessionDetail.session;
+    return (
+      <div className="layout">
+        <header className="topbar">
+          <div className="topbar-inner">
+            <strong>سلاح الفرعون</strong>
+            <span className="muted">تفاصيل الجلسة — {detail?.child.displayName ?? ""}</span>
+            <button className="btn ghost" onClick={() => setSessionDetail(null)} data-testid="parent-session-back">
+              عودة للتقدم
+            </button>
+            <button className="btn ghost" onClick={onLogout} data-testid="logout">
+              خروج
+            </button>
+          </div>
+        </header>
+
+        <main className="container" data-testid="parent-session-detail">
+          <section className="hero card">
+            <h2>
+              <span className={`badge ${s.status === "active" ? "ok" : "off"}`}>{s.status === "active" ? "مفتوحة" : "منتهية"}</span>{" "}
+              {s.lessonTitle ?? "درس غير محدد"}
+            </h2>
+            <p className="muted">
+              {new Date(s.startedAt).toLocaleString("ar-EG")}
+              {s.endedAt ? ` → ${new Date(s.endedAt).toLocaleString("ar-EG")}` : ""} · {s.durationMinutes} دقيقة ·{" "}
+              {s.userMessages} سؤالًا · {s.tutorMessages} ردًا
+              {s.endedReason && s.endedReason !== "user_request" ? ` · النهاية: ${s.endedReason}` : ""}
+            </p>
+            {sessionDetailError && (
+              <p className="error" data-testid="parent-session-error">
+                {sessionDetailError}
+              </p>
+            )}
+          </section>
+
+          {sessionDetail.safety.flaggedTurns > 0 && (
+            <section className="card warn" data-testid="parent-safety-warning">
+              <h3>⚠️ تنبيه سلامة</h3>
+              <p className="muted">
+                {sessionDetail.safety.flaggedTurns} محاولة/رد محجوب لأسلوب يتجاوز قواعد النظام أثناء هذه الجلسة — راجعتها
+                المعلّم وردّت بأمان.
+              </p>
+            </section>
+          )}
+
+          <section className="card">
+            <h3>مفاهيم عُرضت في الجلسة</h3>
+            {sessionDetail.concepts.length === 0 ? (
+              <p className="muted" data-testid="parent-session-concepts-empty">
+                لا توجد تقييمات مفاهيم مسجّلة في هذه الجلسة.
+              </p>
+            ) : (
+              <ul className="progress-list" data-testid="parent-session-concepts">
+                {sessionDetail.concepts.map((c) => (
+                  <li key={c.conceptId} className="progress-row">
+                    <span>{c.title}</span>
+                    <span className="muted">
+                      {c.correct}/{c.attempts} إجابات صحيحة
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          <section className="card">
+            <h3>النشاط (بيانات وصفية فقط — بلا نصوص)</h3>
+            <ul className="session-list" data-testid="parent-timeline">
+              {sessionDetail.timeline.map((entry) => (
+                <li key={entry.id} className="session-row" data-testid="parent-timeline-entry">
+                  <div>
+                    <span className={`badge ${entry.role === "user" ? "ok" : "off"}`}>
+                      {entry.role === "user" ? "سؤال الطالب" : entry.role === "tutor" ? "إجابة المعلّم" : "نظام"}
+                    </span>
+                    <b>{KIND_LABEL[entry.kind] ?? entry.kind}</b>
+                    <span className="muted">{new Date(entry.createdAt).toLocaleTimeString("ar-EG")}</span>
+                    {entry.safetyFlagged && <span className="pill warn" data-testid="parent-flag-badge">محجوب (أمان)</span>}
+                  </div>
+                  {entry.attachments.length > 0 && (
+                    <div className="muted">
+                      {entry.attachments.map((a) => (
+                        <span key={a.id} className="pill" data-testid="parent-attachment-chip">
+                          {a.itemKind === "image" ? "🖼️ صورة" : "📄 مستند"}: {a.fileName ?? a.mimeType}
+                          {a.ocrApplied ? " (نص ممسوح ضوئيًا)" : ""}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </main>
+      </div>
+    );
+  }
 
   if (detail) {
     return (
@@ -153,8 +277,13 @@ export function ParentScreen({ user, onLogout }: Props) {
                       <b>{s.lessonTitle ?? "درس غير محدد"}</b>
                       <span className="muted">{new Date(s.startedAt).toLocaleString("ar-EG")}</span>
                     </div>
-                    <div className="muted" data-testid="parent-session-counts">
-                      رسائل: {s.totalMessages} ({s.userMessages} سؤالًا · {s.tutorMessages} ردًا)
+                    <div className="row-actions">
+                      <div className="muted" data-testid="parent-session-counts">
+                        رسائل: {s.totalMessages} ({s.userMessages} سؤالًا · {s.tutorMessages} ردًا)
+                      </div>
+                      <button className="btn small primary" data-testid="parent-session-open" onClick={() => openSession(detail.child, s)}>
+                        التفاصيل
+                      </button>
                     </div>
                   </li>
                 ))}
@@ -181,7 +310,7 @@ export function ParentScreen({ user, onLogout }: Props) {
       <main className="container" data-testid="parent-screen">
         <section className="hero card">
           <h2>أهلاً {user.email} 👋</h2>
-          <p className="muted">تابع تقدّم أبنائك بقراءة فقط: المفاهيم التي أتقنوها، الجلسات، والوقت المستثمر — دون الاطلاع على تفاصيل المحادثات.</p>
+          <p className="muted">تابع تقدّم أبنائك بقراءة فقط: المفاهيم التي أتقنوها، الجلسات ونشاطها الزمني والوقت المستثمر — دون الاطلاع على نصوص المحادثات.</p>
         </section>
 
         <section className="card">

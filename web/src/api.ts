@@ -371,6 +371,43 @@ export interface ParentChildDetail {
   sessions: ParentSessionSummary[];
 }
 
+// PHASE 23 — per-session privacy-safe detail (metadata only, never content).
+export interface ParentSessionAttachment {
+  id: string;
+  mimeType: string;
+  fileName: string | null;
+  sizeBytes: number;
+  itemKind: "image" | "document";
+  ocrApplied: boolean;
+}
+
+export interface ParentTimelineEntry {
+  id: string;
+  role: "user" | "tutor" | "system";
+  kind: string;
+  createdAt: string;
+  attachments: ParentSessionAttachment[];
+  safetyFlagged: boolean;
+}
+
+export interface ParentSessionDetail {
+  session: {
+    id: string;
+    lessonTitle: string | null;
+    status: "active" | "ended" | "abandoned";
+    startedAt: string;
+    endedAt: string | null;
+    endedReason: string | null;
+    durationMinutes: number;
+    userMessages: number;
+    tutorMessages: number;
+    totalMessages: number;
+  };
+  concepts: Array<{ conceptId: string; title: string; attempts: number; correct: number }>;
+  safety: { flaggedTurns: number };
+  timeline: ParentTimelineEntry[];
+}
+
 export async function linkParentChild(code: string): Promise<ParentChild> {
   const res = await api<{ child: ParentChild }>("/parent/link", { method: "POST", body: { code } });
   return res.child;
@@ -383,6 +420,12 @@ export async function listParentChildren(): Promise<ParentChild[]> {
 
 export async function getParentChildDetail(studentId: string): Promise<ParentChildDetail> {
   return api<ParentChildDetail>(`/parent/children/${encodeURIComponent(studentId)}`);
+}
+
+export async function getParentSessionDetail(studentId: string, sessionId: string): Promise<ParentSessionDetail> {
+  return api<ParentSessionDetail>(
+    `/parent/children/${encodeURIComponent(studentId)}/sessions/${encodeURIComponent(sessionId)}`,
+  );
 }
 
 export async function unlinkParentChild(studentId: string): Promise<void> {

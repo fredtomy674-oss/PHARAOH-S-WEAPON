@@ -187,6 +187,17 @@
 - [x] اختبارات: وحدة `aiCache.test.ts` (5 — roundtrip+عدّادات، TTL انتهاء، TTL لكل إدخال، إخلاء LRU الأقدم، key محتوى-العنوان+clear) + وحدة `aiCaching.test.ts` (6 — عبر AiService حقيقي بمزوّدات mock: classifier مرّتان → نفس المحتوى+صفّ استخدام+miss/hit، rerank مخزَّن، tutor **لا** يُخزَّن (صفّان)، embed متطابقتان → نفس المتجهات، ocr بايتات متطابقة → نصّ نفسه + صفّ واحد، `cacheEnabled:false` → الكل يسجّل) — **206/206 أخضر**؛ `ocr.test.ts` (API) عُدّل: بايتات ممسوحة متطابقة (Path A ثم B في نفس العملية) → نمو الاستخدام 0/+1 فقط (لا شحنة مكررة)
 - [x] E2E غير متأثر (المعلّم لا يُخزَّن — النصوص/الأوامر نفسها) — **29/29 أخضر** + `npm run check` + `npm run build` + docs sync (DECISIONS D-026/TASKS/CHANGELOG/TEST_PLAN/README/.env.example) + commit
 
+### PHASE 23 — لوحة ولي الأمر: تفاصيل جلسات الطفل (خط زمني آمن للخصوصية) ✅
+
+**القرار D-027**: تفعيل البند المؤجل «تفاصيل المحادثة» (TEST_PLAN §4.6) كخط زمني **بيانات وصفية فقط** — محتوى الرسائل الخام لا يُحدَّد في الاستعلام ولا يغادر الخادم أبدًا، مع الاحتفاظ بقاعدة «قراءة فقط».
+- [x] **مخطط**: عمود `messages.safety_flag` (nullable — `prompt_injection` عند إطلاق tripwire) عبر migration `0007_abandoned_celestials.sql` (توليد drizzle-kit: SQL + journal + snapshot)
+- [x] **`sessions/service.ts`**: `sendMessage` يخزّن عَلَم الحقن على دوران الرد عندما `intent.intent === "admin_bypass_attempt"` (كان يُعرض في الاستجابة فقط ولا يُحفظ — أصبح متاحًا للولاة/الإدارة بلا لمس المحتوى)
+- [x] **`parent/service.ts`**: `sessionDetail(userId, studentId, sessionId)` — عزل بنيوي (لا رابط `students_parents` → 404؛ جلسة لا تخصّ الطفل → 404)؛ خط زمني `{role, kind, createdAt, attachments[{mimeType, fileName, sizeBytes, itemKind, ocrApplied}], safetyFlagged}` **بلا حقل `content`**؛ مدة بالدقائق؛ مفاهيم الجلسة من `assessments` (تحليل `resultJson` مع `safeParseAssessment`)؛ `safety.flaggedTurns` من العدّاد لا من النصوص
+- [x] **`parent/routes.ts`**: `GET /api/parent/children/:studentId/sessions/:sessionId` (parent فقط + فحص الرابط في كل قراءة)
+- [x] **الويب**: `api.ts` (أنواع + `getParentSessionDetail`) + `Parent.tsx` — زر «التفاصيل» في صف الجلسة → شاشة تفاصيل (بطاقة جلسة بمدة/تحية، **تنبيه سلامة** عند أعلام، مفاهيم عُرضت، قائمة النشاط بشارات دور/نوع/مرفق/OCR/أمان) + زر عودة
+- [x] اختبارات: API `parent.test.ts` (**13**) — خط زمني 4 أدوار بدقة (`user→tutor→user→tutor`) مع مرفق صورة (`question.png`/`itemKind=image`) + **عَلَم واحد** (`[false,false,false,true]`) + مفهوم واحد من `recordAssessment` (`attempts=1/correct=1`) + **6 نفي تسريب**: نصّا السؤال والرد وعبارة المعلّم وبايتات الصورة وغياب حقل `content`؛ عزل: الطالب → 403، والد أجنبي → 404، طفل غير مربوط → 404، جلسة مجهولة → 404 — **208/208 أخضر** — وE2E `parent.spec.ts` **P4**: الطالب يسأل + حقن → الوالد يفتح التفاصيل: 4 مداخل زمنية + شارة أمان واحدة + **3 نفي تسريب** في body — **30/30 أخضر**
+- [x] `npm run check` أخضر (208/208) + `npm run build` أخضر + docs sync (DECISIONS D-027/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -202,6 +213,7 @@
 - [x] ✅ زرع منهج سعودي multi-country (وزارة التعليم/السادس/رياضيات — أثبت أن العمارة إقليمية) — PHASE 16
 - [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 16/16 (PHASE 9 + 10 + 11)
 - [x] ✅ Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز) — classifier/rerank/embedding/ocr حتمية تُخدم من LRU؛ المعلّم ديناميكي لا يُخزَّن؛ عدّادات على `/api/health` — 5+6 وحدة (PHASE 22)
+- [x] ✅ لوحة ولي الأمر: **تفاصيل جلسات الطفل** — خط زمني بيانات وصفية فقط (أدوار/أنواع/مرفقات/علم حقن/مفاهيم الجلسة/مدة) بلا محتوى خام — 2 API + 1 E2E (PHASE 23)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

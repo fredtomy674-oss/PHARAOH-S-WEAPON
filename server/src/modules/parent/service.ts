@@ -1,11 +1,14 @@
 import { and, count, desc, eq, inArray, sql } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
 import {
+  assessments,
+  concepts,
   curricula,
   curriculumEnrollments,
   grades,
   learningSessions,
   lessons,
+  messageAttachments,
   messages,
   parents,
   students,
@@ -41,6 +44,45 @@ export interface ParentSessionSummary {
   totalMessages: number;
 }
 
+export interface ParentSessionAttachment {
+  id: string;
+  mimeType: string;
+  fileName: string | null;
+  sizeBytes: number;
+  itemKind: "image" | "document";
+  ocrApplied: boolean;
+}
+
+export interface ParentTimelineEntry {
+  id: string;
+  role: "user" | "tutor" | "system";
+  kind: string;
+  createdAt: Date;
+  attachments: ParentSessionAttachment[];
+  /** True when the prompt-injection tripwire fired for this turn (PHASE 23). */
+  safetyFlagged: boolean;
+}
+
+export interface ParentSessionDetail {
+  session: {
+    id: string;
+    lessonTitle: string | null;
+    status: "active" | "ended" | "abandoned";
+    startedAt: Date;
+    endedAt: Date | null;
+    endedReason: string | null;
+    durationMinutes: number;
+    userMessages: number;
+    tutorMessages: number;
+    totalMessages: number;
+  };
+  /** Concepts assessed during the session (derived from assessments, PHASE 23). */
+  concepts: Array<{ conceptId: string; title: string; attempts: number; correct: number }>;
+  safety: { flaggedTurns: number };
+  /** Metadata-only timeline. Message content NEVER leaves the server. */
+  timeline: ParentTimelineEntry[];
+}
+
 export interface ChildDetail {
   child: {
     studentId: string;
@@ -59,10 +101,12 @@ export interface ChildDetail {
 }
 
 /**
- * Parent dashboard (PHASE 18): a parent links their children by the child's
- * sharing code, then sees read-only progress + session summaries. Every method
- * re-verifies the parent↔child link — a parent can only ever observe children
- * explicitly linked to their own account (isolation is structural).
+ * Parent dashboard (PHASE 18 + 23): a parent links their children by the child's
+ * sharing code, then sees read-only progress + session summaries, and (PHASE 23)
+ * a metadata-only activity timeline per session with safety flags and assessed
+ * concepts — message CONTENT is never selected here. Every method re-verifies
+ * the parent↔child link — a parent can only ever observe children explicitly
+ * linked to their own account (isolation is structural).
  */
 export class ParentService {
   constructor(
@@ -137,6 +181,107 @@ export class ParentService {
         weaknesses: detail.weaknesses.map((w) => w.title),
       },
       sessions: await this.sessionSummaries(studentId),
+    };
+  }
+
+  /**
+   * PHASE 23 — privacy-safe session detail for a linked child: a metadata-only
+   * activity timeline (roles/kinds/timestamps/attachment descriptors/safety
+   * flags) + the concepts assessed during the session. Message CONTENT is never
+   * selected from the DB here, so it cannot leak by construction.
+   */
+  async sessionDetail(userId: string, studentId: string, sessionId: string): Promise<ParentSessionDetail> {
+    const parent = await this.requireParent(userId);
+    const link = await this.db.db
+      .select()
+      .from(studentsParents)
+      .where(and(eq(studentsParents.parentId, parent.id), eq(studentsParents.studentId, studentId)))
+      .get();
+    if (!link) throw Errors.notFound("الطالب غير مربوط بحسابك");
+
+    const session = await this.db.db.select().from(learningSessions).where(eq(learningSessions.id, sessionId)).get();
+    if (!session || session.studentId !== studentId) throw Errors.notFound("الجلسة غير موجودة");
+
+    const lessonTitle = session.lessonId
+      ? (await this.db.db.select().from(lessons).where(eq(lessons.id, session.lessonId)).get())?.title ?? null
+      : null;
+
+    const [msgs, atts] = await Promise.all([
+      this.db.db.select().from(messages).where(eq(messages.sessionId, sessionId)).orderBy(messages.createdAt),
+      this.db.db.select().from(messageAttachments).where(eq(messageAttachments.sessionId, sessionId)),
+    ]);
+
+    const byMessage = new Map<string, ParentSessionAttachment[]>();
+    for (const a of atts) {
+      const list = byMessage.get(a.messageId) ?? [];
+      list.push({
+        id: a.id,
+        mimeType: a.mimeType,
+        fileName: a.fileName,
+        sizeBytes: a.sizeBytes,
+        itemKind: a.mimeType.startsWith("image/") ? "image" : "document",
+        ocrApplied: a.ocrApplied ?? false,
+      });
+      byMessage.set(a.messageId, list);
+    }
+
+    let userMessages = 0;
+    let tutorMessages = 0;
+    for (const m of msgs) {
+      if (m.role === "user") userMessages++;
+      else if (m.role === "tutor") tutorMessages++;
+    }
+
+    const endedAt = session.endedAt ?? new Date();
+    const durationMinutes = Math.max(0, Math.round((endedAt.getTime() - session.startedAt.getTime()) / 60000));
+
+    // Concepts assessed inside this session — assessments rows carry sessionId.
+    const assessmentRows = await this.db.db.select().from(assessments).where(eq(assessments.sessionId, sessionId));
+    const conceptIds = new Set<string>();
+    const tally = new Map<string, { attempts: number; correct: number }>();
+    for (const row of assessmentRows) {
+      const parsed = safeParseAssessment(row.resultJson);
+      if (!parsed?.conceptId) continue;
+      conceptIds.add(parsed.conceptId);
+      const t = tally.get(parsed.conceptId) ?? { attempts: 0, correct: 0 };
+      t.attempts += 1;
+      t.correct += parsed.correct ? 1 : 0;
+      tally.set(parsed.conceptId, t);
+    }
+    const titleFor = new Map<string, string>();
+    if (conceptIds.size > 0) {
+      const conceptRows = await this.db.db.select().from(concepts).where(inArray(concepts.id, [...conceptIds]));
+      for (const c of conceptRows) titleFor.set(c.id, c.title);
+    }
+
+    return {
+      session: {
+        id: session.id,
+        lessonTitle,
+        status: session.status,
+        startedAt: session.startedAt,
+        endedAt: session.endedAt,
+        endedReason: session.endedReason,
+        durationMinutes,
+        userMessages,
+        tutorMessages,
+        totalMessages: userMessages + tutorMessages,
+      },
+      concepts: [...tally.entries()].map(([conceptId, t]) => ({
+        conceptId,
+        title: titleFor.get(conceptId) ?? "مفهوم",
+        attempts: t.attempts,
+        correct: t.correct,
+      })),
+      safety: { flaggedTurns: msgs.filter((m) => m.safetyFlag).length },
+      timeline: msgs.map((m) => ({
+        id: m.id,
+        role: m.role,
+        kind: m.kind,
+        createdAt: m.createdAt,
+        attachments: byMessage.get(m.id) ?? [],
+        safetyFlagged: Boolean(m.safetyFlag),
+      })),
     };
   }
 
@@ -229,5 +374,22 @@ export class ParentService {
         totalMessages: c.userMessages + c.tutorMessages,
       };
     });
+  }
+}
+
+interface AssessmentPayload {
+  conceptId?: string;
+  correct?: boolean;
+}
+
+/** Tolerates missing/malformed result_json on assessments rows (PHASE 23). */
+function safeParseAssessment(json: string | null): AssessmentPayload | null {
+  if (!json) return null;
+  try {
+    const value = JSON.parse(json) as unknown;
+    if (typeof value !== "object" || value === null) return null;
+    return value as AssessmentPayload;
+  } catch {
+    return null;
   }
 }

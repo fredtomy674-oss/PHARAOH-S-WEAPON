@@ -378,6 +378,10 @@ export const messages = sqliteTable(
     role: text("role", { enum: ["user", "tutor", "system"] }).notNull(),
     kind: text("kind", { enum: ["text", "hint", "question", "example", "feedback", "system"] }).notNull().default("text"),
     content: text("content").notNull(),
+    /** PHASE 23 — persisted safety marker ("prompt_injection") when the tripwire
+     *  fired for this turn. Parents see the flag on the activity timeline, never
+     *  the content itself. */
+    safetyFlag: text("safety_flag"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("messages_session_idx").on(t.sessionId)],

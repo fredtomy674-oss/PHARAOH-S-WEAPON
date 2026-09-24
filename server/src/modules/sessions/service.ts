@@ -225,6 +225,9 @@ export class SessionService {
     });
 
     const kind = mapKind(result.reply);
+    // PHASE 23 — persist the tripwire outcome on the turn so parents/admins can
+    // see a safety flag on the activity timeline without ever exposing content.
+    const tripwireFired = result.intent.intent === "admin_bypass_attempt";
     const tutorMessage = (
       await this.db.db
         .insert(messages)
@@ -234,6 +237,7 @@ export class SessionService {
           role: "tutor",
           kind,
           content: result.reply.content,
+          safetyFlag: tripwireFired ? "prompt_injection" : null,
           createdAt: new Date(),
         })
         .returning()
@@ -252,7 +256,7 @@ export class SessionService {
       tutorMessage: tutorMessage!,
       contextChunkCount: result.contextChunkCount,
       remainingBudget: await this.remainingDaily(studentRow.id, userIdOf(studentRow)),
-      safetyTripwire: result.intent.intent === "admin_bypass_attempt",
+      safetyTripwire: tripwireFired,
       ocrUsed,
     };
   }

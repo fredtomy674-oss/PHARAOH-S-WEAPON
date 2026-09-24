@@ -152,3 +152,12 @@
 - **الإعدادات + المراقبة**: `AI_CACHE_TTL_MS` (5 د)/`AI_CACHE_EMBEDDING_TTL_MS` (ساعة)/`AI_CACHE_OCR_TTL_MS` (24 س)/`AI_CACHE_MAX_ENTRIES` (256)؛ `GET /api/health` يعرض `cache: {hits, misses, size, maxEntries}` بلا واجهة جديدة.
 - **اختبارات**: `unit/aiCache.test.ts` (5) + `unit/aiCaching.test.ts` (6 عبر AiService حقيقي بمزوّدات mock) → **206/206 أخضر**؛ `ocr.test.ts` (API) عُدّل لدلالات الشحنة الجديدة (بايتات متطابقة → نمو 0/+1 فقط)؛ E2E **29/29 أخضر** (المعلّم لا يُخزَّن — لا تغيير سلوكي).
 - `npm run check` أخضر (206/206) + `npm run build` أخضر + docs sync (DECISIONS D-026/TASKS/CHANGELOG/TEST_PLAN/README/.env.example).
+
+## 2026-09-24 — الجلسة السابعة عشرة (PHASE 23: لوحة ولي الأمر — تفاصيل جلسات الطفل)
+- **القرار D-027**: تفعيل البند المؤجل «تفاصيل المحادثة» كخط زمني **بيانات وصفية فقط** — عمود `messages.content` **لا يُحدَّد في الاستعلام إطلاقًا** (لا تسريب بنيويًا)، والمرفقات تُصف بفوق-بيانات بلا بايتات/بصمات.
+- **مخطط**: عمود `messages.safety_flag` (nullable — `prompt_injection` عند إطلاق tripwire) عبر `0007_abandoned_celestials.sql` (توليد drizzle-kit: SQL + journal + snapshot).
+- **تخزين العلم**: `sendMessage` أصبح يخزّن نتيجة tripwire على دوران الرد (كان يُعرض ولا يُحفظ) — العدّاد مشتقّ من الصف لا من فحص النصوص.
+- **النهاية الجديدة**: `GET /api/parent/children/:studentId/sessions/:sessionId` ← `ParentService.sessionDetail`: مدة/تحية + **خط زمني** `{role, kind, createdAt, attachments, safetyFlagged}` + مفاهيم الجلسة من `assessments` (تحليل `resultJson` بصبر) + `safety.flaggedTurns`؛ عزل بنيوي (لا رابط → 404، جلسة طفل آخر → 404، الطالب → 403).
+- **الويب**: زر «التفاصيل» في صف الجلسة → شاشة تفاصيل (بطاقة جلسة، **تنبيه سلامة** عند أعلام، مفاهيم عُرضت، قائمة النشاط بشارات الدور/النوع/المرفق/OCR/الأمان) + زر عودة.
+- **اختبارات**: API `parent.test.ts` 11→**13** (خط زمني 4 أدوار بدقة + مرفق صورة + عَلَم واحد + مفهوم من `recordAssessment` + 6 نفي تسريب؛ عزل 403/404 ×٤) → **208/208 أخضر**؛ E2E `parent.spec.ts` +**P4** (طالب يسأل + حقن → الوالد يفتح التفاصيل: 4 مداخل + شارة أمان + 3 نفي تسريب) → **30/30 أخضر**.
+- `npm run check` أخضر (208/208) + `npm run build` أخضر + docs sync (DECISIONS D-027/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit.

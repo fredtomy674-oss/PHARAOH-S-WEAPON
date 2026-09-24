@@ -11,10 +11,11 @@ const linkBodySchema = {
 };
 
 /**
- * Parent dashboard (PHASE 18): link children by their sharing code and view
- * read-only progress + session summaries. Every route is parent-only and every
- * child read is gated by the parent↔child link (isolation is structural).
- * Messages content is never exposed — only aggregate counts.
+ * Parent dashboard (PHASE 18 + 23): link children by their sharing code and view
+ * read-only progress + session summaries, plus (PHASE 23) a metadata-only
+ * activity timeline per session with safety flags and assessed concepts. Every
+ * route is parent-only and every child read is gated by the parent↔child link
+ * (isolation is structural). Message content is never exposed — only metadata.
  */
 export const parentRoutes: FastifyPluginAsync = async (app) => {
   app.post("/link", { preHandler: requireAuth, schema: { body: linkBodySchema } }, async (request, reply) => {
@@ -43,6 +44,17 @@ export const parentRoutes: FastifyPluginAsync = async (app) => {
     }
     const { studentId } = request.params as { studentId: string };
     return app.parents.childDetail(auth.user.id, studentId);
+  });
+
+  // PHASE 23 — privacy-safe session detail: metadata timeline, assessed
+  // concepts, safety flags. Content never leaves the server.
+  app.get("/children/:studentId/sessions/:sessionId", { preHandler: requireAuth }, async (request, reply) => {
+    const auth = request.auth!;
+    if (auth.user.role !== "parent") {
+      return reply.code(403).send({ error: { code: "FORBIDDEN", message: "لوحة أولياء الأمور مخصصة لحسابات أولياء الأمور" } });
+    }
+    const { studentId, sessionId } = request.params as { studentId: string; sessionId: string };
+    return app.parents.sessionDetail(auth.user.id, studentId, sessionId);
   });
 
   app.delete("/children/:studentId", { preHandler: requireAuth }, async (request, reply) => {

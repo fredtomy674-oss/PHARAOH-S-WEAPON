@@ -1,0 +1,1 @@
+ALTER TABLE `messages` ADD `safety_flag` text;

@@ -94,15 +94,16 @@
 3) GET  /api/admin/documents (list)
 ```
 
-## 8. أولياء الأمور (PHASE 18)
+## 8. أولياء الأمور (PHASE 18 + 23)
 
-> نهايات القراءة **قراءة فقط** وكلها تشترط رابطًا صريحًا في `students_parents` بين الوالد والطفل — طفل غير مربوط = `404 NOT_FOUND` (بلا مؤشر وجود). **لا يُكشف محتوى رسائل في أي استجابة** — عدّادات فقط.
+> نهايات القراءة **قراءة فقط** وكلها تشترط رابطًا صريحًا في `students_parents` بين الوالد والطفل — طفل غير مربوط = `404 NOT_FOUND` (بلا مؤشر وجود). **لا يُكشف محتوى رسائل في أي استجابة** — عدّادات وفوق-بيانات فقط؛ في تفاصيل الجلسة (PHASE 23) لا يُحدَّد عمود `content` من قاعدة البيانات أصلًا.
 
 | Method | Route | الوصف | Auth |
 |---|---|---|---|
 | POST | `/api/parent/link` | `{code}` — ربط طفل بِكود المشاركة (case-insensitive عبر `toUpperCase`) → 201 بطاقة الطفل؛ `400 INVALID_LINK_CODE`؛ `409 ALREADY_LINKED` | parent فقط |
 | GET | `/api/parent/children` | قائمة الأبناء المربوطين (اسم/صف/مناهج/عدد جلسات/آخر جلسة) | parent فقط |
 | GET | `/api/parent/children/:studentId` | بطاقة كاملة: هوية + تقدّم (`progressDetail`: مفاهيم + نقاط قوة/ضعف) + ملخصات جلسات (درس/تاريخ/حالة/`userMessages`/`tutorMessages`) + كود الطالب الحالي | parent فقط |
+| GET | `/api/parent/children/:studentId/sessions/:sessionId` | **PHASE 23** — تفاصيل جلسة: `session` (درس/حالة/تواريخ/`durationMinutes`/عدّادات/سبب النهاية) + `concepts` (مفاهيم عُرضت من `assessments`) + `safety.flaggedTurns` + `timeline` (لكل رسالة: `role`/`kind`/`createdAt`/`attachments[{mimeType,fileName,sizeBytes,itemKind,ocrApplied}]`/`safetyFlagged`) — **بلا `content` ولا بايتات مرفقات ولا `sha256`**؛ جلسة لا تخصّ الطفل المربوط = `404` | parent فقط |
 | DELETE | `/api/parent/children/:studentId` | فك الربط → 204؛ غير مربوط → 404 | parent فقط |
 
 **عزل الأدوار**: الطالب على أي `/api/parent/*` → `403 FORBIDDEN`؛ ولي الأمر على `/api/sessions` (POST) و`/api/progress/me` → `403 FORBIDDEN` (و`GET /api/sessions` = قائمة فارغة). التسجيل: `POST /api/auth/register` مع `role: "parent"`. `GET /api/auth/me` للطالب يعرض `linkCode` (مولّد بـ`parentLinkCode()` — 8 محارف من `A-HJ-NP-Z2-9`).
