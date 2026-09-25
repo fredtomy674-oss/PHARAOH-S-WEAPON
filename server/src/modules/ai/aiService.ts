@@ -34,7 +34,7 @@ export class AiService {
     db: Db,
     opts?: {
       forceProvider?: "mock" | "gemini";
-      overrides?: Partial<Record<"classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr" | "rerank" | "question_gen", string>>;
+      overrides?: Partial<Record<"classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr" | "rerank" | "question_gen" | "grade_open", string>>;
       /** Test/override knob for the module-scoped AI_CACHE_ENABLED. */
       cacheEnabled?: boolean;
     },

@@ -188,6 +188,7 @@ async function seedCountry(db: DbHandle, knowledge: KnowledgeService, spec: Coun
     for (const lesson of lessonRows) lessonIds[lesson.code] = lesson.id;
     const seeded = { countryId: existing.id, systemId: sys.id, gradeId: grade.id, subjectId: cur.subjectId, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonIds };
     await ensureDemoQuestions(db, seeded, demoQuestionsOf(spec.country.code));
+    await ensureDemoOpenQuestions(db, seeded, demoOpenQuestionsOf(spec.country.code));
     return seeded;
   }
 
@@ -234,6 +235,7 @@ async function seedCountry(db: DbHandle, knowledge: KnowledgeService, spec: Coun
   const seeded = { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonIds };
   await ingestLessonDocuments(db, knowledge, seeded, spec.lessons, spec.curriculum.code);
   await ensureDemoQuestions(db, seeded, demoQuestionsOf(spec.country.code));
+  await ensureDemoOpenQuestions(db, seeded, demoOpenQuestionsOf(spec.country.code));
   return seeded;
 }
 
@@ -271,6 +273,8 @@ async function ingestLessonDocuments(db: DbHandle, knowledge: KnowledgeService, 
 // idempotently so `npm run db:seed` never duplicates them; they feed the
 // practice loop that drives the concept-mastery engine. Saudi Arabia
 // intentionally has none — proof the practice scope is truly per-curriculum.
+// PHASE 30 — demo OPEN (free-text) questions for the same curriculum, with a
+// hidden `answerKey` the server grades via the `grade_open` AI operation.
 // ---------------------------------------------------------------------------
 
 interface DemoQuestionSpec {
@@ -280,6 +284,15 @@ interface DemoQuestionSpec {
   content: string;
   options: string[];
   correctIndex: number;
+  explanation: string;
+}
+
+interface DemoOpenQuestionSpec {
+  lessonCode: string;
+  conceptTitle?: string;
+  difficulty: "easy" | "medium" | "hard";
+  content: string;
+  answerKey: string;
   explanation: string;
 }
 
@@ -340,9 +353,38 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
 ];
 
+/**
+ * PHASE 30 — demo OPEN questions (free-text, graded by `grade_open`). The
+ * answerKey is a short grounded fact (the seeded MCQ explanations use the same
+ * wording), so a student writing the exact fact scores 1.0 deterministically.
+ */
+const EGYPT_DEMO_OPEN_QUESTIONS: DemoOpenQuestionSpec[] = [
+  {
+    lessonCode: "l-fractions",
+    conceptTitle: "تبسيط الكسور",
+    difficulty: "easy",
+    content: "اكتب الكسر المبسّط للكسر 8/12.",
+    answerKey: "2/3",
+    explanation: "نقسم البسط والمقام على العامل المشترك الأكبر 4: 8 ÷ 4 = 2 و 12 ÷ 4 = 3، فيصبح 2/3.",
+  },
+  {
+    lessonCode: "l-mul-div",
+    conceptTitle: "القسمة المطولة",
+    difficulty: "medium",
+    content: "ما ناتج 78 ÷ 3 بالقسمة المطولة؟ اكتب إجابتك.",
+    answerKey: "26",
+    explanation: "7 ÷ 3 = 2 والباقي 1، ننزل 8 فتصبح 18، و18 ÷ 3 = 6. الناتج 26.",
+  },
+];
+
 /** Per-country demo question set — only Egypt ships questions in this seed. */
 function demoQuestionsOf(countryCode: string): DemoQuestionSpec[] {
   return countryCode === "eg" ? EGYPT_DEMO_QUESTIONS : [];
+}
+
+/** Per-country demo OPEN question set — Egypt only (PHASE 30). */
+function demoOpenQuestionsOf(countryCode: string): DemoOpenQuestionSpec[] {
+  return countryCode === "eg" ? EGYPT_DEMO_OPEN_QUESTIONS : [];
 }
 
 /** Insert each missing demo question for its lesson/concept (idempotent). */
@@ -374,6 +416,37 @@ async function ensureDemoQuestions(db: DbHandle, seeded: Seeded, specs: DemoQues
       createdAt: new Date(),
     });
     console.log(`  ✓ Seeded practice question "${q.content}"`);
+  }
+}
+
+/** Insert each missing demo OPEN question (idempotent; answerKey stays server-side). */
+async function ensureDemoOpenQuestions(db: DbHandle, seeded: Seeded, specs: DemoOpenQuestionSpec[]): Promise<void> {
+  for (const q of specs) {
+    const lessonId = seeded.lessonIds[q.lessonCode];
+    if (!lessonId) continue;
+    const existing = await db.db
+      .select({ id: questions.id })
+      .from(questions)
+      .where(and(eq(questions.lessonId, lessonId), eq(questions.content, q.content)))
+      .limit(1);
+    if (existing.length > 0) continue;
+    const conceptId = q.conceptTitle
+      ? (await db.db.select({ id: concepts.id }).from(concepts).where(and(eq(concepts.lessonId, lessonId), eq(concepts.title, q.conceptTitle))).limit(1).get())?.id ?? null
+      : null;
+    await db.db.insert(questions).values({
+      id: newId("q"),
+      curriculumId: seeded.curriculumId,
+      lessonId,
+      conceptId,
+      difficulty: q.difficulty,
+      type: "open",
+      content: q.content,
+      explanation: q.explanation,
+      optionsJson: null,
+      answerKey: q.answerKey,
+      createdAt: new Date(),
+    });
+    console.log(`  ✓ Seeded practice open question "${q.content}"`);
   }
 }
 

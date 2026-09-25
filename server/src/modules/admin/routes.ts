@@ -99,6 +99,8 @@ const generateQuestionsBodySchema = {
     conceptId: { type: "string", maxLength: 64 },
     lessonId: { type: "string", maxLength: 64 },
     curriculumId: { type: "string", maxLength: 64 },
+    // PHASE 30 — bulk generation of open (free-text) questions too.
+    kind: { type: "string", enum: ["mcq", "open"] },
   },
 };
 
@@ -256,14 +258,15 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
     return { documents: rows };
   });
 
-  // PHASE 28 — bulk question generation: cover concepts with no questions yet.
-  // One deterministic MCQ per eligible concept within a curriculum/lesson/
-  // concept scope, grounded in that lesson's chunks. Idempotent (re-runs skip
-  // concepts that already have questions) and metadata-only in the response —
-  // question stems and options never leave the server.
+  // PHASE 28 + 30 — bulk question generation: cover concepts with no questions
+  // of the requested kind yet. One deterministic MCQ (default) or open question
+  // per eligible concept within a curriculum/lesson/concept scope, grounded in
+  // that lesson's chunks. Idempotent (re-runs skip concepts that already have
+  // that kind) and metadata-only in the response — question stems, options and
+  // answer keys never leave the server.
   app.post("/questions/generate", { preHandler: requireAdmin, schema: { body: generateQuestionsBodySchema } }, async (request, reply) => {
     const auth = request.auth!;
-    const body = request.body as { conceptId?: string; lessonId?: string; curriculumId?: string };
+    const body = request.body as { conceptId?: string; lessonId?: string; curriculumId?: string; kind?: "mcq" | "open" };
 
     const provided = [body.conceptId, body.lessonId, body.curriculumId].filter((v): v is string => typeof v === "string" && v.length > 0);
     if (provided.length !== 1) {
@@ -276,7 +279,7 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
         ? { lessonId: body.lessonId }
         : { curriculumId: body.curriculumId! };
 
-    const result = await app.practice.generateQuestionsForScope(scope, auth.user.id);
+    const result = await app.practice.generateQuestionsForScope(scope, auth.user.id, body.kind === "open" ? "open" : "mcq");
     await app.audit.record({
       actorUserId: auth.user.id,
       action: "question.generate",

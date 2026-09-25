@@ -17,6 +17,7 @@ function item(over: Partial<PracticePlanItem> & { conceptId: string }): Practice
     correct: 0,
     daysSinceLastPractice: 0,
     availableQuestions: 1,
+    openQuestions: 0,
     tracked: true,
     ...over,
   };

@@ -514,6 +514,34 @@ p {
   margin: 0.6rem 0;
 }
 
+/* PHASE 30 — free-text answer box for open questions. */
+.answer-input {
+  width: 100%;
+  min-height: 84px;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  direction: rtl;
+  resize: vertical;
+}
+
+.answer-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+/* PHASE 30 — per-concept practice actions (MCQ + open) in the plan row. */
+.plan-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .btn.option {
   text-align: right;
   justify-content: flex-start;

@@ -25,6 +25,8 @@ export interface PracticePlanItem {
   daysSinceLastPractice: number;
   /** MCQ questions the student can practice for this concept (enrolled curricula only). */
   availableQuestions: number;
+  /** PHASE 30 — open (free-text) questions available for this concept (enrolled curricula only). */
+  openQuestions: number;
   /**
    * PHASE 28 — false for concepts the student never practiced (no progress
    * row). Untracked concepts of the enrolled curricula are listed so concepts

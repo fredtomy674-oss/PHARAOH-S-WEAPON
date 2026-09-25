@@ -8,13 +8,28 @@ import type { AiService } from "../ai/aiService.js";
 import { Errors } from "../../utils/errors.js";
 import { newId } from "../../utils/ids.js";
 import { sortPlan, type PracticePlanItem } from "./plan.js";
-import { groundingPrompt, parseGeneratedQuestion, QUESTION_GEN_MAX_CHUNKS, QUESTION_GEN_MAX_CONTEXT_CHARS } from "./questionGen.js";
+import {
+  groundingPrompt,
+  parseGeneratedOpenQuestion,
+  parseGeneratedQuestion,
+  QUESTION_GEN_MAX_CHUNKS,
+  QUESTION_GEN_MAX_CONTEXT_CHARS,
+} from "./questionGen.js";
+import {
+  GRADE_OPEN_MAX_STUDENT_ANSWER_CHARS,
+  gradeContainsAnswerKey,
+  gradeFallback,
+  gradePrompt,
+  parseGrade,
+} from "./grade.js";
 
 /** A question the student can answer — NEVER includes the answer key. */
 export interface PracticeQuestion {
   id: string;
   content: string;
-  options: string[];
+  /** null for open questions (free-text answers) — options exist for MCQ only. */
+  options: string[] | null;
+  type: "mcq" | "open";
   conceptId: string | null;
   conceptTitle: string | null;
   difficulty: "easy" | "medium" | "hard";
@@ -30,8 +45,17 @@ export interface PracticeMastery {
 export interface PracticeResult {
   correct: boolean;
   explanation: string | null;
+  /** PHASE 30 — LLM grading of open answers: 0..1 estimate + written feedback (null for MCQ). */
+  score: number | null;
+  feedback: string | null;
   /** null when the question is not linked to a concept (no mastery impact). */
   mastery: PracticeMastery | null;
+}
+
+/** PHASE 30 — one answer submission (option index for MCQ, free text for open). */
+export interface SubmitAnswerInput {
+  optionIndex?: unknown;
+  answer?: unknown;
 }
 
 /** Counts-only result of a (possibly multi-concept) admin bulk generation. */
@@ -53,8 +77,11 @@ interface ParsedOptions {
  * concepts first) and grades answers deterministically, feeding every answered
  * question into `MemoryService.recordAssessment` — the first production caller
  * of the previously dormant assessment path. PHASE 26: grades weight mastery by
- * question difficulty and feed the practice/mastery achievements. No AI
- * provider involved: grading is pure, so it is fully offline-testable.
+ * question difficulty and feed the practice/mastery achievements. PHASE 30:
+ * «أسئلة مفتوحة» are activated end-to-end — the loop can serve `open`
+ * questions and grades free-text answers through the dynamic AI operation
+ * `grade_open` (deterministic mock offline, LLM in production) with a
+ * "لا نص حرفي" guard and a deterministic fallback.
  */
 export class PracticeService {
   constructor(
@@ -75,14 +102,15 @@ export class PracticeService {
   }
 
   /**
-   * Pick the next question: an explicit concept when asked, otherwise the
-   * student's weakest tracked concept first, falling back to any enrolled
-   * curriculum question (deterministic: oldest first).
+   * Pick the next question of the requested type ("mcq" by default, "open" for
+   * free-text): an explicit concept when asked, otherwise the student's
+   * weakest tracked concept first, falling back to any enrolled curriculum
+   * question (deterministic: oldest first).
    */
-  async questionFor(studentId: string, conceptId?: string): Promise<PracticeQuestion | null> {
+  async questionFor(studentId: string, conceptId?: string, type: "mcq" | "open" = "mcq"): Promise<PracticeQuestion | null> {
     const enrolled = await this.enrolledCurriculumIds(studentId);
     if (enrolled.length === 0) return null;
-    const base = and(eq(questions.type, "mcq"), inArray(questions.curriculumId, enrolled));
+    const base = and(eq(questions.type, type), inArray(questions.curriculumId, enrolled));
 
     if (conceptId) {
       const row = await this.db.db
@@ -92,7 +120,7 @@ export class PracticeService {
         .orderBy(asc(questions.createdAt), asc(questions.id))
         .limit(1)
         .get();
-      return row ? this.toPublic(row) : null;
+      return row ? await this.toPublic(row) : null;
     }
 
     const { concepts: rows } = await this.memory.progressDetail(studentId);
@@ -105,7 +133,7 @@ export class PracticeService {
         .orderBy(asc(questions.createdAt), asc(questions.id))
         .limit(1)
         .get();
-      if (row) return this.toPublic(row);
+      if (row) return await this.toPublic(row);
     }
 
     const any = await this.db.db
@@ -115,19 +143,46 @@ export class PracticeService {
       .orderBy(asc(questions.createdAt), asc(questions.id))
       .limit(1)
       .get();
-    return any ? this.toPublic(any) : null;
+    return any ? await this.toPublic(any) : null;
   }
 
   /**
-   * Grade an MCQ answer, persist the attempt, and update concept mastery.
-   * Throws 404 when the question is unlinked to the student's curricula and
-   * 400 for out-of-range options; other races surface as 500 via the mapper.
+   * Grade an answer (MCQ option index or open free text), persist the attempt,
+   * and update concept mastery. Throws 404 when the question is unlinked to the
+   * student's curricula; 400 for out-of-range options / missing answers and for
+   * submitting the wrong payload kind for the question's type; other races
+   * surface as 500 via the mapper. PHASE 30: open answers are graded through
+   * the dynamic AI operation `grade_open` (mock offline / LLM in production)
+   * with a no-verbatim guard + deterministic fallback.
    */
-  async submitAnswer(studentId: string, questionId: string, optionIndex: number, sessionId?: string): Promise<PracticeResult> {
+  async submitAnswer(
+    studentId: string,
+    questionId: string,
+    input: SubmitAnswerInput,
+    ctx: { actorUserId: string; sessionId?: string },
+  ): Promise<PracticeResult> {
     const enrolled = await this.enrolledCurriculumIds(studentId);
     const q = await this.db.db.select().from(questions).where(eq(questions.id, questionId)).get();
     if (!q || !q.curriculumId || !enrolled.includes(q.curriculumId)) {
       throw Errors.notFound("السؤال غير متاح لك");
+    }
+    // The payload must be unambiguous: either an option index or a text answer.
+    if (input.optionIndex !== undefined && input.optionIndex !== null && input.answer !== undefined && input.answer !== null) {
+      throw Errors.badRequest("أرسل إمّا خيارًا أو إجابة نصية، وليس الاثنين معًا", "INVALID_SUBMIT");
+    }
+    if (q.type === "open") return this.gradeOpenAnswer(studentId, q, input, ctx);
+    return this.gradeMcqAnswer(studentId, q, input, ctx);
+  }
+
+  private async gradeMcqAnswer(
+    studentId: string,
+    q: { id: string; optionsJson: string | null; explanation: string | null; conceptId: string | null; difficulty: "easy" | "medium" | "hard" },
+    input: SubmitAnswerInput,
+    ctx: { sessionId?: string },
+  ): Promise<PracticeResult> {
+    const optionIndex = input.optionIndex;
+    if (typeof optionIndex !== "number" || !Number.isInteger(optionIndex) || optionIndex < 0) {
+      throw Errors.badRequest("اختر خيارًا صالحًا", "INVALID_OPTION");
     }
     const parsed = parseOptions(q.optionsJson);
     if (!parsed) throw Errors.internal("تعذر قراءة السؤال");
@@ -139,20 +194,100 @@ export class PracticeService {
     const chosen = parsed.options[optionIndex]!;
     await this.db.db.insert(answers).values({
       id: newId("ans"),
-      questionId,
+      questionId: q.id,
       studentId,
-      sessionId: sessionId ?? null,
+      sessionId: ctx.sessionId ?? null,
       content: chosen,
       correct: correct ? 1 : 0,
       createdAt: now,
     });
 
     if (!q.conceptId) {
-      return { correct, explanation: q.explanation, mastery: null };
+      return { correct, explanation: q.explanation, mastery: null, score: null, feedback: null };
     }
     await this.memory.recordAssessment({ studentId, conceptId: q.conceptId, correct, type: "exercise", difficulty: q.difficulty });
+    const mastery = await this.masteryAfter(q.conceptId, studentId);
+    return {
+      correct,
+      explanation: q.explanation,
+      mastery,
+      score: null,
+      feedback: null,
+    };
+  }
+
+  /** PHASE 30 — grade a free-text answer via `grade_open` and record the attempt. */
+  private async gradeOpenAnswer(
+    studentId: string,
+    q: { id: string; content: string; optionsJson: string | null; answerKey: string | null; explanation: string | null; conceptId: string | null; difficulty: "easy" | "medium" | "hard" },
+    input: SubmitAnswerInput,
+    ctx: { actorUserId: string; sessionId?: string },
+  ): Promise<PracticeResult> {
+    if (input.optionIndex !== undefined && input.optionIndex !== null) {
+      throw Errors.badRequest("هذا سؤال مقالي — اكتب إجابتك نصيًا", "INVALID_ANSWER");
+    }
+    const answer = typeof input.answer === "string" ? input.answer.trim() : "";
+    if (answer.length === 0) throw Errors.badRequest("اكتب إجابة قبل التحقق منها", "INVALID_ANSWER");
+    if (answer.length > GRADE_OPEN_MAX_STUDENT_ANSWER_CHARS) {
+      throw Errors.badRequest("الإجابة طويلة جدًا — لخّصها في جملة أو جملتين", "INVALID_ANSWER");
+    }
+    if (!q.answerKey || q.answerKey.trim().length === 0) {
+      throw Errors.internal("تعذر تصحيح السؤال");
+    }
+    const conceptTitle = q.conceptId
+      ? ((await this.db.db.select({ title: concepts.title }).from(concepts).where(eq(concepts.id, q.conceptId)).get())?.title ?? null)
+      : null;
+
+    const { system, user } = gradePrompt({
+      conceptTitle,
+      questionContent: q.content,
+      referenceAnswer: q.answerKey,
+      studentAnswer: answer,
+    });
+    const response = await this.ai.complete({
+      operation: "grade_open",
+      json: true,
+      messages: [
+        { role: "system", content: system },
+        { role: "user", content: user },
+      ],
+      contextUserId: ctx.actorUserId,
+    });
+    const parsed = parseGrade(response.content);
+    // A malformed reply or one that re-quotes the hidden answer → safe fallback.
+    const grade = parsed && !gradeContainsAnswerKey(parsed.feedback, q.answerKey)
+      ? parsed
+      : gradeFallback({ conceptTitle, referenceAnswer: q.answerKey, studentAnswer: answer });
+
+    const now = new Date();
+    await this.db.db.insert(answers).values({
+      id: newId("ans"),
+      questionId: q.id,
+      studentId,
+      sessionId: ctx.sessionId ?? null,
+      content: answer,
+      correct: grade.correct ? 1 : 0,
+      createdAt: now,
+    });
+
+    if (!q.conceptId) {
+      return { correct: grade.correct, explanation: q.explanation, mastery: null, score: grade.score, feedback: grade.feedback };
+    }
+    await this.memory.recordAssessment({ studentId, conceptId: q.conceptId, correct: grade.correct, type: "exercise", difficulty: q.difficulty });
+    const mastery = await this.masteryAfter(q.conceptId, studentId);
+    return {
+      correct: grade.correct,
+      explanation: q.explanation,
+      mastery,
+      score: grade.score,
+      feedback: grade.feedback,
+    };
+  }
+
+  /** Shared mastery/achievements bookkeeping after any answered question. */
+  private async masteryAfter(conceptId: string, studentId: string): Promise<PracticeMastery | null> {
     const summary = await this.memory.masterySummary(studentId);
-    const entry = summary.find((s) => s.conceptId === q.conceptId) ?? null;
+    const entry = summary.find((s) => s.conceptId === conceptId) ?? null;
     // PHASE 26 — the mastery engine now feeds badges (best-effort, never blocks
     // the answer): practice activity + concepts at the «متقن» display level.
     try {
@@ -161,11 +296,7 @@ export class PracticeService {
     } catch {
       // Badge bookkeeping must never break the core loop — next answer retries.
     }
-    return {
-      correct,
-      explanation: q.explanation,
-      mastery: entry ? { score: entry.mastery, decayedScore: entry.decayedMastery, level: entry.level, labelAr: entry.labelAr } : null,
-    };
+    return entry ? { score: entry.mastery, decayedScore: entry.decayedMastery, level: entry.level, labelAr: entry.labelAr } : null;
   }
 
   /**
@@ -215,6 +346,7 @@ export class PracticeService {
     }
 
     const available = new Map<string, number>();
+    const openAvailable = new Map<string, number>();
     if (enrolled.length > 0) {
       const countRows = await this.db.db
         .select({ conceptId: questions.conceptId, n: sql<number>`count(*)` })
@@ -226,6 +358,19 @@ export class PracticeService {
         .all();
       for (const row of countRows) {
         available.set(row.conceptId ?? "", row.n);
+      }
+      // PHASE 30 — open questions are counted separately so the plan can offer
+      // «سؤال مقالي» / «توليد سؤال مقالي» per concept.
+      const openRows = await this.db.db
+        .select({ conceptId: questions.conceptId, n: sql<number>`count(*)` })
+        .from(questions)
+        .where(
+          and(eq(questions.type, "open"), inArray(questions.curriculumId, enrolled), inArray(questions.conceptId, conceptIds)),
+        )
+        .groupBy(questions.conceptId)
+        .all();
+      for (const row of openRows) {
+        openAvailable.set(row.conceptId ?? "", row.n);
       }
     }
 
@@ -245,6 +390,7 @@ export class PracticeService {
       correct: s.correct,
       daysSinceLastPractice: s.daysSinceLastPractice,
       availableQuestions: available.get(s.conceptId) ?? 0,
+      openQuestions: openAvailable.get(s.conceptId) ?? 0,
       tracked: true,
     }));
     for (const c of allConcepts) {
@@ -265,23 +411,29 @@ export class PracticeService {
         correct: 0,
         daysSinceLastPractice: 0,
         availableQuestions: available.get(c.conceptId) ?? 0,
+        openQuestions: openAvailable.get(c.conceptId) ?? 0,
         tracked: false,
       });
     }
     return sortPlan(items);
   }
 
-  // --- PHASE 28 — LLM question generation (covers concepts with no questions) --
+  // --- PHASE 28 + 30 — LLM question generation (covers concepts with no questions) --
 
   /**
-   * Student-facing generation (self-healing practice): exactly one MCQ for a
-   * concept the student is enrolled in when it has no questions yet. Guards:
-   * unknown concept → 404; concept outside the student's curricula → 404;
-   * concept already has questions → 409. The generated row is stored and
-   * immediately playable — one generation serves every student of that
-   * curriculum.
+   * Student-facing generation (self-healing practice): exactly one question of
+   * the requested kind for a concept the student is enrolled in when that kind
+   * has no questions yet. Guards: unknown concept → 404; concept outside the
+   * student's curricula → 404; concept already has that kind → 409. The
+   * generated row is stored and immediately playable — one generation serves
+   * every student of that curriculum.
    */
-  async generateQuestionForStudent(studentId: string, conceptId: string, actorUserId: string): Promise<PracticeQuestion | null> {
+  async generateQuestionForStudent(
+    studentId: string,
+    conceptId: string,
+    actorUserId: string,
+    kind: "mcq" | "open" = "mcq",
+  ): Promise<PracticeQuestion | null> {
     const concept = await this.db.db.select().from(concepts).where(eq(concepts.id, conceptId)).get();
     if (!concept) throw Errors.notFound("المفهوم غير موجود");
     const enrolled = await this.enrolledCurriculumIds(studentId);
@@ -289,21 +441,22 @@ export class PracticeService {
     if (!curriculumId || !enrolled.includes(curriculumId)) {
       throw Errors.notFound("المفهوم غير متاح لك");
     }
-    const existing = await this.countMcqForConcept(conceptId);
-    if (existing > 0) throw Errors.conflict("لهذا المفهوم أسئلة متاحة بالفعل");
-    const row = await this.generateQuestion(concept, curriculumId, actorUserId);
+    const existing = await this.countQuestionsForConcept(conceptId, kind);
+    if (existing > 0) throw Errors.conflict("لهذا المفهوم أسئلة من هذا النوع متاحة بالفعل");
+    const row = await this.generateQuestion(concept, curriculumId, actorUserId, kind);
     return this.toPublic(row);
   }
 
   /**
-   * Admin bulk generation: one MCQ per eligible concept in the scope (a
-   * concept is eligible when it has no MCQs in its curriculum yet). Idempotent
-   * — re-running skips everything already covered. Never reports question
-   * content (admin stats stay metadata-only).
+   * Admin bulk generation: one question of the requested kind per eligible
+   * concept in the scope (a concept is eligible when it has none of that kind
+   * in its curriculum yet). Idempotent — re-running skips everything already
+   * covered. Never reports question content (admin stats stay metadata-only).
    */
   async generateQuestionsForScope(
     scope: { conceptId?: string; lessonId?: string; curriculumId?: string },
     actorUserId: string,
+    kind: "mcq" | "open" = "mcq",
   ): Promise<AdminQuestionGenResult> {
     const concepts = await this.conceptsInScope(scope);
     const result: AdminQuestionGenResult = { generated: 0, skipped: 0, failed: 0, items: [] };
@@ -314,14 +467,14 @@ export class PracticeService {
         result.items.push({ conceptId: concept.id, title: concept.title, status: "failed", error: "لا ينتمي المفهوم لمنهج معلوم" });
         continue;
       }
-      const existing = await this.countMcqForConcept(concept.id);
+      const existing = await this.countQuestionsForConcept(concept.id, kind);
       if (existing > 0) {
         result.skipped += 1;
         result.items.push({ conceptId: concept.id, title: concept.title, status: "skipped" });
         continue;
       }
       try {
-        await this.generateQuestion(concept, curriculumId, actorUserId);
+        await this.generateQuestion(concept, curriculumId, actorUserId, kind);
         result.generated += 1;
         result.items.push({ conceptId: concept.id, title: concept.title, status: "generated" });
       } catch (err) {
@@ -337,14 +490,15 @@ export class PracticeService {
     return result;
   }
 
-  /** Generate + persist ONE grounded MCQ for a concept (difficulty: easy). */
+  /** Generate + persist ONE grounded question (difficulty: easy) of the requested kind. */
   private async generateQuestion(
     concept: { id: string; lessonId: string; title: string },
     curriculumId: string,
     contextUserId: string,
+    kind: "mcq" | "open",
   ) {
     const contextText = await this.groundingForLesson(concept.lessonId);
-    const { system, user } = groundingPrompt({ conceptTitle: concept.title, context: contextText });
+    const { system, user } = groundingPrompt({ conceptTitle: concept.title, context: contextText, kind });
     const response = await this.ai.complete({
       operation: "question_gen",
       json: true,
@@ -354,11 +508,33 @@ export class PracticeService {
       ],
       contextUserId,
     });
+    const now = new Date();
+    if (kind === "open") {
+      const parsed = parseGeneratedOpenQuestion(response.content);
+      if (!parsed) {
+        throw Errors.serviceUnavailable("تعذّر توليد سؤال مقالي صحيح من محتوى الدرس");
+      }
+      const row = {
+        id: newId("q"),
+        curriculumId,
+        lessonId: concept.lessonId,
+        conceptId: concept.id,
+        difficulty: "easy" as const,
+        type: "open" as const,
+        content: parsed.content,
+        explanation: parsed.explanation,
+        optionsJson: null,
+        // The model answer is the grading key — server-only, never exposed.
+        answerKey: parsed.answerKey,
+        createdAt: now,
+      };
+      await this.db.db.insert(questions).values(row);
+      return row;
+    }
     const parsed = parseGeneratedQuestion(response.content);
     if (!parsed) {
       throw Errors.serviceUnavailable("تعذّر توليد سؤال صحيح من محتوى الدرس");
     }
-    const now = new Date();
     const row = {
       id: newId("q"),
       curriculumId,
@@ -423,12 +599,12 @@ export class PracticeService {
       .all();
   }
 
-  /** How many MCQ questions exist for a concept (any curriculum). */
-  private async countMcqForConcept(conceptId: string): Promise<number> {
+  /** How many questions of a type exist for a concept (any curriculum). */
+  private async countQuestionsForConcept(conceptId: string, type: "mcq" | "open"): Promise<number> {
     const row = await this.db.db
       .select({ n: sql<number>`count(*)` })
       .from(questions)
-      .where(and(eq(questions.type, "mcq"), eq(questions.conceptId, conceptId)))
+      .where(and(eq(questions.type, type), eq(questions.conceptId, conceptId)))
       .get();
     return Number(row?.n ?? 0);
   }
@@ -445,7 +621,23 @@ export class PracticeService {
     return row?.curriculumId ?? null;
   }
 
-  private async toPublic(q: { id: string; content: string; optionsJson: string | null; conceptId: string | null; difficulty: "easy" | "medium" | "hard" }): Promise<PracticeQuestion | null> {
+  /** Present a stored question for the student — NEVER includes the answer key. */
+  private async toPublic(q: { id: string; content: string; optionsJson: string | null; type: "mcq" | "open"; conceptId: string | null; difficulty: "easy" | "medium" | "hard" }): Promise<PracticeQuestion | null> {
+    if (q.type === "open") {
+      const conceptTitle = q.conceptId
+        ? (await this.db.db.select({ title: concepts.title }).from(concepts).where(eq(concepts.id, q.conceptId)).get())?.title ?? null
+        : null;
+      return {
+        id: q.id,
+        content: q.content,
+        // Open questions have no options — the student writes the answer.
+        options: null,
+        type: "open",
+        conceptId: q.conceptId,
+        conceptTitle,
+        difficulty: q.difficulty,
+      };
+    }
     const parsed = parseOptions(q.optionsJson);
     if (!parsed) return null;
     const conceptTitle = q.conceptId
@@ -455,6 +647,7 @@ export class PracticeService {
       id: q.id,
       content: q.content,
       options: parsed.options,
+      type: "mcq",
       conceptId: q.conceptId,
       conceptTitle,
       difficulty: q.difficulty,

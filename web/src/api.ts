@@ -376,7 +376,9 @@ export async function myProgress(): Promise<ProgressDetail> {
 export interface PracticeQuestion {
   id: string;
   content: string;
-  options: string[];
+  /** null for open (free-text) questions — options exist for MCQ only. */
+  options: string[] | null;
+  type: "mcq" | "open";
   conceptId: string | null;
   conceptTitle: string | null;
   difficulty: "easy" | "medium" | "hard";
@@ -385,14 +387,19 @@ export interface PracticeQuestion {
 export interface PracticeResult {
   correct: boolean;
   explanation: string | null;
+  /** PHASE 30 — LLM grading of open answers: 0..1 estimate + written feedback (null for MCQ). */
+  score: number | null;
+  feedback: string | null;
   /** null when the question is not linked to a concept (no mastery impact). */
   mastery: { score: number; decayedScore: number; level: MasteryLevel; labelAr: string } | null;
 }
 
 /** Next practice question (weakest tracked concept first), or null when none. */
-export async function getPracticeQuestion(conceptId?: string): Promise<PracticeQuestion | null> {
-  const qs = conceptId ? `?conceptId=${encodeURIComponent(conceptId)}` : "";
-  const res = await api<{ question: PracticeQuestion | null }>(`/practice/question${qs}`);
+export async function getPracticeQuestion(conceptId?: string, type: "mcq" | "open" = "mcq"): Promise<PracticeQuestion | null> {
+  const params = new URLSearchParams();
+  if (conceptId) params.set("conceptId", conceptId);
+  params.set("type", type);
+  const res = await api<{ question: PracticeQuestion | null }>(`/practice/question?${params.toString()}`);
   return res.question;
 }
 
@@ -400,6 +407,14 @@ export async function submitPracticeAnswer(questionId: string, optionIndex: numb
   return api<PracticeResult>(`/practice/questions/${encodeURIComponent(questionId)}/submit`, {
     method: "POST",
     body: { optionIndex },
+  });
+}
+
+/** PHASE 30 — submit a free-text answer to an open question (graded via `grade_open`). */
+export async function submitOpenPracticeAnswer(questionId: string, answer: string): Promise<PracticeResult> {
+  return api<PracticeResult>(`/practice/questions/${encodeURIComponent(questionId)}/submit`, {
+    method: "POST",
+    body: { answer },
   });
 }
 
@@ -419,6 +434,8 @@ export interface PracticePlanItem {
   correct: number;
   daysSinceLastPractice: number;
   availableQuestions: number;
+  /** PHASE 30 — open (free-text) questions available for this concept. */
+  openQuestions: number;
   /** PHASE 28 — false for concepts never practiced (discoverable, mastery 0). */
   tracked: boolean;
 }
@@ -428,11 +445,11 @@ export async function getPracticePlan(): Promise<PracticePlanItem[]> {
   return res.plan;
 }
 
-/** PHASE 28 — generate one MCQ for a concept with no questions yet (self-healing practice). */
-export async function generatePracticeQuestion(conceptId: string): Promise<PracticeQuestion> {
+/** PHASE 28 + 30 — generate one MCQ (default) or open question for a questionless concept. */
+export async function generatePracticeQuestion(conceptId: string, kind: "mcq" | "open" = "mcq"): Promise<PracticeQuestion> {
   const res = await api<{ question: PracticeQuestion | null }>("/practice/generate", {
     method: "POST",
-    body: { conceptId },
+    body: { conceptId, kind },
   });
   if (!res.question) throw new ApiError("تعذر توليد سؤال لهذا المفهوم.", 502, "EMPTY_GENERATION");
   return res.question;

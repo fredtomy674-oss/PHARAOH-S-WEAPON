@@ -74,17 +74,41 @@ export class MockLLMProvider implements LLMProvider {
       };
     }
 
-    // PHASE 28 — question generation: the mock must emit a structured MCQ JSON
-    // grounded in the lesson context (never invented facts). The generator
-    // service is what turns this into a stored row; here we only produce the
-    // AI-shaped reply, deterministically, so tests stay stable.
+    // PHASE 28 + 30 — question generation: the mock must emit a structured
+    // JSON (MCQ or open, chosen by the «النوع: mcq|open» marker the prompt
+    // builder places in the user turn) grounded in the lesson context (never
+    // invented facts). The generator service turns this into a stored row;
+    // here we only produce the AI-shaped reply, deterministically.
     if (request.operation === "question_gen") {
       const conceptMatch = /المفهوم: «([^»]+)»/.exec(lastUser);
       const conceptTitle = conceptMatch?.[1] ?? null;
-      const content = JSON.stringify(buildMockQuestion(context, conceptTitle));
+      const kindMatch = /النوع:\s*(mcq|open)/.exec(lastUser);
+      const kind = kindMatch?.[1] === "open" ? "open" : "mcq";
+      const content =
+        kind === "open"
+          ? JSON.stringify(buildMockOpenQuestion(context, conceptTitle))
+          : JSON.stringify(buildMockQuestion(context, conceptTitle));
       return {
         content,
-        model: "mock-question",
+        model: kind === "open" ? "mock-question-open" : "mock-question",
+        inputTokens: estimateTokens(system + lastUser),
+        outputTokens: estimateTokens(content),
+        latencyMs: Date.now() - started,
+      };
+    }
+
+    // PHASE 30 — open-answer grading: the mock grades deterministically by
+    // token coverage against the reference (a dev stand-in for the LLM's
+    // semantic judgment). It only ever sees the reference block in the system
+    // message and the student's answer block in the user turn, and its fixed
+    // feedback templates never echo the reference answer.
+    if (request.operation === "grade_open") {
+      const reference = extractBlock(system, "reference");
+      const studentAnswer = extractBlock(lastUser, "student_answer");
+      const content = JSON.stringify(buildMockGrade(reference, studentAnswer));
+      return {
+        content,
+        model: "mock-grade",
         inputTokens: estimateTokens(system + lastUser),
         outputTokens: estimateTokens(content),
         latencyMs: Date.now() - started,
@@ -130,6 +154,15 @@ function extractContextBlock(system: string): string {
   return ctx === "(لا يوجد محتوى مسترجع لهذا السؤال)" ? "" : ctx;
 }
 
+/** Pulls the LAST `<tag>…</tag>` block out of a message turn (grade_open). */
+function extractBlock(haystack: string, tag: string): string {
+  const open = haystack.lastIndexOf(`<${tag}>`);
+  if (open < 0) return "";
+  const close = haystack.indexOf(`</${tag}>`, open + tag.length + 2);
+  if (close < 0) return "";
+  return haystack.slice(open + tag.length + 2, close).trim();
+}
+
 /**
  * PHASE 28 — deterministic offline MCQ generator. Splits the lesson context
  * into stable fact sentences, picks one as the correct answer (verbatim, so
@@ -148,10 +181,20 @@ const QUESTION_FILLER_1 = "هذه العبارة لا وردت في محتوى �
 const QUESTION_FILLER_2 = "لا يمكن استنتاج هذه العبارة من محتوى الدرس.";
 const QUESTION_FILLER_3 = "عبارة من موضوع رياضي آخر لا يتصل بهذا الدرس.";
 
-export function buildMockQuestion(context: string, conceptTitle: string | null): MockQuestionJson {
-  const facts = (context.split(/[.!؟؛\n]+/)
+/**
+ * Stable facts inside a context block: sentences (split on terminator
+ * punctuation) with a meaningful length, excluding the pedagogical "لا يوجد /
+ * غير موجود" negation used as a tripwire ("غير موجود" must never become the
+ * question's answer).
+ */
+function splitFacts(context: string): string[] {
+  return (context.split(/[.!؟؛\n]+/)
     .map((s) => s.trim())
     .filter((s) => s.length >= 8 && !s.includes("غير موجود")));
+}
+
+export function buildMockQuestion(context: string, conceptTitle: string | null): MockQuestionJson {
+  const facts = splitFacts(context);
 
   const seed = cyrb128(context);
   const h = Math.abs(seed[0]! ^ (seed[1]! << 4)) || 7;
@@ -191,6 +234,37 @@ export function buildMockQuestion(context: string, conceptTitle: string | null):
     options: rotated,
     correctIndex,
     explanation: `العبارة الصحيحة وردت حرفيًا في درسنا: «${correct}». أما الخيارات الأخرى فإمّا من خارج الدرس أو بصيغة تغيّر المعنى.`,
+  };
+}
+
+/**
+ * PHASE 30 — deterministic offline OPEN-question generator. Same fact-picking
+ * seed family as the MCQ builder (`open:` prefix keeps the pick distinct): the
+ * model answer is a fact taken verbatim from the lesson, and the question asks
+ * the student to write that fact down. The stored explanation never quotes the
+ * model answer — the free-text answer is the deliverable, so the key stays
+ * server-side.
+ */
+export interface MockOpenQuestionJson {
+  content: string;
+  answerKey: string;
+  explanation: string;
+}
+
+export function buildMockOpenQuestion(context: string, conceptTitle: string | null): MockOpenQuestionJson {
+  const facts = splitFacts(context);
+  const seed = cyrb128(`open:${context}`);
+  const h = Math.abs(seed[0]! ^ (seed[1]! << 4)) || 7;
+  const answerKey =
+    facts.length > 0
+      ? facts[h % facts.length]!
+      : (context.trim() || "المحتوى المسترجع لهذا الدرس").slice(0, 200);
+  return {
+    content: conceptTitle
+      ? `اكتب بجملة قصيرة حقيقةً واحدة وردت حرفيًا في درسنا عن «${conceptTitle}».`
+      : "اكتب بجملة قصيرة حقيقةً واحدة وردت حرفيًا في درسنا.",
+    answerKey,
+    explanation: "التقطت هذه الإجابة المستخرجة من محتوى الدرس حرفيًا؛ قارن جملتك بها لتقيس دقة إجابتك.",
   };
 }
 
@@ -259,6 +333,49 @@ export function buildMockRecap(block: string): MockRecapJson {
     strengths,
     suggestions,
   };
+}
+
+/**
+ * PHASE 30 — deterministic offline open-answer grader. Token coverage of the
+ * student's answer against the hidden reference (mirror of the coverage metric
+ * in practice/grade.ts — providers stay self-contained). Fixed feedback
+ * templates by band; none of them can ever echo the reference answer.
+ */
+export interface MockGradeJson {
+  correct: boolean;
+  score: number;
+  feedback: string;
+}
+
+const GRADE_FEEDBACK_GOOD = "إجابة موفقة! فهمت الفكرة وأحسنت التعبير عن الحل.";
+const GRADE_FEEDBACK_NEAR = "إجابة قريبة — خطواتك تقترب من الحل لكن ينقصها بعض التفاصيل حول هذا المفهوم. أعد قراءة الشرح ثم حاول مجددًا.";
+const GRADE_FEEDBACK_WEAK = "إجابة غير دقيقة هذه المرة — أعد قراءة المثال المحلول في الدرس ثم حاول مجددًا بخطوات كاملة.";
+
+export function buildMockGrade(reference: string, studentAnswer: string): MockGradeJson {
+  const score = mockCoverage(reference, studentAnswer);
+  const correct = score >= 0.7;
+  const feedback = correct ? GRADE_FEEDBACK_GOOD : score >= 0.4 ? GRADE_FEEDBACK_NEAR : GRADE_FEEDBACK_WEAK;
+  return { correct, score: Math.round(score * 100) / 100, feedback };
+}
+
+/** Mirror of `normalizeArabic` in practice/grade.ts (deterministic Arabic comparison). */
+function mockNormalize(text: string): string {
+  return text
+    .replace(/[\u064B-\u0652\u0670\u0640]/g, "")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/[٠-٩]/g, (d) => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)))
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function mockCoverage(reference: string, answer: string): number {
+  const refTokens = mockNormalize(reference).split(/[^\p{L}\p{N}]+/u).filter((t) => t.length > 0);
+  if (refTokens.length === 0) return 0;
+  const answerTokens = new Set(mockNormalize(answer).split(/[^\p{L}\p{N}]+/u).filter((t) => t.length > 0));
+  const covered = refTokens.filter((t) => answerTokens.has(t)).length;
+  return covered / refTokens.length;
 }
 
 function buildTutorText(args: {

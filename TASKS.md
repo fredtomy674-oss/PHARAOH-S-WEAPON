@@ -278,6 +278,24 @@
 - [x] اختبارات: وحدة `recap.test.ts` (**18**) + API `sessionRecap.test.ts` (**8** — طالب/عزل/حتمية/لا رسالة سرية/null/والد مربوط وغير مربوط و403) — **315/315 أخضر** + E2E `recap.spec.ts` **R1** (طالب: درس → رسالة سرية → «ملخص الجلسة» على صفّه → عنوان درسه بلا نص الرسالة) و**R2** (والد: أحدث جلسة → «عرض الملخص» → نفس الضمانة) — **38/38 أخضر**
 - [x] `npm run check` أخضر (315/315) + `npm run build` أخضر + docs sync (DECISIONS D-033/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 30 — التصحيح الآلي للإجابات المفتوحة (grade_open): تفعيل أسئلة `type:"open"` — إغلاق آخر بند مؤجل في D-028 ✅
+
+**القرار D-034**: تفعيل السؤال **المفتوح** (إجابة حرة) عبر تصحيح LLM **ديناميكي** `grade_open` (خارج `LLM_CACHEABLE` — كل تصحيح يُكلَّف؛ قائمة `CACHEABLE_OPERATIONS` الإدارية لم تتغيّر؛ `contextUserId=actorUserId`) + عزل المفتاح النموذجي بنيويًا: `answerKey` خادمي فقط يصل لرسالة النظام (`<reference>`) ولا الغلاف (بيانات وصفية) كما `correctIndex`؛ حارس «لا نص حرفي» + سقوط قوَالبي حتمي لا يعيدان المفتاح للطالب أبدًا. صفر اعتماديات/مخطط جديد.
+- [x] **`practice/grade.ts`** (جديد): `normalizeArabic` (شكّل/تطويل/ألفات/أرقام عربية وهندية وإطباق فراغات) + `tokensOf` (تقسيم على غير حرف/رقم) + `referenceCoverage` (نسبة توكنات المفتاح المغطاة؛ مفاتيح قصيرة رقمية = تطابق تام) + `gradePrompt` (`<reference>` نظامًا / `<student_answer>` مستخدمًا) + `parseGrade` (JSON صارم، يتسامح ```json، `correct` منطقي، `score`∈[0,1]) + `gradeContainsAnswerKey` (حرفي ≥3 أو ≥60% تغطية) + `gradeFallback` حتمي قوَالبي بلا إعادة المفتاح + ثوابت `GRADE_OPEN_MAX_STUDENT_ANSWER_CHARS=1500`/`GRADE_CORRECT_THRESHOLD=0.7`/`GRADE_CLOSE_THRESHOLD=0.4`
+- [x] **`ai/types.ts`**: `AIOperation` += `grade_open` (خارج `LLM_CACHEABLE` أصلًا؛ إحصاءات الاشتراك/AI تعكسه تلقائيًا كنداء مدفوع)
+- [x] **`ai/providers/mock.ts`**: `extractBlock` (آخر كتلة `<tag>`) + فرع `grade_open` + `buildMockGrade` حتمي = تصحيح تغطية التوكنات (صحيح ≥0.7/قريب ≥0.4/ضعيف — قوالب ثابتة بلا نص المفتاح)؛ `question_gen` يتلقى «النوع: mcq|open» + `buildMockOpenQuestion` (حقيقة حرفية من درس المفهوم بمقترن `cyrb128`، استبعاد نفي «غير موجود»، التوضيح **لا يقتبس المفتاح**)
+- [x] **`practice/questionGen.ts`**: `parseGeneratedOpenQuestion` (نص سؤال ≥5 + `answerKey` غير فارغ + شرح اختياري) + `groundingPrompt` بالنوع
+- [x] **`practice/service.ts`**: `PracticeQuestion`/`PracticeResult` بنوع مفتوح (`score:number|null` + `feedback:string|null`)؛ `questionFor(type?)`/`toPublic` (open → `options:null`)؛ `submitAnswer` يوزّع `gradeMcqAnswer`/`gradeOpenAnswer`/`masteryAfter` (صف `answers.content` = النص الحر، تقييم حسب `grade.correct`)؛ توليد `kind:"mcq"|"open"` للطالب + `kind?` للإدارة + `countQuestionsForConcept` **لكل نوع** (`409` للمغطّى من نوعه)؛ `planFor` يضيف `openQuestions`
+- [x] **`practice/plan.ts`**: `PracticePlanItem.openQuestions`
+- [x] **`practice/routes.ts`**: `?type=mcq|open` (رموز `INVALID_TYPE`)، إرسال `{answer}` للمفتوح و`{optionIndex}` لـmcq (خلط → `INVALID_SUBMIT`؛ خاطئ → `INVALID_ANSWER`/`INVALID_OPTION`؛ فارغ/فوق 1500 → `400 INVALID_ANSWER`)، `generate {conceptId, kind}` (`INVALID_KIND`)
+- [x] **`admin/routes.ts`**: `kind?` في مخطط توليد الأسئلة الجماعي (mcq/open) + التحقق لكل نوع على حدة
+- [x] **`db/seed.ts`**: `EGYPT_DEMO_OPEN_QUESTIONS` + `ensureDemoOpenQuestions` — «تبسيط الكسور» (`answerKey` «2/3») و«القسمة المطولة» (`answerKey` «26»)؛ السعودية بلا أسئلة عمدًا
+- [x] **`web/api.ts`**: `types` + `getPracticeQuestion(type?)` + `submitOpenPracticeAnswer` + `generatePracticeQuestion(conceptId, kind?)`
+- [x] **`web/Home.tsx`**: صف الخطة يكتسب **«سؤال مقالي»** (`plan-open-practice` عندما `openQuestions>0`) أو **«توليد سؤال مقالي»** (`plan-open-generate`)؛ لوحة التمرين تعرض حقل حر `practice-open-input` (معطّل الإرسال بلا نص) وتغذية راجعة `feedback` + شارة `practice-score` بالدرجة
+- [x] **`web/styles.css`**: `.answer-input` + `.plan-actions`
+- [x] اختبارات: وحدة `grade.test.ts` (**27** — تطبيع/توكنات/تغطية/حدود parse/فصل قالب/حارس بمفتاح قصير وطويل/سقوط بدون إعادة نص المفتاح/حتمية mock) + API `openQuestion.test.ts` (**11** — توليد بلا تسريب، 409 تكرار النوع، خدمة type، صحيح/خاطئ بمفتاح من DB، خلط أنواع حمولة، رموز 400، خطة openQuestions، والد 403) — **353/353 أخضر** + E2E `open.spec.ts` **O1** (المفتاح الزرعي «2/3» → موفقة + إتقان + لا تسريب في DOM) و**O2** (توليد مفتوح لمفهوم بلا سؤال → نص حر → تغذية) — **40/40 أخضر**
+- [x] `npm run check` أخضر (353/353) + `npm run build` أخضر + docs sync (DECISIONS D-034/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -300,6 +318,7 @@
 - [x] ✅ **إحصاءات الاشتراكات + وفورات الكاش في لوحة المدير** — قمع الخطط (المخزّنة/السارية فعليًا/التحويل) + قسم AI (نداءات/توكن/تكلفة/إصابة كاش/وفورات تقديرية) فوق `/admin/stats` بلا تخزين جديد — 4 API + 1 E2E (PHASE 27)
 - [x] ✅ **أسئلة مولّدة بالمفهوم (LLM لتغطية المفاهيم بلا أسئلة)** — عملة `question_gen` قابلة للتخزين + mock حتمي مرتكز على مقاطع الدرس؛ إدراج غير المتتبع في الخطة (اكتشاف) + «توليد سؤال» للطالب + تغطية جماعية إدارية idempotent بلا تسريب مفتاح — 14 وحدة + 15 API + 2 E2E (PHASE 28)
 - [x] ✅ **ملخص الجلسة الآمن (recap — إغلاق D-027)** — عملية `recap` ديناميكية تُبنى من **بيانات وصفية فقط** (عنوان/مفاهيم/عدادات) بلا محتوى رسائل؛ حارس «لا نص حرفي» + سقوط حتمي آمن؛ يقرؤه الطالب («ملخص الجلسة» على الجلسات المنتهية) وولي الأمر («ملخص الجلسة الآمن» في التفاصيل) بنفس الحمولة — 18 وحدة + 8 API + 2 E2E (PHASE 29)
+- [x] ✅ **التصحيح الآلي للإجابات المفتوحة (grade_open — إغلاق آخر بند D-028)** — تفعيل `type:"open"` (عمود `answerKey` الخامل منذ PHASE 24): تصحيح نص حر عبر عملة LLM ديناميكية `grade_open` (`<reference>` نظامًا/`<student_answer>` مستخدمًا) مع عزل المفتاح بنيويًا + حارس «لا نص حرفي» + سقوط قوَالبي حتمي؛ «سؤال مقالي»/«توليد سؤال مقالي» في الخطة وحقل حر في اللوحة مع تغذية راجعة ودرجة؛ سؤالان مصريان مبذوران — 27 وحدة + 11 API + 2 E2E (PHASE 30)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

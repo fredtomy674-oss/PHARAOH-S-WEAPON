@@ -8,6 +8,7 @@ import {
   listSessions,
   myProgress,
   submitPracticeAnswer,
+  submitOpenPracticeAnswer,
   type LearningSession,
   type PracticePlanItem,
   type PracticeQuestion,
@@ -29,8 +30,11 @@ interface Props {
 }
 
 interface PracticeState {
+  mode: "mcq" | "open";
   question: PracticeQuestion | null;
   chosen: number | null;
+  /** Free-text answer for open questions (PHASE 30). */
+  text: string;
   result: PracticeResult | null;
   busy: boolean;
   loading: boolean;
@@ -80,23 +84,28 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
   const studentName = user.student?.displayName ?? user.email;
 
-  async function startPractice(conceptId?: string) {
-    setPractice({ question: null, chosen: null, result: null, busy: false, loading: true, error: null });
+  function newPracticeState(mode: "mcq" | "open"): PracticeState {
+  return { mode, question: null, chosen: null, text: "", result: null, busy: false, loading: true, error: null };
+}
+
+  async function startPractice(conceptId?: string, mode: "mcq" | "open" = "mcq") {
+    setPractice(newPracticeState(mode));
     try {
-      const question = await getPracticeQuestion(conceptId);
+      const question = await getPracticeQuestion(conceptId, mode);
       setPractice((p) => (p ? { ...p, question, loading: false } : p));
     } catch {
       setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
     }
   }
 
-  // PHASE 28 — self-healing practice: the concept has no questions yet, so we
-  // ask the tutor's question generator to create one (grounded in the lesson),
-  // then hand it straight to the practice panel. Works offline via mocks.
-  async function generateAndPractice(conceptId: string) {
-    setPractice({ question: null, chosen: null, result: null, busy: false, loading: true, error: null });
+  // PHASE 28 + 30 — self-healing practice: the concept has no question of the
+  // requested kind yet, so we ask the tutor's question generator to create one
+  // (grounded in the lesson), then hand it straight to the practice panel.
+  // Works offline via mocks.
+  async function generateAndPractice(conceptId: string, kind: "mcq" | "open" = "mcq") {
+    setPractice(newPracticeState(kind));
     try {
-      const question = await generatePracticeQuestion(conceptId);
+      const question = await generatePracticeQuestion(conceptId, kind);
       setPractice((p) => (p ? { ...p, question, loading: false } : p));
       refreshPlan();
     } catch {
@@ -105,9 +114,10 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   }
 
   async function nextPractice() {
-    setPractice((p) => (p ? { ...p, question: null, chosen: null, result: null, loading: true, error: null } : p));
+    if (!practice) return;
+    setPractice((p) => (p ? { ...p, question: null, chosen: null, text: "", result: null, loading: true, error: null } : p));
     try {
-      const question = await getPracticeQuestion();
+      const question = await getPracticeQuestion(undefined, practice.mode);
       setPractice((p) => (p ? { ...p, question, loading: false } : p));
     } catch {
       setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
@@ -115,10 +125,15 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   }
 
   async function submitPractice() {
-    if (!practice?.question || practice.chosen === null || practice.busy) return;
+    if (!practice?.question || practice.busy) return;
+    if (practice.mode === "open" && !practice.text.trim()) return;
+    if (practice.mode === "mcq" && practice.chosen === null) return;
     setPractice((p) => (p ? { ...p, busy: true, error: null } : p));
     try {
-      const result = await submitPracticeAnswer(practice.question.id, practice.chosen);
+      const result =
+        practice.mode === "open"
+          ? await submitOpenPracticeAnswer(practice.question.id, practice.text)
+          : await submitPracticeAnswer(practice.question.id, practice.chosen as number);
       setPractice((p) => (p ? { ...p, busy: false, result } : p));
       refreshPlan();
     } catch {
@@ -279,24 +294,44 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                           <span data-testid="plan-trend">{trendArrow(item.trend)}</span>
                         </span>
                       </div>
-                      {item.availableQuestions === 0 ? (
-                        // PHASE 28 — no questions yet → generate one on demand.
-                        <button
-                          className="btn small primary"
-                          data-testid="plan-generate"
-                          onClick={() => generateAndPractice(item.conceptId)}
-                        >
-                          توليد سؤال
-                        </button>
-                      ) : (
-                        <button
-                          className="btn small primary"
-                          data-testid="plan-practice"
-                          onClick={() => startPractice(item.conceptId)}
-                        >
-                          تمرّن الآن
-                        </button>
-                      )}
+                      <div className="plan-actions">
+                        {item.availableQuestions === 0 ? (
+                          // PHASE 28 — no MCQ yet → generate one on demand.
+                          <button
+                            className="btn small primary"
+                            data-testid="plan-generate"
+                            onClick={() => generateAndPractice(item.conceptId)}
+                          >
+                            توليد سؤال
+                          </button>
+                        ) : (
+                          <button
+                            className="btn small primary"
+                            data-testid="plan-practice"
+                            onClick={() => startPractice(item.conceptId)}
+                          >
+                            تمرّن الآن
+                          </button>
+                        )}
+                        {item.openQuestions > 0 ? (
+                          // PHASE 30 — an open (free-text) question exists for this concept.
+                          <button
+                            className="btn small ghost"
+                            data-testid="plan-open-practice"
+                            onClick={() => startPractice(item.conceptId, "open")}
+                          >
+                            سؤال مقالي
+                          </button>
+                        ) : (
+                          <button
+                            className="btn small ghost"
+                            data-testid="plan-open-generate"
+                            onClick={() => generateAndPractice(item.conceptId, "open")}
+                          >
+                            توليد سؤال مقالي
+                          </button>
+                        )}
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -329,23 +364,48 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                 <p className="question-text" data-testid="practice-question">
                   {practice.question.content}
                 </p>
-                <div className="option-list">
-                  {practice.question.options.map((opt, i) => (
-                    <button
-                      key={i}
-                      className={`btn option ${practice.chosen === i ? "selected" : ""}`}
-                      data-testid="practice-option"
-                      data-option-index={i}
+                {practice.question.type === "open" ? (
+                  // PHASE 30 — free-text answer for open questions.
+                  <div className="option-list">
+                    <textarea
+                      className="answer-input"
+                      data-testid="practice-open-input"
+                      rows={3}
+                      maxLength={1500}
+                      placeholder="اكتب إجابتك هنا بجملة أو جملتين…"
+                      value={practice.text}
                       disabled={practice.busy}
-                      onClick={() => setPractice((p) => (p ? { ...p, chosen: i, result: null } : p))}
-                    >
-                      {opt}
-                    </button>
-                  ))}
-                </div>
+                      onChange={(e) => setPractice((p) => (p ? { ...p, text: e.target.value, result: null, chosen: null } : p))}
+                    />
+                  </div>
+                ) : (
+                  <div className="option-list">
+                    {practice.question.options?.map((opt, i) => (
+                      <button
+                        key={i}
+                        className={`btn option ${practice.chosen === i ? "selected" : ""}`}
+                        data-testid="practice-option"
+                        data-option-index={i}
+                        disabled={practice.busy}
+                        onClick={() => setPractice((p) => (p ? { ...p, chosen: i, result: null } : p))}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 {practice.result && (
                   <p className={practice.result.correct ? "ok-text" : "warn-text"} data-testid="practice-feedback">
-                    {practice.result.correct ? "إجابة صحيحة 🎉" : "إجابة غير صحيحة — راجع الشرح ثم أعد المحاولة."}
+                    {practice.result.feedback
+                      ? practice.result.feedback
+                      : practice.result.correct
+                        ? "إجابة صحيحة 🎉"
+                        : "إجابة غير صحيحة — راجع الشرح ثم أعد المحاولة."}
+                    {practice.result.score !== null && practice.result.score !== undefined && (
+                      <span className="pill warn" data-testid="practice-score">
+                        التقدير: {Math.round(practice.result.score * 100)}%
+                      </span>
+                    )}
                     {practice.result.mastery && (
                       <span
                         className={`pill ${practice.result.mastery.level === "mastered" || practice.result.mastery.level === "advanced" ? "ok-pill" : "warn"}`}
@@ -365,7 +425,10 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                   <button
                     className="btn primary"
                     data-testid="practice-submit"
-                    disabled={practice.chosen === null || practice.busy}
+                    disabled={
+                      (practice.question.type === "open" ? practice.text.trim().length === 0 : practice.chosen === null) ||
+                      practice.busy
+                    }
                     onClick={submitPractice}
                   >
                     {practice.busy ? "…" : "تحقق من إجابتي"}
