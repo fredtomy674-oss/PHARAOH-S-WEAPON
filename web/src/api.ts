@@ -344,6 +344,29 @@ export async function endSession(sessionId: string): Promise<void> {
   await api(`/sessions/${encodeURIComponent(sessionId)}/end`, { method: "POST" });
 }
 
+// PHASE 29 (D-027) — safe session recap: a metadata-only (never message
+// content) summary the student and a linked parent can both read.
+export interface SessionRecap {
+  headline: string;
+  focus: string;
+  lessonTitle: string | null;
+  durationMinutes: number;
+  userMessages: number;
+  tutorMessages: number;
+  attachmentCount: number;
+  safetyFlagged: number;
+  concepts: Array<{ title: string; attempts: number; correct: number }>;
+  strengths: string[];
+  suggestions: string[];
+  /** True when the AI output was unusable/unsafe → deterministic fallback shown. */
+  fallback: boolean;
+}
+
+export async function getSessionRecap(sessionId: string): Promise<SessionRecap | null> {
+  const res = await api<{ recap: SessionRecap | null }>(`/sessions/${encodeURIComponent(sessionId)}/recap`);
+  return res.recap;
+}
+
 export async function myProgress(): Promise<ProgressDetail> {
   return api<ProgressDetail>("/progress/me");
 }
@@ -526,6 +549,14 @@ export async function getParentSessionDetail(studentId: string, sessionId: strin
   return api<ParentSessionDetail>(
     `/parent/children/${encodeURIComponent(studentId)}/sessions/${encodeURIComponent(sessionId)}`,
   );
+}
+
+// PHASE 29 — parent-facing safe recap (same metadata-only guarantee).
+export async function getParentSessionRecap(studentId: string, sessionId: string): Promise<SessionRecap | null> {
+  const res = await api<{ recap: SessionRecap | null }>(
+    `/parent/children/${encodeURIComponent(studentId)}/sessions/${encodeURIComponent(sessionId)}/recap`,
+  );
+  return res.recap;
 }
 
 export async function unlinkParentChild(studentId: string): Promise<void> {

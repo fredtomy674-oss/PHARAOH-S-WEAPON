@@ -1,9 +1,19 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, inArray } from "drizzle-orm";
 import { config } from "../../config/env.js";
 import type { Db } from "../../db/index.js";
-import { learningSessions, messageAttachments, messages, students as studentsTable } from "../../db/schema.js";
+import { assessments, concepts as conceptsTable, learningSessions, messageAttachments, messages, students as studentsTable } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
 import { Errors } from "../../utils/errors.js";
+import { safeParseAssessment } from "../progress/mastery.js";
+import {
+  buildRecapMetadataBlock,
+  buildSessionRecap,
+  parseRecap,
+  RECAP_SYSTEM_RULES,
+  type RecapConceptEntry,
+  type SessionRecap,
+  type SessionRecapMetadata,
+} from "./recap.js";
 import type { AchievementEvent } from "../achievements/service.js";
 import type { AchievementService } from "../achievements/service.js";
 import type { SubscriptionService } from "../subscription/service.js";
@@ -290,6 +300,96 @@ export class SessionService {
 
     // PHASE 20 — completing sessions feeds the achievement counters (best-effort).
     await this.award(studentId, "session_ended");
+  }
+
+  /**
+   * PHASE 29 (D-027) — safe session recap for the student (and, via the parent
+   * service, for a linked parent). The AI is given METADATA ONLY — lesson and
+   * concept titles + counters — never message content. The no-verbatim guard
+   * then rejects any output that reproduces a message body, falling back to a
+   * deterministic structured recap so a safe view always exists. An empty
+   * session (no messages at all) yields `null`.
+   */
+  async recap(sessionId: string, studentId: string, actorUserId: string): Promise<SessionRecap | null> {
+    const session = await this.getOwned(sessionId, studentId);
+    const [msgs, atts] = await Promise.all([
+      this.db.db.select().from(messages).where(eq(messages.sessionId, session.id)).orderBy(asc(messages.createdAt)),
+      this.db.db.select({ id: messageAttachments.id }).from(messageAttachments).where(eq(messageAttachments.sessionId, session.id)),
+    ]);
+
+    let userMessages = 0;
+    let tutorMessages = 0;
+    let safetyFlagged = 0;
+    const bodies: string[] = [];
+    for (const m of msgs) {
+      if (m.role === "user") {
+        userMessages++;
+        bodies.push(m.content);
+      } else if (m.role === "tutor") {
+        tutorMessages++;
+        bodies.push(m.content);
+      }
+      if (m.safetyFlag) safetyFlagged++;
+    }
+    if (userMessages + tutorMessages === 0) return null;
+
+    let lessonTitle: string | null = null;
+    if (session.lessonId) {
+      const breadcrumb = await this.curriculum.lessonBreadcrumb(session.lessonId);
+      lessonTitle = breadcrumb.lesson.title;
+    }
+    const endedAt = session.endedAt ?? new Date();
+    const durationMinutes = Math.max(0, Math.round((endedAt.getTime() - session.startedAt.getTime()) / 60000));
+    const concepts = await this.sessionConcepts(session.id);
+
+    const meta: SessionRecapMetadata = {
+      lessonTitle,
+      durationMinutes,
+      userMessages,
+      tutorMessages,
+      attachmentCount: atts.length,
+      safetyFlagged,
+      concepts,
+    };
+
+    const response = await this.ai.complete({
+      operation: "recap",
+      messages: [
+        { role: "system", content: RECAP_SYSTEM_RULES },
+        {
+          role: "user",
+          content: `${buildRecapMetadataBlock(meta)}\n\nبناءً على البيانات الوصفية أعلاه فقط، أخرج ملخص الجلسة كـ JSON خالص.`,
+        },
+      ],
+      json: true,
+      contextUserId: actorUserId,
+      contextSessionId: session.id,
+    });
+
+    return buildSessionRecap(meta, parseRecap(response.content), bodies);
+  }
+
+  /** Concepts assessed inside a session (assessments rows carry sessionId). */
+  private async sessionConcepts(sessionId: string): Promise<RecapConceptEntry[]> {
+    const rows = await this.db.db.select().from(assessments).where(eq(assessments.sessionId, sessionId));
+    const tally = new Map<string, { attempts: number; correct: number }>();
+    for (const row of rows) {
+      const parsed = safeParseAssessment(row.resultJson);
+      if (!parsed?.conceptId) continue;
+      const entry = tally.get(parsed.conceptId) ?? { attempts: 0, correct: 0 };
+      entry.attempts += 1;
+      entry.correct += parsed.correct ? 1 : 0;
+      tally.set(parsed.conceptId, entry);
+    }
+    if (tally.size === 0) return [];
+    const conceptIds = [...tally.keys()];
+    const titleRows = await this.db.db.select().from(conceptsTable).where(inArray(conceptsTable.id, conceptIds));
+    const titleFor = new Map(titleRows.map((c) => [c.id, c.title]));
+    return [...tally.entries()].map(([conceptId, t]) => ({
+      title: titleFor.get(conceptId) ?? "مفهوم",
+      attempts: t.attempts,
+      correct: t.correct,
+    }));
   }
 
   private async remainingDaily(studentId: string, userId: string): Promise<number> {

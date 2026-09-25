@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getParentChildDetail,
   getParentSessionDetail,
+  getParentSessionRecap,
   linkParentChild,
   listParentChildren,
   unlinkParentChild,
@@ -9,8 +10,10 @@ import {
   type ParentChildDetail,
   type ParentSessionDetail,
   type ParentSessionSummary,
+  type SessionRecap,
   type User,
 } from "./api.js";
+import { SessionRecapCard } from "./RecapCard.js";
 
 const KIND_LABEL: Record<string, string> = {
   text: "نص",
@@ -41,6 +44,10 @@ export function ParentScreen({ user, onLogout }: Props) {
   const [detailError, setDetailError] = useState<string | null>(null);
   const [sessionDetail, setSessionDetail] = useState<ParentSessionDetail | null>(null);
   const [sessionDetailError, setSessionDetailError] = useState<string | null>(null);
+  // PHASE 29 (D-027) — safe session recap (idle = button, loading = fetching,
+  // loaded = card or empty note). Same metadata-only payload as the student.
+  const [parentRecap, setParentRecap] = useState<SessionRecap | null>(null);
+  const [parentRecapState, setParentRecapState] = useState<"idle" | "loading" | "loaded">("idle");
 
   useEffect(() => {
     listParentChildren().then(setChildren).catch(() => undefined);
@@ -54,12 +61,27 @@ export function ParentScreen({ user, onLogout }: Props) {
   const openSession = async (child: { studentId: string }, session: ParentSessionSummary) => {
     setBusy(true);
     setSessionDetailError(null);
+    setParentRecap(null);
+    setParentRecapState("idle");
     try {
       setSessionDetail(await getParentSessionDetail(child.studentId, session.id));
     } catch (e) {
       setSessionDetailError(e instanceof Error ? e.message : "تعذر تحميل تفاصيل الجلسة");
     } finally {
       setBusy(false);
+    }
+  };
+
+  const loadParentRecap = async () => {
+    if (!detail || !sessionDetail) return;
+    setParentRecapState("loading");
+    setSessionDetailError(null);
+    try {
+      setParentRecap(await getParentSessionRecap(detail.child.studentId, sessionDetail.session.id));
+      setParentRecapState("loaded");
+    } catch (e) {
+      setSessionDetailError(e instanceof Error ? e.message : "تعذر تحميل ملخص الجلسة");
+      setParentRecapState("idle");
     }
   };
 
@@ -168,6 +190,29 @@ export function ParentScreen({ user, onLogout }: Props) {
                 ))}
               </ul>
             )}
+          </section>
+
+          <section className="card">
+            <h3>ملخص الجلسة الآمن</h3>
+            <p className="muted">عنوان الدرس والأعداد والمفاهيم فقط — لا تعرض نصوص المحادثة أبدًا.</p>
+            {parentRecapState === "idle" && (
+              <button className="btn small primary" data-testid="parent-recap-button" onClick={loadParentRecap}>
+                عرض الملخص
+              </button>
+            )}
+            {parentRecapState === "loading" && (
+              <p className="muted" data-testid="parent-recap-loading">
+                جارٍ إعداد الملخص…
+              </p>
+            )}
+            {parentRecapState === "loaded" &&
+              (parentRecap === null ? (
+                <p className="muted" data-testid="parent-recap-empty">
+                  لا توجد محادثة في هذه الجلسة لعرض ملخصها.
+                </p>
+              ) : (
+                <SessionRecapCard recap={parentRecap} testIdPrefix="parent-" />
+              ))}
           </section>
 
           <section className="card">

@@ -15,6 +15,8 @@ import {
   studentsParents,
 } from "../../db/schema.js";
 import type { MemoryService } from "../tutor/memoryService.js";
+import type { SessionService } from "../sessions/service.js";
+import type { SessionRecap } from "../sessions/recap.js";
 import { Errors } from "../../utils/errors.js";
 import { safeParseAssessment } from "../progress/mastery.js";
 
@@ -113,6 +115,7 @@ export class ParentService {
   constructor(
     private readonly db: Db,
     private readonly memory: MemoryService,
+    private readonly sessions: SessionService,
   ) {}
 
   private async requireParent(userId: string): Promise<typeof parents.$inferSelect> {
@@ -295,6 +298,26 @@ export class ParentService {
         safetyFlagged: Boolean(m.safetyFlag),
       })),
     };
+  }
+
+  /**
+   * PHASE 29 (D-027) — parent-facing session recap. Same safety contract as the
+   * student route: the AI sees metadata only, the no-verbatim guard applies,
+   * and the link check gates it just like every other child read.
+   */
+  async sessionRecap(userId: string, studentId: string, sessionId: string): Promise<SessionRecap | null> {
+    const parent = await this.requireParent(userId);
+    const link = await this.db.db
+      .select()
+      .from(studentsParents)
+      .where(and(eq(studentsParents.parentId, parent.id), eq(studentsParents.studentId, studentId)))
+      .get();
+    if (!link) throw Errors.notFound("الطالب غير مربوط بحسابك");
+
+    const session = await this.db.db.select().from(learningSessions).where(eq(learningSessions.id, sessionId)).get();
+    if (!session || session.studentId !== studentId) throw Errors.notFound("الجلسة غير موجودة");
+
+    return this.sessions.recap(sessionId, session.studentId, userId);
   }
 
   private async childSummaryOf(studentId: string): Promise<ChildSummary> {

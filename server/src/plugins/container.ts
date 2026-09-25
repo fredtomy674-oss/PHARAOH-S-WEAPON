@@ -67,7 +67,7 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   const subscriptions = new SubscriptionService(db);
   const achievements = new AchievementService(db);
   const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements);
-  const parents = new ParentService(db, memory);
+  const parents = new ParentService(db, memory, sessions);
   const practice = new PracticeService(db, memory, achievements, ai);
 
   app.decorate("db", db);

@@ -40,10 +40,13 @@
 | POST | `/api/sessions/:id/messages` | `{content}` → رد المدرس (RAG+AI) — **المسار العمودي الكامل** |
 | PATCH | `/api/sessions/:id` | `{status:'ended', endedReason}` |
 | POST | `/api/sessions/:id/end` | إنهاء الجلسة (ينشئ recap للذاكرة) |
+| GET | `/api/sessions/:id/recap` | **PHASE 29 (D-033)** — ملخص الجلسة الآمن `{recap: SessionRecap \| null}` — يُبنى من **بيانات وصفية فقط** (عنوان الدرس، مفاهيم الجلسة، عدّادات: رسائل/مدة/مرفقات/أعلام أمان) عبر عملية LLM `recap` مع حارس «لا نص حرفي» وسقوط حتمي آمن (`fallback`)؛ جلسة بلا رسائل → `null`؛ student فقط (غير طالب 403، جلسة الآخرين 403 ملكية، غير موجودة 404) |
 | GET | `/api/progress/:studentId/concepts` | إتقان المفاهيم + نقاط القوة/الضعف |
 | GET | `/api/progress/me` | **PHASE 24** — تقدمي + `mastery` (مفاهيمي: `mastery` خام + `decayedMastery` + `level` + `labelAr` عربية + `attempts`/`correct` + `daysSinceLastPractice` + `trend` صعود/ثبات/هبوط — الانحلال قراءةً فقط) + `progress` + `tutorUsageToday` | student فقط |
 
 > مرفقات الطالب (§3): `POST /api/sessions/:id/messages` يقبل `{content, image?, document?}` حيث `document = {dataUrl, fileName}` (النوع يُشتق من dataUrl؛ حد `MAX_FILE_KB`، فحص MAGIC bytes، استخراج محدود `MAX_DOCUMENT_CHARS`). ممسوح ضوئيًا (PDF/DOCX بلا نص) → **قراءة تلقائية بالـOCR** (PHASE 19/D-023) تُخزَّن في `messageAttachments.ocrApplied` وتُعلّم الرد بـ`ocrUsed:true` و`messageAttachments[].ocr:true` (شارة «نص ممسوح ضوئيًا» في الواجهة)؛ فشل المزوّد → يحمل الرد النص كما لو كان استخراجًا صفريًا (لا انهيار).
+
+> ملخص الجلسة (§3 — PHASE 29/D-033): `SessionRecap = {headline, focus, lessonTitle, durationMinutes, userMessages, tutorMessages, attachmentCount, safetyFlagged, concepts:[{title,attempts,correct}], strengths[], suggestions[], fallback}` — العملية `recap` لا تتلقى إلا البيانات الوصفية، وحارس «لا نص حرفي» يرفض أي ناتج يعيد إنتاج رسالة (سقوط حتمي آمن بـ`fallback:true`)؛ المزوّد mock حتمي (`mock-recap`) والديناميكية تسجَّل استخدامًا (`ai_usage_logs.operation="recap"`).
 
 ## 4. المعرفة (إدارة) — للمستخدم admin فقط
 
@@ -96,9 +99,9 @@
 3) GET  /api/admin/documents (list)
 ```
 
-## 8. أولياء الأمور (PHASE 18 + 23)
+## 8. أولياء الأمور (PHASE 18 + 23 + 29)
 
-> نهايات القراءة **قراءة فقط** وكلها تشترط رابطًا صريحًا في `students_parents` بين الوالد والطفل — طفل غير مربوط = `404 NOT_FOUND` (بلا مؤشر وجود). **لا يُكشف محتوى رسائل في أي استجابة** — عدّادات وفوق-بيانات فقط؛ في تفاصيل الجلسة (PHASE 23) لا يُحدَّد عمود `content` من قاعدة البيانات أصلًا.
+> نهايات القراءة **قراءة فقط** وكلها تشترط رابطًا صريحًا في `students_parents` بين الوالد والطفل — طفل غير مربوط = `404 NOT_FOUND` (بلا مؤشر وجود). **لا يُكشف محتوى رسائل في أي استجابة** — عدّادات وفوق-بيانات فقط؛ في تفاصيل الجلسة (PHASE 23) لا يُحدَّد عمود `content` من قاعدة البيانات أصلًا، وفي ملخص الجلسة (PHASE 29) تُمرَّر البيانات الوصفية نفسها للمزوّد مع حارس لا-نص-حرفي — فنصوص المحادثة لا تدخل أي استجابة من قراءات الوالد.
 
 | Method | Route | الوصف | Auth |
 |---|---|---|---|
@@ -106,6 +109,7 @@
 | GET | `/api/parent/children` | قائمة الأبناء المربوطين (اسم/صف/مناهج/عدد جلسات/آخر جلسة) | parent فقط |
 | GET | `/api/parent/children/:studentId` | بطاقة كاملة: هوية + تقدّم (`progressDetail`: مفاهيم تحمل **شارة مستوى عربية `labelAr`/`level`/`decayedMastery`/`trend`** + نقاط قوة/ضعف) + ملخصات جلسات (درس/تاريخ/حالة/`userMessages`/`tutorMessages`) + كود الطالب الحالي | parent فقط |
 | GET | `/api/parent/children/:studentId/sessions/:sessionId` | **PHASE 23** — تفاصيل جلسة: `session` (درس/حالة/تواريخ/`durationMinutes`/عدّادات/سبب النهاية) + `concepts` (مفاهيم عُرضت من `assessments`) + `safety.flaggedTurns` + `timeline` (لكل رسالة: `role`/`kind`/`createdAt`/`attachments[{mimeType,fileName,sizeBytes,itemKind,ocrApplied}]`/`safetyFlagged`) — **بلا `content` ولا بايتات مرفقات ولا `sha256`**؛ جلسة لا تخصّ الطفل المربوط = `404` | parent فقط |
+| GET | `/api/parent/children/:studentId/sessions/:sessionId/recap` | **PHASE 29 (D-033)** — `{recap: SessionRecap \| null}` — **نفس الحمولة التي يقرؤها الطالب** من مسارّه: بيانات وصفية فقط (عنوان/مفاهيم/عدّادات) + حارس لا-نص-حرفي + سقوط آمن؛ طفل غير مربوط أو جلسة لا تخصه = `404` قبل أي قراءة | parent فقط |
 | DELETE | `/api/parent/children/:studentId` | فك الربط → 204؛ غير مربوط → 404 | parent فقط |
 
 **عزل الأدوار**: الطالب على أي `/api/parent/*` → `403 FORBIDDEN`؛ ولي الأمر على `/api/sessions` (POST) و`/api/progress/me` → `403 FORBIDDEN` (و`GET /api/sessions` = قائمة فارغة). التسجيل: `POST /api/auth/register` مع `role: "parent"`. `GET /api/auth/me` للطالب يعرض `linkCode` (مولّد بـ`parentLinkCode()` — 8 محارف من `A-HJ-NP-Z2-9`).

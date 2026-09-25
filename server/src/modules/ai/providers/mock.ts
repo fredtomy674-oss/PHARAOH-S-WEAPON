@@ -59,6 +59,21 @@ export class MockLLMProvider implements LLMProvider {
     // whole middle of the prompt instead of the curriculum content.
     const context = extractContextBlock(system);
 
+    // PHASE 29 — session recap: the mock only ever sees the metadata block
+    // (lesson/concept titles + counters) and emits a deterministic structured
+    // recap from it — no verbatim content by construction.
+    if (request.operation === "recap") {
+      const block = extractMetadataBlock(request);
+      const content = JSON.stringify(buildMockRecap(block));
+      return {
+        content,
+        model: "mock-recap",
+        inputTokens: estimateTokens(system + lastUser),
+        outputTokens: estimateTokens(content),
+        latencyMs: Date.now() - started,
+      };
+    }
+
     // PHASE 28 — question generation: the mock must emit a structured MCQ JSON
     // grounded in the lesson context (never invented facts). The generator
     // service is what turns this into a stored row; here we only produce the
@@ -185,6 +200,65 @@ function mutateFact(fact: string): string | null {
   if (!m) return null;
   const next = String((Number(m[1]) + 1) % 10);
   return fact.slice(0, m.index) + next + fact.slice(m.index + 1);
+}
+
+/**
+ * PHASE 29 — pulls the recap `<metadata>` block out of the request messages
+ * (the service places it last in the user turn). Metadata only: lesson/concept
+ * titles + counters, never message content.
+ */
+function extractMetadataBlock(request: LLMRequest): string {
+  const haystack = request.messages.map((m) => m.content).join("\n");
+  const open = haystack.lastIndexOf("<metadata>");
+  if (open < 0) return "";
+  const close = haystack.indexOf("</metadata>", open + "<metadata>".length);
+  if (close < 0) return "";
+  return haystack.slice(open + "<metadata>".length, close).trim();
+}
+
+/** PHASE 29 — deterministic offline recap: template lines selected by the metadata counters. */
+export interface MockRecapJson {
+  headline: string;
+  focus: string;
+  strengths: string[];
+  suggestions: string[];
+}
+
+export function buildMockRecap(block: string): MockRecapJson {
+  const line = (key: string): string => {
+    const m = new RegExp(`^${key}:\\s*(.*)$`, "m").exec(block);
+    return m?.[1]?.trim() ?? "";
+  };
+  const num = (key: string): number => {
+    const value = Number(line(key));
+    return Number.isFinite(value) ? value : 0;
+  };
+
+  const lesson = line("Lesson").replace(/^«|»$/g, "").trim() || "موضوع الدرس";
+  const userMessages = num("UserMessages");
+  const tutorMessages = num("TutorMessages");
+  const durationMinutes = num("DurationMinutes");
+  const attachments = num("Attachments");
+  const safetyFlagged = num("SafetyFlagged");
+
+  const strengths: string[] = [];
+  if (userMessages >= 3) strengths.push("تفاعل نشط — طرحت أكثر من سؤال وتابعت الشرح.");
+  if (userMessages >= 1) strengths.push("بدأت الجلسة بسؤال وتفاعلت مع الشرح.");
+  if (attachments >= 1) strengths.push("أرفقت ملفًا أو صورة وسألت عنها مباشرة.");
+  if (safetyFlagged === 0 && userMessages >= 1) strengths.push("التزمت بأسلوب الجلسة الآمن.");
+  if (strengths.length === 0) strengths.push("بداية الجلسة خطوة جيدة — واصل المسير.");
+
+  const suggestions: string[] = [];
+  if (durationMinutes < 5) suggestions.push("أعطِ الجلسة مدة أطول في المرة القادمة لنشرح بتعمق أكبر.");
+  if (safetyFlagged > 0) suggestions.push("التزم بموضوع الدرس — أي محاولة لتجاوز قواعد الجلسة تُرفض بأمان.");
+  suggestions.push("أعد قراءة الدرس ثم جرّب التمارين لتثبيت الفهم.");
+
+  return {
+    headline: `جلسة تعلّم حول «${lesson}» — ركّزنا فيها على الشرح والتفاعل خطوة بخطوة.`,
+    focus: `محور الجلسة: ${lesson}، بتفاعل ${userMessages} رسالة منك و${tutorMessages} ردّ من المدرّس.`,
+    strengths,
+    suggestions,
+  };
 }
 
 function buildTutorText(args: {

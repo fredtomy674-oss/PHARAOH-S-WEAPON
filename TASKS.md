@@ -261,6 +261,23 @@
 - [x] اختبارات: وحدة `questionGenMock.test.ts` (**14**) + API `practiceGenerate.test.ts` (**9**) + API `adminQuestionGen.test.ts` (**6**) + تحديث عقد `practicePlan.test.ts` (خطة 3 صفوف مع `tracked`) و`practicePlan.test.ts` الوحدة (fixture + ترتيب) — **289/289 أخضر** + E2E `admin.spec.ts` **A5** (الإدارة تولّد للمنهج المصري «تم توليد 1 سؤالًا» — مقارنة الكسور الوحيد بلا أسئلة) و`practice.spec.ts` **PR4** (الطالب يمرّن المولّد: «أي العبارات التالية وردت في الدرس» → إجابة → تغذية → إتقان بعد reload) — **36/36 أخضر**
 - [x] `npm run check` أخضر (289/289) + `npm run build` أخضر + docs sync (DECISIONS D-032/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 29 — ملخص الجلسة الآمن (recap): إغلاق بند D-027 المؤجل «مُلخّص جلسة AI آمن للعرض» ✅
+
+**القرار D-033**: ملخص **آمن للعرض** بعد كل جلسة — يقرؤه الطالب ووليّ أمره المرتبط — عبر عملية LLM `recap` (ديناميكية، خارج `LLM_CACHEABLE` مثل tutor/feedback) تُبنى من **بيانات وصفية فقط** (عنوان الدرس، أسماء المفاهيم، العدادات: رسائل الطالب/المدرّس، المدة، المرفقات، أعلام الأمان) — محتوى الرسائل لا يدخل الاستدعاء ولا النتيجة («لا تسريب» بالتصميم) + حارس **«لا نص حرفي»** `recapContainsMessageContent` يرفض أي ناتج يعيد إنتاج رسالة + سقوط آمن حتمي `buildRecapFallback` — صفر مخطط جديد.
+- [x] **`ai/providers/mock.ts`**: فرع `recap` قبل ملف JSON العام + `extractMetadataBlock` (يقرأ `<metadata>` من الرسائل) + `buildMockRecap(block)` حتمي (قوالِب تُنتقى من العدادات — بلا محتوى؛ `mock-recap`)
+- [x] **`sessions/recap.ts`** (جديد): `SessionRecap`/`SessionRecapMetadata`/`RecapConceptEntry` + `RECAP_SYSTEM_RULES` + `buildRecapMetadataBlock` (`<metadata>` بعناوين/مفاهيم/أرقام فقط) + `parseRecap` (حد صارم JSON، يتسامح مع كتلة ```json، عنوان ≥5/تركيز ≥3/قوائم ≤4 سلاسل) + `recapContainsMessageContent` (اتجاهان: رسالة كاملة ≥12 حرفًا داخل الملخص، وجملة ملخص ≥25 حرفًا داخل رسالة — مع **استبعاد عناوين الدرس/المفاهيم كرموز مسموحة** حتى لا يُطلق حارس على طالب كتب العنوان نفسه) + `buildSessionRecap`/`buildRecapFallback`
+- [x] **`sessions/service.ts`**: `recap(sessionId, studentId, actorUserId)` — ملكية `getOwned`، مفاهيم الجلسة من `assessments` (عدّ بلا إعادة تقييم)، جلسة بلا رسائل → `null`، استدعاء `recap` بـ`json:true` + `contextUserId=actorUserId` (والد/طالب → `ai_usage_logs.userId` يرجع لـ`users`)
+- [x] **`sessions/routes.ts`**: `GET /:sessionId/recap` (student فقط؛ غير طالب → 403؛ ملكية عبر الخدمة)
+- [x] **`parent/service.ts` + `parent/routes.ts`**: حقن `SessionService` في `ParentService` + `sessionRecap(userId, studentId, sessionId)` (بوابة `students_parents` → 404 قبل القراءة + نفس الحمولة) + `GET /children/:studentId/sessions/:sessionId/recap` (parent فقط)
+- [x] **`plugins/container.ts`**: `new ParentService(db, memory, sessions)`
+- [x] **`web/api.ts`**: `SessionRecap` + `getSessionRecap(sessionId)` + `getParentSessionRecap(studentId, sessionId)`
+- [x] **`web/RecapCard.tsx`** (جديد — مشترك): عنوان/تركيز/إحصائيات/نقاط قوة/اقتراحات/تنبيه `recap-fallback` — الطالب والوالد يعرضان **نفس الحمولة**
+- [x] **`web/Home.tsx`**: زر «ملخص الجلسة» (`session-recap-button`) على صفو الجلسة المنتهية بالذات (القائمة تصاعدية → استهداف `[data-session-id]`) → بطاقة `session-recap` أو `session-recap-empty`
+- [x] **`web/Parent.tsx`**: بطاقة «ملخص الجلسة الآمن» في تفاصيل الجلسة (`parent-recap-button` → `parent-session-recap`/`parent-recap-empty`) — بلا إعادة حساب عند مجرد فتح التفاصيل (عند الطلب فقط)
+- [x] **`web/styles.css`**: `.session-recap` + `.recap-panel` + `.recap-headline`
+- [x] اختبارات: وحدة `recap.test.ts` (**18**) + API `sessionRecap.test.ts` (**8** — طالب/عزل/حتمية/لا رسالة سرية/null/والد مربوط وغير مربوط و403) — **315/315 أخضر** + E2E `recap.spec.ts` **R1** (طالب: درس → رسالة سرية → «ملخص الجلسة» على صفّه → عنوان درسه بلا نص الرسالة) و**R2** (والد: أحدث جلسة → «عرض الملخص» → نفس الضمانة) — **38/38 أخضر**
+- [x] `npm run check` أخضر (315/315) + `npm run build` أخضر + docs sync (DECISIONS D-033/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -282,6 +299,7 @@
 - [x] ✅ **حساسية الصعوبة + شارات التمرين/الإتقان** — دلتا الإتقان تستجيب لصعوبة السؤال (سهل/متوسط/صعب) + شارات «انطلاقة التمرين» و«أول إتقان» يغذّيها المحرك؛ صفر تغيير ويب — 6 وحدة + 7 API + 1 E2E (PHASE 26)
 - [x] ✅ **إحصاءات الاشتراكات + وفورات الكاش في لوحة المدير** — قمع الخطط (المخزّنة/السارية فعليًا/التحويل) + قسم AI (نداءات/توكن/تكلفة/إصابة كاش/وفورات تقديرية) فوق `/admin/stats` بلا تخزين جديد — 4 API + 1 E2E (PHASE 27)
 - [x] ✅ **أسئلة مولّدة بالمفهوم (LLM لتغطية المفاهيم بلا أسئلة)** — عملة `question_gen` قابلة للتخزين + mock حتمي مرتكز على مقاطع الدرس؛ إدراج غير المتتبع في الخطة (اكتشاف) + «توليد سؤال» للطالب + تغطية جماعية إدارية idempotent بلا تسريب مفتاح — 14 وحدة + 15 API + 2 E2E (PHASE 28)
+- [x] ✅ **ملخص الجلسة الآمن (recap — إغلاق D-027)** — عملية `recap` ديناميكية تُبنى من **بيانات وصفية فقط** (عنوان/مفاهيم/عدادات) بلا محتوى رسائل؛ حارس «لا نص حرفي» + سقوط حتمي آمن؛ يقرؤه الطالب («ملخص الجلسة» على الجلسات المنتهية) وولي الأمر («ملخص الجلسة الآمن» في التفاصيل) بنفس الحمولة — 18 وحدة + 8 API + 2 E2E (PHASE 29)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

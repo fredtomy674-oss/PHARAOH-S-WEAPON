@@ -120,4 +120,16 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
     await app.sessions.end(sessionId, auth.student.id, "user_request");
     return reply.send({ ok: true });
   });
+
+  // PHASE 29 (D-027) — safe session recap: the student reads their own session's
+  // metadata-only summary (never message content). Ownership is enforced inside
+  // the service (404 for other students).
+  app.get("/:sessionId/recap", { preHandler: requireAuth }, async (request, reply) => {
+    const auth = request.auth!;
+    if (!auth.student) {
+      return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
+    }
+    const { sessionId } = request.params as { sessionId: string };
+    return { recap: await app.sessions.recap(sessionId, auth.student.id, auth.user.id) };
+  });
 };

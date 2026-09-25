@@ -4,6 +4,7 @@ import {
   getMySubscription,
   getPracticePlan,
   getPracticeQuestion,
+  getSessionRecap,
   listSessions,
   myProgress,
   submitPracticeAnswer,
@@ -12,9 +13,11 @@ import {
   type PracticeQuestion,
   type PracticeResult,
   type ProgressDetail,
+  type SessionRecap,
   type SubscriptionInfo,
   type User,
 } from "./api.js";
+import { SessionRecapCard } from "./RecapCard.js";
 
 interface Props {
   user: User;
@@ -51,6 +54,16 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   const [practice, setPractice] = useState<PracticeState | null>(null);
   // PHASE 25 — ranked practice plan (null = still loading, [] = loaded + empty).
   const [plan, setPlan] = useState<PracticePlanItem[] | null>(null);
+  // PHASE 29 — session recaps per ended session (undefined = not loaded yet,
+  // null = loaded but empty/no recap).
+  const [recaps, setRecaps] = useState<Record<string, SessionRecap | null | undefined>>({});
+
+  function loadRecap(s: LearningSession): void {
+    setRecaps((r) => ({ ...r, [s.id]: undefined }));
+    getSessionRecap(s.id)
+      .then((recap) => setRecaps((r) => ({ ...r, [s.id]: recap ?? null })))
+      .catch(() => setRecaps((r) => ({ ...r, [s.id]: null })));
+  }
 
   function refreshPlan(): void {
     getPracticePlan().then(setPlan).catch(() => undefined);
@@ -396,6 +409,21 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                     <button data-testid="resume-session" className="btn small primary" onClick={() => onResume(s)}>
                       متابعة
                     </button>
+                  )}
+                  {s.status === "ended" && (
+                    <div className="session-recap">
+                      {recaps[s.id] === undefined ? (
+                        <button data-testid="session-recap-button" className="btn small ghost" onClick={() => loadRecap(s)}>
+                          ملخص الجلسة
+                        </button>
+                      ) : recaps[s.id] === null ? (
+                        <p className="muted" data-testid="session-recap-empty">
+                          لا توجد محادثة في هذه الجلسة لعرض ملخصها.
+                        </p>
+                      ) : (
+                        <SessionRecapCard recap={recaps[s.id]!} />
+                      )}
+                    </div>
                   )}
                 </li>
               ))}

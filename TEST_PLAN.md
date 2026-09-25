@@ -1,6 +1,6 @@
 # TEST PLAN — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-25 — التنفيذ في `server/test/` (Vitest **289/289**)، الويب يُفحص بنيويًا + E2E بالمتصفح **36/36**.
+> آخر تحديث: 2026-09-25 — التنفيذ في `server/test/` (Vitest **315/315**)، الويب يُفحص بنيويًا + E2E بالمتصفح **38/38**.
 
 ## 1. أدوات
 
@@ -216,18 +216,30 @@
 
 > مبدأ PHASE 28: المفاهيم بلا أسئلة لا تُضيّع — طالب يرمم ما يدرسه («توليد سؤال» ذاتي) ومدير يغطي البنك دفعة واحدة (idempotent) أوفلاين عبر mock؛ كلاهما بلا تسريب للمفتاح (يُقرأ خادميًا عند التصحيح فقط).
 
+## 4.17 ملخص الجلسة الآمن (PHASE 29) — إغلاق بند D-027 المؤجل: «مُلخّص جلسة AI آمن للعرض (عملية `recap` مع فحص «لا نص حرفي»)»
+
+| الملف | المجموعة | ماذا يختبر |
+|---|---|---|
+| `test/unit/recap.test.ts` | وحدة (18) | `buildRecapMetadataBlock` يرسل عناوين الدروس/المفاهيم والعدادات فقط **بلا أي محتوى رسائل**؛ حدود `parseRecap` (JSON صالح/ملفوف بـ```json، رفض غير JSON، عنوان ≤5/تركيز ≤3، قوائم بلا سلاسل)؛ حارس `recapContainsMessageContent` باتجاهين (رسالة كاملة ≥12 حرفًا داخل الملخص + جملة ملخص ≥25 حرفًا داخل رسالة) مع **استثناء عنوان الدرس الذي كتبه الطالب نفسه** (لا يُطلق الحارس) ورسالة قصيرة داخل ملخص أطول (يُطلق)؛ `buildSessionRecap` يدمج ناتجًا نظيفًا (`fallback:false` + عدادات + مفاهيم) ويسقط عند `aiJson=null` **وعند تسريب رسالة** (`fallback:true` بلا النص المسرَّب)؛ `buildRecapFallback` حتمي وفيه تلميح أمان عند `safetyFlagged>0`؛ mock `complete(recap)` يُحلَّل JSON وحتمي |
+| `test/api/sessionRecap.test.ts` | API (8) | طالب يقرأ ملخص جلسته المنتهية: `lessonTitle` من الدرس + العنوان يحمل اسم الدرس + عدّادات + `fallback:false` + **حتمية** (نداءان → `toEqual`)؛ **لا رسالة سرية** («المفتاح السري ٧٧٧٧٧…») ولا كلمة منها في العرض؛ جلسة بلا رسائل → `{recap:null}`؛ طالب آخر → 403 (ملكية `getOwned` — كمسارات الجلسات)؛ admin → 403؛ ولي أمر مربوط يقرأ نفس الحمولة (`fallback:false` + بلا رسالة سرية)؛ ولي أمر غير مربوط → 404 (بوابة الربط قبل القراءة)؛ ولي الأمر على مسار الطالب → 403 |
+| `test/api/sessionRecap.test.ts` (parent describe) | API (3 ضمن الـ8) | راجع السطر أعلاه — سياق الوالد داخل نفس الملف بـ`makeApp` منفصل |
+| `server/src/modules/...` | بنية | `sessions/recap.ts` (جديد: بيانات وصفية/باحث/حارس/سقوط) + `ai/providers/mock.ts` (`extractMetadataBlock` + `buildMockRecap` حتمي) + `sessions/service.ts` (`recap(sessionId, studentId, actorUserId)` — بيانات وصفية فقط للاستدعاء، `contextUserId` صحيحة، مفاهيم الجلسة من `assessments`) + `sessions/routes.ts` (`GET /:sessionId/recap` student فقط) + `parent/service.ts` (`sessionRecap` — بوابة الربط + إعادة استخدام `sessions.recap` + حقن `SessionService`) + `parent/routes.ts` (`GET /children/:studentId/sessions/:sessionId/recap`) + `plugins/container.ts` (حقن `sessions` في `ParentService`) |
+| `web/src/api.ts` + `web/src/RecapCard.tsx` + `web/src/Home.tsx` + `web/src/Parent.tsx` | بنية | `SessionRecap` + `getSessionRecap`/`getParentSessionRecap`؛ مكوّن مشترك `RecapCard` (عنوان/تركيز/إحصائيات/نقاط قوة/اقتراحات/تنبيه `fallback`)؛ Home زر «ملخص الجلسة» على صف الجلسة المنتهية بالذات (`session-recap-button`/`session-recap`/`session-recap-empty`)؛ Parent بطاقة «ملخص الجلسة الآمن» (`parent-recap-button`/`parent-session-recap`) — كلاهما يعرض **نفس الحمولة** |
+
+> مبدأ PHASE 29: المدرّس لا ينهي درسًا بلا محصّلة — والملخص **آمن بالتصميم**: لا نص رسالة يدخل الاستدعاء (بيانات وصفية فقط)، وحارس «لا نص حرفي» يرفض أي ناتج يعيد إنتاج رسالة، وسقوط حتمي آمن يجعل العرض موجودًا دائمًا للطالب ووليّ الأمر.
+
 ---
 
 # الجزء الثاني — Browser End-to-End (Playwright)
 
-> آخر تحديث: 2026-09-25 — **36/36 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
+> آخر تحديث: 2026-09-25 — **38/38 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
 
 ## 5. التشغيل والمتطلبات
 
 ```bash
 npm install                       # بعد إضافة @playwright/test
 npm run e2e:install               # مرة واحدة: تنزيل Chromium (~115MB)
-npm run e2e                       # يشغّل كل شيء تلقائيًا (خادمان مُداران + 34 اختبارًا)
+npm run e2e                       # يشغّل كل شيء تلقائيًا (خادمان مُداران + 38 اختبارًا)
 npm run e2e -- --ui               # وضع Playwright UI (اختياري)
 npm run e2e:report                # فتح تقرير HTML السابق
 ```
@@ -244,7 +256,7 @@ npm run e2e:report                # فتح تقرير HTML السابق
 - **ولي الأمر: `parent@alfarouq.test` / `parent-demo-123`** (نفس التزرعة — مربوط مسبقًا بالطالب التجريبي؛ كود الربط الثابت `SLH7KQ9M`).
 - اختبار عزل البيانات (C) يسجّل طالبًا جديدًا عشوائيًا مؤقتًا.
 
-## 7. الحالات المغطاة (36)
+## 7. الحالات المغطاة (38)
 
 | # | الملف | ماذا يختبر | ملاحظات |
 |---|---|---|---|
@@ -284,6 +296,8 @@ npm run e2e:report                # فتح تقرير HTML السابق
 | PR2 | `practice.spec.ts` | (PHASE 25) بعد PR1 صار المفهوم الأضعف متتبَّعًا → «خطة ممارستك» (`plan-section` + `plan-list`) فيها **صف واحد على الأقل** (`plan-row`) بدرس (`plan-lesson`) وعدد أسئلة متاحة (`plan-questions`) وشارة مستوى (`plan-level`) وسهم اتجاه (`plan-trend`) → زر «تمرّن الآن» لأول مفهوم **ممارَس** (`plan-practice:not([disabled])`) يفتح لوحة التمرين (`practice-panel`) بسؤال حقيقي (`practice-question`) + شارة المفهوم (`practice-concept`) | الخطة قراءة نقيّة من الإتقان؛ E2E يتسامح مع أي حالة تراكمية (استهداف `:not([disabled])`) |
 | PR3 | `practice.spec.ts` | (PHASE 26) بعد إجابات PR1/PR2 → شاشة الإنجازات (`achievements-screen`) تعرض الشارتين الجديدتين: `practice_starter` «انطلاقة التمرين» **مكتسبة** (`data-earned="true"`) لأن طالب العرض أجب عن إجابة واحدة على الأقل، و`mastery_first` «أول إتقان» **مقفولة** (`data-earned="false"` — لا مفهوم بعد في «متقن») | E2E يتسامح مع أي نتيجة إجابة سابقة («انطلاقة» أول إجابة مهما كانت نتيجتها)؛ «أول إتقان» لا تُكتسب إلا بـ≥0.8 على مفهوم — خارج نطاق الجلسة |
 | PR4 | `practice.spec.ts` | (PHASE 28) بعد A5 (الذي يولّد سؤال «مقارنة الكسور» إداريًا) → الطالب يفتح الرئيسية: صف الخطة لمنهجه فيه «مقارنة الكسور» بصفر أسئلة سابقًا يحمل الآن **«تمرّن الآن»** → `practice-question` يعرض النص المولّد «أي العبارات التالية وردت في الدرس» → اختيار أول خيار → `practice-feedback` → reload → **قسم «إتقان المفاهيم» فيه صف «مقارنة الكسور»** (`mastery-concept-row` filter) | سؤال طرحة A5 قبل practice.spec (admin<practice أبجديًا، قاعدة مشتركة)؛ النتيجة تحتمل صح/خطأ — التغذية الراجعة تقبَل الحالتين |
+| R1 | `recap.spec.ts` | (PHASE 29) الطالب يبدأ درسًا → رسالة فحص (`R1_PROBE`) + رسالة سرية (`R1_SECRET`) → إنهاء → يعود الرئيسية → على **صف جلسته بالذات** (`[data-session-id]` لأن القائمة تصاعدية) يظهر «ملخص الجلسة» (`session-recap-button`) → البطاقة (`session-recap`) بعنوان يحمل اسم **درسه** (`recap-headline`) + إحصائيات (`recap-stats` «رسالة منك») + نقاط قوة واقتراحات → **لا يظهر نصّ الرسالتين** في البطاقة | serial — الجلسة الجديدة تُعرف بفرق «الجلسات النشطة قبل/بعد» كالمسار journey |
+| R2 | `recap.spec.ts` | (PHASE 29) الطالب التجريبي ينهي درسًا برسالة فحص (`R2_PROBE`) → ولي الأمر المسجّل دخوله يفتح أحدث جلسة (القائمة تنازلية → `.first()`) → «عرض الملخص» (`parent-recap-button`) → بطاقة (`parent-session-recap`) بعنوان يحمل **نفس اسم الدرس** (`parent-recap-headline`) + «رسالة منك» — و**لا يظهر** نص رسالة الطالب في البطاقة ولا في `body` كاملًا | serial — الجلسة الجديدة هي الأحدث في قاعدة مشتركة؛ R1/R2 بعد parent.spec أبجديًا |
 
 ## 8. قيود معروفة
 

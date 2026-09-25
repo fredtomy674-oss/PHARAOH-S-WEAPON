@@ -349,6 +349,33 @@ p {
   border-bottom: 0;
 }
 
+/* PHASE 29 — safe session recap panel (metadata only, shared student/parent). */
+.session-recap {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.recap-panel {
+  background: var(--panel, #f7faf9);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  display: grid;
+  gap: 0.5rem;
+  text-align: right;
+}
+
+.recap-headline {
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0;
+}
+
+.recap-panel ul {
+  margin: 0.25rem 0 0 0;
+  padding-right: 1.25rem;
+}
+
 /* ----- Parent dashboard (PHASE 18) ----- */
 .link-code {
   display: inline-block;
