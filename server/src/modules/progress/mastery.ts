@@ -7,6 +7,30 @@
 
 export type MasteryLevel = "mastered" | "advanced" | "developing" | "needs_review";
 export type MasteryTrend = "up" | "steady" | "down";
+export type QuestionDifficulty = "easy" | "medium" | "hard";
+
+export interface AssessmentDelta {
+  onCorrect: number;
+  onWrong: number;
+}
+
+/**
+ * PHASE 26 — difficulty-aware mastery deltas (D-028 deferred item: "المعادلة
+ * تعتمد على صعوبة السؤال"). Harder questions carry a stronger learning
+ * signal, so they move mastery more — and miss harder questions costs more.
+ * Easy keeps the historical defaults so existing behavior (and lesson
+ * concept-checks without a difficulty) is unchanged.
+ */
+export const DIFFICULTY_DELTAS: Record<QuestionDifficulty, AssessmentDelta> = {
+  easy: { onCorrect: 0.15, onWrong: -0.1 },
+  medium: { onCorrect: 0.175, onWrong: -0.125 },
+  hard: { onCorrect: 0.2, onWrong: -0.15 },
+};
+
+/** The EWMA deltas for an assessment of the given difficulty (easy default). */
+export function assessmentDelta(difficulty?: QuestionDifficulty): AssessmentDelta {
+  return DIFFICULTY_DELTAS[difficulty ?? "easy"];
+}
 
 /** The subset of an assessment result payload the mastery engine consumes. */
 export interface AssessmentPayload {

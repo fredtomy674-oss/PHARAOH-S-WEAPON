@@ -10,7 +10,7 @@ import {
   studentProgress,
 } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
-import { daysBetween, decayMastery, describeMastery, masteryTrend, round2, safeParseAssessment, type MasteryLevel, type MasteryTrend } from "../progress/mastery.js";
+import { assessmentDelta, daysBetween, decayMastery, describeMastery, masteryTrend, round2, safeParseAssessment, type MasteryLevel, type MasteryTrend, type QuestionDifficulty } from "../progress/mastery.js";
 
 export interface StudentMemorySnapshot {
   strengths: string[];
@@ -128,6 +128,8 @@ export class MemoryService {
     conceptId: string;
     correct: boolean;
     type?: "concept_check" | "exercise";
+    /** PHASE 26 — weights the EWMA delta: easy +0.15/−0.1, medium +0.175/−0.125, hard +0.2/−0.15. */
+    difficulty?: QuestionDifficulty;
   }): Promise<number> {
     const now = new Date();
     const row = await this.db.db
@@ -139,8 +141,9 @@ export class MemoryService {
     if (row) {
       const attempts = row.attempts + 1;
       const correct = row.correct + (input.correct ? 1 : 0);
-      // Slow-moving mastery: reward correctness, punish misses softly.
-      mastery = Math.min(1, Math.max(0, row.mastery + (input.correct ? 0.15 : -0.1)));
+      // Slow-moving mastery: harder questions move it more (PHASE 26).
+      const delta = assessmentDelta(input.difficulty);
+      mastery = Math.min(1, Math.max(0, row.mastery + (input.correct ? delta.onCorrect : delta.onWrong)));
       await this.db.db
         .update(studentProgress)
         .set({ mastery, attempts, correct, lastSeenAt: now })

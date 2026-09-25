@@ -73,3 +73,27 @@ test("PR2 (PHASE 25): the practice plan ranks weak concepts and opens scoped pra
   await expect(page.getByTestId("practice-question")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("practice-concept")).toBeVisible();
 });
+
+/**
+ * PR3 (PHASE 26): the mastery engine also feeds achievements — PR1 already
+ * answered one question, so «انطلاقة التمرين» shows earned on the student's
+ * achievements screen while «أول إتقان» (first concept at متقن level) is still
+ * locked. No web change needed: badges render through the existing screen.
+ */
+test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمرين while أول إتقان stays locked", async ({ page }) => {
+  await login(page);
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+
+  await page.getByTestId("open-achievements").click();
+  await expect(page.getByTestId("achievements-screen")).toBeVisible({ timeout: 20_000 });
+
+  const starter = page.locator('[data-testid="achievement-row"][data-code="practice_starter"]');
+  await expect(starter).toBeVisible({ timeout: 20_000 });
+  await expect(starter).toContainText("انطلاقة التمرين");
+  await expect(starter).toHaveAttribute("data-earned", "true");
+
+  const masteryFirst = page.locator('[data-testid="achievement-row"][data-code="mastery_first"]');
+  await expect(masteryFirst).toBeVisible();
+  await expect(masteryFirst).toContainText("أول إتقان");
+  await expect(masteryFirst).toHaveAttribute("data-earned", "false");
+});

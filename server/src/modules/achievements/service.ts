@@ -1,7 +1,8 @@
 import { and, count, eq, like, or } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
-import { achievementDefinitions, achievements, learningSessions, messageAttachments, messages } from "../../db/schema.js";
+import { achievementDefinitions, achievements, answers, learningSessions, messageAttachments, messages, studentProgress } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
+import { daysBetween, decayMastery, masteryLevel } from "../progress/mastery.js";
 
 /**
  * PHASE 20 — Achievements (gamification activation).
@@ -15,7 +16,13 @@ import { newId } from "../../utils/ids.js";
  *   - Awarding is best-effort and duplicate-proof (unique student+definition,
  *     onConflictDoNothing) — a re-run can never double-award or crash a turn.
  */
-export type AchievementEvent = "session_ended" | "user_message" | "document_attached" | "vision_attached";
+export type AchievementEvent =
+  | "session_ended"
+  | "user_message"
+  | "document_attached"
+  | "vision_attached"
+  | "practice_answer"
+  | "mastery_achieved";
 
 interface DefinitionSeed {
   code: string;
@@ -32,6 +39,9 @@ export const ACHIEVEMENT_DEFINITIONS: readonly DefinitionSeed[] = [
   { code: "chatty_student", title: "بارع الحوار", description: "أرسل 50 سؤالًا إلى المعلّم.", event: "user_message", min: 50 },
   { code: "bookworm", title: "قارئ نهم", description: "أرفق أول ملف PDF أو DOCX بسؤالك.", event: "document_attached", min: 1 },
   { code: "photographer", title: "مصوّر الأسئلة", description: "أرفق أول صورة لسؤال مكتوب.", event: "vision_attached", min: 1 },
+  // PHASE 26 — the mastery engine now also feeds badges (D-028 deferred item).
+  { code: "practice_starter", title: "انطلاقة التمرين", description: "أجب عن أول تمرين سريع.", event: "practice_answer", min: 1 },
+  { code: "mastery_first", title: "أول إتقان", description: "ارفع أول مفهوم إلى مستوى «متقن».", event: "mastery_achieved", min: 1 },
 ];
 
 export interface AchievementView {
@@ -149,14 +159,32 @@ export class AchievementService {
           .get()?.n ?? 0
       );
     }
-    // vision_attached
-    return (
-      db
-        .select({ n: count() })
-        .from(messageAttachments)
-        .innerJoin(learningSessions, eq(messageAttachments.sessionId, learningSessions.id))
-        .where(and(eq(learningSessions.studentId, studentId), like(messageAttachments.mimeType, "image/%")))
-        .get()?.n ?? 0
-    );
+    if (event === "vision_attached") {
+      return (
+        db
+          .select({ n: count() })
+          .from(messageAttachments)
+          .innerJoin(learningSessions, eq(messageAttachments.sessionId, learningSessions.id))
+          .where(and(eq(learningSessions.studentId, studentId), like(messageAttachments.mimeType, "image/%")))
+          .get()?.n ?? 0
+      );
+    }
+    if (event === "practice_answer") {
+      // Every graded exercise answer (answers rows are written by the practice loop).
+      return db.select({ n: count() }).from(answers).where(eq(answers.studentId, studentId)).get()?.n ?? 0;
+    }
+    // mastery_achieved — concepts whose DISPLAY level is «متقن» (same read-side
+    // decayed score the student sees), so the badge matches what the UI shows.
+    const rows = db
+      .select({ mastery: studentProgress.mastery, lastSeenAt: studentProgress.lastSeenAt })
+      .from(studentProgress)
+      .where(eq(studentProgress.studentId, studentId))
+      .all();
+    let n = 0;
+    for (const r of rows) {
+      const decayed = decayMastery(r.mastery, daysBetween(r.lastSeenAt, new Date()));
+      if (masteryLevel(decayed) === "mastered") n += 1;
+    }
+    return n;
   }
 }

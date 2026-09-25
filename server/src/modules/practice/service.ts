@@ -3,6 +3,7 @@ import type { Db } from "../../db/index.js";
 import { answers, concepts, curriculumEnrollments, lessons, questions } from "../../db/schema.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import type { MasteryLevel } from "../progress/mastery.js";
+import type { AchievementService } from "../achievements/service.js";
 import { Errors } from "../../utils/errors.js";
 import { newId } from "../../utils/ids.js";
 import { sortPlan, type PracticePlanItem } from "./plan.js";
@@ -37,17 +38,19 @@ interface ParsedOptions {
 }
 
 /**
- * PHASE 24 — practice loop for the concept-mastery engine. Serves MCQ
- * questions scoped to the student's enrolled curricula (weakest tracked
- * concepts first) and grades answers deterministically, feeding every
- * answered question into `MemoryService.recordAssessment` — the first
- * production caller of the previously dormant assessment path. No AI
+ * PHASE 24 + 25 + 26 — practice loop for the concept-mastery engine. Serves
+ * MCQ questions scoped to the student's enrolled curricula (weakest tracked
+ * concepts first) and grades answers deterministically, feeding every answered
+ * question into `MemoryService.recordAssessment` — the first production caller
+ * of the previously dormant assessment path. PHASE 26: grades weight mastery by
+ * question difficulty and feed the practice/mastery achievements. No AI
  * provider involved: grading is pure, so it is fully offline-testable.
  */
 export class PracticeService {
   constructor(
     private readonly db: Db,
     private readonly memory: MemoryService,
+    private readonly achievements: AchievementService,
   ) {}
 
   /** Curricula the student is actively enrolled in (practice scope). */
@@ -135,9 +138,17 @@ export class PracticeService {
     if (!q.conceptId) {
       return { correct, explanation: q.explanation, mastery: null };
     }
-    await this.memory.recordAssessment({ studentId, conceptId: q.conceptId, correct, type: "exercise" });
+    await this.memory.recordAssessment({ studentId, conceptId: q.conceptId, correct, type: "exercise", difficulty: q.difficulty });
     const summary = await this.memory.masterySummary(studentId);
     const entry = summary.find((s) => s.conceptId === q.conceptId) ?? null;
+    // PHASE 26 — the mastery engine now feeds badges (best-effort, never blocks
+    // the answer): practice activity + concepts at the «متقن» display level.
+    try {
+      await this.achievements.evaluate(studentId, "practice_answer");
+      await this.achievements.evaluate(studentId, "mastery_achieved");
+    } catch {
+      // Badge bookkeeping must never break the core loop — next answer retries.
+    }
     return {
       correct,
       explanation: q.explanation,
