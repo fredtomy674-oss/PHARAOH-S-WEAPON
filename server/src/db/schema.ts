@@ -344,6 +344,12 @@ export const answers = sqliteTable(
     sessionId: text("session_id").references(() => learningSessions.id, { onDelete: "set null" }),
     content: text("content").notNull(),
     correct: integer("correct"),
+    /**
+     * PHASE 31 — whole seconds between question display and answer, measured
+     * client-side (MCQ only). Null = never sent / malformed → the mastery
+     * engine treats it as the "unknown" band (unit multiplier).
+     */
+    answerSeconds: integer("answer_seconds"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("answers_student_idx").on(t.studentId)],

@@ -2,10 +2,11 @@ import { expect, test } from "@playwright/test";
 import { login, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
- * PHASE 20 — Billing/Subscriptions (بلا بوابة دفع) + Achievements, end-to-end:
+ * PHASE 20 + 31 — Billing/Subscriptions (بلا بوابة دفع) + Achievements, end-to-end:
  *  - E1: a brand-new student completes their first lesson → the «أول خطوة»
  *    badge is earned and shown in their achievements screen; their plan card
- *    reads «مجانية» (free plan, lazily created).
+ *    reads «مجانية» (free plan, lazily created). PHASE 31: the tiered mastery
+ *    badges («متقن 3/5 مفاهيم») appear locked among the 10 total rows.
  *  - E2: the admin upgrades that same student to premium through the dashboard
  *    subscriptions panel → the student's plan card now reads «مميزة».
  */
@@ -49,6 +50,12 @@ test("E1: a fresh student earns أول خطوة after their first session and se
   await expect(firstSteps).toHaveAttribute("data-earned", "true");
   const explorer = page.locator('[data-testid="achievement-row"][data-code="explorer"]');
   await expect(explorer).toHaveAttribute("data-earned", "false");
+  // PHASE 31 — the tiered mastery badges are visible and locked at 0 mastered.
+  await expect(page.getByTestId("achievement-list").locator('[data-testid="achievement-row"]')).toHaveCount(10);
+  const masteryThree = page.locator('[data-testid="achievement-row"][data-code="mastery_three"]');
+  await expect(masteryThree).toHaveAttribute("data-earned", "false");
+  const masteryFive = page.locator('[data-testid="achievement-row"][data-code="mastery_five"]');
+  await expect(masteryFive).toHaveAttribute("data-earned", "false");
   await page.getByTestId("achievements-back").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 });

@@ -56,6 +56,20 @@ export interface PracticeResult {
 export interface SubmitAnswerInput {
   optionIndex?: unknown;
   answer?: unknown;
+  /** PHASE 31 — client-measured seconds (display → submit); MCQ only, optional. */
+  timeTakenSeconds?: unknown;
+}
+
+/**
+ * PHASE 31 — accept the client's measured answer time as whole seconds in a
+ * sane 1..600 window; silently drop anything malformed (string/float/out of
+ * range → null = "unknown" band, unit multiplier). Time is a soft signal,
+ * never a gate: an absent or lying client simply gets neutral scaling.
+ */
+export function normalizeAnswerSeconds(value: unknown): number | null {
+  if (typeof value !== "number" || !Number.isInteger(value)) return null;
+  if (value < 1 || value > 600) return null;
+  return value;
 }
 
 /** Counts-only result of a (possibly multi-concept) admin bulk generation. */
@@ -81,7 +95,10 @@ interface ParsedOptions {
  * «أسئلة مفتوحة» are activated end-to-end — the loop can serve `open`
  * questions and grades free-text answers through the dynamic AI operation
  * `grade_open` (deterministic mock offline, LLM in production) with a
- * "لا نص حرفي" guard and a deterministic fallback.
+ * "لا نص حرفي" guard and a deterministic fallback. PHASE 31: the client's
+ * measured answer time (display → submit, MCQ only) is stored and scales the
+ * mastery delta via the speed band (fast 1.25×, slow 0.75×, unknown 1×) —
+ * first attempts stay neutral and malformed times are silently dropped.
  */
 export class PracticeService {
   constructor(
@@ -192,6 +209,9 @@ export class PracticeService {
     const now = new Date();
     // optionIndex < options.length is enforced above, so this is safe.
     const chosen = parsed.options[optionIndex]!;
+    // PHASE 31 — the client's measured answer time is stored and later feeds
+    // the speed-scaled mastery delta (silently neutral when absent/invalid).
+    const answerSeconds = normalizeAnswerSeconds(input.timeTakenSeconds);
     await this.db.db.insert(answers).values({
       id: newId("ans"),
       questionId: q.id,
@@ -199,13 +219,14 @@ export class PracticeService {
       sessionId: ctx.sessionId ?? null,
       content: chosen,
       correct: correct ? 1 : 0,
+      answerSeconds,
       createdAt: now,
     });
 
     if (!q.conceptId) {
       return { correct, explanation: q.explanation, mastery: null, score: null, feedback: null };
     }
-    await this.memory.recordAssessment({ studentId, conceptId: q.conceptId, correct, type: "exercise", difficulty: q.difficulty });
+    await this.memory.recordAssessment({ studentId, conceptId: q.conceptId, correct, type: "exercise", difficulty: q.difficulty, answerSeconds });
     const mastery = await this.masteryAfter(q.conceptId, studentId);
     return {
       correct,
@@ -260,6 +281,8 @@ export class PracticeService {
       : gradeFallback({ conceptTitle, referenceAnswer: q.answerKey, studentAnswer: answer });
 
     const now = new Date();
+    // PHASE 31 — answer time is an MCQ-only signal: typing time isn't a
+    // mastery signal, so open answers always store null and use the unit band.
     await this.db.db.insert(answers).values({
       id: newId("ans"),
       questionId: q.id,
@@ -267,6 +290,7 @@ export class PracticeService {
       sessionId: ctx.sessionId ?? null,
       content: answer,
       correct: grade.correct ? 1 : 0,
+      answerSeconds: null,
       createdAt: now,
     });
 

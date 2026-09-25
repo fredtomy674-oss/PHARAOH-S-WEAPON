@@ -403,10 +403,16 @@ export async function getPracticeQuestion(conceptId?: string, type: "mcq" | "ope
   return res.question;
 }
 
-export async function submitPracticeAnswer(questionId: string, optionIndex: number): Promise<PracticeResult> {
+/** Submit an MCQ answer; PHASE 31 — `timeTakenSeconds` (display → submit) is
+ * sent when the client measured it, so the mastery delta can be speed-scaled. */
+export async function submitPracticeAnswer(
+  questionId: string,
+  optionIndex: number,
+  timeTakenSeconds?: number,
+): Promise<PracticeResult> {
   return api<PracticeResult>(`/practice/questions/${encodeURIComponent(questionId)}/submit`, {
     method: "POST",
-    body: { optionIndex },
+    body: { optionIndex, ...(timeTakenSeconds !== undefined ? { timeTakenSeconds } : {}) },
   });
 }
 

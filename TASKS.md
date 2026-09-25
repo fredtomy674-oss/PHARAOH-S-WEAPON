@@ -296,6 +296,20 @@
 - [x] اختبارات: وحدة `grade.test.ts` (**27** — تطبيع/توكنات/تغطية/حدود parse/فصل قالب/حارس بمفتاح قصير وطويل/سقوط بدون إعادة نص المفتاح/حتمية mock) + API `openQuestion.test.ts` (**11** — توليد بلا تسريب، 409 تكرار النوع، خدمة type، صحيح/خاطئ بمفتاح من DB، خلط أنواع حمولة، رموز 400، خطة openQuestions، والد 403) — **353/353 أخضر** + E2E `open.spec.ts` **O1** (المفتاح الزرعي «2/3» → موفقة + إتقان + لا تسريب في DOM) و**O2** (توليد مفتوح لمفهوم بلا سؤال → نص حر → تغذية) — **40/40 أخضر**
 - [x] `npm run check` أخضر (353/353) + `npm run build` أخضر + docs sync (DECISIONS D-034/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 31 — زمن الإجابة في معادلة الإتقان + شارات الإتقان المتدرجة (إغلاق بندَي D-028/D-030 «إنتاج لاحقًا») ✅
+
+**القرار D-035**: (أ) الويب يقيس ثواني عرض السؤال → الإرسال (`shownAt`) ويرسلها في إجابات MCQ فقط (`timeTakenSeconds` صحيح 1..600؛ المفتوح لا يُقاس — زمن الكتابة ليس إشارة)؛ الخادم يتحقق ويُحيّد ويخزّنها في `answers.answer_seconds` (migration 0008)؛ دلتا الصعوبة تُضرَب بمضاعِف **قوة الإشارة** النطاقي (سريع <10ث ×1.25 / عادي ×1 / بطيء >60ث ×0.75 / مجهول ×1) — باتجاه واحد للصح والخطأ؛ المحاولة الأولى تبقى 0.6/0.1 كما D-030. (ب) شارات متدرجة: `mastery_three` «متقن 3 مفاهيم» + `mastery_five` «متقن 5 مفاهيم» (المجموع 10) عبر نفس عدّاد المستوى المعروض.
+- [x] **`progress/mastery.ts`**: `AnswerTimeBand` + `ANSWER_TIME_FAST_MAX_SECONDS=10`/`ANSWER_TIME_SLOW_MIN_SECONDS=60` + `TIME_MULTIPLIER` + `answerTimeBand` + `timeScaledDelta`
+- [x] **`tutor/memoryService.ts`**: `recordAssessment` يستقبل `answerSeconds?` — مضاعِف الوقت على الصف الموجود مع `round2`؛ المحاولة الأولى كما هي
+- [x] **`db/schema.ts` + migration**: `answers.answer_seconds` nullable (integer) — `0008_adorable_quasar.sql` (ALTER TABLE واحدة)
+- [x] **`practice/service.ts`**: `SubmitAnswerInput.timeTakenSeconds?` + `normalizeAnswerSeconds` (صحيح 1..600 وإلا null)؛ MCQ يخزّن ويمرّر، المفتوح يخزّن null (MCQ-only)، ورأس تعليقي محدَّث
+- [x] **`practice/routes.ts`**: تمرير `timeTakenSeconds` في الإرسال
+- [x] **`achievements/service.ts`**: تعريفا `mastery_three`/`mastery_five` على `mastery_achieved` (المجموع 8 → 10)
+- [x] **`web/api.ts`**: `submitPracticeAnswer(id, optionIndex, timeTakenSeconds?)`
+- [x] **`web/Home.tsx`**: `PracticeState.shownAt` عند كل سؤال جديد + حساب الثواني المقصوص 1..600 عند الإرسال (MCQ فقط)
+- [x] اختبارات: وحدة `masteryTime.test.ts` (**8**) + API `practiceTime.test.ts` (**4** — تخزين/تفاوت 0.79>0.71/حيادية أولى/إسقاط فاسد/صفر مفتوح) + API `tierBadges.test.ts` (**2** — شارات 3 ثم 5 عبر حلقة الإرسال الحقيقية) + `achievements.test.ts` total 8→10 — **367/367 أخضر** + E2E `achievements.spec.ts` E1 (+10 صفوف وشارتا المتدرجة مقفلتان) — **40/40 أخضر**
+- [x] `npm run check` أخضر (367/367) + `npm run build` أخضر + verification لمزامنة binary للعربية + docs sync (DECISIONS D-035/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -319,6 +333,7 @@
 - [x] ✅ **أسئلة مولّدة بالمفهوم (LLM لتغطية المفاهيم بلا أسئلة)** — عملة `question_gen` قابلة للتخزين + mock حتمي مرتكز على مقاطع الدرس؛ إدراج غير المتتبع في الخطة (اكتشاف) + «توليد سؤال» للطالب + تغطية جماعية إدارية idempotent بلا تسريب مفتاح — 14 وحدة + 15 API + 2 E2E (PHASE 28)
 - [x] ✅ **ملخص الجلسة الآمن (recap — إغلاق D-027)** — عملية `recap` ديناميكية تُبنى من **بيانات وصفية فقط** (عنوان/مفاهيم/عدادات) بلا محتوى رسائل؛ حارس «لا نص حرفي» + سقوط حتمي آمن؛ يقرؤه الطالب («ملخص الجلسة» على الجلسات المنتهية) وولي الأمر («ملخص الجلسة الآمن» في التفاصيل) بنفس الحمولة — 18 وحدة + 8 API + 2 E2E (PHASE 29)
 - [x] ✅ **التصحيح الآلي للإجابات المفتوحة (grade_open — إغلاق آخر بند D-028)** — تفعيل `type:"open"` (عمود `answerKey` الخامل منذ PHASE 24): تصحيح نص حر عبر عملة LLM ديناميكية `grade_open` (`<reference>` نظامًا/`<student_answer>` مستخدمًا) مع عزل المفتاح بنيويًا + حارس «لا نص حرفي» + سقوط قوَالبي حتمي؛ «سؤال مقالي»/«توليد سؤال مقالي» في الخطة وحقل حر في اللوحة مع تغذية راجعة ودرجة؛ سؤالان مصريان مبذوران — 27 وحدة + 11 API + 2 E2E (PHASE 30)
+- [x] ✅ **زمن الإجابة في معادلة الإتقان + شارات الإتقان المتدرجة (إغلاق D-028/D-030)** — العميل يقيس عرض→إرسال (MCQ فقط) ويخزّنه الخادم في `answers.answer_seconds`؛ دلتا الصعوبة تُضرَب بمضاعِف قوة الإشارة (سريع ×1.25/بطيء ×0.75/مجهول ×1) مع بقاء المحاولة الأولى محايدة؛ شارات «متقن 3 مفاهيم» و«متقن 5 مفاهيم» (المجموع 10) — 8 وحدة + 6 API + 1 E2E (PHASE 31)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

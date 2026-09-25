@@ -3,7 +3,7 @@ import { requireAuth } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 
 /**
- * PHASE 24 + 25 + 28 + 30 — practice loop feeding the concept-mastery engine.
+ * PHASE 24 + 25 + 28 + 30 + 31 — practice loop feeding the concept-mastery engine.
  *   GET  /api/practice/question?conceptId=…&type=mcq|open  → { question } (null when none)
  *   GET  /api/practice/plan                    → { plan } ranked weakest-first
  *   POST /api/practice/generate                → { question } for a questionless concept (kind: mcq|open)
@@ -12,6 +12,8 @@ import { Errors } from "../../utils/errors.js";
  * through the PHASE 30 `grade_open` AI operation (mock offline / LLM in
  * production); the PHASE 28/30 generation path touches the AI provider —
  * once per questionless concept (per kind), then cached/stored for everyone.
+ * PHASE 31: the submit payload may carry `timeTakenSeconds` (integer 1..600)
+ * which the service stores and uses to scale the mastery delta (MCQ only).
  */
 export const practiceRoutes: FastifyPluginAsync = async (app) => {
   app.get("/question", { preHandler: requireAuth }, async (request) => {
@@ -65,13 +67,13 @@ export const practiceRoutes: FastifyPluginAsync = async (app) => {
       throw Errors.forbidden("التمارين مخصصة لحسابات الطلاب");
     }
     const { id } = request.params as { id: string };
-    const body = (request.body ?? {}) as { optionIndex?: unknown; answer?: unknown };
+    const body = (request.body ?? {}) as { optionIndex?: unknown; answer?: unknown; timeTakenSeconds?: unknown };
     // The question's type decides which field is meaningful; the service rejects
     // a wrong payload kind and validates ranges/bounds.
     return app.practice.submitAnswer(
       auth.student.id,
       id,
-      { optionIndex: body.optionIndex, answer: body.answer },
+      { optionIndex: body.optionIndex, answer: body.answer, timeTakenSeconds: body.timeTakenSeconds },
       { actorUserId: auth.user.id },
     );
   });

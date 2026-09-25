@@ -32,6 +32,49 @@ export function assessmentDelta(difficulty?: QuestionDifficulty): AssessmentDelt
   return DIFFICULTY_DELTAS[difficulty ?? "easy"];
 }
 
+/**
+ * PHASE 31 — answer-time-aware mastery (D-028/D-030 deferred item: «زمن الإجابة
+ * في معادلة الإتقان»). The speed of an answer is a SIGNAL-STRENGTH multiplier
+ * on the difficulty delta: a brisk, confident answer (fast) moves mastery more
+ * in both directions (quick correct = solid mastery; quick wrong = guess or
+ * misconception worth correcting), while a hesitant answer (slow) is a weaker
+ * signal. No recorded time (null/undefined) → "unknown" = unit multiplier, so
+ * existing callers (session concept-checks, open answers) are unchanged — and
+ * the FIRST attempt on any concept stays neutral (0.6 / 0.1) regardless of
+ * speed (D-030 keeps the starting expectation fixed; differentiation appears
+ * on the series).
+ */
+export type AnswerTimeBand = "fast" | "normal" | "slow" | "unknown";
+
+/** Time-band cutoffs in whole seconds (display → submit). */
+export const ANSWER_TIME_FAST_MAX_SECONDS = 10;
+export const ANSWER_TIME_SLOW_MIN_SECONDS = 60;
+
+export const TIME_MULTIPLIER: Record<AnswerTimeBand, number> = {
+  fast: 1.25,
+  normal: 1,
+  slow: 0.75,
+  unknown: 1,
+};
+
+/** Maps an answer time (seconds) to its signal-strength band. */
+export function answerTimeBand(seconds: number | null | undefined): AnswerTimeBand {
+  if (seconds === null || seconds === undefined || !Number.isFinite(seconds) || seconds < 0) return "unknown";
+  if (seconds < ANSWER_TIME_FAST_MAX_SECONDS) return "fast";
+  if (seconds <= ANSWER_TIME_SLOW_MIN_SECONDS) return "normal";
+  return "slow";
+}
+
+/** Difficulty delta scaled by answer speed (unit multiplier when unknown). */
+export function timeScaledDelta(
+  difficulty: QuestionDifficulty | undefined,
+  answerSeconds: number | null | undefined,
+): AssessmentDelta {
+  const base = assessmentDelta(difficulty);
+  const mult = TIME_MULTIPLIER[answerTimeBand(answerSeconds)];
+  return { onCorrect: base.onCorrect * mult, onWrong: base.onWrong * mult };
+}
+
 /** The subset of an assessment result payload the mastery engine consumes. */
 export interface AssessmentPayload {
   conceptId?: string;

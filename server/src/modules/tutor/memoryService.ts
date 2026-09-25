@@ -10,7 +10,7 @@ import {
   studentProgress,
 } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
-import { assessmentDelta, daysBetween, decayMastery, describeMastery, masteryTrend, round2, safeParseAssessment, type MasteryLevel, type MasteryTrend, type QuestionDifficulty } from "../progress/mastery.js";
+import { daysBetween, decayMastery, describeMastery, masteryTrend, round2, safeParseAssessment, timeScaledDelta, type MasteryLevel, type MasteryTrend, type QuestionDifficulty } from "../progress/mastery.js";
 
 export interface StudentMemorySnapshot {
   strengths: string[];
@@ -130,6 +130,13 @@ export class MemoryService {
     type?: "concept_check" | "exercise";
     /** PHASE 26 — weights the EWMA delta: easy +0.15/−0.1, medium +0.175/−0.125, hard +0.2/−0.15. */
     difficulty?: QuestionDifficulty;
+    /**
+     * PHASE 31 — whole seconds between question display and answer (MCQ). The
+     * speed band scales the difficulty delta (fast 1.25×, slow 0.75×, unknown
+     * 1×). Only existing rows are scaled: the first attempt stays neutral
+     * (0.6 / 0.1) whatever the speed.
+     */
+    answerSeconds?: number | null;
   }): Promise<number> {
     const now = new Date();
     const row = await this.db.db
@@ -141,9 +148,10 @@ export class MemoryService {
     if (row) {
       const attempts = row.attempts + 1;
       const correct = row.correct + (input.correct ? 1 : 0);
-      // Slow-moving mastery: harder questions move it more (PHASE 26).
-      const delta = assessmentDelta(input.difficulty);
-      mastery = Math.min(1, Math.max(0, row.mastery + (input.correct ? delta.onCorrect : delta.onWrong)));
+      // Slow-moving mastery: harder questions move it more (PHASE 26) and the
+      // answer-speed band scales that move (PHASE 31); rounded for stable display.
+      const delta = timeScaledDelta(input.difficulty, input.answerSeconds ?? null);
+      mastery = Math.min(1, Math.max(0, round2(row.mastery + (input.correct ? delta.onCorrect : delta.onWrong))));
       await this.db.db
         .update(studentProgress)
         .set({ mastery, attempts, correct, lastSeenAt: now })

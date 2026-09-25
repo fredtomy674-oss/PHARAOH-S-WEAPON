@@ -42,6 +42,9 @@ export const ACHIEVEMENT_DEFINITIONS: readonly DefinitionSeed[] = [
   // PHASE 26 — the mastery engine now also feeds badges (D-028 deferred item).
   { code: "practice_starter", title: "انطلاقة التمرين", description: "أجب عن أول تمرين سريع.", event: "practice_answer", min: 1 },
   { code: "mastery_first", title: "أول إتقان", description: "ارفع أول مفهوم إلى مستوى «متقن».", event: "mastery_achieved", min: 1 },
+  // PHASE 31 — tiered mastery badges (D-028/D-030 deferred item: «متقن 3/5 مفاهيم»).
+  { code: "mastery_three", title: "متقن 3 مفاهيم", description: "ارفع 3 مفاهيم إلى مستوى «متقن».", event: "mastery_achieved", min: 3 },
+  { code: "mastery_five", title: "متقن 5 مفاهيم", description: "ارفع 5 مفاهيم إلى مستوى «متقن».", event: "mastery_achieved", min: 5 },
 ];
 
 export interface AchievementView {

@@ -39,6 +39,8 @@ interface PracticeState {
   busy: boolean;
   loading: boolean;
   error: string | null;
+  /** PHASE 31 — epoch-ms when the current question was first displayed (answer timer). */
+  shownAt: number;
 }
 
 const DIFFICULTY_LABEL: Record<PracticeQuestion["difficulty"], string> = {
@@ -85,14 +87,14 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   const studentName = user.student?.displayName ?? user.email;
 
   function newPracticeState(mode: "mcq" | "open"): PracticeState {
-  return { mode, question: null, chosen: null, text: "", result: null, busy: false, loading: true, error: null };
-}
+    return { mode, question: null, chosen: null, text: "", result: null, busy: false, loading: true, error: null, shownAt: Date.now() };
+  }
 
   async function startPractice(conceptId?: string, mode: "mcq" | "open" = "mcq") {
     setPractice(newPracticeState(mode));
     try {
       const question = await getPracticeQuestion(conceptId, mode);
-      setPractice((p) => (p ? { ...p, question, loading: false } : p));
+      setPractice((p) => (p ? { ...p, question, loading: false, shownAt: Date.now() } : p));
     } catch {
       setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
     }
@@ -106,7 +108,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
     setPractice(newPracticeState(kind));
     try {
       const question = await generatePracticeQuestion(conceptId, kind);
-      setPractice((p) => (p ? { ...p, question, loading: false } : p));
+      setPractice((p) => (p ? { ...p, question, loading: false, shownAt: Date.now() } : p));
       refreshPlan();
     } catch {
       setPractice((p) => (p ? { ...p, loading: false, error: "تعذر توليد سؤال لهذا المفهوم." } : p));
@@ -115,10 +117,10 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
   async function nextPractice() {
     if (!practice) return;
-    setPractice((p) => (p ? { ...p, question: null, chosen: null, text: "", result: null, loading: true, error: null } : p));
+    setPractice((p) => (p ? { ...p, question: null, chosen: null, text: "", result: null, loading: true, error: null, shownAt: Date.now() } : p));
     try {
       const question = await getPracticeQuestion(undefined, practice.mode);
-      setPractice((p) => (p ? { ...p, question, loading: false } : p));
+      setPractice((p) => (p ? { ...p, question, loading: false, shownAt: Date.now() } : p));
     } catch {
       setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
     }
@@ -130,10 +132,14 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
     if (practice.mode === "mcq" && practice.chosen === null) return;
     setPractice((p) => (p ? { ...p, busy: true, error: null } : p));
     try {
+      // PHASE 31 — measure display → submit for MCQ answers (open answers keep
+      // ms, but writing time isn't a mastery signal so only MCQ sends it).
+      const elapsed = Math.max(0, Math.round((Date.now() - (practice.shownAt ?? Date.now())) / 1000));
+      const timeTakenSeconds = practice.mode === "mcq" ? Math.min(600, Math.max(1, elapsed)) : undefined;
       const result =
         practice.mode === "open"
           ? await submitOpenPracticeAnswer(practice.question.id, practice.text)
-          : await submitPracticeAnswer(practice.question.id, practice.chosen as number);
+          : await submitPracticeAnswer(practice.question.id, practice.chosen as number, timeTakenSeconds);
       setPractice((p) => (p ? { ...p, busy: false, result } : p));
       refreshPlan();
     } catch {
