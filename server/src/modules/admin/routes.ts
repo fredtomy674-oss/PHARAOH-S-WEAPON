@@ -1,11 +1,20 @@
 import type { FastifyPluginAsync } from "fastify";
-import { count, desc, eq } from "drizzle-orm";
-import { chunks, curricula, documents, learningSessions, lessons, messages, students, subscriptions, users } from "../../db/schema.js";
+import { and, count, desc, eq, gt, inArray, isNull, or, sql, sum } from "drizzle-orm";
+import { aiUsageLogs, chunks, curricula, documents, learningSessions, lessons, messages, students, subscriptions, users } from "../../db/schema.js";
 import { requireAdmin } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 import { config } from "../../config/env.js";
 import { parseDocumentDataUrl } from "../sessions/documents.js";
 import { OCR_ELIGIBLE_MIMES } from "../ocr/service.js";
+
+/**
+ * Operations served deterministically from the in-memory cache (PHASE 22):
+ * a hit records NO usage row, so the per-call average observed on recorded
+ * rows is the best estimator for what each hit saved the platform.
+ */
+const CACHEABLE_OPERATIONS = ["classifier", "rerank", "embedding", "ocr"] as const;
+
+const round1 = (n: number): number => Math.round(n * 10) / 10;
 
 const ingestBodySchema = {
   type: "object",
@@ -240,6 +249,8 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
   app.get("/stats", { preHandler: requireAdmin }, async () => {
     // PHASE 17 — operational statistics for the admin dashboard. Pure
     // aggregations over existing tables; no new storage, admin-only.
+    // PHASE 27 (D-031) — adds the subscription funnel (D-024) and the AI
+    // usage/cache-savings section (D-026) on the same endpoint.
     const usersTotal = (await app.db.db.select({ value: count() }).from(users).get())!;
     const studentUsers = (await app.db.db.select({ value: count() }).from(students).get())!;
     const sessionsTotal = (await app.db.db.select({ value: count() }).from(learningSessions).get())!;
@@ -254,6 +265,67 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
     const curriculaTotal = (await app.db.db.select({ value: count() }).from(curricula).get())!;
     const lessonsTotal = (await app.db.db.select({ value: count() }).from(lessons).get())!;
 
+    // --- PHASE 27 — subscription funnel (D-024) ------------------------------
+    // `plan` breakdown by the stored tier + effective (billable) premium count:
+    // premium only counts while trialing/active AND not past expiry.
+    const planRows = await app.db.db
+      .select({ plan: subscriptions.plan, n: count() })
+      .from(subscriptions)
+      .groupBy(subscriptions.plan);
+    const subTotal = planRows.reduce((acc, r) => acc + r.n, 0);
+    const subFree = planRows.find((r) => r.plan === "free")?.n ?? 0;
+    const subPremium = planRows.find((r) => r.plan === "premium")?.n ?? 0;
+    const subActive = (await app.db.db
+      .select({ value: count() })
+      .from(subscriptions)
+      .where(
+        and(
+          eq(subscriptions.plan, "premium"),
+          inArray(subscriptions.status, ["trialing", "active"]),
+          or(isNull(subscriptions.expiresAt), gt(subscriptions.expiresAt, new Date())),
+        ),
+      )
+      .get())!;
+
+    // --- PHASE 27 — AI usage + cache savings (D-026) -------------------------
+    const usageAgg = (await app.db.db
+      .select({
+        calls: count(),
+        tokens: sum(sql`${aiUsageLogs.inputTokens} + ${aiUsageLogs.outputTokens}`),
+        costUsd: sum(aiUsageLogs.costUsd),
+      })
+      .from(aiUsageLogs)
+      .get())!;
+    const byOperationRows = await app.db.db
+      .select({ operation: aiUsageLogs.operation, n: count() })
+      .from(aiUsageLogs)
+      .groupBy(aiUsageLogs.operation);
+    // Cacheable calls that DID reach the provider (misses) — their recorded
+    // average is the unit cost each hit skipped.
+    const cacheableAgg = (await app.db.db
+      .select({
+        calls: count(),
+        tokens: sum(sql`${aiUsageLogs.inputTokens} + ${aiUsageLogs.outputTokens}`),
+        costUsd: sum(aiUsageLogs.costUsd),
+      })
+      .from(aiUsageLogs)
+      .where(inArray(aiUsageLogs.operation, [...CACHEABLE_OPERATIONS]))
+      .get())!;
+
+    const cache = app.ai.cacheStats();
+    // Savings estimate: each hit skips a provider call. Average the CACHEABLE
+    // calls that did reach the provider (misses); when none were ever recorded
+    // (mock embeddings never log), fall back to the platform-wide per-call
+    // average so the figure stays meaningful.
+    const cacheableCalls = Number(cacheableAgg.calls ?? 0);
+    const totalCalls = Number(usageAgg.calls ?? 0);
+    const avgTokens =
+      cacheableCalls > 0 ? Number(cacheableAgg.tokens ?? 0) / cacheableCalls : totalCalls > 0 ? Number(usageAgg.tokens ?? 0) / totalCalls : 0;
+    const avgCost =
+      cacheableCalls > 0 ? Number(cacheableAgg.costUsd ?? 0) / cacheableCalls : totalCalls > 0 ? Number(usageAgg.costUsd ?? 0) / totalCalls : 0;
+    const estimatedSavingsTokens = Math.round(avgTokens * cache.hits);
+    const estimatedSavingsUsd = Number((avgCost * cache.hits).toFixed(4));
+
     return {
       stats: {
         users: { total: usersTotal.value, students: studentUsers.value },
@@ -263,6 +335,28 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
         chunks: chunksTotal.value,
         curricula: curriculaTotal.value,
         lessons: lessonsTotal.value,
+        subscriptions: {
+          total: subTotal,
+          free: subFree,
+          premium: subPremium,
+          active: subActive.value,
+          conversionRate: subTotal > 0 ? round1((subActive.value / subTotal) * 100) : 0,
+        },
+        ai: {
+          calls: Number(usageAgg.calls ?? 0),
+          byOperation: Object.fromEntries(byOperationRows.map((r) => [r.operation, r.n])),
+          tokens: Number(usageAgg.tokens ?? 0),
+          costUsd: Number(Number(usageAgg.costUsd ?? 0).toFixed(4)),
+          cache: {
+            hits: cache.hits,
+            misses: cache.misses,
+            hitRate: cache.hits + cache.misses > 0 ? round1((cache.hits / (cache.hits + cache.misses)) * 100) : 0,
+            size: cache.size,
+            maxEntries: cache.maxEntries,
+          },
+          estimatedSavingsTokens,
+          estimatedSavingsUsd,
+        },
       },
     };
   });

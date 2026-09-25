@@ -88,3 +88,21 @@ test("A3: a student never sees the admin entry point", async ({ page }) => {
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("open-admin")).toHaveCount(0);
 });
+
+test("A4: the admin dashboard shows the subscription funnel and AI usage/savings cards (PHASE 27)", async ({ page }) => {
+  await login(page, ADMIN.email, ADMIN.password);
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("open-admin").click();
+  await expect(page.getByTestId("admin-screen")).toBeVisible({ timeout: 20_000 });
+
+  // The legacy operational stats grid plus the two PHASE 27 sections render.
+  await expect(page.getByTestId("admin-stats")).toBeVisible({ timeout: 20_000 });
+  const subscriptions = page.getByTestId("admin-stats-subscriptions");
+  await expect(subscriptions).toBeVisible();
+  await expect(subscriptions.getByTestId("admin-stat-subs-active")).toContainText(/مميزة سارية/);
+  await expect(subscriptions.getByTestId("admin-stat-subs-conversion")).toContainText("معدل التحويل");
+  const ai = page.getByTestId("admin-stats-ai");
+  await expect(ai).toBeVisible();
+  await expect(ai.getByTestId("admin-stat-ai-cache-hit")).toContainText("الكاش");
+  await expect(ai.getByTestId("admin-stat-ai-savings")).toContainText("وفورات");
+});

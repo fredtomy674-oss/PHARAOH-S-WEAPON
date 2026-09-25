@@ -245,6 +245,58 @@ export function AdminScreen({ onBack, onLogout }: Props) {
           </section>
         )}
 
+        {stats && (
+          <section className="card" data-testid="admin-stats-subscriptions">
+            <h3>الاشتراكات — نظرة سريعة</h3>
+            <div className="admin-stats-grid">
+              <div className="admin-stat" data-testid="admin-stat-subs-total">
+                <b>{stats.subscriptions.total}</b>
+                <span>طالب مسجّل</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-subs-premium">
+                <b>{stats.subscriptions.premium}</b>
+                <span>خطة مميزة</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-subs-active">
+                <b>{stats.subscriptions.active}</b>
+                <span>مميزة سارية فعليًا</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-subs-conversion">
+                <b>{stats.subscriptions.conversionRate}%</b>
+                <span>معدل التحويل</span>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {stats && (
+          <section className="card" data-testid="admin-stats-ai">
+            <h3>الذكاء الاصطناعي — الاستخدام والوفورات</h3>
+            <div className="admin-stats-grid">
+              <div className="admin-stat" data-testid="admin-stat-ai-calls">
+                <b>{stats.ai.calls}</b>
+                <span>نداء ذكاء اصطناعي</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-ai-tokens">
+                <b>{stats.ai.tokens.toLocaleString("en-US")}</b>
+                <span>رمز (توكن)</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-ai-cost">
+                <b>${stats.ai.costUsd.toFixed(4)}</b>
+                <span>تكلفة فعلية</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-ai-cache-hit">
+                <b>{stats.ai.cache.hitRate}%</b>
+                <span>إصابة الكاش ({stats.ai.cache.hits})</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-ai-savings">
+                <b>${stats.ai.estimatedSavingsUsd.toFixed(4)}</b>
+                <span>وفورات تقديرية ({stats.ai.estimatedSavingsTokens.toLocaleString("en-US")} توكن)</span>
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="card">
           <h2>استيراد ملف منهجي</h2>
           <p className="muted">اختَر الدرس ثم ارفع ملف الدرس — يُستخرج نصه ويُضاف إلى قاعدة المعرفة الخاصة بذلك الدرس فقط.</p>

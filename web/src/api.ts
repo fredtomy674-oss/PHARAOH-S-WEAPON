@@ -567,6 +567,28 @@ export interface AdminStats {
   chunks: number;
   curricula: number;
   lessons: number;
+  /** PHASE 27 — subscription funnel (stored tiers + effective premium). */
+  subscriptions: {
+    total: number;
+    free: number;
+    premium: number;
+    /** Effective premium: trialing/active AND not expired. */
+    active: number;
+    /** Percentage of students with an effective premium plan (0–100). */
+    conversionRate: number;
+  };
+  /** PHASE 27 — AI usage + cache savings (counters only, no content). */
+  ai: {
+    calls: number;
+    byOperation: Record<string, number>;
+    tokens: number;
+    costUsd: number;
+    cache: { hits: number; misses: number; hitRate: number; size: number; maxEntries: number };
+    /** Estimate: recorded per-call average × cache hits (tokens). */
+    estimatedSavingsTokens: number;
+    /** Estimate: recorded per-call average × cache hits (USD). */
+    estimatedSavingsUsd: number;
+  };
 }
 
 export async function getAdminStats(): Promise<AdminStats> {
