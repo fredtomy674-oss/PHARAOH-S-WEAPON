@@ -455,6 +455,25 @@ p {
   font-size: 0.95rem;
 }
 
+/* ----- PHASE 25: ranked practice plan ----- */
+.plan-block {
+  margin-top: 0.9rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+}
+
+.plan-block h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+}
+
+.plan-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
 .question-text {
   font-size: 1.05rem;
   font-weight: 600;

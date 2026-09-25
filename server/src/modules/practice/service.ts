@@ -1,10 +1,11 @@
-import { and, asc, eq, inArray } from "drizzle-orm";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
-import { answers, concepts, curriculumEnrollments, questions } from "../../db/schema.js";
+import { answers, concepts, curriculumEnrollments, lessons, questions } from "../../db/schema.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import type { MasteryLevel } from "../progress/mastery.js";
 import { Errors } from "../../utils/errors.js";
 import { newId } from "../../utils/ids.js";
+import { sortPlan, type PracticePlanItem } from "./plan.js";
 
 /** A question the student can answer — NEVER includes the answer key. */
 export interface PracticeQuestion {
@@ -142,6 +143,65 @@ export class PracticeService {
       explanation: q.explanation,
       mastery: entry ? { score: entry.mastery, decayedScore: entry.decayedMastery, level: entry.level, labelAr: entry.labelAr } : null,
     };
+  }
+
+  /**
+   * PHASE 25 — the student's practice plan: every tracked concept ranked
+   * weakest-first (decayed mastery, then staleness), decorated with its
+   * lesson and the number of MCQ questions available in the student's
+   * enrolled curricula. Computed read-side (no writes) — the "recommendations
+   * as a plan" item deferred from D-028.
+   */
+  async planFor(studentId: string): Promise<PracticePlanItem[]> {
+    const summaries = await this.memory.masterySummary(studentId);
+    if (summaries.length === 0) return [];
+    const conceptIds = summaries.map((s) => s.conceptId);
+
+    const lessonInfo = new Map<string, { lessonId: string; lessonTitle: string }>();
+    const nameRows = await this.db.db
+      .select({ conceptId: concepts.id, lessonId: concepts.lessonId, lessonTitle: lessons.title })
+      .from(concepts)
+      .innerJoin(lessons, eq(concepts.lessonId, lessons.id))
+      .where(inArray(concepts.id, conceptIds))
+      .all();
+    for (const row of nameRows) {
+      lessonInfo.set(row.conceptId, { lessonId: row.lessonId, lessonTitle: row.lessonTitle });
+    }
+
+    const available = new Map<string, number>();
+    const enrolled = await this.enrolledCurriculumIds(studentId);
+    if (enrolled.length > 0) {
+      const countRows = await this.db.db
+        .select({ conceptId: questions.conceptId, n: sql<number>`count(*)` })
+        .from(questions)
+        .where(
+          and(eq(questions.type, "mcq"), inArray(questions.curriculumId, enrolled), inArray(questions.conceptId, conceptIds)),
+        )
+        .groupBy(questions.conceptId)
+        .all();
+      for (const row of countRows) {
+        available.set(row.conceptId ?? "", row.n);
+      }
+    }
+
+    return sortPlan(
+      summaries.map((s) => ({
+        conceptId: s.conceptId,
+        code: s.code,
+        title: s.title,
+        lessonId: lessonInfo.get(s.conceptId)?.lessonId ?? null,
+        lessonTitle: lessonInfo.get(s.conceptId)?.lessonTitle ?? null,
+        mastery: s.mastery,
+        decayedMastery: s.decayedMastery,
+        level: s.level,
+        labelAr: s.labelAr,
+        trend: s.trend,
+        attempts: s.attempts,
+        correct: s.correct,
+        daysSinceLastPractice: s.daysSinceLastPractice,
+        availableQuestions: available.get(s.conceptId) ?? 0,
+      })),
+    );
   }
 
   private async toPublic(q: { id: string; content: string; optionsJson: string | null; conceptId: string | null; difficulty: "easy" | "medium" | "hard" }): Promise<PracticeQuestion | null> {

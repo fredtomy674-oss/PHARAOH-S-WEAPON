@@ -122,13 +122,14 @@
 
 **عزل الأدوار**: والد أو admin على `GET /api/me/subscription` و`/api/achievements/me` → `403`؛ طالب على `/api/admin/subscriptions*` → `403`؛ طالب مجهول على PUT → `404`. **منح الإنجازات خادمي بحت** — يُطلق من `SessionService` على أحداث (`session_ended`, `user_message`, `document_attached`, `vision_attached`) بمنح `onConflictDoNothing` مضاد للتكرار وبعدّادات مقيّدة بجلسات الطالب نفسه؛ فشل أي منح لا يكسر الجلسة (best-effort).
 
-## 10. التمرين (PHASE 24) — تفعيل `questions`/`answers` الخاملة كقناة تقييم حتمية
+## 10. التمرين + خطة الممارسة (PHASE 24 + 25) — تفعيل `questions`/`answers` الخاملة كقناة تقييم حتمية
 
-> حلقة ضعف → ممارسة → إتقان: السؤال يُختار من **أضعف المفاهيم المتتبعة أولًا** (الأقل إتقانًا/الصحيح) ثم أي سؤال ضمن مناهج الطالب المسجَّلة (الأقدم أولًا — حتمي). التصحيح **محلي حتمي بلا أي استدعاء AI**، وكل إجابة تكتب صف `answers` وتدرّب تقييمًا (`recordAssessment` نوع `exercise`) فيتغيّر مستوى إتقان المفهوم لحظيًا (يُشاهَد في `GET /api/progress/me` ولوحة الوالد وتغذية الراجعة).
+> حلقة ضعف → ممارسة → إتقان: السؤال يُختار من **أضعف المفاهيم المتتبعة أولًا** (الأقل إتقانًا/الصحيح) ثم أي سؤال ضمن مناهج الطالب المسجَّلة (الأقدم أولًا — حتمي). التصحيح **محلي حتمي بلا أي استدعاء AI**، وكل إجابة تكتب صف `answers` وتدرّب تقييمًا (`recordAssessment` نوع `exercise`) فيتغيّر مستوى إتقان المفهوم لحظيًا (يُشاهَد في `GET /api/progress/me` ولوحة الوالد وتغذية الراجعة وخطة الممارسة). **خطة الممارسة (PHASE 25)** تُرتِّب كل مفهوم متتبَّع «الأضعف أولًا» (انحلال ثم إهمال ثم معرّف) مع درسه وعدد أسئلته المتاحة ضمن مناهج الطالب المسجَّلة — فتتحول البيانات إلى إجراء («تمرّن الآن») في الواجهة.
 
 | Method | Route | الوصف | Auth |
 |---|---|---|---|
 | GET | `/api/practice/question?conceptId=` | `{question}` حيث `question: {id, content, options: string[], conceptId, conceptTitle, difficulty}` أو `null` عند لا سؤال؛ **المفتاح لا يغادر الخادم** — `correctIndex`/`answerKey`/`optionsJson` الخام غائبة تمامًا من الـJSON (الخيارات نص فقط) | student فقط |
+| GET | `/api/practice/plan` | **PHASE 25** — `{plan}` خطة مرتّبة `[{conceptId, code, title, lessonId, lessonTitle, mastery, decayedMastery, level, labelAr, trend, attempts, correct, daysSinceLastPractice, availableQuestions}]` — «الأضعف أولًا» (انحلال ثم إهمال ثم معرّف)، `availableQuestions` بعدّاد MCQ **ضمن مناهج الطالب المسجَّلة فقط**؛ قراءة نقيّة بلا كتابة وبلا خيارات/مفتاح | student فقط |
 | POST | `/api/practice/questions/:questionId/submit` | `{optionIndex}` → `{correct: boolean, explanation: string|null, mastery: {score, decayedScore, level, labelAr}|null}` (null عند سؤال بلا مفهوم)؛ التصحيح يعتمد `correctIndex` خادميًا ويُدرّب التقييم (`+0.15` صواب / `−0.1` خطأ على صف موجود؛ `0.6/0.1` أول محاولة) — ويُكتب صف `answers` بـ`content` = النص المختار | student فقط |
 
 **قواعد وعزل**: غير مسجَّل في منهج السؤال (`curriculumEnrollments`) → `404` بلا مؤشر وجود (والسؤال لا يُخدم أصلًا عبر `question: null`)؛ ولي أمر/أدمن على أي `/api/practice/*` → `403 FORBIDDEN` (المسار مسجَّل بنطاق `student` قبل body validation)؛ غياب/خروج `optionIndex` عن حدود الخيارات أو غير عددي → `400 INVALID_OPTION`. السؤال/الخيارات/الشرح يُقرآن من `questions.optionsJson` (خادمي فقط). **السعودية بلا أسئلة تجريبية** في البذر عمدًا — إثبات نطاق التمرين لكل منهج على حدة.

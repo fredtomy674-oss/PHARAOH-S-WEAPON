@@ -43,3 +43,33 @@ test("PR1 (PHASE 24): practicing a question updates concept mastery on the stude
   await expect(page.getByTestId("mastery-level").first()).toBeVisible();
   await expect(page.getByTestId("mastery-trend").first()).toBeVisible();
 });
+
+/**
+ * PR2 (PHASE 25): the mastery engine now also drives a ranked practice plan —
+ * after PR1 practiced the weakest concept, "خطة ممارستك" lists it with its
+ * lesson + available questions, and "تمرّن الآن" opens practice scoped to it.
+ */
+test("PR2 (PHASE 25): the practice plan ranks weak concepts and opens scoped practice", async ({ page }) => {
+  await login(page);
+
+  // 1) The plan section rendered with at least one ranked concept.
+  await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("plan-list")).toBeVisible({ timeout: 20_000 });
+  const rows = page.getByTestId("plan-row");
+  expect(await rows.count()).toBeGreaterThanOrEqual(1);
+
+  // 2) Each row shows its lesson and how many questions are available.
+  await expect(page.getByTestId("plan-lesson").first()).toBeVisible();
+  await expect(page.getByTestId("plan-questions").first()).toBeVisible();
+  await expect(page.getByTestId("plan-level").first()).toBeVisible();
+  await expect(page.getByTestId("plan-trend").first()).toBeVisible();
+
+  // 3) "تمرّن الآن" on the first PRACTICABLE concept opens the practice panel
+  //    with a real question, scoped to that concept (chip shows its title).
+  const practiceable = page.locator('[data-testid="plan-practice"]:not([disabled])');
+  await expect(practiceable.first()).toBeVisible({ timeout: 20_000 });
+  await practiceable.first().click();
+  await expect(page.getByTestId("practice-panel")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("practice-question")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("practice-concept")).toBeVisible();
+});

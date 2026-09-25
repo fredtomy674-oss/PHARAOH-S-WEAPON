@@ -3,8 +3,9 @@ import { requireAuth } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 
 /**
- * PHASE 24 — practice loop feeding the concept-mastery engine.
+ * PHASE 24 + 25 — practice loop feeding the concept-mastery engine.
  *   GET  /api/practice/question?conceptId=…  → { question } (null when none)
+ *   GET  /api/practice/plan                  → { plan } ranked weakest-first
  *   POST /api/practice/questions/:id/submit  → { correct, explanation, mastery }
  * Student-only. Grading is deterministic (no AI calls), so offline + cheap.
  */
@@ -18,6 +19,15 @@ export const practiceRoutes: FastifyPluginAsync = async (app) => {
     const conceptId = typeof raw === "string" && raw.length > 0 ? raw : undefined;
     const question = await app.practice.questionFor(auth.student.id, conceptId);
     return { question };
+  });
+
+  // PHASE 25 — the ranked practice plan (weakest tracked concepts first).
+  app.get("/plan", { preHandler: requireAuth }, async (request) => {
+    const auth = request.auth!;
+    if (auth.user.role !== "student" || !auth.student) {
+      throw Errors.forbidden("التمارين مخصصة لحسابات الطلاب");
+    }
+    return { plan: await app.practice.planFor(auth.student.id) };
   });
 
   app.post("/questions/:id/submit", { preHandler: requireAuth }, async (request) => {

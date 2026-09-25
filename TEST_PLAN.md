@@ -1,6 +1,6 @@
 # TEST PLAN — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-25 — التنفيذ في `server/test/` (Vitest **231/231**)، الويب يُفحص بنيويًا + E2E بالمتصفح **31/31**.
+> آخر تحديث: 2026-09-25 — التنفيذ في `server/test/` (Vitest **241/241**)، الويب يُفحص بنيويًا + E2E بالمتصفح **32/32**.
 
 ## 1. أدوات
 
@@ -158,25 +158,38 @@
 | `test/unit/mastery.test.ts` | وحدة (15) | `masteryLevel` على حدود الأربعة مستويات تمامًا (0.8/0.6/0.4) وخارج النطاق؛ `describeMastery` يعيد المستوى + التسمية العربية؛ `decayMastery`: صفر يومٍ = نفسه، 10 أيام ≈ `m·e^(−0.2)`، معدل 0 = ثابت، أيام/معدلات سالبة محايدة، لا يخرج عن [0,1]؛ `daysBetween` غير سالب؛ `masteryTrend`: فارغ/قليل = steady، نجاحات أخيرة أعلى بـ≥0.2 = up، إخفاقات = down، قريب = steady؛ `round2`؛ `safeParseAssessment`: JSON صالح/فارغ/غير JSON/مصفوفة/كائن متناثر |
 | `test/api/practice.test.ts` | API (8) | أضعف مفهوم متتبَّع `conceptA` بخبرة واحدة خاطئة (0.1) يُخدم سؤاله **بلا تسريب مفتاح** (`correctIndex`/`answerKey` غائبان من JSON كاملًا — الخيارات نص فقط)؛ فلتر `conceptId` يعيد سؤال المفهوم؛ إجابة صحيحة → `correct:true` + شرح + `mastery.{score,level,labelAr}` + صفّ `answers` (content=النص المختار) + تقييم `type:"exercise"` في `assessments` + `studentProgress` (محاولتان، +0.15)؛ إجابة خاطئة → `correct:false` و−0.1؛ `progress/me` يكشف `mastery` بدخول المستوى/الانحلال/الحداثة/الاتجاه؛ والد → 403؛ طالب غير مسجَّل → `question:null` و404 عند الإرسال؛ `optionIndex` خارج النطاق/غير رقمي → 400 `INVALID_OPTION` |
 | `server/src/modules/progress/mastery.ts` | بنية | محرك نقي بلا I/O يوحّد التعريف (مستويات + انحلال + اتجاه) بين لوحة الطالب والوالد وتغذية التمرين؛ `safeParseAssessment` مركزي |
-| `server/src/modules/practice/service.ts` | بنية | نطاق `curriculumEnrollments` المسجَّل (التالي 404 بلا مؤشر وجود)؛ ترتيب «أضعف أولًا» ثم أي سؤال (حتمي: الأقدم)؛ **bلا `optionsJson` خام في الاستجابة**؛ درس جميع الصفوف يُدرَّب عبر `recordAssessment(type:"exercise")` |
+| `server/src/modules/practice/service.ts` | بنية | نطاق `curriculumEnrollments` المسجَّل (التالي 404 بلا مؤشر وجود)؛ ترتيب «أضعف أولًا» ثم أي سؤال (حتمي: الأقدم)؛ **بلا `optionsJson` خام في الاستجابة**؛ كل إجابة تُدرَّب عبر `recordAssessment(type:"exercise")` |
 | `server/src/db/seed.ts` | بنية | 6 أسئلة MCQ مصرية idempotent عبر `ensureDemoQuestions` (فرعا البذر) بصيغة `{options, correctIndex}`؛ السعودية بلا أسئلة (نطاق لكل منهج) |
 | `web/src/Home.tsx` | UI | قسم «إتقان المفاهيم» (شارة مستوى عربية + نسبة انحلال + سهم اتجاه + حداثة) وزر «تمرين على نقاط ضعفك» ← لوحة تمرين (سؤال/خيارات/تحقق/شرح/شارة مستوى مُحدَّثة/«سؤال آخر»/إغلاق) |
 | `web/src/Parent.tsx` | UI | مفاهيم تقدم الطفل تعرض `labelAr` بدل النسبة وحدها (شارة مستوى حسب `level`) |
 
 > مبدأ PHASE 24: التمرين **قناة التقييم الحقيقية** — `recordAssessment` لم يكن يُستدعى من أي مسار إنتاجي (خامل منذ PHASE 1)؛ الآن كل إجابة تُدرَّب (تقييم/محاولة/إتقان) بتصحيح حتمي بلا استدعاءات AI (أوفلاين وبلا تكلفة).
 
+## 4.13 خطة الممارسة (PHASE 25) — توصيات الإتقان كخطة مرتّبة قابلة للتنفيذ
+
+| الملف | المجموعة | ماذا يختبر |
+|---|---|---|
+| `test/unit/practicePlan.test.ts` | وحدة (5) | `sortPlan`: أضعف `decayedMastery` أولًا (0.2 قبل 0.6 قبل 0.9)؛ كسر تعادل بالحداثة (12 يومًا قبل 7 قبل 0)؛ كسر نهائي حتمي بـ`conceptId` (`apple` قبل `zebra`)؛ **لا يعدّل مصفوفة المدخلات** (ترتيبها الأصلي يبقى والمرجع مختلف)؛ «متقن» (0.95) بعد «يحتاج مراجعة» (0.3) مع تساوي الحداثة |
+| `test/api/practicePlan.test.ts` | API (5) | `GET /api/practice/plan`: طالب بلا تتبع ← `{plan:[]}`؛ بعد إجابة خاطئة على `conceptA` ← صفّ واحد: أضعف مفهوم + `level:"needs_review"` + `lessonId/lessonTitle` من الكوربس + `availableQuestions:2` (سؤالا A) + `decayedMastery ≤ mastery` + **3 نفي تسريب** (`correctIndex`/`answerKey`/`options` غائبة)؛ رفع A بإجابات صحيحة ثم إضعاف B ← `B` أولًا (0.1 < 0.55) و`availableQuestions:1`؛ طالب يتابع مفهومًا **بلا تسجيل** ← `availableQuestions:0` (عدّاد النطاق)؛ والد → 403 |
+| `server/src/modules/practice/plan.ts` | بنية | `sortPlan` نقي بلا I/O قابل للاختبار وحدات؛ صف الخطة فوق-بيانات (لا خيارات/مفتاح أبدًا) |
+| `server/src/modules/practice/service.ts` | بنية | `planFor` يبني الخطة من `masterySummary` + ربط `concepts↔lessons` + عدّاد `questions` (mcq) موقوف على `curriculumEnrollments` النشطة |
+| `server/src/modules/practice/routes.ts` | بنية | مسار `/plan` student فقط (403 للوالد/أدمن) — قراءة نقيّة بلا كتابة |
+| `web/src/Home.tsx` | UI | قسم «خطة ممارستك» (شارة مستوى + عنوان درس + «n سؤال متاح» + حداثة + سهم اتجاه) وزر «تمرّن الآن» (معطَّل عند 0) يفتح لوحة التمرين **مقيّدة بالمفهوم**؛ تُحدَّث الخطة بعد إجابة وإغلاق |
+
+> مبدأ PHASE 25: «الإتقان بلا خطة قيمة مجمّدة» — الخطة قراءةً نقيّة (بلا كتابة) بترتيب حتمي صافٍ (انحلال ثم إهمال ثم معرّف)؛ `availableQuestions` يعكس نطاق التسجيل الحقيقي فلا يُوعد الطالب بتمرين لا مادة له؛ لا مفتاح/خيارات في الـJSON إطلاقًا.
+
 ---
 
 # الجزء الثاني — Browser End-to-End (Playwright)
 
-> آخر تحديث: 2026-09-25 — **31/31 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
+> آخر تحديث: 2026-09-25 — **32/32 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
 
 ## 5. التشغيل والمتطلبات
 
 ```bash
 npm install                       # بعد إضافة @playwright/test
 npm run e2e:install               # مرة واحدة: تنزيل Chromium (~115MB)
-npm run e2e                       # يشغّل كل شيء تلقائيًا (خادمان مُداران + 31 اختبارًا)
+npm run e2e                       # يشغّل كل شيء تلقائيًا (خادمان مُداران + 32 اختبارًا)
 npm run e2e -- --ui               # وضع Playwright UI (اختياري)
 npm run e2e:report                # فتح تقرير HTML السابق
 ```
@@ -193,7 +206,7 @@ npm run e2e:report                # فتح تقرير HTML السابق
 - **ولي الأمر: `parent@alfarouq.test` / `parent-demo-123`** (نفس التزرعة — مربوط مسبقًا بالطالب التجريبي؛ كود الربط الثابت `SLH7KQ9M`).
 - اختبار عزل البيانات (C) يسجّل طالبًا جديدًا عشوائيًا مؤقتًا.
 
-## 7. الحالات المغطاة (31)
+## 7. الحالات المغطاة (32)
 
 | # | الملف | ماذا يختبر | ملاحظات |
 |---|---|---|---|
@@ -228,6 +241,7 @@ npm run e2e:report                # فتح تقرير HTML السابق
 | E1 | `achievements.spec.ts` | طالب **جديد** يسجّل من واجهة التسجيل الحقيقية → بطاقة «خطتك» تظهر «مجانية» → يُنهي أول درس (درس كامل) → يفتح «🏆 إنجازاتي» → شارة «أول خطوة» مكتسبة (`data-earned=true`) وبقية الشارات مقفلة | serial — التسجيل عبر UI لأن بدء الجلسة يحتاج رمز CSRF في localStorage |
 | E2 | `achievements.spec.ts` | admin يفتح «الاشتراكات» في اللوحة → صف الطالب يُلتقط بالبريد → زر ترقية → `data-plan="premium"` → **نفس الطالب** يسجّل دخولًا ويجد بطاقته «مميزة» | المنح إداري بلا بوابة دفع؛ زر الإلغاء `sub-revoke-*` يعيد «مجانية» |
 | PR1 | `practice.spec.ts` | (PHASE 24) الطالب يفتح «تمرين سريع» → سؤال MCQ مصر الأول يظهر (`practice-question`) **بلا `correctIndex`/`answerKey` في الصفحة** → اختيار خيار → تغذية راجعة (`practice-feedback` تطابق إما «إجابة صحيحة» أو «إجابة خاطئة») + شرح + شارة مستوى (`practice-mastery`) → «سؤال آخر» يعيد فتح لوحة السؤال → reload الرئيسية → قسم «إتقان المفاهيم» فيه **صف واحد على الأقل** بشارة مستوى (`mastery-concept-row`) | التمرين حتمي بلا AI؛ النتيجة تحتمل صح/خطأ (الخيار الأول) — التغذية الراجعة تقبَل الحالتين |
+| PR2 | `practice.spec.ts` | (PHASE 25) بعد PR1 صار المفهوم الأضعف متتبَّعًا → «خطة ممارستك» (`plan-section` + `plan-list`) فيها **صف واحد على الأقل** (`plan-row`) بدرس (`plan-lesson`) وعدد أسئلة متاحة (`plan-questions`) وشارة مستوى (`plan-level`) وسهم اتجاه (`plan-trend`) → زر «تمرّن الآن» لأول مفهوم **ممارَس** (`plan-practice:not([disabled])`) يفتح لوحة التمرين (`practice-panel`) بسؤال حقيقي (`practice-question`) + شارة المفهوم (`practice-concept`) | الخطة قراءة نقيّة من الإتقان؛ E2E يتسامح مع أي حالة تراكمية (استهداف `:not([disabled])`) |
 
 ## 8. قيود معروفة
 

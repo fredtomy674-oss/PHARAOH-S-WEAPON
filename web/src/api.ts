@@ -380,6 +380,29 @@ export async function submitPracticeAnswer(questionId: string, optionIndex: numb
   });
 }
 
+// PHASE 25 — the ranked practice plan (weakest tracked concepts first).
+export interface PracticePlanItem {
+  conceptId: string;
+  code: string;
+  title: string;
+  lessonId: string | null;
+  lessonTitle: string | null;
+  mastery: number;
+  decayedMastery: number;
+  level: MasteryLevel;
+  labelAr: string;
+  trend: "up" | "steady" | "down";
+  attempts: number;
+  correct: number;
+  daysSinceLastPractice: number;
+  availableQuestions: number;
+}
+
+export async function getPracticePlan(): Promise<PracticePlanItem[]> {
+  const res = await api<{ plan: PracticePlanItem[] }>("/practice/plan");
+  return res.plan;
+}
+
 // --- Parent dashboard (PHASE 18) -------------------------------------------
 
 export interface ParentLastSession {

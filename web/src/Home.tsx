@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import {
   getMySubscription,
+  getPracticePlan,
   getPracticeQuestion,
   listSessions,
   myProgress,
   submitPracticeAnswer,
   type LearningSession,
+  type PracticePlanItem,
   type PracticeQuestion,
   type PracticeResult,
   type ProgressDetail,
@@ -46,21 +48,28 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
   const [practice, setPractice] = useState<PracticeState | null>(null);
+  // PHASE 25 — ranked practice plan (null = still loading, [] = loaded + empty).
+  const [plan, setPlan] = useState<PracticePlanItem[] | null>(null);
+
+  function refreshPlan(): void {
+    getPracticePlan().then(setPlan).catch(() => undefined);
+  }
 
   useEffect(() => {
     listSessions().then(setSessions).catch(() => undefined);
     myProgress().then(setProgress).catch(() => undefined);
     if (user.role === "student") {
       getMySubscription().then(setSubscription).catch(() => undefined);
+      refreshPlan();
     }
   }, [user.role]);
 
   const studentName = user.student?.displayName ?? user.email;
 
-  async function startPractice() {
+  async function startPractice(conceptId?: string) {
     setPractice({ question: null, chosen: null, result: null, busy: false, loading: true, error: null });
     try {
-      const question = await getPracticeQuestion();
+      const question = await getPracticeQuestion(conceptId);
       setPractice((p) => (p ? { ...p, question, loading: false } : p));
     } catch {
       setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
@@ -83,6 +92,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
     try {
       const result = await submitPracticeAnswer(practice.question.id, practice.chosen);
       setPractice((p) => (p ? { ...p, busy: false, result } : p));
+      refreshPlan();
     } catch {
       setPractice((p) => (p ? { ...p, busy: false, error: "تعذر إرسال الإجابة." } : p));
     }
@@ -152,7 +162,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
           <section className="card" data-testid="progress-card">
             <div className="row-between">
               <h3>تقدّمك</h3>
-              <button className="btn ghost" onClick={startPractice} data-testid="open-practice">
+              <button className="btn ghost" onClick={() => startPractice()} data-testid="open-practice">
                 ✏️ تمرين على نقاط ضعفك
               </button>
             </div>
@@ -207,6 +217,49 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                 </ul>
               )}
             </div>
+
+            {/* PHASE 25 — ranked practice plan feeding the practice panel. */}
+            <div className="plan-block" data-testid="plan-section">
+              <h4>خطة ممارستك</h4>
+              {plan === null ? (
+                <p className="muted" data-testid="plan-loading">
+                  جارٍ تحضير خطتك…
+                </p>
+              ) : plan.length === 0 ? (
+                <p className="muted" data-testid="plan-empty">
+                  لا توجد مفاهيم متتبعة بعد — أجب عن تمارين لتظهر خطتك هنا.
+                </p>
+              ) : (
+                <ul className="progress-list" data-testid="plan-list">
+                  {plan.map((item) => (
+                    <li key={item.conceptId} className="progress-row" data-testid="plan-row">
+                      <div className="plan-main">
+                        <span>
+                          {item.title}{" "}
+                          <span className={`pill ${item.level === "mastered" || item.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="plan-level">
+                            {item.labelAr}
+                          </span>
+                        </span>
+                        <span className="muted" data-testid="plan-meta">
+                          <span data-testid="plan-lesson">{item.lessonTitle ?? "درس غير معروف"}</span> ·{" "}
+                          <span data-testid="plan-questions">{item.availableQuestions} سؤال متاح</span> ·{" "}
+                          {item.daysSinceLastPractice === 0 ? "اليوم" : `منذ ${item.daysSinceLastPractice} يوم`}{" "}
+                          <span data-testid="plan-trend">{trendArrow(item.trend)}</span>
+                        </span>
+                      </div>
+                      <button
+                        className="btn small primary"
+                        data-testid="plan-practice"
+                        disabled={item.availableQuestions === 0}
+                        onClick={() => startPractice(item.conceptId)}
+                      >
+                        تمرّن الآن
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </section>
         )}
 
@@ -214,7 +267,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
           <section className="card" data-testid="practice-panel">
             <div className="row-between">
               <h3>تمرين سريع</h3>
-              <button className="btn ghost" onClick={() => setPractice(null)} data-testid="practice-close">
+              <button className="btn ghost" onClick={() => { setPractice(null); refreshPlan(); }} data-testid="practice-close">
                 إغلاق
               </button>
             </div>
