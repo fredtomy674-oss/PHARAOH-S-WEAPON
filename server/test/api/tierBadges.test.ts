@@ -59,7 +59,7 @@ describe("tiered mastery achievements (PHASE 31)", () => {
       for (const id of ids) await answerCorrect(id);
     }
     const body = await myAchievements();
-    expect(body.total).toBe(10);
+    expect(body.total).toBe(12);
     const byCode = (code: string) => body.achievements.find((a: { code: string }) => a.code === code);
     expect(byCode("mastery_first").awardedAt).toBeTruthy();
     expect(byCode("mastery_three").awardedAt).toBeTruthy();
@@ -100,6 +100,6 @@ describe("tiered mastery achievements (PHASE 31)", () => {
     const body = await myAchievements();
     expect(body.achievements.find((a: { code: string }) => a.code === "mastery_five").awardedAt).toBeTruthy();
     // The tier locks GET /me isolation already covered: earned stays per student.
-    expect(body.total).toBe(10);
+    expect(body.total).toBe(12);
   });
 });

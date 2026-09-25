@@ -314,9 +314,11 @@ export class PracticeService {
     const entry = summary.find((s) => s.conceptId === conceptId) ?? null;
     // PHASE 26 — the mastery engine now feeds badges (best-effort, never blocks
     // the answer): practice activity + concepts at the «متقن» display level.
+    // PHASE 32 — answering also refreshes the student's daily-activity streak.
     try {
       await this.achievements.evaluate(studentId, "practice_answer");
       await this.achievements.evaluate(studentId, "mastery_achieved");
+      await this.achievements.evaluateStreak(studentId);
     } catch {
       // Badge bookkeeping must never break the core loop — next answer retries.
     }

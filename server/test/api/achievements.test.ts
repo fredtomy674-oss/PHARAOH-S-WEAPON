@@ -46,11 +46,12 @@ describe("achievements API (PHASE 20 — gamification)", () => {
     api.app.close();
   });
 
-  it("starts with 0 earned out of 10 total (all locked)", async () => {
+  it("starts with 0 earned out of 12 total (all locked)", async () => {
     const res = await api.app.inject({ method: "GET", url: "/api/achievements/me", headers: headers(s) });
     expect(res.statusCode).toBe(200);
     const body = res.json();
-    expect(body.total).toBe(10); // 6 PHASE 20 + practice_starter + mastery_first (PHASE 26) + mastery_three/mastery_five (PHASE 31)
+    // 10 PHASE 20/26/31 + streak_three/streak_seven (PHASE 32) = 12 total
+    expect(body.total).toBe(12);
     expect(body.earned).toBe(0);
     expect(body.achievements.every((a: { awardedAt: string | null }) => a.awardedAt === null)).toBe(true);
   });

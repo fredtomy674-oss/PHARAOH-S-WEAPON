@@ -489,6 +489,21 @@ p {
   border-top: 1px dashed var(--border);
 }
 
+/* PHASE 32 — plan header row: title + the daily-streak chip. */
+.plan-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.plan-head h4 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* (the .plan-block h4 rule keeps working for nested headings if reused) */
 .plan-block h4 {
   margin: 0 0 0.4rem;
   font-size: 0.95rem;

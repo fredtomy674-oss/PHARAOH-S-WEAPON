@@ -403,6 +403,8 @@ export class SessionService {
   private async award(studentId: string, event: AchievementEvent): Promise<void> {
     try {
       await this.achievements.evaluate(studentId, event);
+      // PHASE 32 — any learning activity also refreshes the daily streak.
+      await this.achievements.evaluateStreak(studentId);
     } catch {
       // gamification is optional behavior; a DB hiccup must not fail a turn.
     }

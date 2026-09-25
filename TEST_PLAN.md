@@ -1,6 +1,6 @@
 # TEST PLAN — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-26 — التنفيذ في `server/test/` (Vitest **367/367**)، الويب يُفحص بنيويًا + E2E بالمتصفح **40/40**.
+> آخر تحديث: 2026-09-26 — التنفيذ في `server/test/` (Vitest **381/381**)، الويب يُفحص بنيويًا + E2E بالمتصفح **40/40**.
 
 ## 1. أدوات
 
@@ -118,7 +118,7 @@
 | `test/unit/subscription.test.ts` | Unit (5) | «سارية» فقط عند `plan=premium` + `status∈trialing|active` + غير منتهٍ؛ `past_due`/`cancelled`/منتهٍ → حد المجاني؛ `dailyLimitFor`: مجاني = `DAILY_MESSAGE_LIMIT`، مميز = `PREMIUM_DAILY_MESSAGE_LIMIT` (0 = بلا حدود)؛ `summaryForStudent`/`setPlan` upsert (وضع خطة يعيد تعيين الحالة الافتراضية) |
 | `test/unit/achievements.test.ts` | Unit (7) | بذر التعريفات idempotent بالكود (فريد، بلا تكرار) وكلها مقفلة؛ `first_steps` على أول جلسة منتهية؛ **لا تكرار** عند إعادة التقييم؛ `explorer` عند 5 و`scholar` عند 10؛ `chatty_student` عند 50 رسالة؛ `bookworm` لمرفق PDF و`photographer` لصورة (إدراج مباشر)؛ **عزل بين طالبين** (ب لا يرى جوائز أ) |
 | `test/api/subscription.test.ts` | API (7) | إنشاء **كسول** مجاني + ملخص؛ والد/إدارة ← 403؛ قائمة الإدارة تُظهر الطالب بعد أول قراءة؛ منح مميز → الطالب يرى `dailyLimit=0` + سجل تدقيق `subscription.update`؛ طالب مجهول ← 404؛ طالب يمنح نفسه ← 403؛ **مميز منتهٍ → الخطة معلنة لكن الميزانية مجانية** (50) |
-| `test/api/achievements.test.ts` | API (6) | 0 من 10 مقفلة طازجًا؛ صورة في جلسة حقيقية → شارة «مصوّر الأسئلة»؛ PDF → «قارئ نهم»؛ إنهاء الجلسة → «أول خطوة» (الإجمالي 3)؛ والد ← 403؛ عزل: طالب آخر 0 |
+| `test/api/achievements.test.ts` | API (6) | 0 من 12 مقفلة طازجًا؛ صورة في جلسة حقيقية → شارة «مصوّر الأسئلة»؛ PDF → «قارئ نهم»؛ إنهاء الجلسة → «أول خطوة» (الإجمالي 3)؛ والد ← 403؛ عزل: طالب آخر 0 |
 
 > فلسفة التغطية: `dailyLimitFor` يُختبر وحدويًا لأن الإعدادات تُحلَّل في استيراد الوحدة (لا تتجاوز لكل اختبار)؛ واجهات API تثبت أن `remainingBudget`/الملخص يعكس الخطة (مجاني N−1، مميز بلا حد)؛ مسار الـ429 نفسه منطق قائم لم يتغير.
 
@@ -245,18 +245,32 @@
 |---|---|---|
 | `test/unit/masteryTime.test.ts` | وحدة (8) | `answerTimeBand`: null/undefined/سالبة/NaN → `unknown`، 0..9 → `fast`، 10..60 → `normal`، 61+ → `slow`؛ `TIME_MULTIPLIER` (سريع 1.25 / عادي 1 / بطيء 0.75 / مجهول 1)؛ `timeScaledDelta`: بقاء الحتميات التاريخية عند مجهول، مضاعفة الدلتا بالنطاق باتجاه واحد للصح والخطأ، وتركيب EWMA عبر `round2` (سريع 0.79 > بطيء 0.71 > محايد 0.75؛ خاطئ سريع 0.48 مقابل 0.5 محايد) |
 | `test/api/practiceTime.test.ts` | API (4) | إرسال `timeTakenSeconds` → يُخزَّن في `answers.answer_seconds` ويفرّق المتتاليات (سريع 3ث → 0.79 ضد بطيء 500ث → 0.71 على نفس المفهوم والنتيجة)؛ **المحاولة الأولى محايدة** (0.6) في أي سرعة وعلى أي صعوبة؛ إسقاط الفاسد/خارج النطاق (سلسلة/كسر/601) → null + مضاعِف الوحدة (0.6 ثم 0.75)؛ **المفتوح لا يسجّل زمنًا** أبدًا (answerSeconds null مع اكتمال التصحيح والإتقان) |
-| `test/api/tierBadges.test.ts` | API (2) | عبر حلقة الإرسال الحقيقية: إتقان 3 مفاهيم → `mastery_three` مكتسبة و`mastery_five` مقفولة و`total=10`؛ إتقان مفهومَين إضافيَّين (مفاهيم/أسئلة مدخلة في الـDB) → `mastery_five` مكتسبة |
+| `test/api/tierBadges.test.ts` | API (2) | عبر حلقة الإرسال الحقيقية: إتقان 3 مفاهيم → `mastery_three` مكتسبة و`mastery_five` مقفولة و`total=12`؛ إتقان مفهومَين إضافيَّين (مفاهيم/أسئلة مدخلة في الـDB) → `mastery_five` مكتسبة |
 | `server/src/modules/...` | بنية | `progress/mastery.ts` (`AnswerTimeBand`/حدّا النطاق/`TIME_MULTIPLIER`/`answerTimeBand`/`timeScaledDelta` — كلها نقية) + `tutor/memoryService.ts` (`recordAssessment(answerSeconds?)` مع `round2` على الصف الموجود) + `db/schema.ts` + `drizzle/migrations/0008_*.sql` (`answers.answer_seconds` nullable) + `practice/service.ts` (`timeTakenSeconds?` + `normalizeAnswerSeconds`؛ MCQ يخزّن/يمرّر والمفتوح null) + `practice/routes.ts` + `achievements/service.ts` (`mastery_three`/`mastery_five` — المجموع 10) |
 | `web/src/api.ts` + `web/src/Home.tsx` | بنية | `submitPracticeAnswer(id, option, timeTakenSeconds?)` تُضمّنه عند توفّره؛ `PracticeState.shownAt` عند كل سؤال (بدء/توليد/تالي) + ثوانٍ مقصوصة 1..600 على إرسال MCQ فقط |
-| `test/api/achievements.test.ts` | API (6) | تحديث ميكانيكي: `total` 8 → **10** (تم تمرير شارات التدرّج الجديدة) |
+| `test/api/achievements.test.ts` | API (6) | تحديث ميكانيكي: `total` 8 → 10 → **12** (تم تمرير شارات التدرّج والمواظبة الجديدة) |
 
 > مبدأ PHASE 31: سرعة الإجابة **إشارة قوة لا حُكم** — تُضخّم الدلتا باتجاه واحد للصح والخطأ (سريع ×1.25 / بطيء ×0.75 / مجهول ×1)، والمحاولة الأولى تبقى محايدة، وعدم الإرسال لا يغيّر المسار القديم حرفيًا. شارات التدرّج تمنحها نفس عدّادات المستوى المعروض «متقن» بلا كود جديد.
+
+## 4.20 التعاقب اليومي + شارات «المواظبة» (PHASE 32) — إغلاق بندَي D-024/D-035 «تتابع أسبوعي»
+
+| الملف | المجموعة | ماذا يختبر |
+|---|---|---|
+| `test/unit/streak.test.ts` | وحدة (10) | `dayKey` من توقيع الوقت (بداية/نهاية يوم UTC)؛ `previousDay` يعبر أشهرًا/سنوات (28 فبراير، 1 يناير −3)؛ `streakForDates`: صفر على فارغ/فاسد، يومٌ وحيد اليوم، **سلسلة تنتهي أمس مع بقاء اليوم فارغًا** (الرأفة)، 3 أيام متتالية، دمج التكرار والترتيب العشوائي، **انقطاع يعيد التصفير** (1 و2 بحسب موقع الفجوة)، تجاهل الأيام المستقبلية، أسبوع كامل = 7 |
+| `test/api/streak.test.ts` | API (4) | بذر أيام ماضية مباشرة + إرسال اليوم عبر الحلقة الحقيقية: 3 أيام متتالية → «مواظب 3 أيام» مكتسبة و«مواظب أسبوع» مقفولة و`total=12` والخطة تُفصح `streak:3`؛ **يوم ضائع** (3 و1 فقط) → `streak:2` بلا شارة؛ **جلسات تُعدّ نشاطًا** (جلسات يومٍ واحد تُدمج أُيّامه، +إجابة اليوم → 2) مع عدم تسريب شارة لطالب آخر (عزل)؛ **إعادة تقييم لا تمنح مزدوجًا** (عدّاد المكتسب قبل/بعد متساوٍ) |
+| `server/src/modules/progress/streak.ts` | بنية | محرك نقي بلا I/O: `dayKey`/`previousDay`/`streakForDates` (UTC، تكرارات/ترتيب/مستقبل مُعالَجة) |
+| `server/src/modules/achievements/service.ts` | بنية | `streakForStudent` (قراءة `answers.createdAt` ∪ `learningSessions.startedAt` — بدء الجلسة يومُ نشاطٍ؛ عمودا الزمن `ts()` = epoch ميلي-ثانية تُستخرج أُيّامهما في JS لأن جدول الجلسات بلا `createdAt`) + `evaluateStreak` (منح **بمقارنة التعاقب الحالي** عبر نفس `awardFor` المضاد للتكرار) + حدث `daily_streak` يفوضه `evaluate` + تعريفا `streak_three`/`streak_seven` (المجموع 10 → 12) |
+| `server/src/modules/practice/service.ts` + `sessions/service.ts` | بنية | حقن best-effort: بعد كل إجابة تمرين (`masteryAfter`) وفي كل حدث جلسة (`award`) — إعادة تقييم التعاقب بلا كسر للمسار |
+| `server/src/modules/practice/routes.ts` | بنية | `GET /api/practice/plan` ← `{ plan, streak }` |
+| `web/src/api.ts` + `web/src/Home.tsx` + `styles.css` | بنية | `getPracticePlan()` ← `PracticePlanResponse { plan, streak }`؛ شارة «🔥 تعاقب N أيام» فوق خطة الممارسة (`data-testid="practice-streak"`، جمع عربي 1/2/3-10/11+ عبر `streakLabel`) + صف `plan-head` |
+
+> مبدأ PHASE 32: التعاقب **وصف حتمي للسلوك لا عدّاد مكافأة** — يُقرأ من بيانات التمارين والجلسات الفعلية وقت الطلب، واليوم غير المنتهي لا يكسر السلسلة، والشارات دائمة (يوم ضائع لا يلغي مكتسبة)، والمنح مُقارن بالتعاقب الحالي فيتسق مع ما يَراه الطالب.
 
 ---
 
 # الجزء الثاني — Browser End-to-End (Playwright)
 
-> آخر تحديث: 2026-09-25 — **40/40 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
+> آخر تحديث: 2026-09-26 — **40/40 أخضر** عبر `npm run e2e`. الاختبارات حقيقية 100%: متصفح Chromium → React SPA → Vite proxy → Fastify → SQLite → RAG → AI provider (mock=افتراضي المشروع) → persistence → المتصفح.
 
 ## 5. التشغيل والمتطلبات
 
@@ -316,7 +330,7 @@ npm run e2e:report                # فتح تقرير HTML السابق
 | O2 | `ocr.spec.ts` | admin يستورد PDF ممسوحًا ضوئيًا على درس → نجاح بعدد مقاطع + صف في اللائحة بـ`chunkCount>0` | المسار الكامل: ingest ← OCR ← chunks RAG |
 | Q1 | `open.spec.ts` | (PHASE 30) الطالب يفتح «خطة ممارستك» → صف **«تبسيط الكسور»** (بسؤال مفتوح مبذور `answerKey=«2/3»`) يعرض زر **«سؤال مقالي»** (`plan-open-practice`) → اللوحة تعرض الحقل الحر `practice-open-input` → كتابة «2/3» → **موفقة** (`practice-feedback` تحوي «موفقة» — تغذية mock للصحيح) + شارة `practice-score` + إتقان `practice-mastery` → **`answerKey`/`correctIndex` غائبان عن `body` إطلاقًا** | سؤال المبذور الجديد حتمي النتيجة (تغطية تامة = 1.0)؛ النص اللاتيني/العربي متكافئ بعد التطبيع |
 | Q2 | `open.spec.ts` | (PHASE 30) صف **«الطرح مع الاستلاف»** (بلا سؤال مفتوح مبذور) يعرض **«توليد سؤال مقالي»** (`plan-open-generate`) → يفتح اللوحة على سؤال مفتوح **مولَّد عند الطلب** (نص السؤال + حقل حر) → كتابة أي نص → `practice-feedback` غير فارغة و**لا `answerKey` في body** | التوليد مرتكز على مقاطع الدرس (mock حتمي)؛ نتيجة التصحيح تحتمل أيًا من النطاقات — التغذية الراجعة تُفحص لوجودها لا محتواها |
-| E1 | `achievements.spec.ts` | طالب **جديد** يسجّل من واجهة التسجيل الحقيقية → بطاقة «خطتك» تظهر «مجانية» → يُنهي أول درس (درس كامل) → يفتح «🏆 إنجازاتي» → شارة «أول خطوة» مكتسبة (`data-earned=true`) وبقية الشارات مقفلة — وبعد PHASE 31: **10 صفوف** (`achievement-row`) وشارتا التدرّج `mastery_three`/`mastery_five` مقفلتان | serial — التسجيل عبر UI لأن بدء الجلسة يحتاج رمز CSRF في localStorage |
+| E1 | `achievements.spec.ts` | طالب **جديد** يسجّل من واجهة التسجيل الحقيقية → بطاقة «خطتك» تظهر «مجانية» → يُنهي أول درس (درس كامل) → يفتح «🏆 إنجازاتي» → شارة «أول خطوة» مكتسبة (`data-earned=true`) وبقية الشارات مقفلة — وبعد PHASE 31+32: **12 صفًا** (`achievement-row`) وشارات التدرّج والمواظبة الأربع (`mastery_three`/`mastery_five`/`streak_three`/`streak_seven`) مقفلة | serial — التسجيل عبر UI لأن بدء الجلسة يحتاج رمز CSRF في localStorage |
 | E2 | `achievements.spec.ts` | admin يفتح «الاشتراكات» في اللوحة → صف الطالب يُلتقط بالبريد → زر ترقية → `data-plan="premium"` → **نفس الطالب** يسجّل دخولًا ويجد بطاقته «مميزة» | المنح إداري بلا بوابة دفع؛ زر الإلغاء `sub-revoke-*` يعيد «مجانية» |
 | PR1 | `practice.spec.ts` | (PHASE 24) الطالب يفتح «تمرين سريع» → سؤال MCQ مصر الأول يظهر (`practice-question`) **بلا `correctIndex`/`answerKey` في الصفحة** → اختيار خيار → تغذية راجعة (`practice-feedback` تطابق إما «إجابة صحيحة» أو «إجابة خاطئة») + شرح + شارة مستوى (`practice-mastery`) → «سؤال آخر» يعيد فتح لوحة السؤال → reload الرئيسية → قسم «إتقان المفاهيم» فيه **صف واحد على الأقل** بشارة مستوى (`mastery-concept-row`) | التمرين حتمي بلا AI؛ النتيجة تحتمل صح/خطأ (الخيار الأول) — التغذية الراجعة تقبَل الحالتين |
 | PR2 | `practice.spec.ts` | (PHASE 25) بعد PR1 صار المفهوم الأضعف متتبَّعًا → «خطة ممارستك» (`plan-section` + `plan-list`) فيها **صف واحد على الأقل** (`plan-row`) بدرس (`plan-lesson`) وعدد أسئلة متاحة (`plan-questions`) وشارة مستوى (`plan-level`) وسهم اتجاه (`plan-trend`) → زر «تمرّن الآن» لأول مفهوم **ممارَس** (`plan-practice:not([disabled])`) يفتح لوحة التمرين (`practice-panel`) بسؤال حقيقي (`practice-question`) + شارة المفهوم (`practice-concept`) | الخطة قراءة نقيّة من الإتقان؛ E2E يتسامح مع أي حالة تراكمية (استهداف `:not([disabled])`) |

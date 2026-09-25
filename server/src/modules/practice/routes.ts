@@ -14,6 +14,7 @@ import { Errors } from "../../utils/errors.js";
  * once per questionless concept (per kind), then cached/stored for everyone.
  * PHASE 31: the submit payload may carry `timeTakenSeconds` (integer 1..600)
  * which the service stores and uses to scale the mastery delta (MCQ only).
+ * PHASE 32: `GET /plan` also returns `streak` (consecutive activity days).
  */
 export const practiceRoutes: FastifyPluginAsync = async (app) => {
   app.get("/question", { preHandler: requireAuth }, async (request) => {
@@ -37,7 +38,9 @@ export const practiceRoutes: FastifyPluginAsync = async (app) => {
     if (auth.user.role !== "student" || !auth.student) {
       throw Errors.forbidden("التمارين مخصصة لحسابات الطلاب");
     }
-    return { plan: await app.practice.planFor(auth.student.id) };
+    // PHASE 32 — the plan now reports the student's current daily streak so
+    // the practice screen can show «🔥 تعاقب N أيام».
+    return { plan: await app.practice.planFor(auth.student.id), streak: await app.achievements.streakForStudent(auth.student.id) };
   });
 
   // PHASE 28 + 30 — self-healing practice: generate one MCQ (kind defaults to

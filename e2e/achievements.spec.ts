@@ -51,11 +51,16 @@ test("E1: a fresh student earns أول خطوة after their first session and se
   const explorer = page.locator('[data-testid="achievement-row"][data-code="explorer"]');
   await expect(explorer).toHaveAttribute("data-earned", "false");
   // PHASE 31 — the tiered mastery badges are visible and locked at 0 mastered.
-  await expect(page.getByTestId("achievement-list").locator('[data-testid="achievement-row"]')).toHaveCount(10);
+  // PHASE 32 — the streak badges are visible too (12 total rows now).
+  await expect(page.getByTestId("achievement-list").locator('[data-testid="achievement-row"]')).toHaveCount(12);
   const masteryThree = page.locator('[data-testid="achievement-row"][data-code="mastery_three"]');
   await expect(masteryThree).toHaveAttribute("data-earned", "false");
   const masteryFive = page.locator('[data-testid="achievement-row"][data-code="mastery_five"]');
   await expect(masteryFive).toHaveAttribute("data-earned", "false");
+  const streakThree = page.locator('[data-testid="achievement-row"][data-code="streak_three"]');
+  await expect(streakThree).toHaveAttribute("data-earned", "false");
+  const streakSeven = page.locator('[data-testid="achievement-row"][data-code="streak_seven"]');
+  await expect(streakSeven).toHaveAttribute("data-earned", "false");
   await page.getByTestId("achievements-back").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 });

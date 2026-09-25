@@ -53,6 +53,14 @@ function trendArrow(t: "up" | "steady" | "down"): string {
   return t === "up" ? "↑" : t === "down" ? "↓" : "→";
 }
 
+/** PHASE 32 — Arabic pluralization for the streak chip (1/2/3-10/11+). */
+function streakLabel(n: number): string {
+  if (n === 1) return "يوم";
+  if (n === 2) return "يومان";
+  if (n <= 10) return "أيام";
+  return "يومًا";
+}
+
 export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmin, onOpenAchievements }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
@@ -60,6 +68,8 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   const [practice, setPractice] = useState<PracticeState | null>(null);
   // PHASE 25 — ranked practice plan (null = still loading, [] = loaded + empty).
   const [plan, setPlan] = useState<PracticePlanItem[] | null>(null);
+  // PHASE 32 — the student's current daily-activity streak (days in a row).
+  const [streak, setStreak] = useState(0);
   // PHASE 29 — session recaps per ended session (undefined = not loaded yet,
   // null = loaded but empty/no recap).
   const [recaps, setRecaps] = useState<Record<string, SessionRecap | null | undefined>>({});
@@ -72,7 +82,12 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   }
 
   function refreshPlan(): void {
-    getPracticePlan().then(setPlan).catch(() => undefined);
+    getPracticePlan()
+      .then((res) => {
+        setPlan(res.plan);
+        setStreak(res.streak);
+      })
+      .catch(() => undefined);
   }
 
   useEffect(() => {
@@ -269,7 +284,15 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
             {/* PHASE 25 — ranked practice plan feeding the practice panel. */}
             <div className="plan-block" data-testid="plan-section">
-              <h4>خطة ممارستك</h4>
+              <div className="plan-head">
+                <h4>خطة ممارستك</h4>
+                {/* PHASE 32 — consecutive active days, shown when > 0. */}
+                {streak > 0 && (
+                  <span className="pill ok-pill" data-testid="practice-streak">
+                    🔥 تعاقب {streak} {streakLabel(streak)}
+                  </span>
+                )}
+              </div>
               {plan === null ? (
                 <p className="muted" data-testid="plan-loading">
                   جارٍ تحضير خطتك…

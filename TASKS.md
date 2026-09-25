@@ -310,6 +310,18 @@
 - [x] اختبارات: وحدة `masteryTime.test.ts` (**8**) + API `practiceTime.test.ts` (**4** — تخزين/تفاوت 0.79>0.71/حيادية أولى/إسقاط فاسد/صفر مفتوح) + API `tierBadges.test.ts` (**2** — شارات 3 ثم 5 عبر حلقة الإرسال الحقيقية) + `achievements.test.ts` total 8→10 — **367/367 أخضر** + E2E `achievements.spec.ts` E1 (+10 صفوف وشارتا المتدرجة مقفلتان) — **40/40 أخضر**
 - [x] `npm run check` أخضر (367/367) + `npm run build` أخضر + verification لمزامنة binary للعربية + docs sync (DECISIONS D-035/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 32 — التعاقب اليومي + شارات «المواظبة» (إغلاق بندَي D-024/D-035 «تتابع أسبوعي») ✅
+
+**القرار D-036**: (أ) محرك نقي `progress/streak.ts` (`dayKey`/`previousDay`/`streakForDates`) يحسب **أيام النشاط المتتالية** المنتهية بـ«الآن» (UTC): يوم نشط = أي إجابة تمرين (`answers`) أو بدء جلسة (`learning_sessions.startedAt` — لا `createdAt` في هذا الجدول؛ درس: عمودا الزمن `ts()` = epoch ميلي-ثانية فيصل `Date` مباشرة)؛ اليوم غير المنتهي لا يكسر السلسلة (تبدأ من أمس ما دام اليوم فارغًا)؛ تكرارات/ترتيب/مستقبل مُعالَجة. (ب) `AchievementService.streakForStudent` يقرأ الأُيّام عبر select في JS (تجنّب دالة SQLite `date()` — تعثّرت مع مرجعَي جدولين) ثم يدمج؛ `evaluateStreak` يمنح شارات «مواظب 3 أيام»/«مواظب أسبوع» (المجموع 10 → 12) بمقارنة **التعاقب الحالي** لا عدّاد تراكمي عبر نفس `awardFor` المضاد للتكرار. (ج) حقن best-effort: بعد كل إجابة تمرين وفي كل حدث جلسة. (د) الخطة تُفصح `GET /practice/plan` ← `{ plan, streak }` والويب يعرض «🔥 تعاقب N أيام» (جمع عربي).
+- [x] **`progress/streak.ts`**: `dayKey`/`previousDay`/`streakForDates` — نقيّة بلا I/O
+- [x] **`achievements/service.ts`**: حدث `daily_streak` + `streak_three`/`streak_seven` (10 → 12) + `evaluateStreak` + `streakForStudent` (قراءة `answers` ∪ `sessions.startedAt` بدمج أُيّام) + إعادة استخدام `awardFor`
+- [x] **نقاط الحقن**: `practice/service.ts` (`masteryAfter`) + `sessions/service.ts` (`award` في كل حدث جلسة) — best-effort try/catch
+- [x] **`practice/routes.ts`**: `GET /plan` ← `{ plan, streak }`
+- [x] **`web/api.ts`**: `getPracticePlan()` ← `PracticePlanResponse { plan, streak }`
+- [x] **`web/Home.tsx` + `styles.css`**: حالة `streak` + شارة «🔥 تعاقب N أيام» فوق القائمة (`data-testid="practice-streak"`، فئة `plan-head`)
+- [x] اختبارات: وحدة `streak.test.ts` (**10**) + API `streak.test.ts` (**4** — 3 أيام متتالية تمنح «مواظب 3» وتبقي «مواظب أسبوع» مقفولة + انقطاع يوم يعيد التصفير بلا شارة + الجلسات نشاطٌ مدمج الأُيّام + لا منح مزدوج) + تحديثات إجمالات 10 → 12 (`achievements.test.ts`/`tierBadges.test.ts`) — **381/381 أخضر** + E2E `achievements.spec.ts` E1 (12 صفًا + `streak_three`/`streak_seven` مقفلتان) — **40/40 أخضر**
+- [x] `npm run check` أخضر (381/381) + `npm run build` أخضر + docs sync (DECISIONS D-036 + تحديث ذيلَي D-024/D-035/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -334,6 +346,7 @@
 - [x] ✅ **ملخص الجلسة الآمن (recap — إغلاق D-027)** — عملية `recap` ديناميكية تُبنى من **بيانات وصفية فقط** (عنوان/مفاهيم/عدادات) بلا محتوى رسائل؛ حارس «لا نص حرفي» + سقوط حتمي آمن؛ يقرؤه الطالب («ملخص الجلسة» على الجلسات المنتهية) وولي الأمر («ملخص الجلسة الآمن» في التفاصيل) بنفس الحمولة — 18 وحدة + 8 API + 2 E2E (PHASE 29)
 - [x] ✅ **التصحيح الآلي للإجابات المفتوحة (grade_open — إغلاق آخر بند D-028)** — تفعيل `type:"open"` (عمود `answerKey` الخامل منذ PHASE 24): تصحيح نص حر عبر عملة LLM ديناميكية `grade_open` (`<reference>` نظامًا/`<student_answer>` مستخدمًا) مع عزل المفتاح بنيويًا + حارس «لا نص حرفي» + سقوط قوَالبي حتمي؛ «سؤال مقالي»/«توليد سؤال مقالي» في الخطة وحقل حر في اللوحة مع تغذية راجعة ودرجة؛ سؤالان مصريان مبذوران — 27 وحدة + 11 API + 2 E2E (PHASE 30)
 - [x] ✅ **زمن الإجابة في معادلة الإتقان + شارات الإتقان المتدرجة (إغلاق D-028/D-030)** — العميل يقيس عرض→إرسال (MCQ فقط) ويخزّنه الخادم في `answers.answer_seconds`؛ دلتا الصعوبة تُضرَب بمضاعِف قوة الإشارة (سريع ×1.25/بطيء ×0.75/مجهول ×1) مع بقاء المحاولة الأولى محايدة؛ شارات «متقن 3 مفاهيم» و«متقن 5 مفاهيم» (المجموع 10) — 8 وحدة + 6 API + 1 E2E (PHASE 31)
+- [x] ✅ **التعاقب اليومي + شارات «المواظبة» (إغلاق D-024/D-035 «تتابع أسبوعي»)** — محرك تعاقب نقي (أيام نشطة متتالية: إجابات ∪ بدء جلسات، UTC، رأفة باليوم الغير منتهي) + شارتا «مواظب 3 أيام»/«مواظب أسبوع» (المجموع 12) بمنحٍ من التعاقب الحالي لا عدّاد تراكمي + «🔥 تعاقب N أيام» في الخطة — 10 وحدة + 4 API + 1 E2E (PHASE 32)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

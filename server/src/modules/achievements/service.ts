@@ -3,6 +3,7 @@ import type { Db } from "../../db/index.js";
 import { achievementDefinitions, achievements, answers, learningSessions, messageAttachments, messages, studentProgress } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
 import { daysBetween, decayMastery, masteryLevel } from "../progress/mastery.js";
+import { streakForDates } from "../progress/streak.js";
 
 /**
  * PHASE 20 — Achievements (gamification activation).
@@ -22,7 +23,8 @@ export type AchievementEvent =
   | "document_attached"
   | "vision_attached"
   | "practice_answer"
-  | "mastery_achieved";
+  | "mastery_achieved"
+  | "daily_streak";
 
 interface DefinitionSeed {
   code: string;
@@ -45,6 +47,11 @@ export const ACHIEVEMENT_DEFINITIONS: readonly DefinitionSeed[] = [
   // PHASE 31 — tiered mastery badges (D-028/D-030 deferred item: «متقن 3/5 مفاهيم»).
   { code: "mastery_three", title: "متقن 3 مفاهيم", description: "ارفع 3 مفاهيم إلى مستوى «متقن».", event: "mastery_achieved", min: 3 },
   { code: "mastery_five", title: "متقن 5 مفاهيم", description: "ارفع 5 مفاهيم إلى مستوى «متقن».", event: "mastery_achieved", min: 5 },
+  // PHASE 32 — daily streak badges (D-020/D-035 deferred item: «تتابع أسبوعي»).
+  // Thresholds compare against the CURRENT consecutive-day run (not accumulated
+  // counts), so each day marks activity on a real streak of the given length.
+  { code: "streak_three", title: "مواظب 3 أيام", description: "تعلّم أو تمرّن 3 أيام متتالية.", event: "daily_streak", min: 3 },
+  { code: "streak_seven", title: "مواظب أسبوع", description: "تعلّم أو تمرّن 7 أيام متتالية.", event: "daily_streak", min: 7 },
 ];
 
 export interface AchievementView {
@@ -100,17 +107,61 @@ export class AchievementService {
    * Triggered by a lifecycle event: counts the student's own activity and
    * awards every still-missing definition whose threshold it reaches.
    * Returns only the newly awarded ones (previous awards stay put).
+   * `daily_streak` is time-shaped, not count-shaped, so it delegates to
+   * `evaluateStreak`.
    */
   async evaluate(studentId: string, event: AchievementEvent): Promise<AchievementView[]> {
+    if (event === "daily_streak") return this.evaluateStreak(studentId);
     const used = ACHIEVEMENT_DEFINITIONS.some((d) => d.event === event);
     if (!used) return [];
-    await this.ensureDefinitions();
     const total = await this.countForEvent(studentId, event);
+    return this.awardFor(studentId, ACHIEVEMENT_DEFINITIONS.filter((d) => d.event === event), total);
+  }
+
+  /**
+   * PHASE 32 — best-effort daily-streak evaluation: recompute the student's
+   * current consecutive-day run and award every streak badge whose threshold
+   * it reaches (idempotent — a re-run never double-awards). Streaks are
+   * computed read-side from activity days, so missing a day can never un-earn
+   * a badge that was already granted.
+   */
+  async evaluateStreak(studentId: string): Promise<AchievementView[]> {
+    const streak = await this.streakForStudent(studentId);
+    return this.awardFor(studentId, ACHIEVEMENT_DEFINITIONS.filter((d) => d.event === "daily_streak"), streak);
+  }
+
+  /**
+   * PHASE 32 — current consecutive-day activity streak: distinct UTC calendar
+   * days across practice answers and started/ended learning sessions (a gap
+   * resets the run; today may still be empty without breaking yesterday's run).
+   */
+  async streakForStudent(studentId: string): Promise<number> {
+    const db = this.db.db;
+    // Timestamps decode to Date objects (timestamp_ms mode), so the UTC
+    // calendar day is derived in JS instead of via SQL date functions
+    // (which proved fragile when referencing two different tables).
+    const answerRows = db
+      .select({ at: answers.createdAt })
+      .from(answers)
+      .where(eq(answers.studentId, studentId))
+      .all();
+    const sessionRows = db
+      .select({ at: learningSessions.startedAt })
+      .from(learningSessions)
+      .where(eq(learningSessions.studentId, studentId))
+      .all();
+    const keys = [...answerRows, ...sessionRows].map((r) => r.at.toISOString().slice(0, 10));
+    return streakForDates(keys);
+  }
+
+  /** Shared idempotent granting step: award every seed whose `min` is reached. */
+  private async awardFor(studentId: string, seeds: readonly DefinitionSeed[], total: number): Promise<AchievementView[]> {
+    await this.ensureDefinitions();
     const defs = await this.db.db.select().from(achievementDefinitions);
     const rowByCode = new Map(defs.map((d) => [d.code, d]));
     const awarded: AchievementView[] = [];
-    for (const seed of ACHIEVEMENT_DEFINITIONS) {
-      if (seed.event !== event || total < seed.min) continue;
+    for (const seed of seeds) {
+      if (total < seed.min) continue;
       const row = rowByCode.get(seed.code);
       if (!row) continue;
       const inserted = await this.db.db

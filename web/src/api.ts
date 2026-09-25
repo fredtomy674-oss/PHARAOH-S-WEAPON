@@ -446,9 +446,15 @@ export interface PracticePlanItem {
   tracked: boolean;
 }
 
-export async function getPracticePlan(): Promise<PracticePlanItem[]> {
-  const res = await api<{ plan: PracticePlanItem[] }>("/practice/plan");
-  return res.plan;
+/** PHASE 25 + 32 — the ranked practice plan plus the student's current daily
+ * activity streak (consecutive UTC days with any answer or session). */
+export interface PracticePlanResponse {
+  plan: PracticePlanItem[];
+  streak: number;
+}
+
+export async function getPracticePlan(): Promise<PracticePlanResponse> {
+  return api<PracticePlanResponse>("/practice/plan");
 }
 
 /** PHASE 28 + 30 — generate one MCQ (default) or open question for a questionless concept. */
