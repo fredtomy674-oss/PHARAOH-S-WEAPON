@@ -17,6 +17,7 @@ function item(over: Partial<PracticePlanItem> & { conceptId: string }): Practice
     correct: 0,
     daysSinceLastPractice: 0,
     availableQuestions: 1,
+    tracked: true,
     ...over,
   };
 }
@@ -72,5 +73,26 @@ describe("sortPlan (practice plan ranking) — PHASE 25", () => {
       item({ conceptId: "weak", decayedMastery: 0.3, level: "needs_review", daysSinceLastPractice: 0 }),
     ]);
     expect(plan.map((p) => p.conceptId)).toEqual(["weak", "mastered"]);
+  });
+
+  // PHASE 28 — the plan covers untracked enrolled concepts so questionless
+  // concepts stay discoverable, but tracked practice always comes first.
+  it("keeps tracked concepts ahead of untracked ones even when mastery is lower", () => {
+    const plan = sortPlan([
+      item({ conceptId: "fresh", tracked: false, decayedMastery: 0 }),
+      item({ conceptId: "weak", tracked: true, decayedMastery: 0.1 }),
+      item({ conceptId: "strong", tracked: true, decayedMastery: 0.9 }),
+    ]);
+    // the weak tracked concept, then the strong tracked one, THEN the untracked
+    expect(plan.map((p) => p.conceptId)).toEqual(["weak", "strong", "fresh"]);
+    expect(plan[2]!.tracked).toBe(false);
+  });
+
+  it("breaks ties among untracked concepts deterministically", () => {
+    const plan = sortPlan([
+      item({ conceptId: "zebra", tracked: false, decayedMastery: 0 }),
+      item({ conceptId: "apple", tracked: false, decayedMastery: 0 }),
+    ]);
+    expect(plan.map((p) => p.conceptId)).toEqual(["apple", "zebra"]);
   });
 });

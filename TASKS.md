@@ -243,6 +243,24 @@
 - [x] اختبارات: API `adminStatsExtended.test.ts` (**4**: قمع free/premium/active/تحويل 50% بعد ترقية سارية، انحدار past_due → «سارية» 0 مع بقاء المخزّنة premium، عدّادات دورتين tutor≥2، إصابات كاش بعد تكرار نفس السؤال + وفورات توكن >0 وUSD=0 على mock) — **258/258 أخضر** + E2E `admin.spec.ts` **A4** (بطاقتا القسمين تعرضان للمدير) — **34/34 أخضر**
 - [x] `npm run check` أخضر (258/258) + `npm run build` أخضر + docs sync (DECISIONS D-031/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 28 — أسئلة مولّدة بالمفهوم (LLM): تغطية المفاهيم بلا أسئلة ✅
+
+**القرار D-032**: إغلاق البند المؤجل المتكرر من D-028/D-029/D-030 — عملة LLM جديدة `question_gen` (قابلة للتخزين، mock حتمي أوفلاين) تولّد سؤال MCQ واحدًا لكل مفهوم بلا أسئلة، مرتكزًا على مقاطع الدرس (سقف `QUESTION_GEN_MAX_CHUNKS`=6 / `QUESTION_GEN_MAX_CONTEXT_CHARS`=4000) — بلا مخطط جديد (تخزين في جدول `questions`: `mcq`/`easy`/`optionsJson={options,correctIndex}`/`answerKey=null`).
+- [x] **`ai/types.ts`**: `AIOperation` += `question_gen`
+- [x] **`ai/aiService.ts`**: `LLM_CACHEABLE` += `question_gen` (التوليد لنفس المفهوم/السياق لا يكلّف شحنة ثانية — تحسبه إحصاءات PHASE 27)
+- [x] **`ai/providers/mock.ts`**: فرع `question_gen` قبل ملف JSON العام + `buildMockQuestion(context, conceptTitle)` حتمي: حقائق من تقسيم السياق `[.!؟؛\n]` مع استبعاد نفي «غير موجود» (لا تُلتقط قط كإجابة)، seed `cyrb128(context)`، الصحيح حرفي من الدرس، مشتّتات = طفرة رقم أولى (+1 mod 10) أو null ثم حشوات `QUESTION_FILLER_1/2/3`، إزالة تكرار + تدوير `k = h % unique.length` لإخفاء موضع الصحيح
+- [x] **`practice/questionGen.ts`** (جديد): `parseGeneratedQuestion` (حد صارم → null: JSON غير صالح، نص ≥5، خيارات ≥4 غير فارغة، `correctIndex` عددي في المدى، شرح اختياري؛ يتسامح مع كتلة JSON ملفوفة بـ```json) + `groundingPrompt` (`<context>` + «المفهوم: «…»»)
+- [x] **`practice/service.ts`**: `planFor` يدمج المفاهيم غير المتتبعة لمناهج الطالب المسجَّلة (`tracked:false`, إتقان 0, `level`/`labelAr` من `describeMastery(0)`, `trend:"steady"`, أيام 0) بعد المتتبعة — المفاهيم بلا أسئلة صارت **مكتشفة**؛ `generateQuestionForStudent` (404 مجهول/خارج نطاق عبر `curriculumIdOfLesson`+`enrolledCurriculumIds`، 409 عبر `countMcqForConcept`، 503 بلا مقاطع/قالب فاشل) + `generateQuestionsForScope`/`generateQuestion`/`groundingForLesson`/`conceptsInScope`/`curriculumIdOfLesson` + `toPublic` مطابق (بلا مفتاح)
+- [x] **`practice/routes.ts`**: `POST /generate {conceptId}` (student فقط؛ body schema; يجتاز `auth.user.id` كـ contextUserId — `ai_usage_logs.userId` يرجع إلى `users` لا `students`)
+- [x] **`practice/plan.ts`**: `tracked` + ترتيب المتتبع قبل غير المتتبع
+- [x] **`admin/routes.ts`**: `generateQuestionsBodySchema` (نطاق واحد) + `POST /questions/generate` → `{result:{generated,skipped,failed,items}}` (بيانات وصفية فقط) + idempotent + `serviceUnavailable` للمفاهيم بلا مقاطع + `CACHEABLE_OPERATIONS` += `question_gen` + تدقيق `question.generate`
+- [x] **`audit/service.ts`**: action += `question.generate`
+- [x] **`web/api.ts`**: `PracticePlanItem.tracked` + `generatePracticeQuestion(conceptId)` + `adminGenerateQuestions(curriculumId)`/`AdminQuestionGenResult`
+- [x] **`web/Home.tsx`**: صف خطة بلا أسئلة → زر «توليد سؤال» (`plan-generate`) → `generateAndPractice` يفتح لوحة التمرين على السؤال المولّد فورًا؛ «لم يُمارَس بعد» للمفاهيم غير المتتبعة (`attempts===0`); رسالة خطة فارغة تُعيد توجيهها لغير المسجَّل/بلا مفاهيم
+- [x] **`web/Admin.tsx`**: بطاقة «توليد أسئلة بالمفهوم (LLM)» بعد بطاقة الاستيراد — `admin-question-gen`/`admin-gen-questions` (معطّل حتى `curriculumId`) /`admin-gen-result`/`admin-gen-error`
+- [x] اختبارات: وحدة `questionGenMock.test.ts` (**14**) + API `practiceGenerate.test.ts` (**9**) + API `adminQuestionGen.test.ts` (**6**) + تحديث عقد `practicePlan.test.ts` (خطة 3 صفوف مع `tracked`) و`practicePlan.test.ts` الوحدة (fixture + ترتيب) — **289/289 أخضر** + E2E `admin.spec.ts` **A5** (الإدارة تولّد للمنهج المصري «تم توليد 1 سؤالًا» — مقارنة الكسور الوحيد بلا أسئلة) و`practice.spec.ts` **PR4** (الطالب يمرّن المولّد: «أي العبارات التالية وردت في الدرس» → إجابة → تغذية → إتقان بعد reload) — **36/36 أخضر**
+- [x] `npm run check` أخضر (289/289) + `npm run build` أخضر + docs sync (DECISIONS D-032/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -263,6 +281,7 @@
 - [x] ✅ **خطة الممارسة** — الإتقان يتحول لخطة مرتّبة (الأضعف أولًا: انحلال ثم إهمال ثم معرّف) بدرس/عدد أسئلة + «تمرّن الآن» مقيّد بالمفهوم؛ قراءة نقيّة بلا كتابة — 5 وحدة + 5 API + 1 E2E (PHASE 25)
 - [x] ✅ **حساسية الصعوبة + شارات التمرين/الإتقان** — دلتا الإتقان تستجيب لصعوبة السؤال (سهل/متوسط/صعب) + شارات «انطلاقة التمرين» و«أول إتقان» يغذّيها المحرك؛ صفر تغيير ويب — 6 وحدة + 7 API + 1 E2E (PHASE 26)
 - [x] ✅ **إحصاءات الاشتراكات + وفورات الكاش في لوحة المدير** — قمع الخطط (المخزّنة/السارية فعليًا/التحويل) + قسم AI (نداءات/توكن/تكلفة/إصابة كاش/وفورات تقديرية) فوق `/admin/stats` بلا تخزين جديد — 4 API + 1 E2E (PHASE 27)
+- [x] ✅ **أسئلة مولّدة بالمفهوم (LLM لتغطية المفاهيم بلا أسئلة)** — عملة `question_gen` قابلة للتخزين + mock حتمي مرتكز على مقاطع الدرس؛ إدراج غير المتتبع في الخطة (اكتشاف) + «توليد سؤال» للطالب + تغطية جماعية إدارية idempotent بلا تسريب مفتاح — 14 وحدة + 15 API + 2 E2E (PHASE 28)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

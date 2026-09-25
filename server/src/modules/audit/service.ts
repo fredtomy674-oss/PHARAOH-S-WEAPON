@@ -14,6 +14,7 @@ export interface AuditRecordInput {
     | "parent.link"
     | "parent.unlink"
     | "subscription.update"
+    | "question.generate"
     | "forbidden.access";
   entityType: string;
   entityId?: string | null;

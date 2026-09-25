@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  adminGenerateQuestions,
   getAdminStats,
   ingestCurriculumFile,
   listAdminDocuments,
@@ -15,6 +16,7 @@ import {
   setStudentSubscription,
   ApiError,
   type AdminDocument,
+  type AdminQuestionGenResult,
   type AdminSubscriptionRow,
   type AdminStats,
   type Country,
@@ -81,6 +83,11 @@ export function AdminScreen({ onBack, onLogout }: Props) {
   const [subscriptions, setSubscriptions] = useState<AdminSubscriptionRow[]>([]);
   const [subBusy, setSubBusy] = useState<string | null>(null);
   const [subError, setSubError] = useState<string | null>(null);
+
+  // PHASE 28 — LLM question generation for coverage of questionless concepts.
+  const [genBusy, setGenBusy] = useState(false);
+  const [genResult, setGenResult] = useState<AdminQuestionGenResult | null>(null);
+  const [genError, setGenError] = useState<string | null>(null);
 
   useEffect(() => {
     listSubscriptions().then(setSubscriptions).catch(() => setSubError("تعذر تحميل الاشتراكات"));
@@ -194,6 +201,22 @@ export function AdminScreen({ onBack, onLogout }: Props) {
       setError(err instanceof ApiError ? err.message : "تعذر استيراد الملف");
     } finally {
       setBusy(false);
+    }
+  };
+
+  // PHASE 28 — generate one MCQ per questionless concept in the selected
+  // curriculum (offline-friendly via mock provider). Metadata-only report.
+  const runGenerate = async () => {
+    if (!curriculumId) return;
+    setGenBusy(true);
+    setGenError(null);
+    setGenResult(null);
+    try {
+      setGenResult(await adminGenerateQuestions(curriculumId));
+    } catch (err) {
+      setGenError(err instanceof ApiError ? err.message : "تعذر توليد الأسئلة");
+    } finally {
+      setGenBusy(false);
     }
   };
 
@@ -476,6 +499,30 @@ export function AdminScreen({ onBack, onLogout }: Props) {
               {busy ? "جارِ الاستيراد…" : "استيراد الملف للمنهج"}
             </button>
           </div>
+        </section>
+
+        <section className="card" data-testid="admin-question-gen">
+          <h3>توليد أسئلة بالمفهوم (LLM)</h3>
+          <p className="muted">
+            يولّد سؤال اختيار من متعدد واحدًا لكل مفهوم بلا أسئلة في المنهج المحدد، معتمدًا على مقاطع الدروس
+            (نمط تجريبي يعمل دون اتصال عبر مزوّد افتراضي).
+          </p>
+          <div className="row-gap admin-actions">
+            <button
+              data-testid="admin-gen-questions"
+              className="btn primary"
+              disabled={!curriculumId || genBusy}
+              onClick={runGenerate}
+            >
+              {genBusy ? "جارِ التوليد…" : "توليد أسئلة للمنهج المحدد"}
+            </button>
+          </div>
+          {genError && <p className="error" data-testid="admin-gen-error">{genError}</p>}
+          {genResult && (
+            <p className="muted" data-testid="admin-gen-result">
+              تم توليد {genResult.generated} سؤالًا، وتخطّى {genResult.skipped} مفاهيم مغطّاة، وفشل {genResult.failed}.
+            </p>
+          )}
         </section>
 
         <section className="card" data-testid="admin-documents">

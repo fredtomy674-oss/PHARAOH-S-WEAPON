@@ -106,3 +106,33 @@ test("A4: the admin dashboard shows the subscription funnel and AI usage/savings
   await expect(ai.getByTestId("admin-stat-ai-cache-hit")).toContainText("الكاش");
   await expect(ai.getByTestId("admin-stat-ai-savings")).toContainText("وفورات");
 });
+
+/**
+ * PHASE 28 — LLM question generation for questionless concepts: the admin
+ * binds the Egyptian curriculum and generates coverage. Only «مقارنة الكسور»
+ * has zero seeded questions → exactly 1 generated, 6 skipped. The delivered
+ * question is then played end-to-end by the student in PR4.
+ */
+test("A5 (PHASE 28): the admin generates questions for questionless concepts in the chosen curriculum", async ({ page }) => {
+  await login(page, ADMIN.email, ADMIN.password);
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("open-admin").click();
+  await expect(page.getByTestId("admin-screen")).toBeVisible({ timeout: 20_000 });
+
+  // Bind curriculumId to the Egyptian curriculum — the same cascade the ingest
+  // card uses. The generation card needs no term/unit/lesson selection.
+  await selectOptionByLabel(page, "select-country", "مصر");
+  await selectFirst(page, "select-system");
+  await selectFirst(page, "select-grade");
+  await selectFirst(page, "select-subject");
+  await selectFirst(page, "select-curriculum");
+
+  const generate = page.getByTestId("admin-gen-questions");
+  await expect(generate).toBeEnabled({ timeout: 20_000 });
+  await generate.click();
+
+  // Only «مقارنة الكسور» is eligible → the report says exactly 1 generated.
+  const result = page.getByTestId("admin-gen-result");
+  await expect(result).toBeVisible({ timeout: 30_000 });
+  await expect(result).toContainText("تم توليد 1 سؤالًا");
+});

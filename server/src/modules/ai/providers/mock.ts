@@ -59,6 +59,23 @@ export class MockLLMProvider implements LLMProvider {
     // whole middle of the prompt instead of the curriculum content.
     const context = extractContextBlock(system);
 
+    // PHASE 28 — question generation: the mock must emit a structured MCQ JSON
+    // grounded in the lesson context (never invented facts). The generator
+    // service is what turns this into a stored row; here we only produce the
+    // AI-shaped reply, deterministically, so tests stay stable.
+    if (request.operation === "question_gen") {
+      const conceptMatch = /المفهوم: «([^»]+)»/.exec(lastUser);
+      const conceptTitle = conceptMatch?.[1] ?? null;
+      const content = JSON.stringify(buildMockQuestion(context, conceptTitle));
+      return {
+        content,
+        model: "mock-question",
+        inputTokens: estimateTokens(system + lastUser),
+        outputTokens: estimateTokens(content),
+        latencyMs: Date.now() - started,
+      };
+    }
+
     if (request.json) {
       const content = JSON.stringify({
         content: buildTutorText({ user: lastUser, context, images, documents }),
@@ -96,6 +113,78 @@ function extractContextBlock(system: string): string {
   if (close < 0) return "";
   const ctx = system.slice(open + "<context>".length, close).trim();
   return ctx === "(لا يوجد محتوى مسترجع لهذا السؤال)" ? "" : ctx;
+}
+
+/**
+ * PHASE 28 — deterministic offline MCQ generator. Splits the lesson context
+ * into stable fact sentences, picks one as the correct answer (verbatim, so
+ * grading is unambiguous), and derives 3 distractors deterministically from
+ * the same text. Same input → same output, so cache hits and repeated
+ * generation stay byte-identical.
+ */
+export interface MockQuestionJson {
+  content: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+const QUESTION_FILLER_1 = "هذه العبارة لا وردت في محتوى الدرس إطلاقًا.";
+const QUESTION_FILLER_2 = "لا يمكن استنتاج هذه العبارة من محتوى الدرس.";
+const QUESTION_FILLER_3 = "عبارة من موضوع رياضي آخر لا يتصل بهذا الدرس.";
+
+export function buildMockQuestion(context: string, conceptTitle: string | null): MockQuestionJson {
+  const facts = (context.split(/[.!؟؛\n]+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length >= 8 && !s.includes("غير موجود")));
+
+  const seed = cyrb128(context);
+  const h = Math.abs(seed[0]! ^ (seed[1]! << 4)) || 7;
+
+  let correct: string;
+  let other: string;
+  if (facts.length > 0) {
+    correct = facts[h % facts.length]!;
+    if (facts.length > 1) {
+      other = facts[(h + 1 + (h >> 3)) % facts.length]!;
+      if (other === correct) other = facts[(h + 2) % facts.length]!;
+    } else {
+      other = QUESTION_FILLER_1;
+    }
+  } else {
+    correct = (context.trim() || "المحتوى المسترجع لهذا الدرس").slice(0, 200);
+    other = QUESTION_FILLER_1;
+  }
+
+  const mutated = mutateFact(correct);
+  const options = [correct, other, mutated ?? QUESTION_FILLER_2, QUESTION_FILLER_3];
+  const unique = [...new Set(options)];
+  for (const filler of [QUESTION_FILLER_1, QUESTION_FILLER_2, QUESTION_FILLER_3, "خيار غير وارد في الدرس."]) {
+    if (unique.length >= 4) break;
+    if (!unique.includes(filler)) unique.push(filler);
+  }
+
+  // Deterministic rotation keeps the same 4 options but a stable order.
+  const k = h % unique.length;
+  const rotated = unique.map((_, i) => unique[(i + k) % unique.length]!);
+  const correctIndex = (unique.indexOf(correct) - k + unique.length) % unique.length;
+
+  return {
+    content: conceptTitle
+      ? `حسب درسنا عن «${conceptTitle}»، أي العبارات التالية وردت في الدرس؟`
+      : "أي العبارات التالية وردت في الدرس؟",
+    options: rotated,
+    correctIndex,
+    explanation: `العبارة الصحيحة وردت حرفيًا في درسنا: «${correct}». أما الخيارات الأخرى فإمّا من خارج الدرس أو بصيغة تغيّر المعنى.`,
+  };
+}
+
+/** Change the first digit of a fact (e.g. "487 + 358" → "587 + 358") for a plausible wrong answer. */
+function mutateFact(fact: string): string | null {
+  const m = /(\d)/.exec(fact);
+  if (!m) return null;
+  const next = String((Number(m[1]) + 1) % 10);
+  return fact.slice(0, m.index) + next + fact.slice(m.index + 1);
 }
 
 function buildTutorText(args: {

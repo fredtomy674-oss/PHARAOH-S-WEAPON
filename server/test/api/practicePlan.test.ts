@@ -30,6 +30,7 @@ interface PlanRow {
   correct: number;
   daysSinceLastPractice: number;
   availableQuestions: number;
+  tracked: boolean;
 }
 
 /**
@@ -60,10 +61,23 @@ describe("practice plan (GET /api/practice/plan) — PHASE 25", () => {
     });
   });
 
-  it("returns an empty plan for a student with no tracked concepts yet", async () => {
+  it("lists the enrolled curriculum's concepts even before any practice (PHASE 28)", async () => {
     const res = await api.app.inject({ method: "GET", url: "/api/practice/plan", headers: csrfHeaders(student) });
     expect(res.statusCode).toBe(200);
-    expect((res.json() as { plan: PlanRow[] }).plan).toEqual([]);
+    const { plan } = res.json() as { plan: PlanRow[] };
+    // PHASE 28 — untracked concepts of the enrolled curriculum are listed
+    // (mastery 0, needs_review) so questionless concepts stay discoverable
+    // and can be generated into practice instead of being invisible.
+    expect(plan).toHaveLength(3);
+    for (const row of plan) {
+      expect(row.tracked).toBe(false);
+      expect(row.mastery).toBe(0);
+      expect(row.level).toBe("needs_review");
+      expect(row.attempts).toBe(0);
+    }
+    const byTitle = new Map(plan.map((p) => [p.title, p]));
+    expect(byTitle.get("الجمع مع التجميع")!.availableQuestions).toBe(2); // A1 + A2
+    expect(byTitle.get("مقارنة الكسور")!.availableQuestions).toBe(1); // B1
   });
 
   it("ranks a tracked weak concept first with lesson + available questions", async () => {
@@ -73,8 +87,9 @@ describe("practice plan (GET /api/practice/plan) — PHASE 25", () => {
     const res = await api.app.inject({ method: "GET", url: "/api/practice/plan", headers: csrfHeaders(student) });
     expect(res.statusCode).toBe(200);
     const { plan } = res.json() as { plan: PlanRow[] };
-    expect(plan).toHaveLength(1);
-    expect(plan[0]!.conceptId).toBe(corpus.conceptAId);
+    expect(plan).toHaveLength(3);
+    expect(plan[0]!.conceptId).toBe(corpus.conceptAId); // tracked beats untracked
+    expect(plan[0]!.tracked).toBe(true);
     expect(plan[0]!.level).toBe("needs_review");
     expect(plan[0]!.labelAr).toBeTruthy();
     expect(plan[0]!.lessonId).toBe(corpus.lessonA);
@@ -83,6 +98,9 @@ describe("practice plan (GET /api/practice/plan) — PHASE 25", () => {
     expect(plan[0]!.attempts).toBe(1);
     expect(plan[0]!.correct).toBe(0);
     expect(plan[0]!.decayedMastery).toBeLessThanOrEqual(plan[0]!.mastery);
+    // The untracked concepts follow (still discoverable).
+    expect(plan[1]!.tracked).toBe(false);
+    expect(plan[2]!.tracked).toBe(false);
     // The plan is metadata-only — never leaks options or the key.
     expect(JSON.stringify(plan)).not.toContain("correctIndex");
     expect(JSON.stringify(plan)).not.toContain("answerKey");
@@ -98,10 +116,14 @@ describe("practice plan (GET /api/practice/plan) — PHASE 25", () => {
 
     const res = await api.app.inject({ method: "GET", url: "/api/practice/plan", headers: csrfHeaders(student) });
     const { plan } = res.json() as { plan: PlanRow[] };
-    expect(plan).toHaveLength(2);
+    expect(plan).toHaveLength(3);
     expect(plan[0]!.conceptId).toBe(corpus.conceptBId); // 0.1 < 0.55
     expect(plan[1]!.conceptId).toBe(corpus.conceptAId);
     expect(plan[0]!.availableQuestions).toBe(1); // questionB1
+    // conceptC was never practiced → untracked tail, but its HARD question is counted.
+    expect(plan[2]!.conceptId).toBe(corpus.conceptCId);
+    expect(plan[2]!.tracked).toBe(false);
+    expect(plan[2]!.availableQuestions).toBe(1); // questionC1
   });
 
   it("counts available questions only within enrolled curricula (0 when not enrolled)", async () => {

@@ -27,8 +27,13 @@ export interface DocumentInput {
   text: string;
 }
 
-/** High-level capabilities used for routing (cost-aware: classifier uses a cheap model). */
-export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr" | "rerank";
+/**
+ * High-level capabilities used for routing (cost-aware: classifier uses a cheap
+ * model). `question_gen` (PHASE 28) generates deterministic MCQ questions from
+ * lesson content to cover concepts without questions — cacheable like any
+ * deterministic operation.
+ */
+export type AIOperation = "classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr" | "rerank" | "question_gen";
 
 export interface LLMRequest {
   operation: AIOperation;

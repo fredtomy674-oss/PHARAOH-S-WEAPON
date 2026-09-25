@@ -9,7 +9,7 @@ import { Errors } from "../../utils/errors.js";
 import { sha256Hex } from "../../utils/ids.js";
 import type { AIProviders, EmbeddingRequest, EmbeddingResponse, LLMRequest, LLMResponse, OcrRequest, OcrResponse } from "./types.js";
 
-const LLM_CACHEABLE: ReadonlySet<string> = new Set(["classifier", "rerank"]);
+const LLM_CACHEABLE: ReadonlySet<string> = new Set(["classifier", "rerank", "question_gen"]);
 
 /**
  * Facade for all AI access. Constructed once per app; modules depend on this
@@ -34,7 +34,7 @@ export class AiService {
     db: Db,
     opts?: {
       forceProvider?: "mock" | "gemini";
-      overrides?: Partial<Record<"classifier" | "tutor" | "recap" | "feedback" | "embedding", string>>;
+      overrides?: Partial<Record<"classifier" | "tutor" | "recap" | "feedback" | "embedding" | "ocr" | "rerank" | "question_gen", string>>;
       /** Test/override knob for the module-scoped AI_CACHE_ENABLED. */
       cacheEnabled?: boolean;
     },

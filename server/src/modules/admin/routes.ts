@@ -12,7 +12,7 @@ import { OCR_ELIGIBLE_MIMES } from "../ocr/service.js";
  * a hit records NO usage row, so the per-call average observed on recorded
  * rows is the best estimator for what each hit saved the platform.
  */
-const CACHEABLE_OPERATIONS = ["classifier", "rerank", "embedding", "ocr"] as const;
+const CACHEABLE_OPERATIONS = ["classifier", "rerank", "embedding", "ocr", "question_gen"] as const;
 
 const round1 = (n: number): number => Math.round(n * 10) / 10;
 
@@ -90,6 +90,16 @@ const studentIdParamsSchema = {
   type: "object",
   required: ["studentId"],
   properties: { studentId: { type: "string", maxLength: 64 } },
+};
+
+const generateQuestionsBodySchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    conceptId: { type: "string", maxLength: 64 },
+    lessonId: { type: "string", maxLength: 64 },
+    curriculumId: { type: "string", maxLength: 64 },
+  },
 };
 
 /**
@@ -244,6 +254,38 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
       .orderBy(desc(documents.createdAt))
       .limit(100);
     return { documents: rows };
+  });
+
+  // PHASE 28 — bulk question generation: cover concepts with no questions yet.
+  // One deterministic MCQ per eligible concept within a curriculum/lesson/
+  // concept scope, grounded in that lesson's chunks. Idempotent (re-runs skip
+  // concepts that already have questions) and metadata-only in the response —
+  // question stems and options never leave the server.
+  app.post("/questions/generate", { preHandler: requireAdmin, schema: { body: generateQuestionsBodySchema } }, async (request, reply) => {
+    const auth = request.auth!;
+    const body = request.body as { conceptId?: string; lessonId?: string; curriculumId?: string };
+
+    const provided = [body.conceptId, body.lessonId, body.curriculumId].filter((v): v is string => typeof v === "string" && v.length > 0);
+    if (provided.length !== 1) {
+      throw Errors.badRequest("حدد نطاقًا واحدًا للتوليد: conceptId أو lessonId أو curriculumId", "INVALID_GEN_SCOPE");
+    }
+
+    const scope = body.conceptId
+      ? { conceptId: body.conceptId }
+      : body.lessonId
+        ? { lessonId: body.lessonId }
+        : { curriculumId: body.curriculumId! };
+
+    const result = await app.practice.generateQuestionsForScope(scope, auth.user.id);
+    await app.audit.record({
+      actorUserId: auth.user.id,
+      action: "question.generate",
+      entityType: "question",
+      entityId: scope.conceptId ?? scope.lessonId ?? scope.curriculumId ?? "",
+      afterJson: JSON.stringify({ generated: result.generated, skipped: result.skipped, failed: result.failed }),
+      ip: request.ip,
+    });
+    return reply.code(200).send({ result });
   });
 
   app.get("/stats", { preHandler: requireAdmin }, async () => {

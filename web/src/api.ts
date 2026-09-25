@@ -396,11 +396,23 @@ export interface PracticePlanItem {
   correct: number;
   daysSinceLastPractice: number;
   availableQuestions: number;
+  /** PHASE 28 — false for concepts never practiced (discoverable, mastery 0). */
+  tracked: boolean;
 }
 
 export async function getPracticePlan(): Promise<PracticePlanItem[]> {
   const res = await api<{ plan: PracticePlanItem[] }>("/practice/plan");
   return res.plan;
+}
+
+/** PHASE 28 — generate one MCQ for a concept with no questions yet (self-healing practice). */
+export async function generatePracticeQuestion(conceptId: string): Promise<PracticeQuestion> {
+  const res = await api<{ question: PracticeQuestion | null }>("/practice/generate", {
+    method: "POST",
+    body: { conceptId },
+  });
+  if (!res.question) throw new ApiError("تعذر توليد سؤال لهذا المفهوم.", 502, "EMPTY_GENERATION");
+  return res.question;
 }
 
 // --- Parent dashboard (PHASE 18) -------------------------------------------
@@ -594,6 +606,22 @@ export interface AdminStats {
 export async function getAdminStats(): Promise<AdminStats> {
   const res = await api<{ stats: AdminStats }>("/admin/stats");
   return res.stats;
+}
+
+/** PHASE 28 — admin bulk generation: one MCQ per eligible concept in a curriculum. */
+export interface AdminQuestionGenResult {
+  generated: number;
+  skipped: number;
+  failed: number;
+  items: Array<{ conceptId: string; title: string; status: "generated" | "skipped" | "failed"; error?: string }>;
+}
+
+export async function adminGenerateQuestions(curriculumId: string): Promise<AdminQuestionGenResult> {
+  const res = await api<{ result: AdminQuestionGenResult }>("/admin/questions/generate", {
+    method: "POST",
+    body: { curriculumId },
+  });
+  return res.result;
 }
 
 export async function ingestCurriculumFile(input: {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  generatePracticeQuestion,
   getMySubscription,
   getPracticePlan,
   getPracticeQuestion,
@@ -73,6 +74,20 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
       setPractice((p) => (p ? { ...p, question, loading: false } : p));
     } catch {
       setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
+    }
+  }
+
+  // PHASE 28 — self-healing practice: the concept has no questions yet, so we
+  // ask the tutor's question generator to create one (grounded in the lesson),
+  // then hand it straight to the practice panel. Works offline via mocks.
+  async function generateAndPractice(conceptId: string) {
+    setPractice({ question: null, chosen: null, result: null, busy: false, loading: true, error: null });
+    try {
+      const question = await generatePracticeQuestion(conceptId);
+      setPractice((p) => (p ? { ...p, question, loading: false } : p));
+      refreshPlan();
+    } catch {
+      setPractice((p) => (p ? { ...p, loading: false, error: "تعذر توليد سؤال لهذا المفهوم." } : p));
     }
   }
 
@@ -227,7 +242,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                 </p>
               ) : plan.length === 0 ? (
                 <p className="muted" data-testid="plan-empty">
-                  لا توجد مفاهيم متتبعة بعد — أجب عن تمارين لتظهر خطتك هنا.
+                  لا توجد مفاهيم في خطتك بعد — انضم إلى منهج دراسي لتظهر خطة ممارستك هنا.
                 </p>
               ) : (
                 <ul className="progress-list" data-testid="plan-list">
@@ -243,18 +258,32 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                         <span className="muted" data-testid="plan-meta">
                           <span data-testid="plan-lesson">{item.lessonTitle ?? "درس غير معروف"}</span> ·{" "}
                           <span data-testid="plan-questions">{item.availableQuestions} سؤال متاح</span> ·{" "}
-                          {item.daysSinceLastPractice === 0 ? "اليوم" : `منذ ${item.daysSinceLastPractice} يوم`}{" "}
+                          {item.attempts === 0
+                            ? "لم يُمارَس بعد"
+                            : item.daysSinceLastPractice === 0
+                              ? "اليوم"
+                              : `منذ ${item.daysSinceLastPractice} يوم`}{" "}
                           <span data-testid="plan-trend">{trendArrow(item.trend)}</span>
                         </span>
                       </div>
-                      <button
-                        className="btn small primary"
-                        data-testid="plan-practice"
-                        disabled={item.availableQuestions === 0}
-                        onClick={() => startPractice(item.conceptId)}
-                      >
-                        تمرّن الآن
-                      </button>
+                      {item.availableQuestions === 0 ? (
+                        // PHASE 28 — no questions yet → generate one on demand.
+                        <button
+                          className="btn small primary"
+                          data-testid="plan-generate"
+                          onClick={() => generateAndPractice(item.conceptId)}
+                        >
+                          توليد سؤال
+                        </button>
+                      ) : (
+                        <button
+                          className="btn small primary"
+                          data-testid="plan-practice"
+                          onClick={() => startPractice(item.conceptId)}
+                        >
+                          تمرّن الآن
+                        </button>
+                      )}
                     </li>
                   ))}
                 </ul>

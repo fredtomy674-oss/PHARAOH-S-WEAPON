@@ -97,3 +97,33 @@ test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمر�
   await expect(masteryFirst).toContainText("أول إتقان");
   await expect(masteryFirst).toHaveAttribute("data-earned", "false");
 });
+
+/**
+ * PR4 (PHASE 28): A5 delivered the admin-generated «مقارنة الكسور» question —
+ * the concept that shipped with zero seeded questions. The student now sees a
+ * "تمرّن الآن" button on that plan row, gets the grounded generated stem
+ * («أي العبارات التالية وردت في الدرس»), and answering tracks the concept in
+ * إتقان المفاهيم after a reload.
+ */
+test("PR4 (PHASE 28): the student practices the admin-generated question for مقارنة الكسور", async ({ page }) => {
+  await login(page);
+  await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+
+  // The previously questionless concept now offers its generated question.
+  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "مقارنة الكسور" });
+  await expect(row).toBeVisible({ timeout: 20_000 });
+  await row.getByTestId("plan-practice").click();
+  await expect(page.getByTestId("practice-panel")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("practice-question")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("practice-question")).toContainText("أي العبارات التالية وردت في الدرس");
+
+  // Answer it (right or wrong) — deterministic feedback always shows.
+  await page.getByTestId("practice-option").first().click();
+  await page.getByTestId("practice-submit").click();
+  await expect(page.getByTestId("practice-feedback")).toBeVisible({ timeout: 20_000 });
+
+  // Reload: مقارنة الكسور is now tracked in the mastery summary.
+  await page.reload();
+  await expect(page.getByTestId("mastery-section")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "مقارنة الكسور" })).toBeVisible({ timeout: 20_000 });
+});
