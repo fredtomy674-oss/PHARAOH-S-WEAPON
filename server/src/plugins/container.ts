@@ -9,6 +9,7 @@ import { CurriculumService } from "../modules/curriculum/service.js";
 import { KnowledgeService } from "../modules/knowledge/service.js";
 import { OcrService } from "../modules/ocr/service.js";
 import { ParentService } from "../modules/parent/service.js";
+import { PracticeService } from "../modules/practice/service.js";
 import { createReranker, createVectorStore } from "../modules/rag/factory.js";
 import { RetrievalService } from "../modules/rag/retrieval.js";
 import type { VectorStore } from "../modules/rag/types.js";
@@ -34,6 +35,7 @@ declare module "fastify" {
     parents: ParentService;
     subscriptions: SubscriptionService;
     achievements: AchievementService;
+    practice: PracticeService;
     setSessionCookie: (reply: FastifyReply, token: string, maxAgeMs: number) => void;
     clearSessionCookie: (reply: FastifyReply) => void;
   }
@@ -66,6 +68,7 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   const achievements = new AchievementService(db);
   const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements);
   const parents = new ParentService(db, memory);
+  const practice = new PracticeService(db, memory);
 
   app.decorate("db", db);
   app.decorate("ai", ai);
@@ -82,4 +85,5 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   app.decorate("parents", parents);
   app.decorate("subscriptions", subscriptions);
   app.decorate("achievements", achievements);
+  app.decorate("practice", practice);
 });

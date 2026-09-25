@@ -11,6 +11,7 @@ export const progressRoutes: FastifyPluginAsync = async (app) => {
     const detail = await app.memory.progressDetail(auth.student.id);
     return {
       progress: detail,
+      mastery: await app.memory.masterySummary(auth.student.id),
       tutorUsageToday: await app.ai.usage.countTutorCallsForUserToday(auth.user.id),
     };
   });

@@ -16,6 +16,7 @@ import {
 } from "../../db/schema.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import { Errors } from "../../utils/errors.js";
+import { safeParseAssessment } from "../progress/mastery.js";
 
 export interface ChildSummary {
   studentId: string;
@@ -166,6 +167,7 @@ export class ParentService {
 
     const summary = await this.childSummaryOf(studentId);
     const detail = await this.memory.progressDetail(studentId);
+    const mastery = await this.memory.masterySummary(studentId);
 
     return {
       child: {
@@ -176,7 +178,17 @@ export class ParentService {
         sessionCount: summary.sessionCount,
       },
       progress: {
-        concepts: detail.concepts.map((c) => ({ conceptId: c.conceptId, title: c.conceptTitle, mastery: c.mastery })),
+        // PHASE 24: each concept now carries the mastery level + Arabic label
+        // (decayed, read-side) alongside the raw persisted score.
+        concepts: mastery.map((m) => ({
+          conceptId: m.conceptId,
+          title: m.title,
+          mastery: m.mastery,
+          decayedMastery: m.decayedMastery,
+          level: m.level,
+          labelAr: m.labelAr,
+          trend: m.trend,
+        })),
         strengths: detail.strengths.map((s) => s.title),
         weaknesses: detail.weaknesses.map((w) => w.title),
       },
@@ -374,22 +386,5 @@ export class ParentService {
         totalMessages: c.userMessages + c.tutorMessages,
       };
     });
-  }
-}
-
-interface AssessmentPayload {
-  conceptId?: string;
-  correct?: boolean;
-}
-
-/** Tolerates missing/malformed result_json on assessments rows (PHASE 23). */
-function safeParseAssessment(json: string | null): AssessmentPayload | null {
-  if (!json) return null;
-  try {
-    const value = JSON.parse(json) as unknown;
-    if (typeof value !== "object" || value === null) return null;
-    return value as AssessmentPayload;
-  } catch {
-    return null;
   }
 }

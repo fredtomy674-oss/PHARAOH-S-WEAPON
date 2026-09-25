@@ -1,5 +1,17 @@
 import { useEffect, useState } from "react";
-import { getMySubscription, listSessions, myProgress, type SubscriptionInfo, type User, type LearningSession, type ProgressDetail } from "./api.js";
+import {
+  getMySubscription,
+  getPracticeQuestion,
+  listSessions,
+  myProgress,
+  submitPracticeAnswer,
+  type LearningSession,
+  type PracticeQuestion,
+  type PracticeResult,
+  type ProgressDetail,
+  type SubscriptionInfo,
+  type User,
+} from "./api.js";
 
 interface Props {
   user: User;
@@ -10,10 +22,30 @@ interface Props {
   onOpenAchievements: () => void;
 }
 
+interface PracticeState {
+  question: PracticeQuestion | null;
+  chosen: number | null;
+  result: PracticeResult | null;
+  busy: boolean;
+  loading: boolean;
+  error: string | null;
+}
+
+const DIFFICULTY_LABEL: Record<PracticeQuestion["difficulty"], string> = {
+  easy: "سهل",
+  medium: "متوسط",
+  hard: "صعب",
+};
+
+function trendArrow(t: "up" | "steady" | "down"): string {
+  return t === "up" ? "↑" : t === "down" ? "↓" : "→";
+}
+
 export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmin, onOpenAchievements }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
+  const [practice, setPractice] = useState<PracticeState | null>(null);
 
   useEffect(() => {
     listSessions().then(setSessions).catch(() => undefined);
@@ -24,6 +56,37 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   }, [user.role]);
 
   const studentName = user.student?.displayName ?? user.email;
+
+  async function startPractice() {
+    setPractice({ question: null, chosen: null, result: null, busy: false, loading: true, error: null });
+    try {
+      const question = await getPracticeQuestion();
+      setPractice((p) => (p ? { ...p, question, loading: false } : p));
+    } catch {
+      setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
+    }
+  }
+
+  async function nextPractice() {
+    setPractice((p) => (p ? { ...p, question: null, chosen: null, result: null, loading: true, error: null } : p));
+    try {
+      const question = await getPracticeQuestion();
+      setPractice((p) => (p ? { ...p, question, loading: false } : p));
+    } catch {
+      setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحميل سؤال التمرين." } : p));
+    }
+  }
+
+  async function submitPractice() {
+    if (!practice?.question || practice.chosen === null || practice.busy) return;
+    setPractice((p) => (p ? { ...p, busy: true, error: null } : p));
+    try {
+      const result = await submitPracticeAnswer(practice.question.id, practice.chosen);
+      setPractice((p) => (p ? { ...p, busy: false, result } : p));
+    } catch {
+      setPractice((p) => (p ? { ...p, busy: false, error: "تعذر إرسال الإجابة." } : p));
+    }
+  }
 
   return (
     <div className="layout">
@@ -87,7 +150,12 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
         {progress && (
           <section className="card" data-testid="progress-card">
-            <h3>تقدّمك</h3>
+            <div className="row-between">
+              <h3>تقدّمك</h3>
+              <button className="btn ghost" onClick={startPractice} data-testid="open-practice">
+                ✏️ تمرين على نقاط ضعفك
+              </button>
+            </div>
             <div className="stats">
               <div className="stat">
                 <b data-testid="stat-concepts">{progress.progress.concepts.length}</b>
@@ -111,6 +179,109 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
               <p className="muted">
                 <span className="pill warn">نقاط تحتاج تركيزًا:</span> {progress.progress.weaknesses.join("، ")}
               </p>
+            )}
+
+            {/* PHASE 24 — concept mastery with levels, decay and trajectory. */}
+            <div className="mastery-block" data-testid="mastery-section">
+              <h4>إتقان المفاهيم</h4>
+              {progress.mastery.length === 0 ? (
+                <p className="muted" data-testid="mastery-empty">
+                  لا توجد مفاهيم متتبعة بعد — أجب عن تمارين لتظهر هنا.
+                </p>
+              ) : (
+                <ul className="progress-list" data-testid="mastery-list">
+                  {progress.mastery.map((m) => (
+                    <li key={m.conceptId} className="progress-row" data-testid="mastery-concept-row">
+                      <span>
+                        {m.title}{" "}
+                        <span className={`pill ${m.level === "mastered" || m.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="mastery-level">
+                          {m.labelAr}
+                        </span>
+                      </span>
+                      <span className="muted" data-testid="mastery-meta">
+                        {Math.round(m.decayedMastery * 100)}% · {m.daysSinceLastPractice === 0 ? "اليوم" : `منذ ${m.daysSinceLastPractice} يوم`}{" "}
+                        <span data-testid="mastery-trend">{trendArrow(m.trend)}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </section>
+        )}
+
+        {practice && (
+          <section className="card" data-testid="practice-panel">
+            <div className="row-between">
+              <h3>تمرين سريع</h3>
+              <button className="btn ghost" onClick={() => setPractice(null)} data-testid="practice-close">
+                إغلاق
+              </button>
+            </div>
+            {practice.loading ? (
+              <p className="muted" data-testid="practice-loading">
+                جارٍ تحضير سؤال لك…
+              </p>
+            ) : practice.error || !practice.question ? (
+              <p className="error" data-testid="practice-error">
+                {practice.error ?? "لا توجد أسئلة متاحة في منهجك بعد."}
+              </p>
+            ) : (
+              <>
+                <p className="muted" data-testid="practice-concept">
+                  {practice.question.conceptTitle ?? "تمرين عام"} · {DIFFICULTY_LABEL[practice.question.difficulty]}
+                </p>
+                <p className="question-text" data-testid="practice-question">
+                  {practice.question.content}
+                </p>
+                <div className="option-list">
+                  {practice.question.options.map((opt, i) => (
+                    <button
+                      key={i}
+                      className={`btn option ${practice.chosen === i ? "selected" : ""}`}
+                      data-testid="practice-option"
+                      data-option-index={i}
+                      disabled={practice.busy}
+                      onClick={() => setPractice((p) => (p ? { ...p, chosen: i, result: null } : p))}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+                {practice.result && (
+                  <p className={practice.result.correct ? "ok-text" : "warn-text"} data-testid="practice-feedback">
+                    {practice.result.correct ? "إجابة صحيحة 🎉" : "إجابة غير صحيحة — راجع الشرح ثم أعد المحاولة."}
+                    {practice.result.mastery && (
+                      <span
+                        className={`pill ${practice.result.mastery.level === "mastered" || practice.result.mastery.level === "advanced" ? "ok-pill" : "warn"}`}
+                        data-testid="practice-mastery"
+                      >
+                        {practice.result.mastery.labelAr} · {Math.round(practice.result.mastery.score * 100)}%
+                      </span>
+                    )}
+                  </p>
+                )}
+                {practice.result?.explanation && (
+                  <p className="muted" data-testid="practice-explanation">
+                    {practice.result.explanation}
+                  </p>
+                )}
+                <div className="row-gap">
+                  <button
+                    className="btn primary"
+                    data-testid="practice-submit"
+                    disabled={practice.chosen === null || practice.busy}
+                    onClick={submitPractice}
+                  >
+                    {practice.busy ? "…" : "تحقق من إجابتي"}
+                  </button>
+                  {practice.result && (
+                    <button className="btn ghost" data-testid="practice-next" onClick={nextPractice}>
+                      سؤال آخر
+                    </button>
+                  )}
+                </div>
+              </>
             )}
           </section>
         )}

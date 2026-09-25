@@ -15,6 +15,7 @@ import {
   grades,
   lessons,
   parents,
+  questions,
   students,
   studentsParents,
   subjects,
@@ -185,7 +186,9 @@ async function seedCountry(db: DbHandle, knowledge: KnowledgeService, spec: Coun
     const lessonRows = await db.db.select().from(lessons).where(eq(lessons.unitId, unit.id));
     const lessonIds: Record<string, string> = {};
     for (const lesson of lessonRows) lessonIds[lesson.code] = lesson.id;
-    return { countryId: existing.id, systemId: sys.id, gradeId: grade.id, subjectId: cur.subjectId, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonIds };
+    const seeded = { countryId: existing.id, systemId: sys.id, gradeId: grade.id, subjectId: cur.subjectId, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonIds };
+    await ensureDemoQuestions(db, seeded, demoQuestionsOf(spec.country.code));
+    return seeded;
   }
 
   const c = { id: newId("c"), code: spec.country.code, name: spec.country.name, nameAr: spec.country.nameAr };
@@ -230,6 +233,7 @@ async function seedCountry(db: DbHandle, knowledge: KnowledgeService, spec: Coun
 
   const seeded = { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonIds };
   await ingestLessonDocuments(db, knowledge, seeded, spec.lessons, spec.curriculum.code);
+  await ensureDemoQuestions(db, seeded, demoQuestionsOf(spec.country.code));
   return seeded;
 }
 
@@ -259,6 +263,117 @@ async function ingestLessonDocuments(db: DbHandle, knowledge: KnowledgeService, 
       },
     });
     console.log(`  ✓ Ingested "${lessonSpec.doc.title}" → chunks + vectors.`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 24 — demo practice questions (Egyptian curriculum). Seeded
+// idempotently so `npm run db:seed` never duplicates them; they feed the
+// practice loop that drives the concept-mastery engine. Saudi Arabia
+// intentionally has none — proof the practice scope is truly per-curriculum.
+// ---------------------------------------------------------------------------
+
+interface DemoQuestionSpec {
+  lessonCode: string;
+  conceptTitle?: string;
+  difficulty: "easy" | "medium" | "hard";
+  content: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
+  {
+    lessonCode: "l-add-sub",
+    conceptTitle: "الجمع مع إعادة التجميع",
+    difficulty: "easy",
+    content: "ما ناتج 487 + 358 مع إعادة التجميع؟",
+    options: ["745", "835", "845", "855"],
+    correctIndex: 2,
+    explanation: "الآحاد: 7 + 8 = 15 نكتب 5 ونرفع 1. العشرات: 8 + 5 + 1 = 14 نكتب 4 ونرفع 1. المئات: 4 + 3 + 1 = 8. الناتج 845.",
+  },
+  {
+    lessonCode: "l-add-sub",
+    conceptTitle: "الطرح مع الاستلاف",
+    difficulty: "medium",
+    content: "ما ناتج 503 − 267 باستخدام الاستلاف؟",
+    options: ["236", "246", "226", "336"],
+    correctIndex: 0,
+    explanation: "نستلف من المئات: 400، وتصبح العشرات 9 والآحاد 13. 13 − 7 = 6، 9 − 6 = 3، 4 − 2 = 2. الناتج 236.",
+  },
+  {
+    lessonCode: "l-mul-div",
+    conceptTitle: "الضرب في عدد من رقمين",
+    difficulty: "medium",
+    content: "ما ناتج 34 × 12؟",
+    options: ["408", "340", "368", "428"],
+    correctIndex: 0,
+    explanation: "نضرب أولًا 34 × 2 = 68 ثم 34 × 10 = 340 ونجمع: 68 + 340 = 408.",
+  },
+  {
+    lessonCode: "l-mul-div",
+    conceptTitle: "القسمة المطولة",
+    difficulty: "easy",
+    content: "ما ناتج 78 ÷ 3 بالقسمة المطولة؟",
+    options: ["26", "24", "23", "28"],
+    correctIndex: 0,
+    explanation: "7 ÷ 3 = 2 والباقي 1، ننزل 8 فتصبح 18، و18 ÷ 3 = 6. الناتج 26.",
+  },
+  {
+    lessonCode: "l-fractions",
+    conceptTitle: "تبسيط الكسور",
+    difficulty: "easy",
+    content: "بعد تبسيط الكسر 8/12 يصبح:",
+    options: ["2/3", "4/6", "3/4", "1/2"],
+    correctIndex: 0,
+    explanation: "نقسم البسط والمقام على العامل المشترك الأكبر 4: 8 ÷ 4 = 2 و 12 ÷ 4 = 3، فيصبح 2/3.",
+  },
+  {
+    lessonCode: "l-fractions",
+    conceptTitle: "جمع الكسور ذات المقامات المتشابهة",
+    difficulty: "easy",
+    content: "ما ناتج 1/4 + 2/4؟",
+    options: ["3/4", "3/8", "2/4", "1/2"],
+    correctIndex: 0,
+    explanation: "نجمع البسطين ونُبقي المقام كما هو: 1 + 2 = 3، إذن الناتج 3/4.",
+  },
+];
+
+/** Per-country demo question set — only Egypt ships questions in this seed. */
+function demoQuestionsOf(countryCode: string): DemoQuestionSpec[] {
+  return countryCode === "eg" ? EGYPT_DEMO_QUESTIONS : [];
+}
+
+/** Insert each missing demo question for its lesson/concept (idempotent). */
+async function ensureDemoQuestions(db: DbHandle, seeded: Seeded, specs: DemoQuestionSpec[]): Promise<void> {
+  for (const q of specs) {
+    const lessonId = seeded.lessonIds[q.lessonCode];
+    if (!lessonId) continue;
+    if (!q.options[q.correctIndex]) continue;
+    const existing = await db.db
+      .select({ id: questions.id })
+      .from(questions)
+      .where(and(eq(questions.lessonId, lessonId), eq(questions.content, q.content)))
+      .limit(1);
+    if (existing.length > 0) continue;
+    const conceptId = q.conceptTitle
+      ? (await db.db.select({ id: concepts.id }).from(concepts).where(and(eq(concepts.lessonId, lessonId), eq(concepts.title, q.conceptTitle))).limit(1).get())?.id ?? null
+      : null;
+    await db.db.insert(questions).values({
+      id: newId("q"),
+      curriculumId: seeded.curriculumId,
+      lessonId,
+      conceptId,
+      difficulty: q.difficulty,
+      type: "mcq",
+      content: q.content,
+      explanation: q.explanation,
+      optionsJson: JSON.stringify({ options: q.options, correctIndex: q.correctIndex }),
+      answerKey: null,
+      createdAt: new Date(),
+    });
+    console.log(`  ✓ Seeded practice question "${q.content}"`);
   }
 }
 

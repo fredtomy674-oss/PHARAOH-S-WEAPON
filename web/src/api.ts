@@ -145,9 +145,31 @@ export interface TurnResult {
 }
 
 export interface ProgressConcept {
-  id: string;
+  conceptId: string;
+  conceptTitle: string;
+  conceptCode: string;
+  mastery: number;
+  attempts: number;
+  correct: number;
+  lastSeenAt: string;
+}
+
+// PHASE 24 — one concept's mastery summary (level, decay, trend).
+export type MasteryLevel = "mastered" | "advanced" | "developing" | "needs_review";
+
+export interface MasteryConcept {
+  conceptId: string;
+  code: string;
   title: string;
   mastery: number;
+  decayedMastery: number;
+  level: MasteryLevel;
+  labelAr: string;
+  attempts: number;
+  correct: number;
+  lastSeenAt: string;
+  daysSinceLastPractice: number;
+  trend: "up" | "steady" | "down";
 }
 
 export interface ProgressDetail {
@@ -157,6 +179,7 @@ export interface ProgressDetail {
     strengths: string[];
     weaknesses: string[];
   };
+  mastery: MasteryConcept[];
   tutorUsageToday: number;
 }
 
@@ -325,6 +348,38 @@ export async function myProgress(): Promise<ProgressDetail> {
   return api<ProgressDetail>("/progress/me");
 }
 
+// --- Practice loop (PHASE 24) ----------------------------------------------
+
+export interface PracticeQuestion {
+  id: string;
+  content: string;
+  options: string[];
+  conceptId: string | null;
+  conceptTitle: string | null;
+  difficulty: "easy" | "medium" | "hard";
+}
+
+export interface PracticeResult {
+  correct: boolean;
+  explanation: string | null;
+  /** null when the question is not linked to a concept (no mastery impact). */
+  mastery: { score: number; decayedScore: number; level: MasteryLevel; labelAr: string } | null;
+}
+
+/** Next practice question (weakest tracked concept first), or null when none. */
+export async function getPracticeQuestion(conceptId?: string): Promise<PracticeQuestion | null> {
+  const qs = conceptId ? `?conceptId=${encodeURIComponent(conceptId)}` : "";
+  const res = await api<{ question: PracticeQuestion | null }>(`/practice/question${qs}`);
+  return res.question;
+}
+
+export async function submitPracticeAnswer(questionId: string, optionIndex: number): Promise<PracticeResult> {
+  return api<PracticeResult>(`/practice/questions/${encodeURIComponent(questionId)}/submit`, {
+    method: "POST",
+    body: { optionIndex },
+  });
+}
+
 // --- Parent dashboard (PHASE 18) -------------------------------------------
 
 export interface ParentLastSession {
@@ -364,7 +419,17 @@ export interface ParentChildDetail {
     sessionCount: number;
   };
   progress: {
-    concepts: Array<{ conceptId: string; title: string; mastery: number }>;
+    // PHASE 24: concepts carry the mastery level + Arabic label (decayed
+    // read-side score) alongside the raw persisted mastery.
+    concepts: Array<{
+      conceptId: string;
+      title: string;
+      mastery: number;
+      decayedMastery: number;
+      level: MasteryLevel;
+      labelAr: string;
+      trend: "up" | "steady" | "down";
+    }>;
     strengths: string[];
     weaknesses: string[];
   };

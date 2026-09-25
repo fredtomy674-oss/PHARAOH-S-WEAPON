@@ -198,6 +198,20 @@
 - [x] اختبارات: API `parent.test.ts` (**13**) — خط زمني 4 أدوار بدقة (`user→tutor→user→tutor`) مع مرفق صورة (`question.png`/`itemKind=image`) + **عَلَم واحد** (`[false,false,false,true]`) + مفهوم واحد من `recordAssessment` (`attempts=1/correct=1`) + **6 نفي تسريب**: نصّا السؤال والرد وعبارة المعلّم وبايتات الصورة وغياب حقل `content`؛ عزل: الطالب → 403، والد أجنبي → 404، طفل غير مربوط → 404، جلسة مجهولة → 404 — **208/208 أخضر** — وE2E `parent.spec.ts` **P4**: الطالب يسأل + حقن → الوالد يفتح التفاصيل: 4 مداخل زمنية + شارة أمان واحدة + **3 نفي تسريب** في body — **30/30 أخضر**
 - [x] `npm run check` أخضر (208/208) + `npm run build` أخضر + docs sync (DECISIONS D-027/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 24 — محرك إتقان المفاهيم + تمرين سريع (تفعيل جداول `questions`/`answers` الخاملة) ✅
+
+**القرار D-028**: الإتقان يُحسب **قراءةً** (levels + انحلال أُسي Ebbinghaus + اتجاه) من سجلات الإتقان والتقييمات، وتُفعَّل جداول `questions`/`answers` الجاهزة (منذ PHASE 1) كقناة **تمرين MCQ حتمي** تُغذّي `recordAssessment` — أول مُستدعٍ إنتاجي لمسار التقييم الذي كان خاملًا.
+- [x] **`progress/mastery.ts`** (محرك نقي بلا I/O): `masteryLevel`/`describeMastery` بأربعة مستويات (متقن ≥0.8، متقدم ≥0.6، قيد التقدم ≥0.4، يحتاج مراجعة <0.4)، `decayMastery` (منحنى نسيان أُسي — `MASTERY_DECAY_PER_DAY` افتراضي 0.02 ≈ نصف عمر 35 يومًا)، `masteryTrend` (معدّل آخر ≤3 أحداث مقابل ما قبلها: up/steady/down)، `daysBetween`، `round2`، و`safeParseAssessment` المركزي (يشاركه parent/service — حُذفت النسخة المحلية)
+- [x] **`env.ts`**: `MASTERY_DECAY_PER_DAY` (افتراضي 0.02؛ 0 = إيقاف الانحلال)
+- [x] **`memoryService.ts`**: `progressDetail` ينتقى `lastSeenAt` أيضًا + `masterySummary(studentId)` الجديد — يزيّن كل مفهوم بـ `{mastery, decayedMastery, level, labelAr, attempts, correct, lastSeenAt, daysSinceLastPractice, trend}` (الانحلال قراءةً فقط؛ ذاكرة المعلّم تحتفظ بالقيمة الخام)
+- [x] **`practice/service.ts` + `routes.ts`**: `GET /api/practice/question?conceptId=` (أضعف المفاهيم المتتبعة أولًا ثم أي سؤال في مناهج الطالب المسجَّلة؛ **بلا تسريب `correctIndex`/`answerKey`**) و `POST /api/practice/questions/:id/submit` (تصحيح حتمي + كتابة `answers` + `recordAssessment(type:"exercise")` + رد بشرح ومستوى الإتقان المُحدَّث) — عزل: غير مسجَّل → 404، ولي أمر → 403، مؤشر خيار غير صالح → 400
+- [x] **حاوية/مسارات**: `app.practice` في container + تسجيل `practiceRoutes` في `app.ts`
+- [x] **`progress/routes.ts`**: `/api/progress/me` يكشف `mastery` (المستويات/الاتجاه/الحداثة) — و**`parent/service.ts`**: مفاهيم تقدم الطفل تحمل `level/labelAr/decayedMastery/trend`
+- [x] **بذر أسئلة تجريبية** (`questions` بصيغة `{options, correctIndex}` داخل `optionsJson`): 6 MCQ مصرية مرتبطة بمفاهيم الدروس الثلاثة — **idempotent** في فرعَي البذر (جديد + موجود)؛ السعودية بلا أسئلة عمدًا (إثبات تفعيل النطاق لكل منهج)
+- [x] **الويب**: `Home.tsx` قسم «إتقان المفاهيم» (شارات مستوى + نسبة انحلال + سهم اتجاه + حداثة) + لوحة «تمرين سريع» (سؤال/خيارات/تحقق/شرح/شارة مستوى/سؤال آخر) + `Parent.tsx` شارات المستوى في تقدم الطفل + CSS + `api.ts` (أنواع + `getPracticeQuestion`/`submitPracticeAnswer`)
+- [x] اختبارات: وحدة `mastery.test.ts` (**15**: مستويات على الحدود، تسامح خارج النطاق، انحلال 0 يوم/أُسي/تعطيل/سالب، daysBetween، اتجاهات up/down/steady، round2+safeParse) + API `practice.test.ts` (**8**: أضعف مفهوم أولًا بلا تسريب، فلتر conceptId، تصحيح صحيح/خاطئ + سجلات `answers`/`assessments`/`studentProgress` + `progress/me` بالإتقان، 403 للوالد، 404/سؤال بلا سؤال لغير المسجَّل، 400 خيار غير صالح) — **231/231 أخضر** + E2E `practice.spec.ts` **PR1**: فتح التمرين → سؤال (بلا `correctIndex`/`answerKey` في الصفحة) → اختيار خيار → تغذية راجعة صحيحة/خاطئة + شارة مستوى → reload → صفّ إتقان بشارة واتجاه — **31/31 أخضر**
+- [x] `npm run check` أخضر (231/231) + `npm run build` أخضر + docs sync (DECISIONS D-028/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -214,6 +228,7 @@
 - [x] ✅ اختبار UI آلي حقيقي (Playwright) عبر المتصفح — 16/16 (PHASE 9 + 10 + 11)
 - [x] ✅ Caching مُفعَّل لتقليل استدعاءات المزود الحقيقي (AiCache جاهز) — classifier/rerank/embedding/ocr حتمية تُخدم من LRU؛ المعلّم ديناميكي لا يُخزَّن؛ عدّادات على `/api/health` — 5+6 وحدة (PHASE 22)
 - [x] ✅ لوحة ولي الأمر: **تفاصيل جلسات الطفل** — خط زمني بيانات وصفية فقط (أدوار/أنواع/مرفقات/علم حقن/مفاهيم الجلسة/مدة) بلا محتوى خام — 2 API + 1 E2E (PHASE 23)
+- [x] ✅ **محرك إتقان المفاهيم + تمرين سريع** — مستويات/انحلال/اتجاه + تفعيل جداول `questions`/`answers` (حتمي، بلا AI) يغذّي التقييمات؛ عرض الإتقان للطالب وولي الأمر — 15 وحدة + 8 API + 1 E2E (PHASE 24)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

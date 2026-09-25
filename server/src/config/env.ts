@@ -48,6 +48,11 @@ const EnvSchema = z.object({
    *  cliff: free students are capped by DAILY_MESSAGE_LIMIT, premium by this. */
   PREMIUM_DAILY_MESSAGE_LIMIT: z.coerce.number().int().nonnegative().default(0),
 
+  // Concept mastery (PHASE 24): exponential forgetting rate per day, applied
+  // READ-side when summarizing mastery. Default 0.02 ≈ ~2%/day (half-life ≈ 35
+  // days); 0 disables decay (static mastery).
+  MASTERY_DECAY_PER_DAY: z.coerce.number().min(0).default(0.02),
+
   // Rate limiting (per-IP, per minute). Default protects dev/prod; tests raise
   // it via env so automated suites never trip false 429s.
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(120),

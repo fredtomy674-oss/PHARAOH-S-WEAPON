@@ -41,6 +41,7 @@
 | PATCH | `/api/sessions/:id` | `{status:'ended', endedReason}` |
 | POST | `/api/sessions/:id/end` | إنهاء الجلسة (ينشئ recap للذاكرة) |
 | GET | `/api/progress/:studentId/concepts` | إتقان المفاهيم + نقاط القوة/الضعف |
+| GET | `/api/progress/me` | **PHASE 24** — تقدمي + `mastery` (مفاهيمي: `mastery` خام + `decayedMastery` + `level` + `labelAr` عربية + `attempts`/`correct` + `daysSinceLastPractice` + `trend` صعود/ثبات/هبوط — الانحلال قراءةً فقط) + `progress` + `tutorUsageToday` | student فقط |
 
 > مرفقات الطالب (§3): `POST /api/sessions/:id/messages` يقبل `{content, image?, document?}` حيث `document = {dataUrl, fileName}` (النوع يُشتق من dataUrl؛ حد `MAX_FILE_KB`، فحص MAGIC bytes، استخراج محدود `MAX_DOCUMENT_CHARS`). ممسوح ضوئيًا (PDF/DOCX بلا نص) → **قراءة تلقائية بالـOCR** (PHASE 19/D-023) تُخزَّن في `messageAttachments.ocrApplied` وتُعلّم الرد بـ`ocrUsed:true` و`messageAttachments[].ocr:true` (شارة «نص ممسوح ضوئيًا» في الواجهة)؛ فشل المزوّد → يحمل الرد النص كما لو كان استخراجًا صفريًا (لا انهيار).
 
@@ -102,7 +103,7 @@
 |---|---|---|---|
 | POST | `/api/parent/link` | `{code}` — ربط طفل بِكود المشاركة (case-insensitive عبر `toUpperCase`) → 201 بطاقة الطفل؛ `400 INVALID_LINK_CODE`؛ `409 ALREADY_LINKED` | parent فقط |
 | GET | `/api/parent/children` | قائمة الأبناء المربوطين (اسم/صف/مناهج/عدد جلسات/آخر جلسة) | parent فقط |
-| GET | `/api/parent/children/:studentId` | بطاقة كاملة: هوية + تقدّم (`progressDetail`: مفاهيم + نقاط قوة/ضعف) + ملخصات جلسات (درس/تاريخ/حالة/`userMessages`/`tutorMessages`) + كود الطالب الحالي | parent فقط |
+| GET | `/api/parent/children/:studentId` | بطاقة كاملة: هوية + تقدّم (`progressDetail`: مفاهيم تحمل **شارة مستوى عربية `labelAr`/`level`/`decayedMastery`/`trend`** + نقاط قوة/ضعف) + ملخصات جلسات (درس/تاريخ/حالة/`userMessages`/`tutorMessages`) + كود الطالب الحالي | parent فقط |
 | GET | `/api/parent/children/:studentId/sessions/:sessionId` | **PHASE 23** — تفاصيل جلسة: `session` (درس/حالة/تواريخ/`durationMinutes`/عدّادات/سبب النهاية) + `concepts` (مفاهيم عُرضت من `assessments`) + `safety.flaggedTurns` + `timeline` (لكل رسالة: `role`/`kind`/`createdAt`/`attachments[{mimeType,fileName,sizeBytes,itemKind,ocrApplied}]`/`safetyFlagged`) — **بلا `content` ولا بايتات مرفقات ولا `sha256`**؛ جلسة لا تخصّ الطفل المربوط = `404` | parent فقط |
 | DELETE | `/api/parent/children/:studentId` | فك الربط → 204؛ غير مربوط → 404 | parent فقط |
 
@@ -120,3 +121,14 @@
 | PUT | `/api/admin/subscriptions/students/:studentId` | منح/إلغاء: `{plan: "free"|"premium", status?: "trialing"|"active"|"past_due"|"cancelled", expiresAt?}` → upsert + سجل تدقيق `subscription.update` | admin فقط |
 
 **عزل الأدوار**: والد أو admin على `GET /api/me/subscription` و`/api/achievements/me` → `403`؛ طالب على `/api/admin/subscriptions*` → `403`؛ طالب مجهول على PUT → `404`. **منح الإنجازات خادمي بحت** — يُطلق من `SessionService` على أحداث (`session_ended`, `user_message`, `document_attached`, `vision_attached`) بمنح `onConflictDoNothing` مضاد للتكرار وبعدّادات مقيّدة بجلسات الطالب نفسه؛ فشل أي منح لا يكسر الجلسة (best-effort).
+
+## 10. التمرين (PHASE 24) — تفعيل `questions`/`answers` الخاملة كقناة تقييم حتمية
+
+> حلقة ضعف → ممارسة → إتقان: السؤال يُختار من **أضعف المفاهيم المتتبعة أولًا** (الأقل إتقانًا/الصحيح) ثم أي سؤال ضمن مناهج الطالب المسجَّلة (الأقدم أولًا — حتمي). التصحيح **محلي حتمي بلا أي استدعاء AI**، وكل إجابة تكتب صف `answers` وتدرّب تقييمًا (`recordAssessment` نوع `exercise`) فيتغيّر مستوى إتقان المفهوم لحظيًا (يُشاهَد في `GET /api/progress/me` ولوحة الوالد وتغذية الراجعة).
+
+| Method | Route | الوصف | Auth |
+|---|---|---|---|
+| GET | `/api/practice/question?conceptId=` | `{question}` حيث `question: {id, content, options: string[], conceptId, conceptTitle, difficulty}` أو `null` عند لا سؤال؛ **المفتاح لا يغادر الخادم** — `correctIndex`/`answerKey`/`optionsJson` الخام غائبة تمامًا من الـJSON (الخيارات نص فقط) | student فقط |
+| POST | `/api/practice/questions/:questionId/submit` | `{optionIndex}` → `{correct: boolean, explanation: string|null, mastery: {score, decayedScore, level, labelAr}|null}` (null عند سؤال بلا مفهوم)؛ التصحيح يعتمد `correctIndex` خادميًا ويُدرّب التقييم (`+0.15` صواب / `−0.1` خطأ على صف موجود؛ `0.6/0.1` أول محاولة) — ويُكتب صف `answers` بـ`content` = النص المختار | student فقط |
+
+**قواعد وعزل**: غير مسجَّل في منهج السؤال (`curriculumEnrollments`) → `404` بلا مؤشر وجود (والسؤال لا يُخدم أصلًا عبر `question: null`)؛ ولي أمر/أدمن على أي `/api/practice/*` → `403 FORBIDDEN` (المسار مسجَّل بنطاق `student` قبل body validation)؛ غياب/خروج `optionIndex` عن حدود الخيارات أو غير عددي → `400 INVALID_OPTION`. السؤال/الخيارات/الشرح يُقرآن من `questions.optionsJson` (خادمي فقط). **السعودية بلا أسئلة تجريبية** في البذر عمدًا — إثبات نطاق التمرين لكل منهج على حدة.

@@ -14,6 +14,7 @@ import {
   educationSystems,
   grades,
   lessons,
+  questions,
   subjects,
   terms,
   units,
@@ -117,6 +118,11 @@ export interface MiniCorpus {
   unitId: string;
   lessonA: string;
   lessonB: string;
+  conceptAId: string;
+  conceptBId: string;
+  questionA1Id: string;
+  questionA2Id: string;
+  questionB1Id: string;
 }
 
 /** Seeds a two-lesson corpus so RAG isolation can be asserted (A vs B). */
@@ -140,10 +146,16 @@ export async function seedMiniCorpus(api: TestApi): Promise<MiniCorpus> {
   const lessonA = { id: newId("l"), unitId: unit.id, code: "l-a", title: "الجمع ضمن الأعداد حتى 999", sortOrder: 1 };
   const lessonB = { id: newId("l"), unitId: unit.id, code: "l-b", title: "الكسور الاعتيادية", sortOrder: 2 };
   await db.insert(lessons).values([lessonA, lessonB]);
-  await db.insert(concepts).values([
-    { id: newId("con"), lessonId: lessonA.id, code: "c-a1", title: "الجمع مع التجميع", description: "مفهوم أ" },
-    { id: newId("con"), lessonId: lessonB.id, code: "c-b1", title: "مقارنة الكسور", description: "مفهوم ب" },
-  ]);
+  const conceptA = { id: newId("con"), lessonId: lessonA.id, code: "c-a1", title: "الجمع مع التجميع", description: "مفهوم أ" };
+  const conceptB = { id: newId("con"), lessonId: lessonB.id, code: "c-b1", title: "مقارنة الكسور", description: "مفهوم ب" };
+  await db.insert(concepts).values([conceptA, conceptB]);
+
+  // PHASE 24 — practice questions: two on lesson A (weakest-first candidate),
+  // one on lesson B (isolation/foreign-scope candidate).
+  const questionA1 = { id: newId("q"), curriculumId: cur.id, lessonId: lessonA.id, conceptId: conceptA.id, difficulty: "easy" as const, type: "mcq" as const, content: "ما ناتج 487 + 358؟", explanation: "الآحاد 15 نكتب 5 ونرفع 1، فيكون الناتج 845.", optionsJson: JSON.stringify({ options: ["845", "835", "745", "855"], correctIndex: 0 }), answerKey: null, createdAt: new Date(now.getTime() - 60_000) };
+  const questionA2 = { id: newId("q"), curriculumId: cur.id, lessonId: lessonA.id, conceptId: conceptA.id, difficulty: "easy" as const, type: "mcq" as const, content: "أكمل: 12 + 8 = ؟", explanation: "12 + 8 = 20.", optionsJson: JSON.stringify({ options: ["20", "18", "22", "21"], correctIndex: 0 }), answerKey: null, createdAt: now };
+  const questionB1 = { id: newId("q"), curriculumId: cur.id, lessonId: lessonB.id, conceptId: conceptB.id, difficulty: "easy" as const, type: "mcq" as const, content: "أي الكسرين أكبر: 3/5 أم 2/5؟", explanation: "مع تشابه المقامات، الأكبر بسطًا أكبر.", optionsJson: JSON.stringify({ options: ["3/5", "2/5"], correctIndex: 0 }), answerKey: null, createdAt: now };
+  await db.insert(questions).values([questionA1, questionA2, questionB1]);
 
   const scopeA = { countryId: c.id, educationSystemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonId: lessonA.id };
   const scopeB = { ...scopeA, lessonId: lessonB.id, countryId: c.id };
@@ -165,7 +177,7 @@ export async function seedMiniCorpus(api: TestApi): Promise<MiniCorpus> {
     scope: scopeB,
   });
 
-  return { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonA: lessonA.id, lessonB: lessonB.id };
+  return { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonA: lessonA.id, lessonB: lessonB.id, conceptAId: conceptA.id, conceptBId: conceptB.id, questionA1Id: questionA1.id, questionA2Id: questionA2.id, questionB1Id: questionB1.id };
 }
 
 export interface SaudiCorpus {

@@ -1,5 +1,6 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
+import { config } from "../../config/env.js";
 import {
   assessments,
   concepts,
@@ -9,6 +10,7 @@ import {
   studentProgress,
 } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
+import { daysBetween, decayMastery, describeMastery, masteryTrend, round2, safeParseAssessment, type MasteryLevel, type MasteryTrend } from "../progress/mastery.js";
 
 export interface StudentMemorySnapshot {
   strengths: string[];
@@ -19,6 +21,27 @@ export interface StudentMemorySnapshot {
   masteryByConcept: Record<string, number>;
   totalAttempts: number;
   totalCorrect: number;
+}
+
+/**
+ * PHASE 24 — one concept's mastery as shown in the student progress card and
+ * the parent dashboard. `mastery` is the raw persisted EWMA score;
+ * `decayedMastery` is the read-side Ebbinghaus-decayed score used for the
+ * level label.
+ */
+export interface MasteryConceptSummary {
+  conceptId: string;
+  code: string;
+  title: string;
+  mastery: number;
+  decayedMastery: number;
+  level: MasteryLevel;
+  labelAr: string;
+  attempts: number;
+  correct: number;
+  lastSeenAt: Date;
+  daysSinceLastPractice: number;
+  trend: MasteryTrend;
 }
 
 /**
@@ -165,6 +188,7 @@ export class MemoryService {
         mastery: studentProgress.mastery,
         attempts: studentProgress.attempts,
         correct: studentProgress.correct,
+        lastSeenAt: studentProgress.lastSeenAt,
         conceptTitle: concepts.title,
         conceptCode: concepts.code,
       })
@@ -174,6 +198,51 @@ export class MemoryService {
     const strengths = rows.filter((r) => r.mastery >= 0.6).map((r) => ({ conceptId: r.conceptId, title: r.conceptTitle, mastery: r.mastery }));
     const weaknesses = rows.filter((r) => r.mastery < 0.6).map((r) => ({ conceptId: r.conceptId, title: r.conceptTitle, mastery: r.mastery }));
     return { concepts: rows, strengths, weaknesses };
+  }
+
+  /**
+   * PHASE 24 — mastery summary for display: the raw persisted mastery per
+   * concept + the READ-side decayed score, level + Arabic label, trajectory
+   * (from the student's assessment history) and practice recency. Used by the
+   * student progress card and the parent dashboard. Decay is applied only here
+   * (and in practice feedback) so long-term memory for the tutor prompt keeps
+   * the raw value.
+   */
+  async masterySummary(studentId: string, now: Date = new Date()): Promise<MasteryConceptSummary[]> {
+    const { concepts: rows } = await this.progressDetail(studentId);
+    const eventsByConcept = new Map<string, Array<{ correct: boolean }>>();
+    const assessmentRows = await this.db.db
+      .select()
+      .from(assessments)
+      .where(eq(assessments.studentId, studentId))
+      .orderBy(asc(assessments.createdAt));
+    for (const row of assessmentRows) {
+      const parsed = safeParseAssessment(row.resultJson);
+      if (!parsed?.conceptId) continue;
+      const list = eventsByConcept.get(parsed.conceptId) ?? [];
+      list.push({ correct: parsed.correct ?? false });
+      eventsByConcept.set(parsed.conceptId, list.slice(-12));
+    }
+    const perDay = config.MASTERY_DECAY_PER_DAY;
+    return rows.map((r) => {
+      const daysSinceLastPractice = Math.round(daysBetween(r.lastSeenAt, now));
+      const decayedMastery = decayMastery(r.mastery, daysSinceLastPractice, perDay);
+      const { level, labelAr } = describeMastery(decayedMastery);
+      return {
+        conceptId: r.conceptId,
+        code: r.conceptCode,
+        title: r.conceptTitle,
+        mastery: round2(r.mastery),
+        decayedMastery: round2(decayedMastery),
+        level,
+        labelAr,
+        attempts: r.attempts,
+        correct: r.correct,
+        lastSeenAt: r.lastSeenAt,
+        daysSinceLastPractice,
+        trend: masteryTrend(eventsByConcept.get(r.conceptId) ?? []),
+      };
+    });
   }
 
   private collect(memories: Array<{ id: string; kind: string; valueJson: string }>, kind: string): string[] {

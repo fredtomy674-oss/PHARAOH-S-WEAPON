@@ -243,7 +243,9 @@ export function ParentScreen({ user, onLogout }: Props) {
                 {detail.progress.concepts.map((c) => (
                   <li key={c.conceptId} className="progress-row" data-testid="parent-progress-row">
                     <span>{c.title}</span>
-                    <span className={`pill ${c.mastery >= 0.6 ? "ok-pill" : "warn"}`}>{Math.round(c.mastery * 100)}%</span>
+                    <span className={`pill ${c.level === "mastered" || c.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="parent-progress-level">
+                      {c.labelAr} · {Math.round(c.mastery * 100)}%
+                    </span>
                   </li>
                 ))}
               </ul>
