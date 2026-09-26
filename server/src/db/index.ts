@@ -40,6 +40,12 @@ export function createDb() {
 export function applyMigrations(db: Db): void {
   // For in-memory test DBs we run migrations from the on-disk folder too.
   migrate(db.db, { migrationsFolder });
+
+  // PHASE 33 — one-time (idempotent) data backfill: legacy `student_progress`
+  // rows predate `last_practice_at`, and their `last_seen_at` was ONLY ever
+  // written by practice, so it is a faithful record of the last practice.
+  // The achievements engine keeps badges practice-gated through this column.
+  db.sqlite.prepare("UPDATE student_progress SET last_practice_at = last_seen_at WHERE last_practice_at IS NULL;").run();
 }
 
 /** One-shot: used by index.ts and the seeder. */

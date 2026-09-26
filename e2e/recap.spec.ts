@@ -23,7 +23,11 @@ test("R1: a student views the safe recap of an ended lesson session", async ({ p
   // we target the ended row by its exact id).
   const activesBefore = await activeSessionIds(page);
   await startFirstLesson(page);
-  const lessonTitle = (await page.locator(".chat-header strong").textContent())?.trim() ?? "";
+  // The chat header renders a "الجلسة" placeholder until the breadcrumb loads
+  // — wait for the real lesson title so the recap assertion compares like-for-like.
+  const lessonHeaderTitle = page.locator(".chat-header strong");
+  await expect(lessonHeaderTitle).not.toHaveText("الجلسة", { timeout: 20_000 });
+  const lessonTitle = (await lessonHeaderTitle.textContent())?.trim() ?? "";
   expect(lessonTitle.length).toBeGreaterThan(0);
 
   await sendChatMessage(page, R1_PROBE);
@@ -61,7 +65,11 @@ test("R2: a parent reads the same safe recap from the session timeline", async (
   // 1) The demo student runs a fresh lesson so the parent's newest session is THIS one.
   await login(page);
   await startFirstLesson(page);
-  const lessonTitle = (await page.locator(".chat-header strong").textContent())?.trim() ?? "";
+  // Wait for the real lesson title (the header shows a "الجلسة" placeholder
+  // until the async breadcrumb resolves).
+  const lessonHeaderTitle = page.locator(".chat-header strong");
+  await expect(lessonHeaderTitle).not.toHaveText("الجلسة", { timeout: 20_000 });
+  const lessonTitle = (await lessonHeaderTitle.textContent())?.trim() ?? "";
   expect(lessonTitle.length).toBeGreaterThan(0);
   await sendChatMessage(page, R2_PROBE);
 

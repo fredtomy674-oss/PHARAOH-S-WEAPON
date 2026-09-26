@@ -296,6 +296,26 @@ export class SessionService {
     } catch {
       // Recaps are best-effort; never fail session end because of them.
     }
+
+    // PHASE 33 — ending a lesson session refreshes EXPOSURE recency for the
+    // lesson's concepts (existing progress rows only; mastery unchanged), so
+    // the practice plan and mastery display reflect that the material was just
+    // studied. Best-effort like recaps: never fail the end call.
+    if (session.lessonId) {
+      try {
+        const lessonConcepts = await this.db.db
+          .select({ id: conceptsTable.id })
+          .from(conceptsTable)
+          .where(eq(conceptsTable.lessonId, session.lessonId));
+        await this.memory.touchConceptRecency(
+          session.studentId,
+          lessonConcepts.map((c) => c.id),
+          session.endedAt ?? new Date(),
+        );
+      } catch {
+        // Recency refresh is optional behavior; a hiccup must not fail the end.
+      }
+    }
     await this.audit.record({ actorUserId: undefined, action: "session.end", entityType: "learning_session", entityId: session.id, afterJson: JSON.stringify({ reason }) });
 
     // PHASE 20 — completing sessions feeds the achievement counters (best-effort).

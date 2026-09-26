@@ -1,0 +1,1 @@
+ALTER TABLE `student_progress` ADD `last_practice_at` integer;

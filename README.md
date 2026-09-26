@@ -53,11 +53,11 @@ GEMINI_API_KEY=اكتب-مفتاحك-هنا
 | `npm run dev` | server + web معًا |
 | `npm run dev:server` / `dev:web` | كل على حدة |
 | `npm run db:seed` | زرع المنهج والمعرفة النموذجية |
-| `npm run test` | كل الاختبارات (أوفلاين Vitest 381/381) |
+| `npm run test` | كل الاختبارات (أوفلاين Vitest 387/387) |
 | `npm run typecheck` | فحص الأنواع (كل الأعمال) |
 | `npm run lint` | ESLint |
 | `npm run check` | typecheck + lint + test |
-| `npm run e2e` | اختبارات Browser E2E (Playwright) — 40/40 |
+| `npm run e2e` | اختبارات Browser E2E (Playwright) — 41/41 |
 | `npm run e2e:install` | تنزيل Chromium (مرة واحدة) |
 | `npm run e2e:report` | فتح تقرير HTML للاختبارات |
 

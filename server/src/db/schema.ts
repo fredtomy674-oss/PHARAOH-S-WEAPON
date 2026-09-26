@@ -446,6 +446,15 @@ export const studentProgress = sqliteTable(
     attempts: integer("attempts").notNull().default(0),
     correct: integer("correct").notNull().default(0),
     lastSeenAt: ts("last_seen_at").notNull(),
+    /**
+     * PHASE 33 — «آخر ممارسة فعلية»: when the student last answered questions
+     * for this concept (recordAssessment). NULL on legacy rows (backfilled to
+     * equal last_seen_at by migration 0009). Achievements decay against THIS
+     * timestamp so badges stay practice-gated, while `lastSeenAt` doubles as
+     * general engagement recency (practice OR lesson exposure) for display
+     * and the practice plan.
+     */
+    lastPracticedAt: ts("last_practice_at"),
   },
   (t) => [uniqueIndex("progress_student_concept_unique").on(t.studentId, t.conceptId)],
 );

@@ -1,4 +1,4 @@
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, inArray } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
 import { config } from "../../config/env.js";
 import {
@@ -154,7 +154,7 @@ export class MemoryService {
       mastery = Math.min(1, Math.max(0, round2(row.mastery + (input.correct ? delta.onCorrect : delta.onWrong))));
       await this.db.db
         .update(studentProgress)
-        .set({ mastery, attempts, correct, lastSeenAt: now })
+        .set({ mastery, attempts, correct, lastSeenAt: now, lastPracticedAt: now })
         .where(eq(studentProgress.id, row.id));
     } else {
       mastery = input.correct ? 0.6 : 0.1;
@@ -166,6 +166,7 @@ export class MemoryService {
         attempts: 1,
         correct: input.correct ? 1 : 0,
         lastSeenAt: now,
+        lastPracticedAt: now,
       });
     }
     await this.db.db.insert(assessments).values({
@@ -180,6 +181,25 @@ export class MemoryService {
       createdAt: now,
     });
     return mastery;
+  }
+
+  /**
+   * PHASE 33 — a learning session covering `conceptIds` refreshes the student's
+   * EXPOSURE recency for those concepts WITHOUT touching mastery, attempts or
+   * badges. Only existing `student_progress` rows are updated (guarding last
+   * seen/practice timestamps keyed to actual answering); brand-new concepts of
+   * the lesson stay untracked. `lastSeenAt` also drives the Ebbinghaus decay
+   * shown to the student and the practice-plan ranking, so a freshly studied
+   * lesson legitimately keeps its concepts off the top of the needs-review
+   * queue — while the achievements engine keeps decaying against
+   * `lastPracticedAt` (the last real attempt).
+   */
+  async touchConceptRecency(studentId: string, conceptIds: string[], at: Date): Promise<void> {
+    if (conceptIds.length === 0) return;
+    await this.db.db
+      .update(studentProgress)
+      .set({ lastSeenAt: at })
+      .where(and(eq(studentProgress.studentId, studentId), inArray(studentProgress.conceptId, conceptIds)));
   }
 
   async saveRecap(sessionId: string, summary: string, conceptsTouched: string[]): Promise<void> {
@@ -214,10 +234,14 @@ export class MemoryService {
   /**
    * PHASE 24 — mastery summary for display: the raw persisted mastery per
    * concept + the READ-side decayed score, level + Arabic label, trajectory
-   * (from the student's assessment history) and practice recency. Used by the
-   * student progress card and the parent dashboard. Decay is applied only here
-   * (and in practice feedback) so long-term memory for the tutor prompt keeps
-   * the raw value.
+   * (from the student's assessment history) and engagement recency.
+   * `daysSinceLastPractice` / decay are driven by `lastSeenAt`, which since
+   * PHASE 33 also refreshes when a lesson session covering the concept ends —
+   * studying a lesson counts as exposure, exactly like an SRS "due" refresh.
+   * Achievements decay against the separate `lastPracticedAt` timestamp so
+   * badges keep rewarding real attempts. Used by the student progress card and
+   * the parent dashboard. Decay is applied only here (and in practice feedback)
+   * so long-term memory for the tutor prompt keeps the raw value.
    */
   async masterySummary(studentId: string, now: Date = new Date()): Promise<MasteryConceptSummary[]> {
     const { concepts: rows } = await this.progressDetail(studentId);

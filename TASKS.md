@@ -322,6 +322,17 @@
 - [x] اختبارات: وحدة `streak.test.ts` (**10**) + API `streak.test.ts` (**4** — 3 أيام متتالية تمنح «مواظب 3» وتبقي «مواظب أسبوع» مقفولة + انقطاع يوم يعيد التصفير بلا شارة + الجلسات نشاطٌ مدمج الأُيّام + لا منح مزدوج) + تحديثات إجمالات 10 → 12 (`achievements.test.ts`/`tierBadges.test.ts`) — **381/381 أخضر** + E2E `achievements.spec.ts` E1 (12 صفًا + `streak_three`/`streak_seven` مقفلتان) — **40/40 أخضر**
 - [x] `npm run check` أخضر (381/381) + `npm run build` أخضر + docs sync (DECISIONS D-036 + تحديث ذيلَي D-024/D-035/TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
 
+### PHASE 33 — الجلسات في حلقة الإتقان: إنهاء جلسة درس يُنعش حداثة تعرّض مفاصله (الشارات تبقى معلّقة على آخر ممارسة) ✅
+
+**القرار D-037**: فصل **«آخر ممارسة فعلية»** (`student_progress.last_practice_at` — عمود جديد migration 0009 + تعبئة خلفية أحادية في `applyMigrations`) عن **«آخر تعرّض»** (`last_seen_at`)؛ إنهاء جلسة درس ينعش `last_seen_at` فقط لمفاهيم الدرس ذات الصفوف القائمة (best-effort بلا إنشاء صفوف) عبر `MemoryService.touchConceptRecency` في `SessionService.end`؛ عدّاد شارات `mastery_achieved` يحسب الانحلال من `last_practice_at ?? last_seen_at` — التعرّض وحده لا يمنح «متقن»؛ العرض والخطة يستخدمان `last_seen_at` (المذاكرة = تعرّض جديد كما في SRS).
+- [x] **`db/schema.ts`**: `studentProgress.lastPracticedAt` (`last_practice_at` nullable) + migration 0009 + backfill في `applyMigrations` (`last_practice_at = last_seen_at WHERE null`)
+- [x] **`tutor/memoryService.ts`**: `recordAssessment` يكتب `lastPracticedAt` في الإدراج والتحديث + `touchConceptRecency(studentId, conceptIds, at)` (صفوف قائمة فقط) + توثيق `masterySummary`
+- [x] **`sessions/service.ts`**: في `end()` — كتلة best-effort تنعش حداثة مفاهيم `session.lessonId` إن وُجد (لا `last_practice_at`، لا صفوف جديدة)
+- [x] **`achievements/service.ts`**: عدّاد `mastery_achieved` يقرأ `lastPracticedAt ?? lastSeenAt` + تعليق التبرير
+- [x] **إصلاح «المدوّن يمحو كتابة أحدث»** (`web/Chat.tsx`): `setInput` يُصفِّر المدوّن فقط إن كان ما زال يحمل النص المرسل (لا يمحو ما كُتب أثناء انتظار الرد) — يزيل سباق R1
+- [x] اختبارات: API `sessionRecency.test.ts` (**6** — إعادة حداثة لمفاهيم الدرس الممارَسة دون مساس بالإتقان + لا صفوف للمفاهيم غير الممارَسة وعزل الدروس الأخرى + الشارة تبقى مرتبطة بآخر ممارسة (التعرّض لا يمنح «متقن») + صفوف قديمة `last_practiced_at=null` تنحل من `last_seen_at` + إنهاء بلا درس/بلا ممارسة لا-op + إعادة ترتيب الخطة بعد المذاكرة) — **387/387 أخضر** + E2E `practice.spec.ts` **PR5** (درس → رسالة → إنهاء → الخطة سليمة) + تثبيت `recap.spec.ts` R1/R2 على انتظار عنوان الدرس الحقيقي — **41/41 أخضر**
+- [x] `npm run check` أخضر (387/387) + `npm run build` أخضر + docs sync (DECISIONS D-037 + TASKS/CHANGELOG/TEST_PLAN/README/API_SPEC) + commit
+
 ### الخريطة الموسعة (بعد MVP — بحسب الأولوية)
 - [x] ✅ Voice conversation (STT/TTS) — Web Speech API في المتصفح (PHASE 11)؛ ترقية لاحقة: مزوّد STT/TTS خادمي عبر واجهات AI
 - [x] ✅ Vision upload (سؤال مصور) — 3 E2E + 9 اختبارات (PHASE 10)
@@ -347,6 +358,7 @@
 - [x] ✅ **التصحيح الآلي للإجابات المفتوحة (grade_open — إغلاق آخر بند D-028)** — تفعيل `type:"open"` (عمود `answerKey` الخامل منذ PHASE 24): تصحيح نص حر عبر عملة LLM ديناميكية `grade_open` (`<reference>` نظامًا/`<student_answer>` مستخدمًا) مع عزل المفتاح بنيويًا + حارس «لا نص حرفي» + سقوط قوَالبي حتمي؛ «سؤال مقالي»/«توليد سؤال مقالي» في الخطة وحقل حر في اللوحة مع تغذية راجعة ودرجة؛ سؤالان مصريان مبذوران — 27 وحدة + 11 API + 2 E2E (PHASE 30)
 - [x] ✅ **زمن الإجابة في معادلة الإتقان + شارات الإتقان المتدرجة (إغلاق D-028/D-030)** — العميل يقيس عرض→إرسال (MCQ فقط) ويخزّنه الخادم في `answers.answer_seconds`؛ دلتا الصعوبة تُضرَب بمضاعِف قوة الإشارة (سريع ×1.25/بطيء ×0.75/مجهول ×1) مع بقاء المحاولة الأولى محايدة؛ شارات «متقن 3 مفاهيم» و«متقن 5 مفاهيم» (المجموع 10) — 8 وحدة + 6 API + 1 E2E (PHASE 31)
 - [x] ✅ **التعاقب اليومي + شارات «المواظبة» (إغلاق D-024/D-035 «تتابع أسبوعي»)** — محرك تعاقب نقي (أيام نشطة متتالية: إجابات ∪ بدء جلسات، UTC، رأفة باليوم الغير منتهي) + شارتا «مواظب 3 أيام»/«مواظب أسبوع» (المجموع 12) بمنحٍ من التعاقب الحالي لا عدّاد تراكمي + «🔥 تعاقب N أيام» في الخطة — 10 وحدة + 4 API + 1 E2E (PHASE 32)
+- [x] ✅ **الجلسات في حلقة الإتقان (PHASE 33)** — إنهاء جلسة درس يُنعش `last_seen_at` (حداثة التعرض) لمفاصله ذات الصفوف القائمة فترجّئ الخطةُ مذاكرةَ يوم — بينما تبقى الشارات معلّقة على عمود «آخر ممارسة فعلية» جديد (`last_practice_at`) فلا تُمنح «متقن» بمطالعة — 6 API + 1 E2E (PHASE 33)
 
 ---
 **قاعدة: مهمة تعتبر DONE فقط بعد اختبارات خضراء. لا تعتمد على هذه القائمة للتتابع — اقفز فعليًا في PHASE الأقدم غير المكتملة.**

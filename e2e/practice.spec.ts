@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login } from "./helpers.js";
+import { login, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
  * PHASE 24 — concept mastery + practice loop, end to end: the demo student
@@ -126,4 +126,28 @@ test("PR4 (PHASE 28): the student practices the admin-generated question for م�
   await page.reload();
   await expect(page.getByTestId("mastery-section")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "مقارنة الكسور" })).toBeVisible({ timeout: 20_000 });
+});
+
+/**
+ * PR5 (PHASE 33): ending a lesson session refreshes EXPOSURE recency for the
+ * practiced concepts of that lesson — the real start → message → end walk
+ * exercises the new recency hook (best-effort, never blocks), and afterwards
+ * the practice plan still renders on the home screen.
+ */
+test("PR5 (PHASE 33): ending a lesson session keeps the practice plan healthy", async ({ page }) => {
+  await login(page);
+  await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
+
+  // Study a lesson through the real lesson-session flow, then end it.
+  await startFirstLesson(page);
+  await sendChatMessage(page, "راجعت هذا الدرس قبل التمارين");
+  await expect(page.getByTestId("msg-tutor")).toHaveCount(1, { timeout: 30_000 });
+  page.on("dialog", (d) => void d.accept());
+  await page.getByTestId("end-session").click();
+
+  // Back home: the plan (and the recency path behind it) is still healthy.
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
 });

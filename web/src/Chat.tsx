@@ -151,7 +151,9 @@ export function ChatScreen({ session, onEnded }: Props) {
       setMessages((m) => [...m, turn.userMessage, turn.tutorMessage]);
       setRemaining(turn.remainingBudget);
       if (turn.safetyTripwire) setTripwire(true);
-      setInput("");
+      // Only clear the composer when it still holds the text we just sent —
+      // never clobber newer typing that arrived while the turn was in flight.
+      setInput((prev) => (prev.trim() === text ? "" : prev));
       setPreview(null);
       setDocFile(null);
       if (speakReply) speak(turn.tutorMessage.content);

@@ -227,16 +227,24 @@ export class AchievementService {
       // Every graded exercise answer (answers rows are written by the practice loop).
       return db.select({ n: count() }).from(answers).where(eq(answers.studentId, studentId)).get()?.n ?? 0;
     }
-    // mastery_achieved — concepts whose DISPLAY level is «متقن» (same read-side
-    // decayed score the student sees), so the badge matches what the UI shows.
+    // mastery_achieved — concepts whose DISPLAY level is «متقن» (the same
+    // read-side decayed score the student sees), so the badge matches the UI.
+    // PHASE 33 — decay is computed from the last PRACTICE timestamp
+    // (`lastPracticedAt`, falling back to `lastSeenAt` on legacy rows). A
+    // lesson session refreshes `lastSeenAt` only, so studying a lesson can
+    // never grant a mastery badge by itself.
     const rows = db
-      .select({ mastery: studentProgress.mastery, lastSeenAt: studentProgress.lastSeenAt })
+      .select({
+        mastery: studentProgress.mastery,
+        lastPracticedAt: studentProgress.lastPracticedAt,
+        lastSeenAt: studentProgress.lastSeenAt,
+      })
       .from(studentProgress)
       .where(eq(studentProgress.studentId, studentId))
       .all();
     let n = 0;
     for (const r of rows) {
-      const decayed = decayMastery(r.mastery, daysBetween(r.lastSeenAt, new Date()));
+      const decayed = decayMastery(r.mastery, daysBetween(r.lastPracticedAt ?? r.lastSeenAt, new Date()));
       if (masteryLevel(decayed) === "mastered") n += 1;
     }
     return n;
