@@ -11,7 +11,6 @@ import {
   listUnits,
   startSession,
   ApiError,
-  type Breadcrumb,
   type Country,
   type Curriculum,
   type EduSystem,
@@ -39,7 +38,6 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
   const [terms, setTerms] = useState<Term[]>([]);
   const [units, setUnits] = useState<Unit[]>([]);
   const [lessons, setLessons] = useState<Lesson[]>([]);
-  const [breadcrumb, setBreadcrumb] = useState<Breadcrumb | null>(null);
 
   const [countryId, setCountryId] = useState("");
   const [systemId, setSystemId] = useState("");
@@ -84,12 +82,46 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
     listSubjects().then(setSubjects).catch(() => undefined);
   }, []);
 
+  /**
+   * Ordered cascade (0 = country … 6 = unit). Changing a level invalidates every
+   * level below it: a stale `curriculumId`/`gradeId` paired with a lesson from
+   * another scope is exactly what the server rejects (LESSON_CURRICULUM_MISMATCH),
+   * and without this the student could pick a lesson the picker no longer shows.
+   */
+  const clearBelow = (level: number) => {
+    setError(null);
+    if (level <= 0) {
+      setSystemId("");
+      setSystems([]);
+    }
+    if (level <= 1) {
+      setGradeId("");
+      setGrades([]);
+    }
+    if (level <= 2) setSubjectId("");
+    if (level <= 3) {
+      setCurriculumId("");
+      setCurricula([]);
+    }
+    if (level <= 4) {
+      setTermId("");
+      setTerms([]);
+    }
+    if (level <= 5) {
+      setUnitId("");
+      setUnits([]);
+    }
+    if (level <= 6) setLessons([]);
+  };
+
   const pickLesson = async (lessonId: string) => {
     setError(null);
     setBusyLesson(lessonId);
     try {
+      // The breadcrumb is the authoritative scope for the picked lesson — the
+      // dropdown chain may be partially filled (or a country with a single
+      // system/grade hides nothing, but a second country can leave it stale).
       const bc = await lessonBreadcrumb(lessonId);
-      setBreadcrumb({ breadcrumb: bc });
       const session = await startSession({
         curriculumId: curriculumId || bc.curriculum.id,
         gradeId: gradeId || bc.grade.id,
@@ -98,37 +130,14 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
       });
       onStarted(session);
     } catch (err) {
+      // Stay on the picker: the error paragraph lives there, so the student
+      // sees WHY nothing started and can pick again. (A success navigates away,
+      // so there is no separate "lesson chosen" screen to strand them on.)
       setError(err instanceof ApiError ? err.message : "تعذر بدء الجلسة");
     } finally {
       setBusyLesson(null);
     }
   };
-
-  if (breadcrumb) {
-    const b = breadcrumb.breadcrumb;
-    return (
-      <div className="layout">
-        <main className="container narrow">
-          <section className="card">
-            <h2>{b.lesson.title}</h2>
-            <p>
-              <span className="muted">{b.country.nameAr} • {b.grade.nameAr} • {b.subject.nameAr}</span>
-              <br />
-              <span className="muted">المنهج: {b.curriculum.title}</span>
-            </p>
-            <div className="row-gap">
-              <button className="btn small ghost" onClick={() => setBreadcrumb(null)}>
-                تغيير الدرس
-              </button>
-              <button className="btn small ghost" onClick={onBack}>
-                الرئيسية
-              </button>
-            </div>
-          </section>
-        </main>
-      </div>
-    );
-  }
 
   return (
     <div className="layout">
@@ -151,7 +160,7 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
         <section className="picker">
           <label className="field">
             <span>الدولة</span>
-            <select data-testid="select-country" value={countryId} onChange={(e) => setCountryId(e.target.value)}>
+            <select data-testid="select-country" value={countryId} onChange={(e) => { setCountryId(e.target.value); clearBelow(0); }}>
               <option value="">اختر الدولة…</option>
               {countries.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -164,7 +173,7 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
           {countryId && (
             <label className="field">
               <span>النظام التعليمي</span>
-              <select data-testid="select-system" value={systemId} onChange={(e) => setSystemId(e.target.value)}>
+              <select data-testid="select-system" value={systemId} onChange={(e) => { setSystemId(e.target.value); clearBelow(1); }}>
                 <option value="">اختر النظام…</option>
                 {systems.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -179,7 +188,7 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
             <div className="grid-2">
               <label className="field">
                 <span>الصف</span>
-                <select data-testid="select-grade" value={gradeId} onChange={(e) => setGradeId(e.target.value)}>
+                <select data-testid="select-grade" value={gradeId} onChange={(e) => { setGradeId(e.target.value); clearBelow(2); }}>
                   <option value="">اختر الصف…</option>
                   {grades.map((g) => (
                     <option key={g.id} value={g.id}>
@@ -190,7 +199,7 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
               </label>
               <label className="field">
                 <span>المادة</span>
-                <select data-testid="select-subject" value={subjectId} onChange={(e) => setSubjectId(e.target.value)}>
+                <select data-testid="select-subject" value={subjectId} onChange={(e) => { setSubjectId(e.target.value); clearBelow(3); }}>
                   <option value="">اختر المادة…</option>
                   {subjects.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -205,7 +214,7 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
           {gradeId && subjectId && (
             <label className="field">
               <span>المنهج</span>
-              <select data-testid="select-curriculum" value={curriculumId} onChange={(e) => setCurriculumId(e.target.value)}>
+              <select data-testid="select-curriculum" value={curriculumId} onChange={(e) => { setCurriculumId(e.target.value); clearBelow(4); }}>
                 <option value="">اختر المنهج…</option>
                 {curricula.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -219,7 +228,7 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
           {curriculumId && (
             <label className="field">
               <span>الفصل الدراسي</span>
-              <select data-testid="select-term" value={termId} onChange={(e) => setTermId(e.target.value)}>
+              <select data-testid="select-term" value={termId} onChange={(e) => { setTermId(e.target.value); clearBelow(5); }}>
                 <option value="">اختر الفصل…</option>
                 {terms.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -233,7 +242,7 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
           {termId && (
             <label className="field">
               <span>الوحدة</span>
-              <select data-testid="select-unit" value={unitId} onChange={(e) => setUnitId(e.target.value)}>
+              <select data-testid="select-unit" value={unitId} onChange={(e) => { setUnitId(e.target.value); clearBelow(6); }}>
                 <option value="">اختر الوحدة…</option>
                 {units.map((u) => (
                   <option key={u.id} value={u.id}>

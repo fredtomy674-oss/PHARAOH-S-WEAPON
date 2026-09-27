@@ -34,7 +34,7 @@
 | Method | Route | الوصف |
 |---|---|---|
 | PUT | `/api/me/student` | تحديث بروفايل الطالب (grade مرن) |
-| POST | `/api/sessions` | `{curriculumId, gradeId, subjectId, lessonId?}` → ينشئ Learning Session |
+| POST | `/api/sessions` | `{curriculumId, gradeId, subjectId, lessonId?}` → ينشئ Learning Session. **PHASE 37 (توثيق فقط — بلا تغيير في السلوك)**: عند وجود `lessonId` يتحقق الخادم من اتساق النطاق: `400 LESSON_CURRICULUM_MISMATCH` («الدرس لا ينتمي للمنهج المحدد») و`400 LESSON_SCOPE_MISMATCH` («الدرس لا يطابق الصف/المادة المحددين»). الواجهة تعرض `message` القادم كما هو في المنتقي وتصفّر السلسلة النازلة عند تغيير أي مستوى أعلى فلا يقع هذا الفشل أصلًا (انظر `DECISIONS.md` D-041) |
 | GET | `/api/sessions` | جلساتي (مع حالة كل منها) |
 | GET | `/api/sessions/:id` | جلسة + رسائلها (مملوكة للطالب فقط) |
 | POST | `/api/sessions/:id/messages` | `{content}` → رد المدرس (RAG+AI) — **المسار العمودي الكامل** |

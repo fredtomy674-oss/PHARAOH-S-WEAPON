@@ -6,6 +6,8 @@ import {
   NO_RETRIEVED_PLACEHOLDER,
   RAG_CONTEXT_PHRASE,
   remainingValue,
+  selectFirst,
+  selectOptionByLabel,
   sendChatMessage,
   startFirstLesson,
 } from "./helpers.js";
@@ -136,4 +138,101 @@ test("C: a brand-new student never sees another student's sessions", async ({ br
   expect([403, 404]).toContain(forbidden.status());
 
   await context.close();
+});
+
+/**
+ * Regression (the reported "I picked country → grade → lesson and nothing
+ * happened"): a failed session start used to strand the student on a card with
+ * no message and no way forward. Now the failure must be VISIBLE and the picker
+ * must stay usable so the very same click can be retried.
+ */
+test("ON1: a failed session start explains itself and can be retried", async ({ page }) => {
+  await page.goto("/");
+  await login(page);
+  await page.getByTestId("start-lesson").click();
+  await selectOptionByLabel(page, "select-country", "مصر");
+  await selectFirst(page, "select-system");
+  await selectFirst(page, "select-grade");
+  await selectFirst(page, "select-subject");
+  await selectFirst(page, "select-curriculum");
+  await selectFirst(page, "select-term");
+  await selectFirst(page, "select-unit");
+
+  const lesson = page.locator('[data-testid^="lesson-"]').first();
+  await expect(lesson).toBeVisible({ timeout: 20_000 });
+
+  // Force the server to reject the start (same shape the real 400 uses).
+  await page.route("**/api/sessions", async (route) => {
+    if (route.request().method() === "POST") {
+      await route.fulfill({
+        status: 400,
+        contentType: "application/json",
+        body: JSON.stringify({ error: { code: "LESSON_CURRICULUM_MISMATCH", message: "الدرس لا ينتمي للمنهج المحدد" } }),
+      });
+      return;
+    }
+    await route.continue();
+  });
+
+  await lesson.click();
+
+  // The failure is explained, not silent.
+  const error = page.getByTestId("onboarding-error");
+  await expect(error).toBeVisible({ timeout: 20_000 });
+  await expect(error).toContainText("الدرس لا ينتمي للمنهج المحدد");
+  // No stranded "lesson chosen" screen: no chat, and the picker is still usable.
+  await expect(page.getByTestId("chat-input")).toHaveCount(0);
+  await expect(page.getByTestId("select-country")).toBeVisible();
+  await expect(page.locator('[data-testid^="lesson-"]')).not.toHaveCount(0);
+
+  // Same click now succeeds — the student is never stuck.
+  await page.unroute("**/api/sessions");
+  await lesson.click();
+  await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("messages")).toBeVisible();
+
+  // Leave no active session behind for the specs that follow.
+  page.on("dialog", (d) => void d.accept());
+  await page.getByTestId("end-session").click();
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+});
+
+/**
+ * Changing an upstream level must clear everything below it — a stale
+ * curriculum/grade paired with a lesson from another scope is exactly what the
+ * server rejects, and the picker must never offer a lesson it no longer shows.
+ */
+test("ON2: changing an upstream level clears the whole cascade below it", async ({ page }) => {
+  await page.goto("/");
+  await login(page);
+  await page.getByTestId("start-lesson").click();
+  await selectOptionByLabel(page, "select-country", "مصر");
+  await selectFirst(page, "select-system");
+  await selectFirst(page, "select-grade");
+  await selectFirst(page, "select-subject");
+  await selectFirst(page, "select-curriculum");
+  await selectFirst(page, "select-term");
+  await selectFirst(page, "select-unit");
+  await expect(page.locator('[data-testid^="lesson-"]')).not.toHaveCount(0);
+
+  // Reset the SUBJECT → curriculum/term/unit/lessons must go with it.
+  await page.getByTestId("select-subject").selectOption("");
+  await expect(page.getByTestId("select-curriculum")).toHaveCount(0);
+  await expect(page.getByTestId("select-term")).toHaveCount(0);
+  await expect(page.getByTestId("select-unit")).toHaveCount(0);
+  await expect(page.locator('[data-testid^="lesson-"]')).toHaveCount(0);
+  // Levels above it are untouched (the system/grade are still valid).
+  await expect(page.getByTestId("select-system")).toBeVisible();
+  await expect(page.getByTestId("select-grade")).toBeVisible();
+
+  // Re-pick, then change the COUNTRY → everything below must clear too.
+  await selectFirst(page, "select-subject");
+  await selectFirst(page, "select-curriculum");
+  await selectFirst(page, "select-term");
+  await selectFirst(page, "select-unit");
+  await expect(page.locator('[data-testid^="lesson-"]')).not.toHaveCount(0);
+  await selectOptionByLabel(page, "select-country", "السعودية");
+  await expect(page.getByTestId("select-system")).toHaveValue("");
+  await expect(page.getByTestId("select-grade")).toHaveCount(0);
+  await expect(page.locator('[data-testid^="lesson-"]')).toHaveCount(0);
 });
