@@ -109,6 +109,11 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
       api.get("/health", async () => ({
         status: "ok",
         provider: api.ai.providers.llm.id,
+        // PHASE 41 (D-045) — the embedding provider is reported too, because
+        // "real answers" needs BOTH: a real LLM reading vectors that were
+        // actually built by the real embedder. A corpus embedded by the mock
+        // provider returns meaningless neighbors no matter which LLM answers.
+        embeddings: api.ai.providers.embeddings.id,
         // PHASE 40 (D-044) — "none" means the server has no voice of its own
         // and students read replies with the voices on their own machine.
         speech: api.speech.providerId(),

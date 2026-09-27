@@ -1,17 +1,43 @@
-import "dotenv/config";
+import { config as loadEnvFiles } from "dotenv";
 import { z } from "zod";
 
 /**
  * Central, validated environment configuration.
  * Every secret/knob lives here; nothing is ever hardcoded in module code.
+ *
+ * Every npm script runs with cwd = server/, so the `dotenv/config` default
+ * (./.env) would miss the repository-root `.env` the docs tell you to create.
+ * Both locations are read — first match wins and real process env still wins
+ * over both — so copying `.env.example` works from either place.
  */
+loadEnvFiles({ path: [".env", "../.env"], quiet: true });
 
-const boolFromString = z
+/**
+ * A boolean knob read from the environment. A blank value (`VAR=` in .env)
+ * means "I did not set this" and therefore yields the field's own default —
+ * it must never silently read as `true` (that would flip a cost/safety switch
+ * like RUN_LIVE_TESTS on by accident).
+ */
+const boolFromString = (defaultValue: boolean) =>
+  z
+    .string()
+    .optional()
+    .transform((v) => (v === undefined || v.trim() === "" ? defaultValue : v.toLowerCase() === "true"));
+
+/**
+ * An optional number that a blank `.env` value means "leave it unset".
+ * `.env.example` ships placeholders like `QDRANT_DIMENSION=`; a plain
+ * `z.coerce.number()` would read that as 0 and refuse to boot, so copying the
+ * template verbatim has to keep working.
+ */
+const optionalIntFromString = z
   .string()
   .optional()
-  .transform((v) => v === undefined || v === "" || v.toLowerCase() === "true");
+  .transform((v) => (v === undefined || v.trim() === "" ? undefined : v))
+  .pipe(z.coerce.number().int().positive().optional());
 
-const EnvSchema = z.object({
+/** The whole environment contract, exported so tests can parse a candidate env without touching process.env. */
+export const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   HOST: z.string().default("127.0.0.1"),
   PORT: z.coerce.number().int().positive().default(3001),
@@ -57,7 +83,7 @@ const EnvSchema = z.object({
   // are served from cache: classifier + rerank (LLM), embeddings (same texts →
   // same vectors) and OCR (same bytes → same text). Cache hits do NOT write
   // usage rows (zero provider cost). Tutor/recap/feedback stay uncached.
-  AI_CACHE_ENABLED: boolFromString.default("true"),
+  AI_CACHE_ENABLED: boolFromString(true),
   AI_CACHE_TTL_MS: z.coerce.number().int().positive().default(300000),
   AI_CACHE_EMBEDDING_TTL_MS: z.coerce.number().int().positive().default(3600000),
   AI_CACHE_OCR_TTL_MS: z.coerce.number().int().positive().default(86400000),
@@ -100,7 +126,7 @@ const EnvSchema = z.object({
 
   // RAG
   RAG_TOP_K: z.coerce.number().int().positive().default(5),
-  RAG_ENABLE_RERANK: boolFromString.default("true"),
+  RAG_ENABLE_RERANK: boolFromString(true),
   RAG_MAX_CONTEXT_CHARS: z.coerce.number().int().positive().default(12000),
   /** Reranker flavor: lexical (fast, deterministic, default) | model (LLM-scored, opt-in). */
   RAG_RERANKER: z.enum(["lexical", "model"]).default("lexical"),
@@ -111,14 +137,14 @@ const EnvSchema = z.object({
   QDRANT_URL: z.string().url().default("http://127.0.0.1:6333"),
   QDRANT_COLLECTION: z.string().min(1).default("alfarouq"),
   /** Optional fixed vector dimension; when absent the store adopts the first embedding's dim. */
-  QDRANT_DIMENSION: z.coerce.number().int().positive().optional(),
+  QDRANT_DIMENSION: optionalIntFromString,
 
   // Frontend
   WEB_ORIGIN: z.string().default("http://localhost:5173"),
   API_BASE_URL: z.string().default("/api"),
 
   // Live provider tests opt-in (costs money & sends data externally)
-  RUN_LIVE_TESTS: boolFromString.default("false"),
+  RUN_LIVE_TESTS: boolFromString(false),
 });
 
 export type AppConfig = z.infer<typeof EnvSchema>;

@@ -200,6 +200,21 @@ describe("server-side narration when the server has no voice — PHASE 40", () =
   });
 });
 
+describe("/api/health names every AI provider in play — PHASE 41", () => {
+  it("shows the LLM and the embedding provider, not just the speech one", async () => {
+    // The trap this closes: a real LLM reading mock-built vectors still answers
+    // from irrelevant chunks, so health must expose the embedder as well.
+    const api = await makeApp();
+    const res = await api.app.inject({ method: "GET", url: "/api/health" });
+    expect(res.statusCode).toBe(200);
+    const body = res.json() as { provider: string; embeddings: string; speech: string };
+    expect(body.provider).toBe("mock");
+    expect(body.embeddings).toBe("mock");
+    expect(body.speech).toBe("stub");
+    await api.app.close();
+  });
+});
+
 describe("raw-PCM payloads are made playable — PHASE 40", () => {
   it("never streams a bare L16 payload the browser cannot play", () => {
     expect(isPcmMime("audio/L16;codec=pcm;rate=24000")).toBe(true);
