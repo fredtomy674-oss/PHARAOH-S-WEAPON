@@ -444,6 +444,12 @@ export interface PracticePlanItem {
   openQuestions: number;
   /** PHASE 28 — false for concepts never practiced (discoverable, mastery 0). */
   tracked: boolean;
+  /**
+   * PHASE 35 (D-037 tail) — true when the last exposure (study OR practice) is
+   * at least 14 days old: decay is now eroding the concept with nothing new
+   * coming in, so the plan ranks it first («راجع قبل أن ينسى»).
+   */
+  dueForReview: boolean;
 }
 
 /** PHASE 25 + 32 — the ranked practice plan plus the student's current daily
@@ -508,6 +514,8 @@ export interface ParentChildDetail {
   progress: {
     // PHASE 24: concepts carry the mastery level + Arabic label (decayed
     // read-side score) alongside the raw persisted mastery.
+    // PHASE 35 (D-037 tail): practice recency (a graded answer) beside
+    // exposure recency (a lesson session).
     concepts: Array<{
       conceptId: string;
       title: string;
@@ -516,6 +524,8 @@ export interface ParentChildDetail {
       level: MasteryLevel;
       labelAr: string;
       trend: "up" | "steady" | "down";
+      lastPracticedAt: string;
+      daysSinceRealPractice: number;
     }>;
     strengths: string[];
     weaknesses: string[];
@@ -660,6 +670,19 @@ export interface AdminStats {
     estimatedSavingsTokens: number;
     /** Estimate: recorded per-call average × cache hits (USD). */
     estimatedSavingsUsd: number;
+  };
+  /** PHASE 34 — time analytics: UTC-day activity buckets + most-active lessons. */
+  trends: {
+    /** Window length in days (14). */
+    days: number;
+    /** Days in the window that had at least one session. */
+    activeDays: number;
+    sessionsByDay: Array<{ day: string; count: number }>;
+    messagesByDay: Array<{ day: string; count: number }>;
+    aiByDay: Array<{ day: string; calls: number; tokens: number; costUsd: number }>;
+    topLessons: Array<{ lessonId: string; title: string; sessions: number }>;
+    /** Sums over the whole window (the chart's headline numbers). */
+    totals: { sessions: number; messages: number; aiCalls: number; aiCostUsd: number };
   };
 }
 

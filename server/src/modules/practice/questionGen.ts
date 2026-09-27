@@ -29,6 +29,35 @@ export const QUESTION_GEN_MAX_CHUNKS = 6;
 export const QUESTION_GEN_MAX_CONTEXT_CHARS = 4000;
 
 /**
+ * PHASE 36 (D-032 tail) — multi-chunk grounding: pick which lesson chunks feed
+ * ONE generated question. Taking the first N contiguous chunks starves long
+ * lessons (everything after the cut is unreachable), so this spreads the budget
+ * across the whole lesson by taking evenly-spaced samples — deterministic (pure
+ * index math, no RNG) and always keeps the opening chunk so the question is
+ * grounded in the concept's own framing, then trims to N.
+ *
+ * With fewer chunks than the budget, every chunk is returned in order. The
+ * caller (the service) still concatenates them in POSITION order so the
+ * <context> block reads like the lesson, not like a shuffled sample.
+ */
+export function selectGroundingChunks<T>(all: readonly T[], budget = QUESTION_GEN_MAX_CHUNKS): T[] {
+  if (budget <= 0) return [];
+  if (all.length <= budget) return [...all];
+  // Evenly-spaced indices across [0, length-1], always including the first.
+  const step = (all.length - 1) / (budget - 1);
+  const picked: T[] = [];
+  const seen = new Set<number>();
+  for (let i = 0; i < budget; i += 1) {
+    const index = Math.round(i * step);
+    if (index < all.length && !seen.has(index)) {
+      seen.add(index);
+      picked.push(all[index]!);
+    }
+  }
+  return picked;
+}
+
+/**
  * Parses + validates a provider reply. Tolerates a fenced JSON block
  * (```json … ```), requires a non-empty stem, 2–6 non-empty options and an
  * integer correctIndex inside the range. Returns null when anything is off —

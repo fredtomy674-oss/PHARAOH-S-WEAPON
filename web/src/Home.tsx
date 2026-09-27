@@ -311,6 +311,13 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                           <span className={`pill ${item.level === "mastered" || item.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="plan-level">
                             {item.labelAr}
                           </span>
+                          {/* PHASE 35 (D-037 tail) — exposure is old enough
+                              that decay alone is eroding this concept. */}
+                          {item.dueForReview && (
+                            <span className="pill due-pill" data-testid="plan-due">
+                              راجع قبل أن ينسى
+                            </span>
+                          )}
                         </span>
                         <span className="muted" data-testid="plan-meta">
                           <span data-testid="plan-lesson">{item.lessonTitle ?? "درس غير معروف"}</span> ·{" "}

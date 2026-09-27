@@ -39,8 +39,16 @@ export interface MasteryConceptSummary {
   labelAr: string;
   attempts: number;
   correct: number;
+  /** Exposure recency — refreshed by study sessions too (PHASE 33). */
   lastSeenAt: Date;
   daysSinceLastPractice: number;
+  /**
+   * PHASE 35 — real-practice recency (D-037 tail). Stamped only by a graded
+   * answer, so a parent can see «متى آخر ممارسة» separately from «متى آخر
+   * تعرّض». Legacy rows without the stamp fall back to `lastSeenAt`.
+   */
+  lastPracticedAt: Date;
+  daysSinceRealPractice: number;
   trend: MasteryTrend;
 }
 
@@ -220,6 +228,9 @@ export class MemoryService {
         attempts: studentProgress.attempts,
         correct: studentProgress.correct,
         lastSeenAt: studentProgress.lastSeenAt,
+        // PHASE 35 — real practice recency (D-037 tail): NULL for legacy rows
+        // that predate the column, and for concepts only ever READ (exposure).
+        lastPracticedAt: studentProgress.lastPracticedAt,
         conceptTitle: concepts.title,
         conceptCode: concepts.code,
       })
@@ -239,7 +250,10 @@ export class MemoryService {
    * PHASE 33 also refreshes when a lesson session covering the concept ends —
    * studying a lesson counts as exposure, exactly like an SRS "due" refresh.
    * Achievements decay against the separate `lastPracticedAt` timestamp so
-   * badges keep rewarding real attempts. Used by the student progress card and
+   * badges keep rewarding real attempts. PHASE 35 (D-037 tail) surfaces BOTH
+   * recencies (`lastPracticedAt` / `daysSinceRealPractice`) so the parent
+   * dashboard can say when the child last actually answered something.
+   * Used by the student progress card and
    * the parent dashboard. Decay is applied only here (and in practice feedback)
    * so long-term memory for the tutor prompt keeps the raw value.
    */
@@ -263,6 +277,12 @@ export class MemoryService {
       const daysSinceLastPractice = Math.round(daysBetween(r.lastSeenAt, now));
       const decayedMastery = decayMastery(r.mastery, daysSinceLastPractice, perDay);
       const { level, labelAr } = describeMastery(decayedMastery);
+      // PHASE 35 — practice recency beside exposure recency (D-037 tail). A
+      // legacy row with no stamped practice falls back to exposure, so the
+      // parent view never claims «لم يمارس أبدًا» for a concept that was
+      // genuinely answered before the column existed.
+      const lastPracticedAt = r.lastPracticedAt ?? r.lastSeenAt;
+      const daysSinceRealPractice = Math.round(daysBetween(lastPracticedAt, now));
       return {
         conceptId: r.conceptId,
         code: r.conceptCode,
@@ -275,6 +295,8 @@ export class MemoryService {
         correct: r.correct,
         lastSeenAt: r.lastSeenAt,
         daysSinceLastPractice,
+        lastPracticedAt,
+        daysSinceRealPractice,
         trend: masteryTrend(eventsByConcept.get(r.conceptId) ?? []),
       };
     });

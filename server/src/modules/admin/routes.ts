@@ -1,11 +1,23 @@
 import type { FastifyPluginAsync } from "fastify";
-import { and, count, desc, eq, gt, inArray, isNull, or, sql, sum } from "drizzle-orm";
+import { and, asc, count, desc, eq, gt, gte, inArray, isNotNull, isNull, or, sql, sum } from "drizzle-orm";
 import { aiUsageLogs, chunks, curricula, documents, learningSessions, lessons, messages, students, subscriptions, users } from "../../db/schema.js";
 import { requireAdmin } from "../../plugins/auth.js";
 import { Errors } from "../../utils/errors.js";
 import { config } from "../../config/env.js";
 import { parseDocumentDataUrl } from "../sessions/documents.js";
 import { OCR_ELIGIBLE_MIMES } from "../ocr/service.js";
+import { countsByDay, usageByDay, windowStart } from "./trends.js";
+
+/**
+ * PHASE 34 — window of the admin time-analytics section (D-021 tail: «مؤشرات
+ * زمنية (جلسات/يوم)، ترتيب الدروس الأكثر نشاطًا» + D-031 tail: «تقسيم الفترة
+ * الزمنية للاستخدام»). 14 days is long enough to read a weekly rhythm and short
+ * enough that the CSS bar chart stays legible without a charting dependency.
+ */
+const TREND_DAYS = 14;
+
+/** Most-active-lessons ranking size on the same card. */
+const TREND_TOP_LESSONS = 5;
 
 /**
  * Operations served deterministically from the in-memory cache (PHASE 22):
@@ -357,6 +369,45 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
       .where(inArray(aiUsageLogs.operation, [...CACHEABLE_OPERATIONS]))
       .get())!;
 
+    // --- PHASE 34 — time analytics (D-021 tail + D-031 tail) -----------------
+    // Day buckets are computed in JS from the real timestamps so the calendar
+    // rule stays identical to the streak engine (UTC days, PHASE 32) — a single
+    // definition of "a day" across the whole product.
+    const sessionRows = await app.db.db.select({ startedAt: learningSessions.startedAt }).from(learningSessions);
+    const messageRows = await app.db.db.select({ createdAt: messages.createdAt }).from(messages);
+    const usageRows = await app.db.db
+      .select({
+        createdAt: aiUsageLogs.createdAt,
+        inputTokens: aiUsageLogs.inputTokens,
+        outputTokens: aiUsageLogs.outputTokens,
+        costUsd: aiUsageLogs.costUsd,
+      })
+      .from(aiUsageLogs);
+
+    const sessionsByDay = countsByDay(TREND_DAYS, sessionRows.map((r) => r.startedAt));
+    const messagesByDay = countsByDay(TREND_DAYS, messageRows.map((r) => r.createdAt));
+    const aiByDay = usageByDay(TREND_DAYS, usageRows);
+
+    // Most-active lessons: sessions grouped by lesson, title joined for display.
+    // Lessonless sessions (open chat, no curriculum scope) have no lesson to
+    // rank, so they are excluded here while still counting in sessionsByDay.
+    // PHASE 34 — the ranking shares the chart's window (`windowStart`) so the
+    // card never mixes a 14-day trend with an all-time list.
+    const topLessons = await app.db.db
+      .select({ lessonId: learningSessions.lessonId, title: lessons.title, sessions: count() })
+      .from(learningSessions)
+      .leftJoin(lessons, eq(lessons.id, learningSessions.lessonId))
+      .where(and(isNotNull(learningSessions.lessonId), gte(learningSessions.startedAt, windowStart(TREND_DAYS))))
+      .groupBy(learningSessions.lessonId, lessons.title)
+      .orderBy(desc(count()), asc(lessons.title))
+      .limit(TREND_TOP_LESSONS);
+
+    const activeDays = sessionsByDay.filter((d) => d.count > 0).length;
+    const recentSessions = sessionsByDay.reduce((acc, d) => acc + d.count, 0);
+    const recentMessages = messagesByDay.reduce((acc, d) => acc + d.count, 0);
+    const recentAiCalls = aiByDay.reduce((acc, d) => acc + d.calls, 0);
+    const recentAiCostUsd = Number(aiByDay.reduce((acc, d) => acc + d.costUsd, 0).toFixed(4));
+
     const cache = app.ai.cacheStats();
     // Savings estimate: each hit skips a provider call. Average the CACHEABLE
     // calls that did reach the provider (misses); when none were ever recorded
@@ -401,6 +452,21 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
           },
           estimatedSavingsTokens,
           estimatedSavingsUsd,
+        },
+        // PHASE 34 — D-021 tail («مؤشرات زمنية (جلسات/يوم)، ترتيب الدروس الأكثر
+        // نشاطًا») + D-031 tail («تقسيم الفترة الزمنية للاستخدام والوفورات»).
+        trends: {
+          days: TREND_DAYS,
+          activeDays,
+          sessionsByDay,
+          messagesByDay,
+          aiByDay,
+          topLessons: topLessons.map((r) => ({
+            lessonId: r.lessonId as string,
+            title: r.title ?? "",
+            sessions: r.sessions,
+          })),
+          totals: { sessions: recentSessions, messages: recentMessages, aiCalls: recentAiCalls, aiCostUsd: recentAiCostUsd },
         },
       },
     };

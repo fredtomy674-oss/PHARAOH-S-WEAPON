@@ -151,3 +151,19 @@ test("PR5 (PHASE 33): ending a lesson session keeps the practice plan healthy", 
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
   expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
 });
+
+/**
+ * PHASE 35 (D-037 tail) — the plan carries the «راجع قبل أن ينسى» urgency flag.
+ * The demo student practiced minutes ago, so NO row is due — the flag must not
+ * appear yet, which proves the plan is not blanket-labelling everything. The
+ * ordering contract itself is covered by the unit + API tests (14-day threshold).
+ */
+test("PR6 (PHASE 35): the plan shows no «راجع قبل أن ينسى» flag right after practice", async ({ page }) => {
+  await login(page);
+  await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
+
+  // Every row renders its level; the due pill is reserved for stale concepts.
+  await expect(page.getByTestId("plan-level").first()).toBeVisible();
+  expect(await page.getByTestId("plan-due").count()).toBe(0);
+});

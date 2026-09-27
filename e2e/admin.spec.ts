@@ -136,3 +136,33 @@ test("A5 (PHASE 28): the admin generates questions for questionless concepts in 
   await expect(result).toBeVisible({ timeout: 30_000 });
   await expect(result).toContainText("تم توليد 1 سؤالًا");
 });
+
+/**
+ * PHASE 34 — admin time analytics (D-021 tail + D-031 tail): the «النشاط الزمني»
+ * card renders one column per UTC day of the 14-day window for sessions and
+ * messages, plus the most-active-lessons ranking. The shared E2E database
+ * already holds lesson sessions from the earlier specs, so the ranking is
+ * non-empty and carries real lesson titles.
+ */
+test("A6 (PHASE 34): the admin dashboard shows 14-day activity columns and the most-active lessons", async ({ page }) => {
+  await login(page, ADMIN.email, ADMIN.password);
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("open-admin").click();
+  await expect(page.getByTestId("admin-screen")).toBeVisible({ timeout: 20_000 });
+
+  const trends = page.getByTestId("admin-stats-trends");
+  await expect(trends).toBeVisible({ timeout: 20_000 });
+  await expect(trends.getByTestId("admin-stat-trend-sessions")).toContainText("جلسة");
+  await expect(trends.getByTestId("admin-stat-trend-messages")).toContainText("رسالة");
+  await expect(trends.getByTestId("admin-stat-trend-ai-calls")).toContainText("نداء ذكاء اصطناعي");
+
+  // One column per UTC day of the window, for both charts.
+  await expect(page.getByTestId("admin-trend-bars-sessions").getByTestId("admin-trend-bar")).toHaveCount(14);
+  await expect(page.getByTestId("admin-trend-bars-messages").getByTestId("admin-trend-bar")).toHaveCount(14);
+
+  // The ranking lists real lesson titles from the shared database (the seeded
+  // Egyptian unit's first lesson, practised by the earlier specs) with its count.
+  const topLessons = trends.getByTestId("admin-trend-top-lessons");
+  await expect(topLessons.getByTestId("admin-trend-top-lesson").first()).toBeVisible();
+  await expect(topLessons).toContainText("الجمع والطرح على الأعداد الطبيعية");
+});

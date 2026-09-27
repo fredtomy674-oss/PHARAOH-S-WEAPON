@@ -49,6 +49,17 @@ const ACCEPTED = ".pdf,.docx,.txt,.md,application/pdf,application/vnd.openxmlfor
 // Mirrors the server cap (MAX_CURRICULUM_FILE_KB default 20480) for a friendlier UX error.
 const MAX_CURRICULUM_FILE_BYTES = 20 * 1024 * 1024;
 
+/** PHASE 34 — bar height in % relative to the window peak; a floor keeps zero-days visible. */
+function barHeight(count: number, series: ReadonlyArray<{ count: number }>): string {
+  const peak = Math.max(1, ...series.map((d) => d.count));
+  return count === 0 ? "3%" : `${Math.max(6, Math.round((count / peak) * 100))}%`;
+}
+
+/** PHASE 34 — «2026-09-27» → «27/09» so the axis reads as a date in RTL. */
+function dayLabel(day: string): string {
+  return `${day.slice(8, 10)}/${day.slice(5, 7)}`;
+}
+
 export function AdminScreen({ onBack, onLogout }: Props) {
   const [countries, setCountries] = useState<Country[]>([]);
   const [systems, setSystems] = useState<EduSystem[]>([]);
@@ -317,6 +328,69 @@ export function AdminScreen({ onBack, onLogout }: Props) {
                 <span>وفورات تقديرية ({stats.ai.estimatedSavingsTokens.toLocaleString("en-US")} توكن)</span>
               </div>
             </div>
+          </section>
+        )}
+
+        {stats && (
+          <section className="card" data-testid="admin-stats-trends">
+            <h3>النشاط الزمني — آخر {stats.trends.days} يومًا</h3>
+            <div className="admin-stats-grid">
+              <div className="admin-stat" data-testid="admin-stat-trend-sessions">
+                <b>{stats.trends.totals.sessions}</b>
+                <span>جلسة ({stats.trends.activeDays} يوم نشط)</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-trend-messages">
+                <b>{stats.trends.totals.messages}</b>
+                <span>رسالة</span>
+              </div>
+              <div className="admin-stat" data-testid="admin-stat-trend-ai-calls">
+                <b>{stats.trends.totals.aiCalls}</b>
+                <span>نداء ذكاء اصطناعي (${stats.trends.totals.aiCostUsd.toFixed(4)})</span>
+              </div>
+            </div>
+
+            {/* Pure-CSS daily bar charts — no charting dependency (D-021 tail). */}
+            <div className="admin-charts">
+              <figure className="admin-chart" data-testid="admin-trend-chart-sessions">
+                <figcaption>الجلسات / اليوم</figcaption>
+                <div className="admin-bars" data-testid="admin-trend-bars-sessions">
+                  {stats.trends.sessionsByDay.map((d) => (
+                    <div className="admin-bar-col" key={d.day} title={`${d.day}: ${d.count} جلسة`} data-testid="admin-trend-bar">
+                      <div className="admin-bar" style={{ height: barHeight(d.count, stats.trends.sessionsByDay) }} />
+                      <span className="admin-bar-label">{dayLabel(d.day)}</span>
+                    </div>
+                  ))}
+                </div>
+              </figure>
+
+              <figure className="admin-chart" data-testid="admin-trend-chart-messages">
+                <figcaption>الرسائل / اليوم</figcaption>
+                <div className="admin-bars" data-testid="admin-trend-bars-messages">
+                  {stats.trends.messagesByDay.map((d) => (
+                    <div className="admin-bar-col" key={d.day} title={`${d.day}: ${d.count} رسالة`} data-testid="admin-trend-bar">
+                      <div className="admin-bar" style={{ height: barHeight(d.count, stats.trends.messagesByDay) }} />
+                      <span className="admin-bar-label">{dayLabel(d.day)}</span>
+                    </div>
+                  ))}
+                </div>
+              </figure>
+            </div>
+
+            <h4>الدروس الأكثر نشاطًا</h4>
+            {stats.trends.topLessons.length === 0 ? (
+              <p className="muted" data-testid="admin-trend-no-lessons">
+                لا جلسات على دروس بعد.
+              </p>
+            ) : (
+              <ol className="admin-top-lessons" data-testid="admin-trend-top-lessons">
+                {stats.trends.topLessons.map((l) => (
+                  <li key={l.lessonId} data-testid="admin-trend-top-lesson">
+                    <span className="admin-top-lesson-title">{l.title || "(درس محذوف)"}</span>
+                    <b>{l.sessions}</b>
+                  </li>
+                ))}
+              </ol>
+            )}
           </section>
         )}
 

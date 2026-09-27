@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { MockLLMProvider, buildMockQuestion } from "../../src/modules/ai/providers/mock.js";
-import { groundingPrompt, parseGeneratedQuestion } from "../../src/modules/practice/questionGen.js";
+import { groundingPrompt, parseGeneratedQuestion, selectGroundingChunks } from "../../src/modules/practice/questionGen.js";
 
 const CONTEXT =
   "درس الكسور الاعتيادية. مقارنة الكسور ذات المقامات المتشابهة تعتمد على البسط، فمثلًا 3/5 أكبر من 2/5. تبسيط الكسور يكون بقسمة البسط والمقام على العامل المشترك الأكبر. عبارة الزعفرانة النبتة الاستوائية غير موجودة في هذا الدرس.";
@@ -129,5 +129,59 @@ describe("groundingPrompt — PHASE 28", () => {
     const { system, user } = groundingPrompt({ conceptTitle: "مقارنة الكسور", context: CONTEXT });
     expect(system).toContain(`<context>${CONTEXT}</context>`);
     expect(user).toContain("المفهوم: «مقارنة الكسور»");
+  });
+});
+
+/**
+ * PHASE 36 (D-032 tail) — multi-chunk grounding. A long lesson must not be
+ * truncated to its opening: the budget is spread across the whole lesson so
+ * generation can draw on material from anywhere in it.
+ */
+describe("selectGroundingChunks (D-032 tail) — PHASE 36", () => {
+  const lesson = (n: number) => Array.from({ length: n }, (_, i) => `chunk-${i}`);
+
+  it("returns every chunk when the lesson fits the budget", () => {
+    expect(selectGroundingChunks(lesson(3), 6)).toEqual(["chunk-0", "chunk-1", "chunk-2"]);
+    expect(selectGroundingChunks(lesson(6), 6)).toHaveLength(6);
+  });
+
+  it("keeps the opening and closing chunks of a long lesson", () => {
+    const picked = selectGroundingChunks(lesson(20), 6);
+    expect(picked[0]).toBe("chunk-0");
+    expect(picked[picked.length - 1]).toBe("chunk-19");
+  });
+
+  it("spreads the sample across the lesson instead of taking a prefix", () => {
+    const picked = selectGroundingChunks(lesson(20), 6);
+    // The old behaviour was chunks 0..5; the new one must reach deep material.
+    expect(picked).toContain("chunk-19");
+    expect(picked.some((c) => Number(c.split("-")[1])! > 5)).toBe(true);
+  });
+
+  it("never exceeds the budget and never repeats a chunk", () => {
+    const picked = selectGroundingChunks(lesson(13), 6);
+    expect(picked).toHaveLength(6);
+    expect(new Set(picked).size).toBe(picked.length);
+  });
+
+  it("is deterministic (no RNG) — the same lesson always grounds the same way", () => {
+    expect(selectGroundingChunks(lesson(17), 6)).toEqual(selectGroundingChunks(lesson(17), 6));
+  });
+
+  it("preserves the input order (the <context> block still reads like the lesson)", () => {
+    const picked = selectGroundingChunks(lesson(12), 5);
+    const indexes = picked.map((c) => Number(c.split("-")[1])!);
+    expect([...indexes].sort((a, b) => a - b)).toEqual(indexes);
+  });
+
+  it("returns nothing for a non-positive budget, and everything for an empty lesson", () => {
+    expect(selectGroundingChunks(lesson(5), 0)).toEqual([]);
+    expect(selectGroundingChunks(lesson(5), -1)).toEqual([]);
+    expect(selectGroundingChunks([], 6)).toEqual([]);
+  });
+
+  it("defaults to the question-generation chunk budget", () => {
+    expect(selectGroundingChunks(lesson(6))).toHaveLength(6);
+    expect(selectGroundingChunks(lesson(7))).toHaveLength(6);
   });
 });

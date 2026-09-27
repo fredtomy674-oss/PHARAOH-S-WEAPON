@@ -96,7 +96,22 @@ export interface ChildDetail {
   };
   /** Read-only aggregates; never exposes raw message content (PHASE 18). */
   progress: {
-    concepts: Array<{ conceptId: string; title: string; mastery: number }>;
+    /**
+     * PHASE 24 — each concept carries the read-side decayed mastery, level and
+     * Arabic label; PHASE 35 (D-037 tail) adds practice recency so a parent can
+     * distinguish «last graded answer» from «last exposure».
+     */
+    concepts: Array<{
+      conceptId: string;
+      title: string;
+      mastery: number;
+      decayedMastery: number;
+      level: string;
+      labelAr: string;
+      trend: string;
+      lastPracticedAt: Date;
+      daysSinceRealPractice: number;
+    }>;
     strengths: string[];
     weaknesses: string[];
   };
@@ -191,6 +206,11 @@ export class ParentService {
           level: m.level,
           labelAr: m.labelAr,
           trend: m.trend,
+          // PHASE 35 (D-037 tail) — practice recency beside exposure recency,
+          // so a parent can read «آخر ممارسة» (a graded answer) separately
+          // from «آخر تعرّض» (a lesson session). Metadata only, no content.
+          lastPracticedAt: m.lastPracticedAt,
+          daysSinceRealPractice: m.daysSinceRealPractice,
         })),
         strengths: detail.strengths.map((s) => s.title),
         weaknesses: detail.weaknesses.map((w) => w.title),

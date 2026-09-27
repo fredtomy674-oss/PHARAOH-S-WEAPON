@@ -7,13 +7,13 @@ import type { AchievementService } from "../achievements/service.js";
 import type { AiService } from "../ai/aiService.js";
 import { Errors } from "../../utils/errors.js";
 import { newId } from "../../utils/ids.js";
-import { sortPlan, type PracticePlanItem } from "./plan.js";
+import { isDueForReview, sortPlan, type PracticePlanItem } from "./plan.js";
 import {
   groundingPrompt,
   parseGeneratedOpenQuestion,
   parseGeneratedQuestion,
-  QUESTION_GEN_MAX_CHUNKS,
   QUESTION_GEN_MAX_CONTEXT_CHARS,
+  selectGroundingChunks,
 } from "./questionGen.js";
 import {
   GRADE_OPEN_MAX_STUDENT_ANSWER_CHARS,
@@ -418,6 +418,9 @@ export class PracticeService {
       availableQuestions: available.get(s.conceptId) ?? 0,
       openQuestions: openAvailable.get(s.conceptId) ?? 0,
       tracked: true,
+      // PHASE 35 (D-037 tail) — driven by the exposure clock (study OR
+      // practice), so ending a lesson on this concept can clear the flag.
+      dueForReview: isDueForReview(s.daysSinceLastPractice),
     }));
     for (const c of allConcepts) {
       if (tracked.has(c.conceptId)) continue;
@@ -439,6 +442,9 @@ export class PracticeService {
         availableQuestions: available.get(c.conceptId) ?? 0,
         openQuestions: openAvailable.get(c.conceptId) ?? 0,
         tracked: false,
+        // A never-seen concept is not «due» — it is merely new (tracked: false
+        // already ranks it after real work).
+        dueForReview: false,
       });
     }
     return sortPlan(items);
@@ -578,15 +584,21 @@ export class PracticeService {
     return row;
   }
 
-  /** Grounding text for generation: the lesson's top chunks, bounded. */
+  /**
+   * Grounding text for generation: a bounded, lesson-wide sample of chunks.
+   * PHASE 36 (D-032 tail) — selection is spread across the whole lesson (pure
+   * `selectGroundingChunks`) instead of the first N contiguous chunks, so a long
+   * lesson is not truncated to its opening. Chunks are still concatenated in
+   * POSITION order so the <context> block reads like the lesson itself.
+   */
   private async groundingForLesson(lessonId: string): Promise<string> {
     const rows = await this.db.db
       .select({ content: chunks.content })
       .from(chunks)
       .where(eq(chunks.lessonId, lessonId))
-      .orderBy(asc(chunks.position), asc(chunks.id))
-      .limit(QUESTION_GEN_MAX_CHUNKS);
-    const text = rows
+      .orderBy(asc(chunks.position), asc(chunks.id));
+    const picked = selectGroundingChunks(rows);
+    const text = picked
       .map((r) => r.content)
       .join("\n")
       .trim();

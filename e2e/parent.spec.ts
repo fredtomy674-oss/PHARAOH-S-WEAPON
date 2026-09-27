@@ -83,3 +83,34 @@ test("P4 (PHASE 23): a parent opens a child session's metadata-only activity tim
   await page.getByTestId("parent-session-back").click();
   await expect(page.getByTestId("parent-child-detail")).toBeVisible({ timeout: 20_000 });
 });
+
+/**
+ * PHASE 35 (D-037 tail) — the parent dashboard surfaces «آخر ممارسة» per concept.
+ * The demo student runs one real practice round (a graded attempt, which stamps
+ * `last_practiced_at`), so the parent reads the PRACTICE clock next to the
+ * mastery level — separately from the exposure refresh a lesson session gives.
+ */
+test("P5 (PHASE 35): a parent sees «آخر ممارسة» per concept after the child practices", async ({ page }) => {
+  // 1) The student opens a practice round and answers, closing it.
+  await login(page);
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  const firstPractice = page.getByTestId("plan-practice").first();
+  await expect(firstPractice).toBeVisible({ timeout: 20_000 });
+  await firstPractice.click();
+  const close = page.getByTestId("practice-close");
+  await expect(close).toBeVisible({ timeout: 20_000 });
+  await close.click();
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+
+  // 2) The parent opens the same child and reads the per-concept recency.
+  await page.getByTestId("logout").click();
+  await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
+  await login(page, DEMO_PARENT.email, DEMO_PARENT.password, "parent-screen");
+  await page.getByTestId("parent-child-open").click();
+  await expect(page.getByTestId("parent-child-detail")).toBeVisible({ timeout: 20_000 });
+
+  // 3) Tracked concepts now carry a practice recency alongside the level pill.
+  const rows = page.getByTestId("parent-progress-row");
+  await expect(rows.first()).toBeVisible({ timeout: 20_000 });
+  await expect(rows.first().getByTestId("parent-progress-last-practice")).toContainText("آخر ممارسة");
+});

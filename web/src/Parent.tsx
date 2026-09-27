@@ -288,8 +288,16 @@ export function ParentScreen({ user, onLogout }: Props) {
                 {detail.progress.concepts.map((c) => (
                   <li key={c.conceptId} className="progress-row" data-testid="parent-progress-row">
                     <span>{c.title}</span>
-                    <span className={`pill ${c.level === "mastered" || c.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="parent-progress-level">
-                      {c.labelAr} · {Math.round(c.mastery * 100)}%
+                    <span className="progress-row-meta">
+                      <span className={`pill ${c.level === "mastered" || c.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="parent-progress-level">
+                        {c.labelAr} · {Math.round(c.mastery * 100)}%
+                      </span>
+                      {/* PHASE 35 (D-037 tail) — «آخر ممارسة» counts graded
+                          answers only, so a parent can tell real practice from
+                          mere exposure to a lesson. */}
+                      <span className="muted practice-recency" data-testid="parent-progress-last-practice">
+                        {c.daysSinceRealPractice === 0 ? "آخر ممارسة اليوم" : `آخر ممارسة منذ ${c.daysSinceRealPractice} يوم`}
+                      </span>
                     </span>
                   </li>
                 ))}
