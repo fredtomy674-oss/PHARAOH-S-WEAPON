@@ -36,6 +36,16 @@ export const OCR_MARKER = "نص الصفحة الممسوحة ضوئيًا";
 /** Start of the tutor's safe-refusal reply (prompt-injection tripwire). */
 export const SAFE_REFUSAL_PHRASE = "أنا هنا لمساعدتك في درسنا فقط";
 
+/**
+ * PHASE 38/D-042 — English counterparts, emitted by the mock provider only when
+ * the session's subject is a foreign-language curriculum.
+ */
+export const ENGLISH_REPLY_MARKER = "I will explain this lesson in English";
+export const ENGLISH_RAG_CONTEXT_PHRASE = "According to the lesson content";
+export const ENGLISH_NO_RAG_PHRASE = "I could not reach the lesson content";
+export const VISION_MARKER_EN = "I read the attached image";
+export const SAFE_REFUSAL_EN_PHRASE = "I am here to help you with our lesson only";
+
 /** Stable transcript emitted by the fake SpeechRecognition stub in voice tests. */
 export const STT_TRANSCRIPT = "اذكر مثالًا على الجمع مع إعادة التجميع";
 
@@ -204,6 +214,27 @@ export async function startFirstLesson(page: Page): Promise<void> {
   await selectFirst(page, "select-system");
   await selectFirst(page, "select-grade");
   await selectFirst(page, "select-subject");
+  await selectFirst(page, "select-curriculum");
+  await selectFirst(page, "select-term");
+  await selectFirst(page, "select-unit");
+
+  const firstLesson = page.locator('[data-testid^="lesson-"]').first();
+  await expect(firstLesson).toBeVisible({ timeout: 20_000 });
+  await firstLesson.click();
+  await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
+}
+
+/**
+ * Full onboarding walk to a specific subject: country → system → grade →
+ * subject (by label) → curriculum → term → unit → first lesson. PHASE 38 uses
+ * it to reach the English curriculum under the same country/grade as Math.
+ */
+export async function startLessonOfSubject(page: Page, subjectLabel: string): Promise<void> {
+  await page.getByTestId("start-lesson").click();
+  await selectOptionByLabel(page, "select-country", "مصر");
+  await selectFirst(page, "select-system");
+  await selectFirst(page, "select-grade");
+  await selectOptionByLabel(page, "select-subject", subjectLabel);
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");
   await selectFirst(page, "select-unit");

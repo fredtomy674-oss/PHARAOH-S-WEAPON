@@ -243,6 +243,76 @@ export async function seedSaudiCorpus(api: TestApi): Promise<SaudiCorpus> {
   return { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonId: lesson.id };
 }
 
+export interface LanguageCorpus {
+  countryId: string;
+  systemId: string;
+  gradeId: string;
+  subjectId: string;
+  curriculumId: string;
+  termId: string;
+  unitId: string;
+  lessonId: string;
+}
+
+/**
+ * PHASE 38 (D-042) — an **English** curriculum under the same country/system/
+ * grade as the math corpus: the second subject a real student can pick. Its
+ * lesson content is English, which is what makes the tutor's reply language
+ * observable end-to-end (the language follows the subject, D-042).
+ */
+export async function seedLanguageCorpus(api: TestApi, base: MiniCorpus): Promise<LanguageCorpus> {
+  const db = api.db.db;
+  const now = new Date();
+  const subj = { id: newId("subj"), code: "english", name: "English", nameAr: "اللغة الإنجليزية" };
+  await db.insert(subjects).values(subj);
+  const cur = {
+    id: newId("cur"),
+    countryId: base.countryId,
+    educationSystemId: base.systemId,
+    gradeId: base.gradeId,
+    subjectId: subj.id,
+    code: "corpus-english",
+    title: "اللغة الإنجليزية للصف السادس",
+    version: "1.0",
+    isActive: true,
+    createdAt: now,
+  };
+  await db.insert(curricula).values(cur);
+  const term = { id: newId("t"), curriculumId: cur.id, code: "en-term-1", title: "الفصل الدراسي الأول", sortOrder: 1 };
+  await db.insert(terms).values(term);
+  const unit = { id: newId("u"), termId: term.id, code: "en-unit-1", title: "Family and Friends", sortOrder: 1 };
+  await db.insert(units).values(unit);
+  const lesson = { id: newId("l"), unitId: unit.id, code: "l-en-present", title: "Present Simple — المضارع البسيط", sortOrder: 1 };
+  await db.insert(lessons).values(lesson);
+  await db.insert(concepts).values({
+    id: newId("con"),
+    lessonId: lesson.id,
+    code: "c-en-1",
+    title: "Third person singular with -s",
+    description: "مفهوم إنجليزي",
+  });
+
+  await api.knowledge.ingestText({
+    title: "Present simple: the verb to be and the -s form",
+    content:
+      "We use am, is and are with the verb to be: I am a student, she is my sister, they are my friends. With he, she or it we add -s to the verb: he plays, she lives. The negative uses does not and the question uses do you.",
+    kind: "text",
+    source: "test-corpus-english",
+    scope: {
+      countryId: base.countryId,
+      educationSystemId: base.systemId,
+      gradeId: base.gradeId,
+      subjectId: subj.id,
+      curriculumId: cur.id,
+      termId: term.id,
+      unitId: unit.id,
+      lessonId: lesson.id,
+    },
+  });
+
+  return { countryId: base.countryId, systemId: base.systemId, gradeId: base.gradeId, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonId: lesson.id };
+}
+
 function expectStatus(actual: number, expected: number, body: string): void {
   if (actual !== expected) {
     throw new Error(`expected status ${expected}, got ${actual}: ${body}`);

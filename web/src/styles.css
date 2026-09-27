@@ -652,6 +652,18 @@ p {
   display: block;
 }
 
+/* PHASE 38/D-042 — which language the tutor answers in for this subject. */
+.lang-chip {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
 .chat-body {
   flex: 1;
   overflow-y: auto;

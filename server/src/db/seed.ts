@@ -41,6 +41,13 @@ interface CountrySeedSpec {
   country: { code: string; name: string; nameAr: string };
   system: { code: string; name: string; nameAr: string; sortOrder: number };
   grade: { code: string; name: string; nameAr: string; levelOrder: number };
+  /**
+   * Global subject catalog entry (shared across countries, PHASE 38). Defaults
+   * to Mathematics so the two original specs stay untouched; a language
+   * curriculum declares its own code, and that code is what makes the tutor
+   * answer in English (D-042).
+   */
+  subject?: { code: string; name: string; nameAr: string };
   curriculum: { code: string; title: string };
   term: { code: string; title: string };
   unit: { code: string; title: string };
@@ -146,9 +153,54 @@ const SAUDI_SPEC: CountrySeedSpec = {
 };
 
 /**
+ * Egyptian Grade-6 **English** curriculum (PHASE 38) — the second subject under
+ * the same country/system/grade, so the picker shows two real curricula and the
+ * tutor's reply language can be observed end-to-end. Lesson content is English
+ * (that is the point), titles bilingual so the Arabic UI stays readable.
+ */
+const EGYPT_ENGLISH_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g6-english", title: "اللغة الإنجليزية للصف السادس الابتدائي" },
+  term: { code: "en-term-1", title: "الفصل الدراسي الأول" },
+  unit: { code: "en-unit-1", title: "الوحدة الأولى: Family and Friends — العائلة والأصدقاء" },
+  lessons: [
+    {
+      code: "l-en-present-simple",
+      title: "Present Simple — المضارع البسيط",
+      concepts: ["The verb 'to be'", "Third person singular with -s"],
+      doc: {
+        title: "Present simple: the verb to be and the -s form",
+        content: `Lesson: Present simple.
+The verb "to be": we use am, is and are. Use "am" with I: I am a student. Use "is" with he, she and it: She is my sister. Use "are" with you, we and they: They are my friends.
+Third person singular: when the subject is he, she or it, we add -s to the verb in the present simple. Example: I play football, but he plays football. The negative uses "does not": He does not play football. The question uses "do you": Do you play football?
+Example: Sara lives in Cairo and her brother lives in Giza. Every day Sara goes to school by bus and she arrives at seven o'clock.
+Remember: add -s only for he, she and it (and for I am / he is / they are with the verb to be).`,
+      },
+    },
+    {
+      code: "l-en-family",
+      title: "Family Members and Possessives — أفراد العائلة والملكية",
+      concepts: ["Family vocabulary", "Possessive adjectives (my, your, his, her)"],
+      doc: {
+        title: "Family members and possessive adjectives",
+        content: `Lesson: Family members and possessives.
+Family vocabulary: father, mother, brother, sister, grandfather, grandmother, uncle, aunt, cousin.
+Possessive adjectives: my (for I), your (for you), his (for he), her (for she), its (for it), our (for we), their (for they). Examples: This is my father. That is her bag.
+Example: Ahmed is my cousin. His father is a teacher and her mother is a doctor. Their house is near the school.
+Remember: "her" comes before a noun that starts with a vowel sound, and "his" is used for things and people alike.`,
+      },
+    },
+  ],
+};
+
+/**
  * Idempotent multi-country seeder: Egypt (original) + Saudi Arabia (PHASE 16)
- * Grade-6 Math skeletons + sample lesson documents (→ chunks → mock embeddings)
- * + demo accounts for the manual vertical slice. Running twice is a no-op.
+ * Grade-6 Math skeletons + Egypt's Grade-6 English curriculum (PHASE 38) +
+ * sample lesson documents (→ chunks → mock embeddings) + demo accounts for the
+ * manual vertical slice. Running twice is a no-op.
  * The global subject catalog is shared across countries (reused, never duplicated).
  */
 async function main(): Promise<void> {
@@ -160,82 +212,105 @@ async function main(): Promise<void> {
   const curriculum = new CurriculumService(db);
 
   const egypt = await seedCountry(db, knowledge, EGYPT_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
-/** Seeds (or re-fetches, idempotently) one country's catalog + lesson documents. */
+/**
+ * Idempotent per-LEVEL seeder for one curriculum spec. Every level is created
+ * only when missing, so a spec may hang under a country/system/grade that the
+ * previous spec already created (PHASE 38: Egypt's English curriculum lives
+ * under the same country + system + grade as Egypt's Math one) and re-running
+ * the seeder stays a no-op.
+ */
 async function seedCountry(db: DbHandle, knowledge: KnowledgeService, spec: CountrySeedSpec): Promise<Seeded> {
   const now = new Date();
+  let created = false;
 
-  const existing = await db.db.select().from(countries).where(eq(countries.code, spec.country.code)).get();
-  if (existing) {
-    console.log(`  ↺ ${spec.country.nameAr} already seeded — skipped (idempotent).`);
-    const sys = (await db.db
-      .select()
-      .from(educationSystems)
-      .where(and(eq(educationSystems.countryId, existing.id), eq(educationSystems.code, spec.system.code)))
-      .get())!;
-    const grade = (await db.db.select().from(grades).where(and(eq(grades.educationSystemId, sys.id), eq(grades.code, spec.grade.code))).get())!;
-    const cur = (await db.db.select().from(curricula).where(eq(curricula.code, spec.curriculum.code)).get())!;
-    const term = (await db.db.select().from(terms).where(and(eq(terms.curriculumId, cur.id), eq(terms.code, spec.term.code))).get())!;
-    const unit = (await db.db.select().from(units).where(and(eq(units.termId, term.id), eq(units.code, spec.unit.code))).get())!;
-    const lessonRows = await db.db.select().from(lessons).where(eq(lessons.unitId, unit.id));
-    const lessonIds: Record<string, string> = {};
-    for (const lesson of lessonRows) lessonIds[lesson.code] = lesson.id;
-    const seeded = { countryId: existing.id, systemId: sys.id, gradeId: grade.id, subjectId: cur.subjectId, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonIds };
-    await ensureDemoQuestions(db, seeded, demoQuestionsOf(spec.country.code));
-    await ensureDemoOpenQuestions(db, seeded, demoOpenQuestionsOf(spec.country.code));
-    return seeded;
+  let c = await db.db.select().from(countries).where(eq(countries.code, spec.country.code)).get();
+  if (!c) {
+    c = { id: newId("c"), code: spec.country.code, name: spec.country.name, nameAr: spec.country.nameAr };
+    await db.db.insert(countries).values(c);
+    created = true;
   }
-
-  const c = { id: newId("c"), code: spec.country.code, name: spec.country.name, nameAr: spec.country.nameAr };
-  await db.db.insert(countries).values(c);
-  const sys = { id: newId("sys"), countryId: c.id, code: spec.system.code, name: spec.system.name, nameAr: spec.system.nameAr, sortOrder: spec.system.sortOrder };
-  await db.db.insert(educationSystems).values(sys);
-  const g = { id: newId("g"), educationSystemId: sys.id, code: spec.grade.code, name: spec.grade.name, nameAr: spec.grade.nameAr, levelOrder: spec.grade.levelOrder };
-  await db.db.insert(grades).values(g);
+  let sys = await db.db.select().from(educationSystems).where(and(eq(educationSystems.countryId, c.id), eq(educationSystems.code, spec.system.code))).get();
+  if (!sys) {
+    sys = { id: newId("sys"), countryId: c.id, code: spec.system.code, name: spec.system.name, nameAr: spec.system.nameAr, sortOrder: spec.system.sortOrder };
+    await db.db.insert(educationSystems).values(sys);
+    created = true;
+  }
+  let g = await db.db.select().from(grades).where(and(eq(grades.educationSystemId, sys.id), eq(grades.code, spec.grade.code))).get();
+  if (!g) {
+    g = { id: newId("g"), educationSystemId: sys.id, code: spec.grade.code, name: spec.grade.name, nameAr: spec.grade.nameAr, levelOrder: spec.grade.levelOrder };
+    await db.db.insert(grades).values(g);
+    created = true;
+  }
 
   // The subject catalog is global and shared across countries — reuse it when a
-  // previous country already created it, never duplicate.
-  let subj = await db.db.select().from(subjects).where(eq(subjects.code, "math")).get();
+  // previous country (or a previous spec) already created it, never duplicate.
+  const subjectSpec = spec.subject ?? { code: "math", name: "Mathematics", nameAr: "الرياضيات" };
+  let subj = await db.db.select().from(subjects).where(eq(subjects.code, subjectSpec.code)).get();
   if (!subj) {
-    subj = { id: newId("subj"), code: "math", name: "Mathematics", nameAr: "الرياضيات" };
+    subj = { id: newId("subj"), ...subjectSpec };
     await db.db.insert(subjects).values(subj);
+    created = true;
   }
 
-  const cur = { id: newId("cur"), countryId: c.id, educationSystemId: sys.id, gradeId: g.id, subjectId: subj.id, code: spec.curriculum.code, title: spec.curriculum.title, version: "1.0", isActive: true, createdAt: now };
-  await db.db.insert(curricula).values(cur);
-  const term = { id: newId("t"), curriculumId: cur.id, code: spec.term.code, title: spec.term.title, sortOrder: 1 };
-  await db.db.insert(terms).values(term);
-  const unit = { id: newId("u"), termId: term.id, code: spec.unit.code, title: spec.unit.title, sortOrder: 1 };
-  await db.db.insert(units).values(unit);
+  let cur = await db.db.select().from(curricula).where(eq(curricula.code, spec.curriculum.code)).get();
+  if (!cur) {
+    cur = { id: newId("cur"), countryId: c.id, educationSystemId: sys.id, gradeId: g.id, subjectId: subj.id, code: spec.curriculum.code, title: spec.curriculum.title, version: "1.0", isActive: true, createdAt: now };
+    await db.db.insert(curricula).values(cur);
+    created = true;
+  }
+  let term = await db.db.select().from(terms).where(and(eq(terms.curriculumId, cur.id), eq(terms.code, spec.term.code))).get();
+  if (!term) {
+    term = { id: newId("t"), curriculumId: cur.id, code: spec.term.code, title: spec.term.title, sortOrder: 1 };
+    await db.db.insert(terms).values(term);
+    created = true;
+  }
+  let unit = await db.db.select().from(units).where(and(eq(units.termId, term.id), eq(units.code, spec.unit.code))).get();
+  if (!unit) {
+    unit = { id: newId("u"), termId: term.id, code: spec.unit.code, title: spec.unit.title, sortOrder: 1 };
+    await db.db.insert(units).values(unit);
+    created = true;
+  }
 
   const lessonIds: Record<string, string> = {};
   for (const [i, lessonSpec] of spec.lessons.entries()) {
-    const lesson = { id: newId("l"), unitId: unit.id, code: lessonSpec.code, title: lessonSpec.title, sortOrder: i + 1 };
-    await db.db.insert(lessons).values(lesson);
+    let lesson = await db.db.select().from(lessons).where(and(eq(lessons.unitId, unit.id), eq(lessons.code, lessonSpec.code))).get();
+    if (!lesson) {
+      lesson = { id: newId("l"), unitId: unit.id, code: lessonSpec.code, title: lessonSpec.title, sortOrder: i + 1 };
+      await db.db.insert(lessons).values(lesson);
+      created = true;
+    }
     lessonIds[lessonSpec.code] = lesson.id;
-    for (const [j, title] of lessonSpec.concepts.entries()) {
-      await db.db.insert(concepts).values({
-        id: newId("con"),
-        lessonId: lesson.id,
-        code: `c-${i + 1}-${j + 1}`,
-        title,
-        description: `مفهوم ${title} من درس ${lessonSpec.title}`,
-      });
+
+    // Concepts are keyed by (lesson, first concept code) — a re-run finds the
+    // first one and skips the whole set, so codes never duplicate.
+    const hasConcepts = await db.db.select({ id: concepts.id }).from(concepts).where(eq(concepts.lessonId, lesson.id)).limit(1);
+    if (hasConcepts.length === 0) {
+      for (const [j, title] of lessonSpec.concepts.entries()) {
+        await db.db.insert(concepts).values({
+          id: newId("con"),
+          lessonId: lesson.id,
+          code: `c-${i + 1}-${j + 1}`,
+          title,
+          description: `مفهوم ${title} من درس ${lessonSpec.title}`,
+        });
+      }
     }
   }
 
-  console.log(`✓ Curriculum skeleton created (${spec.country.nameAr}).`);
+  if (created) console.log(`✓ Curriculum skeleton ready (${spec.country.nameAr} — ${spec.curriculum.title}).`);
 
   const seeded = { countryId: c.id, systemId: sys.id, gradeId: g.id, subjectId: subj.id, curriculumId: cur.id, termId: term.id, unitId: unit.id, lessonIds };
   await ingestLessonDocuments(db, knowledge, seeded, spec.lessons, spec.curriculum.code);
-  await ensureDemoQuestions(db, seeded, demoQuestionsOf(spec.country.code));
-  await ensureDemoOpenQuestions(db, seeded, demoOpenQuestionsOf(spec.country.code));
+  await ensureDemoQuestions(db, seeded, demoQuestionsOf(spec.curriculum.code));
+  await ensureDemoOpenQuestions(db, seeded, demoOpenQuestionsOf(spec.curriculum.code));
   return seeded;
 }
 
@@ -377,14 +452,38 @@ const EGYPT_DEMO_OPEN_QUESTIONS: DemoOpenQuestionSpec[] = [
   },
 ];
 
-/** Per-country demo question set — only Egypt ships questions in this seed. */
-function demoQuestionsOf(countryCode: string): DemoQuestionSpec[] {
-  return countryCode === "eg" ? EGYPT_DEMO_QUESTIONS : [];
+/** PHASE 38 — two English MCQs so the new curriculum has a working practice loop. */
+const EGYPT_ENGLISH_DEMO_QUESTIONS: DemoQuestionSpec[] = [
+  {
+    lessonCode: "l-en-present-simple",
+    conceptTitle: "Third person singular with -s",
+    difficulty: "easy",
+    content: "Choose the correct sentence: he ___ to school by bus.",
+    options: ["go", "goes", "going", "gone"],
+    correctIndex: 1,
+    explanation: "With he / she / it we add -s to the verb in the present simple: he goes.",
+  },
+  {
+    lessonCode: "l-en-present-simple",
+    conceptTitle: "The verb 'to be'",
+    difficulty: "easy",
+    content: "Choose the correct sentence: My sister ___ a teacher.",
+    options: ["are", "am", "is", "be"],
+    correctIndex: 2,
+    explanation: "We use \"is\" with he, she and it: she is a teacher.",
+  },
+];
+
+/** Per-curriculum demo question set — keyed by curriculum code, not country. */
+function demoQuestionsOf(curriculumCode: string): DemoQuestionSpec[] {
+  if (curriculumCode === "eg-g6-math") return EGYPT_DEMO_QUESTIONS;
+  if (curriculumCode === "eg-g6-english") return EGYPT_ENGLISH_DEMO_QUESTIONS;
+  return [];
 }
 
-/** Per-country demo OPEN question set — Egypt only (PHASE 30). */
-function demoOpenQuestionsOf(countryCode: string): DemoOpenQuestionSpec[] {
-  return countryCode === "eg" ? EGYPT_DEMO_OPEN_QUESTIONS : [];
+/** Per-curriculum demo OPEN question set — Egypt Math only (PHASE 30). */
+function demoOpenQuestionsOf(curriculumCode: string): DemoOpenQuestionSpec[] {
+  return curriculumCode === "eg-g6-math" ? EGYPT_DEMO_OPEN_QUESTIONS : [];
 }
 
 /** Insert each missing demo question for its lesson/concept (idempotent). */

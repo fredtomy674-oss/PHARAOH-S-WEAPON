@@ -37,6 +37,12 @@ export interface Grade {
   levelOrder: number;
 }
 
+/**
+ * PHASE 38/D-042 — the tutor's reply language for a curriculum. The server
+ * decides it (from the subject); the client only displays it.
+ */
+export type TutorLanguage = "ar" | "en";
+
 export interface Subject {
   id: string;
   code: string;
@@ -98,6 +104,8 @@ export interface Breadcrumb {
     unit: { title: string };
     lesson: { title: string; id: string };
   };
+  /** PHASE 38/D-042 — the language the tutor will answer in for this subject. */
+  replyLanguage: TutorLanguage;
 }
 
 export interface LearningSession {
@@ -303,6 +311,20 @@ export async function listLessons(unitId: string): Promise<Lesson[]> {
 export async function lessonBreadcrumb(lessonId: string): Promise<Breadcrumb["breadcrumb"]> {
   const res = await api<Breadcrumb>(`/curriculum/lessons/${encodeURIComponent(lessonId)}/breadcrumb`);
   return res.breadcrumb;
+}
+
+/**
+ * PHASE 38/D-042 — the breadcrumb plus the server's own verdict on the reply
+ * language for this lesson, in a single round-trip, so the header badge can
+ * never disagree with the language the tutor actually uses.
+ * Absent (older server) → Arabic, the product default.
+ */
+export async function lessonContext(lessonId: string): Promise<{
+  breadcrumb: Breadcrumb["breadcrumb"];
+  replyLanguage: TutorLanguage;
+}> {
+  const res = await api<Breadcrumb>(`/curriculum/lessons/${encodeURIComponent(lessonId)}/breadcrumb`);
+  return { breadcrumb: res.breadcrumb, replyLanguage: res.replyLanguage ?? "ar" };
 }
 
 export async function startSession(input: { curriculumId: string; gradeId: string; subjectId: string; lessonId: string }): Promise<LearningSession> {

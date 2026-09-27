@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import {
   endSession,
   getSession,
-  lessonBreadcrumb,
+  lessonContext,
   sendMessage,
   attachmentUrl,
   ApiError,
   type Breadcrumb,
   type LearningSession,
   type Message,
+  type TutorLanguage,
   type User,
 } from "./api.js";
 import {
@@ -53,6 +54,7 @@ interface PendingDocument {
 export function ChatScreen({ session, onEnded }: Props) {
   const [bc, setBc] = useState<Breadcrumb["breadcrumb"] | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [tutorLanguage, setTutorLanguage] = useState<TutorLanguage>("ar");
   const [input, setInput] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   const [docFile, setDocFile] = useState<PendingDocument | null>(null);
@@ -70,7 +72,12 @@ export function ChatScreen({ session, onEnded }: Props) {
   const voiceTurnRef = useRef(false);
 
   useEffect(() => {
-    lessonBreadcrumb(session.lessonId).then((b) => setBc(b)).catch(() => undefined);
+    lessonContext(session.lessonId)
+      .then(({ breadcrumb, replyLanguage }) => {
+        setBc(breadcrumb);
+        setTutorLanguage(replyLanguage);
+      })
+      .catch(() => undefined);
     getSession(session.id)
       .then((res) => {
         setMessages(res.messages);
@@ -232,6 +239,13 @@ export function ChatScreen({ session, onEnded }: Props) {
               {b.country.nameAr} • {b.system.nameAr} • {b.grade.nameAr} • {b.subject.nameAr} — {b.unit.title}
             </span>
           )}
+          {/* PHASE 38/D-042 — say out loud which language the tutor will use, so a
+              student in a language curriculum is not surprised by the reply. */}
+          {b && (
+            <span className="lang-chip" data-testid="tutor-language">
+              {tutorLanguage === "en" ? "🗽 الشرح بالإنجليزية" : "🗿 الشرح بالعربية"}
+            </span>
+          )}
         </div>
         <div className="row-gap">
           {remaining !== null && (
@@ -295,7 +309,7 @@ export function ChatScreen({ session, onEnded }: Props) {
                     )}
                   </div>
                 )}
-                <p>{m.content}</p>
+                <p dir="auto">{m.content}</p>
                 {m.role === "tutor" && (
                   <button
                     data-testid="speak-reply"

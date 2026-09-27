@@ -7,6 +7,7 @@ import type { CurriculumBreadcrumb } from "../curriculum/service.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
 import { classifyIntent } from "./intentClassifier.js";
+import { resolveTutorLanguage, type TutorLanguage } from "./language.js";
 import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
 import { parseTutorResponse, type TutorResponse } from "./responseProcessor.js";
@@ -36,12 +37,19 @@ export interface TutorHandleResult {
   usedMock: boolean;
 }
 
-const SAFE_REFUSAL: TutorResponse = {
-  content: "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟",
-  tone: "friendly",
-  parts: [{ type: "text", text: "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟" }],
-  assessment: { conceptsTouched: [], confidence: 0 },
-};
+const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟";
+/** PHASE 38/D-042 — an English-language curriculum gets an English refusal. */
+const SAFE_REFUSAL_EN = "I am here to help you with our lesson only 💙. Tell me what you would like us to understand together today?";
+
+/**
+ * The safety refusal is part of the tutor's voice, so it speaks the same
+ * language as the lesson — an Arabic wall of text inside an English lesson is
+ * exactly the "why is it talking that way?" moment we are removing.
+ */
+function safeRefusal(language: TutorLanguage): TutorResponse {
+  const text = language === "en" ? SAFE_REFUSAL_EN : SAFE_REFUSAL_AR;
+  return { content: text, tone: "friendly", parts: [{ type: "text", text }], assessment: { conceptsTouched: [], confidence: 0 } };
+}
 
 /**
  * Orchestrates one tutor turn: intent → scope-guarded retrieval → memory →
@@ -58,6 +66,11 @@ export class TutorEngine {
   ) {}
 
   async handle(input: TutorHandleInput): Promise<TutorHandleResult> {
+    // 0) PHASE 38/D-042 — reply language for this lesson's subject. Resolved
+    //    once, up front, so every branch below (including the safety refusal)
+    //    speaks the same language as the curriculum.
+    const language: TutorLanguage = resolveTutorLanguage(input.breadcrumb.subject);
+
     // 1) Daily budget (cost guardrail) — plan-derived (free vs premium, PHASE 20).
     const todayCalls = await this.ai.usage.countTutorCallsForUserToday(input.userId);
     const limit = input.dailyLimit ?? config.DAILY_MESSAGE_LIMIT;
@@ -79,7 +92,7 @@ export class TutorEngine {
       const effectiveIntent: ReturnType<typeof classifyIntent> = documentBypass
         ? { intent: "admin_bypass_attempt", confidence: 0.95, concepts: intent.concepts }
         : intent;
-      return { reply: SAFE_REFUSAL, intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock" };
+      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock" };
     }
 
     // 4) Scope-guarded retrieval. Photo-only or document-only turns have no
@@ -131,6 +144,7 @@ export class TutorEngine {
       studentName: input.student.displayName,
       hasImage: (input.images?.length ?? 0) > 0,
       documents: input.documents,
+      language,
     });
 
     const llmResponse = await this.ai.complete({

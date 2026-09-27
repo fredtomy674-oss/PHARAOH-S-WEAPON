@@ -1,6 +1,6 @@
 # API SPEC — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-23 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
+> آخر تحديث: 2026-09-27 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
 > Base: `/api` — Auth: session cookie (`alfarouq_session`) httpOnly + CSRF header للـmutations.
 
 ## 1. المصادقة
@@ -26,6 +26,9 @@
 | GET | `/api/curriculum/units/:unitId/lessons` |
 | GET | `/api/curriculum/lessons/:lessonId/concepts` |
 | GET | `/api/curriculum/lessons/:lessonId` (تفاصيل + مفاهيم) |
+| GET | `/api/curriculum/lessons/:lessonId/breadcrumb` | **PHASE 38** — `{breadcrumb, replyLanguage}` — خبز الدرس الكامل (دولة/نظام/صف/مادة/منهج/فصل/وحدة/درس) مع **لغة شرح المدرّس** |
+
+> **`replyLanguage` (PHASE 38/D-042)**: `"ar" | "en"` — مصدرُها الخادم وحده، فيقرأها العميل للعرض فقط فلا تستطيع الشارة أن تخالف ما سيُقال فعلًا. القاعدة: من **رمز المادة** (`subjects.code`)؛ مادة تُدرَّس بلغة أجنبية (`english`/`french`/بادئة `lang-`) ⇒ `"en"`، وأي مادة أخرى — **والعربية نفسها** ⇒ `"ar"`. وهي **خاصة بالمنهج لا بالرسالة**: لا تتغيّر بلغة سؤال الطالب.
 
 ## 3. الطالب والجلسات
 
@@ -37,7 +40,7 @@
 | POST | `/api/sessions` | `{curriculumId, gradeId, subjectId, lessonId?}` → ينشئ Learning Session. **PHASE 37 (توثيق فقط — بلا تغيير في السلوك)**: عند وجود `lessonId` يتحقق الخادم من اتساق النطاق: `400 LESSON_CURRICULUM_MISMATCH` («الدرس لا ينتمي للمنهج المحدد») و`400 LESSON_SCOPE_MISMATCH` («الدرس لا يطابق الصف/المادة المحددين»). الواجهة تعرض `message` القادم كما هو في المنتقي وتصفّر السلسلة النازلة عند تغيير أي مستوى أعلى فلا يقع هذا الفشل أصلًا (انظر `DECISIONS.md` D-041) |
 | GET | `/api/sessions` | جلساتي (مع حالة كل منها) |
 | GET | `/api/sessions/:id` | جلسة + رسائلها (مملوكة للطالب فقط) |
-| POST | `/api/sessions/:id/messages` | `{content}` → رد المدرس (RAG+AI) — **المسار العمودي الكامل** |
+| POST | `/api/sessions/:id/messages` | `{content}` → رد المدرس (RAG+AI) — **المسار العمودي الكامل**. **لغة الردّ (PHASE 38/D-042)**: تُشتقّ من مادة المنهج مرة واحدة لكل دور، فهي **عربية لأي مادة** إلا مناهج اللغات التي تُدرَّس بلغة أجنبية فتصف بالإنجليزية — ولا تتأثّر بلغة نصّ السؤال ولا ببداية الجلسة. يشمل ذلك **الرفض الآمن** (محاولة الحقن) وقراءة الصور والملفات: كلها بلغتها. ولا يتغيّر شكل الاستجابة (`tutorMessage.content`) |
 | PATCH | `/api/sessions/:id` | `{status:'ended', endedReason}` |
 | POST | `/api/sessions/:id/end` | إنهاء الجلسة (ينشئ recap للذاكرة) |
 | GET | `/api/sessions/:id/recap` | **PHASE 29 (D-033)** — ملخص الجلسة الآمن `{recap: SessionRecap \| null}` — يُبنى من **بيانات وصفية فقط** (عنوان الدرس، مفاهيم الجلسة، عدّادات: رسائل/مدة/مرفقات/أعلام أمان) عبر عملية LLM `recap` مع حارس «لا نص حرفي» وسقوط حتمي آمن (`fallback`)؛ جلسة بلا رسائل → `null`؛ student فقط (غير طالب 403، جلسة الآخرين 403 ملكية، غير موجودة 404) |

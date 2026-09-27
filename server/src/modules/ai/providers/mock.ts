@@ -1,4 +1,5 @@
 import { cyrb128, sha256Hex } from "../../../utils/ids.js";
+import { readReplyLanguageTag, type TutorLanguage } from "../../tutor/language.js";
 import type { DocumentInput, EmbeddingProvider, EmbeddingResponse, LLMProvider, LLMResponse, LLMRequest, OcrProvider, OcrRequest, OcrResponse } from "../types.js";
 
 const MOCK_DIM = 64;
@@ -58,6 +59,11 @@ export class MockLLMProvider implements LLMProvider {
     // system message is the real one — a first-match regex would capture the
     // whole middle of the prompt instead of the curriculum content.
     const context = extractContextBlock(system);
+    // PHASE 38/D-042 — the tutor answers in the curriculum's own language; the
+    // prompt builder states it as a <reply_language> tag, and the mock honors it
+    // so the behaviour is observable with zero keys (a real provider follows
+    // the same instruction).
+    const language = readReplyLanguageTag(system);
 
     // PHASE 29 — session recap: the mock only ever sees the metadata block
     // (lesson/concept titles + counters) and emits a deterministic structured
@@ -116,16 +122,17 @@ export class MockLLMProvider implements LLMProvider {
     }
 
     if (request.json) {
+      const tutorText = buildTutorText({ user: lastUser, context, images, documents, language });
       const content = JSON.stringify({
-        content: buildTutorText({ user: lastUser, context, images, documents }),
+        content: tutorText,
         tone: "friendly",
-        parts: [{ type: "text", text: buildTutorText({ user: lastUser, context, images, documents }) }],
+        parts: [{ type: "text", text: tutorText }],
         assessment: { conceptsTouched: [], confidence: 0.5 },
       });
       return { content, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(content), latencyMs: Date.now() - started };
     }
 
-    const body = buildTutorText({ user: lastUser, context, images, documents });
+    const body = buildTutorText({ user: lastUser, context, images, documents, language });
     return { content: body, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(body), latencyMs: Date.now() - started };
   }
 }
@@ -135,6 +142,13 @@ export const IMAGE_READ_MARKER = "قرأت الصورة المرفقة";
 
 /** Stable marker the tutor reply contains when a document was attached (used by tests/E2E). */
 export const DOCUMENT_READ_MARKER = "قرأت الملف المرفق";
+
+/** PHASE 38/D-042 — English counterparts, used when the curriculum teaches a language. */
+export const IMAGE_READ_MARKER_EN = "I read the attached image";
+export const DOCUMENT_READ_MARKER_EN = "I read the attached file";
+
+/** Stable marker proving the reply came back in the curriculum's own language. */
+export const ENGLISH_REPLY_MARKER = "I will explain this lesson in English";
 
 /** How many leading characters of the extracted document text are echoed into the mock reply. */
 const DOC_SNIPPET_CHARS = 60;
@@ -383,6 +397,16 @@ function buildTutorText(args: {
   context: string;
   images?: { mimeType: string; base64: string }[];
   documents?: DocumentInput[];
+  language?: TutorLanguage;
+}): string {
+  return args.language === "en" ? buildTutorTextEn(args) : buildTutorTextAr(args);
+}
+
+function buildTutorTextAr(args: {
+  user: string;
+  context: string;
+  images?: { mimeType: string; base64: string }[];
+  documents?: DocumentInput[];
 }): string {
   const { user, context, images = [], documents = [] } = args;
   const contextNote = context
@@ -404,6 +428,38 @@ function buildTutorText(args: {
   parts.push(`سؤال جيد! هذا من موضوع درسنا. سأشرحه بطريقة مبسطة:${contextNote}`);
   parts.push("💡 تلميح: جرب التفكير في المثال الأول في الدرس قبل الإجابة، وأخبرني بما توصلت إليه.");
   parts.push("هل تريد أن أشرح مرة أخرى بطريقة مختلفة، أم ننتقل لسؤال للتأكد من الفهم؟");
+  return parts.join("\n\n");
+}
+
+/**
+ * PHASE 38/D-042 — the same reply shape, written in the language the lesson
+ * teaches. Structure (grounded context → hint → check question) is identical,
+ * so the pedagogy does not change with the language.
+ */
+function buildTutorTextEn(args: {
+  user: string;
+  context: string;
+  images?: { mimeType: string; base64: string }[];
+  documents?: DocumentInput[];
+}): string {
+  const { context, images = [], documents = [] } = args;
+  const contextNote = context
+    ? `\n\nAccording to the lesson content: ${context.slice(0, 900)}`
+    : "\n\nI could not reach the lesson content right now; please check with your teacher.";
+  const imageNote = images.length > 0
+    ? `📸 ${IMAGE_READ_MARKER_EN} (${images.length}) — I will explain it step by step using our lesson.`
+    : "";
+  const doc = documents[0];
+  const docNote = doc
+    ? `📄 ${DOCUMENT_READ_MARKER_EN} "${doc.fileName ?? "no name"}" — I will use it together with the lesson to answer you. The most important part: "${doc.text.slice(0, DOC_SNIPPET_CHARS)}".`
+    : "";
+  const parts: string[] = [];
+  if (imageNote) parts.push(imageNote);
+  if (docNote) parts.push(docNote);
+  parts.push(`${ENGLISH_REPLY_MARKER}, simply and clearly.`);
+  parts.push(`Great question! It belongs to our lesson. Here it is:${contextNote}`);
+  parts.push("💡 Hint: try the first example in the lesson before you answer, then tell me what you got.");
+  parts.push("Would you like me to explain it again in a different way, or shall we try a quick question to check understanding?");
   return parts.join("\n\n");
 }
 

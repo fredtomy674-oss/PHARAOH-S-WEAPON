@@ -27,13 +27,13 @@ const ADMIN_BYPASS_PATTERNS = [
   /system\s*prompt/i,
 ];
 
-const EXERCISE_PATTERNS = [/حل\s*(لي)?\s*(هذا)?\s*(ال)?(سؤال|تمرين)/i, /مثال\s*على/i, /تمرين/i, /طبق/i, /احسب/i, /أوجد/i, /أوجد قيمة/i, /قسّم|اقسم/i, /حل المعادلة/i, /ما\s*ناتج/i];
+const EXERCISE_PATTERNS = [/حل\s*(لي)?\s*(هذا)?\s*(ال)?(سؤال|تمرين)/i, /مثال\s*على/i, /تمرين/i, /طبق/i, /احسب/i, /أوجد/i, /أوجد قيمة/i, /قسّم|اقسم/i, /حل المعادلة/i, /ما\s*ناتج/i, /\bsolve\b/i, /\bcalculate\b/i, /\bexample\b/i, /\bpracti[cs]e\b/i];
 
 const HINT_PATTERNS = [/تلميح/i, /هينت/i, /ساعدني/i, /عايز\s*مساعدة/i, /دلني/i, /مش\s*عايز\s*الحل\s*(كامل|مباشر)/i, /hint/i, /help me/i];
 
-const UNDERSTAND_PATTERNS = [/فهمت/i, /تمام\s*فهمت/i, /ماشي/i, /أوكي\s*فهمت/i, /واضح/i];
+const UNDERSTAND_PATTERNS = [/فهمت/i, /تمام\s*فهمت/i, /ماشي/i, /أوكي\s*فهمت/i, /واضح/i, /\bi\s*understand\b/i, /got it/i];
 
-const CONFUSED_PATTERNS = [/مش\s*(فاهم|فاهمة)/i, /ما\s*فهمتش/i, /لم\s*أفهم/i, /أبسط/i, /أسهل/i, /بطريقة\s*(أخرى|ثانية|مختلفة)/i, /شرح\s*تاني/i, /مش\s*واضح/i];
+const CONFUSED_PATTERNS = [/مش\s*(فاهم|فاهمة)/i, /ما\s*فهمتش/i, /لم\s*أفهم/i, /أبسط/i, /أسهل/i, /بطريقة\s*(أخرى|ثانية|مختلفة)/i, /شرح\s*تاني/i, /مش\s*واضح/i, /i\s*(don'?t|dont)\s*understand/i, /explain\s*(again|another\s*way|differently)/i];
 
 const GREETING_PATTERNS = [/^(مرحبا|اهلا|السلام|صباح|مساء|ازيك|عامل)/i, /hi|hello|hey|salam/i];
 

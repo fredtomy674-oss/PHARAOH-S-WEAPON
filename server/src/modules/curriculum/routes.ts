@@ -1,5 +1,6 @@
 import type { FastifyPluginAsync } from "fastify";
 import { Errors } from "../../utils/errors.js";
+import { resolveTutorLanguage } from "../tutor/language.js";
 
 function requireQuery(query: Record<string, unknown>, name: string, pattern?: RegExp): string {
   const value = query[name];
@@ -58,7 +59,11 @@ export const curriculumRoutes: FastifyPluginAsync = async (app) => {
 
   app.get("/lessons/:lessonId/breadcrumb", async (request) => {
     const { lessonId } = request.params as { lessonId: string };
-    return { breadcrumb: await app.curriculum.lessonBreadcrumb(lessonId) };
+    const breadcrumb = await app.curriculum.lessonBreadcrumb(lessonId);
+    // PHASE 38/D-042 — the client shows which language the tutor will answer in.
+    // The server resolves it (single source of truth) and the client only displays
+    // it, so the badge can never disagree with the actual reply language.
+    return { breadcrumb, replyLanguage: resolveTutorLanguage(breadcrumb.subject) };
   });
 
   app.get("/lessons/:lessonId/concepts", async (request) => {

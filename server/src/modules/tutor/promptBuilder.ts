@@ -2,6 +2,7 @@ import type { DocumentInput, LLMMessage } from "../ai/types.js";
 import type { RankedChunk } from "../rag/types.js";
 import type { StudentMemorySnapshot } from "./memoryService.js";
 import type { TutorIntent } from "./intentClassifier.js";
+import { LANGUAGE_STYLES, replyLanguageTag, type TutorLanguage } from "./language.js";
 
 export interface LessonContext {
   countryNameAr: string;
@@ -26,14 +27,24 @@ export interface BuildPromptInput {
   hasImage?: boolean;
   /** Documents attached to the turn (extracted, untrusted text). */
   documents?: DocumentInput[];
+  /**
+   * PHASE 38/D-042 — reply language for this curriculum (Arabic by default,
+   * English for foreign-language subjects). Resolved from the subject, never
+   * from the question, so one lesson always answers in one language.
+   */
+  language?: TutorLanguage;
 }
 
-/** Fixed pedagogical rules — separate from curriculum content by design. */
-const SYSTEM_RULES = `
-أنت "سلاح الفرعون"، مدرس خصوصي عربي ودود وصبور للطلاب.
+/**
+ * Fixed pedagogical rules — separate from curriculum content by design.
+ * Rule 1 (the language) is per-curriculum; rules 2–7 never vary, so the
+ * teaching contract and the safety contract stay identical in every language.
+ */
+const systemRules = (language: TutorLanguage) => `
+أنت "سلاح الفرعون"، مدرس خصوصي ودود وصبور للطلاب.
 
 # قواعد سلوكية ثابتة
-1. تحدث باللغة العربية الفصحى المبسطة المناسبة لعمر طالب المرحلة الابتدائية، بأسلوب دافئ ومشجع.
+1. ${LANGUAGE_STYLES[language].rule}
 2. لا تعطِ حل التمرين مباشرة قبل أن يحاول الطالب مرتين على الأقل؛ قدّم تلميحًا أولًا ثم شرحًا جزئيًا.
 3. إذا قال الطالب إنه لم يفهم، اشرح بطريقة مختلفة تمامًا (مثال من الحياة اليومية، تمثيل بصري مكتوب، خطوات أبطأ) — لا تكرر نفس الشرح.
 4. في نهاية شرح مفهوم مهم، اطرح سؤالًا واحدًا للتحقق من الفهم.
@@ -51,6 +62,7 @@ const SYSTEM_RULES = `
 /** Builds the final prompt messages for the LLM (single responsible place). */
 export class PromptBuilder {
   build(input: BuildPromptInput): { messages: LLMMessage[] } {
+    const language = input.language ?? "ar";
     const lesson = input.lesson;
     const lessonLine =
       `الطالب: ${input.studentName}\n` +
@@ -80,7 +92,9 @@ export class PromptBuilder {
       : "";
 
     const system = [
-      SYSTEM_RULES,
+      systemRules(language),
+      "",
+      replyLanguageTag(language),
       "",
       lessonLine,
       "",
@@ -88,7 +102,7 @@ export class PromptBuilder {
       "",
       context ? `<context>\n${context}\n</context>` : "<context>\n(لا يوجد محتوى مسترجع لهذا السؤال)\n</context>",
       "",
-      `# المطلوب الآن\n${imageLine}${documentLine}${askLine}\nأجب بالعربية وفق القواعد أعلاه، وأعد النتيجة بصيغة JSON مطابقة تمامًا لهذا المخطط:\n` +
+      `# المطلوب الآن\n${imageLine}${documentLine}${askLine}\n${LANGUAGE_STYLES[language].reply}، وأعد النتيجة بصيغة JSON مطابقة تمامًا لهذا المخطط:\n` +
         `{ "content": "الرد الكامل للمعروض", "parts": [ { "type": "text|question|hint|example", "text": "جزء" } ], "assessment": { "conceptsTouched": ["أسماء مفاهيم"], "confidence": 0-1 } }`,
     ].join("\n");
 
