@@ -49,25 +49,51 @@ export const SAFE_REFUSAL_EN_PHRASE = "I am here to help you with our lesson onl
 /** Stable transcript emitted by the fake SpeechRecognition stub in voice tests. */
 export const STT_TRANSCRIPT = "اذكر مثالًا على الجمع مع إعادة التجميع";
 
+/**
+ * PHASE 39/D-043 — an English transcript, and the installed voice set the fake
+ * browser exposes. Arabic is listed FIRST on purpose: a naive "first voice
+ * wins" or "any ar* voice" implementation would then narrate the English
+ * lesson with the Arabic voice, which is the bug this phase fixes.
+ */
+export const STT_TRANSCRIPT_EN = "Explain when we add -s to the verb";
+
+export interface StubVoice {
+  lang: string;
+  name: string;
+}
+
+/** Both languages installed — the normal machine. */
+export const STUB_VOICES: StubVoice[] = [
+  { lang: "ar-EG", name: "Test Arabic Voice" },
+  { lang: "en-US", name: "Test English Voice" },
+];
+
 export interface VoiceTestState {
   /** Utterances handed to speechSynthesis.speak, in order (text + lang). */
   spoken: Array<{ text: string; lang: string }>;
   /** How many times speechSynthesis.cancel() was called. */
   cancelCount: number;
+  /** The `lang` the app asked dictation to use (D-043: follows the lesson). */
+  recognitionLang: string;
 }
 
 /**
  * Installs deterministic in-browser stubs for the Web Speech APIs so voice UI
  * flows can be automated without a real microphone or audio output:
  *  - SpeechRecognition: emits exactly ONE final result with `transcript`, then
- *    `onend` (mimics Chrome after a short pause on a spoken sentence).
- *  - speechSynthesis: records every spoken utterance + every cancel; plays no
- *    real audio.
- * The recorded state is exposed as `window.__voiceTest` for assertions.
+ *    `onend` (mimics Chrome after a short pause on a spoken sentence), and
+ *    records the `lang` the app asked to dictate in (D-043).
+ *  - speechSynthesis: exposes `voices` (both languages by default) and records
+ *    every spoken utterance + every cancel; plays no real audio.
+ *  The recorded state is exposed as `window.__voiceTest` for assertions.
  */
-export async function installVoiceStubs(page: Page, transcript: string = STT_TRANSCRIPT): Promise<void> {
-  await page.addInitScript((t: string) => {
-    const state: VoiceTestState = { spoken: [], cancelCount: 0 };
+export async function installVoiceStubs(
+  page: Page,
+  transcript: string = STT_TRANSCRIPT,
+  voices: StubVoice[] = STUB_VOICES,
+): Promise<void> {
+  await page.addInitScript((opts: { transcript: string; voices: StubVoice[] }) => {
+    const state: VoiceTestState = { spoken: [], cancelCount: 0, recognitionLang: "" };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
 
     // One-shot SpeechRecognition: one final result, then end.
@@ -80,9 +106,11 @@ export async function installVoiceStubs(page: Page, transcript: string = STT_TRA
       onerror: ((event: unknown) => void) | null = null;
       onend: (() => void) | null = null;
       start(): void {
+        // The app sets `lang` after construction — record what it asked for.
+        state.recognitionLang = this.lang;
         setTimeout(() => {
           if (typeof this.onresult === "function") {
-            this.onresult({ results: [{ isFinal: true, 0: { transcript: t } }] });
+            this.onresult({ results: [{ isFinal: true, 0: { transcript: opts.transcript } }] });
           }
           if (typeof this.onend === "function") this.onend();
         }, 400);
@@ -96,9 +124,14 @@ export async function installVoiceStubs(page: Page, transcript: string = STT_TRA
     // Recording speechSynthesis: no real audio.
     const pending: Array<{ text: string; lang: string }> = [];
     const fakeSynth = {
-      getVoices: () => [
-        { lang: "ar-EG", name: "Test Arabic Voice", default: false, localService: true, voiceURI: "test-ar" },
-      ],
+      getVoices: () =>
+        opts.voices.map((v) => ({
+          lang: v.lang,
+          name: v.name,
+          default: v.lang === "en-US",
+          localService: true,
+          voiceURI: `test-${v.lang}`,
+        })),
       speak(u: { text: string; lang: string }): void {
         pending.length = 0;
         state.spoken.push({ text: u.text, lang: u.lang });
@@ -119,7 +152,7 @@ export async function installVoiceStubs(page: Page, transcript: string = STT_TRA
       configurable: true,
       writable: true,
     });
-  }, transcript);
+  }, { transcript, voices });
 }
 
 /** Reads the recorded voice-test state (only meaningful after installVoiceStubs). */

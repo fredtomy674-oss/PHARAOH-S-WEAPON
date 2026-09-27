@@ -13,6 +13,7 @@ import {
   type User,
 } from "./api.js";
 import {
+  missingVoiceNotice,
   speakText,
   speechRecognitionSupported,
   startTranscription,
@@ -99,14 +100,19 @@ export function ChatScreen({ session, onEnded }: Props) {
     [],
   );
 
+  // PHASE 39 (D-043) — read the reply in the lesson's own language, and say so
+  // plainly when the machine has no voice for it (the browser would then read
+  // Arabic with whatever default voice it has — the exact "it speaks English"
+  // confusion this phase removes).
   const speak = (text: string) => {
     if (!ttsSupported()) return;
-    const utterance = speakText(text, () => {
+    const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
       if (activeUtterance.current === utterance) setSpeaking(false);
     });
     if (!utterance) return;
     activeUtterance.current = utterance;
     setSpeaking(true);
+    if (missingVoice) setError(missingVoiceNotice(tutorLanguage));
   };
 
   const stopReading = () => {
@@ -135,7 +141,7 @@ export function ChatScreen({ session, onEnded }: Props) {
         setListening(false);
         if (message) setError(message);
       },
-    });
+    }, tutorLanguage);
     if (!handle) {
       setError("تعذر بدء التعرف على الكلام — أعد المحاولة");
       return;

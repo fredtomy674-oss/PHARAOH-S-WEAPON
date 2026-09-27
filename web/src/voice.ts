@@ -6,6 +6,46 @@
 // (سؤال مصور) keep working as before by construction. The APIs require a
 // secure context (HTTPS or localhost) and a Chromium-based browser; the E2E
 // suite injects deterministic stubs for both (see e2e/voice.spec.ts).
+//
+// Language (D-043): dictation and narration follow the *reply* language the
+// server resolved for the lesson (D-042) — never a hardcoded Arabic.
+
+/**
+ * PHASE 39 (D-043) — the *spoken* layer follows the same language as the
+ * written reply (PHASE 38/D-042): a language curriculum is dictated and
+ * narrated in English, every other curriculum in Egyptian Arabic. The chrome
+ * around it (labels, notices) stays Arabic — only the content language moves.
+ */
+export type VoiceLanguage = "ar" | "en";
+
+/** BCP-47 tags handed to SpeechRecognition / SpeechSynthesis. */
+const SPEECH_TAG: Record<VoiceLanguage, string> = {
+  ar: "ar-EG",
+  en: "en-US",
+};
+
+const LANGUAGE_NAME_AR: Record<VoiceLanguage, string> = {
+  ar: "العربية",
+  en: "الإنجليزية",
+};
+
+/** The BCP-47 tag for a reply language (Egypt is the default Arabic locale). */
+export function speechTag(language: VoiceLanguage): string {
+  return SPEECH_TAG[language] ?? SPEECH_TAG.ar;
+}
+
+/**
+ * Actionable notice for a machine with no voice for the lesson language — the
+ * browser then reads the text with some other voice, which is exactly the
+ * "the tutor talks in English" confusion this phase removes.
+ */
+export function missingVoiceNotice(language: VoiceLanguage): string {
+  const name = LANGUAGE_NAME_AR[language] ?? LANGUAGE_NAME_AR.ar;
+  return (
+    `لا يوجد صوت ${name} مثبّت على هذا الجهاز، فقد يقرأ المتصفح الردّ بصوت مختلف. ` +
+    `أضف صوت ${name} من إعدادات النظام لتحسين النطق.`
+  );
+}
 
 export interface SttCallbacks {
   /** Fired once with the accumulated final transcript when recognition ends. */
@@ -74,16 +114,20 @@ const STT_ERROR_MESSAGES: Record<string, string> = {
 };
 
 /**
- * Starts dictation in Egyptian Arabic. Final results accumulate and are
+ * Starts dictation in the reply language (D-043: Egyptian Arabic by default,
+ * English inside a language curriculum). Final results accumulate and are
  * delivered as one transcript on `onEnd` (so the student can review/edit it
  * before sending). Returns null when the browser has no SpeechRecognition.
  */
-export function startTranscription(callbacks: SttCallbacks): SttHandle | null {
+export function startTranscription(
+  callbacks: SttCallbacks,
+  language: VoiceLanguage = "ar",
+): SttHandle | null {
   const Ctor = recognitionCtor();
   if (!Ctor) return null;
 
   const rec = new Ctor();
-  rec.lang = "ar-EG";
+  rec.lang = speechTag(language);
   rec.continuous = false;
   rec.interimResults = false;
   rec.maxAlternatives = 1;
@@ -138,35 +182,91 @@ export function ttsSupported(): boolean {
   return typeof window !== "undefined" && "speechSynthesis" in window;
 }
 
-function arabicVoice(synth: SpeechSynthesis): SpeechSynthesisVoice | null {
-  return synth.getVoices().find((v) => /^ar/i.test(v.lang)) ?? null;
+let voiceCache: SpeechSynthesisVoice[] = [];
+let voicesListenerAttached = false;
+
+type SynthWithListener = {
+  addEventListener?: (type: string, listener: () => void) => void;
+};
+
+/**
+ * Reads the installed voices, keeping the last non-empty list.
+ *
+ * Chrome fills the voice list asynchronously: `getVoices()` returns `[]` until
+ * the `voiceschanged` event fires, so the FIRST 🔊 used to run with an empty
+ * list — no voice to pick and (worse) a false "no voice installed" warning on
+ * machines that do have one. Refreshing on the event fixes both.
+ */
+function primeVoices(synth: SpeechSynthesis): SpeechSynthesisVoice[] {
+  const fresh = synth.getVoices();
+  if (fresh.length > 0) voiceCache = fresh;
+  if (!voicesListenerAttached) {
+    const add = (synth as unknown as SynthWithListener).addEventListener;
+    // A stubbed/absent EventTarget simply refreshes on every call instead.
+    if (typeof add === "function") {
+      voicesListenerAttached = true;
+      add.call(synth, "voiceschanged", () => primeVoices(synth));
+    }
+  }
+  return voiceCache;
+}
+
+function baseLang(tag: string): string {
+  return tag.slice(0, 2).toLowerCase();
+}
+
+/** Best installed voice for the language: exact tag first, then same base. */
+function pickVoice(voices: SpeechSynthesisVoice[], language: VoiceLanguage): SpeechSynthesisVoice | null {
+  const wanted = speechTag(language);
+  return (
+    voices.find((v) => v.lang.toLowerCase() === wanted.toLowerCase()) ??
+    voices.find((v) => baseLang(v.lang) === baseLang(wanted)) ??
+    null
+  );
+}
+
+export interface SpeakResult {
+  utterance: SpeechSynthesisUtterance | null;
+  /**
+   * The browser listed its voices and none of them speaks the reply language.
+   * An empty list means "still loading", which is NOT a missing voice.
+   */
+  missingVoice: boolean;
 }
 
 /**
- * Speaks `text` through the browser's speech synthesis (Arabic voice when one
- * is installed). Any previously playing utterance is cancelled first, so only
- * one voice is heard at a time. `onDone` fires when the utterance ends or
- * errors. Returns the utterance (caller tracks it to ignore stale end-events
- * from cancelled earlier utterances), or null if TTS is unavailable.
+ * Speaks `text` in the reply language, using an installed voice for that
+ * language when there is one. Any previously playing utterance is cancelled
+ * first, so only one voice is heard at a time. `onDone` fires when the
+ * utterance ends or errors. Returns the utterance (caller tracks it to ignore
+ * stale end-events from cancelled earlier utterances) plus whether the machine
+ * has a voice for the language, or `utterance: null` if TTS is unavailable.
  */
-export function speakText(text: string, onDone: () => void): SpeechSynthesisUtterance | null {
-  if (!ttsSupported()) return null;
+export function speakText(
+  text: string,
+  language: VoiceLanguage,
+  onDone: () => void,
+): SpeakResult {
+  if (!ttsSupported()) return { utterance: null, missingVoice: false };
   const trimmed = text.trim();
-  if (!trimmed) return null;
+  if (!trimmed) return { utterance: null, missingVoice: false };
 
   const synth = window.speechSynthesis;
   synth.cancel();
 
+  const voices = primeVoices(synth);
+  const voice = pickVoice(voices, language);
+
   const utterance = new SpeechSynthesisUtterance(trimmed);
-  const voice = arabicVoice(synth);
-  utterance.lang = voice?.lang ?? "ar";
+  // The tag is the contract every engine honours; attaching the voice object
+  // is a best-effort extra (some engines reject foreign voice objects, and
+  // the E2E stubs expose plain objects rather than SpeechSynthesisVoices).
+  utterance.lang = voice?.lang ?? speechTag(language);
   if (voice) {
     try {
       utterance.voice = voice;
     } catch {
-      // Some engines reject voice objects that don't conform to the
-      // SpeechSynthesisVoice contract (e.g. stubbed E2E voices). The
-      // utterance still plays with an explicit `lang`, which is enough.
+      // Keep the explicit `lang` — that alone selects the right language.
     }
   }
   utterance.onend = () => onDone();
@@ -175,9 +275,9 @@ export function speakText(text: string, onDone: () => void): SpeechSynthesisUtte
   try {
     synth.speak(utterance);
   } catch {
-    return null;
+    return { utterance: null, missingVoice: false };
   }
-  return utterance;
+  return { utterance, missingVoice: voices.length > 0 && voice === null };
 }
 
 /** Stops whatever the browser is currently reading aloud. */

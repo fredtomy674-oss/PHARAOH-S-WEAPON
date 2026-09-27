@@ -58,6 +58,10 @@ test("A1: a voice question is transcribed, editable, sent, and the tutor reply i
   const state = await voiceTestState(page);
   expect(state.spoken).toHaveLength(1);
   expect(state.spoken[0].text).toBe(reply);
+  // D-043 — a math lesson is dictated and narrated in Arabic, even though the
+  // stub browser also has an English voice installed (listed second).
+  expect(state.recognitionLang).toBe("ar-EG");
+  expect(state.spoken[0].lang).toBe("ar-EG");
 
   // The speaking status is visible, and the student can stop the audio.
   await expect(page.getByTestId("speak-status")).toBeVisible();
@@ -88,7 +92,10 @@ test("A2: a typed question does not auto-speak; the 🔊 button speaks a reply a
   state = await voiceTestState(page);
   expect(state.spoken).toHaveLength(1);
   expect(state.spoken[0].text).toBe(reply);
+  expect(state.spoken[0].lang).toBe("ar-EG");
   await expect(page.getByTestId("speak-status")).toBeVisible();
+  // A machine that has the voice is never nagged about a missing one.
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
 
   // Stop the reading.
   const cancelsBefore = (await voiceTestState(page)).cancelCount;
@@ -123,4 +130,31 @@ test("A3: browsers without SpeechRecognition show a clear, actionable error", as
   await expect(page.getByTestId("chat-error")).toContainText("غير مدعوم");
   await expect(page.getByTestId("voice-listening")).toHaveCount(0);
   await expect(page.getByTestId("msg-user")).toHaveCount(0);
+});
+
+/**
+ * D-043 — the real-world report: on a machine with no Arabic voice installed,
+ * the browser read the Arabic reply with its default (English) voice. The tag
+ * is now always the lesson's language, and the missing voice is stated plainly
+ * instead of leaving the student wondering what they just heard.
+ */
+test("A4: a machine with no voice for the lesson language is told plainly", async ({ page }) => {
+  // Only an English voice is installed — an Arabic lesson on this machine.
+  await installVoiceStubs(page, STT_TRANSCRIPT, [{ lang: "en-US", name: "Test English Voice" }]);
+  await login(page);
+  await startFirstLesson(page);
+
+  await sendChatMessage(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
+  const reply = await tutorReplyText(page);
+  await page.getByTestId("speak-reply").first().click();
+
+  // The utterance still carries the right language tag (so any engine that can
+  // speak Arabic will use it)...
+  const state = await voiceTestState(page);
+  expect(state.spoken).toHaveLength(1);
+  expect(state.spoken[0].text).toBe(reply);
+  expect(state.spoken[0].lang).toBe("ar-EG");
+  // ...and the student gets an actionable message rather than wrong audio.
+  await expect(page.getByTestId("chat-error")).toContainText("لا يوجد صوت العربية");
+  await expect(page.getByTestId("chat-error")).toContainText("إعدادات النظام");
 });
