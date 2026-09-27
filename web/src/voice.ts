@@ -29,6 +29,12 @@ const LANGUAGE_NAME_AR: Record<VoiceLanguage, string> = {
   en: "الإنجليزية",
 };
 
+/** The language's own label in the (usually English) Windows settings UI. */
+const LANGUAGE_WIN: Record<VoiceLanguage, string> = {
+  ar: "Arabic (Egypt)",
+  en: "English (United States)",
+};
+
 /** The BCP-47 tag for a reply language (Egypt is the default Arabic locale). */
 export function speechTag(language: VoiceLanguage): string {
   return SPEECH_TAG[language] ?? SPEECH_TAG.ar;
@@ -38,12 +44,20 @@ export function speechTag(language: VoiceLanguage): string {
  * Actionable notice for a machine with no voice for the lesson language — the
  * browser then reads the text with some other voice, which is exactly the
  * "the tutor talks in English" confusion this phase removes.
+ *
+ * The wording names the Windows path because that is where a real blocked
+ * student lands, and a notice that does not say *where* to act is just an
+ * apology. Verified on a machine that ships a single en-US voice: without the
+ * Arabic pack the browser genuinely cannot pronounce Arabic, and no amount of
+ * application code changes that.
  */
 export function missingVoiceNotice(language: VoiceLanguage): string {
   const name = LANGUAGE_NAME_AR[language] ?? LANGUAGE_NAME_AR.ar;
+  const win = LANGUAGE_WIN[language] ?? LANGUAGE_WIN.ar;
   return (
-    `لا يوجد صوت ${name} مثبّت على هذا الجهاز، فقد يقرأ المتصفح الردّ بصوت مختلف. ` +
-    `أضف صوت ${name} من إعدادات النظام لتحسين النطق.`
+    `لا يوجد صوت ${name} مثبّت على هذا الجهاز، فقد يُنطق الردّ بصوت آخر. ` +
+    `أضِفه من إعدادات نظامك (ويندوز: Time & language ← Language & region ← ${win} ← Language options ← Speech) ` +
+    `ثم أعد تشغيل المتصفح. ونصّ الردّ متاح دائمًا في الفقاعة.`
   );
 }
 

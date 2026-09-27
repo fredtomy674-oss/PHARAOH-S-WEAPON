@@ -156,5 +156,5 @@ test("A4: a machine with no voice for the lesson language is told plainly", asyn
   expect(state.spoken[0].lang).toBe("ar-EG");
   // ...and the student gets an actionable message rather than wrong audio.
   await expect(page.getByTestId("chat-error")).toContainText("لا يوجد صوت العربية");
-  await expect(page.getByTestId("chat-error")).toContainText("إعدادات النظام");
+  await expect(page.getByTestId("chat-error")).toContainText("Language options");
 });
