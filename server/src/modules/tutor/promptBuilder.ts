@@ -72,7 +72,12 @@ export class PromptBuilder {
       `مفاهيم الدرس: ${lesson.conceptTitles.join("، ") || "غير محددة"}`;
 
     const memoryLine = buildMemoryLine(input.memory);
-    const context = input.chunks.length > 0 ? input.chunks.map((c, i) => `[مصدر ${i + 1}]\n${c.content}`).join("\n\n---\n\n") : "";
+    // PHASE 38/D-042 — the citation label is *quoted back to the student* inside
+    // the answer, so it follows the reply language; an Arabic "[مصدر 1]" inside an
+    // English lesson is exactly the leak this phase exists to remove. (The rest
+    // of the prompt block stays Arabic on purpose — see the rules above.)
+    const sourceTag = (n: number) => (language === "en" ? `[source ${n}]` : `[مصدر ${n}]`);
+    const context = input.chunks.length > 0 ? input.chunks.map((c, i) => `${sourceTag(i + 1)}\n${c.content}`).join("\n\n---\n\n") : "";
     const doc = input.documents?.[0];
     const hasDocument = doc !== undefined;
     const imageLine = input.hasImage

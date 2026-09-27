@@ -112,6 +112,13 @@ describe("prompt language contract", () => {
       expect(en).toContain(shared);
     }
   });
+
+  it("labels a citation in the reply's own language (it is quoted back to the student)", () => {
+    expect(build().messages[0]!.content).toContain("[مصدر 1]");
+    const en = build("en").messages[0]!.content;
+    expect(en).toContain("[source 1]");
+    expect(en).not.toContain("[مصدر 1]");
+  });
 });
 
 describe("offline provider honours the language", () => {

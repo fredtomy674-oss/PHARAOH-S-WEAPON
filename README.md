@@ -53,7 +53,7 @@ GEMINI_API_KEY=اكتب-مفتاحك-هنا
 | `npm run dev` | server + web معًا |
 | `npm run dev:server` / `dev:web` | كل على حدة |
 | `npm run db:seed` | زرع المنهج والمعرفة النموذجية |
-| `npm run test` | كل الاختبارات (أوفلاين Vitest 445/445) |
+| `npm run test` | كل الاختبارات (أوفلاين Vitest 446/446) |
 | `npm run typecheck` | فحص الأنواع (كل الأعمال) |
 | `npm run lint` | ESLint |
 | `npm run check` | typecheck + lint + test |
