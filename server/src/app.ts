@@ -7,6 +7,7 @@ import type { Db } from "./db/index.js";
 import { config, isProd } from "./config/env.js";
 import { AppError } from "./utils/errors.js";
 import { containerPlugin } from "./plugins/container.js";
+import type { SpeechProviderKind } from "./modules/ai/speech/factory.js";
 import { authPlugin } from "./plugins/auth.js";
 import { authRoutes } from "./modules/auth/routes.js";
 import { profileRoutes } from "./modules/profile/routes.js";
@@ -21,6 +22,8 @@ import { achievementsRoutes } from "./modules/achievements/routes.js";
 
 export interface BuildAppOptions {
   forceProvider?: "mock" | "gemini";
+  /** PHASE 40 (D-044) — forces the speech provider (tests use "stub"). */
+  forceSpeechProvider?: SpeechProviderKind;
   logger?: boolean;
 }
 
@@ -64,7 +67,7 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
   });
 
   // --- Services + security -------------------------------------------------
-  await app.register(containerPlugin, { db, forceProvider: opts.forceProvider });
+  await app.register(containerPlugin, { db, forceProvider: opts.forceProvider, forceSpeechProvider: opts.forceSpeechProvider });
   await app.register(authPlugin, { secure: isProd });
 
   // --- Error mapping (no stack/DB details leak) ----------------------------
@@ -106,6 +109,10 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
       api.get("/health", async () => ({
         status: "ok",
         provider: api.ai.providers.llm.id,
+        // PHASE 40 (D-044) — "none" means the server has no voice of its own
+        // and students read replies with the voices on their own machine.
+        speech: api.speech.providerId(),
+        speechCache: api.speech.cacheStats(),
         cache: api.ai.cacheStats(),
         time: new Date().toISOString(),
       }));

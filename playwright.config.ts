@@ -29,6 +29,10 @@ const backendEnv = {
   // browsers + health polling easily exceed the dev default of 120/min.
   RATE_LIMIT_MAX: "1000",
   NODE_ENV: "development",
+  // PHASE 40 (D-044) — the E2E backend has its own voice: a deterministic local
+  // WAV, so the narration route is exercised for real without a key or network.
+  // The browser-fallback tests force a 503 instead (see forceNoServerSpeech).
+  SPEECH_PROVIDER: "stub",
 };
 
 export default defineConfig({

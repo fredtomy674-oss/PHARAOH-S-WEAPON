@@ -30,10 +30,13 @@ export interface TestApi {
   memory: MemoryService;
 }
 
-export async function makeApp(opts: { seedCorpus?: boolean } = {}): Promise<TestApi> {
+export async function makeApp(opts: { seedCorpus?: boolean; speechProvider?: "none" | "stub" | "gemini" } = {}): Promise<TestApi> {
   const db = createDb();
   applyMigrations(db);
-  const app = await buildApp(db, { logger: false });
+  // PHASE 40 (D-044) — the stub speech provider generates a real local WAV, so
+  // the narration route is exercised offline; pass speechProvider: "none" to
+  // test the deployment where the server has no voice at all.
+  const app = await buildApp(db, { logger: false, forceSpeechProvider: opts.speechProvider ?? "stub" });
   await app.ready();
   const ai = new AiService(db, { forceProvider: "mock" });
   const knowledge = new KnowledgeService(db, ai, new SqliteVectorStore(db));

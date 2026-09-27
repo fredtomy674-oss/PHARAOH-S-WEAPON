@@ -9,6 +9,12 @@
 //
 // Language (D-043): dictation and narration follow the *reply* language the
 // server resolved for the lesson (D-042) — never a hardcoded Arabic.
+//
+// Voice (D-044): the spoken reply comes from the *server* when it has a voice
+// (that is what makes Arabic audible on a machine with no Arabic voice pack);
+// the browser's own voice is the fallback, used when the server has none or
+// something fails. Dictation stays browser-native — Chrome already recognizes
+// Arabic without any installed voice.
 
 /**
  * PHASE 39 (D-043) — the *spoken* layer follows the same language as the
@@ -296,7 +302,99 @@ export function speakText(
 
 /** Stops whatever the browser is currently reading aloud. */
 export function stopSpeaking(): void {
+  stopAudio();
   if (typeof window !== "undefined" && "speechSynthesis" in window) {
     window.speechSynthesis.cancel();
+  }
+}
+
+// ------------------------------------------------- server audio (PHASE 40) --
+
+/**
+ * PHASE 40 (D-044) — plays audio the *server* generated.
+ *
+ * The server holds the voice (and the key), so a student on a machine with no
+ * Arabic voice installed still hears the Arabic reply — the whole point of
+ * this phase. The browser fallback above stays for offline/provider-off cases.
+ *
+ * A single element is ever active, and it is always released: stopping clears
+ * playback and revokes the object URL, so repeated presses cannot leak blobs.
+ */
+let currentAudio: HTMLAudioElement | null = null;
+let currentAudioUrl: string | null = null;
+
+export interface AudioHandle {
+  /** Stops playback (also fires `onDone`, so the caller's state stays true). */
+  stop: () => void;
+}
+
+export interface AudioHandlers {
+  /** Playback actually started (the promise from `play()` resolved). */
+  onStart: () => void;
+  /** Playback finished or was stopped. */
+  onDone: () => void;
+  /** The browser refused or failed to play these bytes (→ fall back). */
+  onError: () => void;
+}
+
+export function playAudioBlob(blob: Blob, handlers: AudioHandlers): AudioHandle | null {
+  if (typeof window === "undefined" || typeof Audio === "undefined") return null;
+  stopAudio();
+
+  const url = URL.createObjectURL(blob);
+  const audio = new Audio(url);
+  currentAudio = audio;
+  currentAudioUrl = url;
+  let finished = false;
+
+  const release = () => {
+    if (finished) return false;
+    finished = true;
+    if (currentAudio === audio) {
+      currentAudio = null;
+      currentAudioUrl = null;
+    }
+    URL.revokeObjectURL(url);
+    return true;
+  };
+
+  audio.addEventListener("ended", () => {
+    if (!release()) return;
+    handlers.onDone();
+  });
+  audio.addEventListener("error", () => {
+    if (!release()) return;
+    handlers.onError();
+  });
+
+  const stop = () => {
+    audio.pause();
+    // `ended` never fires for a paused element, so finish it ourselves.
+    if (release()) handlers.onDone();
+  };
+
+  audio.play().then(
+    () => {
+      if (!finished) handlers.onStart();
+    },
+    () => {
+      // Autoplay policy or an undecodable stream: let the caller fall back to
+      // the browser's own voice rather than leaving 🔊 dead.
+      if (release()) handlers.onError();
+    },
+  );
+
+  return { stop };
+}
+
+/** Stops server-generated audio, if any is playing. */
+export function stopAudio(): void {
+  const audio = currentAudio;
+  currentAudio = null;
+  if (!audio) return;
+  audio.pause();
+  if (currentAudioUrl) {
+    URL.revokeObjectURL(currentAudioUrl);
+    currentAudioUrl = null;
   }
 }

@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import {
   endSession,
+  fetchSpeechAudio,
   getSession,
   lessonContext,
+  resetSpeechAvailability,
   sendMessage,
   attachmentUrl,
   ApiError,
+  SpeechUnavailableError,
   type Breadcrumb,
   type LearningSession,
   type Message,
@@ -14,6 +17,7 @@ import {
 } from "./api.js";
 import {
   missingVoiceNotice,
+  playAudioBlob,
   speakText,
   speechRecognitionSupported,
   startTranscription,
@@ -70,9 +74,13 @@ export function ChatScreen({ session, onEnded }: Props) {
   const docRef = useRef<HTMLInputElement | null>(null);
   const sttRef = useRef<SttHandle | null>(null);
   const activeUtterance = useRef<SpeechSynthesisUtterance | null>(null);
+  // Bumped on every press/stop: a fetch that comes back late must not start
+  // playing a reply the student already moved on from.
+  const speechToken = useRef(0);
   const voiceTurnRef = useRef(false);
 
   useEffect(() => {
+    resetSpeechAvailability();
     lessonContext(session.lessonId)
       .then(({ breadcrumb, replyLanguage }) => {
         setBc(breadcrumb);
@@ -100,11 +108,13 @@ export function ChatScreen({ session, onEnded }: Props) {
     [],
   );
 
-  // PHASE 39 (D-043) — read the reply in the lesson's own language, and say so
-  // plainly when the machine has no voice for it (the browser would then read
-  // Arabic with whatever default voice it has — the exact "it speaks English"
-  // confusion this phase removes).
-  const speak = (text: string) => {
+  /**
+   * PHASE 40 (D-044) — read a reply aloud with the *browser's* own voice: the
+   * fallback for when the server has no voice. The missing-voice notice fires
+   * only here, because only here does the machine's voice decide what is
+   * actually heard.
+   */
+  const speakLocally = (text: string) => {
     if (!ttsSupported()) return;
     const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
       if (activeUtterance.current === utterance) setSpeaking(false);
@@ -116,9 +126,48 @@ export function ChatScreen({ session, onEnded }: Props) {
   };
 
   const stopReading = () => {
+    // Invalidate any narration still in flight before silencing the current one.
+    speechToken.current += 1;
     stopSpeaking();
     activeUtterance.current = null;
     setSpeaking(false);
+  };
+
+  /**
+   * PHASE 40 (D-044) — read a reply aloud.
+   *
+   * The server is asked first because it is the only way an Arabic reply is
+   * audible on a machine with no Arabic voice installed. If it has no voice
+   * (or the audio will not play) we read it with the browser's own voice, so
+   * the button is never dead and never silent.
+   */
+  const speak = async (message: Message) => {
+    stopReading();
+    const token = speechToken.current;
+    try {
+      const blob = await fetchSpeechAudio(session.id, message.id);
+      if (token !== speechToken.current) return;
+      const handle = playAudioBlob(blob, {
+        onStart: () => {
+          if (token === speechToken.current) setSpeaking(true);
+        },
+        onDone: () => {
+          if (token === speechToken.current) setSpeaking(false);
+        },
+        onError: () => {
+          // Never leave 🔊 dead: fall back to the browser's own voice.
+          if (token === speechToken.current) speakLocally(message.content);
+        },
+      });
+      if (!handle) speakLocally(message.content);
+    } catch (err) {
+      if (token !== speechToken.current) return;
+      if (!(err instanceof SpeechUnavailableError)) {
+        setError(err instanceof ApiError ? err.message : "تعذّر تحضير الصوت");
+        return;
+      }
+      speakLocally(message.content);
+    }
   };
 
   const toggleTranscription = () => {
@@ -169,7 +218,7 @@ export function ChatScreen({ session, onEnded }: Props) {
       setInput((prev) => (prev.trim() === text ? "" : prev));
       setPreview(null);
       setDocFile(null);
-      if (speakReply) speak(turn.tutorMessage.content);
+      if (speakReply) void speak(turn.tutorMessage);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "تعذر إرسال الرسالة");
     } finally {
@@ -322,7 +371,7 @@ export function ChatScreen({ session, onEnded }: Props) {
                     type="button"
                     className="btn small speak-btn"
                     aria-label="الاستماع إلى الرد"
-                    onClick={() => speak(m.content)}
+                    onClick={() => void speak(m)}
                   >
                     🔊 استمع
                   </button>

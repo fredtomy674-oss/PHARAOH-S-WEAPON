@@ -75,6 +75,13 @@ export interface VoiceTestState {
   cancelCount: number;
   /** The `lang` the app asked dictation to use (D-043: follows the lesson). */
   recognitionLang: string;
+  /** PHASE 40/D-044 — server-generated audio: how it actually played. */
+  audio: {
+    plays: number;
+    pauses: number;
+    ended: number;
+    lastSrc: string;
+  };
 }
 
 /**
@@ -85,6 +92,8 @@ export interface VoiceTestState {
  *    records the `lang` the app asked to dictate in (D-043).
  *  - speechSynthesis: exposes `voices` (both languages by default) and records
  *    every spoken utterance + every cancel; plays no real audio.
+ *  - <audio>: records play/pause/ended and the last src, so the server-audio
+ *    path (PHASE 40/D-044) can be asserted as really played and really stopped.
  *  The recorded state is exposed as `window.__voiceTest` for assertions.
  */
 export async function installVoiceStubs(
@@ -93,8 +102,29 @@ export async function installVoiceStubs(
   voices: StubVoice[] = STUB_VOICES,
 ): Promise<void> {
   await page.addInitScript((opts: { transcript: string; voices: StubVoice[] }) => {
-    const state: VoiceTestState = { spoken: [], cancelCount: 0, recognitionLang: "" };
+    const state: VoiceTestState = { spoken: [], cancelCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" } };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
+
+    // PHASE 40/D-044 — server audio playback recorder. Delegating to the real
+    // prototype keeps decoding/playback genuine: a broken WAV would surface as
+    // a rejected play() promise, which is exactly what we want to catch.
+    const media = window.HTMLMediaElement?.prototype;
+    if (media) {
+      const originalPlay = media.play;
+      media.play = function play(this: HTMLMediaElement) {
+        state.audio.plays += 1;
+        state.audio.lastSrc = this.src || "";
+        this.addEventListener("ended", () => {
+          state.audio.ended += 1;
+        });
+        return originalPlay.call(this);
+      };
+      const originalPause = media.pause;
+      media.pause = function pause(this: HTMLMediaElement) {
+        state.audio.pauses += 1;
+        return originalPause.call(this);
+      };
+    }
 
     // One-shot SpeechRecognition: one final result, then end.
     class FakeSpeechRecognition {
@@ -158,6 +188,22 @@ export async function installVoiceStubs(
 /** Reads the recorded voice-test state (only meaningful after installVoiceStubs). */
 export async function voiceTestState(page: Page): Promise<VoiceTestState> {
   return page.evaluate(() => (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest);
+}
+
+/**
+ * PHASE 40 (D-044) — makes the server behave like a deployment with no voice
+ * (`SPEECH_PROVIDER=none`) or an outage, by answering the narration route with
+ * the very 503 the server would send. The app must then read the reply with the
+ * browser's own voice — the behaviour every offline installation depends on.
+ */
+export async function forceNoServerSpeech(page: Page): Promise<void> {
+  await page.route("**/api/sessions/*/messages/*/speech", (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: JSON.stringify({ error: { code: "SPEECH_UNAVAILABLE", message: "النطق على الخادم غير مُفعَّل" } }),
+    }),
+  );
 }
 
 /** 1x1 transparent PNG (base64) used to simulate a photographed question. */

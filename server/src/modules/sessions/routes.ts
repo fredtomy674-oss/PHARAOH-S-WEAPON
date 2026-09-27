@@ -111,6 +111,29 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
     return reply.send(attachment.data);
   });
 
+  /**
+   * PHASE 40 (D-044) — read a tutor reply aloud: the server returns the audio
+   * bytes, so the student needs no installed voice (and no settings change) to
+   * hear Arabic. Ids only, never text (see speechForMessage). A 503 here is not
+   * a failure the student sees: the client falls back to the browser voice.
+   */
+  app.post("/:sessionId/messages/:messageId/speech", { preHandler: requireAuth }, async (request, reply) => {
+    const auth = request.auth!;
+    if (!auth.student) {
+      return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
+    }
+    const { sessionId, messageId } = request.params as { sessionId: string; messageId: string };
+    const audio = await app.sessions.speechForMessage(sessionId, auth.student.id, messageId);
+    void reply.header("content-type", audio.mimeType);
+    void reply.header("content-length", String(audio.audio.length));
+    // The audio is the student's own words from their own bubble: cacheable
+    // privately for an hour so a second press does not even hit the network.
+    void reply.header("cache-control", "private, max-age=3600");
+    void reply.header("x-content-type-options", "nosniff");
+    void reply.header("content-security-policy", "default-src 'none'; sandbox");
+    return reply.send(audio.audio);
+  });
+
   app.post("/:sessionId/end", { preHandler: requireAuth }, async (request, reply) => {
     const auth = request.auth!;
     if (!auth.student) {

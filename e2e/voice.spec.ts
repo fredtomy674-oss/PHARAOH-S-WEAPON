@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import {
+  forceNoServerSpeech,
   installVoiceStubs,
   login,
   NO_RAG_PHRASE,
@@ -12,12 +13,17 @@ import {
 } from "./helpers.js";
 
 /**
- * Voice conversation (سؤال بصوت): STT/TTS through the REAL stack. The browser
- * Web Speech APIs themselves cannot be automated with real audio, so this
- * suite injects deterministic stubs (installVoiceStubs) and exercises the real
- * UI: mic → transcript appears in the input for review → edit → send through
- * the real server → tutor reply → spoken aloud (auto after a voice turn, or
- * via 🔊 on the bubble) → stoppable. Text chat + Vision stay untouched.
+ * Voice conversation (سؤال بصوت): STT + TTS through the REAL stack. The browser
+ * Web Speech APIs themselves cannot be automated with real audio, so this suite
+ * injects deterministic stubs (installVoiceStubs) and exercises the real UI:
+ * mic → transcript appears in the input for review → edit → send through the
+ * real server → tutor reply → spoken aloud (auto after a voice turn, or via 🔊
+ * on the bubble) → stoppable. Text chat + Vision stay untouched.
+ *
+ * PHASE 40 (D-044): the reply is now *heard* through the server's own voice —
+ * the E2E backend runs a deterministic local speech provider — and the browser
+ * voice is the fallback (forced with a 503 in A4/A6). Both paths are asserted,
+ * because both are real deployments.
  */
 test.describe.configure({ mode: "serial" });
 
@@ -55,23 +61,21 @@ test("A1: a voice question is transcribed, editable, sent, and the tutor reply i
   await expect(page.getByTestId("msg-user").first().locator("p")).toHaveText(reviewed);
 
   // Auto-speak: because this turn was asked by voice, the reply is read aloud.
+  // D-043 — dictation follows the lesson (Arabic here), never a hardcoded value.
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   const state = await voiceTestState(page);
-  expect(state.spoken).toHaveLength(1);
-  expect(state.spoken[0].text).toBe(reply);
-  // D-043 — a math lesson is dictated and narrated in Arabic, even though the
-  // stub browser also has an English voice installed (listed second).
   expect(state.recognitionLang).toBe("ar-EG");
-  expect(state.spoken[0].lang).toBe("ar-EG");
+  // D-044 — the audio came from the server, not from this machine's voices.
+  expect(state.audio.plays).toBe(1);
+  expect(state.audio.lastSrc.startsWith("blob:")).toBe(true);
+  expect(state.spoken).toHaveLength(0);
 
   // The speaking status is visible, and the student can stop the audio.
-  await expect(page.getByTestId("speak-status")).toBeVisible();
-  // Note: the absolute cancel count is not asserted because React StrictMode
-  // (dev) double-mounts the room, running the "leave chat" cleanup once early.
-  const cancelsBefore = (await voiceTestState(page)).cancelCount;
+  const pausesBefore = state.audio.pauses;
   await page.getByTestId("stop-tts").click();
   await expect(page.getByTestId("speak-status")).toHaveCount(0);
   const afterStop = await voiceTestState(page);
-  expect(afterStop.cancelCount).toBe(cancelsBefore + 1);
+  expect(afterStop.audio.pauses).toBe(pausesBefore + 1);
 });
 
 test("A2: a typed question does not auto-speak; the 🔊 button speaks a reply and stop works", async ({ page }) => {
@@ -85,24 +89,25 @@ test("A2: a typed question does not auto-speak; the 🔊 button speaks a reply a
   expect(reply).toContain(RAG_CONTEXT_PHRASE);
   let state = await voiceTestState(page);
   expect(state.spoken).toHaveLength(0);
+  expect(state.audio.plays).toBe(0);
   await expect(page.getByTestId("speak-status")).toHaveCount(0);
 
   // Manual listen: the 🔊 button on the tutor bubble speaks that reply.
   await page.getByTestId("speak-reply").first().click();
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   state = await voiceTestState(page);
-  expect(state.spoken).toHaveLength(1);
-  expect(state.spoken[0].text).toBe(reply);
-  expect(state.spoken[0].lang).toBe("ar-EG");
-  await expect(page.getByTestId("speak-status")).toBeVisible();
-  // A machine that has the voice is never nagged about a missing one.
+  expect(state.audio.plays).toBe(1);
+  expect(state.audio.lastSrc.startsWith("blob:")).toBe(true);
+  // Narration never nags the student — the server has a voice, so the machine's
+  // voices are irrelevant to whether the reply can be heard.
   await expect(page.getByTestId("chat-error")).toHaveCount(0);
 
   // Stop the reading.
-  const cancelsBefore = (await voiceTestState(page)).cancelCount;
+  const pausesBefore = state.audio.pauses;
   await page.getByTestId("stop-tts").click();
   await expect(page.getByTestId("speak-status")).toHaveCount(0);
   const afterStop = await voiceTestState(page);
-  expect(afterStop.cancelCount).toBe(cancelsBefore + 1);
+  expect(afterStop.audio.pauses).toBe(pausesBefore + 1);
 });
 
 test("A3: browsers without SpeechRecognition show a clear, actionable error", async ({ page }) => {
@@ -133,14 +138,65 @@ test("A3: browsers without SpeechRecognition show a clear, actionable error", as
 });
 
 /**
- * D-043 — the real-world report: on a machine with no Arabic voice installed,
- * the browser read the Arabic reply with its default (English) voice. The tag
- * is now always the lesson's language, and the missing voice is stated plainly
- * instead of leaving the student wondering what they just heard.
+ * D-044 — the report that started this phase: on a machine with no Arabic voice
+ * installed, the student was told to change Windows settings (or simply heard
+ * English). The server's own voice removes both: the reply is now heard in
+ * Arabic on a machine that has *no* Arabic voice at all, and nothing is asked
+ * of the student.
  */
-test("A4: a machine with no voice for the lesson language is told plainly", async ({ page }) => {
+test("A4: a machine with no Arabic voice still hears the Arabic reply from the server", async ({ page }) => {
+  // Only an English voice is installed — the worst case the old code had.
+  await installVoiceStubs(page, STT_TRANSCRIPT, [{ lang: "en-US", name: "Test English Voice" }]);
+  await login(page);
+  await startFirstLesson(page);
+
+  await sendChatMessage(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
+  await tutorReplyText(page);
+  await page.getByTestId("speak-reply").first().click();
+
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
+  const state = await voiceTestState(page);
+  expect(state.audio.plays).toBe(1);
+  // The browser was never asked to speak — no wrong-language audio, and no
+  // scary "install a voice pack" message for a student who cannot act on it.
+  expect(state.spoken).toHaveLength(0);
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
+});
+
+/**
+ * The other half of D-044: when the server has no voice (offline deployment,
+ * `SPEECH_PROVIDER=none`, or an outage) the app must not leave 🔊 dead — it
+ * reads the reply with the browser, in the lesson's language, silently.
+ */
+test("A5: with no server voice the app falls back to the browser voice", async ({ page }) => {
+  await installVoiceStubs(page);
+  await forceNoServerSpeech(page);
+  await login(page);
+  await startFirstLesson(page);
+
+  await sendChatMessage(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
+  const reply = await tutorReplyText(page);
+  await page.getByTestId("speak-reply").first().click();
+
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
+  const state = await voiceTestState(page);
+  expect(state.spoken).toHaveLength(1);
+  expect(state.spoken[0].text).toBe(reply);
+  expect(state.spoken[0].lang).toBe("ar-EG");
+  expect(state.audio.plays).toBe(0);
+  // A machine that has the voice is never nagged about a missing one.
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
+});
+
+/**
+ * Worst case with the fallback: no server voice AND no Arabic voice installed.
+ * The student still gets sound plus a plain, actionable message — the notice
+ * now describes the only situation it can still help with.
+ */
+test("A6: no server voice and no voice for the language is stated plainly", async ({ page }) => {
   // Only an English voice is installed — an Arabic lesson on this machine.
   await installVoiceStubs(page, STT_TRANSCRIPT, [{ lang: "en-US", name: "Test English Voice" }]);
+  await forceNoServerSpeech(page);
   await login(page);
   await startFirstLesson(page);
 

@@ -31,6 +31,27 @@ const EnvSchema = z.object({
   AI_ROUTING_LLM: z.string().default("default"),
   AI_ROUTING_EMBEDDING: z.string().default("default"),
 
+  // PHASE 40 (D-044) — توليد الصوت على الخادم. المتصفح لا يملك محرّك نطق، بل
+  // يستعير أصوات نظام تشغيل الطالب، فلا ينطق العربية جهاز بلا حزمة صوت
+  // عربية — مهما دقّ كود التطبيق. الحل: التوليد على الخادم، فيبقى المفتاح
+  // والصوت عندنا ولا يثبّت الطالب شيئًا.
+  // "none" (default) = off: the browser voice is used, exactly as before.
+  // Set to "gemini" once (with GEMINI_API_KEY) and every student hears Arabic.
+  // "stub" generates a deterministic local WAV — for the E2E suite only.
+  SPEECH_PROVIDER: z.enum(["none", "stub", "gemini"]).default("none"),
+  GEMINI_TTS_MODEL: z.string().default("gemini-2.5-flash-preview-tts"),
+  /** Prebuilt voice name; the model family decides which languages it covers. */
+  GEMINI_TTS_VOICE: z.string().default("Kore"),
+  /** Optional BCP-47 dialect hint per language (e.g. "ar-EG"). Empty = the
+   *  model detects the language from the text itself. */
+  GEMINI_TTS_LANGUAGE_AR: z.string().default(""),
+  GEMINI_TTS_LANGUAGE_EN: z.string().default(""),
+  /** Cap on synthesized text (chars) — bounds latency and cost for a long reply. */
+  SPEECH_MAX_CHARS: z.coerce.number().int().positive().default(4000),
+  /** Abort the provider call after this many ms; the client then falls back to
+   *  the browser voice instead of waiting forever. */
+  SPEECH_TIMEOUT_MS: z.coerce.number().int().positive().default(20000),
+
   // AI caching (PHASE 22 / D-026): repeated deterministic calls hit an
   // in-memory LRU instead of the real provider. Only deterministic operations
   // are served from cache: classifier + rerank (LLM), embeddings (same texts →

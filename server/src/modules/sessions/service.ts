@@ -24,6 +24,9 @@ import type { TutorEngine } from "../tutor/tutorEngine.js";
 import type { AuditService } from "../audit/service.js";
 import type { AiService } from "../ai/aiService.js";
 import { OcrService, OCR_ELIGIBLE_MIMES } from "../ocr/service.js";
+import { SpeechService } from "../ai/speech/service.js";
+import type { SpeechResult } from "../ai/speech/types.js";
+import { resolveTutorLanguage } from "../tutor/language.js";
 import { parseImageDataUrl } from "./attachments.js";
 import { parseDocumentDataUrl } from "./documents.js";
 
@@ -46,6 +49,7 @@ export class SessionService {
     private readonly ocr: OcrService,
     private readonly subscriptions: SubscriptionService,
     private readonly achievements: AchievementService,
+    private readonly speech: SpeechService,
   ) {}
 
   async start(input: StartSessionInput): Promise<typeof learningSessions.$inferSelect> {
@@ -281,6 +285,30 @@ export class SessionService {
       .get();
     if (!row) throw Errors.notFound("المرفق غير موجود");
     return row;
+  }
+
+  /**
+   * PHASE 40 (D-044) — the audio for reading one of the student's own tutor
+   * replies aloud.
+   *
+   * The client sends *ids*, never text: the server reads the stored reply, so a
+   * student can never make the (paid) server voice say arbitrary text, and the
+   * audio can never disagree with the bubble above it. Ownership comes from
+   * `getOwned`; the language is the same one the tutor wrote in (D-042), so
+   * what is read matches what is written without the client asking.
+   */
+  async speechForMessage(sessionId: string, studentId: string, messageId: string): Promise<SpeechResult> {
+    const session = await this.getOwned(sessionId, studentId);
+    const message = await this.db.db.select().from(messages).where(eq(messages.id, messageId)).get();
+    if (!message || message.sessionId !== session.id) throw Errors.notFound("الرسالة غير موجودة");
+    if (message.role !== "tutor") throw Errors.badRequest("يمكن نطق ردود المعلم فقط", "NOT_TUTOR_MESSAGE");
+
+    // A session started without a lesson has no subject to resolve: Arabic, the
+    // product default (same fallback as the tutor itself).
+    const language = session.lessonId
+      ? resolveTutorLanguage((await this.curriculum.lessonBreadcrumb(session.lessonId)).subject)
+      : "ar";
+    return this.speech.synthesize({ text: message.content, language });
   }
 
   async end(sessionId: string, studentId: string, reason = "user_request"): Promise<void> {

@@ -4,6 +4,7 @@ import {
   ENGLISH_NO_RAG_PHRASE,
   ENGLISH_REPLY_MARKER,
   ENGLISH_RAG_CONTEXT_PHRASE,
+  forceNoServerSpeech,
   installVoiceStubs,
   login,
   NO_RAG_PHRASE,
@@ -86,6 +87,10 @@ test("LN1: a language curriculum is explained in English, a math curriculum in A
  * PHASE 39 (D-043) — the written reply (D-042) is not enough: the *spoken*
  * layer must speak the same language, otherwise an English lesson is explained
  * in English on screen and read out in Arabic (the hardcoded `ar-EG`/`ar`).
+ *
+ * PHASE 40 (D-044): the reply is now *heard* through the server's voice, so
+ * this asserts the audio is produced at all; LN3 pins the browser fallback's
+ * language, which is the part a client can still get wrong.
  */
 test("LN2: the voice layer follows the lesson — English dictation, English narration", async ({ page }) => {
   await installVoiceStubs(page, STT_TRANSCRIPT_EN);
@@ -98,16 +103,40 @@ test("LN2: the voice layer follows the lesson — English dictation, English nar
   await expect(page.getByTestId("voice-listening")).toHaveCount(0);
   expect((await voiceTestState(page)).recognitionLang).toBe("en-US");
 
-  // Ask by voice → the reply arrives in English and is auto-narrated in English
-  // even though the stub browser lists the Arabic voice FIRST.
+  // Ask by voice → the reply arrives in English and is auto-narrated by the
+  // server even though the stub browser lists the Arabic voice FIRST.
   await page.getByTestId("send-message").click();
   await expect(page.getByTestId("msg-tutor")).toHaveCount(1, { timeout: 30_000 });
   const reply = (await page.getByTestId("msg-tutor").first().locator("p").textContent()) ?? "";
   expect(reply).toContain(ENGLISH_REPLY_MARKER);
+  // The counter is monotonic, so this asserts the audio was really produced
+  // without racing the (short) clip's playback.
+  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
+  const state = await voiceTestState(page);
+  expect(state.spoken).toHaveLength(0);
+  // A reply is never blocked by the machine's voices any more.
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
+});
+
+/** The browser fallback speaks the lesson's language too (D-043 + D-044). */
+test("LN3: with no server voice the browser narration is still English in an English lesson", async ({ page }) => {
+  await installVoiceStubs(page, STT_TRANSCRIPT_EN);
+  await forceNoServerSpeech(page);
+  await login(page);
+  await startLessonOfSubject(page, "اللغة الإنجليزية");
+
+  await sendChatMessage(page, "Explain when we add -s to the verb");
+  await expect(page.getByTestId("msg-tutor")).toHaveCount(1, { timeout: 30_000 });
+  const reply = (await page.getByTestId("msg-tutor").first().locator("p").textContent()) ?? "";
+  await page.getByTestId("speak-reply").first().click();
+
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   const state = await voiceTestState(page);
   expect(state.spoken).toHaveLength(1);
   expect(state.spoken[0].text).toBe(reply);
+  // The Arabic voice is listed FIRST on purpose: reading this English lesson in
+  // Arabic is exactly the bug this asserts against.
   expect(state.spoken[0].lang).toBe("en-US");
-  // Both languages are installed here, so no missing-voice warning.
+  expect(state.audio.plays).toBe(0);
   await expect(page.getByTestId("chat-error")).toHaveCount(0);
 });

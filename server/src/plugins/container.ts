@@ -3,6 +3,8 @@ import fp from "fastify-plugin";
 import type { Db } from "../db/index.js";
 import { AchievementService } from "../modules/achievements/service.js";
 import { AiService } from "../modules/ai/aiService.js";
+import { createSpeechProvider, type SpeechProviderKind } from "../modules/ai/speech/factory.js";
+import { SpeechService } from "../modules/ai/speech/service.js";
 import { AuditService } from "../modules/audit/service.js";
 import { AuthService } from "../modules/auth/service.js";
 import { CurriculumService } from "../modules/curriculum/service.js";
@@ -36,6 +38,7 @@ declare module "fastify" {
     subscriptions: SubscriptionService;
     achievements: AchievementService;
     practice: PracticeService;
+    speech: SpeechService;
     setSessionCookie: (reply: FastifyReply, token: string, maxAgeMs: number) => void;
     clearSessionCookie: (reply: FastifyReply) => void;
   }
@@ -44,6 +47,8 @@ declare module "fastify" {
 export interface ContainerOptions {
   db: Db;
   forceProvider?: "mock" | "gemini";
+  /** PHASE 40 (D-044) — test/dev override for the speech provider. */
+  forceSpeechProvider?: SpeechProviderKind;
 }
 
 /**
@@ -64,9 +69,14 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   const tutor = new TutorEngine(db, ai, retrieval, memory);
   const knowledge = new KnowledgeService(db, ai, vectorStore);
   const ocr = new OcrService(ai);
+  // PHASE 40 (D-044) — the server's own voice. Null provider = off: students
+  // keep the browser voice, nothing leaves the machine.
+  const speech = new SpeechService({
+    provider: opts.forceSpeechProvider === undefined ? undefined : createSpeechProvider(opts.forceSpeechProvider),
+  });
   const subscriptions = new SubscriptionService(db);
   const achievements = new AchievementService(db);
-  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements);
+  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements, speech);
   const parents = new ParentService(db, memory, sessions);
   const practice = new PracticeService(db, memory, achievements, ai);
 
@@ -86,4 +96,5 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   app.decorate("subscriptions", subscriptions);
   app.decorate("achievements", achievements);
   app.decorate("practice", practice);
+  app.decorate("speech", speech);
 });
