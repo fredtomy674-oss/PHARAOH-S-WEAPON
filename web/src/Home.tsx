@@ -92,8 +92,8 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
   useEffect(() => {
     listSessions().then(setSessions).catch(() => undefined);
-    myProgress().then(setProgress).catch(() => undefined);
     if (user.role === "student") {
+      myProgress().then(setProgress).catch(() => undefined);
       getMySubscription().then(setSubscription).catch(() => undefined);
       refreshPlan();
     }
@@ -497,8 +497,12 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
               لا توجد جلسات بعد — ابدأ أول درس لنا!
             </p>
           ) : (
-            <ul className="session-list" data-testid="session-list">
-              {sessions.map((s) => (
+            <>
+              <ul className="session-list" data-testid="session-list">
+                {[...sessions]
+                  .sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime())
+                  .slice(0, 6)
+                  .map((s) => (
                 <li key={s.id} className="session-row" data-testid="session-row" data-session-id={s.id} data-session-status={s.status}>
                   <div>
                     <span className={`badge ${s.status === "active" ? "ok" : "off"}`}>{s.status === "active" ? "مفتوحة" : "منتهية"}</span>
@@ -525,8 +529,14 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                     </div>
                   )}
                 </li>
-              ))}
-            </ul>
+                  ))}
+                </ul>
+                {sessions.length > 6 && (
+                  <p className="muted" data-testid="sessions-truncated">
+                    … وتوجد {sessions.length - 6} جلسات أخرى.
+                  </p>
+                )}
+              </>
           )}
         </section>
       </main>

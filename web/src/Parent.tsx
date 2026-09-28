@@ -222,7 +222,7 @@ export function ParentScreen({ user, onLogout }: Props) {
                 <li key={entry.id} className="session-row" data-testid="parent-timeline-entry">
                   <div>
                     <span className={`badge ${entry.role === "user" ? "ok" : "off"}`}>
-                      {entry.role === "user" ? "سؤال الطالب" : entry.role === "tutor" ? "إجابة المعلّم" : "نظام"}
+                      {entry.role === "user" ? "رسالة الطالب" : entry.role === "tutor" ? "إجابة المعلّم" : "نظام"}
                     </span>
                     <b>{KIND_LABEL[entry.kind] ?? entry.kind}</b>
                     <span className="muted">{new Date(entry.createdAt).toLocaleTimeString("ar-EG")}</span>
