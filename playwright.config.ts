@@ -33,6 +33,15 @@ const backendEnv = {
   // WAV, so the narration route is exercised for real without a key or network.
   // The browser-fallback tests force a 503 instead (see forceNoServerSpeech).
   SPEECH_PROVIDER: "stub",
+  // PHASE 42 — the offline providers are pinned here, exactly as in
+  // server/test/setup.ts, and for the same reason. dotenv does not overwrite a
+  // real env var, so these win over the developer's `server/.env`: without them
+  // a machine configured for the real provider made 11 browser tests call the
+  // live API and fail, while the same tests pass on a machine without that
+  // file. A suite whose result depends on an untracked file is not a suite.
+  AI_LLM_PROVIDER: "mock",
+  AI_EMBEDDING_PROVIDER: "mock",
+  AI_OCR_PROVIDER: "mock",
 };
 
 export default defineConfig({

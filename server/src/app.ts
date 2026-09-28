@@ -73,6 +73,18 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
   // --- Error mapping (no stack/DB details leak) ----------------------------
   app.setErrorHandler((error, request, reply) => {
     if (error instanceof AppError) {
+      // PHASE 42 — a hidden AppError (Errors.internal) used to leave no trace at
+      // all: the client got a generic message and the operator got nothing, so a
+      // failing real AI provider was undebuggable from the log. The response is
+      // unchanged (the real reason still never reaches the client); the cause is
+      // now recorded server-side, which is the only place it was ever safe to put.
+      if (error.meta?.upstreamStatus !== undefined) {
+        // The student sees "the tutor is busy"; the operator needs to know WHICH
+        // busy — a 429 on one model is fixed by naming another, a 503 by waiting.
+        request.log.warn({ ...error.meta, code: error.code }, "ai upstream unavailable");
+      } else if (!error.expose) {
+        request.log.error({ err: { code: error.code, message: error.message, statusCode: error.statusCode } }, "app error (hidden from client)");
+      }
       return reply.code(error.statusCode).send({
         error: {
           code: error.code,

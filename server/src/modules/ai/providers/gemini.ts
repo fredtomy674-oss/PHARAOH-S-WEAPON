@@ -12,6 +12,83 @@ function apiKey(): string {
 }
 
 /**
+ * PHASE 42 — the statuses that mean "ask again", not "you did something wrong".
+ * Google's own wording for the first two is capacity and quota; 5xx are the
+ * generic upstream failures. None of them is the student's fault, so none of
+ * them may end a tutoring turn.
+ */
+const TRANSIENT_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
+
+/**
+ * Attempts per call, the first one included. Three is the point where a busy
+ * upstream is almost always past its spike (measured: 2/5 and 5/5 success rates
+ * on the same model minutes apart) while the worst case stays around ~2.4s —
+ * inside the tutor turn's own budget. Not configurable on purpose: a value
+ * large enough to matter would outlive the student's patience and the request
+ * timeout, and a value of 1 is what this phase exists to remove.
+ */
+const GEMINI_RETRY_ATTEMPTS = 3;
+
+/** Bounded backoff: 0.4s, 0.8s, 1.6s … capped, so a dead upstream costs ~2s. */
+function backoffMs(attempt: number): number {
+  return Math.min(1600, 400 * 2 ** (attempt - 1));
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+/**
+ * POST with a small retry budget on transient upstream failures.
+ *
+ * Measured against the live API: the same model answered 5/5 and then, minutes
+ * later, 503 "high demand" — and 3.8-flash answered 2/5 while 3.6 answered
+ * 5/5. A single blip therefore killed an entire tutor turn even though the
+ * next attempt would have succeeded. Retrying is the difference between a tutor
+ * that stumbles and a tutor that is down.
+ *
+ * Retries only the statuses in TRANSIENT_STATUS: a 404 (retired model name) or a
+ * 400 (malformed request) is deterministic, so repeating it only wastes the
+ * student's time and the quota.
+ */
+async function postWithRetry(url: string, payload: unknown, attempts: number): Promise<Response> {
+  const body = JSON.stringify(payload);
+  let last: Response | null = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body,
+    });
+    if (res.ok) return res;
+    last = res;
+    if (!TRANSIENT_STATUS.has(res.status) || attempt === attempts) break;
+    await sleep(backoffMs(attempt));
+  }
+  return last as Response;
+}
+
+/**
+ * Turn a dead upstream into the honest answer instead of a masked 500: a
+ * student can retry a busy tutor, but they cannot act on "internal error".
+ * The upstream status and the model ride along in `meta` for the log: a 429
+ * (this model's quota) and a 503 (Google's capacity) look identical to the
+ * student and need completely different fixes.
+ */
+function upstreamError(label: string, res: Response, detail: string, model: string): never {
+  if (TRANSIENT_STATUS.has(res.status)) {
+    throw Errors.serviceUnavailable(
+      "المعلّم غير متاح الآن بسبب ضغط على الخدمة، حاول بعد لحظات",
+      "AI_UPSTREAM_BUSY",
+      { upstreamStatus: res.status, model, label, upstreamDetail: detail.slice(0, 200) },
+    );
+  }
+  throw Errors.internal(`${label} أخطأ (${res.status}) ${detail.slice(0, 200)}`);
+}
+
+/**
  * Real Gemini LLM provider (text generation with optional JSON mode).
  * Streams are not used in MVP; endpoints are documented for later upgrade.
  */
@@ -54,14 +131,14 @@ export class GeminiLLMProvider implements LLMProvider {
     };
     if (system) body.systemInstruction = { parts: [{ text: system }] };
 
-    const res = await fetch(`${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    const res = await postWithRetry(
+      `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
+      body,
+      GEMINI_RETRY_ATTEMPTS,
+    );
     if (!res.ok) {
       const detail = await res.text().catch(() => "");
-      throw Errors.internal(`مزود الذكاء الاصطناعي أخطأ (${res.status}) ${detail.slice(0, 200)}`);
+      upstreamError("مزود الذكاء الاصطناعي", res, detail, model);
     }
     const data = (await res.json()) as {
       candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
@@ -91,12 +168,15 @@ export class GeminiEmbeddingProvider implements EmbeddingProvider {
     const model = request.model ?? config.GEMINI_EMBEDDING_MODEL;
     const vectors: number[][] = [];
     for (const text of request.texts) {
-      const res = await fetch(`${BASE_URL}/models/${model}:embedContent?key=${apiKey()}`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ content: { parts: [{ text }] } }),
-      });
-      if (!res.ok) throw Errors.internal("مزود التضمين أخطأ في الحصول على المتجهات");
+      const res = await postWithRetry(
+        `${BASE_URL}/models/${model}:embedContent?key=${apiKey()}`,
+        { content: { parts: [{ text }] } },
+        GEMINI_RETRY_ATTEMPTS,
+      );
+      if (!res.ok) {
+        const detail = await res.text().catch(() => "");
+        upstreamError("مزود التضمين", res, detail, model);
+      }
       const data = (await res.json()) as { embedding?: { values?: number[] } };
       vectors.push(data.embedding?.values ?? []);
     }
@@ -139,14 +219,14 @@ export class GeminiOcrProvider implements OcrProvider {
       },
     };
 
-    const res = await fetch(`${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    const res = await postWithRetry(
+      `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
+      body,
+      GEMINI_RETRY_ATTEMPTS,
+    );
     if (!res.ok) {
       const detail = await res.text().catch(() => "");
-      throw Errors.internal(`مزود OCR أخطأ (${res.status}) ${detail.slice(0, 200)}`);
+      upstreamError("مزود OCR", res, detail, model);
     }
     const data = (await res.json()) as {
       candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;

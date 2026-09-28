@@ -6,12 +6,21 @@ export class AppError extends Error {
   readonly statusCode: number;
   readonly code: string;
   readonly expose: boolean;
+  /**
+   * PHASE 42 — server-side facts about the failure (an upstream status, the
+   * model that failed). Never serialized to the client; the error handler is
+   * the only reader, and it logs it. "The tutor is down" and "the tutor is
+   * down because Google answered 429 on that model" are different incidents,
+   * and only the second one is fixable.
+   */
+  readonly meta?: Record<string, unknown>;
 
-  constructor(statusCode: number, code: string, message: string, expose = true) {
+  constructor(statusCode: number, code: string, message: string, expose = true, meta?: Record<string, unknown>) {
     super(message);
     this.statusCode = statusCode;
     this.code = code;
     this.expose = expose;
+    this.meta = meta;
   }
 }
 
@@ -39,8 +48,8 @@ export const Errors = {
     return new AppError(500, code, message, false);
   },
   /** Dependency (external service) is temporarily unreachable — retry later. */
-  serviceUnavailable(message = "الخدمة غير متاحة حاليًا، حاول لاحقًا", code = "SERVICE_UNAVAILABLE") {
-    return new AppError(503, code, message);
+  serviceUnavailable(message = "الخدمة غير متاحة حاليًا، حاول لاحقًا", code = "SERVICE_UNAVAILABLE", meta?: Record<string, unknown>) {
+    return new AppError(503, code, message, true, meta);
   },
 };
 

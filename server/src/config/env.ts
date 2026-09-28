@@ -50,10 +50,25 @@ export const EnvSchema = z.object({
   /** OCR of scanned files (Path A chats + Path B curriculum import): which provider reads the pages. */
   AI_OCR_PROVIDER: z.enum(["mock", "gemini"]).default("mock"),
   GEMINI_API_KEY: z.string().optional(),
-  GEMINI_LLM_MODEL: z.string().default("gemini-2.0-flash"),
-  GEMINI_EMBEDDING_MODEL: z.string().default("text-embedding-004"),
+  // PHASE 42 — the pinned model names this project shipped with are retired:
+  // `gemini-2.0-flash` and `text-embedding-004` answer 404 "not found", and
+  // the 2.5 line answers 404 "no longer available to new users", so flipping a
+  // real provider on with a valid key failed on the very first call. What is
+  // left is a moving target, so it was measured live instead of assumed:
+  //   gemini-3.1-flash-lite-preview   7/8 answered (the default here)
+  //   gemini-3.6-flash                5/5, then 2/3, then 429 x4
+  //   gemini-3.8-flash                2/5
+  //   gemini-flash-latest             429 / 503
+  // A 503 is capacity and a 429 is that model's own quota; the quota is
+  // per-model, so naming a different model is a real way out of a 429, which
+  // is why this stays a plain env value with no allowlist in front of it.
+  // Prefer a stronger model (3.6-flash and up) on a plan with headroom; this
+  // default is the one that kept answering. A pin that retires fails loudly at
+  // the first call, never silently.
+  GEMINI_LLM_MODEL: z.string().default("gemini-3.1-flash-lite-preview"),
+  GEMINI_EMBEDDING_MODEL: z.string().default("gemini-embedding-001"),
   /** Vision-capable model used to read scanned PDF/DOCX pages (inline input). */
-  GEMINI_OCR_MODEL: z.string().default("gemini-2.0-flash"),
+  GEMINI_OCR_MODEL: z.string().default("gemini-3.1-flash-lite-preview"),
   AI_ROUTING_LLM: z.string().default("default"),
   AI_ROUTING_EMBEDDING: z.string().default("default"),
 
