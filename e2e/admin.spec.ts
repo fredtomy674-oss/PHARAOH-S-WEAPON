@@ -109,9 +109,11 @@ test("A4: the admin dashboard shows the subscription funnel and AI usage/savings
 
 /**
  * PHASE 28 — LLM question generation for questionless concepts: the admin
- * binds the Egyptian curriculum and generates coverage. Only «مقارنة الكسور»
- * has zero seeded questions → exactly 1 generated, 6 skipped. The delivered
+ * binds the Egyptian curriculum and generates coverage. The delivered
  * question is then played end-to-end by the student in PR4.
+ * PHASE 43 — the Egypt seed is now a real tree (16 lessons / 35 concepts): 12
+ * concepts carry seeded MCQs, so the 23 remaining are generated in one pass
+ * (the old "1 generated" was an artifact of the 3-lesson seed).
  */
 test("A5 (PHASE 28): the admin generates questions for questionless concepts in the chosen curriculum", async ({ page }) => {
   await login(page, ADMIN.email, ADMIN.password);
@@ -131,10 +133,10 @@ test("A5 (PHASE 28): the admin generates questions for questionless concepts in 
   await expect(generate).toBeEnabled({ timeout: 20_000 });
   await generate.click();
 
-  // Only «مقارنة الكسور» is eligible → the report says exactly 1 generated.
+  // 35 concepts − 12 with seeded MCQs = 23 eligible → the report says exactly 23.
   const result = page.getByTestId("admin-gen-result");
   await expect(result).toBeVisible({ timeout: 30_000 });
-  await expect(result).toContainText("تم توليد 1 سؤالًا");
+  await expect(result).toContainText("تم توليد 23 سؤالًا");
 });
 
 /**
