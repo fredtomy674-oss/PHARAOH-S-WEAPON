@@ -28,6 +28,18 @@ describe("classifyIntent", () => {
     expect(classifyIntent("مش فاهم حاجة").intent).toBe("explanation");
   });
 
+  it("detects short answers to the tutor's pending question (PHASE 44)", () => {
+    for (const a of ["9", "٥", "١٥ سم", "5000 جم", "12.5", "نعم", "لا .", "ايوه", "طبعا", "ok", "yes"]) {
+      expect(classifyIntent(a).intent).toBe("answer");
+    }
+  });
+
+  it("does not misread confusion or confirmation as a plain answer", () => {
+    expect(classifyIntent("لا مش فاهم").intent).toBe("explanation");
+    expect(classifyIntent("فهمت تماماً").intent).toBe("check_understanding");
+    expect(classifyIntent("ما ناتج 12 × 4؟").intent).toBe("exercise");
+  });
+
   it("detects greetings", () => {
     expect(classifyIntent("مرحبا يا معلم").intent).toBe("motivation");
   });

@@ -30,18 +30,31 @@ function stripFences(raw: string): string {
 }
 
 /**
+ * Every balanced `{...}` block in the text, in document order. A provider
+ * that ignores JSON mode (observed with a fallback model) can interleave an
+ * internal analysis preamble with the real JSON payload at the end — and the
+ * preamble's mini-fragments (e.g. `{ "type": "text", ... }`) fail the schema
+ * while the trailing payload passes. Collecting ALL blocks (not just the first)
+ * lets the parser reach that payload instead of surrendering to plain text.
+ */
+function collectBalancedBlocks(raw: string): string[] {
+  const blocks: string[] = [];
+  for (let i = 0; i < raw.length; i++) {
+    if (raw[i] !== "{") continue;
+    const end = lastBalanced(raw.slice(i));
+    if (end > 0) blocks.push(raw.slice(i, i + end + 1));
+  }
+  return blocks;
+}
+
+/**
  * Tolerant parser: try JSON directly, then with fences stripped, then extract
- * the first balanced {...} block. Falls back to a plain-text passthrough so a
+ * every balanced {...} block. Falls back to a plain-text passthrough so a
  * provider without reliable JSON mode never bricks the tutor.
  */
 export function parseTutorResponse(raw: string): TutorResponse {
-  const attempts: string[] = [raw.trim(), stripFences(raw.trim())];
-  const firstBrace = raw.indexOf("{");
-  if (firstBrace > -1) {
-    const candidate = raw.slice(firstBrace);
-    const end = lastBalanced(candidate);
-    if (end > 0) attempts.push(candidate.slice(0, end + 1));
-  }
+  const trimmed = raw.trim();
+  const attempts: string[] = [trimmed, stripFences(trimmed), ...collectBalancedBlocks(trimmed)];
   for (const candidate of attempts) {
     try {
       const parsed = JSON.parse(candidate);

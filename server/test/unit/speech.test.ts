@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { config } from "../../src/config/env.js";
 import { SpeechService, capText } from "../../src/modules/ai/speech/service.js";
 import { createSpeechProvider } from "../../src/modules/ai/speech/factory.js";
 import { GeminiSpeechProvider } from "../../src/modules/ai/speech/providers/geminiSpeech.js";
@@ -120,11 +121,114 @@ describe("GeminiSpeechProvider — PHASE 40", () => {
     });
   });
 
+  it("fails over to the next TTS model when the primary hits its quota (PHASE 44)", async () => {
+    const originalModel = config.GEMINI_TTS_MODEL;
+    const originalFallbacks = config.GEMINI_TTS_FALLBACKS;
+    config.GEMINI_TTS_MODEL = "broken-tts-1";
+    config.GEMINI_TTS_FALLBACKS = " also-broken , healthy-tts ";
+    const fetchMock = vi.fn(async (url: string) => {
+      const u = String(url);
+      if (u.includes("broken-tts-1") || u.includes("also-broken")) {
+        return new Response(JSON.stringify({ error: { code: 429, message: "quota" } }), { status: 429 });
+      }
+      return new Response(
+        JSON.stringify({
+          candidates: [{ content: { parts: [{ inlineData: { mimeType: "audio/L16;codec=pcm;rate=24000", data: pcmPayload(64) } }] } }],
+        }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      );
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    try {
+      const result = await new GeminiSpeechProvider().synthesize({ text: "مرحبًا", language: "ar" });
+      expect(result.mimeType).toBe(WAV_MIME);
+      expect(result.audio.subarray(0, 4).toString("ascii")).toBe("RIFF");
+      expect(fetchMock).toHaveBeenCalledTimes(3);
+      expect(String(fetchMock.mock.calls[2]?.[0])).toContain("healthy-tts");
+    } finally {
+      config.GEMINI_TTS_MODEL = originalModel;
+      config.GEMINI_TTS_FALLBACKS = originalFallbacks;
+    }
+  });
+
+  it("reports 503 when every TTS model fails (PHASE 44)", async () => {
+    const originalModel = config.GEMINI_TTS_MODEL;
+    const originalFallbacks = config.GEMINI_TTS_FALLBACKS;
+    config.GEMINI_TTS_MODEL = "broken-a";
+    config.GEMINI_TTS_FALLBACKS = "broken-b";
+    const fetchMock = vi.fn(async () => new Response("quota exceeded", { status: 429 }));
+    vi.stubGlobal("fetch", fetchMock);
+    try {
+      await expect(new GeminiSpeechProvider().synthesize({ text: "hi", language: "en" })).rejects.toMatchObject({
+        statusCode: 503,
+        code: "SPEECH_UNAVAILABLE",
+      });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    } finally {
+      config.GEMINI_TTS_MODEL = originalModel;
+      config.GEMINI_TTS_FALLBACKS = originalFallbacks;
+    }
+  });
+
   it("reports a reply that came back with no audio at all", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: "…" }] } }] }), { status: 200 })));
     await expect(new GeminiSpeechProvider().synthesize({ text: "hi", language: "en" })).rejects.toMatchObject({
       code: "SPEECH_UNAVAILABLE",
     });
+  });
+});
+
+describe("GeminiSpeechProvider BCP-47 hint placement — PHASE 40 regression", () => {
+  const pcmPayload = (bytes: number): string => Buffer.alloc(bytes).toString("base64");
+  const audioOk = JSON.stringify({
+    candidates: [{ content: { parts: [{ inlineData: { mimeType: "audio/L16;codec=pcm;rate=24000", data: pcmPayload(64) } }] } }],
+  });
+
+  const captureBody = () => {
+    let captured: unknown;
+    const read = () => captured;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (_url: string, init: RequestInit) => {
+        captured = JSON.parse(String(init.body));
+        return new Response(audioOk, { status: 200, headers: { "content-type": "application/json" } });
+      }),
+    );
+    return read;
+  };
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("sends a configured ar hint at speechConfig.languageCode — never inside prebuiltVoiceConfig", async () => {
+    const original = config.GEMINI_TTS_LANGUAGE_AR;
+    config.GEMINI_TTS_LANGUAGE_AR = "ar-EG";
+    const readBody = captureBody();
+    try {
+      await new GeminiSpeechProvider().synthesize({ text: "أهلاً بك يا بطل", language: "ar" });
+    } finally {
+      config.GEMINI_TTS_LANGUAGE_AR = original;
+    }
+    const g = (readBody() as { generationConfig: { speechConfig: { languageCode?: string; voiceConfig: { prebuiltVoiceConfig: { voiceName: string } } } } }).generationConfig;
+    // The hint lands where the live API accepts it…
+    expect(g.speechConfig.languageCode).toBe("ar-EG");
+    // …and NOT in the field the API rejects with a 400 ("Cannot find field"),
+    // which is what silently broke every previously configured hint.
+    expect(g.speechConfig.voiceConfig.prebuiltVoiceConfig).not.toHaveProperty("languageCode");
+  });
+
+  it("sends no languageCode when the operator left the hint empty (auto-detect stays the default)", async () => {
+    const original = config.GEMINI_TTS_LANGUAGE_AR;
+    config.GEMINI_TTS_LANGUAGE_AR = "";
+    const readBody = captureBody();
+    try {
+      await new GeminiSpeechProvider().synthesize({ text: "أهلاً بك يا بطل", language: "ar" });
+    } finally {
+      config.GEMINI_TTS_LANGUAGE_AR = original;
+    }
+    const speechConfig = (readBody() as { generationConfig: { speechConfig: { languageCode?: string } } }).generationConfig.speechConfig;
+    expect(speechConfig).not.toHaveProperty("languageCode");
   });
 });
 

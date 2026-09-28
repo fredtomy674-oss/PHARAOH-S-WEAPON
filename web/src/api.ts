@@ -373,17 +373,16 @@ export class SpeechUnavailableError extends Error {}
  * Remembers a server that said "no voice": one 503 is enough to know this
  * deployment narrates with the browser, so later presses skip the round-trip.
  * Reset to null (try again) whenever the app loads a new chat.
+ *
+ * PHASE 44 — REMOVED the persistent latch: a single transient quota failure
+ * must not exile every later reply to the browser's (possibly English) voice
+ * for the rest of the chat. Availability is re-probed on every press now; the
+ * server cache makes repeated presses near-free.
  */
-let serverSpeech: boolean | null = null;
-
-/** Forgets the cached availability verdict (called when entering a chat room). */
-export function resetSpeechAvailability(): void {
-  serverSpeech = null;
-}
+export function resetSpeechAvailability(): void {}
 
 /** Fetches the server-generated audio for one of the student's own tutor replies. */
 export async function fetchSpeechAudio(sessionId: string, messageId: string): Promise<Blob> {
-  if (serverSpeech === false) throw new SpeechUnavailableError("النطق على الخادم غير متاح");
   const headers: Record<string, string> = {};
   if (csrfToken) headers["x-csrf-token"] = csrfToken;
 
@@ -394,20 +393,17 @@ export async function fetchSpeechAudio(sessionId: string, messageId: string): Pr
       { method: "POST", headers, credentials: "same-origin" },
     );
   } catch {
-    serverSpeech = false;
     throw new SpeechUnavailableError("تعذّر الوصول إلى الخادم");
   }
-  // 503 = the server has no voice right now. Anything else is a real problem
-  // worth surfacing (wrong message, another student's id, …).
+  // 503 = the server has no voice right now. The caller reads the reply with
+  // the browser's voice for THIS press and retries the server next time.
   if (res.status === 503) {
-    serverSpeech = false;
     throw new SpeechUnavailableError("النطق على الخادم غير متاح");
   }
   if (!res.ok) {
     const data = (await res.json().catch(() => null)) as { error?: { message?: string; code?: string } } | null;
     throw new ApiError(data?.error?.message ?? "تعذّر تحضير الصوت", res.status, data?.error?.code ?? "UNKNOWN");
   }
-  serverSpeech = true;
   return res.blob();
 }
 

@@ -35,6 +35,22 @@ describe("parseTutorResponse", () => {
     expect(parsed.content).toBe("شرح مبسط");
   });
 
+  it("recovers the trailing JSON payload when a provider interleaves an analysis preamble", () => {
+    // Shape observed live with a fallback model that ignores JSON mode: the
+    // model writes its plan (including mini-fragments like a `parts` item)
+    // and THEN the real payload. Only the trailing object satisfies the schema.
+    const raw = [
+      '*   User Input: "السلام عليكم" (Peace be upon you).',
+      "    *   Intent: Greeting/Encouragement.",
+      "    *   Output Format: JSON.",
+      '    *   `parts`: 1. `{ "type": "text", "text": "مرحبا" }`',
+      "{ \"content\": \"وعليكم السلام يا بطل!\", \"parts\": [{ \"type\": \"text\", \"text\": \"وعليكم السلام يا بطل!\" }], \"assessment\": { \"conceptsTouched\": [\"التحية\"], \"confidence\": 1 } }",
+    ].join("\n");
+    const parsed = parseTutorResponse(raw);
+    expect(parsed.content).toBe("وعليكم السلام يا بطل!");
+    expect(parsed.parts?.[0]?.text).toBe("وعليكم السلام يا بطل!");
+  });
+
   it("falls back to plain text when no JSON is present", () => {
     const parsed = parseTutorResponse("مجرد نص غير منظم");
     expect(parsed.content).toBe("مجرد نص غير منظم");
@@ -122,5 +138,31 @@ describe("PromptBuilder", () => {
       studentName: "طالب",
     });
     expect(messages[0]!.content).toContain("3/4");
+  });
+
+  it("instructs the tutor to verify an answer against the pending question (PHASE 44)", () => {
+    const { messages } = builder.build({
+      intent: "answer",
+      question: "9",
+      lastQuestion: "كم تساوي 5 + 4؟",
+      lesson: {
+        countryNameAr: "مصر",
+        systemNameAr: "المنهج",
+        gradeNameAr: "الصف",
+        subjectNameAr: "الرياضيات",
+        curriculumTitle: "المنهج",
+        termTitle: "الفصل",
+        unitTitle: "الوحدة",
+        lessonTitle: "الجمع",
+        conceptTitles: ["الجمع"],
+      },
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+    });
+    const system = messages[0]!.content;
+    expect(system).toContain("يجيب الآن على سؤالك السابق");
+    expect(system).toContain("«كم تساوي 5 + 4؟»");
+    expect(system).toContain("لا تكرر السؤال نفسه");
   });
 });

@@ -22,6 +22,13 @@ function languageHint(language: SpeechLanguage): string {
  * decides which of the preview TTS models is available; a wrong name fails
  * loudly here (→ 503 → the client falls back to the browser voice) instead of
  * silently degrading the lesson.
+ *
+ * PHASE 44 — availability: preview TTS models exhaust their per-model quota
+ * and hit transient 429/503 spikes independently (measured live: one model
+ * was exhausted while the reply went English via the browser voice). The
+ * provider therefore walks an ordered candidate list (primary + fallbacks),
+ * one fetch per model, and serves the first success. The cache then makes
+ * repeat presses free, so Arabic narration survives any single bad bucket.
  */
 export class GeminiSpeechProvider implements SpeechProvider {
   readonly id = "gemini";
@@ -30,17 +37,51 @@ export class GeminiSpeechProvider implements SpeechProvider {
     if (!config.GEMINI_API_KEY) {
       throw Errors.serviceUnavailable("مفتاح مزوّد الصوت غير مضبوط", "SPEECH_UNAVAILABLE");
     }
-    const model = config.GEMINI_TTS_MODEL;
+    const candidates: string[] = [
+      config.GEMINI_TTS_MODEL,
+      ...(config.GEMINI_TTS_FALLBACKS ?? "")
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0),
+    ];
     const hint = languageHint(request.language);
+    const failures: string[] = [];
+    for (const model of candidates) {
+      try {
+        return await this.synthesizeWith(model, hint, request);
+      } catch (err) {
+        // e.g. "429 quota" — note the model + code, move to the next bucket.
+        const code = (err as { code?: string }).code ?? "ERR";
+        failures.push(`${model}(${code})`);
+      }
+    }
+    throw Errors.serviceUnavailable(
+      `مزوّد الصوت لا يجيب على أي من النماذج: ${failures.join("، ")}`,
+      "SPEECH_UNAVAILABLE",
+    );
+  }
+
+  private async synthesizeWith(
+    model: string,
+    hint: string,
+    request: SpeechRequest,
+  ): Promise<{ audio: Buffer; mimeType: string }> {
     const body = {
       contents: [{ role: "user", parts: [{ text: request.text }] }],
       generationConfig: {
         responseModalities: ["AUDIO"],
         speechConfig: {
+          // The BCP-47 dialect hint lives on speechConfig, NOT inside
+          // prebuiltVoiceConfig: the API rejected `languageCode` there (400
+          // "Cannot find field"), which silently broke every configured hint
+          // (they were off by default, so it only surfaced once an operator
+          // set GEMINI_TTS_LANGUAGE_*). Without a hint the model auto-detects
+          // the language from the text, which flipped to English on repeated
+          // Arabic synthesis during upstream variability — the hint pins it.
+          ...(hint ? { languageCode: hint } : {}),
           voiceConfig: {
             prebuiltVoiceConfig: {
               voiceName: config.GEMINI_TTS_VOICE,
-              ...(hint ? { languageCode: hint } : {}),
             },
           },
         },
@@ -56,13 +97,16 @@ export class GeminiSpeechProvider implements SpeechProvider {
         signal: AbortSignal.timeout(config.SPEECH_TIMEOUT_MS),
       });
     } catch {
-      // Timeout or network failure: the client falls back to the browser voice,
-      // so this is a "service unavailable", not an internal error.
+      // Timeout or network failure: fall through to the next candidate (the
+      // client's last resort is the browser voice, so this is still a 503).
       throw Errors.serviceUnavailable("تعذّر الوصول إلى مزوّد الصوت", "SPEECH_UNAVAILABLE");
     }
     if (!res.ok) {
       const detail = await res.text().catch(() => "");
-      throw Errors.serviceUnavailable(`مزوّد الصوت أخطأ (${res.status}) ${detail.slice(0, 200)}`, "SPEECH_UNAVAILABLE");
+      throw Errors.serviceUnavailable(
+        `مزوّد الصوت أخطأ (${res.status}) ${detail.slice(0, 200)}`,
+        `SPEECH_UNAVAILABLE:${res.status}`,
+      );
     }
 
     const data = (await res.json().catch(() => null)) as {

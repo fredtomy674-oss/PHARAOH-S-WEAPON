@@ -81,6 +81,10 @@ export const EnvSchema = z.object({
   // "stub" generates a deterministic local WAV — for the E2E suite only.
   SPEECH_PROVIDER: z.enum(["none", "stub", "gemini"]).default("none"),
   GEMINI_TTS_MODEL: z.string().default("gemini-2.5-flash-preview-tts"),
+  /** PHASE 44 — ordered failover list for TTS (comma-separated). Preview TTS
+   *  models carry small per-model quotas and can 429/503 mid-afternoon; every
+   *  model has its own bucket, so a fallback keeps Arabic narration alive. */
+  GEMINI_TTS_FALLBACKS: z.string().default(""),
   /** Prebuilt voice name; the model family decides which languages it covers. */
   GEMINI_TTS_VOICE: z.string().default("Kore"),
   /** Optional BCP-47 dialect hint per language (e.g. "ar-EG"). Empty = the

@@ -3,6 +3,7 @@ export type TutorIntent =
   | "exercise"
   | "hint_request"
   | "check_understanding"
+  | "answer"
   | "motivation"
   | "off_topic"
   | "admin_bypass_attempt";
@@ -37,6 +38,18 @@ const CONFUSED_PATTERNS = [/مش\s*(فاهم|فاهمة)/i, /ما\s*فهمتش/i
 
 const GREETING_PATTERNS = [/^(مرحبا|اهلا|السلام|صباح|مساء|ازيك|عامل)/i, /hi|hello|hey|salam/i];
 
+/**
+ * PHASE 44 — short answers to the tutor's pending question. A bare "9",
+ * "٥٠٠٠ جم", "نعم", "لا" or "ok" is almost always the student ANSWERING the
+ * last question, never a new question of their own. Recognised deterministically
+ * (full match only) so the tutor can verify the answer and move on instead of
+ * replying "هل تقصد أنك تريد شرحًا…" to a correct answer.
+ */
+const NUMERIC_ANSWER_PATTERN =
+  /^[+\-]?[٠-٩0-9][٠-٩0-9\s.,:،]*(?:\s*(?:كجم|جرام|جم|كيلوجرام|كيلوغرام|متر|م|سنتيمتر|سم|كيلومتر|كم|مليمتر|مم|ليتر|لتر|درجة|دقيقة|ساعة|جنيه|جنية|ريال|مرة|مرات))?[.!؟…]?$/;
+const WORD_ANSWER_PATTERN =
+  /^(?:نعم|لا|ايوه|إيوه|أيوه|أه|اه|آه|صح|مظبوط|بالظبط|أكيد|اكيد|طبعا|طبعًا|أوكي|اوكي|يس|يو|yes|no|ok|okay|yep|nope)\s*[.!؟…]?$/i;
+
 /** Rule-based, deterministic intent classification (cheap, no tokens). */
 export function classifyIntent(question: string): IntentResult {
   const text = question.trim();
@@ -52,6 +65,11 @@ export function classifyIntent(question: string): IntentResult {
   if (HINT_PATTERNS.some((p) => p.test(text))) return { intent: "hint_request", confidence: 0.85, concepts };
   if (UNDERSTAND_PATTERNS.some((p) => p.test(text))) return { intent: "check_understanding", confidence: 0.8, concepts };
   if (CONFUSED_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.8, concepts };
+  // PHASE 44 — short answers are checked after "confused" so "لا مش فاهم"
+  // stays an explanation request, and "فهمت تماماً" stays check_understanding.
+  if (NUMERIC_ANSWER_PATTERN.test(text) || WORD_ANSWER_PATTERN.test(text)) {
+    return { intent: "answer", confidence: 0.85, concepts };
+  }
   if (GREETING_PATTERNS.some((p) => p.test(text))) return { intent: "motivation", confidence: 0.9, concepts };
   if (text.length === 0) return { intent: "motivation", confidence: 1, concepts };
   return { intent: "explanation", confidence: 0.5, concepts };

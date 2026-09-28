@@ -72,7 +72,7 @@ describe("Gemini provider resilience (PHASE 42 — transient retries + honest 50
     expect(appErr.expose).toBe(true);
     expect(appErr.message).not.toContain("high demand");
     expect(appErr.meta).toMatchObject({ upstreamStatus: 503 });
-    expect(calls).toHaveLength(3);
+    expect(calls).toHaveLength(4);
   });
 
   it("never retries a deterministic failure (a retired model name stays 404)", async () => {

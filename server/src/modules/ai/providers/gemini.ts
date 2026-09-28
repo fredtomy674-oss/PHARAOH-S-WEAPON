@@ -26,8 +26,13 @@ const TRANSIENT_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
  * inside the tutor turn's own budget. Not configurable on purpose: a value
  * large enough to matter would outlive the student's patience and the request
  * timeout, and a value of 1 is what this phase exists to remove.
+ *
+ * PHASE 44 — raised to four after a REAL browser walkthrough caught a turn
+ * dying to three straight 500 "Internal error" responses from gemma (the next
+ * turn succeeded seconds later). One extra attempt (~1.6s worst case) turns
+ * that unlucky window into a normal reply instead of a failed turn.
  */
-const GEMINI_RETRY_ATTEMPTS = 3;
+const GEMINI_RETRY_ATTEMPTS = 4;
 
 /** Bounded backoff: 0.4s, 0.8s, 1.6s … capped, so a dead upstream costs ~2s. */
 function backoffMs(attempt: number): number {

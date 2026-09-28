@@ -1,6 +1,8 @@
 import { config } from "../../config/env.js";
+import { and, desc, eq } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
 import type { LearningSession, Student } from "../../db/schema.js";
+import { messages as messagesTable } from "../../db/schema.js";
 import type { AiService } from "../ai/aiService.js";
 import type { DocumentInput, ImageInput } from "../ai/types.js";
 import type { CurriculumBreadcrumb } from "../curriculum/service.js";
@@ -80,6 +82,22 @@ export class TutorEngine {
 
     // 2) Intent (cheap, no tokens).
     const intent = classifyIntent(input.question);
+    // PHASE 44 — a short answer ("9", "نعم") only makes sense against the
+    // tutor's previous question. Read the last TUTOR message (the student's
+    // new message is already committed), so the model can verify the answer
+    // and continue instead of mistaking it for a new question.
+    const isAnswerTurn = intent.intent === "answer";
+    let lastTutorQuestion: string | undefined;
+    if (isAnswerTurn) {
+      const row = await this.db.db
+        .select({ content: messagesTable.content })
+        .from(messagesTable)
+        .where(and(eq(messagesTable.sessionId, input.session.id), eq(messagesTable.role, "tutor")))
+        .orderBy(desc(messagesTable.createdAt))
+        .limit(1)
+        .get();
+      lastTutorQuestion = row?.content?.trim() || undefined;
+    }
 
     // 3) Prompt-injection tripwire — no model call, no retrieval. A student
     // file must never change the system's rules: the extracted document text
@@ -99,9 +117,13 @@ export class TutorEngine {
     // text query, so we retrieve against a neutral lesson query to keep
     // grounding (never zero).
     const hasDocument = (input.documents?.length ?? 0) > 0;
+    // PHASE 44 — when the student is answering, retrieve on the PENDING
+    // question, not on the bare answer ("9" yields no meaningful curriculum
+    // grounding; "كم ناتج 5+4" does).
+    const effectiveQuery = isAnswerTurn && lastTutorQuestion ? lastTutorQuestion : input.question.trim();
     const retrievalQuery =
-      input.question.trim().length > 0
-        ? input.question
+      effectiveQuery.length > 0
+        ? effectiveQuery
         : hasDocument
           ? "سؤال عن محتوى الملف المرفق في هذا الدرس"
           : "سؤال مصور في هذا الدرس";
@@ -145,12 +167,18 @@ export class TutorEngine {
       hasImage: (input.images?.length ?? 0) > 0,
       documents: input.documents,
       language,
+      lastQuestion: isAnswerTurn ? lastTutorQuestion : undefined,
     });
 
     const llmResponse = await this.ai.complete({
       operation: "tutor",
       messages,
       json: true,
+      // PHASE 43 hotfix — hard ceiling on the tutor reply so a verbose fallback
+      // model cannot stall the turn: 900 output tokens ≈ ~1.5 k Arabic chars,
+      // double the shorter replies the prompt now asks for, and the tolerant
+      // parser still degrades to plain text if a cap ever trims the JSON.
+      maxOutputTokens: 900,
       images: input.images,
       documents: input.documents,
       contextUserId: input.userId,
