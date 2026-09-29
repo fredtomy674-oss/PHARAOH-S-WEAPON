@@ -164,5 +164,9 @@ describe("PromptBuilder", () => {
     expect(system).toContain("يجيب الآن على سؤالك السابق");
     expect(system).toContain("«كم تساوي 5 + 4؟»");
     expect(system).toContain("لا تكرر السؤال نفسه");
+    // A "لا أعرف / لم يصل لإجابة" reply must get a hint + re-ask, never a fresh explanation.
+    expect(system).toContain("إن لم يصل إلى إجابة");
+    expect(system).toContain("تلميح بسيط");
+    expect(system).toContain("لا تبدأ شرحًا جديدًا من الصفر");
   });
 });

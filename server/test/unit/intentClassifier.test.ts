@@ -43,6 +43,33 @@ describe("classifyIntent", () => {
   it("detects greetings", () => {
     expect(classifyIntent("مرحبا يا معلم").intent).toBe("motivation");
   });
+
+  it("falls back to explanation when there is no pending question", () => {
+    // Default path: without context, unmatched sentences are new questions.
+    expect(classifyIntent("الإجابة هي 15").intent).toBe("explanation");
+    expect(classifyIntent("لا أعرف").intent).toBe("explanation");
+    expect(classifyIntent("ب").intent).toBe("explanation");
+  });
+
+  it("treats an unmatched reply as an ANSWER while the tutor's question is pending (PHASE 45)", () => {
+    const pending = { pendingQuestion: true };
+    for (const a of ["الإجابة هي 15", "ب", "لا أعرف", "مش متأكد", "٥ سم حضرتك", "أعتقد ناتج 25"]) {
+      expect(classifyIntent(a, pending).intent).toBe("answer");
+    }
+    // Explicit confusion / new requests still win over the contextful fallback.
+    expect(classifyIntent("مش فاهم", pending).intent).toBe("explanation");
+    expect(classifyIntent("أبسط لي شوية", pending).intent).toBe("explanation");
+    expect(classifyIntent("حل لي تمرين", pending).intent).toBe("exercise");
+    expect(classifyIntent("فهمت تماماً", pending).intent).toBe("check_understanding");
+    expect(classifyIntent("أعطني تلميح", pending).intent).toBe("hint_request");
+  });
+
+  it("does not swallow a brand-new student question as an answer while one is pending", () => {
+    const pending = { pendingQuestion: true };
+    expect(classifyIntent("كم يساوي 14 + 18؟", pending).intent).toBe("explanation");
+    expect(classifyIntent("ليه الناتج كده؟", pending).intent).toBe("explanation");
+    expect(classifyIntent("ممكن مثال تاني؟", pending).intent).toBe("explanation");
+  });
 });
 
 describe("extractConcepts", () => {

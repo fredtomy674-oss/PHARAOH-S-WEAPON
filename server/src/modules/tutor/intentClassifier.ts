@@ -16,6 +16,19 @@ export interface IntentResult {
   concepts: string[];
 }
 
+/**
+ * PHASE 45 — context the classifier needs to tell "an answer" apart from "a new
+ * question": when the tutor has JUST asked a question, an ordinary student reply
+ * («الإجابة هي 15», «مش متأكد», «ب») is an ANSWER to that question. Without this
+ * flag the classifier is content-only, and anything that does not match the
+ * strict patterns below falls through to `explanation` — which made the tutor
+ * keep explaining instead of verifying the answer.
+ */
+export interface ClassifyOptions {
+  /** TRUE when the tutor's most recent message was a question the student is now answering. */
+  pendingQuestion?: boolean;
+}
+
 const ADMIN_BYPASS_PATTERNS = [
   /تجاهل\s*(كل\s*)?(التعليمات|القواعد|السياق)/i,
   /امسح\s*(كل\s*)?(التعليمات|القواعد|السياق)/i,
@@ -34,6 +47,16 @@ const HINT_PATTERNS = [/تلميح/i, /هينت/i, /ساعدني/i, /عايز\s*
 
 const UNDERSTAND_PATTERNS = [/فهمت/i, /تمام\s*فهمت/i, /ماشي/i, /أوكي\s*فهمت/i, /واضح/i, /\bi\s*understand\b/i, /got it/i];
 
+/**
+ * PHASE 45 — a reply that starts with one of these is the student asking
+ * something NEW, even while the tutor's question is pending. Combined with a
+ * trailing ؟/?, this keeps the contextful fallback from swallowing fresh
+ * questions as answers.
+ */
+const QUESTION_WORD_PATTERNS = [
+  /^(كم|ما|لماذا|كيف|متى|أين|هل|ازاي|إزاي|مين|عايز|أريد|ليه|ليش|ايه|إيه)\b/i,
+];
+
 const CONFUSED_PATTERNS = [/مش\s*(فاهم|فاهمة)/i, /ما\s*فهمتش/i, /لم\s*أفهم/i, /أبسط/i, /أسهل/i, /بطريقة\s*(أخرى|ثانية|مختلفة)/i, /شرح\s*تاني/i, /مش\s*واضح/i, /i\s*(don'?t|dont)\s*understand/i, /explain\s*(again|another\s*way|differently)/i];
 
 const GREETING_PATTERNS = [/^(مرحبا|اهلا|السلام|صباح|مساء|ازيك|عامل)/i, /hi|hello|hey|salam/i];
@@ -51,7 +74,7 @@ const WORD_ANSWER_PATTERN =
   /^(?:نعم|لا|ايوه|إيوه|أيوه|أه|اه|آه|صح|مظبوط|بالظبط|أكيد|اكيد|طبعا|طبعًا|أوكي|اوكي|يس|يو|yes|no|ok|okay|yep|nope)\s*[.!؟…]?$/i;
 
 /** Rule-based, deterministic intent classification (cheap, no tokens). */
-export function classifyIntent(question: string): IntentResult {
+export function classifyIntent(question: string, opts: ClassifyOptions = {}): IntentResult {
   const text = question.trim();
   const concepts = extractConcepts(text);
 
@@ -72,6 +95,17 @@ export function classifyIntent(question: string): IntentResult {
   }
   if (GREETING_PATTERNS.some((p) => p.test(text))) return { intent: "motivation", confidence: 0.9, concepts };
   if (text.length === 0) return { intent: "motivation", confidence: 1, concepts };
+  // PHASE 45 — the contextful fallback. With a pending question, an unmatched
+  // ordinary reply is far more likely to be the student ANSWERING (a sentence
+  // answer like «الإجابة هي 15», «ب», «لا أعرف», «مش متأكد») than a brand-new
+  // question of their own, so it becomes an answer turn instead of a fresh
+  // explanation. A reply that is itself a question (starts with a question word
+  // or ends with ؟/?) is the student asking something NEW — never an answer.
+  if (opts.pendingQuestion) {
+    const isItselfAQuestion =
+      /[؟?]\s*$/.test(text) || QUESTION_WORD_PATTERNS.some((p) => p.test(text));
+    if (!isItselfAQuestion) return { intent: "answer", confidence: 0.6, concepts };
+  }
   return { intent: "explanation", confidence: 0.5, concepts };
 }
 

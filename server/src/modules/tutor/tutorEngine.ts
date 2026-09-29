@@ -80,24 +80,28 @@ export class TutorEngine {
       throw Errors.tooMany(`وصلت إلى الحد اليومي (${limit} رسالة). عد غدًا لمتابعة المذاكرة!`);
     }
 
-    // 2) Intent (cheap, no tokens).
-    const intent = classifyIntent(input.question);
-    // PHASE 44 — a short answer ("9", "نعم") only makes sense against the
-    // tutor's previous question. Read the last TUTOR message (the student's
-    // new message is already committed), so the model can verify the answer
-    // and continue instead of mistaking it for a new question.
-    const isAnswerTurn = intent.intent === "answer";
-    let lastTutorQuestion: string | undefined;
-    if (isAnswerTurn) {
-      const row = await this.db.db
-        .select({ content: messagesTable.content })
-        .from(messagesTable)
-        .where(and(eq(messagesTable.sessionId, input.session.id), eq(messagesTable.role, "tutor")))
-        .orderBy(desc(messagesTable.createdAt))
-        .limit(1)
-        .get();
-      lastTutorQuestion = row?.content?.trim() || undefined;
-    }
+    // 2) Intent (cheap, no tokens). PHASE 45 — answer recognition is
+    // CONTEXT-AWARE: the student's new message is already committed, so read the
+    // last TUTOR message and treat this turn as an ANSWER whenever the tutor has
+    // just asked a question. Without the context, sentence replies («الإجابة هي
+    // 15», «لا أعرف», «مش متأكد») fell through to `explanation` and the tutor
+    // kept explaining instead of verifying the answer.
+    const lastTutorRow = await this.db.db
+      .select({ content: messagesTable.content, kind: messagesTable.kind })
+      .from(messagesTable)
+      .where(and(eq(messagesTable.sessionId, input.session.id), eq(messagesTable.role, "tutor")))
+      .orderBy(desc(messagesTable.createdAt))
+      .limit(1)
+      .get();
+    const lastTutorMessage = lastTutorRow?.content?.trim();
+    // A question is "pending" when the previous tutor reply is tagged as a
+    // question, or (tolerant-parser fallback) simply ends with a question mark.
+    const pendingQuestion =
+      lastTutorRow !== undefined &&
+      (lastTutorRow.kind === "question" || /[؟?]\s*$/.test(lastTutorRow.content ?? ""));
+    const intent = classifyIntent(input.question, { pendingQuestion });
+    const isAnswerTurn = intent.intent === "answer" && !!lastTutorMessage;
+    const lastTutorQuestion = isAnswerTurn ? lastTutorMessage : undefined;
 
     // 3) Prompt-injection tripwire — no model call, no retrieval. A student
     // file must never change the system's rules: the extracted document text
