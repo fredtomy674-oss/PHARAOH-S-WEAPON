@@ -324,6 +324,23 @@ export async function startLessonOfSubject(page: Page, subjectLabel: string): Pr
   await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
 }
 
+/**
+ * The lesson title the room's ribbon is currently showing.
+ *
+ * The ribbon renders a «الجلسة» placeholder until the breadcrumb request
+ * resolves, so reading it the moment the room mounts is a race — it returns the
+ * placeholder and every later "did the app show the right lesson?" assertion
+ * silently compares against a placeholder. Wait for the real title instead of
+ * sleeping: if the breadcrumb genuinely fails, this times out and says so.
+ */
+export async function roomLessonTitle(page: Page): Promise<string> {
+  const title = page.getByTestId("room-lesson-title");
+  await expect(title).not.toHaveText("الجلسة", { timeout: 20_000 });
+  const text = (await title.textContent())?.trim() ?? "";
+  expect(text.length, "room ribbon showed an empty lesson title").toBeGreaterThan(0);
+  return text;
+}
+
 /** Sends a message through the real chat UI and returns the tutor bubble locator. */
 export async function sendChatMessage(
   page: Page,

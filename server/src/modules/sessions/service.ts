@@ -19,6 +19,7 @@ import type { AchievementService } from "../achievements/service.js";
 import type { SubscriptionService } from "../subscription/service.js";
 import type { DocumentInput, ImageInput } from "../ai/types.js";
 import type { CurriculumService } from "../curriculum/service.js";
+import { stageForLesson } from "../curriculum/bookStage.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import type { TutorEngine } from "../tutor/tutorEngine.js";
 import type { AuditService } from "../audit/service.js";
@@ -36,6 +37,25 @@ export interface StartSessionInput {
   gradeId: string;
   subjectId: string;
   lessonId?: string;
+}
+
+/**
+ * PHASE 48 — read back the stored page references of a tutor message.
+ *
+ * Defensive on purpose: this is text a previous process wrote. A corrupt or
+ * hand-edited row must degrade to "no page references" (a reply with no chips),
+ * never to a 500 that costs the student his whole session history.
+ */
+function parseBookPages(raw: string | null): number[] | undefined {
+  if (!raw) return undefined;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return undefined;
+    const pages = parsed.filter((n): n is number => typeof n === "number" && Number.isInteger(n) && n >= 0);
+    return pages.length > 0 ? pages : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 export class SessionService {
@@ -108,7 +128,16 @@ export class SessionService {
       list.push(attachmentSummary(a, undefined, a.ocrApplied ?? false));
       byMessage.set(a.messageId, list);
     }
-    return { session, messages: msgs.map((m) => ({ ...m, attachments: byMessage.get(m.id) ?? [] })) };
+    return {
+      session,
+      // PHASE 48 — the page references are stored with the message, so the room
+      // can rebuild the tutor's page chips for a session it re-opened.
+      messages: msgs.map((m) => ({
+        ...m,
+        attachments: byMessage.get(m.id) ?? [],
+        bookPages: parseBookPages(m.bookPages),
+      })),
+    };
   }
 
   /** The full vertical slice: user message (+optional photo/file) → tutor turn → persisted replies. */
@@ -118,6 +147,14 @@ export class SessionService {
     content?: string;
     image?: { dataUrl: string; fileName?: string };
     document?: { dataUrl: string; fileName?: string };
+    /**
+     * PHASE 48 — the printed book page the student is looking at when he
+     * sends this message (the room's stage). Lets the tutor read the same page.
+     * Validated against *this lesson's own* page range below: a client that
+     * sends page 900 gets ignored, never an error — a stale room must not be
+     * able to break the conversation.
+     */
+    bookPage?: number;
   }) {
     const session = await this.getOwned(input.sessionId, input.studentId);
     if (session.status !== "active") throw Errors.badRequest("الجلسة منتهية — ابدأ جلسة جديدة", "SESSION_ENDED");
@@ -227,6 +264,14 @@ export class SessionService {
     // PHASE 20 — the daily tutor budget is plan-derived now: free students are
     // capped by DAILY_MESSAGE_LIMIT, premium by PREMIUM_DAILY_MESSAGE_LIMIT (0 = unlimited).
     const dailyLimit = await this.subscriptions.dailyLimitFor(studentRow.id);
+    // PHASE 48 — the open page, but only a page this lesson actually owns.
+    // Silent ignore (not a 400): the room may be one turn stale, and a stale
+    // page must never block the student's question.
+    const stage = stageForLesson(breadcrumb.curriculum.code, breadcrumb.lesson.code);
+    const viewingPage =
+      stage && input.bookPage !== undefined && input.bookPage >= stage.fromBookPage && input.bookPage <= stage.toBookPage
+        ? input.bookPage
+        : undefined;
     const result = await this.tutor.handle({
       student: studentRow,
       session,
@@ -236,6 +281,7 @@ export class SessionService {
       breadcrumb,
       userId: studentRow.userId,
       dailyLimit,
+      viewingPage,
     });
 
     const kind = mapKind(result.reply);
@@ -252,6 +298,7 @@ export class SessionService {
           kind,
           content: result.reply.content,
           safetyFlag: tripwireFired ? "prompt_injection" : null,
+          bookPages: result.citedBookPages.length > 0 ? JSON.stringify(result.citedBookPages) : null,
           createdAt: new Date(),
         })
         .returning()
@@ -267,8 +314,11 @@ export class SessionService {
         ...userMessage,
         attachments: attachment ? [attachmentSummary(attachment, docInfo, ocrUsed)] : [],
       },
-      tutorMessage: tutorMessage!,
+      tutorMessage: { ...tutorMessage!, bookPages: parseBookPages(tutorMessage!.bookPages) },
       contextChunkCount: result.contextChunkCount,
+      // PHASE 48 — the pages this answer is built on, so the room can offer
+      // them as one-tap jumps on the shared stage.
+      citedBookPages: result.citedBookPages,
       remainingBudget: await this.remainingDaily(studentRow.id, userIdOf(studentRow)),
       safetyTripwire: tripwireFired,
       ocrUsed,

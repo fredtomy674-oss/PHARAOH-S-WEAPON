@@ -37,6 +37,10 @@ const messageBodySchema = {
         fileName: { type: "string", maxLength: 255 },
       },
     },
+    // PHASE 48 — the printed book page currently open on the room's stage.
+    // A plain integer, bounded: the service re-checks it against the lesson's
+    // own range, so this bound is only the first line of defence.
+    bookPage: { type: "integer", minimum: 0, maximum: 500 },
   },
 };
 
@@ -84,13 +88,14 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string } };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number };
     const result = await app.sessions.sendMessage({
       sessionId,
       studentId: auth.student.id,
       content: body.content,
       image: body.image,
       document: body.document,
+      bookPage: body.bookPage,
     });
     return reply.send(result);
   });

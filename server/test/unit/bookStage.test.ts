@@ -6,7 +6,9 @@
 import { describe, expect, it } from "vitest";
 import {
   EGYPT_G6_MATH_CURRICULUM,
+  bookPageText,
   bookPageToPdfPage,
+  bookPagesInText,
   pageImagePath,
   stageForLesson,
 } from "../../src/modules/curriculum/bookStage.js";
@@ -99,5 +101,57 @@ describe("lesson stage", () => {
     const stage = stageForLesson(EGYPT_G6_MATH_CURRICULUM, "l-con-1-1")!;
     const anyPresent = stage.pages.some((p) => p.present);
     expect(stage.hasImages).toBe(anyPresent);
+  });
+});
+
+// PHASE 48 (part 2) — the two halves of "the teacher sees the page": the pages a
+// retrieved passage came from (citations) and the text of the page on screen.
+describe("book page references", () => {
+  it("reads the pages out of retrieved passages, unique and sorted", () => {
+    // The exact shape the seeder writes into a lesson document.
+    const text = [
+      "[صفحة الكتاب 5]\nالقواسم: 1 و 2",
+      "[صفحة الكتاب 2]\nالمفهوم: قابلية القسمة",
+      "[صفحة الكتاب 5]\nالأعداد 102 و 225",
+    ].join("\n\n");
+    expect(bookPagesInText(text)).toEqual([2, 5]);
+  });
+
+  it("finds nothing in text with no page marker", () => {
+    expect(bookPagesInText("نص بلا أي إشارة إلى صفحة")).toEqual([]);
+    expect(bookPagesInText("")).toEqual([]);
+  });
+
+  it("ignores a page number outside the book instead of trusting it", () => {
+    // A hallucinated «[صفحة الكتاب 9999]» must never become a stage jump.
+    expect(bookPagesInText("[صفحة الكتاب 9999]\n...")).toEqual([]);
+    expect(bookPagesInText(`[صفحة الكتاب ${EGYPT_T1_BOOK_END + 1}]`)).toEqual([]);
+    // The unnumbered opener is page 0 and is a real page of the first lesson.
+    expect(bookPagesInText("[صفحة الكتاب 0]")).toEqual([0]);
+  });
+
+  it("keeps the opener page: it is a place the tutor may point at", () => {
+    expect(bookPagesInText("[صفحة الكتاب 0]\n[صفحة الكتاب 1]")).toEqual([0, 1]);
+  });
+});
+
+describe("the page in front of the student", () => {
+  it("returns the page's own text, without the marker that framed it", () => {
+    const text = bookPageText(1);
+    if (text.length === 0) {
+      // A deployment without the OCR corpus has no text — a supported mode.
+      expect(bookPageText(EGYPT_T1_BOOK_END + 1)).toBe("");
+      return;
+    }
+    expect(text).not.toContain("[صفحة الكتاب");
+    // The text must be the page's, not a neighbour's: the corpus is per page.
+    expect(bookPageText(2)).not.toBe(text);
+  });
+
+  it("returns nothing for a page outside the book or a non-integer", () => {
+    expect(bookPageText(-1)).toBe("");
+    expect(bookPageText(EGYPT_T1_BOOK_END + 1)).toBe("");
+    expect(bookPageText(1.5)).toBe("");
+    expect(bookPageText(Number.NaN)).toBe("");
   });
 });

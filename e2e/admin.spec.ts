@@ -3,6 +3,7 @@ import {
   DEMO_STUDENT,
   docFixture,
   login,
+  roomLessonTitle,
   selectFirst,
   selectOptionByLabel,
   sendChatMessage,
@@ -187,8 +188,7 @@ test("A6 (PHASE 34): the admin dashboard shows 14-day activity columns and the m
 
   // Start a real lesson and read the title the room's ribbon shows for it.
   await startFirstLesson(page);
-  const lessonTitle = (await page.getByTestId("room-lesson-title").textContent())?.trim() ?? "";
-  expect(lessonTitle.length).toBeGreaterThan(0);
+  const lessonTitle = await roomLessonTitle(page);
   await sendChatMessage(page, "أراجع هذا الدرس لأري لوحة نشاط المعلم");
 
   // Leave the lesson (the room asks before leaving), then switch to the admin.

@@ -154,17 +154,33 @@ export const ENGLISH_REPLY_MARKER = "I will explain this lesson in English";
 const DOC_SNIPPET_CHARS = 60;
 
 /**
- * Pulls the curriculum `<context>` block out of a system prompt. The prompt
- * builder places the real block last, but the fixed rules may mention a literal
- * "<context>" in prose before it — so we take the LAST open tag and its
- * closing tag. The "no retrieval" placeholder is treated as an empty context.
+ * Pulls the curriculum `<context>` block out of a system prompt.
+ *
+ * The prompt is prose *around* tagged blocks, and the fixed rules legitimately
+ * mention tag names in sentences. So "the last `<context>`" is not enough: a
+ * rule that mentions the tag after the real block would be read as the block
+ * (observed live in PHASE 48 — the offline tutor then claimed it had no lesson
+ * content while the block sat right there in the prompt). What identifies the
+ * block is a *matched pair*, so we walk every open tag and take the last one
+ * that actually has a closing tag after it.
+ *
+ * The "no retrieval" placeholder is treated as an empty context.
  */
 function extractContextBlock(system: string): string {
-  const open = system.lastIndexOf("<context>");
-  if (open < 0) return "";
-  const close = system.indexOf("</context>", open + "<context>".length);
-  if (close < 0) return "";
-  const ctx = system.slice(open + "<context>".length, close).trim();
+  const open = "<context>";
+  const close = "</context>";
+  let found = -1;
+  for (let at = system.indexOf(open); at >= 0; at = system.indexOf(open, at + open.length)) {
+    const end = system.indexOf(close, at + open.length);
+    if (end < 0) continue;
+    found = at;
+    // A matched pair, and nothing opens again before its own closing tag.
+    const nested = system.indexOf(open, at + open.length);
+    if (nested < 0 || nested > end) break;
+  }
+  if (found < 0) return "";
+  const end = system.indexOf(close, found + open.length);
+  const ctx = system.slice(found + open.length, end).trim();
   return ctx === "(لا يوجد محتوى مسترجع لهذا السؤال)" ? "" : ctx;
 }
 

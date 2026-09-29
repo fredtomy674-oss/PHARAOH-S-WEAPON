@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { activeSessionIds, DEMO_PARENT, login, sendChatMessage, startFirstLesson } from "./helpers.js";
+import { activeSessionIds, DEMO_PARENT, login, roomLessonTitle, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
  * PHASE 29 (D-027) — safe session recaps:
@@ -23,14 +23,10 @@ test("R1: a student views the safe recap of an ended lesson session", async ({ p
   // we target the ended row by its exact id).
   const activesBefore = await activeSessionIds(page);
   await startFirstLesson(page);
-  // The room ribbon renders a "الجلسة" placeholder until the breadcrumb loads
-  // — wait for the real lesson title so the recap assertion compares like-for-like.
   // PHASE 48: addressed by its test id, not a CSS class — the room's layout is
-  // free to change, the contract is not.
-  const lessonHeaderTitle = page.getByTestId("room-lesson-title");
-  await expect(lessonHeaderTitle).not.toHaveText("الجلسة", { timeout: 20_000 });
-  const lessonTitle = (await lessonHeaderTitle.textContent())?.trim() ?? "";
-  expect(lessonTitle.length).toBeGreaterThan(0);
+  // free to change, the contract is not. The helper also waits out the ribbon's
+  // "الجلسة" placeholder, so the recap compares like-for-like.
+  const lessonTitle = await roomLessonTitle(page);
 
   await sendChatMessage(page, R1_PROBE);
   await sendChatMessage(page, R1_SECRET);
@@ -69,10 +65,7 @@ test("R2: a parent reads the same safe recap from the session timeline", async (
   await startFirstLesson(page);
   // Wait for the real lesson title (the ribbon shows a "الجلسة" placeholder
   // until the async breadcrumb resolves).
-  const lessonHeaderTitle = page.getByTestId("room-lesson-title");
-  await expect(lessonHeaderTitle).not.toHaveText("الجلسة", { timeout: 20_000 });
-  const lessonTitle = (await lessonHeaderTitle.textContent())?.trim() ?? "";
-  expect(lessonTitle.length).toBeGreaterThan(0);
+  const lessonTitle = await roomLessonTitle(page);
   await sendChatMessage(page, R2_PROBE);
 
   page.on("dialog", (d) => void d.accept());

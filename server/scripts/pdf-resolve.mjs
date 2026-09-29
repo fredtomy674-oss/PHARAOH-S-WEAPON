@@ -1,5 +1,18 @@
 // Resolve the page tree with a balanced <<...>> dict parser; extract the main
 // JPEG scan of every page into .curriculum-pages/.
+//
+// ============================ READ THIS FIRST ============================
+// These scans are **CMYK** (4 components, Adobe transform 0). A browser renders
+// an Adobe CMYK JPEG as SOLID BLACK — measured mean luminance 0.5–16 out of
+// 255, ~100% of pixels below 100 — so the images this script writes must NEVER
+// be the ones the lesson room serves: the student would stare at dark
+// rectangles. (They read fine in a renderer that understands CMYK, which is why
+// the OCR pipeline below is still correct — Gemini's OCR reads these as-is.)
+//
+// To produce the pages the room shows, run `pdf-render-pages.mjs`: it renders
+// each *page* through pdf.js, which applies the PDF's own DeviceCMYK → RGB
+// conversion, and writes ordinary sRGB JPEGs (measured mean luminance ~160).
+// ==========================================================================
 import { mkdirSync, writeFileSync } from "node:fs";
 import { readFileSync } from "node:fs";
 

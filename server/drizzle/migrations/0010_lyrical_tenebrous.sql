@@ -1,0 +1,1 @@
+ALTER TABLE `messages` ADD `book_pages` text;

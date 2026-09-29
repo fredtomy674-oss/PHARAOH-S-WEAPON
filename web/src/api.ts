@@ -140,12 +140,22 @@ export interface Message {
   createdAt: string;
   /** Photos attached to this message (owner-loaded via attachmentUrl). */
   attachments?: MessageAttachment[];
+  /**
+   * PHASE 48 — tutor replies only: the printed textbook pages this answer was
+   * grounded in. Stored server-side, so it survives re-opening the session.
+   */
+  bookPages?: number[];
 }
 
 export interface TurnResult {
   userMessage: Message;
   tutorMessage: Message;
   contextChunkCount: number;
+  /**
+   * PHASE 48 — printed book pages this answer is grounded in, derived from the
+   * retrieved passages. The room turns them into one-tap jumps on the stage.
+   */
+  citedBookPages?: number[];
   remainingBudget: number;
   safetyTripwire: boolean;
   /** True when the attached document had no text layer and was read via OCR (PHASE 19). */
@@ -387,6 +397,12 @@ export async function sendMessage(
   content: string,
   image?: { dataUrl: string; fileName?: string },
   document?: { dataUrl: string; fileName?: string },
+  /**
+   * PHASE 48 — the page currently open on the room's stage. Sent with the turn
+   * so the tutor reads the same page the student reads (a lookup on the server,
+   * not a vision upload: no added latency).
+   */
+  bookPage?: number,
 ): Promise<TurnResult> {
   return api<TurnResult>(`/sessions/${encodeURIComponent(sessionId)}/messages`, {
     method: "POST",
@@ -394,6 +410,7 @@ export async function sendMessage(
       content,
       ...(image ? { image } : {}),
       ...(document ? { document } : {}),
+      ...(bookPage !== undefined ? { bookPage } : {}),
     },
   });
 }

@@ -6,6 +6,7 @@ import { messages as messagesTable } from "../../db/schema.js";
 import type { AiService } from "../ai/aiService.js";
 import type { DocumentInput, ImageInput, LLMMessage } from "../ai/types.js";
 import type { CurriculumBreadcrumb } from "../curriculum/service.js";
+import { bookPageText, bookPagesInText } from "../curriculum/bookStage.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
 import { classifyIntent } from "./intentClassifier.js";
@@ -26,6 +27,13 @@ export interface TutorHandleInput {
   breadcrumb: CurriculumBreadcrumb;
   userId: string;
   /**
+   * PHASE 48 — the printed textbook page the student is looking at right now
+   * (the lesson room's stage). When present the tutor reads the same page
+   * before answering, so it can point at what is physically in front of the
+   * student. The caller validates the number against the lesson's own stage.
+   */
+  viewingPage?: number;
+  /**
    * PHASE 20 — daily tutor-call allowance for this student's plan (0 = unlimited).
    * Computed by the caller from the subscription; falls back to the global config.
    */
@@ -40,6 +48,12 @@ export interface TutorHandleResult {
   usedMock: boolean;
   /** PHASE 46 — how many prompt-echo replies were regenerated this turn (0 = clean). */
   promptEchoRegens: number;
+  /**
+   * PHASE 48 — printed pages of the official book this reply is grounded in
+   * (from the retrieved chunks' `[صفحة الكتاب N]` markers). The room turns them
+   * into one-click page references on the shared stage.
+   */
+  citedBookPages: number[];
 }
 
 const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟";
@@ -143,7 +157,7 @@ export class TutorEngine {
       const effectiveIntent: ReturnType<typeof classifyIntent> = documentBypass
         ? { intent: "admin_bypass_attempt", confidence: 0.95, concepts: intent.concepts }
         : intent;
-      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens: 0 };
+      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens: 0, citedBookPages: [] };
     }
 
     // 4) Scope-guarded retrieval. Photo-only or document-only turns have no
@@ -178,6 +192,20 @@ export class TutorEngine {
     // 5) Memory snapshot (long-term).
     const memory = await this.memory.snapshot(input.student.id);
 
+    // PHASE 48 — the page the student has open. Its OCR text is the *same*
+    // corpus the retriever draws from, so "the tutor sees the page" costs no
+    // extra model call and no latency: it is a lookup, not a vision request.
+    // Validated to a real printed page of the lesson's own range by the caller.
+    const viewingPage =
+      input.viewingPage !== undefined
+        ? { bookPage: input.viewingPage, text: bookPageText(input.viewingPage) }
+        : undefined;
+
+    // PHASE 48 — citations. Every book chunk carries a `[صفحة الكتاب N]` marker
+    // written by the seeder, so the pages a reply is built on are a fact about
+    // the retrieval, not a guess the model has to make (and get wrong).
+    const citedBookPages = bookPagesInText(retrieveResult.chunks.map((c) => c.content).join("\n"));
+
     // 6) Build prompt & call provider.
     const lessonContext = {
       countryNameAr: input.breadcrumb.country.nameAr,
@@ -201,6 +229,7 @@ export class TutorEngine {
       documents: input.documents,
       language,
       lastQuestion: isAnswerTurn ? lastTutorQuestion : undefined,
+      viewingPage,
     });
 
     // PHASE 46 — prompt-mirror guard: a weak model occasionally answers a turn
@@ -257,7 +286,7 @@ export class TutorEngine {
       void this.memory.remember(input.student.id, "preference", "lesson_pace", "يفضل المتابعة بعد التأكيد", 1).catch(() => undefined);
     }
 
-    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens };
+    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages };
   }
 }
 

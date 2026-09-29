@@ -71,6 +71,13 @@
       "when": 1790416421689,
       "tag": "0009_stale_dexter_bennett",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1790704966054,
+      "tag": "0010_lyrical_tenebrous",
+      "breakpoints": true
     }
   ]
 }

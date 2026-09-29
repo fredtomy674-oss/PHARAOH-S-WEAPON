@@ -388,6 +388,15 @@ export const messages = sqliteTable(
      *  fired for this turn. Parents see the flag on the activity timeline, never
      *  the content itself. */
     safetyFlag: text("safety_flag"),
+    /**
+     * PHASE 48 — JSON array of printed textbook pages this reply was grounded
+     * in, derived from the retrieved passages' `[صفحة الكتاب N]` markers.
+     *
+     * Stored on the message (not recomputed per request) so a reopened session
+     * shows the same page references the student saw live, and so a page a tutor
+     * once used stays auditable even after the retriever changes.
+     */
+    bookPages: text("book_pages"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("messages_session_idx").on(t.sessionId)],

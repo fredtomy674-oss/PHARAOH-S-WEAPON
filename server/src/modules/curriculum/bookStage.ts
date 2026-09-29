@@ -16,7 +16,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { config } from "../../config/env.js";
-import { BOOK_TO_PDF_OFFSET, EGYPT_T1_BOOK_END, EGYPT_T1_UNITS, conceptBookRange } from "../../db/egyptT1.js";
+import { BOOK_TO_PDF_OFFSET, EGYPT_T1_BOOK_END, EGYPT_T1_UNITS, conceptBookRange, loadBookRange } from "../../db/egyptT1.js";
 
 /** The only curriculum that currently ships rasterized textbook pages. */
 export const EGYPT_G6_MATH_CURRICULUM = "eg-g6-math";
@@ -106,8 +106,8 @@ function findConcept(conceptKey: string): { unitIndex: number; conceptIndex: num
 }
 
 /**
- * The pages one lesson occupies, or null when the lesson is not a page of the
- * Egypt Grade-6 first-term book (Saudi/English trees, or a future curriculum
+ * The printed pages a lesson occupies, or null when the lesson is not a page of
+ * the Egypt Grade-6 first-term book (Saudi/English trees, or a future curriculum
  * that ships no rasterized pages).
  */
 export function stageForLesson(curriculumId: string, lessonCode: string): LessonStage | null {
@@ -136,4 +136,38 @@ export function stageForLesson(curriculumId: string, lessonCode: string): Lesson
     pages,
     hasImages: pages.some((p) => p.present),
   };
+}
+
+// ---------------------------------------------------------------------------
+// PHASE 48 (part 2) — the book as a shared surface: what the tutor *sees*.
+// ---------------------------------------------------------------------------
+
+/**
+ * The marker the seeder writes in front of every page's OCR text when it builds
+ * the lesson document (`loadBookRange`). Because the marker lives *inside* the
+ * retrieved chunk, a citation never has to be guessed by the model: the page a
+ * fact came from is a fact about the retrieval, not a guess.
+ */
+export const BOOK_PAGE_MARKER = /\[صفحة الكتاب (\d+)\]/;
+
+/** The printed pages a retrieved passage was taken from (sorted, unique). */
+export function bookPagesInText(text: string): number[] {
+  const found = new Set<number>();
+  for (const match of text.matchAll(/\[صفحة الكتاب (\d+)\]/g)) {
+    const n = Number(match[1]);
+    if (Number.isInteger(n) && n >= 0 && n <= EGYPT_T1_BOOK_END) found.add(n);
+  }
+  return [...found].sort((a, b) => a - b);
+}
+
+/**
+ * The OCR text of one printed page — literally what the student is looking at
+ * right now. Returns "" when the corpus has no text for that page, so a caller
+ * can treat "no page" and "no text" the same way.
+ */
+export function bookPageText(bookPage: number): string {
+  if (!Number.isInteger(bookPage) || bookPage < 0 || bookPage > EGYPT_T1_BOOK_END) return "";
+  return loadBookRange(bookPage, bookPage)
+    .replace(BOOK_PAGE_MARKER, "")
+    .trim();
 }

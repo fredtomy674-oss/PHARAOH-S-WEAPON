@@ -1173,6 +1173,7 @@ p {
   --room-gold: #e2b93a;
   --room-paper: #fffdf8;
   --room-line: rgba(22, 32, 46, 0.1);
+  --room-muted: #5f6b78;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -1349,6 +1350,37 @@ p {
   transform: translateY(-3px);
 }
 
+/* PHASE 48 — a page the tutor's last answer was built from: the filmstrip
+   becomes a map of the explanation, so "where is he talking from" is visible
+   without moving the student off the page he chose. */
+.room-sheet.cited::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 10px;
+  border: 2px solid var(--room-gold);
+  box-shadow: 0 0 0 3px rgba(226, 185, 58, 0.22);
+  pointer-events: none;
+}
+
+.room-sheet-mark {
+  position: absolute;
+  top: -5px;
+  inset-inline-end: -5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--room-gold);
+  box-shadow: 0 2px 5px rgba(22, 32, 46, 0.25);
+}
+
+.room-cited-note {
+  text-align: center;
+  margin: 0;
+  color: var(--room-ink);
+  opacity: 0.8;
+}
+
 .room-sheet img {
   width: 100%;
   display: block;
@@ -1375,6 +1407,58 @@ p {
 .room-stage-note {
   text-align: center;
   margin: 0;
+}
+
+/* PHASE 48 — the pages an answer came from, as places on the shared stage.
+   A chip that reads like a page corner, not a link: the book is the interface. */
+.room-refs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+}
+
+.room-refs-label {
+  font-size: 0.72rem;
+  color: var(--room-muted);
+  letter-spacing: 0.01em;
+}
+
+.room-ref {
+  font: inherit;
+  font-size: 0.74rem;
+  line-height: 1;
+  padding: 0.34rem 0.55rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--room-ink);
+  background: var(--room-paper);
+  border: 1px solid var(--room-line);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.room-ref:hover {
+  transform: translateY(-1px);
+  border-color: var(--room-teal);
+}
+
+.room-ref:focus-visible {
+  outline: 2px solid var(--room-teal-deep);
+  outline-offset: 2px;
+}
+
+/* The page the student is already on: nothing to jump to, so say so quietly. */
+.room-ref.current {
+  background: var(--room-teal);
+  border-color: var(--room-teal-deep);
+  color: #fff;
+  cursor: default;
+}
+
+.room-ref.current:hover {
+  transform: none;
 }
 
 /* A lesson with no rasterized book is a supported mode, not an error. */

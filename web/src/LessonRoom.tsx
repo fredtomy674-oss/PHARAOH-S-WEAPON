@@ -104,9 +104,9 @@ function pageLabel(bookPage: number): string {
 }
 
 /** One printed page of the book, as the room shows it. */
-function PageSheet({ bookPage, active }: { bookPage: number; active: boolean }) {
+function PageSheet({ bookPage, active, cited = false }: { bookPage: number; active: boolean; cited?: boolean }) {
   return (
-    <div className={`room-sheet${active ? " active" : ""}`}>
+    <div className={`room-sheet${active ? " active" : ""}${cited ? " cited" : ""}`}>
       <img
         src={bookPageUrl(bookPage)}
         alt={`${pageLabel(bookPage)} من كتاب الوزارة`}
@@ -115,6 +115,7 @@ function PageSheet({ bookPage, active }: { bookPage: number; active: boolean }) 
         data-testid={active ? "stage-page" : "stage-thumb"}
       />
       <span className="room-sheet-label">{bookPage === 0 ? "افتتاح" : bookPage}</span>
+      {cited && <span className="room-sheet-mark" aria-hidden="true" />}
     </div>
   );
 }
@@ -135,6 +136,8 @@ export function LessonRoom({ session, onEnded }: Props) {
   // PHASE 48 — the stage: the textbook pages this lesson occupies.
   const [stage, setStage] = useState<LessonStage | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
+  // PHASE 48 — pages the latest answer was grounded in; marked on the filmstrip.
+  const [citedPages, setCitedPages] = useState<number[]>([]);
   const [mastery, setMastery] = useState<number | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
@@ -209,6 +212,18 @@ export function LessonRoom({ session, onEnded }: Props) {
       return next;
     });
   };
+
+  /** Jump the stage to one printed page (used by the tutor's page references). */
+  const goToBookPage = useCallback(
+    (bookPage: number) => {
+      const index = pages.findIndex((p) => p.bookPage === bookPage);
+      if (index >= 0) setPageIndex(index);
+    },
+    [pages],
+  );
+
+  /** The printed page the student is looking at right now (null without a book). */
+  const openBookPage = stage?.hasImages ? (currentPage?.bookPage ?? null) : null;
 
   /**
    * PHASE 40 (D-044) — read a reply aloud with the *browser's* own voice: the
@@ -306,13 +321,22 @@ export function LessonRoom({ session, onEnded }: Props) {
     if ((!text && !image && !doc) || pending) return;
     setPending(true);
     setError(null);
+    // PHASE 48 — the open page travels with the turn, so the tutor reads the
+    // same page before answering instead of describing a page he never saw.
+    const onPage = openBookPage ?? undefined;
     try {
       const turn = doc
-        ? await sendMessage(session.id, text, undefined, { dataUrl: doc.dataUrl, fileName: doc.name })
+        ? await sendMessage(session.id, text, undefined, { dataUrl: doc.dataUrl, fileName: doc.name }, onPage)
         : image
-          ? await sendMessage(session.id, text, { dataUrl: image })
-          : await sendMessage(session.id, text);
+          ? await sendMessage(session.id, text, { dataUrl: image }, undefined, onPage)
+          : await sendMessage(session.id, text, undefined, undefined, onPage);
       setMessages((m) => [...m, turn.userMessage, turn.tutorMessage]);
+      // PHASE 48 — the pages this answer was built from. They are marked on the
+      // filmstrip instead of turning the stage for him: the student owns the
+      // page he is looking at, and the tutor's answer often *describes* the open
+      // page while citing evidence from another one — yanking the stage would
+      // contradict the very words he just read.
+      setCitedPages(turn.tutorMessage.bookPages ?? []);
       setRemaining(turn.remainingBudget);
       if (turn.safetyTripwire) setTripwire(true);
       // Only clear the composer when it still holds the text we just sent —
@@ -470,12 +494,21 @@ export function LessonRoom({ session, onEnded }: Props) {
                     aria-current={p.bookPage === currentPage.bookPage}
                     onClick={() => setPageIndex(pages.findIndex((x) => x.bookPage === p.bookPage))}
                   >
-                    <PageSheet bookPage={p.bookPage} active={p.bookPage === currentPage.bookPage} />
+                    <PageSheet
+                      bookPage={p.bookPage}
+                      active={p.bookPage === currentPage.bookPage}
+                      cited={citedPages.includes(p.bookPage)}
+                    />
                   </button>
                 ))}
               </div>
+              {citedPages.length > 0 && (
+                <p className="room-cited-note muted small" data-testid="room-cited">
+                  ✦ استند المعلّم إلى {citedPages.map(pageLabel).join("، ")} من الكتاب
+                </p>
+              )}
               <p className="room-stage-note muted small">
-                الصفحة من <strong>كتاب الوزارة</strong> — كل ما يقوله المعلّم مبنيّ عليها.
+                الصفحة من <strong>كتاب الوزارة</strong> — وكل ما يقوله المعلّم مبنيّ عليها. المعلّم يقرأ معك الصفحة المفتوحة، ويشير لك إلى الصفحة التي يريدها.
               </p>
             </>
           ) : (
@@ -565,6 +598,25 @@ export function LessonRoom({ session, onEnded }: Props) {
                     </div>
                   )}
                   <p dir="auto">{m.content}</p>
+                  {/* PHASE 48 — where this answer came from, as a place, not a
+                      footnote: one tap turns the stage to that exact page. */}
+                  {m.role === "tutor" && m.bookPages && m.bookPages.length > 0 && stage?.hasImages && (
+                    <div className="room-refs" data-testid="tutor-pages">
+                      <span className="room-refs-label">الصفحات:</span>
+                      {m.bookPages.slice(0, 4).map((p) => (
+                        <button
+                          key={p}
+                          type="button"
+                          className={`room-ref${p === openBookPage ? " current" : ""}`}
+                          aria-label={`اعرض ${pageLabel(p)}`}
+                          aria-current={p === openBookPage}
+                          onClick={() => goToBookPage(p)}
+                        >
+                          {pageLabel(p)}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                   {m.role === "tutor" && (
                     <button
                       data-testid="speak-reply"
