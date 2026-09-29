@@ -23,9 +23,11 @@ test("R1: a student views the safe recap of an ended lesson session", async ({ p
   // we target the ended row by its exact id).
   const activesBefore = await activeSessionIds(page);
   await startFirstLesson(page);
-  // The chat header renders a "الجلسة" placeholder until the breadcrumb loads
+  // The room ribbon renders a "الجلسة" placeholder until the breadcrumb loads
   // — wait for the real lesson title so the recap assertion compares like-for-like.
-  const lessonHeaderTitle = page.locator(".chat-header strong");
+  // PHASE 48: addressed by its test id, not a CSS class — the room's layout is
+  // free to change, the contract is not.
+  const lessonHeaderTitle = page.getByTestId("room-lesson-title");
   await expect(lessonHeaderTitle).not.toHaveText("الجلسة", { timeout: 20_000 });
   const lessonTitle = (await lessonHeaderTitle.textContent())?.trim() ?? "";
   expect(lessonTitle.length).toBeGreaterThan(0);
@@ -65,9 +67,9 @@ test("R2: a parent reads the same safe recap from the session timeline", async (
   // 1) The demo student runs a fresh lesson so the parent's newest session is THIS one.
   await login(page);
   await startFirstLesson(page);
-  // Wait for the real lesson title (the header shows a "الجلسة" placeholder
+  // Wait for the real lesson title (the ribbon shows a "الجلسة" placeholder
   // until the async breadcrumb resolves).
-  const lessonHeaderTitle = page.locator(".chat-header strong");
+  const lessonHeaderTitle = page.getByTestId("room-lesson-title");
   await expect(lessonHeaderTitle).not.toHaveText("الجلسة", { timeout: 20_000 });
   const lessonTitle = (await lessonHeaderTitle.textContent())?.trim() ?? "";
   expect(lessonTitle.length).toBeGreaterThan(0);

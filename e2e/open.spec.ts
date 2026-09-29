@@ -15,9 +15,13 @@ test.describe.configure({ mode: "serial" });
 test("O1 (PHASE 30): answering a seeded open question grades via the LLM with no key leak", async ({ page }) => {
   await login(page);
 
-  // 1) The plan offers the seeded open question for «تبسيط الكسور».
+  // 1) The plan offers the seeded open question for the divisibility concept.
+  // PHASE 48: the concept's official name (PHASE 47) is «قابلية القسمة والعامل
+  // المشترك الأكبر والمضاعف المشترك الأصغر»; the lesson used to be called
+  // «تبسيط الكسور». The seeded open question and its deterministic key ("2/3")
+  // are unchanged — only the printed name of the concept it belongs to.
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
-  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "تبسيط الكسور" });
+  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "قابلية القسمة" });
   await expect(row).toBeVisible({ timeout: 20_000 });
   await row.getByTestId("plan-open-practice").click();
 
@@ -45,8 +49,12 @@ test("O2 (PHASE 30): self-healing open question generation + free-text grading",
   await login(page);
 
   // A concept with no seeded open question offers «توليد سؤال مقالي».
+  // PHASE 48: the anchor is «استكشاف خط الأعداد» (l-con-1-2), a real concept of
+  // the official Ministry book (PHASE 47) that ships with no seeded open
+  // question — the exact self-healing case this test exists to cover. It used to
+  // be «الطرح مع الاستلاف», a lesson of the old hand-built tree.
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
-  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "الطرح مع الاستلاف" });
+  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "استكشاف خط الأعداد" });
   await expect(row).toBeVisible({ timeout: 20_000 });
   await row.getByTestId("plan-open-generate").click();
 

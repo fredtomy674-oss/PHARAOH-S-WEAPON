@@ -3,7 +3,7 @@ import { whoami, logout, type User, type LearningSession } from "./api.js";
 import { AuthScreen } from "./Auth.js";
 import { HomeScreen } from "./Home.js";
 import { OnboardingScreen } from "./Onboarding.js";
-import { ChatScreen } from "./Chat.js";
+import { LessonRoom } from "./LessonRoom.js";
 import { AdminScreen } from "./Admin.js";
 import { ParentScreen } from "./Parent.js";
 import { AchievementsScreen } from "./Achievements.js";
@@ -64,7 +64,7 @@ export function App() {
   }
 
   if (screen === "chat" && session) {
-    return <ChatScreen user={user} session={session} onEnded={handleSessionEnded} />;
+    return <LessonRoom user={user} session={session} onEnded={handleSessionEnded} />;
   }
 
   if (screen === "onboarding") {

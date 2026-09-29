@@ -1,16 +1,42 @@
-import { useEffect, useRef, useState } from "react";
+// PHASE 48 — «غرفة الدرس» (the lesson room).
+//
+// The session used to be a chat: bubbles, a composer, a 🔊 button per reply.
+// That is a *transport*, not a lesson. The room keeps every one of those
+// behaviours (they are the product's contract with its tests and its users) but
+// stages them like a classroom:
+//
+//   • the official textbook page is the STAGE — the page the lesson occupies,
+//     shown as the page the student can turn to, never a description of it;
+//   • a ribbon shows where the student stands in the curriculum (unit, concept,
+//     page position, mastery) — progress in the book, not a chat counter;
+//   • the AI tutor is a PRESENCE, not a human avatar: an honest, modern pulse
+//     that is thinking / speaking / listening, because this collaboration is
+//     exactly that — the student's own book plus an AI that teaches from it;
+//   • the dialogue is a CAPTION STREAM, the way a spoken lesson is captioned,
+//     so the student reads what it hears instead of scrolling a chat log.
+//
+// Every data-testid from the previous chat screen is preserved on purpose: the
+// room is a presentation change, and nothing about behaviour or accessibility
+// may regress with it.
+
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  attachmentUrl,
+  bookPageUrl,
   endSession,
   fetchSpeechAudio,
   getSession,
   lessonContext,
+  lessonStage,
+  listConcepts,
+  myProgress,
   resetSpeechAvailability,
   sendMessage,
-  attachmentUrl,
   ApiError,
   SpeechUnavailableError,
   type Breadcrumb,
   type LearningSession,
+  type LessonStage,
   type Message,
   type TutorLanguage,
   type User,
@@ -50,16 +76,53 @@ const ALLOWED_DOCUMENT_MIMES = [
   "text/markdown",
 ];
 
+/** What the tutor is doing right now — the room's atmosphere, made explicit. */
+type PresenceState = "idle" | "thinking" | "speaking" | "listening";
+
+const PRESENCE_LABEL: Record<PresenceState, string> = {
+  idle: "جاهز معك",
+  thinking: "يقرأ الكتاب…",
+  speaking: "يشرح لك",
+  listening: "يستمع إليك…",
+};
+
 interface PendingDocument {
   name: string;
   size: number;
   dataUrl: string;
 }
 
-export function ChatScreen({ session, onEnded }: Props) {
+/**
+ * How a printed page is named to the student.
+ *
+ * The book's first page of a unit is an unnumbered opening page, so it carries no
+ * printed number — calling it «صفحة 0» would send a student hunting for a "0" in
+ * their book. Every other page is named by the number printed on it.
+ */
+function pageLabel(bookPage: number): string {
+  return bookPage === 0 ? "صفحة الافتتاح" : `صفحة ${bookPage}`;
+}
+
+/** One printed page of the book, as the room shows it. */
+function PageSheet({ bookPage, active }: { bookPage: number; active: boolean }) {
+  return (
+    <div className={`room-sheet${active ? " active" : ""}`}>
+      <img
+        src={bookPageUrl(bookPage)}
+        alt={`${pageLabel(bookPage)} من كتاب الوزارة`}
+        loading="lazy"
+        decoding="async"
+        data-testid={active ? "stage-page" : "stage-thumb"}
+      />
+      <span className="room-sheet-label">{bookPage === 0 ? "افتتاح" : bookPage}</span>
+    </div>
+  );
+}
+
+export function LessonRoom({ session, onEnded }: Props) {
   const [bc, setBc] = useState<Breadcrumb["breadcrumb"] | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
   const [tutorLanguage, setTutorLanguage] = useState<TutorLanguage>("ar");
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   const [docFile, setDocFile] = useState<PendingDocument | null>(null);
@@ -69,6 +132,10 @@ export function ChatScreen({ session, onEnded }: Props) {
   const [tripwire, setTripwire] = useState(false);
   const [listening, setListening] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  // PHASE 48 — the stage: the textbook pages this lesson occupies.
+  const [stage, setStage] = useState<LessonStage | null>(null);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [mastery, setMastery] = useState<number | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const docRef = useRef<HTMLInputElement | null>(null);
@@ -87,6 +154,21 @@ export function ChatScreen({ session, onEnded }: Props) {
         setTutorLanguage(replyLanguage);
       })
       .catch(() => undefined);
+    // The stage is optional by design: a lesson with no rasterized book must
+    // still open, as a text-only room.
+    lessonStage(session.lessonId)
+      .then(setStage)
+      .catch(() => setStage(null));
+    // The ribbon's mastery chip: the concept this lesson teaches, and how much
+    // of it the student already owns. Both are best-effort decoration.
+    Promise.all([listConcepts(session.lessonId), myProgress()])
+      .then(([concepts, progress]) => {
+        const conceptId = concepts[0]?.id;
+        if (!conceptId) return;
+        const found = progress.mastery.find((m) => m.conceptId === conceptId);
+        if (found) setMastery(Math.round(found.mastery));
+      })
+      .catch(() => undefined);
     getSession(session.id)
       .then((res) => {
         setMessages(res.messages);
@@ -99,7 +181,7 @@ export function ChatScreen({ session, onEnded }: Props) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, pending]);
 
-  // Stop any voice activity when leaving the chat room.
+  // Stop any voice activity when leaving the room.
   useEffect(
     () => () => {
       stopSpeaking();
@@ -107,6 +189,26 @@ export function ChatScreen({ session, onEnded }: Props) {
     },
     [],
   );
+
+  const presence: PresenceState = listening ? "listening" : speaking ? "speaking" : pending ? "thinking" : "idle";
+
+  const pages = stage?.pages ?? [];
+  const currentPage = pages[pageIndex];
+  // The lesson's pages as a filmstrip: a peek at the whole span, so the
+  // student can see where they are inside the concept.
+  const filmstrip = useMemo(() => {
+    if (pages.length <= 6) return pages;
+    const start = Math.min(Math.max(pageIndex - 2, 0), pages.length - 5);
+    return pages.slice(start, start + 5);
+  }, [pages, pageIndex]);
+
+  const step = (delta: number) => {
+    setPageIndex((prev) => {
+      const next = prev + delta;
+      if (next < 0 || next >= pages.length) return prev;
+      return next;
+    });
+  };
 
   /**
    * PHASE 40 (D-044) — read a reply aloud with the *browser's* own voice: the
@@ -266,11 +368,11 @@ export function ChatScreen({ session, onEnded }: Props) {
     reader.readAsDataURL(file);
   };
 
-  const formatSize = (bytes: number): string => {
+  const formatSize = useCallback((bytes: number): string => {
     if (bytes < 1024) return `${bytes} بايت`;
     if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} كيلوبايت`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} ميجابايت`;
-  };
+  }, []);
 
   const end = async () => {
     if (!window.confirm("إنهاء الجلسة والانتقال للرئيسية؟")) return;
@@ -285,110 +387,217 @@ export function ChatScreen({ session, onEnded }: Props) {
   const b = bc;
 
   return (
-    <div className="chat-layout">
-      <header className="chat-header">
-        <div>
-          <strong>{b ? b.lesson.title : "الجلسة"}</strong>
-          {b && (
-            <span className="muted small">
-              {b.country.nameAr} • {b.system.nameAr} • {b.grade.nameAr} • {b.subject.nameAr} — {b.unit.title}
-            </span>
-          )}
-          {/* PHASE 38/D-042 — say out loud which language the tutor will use, so a
-              student in a language curriculum is not surprised by the reply. */}
+    <div className="room" data-testid="room">
+      {/* ---- the ribbon: where the student stands in the book ---- */}
+      <header className="room-ribbon" data-testid="room-ribbon">
+        <div className="room-ribbon-where">
+          <strong data-testid="room-lesson-title">{b ? b.lesson.title : "الجلسة"}</strong>
+          <span className="muted small">
+            {b ? `${b.grade.nameAr} • ${b.subject.nameAr} — ${b.unit.title}` : ""}
+          </span>
+          {/* PHASE 38/D-042 — say out loud which language the tutor will use, so
+              a student in a language curriculum is not surprised by the reply. */}
           {b && (
             <span className="lang-chip" data-testid="tutor-language">
               {tutorLanguage === "en" ? "🗽 الشرح بالإنجليزية" : "🗿 الشرح بالعربية"}
             </span>
           )}
         </div>
-        <div className="row-gap">
+        <div className="room-ribbon-facts">
+          {stage && stage.hasImages && currentPage && (
+            <span className="room-fact" data-testid="room-page-fact">
+              📖 {pageLabel(currentPage.bookPage)} من {stage.toBookPage}
+            </span>
+          )}
+          {mastery !== null && (
+            <span className="room-fact" data-testid="room-mastery">
+              ✦ إتقانك {mastery}%
+            </span>
+          )}
           {remaining !== null && (
-            <span data-testid="remaining-budget" className="muted small">
+            <span data-testid="remaining-budget" className="room-fact">
               متبقي اليوم: {remaining}
             </span>
           )}
           <button data-testid="end-session" className="btn small ghost" onClick={end}>
-            إنهاء الجلسة
+            إنهاء الحصة
           </button>
         </div>
       </header>
 
-      <main className="chat-body">
-        {tripwire && (
-          <div data-testid="notice-tripwire" className="notice">
-            🛡️ محتوى مخالف أُوقف تلقائيًا — أبقِ أسئلتك ضمن درسنا.
-          </div>
-        )}
-        {error && (
-          <div data-testid="chat-error" className="notice error" role="alert">
-            {error}
-          </div>
-        )}
-
-        <div className="messages" data-testid="messages">
-          {messages.length === 0 && (
-            <p className="muted center">
-              مرحبًا بك! اسألني عن أي شيء في درسنا — مثلًا: «اشرح لي الجمع مع إعادة التجميع».
-            </p>
-          )}
-          {messages.map((m) => (
-            <div
-              key={m.id}
-              className={`msg ${m.role === "user" ? "mine" : "theirs"}`}
-              data-testid={m.role === "user" ? "msg-user" : "msg-tutor"}
-            >
-              <div className="bubble">
-                {m.kind !== "safety" && KIND_LABEL[m.kind] && <span className="kind-tag">{KIND_LABEL[m.kind]}</span>}
-                {m.attachments && m.attachments.length > 0 && (
-                  <div className="bubble-attachments">
-                    {m.attachments.map((a) =>
-                      a.mimeType.startsWith("image/") ? (
-                        <img
-                          key={a.id}
-                          data-testid="msg-attachment"
-                          className="bubble-image"
-                          src={attachmentUrl(m.sessionId, a.id)}
-                          alt="صورة السؤال المرفق"
-                        />
-                      ) : (
-                        <span key={a.id} data-testid="msg-document" className="bubble-document" title={a.mimeType}>
-                          📄 {a.fileName ?? "ملف مرفق"} <small>({formatSize(a.sizeBytes)})</small>
-                          {a.ocr && (
-                            <span className="ocr-badge" data-testid="msg-ocr-badge">
-                              🖨️ نص ممسوح ضوئيًا — قُرئ تلقائيًا
-                            </span>
-                          )}
-                        </span>
-                      ),
-                    )}
-                  </div>
-                )}
-                <p dir="auto">{m.content}</p>
-                {m.role === "tutor" && (
-                  <button
-                    data-testid="speak-reply"
-                    type="button"
-                    className="btn small speak-btn"
-                    aria-label="الاستماع إلى الرد"
-                    onClick={() => void speak(m)}
-                  >
-                    🔊 استمع
-                  </button>
-                )}
+      <div className="room-body">
+        {/* ---- the stage: the official page this lesson occupies ---- */}
+        <section className="room-stage" data-testid="book-stage">
+          {stage?.hasImages && currentPage ? (
+            <>
+              <div className="room-page">
+                <img
+                  src={bookPageUrl(currentPage.bookPage)}
+                  alt={`${pageLabel(currentPage.bookPage)} من كتاب الوزارة`}
+                  data-testid="stage-image"
+                />
               </div>
-            </div>
-          ))}
-          {pending && (
-            <div className="msg theirs" data-testid="typing">
-              <div className="bubble typing">يكتب…</div>
+              <div className="room-stage-nav">
+                <button
+                  data-testid="stage-prev"
+                  className="btn small ghost"
+                  aria-label="الصفحة السابقة"
+                  disabled={pageIndex === 0}
+                  onClick={() => step(-1)}
+                >
+                  ›
+                </button>
+                <span className="room-stage-count" data-testid="stage-position">
+                  {pageLabel(currentPage.bookPage)} · إلى {stage.toBookPage}
+                </span>
+                <button
+                  data-testid="stage-next"
+                  className="btn small ghost"
+                  aria-label="الصفحة التالية"
+                  disabled={pageIndex >= pages.length - 1}
+                  onClick={() => step(1)}
+                >
+                  ‹
+                </button>
+              </div>
+              <div className="room-filmstrip" data-testid="stage-filmstrip">
+                {filmstrip.map((p) => (
+                  <button
+                    key={p.bookPage}
+                    type="button"
+                    className="room-thumb"
+                    aria-label={`اذهب إلى صفحة ${p.bookPage}`}
+                    aria-current={p.bookPage === currentPage.bookPage}
+                    onClick={() => setPageIndex(pages.findIndex((x) => x.bookPage === p.bookPage))}
+                  >
+                    <PageSheet bookPage={p.bookPage} active={p.bookPage === currentPage.bookPage} />
+                  </button>
+                ))}
+              </div>
+              <p className="room-stage-note muted small">
+                الصفحة من <strong>كتاب الوزارة</strong> — كل ما يقوله المعلّم مبنيّ عليها.
+              </p>
+            </>
+          ) : (
+            <div className="room-no-book" data-testid="stage-absent">
+              <div className="room-no-book-icon" aria-hidden="true">
+                📘
+              </div>
+              <p>
+                <strong>{b ? b.lesson.title : "الدرس"}</strong>
+              </p>
+              <p className="muted small">
+                {stage
+                  ? "صور الكتاب غير متاحة على هذا الجهاز — الشرح نصّي من محتوى الكتاب."
+                  : "هذا الدرس لا يُعرض من كتاب مطبوع — الشرح نصّي."}
+              </p>
             </div>
           )}
-          <div ref={bottomRef} />
-        </div>
-      </main>
+        </section>
 
-      <footer className="chat-footer">
+        {/* ---- the dialogue: a live caption stream, plus the tutor's presence ---- */}
+        <section className="room-live">
+          <div className="room-presence" data-testid="room-presence" data-state={presence}>
+            <div className="room-orb" data-testid="presence-orb" data-state={presence} aria-hidden="true">
+              <span className="room-orb-core" />
+              <span className="room-orb-ring" />
+            </div>
+            <div className="room-presence-text">
+              <strong>معلّمك الذكي</strong>
+              <span className="muted small" data-testid="presence-state">
+                {PRESENCE_LABEL[presence]}
+              </span>
+            </div>
+            <p className="room-presence-why muted small">
+              ذكي + كتابك + معلّمك البشري — نتعلّم معًا.
+            </p>
+          </div>
+
+          {tripwire && (
+            <div data-testid="notice-tripwire" className="notice">
+              🛡️ محتوى مخالف أُوقف تلقائيًا — أبقِ أسئلتك ضمن درسنا.
+            </div>
+          )}
+          {error && (
+            <div data-testid="chat-error" className="notice error" role="alert">
+              {error}
+            </div>
+          )}
+
+          <div className="room-captions" data-testid="messages">
+            {messages.length === 0 && (
+              <p className="muted center room-captions-empty">
+                {stage?.hasImages
+                  ? "ابدأ الحصة: اسأل بصوتك أو اكتب سؤالك — كل إجابة مبنيّة على صفحة الكتاب المفتوحة."
+                  : "ابدأ الحصة: اسألني عن أي شيء في درسنا."}
+              </p>
+            )}
+            {messages.map((m) => (
+              <div
+                key={m.id}
+                className={`room-caption ${m.role === "user" ? "mine" : "theirs"}`}
+                data-testid={m.role === "user" ? "msg-user" : "msg-tutor"}
+              >
+                <div className="room-caption-body">
+                  {m.kind !== "safety" && KIND_LABEL[m.kind] && <span className="kind-tag">{KIND_LABEL[m.kind]}</span>}
+                  {m.attachments && m.attachments.length > 0 && (
+                    <div className="bubble-attachments">
+                      {m.attachments.map((a) =>
+                        a.mimeType.startsWith("image/") ? (
+                          <img
+                            key={a.id}
+                            data-testid="msg-attachment"
+                            className="bubble-image"
+                            src={attachmentUrl(m.sessionId, a.id)}
+                            alt="صورة السؤال المرفق"
+                          />
+                        ) : (
+                          <span key={a.id} data-testid="msg-document" className="bubble-document" title={a.mimeType}>
+                            📄 {a.fileName ?? "ملف مرفق"} <small>({formatSize(a.sizeBytes)})</small>
+                            {a.ocr && (
+                              <span className="ocr-badge" data-testid="msg-ocr-badge">
+                                🖨️ نص ممسوح ضوئيًا — قُرئ تلقائيًا
+                              </span>
+                            )}
+                          </span>
+                        ),
+                      )}
+                    </div>
+                  )}
+                  <p dir="auto">{m.content}</p>
+                  {m.role === "tutor" && (
+                    <button
+                      data-testid="speak-reply"
+                      type="button"
+                      className="btn small speak-btn"
+                      aria-label="الاستماع إلى الرد"
+                      onClick={() => void speak(m)}
+                    >
+                      🔊 استمع
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+            {pending && (
+              <div className="room-caption theirs" data-testid="typing">
+                <div className="room-caption-body typing">
+                  <span className="room-typing-dots" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                  يقرأ الكتاب ويكتب…
+                </div>
+              </div>
+            )}
+            <div ref={bottomRef} />
+          </div>
+        </section>
+      </div>
+
+      {/* ---- the composer: the only place the student acts ---- */}
+      <footer className="room-footer">
         <div className="quick-row">
           <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅", null, null, false)}>
             فهمت
@@ -482,7 +691,7 @@ export function ChatScreen({ session, onEnded }: Props) {
             aria-label="رسالتك"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="اكتب سؤالك هنا…"
+            placeholder="اسأل معلمك…"
             maxLength={4000}
             autoFocus
           />

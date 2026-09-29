@@ -38,8 +38,9 @@ test("journey: login → lesson → RAG tutor reply → re-explain → end → p
   const activesBefore = await activeSessionIds(page);
   await startFirstLesson(page);
 
-  // 4) Chat room open; lesson title shown
-  const lessonTitle = (await page.locator(".chat-header strong").textContent())?.trim() ?? "";
+  // 4) Lesson room open; lesson title shown (PHASE 48: addressed by test id,
+  // so the room's layout can keep evolving without breaking the journey).
+  const lessonTitle = (await page.getByTestId("room-lesson-title").textContent())?.trim() ?? "";
   expect(lessonTitle.length).toBeGreaterThan(0);
 
   // 5) First question through the real UI.

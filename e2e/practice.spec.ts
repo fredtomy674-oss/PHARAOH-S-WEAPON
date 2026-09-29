@@ -99,20 +99,46 @@ test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمر�
 });
 
 /**
- * PR4 (PHASE 28): A5 delivered the admin-generated «مقارنة الكسور» question —
- * the concept that shipped with zero seeded questions. The student now sees a
- * "تمرّن الآن" button on that plan row, gets the grounded generated stem
- * («أي العبارات التالية وردت في الدرس»), and answering tracks the concept in
- * إتقان المفاهيم after a reload.
+ * PR4 (PHASE 28; re-anchored in PHASE 48): the concept that ships with zero
+ * seeded questions. Its plan row offers generate-on-demand, the grounded
+ * generated stem («أي العبارات التالية وردت في الدرس») lands in the practice
+ * panel, and answering tracks the concept in إتقان المفاهيم after a reload.
+ *
+ * PHASE 48: the anchor concept used to be «مقارنة الكسور», a lesson of the old
+ * hand-built tree. PHASE 47 replaced Egypt's tree with the official Ministry
+ * textbook, so that lesson no longer exists — the test now anchors on
+ * «التعبيرات الرياضية» (استخدام التعبيرات الرياضية وتحليلها), a real concept of
+ * the official book that still ships with no seeded question, i.e. the exact
+ * case this test exists to cover. Testing a concept the book does not contain
+ * would have let the whole PHASE 28 feature rot unnoticed.
+ *
+ * It is also now *self-sufficient*: the old flow leaned on admin.spec's A5
+ * having generated a question for the anchor concept in the shared E2E database,
+ * so `plan-practice` was only reachable thanks to cross-file ordering. It now
+ * drives whichever primary action the row offers (generate-on-demand, or the
+ * ready-to-practice button admin's bulk pass may have created), so it proves the
+ * generate → practise → mastery chain on its own in either ordering.
  */
-test("PR4 (PHASE 28): the student practices the admin-generated question for مقارنة الكسور", async ({ page }) => {
+test("PR4 (PHASE 28): the student reaches a grounded question for التعبيرات الرياضية and is tracked", async ({ page }) => {
   await login(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
 
-  // The previously questionless concept now offers its generated question.
-  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "مقارنة الكسور" });
+  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "التعبيرات الرياضية" });
   await expect(row).toBeVisible({ timeout: 20_000 });
-  await row.getByTestId("plan-practice").click();
+
+  // The concept ships with zero seeded questions, so the row's primary action is
+  // generate-on-demand. A *full-suite* run may have had admin.spec's A5 bulk-fill
+  // that gap first (it generates coverage for the same curriculum), in which case
+  // the row offers the ready-to-practice action instead. Both are legitimate, so
+  // this asserts the invariant that actually matters — exactly one primary action
+  // — and then drives whichever one the row is offering.
+  const gap = row.getByTestId("plan-generate");
+  const ready = row.getByTestId("plan-practice");
+  const actions = (await gap.count()) + (await ready.count());
+  expect(actions, "expected exactly one primary practice action on the plan row").toBe(1);
+  await (actions === 1 && (await gap.count()) === 1 ? gap : ready).click();
+
+  // The grounded stem (generated on demand, or already delivered) lands in the panel.
   await expect(page.getByTestId("practice-panel")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("practice-question")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("practice-question")).toContainText("أي العبارات التالية وردت في الدرس");
@@ -122,10 +148,10 @@ test("PR4 (PHASE 28): the student practices the admin-generated question for م�
   await page.getByTestId("practice-submit").click();
   await expect(page.getByTestId("practice-feedback")).toBeVisible({ timeout: 20_000 });
 
-  // Reload: مقارنة الكسور is now tracked in the mastery summary.
+  // Reload: the concept is now tracked in the mastery summary.
   await page.reload();
   await expect(page.getByTestId("mastery-section")).toBeVisible({ timeout: 20_000 });
-  await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "مقارنة الكسور" })).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "التعبيرات الرياضية" })).toBeVisible({ timeout: 20_000 });
 });
 
 /**

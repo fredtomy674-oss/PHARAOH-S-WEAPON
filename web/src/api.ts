@@ -308,6 +308,11 @@ export async function listLessons(unitId: string): Promise<Lesson[]> {
   return res.lessons;
 }
 
+export async function listConcepts(lessonId: string): Promise<Concept[]> {
+  const res = await api<{ concepts: Concept[] }>(`/curriculum/lessons/${encodeURIComponent(lessonId)}/concepts`);
+  return res.concepts;
+}
+
 export async function lessonBreadcrumb(lessonId: string): Promise<Breadcrumb["breadcrumb"]> {
   const res = await api<Breadcrumb>(`/curriculum/lessons/${encodeURIComponent(lessonId)}/breadcrumb`);
   return res.breadcrumb;
@@ -325,6 +330,42 @@ export async function lessonContext(lessonId: string): Promise<{
 }> {
   const res = await api<Breadcrumb>(`/curriculum/lessons/${encodeURIComponent(lessonId)}/breadcrumb`);
   return { breadcrumb: res.breadcrumb, replyLanguage: res.replyLanguage ?? "ar" };
+}
+
+// --- PHASE 48 — «مسرح الكتاب» ------------------------------------------------
+
+export interface BookStagePage {
+  /** Printed page number as it appears on the paper. */
+  bookPage: number;
+  /** Scan/PDF page the image came from. */
+  pdfPage: number;
+  /** False when this deployment has no rasterized pages. */
+  present: boolean;
+}
+
+/**
+ * The printed pages a lesson occupies in the official textbook. `null` for a
+ * curriculum that ships no pages — the room then teaches text-only, which is a
+ * supported mode, not a degraded one.
+ */
+export interface LessonStage {
+  curriculumId: string;
+  lessonCode: string;
+  conceptKey: string;
+  fromBookPage: number;
+  toBookPage: number;
+  pages: BookStagePage[];
+  hasImages: boolean;
+}
+
+export async function lessonStage(lessonId: string): Promise<LessonStage | null> {
+  const res = await api<{ stage: LessonStage | null }>(`/curriculum/lessons/${encodeURIComponent(lessonId)}/stage`);
+  return res.stage;
+}
+
+/** URL of one printed textbook page image (a GET, so the cookie is enough). */
+export function bookPageUrl(bookPage: number): string {
+  return `/api/curriculum/book-pages/${encodeURIComponent(String(bookPage))}.jpg`;
 }
 
 export async function startSession(input: { curriculumId: string; gradeId: string; subjectId: string; lessonId: string }): Promise<LearningSession> {
