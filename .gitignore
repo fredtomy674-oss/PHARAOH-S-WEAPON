@@ -18,7 +18,10 @@ server/drizzle/meta/0000_snapshot.json
 *.sqlite
 *.sqlite3
 *.db
-server/data/
+server/data/*
+# The official imported curriculum text (from the Ministry PDF) is authoritative
+# source, not runtime state — keep it under version control.
+!server/data/curriculum-ocr/
 server/uploads/
 web/uploads/
 
@@ -31,6 +34,16 @@ npm-debug.log*
 playwright-report/
 test-results/
 e2e/.last-demo-session.json
+
+# PHASE 47 dev-time artifacts — transient probes, extracted page JPEGs and logs
+# under server/scripts (the committed pipeline lives in tracked .mjs files).
+server/scripts/.*
+server/scripts/pdf-debug.mjs
+server/scripts/pdf-extract-pages.mjs
+server/scripts/pdf-inspect.mjs
+server/scripts/pdf-probe.mjs
+server/scripts/pdf-scan.mjs
+server/scripts/ocr-probe.mjs
 
 # OS / editor
 .DS_Store

@@ -4,10 +4,10 @@ import { AiService } from "../modules/ai/aiService.js";
 import { createVectorStore } from "../modules/rag/factory.js";
 import type { CurriculumScope } from "../modules/rag/types.js";
 import { openDbAndMigrate } from "./index.js";
-import { chunks } from "./schema.js";
+import { chunks, ragVectors } from "./schema.js";
 
 /** Chunks sent per provider call — bounds one request's payload. */
-const BATCH_SIZE = 16;
+const BATCH_SIZE = 4;
 
 interface ChunkRow {
   id: string;
@@ -22,6 +22,33 @@ interface ChunkRow {
   lessonId: string | null;
 }
 
+const delay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * A single batch's embed call, retried with generous backoff on upstream
+ * pressure (the free tier resets its request quota within seconds-to-minutes,
+ * so a wide pause almost always clears it). The embedding provider issues one
+ * HTTP request PER TEXT, so a small BATCH_SIZE keeps each call inside the
+ * throttle window. Re-posting an embed batch is idempotent at the store level,
+ * and the batch is tiny, so retrying is cheap.
+ */
+async function embedBatchWithBackoff(
+  ai: AiService,
+  texts: string[],
+  batchNumber: number,
+): Promise<Awaited<ReturnType<AiService["embed"]>>> {
+  const maxAttempts = 8;
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      return await ai.embed({ texts });
+    } catch (err) {
+      if (attempt >= maxAttempts) throw err;
+      console.log(`  batch ${batchNumber} upstream pressure (attempt ${attempt}/${maxAttempts}) — cooling ${15 * attempt}s`);
+      await delay(15_000 * attempt); // 15s → 120s; wide enough for quota resets
+    }
+  }
+}
+
 /**
  * Re-embeds every existing knowledge chunk with the CURRENTLY configured
  * embedding provider.
@@ -34,8 +61,11 @@ interface ChunkRow {
  * this after the switch rewrites every vector in the new dimension.
  *
  * Safe to re-run: the store upserts by chunk id, so the result is idempotent.
- * The seeder deliberately never re-embeds (it is mock-only and idempotent), so
- * this is the single entry point for "I changed the provider" work.
+ * Incremental: chunks whose stored vector already matches the current provider's
+ * model are skipped, so a quota-capped run resumes instead of redoing the whole
+ * corpus. The seeder deliberately never re-embeds (it is mock-only and
+ * idempotent), so this is the single entry point for "I changed the provider"
+ * work.
  */
 async function main(): Promise<void> {
   const db = openDbAndMigrate();
@@ -53,14 +83,30 @@ async function main(): Promise<void> {
   if (config.AI_EMBEDDING_PROVIDER === "mock") {
     console.warn("AI_EMBEDDING_PROVIDER=mock → the vectors stay deterministic stand-ins. Set it to gemini for real retrieval.");
   }
-  console.log(`Re-embedding ${rows.length} chunk(s) via ${ai.providers.embeddings.id} into ${config.VECTOR_STORE}…`);
+
+  // Incremental & resumable: skip chunks whose stored vector ALREADY matches
+  // the model the current provider will produce (the seeder writes mock rows,
+  // so a quota-capped first run only tops up what is still mock — and re-runs
+  // after a partial run finish the remainder instead of redoing everything).
+  const expectedModel = config.AI_EMBEDDING_PROVIDER === "gemini" ? config.GEMINI_EMBEDDING_MODEL : "mock-hash-64";
+  const stored = new Map((await db.db.select().from(ragVectors)).map((v) => [v.chunkId, v.embeddingModel]));
+  const todo = rows.filter((row) => stored.get(row.id) !== expectedModel);
+  if (todo.length === 0) {
+    console.log(`Nothing to re-embed — all ${rows.length} chunk(s) already carry ${expectedModel} vectors.`);
+    db.sqlite.close();
+    return;
+  }
+  console.log(`Re-embedding ${todo.length} of ${rows.length} chunk(s) via ${ai.providers.embeddings.id} (skipping ${rows.length - todo.length} already-${expectedModel}) into ${config.VECTOR_STORE}…`);
 
   let done = 0;
   let lastModel = "";
   let dim = 0;
-  for (let start = 0; start < rows.length; start += BATCH_SIZE) {
-    const batch = rows.slice(start, start + BATCH_SIZE);
-    const result = await ai.embed({ texts: batch.map((row) => row.content) });
+  for (let start = 0; start < todo.length; start += BATCH_SIZE) {
+    const batch = todo.slice(start, start + BATCH_SIZE);
+    // Free-tier embedding quotas throttle with short recovery windows; a wide
+    // escalating pause turns a transient 429 into a few seconds of waiting
+    // instead of aborting the whole re-run (which is idempotent either way).
+    const result = await embedBatchWithBackoff(ai, batch.map((row) => row.content), start / BATCH_SIZE + 1);
     lastModel = result.model;
     for (let i = 0; i < batch.length; i++) {
       const vector = result.vectors[i];
@@ -70,7 +116,7 @@ async function main(): Promise<void> {
       await vectorStore.upsert({ chunkId: row.id, embedding: vector, model: result.model, scope: scopeOf(row) });
     }
     done += batch.length;
-    console.log(`  ${done}/${rows.length}`);
+    console.log(`  ${done}/${todo.length}`);
   }
 
   console.log(`✓ Re-embed complete — ${done} chunk(s) with ${lastModel} (dim ${dim}).`);
