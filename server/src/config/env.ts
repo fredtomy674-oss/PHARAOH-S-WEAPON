@@ -44,6 +44,14 @@ export const EnvSchema = z.object({
   SESSION_SECRET: z.string().min(1).default("dev-only-insecure-secret-change-me"),
   DB_FILE: z.string().default("./data/alfarouq.sqlite"),
   DATABASE_URL: z.string().optional(),
+  /**
+   * PHASE 48 — where the rasterized textbook pages live (`pages-NNN.jpg`, scan
+   * page numbering). They are derived from the source PDF by
+   * `server/scripts/pdf-resolve.mjs`, so they are runtime data like the SQLite
+   * file: an empty value resolves the default `data/curriculum-pages` next to
+   * the server, and a deployment without the PDF simply has no stage.
+   */
+  CURRICULUM_PAGES_DIR: z.string().default(""),
 
   AI_LLM_PROVIDER: z.enum(["mock", "gemini"]).default("mock"),
   AI_EMBEDDING_PROVIDER: z.enum(["mock", "gemini"]).default("mock"),

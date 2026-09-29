@@ -4,7 +4,10 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { readFileSync } from "node:fs";
 
 const file = process.env.PDF_PATH ?? "C:/Users/Administrator/Downloads/Math_Primary6_T1.pdf";
-const outDir = process.env.OUT_DIR ?? "./scripts/.curriculum-pages";
+// PHASE 48 — pages land in the runtime data dir the server serves them from
+// (CURRICULUM_PAGES_DIR), not next to this script: they are derived artifacts
+// of the source PDF, rebuilt from it on demand.
+const outDir = process.env.OUT_DIR ?? "./data/curriculum-pages";
 mkdirSync(outDir, { recursive: true });
 
 const bytes = readFileSync(file);
