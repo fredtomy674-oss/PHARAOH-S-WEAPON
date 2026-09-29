@@ -66,7 +66,12 @@ export const EnvSchema = z.object({
   // default is the one that kept answering. A pin that retires fails loudly at
   // the first call, never silently.
   GEMINI_LLM_MODEL: z.string().default("gemini-3.1-flash-lite-preview"),
-  GEMINI_EMBEDDING_MODEL: z.string().default("gemini-embedding-001"),
+  // PHASE 47 follow-up: gemini-embedding-001's free tier throttled the whole
+  // re-embed for a full day (embed_content_free_tier_requests, limit 1000/day),
+  // while gemini-embedding-2 (same 3072 dims — zero migration friction) kept
+  // answering. Pin the current-gen model so embedding stops being the thing
+  // that breaks first.
+  GEMINI_EMBEDDING_MODEL: z.string().default("gemini-embedding-2"),
   /** Vision-capable model used to read scanned PDF/DOCX pages (inline input). */
   GEMINI_OCR_MODEL: z.string().default("gemini-3.1-flash-lite-preview"),
   AI_ROUTING_LLM: z.string().default("default"),
