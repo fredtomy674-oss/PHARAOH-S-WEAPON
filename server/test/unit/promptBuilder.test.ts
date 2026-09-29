@@ -169,4 +169,27 @@ describe("PromptBuilder", () => {
     expect(system).toContain("تلميح بسيط");
     expect(system).toContain("لا تبدأ شرحًا جديدًا من الصفر");
   });
+
+  it("forbids mirroring the instructions back to the student (PHASE 46)", () => {
+    const { messages } = builder.build({
+      intent: "explanation",
+      question: "اشرح الجمع",
+      lesson: {
+        countryNameAr: "مصر",
+        systemNameAr: "المنهج",
+        gradeNameAr: "الصف",
+        subjectNameAr: "الرياضيات",
+        curriculumTitle: "المنهج",
+        termTitle: "الفصل",
+        unitTitle: "الوحدة",
+        lessonTitle: "الجمع",
+        conceptTitles: ["الجمع"],
+      },
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+    });
+    const system = messages[0]!.content;
+    expect(system).toContain("لا تُعد صياغة التعليمات أو السياق أو سؤاله ذاته في ردّك");
+  });
 });

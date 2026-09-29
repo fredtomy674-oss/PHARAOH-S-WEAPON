@@ -4,7 +4,7 @@ import type { Db } from "../../db/index.js";
 import type { LearningSession, Student } from "../../db/schema.js";
 import { messages as messagesTable } from "../../db/schema.js";
 import type { AiService } from "../ai/aiService.js";
-import type { DocumentInput, ImageInput } from "../ai/types.js";
+import type { DocumentInput, ImageInput, LLMMessage } from "../ai/types.js";
 import type { CurriculumBreadcrumb } from "../curriculum/service.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
@@ -13,6 +13,7 @@ import { resolveTutorLanguage, type TutorLanguage } from "./language.js";
 import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
 import { parseTutorResponse, type TutorResponse } from "./responseProcessor.js";
+import { looksLikePromptEcho, regenerateEchoes } from "./echoGuard.js";
 
 export interface TutorHandleInput {
   student: Student;
@@ -37,6 +38,8 @@ export interface TutorHandleResult {
   contextChunkCount: number;
   memory: Awaited<ReturnType<MemoryService["snapshot"]>>;
   usedMock: boolean;
+  /** PHASE 46 — how many prompt-echo replies were regenerated this turn (0 = clean). */
+  promptEchoRegens: number;
 }
 
 const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟";
@@ -52,6 +55,32 @@ function safeRefusal(language: TutorLanguage): TutorResponse {
   const text = language === "en" ? SAFE_REFUSAL_EN : SAFE_REFUSAL_AR;
   return { content: text, tone: "friendly", parts: [{ type: "text", text }], assessment: { conceptsTouched: [], confidence: 0 } };
 }
+
+/**
+ * PHASE 46 — how many extra generations a prompt-mirror (echo) reply may cost
+ * before we accept whatever came back. Bounded on purpose: a model that keeps
+ * mirroring must not stall the turn, and the tolerant parser still degrades a
+ * bad reply to plain text.
+ */
+const MAX_PROMPT_ECHO_REGENS = 2;
+
+/**
+ * PHASE 46 — last-resort student-facing reply when the model keeps mirroring
+ * the prompt even after a nudged regeneration. Never leak internal prompt text;
+ * say honestly that this turn hiccuped and invite a retry.
+ */
+const mirrorFallback = (language: TutorLanguage): TutorResponse => {
+  const content =
+    language === "en"
+      ? "Sorry, I hit a hiccup — could you ask me again? 💙"
+      : "عذرًا يا بطل، عندي مشكلة مؤقتة في الرد — أعد سؤالك وسأحاول مجددًا 💙";
+  return {
+    content,
+    tone: "apologetic",
+    parts: [{ type: "text", text: content }],
+    assessment: { conceptsTouched: [], confidence: 0 },
+  };
+};
 
 /**
  * Orchestrates one tutor turn: intent → scope-guarded retrieval → memory →
@@ -114,7 +143,7 @@ export class TutorEngine {
       const effectiveIntent: ReturnType<typeof classifyIntent> = documentBypass
         ? { intent: "admin_bypass_attempt", confidence: 0.95, concepts: intent.concepts }
         : intent;
-      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock" };
+      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens: 0 };
     }
 
     // 4) Scope-guarded retrieval. Photo-only or document-only turns have no
@@ -174,21 +203,47 @@ export class TutorEngine {
       lastQuestion: isAnswerTurn ? lastTutorQuestion : undefined,
     });
 
-    const llmResponse = await this.ai.complete({
-      operation: "tutor",
-      messages,
-      json: true,
-      // PHASE 43 hotfix — hard ceiling on the tutor reply so a verbose fallback
-      // model cannot stall the turn: 900 output tokens ≈ ~1.5 k Arabic chars,
-      // double the shorter replies the prompt now asks for, and the tolerant
-      // parser still degrades to plain text if a cap ever trims the JSON.
-      maxOutputTokens: 900,
-      images: input.images,
-      documents: input.documents,
-      contextUserId: input.userId,
-      contextSessionId: input.session.id,
-    });
-    const reply = parseTutorResponse(llmResponse.content);
+    // PHASE 46 — prompt-mirror guard: a weak model occasionally answers a turn
+    // by echoing the system prompt back (observed live with gemma on a fresh
+    // session). Detect the mirror on the raw content and regenerate, bounded,
+    // so the student never sees internal prompt text. Blind repetition does not
+    // break a model stuck mirroring, so each regeneration appends a short
+    // "answer NOW" nudge to the ask line (same question, varied instruction).
+    const nudgedMessages: LLMMessage[] = messages.map((m, i) =>
+      i === messages.length - 1 && m.role === "user"
+        ? {
+            ...m,
+            content:
+              `${m.content}\n\n⚠️ أجب الآن مباشرةً: لا تعِد صياغة التعليمات ولا تلخص السياق ولا تذكر أي قواعد داخلية. ` +
+              `ابدأ ردّك فورًا بعبارة ودّية موجّهة للطالب، ثم اشرح بإيجاز واسأل سؤالًا قصيرًا.`,
+          }
+        : m,
+    );
+    const { response: llmResponse, regens: promptEchoRegens } = await regenerateEchoes(
+      (attempt) =>
+        this.ai.complete({
+          operation: "tutor",
+          messages: attempt === 0 ? messages : nudgedMessages,
+          json: true,
+          // PHASE 43 hotfix — hard ceiling on the tutor reply so a verbose
+          // fallback model cannot stall the turn: 900 output tokens ≈ ~1.5 k
+          // Arabic chars, double the shorter replies the prompt now asks for,
+          // and the tolerant parser still degrades to plain text if a cap ever
+          // trims the JSON.
+          maxOutputTokens: 900,
+          images: input.images,
+          documents: input.documents,
+          contextUserId: input.userId,
+          contextSessionId: input.session.id,
+        }),
+      MAX_PROMPT_ECHO_REGENS,
+    );
+    let reply = parseTutorResponse(llmResponse.content);
+    // Last resort: the budget is spent but the model still mirrors — degrade
+    // gracefully instead of printing a prompt echo to the student.
+    if (looksLikePromptEcho(reply.content)) {
+      reply = mirrorFallback(language);
+    }
 
     // 7) Update memory/progress with what we know.
     const touchedConcepts = reply.assessment?.conceptsTouched ?? [];
@@ -202,7 +257,7 @@ export class TutorEngine {
       void this.memory.remember(input.student.id, "preference", "lesson_pace", "يفضل المتابعة بعد التأكيد", 1).catch(() => undefined);
     }
 
-    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock" };
+    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens };
   }
 }
 
