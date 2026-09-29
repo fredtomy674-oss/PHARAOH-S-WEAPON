@@ -415,6 +415,92 @@ export async function sendMessage(
   });
 }
 
+/**
+ * PHASE 49 — the live turn: the same request, with the reply arriving as it is
+ * written.
+ *
+ * The body is NDJSON (one JSON object per line). A network chunk may split a
+ * line anywhere, so a partial line is kept until its newline arrives — reading
+ * each chunk as a whole event is the classic way to lose the last word of a
+ * reply.
+ *
+ * Throwing is a legitimate outcome, not just a crash: the caller is expected to
+ * fall back to the buffered endpoint. That is what happens behind a proxy that
+ * buffers, on an older browser, or on any network error — the student gets the
+ * same answer, a moment later.
+ */
+export async function streamMessage(
+  sessionId: string,
+  body: { content: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number },
+  handlers: {
+    onUser?: (message: Message) => void;
+    onDelta?: (text: string) => void;
+    onDiscard?: () => void;
+  },
+): Promise<TurnResult> {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (csrfToken) headers["x-csrf-token"] = csrfToken;
+
+  const res = await fetch(`/api/sessions/${encodeURIComponent(sessionId)}/messages/stream`, {
+    method: "POST",
+    headers,
+    credentials: "same-origin",
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    // A rejected request (auth, validation) never becomes a stream — the error
+    // is a normal JSON response and must be raised as such.
+    const data = (await res.json().catch(() => null)) as { error?: { code?: string; message?: string }; csrfToken?: string } | null;
+    if (data?.csrfToken) storeCsrf(data.csrfToken);
+    throw new ApiError(data?.error?.message ?? "تعذّر بدء المحادثة", res.status, data?.error?.code ?? "STREAM_REFUSED");
+  }
+  if (!res.body) throw new Error("هذا المتصفح لا يدعم البثّ الحي");
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let pending = "";
+  let result: TurnResult | null = null;
+
+  const handle = (event: TutorStreamEvent): void => {
+    if (event.type === "user") handlers.onUser?.(event.message as Message);
+    else if (event.type === "delta") handlers.onDelta?.(event.text);
+    else if (event.type === "discard") handlers.onDiscard?.();
+    else if (event.type === "done") result = event as unknown as TurnResult;
+    else if (event.type === "error") throw new ApiError(event.message, 200, "STREAM_ERROR");
+  };
+
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      pending += decoder.decode(value, { stream: true });
+      let boundary = pending.indexOf("\n");
+      while (boundary >= 0) {
+        const line = pending.slice(0, boundary).trim();
+        pending = pending.slice(boundary + 1);
+        if (line) handle(JSON.parse(line) as TutorStreamEvent);
+        boundary = pending.indexOf("\n");
+      }
+    }
+    if (pending.trim()) handle(JSON.parse(pending.trim()) as TutorStreamEvent);
+  } finally {
+    // Leaving the reader open would keep the connection — and the turn — alive.
+    await reader.cancel().catch(() => undefined);
+  }
+
+  if (!result) throw new Error("انقطع البثّ قبل اكتمال الرد");
+  return result;
+}
+
+/** The wire shape of one line of a live turn (see `TutorStreamEvent` server-side). */
+export type TutorStreamEvent =
+  | { type: "user"; message: Message }
+  | { type: "delta"; text: string }
+  | { type: "discard" }
+  | ({ type: "done" } & TurnResult)
+  | { type: "error"; message: string };
+
 /** Browser URL to load an attachment's bytes (auth via cookie; GET-only → no CSRF). */
 export function attachmentUrl(sessionId: string, attachmentId: string): string {
   return `/api/sessions/${encodeURIComponent(sessionId)}/attachments/${encodeURIComponent(attachmentId)}`;

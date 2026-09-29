@@ -95,15 +95,24 @@ function upstreamError(label: string, res: Response, detail: string, model: stri
 
 /**
  * Real Gemini LLM provider (text generation with optional JSON mode).
- * Streams are not used in MVP; endpoints are documented for later upgrade.
+ *
+ * PHASE 49 — also speaks the streaming dialect of the same API, so the room can
+ * show a reply as it is written. The request body is built once and used by both
+ * paths: a streamed turn and a buffered turn must be the *same* request, or the
+ * answer would depend on how it was delivered.
  */
 export class GeminiLLMProvider implements LLMProvider {
   readonly id = "gemini";
 
-  async complete(request: LLMRequest): Promise<LLMResponse> {
-    const started = Date.now();
-    const model = request.model ?? config.GEMINI_LLM_MODEL;
-
+  /**
+   * The API payload for one completion, shared by `complete` and `stream`.
+   *
+   * Extracted rather than duplicated on purpose: the multimodal and JSON-mode
+   * details (which turn carries the photo, that the tutor turn is JSON) are the
+   * easy half to get subtly different, and a streaming path that sends a
+   * different request is a different answer.
+   */
+  private buildBody(request: LLMRequest): Record<string, unknown> {
     const system = request.messages.filter((m) => m.role === "system").map((m) => m.content).join("\n\n");
     const contents = request.messages
       .filter((m) => m.role !== "system")
@@ -135,6 +144,13 @@ export class GeminiLLMProvider implements LLMProvider {
       },
     };
     if (system) body.systemInstruction = { parts: [{ text: system }] };
+    return body;
+  }
+
+  async complete(request: LLMRequest): Promise<LLMResponse> {
+    const started = Date.now();
+    const model = request.model ?? config.GEMINI_LLM_MODEL;
+    const body = this.buildBody(request);
 
     const res = await postWithRetry(
       `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
@@ -159,6 +175,104 @@ export class GeminiLLMProvider implements LLMProvider {
       outputTokens: data.usageMetadata?.candidatesTokenCount ?? 0,
       latencyMs: Date.now() - started,
     };
+  }
+
+  /**
+   * PHASE 49 — the same completion, delivered as Server-Sent Events.
+   *
+   * `alt=sse` is used over the raw-JSON stream on purpose: SSE carries its own
+   * framing, so a chunk boundary that splits a JSON object mid-token is the
+   * transport's problem, not ours — the alternative is a hand-rolled
+   * incremental JSON parser for an envelope we do not control.
+   *
+   * Retries are deliberately asymmetric: a retry is only safe while NOTHING has
+   * been handed to the student. Once a word has left, replaying the turn would
+   * print the opening twice, so a late failure throws and the caller decides
+   * (the room keeps whatever it already showed rather than duplicating it).
+   */
+  async stream(request: LLMRequest, onDelta: (text: string) => void | Promise<void>): Promise<LLMResponse> {
+    const started = Date.now();
+    const model = request.model ?? config.GEMINI_LLM_MODEL;
+    const body = this.buildBody(request);
+    const url = `${BASE_URL}/models/${model}:streamGenerateContent?alt=sse&key=${apiKey()}`;
+
+    let res: Response | null = null;
+    for (let attempt = 1; attempt <= GEMINI_RETRY_ATTEMPTS; attempt += 1) {
+      const candidate = await fetch(url, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (candidate.ok) {
+        res = candidate;
+        break;
+      }
+      if (!TRANSIENT_STATUS.has(candidate.status) || attempt === GEMINI_RETRY_ATTEMPTS) {
+        const detail = await candidate.text().catch(() => "");
+        upstreamError("مزود الذكاء الاصطناعي", candidate, detail, model);
+      }
+      await sleep(backoffMs(attempt));
+    }
+    if (!res?.body) throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع بثًا");
+
+    let text = "";
+    let inputTokens = 0;
+    let outputTokens = 0;
+    for await (const data of readSseData(res.body)) {
+      let chunk: {
+        candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+        usageMetadata?: { promptTokenCount?: number; candidatesTokenCount?: number };
+      };
+      try {
+        chunk = JSON.parse(data) as typeof chunk;
+      } catch {
+        continue; // A malformed frame costs a fragment, never the turn.
+      }
+      // Usage rides on the first and/or last frame; keep the richest value seen.
+      inputTokens = chunk.usageMetadata?.promptTokenCount ?? inputTokens;
+      outputTokens = chunk.usageMetadata?.candidatesTokenCount ?? outputTokens;
+      const piece = chunk.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("") ?? "";
+      if (!piece) continue;
+      text += piece;
+      await onDelta(piece);
+    }
+    if (!text) throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع نصًا");
+
+    return { content: text, model, inputTokens, outputTokens, latencyMs: Date.now() - started };
+  }
+}
+
+/**
+ * Yields the payload of every `data:` line of an SSE body.
+ *
+ * Split on the SSE record separator, not on network chunks: a chunk boundary
+ * can fall anywhere, including between the `da` and the rest of `data`, and a
+ * naive split would hand the JSON parser half a frame.
+ */
+async function* readSseData(body: ReadableStream<Uint8Array>): AsyncGenerator<string> {
+  const reader = body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      let boundary = buffer.indexOf("\n\n");
+      while (boundary >= 0) {
+        for (const line of buffer.slice(0, boundary).split("\n")) {
+          if (line.startsWith("data:")) yield line.slice(5).trim();
+        }
+        buffer = buffer.slice(boundary + 2);
+        boundary = buffer.indexOf("\n\n");
+      }
+    }
+    // A final record with no trailing blank line still counts.
+    for (const line of buffer.split("\n")) {
+      if (line.startsWith("data:")) yield line.slice(5).trim();
+    }
+  } finally {
+    await reader.cancel().catch(() => undefined);
   }
 }
 

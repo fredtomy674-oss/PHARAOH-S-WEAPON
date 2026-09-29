@@ -133,3 +133,53 @@ test("F: an active session can be resumed from Home and the history is persisted
   await sendChatMessage(page, "متابعة — أضف المزيد من الأمثلة");
   await expect(tutorMsgs).toHaveCount(2, { timeout: 30_000 });
 });
+
+/**
+ * PHASE 49 — the tutor writes in front of the student instead of appearing all
+ * at once.
+ *
+ * The observation is made *inside* the page, with a MutationObserver, on
+ * purpose. Polling from Node would be measuring the round-trip between two
+ * processes, and on a slow machine it would miss every intermediate frame and
+ * then "pass" by seeing the finished text — proving nothing. The observer sees
+ * every render the room actually performed.
+ */
+test("I: the reply is written while it is being produced, and what was shown is what is kept", async ({ page }) => {
+  await login(page);
+  await startFirstLesson(page);
+
+  await page.evaluate(() => {
+    const frames: string[] = [];
+    (window as unknown as { __liveFrames: string[] }).__liveFrames = frames;
+    const read = () => {
+      const live = document.querySelector('[data-testid="msg-tutor-live"] p');
+      const text = live?.textContent ?? "";
+      if (text && frames[frames.length - 1] !== text) frames.push(text);
+    };
+    new MutationObserver(read).observe(document.body, {
+      subtree: true,
+      childList: true,
+      characterData: true,
+    });
+  });
+
+  await sendChatMessage(page, "اشرح لي الدرس خطوة بخطوة");
+
+  const tutorMsgs = page.getByTestId("msg-tutor");
+  await expect(tutorMsgs).toHaveCount(1, { timeout: 30_000 });
+  const finalText = (await tutorMsgs.first().textContent()) ?? "";
+
+  // The preview is gone: it was never a second message, it became the real one.
+  await expect(page.locator('[data-live="true"]')).toHaveCount(0);
+  expect(finalText).toContain(RAG_CONTEXT_PHRASE);
+
+  const frames = await page.evaluate(() => (window as unknown as { __liveFrames: string[] }).__liveFrames);
+  expect(frames.length, "the room rendered the reply only once, at the end").toBeGreaterThan(1);
+  // Every frame is a prefix of the answer that was finally kept — the student
+  // never reads a sentence that the room then takes back or rewrites.
+  for (const frame of frames) {
+    expect(finalText.startsWith(frame), `frame was not a prefix of the final reply: ${frame}`).toBe(true);
+  }
+  // And the text really did grow, rather than flickering on an empty bubble.
+  expect(frames[frames.length - 1]!.length).toBeGreaterThan(frames[0]!.length);
+});

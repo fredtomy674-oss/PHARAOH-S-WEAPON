@@ -39,6 +39,69 @@ export interface StartSessionInput {
   lessonId?: string;
 }
 
+/** A stored message, as the API returns it (never the raw row alone). */
+type StoredMessage = typeof messages.$inferSelect;
+
+/**
+ * A tutor message as the API returns it: the stored row with the page
+ * references already decoded. The stored column is text; the wire format is
+ * numbers, so the raw column is replaced rather than intersected.
+ */
+export type TutorMessageOut = Omit<StoredMessage, "bookPages"> & { bookPages?: number[] };
+
+/** What one student turn is made of (identical for the buffered and live paths). */
+export interface SendMessageInput {
+  sessionId: string;
+  studentId: string;
+  content?: string;
+  image?: { dataUrl: string; fileName?: string };
+  document?: { dataUrl: string; fileName?: string };
+  /**
+   * PHASE 48 — the printed book page the student is looking at when he sends
+   * this message (the room's stage). Lets the tutor read the same page.
+   * Validated against *this lesson's own* page range below: a client that
+   * sends page 900 gets ignored, never an error — a stale room must not be able
+   * to break the conversation.
+   */
+  bookPage?: number;
+}
+
+/** The completed turn, exactly as the buffered endpoint has always returned it. */
+export interface TurnResult {
+  userMessage: StoredMessage & { attachments: AttachmentSummary[] };
+  tutorMessage: TutorMessageOut;
+  contextChunkCount: number;
+  citedBookPages: number[];
+  remainingBudget: number;
+  safetyTripwire: boolean;
+  ocrUsed: boolean;
+}
+
+/**
+ * PHASE 49 — the live view of a turn, as one JSON object per line (NDJSON).
+ *
+ * `done` repeats the buffered endpoint's whole payload, so the client can end
+ * up in exactly the state it would have reached without streaming. The deltas
+ * in between are a *preview*: they can be withdrawn (`discard`) and they are
+ * always replaced by `done`.
+ */
+export type TutorStreamEvent =
+  | { type: "user"; message: StoredMessage & { attachments: AttachmentSummary[] } }
+  | { type: "delta"; text: string }
+  | { type: "discard" }
+  | ({ type: "done" } & TurnResult)
+  | { type: "error"; message: string };
+
+/** Hooks the streaming path uses to observe a turn it does not orchestrate. */
+interface TurnHooks {
+  /** Fires as soon as the student's own message is stored, before generation. */
+  onUserMessage?: (message: StoredMessage & { attachments: AttachmentSummary[] }) => void;
+  /** A slice of the tutor's reply that is safe to display. */
+  onDelta?: (text: string) => void | Promise<void>;
+  /** Whatever was displayed was an internal echo and must be taken back. */
+  onDiscard?: () => void | Promise<void>;
+}
+
 /**
  * PHASE 48 — read back the stored page references of a tutor message.
  *
@@ -140,22 +203,50 @@ export class SessionService {
     };
   }
 
-  /** The full vertical slice: user message (+optional photo/file) → tutor turn → persisted replies. */
-  async sendMessage(input: {
-    sessionId: string;
-    studentId: string;
-    content?: string;
-    image?: { dataUrl: string; fileName?: string };
-    document?: { dataUrl: string; fileName?: string };
-    /**
-     * PHASE 48 — the printed book page the student is looking at when he
-     * sends this message (the room's stage). Lets the tutor read the same page.
-     * Validated against *this lesson's own* page range below: a client that
-     * sends page 900 gets ignored, never an error — a stale room must not be
-     * able to break the conversation.
-     */
-    bookPage?: number;
-  }) {
+  /**
+   * The full vertical slice: user message (+optional photo/file) → tutor turn → persisted replies.
+   */
+  async sendMessage(input: SendMessageInput) {
+    return this.runTurn(input, {});
+  }
+
+  /**
+   * PHASE 49 — the same turn, delivered as it happens.
+   *
+   * Not a second implementation: `runTurn` is the only place a turn is
+   * orchestrated, and this just supplies the hooks. That matters because the two
+   * paths must never disagree about what a turn *is* — the budget check, the
+   * attachment rules, the safety tripwire and what gets stored are one
+   * implementation, not two that drift.
+   *
+   * Errors travel in-band as an `error` event: the response has already started
+   * by the time most failures can happen (the user's own message is stored
+   * before the tutor is asked), so a status code is no longer available. The
+   * room renders the same message it renders for a failed request.
+   */
+  async streamMessage(input: SendMessageInput, emit: (event: TutorStreamEvent) => void): Promise<void> {
+    try {
+      const result = await this.runTurn(input, {
+        onUserMessage: (message) => emit({ type: "user", message }),
+        onDelta: (text) => emit({ type: "delta", text }),
+        onDiscard: () => emit({ type: "discard" }),
+      });
+      emit({
+        type: "done",
+        userMessage: result.userMessage,
+        tutorMessage: result.tutorMessage,
+        contextChunkCount: result.contextChunkCount,
+        citedBookPages: result.citedBookPages,
+        remainingBudget: result.remainingBudget,
+        safetyTripwire: result.safetyTripwire,
+        ocrUsed: result.ocrUsed,
+      });
+    } catch (err) {
+      emit({ type: "error", message: err instanceof Error ? err.message : "تعذّر إتمام الدور" });
+    }
+  }
+
+  private async runTurn(input: SendMessageInput, hooks: TurnHooks): Promise<TurnResult> {
     const session = await this.getOwned(input.sessionId, input.studentId);
     if (session.status !== "active") throw Errors.badRequest("الجلسة منتهية — ابدأ جلسة جديدة", "SESSION_ENDED");
 
@@ -256,6 +347,16 @@ export class SessionService {
       : null;
     if (!breadcrumb) throw Errors.badRequest("جلسة بدون درس غير مدعومة بعد — ابدأ جلسة من درس محدد", "NO_LESSON");
 
+    // PHASE 49 — the student's own words are already stored, so the room can
+    // show them immediately and the wait belongs to the tutor alone. Fired after
+    // the breadcrumb check (an invalid turn must not look like a sent message).
+    if (hooks.onUserMessage) {
+      hooks.onUserMessage({
+        ...userMessage,
+        attachments: attachment ? [attachmentSummary(attachment, docInfo, ocrUsed)] : [],
+      });
+    }
+
     const images: ImageInput[] | undefined = image ? [{ mimeType: image.mimeType, base64: image.base64 }] : undefined;
     const documents: DocumentInput[] | undefined =
       document && documentText.trim().length > 0
@@ -282,6 +383,9 @@ export class SessionService {
       userId: studentRow.userId,
       dailyLimit,
       viewingPage,
+      // Only when the caller can actually show progress; the buffered endpoint
+      // omits it and gets the exact behaviour it has always had.
+      ...(hooks.onDelta ? { stream: { onDelta: hooks.onDelta, onDiscard: hooks.onDiscard } } : {}),
     });
 
     const kind = mapKind(result.reply);

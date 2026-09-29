@@ -32,6 +32,7 @@ import {
   myProgress,
   resetSpeechAvailability,
   sendMessage,
+  streamMessage,
   ApiError,
   SpeechUnavailableError,
   type Breadcrumb,
@@ -93,6 +94,44 @@ interface PendingDocument {
 }
 
 /**
+ * PHASE 49 — the student's own message as it appears the instant he presses send.
+ *
+ * A placeholder id on purpose: it is replaced by the stored message the moment
+ * the server reports it, and nothing is ever keyed off it. The alternative —
+ * waiting for the server before showing his own words — moves a wait that has
+ * nothing to do with the tutor onto the student.
+ */
+function optimisticMessage(
+  sessionId: string,
+  content: string,
+  image: string | null | undefined,
+  doc: PendingDocument | null,
+): Message {
+  const attachments: Message["attachments"] =
+    doc || image
+      ? [
+          {
+            id: "pending",
+            messageId: "pending",
+            mimeType: doc ? "application/octet-stream" : "image/jpeg",
+            fileName: doc ? doc.name : "صورة السؤال",
+            sizeBytes: doc ? doc.size : Math.round((image ?? "").length * 0.75),
+            ocr: false,
+          },
+        ]
+      : undefined;
+  return {
+    id: "pending",
+    sessionId,
+    role: "user",
+    kind: "text",
+    content,
+    createdAt: new Date().toISOString(),
+    ...(attachments ? { attachments } : {}),
+  };
+}
+
+/**
  * How a printed page is named to the student.
  *
  * The book's first page of a unit is an unnumbered opening page, so it carries no
@@ -138,6 +177,10 @@ export function LessonRoom({ session, onEnded }: Props) {
   const [pageIndex, setPageIndex] = useState(0);
   // PHASE 48 — pages the latest answer was grounded in; marked on the filmstrip.
   const [citedPages, setCitedPages] = useState<number[]>([]);
+  // PHASE 49 — the turn in flight: the student's own words (shown the moment he
+  // presses send) and the part of the tutor's answer written so far. Replaced by
+  // the stored pair when the turn ends, so nothing shown here is ever the record.
+  const [live, setLive] = useState<{ user: Message | null; text: string } | null>(null);
   const [mastery, setMastery] = useState<number | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
@@ -182,7 +225,7 @@ export function LessonRoom({ session, onEnded }: Props) {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, pending]);
+  }, [messages, pending, live]);
 
   // Stop any voice activity when leaving the room.
   useEffect(
@@ -324,12 +367,42 @@ export function LessonRoom({ session, onEnded }: Props) {
     // PHASE 48 — the open page travels with the turn, so the tutor reads the
     // same page before answering instead of describing a page he never saw.
     const onPage = openBookPage ?? undefined;
+    const body = doc
+      ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...(onPage !== undefined ? { bookPage: onPage } : {}) }
+      : image
+        ? { content: text, image: { dataUrl: image }, ...(onPage !== undefined ? { bookPage: onPage } : {}) }
+        : { content: text, ...(onPage !== undefined ? { bookPage: onPage } : {}) };
     try {
-      const turn = doc
-        ? await sendMessage(session.id, text, undefined, { dataUrl: doc.dataUrl, fileName: doc.name }, onPage)
-        : image
-          ? await sendMessage(session.id, text, { dataUrl: image }, undefined, onPage)
-          : await sendMessage(session.id, text, undefined, undefined, onPage);
+      // PHASE 49 — the reply is written as it is thought, so the room shows a
+      // tutor thinking instead of a waiting cursor. The student's own words
+      // appear immediately: they are already stored by the time the first word
+      // of the answer exists, and waiting would move the wait onto him.
+      setLive({ user: optimisticMessage(session.id, text, image, doc), text: "" });
+      // The live path is an improvement, never a new way for a turn to fail: if
+      // the stream cannot even start (a buffering proxy, an old browser, a dead
+      // socket) the question is simply asked the old way instead. The retry is
+      // allowed only while NOTHING has arrived — once the server has spoken, the
+      // turn is very likely stored, and asking again would make the student pay
+      // for it twice.
+      let arrived = false;
+      const turn = await streamMessage(session.id, body, {
+        onUser: (message) => {
+          arrived = true;
+          setLive((l) => (l ? { ...l, user: message } : l));
+        },
+        onDelta: (chunk) => {
+          arrived = true;
+          setLive((l) => (l ? { ...l, text: l.text + chunk } : l));
+        },
+        onDiscard: () => {
+          arrived = true;
+          setLive((l) => (l ? { ...l, text: "" } : l));
+        },
+      }).catch((err) => {
+        if (arrived) throw err;
+        return sendMessage(session.id, text, image ? { dataUrl: image } : undefined, doc ? { dataUrl: doc.dataUrl, fileName: doc.name } : undefined, onPage);
+      });
+      setLive(null);
       setMessages((m) => [...m, turn.userMessage, turn.tutorMessage]);
       // PHASE 48 — the pages this answer was built from. They are marked on the
       // filmstrip instead of turning the stage for him: the student owns the
@@ -346,9 +419,23 @@ export function LessonRoom({ session, onEnded }: Props) {
       setDocFile(null);
       if (speakReply) void speak(turn.tutorMessage);
     } catch (err) {
+      setLive(null);
+      // A turn that failed mid-stream may still have been stored on the server,
+      // so the room is re-read rather than left disagreeing with the database.
+      await syncMessages();
       setError(err instanceof ApiError ? err.message : "تعذر إرسال الرسالة");
     } finally {
       setPending(false);
+    }
+  };
+
+  /** Re-reads the transcript from the server (used after a half-finished turn). */
+  const syncMessages = async () => {
+    try {
+      const res = await getSession(session.id);
+      setMessages(res.messages);
+    } catch {
+      /* the error the student already sees is the important one */
     }
   };
 
@@ -558,7 +645,7 @@ export function LessonRoom({ session, onEnded }: Props) {
           )}
 
           <div className="room-captions" data-testid="messages">
-            {messages.length === 0 && (
+            {messages.length === 0 && !live && (
               <p className="muted center room-captions-empty">
                 {stage?.hasImages
                   ? "ابدأ الحصة: اسأل بصوتك أو اكتب سؤالك — كل إجابة مبنيّة على صفحة الكتاب المفتوحة."
@@ -631,7 +718,27 @@ export function LessonRoom({ session, onEnded }: Props) {
                 </div>
               </div>
             ))}
-            {pending && (
+            {/* PHASE 49 — the turn in flight. The student's words are already
+                stored, and the tutor's answer is written into the bubble as it
+                arrives; the pair is swapped for the stored messages when the
+                turn ends, so what is displayed here is never the record. */}
+            {live && (
+              <>
+                {live.user && (
+                  <div className="room-caption mine" data-testid="msg-user-live" data-live="true">
+                    <div className="room-caption-body">
+                      <p dir="auto">{live.user.content}</p>
+                    </div>
+                  </div>
+                )}
+                <div className="room-caption theirs" data-testid="msg-tutor-live" data-live="true">
+                  <div className="room-caption-body">
+                    <p dir="auto">{live.text || <span className="room-cursor" aria-hidden="true" />}</p>
+                  </div>
+                </div>
+              </>
+            )}
+            {pending && !live && (
               <div className="room-caption theirs" data-testid="typing">
                 <div className="room-caption-body typing">
                   <span className="room-typing-dots" aria-hidden="true">

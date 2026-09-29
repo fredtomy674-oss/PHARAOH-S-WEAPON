@@ -1683,6 +1683,27 @@ p {
   .room-typing-dots i { animation: none !important; }
 }
 
+/* PHASE 49 — the pen at the end of a reply that is still being written. Shown
+   only before the first word lands, so it never flutters at the end of a text
+   that has already been read. */
+.room-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  vertical-align: -0.15em;
+  background: var(--room-teal);
+  animation: room-caret 1s steps(2, start) infinite;
+}
+
+@keyframes room-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .room-cursor { animation: none !important; }
+}
+
 /* ----- the composer: the student's one place to act ----- */
 .room-footer {
   position: sticky;

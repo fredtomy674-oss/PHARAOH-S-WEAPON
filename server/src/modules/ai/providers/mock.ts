@@ -135,6 +135,49 @@ export class MockLLMProvider implements LLMProvider {
     const body = buildTutorText({ user: lastUser, context, images, documents, language });
     return { content: body, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(body), latencyMs: Date.now() - started };
   }
+
+  /**
+   * PHASE 49 — the same reply, handed over in slices.
+   *
+   * The mock exists so the whole product can run with zero keys, and a provider
+   * that can only answer "all at once" would leave the live reply path untested
+   * everywhere it actually runs. So the offline tutor also dribbles: the output
+   * is cut like a real token stream (never mid-UTF-16, so a cut can never split
+   * an Arabic letter) and the slices are separated by a tick, which is what makes
+   * the client's incremental rendering observable in an end-to-end test.
+   */
+  async stream(request: LLMRequest, onDelta: (text: string) => void | Promise<void>): Promise<LLMResponse> {
+    const response = await this.complete(request);
+    for (const piece of sliceLikeTokens(response.content)) {
+      await onDelta(piece);
+      await new Promise((resolve) => setTimeout(resolve, MOCK_STREAM_TICK_MS));
+    }
+    return response;
+  }
+}
+
+/** How long a real provider's next token takes; also the mock's slice gap. */
+const MOCK_STREAM_TICK_MS = 5;
+
+/**
+ * Cuts a reply into token-sized pieces, never inside a surrogate pair.
+ *
+ * A cut in the middle of an Arabic letter (a two-unit code point) would make the
+ * room render a replacement glyph for one frame — the kind of artefact that
+ * looks like a rendering bug and is really a slicing bug.
+ */
+function sliceLikeTokens(text: string, size = 12): string[] {
+  const pieces: string[] = [];
+  for (let i = 0; i < text.length; i += size) {
+    let end = Math.min(i + size, text.length);
+    // Pull the whole code point into this piece.
+    if (end < text.length) {
+      const code = text.charCodeAt(end - 1);
+      if (code >= 0xd800 && code <= 0xdbff) end += 1;
+    }
+    pieces.push(text.slice(i, end));
+  }
+  return pieces;
 }
 
 /** Stable marker the tutor reply contains when an image was attached (used by tests/E2E). */

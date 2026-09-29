@@ -62,9 +62,29 @@ export interface LLMResponse {
   latencyMs: number;
 }
 
+/**
+ * PHASE 49 — receives each freshly generated slice of a reply, in order, as the
+ * model produces it. Sinks may be async (a socket write backpressures) and are
+ * awaited, so a slow consumer can never make the provider drop text.
+ */
+export type DeltaSink = (text: string) => void | Promise<void>;
+
 export interface LLMProvider {
   readonly id: string;
   complete(request: LLMRequest): Promise<LLMResponse>;
+  /**
+   * PHASE 49 — optional token streaming, so the room can write the reply while
+   * it is being thought instead of after it is finished.
+   *
+   * Optional on purpose: a provider that cannot stream simply omits this, the
+   * caller falls back to `complete`, and the student sees the reply appear at
+   * once — a slower room, never a broken turn.
+   *
+   * The returned response is the *complete* text, identical to what `complete`
+   * would have returned: streaming is a delivery detail, and nothing downstream
+   * (parsing, persistence, mastery) may see a partial reply.
+   */
+  stream?(request: LLMRequest, onDelta: DeltaSink): Promise<LLMResponse>;
 }
 
 export interface EmbeddingRequest {

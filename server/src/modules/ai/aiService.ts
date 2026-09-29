@@ -81,6 +81,52 @@ export class AiService {
     return response;
   }
 
+  /**
+   * PHASE 49 — a completion whose text is handed to `onDelta` as it is
+   * produced, and which still resolves to the complete response.
+   *
+   * Same routing, same usage accounting and same cache as `complete`; the only
+   * difference is delivery. A provider without streaming support, or a cache
+   * hit, is served as one delta: the room then behaves exactly as it did before
+   * this method existed, which is the point — streaming is an improvement, never
+   * a new way for a turn to fail.
+   */
+  async stream(request: LLMRequest, onDelta: (text: string) => void | Promise<void>): Promise<LLMResponse> {
+    const model = this.router.llmModel(request.operation, request.model);
+    const cacheable = this.cacheEnabled && LLM_CACHEABLE.has(request.operation);
+    const key = cacheable ? this.cache.key(request.operation, model, request.messages) : null;
+    if (key) {
+      const hit = this.cache.get(key);
+      // A cached reply is not "being written" — it already exists, so it is
+      // delivered whole. Faking a stream here would be theatre, not latency.
+      if (hit) {
+        await onDelta(hit.content);
+        return hit;
+      }
+    }
+    const started = Date.now();
+    const provider = this.providers.llm;
+    const response = provider.stream
+      ? await provider.stream({ ...request, model }, onDelta)
+      : await (async () => {
+          const buffered = await provider.complete({ ...request, model });
+          await onDelta(buffered.content);
+          return buffered;
+        })();
+    await this.usage.record({
+      userId: request.contextUserId,
+      sessionId: request.contextSessionId,
+      operation: request.operation,
+      provider: provider.id,
+      model: response.model,
+      inputTokens: response.inputTokens,
+      outputTokens: response.outputTokens,
+      latencyMs: Date.now() - started,
+    });
+    if (key) this.cache.set(key, response, config.AI_CACHE_TTL_MS);
+    return response;
+  }
+
   /** Single entry point for embedding calls (deterministic → cached). */
   async embed(request: EmbeddingRequest): Promise<EmbeddingResponse> {
     const model = this.router.embeddingModel("embedding", request.model);

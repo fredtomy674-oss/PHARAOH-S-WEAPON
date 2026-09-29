@@ -7,6 +7,7 @@ import type { AiService } from "../ai/aiService.js";
 import type { DocumentInput, ImageInput, LLMMessage } from "../ai/types.js";
 import type { CurriculumBreadcrumb } from "../curriculum/service.js";
 import { bookPageText, bookPagesInText } from "../curriculum/bookStage.js";
+import { ReplyRelay, type ReplyRelayHooks } from "./responseStream.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
 import { classifyIntent } from "./intentClassifier.js";
@@ -33,6 +34,15 @@ export interface TutorHandleInput {
    * student. The caller validates the number against the lesson's own stage.
    */
   viewingPage?: number;
+  /**
+   * PHASE 49 — ask for the reply to be delivered as it is written, so the room
+   * can show a tutor that is thinking in front of the student instead of a
+   * spinner that may last eight seconds. Optional and advisory: without it the
+   * turn behaves exactly as before, and nothing downstream (parsing, memory,
+   * persistence) differs — the reply that gets stored is the same reply either
+   * way.
+   */
+  stream?: ReplyRelayHooks;
   /**
    * PHASE 20 — daily tutor-call allowance for this student's plan (0 = unlimited).
    * Computed by the caller from the subscription; falls back to the global config.
@@ -249,9 +259,9 @@ export class TutorEngine {
         : m,
     );
     const { response: llmResponse, regens: promptEchoRegens } = await regenerateEchoes(
-      (attempt) =>
-        this.ai.complete({
-          operation: "tutor",
+      async (attempt) => {
+        const request = {
+          operation: "tutor" as const,
           messages: attempt === 0 ? messages : nudgedMessages,
           json: true,
           // PHASE 43 hotfix — hard ceiling on the tutor reply so a verbose
@@ -264,9 +274,22 @@ export class TutorEngine {
           documents: input.documents,
           contextUserId: input.userId,
           contextSessionId: input.session.id,
-        }),
+        };
+        // Only the first attempt is streamed. A regeneration exists because the
+        // first answer was unusable, so showing it would be a waste of the
+        // student's attention — and the relay has usually already dropped it.
+        if (attempt > 0 || !input.stream) return this.ai.complete(request);
+        const relay = new ReplyRelay(input.stream);
+        const streamed = await this.ai.stream(request, (raw) => relay.push(raw));
+        await relay.finish();
+        return streamed;
+      },
       MAX_PROMPT_ECHO_REGENS,
     );
+    // A regeneration means the streamed first answer was thrown away; make sure
+    // the room stopped displaying it even if the mirror was not recognisable as
+    // one. Dropping twice is a no-op, so this is safe to say unconditionally.
+    if (promptEchoRegens > 0 && input.stream?.onDiscard) await input.stream.onDiscard();
     let reply = parseTutorResponse(llmResponse.content);
     // Last resort: the budget is spent but the model still mirrors — degrade
     // gracefully instead of printing a prompt echo to the student.

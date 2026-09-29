@@ -100,6 +100,63 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
     return reply.send(result);
   });
 
+  /**
+   * PHASE 49 — the same turn, streamed as it happens (NDJSON).
+   *
+   * The wire format is one JSON object per line rather than Server-Sent Events
+   * for three reasons that matter to a classroom: it is a plain `fetch` body
+   * (no EventSource, so auth cookies and the CSRF header behave normally); a
+   * half-delivered line is a parse error the client can retry rather than a
+   * silently dropped event; and a line is self-contained, so an event that
+   * arrives late cannot corrupt the ones around it.
+   *
+   * `done` carries the buffered endpoint's exact payload, so the room can end
+   * up in precisely the state it would have reached without streaming. The
+   * deltas are a preview of a reply that is not yet trustworthy.
+   */
+  app.post("/:sessionId/messages/stream", { preHandler: requireAuth, schema: { body: messageBodySchema } }, async (request, reply) => {
+    const auth = request.auth!;
+    if (!auth.student) {
+      return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
+    }
+    const { sessionId } = request.params as { sessionId: string };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number };
+
+    reply.raw.writeHead(200, {
+      "content-type": "application/x-ndjson; charset=utf-8",
+      // A proxy that buffers this response would turn streaming back into the
+      // eight-second wait it exists to remove, so say "do not buffer me".
+      "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
+      connection: "keep-alive",
+    });
+    let open = true;
+    // A student who navigates away mid-turn must not keep a generation running
+    // forever; the abort below only stops the writes, and the turn finishes
+    // server-side exactly as it would have (its work is already paid for).
+    request.raw.on("close", () => {
+      open = false;
+    });
+    const write = (line: unknown) => {
+      if (!open) return;
+      reply.raw.write(`${JSON.stringify(line)}\n`);
+    };
+
+    await app.sessions.streamMessage(
+      {
+        sessionId,
+        studentId: auth.student.id,
+        content: body.content,
+        image: body.image,
+        document: body.document,
+        bookPage: body.bookPage,
+      },
+      write,
+    );
+    if (open) reply.raw.end();
+    return reply;
+  });
+
   app.get("/:sessionId/attachments/:attachmentId", { preHandler: requireAuth }, async (request, reply) => {
     const auth = request.auth!;
     if (!auth.student) {
