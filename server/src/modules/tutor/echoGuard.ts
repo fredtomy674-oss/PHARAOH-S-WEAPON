@@ -8,6 +8,14 @@
  * never appear in a legitimate reply, so matching them carries no risk of a
  * false positive on a real answer — while a bare "did it mention our name?"
  * check would (the tutor is allowed to greet as «سلاح الفرعون»).
+ *
+ * PHASE 52 — gemma's second dialect. Beside the `Persona:`/`Constraints:`
+ * mirror, the model also answers thin prompts with a bullet list of its own
+ * assignment (`* Role: 6th-grade math teacher. * Task: Define … * Constraint:
+ * Output must be *only* a valid, parseable JSON … * Concept: … * Draft 1
+ * (Arabic): … * Refining for 6th grade: …`), observed live. Variants drop the
+ * `Constraint:` line (`* My Role:` / `* User Role:` / `* Task:`), which is
+ * exactly what the PHASE 46 markers miss.
  */
 
 /** Distinctive fingerprints of a mirror reply (our prompt's own internal wording). */
@@ -22,9 +30,37 @@ const ECHO_MARKERS: RegExp[] = [
   /^\s*الطالب\s+(?:يسأل|يجيب)/m,
 ];
 
+/**
+ * Gemma's bullet dialect (`* Role:`, `* Task:`, …). These fire only as a PAIR:
+ * a single `* Task:` bullet can be a legitimate exercise line (especially in a
+ * foreign-language lesson), but a real reply never stacks two assignment
+ * bullets — while a mirror is a list by nature (the live capture carries
+ * seven).
+ */
+const BULLET_MIRROR_MARKERS: RegExp[] = [
+  /^\s*\*\s*Role\s*:/im,
+  /^\s*\*\s*Task\s*:/im,
+  /^\s*\*\s*Concept\s*:/im,
+  /^\s*\*\s*Language\s*:/im,
+];
+
+/**
+ * Smoking guns: internal drafting the tutor never does out loud. No
+ * legitimate 6th-grade reply numbers its own drafts, narrates refining them,
+ * states a JSON output contract, or assigns English bullet roles.
+ */
+const MIRROR_SMOKING_GUNS: RegExp[] = [
+  /^\s*\*\s*(?:My|User)\s+Role\s*:/im,
+  /^\s*\*\s*Draft\s+\d/im,
+  /^\s*\*\s*Refining\s+for/im,
+  /parseable\s+JSON/i,
+];
+
 /** True when `text` looks like a mirror of our own prompt rather than a reply. */
 export function looksLikePromptEcho(text: string): boolean {
-  return ECHO_MARKERS.some((p) => p.test(text));
+  if (ECHO_MARKERS.some((p) => p.test(text))) return true;
+  if (MIRROR_SMOKING_GUNS.some((p) => p.test(text))) return true;
+  return BULLET_MIRROR_MARKERS.filter((p) => p.test(text)).length >= 2;
 }
 
 export interface RegenerateResult<T> {

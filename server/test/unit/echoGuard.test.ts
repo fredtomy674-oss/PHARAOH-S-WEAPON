@@ -19,11 +19,41 @@ const arabicMirror = `الطالب يسأل: «كم تساوي 5 + 4؟» (نية
 قواعد سلوكية ثابتة:
 1. لا تعطِ الحل مباشرة قبل محاولتين.`;
 
+// PHASE 52 — the live capture: gemma answering a thin prompt with a bullet
+// list of its own assignment (reproduced via scripts/.echo-probe.ts). The
+// current guard catches this instance through `Constraint:`; the variants
+// below are the ones that slipped through.
+const liveBulletMirror = `*   Role: 6th-grade math teacher.
+    *   Language: Arabic.
+    *   Task: Define "divisibility" (قابلية القسمة) in two short sentences.
+    *   Constraint: Output must be *only* a valid, parseable JSON in the format \`{"content": "text in Arabic"}\`. No extra text, no comments.
+
+    *   Concept: Divisibility means a number can be divided by another number without leaving a remainder.
+    *   Draft 1 (Arabic): قابلية القسمة تعني أن العدد يمكن تقسيمه على عدد آخر دون وجود باقٍ.
+    *   Refining for 6th grade: قابلية القسمة هي قدرة عدد على القسمة على عدد آخر.`;
+
+// The gap: the same dialect with no `Constraint:` line at all.
+const gapVariantMyRole = `* My Role: 6th-grade math teacher.
+* User Role: a 6th-grade student.
+* Task: Define divisibility in two short sentences.`;
+
+const gapVariantRoleTask = `* Role: 6th-grade math teacher.
+* Task: Define divisibility in two short sentences.`;
+
 describe("looksLikePromptEcho", () => {
   it("flags the prompt-mirror replies we observed live", () => {
     expect(looksLikePromptEcho(liveEchoEnglish)).toBe(true);
     expect(looksLikePromptEcho(liveEchoEnglishVariant)).toBe(true);
     expect(looksLikePromptEcho(arabicMirror)).toBe(true);
+  });
+
+  it("flags gemma's bullet-list dialect, live capture included", () => {
+    expect(looksLikePromptEcho(liveBulletMirror)).toBe(true);
+  });
+
+  it("closes the gap: mirrors with no Constraint line are still caught", () => {
+    expect(looksLikePromptEcho(gapVariantMyRole)).toBe(true);
+    expect(looksLikePromptEcho(gapVariantRoleTask)).toBe(true);
   });
 
   it("never flags legitimate tutor replies, even ones greeting by name", () => {
@@ -37,6 +67,17 @@ describe("looksLikePromptEcho", () => {
     for (const t of legit) {
       expect(looksLikePromptEcho(t)).toBe(false);
     }
+  });
+
+  it("does not trip on a single bullet that a real exercise may use", () => {
+    // One `* Task:` bullet can be a legitimate exercise line (notably in a
+    // foreign-language lesson); mirrors stack them, so one alone is innocent.
+    expect(looksLikePromptEcho("* Task: complete the sentence with the correct verb.")).toBe(false);
+    expect(looksLikePromptEcho("* Role: the numerator tells how many parts we take.")).toBe(false);
+    // …and ordinary prose about roles is untouched.
+    expect(looksLikePromptEcho("The role of zero in addition is to change nothing.")).toBe(false);
+    // A real reply's own bullets are Arabic, unstarred duties the tutor never assigns.
+    expect(looksLikePromptEcho("تذكر دائمًا:\n* راجع جدول الضرب\n* اكتب خطواتك")).toBe(false);
   });
 });
 
