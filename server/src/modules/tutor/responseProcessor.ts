@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { NumberLineWidgetSchema } from "./widgets.js";
 
 /** Structured output contract shared between builders, parsers and tests. */
 export const TutorResponseSchema = z.object({
@@ -6,10 +7,21 @@ export const TutorResponseSchema = z.object({
   tone: z.string().optional(),
   parts: z
     .array(
-      z.object({
-        type: z.enum(["text", "question", "hint", "example"]),
-        text: z.string(),
-      }),
+      z.union([
+        z.object({
+          type: z.enum(["text", "question", "hint", "example"]),
+          text: z.string(),
+        }),
+        // PHASE 51 — a widget part draws an interactive line inside the reply.
+        // `text` stays (a fallback line for readers that ignore widgets); the
+        // numbers are validated, so a hallucinating model cannot send a line
+        // the room cannot draw.
+        z.object({
+          type: z.literal("widget"),
+          text: z.string().default(""),
+          widget: NumberLineWidgetSchema,
+        }),
+      ]),
     )
     .optional()
     .default([]),

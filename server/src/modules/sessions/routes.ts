@@ -55,6 +55,16 @@ const messageBodySchema = {
         strokes: { type: "integer", minimum: 0, maximum: 10000 },
       },
     },
+    // PHASE 51 — the pin the student placed on the number line. Just the value:
+    // the line and its key are resolved server-side from the transcript.
+    widget: {
+      type: "object",
+      additionalProperties: false,
+      required: ["value"],
+      properties: {
+        value: { type: "number" },
+      },
+    },
   },
 };
 
@@ -102,7 +112,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number } };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number }; widget?: { value: number } };
     const result = await app.sessions.sendMessage({
       sessionId,
       studentId: auth.student.id,
@@ -111,6 +121,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       document: body.document,
       bookPage: body.bookPage,
       ink: body.ink,
+      widget: body.widget,
     });
     return reply.send(result);
   });
@@ -135,7 +146,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number } };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number }; widget?: { value: number } };
 
     reply.raw.writeHead(200, {
       "content-type": "application/x-ndjson; charset=utf-8",
@@ -166,6 +177,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
         document: body.document,
         bookPage: body.bookPage,
         ink: body.ink,
+        widget: body.widget,
       },
       write,
     );

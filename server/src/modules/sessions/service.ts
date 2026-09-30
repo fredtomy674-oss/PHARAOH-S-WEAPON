@@ -30,6 +30,7 @@ import type { SpeechResult } from "../ai/speech/types.js";
 import { resolveTutorLanguage } from "../tutor/language.js";
 import { parseImageDataUrl } from "./attachments.js";
 import { parseDocumentDataUrl } from "./documents.js";
+import { parseStoredWidgets, PinPlacementSchema, widgetsForWire, type NumberLineView } from "../tutor/widgets.js";
 
 export interface StartSessionInput {
   studentId: string;
@@ -46,8 +47,14 @@ type StoredMessage = typeof messages.$inferSelect;
  * A tutor message as the API returns it: the stored row with the page
  * references already decoded. The stored column is text; the wire format is
  * numbers, so the raw column is replaced rather than intersected.
+ *
+ * PHASE 51 — same treatment for widgets: stored with answer keys, sent without
+ * them (the exercise must not answer itself in devtools).
  */
-export type TutorMessageOut = Omit<StoredMessage, "bookPages"> & { bookPages?: number[] };
+export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets"> & {
+  bookPages?: number[];
+  widgets?: NumberLineView[];
+};
 
 /** What one student turn is made of (identical for the buffered and live paths). */
 export interface SendMessageInput {
@@ -75,6 +82,13 @@ export interface SendMessageInput {
    * stroke count is a fact the record keeps for the audit, never trust.
    */
   ink?: { dataUrl: string; page?: number; strokes?: number };
+  /**
+   * PHASE 51 — the pin the student placed on the number line, asking for
+   * verification. Only the value travels: which line it belongs to and what
+   * the correct position is are resolved from the stored transcript, so a
+   * forged client cannot grade itself correct.
+   */
+  widget?: { value: number };
 }
 
 /** The completed turn, exactly as the buffered endpoint has always returned it. */
@@ -223,10 +237,12 @@ export class SessionService {
       session,
       // PHASE 48 — the page references are stored with the message, so the room
       // can rebuild the tutor's page chips for a session it re-opened.
+      // PHASE 51 — same for number lines: stored with keys, re-read without.
       messages: msgs.map((m) => ({
         ...m,
         attachments: byMessage.get(m.id) ?? [],
         bookPages: parseBookPages(m.bookPages),
+        widgets: widgetsForWire(parseStoredWidgets(m.widgets)),
       })),
     };
   }
@@ -303,7 +319,11 @@ export class SessionService {
           fileName: input.document.fileName,
         })
       : null;
-    if (content.length < 1 && !image && !ink && !document) throw Errors.badRequest("الرسالة فارغة");
+    // PHASE 51 — the pin value travels as a fact for the prompt, resolved
+    // against the transcript's line by the engine. An unparseable pin is not a
+    // reason to fail the turn: the typed question still stands on its own.
+    const pin = PinPlacementSchema.safeParse(input.widget).success ? input.widget! : undefined;
+    if (content.length < 1 && !image && !ink && !document && !pin) throw Errors.badRequest("الرسالة فارغة");
 
     const studentRow = await this.db.db.select().from(studentsTable).where(eq(studentsTable.id, session.studentId)).get();
     if (!studentRow) throw Errors.internal("بروفايل الطالب مفقود");
@@ -451,6 +471,7 @@ export class SessionService {
       dailyLimit,
       viewingPage,
       ...(ink ? { ink: { bookPage: inkPage, strokes: strokeCount } } : {}),
+      ...(pin ? { widget: pin } : {}),
       // Only when the caller can actually show progress; the buffered endpoint
       // omits it and gets the exact behaviour it has always had.
       ...(hooks.onDelta ? { stream: { onDelta: hooks.onDelta, onDiscard: hooks.onDiscard } } : {}),
@@ -471,6 +492,8 @@ export class SessionService {
           content: result.reply.content,
           safetyFlag: tripwireFired ? "prompt_injection" : null,
           bookPages: result.citedBookPages.length > 0 ? JSON.stringify(result.citedBookPages) : null,
+          // PHASE 51 — the lines this reply drew, keys intact for verification.
+          widgets: result.widgets.length > 0 ? JSON.stringify(result.widgets) : null,
           createdAt: new Date(),
         })
         .returning()
@@ -488,7 +511,12 @@ export class SessionService {
         ...userMessage,
         attachments: attachment ? [attachmentSummary(attachment, docInfo, ocrUsed)] : [],
       },
-      tutorMessage: { ...tutorMessage!, bookPages: parseBookPages(tutorMessage!.bookPages) },
+      // PHASE 51 — the wire view strips the answer keys (see TutorMessageOut).
+      tutorMessage: {
+        ...tutorMessage!,
+        bookPages: parseBookPages(tutorMessage!.bookPages),
+        widgets: widgetsForWire(parseStoredWidgets(tutorMessage!.widgets)),
+      },
       contextChunkCount: result.contextChunkCount,
       // PHASE 48 — the pages this answer is built on, so the room can offer
       // them as one-tap jumps on the shared stage.
@@ -749,7 +777,7 @@ function inkBookName(inkPage: number | undefined): string {
 }
 
 
-function mapKind(reply: { parts?: Array<{ type: "text" | "hint" | "question" | "example" }> }): "text" | "hint" | "question" | "example" {
+function mapKind(reply: { parts?: Array<{ type: "text" | "hint" | "question" | "example" | "widget" }> }): "text" | "hint" | "question" | "example" {
   const hint = reply.parts?.find((p) => p.type === "hint");
   if (hint) return "hint";
   const q = reply.parts?.find((p) => p.type === "question");

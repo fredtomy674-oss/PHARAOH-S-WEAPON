@@ -123,10 +123,15 @@ export class MockLLMProvider implements LLMProvider {
 
     if (request.json) {
       const tutorText = buildTutorText({ user: lastUser, context, images, documents, language });
+      // PHASE 51 — the offline tutor draws a number line on demand (the E2E and
+      // API suites exercise the whole widget loop with zero keys): asking for
+      // «خط الأعداد» gets a real line with a hidden key, and a turn carrying a
+      // <widget> block gets a verdict computed from the pin against that key.
+      const widgetParts = buildMockWidgetParts(lastUser);
       const content = JSON.stringify({
         content: tutorText,
         tone: "friendly",
-        parts: [{ type: "text", text: tutorText }],
+        parts: [{ type: "text", text: tutorText }, ...widgetParts],
         assessment: { conceptsTouched: [], confidence: 0.5 },
       });
       return { content, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(content), latencyMs: Date.now() - started };
@@ -468,6 +473,10 @@ function buildTutorTextAr(args: {
   documents?: DocumentInput[];
 }): string {
   const { user, context, images = [], documents = [] } = args;
+  // PHASE 51 — a pin-verification turn: the <widget> block carries the snapped
+  // pin and (for the tutor's eyes only) the key, so the verdict is computed
+  // from numbers, not guessed from words.
+  if (user.includes("<widget>")) return mockWidgetVerdict(user);
   const contextNote = context
     ? `\n\nوفقًا لمحتوى الدرس: ${context.slice(0, 900)}`
     : "\n\nلم أستطع الوصول لمحتوى الدرس في الوقت الحالي؛ راجع المدرس المباشر.";
@@ -488,6 +497,59 @@ function buildTutorTextAr(args: {
   parts.push("💡 تلميح: جرب التفكير في المثال الأول في الدرس قبل الإجابة، وأخبرني بما توصلت إليه.");
   parts.push("هل تريد أن أشرح مرة أخرى بطريقة مختلفة، أم ننتقل لسؤال للتأكد من الفهم؟");
   return parts.join("\n\n");
+}
+
+/** Stable marker the tutor reply contains when the pin lands exactly on the key. */
+export const WIDGET_PIN_OK_MARKER = "الدبوس في مكانه الصحيح";
+
+/** Stable marker the tutor reply contains when the pin must move right. */
+export const WIDGET_PIN_RIGHT_MARKER = "حرّك الدبوس إلى اليمين قليلًا";
+
+/** Stable marker the tutor reply contains when the pin must move left. */
+export const WIDGET_PIN_LEFT_MARKER = "حرّك الدبوس إلى اليسار قليلًا";
+
+/**
+ * PHASE 51 — the offline verdict on a placed pin. Reads the same <widget>
+ * block the real tutor reads (pin value + teacher's key) and answers exactly
+ * the way the prompt rule requires: praise on a hit, direction-only on a miss
+ * — the key is never quoted back.
+ */
+function mockWidgetVerdict(user: string): string {
+  const pinMatch = /وضع الطالب الدبوس عند:\s*(-?[\d.]+)/.exec(user);
+  const keyMatch = /الموضع الصحيح[^:]*:\s*(-?[\d.]+)/.exec(user);
+  const pin = pinMatch ? Number(pinMatch[1]) : NaN;
+  const key = keyMatch ? Number(keyMatch[1]) : NaN;
+  if (!Number.isFinite(pin)) return "لم أتبين موضع الدبوس — حرّكه على الخط ثم اضغط تحقق من جديد.";
+  if (!Number.isFinite(key)) return `وضع الدبوس عند ${pin} — موضع جيد للبدء! أخبرني: هل هو قبل العدد الذي تفكر فيه أم بعده؟`;
+  if (Math.abs(pin - key) < 1e-9) return `🎯 ${WIDGET_PIN_OK_MARKER}! ممتاز يا بطل — حددت الموضع بدقة. هل ننتقل إلى تحدٍّ جديد؟`;
+  return pin < key
+    ? `محاولة جيدة! ${WIDGET_PIN_RIGHT_MARKER} ثم تحقق مرة أخرى.`
+    : `محاولة جيدة! ${WIDGET_PIN_LEFT_MARKER} ثم تحقق مرة أخرى.`;
+}
+
+/**
+ * PHASE 51 — the offline tutor draws a number line on demand. Asking for
+ * «خط الأعداد» gets a real line (0..10, key at 7) so the whole loop —
+ * draw → drag → verify — runs with zero keys.
+ */
+function buildMockWidgetParts(user: string): Array<{ type: "widget"; text: string; widget: unknown }> {
+  if (user.includes("<widget>")) return [];
+  if (!/خط\s*الأعداد|خط\s*اعداد/.test(user)) return [];
+  return [
+    {
+      type: "widget",
+      text: "رسمت لك خط أعداد من 0 إلى 10 — أين يقع العدد 7؟ حرّك الدبوس ثم اضغط تحقق.",
+      widget: {
+        kind: "numberline",
+        from: 0,
+        to: 10,
+        step: 1,
+        markers: [{ value: 0, label: "البداية" }],
+        question: "أين يقع العدد 7؟ حرّك الدبوس ثم اضغط تحقق.",
+        answer: 7,
+      },
+    },
+  ];
 }
 
 /**

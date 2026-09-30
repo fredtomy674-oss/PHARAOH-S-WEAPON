@@ -54,6 +54,7 @@ import {
 } from "./voice.js";
 import InkBoard from "./InkBoard.js";
 import { composeInkPage, type InkStroke } from "./ink.js";
+import NumberLine from "./NumberLine.js";
 
 interface Props {
   user: User;
@@ -368,14 +369,14 @@ export function LessonRoom({ session, onEnded }: Props) {
     setListening(true);
   };
 
-  const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, speakReply = false) => {
+  const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, speakReply = false, widget: { value: number } | null = null) => {
     const text = content.trim();
     // PHASE 50 — marks on the open page travel with the question automatically:
     // the student drew them *as* his question, so asking must never leave them
     // behind. A photo and marks are mutually exclusive (one visual per turn) —
     // the composer already enforces "last act wins", this is the backstop.
     const marks = !image && !doc && openBookPage !== null ? inkStrokes : [];
-    if ((!text && !image && !doc && marks.length === 0) || pending) return;
+    if ((!text && !image && !doc && !widget && marks.length === 0) || pending) return;
     setPending(true);
     setError(null);
     // The picture the tutor sees is the page *as marked*: composited here, from
@@ -396,13 +397,14 @@ export function LessonRoom({ session, onEnded }: Props) {
     // same page before answering instead of describing a page he never saw.
     const onPage = openBookPage ?? undefined;
     const page = onPage !== undefined ? { bookPage: onPage } : {};
+    const pin = widget ? { widget: { value: widget.value } } : {};
     const body = doc
-      ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...page }
+      ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...page, ...pin }
       : image
-        ? { content: text, image: { dataUrl: image }, ...page }
+        ? { content: text, image: { dataUrl: image }, ...page, ...pin }
         : ink
-          ? { content: text, ink, ...page }
-          : { content: text, ...page };
+          ? { content: text, ink, ...page, ...pin }
+          : { content: text, ...page, ...pin };
     try {
       // PHASE 49 — the reply is written as it is thought, so the room shows a
       // tutor thinking instead of a waiting cursor. The student's own words
@@ -438,6 +440,7 @@ export function LessonRoom({ session, onEnded }: Props) {
           doc ? { dataUrl: doc.dataUrl, fileName: doc.name } : undefined,
           onPage,
           ink,
+          widget ?? undefined,
         );
       });
       setLive(null);
@@ -478,6 +481,16 @@ export function LessonRoom({ session, onEnded }: Props) {
     } catch {
       /* the error the student already sees is the important one */
     }
+  };
+
+  /**
+   * PHASE 51 — the student placed the pin and asks for the verdict. The words
+   * say what he did; the value travels as a fact the tutor verifies against
+   * the line's own key.
+   */
+  const verifyPin = (value: number) => {
+    const shown = String(Math.round(value * 1e6) / 1e6);
+    void send(`وضعت الدبوس عند ${shown}`, null, null, false, { value });
   };
 
   const onInkChange = useCallback((list: InkStroke[]) => {
@@ -749,6 +762,13 @@ export function LessonRoom({ session, onEnded }: Props) {
                     </div>
                   )}
                   <p dir="auto">{m.content}</p>
+                  {/* PHASE 51 — the lines this answer drew, each with the
+                      student's own pin on it. The verdict travels as a normal
+                      turn: pin value as a fact, words as the question. */}
+                  {m.role === "tutor" &&
+                    m.widgets?.map((w, i) => (
+                      <NumberLine key={`${m.id}-w${i}`} line={w} verifying={pending} onVerify={verifyPin} />
+                    ))}
                   {/* PHASE 48 — where this answer came from, as a place, not a
                       footnote: one tap turns the stage to that exact page. */}
                   {m.role === "tutor" && m.bookPages && m.bookPages.length > 0 && stage?.hasImages && (

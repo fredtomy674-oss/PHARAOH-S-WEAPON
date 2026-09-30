@@ -1352,6 +1352,96 @@ p {
   width: fit-content;
 }
 
+/* PHASE 51 — «خط الأعداد»: the tutor's line inside its reply. Paper-toned, Ink
+   red for the student's pin, teal for the line itself. */
+.numberline {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.7rem 0.5rem;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff, var(--room-paper));
+  border: 1px solid var(--room-line);
+}
+
+.numberline-question {
+  margin: 0 0 0.2rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.numberline-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.nl-axis {
+  stroke: var(--room-teal-deep);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.nl-tick {
+  stroke: var(--room-teal-deep);
+  stroke-width: 1.5;
+}
+
+.nl-label {
+  font-size: 13px;
+  fill: var(--room-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.nl-marker {
+  fill: var(--room-gold);
+  stroke: #8a6d1c;
+  stroke-width: 1;
+}
+
+.nl-marker-label {
+  font-size: 12px;
+  fill: #8a6d1c;
+  font-weight: 700;
+}
+
+.nl-pin-stem {
+  stroke: #d92626;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.nl-pin-head {
+  fill: #d92626;
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.nl-pin-value {
+  font-size: 11px;
+  font-weight: 800;
+  fill: #ffffff;
+  pointer-events: none;
+}
+
+.nl-pin:focus {
+  outline: none;
+}
+
+.nl-pin:focus .nl-pin-head {
+  stroke: #7a1010;
+  stroke-width: 3.5;
+}
+
+.numberline-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-top: 0.35rem;
+}
+
 .room-stage-nav {
   display: flex;
   align-items: center;

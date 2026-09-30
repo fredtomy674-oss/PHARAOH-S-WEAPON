@@ -27,6 +27,11 @@ export const NO_RETRIEVED_PLACEHOLDER = "لا يوجد محتوى مسترجع";
 /** Mock provider marker: the tutor reply contains this when a photo was attached. */
 export const VISION_MARKER = "قرأت الصورة المرفقة";
 
+/** PHASE 51 — mock provider markers for the number-line verdict. */
+export const WIDGET_PIN_OK = "الدبوس في مكانه الصحيح";
+export const WIDGET_PIN_RIGHT = "حرّك الدبوس إلى اليمين قليلًا";
+export const WIDGET_PIN_LEFT = "حرّك الدبوس إلى اليسار قليلًا";
+
 /** Mock provider marker: the tutor reply contains this when a document was attached. */
 export const DOCUMENT_MARKER = "قرأت الملف المرفق";
 

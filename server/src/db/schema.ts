@@ -397,6 +397,13 @@ export const messages = sqliteTable(
      * once used stays auditable even after the retriever changes.
      */
     bookPages: text("book_pages"),
+    /**
+     * PHASE 51 — JSON array of validated number-line widgets this reply drew
+     * (see `tutor/widgets.ts`). Stored with the answer keys intact: the prompt
+     * needs the key on verification, while the wire view (`widgetsForWire`)
+     * strips it so the exercise cannot answer itself in devtools.
+     */
+    widgets: text("widgets"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("messages_session_idx").on(t.sessionId)],

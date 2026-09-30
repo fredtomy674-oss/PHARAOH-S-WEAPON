@@ -139,6 +139,20 @@ export interface MessageAttachment {
   inkStrokes?: number;
 }
 
+/**
+ * PHASE 51 — a number line the tutor drew inside its reply. The room renders
+ * it with a draggable pin; the correct position is never here (the server
+ * strips it before sending), so the exercise keeps its key.
+ */
+export interface NumberLineView {
+  kind: "numberline";
+  from: number;
+  to: number;
+  step: number;
+  markers?: Array<{ value: number; label?: string }>;
+  question?: string;
+}
+
 export interface Message {
   id: string;
   sessionId: string;
@@ -153,6 +167,12 @@ export interface Message {
    * grounded in. Stored server-side, so it survives re-opening the session.
    */
   bookPages?: number[];
+  /**
+   * PHASE 51 — tutor replies only: number lines this answer drew, without
+   * their answer keys. Stored server-side, so a reopened session redraws the
+   * same lines the student saw live.
+   */
+  widgets?: NumberLineView[];
 }
 
 export interface TurnResult {
@@ -407,6 +427,11 @@ export interface InkPayload {
   strokes: number;
 }
 
+/** PHASE 51 — the pin the student placed on the tutor's number line. */
+export interface WidgetPayload {
+  value: number;
+}
+
 export async function sendMessage(
   sessionId: string,
   content: string,
@@ -423,6 +448,8 @@ export async function sendMessage(
    * the room from the very image the stage shows.
    */
   ink?: InkPayload,
+  /** PHASE 51 — the pin the student placed on the tutor's number line. */
+  widget?: WidgetPayload,
 ): Promise<TurnResult> {
   return api<TurnResult>(`/sessions/${encodeURIComponent(sessionId)}/messages`, {
     method: "POST",
@@ -432,6 +459,7 @@ export async function sendMessage(
       ...(document ? { document } : {}),
       ...(bookPage !== undefined ? { bookPage } : {}),
       ...(ink ? { ink } : {}),
+      ...(widget ? { widget } : {}),
     },
   });
 }
@@ -452,7 +480,7 @@ export async function sendMessage(
  */
 export async function streamMessage(
   sessionId: string,
-  body: { content: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: InkPayload },
+  body: { content: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: InkPayload; widget?: WidgetPayload },
   handlers: {
     onUser?: (message: Message) => void;
     onDelta?: (text: string) => void;

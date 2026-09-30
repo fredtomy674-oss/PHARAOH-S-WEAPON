@@ -2,6 +2,7 @@ import type { DocumentInput, LLMMessage } from "../ai/types.js";
 import type { RankedChunk } from "../rag/types.js";
 import type { StudentMemorySnapshot } from "./memoryService.js";
 import type { TutorIntent } from "./intentClassifier.js";
+import type { NumberLineWidget } from "./widgets.js";
 import { LANGUAGE_STYLES, replyLanguageTag, type TutorLanguage } from "./language.js";
 
 export interface LessonContext {
@@ -60,6 +61,14 @@ export interface BuildPromptInput {
    * instead of describing a page it never saw.
    */
   viewingPage?: { bookPage: number; text: string };
+  /**
+   * PHASE 51 — the student placed the pin on the number line and asks for
+   * verification. `value` is the snapped pin position; `line` is the line the
+   * tutor itself drew (absent when the pin arrived with no line behind it).
+   * The key (`line.answer`) is the teacher's answer key: it guides the verdict
+   * and must never be quoted back.
+   */
+  widget?: { value: number; line?: NumberLineWidget };
 }
 
 /**
@@ -168,6 +177,19 @@ export class PromptBuilder {
       ? `\n\n<document>\nالملف: ${doc.fileName ?? "بدون اسم"} (${doc.mimeType})\n${doc.text}\n</document>`
       : "";
 
+    // PHASE 51 — the pin the student placed, in the *user* turn: from the
+    // model's point of view that is literally "where his finger stopped on the
+    // line". The block names no other prompt tag literally (PHASE 48's rule).
+    const pin = input.widget;
+    const widgetBlock = pin
+      ? `<widget>\nخط الأعداد من ${pin.line?.from ?? "?"} إلى ${pin.line?.to ?? "?"} بخطوة ${pin.line?.step ?? "?"}${pin.line?.question ? ` — سؤال الخط: «${pin.line.question}»` : ""}\n${pin.line?.answer !== undefined ? `الموضع الصحيح (مفتاح المعلم — لا تذكره أبدًا ولا تلمّح إليه بالأرقام): ${pin.line.answer}\n` : ""}وضع الطالب الدبوس عند: ${pin.value}\n</widget>\n\n`
+      : "";
+    const widgetRule = pin
+      ? pin.line?.answer !== undefined
+        ? "- الطالب وضع الدبوس على خط الأعداد ويطلب التحقق: قارن موضعه بالمفتاح. صحيح → امدحه بحرارة في جملة قصيرة ثم واصل بسؤال جديد واحد. خاطئ → لا تذكر القيمة الصحيحة أبدًا، بل أخبره بالاتجاه فقط («تقدّم قليلًا إلى اليمين/اليسار») واطلب منه تحريك الدبوس مجددًا.\n"
+        : "- الطالب وضع الدبوس على خط الأعداد (لا يوجد مفتاح لهذا الخط): علّق على موضعه واربطه بالدرس — هل هو قبل أم بعد العدد المقصود؟ — ثم وجّهه بسؤال واحد قصير.\n"
+      : "";
+
     // PHASE 50 — the marks travel with the question, in the *user* turn: from
     // the model's point of view that is literally "what the student pointed at
     // while asking". The block names no other prompt tag literally — a literal
@@ -192,13 +214,17 @@ export class PromptBuilder {
       "",
       context ? `<context>\n${context}\n</context>` : "<context>\n(لا يوجد محتوى مسترجع لهذا السؤال)\n</context>",
       "",
-      `# المطلوب الآن\n${pageRule}${imageLine}${documentLine}${askLine}\n` +
+      `# المطلوب الآن\n${pageRule}${imageLine}${documentLine}${widgetRule}${askLine}\n` +
         // PHASE 43 hotfix — brevity is latency: the only model answering
         // reliably today (gemma-4-26b-a4b-it) generates ~20 s of Arabic per
         // reply when it is free to ramble, which breaks the interactive game.
         // Same JSON schema, same pedagogy rules; the text itself must stay
         // tight: one short explanation + one short checking question.
         `- أجب بإيجاز شديد: مجموع الرد لا يتجاوز نحو 100 كلمة في 1–3 أجزاء قصيرة (10–15 كلمة للجملة). لا مقدمات طويلة ولا تكرار ولا تنظيرات مفرطة — اشرح جوهر الفكرة مباشرة ثم اسأل سؤالًا واحدًا قصيرًا للتحقق من الفهم.\n` +
+        // PHASE 51 — the tutor may draw *one* number line inside its reply, but
+        // only when the question is about ordering, comparing, or placing
+        // numbers/fractions: a widget for a non-numerical question is noise.
+        `- إذا كان السؤال عن ترتيب أعداد أو مقارنتها أو تمثيل كسر/عدد عشري على خط، أضف إلى parts عنصرًا واحدًا فقط من هذا الشكل: { "type": "widget", "text": "جملة قصيرة تطلب تحريك الدبوس", "widget": { "kind": "numberline", "from": 0, "to": 10, "step": 1, "question": "أين يقع العدد 7؟ حرّك الدبوس ثم اضغط تحقق", "answer": 7 } } — خط واحد فقط في الرد، ولا ترسم خطًا لسؤال غير عددي.\n` +
         `${LANGUAGE_STYLES[language].reply}، وأعد النتيجة بصيغة JSON مطابقة تمامًا لهذا المخطط:\n` +
         `{ "content": "الرد الكامل للمعروض", "parts": [ { "type": "text|question|hint|example", "text": "جزء" } ], "assessment": { "conceptsTouched": ["أسماء مفاهيم"], "confidence": 0-1 } }`,
     ].join("\n");
@@ -211,7 +237,9 @@ export class PromptBuilder {
         // student is looking at while asking", not background documentation.
         // PHASE 50 — the ink block travels the same way, ahead of the question:
         // the marks come first because they *are* the question's subject.
-        { role: "user", content: `${pageBlock}${inkBlock}${input.question}${documentBlock}` },
+        // PHASE 51 — the widget block first of all: the pin is the verdict's
+        // subject, the words around it are secondary.
+        { role: "user", content: `${widgetBlock}${pageBlock}${inkBlock}${input.question}${documentBlock}` },
       ],
     };
   }

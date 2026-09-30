@@ -1,5 +1,5 @@
 import { config } from "../../config/env.js";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, isNotNull } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
 import type { LearningSession, Student } from "../../db/schema.js";
 import { messages as messagesTable } from "../../db/schema.js";
@@ -16,6 +16,13 @@ import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
 import { parseTutorResponse, type TutorResponse } from "./responseProcessor.js";
 import { looksLikePromptEcho, regenerateEchoes } from "./echoGuard.js";
+import {
+  parseStoredWidgets,
+  snapToStep,
+  splitReplyWidgets,
+  type NumberLineWidget,
+  type PinPlacement,
+} from "./widgets.js";
 
 export interface TutorHandleInput {
   student: Student;
@@ -44,6 +51,13 @@ export interface TutorHandleInput {
    * the student's own marks on the book, not at an illustration from the book.
    */
   ink?: { bookPage?: number; strokes: number };
+  /**
+   * PHASE 51 — the student placed the pin on the number line and asks for
+   * verification. The value is his claim; which line it belongs to and what
+   * the correct position is are resolved below from the stored transcript, so
+   * a forged client cannot grade itself correct.
+   */
+  widget?: PinPlacement;
   /**
    * PHASE 49 — ask for the reply to be delivered as it is written, so the room
    * can show a tutor that is thinking in front of the student instead of a
@@ -74,6 +88,12 @@ export interface TutorHandleResult {
    * into one-click page references on the shared stage.
    */
   citedBookPages: number[];
+  /**
+   * PHASE 51 — validated number-line widgets this reply drew. Stored on the
+   * tutor message (answer keys intact) and stripped on the wire, so the room
+   * can render the line while the exercise keeps its key.
+   */
+  widgets: NumberLineWidget[];
 }
 
 const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟";
@@ -150,7 +170,7 @@ export class TutorEngine {
     // 15», «لا أعرف», «مش متأكد») fell through to `explanation` and the tutor
     // kept explaining instead of verifying the answer.
     const lastTutorRow = await this.db.db
-      .select({ content: messagesTable.content, kind: messagesTable.kind })
+      .select({ content: messagesTable.content, kind: messagesTable.kind, widgets: messagesTable.widgets })
       .from(messagesTable)
       .where(and(eq(messagesTable.sessionId, input.session.id), eq(messagesTable.role, "tutor")))
       .orderBy(desc(messagesTable.createdAt))
@@ -177,7 +197,7 @@ export class TutorEngine {
       const effectiveIntent: ReturnType<typeof classifyIntent> = documentBypass
         ? { intent: "admin_bypass_attempt", confidence: 0.95, concepts: intent.concepts }
         : intent;
-      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens: 0, citedBookPages: [] };
+      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens: 0, citedBookPages: [], widgets: [] };
     }
 
     // 4) Scope-guarded retrieval. Photo-only or document-only turns have no
@@ -226,6 +246,39 @@ export class TutorEngine {
     // the retrieval, not a guess the model has to make (and get wrong).
     const citedBookPages = bookPagesInText(retrieveResult.chunks.map((c) => c.content).join("\n"));
 
+    // PHASE 51 — which line the pin belongs to. The key is resolved from the
+    // stored transcript (the last line the tutor drew), never from the
+    // client's echo: the room sends only the pin value, so a forged client
+    // cannot grade itself correct. A pin with no line behind it is still
+    // answered — the tutor reacts to the position without a key.
+    //
+    // The lookup skips verdict replies on purpose: a verification answer draws
+    // no line itself, so "the last tutor message" would lose the key one turn
+    // after it was drawn. The last message that *drew a line* is the key.
+    const lastLineRow = input.widget
+      ? await this.db.db
+          .select({ widgets: messagesTable.widgets })
+          .from(messagesTable)
+          .where(
+            and(
+              eq(messagesTable.sessionId, input.session.id),
+              eq(messagesTable.role, "tutor"),
+              isNotNull(messagesTable.widgets),
+            ),
+          )
+          .orderBy(desc(messagesTable.createdAt))
+          .limit(1)
+          .get()
+      : undefined;
+    const lastLine = lastNumberLine(lastLineRow?.widgets);
+    const pin =
+      input.widget !== undefined
+        ? {
+            value: lastLine ? snapToStep(input.widget.value, lastLine.from, lastLine.step) : input.widget.value,
+            line: lastLine,
+          }
+        : undefined;
+
     // 6) Build prompt & call provider.
     const lessonContext = {
       countryNameAr: input.breadcrumb.country.nameAr,
@@ -253,6 +306,7 @@ export class TutorEngine {
       language,
       lastQuestion: isAnswerTurn ? lastTutorQuestion : undefined,
       viewingPage,
+      widget: pin,
     });
 
     // PHASE 46 — prompt-mirror guard: a weak model occasionally answers a turn
@@ -309,6 +363,10 @@ export class TutorEngine {
     if (looksLikePromptEcho(reply.content)) {
       reply = mirrorFallback(language);
     }
+    // PHASE 51 — split the reply's widgets from its words: only drawable lines
+    // are stored and rendered, the rest degrades to its text fallback.
+    const split = splitReplyWidgets(reply.parts);
+    reply = { ...reply, parts: split.parts };
 
     // 7) Update memory/progress with what we know.
     const touchedConcepts = reply.assessment?.conceptsTouched ?? [];
@@ -322,8 +380,17 @@ export class TutorEngine {
       void this.memory.remember(input.student.id, "preference", "lesson_pace", "يفضل المتابعة بعد التأكيد", 1).catch(() => undefined);
     }
 
-    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages };
+    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages, widgets: split.widgets };
   }
+}
+
+/**
+ * PHASE 51 — the last number line the tutor drew in this session, if any. The
+ * pin the student just placed is verified against this line's key.
+ */
+function lastNumberLine(raw: string | null | undefined): NumberLineWidget | undefined {
+  const widgets = parseStoredWidgets(raw ?? null);
+  return widgets?.[widgets.length - 1];
 }
 
 export { config as tutorConfig };

@@ -355,4 +355,70 @@ describe("PromptBuilder", () => {
       expect(messages[1]!.content).not.toContain("<ink>");
     });
   });
+
+  // PHASE 51 — the pin the student placed on the number line, and the key the
+  // tutor verifies it against.
+  describe("the pin on the number line", () => {
+    const lesson = {
+      countryNameAr: "مصر",
+      systemNameAr: "المنهج",
+      gradeNameAr: "الصف",
+      subjectNameAr: "الرياضيات",
+      curriculumTitle: "المنهج",
+      termTitle: "الفصل",
+      unitTitle: "الوحدة",
+      lessonTitle: "ترتيب الأعداد",
+      conceptTitles: ["ترتيب الأعداد"],
+    };
+    const line = { kind: "numberline" as const, from: 0, to: 10, step: 1, markers: [], question: "أين يقع 7؟", answer: 7 };
+
+    it("shows the tutor the pin and the key, with the key never quotable", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "وضعت الدبوس عند 7",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        widget: { value: 7, line },
+      });
+      const user = messages[1]!.content;
+      expect(user).toContain("<widget>");
+      expect(user).toContain("وضع الطالب الدبوس عند: 7");
+      // The key guides the verdict…
+      expect(user).toContain("7");
+      // …but the rule forbids quoting it back, giving direction instead.
+      expect(messages[0]!.content).toContain("لا تذكر القيمة الصحيحة أبدًا");
+      expect(messages[0]!.content).toContain("بالاتجاه فقط");
+    });
+
+    it("answers a keyless pin without a verdict", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "وضعت الدبوس عند 4",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        widget: { value: 4 },
+      });
+      expect(messages[1]!.content).toContain("<widget>");
+      expect(messages[0]!.content).toContain("لا يوجد مفتاح لهذا الخط");
+    });
+
+    it("adds nothing at all when no pin was placed", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "اشرح",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+      });
+      // The standing draw-a-line rule may mention the pin, but no verdict and
+      // no block travel without a placed pin.
+      expect(messages[0]!.content).not.toContain("لا تذكر القيمة الصحيحة");
+      expect(messages[1]!.content).not.toContain("<widget>");
+    });
+  });
 });
