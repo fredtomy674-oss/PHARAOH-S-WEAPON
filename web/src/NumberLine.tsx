@@ -180,6 +180,8 @@ export default function NumberLine({
           }}
           style={{ touchAction: "none", cursor: "grab" }}
         >
+          {/* A finger-sized hit area around a fingertip-sized pin. */}
+          <circle r={22} fill="transparent" />
           <line y1={-26} y2={-8} className="nl-pin-stem" />
           <circle r={11} className="nl-pin-head" />
           <text y={5} textAnchor="middle" className="nl-pin-value">

@@ -152,7 +152,7 @@ function pageLabel(bookPage: number): string {
 /** One printed page of the book, as the room shows it. */
 function PageSheet({ bookPage, active, cited = false }: { bookPage: number; active: boolean; cited?: boolean }) {
   return (
-    <div className={`room-sheet${active ? " active" : ""}${cited ? " cited" : ""}`}>
+    <div className={`room-thumb-sheet${active ? " active" : ""}${cited ? " cited" : ""}`}>
       <img
         src={bookPageUrl(bookPage)}
         alt={`${pageLabel(bookPage)} من كتاب الوزارة`}
@@ -160,7 +160,7 @@ function PageSheet({ bookPage, active, cited = false }: { bookPage: number; acti
         decoding="async"
         data-testid={active ? "stage-page" : "stage-thumb"}
       />
-      <span className="room-sheet-label">{bookPage === 0 ? "افتتاح" : bookPage}</span>
+      <span className="room-thumb-label">{bookPage === 0 ? "افتتاح" : bookPage}</span>
       {cited && <span className="room-sheet-mark" aria-hidden="true" />}
     </div>
   );
@@ -187,6 +187,16 @@ export function LessonRoom({ session, onEnded }: Props) {
   // and the board is cleared once the tutor has them.
   const [inkStrokes, setInkStrokes] = useState<InkStroke[]>([]);
   const [inkReset, setInkReset] = useState(0);
+  // The board is only drawable once the page image has laid out: the sheet
+  // shrink-wraps the image, so beforehand the canvas is zero-sized.
+  const [pageReady, setPageReady] = useState(false);
+  const stageImgRef = useRef<HTMLImageElement>(null);
+  // A new page starts unready; a cached-complete image is ready immediately,
+  // otherwise the <img> onLoad below flips it when the bytes arrive.
+  useEffect(() => {
+    const img = stageImgRef.current;
+    setPageReady(!!img && img.complete && img.naturalWidth > 0);
+  }, [pageIndex]);
   // PHASE 48 — pages the latest answer was grounded in; marked on the filmstrip.
   const [citedPages, setCitedPages] = useState<number[]>([]);
   // PHASE 49 — the turn in flight: the student's own words (shown the moment he
@@ -610,15 +620,22 @@ export function LessonRoom({ session, onEnded }: Props) {
               <div className="room-page">
                 <div className="room-sheet">
                   <img
+                    ref={stageImgRef}
                     src={bookPageUrl(currentPage.bookPage)}
                     alt={`${pageLabel(currentPage.bookPage)} من كتاب الوزارة`}
                     data-testid="stage-image"
+                    onLoad={(e) => {
+                      // Cached pages may already be complete before React
+                      // attaches: trust dimensions, not the event alone.
+                      const img = e.currentTarget;
+                      if (img.naturalWidth > 0) setPageReady(true);
+                    }}
                   />
                   {/* PHASE 50 — «لوح الحبر»: the student draws on the page itself,
                       so his finger can point at the exact line he asks about. The
                       canvas lives inside the sheet — the image's exact box — so a
                       mark on screen is the same mark the tutor receives. */}
-                  <InkBoard pageKey={currentPage.bookPage} resetToken={inkReset} onChange={onInkChange} />
+                  <InkBoard pageKey={currentPage.bookPage} resetToken={inkReset} ready={pageReady} onChange={onInkChange} />
                 </div>
               </div>
               <div className="room-stage-nav">
@@ -929,49 +946,56 @@ export function LessonRoom({ session, onEnded }: Props) {
               e.target.value = "";
             }}
           />
-          <button
-            data-testid="voice-input"
-            type="button"
-            className={`btn small ghost voice-btn${listening ? " active" : ""}`}
-            aria-label="التحدث بدل الكتابة"
-            aria-pressed={listening}
-            disabled={pending}
-            onClick={toggleTranscription}
-          >
-            {listening ? "🔴" : "🎙️"} سؤال بصوت
-          </button>
-          <button
-            data-testid="attach-image"
-            type="button"
-            className="btn small ghost"
-            aria-label="إرفاق صورة سؤال"
-            disabled={pending}
-            onClick={() => fileRef.current?.click()}
-          >
-            📷 صورة سؤال
-          </button>
-          <button
-            data-testid="attach-document"
-            type="button"
-            className="btn small ghost"
-            aria-label="إرفاق ملف سؤال"
-            disabled={pending}
-            onClick={() => docRef.current?.click()}
-          >
-            📄 ملف سؤال
-          </button>
-          <input
-            data-testid="chat-input"
-            aria-label="رسالتك"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="اسأل معلمك…"
-            maxLength={4000}
-            autoFocus
-          />
-          <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview && !docFile && inkStrokes.length === 0)}>
-            إرسال
-          </button>
+          <div className="composer-tools">
+            <button
+              data-testid="voice-input"
+              type="button"
+              className={`btn small ghost voice-btn${listening ? " active" : ""}`}
+              aria-label="التحدث بدل الكتابة"
+              aria-pressed={listening}
+              disabled={pending}
+              onClick={toggleTranscription}
+            >
+              {listening ? "🔴" : "🎙️"} سؤال بصوت
+            </button>
+            <button
+              data-testid="attach-image"
+              type="button"
+              className="btn small ghost"
+              aria-label="إرفاق صورة سؤال"
+              disabled={pending}
+              onClick={() => fileRef.current?.click()}
+            >
+              📷 صورة سؤال
+            </button>
+            <button
+              data-testid="attach-document"
+              type="button"
+              className="btn small ghost"
+              aria-label="إرفاق ملف سؤال"
+              disabled={pending}
+              onClick={() => docRef.current?.click()}
+            >
+              📄 ملف سؤال
+            </button>
+          </div>
+          <div className="composer-main">
+            <input
+              data-testid="chat-input"
+              aria-label="رسالتك"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="اسأل معلمك…"
+              maxLength={4000}
+              // Keyboard focus without yanking the scroll: the student opens
+              // the room on the book (the stage), not on the composer. A plain
+              // autoFocus would scroll the page past the book on load.
+              ref={(el) => el?.focus({ preventScroll: true })}
+            />
+            <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview && !docFile && inkStrokes.length === 0)}>
+              إرسال
+            </button>
+          </div>
         </form>
         {listening && (
           <div className="voice-status" data-testid="voice-listening">

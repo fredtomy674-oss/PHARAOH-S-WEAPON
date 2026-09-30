@@ -24,11 +24,29 @@ async function openMathRoom(page: Page): Promise<void> {
   await startLessonOfSubject(page, "الرياضيات");
   await expect(page.getByTestId("stage-image")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("ink-canvas")).toBeVisible();
+  // The sheet shrink-wraps the page image: drawing before it lays out would
+  // land on a zero-sized canvas, so wait for the laid-out board explicitly.
+  // `complete` (not just width) matters: a half-streamed image keeps growing,
+  // and coordinates read mid-growth land off-canvas.
+  await expect.poll(
+    async () =>
+      page.evaluate(() => {
+        const img = document.querySelector('[data-testid="stage-image"]') as HTMLImageElement;
+        const canvas = document.querySelector('[data-testid="ink-canvas"]') as HTMLElement;
+        if (!img || !canvas || !img.complete || img.naturalWidth === 0) return 0;
+        return Math.round(canvas.getBoundingClientRect().width);
+      }),
+    { timeout: 20_000 },
+  ).toBeGreaterThan(50);
 }
 
 /** Draws a circle on the ink canvas with the mouse (a finger on touch screens). */
 async function drawCircle(page: Page): Promise<void> {
   const canvas = page.getByTestId("ink-canvas");
+  // The room keeps keyboard focus in the composer without scrolling, so the
+  // stage may sit above the viewport: bring the board into view first, then
+  // read a fresh box — coordinates from a scrolled-away box miss the canvas.
+  await canvas.scrollIntoViewIfNeeded();
   const box = await canvas.boundingBox();
   expect(box, "ink canvas has no laid-out box").toBeTruthy();
   const cx = box!.x + box!.width / 2;

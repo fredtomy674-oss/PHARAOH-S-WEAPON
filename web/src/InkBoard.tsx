@@ -24,6 +24,7 @@ import { INK_COLOR, INK_WIDTH, drawStrokes, type InkStroke, type InkTool } from 
 export default function InkBoard({
   pageKey,
   resetToken,
+  ready,
   onChange,
 }: {
   /** Changes when the stage turns — the board starts fresh on a new page. */
@@ -34,6 +35,12 @@ export default function InkBoard({
    * sends must both clear.
    */
   resetToken: number;
+  /**
+   * False while the page image itself is still loading: the sheet (and the
+   * canvas with it) has no size yet, so there is nothing to point at. The
+   * board says so instead of silently swallowing the gesture.
+   */
+  ready: boolean;
   onChange: (strokes: InkStroke[]) => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -100,8 +107,12 @@ export default function InkBoard({
     onChange(list);
   };
 
-  const pointOf = (e: React.PointerEvent): { x: number; y: number } => {
+  const pointOf = (e: React.PointerEvent): { x: number; y: number } | null => {
     const rect = canvasRef.current!.getBoundingClientRect();
+    // Before the page image lays out, the sheet (and the canvas with it) is
+    // zero-sized: there is nothing to point at yet, so the gesture is dropped
+    // instead of recording NaN coordinates.
+    if (rect.width < 1 || rect.height < 1) return null;
     return {
       x: Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width)),
       y: Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height)),
@@ -115,10 +126,12 @@ export default function InkBoard({
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
+    if (!ready) return;
     if (e.button !== 0 && e.pointerType === "mouse") return;
     e.preventDefault();
     canvasRef.current?.setPointerCapture(e.pointerId);
     const p = pointOf(e);
+    if (!p) return;
     if (tool === "eraser") {
       report(eraseAt(strokesRef.current, p.x, p.y));
       drawingRef.current = { tool: "eraser", color: INK_COLOR, width: INK_WIDTH, points: [p] };
@@ -132,6 +145,7 @@ export default function InkBoard({
     if (!active) return;
     e.preventDefault();
     const p = pointOf(e);
+    if (!p) return;
     if (active.tool === "eraser") {
       report(eraseAt(strokesRef.current, p.x, p.y));
       active.points = [p];
@@ -197,7 +211,11 @@ export default function InkBoard({
           🗑️ مسح الكل
         </button>
         <span className="muted small" data-testid="ink-count" aria-live="polite">
-          {count === 0 ? "ارسم على الصفحة لتحدد سؤالك" : `${count} ${count === 1 ? "علامة" : "علامات"} على الصفحة`}
+          {!ready
+            ? "جارٍ تحميل الصفحة…"
+            : count === 0
+              ? "ارسم على الصفحة لتحدد سؤالك"
+              : `${count} ${count === 1 ? "علامة" : "علامات"} على الصفحة`}
         </span>
       </div>
     </div>
