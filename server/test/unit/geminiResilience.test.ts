@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GeminiEmbeddingProvider, GeminiLLMProvider } from "../../src/modules/ai/providers/gemini.js";
+import { config } from "../../src/config/env.js";
 import { AppError } from "../../src/utils/errors.js";
 
 /**
@@ -95,5 +96,101 @@ describe("Gemini provider resilience (PHASE 42 — transient retries + honest 50
     const appErr = error as AppError;
     expect(appErr.code).toBe("AI_UPSTREAM_BUSY");
     expect(appErr.meta).toMatchObject({ upstreamStatus: 503, label: "مزود التضمين" });
+  });
+});
+
+/**
+ * PHASE 53 — model failover. Measured live: the configured primary 500'd while
+ * three other models answered 200 on the same key within the same minute, so a
+ * 429/500/503 on the primary must move the turn, not end it.
+ */
+describe("Gemini LLM failover (PHASE 53)", () => {
+  const originalFallbacks = config.GEMINI_LLM_FALLBACKS;
+  const originalModel = config.GEMINI_LLM_MODEL;
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    config.GEMINI_LLM_FALLBACKS = originalFallbacks;
+    config.GEMINI_LLM_MODEL = originalModel;
+  });
+
+  function stubFetchFailover(responses: Array<{ status: number; body: unknown }>) {
+    const calls: string[] = [];
+    let index = 0;
+    const impl = vi.fn(async (input: unknown) => {
+      calls.push(String(input));
+      const next = responses[Math.min(index, responses.length - 1)]!;
+      index += 1;
+      return {
+        ok: next.status >= 200 && next.status < 300,
+        status: next.status,
+        json: async () => next.body,
+        text: async () => JSON.stringify(next.body),
+      } as unknown as Response;
+    });
+    vi.stubGlobal("fetch", impl);
+    return calls;
+  }
+
+  const okBody = { candidates: [{ content: { parts: [{ text: "إجابة" }] } }] };
+
+  it("moves to the fallback when the primary's bucket is exhausted", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "fallback-model";
+    // Primary burns its whole retry budget on 503s, then the fallback answers.
+    const calls = stubFetchFailover([
+      { status: 503, body: {} },
+      { status: 503, body: {} },
+      { status: 503, body: {} },
+      { status: 503, body: {} },
+      { status: 200, body: okBody },
+    ]);
+    const res = await new GeminiLLMProvider().complete({ operation: "tutor", messages: [{ role: "user", content: "hi" }] });
+    expect(res.content).toBe("إجابة");
+    expect(res.model).toBe("fallback-model");
+    expect(calls).toHaveLength(5);
+    expect(calls[0]).toContain("primary-model");
+    expect(calls[4]).toContain("fallback-model");
+  });
+
+  it("skips a retired fallback name without retries", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "retired-model, healthy-model";
+    const calls = stubFetchFailover([
+      { status: 503, body: {} },
+      { status: 503, body: {} },
+      { status: 503, body: {} },
+      { status: 503, body: {} },
+      { status: 404, body: {} },
+      { status: 200, body: okBody },
+    ]);
+    const res = await new GeminiLLMProvider().complete({ operation: "tutor", messages: [{ role: "user", content: "hi" }] });
+    expect(res.model).toBe("healthy-model");
+    // 4 primary + 1 retired (no retry) + 1 healthy.
+    expect(calls).toHaveLength(6);
+  });
+
+  it("still throws the honest 503 when every bucket is empty", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "fallback-model";
+    const calls = stubFetchFailover([{ status: 429, body: {} }]);
+    const error = await new GeminiLLMProvider()
+      .complete({ operation: "tutor", messages: [{ role: "user", content: "hi" }] })
+      .catch((e: unknown) => e);
+    expect((error as AppError).code).toBe("AI_UPSTREAM_BUSY");
+    // 4 primary attempts + 2 fallback attempts, then the honest error.
+    expect(calls).toHaveLength(6);
+  });
+
+  it("never leaves the primary when no fallbacks are configured", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "";
+    const calls = stubFetchFailover([
+      { status: 503, body: {} },
+      { status: 200, body: okBody },
+    ]);
+    const res = await new GeminiLLMProvider().complete({ operation: "tutor", messages: [{ role: "user", content: "hi" }] });
+    expect(res.model).toBe("primary-model");
+    expect(calls).toHaveLength(2);
   });
 });

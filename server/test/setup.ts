@@ -21,3 +21,12 @@ process.env.AI_LLM_PROVIDER = "mock";
 process.env.AI_EMBEDDING_PROVIDER = "mock";
 process.env.AI_OCR_PROVIDER = "mock";
 process.env.SPEECH_PROVIDER = "none";
+// PHASE 53 — failover walks GEMINI_LLM_FALLBACKS, which now lives in the same
+// git-ignored server/.env: without this pin a developer's local fallback list
+// would change the retry budgets the resilience tests assert (4 calls became
+// 10). A test that wants fallbacks sets config.GEMINI_LLM_FALLBACKS itself,
+// exactly like the speech tests do with GEMINI_TTS_FALLBACKS. The primary is
+// pinned for the same reason: the model name rides the request into every
+// provider, and assertions on it must not depend on a git-ignored file.
+process.env.GEMINI_LLM_FALLBACKS = "";
+process.env.GEMINI_LLM_MODEL = "test-primary";

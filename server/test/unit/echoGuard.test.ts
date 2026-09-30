@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { looksLikePromptEcho, regenerateEchoes } from "../../src/modules/tutor/echoGuard.js";
+import { looksLikeJsonFragment, looksLikePromptEcho, regenerateEchoes } from "../../src/modules/tutor/echoGuard.js";
 
 // Real transcripts of the failure observed live: gemma mirroring our own
 // system prompt (in English) instead of tutoring, on a fresh session.
@@ -78,6 +78,22 @@ describe("looksLikePromptEcho", () => {
     expect(looksLikePromptEcho("The role of zero in addition is to change nothing.")).toBe(false);
     // A real reply's own bullets are Arabic, unstarred duties the tutor never assigns.
     expect(looksLikePromptEcho("تذكر دائمًا:\n* راجع جدول الضرب\n* اكتب خطواتك")).toBe(false);
+  });
+});
+
+describe("looksLikeJsonFragment", () => {
+  it("flags the truncated envelope we observed live", () => {
+    expect(looksLikeJsonFragment('{\n  "content": "أهلاً بك يا بطل! 💙\\n\\nقابلية')).toBe(true);
+  });
+
+  it("leaves real replies alone — prose, valid JSON, and braces in math", () => {
+    expect(looksLikeJsonFragment("أهلاً بك يا بطل! لنراجع قابلية القسمة.")).toBe(false);
+    // Well-formed JSON parses, so it is never a fragment.
+    expect(looksLikeJsonFragment('{"content": "أهلاً بك"}')).toBe(false);
+    // Braces that are not an envelope (a set in math) are untouched.
+    expect(looksLikeJsonFragment("مجموعة القواسم {1، 2، 3} مهمة.")).toBe(false);
+    // An envelope start that parses is fine; one that never closes is not.
+    expect(looksLikeJsonFragment('{"content": "ناقص')).toBe(true);
   });
 });
 

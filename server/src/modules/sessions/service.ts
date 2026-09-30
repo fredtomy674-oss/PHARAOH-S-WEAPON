@@ -30,6 +30,7 @@ import type { SpeechResult } from "../ai/speech/types.js";
 import { resolveTutorLanguage } from "../tutor/language.js";
 import { parseImageDataUrl } from "./attachments.js";
 import { parseDocumentDataUrl } from "./documents.js";
+import { stripMarkdownForSpeech } from "../ai/speech/stripMarkdown.js";
 import { parseStoredWidgets, PinPlacementSchema, widgetsForWire, type NumberLineView } from "../tutor/widgets.js";
 
 export interface StartSessionInput {
@@ -560,7 +561,9 @@ export class SessionService {
     const language = session.lessonId
       ? resolveTutorLanguage((await this.curriculum.lessonBreadcrumb(session.lessonId)).subject)
       : "ar";
-    return this.speech.synthesize({ text: message.content, language });
+    // PHASE 53 — spoken words, not syntax: the stored reply may carry **bold**
+    // and lists for the eye, which the voice must not read aloud.
+    return this.speech.synthesize({ text: stripMarkdownForSpeech(message.content), language });
   }
 
   async end(sessionId: string, studentId: string, reason = "user_request"): Promise<void> {

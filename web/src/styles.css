@@ -1352,6 +1352,54 @@ p {
   width: fit-content;
 }
 
+/* PHASE 53 — formatted replies: structure instead of a wall of text. */
+.fmt-p {
+  margin: 0 0 0.45rem;
+}
+
+.fmt-p:last-child {
+  margin-bottom: 0;
+}
+
+.fmt-h {
+  margin: 0.2rem 0 0.4rem;
+  font-size: 1rem;
+  color: var(--room-teal-deep);
+}
+
+.fmt-ul,
+.fmt-ol {
+  margin: 0 0 0.45rem;
+  padding-inline-start: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.fmt-ul:last-child,
+.fmt-ol:last-child {
+  margin-bottom: 0;
+}
+
+.fmt-ul li::marker {
+  content: "✦ ";
+  color: var(--room-gold);
+}
+
+.fmt-ol li::marker {
+  font-weight: 800;
+  color: var(--room-teal-deep);
+}
+
+.room-caption-body code {
+  direction: ltr;
+  unicode-bidi: embed;
+  background: rgba(22, 32, 46, 0.07);
+  border-radius: 6px;
+  padding: 0 0.3rem;
+  font-size: 0.88em;
+}
+
 /* PHASE 51 — «خط الأعداد»: the tutor's line inside its reply. Paper-toned, Ink
    red for the student's pin, teal for the line itself. */
 .numberline {

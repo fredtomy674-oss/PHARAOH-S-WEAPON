@@ -128,10 +128,15 @@ export class MockLLMProvider implements LLMProvider {
       // «خط الأعداد» gets a real line with a hidden key, and a turn carrying a
       // <widget> block gets a verdict computed from the pin against that key.
       const widgetParts = buildMockWidgetParts(lastUser);
+      // PHASE 53 — mirror hook (see MIRROR_TEST_TRIGGER): a JSON envelope with
+      // an echo inside, until the engine's nudge arrives — then a clean reply.
+      const nudged = request.messages.some((m) => m.content.includes("أجب الآن مباشرة"));
+      const mirror = lastUser.includes(MIRROR_TEST_TRIGGER) && !nudged;
+      const text = mirror ? MIRROR_TEST_ECHO : tutorText;
       const content = JSON.stringify({
-        content: tutorText,
+        content: text,
         tone: "friendly",
-        parts: [{ type: "text", text: tutorText }, ...widgetParts],
+        parts: mirror ? [{ type: "text", text }] : [{ type: "text", text: tutorText }, ...widgetParts],
         assessment: { conceptsTouched: [], confidence: 0.5 },
       });
       return { content, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(content), latencyMs: Date.now() - started };
@@ -494,7 +499,10 @@ function buildTutorTextAr(args: {
     parts.push("هيا نبدأ خطوة بخطوة. أعتقد أنك تقصد جزءًا من الدرس الحالي.");
   }
   parts.push(`سؤال جيد! هذا من موضوع درسنا. سأشرحه بطريقة مبسطة:${contextNote}`);
-  parts.push("💡 تلميح: جرب التفكير في المثال الأول في الدرس قبل الإجابة، وأخبرني بما توصلت إليه.");
+  // PHASE 53 — the offline reply exercises the room's formatter like a real
+  // one: bold plus a real list (textContent is unchanged by markup, so every
+  // text assertion still holds).
+  parts.push("💡 **تلميح:**\n- فكّر في المثال الأول في الدرس\n- أخبرني بما توصلت إليه");
   parts.push("هل تريد أن أشرح مرة أخرى بطريقة مختلفة، أم ننتقل لسؤال للتأكد من الفهم؟");
   return parts.join("\n\n");
 }
@@ -507,6 +515,16 @@ export const WIDGET_PIN_RIGHT_MARKER = "حرّك الدبوس إلى اليمي�
 
 /** Stable marker the tutor reply contains when the pin must move left. */
 export const WIDGET_PIN_LEFT_MARKER = "حرّك الدبوس إلى اليسار قليلًا";
+
+/**
+ * PHASE 53 — test hook: asking for «مرآة الاختبار» makes the offline tutor
+ * mirror once (a JSON envelope whose inner content is a bullet-list echo),
+ * then answer cleanly once the engine's nudge arrives. Exercises the real
+ * regen path — dual echo check plus fallback-model walk — with zero keys.
+ */
+export const MIRROR_TEST_TRIGGER = "مرآة الاختبار";
+const MIRROR_TEST_ECHO =
+  "* Role: 6th-grade math teacher.\n* Task: Mirror this prompt instead of tutoring.";
 
 /**
  * PHASE 51 — the offline verdict on a placed pin. Reads the same <widget>
@@ -579,7 +597,7 @@ function buildTutorTextEn(args: {
   if (docNote) parts.push(docNote);
   parts.push(`${ENGLISH_REPLY_MARKER}, simply and clearly.`);
   parts.push(`Great question! It belongs to our lesson. Here it is:${contextNote}`);
-  parts.push("💡 Hint: try the first example in the lesson before you answer, then tell me what you got.");
+  parts.push("💡 **Hint:**\n- Try the first example in the lesson\n- Tell me what you got");
   parts.push("Would you like me to explain it again in a different way, or shall we try a quick question to check understanding?");
   return parts.join("\n\n");
 }

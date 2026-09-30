@@ -56,9 +56,22 @@ export class AiService {
     this.ocrCache = new AiCache<OcrResponse>({ ttlMs: config.AI_CACHE_OCR_TTL_MS, maxEntries: config.AI_CACHE_MAX_ENTRIES });
   }
 
+  /**
+   * PHASE 53 — models to try when the default misbehaves (a mirror, an empty
+   * reply), in order. Parsed from the same list the provider's own transport
+   * failover walks, so both layers agree on the order; providers that do not
+   * support explicit models (the offline mock) ignore `request.model` and are
+   * unaffected. Empty = previous behaviour exactly.
+   */
+  fallbackModels(): string[] {
+    return (config.GEMINI_LLM_FALLBACKS ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+  }
+
   /** Single entry point for LLM calls (routing + cache + usage). */
-  async complete(request: LLMRequest): Promise<LLMResponse> {
-    const model = this.router.llmModel(request.operation, request.model);
+  async complete(request: LLMRequest): Promise<LLMResponse> {    const model = this.router.llmModel(request.operation, request.model);
     const cacheable = this.cacheEnabled && LLM_CACHEABLE.has(request.operation);
     const key = cacheable ? this.cache.key(request.operation, model, request.messages) : null;
     if (key) {

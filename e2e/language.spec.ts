@@ -107,7 +107,7 @@ test("LN2: the voice layer follows the lesson — English dictation, English nar
   // server even though the stub browser lists the Arabic voice FIRST.
   await page.getByTestId("send-message").click();
   await expect(page.getByTestId("msg-tutor")).toHaveCount(1, { timeout: 30_000 });
-  const reply = (await page.getByTestId("msg-tutor").first().locator("p").textContent()) ?? "";
+  const reply = (await page.getByTestId("msg-tutor").first().locator(".fmt-p, .fmt-ul, .fmt-ol, .fmt-h").allTextContents()).join("\n");
   expect(reply).toContain(ENGLISH_REPLY_MARKER);
   // The counter is monotonic, so this asserts the audio was really produced
   // without racing the (short) clip's playback.
@@ -127,7 +127,9 @@ test("LN3: with no server voice the browser narration is still English in an Eng
 
   await sendChatMessage(page, "Explain when we add -s to the verb");
   await expect(page.getByTestId("msg-tutor")).toHaveCount(1, { timeout: 30_000 });
-  const reply = (await page.getByTestId("msg-tutor").first().locator("p").textContent()) ?? "";
+  // Content blocks only (PHASE 53): the bubble also holds page chips and the
+  // 🔊 button, which narration never reads.
+  const reply = (await page.getByTestId("msg-tutor").first().locator(".fmt-p, .fmt-ul, .fmt-ol, .fmt-h").allTextContents()).join("\n");
   await page.getByTestId("speak-reply").first().click();
 
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });

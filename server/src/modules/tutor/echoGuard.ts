@@ -63,6 +63,27 @@ export function looksLikePromptEcho(text: string): boolean {
   return BULLET_MIRROR_MARKERS.filter((p) => p.test(text)).length >= 2;
 }
 
+/**
+ * PHASE 53 — a truncated JSON envelope (`{"content": "أهلاً…` and nothing
+ * after). A degraded model sometimes stops mid-envelope (observed live: 23
+ * output tokens and silence); the tolerant parser then falls back to the raw
+ * fragment, and the student would read JSON braces instead of a reply. A
+ * fragment is never an answer — it regenerates (on the next model) or degrades
+ * like an echo. Well-formed JSON is parseable by definition, so this only
+ * fires on the broken shape, never on a real reply.
+ */
+export function looksLikeJsonFragment(text: string): boolean {
+  const trimmed = text.trim();
+  if (!trimmed.startsWith("{")) return false;
+  if (!/"content"|"parts"/.test(trimmed)) return false;
+  try {
+    JSON.parse(trimmed);
+    return false;
+  } catch {
+    return true;
+  }
+}
+
 export interface RegenerateResult<T> {
   /** The last produced response (after bounded regeneration). */
   response: T;
@@ -78,14 +99,20 @@ export interface RegenerateResult<T> {
  * identical prompt does not break a model stuck mirroring, a short nudge does.
  * The final response is always returned (even an echo): the caller decides
  * whether to degrade it gracefully.
+ *
+ * `isEcho` defaults to the raw-text check. The tutor engine passes a dual
+ * check (raw envelope AND parsed inner content): a mirror wrapped in valid
+ * JSON (`{"content": "* Role: …"}`) keeps its bullets mid-line, where a
+ * line-anchored marker cannot see them — only the parsed view can.
  */
 export async function regenerateEchoes<T extends { content: string }>(
   produce: (attempt: number) => Promise<T>,
   maxRegens: number,
+  isEcho: (content: string) => boolean = looksLikePromptEcho,
 ): Promise<RegenerateResult<T>> {
   let response = await produce(0);
   let regens = 0;
-  while (regens < maxRegens && looksLikePromptEcho(response.content)) {
+  while (regens < maxRegens && isEcho(response.content)) {
     regens += 1;
     response = await produce(regens);
   }

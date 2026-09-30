@@ -34,6 +34,14 @@ const TRANSIENT_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
  */
 const GEMINI_RETRY_ATTEMPTS = 4;
 
+/**
+ * PHASE 53 — attempts per *fallback* model. Two, not four: a fallback is tried
+ * because the primary's bucket is empty, so one blip-retry is courtesy and the
+ * second model in line is the real answer. Keeps the worst case inside the
+ * tutor turn's own budget even with three fallbacks configured.
+ */
+const FALLBACK_RETRY_ATTEMPTS = 2;
+
 /** Bounded backoff: 0.4s, 0.8s, 1.6s … capped, so a dead upstream costs ~2s. */
 function backoffMs(attempt: number): number {
   return Math.min(1600, 400 * 2 ** (attempt - 1));
@@ -100,9 +108,32 @@ function upstreamError(label: string, res: Response, detail: string, model: stri
  * show a reply as it is written. The request body is built once and used by both
  * paths: a streamed turn and a buffered turn must be the *same* request, or the
  * answer would depend on how it was delivered.
+ *
+ * PHASE 53 — model failover. Quota is per-model, so a 429 on the primary is not
+ * "the service is down" but "this model's bucket is empty": the turn walks
+ * GEMINI_LLM_FALLBACKS instead of failing the student (measured live: the
+ * configured primary 500'd while three other models answered 200 on the same
+ * key within the same minute). A retired name 404s and is skipped without
+ * retries; a deterministic failure (400) still throws immediately. Streaming
+ * switches models only while nothing has been handed to the student yet — once
+ * a word has left, replaying the turn on another model would print it twice.
  */
 export class GeminiLLMProvider implements LLMProvider {
   readonly id = "gemini";
+
+  /**
+   * The models to try, in order: the requested (or configured) primary first,
+   * then the configured fallbacks, de-duplicated. Empty fallbacks = previous
+   * behaviour exactly.
+   */
+  private llmModels(requested?: string): string[] {
+    const primary = requested ?? config.GEMINI_LLM_MODEL;
+    const fallbacks = (config.GEMINI_LLM_FALLBACKS ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0 && s !== primary);
+    return [primary, ...fallbacks];
+  }
 
   /**
    * The API payload for one completion, shared by `complete` and `stream`.
@@ -149,32 +180,45 @@ export class GeminiLLMProvider implements LLMProvider {
 
   async complete(request: LLMRequest): Promise<LLMResponse> {
     const started = Date.now();
-    const model = request.model ?? config.GEMINI_LLM_MODEL;
     const body = this.buildBody(request);
 
-    const res = await postWithRetry(
-      `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
-      body,
-      GEMINI_RETRY_ATTEMPTS,
-    );
-    if (!res.ok) {
-      const detail = await res.text().catch(() => "");
-      upstreamError("مزود الذكاء الاصطناعي", res, detail, model);
-    }
-    const data = (await res.json()) as {
-      candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
-      usageMetadata?: { promptTokenCount?: number; candidatesTokenCount?: number };
-    };
-    const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("") ?? "";
-    if (!text) throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع نصًا");
+    // One turn, several buckets: each model gets the retry budget for blips,
+    // and a model whose bucket is empty (or whose name retired) yields to the
+    // next one. The last failure is the honest one the student sees.
+    let last: { res: Response; detail: string; model: string } | null = null;
+    const models = this.llmModels(request.model);
+    for (let i = 0; i < models.length; i++) {
+      const model = models[i]!;
+      const res = await postWithRetry(
+        `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
+        body,
+        i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS,
+      );
+      if (res.ok) {
+        const data = (await res.json()) as {
+          candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+          usageMetadata?: { promptTokenCount?: number; candidatesTokenCount?: number };
+        };
+        const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("") ?? "";
+        if (!text) throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع نصًا");
 
-    return {
-      content: text,
-      model,
-      inputTokens: data.usageMetadata?.promptTokenCount ?? 0,
-      outputTokens: data.usageMetadata?.candidatesTokenCount ?? 0,
-      latencyMs: Date.now() - started,
-    };
+        return {
+          content: text,
+          model,
+          inputTokens: data.usageMetadata?.promptTokenCount ?? 0,
+          outputTokens: data.usageMetadata?.candidatesTokenCount ?? 0,
+          latencyMs: Date.now() - started,
+        };
+      }
+      const detail = await res.text().catch(() => "");
+      // Deterministic and model-independent (a malformed request fails the same
+      // on every model), so repeating it elsewhere only wastes quota and time.
+      if (!TRANSIENT_STATUS.has(res.status) && res.status !== 404) {
+        upstreamError("مزود الذكاء الاصطناعي", res, detail, model);
+      }
+      last = { res, detail, model };
+    }
+    upstreamError("مزود الذكاء الاصطناعي", last!.res, last!.detail, last!.model);
   }
 
   /**
@@ -192,29 +236,69 @@ export class GeminiLLMProvider implements LLMProvider {
    */
   async stream(request: LLMRequest, onDelta: (text: string) => void | Promise<void>): Promise<LLMResponse> {
     const started = Date.now();
-    const model = request.model ?? config.GEMINI_LLM_MODEL;
     const body = this.buildBody(request);
-    const url = `${BASE_URL}/models/${model}:streamGenerateContent?alt=sse&key=${apiKey()}`;
 
-    let res: Response | null = null;
-    for (let attempt = 1; attempt <= GEMINI_RETRY_ATTEMPTS; attempt += 1) {
-      const candidate = await fetch(url, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (candidate.ok) {
-        res = candidate;
-        break;
+    // Same failover as complete, with the streaming constraint: switching
+    // models is only safe while NOTHING has been handed to the student. Once a
+    // word has left, the turn either finishes on this model or fails honestly.
+    let emitted = false;
+    const counting = async (text: string): Promise<void> => {
+      emitted = true;
+      await onDelta(text);
+    };
+    let last: { res: Response; detail: string; model: string } | null = null;
+    const models = this.llmModels(request.model);
+    for (let i = 0; i < models.length; i++) {
+      const model = models[i]!;
+      const url = `${BASE_URL}/models/${model}:streamGenerateContent?alt=sse&key=${apiKey()}`;
+
+      let res: Response | null = null;
+      for (let attempt = 1; attempt <= (i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS); attempt += 1) {
+        const candidate = await fetch(url, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        if (candidate.ok) {
+          res = candidate;
+          break;
+        }
+        if (!TRANSIENT_STATUS.has(candidate.status) || attempt === (i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS)) {
+          const detail = await candidate.text().catch(() => "");
+          // Deterministic (or retired): fail over only when another model could
+          // plausibly answer — a malformed request fails the same everywhere.
+          if (!TRANSIENT_STATUS.has(candidate.status) && candidate.status !== 404) {
+            upstreamError("مزود الذكاء الاصطناعي", candidate, detail, model);
+          }
+          last = { res: candidate, detail, model };
+          break;
+        }
+        await sleep(backoffMs(attempt));
       }
-      if (!TRANSIENT_STATUS.has(candidate.status) || attempt === GEMINI_RETRY_ATTEMPTS) {
-        const detail = await candidate.text().catch(() => "");
-        upstreamError("مزود الذكاء الاصطناعي", candidate, detail, model);
+      if (!res?.body) continue; // This model yielded — the next bucket gets the turn.
+
+      try {
+        return await this.readStream(res, model, started, counting);
+      } catch (err) {
+        // A network cut before the first word is just another blip: fail over.
+        // After the first word the student already owns the opening, so a
+        // mid-stream cut throws and the room keeps whatever it showed.
+        if (emitted) throw err;
+        last = last ?? { res, detail: err instanceof Error ? err.message : "stream cut", model };
       }
-      await sleep(backoffMs(attempt));
     }
-    if (!res?.body) throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع بثًا");
+    if (last) upstreamError("مزود الذكاء الاصطناعي", last.res, last.detail, last.model);
+    throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع بثًا");
+  }
 
+  /** Reads one model's SSE body into the full reply, handing slices over as they arrive. */
+  private async readStream(
+    res: Response,
+    model: string,
+    started: number,
+    onDelta: (text: string) => void | Promise<void>,
+  ): Promise<LLMResponse> {
+    if (!res.body) throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع بثًا");
     let text = "";
     let inputTokens = 0;
     let outputTokens = 0;

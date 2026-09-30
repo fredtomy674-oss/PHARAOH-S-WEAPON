@@ -92,3 +92,18 @@ test("turning the page leaves the old marks behind", async ({ page }) => {
   await page.getByTestId("stage-next").click();
   await expect(page.getByTestId("ink-count")).toContainText("ارسم على الصفحة");
 });
+
+test("the composer announces hitchhiking marks and lets the student drop them", async ({ page }) => {
+  await openMathRoom(page);
+  await drawCircle(page);
+
+  // The marks ride with the next send — the composer says so instead of
+  // smuggling them invisibly onto every later question.
+  await expect(page.getByTestId("ink-pending")).toContainText("ستُرسل مع سؤالك");
+
+  // One tap drops them: the board clears and the send button sleeps again.
+  await page.getByTestId("ink-drop").click();
+  await expect(page.getByTestId("ink-pending")).toHaveCount(0);
+  await expect(page.getByTestId("ink-count")).toContainText("ارسم على الصفحة");
+  await expect(page.getByTestId("send-message")).toBeDisabled();
+});

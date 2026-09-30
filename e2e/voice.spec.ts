@@ -30,7 +30,12 @@ test.describe.configure({ mode: "serial" });
 async function tutorReplyText(page: Page): Promise<string> {
   const tutorMsgs = page.getByTestId("msg-tutor");
   await expect(tutorMsgs).toHaveCount(1, { timeout: 30_000 });
-  const text = (await tutorMsgs.first().locator("p").textContent()) ?? "";
+  // Only the formatted content blocks: the bubble also holds page chips and
+  // the 🔊 button, which narration never reads. Joined with newlines, this is
+  // exactly stripMarkdown(content) by the formatter's invariant — so the voice
+  // tests verify spoken === shown, not spoken === chrome.
+  const parts = await tutorMsgs.first().locator(".fmt-p, .fmt-ul, .fmt-ol, .fmt-h").allTextContents();
+  const text = parts.join("\n");
   expect(text.length).toBeGreaterThan(0);
   return text;
 }

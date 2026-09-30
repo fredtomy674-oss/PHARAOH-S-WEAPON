@@ -55,6 +55,8 @@ import {
 import InkBoard from "./InkBoard.js";
 import { composeInkPage, type InkStroke } from "./ink.js";
 import NumberLine from "./NumberLine.js";
+import FormattedText from "./FormattedText.js";
+import { previewText, stripMarkdown } from "./format.js";
 
 interface Props {
   user: User;
@@ -326,17 +328,19 @@ export function LessonRoom({ session, onEnded }: Props) {
         },
         onError: () => {
           // Never leave 🔊 dead: fall back to the browser's own voice.
-          if (token === speechToken.current) speakLocally(message.content);
+          // Spoken words, not syntax: the bubble may hold **bold** and lists.
+          if (token === speechToken.current) speakLocally(stripMarkdown(message.content));
         },
       });
-      if (!handle) speakLocally(message.content);
+      if (!handle) speakLocally(stripMarkdown(message.content));
     } catch (err) {
       if (token !== speechToken.current) return;
       if (!(err instanceof SpeechUnavailableError)) {
         setError(err instanceof ApiError ? err.message : "تعذّر تحضير الصوت");
         return;
       }
-      speakLocally(message.content);
+      // Same strip as above: the bubble may hold **bold** and lists.
+      speakLocally(stripMarkdown(message.content));
     }
   };
 
@@ -761,7 +765,10 @@ export function LessonRoom({ session, onEnded }: Props) {
                       )}
                     </div>
                   )}
-                  <p dir="auto">{m.content}</p>
+                  {/* PHASE 53 — the reply with its formatting (bold, lists,
+                      steps) instead of a flat wall of text. Words travel as
+                      text nodes, so a reply can never inject markup. */}
+                  <FormattedText text={m.content} />
                   {/* PHASE 51 — the lines this answer drew, each with the
                       student's own pin on it. The verdict travels as a normal
                       turn: pin value as a fact, words as the question. */}
@@ -817,7 +824,9 @@ export function LessonRoom({ session, onEnded }: Props) {
                 )}
                 <div className="room-caption theirs" data-testid="msg-tutor-live" data-live="true">
                   <div className="room-caption-body">
-                    <p dir="auto">{live.text || <span className="room-cursor" aria-hidden="true" />}</p>
+                    {/* The preview is plain text with unclosed markers held
+                        back: every frame stays a prefix of the kept reply. */}
+                    <p dir="auto">{previewText(live.text) || <span className="room-cursor" aria-hidden="true" />}</p>
                   </div>
                 </div>
               </>
@@ -864,6 +873,28 @@ export function LessonRoom({ session, onEnded }: Props) {
             </span>
             <button data-testid="remove-document" type="button" className="btn small ghost" disabled={pending} onClick={() => setDocFile(null)}>
               إزالة
+            </button>
+          </div>
+        )}
+        {/* PHASE 53 — the marks ride with the next send, so the composer says
+            so: invisible hitchhikers are exactly what made one drawing show up
+            on every reply. One tap drops them without touching the board. */}
+        {inkStrokes.length > 0 && !preview && (
+          <div className="attachment-preview" data-testid="ink-pending">
+            <span className="document-preview-name">
+              ✏️ {inkStrokes.length === 1 ? "علامة على الصفحة" : `${inkStrokes.length} علامات على الصفحة`} ستُرسل مع سؤالك
+            </span>
+            <button
+              data-testid="ink-drop"
+              type="button"
+              className="btn small ghost"
+              disabled={pending}
+              onClick={() => {
+                setInkStrokes([]);
+                setInkReset((n) => n + 1);
+              }}
+            >
+              إسقاط العلامات
             </button>
           </div>
         )}

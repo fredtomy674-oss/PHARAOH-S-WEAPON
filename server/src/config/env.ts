@@ -74,6 +74,15 @@ export const EnvSchema = z.object({
   // default is the one that kept answering. A pin that retires fails loudly at
   // the first call, never silently.
   GEMINI_LLM_MODEL: z.string().default("gemini-3.1-flash-lite-preview"),
+  /**
+   * PHASE 53 — ordered failover list for the tutor LLM (comma-separated model
+   * names). Quota is per-model, so when the primary's bucket is exhausted
+   * (429) or the model itself errors (500/503), the turn moves to the next
+   * model instead of failing the student. A retired name fails fast (404 skips
+   * the chain without retries), so a stale list costs one quick call, not the
+   * turn. Empty = primary only (previous behaviour, and what the tests pin).
+   */
+  GEMINI_LLM_FALLBACKS: z.string().default(""),
   // PHASE 47 follow-up: gemini-embedding-001's free tier throttled the whole
   // re-embed for a full day (embed_content_free_tier_requests, limit 1000/day),
   // while gemini-embedding-2 (same 3072 dims — zero migration friction) kept

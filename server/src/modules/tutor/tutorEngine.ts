@@ -15,7 +15,7 @@ import { resolveTutorLanguage, type TutorLanguage } from "./language.js";
 import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
 import { parseTutorResponse, type TutorResponse } from "./responseProcessor.js";
-import { looksLikePromptEcho, regenerateEchoes } from "./echoGuard.js";
+import { looksLikeJsonFragment, looksLikePromptEcho, regenerateEchoes } from "./echoGuard.js";
 import {
   parseStoredWidgets,
   snapToStep,
@@ -325,6 +325,23 @@ export class TutorEngine {
           }
         : m,
     );
+    // PHASE 53 — a mirror means THIS model is stuck narrating its assignment,
+    // not that the question is bad: hammering the stuck model with the same
+    // nudge twice is how a turn burns a minute. Regenerations walk the
+    // fallback models instead (attempt 1 → first fallback, …), so a stuck
+    // primary yields to a fresh bucket. No fallbacks configured = previous
+    // behaviour exactly (same model, nudged).
+    const regenModels = this.ai.fallbackModels();
+    // A mirror wrapped in valid JSON hides its bullets mid-line, where a
+    // line-anchored marker cannot see them — so the regen check reads both the
+    // raw envelope and the parsed inner content (PHASE 53). A truncated
+    // envelope is the same family (an unusable reply, never an answer) and
+    // regenerates the same way, on the next model.
+    const isEcho = (raw: string): boolean => {
+      if (looksLikePromptEcho(raw)) return true;
+      const parsed = parseTutorResponse(raw).content;
+      return looksLikePromptEcho(parsed) || looksLikeJsonFragment(parsed);
+    };
     const { response: llmResponse, regens: promptEchoRegens } = await regenerateEchoes(
       async (attempt) => {
         const request = {
@@ -341,6 +358,7 @@ export class TutorEngine {
           documents: input.documents,
           contextUserId: input.userId,
           contextSessionId: input.session.id,
+          ...(attempt > 0 && regenModels[attempt - 1] ? { model: regenModels[attempt - 1] } : {}),
         };
         // Only the first attempt is streamed. A regeneration exists because the
         // first answer was unusable, so showing it would be a waste of the
@@ -352,6 +370,7 @@ export class TutorEngine {
         return streamed;
       },
       MAX_PROMPT_ECHO_REGENS,
+      isEcho,
     );
     // A regeneration means the streamed first answer was thrown away; make sure
     // the room stopped displaying it even if the mirror was not recognisable as
@@ -359,8 +378,9 @@ export class TutorEngine {
     if (promptEchoRegens > 0 && input.stream?.onDiscard) await input.stream.onDiscard();
     let reply = parseTutorResponse(llmResponse.content);
     // Last resort: the budget is spent but the model still mirrors — degrade
-    // gracefully instead of printing a prompt echo to the student.
-    if (looksLikePromptEcho(reply.content)) {
+    // gracefully instead of printing a prompt echo to the student. A truncated
+    // envelope degrades the same way: braces are never an answer.
+    if (looksLikePromptEcho(reply.content) || looksLikeJsonFragment(reply.content)) {
       reply = mirrorFallback(language);
     }
     // PHASE 51 — split the reply's widgets from its words: only drawable lines
