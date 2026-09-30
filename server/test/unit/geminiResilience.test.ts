@@ -194,3 +194,151 @@ describe("Gemini LLM failover (PHASE 53)", () => {
     expect(calls).toHaveLength(2);
   });
 });
+
+/**
+ * PHASE 55 — time bounds. Measured live: a tutor turn burned 181s (then 300s+
+ * on retry) because a hung attempt waits forever. A hanging socket must spend
+ * the budget on the next attempt, and a silent stream must be cut — never
+ * watched.
+ */
+describe("Gemini time bounds (PHASE 55)", () => {
+  const originalFallbacks = config.GEMINI_LLM_FALLBACKS;
+  const originalModel = config.GEMINI_LLM_MODEL;
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    config.GEMINI_LLM_FALLBACKS = originalFallbacks;
+    config.GEMINI_LLM_MODEL = originalModel;
+  });
+
+  /** A fetch that hangs until OUR abort fires — real fetch semantics. */
+  function stubHangingFetch(calls: string[]) {
+    const impl = vi.fn(async (input: unknown, init?: { signal?: AbortSignal }) => {
+      calls.push(String(input));
+      await new Promise((_, reject) => {
+        if (init?.signal?.aborted) {
+          reject(Object.assign(new Error("aborted"), { name: "AbortError" }));
+          return;
+        }
+        init?.signal?.addEventListener("abort", () => {
+          reject(Object.assign(new Error("aborted"), { name: "AbortError" }));
+        });
+      });
+      throw new Error("unreachable");
+    });
+    vi.stubGlobal("fetch", impl);
+    return calls;
+  }
+
+  const okBody = { candidates: [{ content: { parts: [{ text: "إجابة" }] } }] };
+
+  it("a hung primary yields to a healthy fallback instead of hanging the turn", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "fallback-model";
+    const calls: string[] = [];
+    const hanging = vi.fn(async (input: unknown, init?: { signal?: AbortSignal }) => {
+      calls.push(String(input));
+      if (String(input).includes("fallback-model")) {
+        return { ok: true, status: 200, json: async () => okBody, text: async () => JSON.stringify(okBody) } as unknown as Response;
+      }
+      await new Promise((_, reject) => {
+        init?.signal?.addEventListener("abort", () => {
+          reject(Object.assign(new Error("aborted"), { name: "AbortError" }));
+        });
+      });
+      throw new Error("unreachable");
+    });
+    vi.stubGlobal("fetch", hanging);
+    const res = await new GeminiLLMProvider().complete(
+      { operation: "tutor", messages: [{ role: "user", content: "hi" }] },
+      { timeoutMs: 30 },
+    );
+    expect(res.content).toBe("إجابة");
+    expect(res.model).toBe("fallback-model");
+    // 4 hung primary attempts, then the fallback answers on its first try.
+    expect(calls).toHaveLength(5);
+  });
+
+  it("silence all the way down is an honest, retryable 503 — never a 500", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "";
+    const calls: string[] = [];
+    stubHangingFetch(calls);
+    const error = await new GeminiLLMProvider()
+      .complete({ operation: "tutor", messages: [{ role: "user", content: "hi" }] }, { timeoutMs: 30 })
+      .catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(AppError);
+    const appErr = error as AppError;
+    expect(appErr.statusCode).toBe(503);
+    expect(appErr.code).toBe("AI_UPSTREAM_BUSY");
+    expect(appErr.meta).toMatchObject({ timeout: true });
+    expect(calls).toHaveLength(4);
+  });
+
+  it("cuts a stream silent before the first word and fails over", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "fallback-model";
+    // Primary opens fine but never sends a frame; the fallback answers whole.
+    const hangingStream = new ReadableStream<Uint8Array>({});
+    let n = 0;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: unknown) => {
+        n += 1;
+        if (String(input).includes("fallback-model")) {
+          const body = new ReadableStream<Uint8Array>({
+            start(c) {
+              c.enqueue(
+                new TextEncoder().encode('data: {"candidates":[{"content":{"parts":[{"text":"إجابة"}]}}]}\n\n'),
+              );
+              c.close();
+            },
+          });
+          return new Response(body, { status: 200 });
+        }
+        return new Response(hangingStream, { status: 200 });
+      }),
+    );
+    const deltas: string[] = [];
+    const res = await new GeminiLLMProvider().stream(
+      { operation: "tutor", messages: [{ role: "user", content: "hi" }] },
+      (t) => {
+        deltas.push(t);
+      },
+      { timeoutMs: 5000, stallMs: 40 },
+    );
+    expect(res.content).toBe("إجابة");
+    expect(res.model).toBe("fallback-model");
+    expect(deltas).toEqual(["إجابة"]);
+    expect(n).toBe(2);
+  });
+
+  it("a stall after the first word fails honestly — the opening is never replayed", async () => {
+    config.GEMINI_LLM_MODEL = "primary-model";
+    config.GEMINI_LLM_FALLBACKS = "fallback-model";
+    // One frame, then eternal silence: the student owns the opening already.
+    const body = new ReadableStream<Uint8Array>({
+      start(c) {
+        c.enqueue(new TextEncoder().encode('data: {"candidates":[{"content":{"parts":[{"text":"أهلا"}]}}]}\n\n'));
+      },
+    });
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body, { status: 200 })));
+    const deltas: string[] = [];
+    const error = await new GeminiLLMProvider()
+      .stream(
+        { operation: "tutor", messages: [{ role: "user", content: "hi" }] },
+        (t) => {
+          deltas.push(t);
+        },
+        { timeoutMs: 5000, stallMs: 40 },
+      )
+      .catch((e: unknown) => e);
+    expect(deltas).toEqual(["أهلا"]);
+    expect(error).toBeInstanceOf(AppError);
+    const appErr = error as AppError;
+    expect(appErr.statusCode).toBe(503);
+    expect(appErr.meta).toMatchObject({ stall: true });
+    // The student's words are saved: the message says so, plainly.
+    expect(appErr.message).toContain("رسالتك محفوظة");
+  });
+});

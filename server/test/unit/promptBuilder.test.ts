@@ -288,6 +288,42 @@ describe("PromptBuilder", () => {
     });
   });
 
+  // PHASE 55 — the tutor manages the session: it stays on the stuck concept
+  // and teaches from the book's own worked examples first.
+  describe("session management", () => {
+    const lesson = {
+      countryNameAr: "مصر",
+      systemNameAr: "المنهج",
+      gradeNameAr: "الصف",
+      subjectNameAr: "الرياضيات",
+      curriculumTitle: "المنهج",
+      termTitle: "الفصل",
+      unitTitle: "الوحدة",
+      lessonTitle: "قابلية القسمة",
+      conceptTitles: ["قابلية القسمة"],
+    };
+    const base = {
+      intent: "explanation" as const,
+      question: "مش فاهم",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+    };
+
+    it("forbids hopping to a new concept while the student is stuck", () => {
+      const { messages } = builder.build(base);
+      expect(messages[0]!.content).toContain("ابقَ على الفكرة نفسها تمامًا");
+    });
+
+    it("teaches from the book's worked example before inventing one", () => {
+      const { messages } = builder.build(base);
+      const system = messages[0]!.content;
+      expect(system).toContain("المثال المحلول في كتاب الوزارة");
+      expect(system).toContain("مثال الكتاب");
+    });
+  });
+
   // PHASE 50 — «لوح الحبر»: the student drew on the book itself, and the tutor
   // must read the marks as his question, not as a photographed question.
   describe("the student's own marks on the page", () => {

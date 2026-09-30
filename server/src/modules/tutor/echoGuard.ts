@@ -71,11 +71,15 @@ export function looksLikePromptEcho(text: string): boolean {
  * fragment is never an answer — it regenerates (on the next model) or degrades
  * like an echo. Well-formed JSON is parseable by definition, so this only
  * fires on the broken shape, never on a real reply.
+ *
+ * PHASE 55 — the signal is brace-then-quote (`{ "`), not complete key names:
+ * observed live, the cut landed INSIDE the key (`{\n  "content` with no
+ * closing quote), which a `"content"` matcher cannot see. A math set (`{1،
+ * 2}`) never opens brace-quote, so it stays untouched.
  */
 export function looksLikeJsonFragment(text: string): boolean {
   const trimmed = text.trim();
-  if (!trimmed.startsWith("{")) return false;
-  if (!/"content"|"parts"/.test(trimmed)) return false;
+  if (!/^\{\s*"/.test(trimmed)) return false;
   try {
     JSON.parse(trimmed);
     return false;

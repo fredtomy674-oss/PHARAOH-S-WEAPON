@@ -471,6 +471,8 @@ export class SessionService {
       userId: studentRow.userId,
       dailyLimit,
       viewingPage,
+      // The just-stored question, so history lookups resolve to earlier turns.
+      excludeMessageId: userMessage.id,
       ...(ink ? { ink: { bookPage: inkPage, strokes: strokeCount } } : {}),
       ...(pin ? { widget: pin } : {}),
       // Only when the caller can actually show progress; the buffered endpoint

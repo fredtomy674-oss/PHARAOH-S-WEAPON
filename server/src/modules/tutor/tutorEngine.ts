@@ -1,5 +1,5 @@
 import { config } from "../../config/env.js";
-import { and, desc, eq, isNotNull } from "drizzle-orm";
+import { and, desc, eq, isNotNull, ne } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
 import type { LearningSession, Student } from "../../db/schema.js";
 import { messages as messagesTable } from "../../db/schema.js";
@@ -10,7 +10,7 @@ import { bookPageText, bookPagesInText } from "../curriculum/bookStage.js";
 import { ReplyRelay, type ReplyRelayHooks } from "./responseStream.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
-import { classifyIntent } from "./intentClassifier.js";
+import { classifyIntent, type TutorIntent } from "./intentClassifier.js";
 import { resolveTutorLanguage, type TutorLanguage } from "./language.js";
 import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
@@ -58,6 +58,11 @@ export interface TutorHandleInput {
    * a forged client cannot grade itself correct.
    */
   widget?: PinPlacement;
+  /**
+   * PHASE 55 — the just-stored user message's id, so history lookups (the
+   * retrieval anchor) resolve to EARLIER turns, never to the question itself.
+   */
+  excludeMessageId?: string;
   /**
    * PHASE 49 — ask for the reply to be delivered as it is written, so the room
    * can show a tutor that is thinking in front of the student instead of a
@@ -207,13 +212,37 @@ export class TutorEngine {
     // PHASE 44 — when the student is answering, retrieve on the PENDING
     // question, not on the bare answer ("9" yields no meaningful curriculum
     // grounding; "كم ناتج 5+4" does).
-    const effectiveQuery = isAnswerTurn && lastTutorQuestion ? lastTutorQuestion : input.question.trim();
-    const retrievalQuery =
-      effectiveQuery.length > 0
-        ? effectiveQuery
-        : hasDocument
-          ? "سؤال عن محتوى الملف المرفق في هذا الدرس"
-          : "سؤال مصور في هذا الدرس";
+    // PHASE 55 — anchor a concept-less follow-up on the concept in progress
+    // (see buildRetrievalQuery): the tutor's last message first, the
+    // student's last EARLIER message when no tutor reply exists yet (a failed
+    // first turn must not leave the second one anchorless).
+    let anchorMessage = lastTutorRow?.content?.trim() || undefined;
+    if (!anchorMessage && input.excludeMessageId) {
+      const lastUserRow = await this.db.db
+        .select({ content: messagesTable.content })
+        .from(messagesTable)
+        .where(
+          and(
+            eq(messagesTable.sessionId, input.session.id),
+            eq(messagesTable.role, "user"),
+            // The just-stored question anchors nothing: it IS this turn.
+            ne(messagesTable.id, input.excludeMessageId),
+          ),
+        )
+        .orderBy(desc(messagesTable.createdAt))
+        .limit(1)
+        .get();
+      anchorMessage = lastUserRow?.content?.trim() || undefined;
+    }
+    const retrievalQuery = buildRetrievalQuery({
+      question: input.question,
+      intent: intent.intent,
+      intentConcepts: intent.concepts,
+      isAnswerTurn,
+      lastTutorMessage,
+      anchorMessage,
+      hasDocument,
+    });
     const retrieveResult = await this.retrieval.retrieve({
       question: retrievalQuery,
       scope: {
@@ -353,7 +382,11 @@ export class TutorEngine {
           // Arabic chars, double the shorter replies the prompt now asks for,
           // and the tolerant parser still degrades to plain text if a cap ever
           // trims the JSON.
-          maxOutputTokens: 900,
+          // PHASE 55 — lowered to 600: observed replies peak near 440 tokens,
+          // so this keeps generous headroom while halving what a rambling
+          // model can burn on a degraded day (≈60s at 10 tok/s). A cap that
+          // trims mid-envelope yields a fragment, which the guard regenerates.
+          maxOutputTokens: 600,
           images: input.images,
           documents: input.documents,
           contextUserId: input.userId,
@@ -411,6 +444,49 @@ export class TutorEngine {
 function lastNumberLine(raw: string | null | undefined): NumberLineWidget | undefined {
   const widgets = parseStoredWidgets(raw ?? null);
   return widgets?.[widgets.length - 1];
+}
+
+/**
+ * PHASE 55 — what the retriever searches for.
+ *
+ * A vague follow-up ("مش فاهم، اشرح بطريقة أسهل") names no concept, so bare
+ * retrieval drifts: observed live, it pulled GCD chunks into a
+ * divisibility-by-2 explanation and the tutor followed them off a cliff. When
+ * the question carries no concept of its own, the query is anchored on what
+ * the tutor just said — the concept in progress — instead of the vague words
+ * alone. A question that names its concept (or answers the pending one)
+ * travels exactly as before.
+ */
+export function buildRetrievalQuery(args: {
+  question: string;
+  intent: TutorIntent;
+  intentConcepts: string[];
+  isAnswerTurn: boolean;
+  lastTutorMessage?: string;
+  /**
+   * The concept in progress, in the student's or tutor's own words — the
+   * tutor's last message first, the student's last earlier message when no
+   * tutor reply exists yet. A vague follow-up is searched with this attached,
+   * so it cannot drift off the topic the student is stuck on.
+   */
+  anchorMessage?: string;
+  hasDocument: boolean;
+}): string {
+  if (args.isAnswerTurn && args.lastTutorMessage) return args.lastTutorMessage;
+  const q = args.question.trim();
+  if (q.length === 0) {
+    return args.hasDocument ? "سؤال عن محتوى الملف المرفق في هذا الدرس" : "سؤال مصور في هذا الدرس";
+  }
+  // Anchored only for open-ended explanation/hint requests: a bare "explain
+  // (it) simpler" names nothing, so without the anchor the query drifts (seen
+  // live: GCD chunks inside a divisibility explanation). Self-contained turns
+  // — exercises ("ما ناتج جمع 487 و 358؟"), answers, confirmations — travel
+  // exactly as written, which also keeps repeated questions embedding to the
+  // same vector (the embedding cache stays deterministic).
+  if ((args.intent === "explanation" || args.intent === "hint_request") && args.intentConcepts.length === 0 && args.anchorMessage) {
+    return `${args.anchorMessage.slice(0, 500)} ${q}`;
+  }
+  return q;
 }
 
 export { config as tutorConfig };

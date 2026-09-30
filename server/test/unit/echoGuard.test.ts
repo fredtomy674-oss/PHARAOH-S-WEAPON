@@ -86,12 +86,20 @@ describe("looksLikeJsonFragment", () => {
     expect(looksLikeJsonFragment('{\n  "content": "أهلاً بك يا بطل! 💙\\n\\nقابلية')).toBe(true);
   });
 
+  it("flags a cut inside the key name itself", () => {
+    // Observed live: the model stopped mid-key (`"content` with no closing
+    // quote), which a complete-key matcher cannot see.
+    expect(looksLikeJsonFragment('{\n  "content')).toBe(true);
+    expect(looksLikeJsonFragment('{"con')).toBe(true);
+  });
+
   it("leaves real replies alone — prose, valid JSON, and braces in math", () => {
     expect(looksLikeJsonFragment("أهلاً بك يا بطل! لنراجع قابلية القسمة.")).toBe(false);
     // Well-formed JSON parses, so it is never a fragment.
     expect(looksLikeJsonFragment('{"content": "أهلاً بك"}')).toBe(false);
     // Braces that are not an envelope (a set in math) are untouched.
     expect(looksLikeJsonFragment("مجموعة القواسم {1، 2، 3} مهمة.")).toBe(false);
+    expect(looksLikeJsonFragment("{1، 2، 3}")).toBe(false);
     // An envelope start that parses is fine; one that never closes is not.
     expect(looksLikeJsonFragment('{"content": "ناقص')).toBe(true);
   });

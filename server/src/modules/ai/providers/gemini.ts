@@ -20,6 +20,25 @@ function apiKey(): string {
 const TRANSIENT_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
 
 /**
+ * PHASE 55 — time bounds, measured live: a tutor turn burned 181s (then 300s+
+ * on retry) because nothing bounds a hanging attempt. Every bound below is
+ * about the STUDENT's patience, not the model's comfort:
+ *
+ * - ATTEMPT_TIMEOUT_MS: one HTTP attempt that answers nothing in 30s is hung
+ *   (measured: good calls finish ≤ 20s, bad ones stall 30–140s). Aborting it
+ *   spends the budget on the next attempt instead of the void.
+ * - STREAM_STALL_MS: an open stream silent for 20s is cut (fail over before
+ *   the first word, honest error after it).
+ * - TURN_BUDGET_MS: the whole model walk gets 75s to produce its first word;
+ *   past that the student is told honestly instead of watching a spinner die
+ *   of old age. A FLOWING stream is exempt (only silence is cut) — cutting a
+ *   reply the student is already reading would be worse than a slow finish.
+ */
+const ATTEMPT_TIMEOUT_MS = 30_000;
+const STREAM_STALL_MS = 20_000;
+const TURN_BUDGET_MS = 75_000;
+
+/**
  * Attempts per call, the first one included. Three is the point where a busy
  * upstream is almost always past its spike (measured: 2/5 and 5/5 success rates
  * on the same model minutes apart) while the worst case stays around ~2.4s —
@@ -65,22 +84,55 @@ function sleep(ms: number): Promise<void> {
  * Retries only the statuses in TRANSIENT_STATUS: a 404 (retired model name) or a
  * 400 (malformed request) is deterministic, so repeating it only wastes the
  * student's time and the quota.
+ *
+ * PHASE 55 — bounded: each attempt carries an AbortSignal timeout (a hung
+ * socket is just another blip), and no attempt starts past `deadlineAt` (the
+ * turn's budget for its first word). Returns null when attempts were spent
+ * without any HTTP response at all (all timeouts) — the caller fails over to
+ * the next model instead of inventing an error out of silence.
  */
-async function postWithRetry(url: string, payload: unknown, attempts: number): Promise<Response> {
+async function postWithRetry(
+  url: string,
+  payload: unknown,
+  attempts: number,
+  opts?: { timeoutMs?: number; deadlineAt?: number },
+): Promise<Response | null> {
   const body = JSON.stringify(payload);
+  const timeoutMs = opts?.timeoutMs ?? ATTEMPT_TIMEOUT_MS;
   let last: Response | null = null;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body,
-    });
+    if (opts?.deadlineAt !== undefined && Date.now() >= opts.deadlineAt) break;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), Math.max(1, Math.min(timeoutMs, (opts?.deadlineAt ?? Infinity) - Date.now())));
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body,
+        signal: ctrl.signal,
+      });
+    } catch (err) {
+      clearTimeout(timer);
+      // A hung socket aborts into our hands: transient, spend the next attempt.
+      if (isAbortError(err)) continue;
+      throw err;
+    }
+    clearTimeout(timer);
     if (res.ok) return res;
     last = res;
     if (!TRANSIENT_STATUS.has(res.status) || attempt === attempts) break;
     await sleep(backoffMs(attempt));
   }
-  return last as Response;
+  return last;
+}
+
+/** An aborted fetch is ours (the timeout above), not the student's network. */
+function isAbortError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  if (err.name === "AbortError") return true;
+  // DOMException.ABORT_ERR from runtimes that report it by code instead.
+  return "code" in err && (err as { code?: unknown }).code === 20;
 }
 
 /**
@@ -178,14 +230,22 @@ export class GeminiLLMProvider implements LLMProvider {
     return body;
   }
 
-  async complete(request: LLMRequest): Promise<LLMResponse> {
+  async complete(
+    request: LLMRequest,
+    opts?: { timeoutMs?: number },
+  ): Promise<LLMResponse> {
     const started = Date.now();
     const body = this.buildBody(request);
+    // The turn's budget for its first word: attempts and models share it, so a
+    // degraded upstream degrades one turn instead of eating the student's
+    // evening. (Tests pass explicit timeouts; production uses the constants.)
+    const deadlineAt = started + TURN_BUDGET_MS;
 
     // One turn, several buckets: each model gets the retry budget for blips,
     // and a model whose bucket is empty (or whose name retired) yields to the
     // next one. The last failure is the honest one the student sees.
     let last: { res: Response; detail: string; model: string } | null = null;
+    let timedOutModel: string | null = null;
     const models = this.llmModels(request.model);
     for (let i = 0; i < models.length; i++) {
       const model = models[i]!;
@@ -193,7 +253,13 @@ export class GeminiLLMProvider implements LLMProvider {
         `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
         body,
         i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS,
+        { timeoutMs: opts?.timeoutMs, deadlineAt },
       );
+      if (!res) {
+        // Attempts spent without any HTTP response at all (hung sockets).
+        timedOutModel = model;
+        continue;
+      }
       if (res.ok) {
         const data = (await res.json()) as {
           candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
@@ -218,7 +284,13 @@ export class GeminiLLMProvider implements LLMProvider {
       }
       last = { res, detail, model };
     }
-    upstreamError("مزود الذكاء الاصطناعي", last!.res, last!.detail, last!.model);
+    if (last) upstreamError("مزود الذكاء الاصطناعي", last.res, last.detail, last.model);
+    // Silence all the way down: every attempt hung. Still a 503 the student
+    // can retry (not a 500 nobody can act on), naming the last hung model.
+    throw Errors.serviceUnavailable("المعلّم غير متاح الآن بسبب ضغط على الخدمة، حاول بعد لحظات", "AI_UPSTREAM_BUSY", {
+      timeout: true,
+      model: timedOutModel ?? models[models.length - 1],
+    });
   }
 
   /**
@@ -234,9 +306,14 @@ export class GeminiLLMProvider implements LLMProvider {
    * print the opening twice, so a late failure throws and the caller decides
    * (the room keeps whatever it already showed rather than duplicating it).
    */
-  async stream(request: LLMRequest, onDelta: (text: string) => void | Promise<void>): Promise<LLMResponse> {
+  async stream(
+    request: LLMRequest,
+    onDelta: (text: string) => void | Promise<void>,
+    opts?: { timeoutMs?: number; stallMs?: number },
+  ): Promise<LLMResponse> {
     const started = Date.now();
     const body = this.buildBody(request);
+    const deadlineAt = started + TURN_BUDGET_MS;
 
     // Same failover as complete, with the streaming constraint: switching
     // models is only safe while NOTHING has been handed to the student. Once a
@@ -247,38 +324,37 @@ export class GeminiLLMProvider implements LLMProvider {
       await onDelta(text);
     };
     let last: { res: Response; detail: string; model: string } | null = null;
+    let timedOutModel: string | null = null;
     const models = this.llmModels(request.model);
     for (let i = 0; i < models.length; i++) {
       const model = models[i]!;
       const url = `${BASE_URL}/models/${model}:streamGenerateContent?alt=sse&key=${apiKey()}`;
 
-      let res: Response | null = null;
-      for (let attempt = 1; attempt <= (i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS); attempt += 1) {
-        const candidate = await fetch(url, {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(body),
-        });
-        if (candidate.ok) {
-          res = candidate;
-          break;
-        }
-        if (!TRANSIENT_STATUS.has(candidate.status) || attempt === (i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS)) {
-          const detail = await candidate.text().catch(() => "");
-          // Deterministic (or retired): fail over only when another model could
-          // plausibly answer — a malformed request fails the same everywhere.
-          if (!TRANSIENT_STATUS.has(candidate.status) && candidate.status !== 404) {
-            upstreamError("مزود الذكاء الاصطناعي", candidate, detail, model);
-          }
-          last = { res: candidate, detail, model };
-          break;
-        }
-        await sleep(backoffMs(attempt));
+      const res = await postWithRetry(url, body, i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS, {
+        timeoutMs: opts?.timeoutMs,
+        deadlineAt,
+      });
+      if (!res) {
+        timedOutModel = model;
+        continue;
       }
-      if (!res?.body) continue; // This model yielded — the next bucket gets the turn.
+      if (!res.ok) {
+        const detail = await res.text().catch(() => "");
+        // Deterministic (or retired): fail over only when another model could
+        // plausibly answer — a malformed request fails the same everywhere.
+        if (!TRANSIENT_STATUS.has(res.status) && res.status !== 404) {
+          upstreamError("مزود الذكاء الاصطناعي", res, detail, model);
+        }
+        last = { res, detail, model };
+        continue;
+      }
+      if (!res.body) {
+        last = { res, detail: "empty stream body", model };
+        continue;
+      }
 
       try {
-        return await this.readStream(res, model, started, counting);
+        return await this.readStream(res, model, started, counting, opts?.stallMs);
       } catch (err) {
         // A network cut before the first word is just another blip: fail over.
         // After the first word the student already owns the opening, so a
@@ -288,21 +364,51 @@ export class GeminiLLMProvider implements LLMProvider {
       }
     }
     if (last) upstreamError("مزود الذكاء الاصطناعي", last.res, last.detail, last.model);
-    throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع بثًا");
+    throw Errors.serviceUnavailable("المعلّم غير متاح الآن بسبب ضغط على الخدمة، حاول بعد لحظات", "AI_UPSTREAM_BUSY", {
+      timeout: true,
+      model: timedOutModel ?? models[models.length - 1],
+    });
   }
 
-  /** Reads one model's SSE body into the full reply, handing slices over as they arrive. */
+  /**
+   * Reads one model's SSE body into the full reply, handing slices over as
+   * they arrive. An open stream silent for `stallMs` is cut: before the first
+   * word that is just another blip (the caller fails over); after it the
+   * student is told honestly instead of watching a frozen pen.
+   */
   private async readStream(
     res: Response,
     model: string,
     started: number,
     onDelta: (text: string) => void | Promise<void>,
+    stallMs = STREAM_STALL_MS,
   ): Promise<LLMResponse> {
     if (!res.body) throw Errors.internal("مزود الذكاء الاصطناعي لم يُرجع بثًا");
     let text = "";
     let inputTokens = 0;
     let outputTokens = 0;
-    for await (const data of readSseData(res.body)) {
+    const frames = readSseData(res.body)[Symbol.asyncIterator]();
+    for (;;) {
+      let clearGate!: () => void;
+      const gate = new Promise<typeof STALLED>((resolve) => {
+        const timer = setTimeout(() => resolve(STALLED), stallMs);
+        clearGate = () => clearTimeout(timer);
+      });
+      // A rejected loser would be an unhandled rejection: the stall is the
+      // operative failure, so the underlying read error is reported through it.
+      const pending = frames.next();
+      pending.catch(() => undefined);
+      const next = await Promise.race([pending, gate]);
+      clearGate();
+      if (next === STALLED) {
+        throw Errors.serviceUnavailable("انقطع الرد أثناء الكتابة — رسالتك محفوظة، حاول مرة أخرى", "AI_UPSTREAM_BUSY", {
+          stall: true,
+          model,
+        });
+      }
+      const step = next as IteratorResult<string>;
+      if (step.done) break;
+      const data = step.value;
       let chunk: {
         candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
         usageMetadata?: { promptTokenCount?: number; candidatesTokenCount?: number };
@@ -325,6 +431,9 @@ export class GeminiLLMProvider implements LLMProvider {
     return { content: text, model, inputTokens, outputTokens, latencyMs: Date.now() - started };
   }
 }
+
+/** Sentinel for a race a stalled stream loses. */
+const STALLED = Symbol("stalled");
 
 /**
  * Yields the payload of every `data:` line of an SSE body.
@@ -376,6 +485,9 @@ export class GeminiEmbeddingProvider implements EmbeddingProvider {
         { content: { parts: [{ text }] } },
         GEMINI_RETRY_ATTEMPTS,
       );
+      if (!res) {
+        throw Errors.serviceUnavailable("مزود التضمين لا يجيب — حاول بعد لحظات", "AI_UPSTREAM_BUSY", { timeout: true, model, label: "مزود التضمين" });
+      }
       if (!res.ok) {
         const detail = await res.text().catch(() => "");
         upstreamError("مزود التضمين", res, detail, model);
@@ -427,6 +539,9 @@ export class GeminiOcrProvider implements OcrProvider {
       body,
       GEMINI_RETRY_ATTEMPTS,
     );
+    if (!res) {
+      throw Errors.serviceUnavailable("مزود OCR لا يجيب — حاول بعد لحظات", "AI_UPSTREAM_BUSY", { timeout: true, model, label: "مزود OCR" });
+    }
     if (!res.ok) {
       const detail = await res.text().catch(() => "");
       upstreamError("مزود OCR", res, detail, model);
