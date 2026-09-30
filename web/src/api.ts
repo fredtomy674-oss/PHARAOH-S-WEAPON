@@ -129,6 +129,14 @@ export interface MessageAttachment {
   truncated?: boolean;
   /** Document attachments only: true when the text came from OCR (scanned file, PHASE 19). */
   ocr?: boolean;
+  /**
+   * PHASE 50 — ink attachments only: the printed book page the student marked.
+   * Present exactly when the attachment is the page-as-marked, so the room can
+   * caption it «your drawing on page N» instead of showing a nameless picture.
+   */
+  inkPage?: number;
+  /** PHASE 50 — ink attachments only: how many strokes the student drew. */
+  inkStrokes?: number;
 }
 
 export interface Message {
@@ -392,6 +400,13 @@ export async function getSession(sessionId: string): Promise<{ session: Learning
   return api(`/sessions/${encodeURIComponent(sessionId)}`);
 }
 
+/** The picture the tutor sees for an ink turn: the page as the student marked it. */
+export interface InkPayload {
+  dataUrl: string;
+  page: number;
+  strokes: number;
+}
+
 export async function sendMessage(
   sessionId: string,
   content: string,
@@ -403,6 +418,11 @@ export async function sendMessage(
    * not a vision upload: no added latency).
    */
   bookPage?: number,
+  /**
+   * PHASE 50 — «لوح الحبر»: the page as the student marked it, composited in
+   * the room from the very image the stage shows.
+   */
+  ink?: InkPayload,
 ): Promise<TurnResult> {
   return api<TurnResult>(`/sessions/${encodeURIComponent(sessionId)}/messages`, {
     method: "POST",
@@ -411,6 +431,7 @@ export async function sendMessage(
       ...(image ? { image } : {}),
       ...(document ? { document } : {}),
       ...(bookPage !== undefined ? { bookPage } : {}),
+      ...(ink ? { ink } : {}),
     },
   });
 }
@@ -431,7 +452,7 @@ export async function sendMessage(
  */
 export async function streamMessage(
   sessionId: string,
-  body: { content: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number },
+  body: { content: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: InkPayload },
   handlers: {
     onUser?: (message: Message) => void;
     onDelta?: (text: string) => void;

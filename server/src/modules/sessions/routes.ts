@@ -41,6 +41,20 @@ const messageBodySchema = {
     // A plain integer, bounded: the service re-checks it against the lesson's
     // own range, so this bound is only the first line of defence.
     bookPage: { type: "integer", minimum: 0, maximum: 500 },
+    // PHASE 50 — «لوح الحبر»: the page as the student marked it (page + his own
+    // strokes). The page claim is re-checked against the lesson's own range by
+    // the service; the stroke count is clamped there too, so this bound is only
+    // the first line of defence. Same 7M-char ceiling as a photo: it is one.
+    ink: {
+      type: "object",
+      additionalProperties: false,
+      required: ["dataUrl"],
+      properties: {
+        dataUrl: { type: "string", minLength: 1, maxLength: 7_000_000 },
+        page: { type: "integer", minimum: 0, maximum: 500 },
+        strokes: { type: "integer", minimum: 0, maximum: 10000 },
+      },
+    },
   },
 };
 
@@ -88,7 +102,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number } };
     const result = await app.sessions.sendMessage({
       sessionId,
       studentId: auth.student.id,
@@ -96,6 +110,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       image: body.image,
       document: body.document,
       bookPage: body.bookPage,
+      ink: body.ink,
     });
     return reply.send(result);
   });
@@ -120,7 +135,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number };
+    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number } };
 
     reply.raw.writeHead(200, {
       "content-type": "application/x-ndjson; charset=utf-8",
@@ -150,6 +165,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
         image: body.image,
         document: body.document,
         bookPage: body.bookPage,
+        ink: body.ink,
       },
       write,
     );

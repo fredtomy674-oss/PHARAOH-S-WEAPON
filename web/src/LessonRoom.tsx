@@ -52,6 +52,8 @@ import {
   ttsSupported,
   type SttHandle,
 } from "./voice.js";
+import InkBoard from "./InkBoard.js";
+import { composeInkPage, type InkStroke } from "./ink.js";
 
 interface Props {
   user: User;
@@ -106,20 +108,22 @@ function optimisticMessage(
   content: string,
   image: string | null | undefined,
   doc: PendingDocument | null,
+  ink?: { page: number; strokes: number } | null,
 ): Message {
-  const attachments: Message["attachments"] =
-    doc || image
-      ? [
-          {
-            id: "pending",
-            messageId: "pending",
-            mimeType: doc ? "application/octet-stream" : "image/jpeg",
-            fileName: doc ? doc.name : "صورة السؤال",
-            sizeBytes: doc ? doc.size : Math.round((image ?? "").length * 0.75),
-            ocr: false,
-          },
-        ]
-      : undefined;
+  const visual = doc || image || ink;
+  const attachments: Message["attachments"] = visual
+    ? [
+        {
+          id: "pending",
+          messageId: "pending",
+          mimeType: doc ? "application/octet-stream" : "image/jpeg",
+          fileName: doc ? doc.name : image ? "صورة السؤال" : `صفحة ${ink!.page} مُعلَّمة`,
+          sizeBytes: doc ? doc.size : Math.round(((image ?? "").length || 200_000) * 0.75),
+          ocr: false,
+          ...(ink ? { inkPage: ink.page, inkStrokes: ink.strokes } : {}),
+        },
+      ]
+    : undefined;
   return {
     id: "pending",
     sessionId,
@@ -175,6 +179,11 @@ export function LessonRoom({ session, onEnded }: Props) {
   // PHASE 48 — the stage: the textbook pages this lesson occupies.
   const [stage, setStage] = useState<LessonStage | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
+  // PHASE 50 — «لوح الحبر»: the student's own marks on the open page. They
+  // travel with his next question (page + marks composited into one picture),
+  // and the board is cleared once the tutor has them.
+  const [inkStrokes, setInkStrokes] = useState<InkStroke[]>([]);
+  const [inkReset, setInkReset] = useState(0);
   // PHASE 48 — pages the latest answer was grounded in; marked on the filmstrip.
   const [citedPages, setCitedPages] = useState<number[]>([]);
   // PHASE 49 — the turn in flight: the student's own words (shown the moment he
@@ -361,23 +370,45 @@ export function LessonRoom({ session, onEnded }: Props) {
 
   const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, speakReply = false) => {
     const text = content.trim();
-    if ((!text && !image && !doc) || pending) return;
+    // PHASE 50 — marks on the open page travel with the question automatically:
+    // the student drew them *as* his question, so asking must never leave them
+    // behind. A photo and marks are mutually exclusive (one visual per turn) —
+    // the composer already enforces "last act wins", this is the backstop.
+    const marks = !image && !doc && openBookPage !== null ? inkStrokes : [];
+    if ((!text && !image && !doc && marks.length === 0) || pending) return;
     setPending(true);
     setError(null);
+    // The picture the tutor sees is the page *as marked*: composited here, from
+    // the same image the stage shows, so pointing cannot drift between screen
+    // and model.
+    let ink: { dataUrl: string; page: number; strokes: number } | undefined;
+    if (marks.length > 0 && openBookPage !== null) {
+      try {
+        const composed = await composeInkPage(bookPageUrl(openBookPage), marks);
+        ink = { dataUrl: composed.dataUrl, page: openBookPage, strokes: marks.length };
+      } catch {
+        setPending(false);
+        setError("تعذر إرفاق الصفحة المرسومة — تحقق من الاتصال وحاول مرة أخرى");
+        return;
+      }
+    }
     // PHASE 48 — the open page travels with the turn, so the tutor reads the
     // same page before answering instead of describing a page he never saw.
     const onPage = openBookPage ?? undefined;
+    const page = onPage !== undefined ? { bookPage: onPage } : {};
     const body = doc
-      ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...(onPage !== undefined ? { bookPage: onPage } : {}) }
+      ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...page }
       : image
-        ? { content: text, image: { dataUrl: image }, ...(onPage !== undefined ? { bookPage: onPage } : {}) }
-        : { content: text, ...(onPage !== undefined ? { bookPage: onPage } : {}) };
+        ? { content: text, image: { dataUrl: image }, ...page }
+        : ink
+          ? { content: text, ink, ...page }
+          : { content: text, ...page };
     try {
       // PHASE 49 — the reply is written as it is thought, so the room shows a
       // tutor thinking instead of a waiting cursor. The student's own words
       // appear immediately: they are already stored by the time the first word
       // of the answer exists, and waiting would move the wait onto him.
-      setLive({ user: optimisticMessage(session.id, text, image, doc), text: "" });
+      setLive({ user: optimisticMessage(session.id, text, image, doc, ink ? { page: ink.page, strokes: ink.strokes } : null), text: "" });
       // The live path is an improvement, never a new way for a turn to fail: if
       // the stream cannot even start (a buffering proxy, an old browser, a dead
       // socket) the question is simply asked the old way instead. The retry is
@@ -400,7 +431,14 @@ export function LessonRoom({ session, onEnded }: Props) {
         },
       }).catch((err) => {
         if (arrived) throw err;
-        return sendMessage(session.id, text, image ? { dataUrl: image } : undefined, doc ? { dataUrl: doc.dataUrl, fileName: doc.name } : undefined, onPage);
+        return sendMessage(
+          session.id,
+          text,
+          image ? { dataUrl: image } : undefined,
+          doc ? { dataUrl: doc.dataUrl, fileName: doc.name } : undefined,
+          onPage,
+          ink,
+        );
       });
       setLive(null);
       setMessages((m) => [...m, turn.userMessage, turn.tutorMessage]);
@@ -417,6 +455,9 @@ export function LessonRoom({ session, onEnded }: Props) {
       setInput((prev) => (prev.trim() === text ? "" : prev));
       setPreview(null);
       setDocFile(null);
+      // The marks reached the tutor with this question — clear the board so the
+      // next question starts from a clean page.
+      if (ink) setInkReset((n) => n + 1);
       if (speakReply) void speak(turn.tutorMessage);
     } catch (err) {
       setLive(null);
@@ -439,6 +480,11 @@ export function LessonRoom({ session, onEnded }: Props) {
     }
   };
 
+  const onInkChange = useCallback((list: InkStroke[]) => {
+    setInkStrokes(list);
+    if (list.length > 0) setPreview(null);
+  }, []);
+
   const onPickFile = (file: File | undefined) => {
     if (!file) return;
     if (!/^image\/(png|jpeg|webp)$/i.test(file.type)) {
@@ -453,6 +499,9 @@ export function LessonRoom({ session, onEnded }: Props) {
     reader.onload = () => {
       setPreview(typeof reader.result === "string" ? reader.result : null);
       setDocFile(null);
+      // One visual per turn: a picked photo replaces the page marks.
+      setInkStrokes([]);
+      setInkReset((n) => n + 1);
     };
     reader.onerror = () => setError("تعذر قراءة الصورة المرفقة");
     reader.readAsDataURL(file);
@@ -542,11 +591,18 @@ export function LessonRoom({ session, onEnded }: Props) {
           {stage?.hasImages && currentPage ? (
             <>
               <div className="room-page">
-                <img
-                  src={bookPageUrl(currentPage.bookPage)}
-                  alt={`${pageLabel(currentPage.bookPage)} من كتاب الوزارة`}
-                  data-testid="stage-image"
-                />
+                <div className="room-sheet">
+                  <img
+                    src={bookPageUrl(currentPage.bookPage)}
+                    alt={`${pageLabel(currentPage.bookPage)} من كتاب الوزارة`}
+                    data-testid="stage-image"
+                  />
+                  {/* PHASE 50 — «لوح الحبر»: the student draws on the page itself,
+                      so his finger can point at the exact line he asks about. The
+                      canvas lives inside the sheet — the image's exact box — so a
+                      mark on screen is the same mark the tutor receives. */}
+                  <InkBoard pageKey={currentPage.bookPage} resetToken={inkReset} onChange={onInkChange} />
+                </div>
               </div>
               <div className="room-stage-nav">
                 <button
@@ -664,13 +720,21 @@ export function LessonRoom({ session, onEnded }: Props) {
                     <div className="bubble-attachments">
                       {m.attachments.map((a) =>
                         a.mimeType.startsWith("image/") ? (
-                          <img
-                            key={a.id}
-                            data-testid="msg-attachment"
-                            className="bubble-image"
-                            src={attachmentUrl(m.sessionId, a.id)}
-                            alt="صورة السؤال المرفق"
-                          />
+                          <figure key={a.id} className="bubble-figure">
+                            <img
+                              data-testid="msg-attachment"
+                              className="bubble-image"
+                              src={attachmentUrl(m.sessionId, a.id)}
+                              alt={a.inkPage !== undefined ? "الصفحة بعد رسم الطالب عليها" : "صورة السؤال المرفق"}
+                            />
+                            {/* PHASE 50 — a marked page is not a photo: the caption
+                                says which page he drew on, in his own book's terms. */}
+                            {a.inkPage !== undefined && (
+                              <figcaption data-testid="msg-ink-caption" className="bubble-ink-caption">
+                                ✏️ رسمك على {pageLabel(a.inkPage)}
+                              </figcaption>
+                            )}
+                          </figure>
                         ) : (
                           <span key={a.id} data-testid="msg-document" className="bubble-document" title={a.mimeType}>
                             📄 {a.fileName ?? "ملف مرفق"} <small>({formatSize(a.sizeBytes)})</small>
@@ -854,7 +918,7 @@ export function LessonRoom({ session, onEnded }: Props) {
             maxLength={4000}
             autoFocus
           />
-          <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview && !docFile)}>
+          <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview && !docFile && inkStrokes.length === 0)}>
             إرسال
           </button>
         </form>

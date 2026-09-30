@@ -64,6 +64,17 @@ export interface SendMessageInput {
    * to break the conversation.
    */
   bookPage?: number;
+  /**
+   * PHASE 50 — «لوح الحبر»: the page the student *drew on*.
+   *
+   * `dataUrl` is the printed page as he marked it (page + his own strokes), so
+   * the tutor sees literally what the student sees plus the finger-drawn marks
+   * over it — the one thing that turns "which page?" into "which part of it?".
+   * `page`/`strokes` are the student's claim about what he marked; the page is
+   * re-checked against the lesson's own range exactly like `bookPage`, and the
+   * stroke count is a fact the record keeps for the audit, never trust.
+   */
+  ink?: { dataUrl: string; page?: number; strokes?: number };
 }
 
 /** The completed turn, exactly as the buffered endpoint has always returned it. */
@@ -119,6 +130,23 @@ function parseBookPages(raw: string | null): number[] | undefined {
   } catch {
     return undefined;
   }
+}
+
+/**
+ * PHASE 48/50 — trust a printed page number only when it is a page this lesson
+ * actually owns.
+ *
+ * Two callers with one rule: the open page (`bookPage`) and the marked page
+ * (`ink.page`). Silent ignore, never a 400: a room can be a turn stale, and a
+ * stale or forged page must never block the student's question. A lesson with no
+ * rasterized book has no range, so nothing is ever believed.
+ */
+export function resolveBookPage(
+  stage: { fromBookPage: number; toBookPage: number } | null,
+  page: number | undefined,
+): number | undefined {
+  if (!stage || page === undefined) return undefined;
+  return page >= stage.fromBookPage && page <= stage.toBookPage ? page : undefined;
 }
 
 export class SessionService {
@@ -253,10 +281,20 @@ export class SessionService {
     if (input.image && input.document) {
       throw Errors.badRequest("أرفِق صورةً واحدةً أو ملفًا واحدًا وليس كلاهما", "MULTIPLE_ATTACHMENTS");
     }
+    // PHASE 50 — an ink turn already carries a picture (the page as marked), so a
+    // photo on top of it would be a second visual input the tutor cannot tell
+    // apart. One visual per turn, and the database enforces it too: the unique
+    // attachment index is per message.
+    if (input.image && input.ink) {
+      throw Errors.badRequest("أرفِق صورةً واحدةً: امسح على الصفحة أو صوّر سؤالك، لا الاثنين معًا", "MULTIPLE_ATTACHMENTS");
+    }
 
     const content = (input.content ?? "").trim().slice(0, 4000);
     const image = input.image
       ? parseImageDataUrl(input.image.dataUrl, { maxBytes: config.MAX_IMAGE_KB * 1024, fileName: input.image.fileName })
+      : null;
+    const ink = input.ink
+      ? parseImageDataUrl(input.ink.dataUrl, { maxBytes: config.MAX_IMAGE_KB * 1024 })
       : null;
     const document = input.document
       ? await parseDocumentDataUrl(input.document.dataUrl, {
@@ -265,7 +303,7 @@ export class SessionService {
           fileName: input.document.fileName,
         })
       : null;
-    if (content.length < 1 && !image && !document) throw Errors.badRequest("الرسالة فارغة");
+    if (content.length < 1 && !image && !ink && !document) throw Errors.badRequest("الرسالة فارغة");
 
     const studentRow = await this.db.db.select().from(studentsTable).where(eq(studentsTable.id, session.studentId)).get();
     if (!studentRow) throw Errors.internal("بروفايل الطالب مفقود");
@@ -294,6 +332,26 @@ export class SessionService {
     }
     const docInfo = document ? { text: documentText, truncated: ocrUsed ? ocrTruncated : document.truncated } : null;
 
+    // PHASE 48/50 — which pages of the Ministry book this turn is about, resolved
+    // BEFORE anything is written: the marked page is stored *on* the attachment,
+    // and a session without a lesson must fail without leaving a half-turn behind.
+    const breadcrumb = session.lessonId
+      ? await this.curriculum.lessonBreadcrumb(session.lessonId)
+      : null;
+    if (!breadcrumb) throw Errors.badRequest("جلسة بدون درس غير مدعومة بعد — ابدأ جلسة من درس محدد", "NO_LESSON");
+    // PHASE 20 — the daily tutor budget is plan-derived now: free students are
+    // capped by DAILY_MESSAGE_LIMIT, premium by PREMIUM_DAILY_MESSAGE_LIMIT (0 = unlimited).
+    const dailyLimit = await this.subscriptions.dailyLimitFor(studentRow.id);
+    // The stage is the lesson's own page range; every page claim is checked against
+    // it by one shared rule (see resolveBookPage).
+    const stage = stageForLesson(breadcrumb.curriculum.code, breadcrumb.lesson.code);
+    const viewingPage = resolveBookPage(stage, input.bookPage);
+    // PHASE 50 — the page the student's own marks are on, resolved by the same
+    // rule. An unmarked page (no stage, or a page this lesson does not own) is
+    // not a lie to punish: the marks still travel as a picture.
+    const inkPage = resolveBookPage(stage, input.ink?.page);
+    const strokeCount = ink ? clampStrokes(input.ink?.strokes) : 0;
+
     const now = new Date();
     const userMessage = (
       await this.db.db
@@ -321,6 +379,28 @@ export class SessionService {
           })
           .returning()
       )[0]!;
+    } else if (ink) {
+      attachment = (
+        await this.db.db
+          .insert(messageAttachments)
+          .values({
+            id: newId("att"),
+            messageId: userMessage.id,
+            sessionId: session.id,
+            mimeType: ink.mimeType,
+            // A readable name is the difference between an auditable record and a
+            // wall of hashes — this attachment *is* a page of the Ministry book.
+            fileName: inkBookName(inkPage),
+            sizeBytes: ink.sizeBytes,
+            sha256: ink.sha256,
+            data: ink.bytes,
+            extractedText: null,
+            inkPage: inkPage ?? null,
+            inkStrokes: strokeCount,
+            createdAt: now,
+          })
+          .returning()
+      )[0]!;
     } else if (document) {
       attachment = (
         await this.db.db
@@ -342,14 +422,8 @@ export class SessionService {
       )[0]!;
     }
 
-    const breadcrumb = session.lessonId
-      ? await this.curriculum.lessonBreadcrumb(session.lessonId)
-      : null;
-    if (!breadcrumb) throw Errors.badRequest("جلسة بدون درس غير مدعومة بعد — ابدأ جلسة من درس محدد", "NO_LESSON");
-
     // PHASE 49 — the student's own words are already stored, so the room can
-    // show them immediately and the wait belongs to the tutor alone. Fired after
-    // the breadcrumb check (an invalid turn must not look like a sent message).
+    // show them immediately and the wait belongs to the tutor alone.
     if (hooks.onUserMessage) {
       hooks.onUserMessage({
         ...userMessage,
@@ -357,21 +431,14 @@ export class SessionService {
       });
     }
 
-    const images: ImageInput[] | undefined = image ? [{ mimeType: image.mimeType, base64: image.base64 }] : undefined;
+    // PHASE 50 — an ink turn reaches the model as a picture too: the bytes are
+    // the printed page with the student's marks on it, which is exactly what the
+    // tutor needs to see. It is one vision input, not a photo plus an image.
+    const pictures = image ?? ink;
+    const images: ImageInput[] | undefined = pictures ? [{ mimeType: pictures.mimeType, base64: pictures.base64 }] : undefined;
     const documents: DocumentInput[] | undefined =
       document && documentText.trim().length > 0
         ? [{ fileName: document.fileName, mimeType: document.mimeType, text: documentText }]
-        : undefined;
-    // PHASE 20 — the daily tutor budget is plan-derived now: free students are
-    // capped by DAILY_MESSAGE_LIMIT, premium by PREMIUM_DAILY_MESSAGE_LIMIT (0 = unlimited).
-    const dailyLimit = await this.subscriptions.dailyLimitFor(studentRow.id);
-    // PHASE 48 — the open page, but only a page this lesson actually owns.
-    // Silent ignore (not a 400): the room may be one turn stale, and a stale
-    // page must never block the student's question.
-    const stage = stageForLesson(breadcrumb.curriculum.code, breadcrumb.lesson.code);
-    const viewingPage =
-      stage && input.bookPage !== undefined && input.bookPage >= stage.fromBookPage && input.bookPage <= stage.toBookPage
-        ? input.bookPage
         : undefined;
     const result = await this.tutor.handle({
       student: studentRow,
@@ -383,6 +450,7 @@ export class SessionService {
       userId: studentRow.userId,
       dailyLimit,
       viewingPage,
+      ...(ink ? { ink: { bookPage: inkPage, strokes: strokeCount } } : {}),
       // Only when the caller can actually show progress; the buffered endpoint
       // omits it and gets the exact behaviour it has always had.
       ...(hooks.onDelta ? { stream: { onDelta: hooks.onDelta, onDiscard: hooks.onDiscard } } : {}),
@@ -410,7 +478,9 @@ export class SessionService {
 
     // PHASE 20 — achievements are best-effort: they never break the turn.
     await this.award(studentRow.id, "user_message");
-    if (image) await this.award(studentRow.id, "vision_attached");
+    // PHASE 50 — a marked-up page is an image attachment, and the "photographer"
+    // counter counts image rows, so the ink turn earns the same badge a photo does.
+    if (image || ink) await this.award(studentRow.id, "vision_attached");
     else if (document) await this.award(studentRow.id, "document_attached");
 
     return {
@@ -625,10 +695,26 @@ export interface AttachmentSummary {
   truncated?: boolean;
   /** Document attachments only: true when the text came from OCR (scanned file). */
   ocr?: boolean;
+  /**
+   * PHASE 50 — ink attachments only: the printed book page the student marked,
+   * so the transcript can say *which* page he drew on rather than showing a
+   * picture of a page with no name.
+   */
+  inkPage?: number;
+  /** PHASE 50 — ink attachments only: how many strokes the student drew. */
+  inkStrokes?: number;
 }
 
 function attachmentSummary(
-  row: { id: string; messageId: string; mimeType: string; fileName: string | null; sizeBytes: number },
+  row: {
+    id: string;
+    messageId: string;
+    mimeType: string;
+    fileName: string | null;
+    sizeBytes: number;
+    inkPage?: number | null;
+    inkStrokes?: number | null;
+  },
   document?: { text: string; truncated: boolean } | null,
   ocr = false,
 ): AttachmentSummary {
@@ -640,8 +726,28 @@ function attachmentSummary(
     sizeBytes: row.sizeBytes,
     ...(document ? { textChars: document.text.length, truncated: document.truncated } : {}),
     ...(ocr ? { ocr: true } : {}),
+    ...(row.inkPage !== undefined && row.inkPage !== null ? { inkPage: row.inkPage } : {}),
+    ...(row.inkStrokes !== undefined && row.inkStrokes !== null ? { inkStrokes: row.inkStrokes } : {}),
   };
 }
+
+/**
+ * PHASE 50 — how many strokes the client claims. Bounded because it is stored
+ * and shown in Arabic prose inside the prompt: an unbounded client number would
+ * be a student's own text injected into the tutor's instructions.
+ */
+const MAX_INK_STROKES = 200;
+
+function clampStrokes(strokes: number | undefined): number {
+  if (strokes === undefined || !Number.isFinite(strokes)) return 0;
+  return Math.max(0, Math.min(MAX_INK_STROKES, Math.round(strokes)));
+}
+
+/** A readable file name for a marked-up page — the record should read like a lesson. */
+function inkBookName(inkPage: number | undefined): string {
+  return inkPage === undefined ? "صفحة-مُعلَّمة.jpg" : `صفحة-${inkPage}-مُعلَّمة.jpg`;
+}
+
 
 function mapKind(reply: { parts?: Array<{ type: "text" | "hint" | "question" | "example" }> }): "text" | "hint" | "question" | "example" {
   const hint = reply.parts?.find((p) => p.type === "hint");

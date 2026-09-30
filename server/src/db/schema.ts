@@ -421,6 +421,14 @@ export const messageAttachments = sqliteTable(
     extractedText: text("extracted_text"),
     /** Document attachments only: true when `extractedText` came from OCR (scanned file). */
     ocrApplied: integer("ocr_applied", { mode: "boolean" }).default(false),
+    /**
+     * PHASE 50 — ink attachments only: the printed book page the student drew
+     * on. The bytes are the page *as he marked it* (page + his strokes), so
+     * without this the record could not say which page the tutor was shown.
+     */
+    inkPage: integer("ink_page"),
+    /** PHASE 50 — ink attachments only: how many strokes the student drew. */
+    inkStrokes: integer("ink_strokes"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [

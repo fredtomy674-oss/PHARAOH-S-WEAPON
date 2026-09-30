@@ -1285,12 +1285,71 @@ p {
   background: radial-gradient(60% 45% at 50% 0%, rgba(226, 185, 58, 0.12), transparent 70%);
 }
 
-.room-page img {
+/* PHASE 50 — «لوح الحبر»: the sheet shrink-wraps the page image, and the
+   drawing canvas fills the sheet — never the padded stage. Normalized stroke
+   coordinates are relative to this box on screen and to the page pixels in the
+   composited picture, so a mark cannot drift between the two. */
+.room-sheet {
+  position: relative;
+  line-height: 0;
+  max-width: 100%;
+}
+
+.room-sheet img {
   max-width: 100%;
   max-height: min(62vh, 720px);
   object-fit: contain;
   border-radius: 10px;
   filter: saturate(1.03) contrast(1.02);
+}
+
+/* display:contents — the canvas is positioned against the sheet while the
+   toolbar flows as a grid item of the stage beneath it. */
+.ink-board {
+  display: contents;
+}
+
+.ink-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: crosshair;
+}
+
+.ink-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  justify-content: center;
+  padding-top: 0.4rem;
+  line-height: 1.4;
+}
+
+.ink-tools .btn.active {
+  background: rgba(217, 38, 38, 0.12);
+  border-color: rgba(217, 38, 38, 0.4);
+  color: #a11d1d;
+}
+
+/* A marked page in the transcript is captioned, not shown nameless. */
+.bubble-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bubble-ink-caption {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--room-teal-deep);
+  background: rgba(14, 124, 91, 0.08);
+  border: 1px solid rgba(14, 124, 91, 0.16);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  width: fit-content;
 }
 
 .room-stage-nav {

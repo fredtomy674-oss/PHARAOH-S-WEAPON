@@ -287,4 +287,72 @@ describe("PromptBuilder", () => {
       expect(messages[0]!.content).not.toContain("تنظران إلى نفس الصفحة");
     });
   });
+
+  // PHASE 50 — «لوح الحبر»: the student drew on the book itself, and the tutor
+  // must read the marks as his question, not as a photographed question.
+  describe("the student's own marks on the page", () => {
+    const lesson = {
+      countryNameAr: "مصر",
+      systemNameAr: "المنهج",
+      gradeNameAr: "الصف",
+      subjectNameAr: "الرياضيات",
+      curriculumTitle: "المنهج",
+      termTitle: "الفصل",
+      unitTitle: "الوحدة",
+      lessonTitle: "قابلية القسمة",
+      conceptTitles: ["قابلية القسمة"],
+    };
+
+    it("tells the tutor the picture is the marked page, and names the marked page", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        hasImage: true,
+        ink: { bookPage: 5, strokes: 3 },
+      });
+      const system = messages[0]!.content;
+      // The marks are a pointer, not instructions and not a defect in the book.
+      expect(system).toContain("العلامات المرسومة هي إشارته هو إلى موضع بعينه");
+      // The user turn carries the marks ahead of the (empty) question.
+      expect(messages[1]!.content).toContain("<ink>");
+      expect(messages[1]!.content).toContain("صفحة 5");
+      expect(messages[1]!.content).toContain("3 خطوط");
+      // …and the ask line knows the question *is* the marks.
+      expect(system).toContain("الموضع الذي تشير إليه العلامات");
+    });
+
+    it("never says «photo of the question» for an ink turn", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        hasImage: true,
+        ink: { strokes: 1 },
+      });
+      const prompt = messages[0]!.content + messages[1]!.content;
+      expect(prompt).not.toContain("صورة سؤاله");
+      expect(messages[1]!.content).toContain("خط واحد");
+    });
+
+    it("keeps the photo wording when there are no marks", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        hasImage: true,
+      });
+      expect(messages[0]!.content).toContain("صورة لسؤاله");
+      expect(messages[1]!.content).not.toContain("<ink>");
+    });
+  });
 });

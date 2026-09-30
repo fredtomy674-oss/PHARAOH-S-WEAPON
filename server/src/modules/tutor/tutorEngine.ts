@@ -35,6 +35,16 @@ export interface TutorHandleInput {
    */
   viewingPage?: number;
   /**
+   * PHASE 50 — «لوح الحبر»: the student drew on a printed page of the book.
+   *
+   * The picture is already inside `images` (the page as he marked it); this
+   * carries only the *facts about* the marks — which printed page they are on
+   * (validated by the caller, may be absent) and how many strokes he drew. The
+   * prompt turns those facts into words, so the tutor knows it is looking at
+   * the student's own marks on the book, not at an illustration from the book.
+   */
+  ink?: { bookPage?: number; strokes: number };
+  /**
    * PHASE 49 — ask for the reply to be delivered as it is written, so the room
    * can show a tutor that is thinking in front of the student instead of a
    * spinner that may last eight seconds. Optional and advisory: without it the
@@ -235,7 +245,10 @@ export class TutorEngine {
       chunks: retrieveResult.chunks,
       memory,
       studentName: input.student.displayName,
+      // PHASE 50 — an ink turn is a vision turn: the only picture is the marked
+      // page, so reading it means reading the student's own marks on the book.
       hasImage: (input.images?.length ?? 0) > 0,
+      ink: input.ink,
       documents: input.documents,
       language,
       lastQuestion: isAnswerTurn ? lastTutorQuestion : undefined,
