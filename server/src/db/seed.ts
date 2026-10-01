@@ -45,6 +45,12 @@ import {
   isConsistent as isArabicTreeConsistent,
   assertTreeMatchesTheBook as assertArabicTreeMatchesBook,
 } from "./egyptArabicT1.js";
+import {
+  EGYPT_ICT_T1_UNITS,
+  lessonDocument as ictLessonDocument,
+  isConsistent as isIctTreeConsistent,
+  assertTreeMatchesTheBook as assertIctTreeMatchesBook,
+} from "./egyptIctT1.js";
 
 /** Where one seeded lesson lives — used as the RAG scope for its document. */
 interface SeededLesson {
@@ -362,6 +368,62 @@ function verifyArabicTree(): { ok: boolean; problems: string[] } {
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
+/**
+ * Egyptian Grade-6 **Information and Communication Technology** — OFFICIAL
+ * curriculum (PHASE 62).
+ *
+ * The first term IS the Ministry textbook (`ICT_Arabic_Primary6_T1.pdf`,
+ * 2026/2027 MoE edition): its 2 units and 12 lessons exactly as the book's
+ * قائمة المحتويات prints them, each grounded on the OCR text of the pages the
+ * book prints for it (server/data/curriculum-ocr/ict-t1/). There is no second
+ * term yet: its book has not been imported, and a hand-written stand-in would
+ * misrepresent it.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson titles each page prints, and the tiling. Seeding refuses to run on
+ * an unverified table.
+ */
+export const EGYPT_ICT_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "ict", name: "Information and Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  curriculum: { code: "eg-g6-ict", title: "تكنولوجيا المعلومات والاتصالات للصف السادس الابتدائي" },
+  terms: [buildEgyptIctT1Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptIctT1Term(): TermSeedSpec {
+  const check = verifyIctTree();
+  if (!check.ok) throw new Error(`شجرة كتاب تكنولوجيا المعلومات غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ICT_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-ict-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: ictLessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the ICT tree verification, as one verdict. */
+function verifyIctTree(): { ok: boolean; problems: string[] } {
+  const table = isIctTreeConsistent();
+  const book = assertIctTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
 /** Term 2 placeholder — hand-written until the second-term book is imported. */
 function buildEgyptT2Placeholder(): TermSeedSpec {
   return {
@@ -541,6 +603,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_SCIENCE_SPEC);
   await seedCountry(db, knowledge, EGYPT_SOCIAL_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
