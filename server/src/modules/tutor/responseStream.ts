@@ -302,18 +302,29 @@ export class TutorReplyStream {
  *  2. The reply is unproven. PHASE 46 exists because a weak model sometimes
  *     answers by mirroring our own system prompt — and a mirror is, character for
  *     character, the internal rules and lesson context the student must never
- *     read. Buffering until the end would kill streaming, so instead the tail of
- *     the reply is held back and the echo is checked as it goes: a mirror is
- *     recognised within the first few words (it opens by restating the persona)
- *     and dropped, while a genuine reply streams freely.
+ *     read. Buffering until the end would kill streaming, so instead only the
+ *     *unfinished line* is held back and the echo is checked as it goes: a mirror
+ *     announces itself in its first line (a role header, a bullet dialect), and
+ *     every released line was checked as a whole before it left.
+ *
+ * PHASE 56 — measured: the old guard withheld a fixed 240 characters. A real
+ * reply is ~170–240 characters, so the student saw NOTHING until the model had
+ * finished — the single biggest reason the tutor "felt" slow while the model
+ * was answering in under a second. Releasing completed lines (with a cap for
+ * replies written as one unbroken line) turns the same turn into a reply that
+ * appears word by word.
  *
  * The `done` event of the turn always carries the authoritative, persisted text,
  * so even a wrong guess here cannot change what the student ends up reading —
  * this only decides what they see while waiting.
  */
 
-/** How much of the end of a reply is withheld until the reply is proven safe. */
-const TAIL_GUARD = 240;
+/**
+ * How long one unbroken line may grow before it is shown anyway. Models that
+ * answer in a single breath (no `\n` at all) would otherwise hold the whole
+ * reply until the end — exactly the symptom this phase removes.
+ */
+const LINE_CAP = 120;
 
 export interface ReplyRelayHooks {
   /** Newly readable text, safe to show. */
@@ -337,12 +348,15 @@ export class ReplyRelay {
     const fresh = this.reader.push(raw);
     if (!fresh) return;
     this.hold += fresh;
-    if (looksLikePromptEcho(this.hold)) {
+    // PHASE 56 — judged on everything decoded so far, not on the held line: a
+    // line released at the cap could otherwise split a marker in half and let a
+    // mirror through the very check that exists to catch it.
+    if (looksLikePromptEcho(this.reader.value)) {
       this.tainted = true;
       await this.drop();
       return;
     }
-    await this.flushTail();
+    await this.flushReady();
   }
 
   /** The reply is complete: release the withheld tail, unless it was tainted. */
@@ -360,12 +374,18 @@ export class ReplyRelay {
     if (tail) await this.hooks.onDelta(tail);
   }
 
-  /** Everything except the guard window goes out; the window waits for `finish`. */
-  private async flushTail(): Promise<void> {
-    if (this.hold.length <= TAIL_GUARD) return;
-    const ready = this.hold.slice(0, this.hold.length - TAIL_GUARD);
-    this.hold = this.hold.slice(this.hold.length - TAIL_GUARD);
-    if (ready) await this.hooks.onDelta(ready);
+  /** Completed lines go out; the unfinished one waits for more (or for `finish`). */
+  private async flushReady(): Promise<void> {
+    if (this.hold.length === 0) return;
+    let cut = this.hold.lastIndexOf("\n");
+    if (cut < 0) {
+      // No line break yet: a long-enough single line is shown rather than held.
+      if (this.hold.length < LINE_CAP) return;
+      cut = this.hold.length;
+    }
+    const ready = this.hold.slice(0, cut + 1);
+    this.hold = this.hold.slice(cut + 1);
+    await this.hooks.onDelta(ready);
   }
 
   private async drop(): Promise<void> {

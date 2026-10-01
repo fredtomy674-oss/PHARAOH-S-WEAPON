@@ -47,6 +47,22 @@ export interface LLMRequest {
   json?: boolean;
   temperature?: number;
   maxOutputTokens?: number;
+  /**
+   * PHASE 56 — how many tokens the model may spend thinking (0 = answer
+   * immediately).
+   *
+   * Measured on the real tutor prompt: the Gemini 3 family reasons by default,
+   * and those tokens are billed *and* arrive before the first visible word — a
+   * fallback model that thought freely spent its whole output budget on
+   * reasoning and returned a truncated, unparseable envelope (`MAX_TOKENS`,
+   * `thought 0`, broken JSON). Asking for no thinking turns a 6–36 s turn into
+   * a 1–3 s one.
+   *
+   * Support is per-model: measured, `gemini-3.5-flash-lite` rejects the field
+   * with a 400 while `3.1-flash-lite`, `3.5-flash` and `3.6-flash` accept it.
+   * The provider therefore retries once without it rather than failing the turn.
+   */
+  thinkingBudget?: number;
   /** Explicit model override (e.g. a fine-tuned variant later). */
   model?: string;
   /** Server-side trace context (never sent to the provider). */

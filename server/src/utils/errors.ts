@@ -43,9 +43,14 @@ export const Errors = {
   tooMany(message = "تجاوزت الحد المسموح، حاول لاحقًا", code = "RATE_LIMITED") {
     return new AppError(429, code, message);
   },
-  /** Not user-triggered: hidden details, returned with generic message. */
-  internal(message = "حدث خطأ داخلي، حاول مرة أخرى", code = "INTERNAL") {
-    return new AppError(500, code, message, false);
+  /**
+   * Not user-triggered: hidden details, returned with generic message.
+   * `meta` rides along for the log only (never serialized to the client) — the
+   * same treatment `serviceUnavailable` gets, so an upstream cause is always
+   * debuggable from the server side.
+   */
+  internal(message = "حدث خطأ داخلي، حاول مرة أخرى", code = "INTERNAL", meta?: Record<string, unknown>) {
+    return new AppError(500, code, message, false, meta);
   },
   /** Dependency (external service) is temporarily unreachable — retry later. */
   serviceUnavailable(message = "الخدمة غير متاحة حاليًا، حاول لاحقًا", code = "SERVICE_UNAVAILABLE", meta?: Record<string, unknown>) {

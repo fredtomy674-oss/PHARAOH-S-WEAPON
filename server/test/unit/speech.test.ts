@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { config } from "../../src/config/env.js";
 import { SpeechService, capText } from "../../src/modules/ai/speech/service.js";
 import { createSpeechProvider } from "../../src/modules/ai/speech/factory.js";
-import { GeminiSpeechProvider } from "../../src/modules/ai/speech/providers/geminiSpeech.js";
+import { GeminiSpeechProvider, splitForSynthesis } from "../../src/modules/ai/speech/providers/geminiSpeech.js";
 import { StubSpeechProvider } from "../../src/modules/ai/speech/providers/stubSpeech.js";
 import { isPcmMime, pcmToWav, readPcmSampleRate, toPlayableWav, WAV_MIME } from "../../src/modules/ai/speech/wav.js";
 import type { SpeechProvider, SpeechRequest } from "../../src/modules/ai/speech/types.js";
@@ -294,5 +294,162 @@ describe("capText — PHASE 40", () => {
     expect(capped.length).toBeLessThanOrEqual(100);
     expect(capped.endsWith("نهاية")).toBe(false); // cut inside, not appended to
     expect(capped.endsWith("كلمة")).toBe(true);
+  });
+});
+
+/**
+ * PHASE 56 — narration split into parallel pieces.
+ *
+ * Measured on the real provider: synthesis time grows with the text (48 chars
+ * 3.0s, 160 chars 6.7s, 389 chars 12.5s), and the same 160 characters in three
+ * parallel requests came back in 3.9s. These pin the two things that must never
+ * break for that to be worth it: no word is ever lost or cut mid-sentence, and
+ * the joined audio is one playable file.
+ */
+describe("splitForSynthesis — PHASE 56", () => {
+  const longReply = [
+    "العدد 48 يقبل القسمة على 2 لأن رقم آحاده 8 زوجي.",
+    "والعدد 49 لا يقبل القسمة على 2 لأن رقم آحاده 9 فردي.",
+    "جرّب بنفسك: اكتب عددًا زوجيًا ثم اقسمه على 2.",
+    "إذا كان رقم الآحاد زوجيًا فالناتج عدد صحيح بلا باقٍ.",
+    "وإذا كان فرديًا فتبقى 1 عند القسمة على 2.",
+    "جرّب مع 100: رقم آحاده 0 زوجي إذن الناتج 50.",
+  ].join(" ");
+
+  it("sends a short line in one request", () => {
+    expect(splitForSynthesis("مرحبًا")).toEqual(["مرحبًا"]);
+    expect(splitForSynthesis("  مرحبًا بيك  ")).toEqual(["مرحبًا بيك"]);
+  });
+
+  it("cuts a long reply into pieces small enough to speak in parallel", () => {
+    const parts = splitForSynthesis(longReply);
+    expect(parts.length).toBeGreaterThan(1);
+    expect(parts.length).toBeLessThanOrEqual(8);
+    for (const part of parts) expect(part.length).toBeLessThanOrEqual(120);
+  });
+
+  it("loses nothing: the pieces still say every word, and never end mid-number", () => {
+    const parts = splitForSynthesis(longReply);
+    const said = parts.join(" ").split(/\s+/).filter(Boolean);
+    const original = longReply.split(/\s+/).filter(Boolean);
+    expect(said).toEqual(original);
+    // A cut inside a number would be spoken as two wrong numbers, so every piece
+    // except the last must end on a sentence boundary.
+    for (const part of parts.slice(0, -1)) expect(part).toMatch(/[.!؟…:]$/);
+  });
+
+  it("never makes a piece too small to be worth a request of its own", () => {
+    const choppy = "نعم. لا. ربما.-large sentence that comfortably exceeds the minimum length on its own.";
+    const parts = splitForSynthesis(choppy);
+    for (const part of parts.slice(0, -1)) expect(part.length).toBeGreaterThanOrEqual(40);
+  });
+
+  it("bounds the fan-out of a very long reply without dropping the tail", () => {
+    const huge = Array.from({ length: 40 }, (_, i) => `الجملة رقم ${i} تشرح فكرة مفيدة للطالب.`).join(" ");
+    const parts = splitForSynthesis(huge);
+    expect(parts.length).toBeLessThanOrEqual(8);
+    expect(parts.join(" ")).toContain("الجملة رقم 39");
+  });
+});
+
+describe("GeminiSpeechProvider parallel narration — PHASE 56", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const longReply = [
+    "العدد 48 يقبل القسمة على 2 لأن رقم آحاده 8 زوجي.",
+    "والعدد 49 لا يقبل القسمة على 2 لأن رقم آحاده 9 فردي.",
+    "جرّب بنفسك: اكتب عددًا زوجيًا ثم اقسمه على 2.",
+  ].join(" ");
+
+  const audio = (bytes: number): string => Buffer.alloc(bytes).toString("base64");
+
+  it("speaks the pieces at once and returns one playable file", async () => {
+    const fetchMock = vi.fn(
+      async (_url: string, init: RequestInit) => {
+        const body = JSON.parse(String(init.body)) as { contents: Array<{ parts: Array<{ text: string }> }> };
+        // 100 bytes per requested character keeps the sizes distinguishable.
+        const chars = body.contents[0]!.parts[0]!.text.length;
+        return new Response(
+          JSON.stringify({ candidates: [{ content: { parts: [{ inlineData: { mimeType: "audio/L16;codec=pcm;rate=24000", data: audio(chars * 10) } }] } }] }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      },
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await new GeminiSpeechProvider().synthesize({ text: longReply, language: "ar" });
+    const parts = splitForSynthesis(longReply);
+    expect(fetchMock).toHaveBeenCalledTimes(parts.length);
+    expect(result.mimeType).toBe(WAV_MIME);
+    expect(result.audio.subarray(0, 4).toString("ascii")).toBe("RIFF");
+    // One header, every piece's samples: no truncation, no double-wrap.
+    const spokenChars = parts.reduce((sum, p) => sum + p.length, 0);
+    expect(result.audio.length).toBe(44 + spokenChars * 10);
+    expect(result.audio.readUInt32LE(40)).toBe(spokenChars * 10);
+  });
+
+  it("falls back to one whole-text request when the pieces cannot be joined", async () => {
+    const seen: string[] = [];
+    const fetchMock = vi.fn(async (_url: string, init: RequestInit) => {
+      const body = JSON.parse(String(init.body)) as { contents: Array<{ parts: Array<{ text: string }> }> };
+      seen.push(body.contents[0]!.parts[0]!.text);
+      // An audio type the browser may not play: joining it would cut words.
+      return new Response(
+        JSON.stringify({ candidates: [{ content: { parts: [{ inlineData: { mimeType: "audio/mpeg", data: audio(64) } }] } }] }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      );
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await new GeminiSpeechProvider().synthesize({ text: longReply, language: "ar" });
+    expect(result.mimeType).toBe("audio/mpeg");
+    expect(seen[seen.length - 1]).toBe(longReply.trim());
+  });
+
+  it("retries a single dropped piece instead of losing the whole voice", async () => {
+    const attempts = new Map<string, number>();
+    const fetchMock = vi.fn(async (_url: string, init: RequestInit) => {
+      const body = JSON.parse(String(init.body)) as { contents: Array<{ parts: Array<{ text: string }> }> };
+      const text = body.contents[0]!.parts[0]!.text;
+      const seen = (attempts.get(text) ?? 0) + 1;
+      attempts.set(text, seen);
+      if (text.includes("49") && seen === 1) throw new TypeError("socket hang up");
+      return new Response(
+        JSON.stringify({ candidates: [{ content: { parts: [{ inlineData: { mimeType: "audio/L16;codec=pcm;rate=24000", data: audio(128) } }] } }] }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      );
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await new GeminiSpeechProvider().synthesize({ text: longReply, language: "ar" });
+    expect(result.mimeType).toBe(WAV_MIME);
+    expect([...attempts.values()].filter((n) => n === 2)).toHaveLength(1);
+  });
+
+  it("an empty bucket stops the fan-out at once instead of walking every piece", async () => {
+    const originalModel = config.GEMINI_TTS_MODEL;
+    const originalFallbacks = config.GEMINI_TTS_FALLBACKS;
+    config.GEMINI_TTS_MODEL = "tts-a";
+    config.GEMINI_TTS_FALLBACKS = "tts-b";
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify({ error: { code: 429 } }), { status: 429 }));
+    vi.stubGlobal("fetch", fetchMock);
+    const t0 = Date.now();
+    try {
+      await expect(new GeminiSpeechProvider().synthesize({ text: longReply, language: "ar" })).rejects.toMatchObject({
+        statusCode: 503,
+        code: "SPEECH_UNAVAILABLE",
+      });
+    } finally {
+      config.GEMINI_TTS_MODEL = originalModel;
+      config.GEMINI_TTS_FALLBACKS = originalFallbacks;
+    }
+    // Each candidate is probed once per piece and never retried: the full fan-out
+    // with a retry per piece was measured at 24s of silence before the browser's
+    // own voice took over.
+    const pieces = splitForSynthesis(longReply).length;
+    expect(fetchMock.mock.calls.length).toBeLessThanOrEqual(2 * pieces);
+    expect(Date.now() - t0).toBeLessThan(5_000);
   });
 });

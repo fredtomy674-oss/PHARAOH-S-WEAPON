@@ -202,6 +202,57 @@ export function ttsSupported(): boolean {
   return typeof window !== "undefined" && "speechSynthesis" in window;
 }
 
+/**
+ * PHASE 56 — the reply as it should be HEARD: whole sentences, in order.
+ *
+ * A voice reading half a sentence aloud while the sentence is still being
+ * written sounds broken and is wrong to do, so a chunk is only released once it
+ * is finished: a full stop, a question mark, an exclamation mark, an ellipsis,
+ * or a line break (which is how models separate the parts of a reply).
+ *
+ * Two details that Arabic maths actually needs:
+ *
+ *  • `2.5` is a number, not an ending — a point between digits is never a
+ *    sentence end, so a decimal never cuts the voice off mid-number.
+ *  • A reply that runs on without punctuation must not hold the voice hostage:
+ *    past `limit` characters the chunk is released anyway.
+ */
+/** One whole sentence, and where it ends inside the text it came from. */
+export interface Sentence {
+  text: string;
+  /** Index in the source text just past this sentence. */
+  end: number;
+}
+
+export function splitSentences(text: string, limit = 140): { ready: Sentence[]; rest: string } {
+  const ready: Sentence[] = [];
+  let start = 0;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i]!;
+    if (!/[.!?؟…\n]/.test(ch)) continue;
+    if (ch === "." && /\d/.test(text[i - 1] ?? "") && /\d/.test(text[i + 1] ?? "")) continue;
+    // A point only ends a sentence when whitespace (or the end) follows it —
+    // this also keeps abbreviations and file names from cutting a sentence.
+    const next = text[i + 1];
+    if (ch === "." && next !== undefined && !/\s/.test(next)) continue;
+    const cut = i + 1;
+    const chunk = text.slice(start, cut).trim();
+    // `end` is an offset into `text`, not into the trimmed chunk: the narrator
+    // needs to know exactly how much of the reply has been read, and searching
+    // for trimmed text to recover that offset would fail on the very whitespace
+    // trimming removed.
+    if (chunk) ready.push({ text: chunk, end: cut });
+    start = cut;
+  }
+  if (text.length - start >= limit) {
+    const cut = start + limit;
+    const chunk = text.slice(start, cut).trim();
+    if (chunk) ready.push({ text: chunk, end: cut });
+    return { ready, rest: text.slice(cut) };
+  }
+  return { ready, rest: text.slice(start) };
+}
+
 let voiceCache: SpeechSynthesisVoice[] = [];
 let voicesListenerAttached = false;
 
@@ -252,6 +303,25 @@ export interface SpeakResult {
    * An empty list means "still loading", which is NOT a missing voice.
    */
   missingVoice: boolean;
+}
+
+/**
+ * True when this machine can read `language` aloud with a voice that actually
+ * speaks it.
+ *
+ * `speakText` cannot answer this *before* speaking: it hands the text to the
+ * engine and only then reports `missingVoice`, by which point a machine with no
+ * Arabic voice has already started reading Arabic in its English voice. Anything
+ * that may abandon the reading (the progressive narrator) must ask first.
+ *
+ * An empty voice list means "still loading", not "no voice" — Chrome fills it
+ * asynchronously — so it answers yes and lets the attempt itself decide.
+ */
+export function canSpeakLanguage(language: VoiceLanguage): boolean {
+  if (!ttsSupported()) return false;
+  const voices = primeVoices(window.speechSynthesis);
+  if (voices.length === 0) return true;
+  return pickVoice(voices, language) !== null;
 }
 
 /**

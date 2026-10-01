@@ -387,6 +387,14 @@ export class TutorEngine {
           // model can burn on a degraded day (≈60s at 10 tok/s). A cap that
           // trims mid-envelope yields a fragment, which the guard regenerates.
           maxOutputTokens: 600,
+          // PHASE 56 — ask for no thinking. Measured on the real prompt: the
+          // Gemini 3 family reasons by default, those tokens arrive BEFORE the
+          // first visible word, and a fallback model that thought freely spent
+          // its whole 600-token budget on reasoning and returned a truncated,
+          // unparseable envelope (`MAX_TOKENS`, broken JSON). With this the same
+          // prompt answers in ~1s instead of 6–36s. Models that refuse the field
+          // are retried without it by the provider (measured: 3.5-flash-lite 400s).
+          thinkingBudget: 0,
           images: input.images,
           documents: input.documents,
           contextUserId: input.userId,

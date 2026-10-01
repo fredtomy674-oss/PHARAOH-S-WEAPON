@@ -167,10 +167,21 @@ export async function installVoiceStubs(
           localService: true,
           voiceURI: `test-${v.lang}`,
         })),
-      speak(u: { text: string; lang: string }): void {
+      speak(u: { text: string; lang: string; onend?: () => void; onerror?: () => void }): void {
         pending.length = 0;
         state.spoken.push({ text: u.text, lang: u.lang });
         pending.push(u);
+        // PHASE 56 — an utterance must END for the next one to start: the room now
+        // reads a reply sentence by sentence (see `narrator.ts`), so a stub that
+        // never ends its utterance would stall the queue after the first sentence
+        // and hide the very behaviour these tests are about. The delay is
+        // proportional to the text, because a real voice takes real time — a stub
+        // that ended instantly would let the whole reply be "spoken" before a
+        // test could look at it.
+        const duration = Math.min(3000, Math.max(500, u.text.length * 25));
+        setTimeout(() => {
+          if (pending[0] === u) u.onend?.();
+        }, duration);
       },
       cancel(): void {
         state.cancelCount += 1;

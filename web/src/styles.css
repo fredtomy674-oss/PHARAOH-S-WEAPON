@@ -1266,6 +1266,14 @@ p {
   white-space: nowrap;
 }
 
+/* PHASE 56 — measured: this one button was 31px tall while every other control
+   the student touches is at least 40px (PHASE 54's rule). A thumb-sized target
+   is a rule, not a per-component decision. */
+.room [data-testid="end-session"] {
+  min-height: 40px;
+  padding-inline: 0.9rem;
+}
+
 /* ----- the room body: stage + live stream ----- */
 .room-body {
   flex: 1;
@@ -1281,12 +1289,6 @@ p {
 @media (max-width: 1000px) {
   .room-body {
     grid-template-columns: minmax(0, 1fr);
-  }
-  /* PHASE 54 — on a phone the book must not bury the conversation: the page
-     stays the stage, but capped, so the tutor's reply is one short scroll
-     away instead of a full page below. */
-  .room-sheet img {
-    max-height: 40vh;
   }
 }
 
@@ -1304,6 +1306,11 @@ p {
   min-height: 240px;
   display: grid;
   place-items: center;
+  /* PHASE 56 — the page and its toolbar are ONE centred stack: without this
+     the two auto rows stretch apart and the toolbar drifts to the floor of
+     the panel, far from the page it controls. */
+  align-content: center;
+  row-gap: 0.5rem;
   padding: clamp(0.6rem, 1.6vw, 1.1rem);
   border-radius: 22px;
   background: linear-gradient(180deg, #ffffff, var(--room-paper));
@@ -1323,10 +1330,12 @@ p {
   background: radial-gradient(60% 45% at 50% 0%, rgba(226, 185, 58, 0.12), transparent 70%);
 }
 
-/* PHASE 50 — «لوح الحبر»: the sheet shrink-wraps the page image, and the
-   drawing canvas fills the sheet — never the padded stage. Normalized stroke
-   coordinates are relative to this box on screen and to the page pixels in the
-   composited picture, so a mark cannot drift between the two. */
+/* PHASE 50/56 — «لوح الحبر»: the sheet shrink-wraps the page image and
+   contains nothing else, and the drawing canvas fills the sheet — never the
+   padded stage. Normalized stroke coordinates are relative to this box on
+   screen and to the page pixels in the composited picture, so a mark cannot
+   drift between the two. (Measured: with the toolbar inside the sheet, the
+   sheet was 58×62px bigger than the image and the canvas covered the tools.) */
 .room-sheet {
   position: relative;
   line-height: 0;
@@ -1341,12 +1350,51 @@ p {
   filter: saturate(1.03) contrast(1.02);
 }
 
-/* display:contents — the canvas is positioned against the sheet while the
-   toolbar flows as a grid item of the stage beneath it. */
-.ink-board {
-  display: contents;
+/* PHASE 56 — the phone room, measured on a 390×844 screen.
+ *
+ * Three defects, all numbers from the running app:
+ *
+ *  • PHASE 54's phone cap (`max-height: 40vh`) sat ABOVE this rule with equal
+ *    specificity, so it never applied: the page rendered at 494px of an 844px
+ *    screen — 59% of the phone for one page of the book, and the conversation
+ *    pushed a full screen down. The cap is restored where it can win, and the
+ *    page is back to the 40vh PHASE 54 asked for.
+ *  • The ribbon wrapped to four lines of text (206px = a quarter of the screen).
+ *    The lesson title and the breadcrumb are now one line each with an ellipsis,
+ *    and the page counter is hidden because the stage's own navigation already
+ *    says «صفحة الافتتاح · إلى 13» right below it.
+ *  • The stage note explained the page in a fourth line of prose; on a phone the
+ *    ink toolbar and the page's own caption say the same thing more briefly.
+ */
+@media (max-width: 1000px) {
+  .room-sheet img {
+    max-height: 40vh;
+  }
+
+  .room-ribbon-where {
+    min-width: 0;
+    flex: 1 1 12rem;
+  }
+
+  .room-ribbon-where strong,
+  .room-ribbon-where .muted {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Duplicated by `.room-stage-nav`, which sits directly under the page. */
+  .room-ribbon-facts [data-testid="room-page-fact"] {
+    display: none;
+  }
+
+  .room-stage-note {
+    display: none;
+  }
 }
 
+/* The canvas is the page: absolutely filling `.room-sheet`, which is now the
+   image's exact box. */
 .ink-canvas {
   position: absolute;
   inset: 0;
@@ -1356,13 +1404,17 @@ p {
   cursor: crosshair;
 }
 
+/* PHASE 56 — a grid item of `.room-page` beneath the sheet: one centred bar,
+   never inside the page's own box. */
 .ink-tools {
   display: flex;
   align-items: center;
   gap: 0.45rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 0.55rem;
+  justify-self: center;
+  align-self: center;
+  margin-top: 0.5rem;
   padding: 0.35rem 0.55rem;
   line-height: 1.4;
   background: rgba(255, 255, 255, 0.92);
@@ -1925,6 +1977,15 @@ p {
 .room-captions-empty {
   margin: auto;
   max-width: 34ch;
+}
+
+/* PHASE 56 — the newest line must land ABOVE the pinned composer, not behind
+   it. Measured: the footer is a 187px sticky band, so `scrollIntoView` on the
+   last line parked the very words the reply ends with under the input. */
+.room-captions-end {
+  flex: 0 0 auto;
+  height: 1px;
+  scroll-margin-bottom: 13rem;
 }
 
 /* The tutor speaks; the student answers. Both are readable at a glance. */

@@ -43,6 +43,7 @@ import {
   type User,
 } from "./api.js";
 import {
+  canSpeakLanguage,
   missingVoiceNotice,
   playAudioBlob,
   speakText,
@@ -53,7 +54,9 @@ import {
   type SttHandle,
 } from "./voice.js";
 import InkBoard from "./InkBoard.js";
-import { composeInkPage, type InkStroke } from "./ink.js";
+import InkTools from "./InkTools.js";
+import { composeInkPage, type InkStroke, type InkTool } from "./ink.js";
+import { createNarrator, type Narrator } from "./narrator.js";
 import NumberLine from "./NumberLine.js";
 import FormattedText from "./FormattedText.js";
 import { previewText, stripMarkdown } from "./format.js";
@@ -187,15 +190,22 @@ export function LessonRoom({ session, onEnded }: Props) {
   // and the board is cleared once the tutor has them.
   const [inkStrokes, setInkStrokes] = useState<InkStroke[]>([]);
   const [inkReset, setInkReset] = useState(0);
+  // PHASE 56 — the chosen tool lives in the room because the toolbar now sits
+  // outside the page sheet, next to the board it drives.
+  const [inkTool, setInkTool] = useState<InkTool>("pen");
   // The board is only drawable once the page image has laid out: the sheet
   // shrink-wraps the image, so beforehand the canvas is zero-sized.
   const [pageReady, setPageReady] = useState(false);
   const stageImgRef = useRef<HTMLImageElement>(null);
   // A new page starts unready; a cached-complete image is ready immediately,
-  // otherwise the <img> onLoad below flips it when the bytes arrive.
+  // otherwise the <img> onLoad below flips it when the bytes arrive. The marks go
+  // with it: PHASE 50's rule, now the room's to keep (PHASE 56 made the board
+  // controlled), so a circle drawn on page 0 can never travel to page 1.
   useEffect(() => {
     const img = stageImgRef.current;
     setPageReady(!!img && img.complete && img.naturalWidth > 0);
+    setInkStrokes([]);
+    setInkReset((n) => n + 1);
   }, [pageIndex]);
   // PHASE 48 — pages the latest answer was grounded in; marked on the filmstrip.
   const [citedPages, setCitedPages] = useState<number[]>([]);
@@ -205,6 +215,13 @@ export function LessonRoom({ session, onEnded }: Props) {
   const [live, setLive] = useState<{ user: Message | null; text: string } | null>(null);
   const [mastery, setMastery] = useState<number | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const captionsRef = useRef<HTMLDivElement | null>(null);
+  // PHASE 56 — measured on a 390×844 phone: the room opened 651px down the
+  // page. `scrollIntoView` on the transcript's last line moves every scrollable
+  // ancestor, and on a phone the transcript is NOT a scroll container (the page
+  // is), so the room opened with the book page scrolled off the top. The page
+  // may only move once the room has finished opening.
+  const roomOpening = useRef(true);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const docRef = useRef<HTMLInputElement | null>(null);
   const sttRef = useRef<SttHandle | null>(null);
@@ -213,6 +230,11 @@ export function LessonRoom({ session, onEnded }: Props) {
   // playing a reply the student already moved on from.
   const speechToken = useRef(0);
   const voiceTurnRef = useRef(false);
+  // PHASE 56 — the reply being heard while it is still arriving (see
+  // `narrator.ts`): it speaks each sentence the moment it is complete, and
+  // reports `broken` when this machine has no voice for Arabic so the room can
+  // fall back to the server's narration of the whole reply.
+  const narratorRef = useRef<Narrator | null>(null);
 
   useEffect(() => {
     resetSpeechAvailability();
@@ -246,7 +268,16 @@ export function LessonRoom({ session, onEnded }: Props) {
   }, [session.id, session.lessonId]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    // The transcript is its own scroll container on a desktop: positioning it
+    // here leaves the ribbon and the composer exactly where they are.
+    const box = captionsRef.current;
+    if (box) box.scrollTop = box.scrollHeight;
+    // Only a reply that arrives while the room is in use may move the page
+    // (a phone scrolls the document, so the newest line has to be brought into
+    // view). While the room is still opening, the student must land on the book
+    // page — that is what the room is for.
+    if (roomOpening.current) return;
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, pending, live]);
 
   // Stop any voice activity when leaving the room.
@@ -307,9 +338,41 @@ export function LessonRoom({ session, onEnded }: Props) {
     if (missingVoice) setError(missingVoiceNotice(tutorLanguage));
   };
 
+  /**
+   * PHASE 56 — the narrator for one turn: the machine's own voice, speaking
+   * whole sentences as they arrive.
+   *
+   * It reports `missingVoice` instead of raising the notice itself, because a
+   * missing local voice is no longer the end of the road: the room falls back to
+   * the server's narration of the whole reply (`speak`), and only *that* path
+   * decides whether the machine ends up silent.
+   */
+  const createProgressiveNarrator = (): Narrator =>
+    createNarrator({
+      onSpeaking: setSpeaking,
+      speak: (text, onDone) => {
+        if (!ttsSupported()) return { started: false, missingVoice: false };
+        // PHASE 56 — ask BEFORE speaking: `speakText` reports a missing voice only
+        // after handing the text over, so without this the very first sentence of
+        // an Arabic reply would be read aloud in the machine's English voice.
+        if (!canSpeakLanguage(tutorLanguage)) return { started: false, missingVoice: true };
+        const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
+          if (activeUtterance.current === utterance) {
+            activeUtterance.current = null;
+            setSpeaking(false);
+          }
+          onDone();
+        });
+        if (utterance) activeUtterance.current = utterance;
+        return { started: !!utterance, missingVoice };
+      },
+    });
+
   const stopReading = () => {
     // Invalidate any narration still in flight before silencing the current one.
     speechToken.current += 1;
+    narratorRef.current?.stop();
+    narratorRef.current = null;
     stopSpeaking();
     activeUtterance.current = null;
     setSpeaking(false);
@@ -391,6 +454,9 @@ export function LessonRoom({ session, onEnded }: Props) {
     // the composer already enforces "last act wins", this is the backstop.
     const marks = !image && !doc && openBookPage !== null ? inkStrokes : [];
     if ((!text && !image && !doc && !widget && marks.length === 0) || pending) return;
+    // The room has finished opening: from now on a reply may bring itself into
+    // view (PHASE 56 — measured, the opening itself must not move the page).
+    roomOpening.current = false;
     setPending(true);
     setError(null);
     // The picture the tutor sees is the page *as marked*: composited here, from
@@ -432,6 +498,10 @@ export function LessonRoom({ session, onEnded }: Props) {
       // turn is very likely stored, and asking again would make the student pay
       // for it twice.
       let arrived = false;
+      // PHASE 56 — the voice starts with the first sentence instead of waiting
+      // for the turn to be stored and its audio to be fetched.
+      const narrator = speakReply ? createProgressiveNarrator() : null;
+      narratorRef.current = narrator;
       const turn = await streamMessage(session.id, body, {
         onUser: (message) => {
           arrived = true;
@@ -439,10 +509,21 @@ export function LessonRoom({ session, onEnded }: Props) {
         },
         onDelta: (chunk) => {
           arrived = true;
-          setLive((l) => (l ? { ...l, text: l.text + chunk } : l));
+          setLive((l) => {
+            const text = l ? l.text + chunk : chunk;
+            // Only text the room is showing is ever spoken, so what is heard and
+            // what is read cannot disagree.
+            narrator?.feed(text);
+            return l ? { ...l, text } : l;
+          });
         },
         onDiscard: () => {
           arrived = true;
+          // Words the room took back must not stay in the air — and the corrected
+          // answer must still be spoken, so the narrator forgets rather than stops.
+          stopSpeaking();
+          activeUtterance.current = null;
+          narrator?.retract();
           setLive((l) => (l ? { ...l, text: "" } : l));
         },
       }).catch((err) => {
@@ -475,7 +556,25 @@ export function LessonRoom({ session, onEnded }: Props) {
       // The marks reached the tutor with this question — clear the board so the
       // next question starts from a clean page.
       if (ink) setInkReset((n) => n + 1);
-      if (speakReply) void speak(turn.tutorMessage);
+      // PHASE 56 — if the machine could not speak as the words arrived (no
+      // voice for Arabic, or the room retracted the text), fall back to the
+      // server's narration of the stored reply: one voice, whole answer. When it
+      // did speak, the remainder is simply the tail it has not reached yet.
+      if (speakReply) {
+        if (narrator && !narrator.broken) {
+          // The machine read the reply as it arrived; only the tail is left.
+          narrator.finish(turn.tutorMessage.content);
+        } else {
+          // The local voice gave up (measured: no Arabic voice installed). The
+          // server narrates what the student has NOT heard — the whole reply when
+          // nothing was read, otherwise only the remaining tail, so no sentence
+          // is ever said twice.
+          const gap = narrator?.unheard();
+          const content = !gap ? turn.tutorMessage.content : gap.heardNothing ? turn.tutorMessage.content : gap.tail;
+          if (content.trim()) void speak({ ...turn.tutorMessage, content });
+        }
+      }
+      if (narratorRef.current === narrator) narratorRef.current = null;
     } catch (err) {
       setLive(null);
       // A turn that failed mid-stream may still have been stored on the server,
@@ -631,12 +730,28 @@ export function LessonRoom({ session, onEnded }: Props) {
                       if (img.naturalWidth > 0) setPageReady(true);
                     }}
                   />
-                  {/* PHASE 50 — «لوح الحبر»: the student draws on the page itself,
-                      so his finger can point at the exact line he asks about. The
-                      canvas lives inside the sheet — the image's exact box — so a
-                      mark on screen is the same mark the tutor receives. */}
-                  <InkBoard pageKey={currentPage.bookPage} resetToken={inkReset} ready={pageReady} onChange={onInkChange} />
+                  {/* PHASE 50/56 — «لوح الحبر»: the student draws on the page
+                      itself, so his finger can point at the exact line he asks
+                      about. The canvas is the only thing inside the sheet (its
+                      exact box), and the toolbar sits beside it — measured: a
+                      toolbar inside the sheet pushed the drawing surface off
+                      the page. */}
+                  <InkBoard
+                    pageKey={currentPage.bookPage}
+                    resetToken={inkReset}
+                    ready={pageReady}
+                    strokes={inkStrokes}
+                    tool={inkTool}
+                    onChange={onInkChange}
+                  />
                 </div>
+                <InkTools
+                  tool={inkTool}
+                  onTool={setInkTool}
+                  count={inkStrokes.length}
+                  ready={pageReady}
+                  onClear={() => onInkChange([])}
+                />
               </div>
               <div className="room-stage-nav">
                 <button
@@ -734,7 +849,7 @@ export function LessonRoom({ session, onEnded }: Props) {
             </div>
           )}
 
-          <div className="room-captions" data-testid="messages">
+          <div className="room-captions" data-testid="messages" ref={captionsRef}>
             {messages.length === 0 && !live && (
               <p className="muted center room-captions-empty">
                 {stage?.hasImages
@@ -860,7 +975,7 @@ export function LessonRoom({ session, onEnded }: Props) {
                 </div>
               </div>
             )}
-            <div ref={bottomRef} />
+            <div className="room-captions-end" ref={bottomRef} />
           </div>
         </section>
       </div>

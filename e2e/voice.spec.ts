@@ -70,17 +70,28 @@ test("A1: a voice question is transcribed, editable, sent, and the tutor reply i
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   const state = await voiceTestState(page);
   expect(state.recognitionLang).toBe("ar-EG");
-  // D-044 — the audio came from the server, not from this machine's voices.
-  expect(state.audio.plays).toBe(1);
-  expect(state.audio.lastSrc.startsWith("blob:")).toBe(true);
-  expect(state.spoken).toHaveLength(0);
+  // PHASE 56 — measured: the server's voice needs 6.9–7.7s for a whole reply,
+  // while the words themselves arrive over ~800ms. The reply is therefore read
+  // sentence by sentence by this machine's own voice as the sentences arrive, and
+  // the server is never asked — which is why nothing was played from a blob.
+  // What is read is the reply itself: same language, no markdown left in it.
+  await expect
+    .poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 15_000 })
+    .toBeGreaterThan(0);
+  expect(state.audio.plays).toBe(0);
+  expect(state.spoken[0]!.lang).toBe("ar-EG");
+  expect(state.spoken[0]!.text).not.toContain("**");
 
-  // The speaking status is visible, and the student can stop the audio.
-  const pausesBefore = state.audio.pauses;
+  // The speaking status is visible, and the student can stop it: the reply was
+  // being read by this machine's voice, so stopping cancels that voice.
+  const cancelsBefore = state.cancelCount;
   await page.getByTestId("stop-tts").click();
   await expect(page.getByTestId("speak-status")).toHaveCount(0);
   const afterStop = await voiceTestState(page);
-  expect(afterStop.audio.pauses).toBe(pausesBefore + 1);
+  expect(afterStop.cancelCount).toBeGreaterThan(cancelsBefore);
+  // Stopping really stops: the sentences still queued must never be read.
+  await page.waitForTimeout(600);
+  expect((await voiceTestState(page)).spoken).toHaveLength(afterStop.spoken.length);
 });
 
 test("A2: a typed question does not auto-speak; the 🔊 button speaks a reply and stop works", async ({ page }) => {
@@ -99,9 +110,11 @@ test("A2: a typed question does not auto-speak; the 🔊 button speaks a reply a
 
   // Manual listen: the 🔊 button on the tutor bubble speaks that reply.
   await page.getByTestId("speak-reply").first().click();
+  // Polled: the audio is fetched from the server before it plays, so the counter
+  // is read once it has really moved rather than the instant after the click.
+  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   state = await voiceTestState(page);
-  expect(state.audio.plays).toBe(1);
   expect(state.audio.lastSrc.startsWith("blob:")).toBe(true);
   // Narration never nags the student — the server has a voice, so the machine's
   // voices are irrelevant to whether the reply can be heard.
@@ -159,11 +172,43 @@ test("A4: a machine with no Arabic voice still hears the Arabic reply from the s
   await tutorReplyText(page);
   await page.getByTestId("speak-reply").first().click();
 
+  // Polled: the audio comes from the server, so the counter is read once it has
+  // really moved rather than the instant after the click.
+  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   const state = await voiceTestState(page);
-  expect(state.audio.plays).toBe(1);
   // The browser was never asked to speak — no wrong-language audio, and no
   // scary "install a voice pack" message for a student who cannot act on it.
+  expect(state.spoken).toHaveLength(0);
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
+});
+
+/**
+ * PHASE 56 — the same guarantee on the *automatic* path, which is the one that
+ * used to have no voice at all until the turn was stored: a machine with no
+ * Arabic voice asks by voice, so the reply is narrated as it streams, and that
+ * attempt fails (no voice for Arabic) — the room must then hand the whole reply
+ * to the server rather than leave the student in silence. Nothing may be read
+ * twice: the browser spoke nothing, so the server reads all of it.
+ */
+test("A7: a voice-asked turn on a machine with no Arabic voice is narrated by the server", async ({ page }) => {
+  await installVoiceStubs(page, STT_TRANSCRIPT, [{ lang: "en-US", name: "Test English Voice" }]);
+  await login(page);
+  await startFirstLesson(page);
+
+  // Ask by voice, so the room tries to narrate the reply as it arrives.
+  await page.getByTestId("voice-input").click();
+  await expect(page.getByTestId("chat-input")).toHaveValue(STT_TRANSCRIPT, { timeout: 10_000 });
+  await page.getByTestId("send-message").click();
+  await tutorReplyText(page);
+
+  // The server's audio is fetched after the turn lands, so this is polled.
+  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
+  const state = await voiceTestState(page);
+  expect(state.audio.lastSrc.startsWith("blob:")).toBe(true);
+  // The browser was asked once, found no Arabic voice, and that attempt was
+  // abandoned — it must not have read the reply in English.
   expect(state.spoken).toHaveLength(0);
   await expect(page.getByTestId("chat-error")).toHaveCount(0);
 });
@@ -184,8 +229,10 @@ test("A5: with no server voice the app falls back to the browser voice", async (
   await page.getByTestId("speak-reply").first().click();
 
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
+  // Polled, not read once: the reply goes to the server first (a 503 here), so
+  // the browser's voice starts a moment after the click.
+  await expect.poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 15_000 }).toBe(1);
   const state = await voiceTestState(page);
-  expect(state.spoken).toHaveLength(1);
   expect(state.spoken[0].text).toBe(reply);
   expect(state.spoken[0].lang).toBe("ar-EG");
   expect(state.audio.plays).toBe(0);
@@ -211,8 +258,10 @@ test("A6: no server voice and no voice for the language is stated plainly", asyn
 
   // The utterance still carries the right language tag (so any engine that can
   // speak Arabic will use it)...
+  // Polled, not read once: the reply first goes to the server (which answers 503
+  // here), so the browser's voice starts a moment after the click.
+  await expect.poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 15_000 }).toBe(1);
   const state = await voiceTestState(page);
-  expect(state.spoken).toHaveLength(1);
   expect(state.spoken[0].text).toBe(reply);
   expect(state.spoken[0].lang).toBe("ar-EG");
   // ...and the student gets an actionable message rather than wrong audio.

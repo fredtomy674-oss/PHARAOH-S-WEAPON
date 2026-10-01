@@ -125,3 +125,90 @@ test("the composer announces hitchhiking marks and lets the student drop them", 
   await expect(page.getByTestId("ink-count")).toContainText("ارسم على الصفحة");
   await expect(page.getByTestId("send-message")).toBeDisabled();
 });
+
+/** How much of the live canvas is ink red (the page must not be). */
+async function redShareOfCanvas(page: Page): Promise<number> {
+  return page.evaluate(() => {
+    const canvas = document.querySelector('[data-testid="ink-canvas"]') as HTMLCanvasElement;
+    const { data } = canvas.getContext("2d")!.getImageData(0, 0, canvas.width, canvas.height);
+    let red = 0;
+    let sampled = 0;
+    for (let i = 0; i < data.length; i += 16) {
+      sampled += 1;
+      if (data[i]! > 150 && data[i + 1]! < 115 && data[i + 2]! < 115) red += 1;
+    }
+    return red / sampled;
+  });
+}
+
+/** How much of a picture the tutor receives is ink red. */
+async function redShareOfImage(page: Page, testId: string): Promise<number> {
+  return page.evaluate(async (id) => {
+    const img = document.querySelector(`[data-testid="${id}"]`) as HTMLImageElement;
+    if (!img.complete) await img.decode();
+    const probe = document.createElement("canvas");
+    probe.width = img.naturalWidth;
+    probe.height = img.naturalHeight;
+    const ctx = probe.getContext("2d")!;
+    ctx.drawImage(img, 0, 0);
+    const { data } = ctx.getImageData(0, 0, probe.width, probe.height);
+    let red = 0;
+    let sampled = 0;
+    for (let i = 0; i < data.length; i += 16) {
+      sampled += 1;
+      if (data[i]! > 150 && data[i + 1]! < 115 && data[i + 2]! < 115) red += 1;
+    }
+    return red / sampled;
+  }, testId);
+}
+
+/**
+ * PHASE 56 — the red screen. These are pixel gates, not style checks, because the
+ * bug was never in the CSS: measured on the running app, the canvas's pixel
+ * buffer was 1×1 (its parent carried `display: contents`, so the fit measured a
+ * 0×0 box) and every stroke was drawn `width × deviceWidth` pixels wide, so a
+ * single red pixel was stretched across the whole page.
+ */
+test("the board is the page: one circle covers a circle", async ({ page }) => {
+  await openMathRoom(page);
+
+  // The canvas is the page's own box — not a stretched box, not an offset one.
+  const boxes = await page.evaluate(() => {
+    const canvas = document.querySelector('[data-testid="ink-canvas"]') as HTMLCanvasElement;
+    const image = document.querySelector('[data-testid="stage-image"]') as HTMLImageElement;
+    const c = canvas.getBoundingClientRect();
+    const i = image.getBoundingClientRect();
+    return {
+      backing: [canvas.width, canvas.height],
+      css: [c.x, c.y, c.width, c.height],
+      image: [i.x, i.y, i.width, i.height],
+    };
+  });
+  expect(boxes.backing[0], "the pixel buffer collapsed to a sliver").toBeGreaterThan(100);
+  expect(boxes.backing[1]).toBeGreaterThan(100);
+  for (const [axis, a, b] of [
+    ["x", boxes.css[0]!, boxes.image[0]!],
+    ["y", boxes.css[1]!, boxes.image[1]!],
+    ["width", boxes.css[2]!, boxes.image[2]!],
+    ["height", boxes.css[3]!, boxes.image[3]!],
+  ] as const) {
+    expect(Math.abs(a - b), `the board and the page disagree on ${axis}`).toBeLessThanOrEqual(2);
+  }
+
+  await drawCircle(page);
+  await expect(page.getByTestId("ink-count")).toContainText("علامة");
+  // A circle around one line is a mark. The bug painted 100% of the page.
+  expect(await redShareOfCanvas(page), "the page is covered in ink").toBeLessThan(0.03);
+});
+
+test("the picture the tutor receives is the marked page, not a red rectangle", async ({ page }) => {
+  await openMathRoom(page);
+  await drawCircle(page);
+  await sendChatMessage(page, "ما هذا الذي حددته؟");
+  await expectTutorReply(page, VISION_MARKER);
+
+  // The exported picture is measured, not trusted: the same width bug was baked
+  // into it, so the tutor was looking at a red page and reading nothing.
+  const share = await redShareOfImage(page, "msg-attachment");
+  expect(share, "the exported page is a red rectangle").toBeLessThan(0.03);
+});

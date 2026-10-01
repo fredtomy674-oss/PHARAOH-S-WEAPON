@@ -150,7 +150,28 @@ function upstreamError(label: string, res: Response, detail: string, model: stri
       { upstreamStatus: res.status, model, label, upstreamDetail: detail.slice(0, 200) },
     );
   }
-  throw Errors.internal(`${label} أخطأ (${res.status}) ${detail.slice(0, 200)}`);
+  if (res.status === 400) {
+    // PHASE 56 — measured: a rejected request comes back as a bare «Request
+    // contains an invalid argument.» That text is our own malformed request, not
+    // anything the student did, and reading it is noise at best — so it rides in
+    // the log like every other upstream cause instead of being shown verbatim.
+    throw Errors.internal("تعذّر توليد ردّ المعلّم — أعد المحاولة بعد لحظات", "AI_UPSTREAM_REJECTED", {
+      upstreamStatus: res.status,
+      model,
+      label,
+      upstreamDetail: detail.slice(0, 200),
+    });
+  }
+  throw Errors.internal(`${label} أخطأ (${res.status})`, "INTERNAL", { upstreamStatus: res.status, model, label, upstreamDetail: detail.slice(0, 200) });
+}
+
+/** The same request without `thinkingConfig`, or null when it carries none. */
+function withoutThinkingConfig(body: Record<string, unknown>): Record<string, unknown> | null {
+  const generation = body.generationConfig as Record<string, unknown> | undefined;
+  if (!generation?.thinkingConfig) return null;
+  const next = { ...generation };
+  delete next.thinkingConfig;
+  return { ...body, generationConfig: next };
 }
 
 /**
@@ -172,6 +193,13 @@ function upstreamError(label: string, res: Response, detail: string, model: stri
  */
 export class GeminiLLMProvider implements LLMProvider {
   readonly id = "gemini";
+
+  /**
+   * PHASE 56 — models that answered `thinkingConfig` with a 400. Per provider
+   * instance (production builds one), so the refusal is paid for once for the
+   * life of the process, and never leaks between tests.
+   */
+  private readonly thinkingRejected = new Set<string>();
 
   /**
    * The models to try, in order: the requested (or configured) primary first,
@@ -224,10 +252,56 @@ export class GeminiLLMProvider implements LLMProvider {
         temperature: request.temperature ?? 0.4,
         maxOutputTokens: request.maxOutputTokens ?? 2048,
         ...(request.json ? { responseMimeType: "application/json" } : {}),
+        ...(request.thinkingBudget !== undefined
+          ? { thinkingConfig: { thinkingBudget: request.thinkingBudget } }
+          : {}),
       },
     };
     if (system) body.systemInstruction = { parts: [{ text: system }] };
     return body;
+  }
+
+  /**
+   * PHASE 56 — some models refuse the thinking controls outright.
+   *
+   * Measured on the real tutor prompt: `gemini-3.5-flash-lite` answers
+   * `thinkingBudget: 0` with `400 «Request contains an invalid argument.»`,
+   * while `3.1-flash-lite`, `3.5-flash` and `3.6-flash` accept the same field.
+   * The refusal does **not** name the field, so the retry cannot key off the
+   * message: it keys off the only fact we have — we sent thinking controls and
+   * got a 400 — and costs one rejected request, which is free (no tokens, no
+   * quota). A 400 that was about something else fails the same way on the retry,
+   * so the student still gets the honest error; nothing is hidden by trying.
+   *
+   * And that one rejected request is not free in *time*: measured on the live
+   * room, the doomed attempt pushed the first readable word of the answer from
+   * ~1.4s to ~2.1s. So a model that refused once is remembered and is never
+   * asked again in this process — the first turn pays to find out, every turn
+   * after it does not.
+   */
+  private async post(
+    url: string,
+    model: string,
+    body: Record<string, unknown>,
+    attempts: number,
+    opts: { timeoutMs?: number; deadlineAt?: number },
+  ): Promise<Response | null> {
+    const stripped = withoutThinkingConfig(body);
+    // A model that refused once is not asked again: the first turn pays to find
+    // out, the next one does not spend a rejected request on it.
+    const res = await postWithRetry(url, stripped && this.thinkingRejected.has(model) ? stripped : body, attempts, opts);
+    if (!res || res.status !== 400 || !stripped) return res;
+    // Keep the body readable for whoever reports this one, then try again without
+    // the one field the model may not know.
+    const first = await res.text().catch(() => "");
+    const second = await postWithRetry(url, stripped, 1, opts);
+    if (second && second.status === 400) {
+      // Not (only) the thinking controls: report the refusal we caused first,
+      // so the log shows the request that was actually rejected.
+      return new Response(first, { status: res.status, statusText: res.statusText });
+    }
+    if (second) this.thinkingRejected.add(model);
+    return second;
   }
 
   async complete(
@@ -249,8 +323,9 @@ export class GeminiLLMProvider implements LLMProvider {
     const models = this.llmModels(request.model);
     for (let i = 0; i < models.length; i++) {
       const model = models[i]!;
-      const res = await postWithRetry(
+      const res = await this.post(
         `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
+        model,
         body,
         i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS,
         { timeoutMs: opts?.timeoutMs, deadlineAt },
@@ -330,7 +405,7 @@ export class GeminiLLMProvider implements LLMProvider {
       const model = models[i]!;
       const url = `${BASE_URL}/models/${model}:streamGenerateContent?alt=sse&key=${apiKey()}`;
 
-      const res = await postWithRetry(url, body, i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS, {
+      const res = await this.post(url, model, body, i === 0 ? GEMINI_RETRY_ATTEMPTS : FALLBACK_RETRY_ATTEMPTS, {
         timeoutMs: opts?.timeoutMs,
         deadlineAt,
       });
@@ -438,9 +513,17 @@ const STALLED = Symbol("stalled");
 /**
  * Yields the payload of every `data:` line of an SSE body.
  *
- * Split on the SSE record separator, not on network chunks: a chunk boundary
- * can fall anywhere, including between the `da` and the rest of `data`, and a
- * naive split would hand the JSON parser half a frame.
+ * Split on the SSE record separator, not on network chunks: a chunk boundary can
+ * fall anywhere, including between the `da` and the rest of `data`, and a naive
+ * split would hand the JSON parser half a frame.
+ *
+ * PHASE 56 — measured: this provider ends its records with `\r\n\r\n`, not the
+ * `\n\n` the earlier reading looked for. Nothing was wrong with the room's
+ * streaming: every frame waited in the buffer for a separator that never came, so
+ * a reply that took 900ms to be written reached the student in one lump at the
+ * end — the exact symptom PHASE 49 was written to remove, still in place three
+ * phases later because the separator was assumed instead of read. The check below
+ * accepts any run of newlines, which is what the SSE grammar actually allows.
  */
 async function* readSseData(body: ReadableStream<Uint8Array>): AsyncGenerator<string> {
   const reader = body.getReader();
@@ -451,17 +534,19 @@ async function* readSseData(body: ReadableStream<Uint8Array>): AsyncGenerator<st
       const { done, value } = await reader.read();
       if (done) break;
       buffer += decoder.decode(value, { stream: true });
-      let boundary = buffer.indexOf("\n\n");
-      while (boundary >= 0) {
-        for (const line of buffer.slice(0, boundary).split("\n")) {
+      // A blank line is two newlines with only CR/LF between them: `\n\n`,
+      // `\r\n\r\n`, and the mixed forms are all the same record boundary.
+      for (;;) {
+        const boundary = /\r?\n[ \t]*\r?\n/.exec(buffer);
+        if (!boundary) break;
+        for (const line of buffer.slice(0, boundary.index).split(/\r?\n/)) {
           if (line.startsWith("data:")) yield line.slice(5).trim();
         }
-        buffer = buffer.slice(boundary + 2);
-        boundary = buffer.indexOf("\n\n");
+        buffer = buffer.slice(boundary.index + boundary[0].length);
       }
     }
     // A final record with no trailing blank line still counts.
-    for (const line of buffer.split("\n")) {
+    for (const line of buffer.split(/\r?\n/)) {
       if (line.startsWith("data:")) yield line.slice(5).trim();
     }
   } finally {

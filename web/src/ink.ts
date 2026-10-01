@@ -30,24 +30,43 @@ export interface InkPoint {
 export interface InkStroke {
   tool: InkTool;
   color: string;
-  /** CSS pixels at drawing time; scaled by the replay target. */
+  /**
+   * PHASE 56 — a FRACTION of the page width, not CSS pixels.
+   *
+   * The pen is one physical instrument: the line the student drew on a 400-px
+   * page must be the same visible thickness on a 620-px page and on the
+   * 1100-px picture the tutor reads. A width in CSS pixels can only be
+   * right at one size — the old code multiplied it by the target's device
+   * width, so every replay drew a line thousands of pixels wide: one red
+   * stroke covered the whole printed page, on screen and in the export.
+   * A fraction replays identically at any size, so the overlay and the
+   * exported picture agree by construction (PHASE 50's promise).
+   */
   width: number;
   points: InkPoint[];
 }
 
 /** The one honest pen: a warm red that reads on white paper and on figures. */
 export const INK_COLOR = "#d92626";
-/** A fingertip-wide line on a phone, scaled up with the page. */
-export const INK_WIDTH = 5;
+/** A fingertip-wide line, in CSS pixels on the page the student sees. */
+export const INK_WIDTH_CSS = 5;
+/** How far the eraser reaches, as a fraction of the page width. */
+export const ERASER_RADIUS = 0.03;
+
+/** The stored width for a pen on a page laid out `pageCssWidth` wide. */
+export function inkWidthFor(pageCssWidth: number): number {
+  if (!(pageCssWidth > 0)) return 0;
+  return INK_WIDTH_CSS / pageCssWidth;
+}
 
 /** A stroke with fewer than two points is a tap, not a mark — keep it anyway. */
 export function isDrawable(stroke: InkStroke): boolean {
   return stroke.points.length > 0;
 }
 
-function strokeStyle(ctx: CanvasRenderingContext2D, stroke: InkStroke, scale: number): void {
-  ctx.strokeStyle = stroke.tool === "eraser" ? "#ffffff" : stroke.color;
-  ctx.lineWidth = Math.max(1, stroke.width * scale);
+function strokeStyle(ctx: CanvasRenderingContext2D, stroke: InkStroke, pageWidth: number): void {
+  ctx.strokeStyle = stroke.color;
+  ctx.lineWidth = Math.max(1, stroke.width * pageWidth);
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 }
@@ -66,6 +85,24 @@ export function drawStrokes(
   ctx.save();
   for (const stroke of strokes) {
     if (!isDrawable(stroke)) continue;
+    // PHASE 56 — the eraser is a SPONGE, not a white pen: painting the page
+    // white with a page-wide stroke looked like a red/white flash and read as
+    // a bug. It draws its own reach as a ring, so the student sees the
+    // footprint they are about to lift, and it never persists (an eraser
+    // gesture removes strokes, it does not add one).
+    if (stroke.tool === "eraser") {
+      const r = ERASER_RADIUS * width;
+      for (const p of stroke.points) {
+        ctx.beginPath();
+        ctx.arc(p.x * width, p.y * height, r, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(22, 32, 46, 0.55)";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 4]);
+        ctx.stroke();
+      }
+      ctx.setLineDash([]);
+      continue;
+    }
     strokeStyle(ctx, stroke, width);
     ctx.beginPath();
     const [first, ...rest] = stroke.points;

@@ -162,15 +162,41 @@ describe("ReplyRelay (what the student actually sees)", () => {
         seen += t.length;
       },
     });
-    let halfway = 0;
-    for (const c of raw) {
-      await live.push(c);
-      if (halfway === 0 && seen > 0) halfway = seen;
+    let shownAtHalf = 0;
+    for (let i = 0; i < raw.length; i += 1) {
+      await live.push(raw[i]!);
+      // PHASE 56: the old fixed 240-char guard meant a ~300-char reply showed
+      // NOTHING until the model had finished. Half-way through a 600-char reply
+      // the student must already be reading a real share of it.
+      if (shownAtHalf === 0 && i > raw.length / 2) shownAtHalf = seen;
     }
-    expect(halfway, "nothing was shown until the reply had ended").toBeGreaterThan(0);
-    expect(seen, "the whole reply should not have been out before finish()").toBeLessThan(long.length);
+    expect(shownAtHalf, "nothing was shown until the reply had ended").toBeGreaterThan(0);
+    expect(shownAtHalf, "less than a quarter was shown half-way through").toBeGreaterThan(long.length / 4);
     await live.finish();
     expect(seen).toBe(long.length);
+  });
+
+  it("shows a finished sentence at once, and holds only the unfinished one", async () => {
+    // PHASE 56 — released line by line: a complete sentence goes out immediately
+    // (the student hears and reads it), and only the trailing half-sentence waits
+    // for the words that finish it.
+    const first = "العدد 48 يقبل القسمة على 2 لأن رقم آحاده 8 زوجي.";
+    const second = "وماذا عن 49؟";
+    const raw = `{"content":"${first}\n${second}"}`;
+    let shown = "";
+    const live = new ReplyRelay({
+      onDelta: (t) => {
+        shown += t;
+      },
+    });
+    const cut = raw.indexOf("\n") + 1;
+    for (const ch of raw.slice(0, cut)) await live.push(ch);
+    expect(shown, "a complete sentence was withheld").toBe(`${first}\n`);
+    // Half-way through the second sentence, not one character of it is out.
+    for (const ch of raw.slice(cut, raw.length - 2)) await live.push(ch);
+    expect(shown, "an unfinished sentence leaked").toBe(`${first}\n`);
+    await live.finish();
+    expect(shown).toBe(`${first}\n${second}`);
   });
 
   it("takes back a prompt echo instead of showing our own rules to the student", async () => {

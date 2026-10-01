@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { GeminiEmbeddingProvider, GeminiLLMProvider } from "../../src/modules/ai/providers/gemini.js";
 import { config } from "../../src/config/env.js";
 import { AppError } from "../../src/utils/errors.js";
+import type { LLMRequest } from "../../src/modules/ai/types.js";
 
 /**
  * PHASE 42 — the real Gemini provider against a stubbed network.
@@ -196,6 +197,134 @@ describe("Gemini LLM failover (PHASE 53)", () => {
 });
 
 /**
+ * PHASE 56 — the thinking budget. Measured on the real tutor prompt: the Gemini 3
+ * family reasons by default, those tokens arrive *before* the first visible word,
+ * and a fallback that thought freely spent its whole 600-token budget on
+ * reasoning and returned a truncated, unparseable envelope (`MAX_TOKENS`).
+ *
+ * Support is per-model and measured: `gemini-3.5-flash-lite` refuses the field
+ * with a 400 while other flash models accept it — so a refusal that names the
+ * thinking controls must be retried once with them dropped, never end the turn.
+ */
+describe("Gemini thinking budget (PHASE 56)", () => {
+  const originalFallbacks = config.GEMINI_LLM_FALLBACKS;
+  const originalModel = config.GEMINI_LLM_MODEL;
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    config.GEMINI_LLM_FALLBACKS = originalFallbacks;
+    config.GEMINI_LLM_MODEL = originalModel;
+  });
+
+  /** Records every request BODY, so what was actually sent can be asserted. */
+  function stubFetchBodies(responses: Array<{ status: number; body: unknown }>) {
+    const bodies: Array<Record<string, unknown>> = [];
+    let index = 0;
+    const impl = vi.fn(async (_input: unknown, init?: { body?: string }) => {
+      bodies.push(JSON.parse(init?.body ?? "{}") as Record<string, unknown>);
+      const next = responses[Math.min(index, responses.length - 1)]!;
+      index += 1;
+      return {
+        ok: next.status >= 200 && next.status < 300,
+        status: next.status,
+        statusText: "",
+        json: async () => next.body,
+        text: async () => (typeof next.body === "string" ? next.body : JSON.stringify(next.body)),
+      } as unknown as Response;
+    });
+    vi.stubGlobal("fetch", impl);
+    return bodies;
+  }
+
+  const okBody = { candidates: [{ content: { parts: [{ text: "إجابة" }] } }] };
+  const thinkingConfig = (body: Record<string, unknown>) =>
+    (body.generationConfig as { thinkingConfig?: { thinkingBudget?: number } }).thinkingConfig;
+
+  it("sends the budget it was given (0 = answer immediately)", async () => {
+    const bodies = stubFetchBodies([{ status: 200, body: okBody }]);
+    await new GeminiLLMProvider().complete({
+      operation: "tutor",
+      messages: [{ role: "user", content: "hi" }],
+      thinkingBudget: 0,
+    });
+    expect(thinkingConfig(bodies[0]!)).toEqual({ thinkingBudget: 0 });
+  });
+
+  it("says nothing about thinking when no budget was asked for", async () => {
+    const bodies = stubFetchBodies([{ status: 200, body: okBody }]);
+    await new GeminiLLMProvider().complete({ operation: "tutor", messages: [{ role: "user", content: "hi" }] });
+    expect(thinkingConfig(bodies[0]!)).toBeUndefined();
+  });
+
+  it("retries once without the controls when a model refuses them (measured 400)", async () => {
+    // The measured refusal verbatim: it does NOT name the field, which is why
+    // the retry keys off the status and what we sent, not off the message.
+    const bodies = stubFetchBodies([
+      { status: 400, body: { error: { code: 400, message: "Request contains an invalid argument.", status: "INVALID_ARGUMENT" } } },
+      { status: 200, body: okBody },
+    ]);
+    const res = await new GeminiLLMProvider().complete({
+      operation: "tutor",
+      messages: [{ role: "user", content: "hi" }],
+      thinkingBudget: 0,
+    });
+    expect(res.content).toBe("إجابة");
+    expect(bodies).toHaveLength(2);
+    expect(thinkingConfig(bodies[0]!)).toEqual({ thinkingBudget: 0 });
+    // Same prompt, same everything else: only the refused field is gone.
+    expect(thinkingConfig(bodies[1]!)).toBeUndefined();
+    expect(JSON.stringify(bodies[1]!)).not.toContain("thinking");
+  });
+
+  it("a 400 that survives the retry is the honest failure, and stays off the screen", async () => {
+    const bodies = stubFetchBodies([{ status: 400, body: { error: { message: "Request contains an invalid argument." } } }]);
+    const error = await new GeminiLLMProvider()
+      .complete({
+        operation: "tutor",
+        messages: [{ role: "user", content: "hi" }],
+        thinkingBudget: 0,
+      })
+      .catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(AppError);
+    // One honest attempt, then the same request without the controls: a refusal
+    // that was never about the controls fails identically, so the turn ends.
+    expect(bodies).toHaveLength(2);
+    const appErr = error as AppError;
+    expect(appErr.expose).toBe(false);
+    // The student's screen gets a sentence they can act on; the upstream's own
+    // words stay in the log (PHASE 42's rule, now applied to a 400 as well).
+    expect(appErr.message).not.toContain("invalid argument");
+    expect(appErr.meta).toMatchObject({ upstreamStatus: 400 });
+  });
+
+  it("asks a refusing model only once (measured: the first word moved 0.7s)", async () => {
+    const bodies = stubFetchBodies([
+      { status: 400, body: { error: { code: 400, message: "Request contains an invalid argument." } } },
+      { status: 200, body: okBody },
+      { status: 200, body: okBody },
+    ]);
+    const provider = new GeminiLLMProvider();
+    const request: LLMRequest = { operation: "tutor", messages: [{ role: "user", content: "hi" }], thinkingBudget: 0 };
+    // The first turn pays to find out what this model accepts…
+    await provider.complete(request);
+    expect(bodies).toHaveLength(2);
+    // …and the next one goes straight to the answer. That is the whole point: the
+    // doomed attempt was 700ms of the student's wait, every single turn.
+    await provider.complete(request);
+    expect(bodies).toHaveLength(3);
+    expect(thinkingConfig(bodies[2]!)).toBeUndefined();
+  });
+
+  it("never retries a 400 that was never sent thinking controls", async () => {
+    const bodies = stubFetchBodies([{ status: 400, body: { error: { message: "Invalid JSON payload" } } }]);
+    await new GeminiLLMProvider()
+      .complete({ operation: "tutor", messages: [{ role: "user", content: "hi" }] })
+      .catch(() => undefined);
+    expect(bodies).toHaveLength(1);
+  });
+});
+
+/**
  * PHASE 55 — time bounds. Measured live: a tutor turn burned 181s (then 300s+
  * on retry) because a hung attempt waits forever. A hanging socket must spend
  * the budget on the next attempt, and a silent stream must be cut — never
@@ -311,6 +440,67 @@ describe("Gemini time bounds (PHASE 55)", () => {
     expect(res.model).toBe("fallback-model");
     expect(deltas).toEqual(["إجابة"]);
     expect(n).toBe(2);
+  });
+
+  // Measured against the live provider: its records end with `\r\n\r\n`, and the
+  // reader that only looked for `\n\n` held every frame until the body ended. The
+  // student therefore saw each reply in one lump, no matter how well the room
+  // streamed it. These two frames are the shape that bug had.
+  it("releases a CRLF-separated frame the moment it arrives", async () => {
+    let release!: (t: string) => void;
+    const body = new ReadableStream<Uint8Array>({
+      start(c) {
+        c.enqueue(
+          new TextEncoder().encode(
+            'data: {"candidates":[{"content":{"parts":[{"text":"يقبل"}]}}]}\r\n\r\n',
+          ),
+        );
+        // The provider is still thinking; the room must already have the word.
+        release = (t: string) =>
+          c.enqueue(
+            new TextEncoder().encode(
+              `data: {"candidates":[{"content":{"parts":[{"text":"${t}"}]}}]}\r\n\r\n`,
+            ),
+          );
+      },
+    });
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body, { status: 200 })));
+    const deltas: string[] = [];
+    const settled = new GeminiLLMProvider()
+      .stream(
+        { operation: "tutor", messages: [{ role: "user", content: "hi" }] },
+        (t) => {
+          deltas.push(t);
+        },
+        { timeoutMs: 5000, stallMs: 400 },
+      )
+      .catch(() => undefined);
+    await vi.waitFor(() => expect(deltas).toEqual(["يقبل"]));
+    release("القسمة");
+    await settled;
+    expect(deltas).toEqual(["يقبل", "القسمة"]);
+  });
+
+  it("reassembles a frame the transport cut in half", async () => {
+    const whole = 'data: {"candidates":[{"content":{"parts":[{"text":"العدد زوجي"}]}}]}';
+    const body = new ReadableStream<Uint8Array>({
+      start(c) {
+        // Cut inside the JSON, and inside the word "data:" itself.
+        c.enqueue(new TextEncoder().encode(whole.slice(0, 9)));
+        c.enqueue(new TextEncoder().encode(whole.slice(9) + "\r\n\r\n"));
+        c.close();
+      },
+    });
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(body, { status: 200 })));
+    const deltas: string[] = [];
+    await new GeminiLLMProvider().stream(
+      { operation: "tutor", messages: [{ role: "user", content: "hi" }] },
+      (t) => {
+        deltas.push(t);
+      },
+      { timeoutMs: 5000, stallMs: 500 },
+    );
+    expect(deltas).toEqual(["العدد زوجي"]);
   });
 
   it("a stall after the first word fails honestly — the opening is never replayed", async () => {

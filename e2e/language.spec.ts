@@ -88,9 +88,10 @@ test("LN1: a language curriculum is explained in English, a math curriculum in A
  * layer must speak the same language, otherwise an English lesson is explained
  * in English on screen and read out in Arabic (the hardcoded `ar-EG`/`ar`).
  *
- * PHASE 40 (D-044): the reply is now *heard* through the server's voice, so
- * this asserts the audio is produced at all; LN3 pins the browser fallback's
- * language, which is the part a client can still get wrong.
+ * PHASE 40 (D-044) + PHASE 56: the language follows the lesson, whichever voice
+ * reads the reply. An auto-narrated turn is read by the machine's own voice (the
+ * server's voice needs 6.9–7.7s for a whole reply), while the 🔊 button still
+ * uses the server, and LN3 pins the browser fallback's language too.
  */
 test("LN2: the voice layer follows the lesson — English dictation, English narration", async ({ page }) => {
   await installVoiceStubs(page, STT_TRANSCRIPT_EN);
@@ -109,11 +110,16 @@ test("LN2: the voice layer follows the lesson — English dictation, English nar
   await expect(page.getByTestId("msg-tutor")).toHaveCount(1, { timeout: 30_000 });
   const reply = (await page.getByTestId("msg-tutor").first().locator(".fmt-p, .fmt-ul, .fmt-ol, .fmt-h").allTextContents()).join("\n");
   expect(reply).toContain(ENGLISH_REPLY_MARKER);
-  // The counter is monotonic, so this asserts the audio was really produced
-  // without racing the (short) clip's playback.
-  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
+  // PHASE 56 — an auto-narrated reply is read by the machine's own voice as the
+  // sentences arrive (the server's voice needs 6.9–7.7s for a whole reply), so
+  // what is asserted here is the language: English dictation → English narration,
+  // even though the stub browser lists the Arabic voice FIRST.
+  await expect.poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 15_000 }).toBeGreaterThan(0);
   const state = await voiceTestState(page);
-  expect(state.spoken).toHaveLength(0);
+  expect(state.spoken[0]!.lang).toBe("en-US");
+  expect(state.spoken[0]!.text).toContain(ENGLISH_REPLY_MARKER);
+  // The server's voice was never needed, so nothing was played from a blob.
+  expect(state.audio.plays).toBe(0);
   // A reply is never blocked by the machine's voices any more.
   await expect(page.getByTestId("chat-error")).toHaveCount(0);
 });
