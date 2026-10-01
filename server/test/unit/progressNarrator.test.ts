@@ -358,6 +358,25 @@ describe("ProgressNarrator — PHASE 57", () => {
     expect(asked).toHaveLength(afterFailure);
   });
 
+  it("reports *why* a piece failed, once — a blank stream is not diagnosable", async () => {
+    const events: ProgressStreamEvent[] = [];
+    const reasons: unknown[] = [];
+    const narrator = new ProgressNarrator({
+      speak: async () => {
+        throw new Error("429 quota");
+      },
+      emit: (event) => events.push(event),
+      onPieceFailure: (reason) => reasons.push(reason),
+    });
+    await narrator.finish("العدد 8 يقبل القسمة على 2. والعدد 7 لا يقبلها.");
+
+    // Measured live: a 🔊 press that ended in `ok:false` left nothing in the logs,
+    // so "the quota ran out" and "the splitter is broken" looked the same.
+    expect(reasons).toHaveLength(1);
+    expect(String((reasons[0] as Error).message)).toContain("429");
+    expect(events).toEqual([{ type: "audio-end", ok: false }]);
+  });
+
   it("says so when a voice turn was never narrated at all", async () => {
     const events: ProgressStreamEvent[] = [];
     const narrator = new ProgressNarrator({

@@ -206,6 +206,17 @@ export interface ProgressNarratorDeps {
   speak: (text: string) => Promise<{ audio: Buffer; mimeType: string }>;
   /** Sends one event to the client. */
   emit: (event: ProgressStreamEvent) => void;
+  /**
+   * Reports a piece that failed to synthesize.
+   *
+   * The student is never told: the client already answers a voice failure by
+   * reading the reply with the browser's own voice, which is the right answer for
+   * him. But silence on the server made this undiagnosable — measured live, a
+   * press that ended in `audio-end ok:false` left nothing in the logs at all, so
+   * "quota exhausted" and "a bug in the splitter" looked identical from outside.
+   * Optional so the unit tests need no logger; the routes wire the request log.
+   */
+  onPieceFailure?: (reason: unknown) => void;
 }
 
 /**
@@ -404,13 +415,17 @@ export class ProgressNarrator {
           this.ready.set(next.seq, { base64: result.audio.toString("base64"), mimeType: result.mimeType });
           this.release();
         })
-        .catch(() => {
+        .catch((err) => {
           // A failure of a superseded piece belongs to words that no longer exist:
           // the answer that replaced them deserves its own voice.
           if (this.disposed || epoch !== this.epoch) return;
           // One piece failed (quota, transient outage): stop narrating this turn.
           // The client keeps the text it already has and falls back to its own
           // voice, so a voice outage never costs the student his answer.
+          //
+          // Said out loud on the way out: the student is answered, but the operator
+          // is not left guessing why his press of 🔊 made no sound.
+          this.deps.onPieceFailure?.(err);
           this.broken = true;
           this.ready.clear();
           this.pending.length = 0;

@@ -293,10 +293,19 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
     request.raw.on("close", () => {
       open = false;
     });
-    await app.sessions.narrateSpeechPlan(plan, (event) => {
-      if (!open) return;
-      reply.raw.write(`${JSON.stringify(event)}\n`);
-    });
+    await app.sessions.narrateSpeechPlan(
+      plan,
+      (event) => {
+        if (!open) return;
+        reply.raw.write(`${JSON.stringify(event)}\n`);
+      },
+      // A press of 🔊 that ends in `ok:false` still reaches the browser voice, but
+      // only this line can say why: without it a voice outage and a splitter bug
+      // were the same blank silence in the logs.
+      (reason) => {
+        request.log.warn({ err: reason, sessionId, messageId }, "progressive narration failed; the client will read the reply with its own voice");
+      },
+    );
     reply.raw.end();
   });
 

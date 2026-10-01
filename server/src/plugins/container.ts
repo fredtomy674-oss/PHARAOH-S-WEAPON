@@ -76,7 +76,9 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   });
   const subscriptions = new SubscriptionService(db);
   const achievements = new AchievementService(db);
-  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements, speech);
+  // PHASE 57 — the request log, so a voice failure (never shown to the student,
+// always handed to the browser voice) still leaves a trace an operator can read.
+  const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements, speech, app.log);
   const parents = new ParentService(db, memory, sessions);
   const practice = new PracticeService(db, memory, achievements, ai);
 

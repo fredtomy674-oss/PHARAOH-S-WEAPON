@@ -206,6 +206,16 @@ export class SessionService {
     private readonly subscriptions: SubscriptionService,
     private readonly achievements: AchievementService,
     private readonly speech: SpeechService,
+    /**
+     * PHASE 57 — where a voice failure is reported.
+     *
+     * Narration failure is deliberately invisible to the student (the client falls
+     * back to the browser voice), which made it invisible to the operator too:
+     * measured live, a 🔊 press that ended in `ok:false` logged nothing at all.
+     * The minimal shape is declared here rather than importing a logger type, so
+     * this module stays framework-agnostic and tests can pass a stub.
+     */
+    private readonly log: { warn: (details: object, message: string) => void } = { warn: () => {} },
   ) {}
 
   async start(input: StartSessionInput): Promise<typeof learningSessions.$inferSelect> {
@@ -311,7 +321,15 @@ export class SessionService {
     if (input.speakReply && this.speech.available) {
       try {
         const language = await this.replyLanguage(input.sessionId, input.studentId);
-        narrator = this.createProgressNarrator(language, emit);
+        // Same reason as the 🔊 route: the turn itself always answers, so a voice
+        // failure is invisible to the student by design — and invisible to the
+        // operator unless it is said here.
+        narrator = this.createProgressNarrator(language, emit, (reason) => {
+          this.log.warn(
+            { err: reason, sessionId: input.sessionId },
+            "live narration failed; the client will read the reply with its own voice",
+          );
+        });
       } catch {
         // No language, no narration: the text turn is what matters, and the
         // client keeps whatever fallback it already had.
@@ -373,10 +391,15 @@ export class SessionService {
    * (order, no half-sentences, quiet degradation on a voice failure); this only
    * binds it to the server's voice and the reply's language.
    */
-  private createProgressNarrator(language: SpeechLanguage, emit: (event: ProgressStreamEvent) => void): ProgressNarrator {
+  private createProgressNarrator(
+    language: SpeechLanguage,
+    emit: (event: ProgressStreamEvent) => void,
+    onPieceFailure?: (reason: unknown) => void,
+  ): ProgressNarrator {
     return new ProgressNarrator({
       speak: (text) => this.speech.synthesize({ text, language }),
       emit,
+      onPieceFailure,
     });
   }
 
@@ -716,8 +739,12 @@ export class SessionService {
    * measured) — and makes a second press nearly instant, because every sentence
    * is cached individually by the speech service.
    */
-  async narrateSpeechPlan(plan: SpeechPlan, emit: (event: ProgressStreamEvent) => void): Promise<void> {
-    const narrator = this.createProgressNarrator(plan.language, emit);
+  async narrateSpeechPlan(
+    plan: SpeechPlan,
+    emit: (event: ProgressStreamEvent) => void,
+    onPieceFailure?: (reason: unknown) => void,
+  ): Promise<void> {
+    const narrator = this.createProgressNarrator(plan.language, emit, onPieceFailure);
     try {
       // Nothing was streamed, so the whole reply is the tail: `finish` speaks it
       // in order, in pieces.
