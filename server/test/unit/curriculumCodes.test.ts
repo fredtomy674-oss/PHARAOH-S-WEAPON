@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  EGYPT_ARABIC_SPEC,
   EGYPT_ENGLISH_SPEC,
   EGYPT_SCIENCE_SPEC,
   EGYPT_SOCIAL_SPEC,
@@ -15,7 +16,7 @@ import {
  * fooled by exactly that. The codes are namespaced per book; this pins it at the
  * spec level, so a future curriculum cannot reintroduce the collision.
  */
-const SPECS = [EGYPT_SPEC, EGYPT_ENGLISH_SPEC, EGYPT_SCIENCE_SPEC, EGYPT_SOCIAL_SPEC, SAUDI_SPEC];
+const SPECS = [EGYPT_SPEC, EGYPT_ENGLISH_SPEC, EGYPT_SCIENCE_SPEC, EGYPT_SOCIAL_SPEC, EGYPT_ARABIC_SPEC, SAUDI_SPEC];
 
 type Spec = (typeof SPECS)[number];
 
@@ -46,8 +47,9 @@ describe("PHASE 60 — curriculum codes are unique across every book", () => {
     expect(lessonCodes(EGYPT_SPEC)).toContain("l-con-1-1");
     expect(lessonCodes(EGYPT_SCIENCE_SPEC)).toContain("l-sci-con-1-1");
     expect(lessonCodes(EGYPT_SOCIAL_SPEC)).toContain("l-soc-1-1");
-    // …and the three codes above are genuinely different strings, which is the
+    expect(lessonCodes(EGYPT_ARABIC_SPEC)).toContain("l-ara-1-1");
+    // …and the four codes above are genuinely different strings, which is the
     // whole point: the same printed «1-1» must stay addressable per book.
-    expect(new Set(["l-con-1-1", "l-sci-con-1-1", "l-soc-1-1"]).size).toBe(3);
+    expect(new Set(["l-con-1-1", "l-sci-con-1-1", "l-soc-1-1", "l-ara-1-1"]).size).toBe(4);
   });
 });

@@ -39,6 +39,12 @@ import {
   isConsistent as isSocialTreeConsistent,
   assertTreeMatchesTheBook as assertSocialTreeMatchesBook,
 } from "./egyptSocialT1.js";
+import {
+  EGYPT_ARABIC_T1_UNITS,
+  lessonDocument as arabicLessonDocument,
+  isConsistent as isArabicTreeConsistent,
+  assertTreeMatchesTheBook as assertArabicTreeMatchesBook,
+} from "./egyptArabicT1.js";
 
 /** Where one seeded lesson lives — used as the RAG scope for its document. */
 interface SeededLesson {
@@ -300,6 +306,62 @@ function verifySocialTree(): { ok: boolean; problems: string[] } {
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
+/**
+ * Egyptian Grade-6 **Arabic language** — OFFICIAL curriculum (PHASE 61).
+ *
+ * The first term IS the Ministry textbook (`Arabic_Primary6_T1.pdf`, 2026/2027
+ * MoE edition): its 3 units, 12 lessons and every printed «مكوّن» of each lesson,
+ * exactly as the book's فهرس prints them, each grounded on the OCR text of the
+ * pages the book prints for it (server/data/curriculum-ocr/arabic-t1/). Listening
+ * lessons also carry their appendix passage («نصوص استماع الوحدات»). There is no
+ * second-term spec: its book has not been imported, and a hand-written stand-in
+ * would misrepresent it.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the unit/lesson/component pages against what each page actually prints, and the
+ * tiling. Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_ARABIC_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g6-arabic", title: "اللغة العربية للصف السادس الابتدائي" },
+  terms: [buildEgyptArabicT1Term()],
+};
+
+/** Term 1 = the official book: unit → lesson → the book's own printed components. */
+function buildEgyptArabicT1Term(): TermSeedSpec {
+  const check = verifyArabicTree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal} (${lesson.type}): ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-ara-${lesson.key}`,
+          title,
+          concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+          doc: { title, content: arabicLessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Arabic tree verification, as one verdict. */
+function verifyArabicTree(): { ok: boolean; problems: string[] } {
+  const table = isArabicTreeConsistent();
+  const book = assertArabicTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
 /** Term 2 placeholder — hand-written until the second-term book is imported. */
 function buildEgyptT2Placeholder(): TermSeedSpec {
   return {
@@ -478,11 +540,12 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_SPEC);
   await seedCountry(db, knowledge, EGYPT_SOCIAL_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**
