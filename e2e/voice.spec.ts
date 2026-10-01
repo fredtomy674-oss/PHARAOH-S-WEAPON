@@ -110,22 +110,33 @@ test("A2: a typed question does not auto-speak; the 🔊 button speaks a reply a
 
   // Manual listen: the 🔊 button on the tutor bubble speaks that reply.
   await page.getByTestId("speak-reply").first().click();
-  // Polled: the audio is fetched from the server before it plays, so the counter
-  // is read once it has really moved rather than the instant after the click.
-  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
+  // PHASE 57 — measured: this button used to stay silent for the whole reply's
+  // audio (6.9–7.7s for a 160-character reply) before a note played. It now asks
+  // for the reply's voice *sentence by sentence*, so the counter moves as soon as
+  // the first sentence exists (~3s, and near-instant on a repeat press because
+  // each sentence is cached).
+  await expect.poll(async () => (await voiceTestState(page)).pieces.started, { timeout: 15_000 }).toBeGreaterThan(0);
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   state = await voiceTestState(page);
-  expect(state.audio.lastSrc.startsWith("blob:")).toBe(true);
+  // Every piece the server sent was really decoded and played: no silent piece,
+  // and no waiting for the whole-reply blob that this path replaces.
+  expect(state.pieces.decodeFailures).toBe(0);
+  expect(state.audio.plays).toBe(0);
   // Narration never nags the student — the server has a voice, so the machine's
   // voices are irrelevant to whether the reply can be heard.
   await expect(page.getByTestId("chat-error")).toHaveCount(0);
 
-  // Stop the reading.
-  const pausesBefore = state.audio.pauses;
+  // Stop the reading: the scheduled pieces are silenced, and the queue that
+  // would have played the rest of the reply is dropped with them.
+  const stoppedBefore = state.pieces.stopped;
   await page.getByTestId("stop-tts").click();
   await expect(page.getByTestId("speak-status")).toHaveCount(0);
   const afterStop = await voiceTestState(page);
-  expect(afterStop.audio.pauses).toBe(pausesBefore + 1);
+  expect(afterStop.pieces.stopped).toBeGreaterThan(stoppedBefore);
+  // Nothing that had not started may start after the stop.
+  const startedAtStop = afterStop.pieces.started;
+  await page.waitForTimeout(600);
+  expect((await voiceTestState(page)).pieces.started).toBe(startedAtStop);
 });
 
 test("A3: browsers without SpeechRecognition show a clear, actionable error", async ({ page }) => {
@@ -174,9 +185,13 @@ test("A4: a machine with no Arabic voice still hears the Arabic reply from the s
 
   // Polled: the audio comes from the server, so the counter is read once it has
   // really moved rather than the instant after the click.
-  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
+  // PHASE 57 — progressively: the first sentence is played as soon as it exists
+  // rather than after the whole reply's audio is built.
+  await expect.poll(async () => (await voiceTestState(page)).pieces.started, { timeout: 15_000 }).toBeGreaterThan(0);
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   const state = await voiceTestState(page);
+  // The server's WAVs really decoded and played, one piece at a time.
+  expect(state.pieces.decodeFailures).toBe(0);
   // The browser was never asked to speak — no wrong-language audio, and no
   // scary "install a voice pack" message for a student who cannot act on it.
   expect(state.spoken).toHaveLength(0);
@@ -184,12 +199,13 @@ test("A4: a machine with no Arabic voice still hears the Arabic reply from the s
 });
 
 /**
- * PHASE 56 — the same guarantee on the *automatic* path, which is the one that
- * used to have no voice at all until the turn was stored: a machine with no
- * Arabic voice asks by voice, so the reply is narrated as it streams, and that
- * attempt fails (no voice for Arabic) — the room must then hand the whole reply
- * to the server rather than leave the student in silence. Nothing may be read
- * twice: the browser spoke nothing, so the server reads all of it.
+ * PHASE 56 + 57 — the same guarantee on the *automatic* path, which is the one
+ * that used to have no voice at all until the turn was stored: a machine with no
+ * Arabic voice asks by voice, so the room asks the SERVER to narrate the turn as
+ * it is written (`speak: true`) and plays each sentence's audio the moment it
+ * arrives — on the same stream as the text. The browser's own voice is never
+ * asked (measured: no voice for Arabic), so nothing may be read twice and
+ * nothing may be read in the wrong language.
  */
 test("A7: a voice-asked turn on a machine with no Arabic voice is narrated by the server", async ({ page }) => {
   await installVoiceStubs(page, STT_TRANSCRIPT, [{ lang: "en-US", name: "Test English Voice" }]);
@@ -202,11 +218,13 @@ test("A7: a voice-asked turn on a machine with no Arabic voice is narrated by th
   await page.getByTestId("send-message").click();
   await tutorReplyText(page);
 
-  // The server's audio is fetched after the turn lands, so this is polled.
-  await expect.poll(async () => (await voiceTestState(page)).audio.plays, { timeout: 15_000 }).toBe(1);
+  // The server narrates this turn, sentence by sentence, as the reply streams.
+  await expect.poll(async () => (await voiceTestState(page)).pieces.started, { timeout: 15_000 }).toBeGreaterThan(0);
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
   const state = await voiceTestState(page);
-  expect(state.audio.lastSrc.startsWith("blob:")).toBe(true);
+  // Real server audio, really decoded — this is not a blob the app pretended to
+  // play, and the machine's voices were irrelevant to it.
+  expect(state.pieces.decodeFailures).toBe(0);
   // The browser was asked once, found no Arabic voice, and that attempt was
   // abandoned — it must not have read the reply in English.
   expect(state.spoken).toHaveLength(0);

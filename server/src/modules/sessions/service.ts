@@ -26,7 +26,8 @@ import type { AuditService } from "../audit/service.js";
 import type { AiService } from "../ai/aiService.js";
 import { OcrService, OCR_ELIGIBLE_MIMES } from "../ocr/service.js";
 import { SpeechService } from "../ai/speech/service.js";
-import type { SpeechResult } from "../ai/speech/types.js";
+import type { SpeechLanguage, SpeechResult } from "../ai/speech/types.js";
+import { ProgressNarrator, type ProgressStreamEvent } from "../ai/speech/progressNarrator.js";
 import { resolveTutorLanguage } from "../tutor/language.js";
 import { parseImageDataUrl } from "./attachments.js";
 import { parseDocumentDataUrl } from "./documents.js";
@@ -90,6 +91,17 @@ export interface SendMessageInput {
    * forged client cannot grade itself correct.
    */
   widget?: { value: number };
+  /**
+   * PHASE 57 — progressive server narration: synthesize and stream each sentence
+   * of the tutor's reply as it is written, so the student hears the first words
+   * in ~3s instead of waiting ~7s for the whole reply's audio.
+   *
+   * Enabled by the client only for voice-question turns (a turn the student
+   * expects to be spoken). Never required: the flag is a hint, and a server
+   * without a speech provider simply ignores it — the room falls back to the
+   * browser voice or the on-demand 🔊 path.
+   */
+  speakReply?: boolean;
 }
 
 /** The completed turn, exactly as the buffered endpoint has always returned it. */
@@ -114,9 +126,27 @@ export interface TurnResult {
 export type TutorStreamEvent =
   | { type: "user"; message: StoredMessage & { attachments: AttachmentSummary[] } }
   | { type: "delta"; text: string }
+  /**
+   * PHASE 57 — one playable piece of the reply's voice, in sentence order.
+   *
+   * `seq` starts at 0 and increases by one, and the client must play the pieces
+   * in that order: the server synthesizes them in parallel and releases them by
+   * sequence, so a later sentence never overtakes an earlier one. The bytes are
+   * a complete WAV, playable on its own — which is what lets the student hear
+   * the first sentence while the rest of the answer is still being written.
+   */
+  | { type: "audio"; seq: number; base64: string; mimeType: string }
+  /** The last piece has been sent; `ok:false` means the server had no usable voice. */
+  | { type: "audio-end"; ok: boolean }
   | { type: "discard" }
   | ({ type: "done" } & TurnResult)
   | { type: "error"; message: string };
+
+/** What reading one stored reply aloud needs: its words and its language. */
+interface SpeechPlan {
+  content: string;
+  language: SpeechLanguage;
+}
 
 /** Hooks the streaming path uses to observe a turn it does not orchestrate. */
 interface TurnHooks {
@@ -270,12 +300,44 @@ export class SessionService {
    * room renders the same message it renders for a failed request.
    */
   async streamMessage(input: SendMessageInput, emit: (event: TutorStreamEvent) => void): Promise<void> {
+    // PHASE 57 — progressive server narration, wired only when the client asked
+    // for it and the server actually has a voice. It runs alongside the turn, not
+    // inside it, so the tutor's own work is never delayed or failed by audio.
+    //
+    // The language is resolved here, from the very same rule the 🔊 route uses
+    // (D-042: the tutor writes in the curriculum's language), so the narration
+    // and the stored reply can never disagree about which language this is.
+    let narrator: ProgressNarrator | null = null;
+    if (input.speakReply && this.speech.available) {
+      try {
+        const language = await this.replyLanguage(input.sessionId, input.studentId);
+        narrator = this.createProgressNarrator(language, emit);
+      } catch {
+        // No language, no narration: the text turn is what matters, and the
+        // client keeps whatever fallback it already had.
+        narrator = null;
+      }
+    }
     try {
       const result = await this.runTurn(input, {
         onUserMessage: (message) => emit({ type: "user", message }),
-        onDelta: (text) => emit({ type: "delta", text }),
-        onDiscard: () => emit({ type: "discard" }),
+        onDelta: (text) => {
+          emit({ type: "delta", text });
+          narrator?.push(text);
+        },
+        onDiscard: () => {
+          emit({ type: "discard" });
+          // Words taken back must not be synthesized: they are not going to be
+          // heard, and the corrected answer takes their place.
+          narrator?.retract();
+        },
       });
+      // PHASE 57 — the text is the answer, so it is released first: `done` carries
+      // the stored reply and the room shows it now, without waiting for the voice
+      // to catch up. The narration's tail is then awaited here, which keeps the
+      // remaining `audio` events on the same response (the route writes lines for
+      // as long as this call has not returned) and closes the stream only when the
+      // student's last sentence is on the wire.
       emit({
         type: "done",
         userMessage: result.userMessage,
@@ -286,9 +348,52 @@ export class SessionService {
         safetyTripwire: result.safetyTripwire,
         ocrUsed: result.ocrUsed,
       });
+      // Whatever the stream did not reach (the sentence still being written when
+      // the reply was stored) is spoken now, so the answer is never left unheard.
+      await narrator?.finish(result.tutorMessage.content);
+      // PHASE 57 — a client that asked for the voice is told either way. Without
+      // this, a deployment with no voice would answer the turn with silence and no
+      // way for the room to tell "still coming" from "nothing was ever said" — and
+      // the student would simply never hear the answer.
+      if (input.speakReply && !narrator) emit({ type: "audio-end", ok: false });
     } catch (err) {
       emit({ type: "error", message: err instanceof Error ? err.message : "تعذّر إتمام الدور" });
+    } finally {
+      narrator?.dispose();
     }
+  }
+
+  /**
+   * PHASE 57 — the narrator for one turn: sentence-sized pieces of the reply,
+   * synthesized in parallel and emitted *in order* the moment each is ready.
+   *
+   * It is handed the same `emit` the text uses, so the voice rides the reply's own
+   * stream instead of a second request, and the client plays what it receives
+   * while the answer is still being written. The class itself owns the guarantees
+   * (order, no half-sentences, quiet degradation on a voice failure); this only
+   * binds it to the server's voice and the reply's language.
+   */
+  private createProgressNarrator(language: SpeechLanguage, emit: (event: ProgressStreamEvent) => void): ProgressNarrator {
+    return new ProgressNarrator({
+      speak: (text) => this.speech.synthesize({ text, language }),
+      emit,
+    });
+  }
+
+  /**
+   * PHASE 57 — the language the tutor answered in, from the session's lesson.
+   *
+   * One rule, two callers: the 🔊 route (`speechForMessage`) and the progressive
+   * narrator ask the same question, so pressing 🔊 and hearing the turn spoken
+   * live can never use different dialects. A session started without a lesson has
+   * no subject to resolve and answers in Arabic, the product default — the same
+   * fallback the tutor itself uses.
+   */
+  private async replyLanguage(sessionId: string, studentId: string): Promise<SpeechLanguage> {
+    const session = await this.getOwned(sessionId, studentId);
+    return session.lessonId
+      ? resolveTutorLanguage((await this.curriculum.lessonBreadcrumb(session.lessonId)).subject)
+      : "ar";
   }
 
   private async runTurn(input: SendMessageInput, hooks: TurnHooks): Promise<TurnResult> {
@@ -553,19 +658,73 @@ export class SessionService {
    * what is read matches what is written without the client asking.
    */
   async speechForMessage(sessionId: string, studentId: string, messageId: string): Promise<SpeechResult> {
+    const plan = await this.planSpeech(sessionId, studentId, messageId);
+    // PHASE 53 — spoken words, not syntax: the stored reply may carry **bold**
+    // and lists for the eye, which the voice must not read aloud.
+    return this.speech.synthesize({ text: stripMarkdownForSpeech(plan.content), language: plan.language });
+  }
+
+  /**
+   * Whether the server can produce audio at all.
+   *
+   * The streaming 🔊 route asks this *before* it writes a single byte, so a
+   * deployment with no voice answers with the same 503 the buffered route does.
+   * The client can then go straight to the browser's own voice, instead of opening
+   * a stream that could only ever be silent — which the wire would have had to
+   * report as a successful stream, because a status code cannot be sent afterwards.
+   */
+  get speechAvailable(): boolean {
+    return this.speech.available;
+  }
+
+  /**
+   * PHASE 57 — the same reply, resolved for reading aloud: whose reply it is and
+   * which language it was written in.
+   *
+   * Public because the streaming route must resolve it *before* it starts the
+   * response (once bytes are on the wire there is no status code left to send, so
+   * a wrong id has to arrive as an ordinary 404 the client can fall back from).
+   * Ids only, never text (D-044): the student can never make the paid voice say
+   * something that is not in his own transcript, and the words spoken are exactly
+   * the words on the bubble.
+   *
+   * One rule, three callers — this, the buffered 🔊 route, and the turn's own
+   * narrator — so a reply can never be read in two different dialects.
+   */
+  async planSpeech(sessionId: string, studentId: string, messageId: string): Promise<SpeechPlan> {
     const session = await this.getOwned(sessionId, studentId);
     const message = await this.db.db.select().from(messages).where(eq(messages.id, messageId)).get();
     if (!message || message.sessionId !== session.id) throw Errors.notFound("الرسالة غير موجودة");
     if (message.role !== "tutor") throw Errors.badRequest("يمكن نطق ردود المعلم فقط", "NOT_TUTOR_MESSAGE");
-
     // A session started without a lesson has no subject to resolve: Arabic, the
     // product default (same fallback as the tutor itself).
     const language = session.lessonId
       ? resolveTutorLanguage((await this.curriculum.lessonBreadcrumb(session.lessonId)).subject)
       : "ar";
-    // PHASE 53 — spoken words, not syntax: the stored reply may carry **bold**
-    // and lists for the eye, which the voice must not read aloud.
-    return this.speech.synthesize({ text: stripMarkdownForSpeech(message.content), language });
+    return { content: message.content, language };
+  }
+
+  /**
+   * PHASE 57 — narrates a resolved plan, one sentence at a time, emitting each
+   * playable piece as it is synthesized.
+   *
+   * The caller has already resolved the plan (so authorization failures are
+   * ordinary error statuses, not truncated streams) and has already started the
+   * response. This is the same narrator the live turn uses, fed a stored reply
+   * instead of a stream, which is what makes 🔊 start speaking in about the time
+   * the first sentence costs (~3s) instead of after the whole reply (6.9–7.7s
+   * measured) — and makes a second press nearly instant, because every sentence
+   * is cached individually by the speech service.
+   */
+  async narrateSpeechPlan(plan: SpeechPlan, emit: (event: ProgressStreamEvent) => void): Promise<void> {
+    const narrator = this.createProgressNarrator(plan.language, emit);
+    try {
+      // Nothing was streamed, so the whole reply is the tail: `finish` speaks it
+      // in order, in pieces.
+      await narrator.finish(plan.content);
+    } finally {
+      narrator.dispose();
+    }
   }
 
   async end(sessionId: string, studentId: string, reason = "user_request"): Promise<void> {

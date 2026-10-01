@@ -33,6 +33,7 @@ import {
   resetSpeechAvailability,
   sendMessage,
   streamMessage,
+  streamSpeechAudio,
   ApiError,
   SpeechUnavailableError,
   type Breadcrumb,
@@ -57,6 +58,7 @@ import InkBoard from "./InkBoard.js";
 import InkTools from "./InkTools.js";
 import { composeInkPage, type InkStroke, type InkTool } from "./ink.js";
 import { createNarrator, type Narrator } from "./narrator.js";
+import { createStreamedAudio, type AudioPiece, type StreamedAudio } from "./audioStream.js";
 import NumberLine from "./NumberLine.js";
 import FormattedText from "./FormattedText.js";
 import { previewText, stripMarkdown } from "./format.js";
@@ -235,6 +237,13 @@ export function LessonRoom({ session, onEnded }: Props) {
   // reports `broken` when this machine has no voice for Arabic so the room can
   // fall back to the server's narration of the whole reply.
   const narratorRef = useRef<Narrator | null>(null);
+  // PHASE 57 — the reply being heard while it is still arriving, from the
+  // SERVER's voice: the pieces of a turn (or of a 🔊 press) are played as each
+  // sentence lands, so the first note no longer waits for the last one.
+  const streamedRef = useRef<StreamedAudio | null>(null);
+  // Aborts the in-flight 🔊 stream, so a reply the student stopped listening to
+  // does not keep the server synthesizing sentences nobody will hear.
+  const speechAbort = useRef<AbortController | null>(null);
 
   useEffect(() => {
     resetSpeechAvailability();
@@ -371,6 +380,13 @@ export function LessonRoom({ session, onEnded }: Props) {
   const stopReading = () => {
     // Invalidate any narration still in flight before silencing the current one.
     speechToken.current += 1;
+    // PHASE 57 — stop the *streamed* voice too: it is a queue of scheduled audio
+    // buffers, so it keeps talking after `speechSynthesis.cancel()` is called, and
+    // it keeps the server synthesizing unless the request is aborted as well.
+    speechAbort.current?.abort();
+    speechAbort.current = null;
+    streamedRef.current?.stop();
+    streamedRef.current = null;
     narratorRef.current?.stop();
     narratorRef.current = null;
     stopSpeaking();
@@ -379,42 +395,126 @@ export function LessonRoom({ session, onEnded }: Props) {
   };
 
   /**
+   * PHASE 57 — play a voice stream piece by piece, and fall back only if it must.
+   *
+   * `open` hands over each playable piece as it arrives and resolves `true` when
+   * the server had a voice at all. `fallback` runs when progressive playback
+   * cannot deliver one: no Web Audio at all, a server with no voice, or a piece
+   * that would not decode. Resolves `true` when the pieces took the reply, so the
+   * caller never falls back twice.
+   *
+   * It resolves as soon as the last piece has *arrived*, not when playback ends:
+   * waiting would make a click handler wait for the whole answer.
+   */
+  const playStreamed = async (
+    token: number,
+    open: (emit: (piece: AudioPiece) => void) => Promise<boolean>,
+    fallback: () => void,
+  ): Promise<boolean> => {
+    const abandon = (): void => {
+      // A stop the student asked for is not a failure to recover from.
+      if (token !== speechToken.current) return;
+      streamedRef.current?.stop();
+      streamedRef.current = null;
+      setSpeaking(false);
+      fallback();
+    };
+    const player = createStreamedAudio({
+      onStart: () => {
+        if (token === speechToken.current) setSpeaking(true);
+      },
+      onDone: () => {
+        if (token === speechToken.current) setSpeaking(false);
+      },
+      onError: abandon,
+    });
+    if (!player.usable) return false;
+    streamedRef.current = player;
+    let heard = 0;
+    try {
+      const served = await open((piece) => {
+        heard += 1;
+        player.push(piece);
+      });
+      // Nothing playable came back: the server has no voice, or it broke before
+      // the first piece. Say it now rather than leaving the reply unheard.
+      if (token !== speechToken.current) return true;
+      if (!served || heard === 0) {
+        player.stop();
+        if (streamedRef.current === player) streamedRef.current = null;
+        abandon();
+        return false;
+      }
+      player.end();
+      return true;
+    } catch {
+      abandon();
+      return false;
+    }
+  };
+
+  /**
    * PHASE 40 (D-044) — read a reply aloud.
    *
-   * The server is asked first because it is the only way an Arabic reply is
-   * audible on a machine with no Arabic voice installed. If it has no voice
-   * (or the audio will not play) we read it with the browser's own voice, so
-   * the button is never dead and never silent.
+   * Three paths, fastest first: the server's voice **progressively** (its first
+   * sentence plays as soon as it exists — ~3s measured, and it is the only path
+   * that works with no voice installed on this machine), then the same server
+   * audio in one piece (the route a download or an old browser wants), and last
+   * the browser's own voice. So the button is never dead, never silent, and never
+   * waits for the whole reply before it makes a sound.
    */
   const speak = async (message: Message) => {
     stopReading();
     const token = speechToken.current;
-    try {
-      const blob = await fetchSpeechAudio(session.id, message.id);
-      if (token !== speechToken.current) return;
-      const handle = playAudioBlob(blob, {
-        onStart: () => {
-          if (token === speechToken.current) setSpeaking(true);
-        },
-        onDone: () => {
-          if (token === speechToken.current) setSpeaking(false);
-        },
-        onError: () => {
-          // Never leave 🔊 dead: fall back to the browser's own voice.
-          // Spoken words, not syntax: the bubble may hold **bold** and lists.
-          if (token === speechToken.current) speakLocally(stripMarkdown(message.content));
-        },
-      });
-      if (!handle) speakLocally(stripMarkdown(message.content));
-    } catch (err) {
-      if (token !== speechToken.current) return;
-      if (!(err instanceof SpeechUnavailableError)) {
-        setError(err instanceof ApiError ? err.message : "تعذّر تحضير الصوت");
-        return;
+    // Spoken words, not syntax: the bubble may hold **bold** and lists.
+    const withLocalVoice = () => speakLocally(stripMarkdown(message.content));
+    /** The whole reply's audio in one piece, then the machine's own voice. */
+    const buffered = async () => {
+      try {
+        const blob = await fetchSpeechAudio(session.id, message.id);
+        if (token !== speechToken.current) return;
+        const handle = playAudioBlob(blob, {
+          onStart: () => {
+            if (token === speechToken.current) setSpeaking(true);
+          },
+          onDone: () => {
+            if (token === speechToken.current) setSpeaking(false);
+          },
+          onError: () => {
+            if (token === speechToken.current) withLocalVoice();
+          },
+        });
+        if (!handle) withLocalVoice();
+      } catch (err) {
+        if (token !== speechToken.current) return;
+        if (!(err instanceof SpeechUnavailableError)) {
+          setError(err instanceof ApiError ? err.message : "تعذّر تحضير الصوت");
+          return;
+        }
+        withLocalVoice();
       }
-      // Same strip as above: the bubble may hold **bold** and lists.
-      speakLocally(stripMarkdown(message.content));
-    }
+    };
+    const abort = new AbortController();
+    speechAbort.current = abort;
+    await playStreamed(
+      token,
+      async (emit) => {
+        let served = false;
+        await streamSpeechAudio(
+          session.id,
+          message.id,
+          {
+            onAudio: emit,
+            onAudioEnd: (ok) => {
+              served = ok;
+            },
+          },
+          abort.signal,
+        );
+        return served;
+      },
+      () => void buffered(),
+    );
   };
 
   const toggleTranscription = () => {
@@ -478,13 +578,26 @@ export function LessonRoom({ session, onEnded }: Props) {
     const onPage = openBookPage ?? undefined;
     const page = onPage !== undefined ? { bookPage: onPage } : {};
     const pin = widget ? { widget: { value: widget.value } } : {};
+    // PHASE 57 — whose voice reads this reply. When this machine has a voice for
+    // the reply's language (the normal machine), it speaks each sentence as it
+    // arrives — instant, and free. When it does not, the SERVER narrates the turn
+    // as it is written and the pieces arrive on the same stream as the text. Only
+    // one of the two is ever asked for: narration is paid per character.
+    const localVoice = speakReply && ttsSupported() && canSpeakLanguage(tutorLanguage);
+    // PHASE 57 — so the server narrates this turn only when this machine cannot
+    // speak it, and only for a voice turn: narration is paid per character, so a
+    // question the student typed is never paid for twice. Every question shape
+    // carries the flag, because whether the answer is read aloud has never
+    // depended on the photo, document or ink that came with the question.
+    const askServer = speakReply && !localVoice;
+    const voice = askServer ? { speak: true } : {};
     const body = doc
-      ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...page, ...pin }
+      ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...page, ...pin, ...voice }
       : image
-        ? { content: text, image: { dataUrl: image }, ...page, ...pin }
+        ? { content: text, image: { dataUrl: image }, ...page, ...pin, ...voice }
         : ink
-          ? { content: text, ink, ...page, ...pin }
-          : { content: text, ...page, ...pin };
+          ? { content: text, ink, ...page, ...pin, ...voice }
+          : { content: text, ...page, ...pin, ...voice };
     try {
       // PHASE 49 — the reply is written as it is thought, so the room shows a
       // tutor thinking instead of a waiting cursor. The student's own words
@@ -500,8 +613,31 @@ export function LessonRoom({ session, onEnded }: Props) {
       let arrived = false;
       // PHASE 56 — the voice starts with the first sentence instead of waiting
       // for the turn to be stored and its audio to be fetched.
-      const narrator = speakReply ? createProgressiveNarrator() : null;
+      const narrator = localVoice ? createProgressiveNarrator() : null;
       narratorRef.current = narrator;
+      // PHASE 57 — the server's voice for this turn, played as the sentences
+      // arrive. Created before the request, because the first piece can arrive
+      // with the first lines of text.
+      let streamed: StreamedAudio | null = null;
+      let serverHeard = 0;
+      let serverSilent = false;
+      let streamBroken = false;
+      let retracted = false;
+      if (askServer) {
+        const player = createStreamedAudio({
+          onStart: () => setSpeaking(true),
+          onDone: () => setSpeaking(false),
+          onError: () => {
+            // The queue cannot play what it was given; the stored reply is read
+            // by `speak` below instead, which walks the same paths in order.
+            streamBroken = true;
+          },
+        });
+        if (player.usable) {
+          streamed = player;
+          streamedRef.current = player;
+        }
+      }
       const turn = await streamMessage(session.id, body, {
         onUser: (message) => {
           arrived = true;
@@ -517,12 +653,25 @@ export function LessonRoom({ session, onEnded }: Props) {
             return l ? { ...l, text } : l;
           });
         },
+        // PHASE 57 — the pieces of the reply's voice, in the order they were
+        // spoken. The server releases them by sentence, so they arrive 0..n.
+        onAudio: (piece) => {
+          serverHeard += 1;
+          streamed?.push(piece);
+        },
+        onAudioEnd: (ok) => {
+          if (!ok) serverSilent = true;
+        },
         onDiscard: () => {
           arrived = true;
+          retracted = true;
           // Words the room took back must not stay in the air — and the corrected
           // answer must still be spoken, so the narrator forgets rather than stops.
           stopSpeaking();
           activeUtterance.current = null;
+          // PHASE 57 — a server cannot unsend audio it has already released, so the
+          // queue is silenced here and the corrected reply is read in full below.
+          streamed?.stop();
           narrator?.retract();
           setLive((l) => (l ? { ...l, text: "" } : l));
         },
@@ -556,27 +705,50 @@ export function LessonRoom({ session, onEnded }: Props) {
       // The marks reached the tutor with this question — clear the board so the
       // next question starts from a clean page.
       if (ink) setInkReset((n) => n + 1);
-      // PHASE 56 — if the machine could not speak as the words arrived (no
-      // voice for Arabic, or the room retracted the text), fall back to the
-      // server's narration of the stored reply: one voice, whole answer. When it
-      // did speak, the remainder is simply the tail it has not reached yet.
-      if (speakReply) {
-        if (narrator && !narrator.broken) {
-          // The machine read the reply as it arrived; only the tail is left.
-          narrator.finish(turn.tutorMessage.content);
+      // PHASE 56/57 — how this turn ends being heard, in the order that gives the
+      // student a voice soonest: this machine's own sentence by sentence when it
+      // has one, otherwise the server's, piece by piece. Whatever could not be
+      // heard at all (no local voice, no server voice, a queue that broke) is read
+      // by `speak`, which walks the same three paths for the stored reply — so a
+      // voice problem never costs the student his answer.
+      if (askServer) {
+        if (streamed && !serverSilent && !streamBroken && !retracted && serverHeard > 0) {
+          // Every piece has arrived: the last one plays without waiting.
+          streamed.end();
         } else {
-          // The local voice gave up (measured: no Arabic voice installed). The
-          // server narrates what the student has NOT heard — the whole reply when
-          // nothing was read, otherwise only the remaining tail, so no sentence
-          // is ever said twice.
-          const gap = narrator?.unheard();
-          const content = !gap ? turn.tutorMessage.content : gap.heardNothing ? turn.tutorMessage.content : gap.tail;
-          if (content.trim()) void speak({ ...turn.tutorMessage, content });
+          // Nothing was heard from the server — it said so, or never spoke at all.
+          // The stored reply is read instead, so the answer is never lost.
+          streamed?.stop();
+          void speak(turn.tutorMessage);
         }
+      } else if (narrator && !narrator.broken) {
+        // The machine read the reply as it arrived; only the tail is left.
+        narrator.finish(turn.tutorMessage.content);
+      } else if (speakReply) {
+        // This machine's voice refused the sentence it was on — a language it
+        // claimed but cannot really speak. The server can only be asked for a reply
+        // by *id*, so it reads the whole reply from the top and the sentences this
+        // machine managed are heard again: a repeat is a smaller harm than a gap in
+        // the answer. What the machine *had* read still matters for the last resort
+        // inside `speak`, where no ids are involved: that voice reads only the part
+        // nobody heard, so the answer is never skipped.
+        const gap = narrator?.unheard();
+        const content = gap && !gap.heardNothing && gap.tail.trim() ? gap.tail : turn.tutorMessage.content;
+        void speak({ ...turn.tutorMessage, content });
       }
+      if (streamedRef.current === streamed) streamedRef.current = null;
       if (narratorRef.current === narrator) narratorRef.current = null;
     } catch (err) {
       setLive(null);
+      // PHASE 57 — a turn that failed mid-stream may already have started talking
+      // (this machine's own voice, or a piece from the server). Silence *this*
+      // turn's voice: the student is about to be told the turn failed, and nothing
+      // else the room is reading — an older reply on 🔊 — is theirs to lose.
+      streamedRef.current?.stop();
+      streamedRef.current = null;
+      narratorRef.current?.stop();
+      narratorRef.current = null;
+      stopSpeaking();
       // A turn that failed mid-stream may still have been stored on the server,
       // so the room is re-read rather than left disagreeing with the database.
       await syncMessages();

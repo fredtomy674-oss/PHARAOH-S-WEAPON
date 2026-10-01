@@ -87,6 +87,20 @@ export interface VoiceTestState {
     ended: number;
     lastSrc: string;
   };
+  /**
+   * PHASE 57 — the server's voice played *progressively*: one decoded piece per
+   * sentence, scheduled back-to-back on one Web Audio timeline.
+   *
+   * `started` counts pieces that really began playing (this is the first-audio
+   * latency the phase exists to cut), `stopped` pieces that were silenced by the
+   * stop button, and `decodeFailures` pieces the browser refused — which must
+   * never happen for the server's real WAVs, so the count is asserted too.
+   */
+  pieces: {
+    started: number;
+    stopped: number;
+    decodeFailures: number;
+  };
 }
 
 /**
@@ -107,8 +121,41 @@ export async function installVoiceStubs(
   voices: StubVoice[] = STUB_VOICES,
 ): Promise<void> {
   await page.addInitScript((opts: { transcript: string; voices: StubVoice[] }) => {
-    const state: VoiceTestState = { spoken: [], cancelCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" } };
+    const state: VoiceTestState = { spoken: [], cancelCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 } };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
+
+    // PHASE 57 — progressive server voice. The real Web Audio pipeline is used
+    // (verified to work headless: the context runs, the server's WAV decodes,
+    // the clock advances and `onended` fires), so a broken piece would surface as
+    // a real decode rejection. Only the two calls that prove "the tutor's voice
+    // was heard" are wrapped.
+    const Ctx = window.AudioContext;
+    const sourceProto = Ctx?.prototype ? (window as unknown as { AudioBufferSourceNode?: typeof AudioBufferSourceNode }).AudioBufferSourceNode?.prototype : undefined;
+    if (Ctx && sourceProto) {
+      const originalStart = sourceProto.start;
+      sourceProto.start = function start(this: AudioBufferSourceNode, ...args: [number?]) {
+        state.pieces.started += 1;
+        return originalStart.apply(this, args);
+      };
+      const originalStop = sourceProto.stop;
+      sourceProto.stop = function stop(this: AudioBufferSourceNode, ...args: [number?]) {
+        state.pieces.stopped += 1;
+        return originalStop.apply(this, args);
+      };
+      // decodeAudioData *detaches* the buffer it is given (per spec), so the
+      // original is called with a copy: this must stay genuine.
+      const originalDecode = Ctx.prototype.decodeAudioData;
+      Ctx.prototype.decodeAudioData = function decode(this: AudioContext, data: ArrayBuffer, ...rest: []) {
+        const copy = data.slice(0);
+        return originalDecode.call(this, copy, ...rest).then(
+          (buffer) => buffer,
+          (err) => {
+            state.pieces.decodeFailures += 1;
+            throw err;
+          },
+        );
+      };
+    }
 
     // PHASE 40/D-044 — server audio playback recorder. Delegating to the real
     // prototype keeps decoding/playback genuine: a broken WAV would surface as
@@ -213,13 +260,17 @@ export async function voiceTestState(page: Page): Promise<VoiceTestState> {
  * browser's own voice — the behaviour every offline installation depends on.
  */
 export async function forceNoServerSpeech(page: Page): Promise<void> {
-  await page.route("**/api/sessions/*/messages/*/speech", (route) =>
+  // PHASE 57 — BOTH narration routes must answer 503, not just the buffered one:
+  // the room now tries the progressive stream first and only then the whole blob,
+  // and a deployment without a voice must fail both the same way.
+  const noVoice = (route: import("@playwright/test").Route) =>
     route.fulfill({
       status: 503,
       contentType: "application/json",
       body: JSON.stringify({ error: { code: "SPEECH_UNAVAILABLE", message: "النطق على الخادم غير مُفعَّل" } }),
-    }),
-  );
+    });
+  await page.route("**/api/sessions/*/messages/*/speech/stream", noVoice);
+  await page.route("**/api/sessions/*/messages/*/speech", noVoice);
 }
 
 /** 1x1 transparent PNG (base64) used to simulate a photographed question. */

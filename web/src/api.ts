@@ -480,11 +480,19 @@ export async function sendMessage(
  */
 export async function streamMessage(
   sessionId: string,
-  body: { content: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: InkPayload; widget?: WidgetPayload },
+  body: { content: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: InkPayload; widget?: WidgetPayload; speak?: boolean },
   handlers: {
     onUser?: (message: Message) => void;
     onDelta?: (text: string) => void;
     onDiscard?: () => void;
+    /**
+     * PHASE 57 — one playable piece of the reply's voice, in sentence order. The
+     * pieces ride the reply's own stream, so the caller can start playing the
+     * first one while the rest of the answer is still being written.
+     */
+    onAudio?: (piece: { seq: number; base64: string; mimeType: string }) => void;
+    /** The server has no more voice for this turn; `ok:false` means it had none. */
+    onAudioEnd?: (ok: boolean) => void;
   },
 ): Promise<TurnResult> {
   const headers: Record<string, string> = { "Content-Type": "application/json" };
@@ -515,6 +523,8 @@ export async function streamMessage(
     if (event.type === "user") handlers.onUser?.(event.message as Message);
     else if (event.type === "delta") handlers.onDelta?.(event.text);
     else if (event.type === "discard") handlers.onDiscard?.();
+    else if (event.type === "audio") handlers.onAudio?.({ seq: event.seq, base64: event.base64, mimeType: event.mimeType });
+    else if (event.type === "audio-end") handlers.onAudioEnd?.(event.ok);
     else if (event.type === "done") result = event as unknown as TurnResult;
     else if (event.type === "error") throw new ApiError(event.message, 200, "STREAM_ERROR");
   };
@@ -547,6 +557,10 @@ export type TutorStreamEvent =
   | { type: "user"; message: Message }
   | { type: "delta"; text: string }
   | { type: "discard" }
+  /** PHASE 57 — one playable piece of the reply's voice, played in `seq` order. */
+  | { type: "audio"; seq: number; base64: string; mimeType: string }
+  /** PHASE 57 — no more voice for this turn. */
+  | { type: "audio-end"; ok: boolean }
   | ({ type: "done" } & TurnResult)
   | { type: "error"; message: string };
 
@@ -573,6 +587,100 @@ export class SpeechUnavailableError extends Error {}
  * server cache makes repeated presses near-free.
  */
 export function resetSpeechAvailability(): void {}
+
+/**
+ * PHASE 57 — one stored reply's voice, sentence by sentence, as it is made.
+ *
+ * The reason this exists next to `fetchSpeechAudio` is measured: that call
+ * answers "give me the whole reply's audio", so nothing could be played until
+ * the *last* sentence was synthesized — 6.9–7.7s for a 160-character reply,
+ * while the text was on screen in 1.5s. A button that silent for seven seconds
+ * reads as broken. This stream starts delivering the moment the first sentence
+ * exists (~3s), and a second press is nearly free because each sentence is
+ * cached on its own.
+ *
+ * Same guarantees as the buffered route: ids only, never text; the words come
+ * from the stored reply. Throwing is meaningful — a 503 (`SpeechUnavailableError`)
+ * or any other failure means "use `fetchSpeechAudio`, or the browser's voice".
+ */
+export async function streamSpeechAudio(
+  sessionId: string,
+  messageId: string,
+  handlers: {
+    /** One playable piece, in sentence order (`seq` starts at 0). */
+    onAudio: (piece: { seq: number; base64: string; mimeType: string }) => void;
+    /** No more pieces; `ok:false` means the server had no usable voice. */
+    onAudioEnd: (ok: boolean) => void;
+  },
+  /** Lets the caller stop the server synthesizing a reply nobody is listening to. */
+  signal?: AbortSignal,
+): Promise<void> {
+  const headers: Record<string, string> = {};
+  if (csrfToken) headers["x-csrf-token"] = csrfToken;
+
+  let res: Response;
+  try {
+    res = await fetch(
+      `/api/sessions/${encodeURIComponent(sessionId)}/messages/${encodeURIComponent(messageId)}/speech/stream`,
+      { method: "POST", headers, credentials: "same-origin", ...(signal ? { signal } : {}) },
+    );
+  } catch {
+    throw new SpeechUnavailableError("تعذّر الوصول إلى الخادم");
+  }
+  if (res.status === 503) throw new SpeechUnavailableError("النطق على الخادم غير متاح");
+  if (!res.ok) {
+    const data = (await res.json().catch(() => null)) as { error?: { message?: string; code?: string } } | null;
+    throw new ApiError(data?.error?.message ?? "تعذّر تحضير الصوت", res.status, data?.error?.code ?? "UNKNOWN");
+  }
+  if (!res.body) throw new SpeechUnavailableError("هذا المتصفح لا يدعم البثّ الحي");
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let pending = "";
+  // A voice can end without an explicit `audio-end` (a dropped connection), so
+  // the pieces are what decide success — not the flag's presence.
+  let played = 0;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      pending += decoder.decode(value, { stream: true });
+      let boundary = pending.indexOf("\n");
+      while (boundary >= 0) {
+        const line = pending.slice(0, boundary).trim();
+        pending = pending.slice(boundary + 1);
+        if (line) {
+          const event = JSON.parse(line) as ProgressStreamEvent;
+          if (event.type === "audio") {
+            played += 1;
+            handlers.onAudio({ seq: event.seq, base64: event.base64, mimeType: event.mimeType });
+          } else {
+            handlers.onAudioEnd(event.ok);
+          }
+        }
+        boundary = pending.indexOf("\n");
+      }
+    }
+    const tail = pending.trim();
+    if (tail) {
+      const event = JSON.parse(tail) as ProgressStreamEvent;
+      if (event.type === "audio") {
+        played += 1;
+        handlers.onAudio({ seq: event.seq, base64: event.base64, mimeType: event.mimeType });
+      } else {
+        handlers.onAudioEnd(event.ok);
+      }
+    }
+  } finally {
+    // Leaving the reader open would keep the connection (and the server's
+    // synthesis) alive.
+    await reader.cancel().catch(() => undefined);
+  }
+  if (played === 0) throw new SpeechUnavailableError("لم يصل أي صوت من الخادم");
+}
+
+/** The wire shape of one line of a streamed reply's voice. */
+type ProgressStreamEvent = { type: "audio"; seq: number; base64: string; mimeType: string } | { type: "audio-end"; ok: boolean };
 
 /** Fetches the server-generated audio for one of the student's own tutor replies. */
 export async function fetchSpeechAudio(sessionId: string, messageId: string): Promise<Blob> {

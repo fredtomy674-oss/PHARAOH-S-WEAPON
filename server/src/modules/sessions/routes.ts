@@ -65,7 +65,32 @@ const messageBodySchema = {
         value: { type: "number" },
       },
     },
+    // PHASE 57 — ask the server to narrate this reply as it is written, so the
+    // student hears the first sentence while the rest is still streaming. The
+    // room sets it only for a turn it expects to be spoken aloud (a question
+    // asked by voice), never for a turn the student typed and can read: the voice
+    // is paid per character, and a reply nobody asked to hear must not cost a
+    // synthesis. A turn that asked and got no voice still answers with its text,
+    // and says so on the last line (`audio-end ok:false`) rather than leaving the
+    // room to guess whether audio is still coming.
+    speak: { type: "boolean" },
   },
+};
+
+/**
+ * The body both message routes accept. `messageBodySchema` above is what
+ * validates it; this is the shape they read, kept in one place so the buffered
+ * and the streamed turn can never drift apart in what they accept.
+ */
+type MessageBody = {
+  content?: string;
+  image?: { dataUrl: string; fileName?: string };
+  document?: { dataUrl: string; fileName?: string };
+  bookPage?: number;
+  ink?: { dataUrl: string; page?: number; strokes?: number };
+  widget?: { value: number };
+  /** PHASE 57 — narrate the reply as it is written (voice turns only). */
+  speak?: boolean;
 };
 
 /**
@@ -112,7 +137,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number }; widget?: { value: number } };
+    const body = request.body as MessageBody;
     const result = await app.sessions.sendMessage({
       sessionId,
       studentId: auth.student.id,
@@ -146,7 +171,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
     const { sessionId } = request.params as { sessionId: string };
-    const body = request.body as { content?: string; image?: { dataUrl: string; fileName?: string }; document?: { dataUrl: string; fileName?: string }; bookPage?: number; ink?: { dataUrl: string; page?: number; strokes?: number }; widget?: { value: number } };
+    const body = request.body as MessageBody;
 
     reply.raw.writeHead(200, {
       "content-type": "application/x-ndjson; charset=utf-8",
@@ -178,6 +203,7 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
         bookPage: body.bookPage,
         ink: body.ink,
         widget: body.widget,
+        speakReply: body.speak === true,
       },
       write,
     );
@@ -222,6 +248,56 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
     void reply.header("x-content-type-options", "nosniff");
     void reply.header("content-security-policy", "default-src 'none'; sandbox");
     return reply.send(audio.audio);
+  });
+
+  /**
+   * PHASE 57 — the same audio, but sentence by sentence, as it is synthesized.
+   *
+   * The endpoint above answers "give me the whole reply's voice", which is a fine
+   * question for a download and a bad one for a button a child presses: nothing
+   * could be played until the last sentence was synthesized (measured 6.9–7.7s
+   * for a 160-character reply). This one starts sending the moment the first
+   * sentence exists, and the client plays each piece the moment it lands, so the
+   * first sound arrives in about the time one sentence costs (~3s) instead of
+   * waiting for the whole answer.
+   *
+   * Same guarantees as the buffered route: ids only, never text; the words come
+   * from the stored reply; ownership and language are resolved before the response
+   * starts, so a bad id is an ordinary error status (which the client treats as
+   * "use the other route") rather than an empty stream. No caching: a stream is
+   * one playback, and the per-sentence synthesis cache already makes a second
+   * press cheap.
+   */
+  app.post("/:sessionId/messages/:messageId/speech/stream", { preHandler: requireAuth }, async (request, reply) => {
+    const auth = request.auth!;
+    if (!auth.student) {
+      return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
+    }
+    const { sessionId, messageId } = request.params as { sessionId: string; messageId: string };
+    // A voice-less deployment answers with the same 503 the buffered route does,
+    // so the client can tell "this server cannot speak" from "something went
+    // wrong" — and skip a stream that could only ever be silent.
+    if (!app.sessions.speechAvailable) {
+      return reply.code(503).send({ error: { code: "SPEECH_UNAVAILABLE", message: "النطق على الخادم غير مُفعَّل" } });
+    }
+    // Resolved (and rejected) *before* the head is written: once streaming has
+    // started there is no status code left to send.
+    const plan = await app.sessions.planSpeech(sessionId, auth.student.id, messageId);
+    reply.raw.writeHead(200, {
+      "content-type": "application/x-ndjson; charset=utf-8",
+      "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
+      connection: "keep-alive",
+    });
+    let open = true;
+    request.raw.on("close", () => {
+      open = false;
+    });
+    await app.sessions.narrateSpeechPlan(plan, (event) => {
+      if (!open) return;
+      reply.raw.write(`${JSON.stringify(event)}\n`);
+    });
+    reply.raw.end();
   });
 
   app.post("/:sessionId/end", { preHandler: requireAuth }, async (request, reply) => {
