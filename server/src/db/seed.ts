@@ -51,6 +51,12 @@ import {
   isConsistent as isIctTreeConsistent,
   assertTreeMatchesTheBook as assertIctTreeMatchesBook,
 } from "./egyptIctT1.js";
+import {
+  EGYPT_ISLAMIC_T1_UNITS,
+  lessonDocument as islamicLessonDocument,
+  isConsistent as isIslamicTreeConsistent,
+  assertTreeMatchesTheBook as assertIslamicTreeMatchesBook,
+} from "./egyptIslamicT1.js";
 
 /** Where one seeded lesson lives — used as the RAG scope for its document. */
 interface SeededLesson {
@@ -424,6 +430,63 @@ function verifyIctTree(): { ok: boolean; problems: string[] } {
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
+/**
+ * Egyptian Grade-6 **Islamic Religious Education** — OFFICIAL curriculum (PHASE 64).
+ *
+ * The first term IS the Ministry textbook (`Islamic_Education_Primary6_T1.pdf`,
+ * 2026/2027 MoE edition, reviewed by Al-Azhar): its 3 units and 20 lessons,
+ * exactly as the book's قائمة المحتويات prints them, each grounded on the OCR
+ * text of the pages the book prints for it
+ * (server/data/curriculum-ocr/islamic-t1/). The book prints no «مفهوم» layer, so
+ * each lesson's concepts are the printed «الأهداف» the book puts at its head.
+ * There is no second-term spec: its book has not been imported, and a
+ * hand-written stand-in would misrepresent it.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson titles each page prints, and the tiling. Seeding refuses to run on
+ * an unverified table.
+ */
+export const EGYPT_ISLAMIC_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "islamic-education", name: "Islamic Religious Education", nameAr: "التربية الدينية الإسلامية" },
+  curriculum: { code: "eg-g6-islamic-education", title: "التربية الدينية الإسلامية للصف السادس الابتدائي" },
+  terms: [buildEgyptIslamicT1Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptIslamicT1Term(): TermSeedSpec {
+  const check = verifyIslamicTree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية الإسلامية غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ISLAMIC_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-isl-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: islamicLessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Islamic tree verification, as one verdict. */
+function verifyIslamicTree(): { ok: boolean; problems: string[] } {
+  const table = isIslamicTreeConsistent();
+  const book = assertIslamicTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
 /** Term 2 placeholder — hand-written until the second-term book is imported. */
 function buildEgyptT2Placeholder(): TermSeedSpec {
   return {
@@ -604,11 +667,12 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_SOCIAL_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic Education) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**
