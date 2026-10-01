@@ -12,7 +12,12 @@
  * remains the fallback (offline, provider down, decode failure), which is why
  * this is a provider interface and not a rewrite of the voice layer.
  */
-export type SpeechLanguage = "ar" | "en";
+/**
+ * PHASE 63 — extended from {ar, en} to {ar, en, fr, de}, mirroring the tutor's
+ * reply languages, so a lesson taught in French/German is *heard* in the same
+ * language it is written in.
+ */
+export type SpeechLanguage = "ar" | "en" | "fr" | "de";
 
 export interface SpeechRequest {
   /** The text to read aloud (already capped by the service). */

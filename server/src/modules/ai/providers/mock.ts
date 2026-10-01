@@ -203,6 +203,14 @@ export const DOCUMENT_READ_MARKER_EN = "I read the attached file";
 /** Stable marker proving the reply came back in the curriculum's own language. */
 export const ENGLISH_REPLY_MARKER = "I will explain this lesson in English";
 
+/** PHASE 63 — French/German counterparts, for curricula taught in those languages. */
+export const IMAGE_READ_MARKER_FR = "J'ai lu l'image jointe";
+export const DOCUMENT_READ_MARKER_FR = "J'ai lu le fichier joint";
+export const FRENCH_REPLY_MARKER = "Je vais expliquer cette leçon en français";
+export const IMAGE_READ_MARKER_DE = "Ich habe das angehängte Bild gelesen";
+export const DOCUMENT_READ_MARKER_DE = "Ich habe die angehängte Datei gelesen";
+export const GERMAN_REPLY_MARKER = "Ich werde diese Lektion auf Deutsch erklären";
+
 /** How many leading characters of the extracted document text are echoed into the mock reply. */
 const DOC_SNIPPET_CHARS = 60;
 
@@ -468,7 +476,16 @@ function buildTutorText(args: {
   documents?: DocumentInput[];
   language?: TutorLanguage;
 }): string {
-  return args.language === "en" ? buildTutorTextEn(args) : buildTutorTextAr(args);
+  switch (args.language) {
+    case "en":
+      return buildTutorTextEn(args);
+    case "fr":
+      return buildTutorTextFr(args);
+    case "de":
+      return buildTutorTextDe(args);
+    default:
+      return buildTutorTextAr(args);
+  }
 }
 
 function buildTutorTextAr(args: {
@@ -599,6 +616,68 @@ function buildTutorTextEn(args: {
   parts.push(`Great question! It belongs to our lesson. Here it is:${contextNote}`);
   parts.push("💡 **Hint:**\n- Try the first example in the lesson\n- Tell me what you got");
   parts.push("Would you like me to explain it again in a different way, or shall we try a quick question to check understanding?");
+  return parts.join("\n\n");
+}
+
+/**
+ * PHASE 63 — French voice of the offline tutor: same grounded-context → hint →
+ * check-question structure as the Arabic and English builders, so the pedagogy
+ * never changes with the language.
+ */
+function buildTutorTextFr(args: {
+  user: string;
+  context: string;
+  images?: { mimeType: string; base64: string }[];
+  documents?: DocumentInput[];
+}): string {
+  const { context, images = [], documents = [] } = args;
+  const contextNote = context
+    ? `\n\nD'après le contenu de la leçon : ${context.slice(0, 900)}`
+    : "\n\nJe n'ai pas pu accéder au contenu de la leçon pour le moment ; vérifie auprès de ton professeur.";
+  const imageNote =
+    images.length > 0
+      ? `📸 ${IMAGE_READ_MARKER_FR} (${images.length}) — je vais l'expliquer pas à pas à partir de notre leçon.`
+      : "";
+  const doc = documents[0];
+  const docNote = doc
+    ? `📄 ${DOCUMENT_READ_MARKER_FR} « ${doc.fileName ?? "sans nom"} » — je vais l'utiliser avec la leçon pour te répondre. L'essentiel : « ${doc.text.slice(0, DOC_SNIPPET_CHARS)} ».`
+    : "";
+  const parts: string[] = [];
+  if (imageNote) parts.push(imageNote);
+  if (docNote) parts.push(docNote);
+  parts.push(`${FRENCH_REPLY_MARKER}, simplement et clairement.`);
+  parts.push(`Bonne question ! Cela fait partie de notre leçon. Voici :${contextNote}`);
+  parts.push("💡 **Indice :**\n- Essaie le premier exemple de la leçon\n- Dis-moi ce que tu as trouvé");
+  parts.push("Veux-tu que je réexplique autrement, ou qu'on essaie une petite question pour vérifier ta compréhension ?");
+  return parts.join("\n\n");
+}
+
+/** PHASE 63 — German voice of the offline tutor (same structure again). */
+function buildTutorTextDe(args: {
+  user: string;
+  context: string;
+  images?: { mimeType: string; base64: string }[];
+  documents?: DocumentInput[];
+}): string {
+  const { context, images = [], documents = [] } = args;
+  const contextNote = context
+    ? `\n\nNach dem Inhalt der Lektion: ${context.slice(0, 900)}`
+    : "\n\nIch konnte gerade nicht auf den Inhalt der Lektion zugreifen; bitte frag deine Lehrkraft.";
+  const imageNote =
+    images.length > 0
+      ? `📸 ${IMAGE_READ_MARKER_DE} (${images.length}) — ich erkläre es Schritt für Schritt anhand unserer Lektion.`
+      : "";
+  const doc = documents[0];
+  const docNote = doc
+    ? `📄 ${DOCUMENT_READ_MARKER_DE} „${doc.fileName ?? "ohne Namen"}“ — ich nutze sie zusammen mit der Lektion, um dir zu antworten. Das Wichtigste: „${doc.text.slice(0, DOC_SNIPPET_CHARS)}“.`
+    : "";
+  const parts: string[] = [];
+  if (imageNote) parts.push(imageNote);
+  if (docNote) parts.push(docNote);
+  parts.push(`${GERMAN_REPLY_MARKER}, einfach und klar.`);
+  parts.push(`Gute Frage! Das gehört zu unserer Lektion. Hier ist es:${contextNote}`);
+  parts.push("💡 **Tipp:**\n- Schau dir das erste Beispiel in der Lektion an\n- Sag mir, was du herausgefunden hast");
+  parts.push("Soll ich es noch einmal anders erklären, oder machen wir eine kurze Frage, um dein Verständnis zu prüfen?");
   return parts.join("\n\n");
 }
 

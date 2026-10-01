@@ -22,23 +22,36 @@
  * narrated in English, every other curriculum in Egyptian Arabic. The chrome
  * around it (labels, notices) stays Arabic — only the content language moves.
  */
-export type VoiceLanguage = "ar" | "en";
+/**
+ * PHASE 39 (D-043) — the *spoken* layer follows the same language as the
+ * written reply (PHASE 38/D-042). PHASE 63 — extended to French and German so a
+ * curriculum taught in either is dictated and narrated in that language. The
+ * chrome around it (labels, notices) stays Arabic — only the content language
+ * moves.
+ */
+export type VoiceLanguage = "ar" | "en" | "fr" | "de";
 
 /** BCP-47 tags handed to SpeechRecognition / SpeechSynthesis. */
 const SPEECH_TAG: Record<VoiceLanguage, string> = {
   ar: "ar-EG",
   en: "en-US",
+  fr: "fr-FR",
+  de: "de-DE",
 };
 
 const LANGUAGE_NAME_AR: Record<VoiceLanguage, string> = {
   ar: "العربية",
   en: "الإنجليزية",
+  fr: "الفرنسية",
+  de: "الألمانية",
 };
 
 /** The language's own label in the (usually English) Windows settings UI. */
 const LANGUAGE_WIN: Record<VoiceLanguage, string> = {
   ar: "Arabic (Egypt)",
   en: "English (United States)",
+  fr: "French (France)",
+  de: "German (Germany)",
 };
 
 /** The BCP-47 tag for a reply language (Egypt is the default Arabic locale). */

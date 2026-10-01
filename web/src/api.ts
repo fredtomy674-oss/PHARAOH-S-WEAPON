@@ -40,8 +40,9 @@ export interface Grade {
 /**
  * PHASE 38/D-042 — the tutor's reply language for a curriculum. The server
  * decides it (from the subject); the client only displays it.
+ * PHASE 63 — added fr/de for curricula taught in French or German.
  */
-export type TutorLanguage = "ar" | "en";
+export type TutorLanguage = "ar" | "en" | "fr" | "de";
 
 export interface Subject {
   id: string;

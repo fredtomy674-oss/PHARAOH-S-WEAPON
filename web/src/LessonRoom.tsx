@@ -171,6 +171,18 @@ function PageSheet({ bookPage, active, cited = false }: { bookPage: number; acti
   );
 }
 
+/**
+ * PHASE 63 — the ribbon says which language the tutor will use. The label is a
+ * function of the reply language the server resolved, so a French-medium lesson
+ * announces French instead of the old English/Arabic pair.
+ */
+const TUTOR_LANGUAGE_LABEL: Record<TutorLanguage, string> = {
+  ar: "🗿 الشرح بالعربية",
+  en: "🗽 الشرح بالإنجليزية",
+  fr: "🗼 الشرح بالفرنسية",
+  de: "🏰 الشرح بالألمانية",
+};
+
 export function LessonRoom({ session, onEnded }: Props) {
   const [bc, setBc] = useState<Breadcrumb["breadcrumb"] | null>(null);
   const [tutorLanguage, setTutorLanguage] = useState<TutorLanguage>("ar");
@@ -857,7 +869,7 @@ export function LessonRoom({ session, onEnded }: Props) {
               a student in a language curriculum is not surprised by the reply. */}
           {b && (
             <span className="lang-chip" data-testid="tutor-language">
-              {tutorLanguage === "en" ? "🗽 الشرح بالإنجليزية" : "🗿 الشرح بالعربية"}
+              {TUTOR_LANGUAGE_LABEL[tutorLanguage]}
             </span>
           )}
         </div>

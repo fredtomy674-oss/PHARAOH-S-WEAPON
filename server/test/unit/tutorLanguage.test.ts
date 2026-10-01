@@ -6,6 +6,7 @@ import {
   readReplyLanguageTag,
   replyLanguageTag,
   resolveTutorLanguage,
+  type TutorLanguage,
 } from "../../src/modules/tutor/language.js";
 import { classifyIntent } from "../../src/modules/tutor/intentClassifier.js";
 import { MockLLMProvider } from "../../src/modules/ai/providers/mock.js";
@@ -29,7 +30,7 @@ const lesson = {
   conceptTitles: ["Third person singular with -s"],
 };
 
-const build = (language?: "ar" | "en", question = "اشرح المضارع البسيط") =>
+const build = (language?: TutorLanguage, question = "اشرح المضارع البسيط") =>
   new PromptBuilder().build({
     intent: "explanation",
     question,
@@ -64,9 +65,25 @@ describe("resolveTutorLanguage", () => {
     expect(resolveTutorLanguage({ code: "arabic" })).toBe("ar");
   });
 
-  it("switches to English for foreign-language subjects", () => {
+  it("switches to the taught language for foreign-language subjects", () => {
     expect(resolveTutorLanguage({ code: "english" })).toBe("en");
-    expect(resolveTutorLanguage({ code: "french" })).toBe("en");
+    expect(resolveTutorLanguage({ code: "french" })).toBe("fr");
+    expect(resolveTutorLanguage({ code: "german" })).toBe("de");
+  });
+
+  it("follows a medium suffix on the subject code (math taught in a foreign language)", () => {
+    expect(resolveTutorLanguage({ code: "math-fr" })).toBe("fr");
+    expect(resolveTutorLanguage({ code: "math-en" })).toBe("en");
+    expect(resolveTutorLanguage({ code: "math-de" })).toBe("de");
+    // An Arabic-medium maths subject has no suffix and stays Arabic.
+    expect(resolveTutorLanguage({ code: "math" })).toBe("ar");
+    // A two-word name is not a medium suffix: "social-studies" stays Arabic.
+    expect(resolveTutorLanguage({ code: "social-studies" })).toBe("ar");
+  });
+
+  it("degrades an unsupported foreign language to English, never to Arabic", () => {
+    // Spanish has no tutor voice; English is the previous, least-surprising reply.
+    expect(resolveTutorLanguage({ code: "spanish" })).toBe("en");
   });
 
   it("ignores case, spaces, dashes and underscores, and accepts the lang- prefix", () => {
@@ -100,6 +117,20 @@ describe("prompt language contract", () => {
     expect(readReplyLanguageTag(system)).toBe("en");
   });
 
+  it("states the French and German rules for French/German-medium curricula (PHASE 63)", () => {
+    const fr = build("fr").messages[0]!.content;
+    expect(fr).toContain(replyLanguageTag("fr"));
+    expect(fr).toContain(LANGUAGE_STYLES.fr.rule);
+    expect(fr).toContain(LANGUAGE_STYLES.fr.reply);
+    expect(readReplyLanguageTag(fr)).toBe("fr");
+
+    const de = build("de").messages[0]!.content;
+    expect(de).toContain(replyLanguageTag("de"));
+    expect(de).toContain(LANGUAGE_STYLES.de.rule);
+    expect(de).toContain(LANGUAGE_STYLES.de.reply);
+    expect(readReplyLanguageTag(de)).toBe("de");
+  });
+
   it("keeps the teaching and safety rules identical in both languages", () => {
     const ar = build().messages[0]!.content;
     const en = build("en").messages[0]!.content;
@@ -122,7 +153,7 @@ describe("prompt language contract", () => {
 });
 
 describe("offline provider honours the language", () => {
-  const ask = async (language?: "ar" | "en") => {
+  const ask = async (language?: TutorLanguage) => {
     const { messages } = build(language, "Explain the present simple");
     const res = await new MockLLMProvider().complete({
       operation: "tutor",
@@ -143,6 +174,20 @@ describe("offline provider honours the language", () => {
     expect(content).toContain("Great question!");
     expect(content).toContain("We use is with he, she and it.");
     expect(content).not.toContain("سؤال جيد");
+  });
+
+  it("replies in French and German for French/German-medium curricula (PHASE 63)", async () => {
+    const fr = await ask("fr");
+    expect(fr.content).toContain("Bonne question !");
+    expect(fr.content).toContain("We use is with he, she and it.");
+    expect(fr.content).not.toContain("سؤال جيد");
+    expect(fr.content).not.toContain("Great question!");
+
+    const de = await ask("de");
+    expect(de.content).toContain("Gute Frage!");
+    expect(de.content).toContain("We use is with he, she and it.");
+    expect(de.content).not.toContain("سؤال جيد");
+    expect(de.content).not.toContain("Bonne question !");
   });
 });
 

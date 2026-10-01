@@ -126,8 +126,15 @@ export class PromptBuilder {
     // the answer, so it follows the reply language; an Arabic "[مصدر 1]" inside an
     // English lesson is exactly the leak this phase exists to remove. (The rest
     // of the prompt block stays Arabic on purpose — see the rules above.)
-    const sourceTag = (n: number) => (language === "en" ? `[source ${n}]` : `[مصدر ${n}]`);
-    const context = input.chunks.length > 0 ? input.chunks.map((c, i) => `${sourceTag(i + 1)}\n${c.content}`).join("\n\n---\n\n") : "";
+    // PHASE 63 — French uses the same word ("source"), German its own ("Quelle").
+    const sourceTag: Record<TutorLanguage, (n: number) => string> = {
+      ar: (n) => `[مصدر ${n}]`,
+      en: (n) => `[source ${n}]`,
+      fr: (n) => `[source ${n}]`,
+      de: (n) => `[Quelle ${n}]`,
+    };
+    const cite = (n: number) => sourceTag[language](n);
+    const context = input.chunks.length > 0 ? input.chunks.map((c, i) => `${cite(i + 1)}\n${c.content}`).join("\n\n---\n\n") : "";
     const doc = input.documents?.[0];
     const hasDocument = doc !== undefined;
     // PHASE 48 — two extra lines, and only when a page is really on screen:

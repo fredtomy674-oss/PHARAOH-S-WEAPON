@@ -113,6 +113,9 @@ export const EnvSchema = z.object({
    *  model detects the language from the text itself. */
   GEMINI_TTS_LANGUAGE_AR: z.string().default(""),
   GEMINI_TTS_LANGUAGE_EN: z.string().default(""),
+  /** PHASE 63 — French/German-medium curricula are narrated in their own language. */
+  GEMINI_TTS_LANGUAGE_FR: z.string().default(""),
+  GEMINI_TTS_LANGUAGE_DE: z.string().default(""),
   /** Cap on synthesized text (chars) — bounds latency and cost for a long reply. */
   SPEECH_MAX_CHARS: z.coerce.number().int().positive().default(4000),
   /** Abort the provider call after this many ms; the client then falls back to

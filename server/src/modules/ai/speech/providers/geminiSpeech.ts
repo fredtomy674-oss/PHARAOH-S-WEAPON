@@ -5,9 +5,20 @@ import { isPcmMime, pcmToWav, readPcmSampleRate, toPlayableWav, WAV_MIME } from 
 
 const BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 
-/** BCP-47 dialect hint per language, when the operator configured one. */
+/**
+ * BCP-47 dialect hint per language, when the operator configured one. An empty
+ * hint asks the model to detect the language from the text itself; the four
+ * entries mirror the tutor's reply languages (PHASE 63).
+ */
+const LANGUAGE_HINTS: Record<SpeechLanguage, () => string> = {
+  ar: () => config.GEMINI_TTS_LANGUAGE_AR,
+  en: () => config.GEMINI_TTS_LANGUAGE_EN,
+  fr: () => config.GEMINI_TTS_LANGUAGE_FR,
+  de: () => config.GEMINI_TTS_LANGUAGE_DE,
+};
+
 function languageHint(language: SpeechLanguage): string {
-  return language === "en" ? config.GEMINI_TTS_LANGUAGE_EN : config.GEMINI_TTS_LANGUAGE_AR;
+  return LANGUAGE_HINTS[language]();
 }
 
 /** How many pieces are synthesized at once (see `synthesizeParts`). */

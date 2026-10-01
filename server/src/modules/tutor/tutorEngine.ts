@@ -104,14 +104,23 @@ export interface TutorHandleResult {
 const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟";
 /** PHASE 38/D-042 — an English-language curriculum gets an English refusal. */
 const SAFE_REFUSAL_EN = "I am here to help you with our lesson only 💙. Tell me what you would like us to understand together today?";
+/** PHASE 63 — French/German-medium curricula get their own refusal. */
+const SAFE_REFUSAL_FR = "Je suis là pour t'aider uniquement avec notre leçon 💙. Dis-moi ce que tu veux que nous comprenions ensemble aujourd'hui ?";
+const SAFE_REFUSAL_DE = "Ich bin hier, um dir nur bei unserer Lektion zu helfen 💙. Sag mir, was wir heute gemeinsam verstehen möchten?";
 
 /**
  * The safety refusal is part of the tutor's voice, so it speaks the same
- * language as the lesson — an Arabic wall of text inside an English lesson is
+ * language as the lesson — an Arabic wall of text inside a French lesson is
  * exactly the "why is it talking that way?" moment we are removing.
  */
 function safeRefusal(language: TutorLanguage): TutorResponse {
-  const text = language === "en" ? SAFE_REFUSAL_EN : SAFE_REFUSAL_AR;
+  const refusal: Record<TutorLanguage, string> = {
+    ar: SAFE_REFUSAL_AR,
+    en: SAFE_REFUSAL_EN,
+    fr: SAFE_REFUSAL_FR,
+    de: SAFE_REFUSAL_DE,
+  };
+  const text = refusal[language];
   return { content: text, tone: "friendly", parts: [{ type: "text", text }], assessment: { conceptsTouched: [], confidence: 0 } };
 }
 
@@ -129,14 +138,16 @@ const MAX_PROMPT_ECHO_REGENS = 2;
  * say honestly that this turn hiccuped and invite a retry.
  */
 const mirrorFallback = (language: TutorLanguage): TutorResponse => {
-  const content =
-    language === "en"
-      ? "Sorry, I hit a hiccup — could you ask me again? 💙"
-      : "عذرًا يا بطل، عندي مشكلة مؤقتة في الرد — أعد سؤالك وسأحاول مجددًا 💙";
+  const content: Record<TutorLanguage, string> = {
+    ar: "عذرًا يا بطل، عندي مشكلة مؤقتة في الرد — أعد سؤالك وسأحاول مجددًا 💙",
+    en: "Sorry, I hit a hiccup — could you ask me again? 💙",
+    fr: "Désolé, j'ai eu un petit souci — peux-tu me reposer la question ? 💙",
+    de: "Entschuldige, ich hatte kurz ein Problem — kannst du mir die Frage noch einmal stellen? 💙",
+  };
   return {
-    content,
+    content: content[language],
     tone: "apologetic",
-    parts: [{ type: "text", text: content }],
+    parts: [{ type: "text", text: content[language] }],
     assessment: { conceptsTouched: [], confidence: 0 },
   };
 };
