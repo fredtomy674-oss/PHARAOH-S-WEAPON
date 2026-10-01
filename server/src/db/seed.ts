@@ -27,6 +27,12 @@ import {
 } from "./schema.js";
 import { newId } from "../utils/ids.js";
 import { EGYPT_T1_UNITS, conceptDocument } from "./egyptT1.js";
+import {
+  EGYPT_SCIENCE_T1_UNITS,
+  conceptDocument as scienceConceptDocument,
+  isConsistent as isScienceTreeConsistent,
+  assertTreeMatchesTheBook as assertScienceTreeMatchesBook,
+} from "./egyptScienceT1.js";
 
 /** Where one seeded lesson lives — used as the RAG scope for its document. */
 interface SeededLesson {
@@ -127,6 +133,108 @@ function buildEgyptT1Term(): TermSeedSpec {
         };
       }),
     })),
+  };
+}
+
+/**
+ * Egyptian Grade-6 **Science** — OFFICIAL curriculum (PHASE 59).
+ *
+ * The first term IS the Ministry textbook (`Science_Primary6_T1.pdf`, 2026/2027
+ * MoE edition): its 10 chapters, one app lesson per printed مفهوم, each lesson
+ * grounded on the OCR text of the very pages the book prints for that concept
+ * (server/data/curriculum-ocr/science-t1/) — so the tutor's RAG retrieval reads
+ * from «كتاب الوزارة» verbatim. The second term is a placeholder until its book
+ * is imported the same way.
+ *
+ * The chapter/concept table itself is verified before seeding: `isConsistent`
+ * checks the table's invariants and `assertTreeMatchesTheBook` re-reads every
+ * printed page of the OCR corpus to confirm the concept head each page prints
+ * falls inside that concept's page range. A wrong range would silently hide book
+ * content from the tutor, so seeding refuses to run on an unverified table.
+ */
+export const EGYPT_SCIENCE_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "science", name: "Science", nameAr: "العلوم" },
+  curriculum: { code: "eg-g6-science", title: "العلوم للصف السادس الابتدائي" },
+  terms: [buildEgyptScienceT1Term(), buildEgyptScienceT2Placeholder()],
+};
+
+/** Term 1 = the official book: one app lesson per printed مفهوم, pages OCR'd. */
+function buildEgyptScienceT1Term(): TermSeedSpec {
+  const check = verifyScienceTree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_T1_UNITS.map((chapter, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: chapter.title,
+      lessons: chapter.concepts.map((concept, ci) => {
+        const title = `المفهوم ${concept.key}: ${concept.title}`;
+        return {
+          // Namespaced: the science book prints the same «chapter-concept» labels
+          // as the maths book (١-١, ١-٢ …), so a bare `l-con-1-2` would be the same
+          // string in two curricula — a lookup by code would silently answer from
+          // the wrong book. Codes stay unique across every seeded curriculum.
+          code: `l-sci-con-${concept.key}`,
+          title,
+          concepts: [concept.title],
+          doc: { title, content: scienceConceptDocument(ui, ci) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the science tree verification, as one verdict. */
+function verifyScienceTree(): { ok: boolean; problems: string[] } {
+  const table = isScienceTreeConsistent();
+  const book = assertScienceTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/** Term 2 placeholder — hand-written until the second-term book is imported. */
+function buildEgyptScienceT2Placeholder(): TermSeedSpec {
+  return {
+    code: "term-2",
+    title: "الفصل الدراسي الثاني",
+    units: [
+      {
+        code: "unit-1",
+        title: "المادة وحالاتها",
+        lessons: [
+          {
+            code: "l-matter-states",
+            title: "حالات المادة والمادة النقية",
+            concepts: ["حالات المادة الثلاث", "المادة النقية والمادة المخلوطة"],
+            doc: {
+              title: "حالات المادة والمادة النقية",
+              content: `درس حالات المادة والمادة النقية.
+حالات المادة: تنقسم المادة إلى ثلاث حالات، وهي الصلبة والسائلة والغازية. تختلف الحالة في شكل المادة وانتظام جزيئاتها وقربها من بعضها. صلبة: جزيئاتها منتظمة ومتراصّة ومثبتة في مكانها مثل الحديد. سائلة: جزيئاتها قريبة من بعضها لكنها غير منتظمة وتتحرك بحرية مثل الماء. غازية: جزيئاتها متباعدة وتتحرك في كل الاتجاهات مثل الهواء.
+المادة النقية: كل جزء منها له نفس التركيب والخصائص، مثل الماء النقي والذهب. والمادة المخلوطة: تتكوّن من أكثر من مادة نقية، مثل الهواء (ثاني أكسيد الكربون + الأكسجين + النيتروجين) والماء المالح.
+مثال: الملح النقي مادة نقية لأن كل ذراته من نوع واحد (الصوديوم والكلور)، وأي ماء تذوب فيه ذرات يصبح مخلوطًا.
+تذكر: المادة تنتقل بين الحالات بالتسخين أو التبريد، والتركيب نفسه لا يتغيّر.`,
+            },
+          },
+          {
+            code: "l-elements-mixtures",
+            title: "العناصر والمركبات",
+            concepts: ["العناصر والمركبات", "الخلوط وطرق فصلها"],
+            doc: {
+              title: "العناصر والمركبات",
+              content: `درس العناصر والمركبات.
+العنصر: مادة نقية تتكوّن من نوع واحد من الذرات، وله اسم ورمز، مثل الأكسجين (O) والكربون (C).
+المركّب: مادة نقية تتكوّن من ذرات نوعين أو أكثر مرتبطة بترتيب ثابت، مثل الماء (H₂O) وثاني أكسيد الكربون (CO₂).
+الخليط: اجتماع مواد دون ارتباط كيميائي، مثل الهواء، ويمكن فصله بطرق فيزيائية: بالترشيح، أو بالتسخين (التبخير)، أو بالتقطير.
+مثال تطبيقي: إذا أذبت ملعقة ملح في كوب ماء فحصلت على «ماء مالح»، وهذا خلط قابل للفصل بالتسخين: الماء يتبخر والملح يبقى.
+تذكر: الماء مركّب ثابت (H₂O)، والماء المالح خلط متغيّر (ماء + ملح).`,
+            },
+          },
+        ],
+      },
+    ],
   };
 }
 
@@ -306,11 +414,12 @@ async function main(): Promise<void> {
 
   const egypt = await seedCountry(db, knowledge, EGYPT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**
