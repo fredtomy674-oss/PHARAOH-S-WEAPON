@@ -33,6 +33,12 @@ import {
   isConsistent as isScienceTreeConsistent,
   assertTreeMatchesTheBook as assertScienceTreeMatchesBook,
 } from "./egyptScienceT1.js";
+import {
+  EGYPT_SOCIAL_T1_UNITS,
+  lessonDocument as socialLessonDocument,
+  isConsistent as isSocialTreeConsistent,
+  assertTreeMatchesTheBook as assertSocialTreeMatchesBook,
+} from "./egyptSocialT1.js";
 
 /** Where one seeded lesson lives — used as the RAG scope for its document. */
 interface SeededLesson {
@@ -238,6 +244,62 @@ function buildEgyptScienceT2Placeholder(): TermSeedSpec {
   };
 }
 
+/**
+ * Egyptian Grade-6 **Social Studies** — OFFICIAL curriculum (PHASE 60).
+ *
+ * The first term IS the Ministry textbook (`Social_Studies_Primary6_T1.pdf`,
+ * 2026/2027 MoE edition): its 3 units and 12 lessons as printed in the contents
+ * page, each lesson carrying the book's own printed concepts. Every lesson's RAG
+ * document is the OCR text of the very pages the book prints for it
+ * (server/data/curriculum-ocr/social-t1/). There is no second-term spec: its
+ * book has not been imported, and a hand-written stand-in would misrepresent it.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping page by page from the
+ * printed footers, checks every lesson's opener prints its title, and confirms
+ * no printed page falls outside a lesson. Seeding refuses to run on an
+ * unverified table.
+ */
+export const EGYPT_SOCIAL_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "social", name: "Social Studies", nameAr: "الدراسات الاجتماعية" },
+  curriculum: { code: "eg-g6-social", title: "الدراسات الاجتماعية للصف السادس الابتدائي" },
+  terms: [buildEgyptSocialT1Term()],
+};
+
+/** Term 1 = the official book: one app lesson per printed درس, pages OCR'd. */
+function buildEgyptSocialT1Term(): TermSeedSpec {
+  const check = verifySocialTree();
+  if (!check.ok) throw new Error(`شجرة كتاب الدراسات الاجتماعية غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SOCIAL_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-soc-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: socialLessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the social tree verification, as one verdict. */
+function verifySocialTree(): { ok: boolean; problems: string[] } {
+  const table = isSocialTreeConsistent();
+  const book = assertSocialTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
 /** Term 2 placeholder — hand-written until the second-term book is imported. */
 function buildEgyptT2Placeholder(): TermSeedSpec {
   return {
@@ -415,11 +477,12 @@ async function main(): Promise<void> {
   const egypt = await seedCountry(db, knowledge, EGYPT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SOCIAL_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**
