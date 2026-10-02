@@ -288,6 +288,68 @@ describe("PromptBuilder", () => {
     });
   });
 
+  // PHASE 75 — the lesson's own pages of the Ministry book. The tutor must teach
+  // from exactly these pages, for every curriculum, so the teacher and the book
+  // never drift apart.
+  describe("the lesson's own pages", () => {
+    const lesson = {
+      countryNameAr: "مصر",
+      systemNameAr: "المنهج",
+      gradeNameAr: "الصف",
+      subjectNameAr: "الرياضيات",
+      curriculumTitle: "المنهج",
+      termTitle: "الفصل",
+      unitTitle: "الوحدة",
+      lessonTitle: "قابلية القسمة",
+      conceptTitles: ["قابلية القسمة"],
+    };
+
+    it("names a contiguous lesson range as one phrase and keeps the tutor inside it", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "اشرح",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        lessonPages: [6, 7, 8],
+      });
+      const system = messages[0]!.content;
+      expect(system).toContain("صفحات هذا الدرس من كتاب الوزارة");
+      expect(system).toContain("من صفحة 6 إلى صفحة 8");
+      expect(system).toContain("ولا تطلب من الطالب فتح صفحة ليست من صفحات الدرس");
+    });
+
+    it("names a lesson with an appendix page page by page, never as a range", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "اشرح",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        lessonPages: [6, 7, 8, 146],
+      });
+      const system = messages[0]!.content;
+      expect(system).toContain("صفحة 146");
+      // A gap (9…145) must not be read as part of the lesson.
+      expect(system).not.toContain("من صفحة 6 إلى صفحة 146");
+    });
+
+    it("adds nothing when the lesson has no book pages (text-only)", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "اشرح",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+      });
+      expect(messages[0]!.content).not.toContain("صفحات هذا الدرس");
+      expect(messages[0]!.content).not.toContain("فتح صفحة ليست من صفحات الدرس");
+    });
+  });
+
   // PHASE 55 — the tutor manages the session: it stays on the stuck concept
   // and teaches from the book's own worked examples first.
   describe("session management", () => {

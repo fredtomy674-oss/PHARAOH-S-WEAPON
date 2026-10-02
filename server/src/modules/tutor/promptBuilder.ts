@@ -62,6 +62,13 @@ export interface BuildPromptInput {
    */
   viewingPage?: { bookPage: number; text: string };
   /**
+   * PHASE 75 — the lesson's whole printed page set (the stage). The tutor is
+   * told exactly which pages of كتاب الوزارة this lesson occupies, so it teaches
+   * *from those pages* and points at them, for every curriculum. Absent for a
+   * text-only lesson (no rasterized book), where no page exists to point at.
+   */
+  lessonPages?: number[];
+  /**
    * PHASE 51 — the student placed the pin on the number line and asks for
    * verification. `value` is the snapped pin position; `line` is the line the
    * tutor itself drew (absent when the pin arrived with no line behind it).
@@ -119,6 +126,17 @@ export class PromptBuilder {
       : "";
     const pageBlock = viewing?.text
       ? `<page>\n${pageName(viewing.bookPage)} — ما هو مكتوب في الصفحة المفتوحة أمام الطالب الآن:\n${viewing.text}\n</page>\n\n`
+      : "";
+
+    // PHASE 75 — the lesson's own pages, named as facts. This is what makes the
+    // teacher and the student share *the same book* for every curriculum: the
+    // tutor knows which pages the lesson occupies, so it explains from them and
+    // points at them instead of describing a book it is not looking at. The
+    // citations the room offers are filtered to the same set (see tutorEngine),
+    // so a page the student cannot turn to is never cited.
+    const pagesLine = input.lessonPages && input.lessonPages.length > 0 ? lessonPagesLine(input.lessonPages) : "";
+    const pagesRule = pagesLine
+      ? "- صفحات درسنا من كتاب الوزارة هي المذكورة أعلاه وهذه وحدها؛ ابنِ شرحك وتفاعلك على مضمونها، وأشِر إلى رقم الصفحة التي تشرح منها، ولا تطلب من الطالب فتح صفحة ليست من صفحات الدرس ولا تذكر صفحات أخرى من الكتاب.\n"
       : "";
 
     const memoryLine = buildMemoryLine(input.memory);
@@ -214,6 +232,8 @@ export class PromptBuilder {
       replyLanguageTag(language),
       "",
       lessonLine,
+      // PHASE 75 — the lesson's pages, then the page on screen (when open).
+      ...(pagesLine ? ["", pagesLine] : []),
       // PHASE 48 — only when a page is really open: no empty line, no phantom
       // "the page in front of you" when the student is reading in the app only.
       ...(viewingLine ? ["", viewingLine] : []),
@@ -222,7 +242,7 @@ export class PromptBuilder {
       "",
       context ? `<context>\n${context}\n</context>` : "<context>\n(لا يوجد محتوى مسترجع لهذا السؤال)\n</context>",
       "",
-      `# المطلوب الآن\n${pageRule}${imageLine}${documentLine}${widgetRule}${askLine}\n` +
+      `# المطلوب الآن\n${pagesRule}${pageRule}${imageLine}${documentLine}${widgetRule}${askLine}\n` +
         // PHASE 43 hotfix — brevity is latency: the only model answering
         // reliably today (gemma-4-26b-a4b-it) generates ~20 s of Arabic per
         // reply when it is free to ramble, which breaks the interactive game.
@@ -260,6 +280,25 @@ export class PromptBuilder {
  */
 function pageName(bookPage: number): string {
   return bookPage === 0 ? "صفحة الافتتاح" : `صفحة ${bookPage}`;
+}
+
+/**
+ * PHASE 75 — names the lesson's printed pages as one factual phrase. A normal
+ * lesson is a contiguous run ("من صفحة ٦ إلى صفحة ٨"); a lesson that also points
+ * to an appendix page (the Arabic listening passages) is named page by page, so
+ * the tutor never reads a gap as a range it should fill.
+ */
+function lessonPagesLine(pages: number[]): string {
+  const sorted = [...new Set(pages)].filter((p) => Number.isInteger(p) && p >= 0).sort((a, b) => a - b);
+  if (sorted.length === 0) return "";
+  const contiguous = sorted.every((p, i) => i === 0 || p === sorted[i - 1]! + 1);
+  if (sorted.length === 1) {
+    return `صفحات هذا الدرس من كتاب الوزارة: ${pageName(sorted[0]!)} فقط.`;
+  }
+  if (contiguous) {
+    return `صفحات هذا الدرس من كتاب الوزارة: من ${pageName(sorted[0]!)} إلى ${pageName(sorted[sorted.length - 1]!)} (${sorted.length} صفحات متتالية).`;
+  }
+  return `صفحات هذا الدرس من كتاب الوزارة: ${sorted.map((p) => pageName(p)).join("، ")}.`;
 }
 
 function describeIntent(intent: TutorIntent): string {

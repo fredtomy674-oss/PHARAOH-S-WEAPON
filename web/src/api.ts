@@ -394,6 +394,8 @@ export interface LessonStage {
   fromBookPage: number;
   toBookPage: number;
   pages: BookStagePage[];
+  /** PHASE 75 — appendix pages this lesson points to (already inside `pages`). */
+  appendixPages: number[];
   hasImages: boolean;
 }
 

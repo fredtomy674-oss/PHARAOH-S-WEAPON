@@ -55,6 +55,7 @@ import {
 import {
   BOOK_TO_PDF_OFFSET as ARABIC_OFFSET,
   EGYPT_ARABIC_T1_BOOK_END,
+  allLessonExtras as arabicLessonExtras,
   allLessonRanges as arabicLessonRanges,
   loadBookPage as loadArabicPage,
 } from "../../db/egyptArabicT1.js";
@@ -115,7 +116,20 @@ interface StageBook {
   prefix: string;
   offset: number;
   bookEnd: number;
+  /**
+   * PHASE 75 — highest page that can ever appear in a stage for this book: its
+   * own content end, or an appendix page a lesson points to (the Arabic listening
+   * passages reach page 148). Image/text lookup is bounded by this, while
+   * `bookEnd` keeps naming the book's own last unit page.
+   */
+  maxPage: number;
   ranges: Map<string, { from: number; to: number }>;
+  /**
+   * PHASE 75 — book-wide pages a lesson points to but does not own (the Arabic
+   * listening passages in the back matter), keyed by lesson code. They join the
+   * lesson's stage so the student can read the very page the tutor quotes.
+   */
+  extras: Map<string, number[]>;
   loadPage: (bookPage: number) => string;
 }
 
@@ -128,13 +142,30 @@ function buildBook(opts: {
   loadPage: (bookPage: number) => string;
   /** Some books print their key with a dot (`1.1`); the seeder writes `1-1`. */
   keyToCode?: (key: string) => string;
+  /** PHASE 75 — appendix pages per printed lesson key (`1-1` → `[146]`). */
+  extras?: Map<string, number[]>;
 }): StageBook {
   const ranges = new Map<string, { from: number; to: number }>();
   for (const r of opts.ranges) {
     const key = opts.keyToCode ? opts.keyToCode(r.key) : r.key;
     ranges.set(opts.prefix + key, { from: r.from, to: r.to });
   }
-  return { code: opts.code, prefix: opts.prefix, offset: opts.offset, bookEnd: opts.bookEnd, ranges, loadPage: opts.loadPage };
+  const extras = new Map<string, number[]>();
+  for (const [key, pages] of opts.extras ?? []) {
+    const code = opts.keyToCode ? opts.keyToCode(key) : key;
+    extras.set(opts.prefix + code, [...pages]);
+  }
+  const maxPage = Math.max(opts.bookEnd, ...[...extras.values()].flat(), 0);
+  return {
+    code: opts.code,
+    prefix: opts.prefix,
+    offset: opts.offset,
+    bookEnd: opts.bookEnd,
+    maxPage,
+    ranges,
+    extras,
+    loadPage: opts.loadPage,
+  };
 }
 
 const STAGE_BOOKS: StageBook[] = [
@@ -143,7 +174,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g6-math-fr", prefix: "l-mfr-", offset: MATH_FR_OFFSET, bookEnd: EGYPT_MATH_FR_T1_BOOK_END, ranges: mathFrConceptRanges(), loadPage: loadMathFrPage, keyToCode: (k) => k.replace(".", "-") }),
   buildBook({ code: "eg-g6-science", prefix: "l-sci-con-", offset: SCIENCE_OFFSET, bookEnd: EGYPT_SCIENCE_T1_BOOK_END, ranges: scienceConceptRanges(), loadPage: loadSciencePage }),
   buildBook({ code: "eg-g6-social", prefix: "l-soc-", offset: SOCIAL_OFFSET, bookEnd: EGYPT_SOCIAL_T1_BOOK_END, ranges: socialLessonRanges(), loadPage: loadSocialPage }),
-  buildBook({ code: "eg-g6-arabic", prefix: "l-ara-", offset: ARABIC_OFFSET, bookEnd: EGYPT_ARABIC_T1_BOOK_END, ranges: arabicLessonRanges(), loadPage: loadArabicPage }),
+  buildBook({ code: "eg-g6-arabic", prefix: "l-ara-", offset: ARABIC_OFFSET, bookEnd: EGYPT_ARABIC_T1_BOOK_END, ranges: arabicLessonRanges(), loadPage: loadArabicPage, extras: arabicLessonExtras() }),
   buildBook({ code: "eg-g6-islamic-education", prefix: "l-isl-", offset: ISLAMIC_OFFSET, bookEnd: EGYPT_ISLAMIC_T1_BOOK_END, ranges: islamicLessonRanges(), loadPage: loadIslamicPage }),
   buildBook({ code: "eg-g6-christian-education", prefix: "l-chr-", offset: CHRISTIAN_OFFSET, bookEnd: EGYPT_CHRISTIAN_T1_BOOK_END, ranges: christianLessonRanges(), loadPage: loadChristianPage }),
   buildBook({ code: "eg-g6-ict", prefix: "l-ict-", offset: ICT_OFFSET, bookEnd: EGYPT_ICT_T1_BOOK_END, ranges: ictLessonRanges(), loadPage: loadIctPage }),
@@ -151,8 +182,8 @@ const STAGE_BOOKS: StageBook[] = [
 
 const STAGE_BOOK_BY_CODE = new Map(STAGE_BOOKS.map((b) => [b.code, b]));
 
-/** Highest printed page any lesson owns — the sanity bound for citations. */
-export const MAX_BOOK_PAGE = Math.max(...STAGE_BOOKS.map((b) => b.bookEnd));
+/** Highest printed page any lesson owns (its range or an appendix page). */
+export const MAX_BOOK_PAGE = Math.max(...STAGE_BOOKS.map((b) => b.maxPage));
 
 /** Scan/PDF page that holds a printed book page for this book. */
 export function bookPageToPdfPage(curriculumCode: string, bookPage: number): number {
@@ -168,7 +199,7 @@ function pageFileName(pdfPage: number): string {
 export function pageImagePath(curriculumCode: string, bookPage: number): string | null {
   const book = STAGE_BOOK_BY_CODE.get(curriculumCode);
   if (!book) return null;
-  if (!Number.isInteger(bookPage) || bookPage < 0 || bookPage > book.bookEnd) return null;
+  if (!Number.isInteger(bookPage) || bookPage < 0 || bookPage > book.maxPage) return null;
   const root = path.resolve(pagesDir(curriculumCode));
   const file = path.join(root, pageFileName(bookPageToPdfPage(curriculumCode, bookPage)));
   // Defence in depth: the name is generated, but the resolved path must still
@@ -207,6 +238,13 @@ export interface LessonStage {
   toBookPage: number;
   pages: StagePage[];
   /**
+   * PHASE 75 — book-wide appendix pages this lesson points to but does not own
+   * (the Arabic listening passages). They are already part of `pages`; this is
+   * the same set named explicitly, so a caller can label them without inferring
+   * from the page numbers.
+   */
+  appendixPages: number[];
+  /**
    * False when no page image was found for this lesson. The room must treat
    * this as "text-only session", never as an error: a deployment without the
    * source PDF is a supported configuration, not a broken one.
@@ -224,14 +262,22 @@ export function stageForLesson(curriculumCode: string, lessonCode: string): Less
   const range = book.ranges.get(lessonCode);
   if (!range) return null;
 
-  const pages: StagePage[] = [];
-  for (let bookPage = range.from; bookPage <= range.to; bookPage += 1) {
-    pages.push({
-      bookPage,
-      pdfPage: bookPageToPdfPage(curriculumCode, bookPage),
-      present: pageImagePath(curriculumCode, bookPage) !== null,
-    });
-  }
+  // The lesson's own printed range, plus any appendix page it points to (the
+  // Arabic listening passages). The union is kept ascending so the room's page
+  // strip reads left-to-right like the book; the appendix page stays outside
+  // `fromBookPage`/`toBookPage`, which keep naming the lesson's own range.
+  const appendixPages = (book.extras.get(lessonCode) ?? []).filter(
+    (p) => Number.isInteger(p) && p >= 0 && p <= book.maxPage && (p < range.from || p > range.to),
+  );
+  const owned: number[] = [];
+  for (let bookPage = range.from; bookPage <= range.to; bookPage += 1) owned.push(bookPage);
+  const allPages = [...owned, ...appendixPages].sort((a, b) => a - b);
+
+  const pages: StagePage[] = allPages.map((bookPage) => ({
+    bookPage,
+    pdfPage: bookPageToPdfPage(curriculumCode, bookPage),
+    present: pageImagePath(curriculumCode, bookPage) !== null,
+  }));
   return {
     curriculumId: curriculumCode,
     lessonCode,
@@ -239,6 +285,7 @@ export function stageForLesson(curriculumCode: string, lessonCode: string): Less
     fromBookPage: range.from,
     toBookPage: range.to,
     pages,
+    appendixPages,
     hasImages: pages.some((p) => p.present),
   };
 }
@@ -255,12 +302,22 @@ export function stageForLesson(curriculumCode: string, lessonCode: string): Less
  */
 export const BOOK_PAGE_MARKER = /\[صفحة الكتاب (\d+)\]/;
 
-/** The printed pages a retrieved passage was taken from (sorted, unique). */
-export function bookPagesInText(text: string): number[] {
+/**
+ * The printed pages a retrieved passage was taken from (sorted, unique).
+ *
+ * PHASE 75 — `allowedPages`, when given, is the lesson's own page set: a marker
+ * for a page the lesson does not own (a neighbouring lesson's page, or the
+ * Arabic appendix when the lesson does not point to it) is dropped. That is the
+ * alignment guarantee: every page the tutor's answer stands on is a page the
+ * student can turn to in the stage.
+ */
+export function bookPagesInText(text: string, allowedPages?: ReadonlySet<number>): number[] {
   const found = new Set<number>();
   for (const match of text.matchAll(/\[صفحة الكتاب (\d+)\]/g)) {
     const n = Number(match[1]);
-    if (Number.isInteger(n) && n >= 0 && n <= MAX_BOOK_PAGE) found.add(n);
+    if (!Number.isInteger(n) || n < 0 || n > MAX_BOOK_PAGE) continue;
+    if (allowedPages && !allowedPages.has(n)) continue;
+    found.add(n);
   }
   return [...found].sort((a, b) => a - b);
 }
@@ -274,6 +331,6 @@ export function bookPagesInText(text: string): number[] {
 export function bookPageText(curriculumCode: string, bookPage: number): string {
   const book = STAGE_BOOK_BY_CODE.get(curriculumCode);
   if (!book) return "";
-  if (!Number.isInteger(bookPage) || bookPage < 0 || bookPage > book.bookEnd) return "";
+  if (!Number.isInteger(bookPage) || bookPage < 0 || bookPage > book.maxPage) return "";
   return book.loadPage(bookPage).trim();
 }

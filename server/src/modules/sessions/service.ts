@@ -187,10 +187,17 @@ function parseBookPages(raw: string | null): number[] | undefined {
  * rasterized book has no range, so nothing is ever believed.
  */
 export function resolveBookPage(
-  stage: { fromBookPage: number; toBookPage: number } | null,
+  stage: { fromBookPage: number; toBookPage: number; pages?: { bookPage: number }[] } | null,
   page: number | undefined,
 ): number | undefined {
   if (!stage || page === undefined) return undefined;
+  // PHASE 75 — a lesson's stage can reach beyond its own printed range (the
+  // Arabic listening appendix), so membership in the lesson's page set is the
+  // truth when it is known; the range remains the fallback for callers that
+  // carry only a range.
+  if (stage.pages && stage.pages.length > 0) {
+    return stage.pages.some((p) => p.bookPage === page) ? page : undefined;
+  }
   return page >= stage.fromBookPage && page <= stage.toBookPage ? page : undefined;
 }
 
@@ -599,6 +606,10 @@ export class SessionService {
       userId: studentRow.userId,
       dailyLimit,
       viewingPage,
+      // PHASE 75 — the lesson's whole printed page set travels with the turn, so
+      // the tutor knows every page of the stage and every page it cites is one
+      // the student can actually turn to.
+      lessonPages: stage ? stage.pages.map((p) => p.bookPage) : undefined,
       // The just-stored question, so history lookups resolve to earlier turns.
       excludeMessageId: userMessage.id,
       ...(ink ? { ink: { bookPage: inkPage, strokes: strokeCount } } : {}),

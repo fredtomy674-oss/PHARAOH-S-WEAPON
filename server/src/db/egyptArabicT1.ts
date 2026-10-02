@@ -299,6 +299,23 @@ export function allLessonRanges(): { key: string; title: string; from: number; t
   return out;
 }
 
+/**
+ * PHASE 75 — the appendix page(s) each listening lesson points to, keyed by the
+ * lesson key (`1-1` → `[146]`). The listening lessons print their exercises but
+ * not the passage; the passage lives in the back matter. The stage appends these
+ * pages so the student reads the very page the tutor quotes from — the teacher
+ * and the student stay on the same pages, appendix included.
+ */
+export function allLessonExtras(): Map<string, number[]> {
+  const out = new Map<string, number[]>();
+  for (const unit of EGYPT_ARABIC_T1_UNITS) {
+    for (const lesson of unit.lessons) {
+      if (lesson.extraBookPages?.length) out.set(lesson.key, [...lesson.extraBookPages]);
+    }
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------------------
 // OCR text loading
 // ---------------------------------------------------------------------------

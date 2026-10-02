@@ -240,3 +240,45 @@ describe("the page in front of the student", () => {
     if (science.length > 0 && maths.length > 0) expect(science).not.toBe(maths);
   });
 });
+
+// PHASE 75 — a lesson is *the pages of the book it is taught from*, for every
+// curriculum. For the Arabic listening lessons that set also includes the
+// back-matter passage page; for every lesson the citations the tutor offers must
+// stay inside that set, so the teacher and the student never drift apart.
+describe("the lesson's own page set (PHASE 75)", () => {
+  it("carries the Arabic listening passage into the lesson's stage", () => {
+    const stage = stageForLesson("eg-g6-arabic", "l-ara-1-1");
+    expect(stage).not.toBeNull();
+    // The lesson's own printed range is unchanged…
+    expect(stage!.fromBookPage).toBe(6);
+    expect(stage!.toBookPage).toBe(8);
+    // …and the passage page is a real stage page, named as an appendix page.
+    expect(stage!.pages.map((p) => p.bookPage)).toContain(146);
+    expect(stage!.appendixPages).toEqual([146]);
+  });
+
+  it("keeps an ordinary lesson's stage exactly its printed range", () => {
+    const stage = stageForLesson(EGYPT_G6_MATH_CURRICULUM, "l-con-1-2")!;
+    expect(stage.appendixPages).toEqual([]);
+    expect(stage.pages.map((p) => p.bookPage)).toEqual(
+      Array.from({ length: stage.toBookPage - stage.fromBookPage + 1 }, (_, i) => stage.fromBookPage + i),
+    );
+  });
+
+  it("lets an appendix page be read like any owned page, and still refuses a page beyond every lesson", () => {
+    // The page bound now reaches the appendix (book page 146 → scan page 147).
+    const resolved = pageImagePath("eg-g6-arabic", 146);
+    expect(resolved === null || resolved.endsWith("pages-147.jpg")).toBe(true);
+    expect(pageImagePath("eg-g6-arabic", MAX_BOOK_PAGE + 1)).toBeNull();
+  });
+
+  it("drops a cited page the lesson does not have, keeping the ones it does", () => {
+    const text = "[صفحة الكتاب 5]\nالمثال\n\n[صفحة الكتاب 50]\nدرس آخر";
+    // Without a lesson set the global bound decides (both are real book pages).
+    expect(bookPagesInText(text)).toEqual([5, 50]);
+    // With the lesson's own set, only its pages survive.
+    expect(bookPagesInText(text, new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]))).toEqual([5]);
+    expect(bookPagesInText(text, new Set([50]))).toEqual([50]);
+    expect(bookPagesInText(text, new Set())).toEqual([]);
+  });
+});

@@ -876,7 +876,7 @@ export function LessonRoom({ session, onEnded }: Props) {
         <div className="room-ribbon-facts">
           {stage && stage.hasImages && currentPage && (
             <span className="room-fact" data-testid="room-page-fact">
-              📖 {pageLabel(currentPage.bookPage)} من {stage.toBookPage}
+              📖 {pageLabel(currentPage.bookPage)} من كتاب الوزارة
             </span>
           )}
           {mastery !== null && (
@@ -948,7 +948,7 @@ export function LessonRoom({ session, onEnded }: Props) {
                   ›
                 </button>
                 <span className="room-stage-count" data-testid="stage-position">
-                  {pageLabel(currentPage.bookPage)} · إلى {stage.toBookPage}
+                  {pageLabel(currentPage.bookPage)} · {pageIndex + 1}/{pages.length}
                 </span>
                 <button
                   data-testid="stage-next"

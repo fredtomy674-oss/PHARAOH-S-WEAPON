@@ -42,6 +42,14 @@ export interface TutorHandleInput {
    */
   viewingPage?: number;
   /**
+   * PHASE 75 — the lesson's whole printed page set (the stage pages). It is what
+   * keeps the teacher and the student on the same pages for every curriculum:
+   * the tutor is told which pages the lesson occupies, and the citations that
+   * drive the room's page jumps are filtered to exactly this set, so the teacher
+   * can never stand the student on a page this lesson does not have.
+   */
+  lessonPages?: number[];
+  /**
    * PHASE 50 — «لوح الحبر»: the student drew on a printed page of the book.
    *
    * The picture is already inside `images` (the page as he marked it); this
@@ -284,7 +292,18 @@ export class TutorEngine {
     // PHASE 48 — citations. Every book chunk carries a `[صفحة الكتاب N]` marker
     // written by the seeder, so the pages a reply is built on are a fact about
     // the retrieval, not a guess the model has to make (and get wrong).
-    const citedBookPages = bookPagesInText(retrieveResult.chunks.map((c) => c.content).join("\n"));
+    //
+    // PHASE 75 — the markers are additionally restricted to the lesson's own
+    // pages (`lessonPages`), so a passage that slipped in from a neighbour — or
+    // an appendix page this lesson does not point to — can never make the tutor
+    // offer a page the student's stage does not have. Without a stage (text-only
+    // curricula), the global sanity bound still applies.
+    const allowedPages =
+      input.lessonPages && input.lessonPages.length > 0 ? new Set(input.lessonPages) : undefined;
+    const citedBookPages = bookPagesInText(
+      retrieveResult.chunks.map((c) => c.content).join("\n"),
+      allowedPages,
+    );
 
     // PHASE 51 — which line the pin belongs to. The key is resolved from the
     // stored transcript (the last line the tutor drew), never from the
@@ -346,6 +365,7 @@ export class TutorEngine {
       language,
       lastQuestion: isAnswerTurn ? lastTutorQuestion : undefined,
       viewingPage,
+      lessonPages: input.lessonPages,
       widget: pin,
     });
 
