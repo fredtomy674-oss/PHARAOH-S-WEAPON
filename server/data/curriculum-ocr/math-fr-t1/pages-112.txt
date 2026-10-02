@@ -1,0 +1,37 @@
+UNITÉ 7 | CONCEPT 1
+Explorer les mesures de la tendance centrale et de la propagation
+
+Analyser les méthodes Le tableau montre le nombre de crayons que les élèves du quatrième groupe ont apportés en classe.
+
+**Groupe 4**
+| Étudiant M | 9 |
+| :--- | :--- |
+| Étudiant N | 3 |
+| Étudiant O | 12 |
+| Étudiant P | 8 |
+| Étudiant Q | 8 |
+
+Lorsqu’on a demandé de trouver la moyenne des crayons de leur groupe, l’élève M et l’élève P ont utilisé des méthodes différentes.
+Stratégie de L’élève M a rassemblé tous les crayons et a distribué chaque crayon un par un à chacun des 5 élèves jusqu’à ce qu’il n’en reste plus.
+Stratégie de l’élève P Toujours à la recherche de raccourcis, l’élève P ne voulait pas prendre le temps de distribuer chaque crayon un à un aux membres de son groupe. Il voulait déterminer combien chaque personne en recevrait et leur en donnerait en une fois. Pour le faire, il a additionné le nombre total de crayons dans son groupe et a divisé ce nombre par le nombre d’élèves de son groupe.p.
+Écrivez vos réponses aux questions suivantes..
+A. La méthode de l’élève M donne-t-elle à chaque élève du groupe une part équitable des crayons ? Qu’en est-il de la méthode de l’étudiant P ? Expliquer..
+B. Quelles sont les expressions numériques qui modélisent la méthode de Student P?
+
+Utiliser une expression Simplifiez les expressions numériques qui montrent la stratégie de l’élève P pour trouver la moyenne du nombre de crayons du groupe 5 apportés en classe. Montrez votre travail et expliquez comment vous avez trouvé votre réponse..
+
+**Groupe 5**
+| Élève R | 9 |
+| :--- | :--- |
+| Élève S | 2 |
+| Élève T | 10 |
+| Élève U | 5 |
+| Élève V | 9 |
+
+💬 Parlons ensemble
+• Discutez les expressions que vous avez écrites et simplifiées pour trouver la moyenne avec un partenaire.
+• Comment cette valeur se compare-t-elle à celle que vous auriez obtenu si vous aviez trouvé le point d’équilibre des données ?
+
+✔️ Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+
+104 |

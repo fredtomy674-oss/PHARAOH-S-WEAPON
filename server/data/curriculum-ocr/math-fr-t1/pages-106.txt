@@ -1,0 +1,47 @@
+UNITÉ
+7
+
+Thème 2|Opérations mathématiques et
+Pensée algébrique : statistiques et
+analyse de données
+
+Mesures de Tendance
+Centrale et propagation
+
+Vidéo
+
+Mesures de tendance centrale et de propagation
+
+Ouvre-unité
+
+Vidéo : Mesures de
+tendance centrale et
+de propagation
+Explique comment
+peut-on arriver aux
+interprétations et
+aux observations en
+analysant la façon de distribution des
+données).
+
+Code Rapide
+egm6121
+
+Vocabulaire clé
+
+Valeur absolue, moyen, point
+d'équilibre, part égale, intervalle
+interquartile (IQR), moyenne
+arithmétique), moyenne mesure
+de tendance centrale (dispersion
+(étalement des données), médiane,
+valeur aberrante ; étendue ;
+valeur ; variance Des observations
+peuvent être faites en analysant
+la façon dont les données sont
+distribuées
+
+MINISTRY OF EDUCATION AND TECHNICAL EDUCATION
+وزارة التربية والتعليم والتعليم الفني
+
+Photo Credit: (a) Mia2you / Shutterstock.com; (b) Mr.Prasit BOONMA / Shutterstock.com

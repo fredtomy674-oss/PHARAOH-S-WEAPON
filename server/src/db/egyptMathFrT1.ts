@@ -280,23 +280,6 @@ const OCR_DIR = path.join(
   "math-fr-t1",
 );
 
-/**
- * The PDF's embedded text layer for the pages OCR could not fetch before the
- * provider's quota ran out. Every page stored here was measured clean (readable
- * French, no garbled runs, no control characters) — the same check that rejected
- * the *whole* text layer as a source also proves these pages trustworthy. The
- * publisher's own text lives in its own directory so the tree never mixes
- * sources silently.
- */
-const TEXT_LAYER_DIR = path.join(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "..",
-  "..",
-  "data",
-  "curriculum-text-layer",
-  "math-fr-t1",
-);
-
 const pad = (n: number) => String(n).padStart(3, "0");
 
 function readTextFile(file: string): string {
@@ -318,23 +301,12 @@ function readTextFile(file: string): string {
 const IMAGE_ONLY_BOOK_PAGES: ReadonlySet<number> = new Set([13]);
 
 /**
- * Printed book pages whose text comes from the PDF's embedded text layer instead
- * of the OCR run: books 93–111 (PDF 101–119) minus the pages OCR did finish
- * (96, 110). The tree treats them exactly like OCR pages; only their provenance
- * differs, and it is recorded here.
+ * OCR text of book page N. The whole book was OCR'd in one resumable batch, so
+ * there is a single source: the scan's OCR under `data/curriculum-ocr/math-fr-t1`.
  */
-export const TEXT_LAYER_BOOK_PAGES: ReadonlySet<number> = new Set([
-  93, 94, 95, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 111,
-]);
-
-/** OCR (or, for the marked pages, embedded-text-layer) text of book page N. */
 export function loadBookPage(book: number): string {
   if (IMAGE_ONLY_BOOK_PAGES.has(book)) return "";
-  const file = `pages-${pad(book + BOOK_TO_PDF_OFFSET)}.txt`;
-  const ocr = readTextFile(path.join(OCR_DIR, file));
-  if (ocr) return ocr;
-  if (TEXT_LAYER_BOOK_PAGES.has(book)) return readTextFile(path.join(TEXT_LAYER_DIR, file));
-  return "";
+  return readTextFile(path.join(OCR_DIR, `pages-${pad(book + BOOK_TO_PDF_OFFSET)}.txt`));
 }
 
 /**
@@ -455,12 +427,11 @@ export function isConsistent(): { ok: boolean; problems: string[] } {
 
 /**
  * The strong check, against the book itself:
- *  1. the printed footer of every OCR page proves its book number (the
- *     text-layer pages have no line-structured footer to parse, so their number
- *     is proven by the pages around them and by the tiling);
- *  2. every content page carries real text — OCR for most pages, the PDF's own
- *     text layer for the marked ones (the picture-only page is documented and
- *     excluded);
+ *  1. the printed footer of every page proves its book number when the book
+ *     prints one (a few pages print the number in the running head instead, so
+ *     their number is proven by the pages around them and by the tiling);
+ *  2. every content page carries real text (the picture-only page is documented
+ *     and excluded);
  *  3. every concept's title is printed inside the concept's own page range;
  *  4. every printed page is owned by exactly one concept.
  */
@@ -468,19 +439,16 @@ export function assertTreeMatchesTheBook(): {
   ok: boolean;
   problems: string[];
   pagesChecked: number;
-  textLayerPages: number;
 } {
   const problems: string[] = [];
   const ranges = allConceptRanges();
   let footersChecked = 0;
-  let textLayerChecked = 0;
 
   for (let book = EGYPT_MATH_FR_T1_BOOK_START; book <= EGYPT_MATH_FR_T1_BOOK_END; book++) {
     if (IMAGE_ONLY_BOOK_PAGES.has(book)) continue;
-    if (TEXT_LAYER_BOOK_PAGES.has(book)) textLayerChecked++;
     const text = loadBookPage(book);
     if (!text) {
-      problems.push(`صفحة الكتاب ${book}: بلا نص (لا مسح ولا طبقة مدمجة)`);
+      problems.push(`صفحة الكتاب ${book}: بلا نص مسح`);
       continue;
     }
     if (!pageHasText(book)) {
@@ -527,5 +495,5 @@ export function assertTreeMatchesTheBook(): {
     }
   }
 
-  return { ok: problems.length === 0, problems, pagesChecked: footersChecked, textLayerPages: textLayerChecked };
+  return { ok: problems.length === 0, problems, pagesChecked: footersChecked };
 }

@@ -5,7 +5,6 @@ import { EGYPT_MATH_FR_SPEC, seedCountry } from "../../src/db/seed.js";
 import {
   BOOK_TO_PDF_OFFSET,
   EGYPT_MATH_FR_T1_UNITS,
-  TEXT_LAYER_BOOK_PAGES,
   allConceptRanges,
   assertTreeMatchesTheBook,
   conceptBookRange,
@@ -60,34 +59,48 @@ describe("PHASE 67 — Egypt Grade-6 Mathematics (French-medium) official Minist
     expect(norm(loadBookPage(1))).toContain(norm("Algorithme de division"));
     // The page's own running foot proves its number.
     expect(printedFooter(1)).toBe(1);
-    // Book page 111 is the last numbered content page. It comes from the PDF's
-    // embedded text layer (OCR quota ran out), which keeps the printed number as
-    // a token in the running head rather than as a trailing footer line.
-    expect(norm(loadBookPage(111))).toContain("explorerletendue111");
+    // Book page 111 is the last numbered content page; its running foot proves
+    // its number too.
+    expect(printedFooter(111)).toBe(111);
+    expect(norm(loadBookPage(111))).toContain(norm("Explorer l'étendue"));
   });
 
   it("blanks the full-page picture rather than injecting OCR guesses", () => {
-    // No text layer: pdf.js returns only the bare footer digit on book 13. Books
-    // 67 and 79 are pictures too, but the French scan carries a photo credit on
+    // Book 13 is a picture: pdf.js returns only the bare footer digit. Books 67
+    // and 79 are pictures too, but the French scan carries a photo credit on
     // them, so their real text is kept.
     expect(loadBookPage(13)).toBe("");
   });
 
-  it("fills the pages OCR quota could not reach from the book's own embedded text layer", () => {
-    // The OCR provider hit its quota before PDF 101–119 landed. The PDF's
-    // embedded text layer for exactly those pages was measured clean (readable
-    // French, no garbled runs, no control characters) and stored separately, so
-    // the tutor still reads the book's own words rather than a blank page.
-    expect([...TEXT_LAYER_BOOK_PAGES].sort((a, b) => a - b)).toEqual([
-      93, 94, 95, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 111,
-    ]);
-    for (const book of TEXT_LAYER_BOOK_PAGES) {
-      expect(loadBookPage(book).length).toBeGreaterThan(50);
-    }
-    // The pages on both sides were OCR'd, so the two sources meet with no gap.
-    for (const book of [92, 96, 110]) {
+  it("OCRs the whole book: every content page carries text from one source", () => {
+    // The book was OCR'd in one resumable batch (120 pages). No page is filled
+    // from the PDF's embedded text layer any more, so the tutor reads one source.
+    for (let book = 1; book <= 111; book++) {
+      if (book === 13) continue;
       expect(loadBookPage(book).length).toBeGreaterThan(0);
     }
+  });
+
+  it("keeps the printed learning targets in step with the OCR source", () => {
+    // The module's concepts are the printed «Objectif(s) d'apprentissage»
+    // bullets, transcribed verbatim. Each must still be present in the OCR of its
+    // own concept's pages, so the tree and the book cannot drift apart.
+    let checked = 0;
+    EGYPT_MATH_FR_T1_UNITS.forEach((unit, ui) => {
+      unit.concepts.forEach((concept, ci) => {
+        const { from, to } = conceptBookRange(ui, ci);
+        let text = "";
+        for (let book = from; book <= to; book++) text += " " + loadBookPage(book);
+        const haystack = norm(text);
+        for (const target of concept.concepts) {
+          const fingerprint = norm(target).slice(0, 15);
+          if (fingerprint.length < 8) continue;
+          expect(haystack, `${concept.key}: ${target}`).toContain(fingerprint);
+          checked++;
+        }
+      });
+    });
+    expect(checked).toBe(47);
   });
 
   it("tiles the book exactly: 7 units, 10 concepts covering printed pages 0–111 once each", () => {

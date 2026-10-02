@@ -1,0 +1,20 @@
+Analyser les graphiques Supposons que trois élèves réalisent ces graphiques à partir de certains prénoms dans leur classe. Utilise ces graphiques pour effectuer les trois tâches.
+
+Graphique de l'élève A
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+Graphique de l'élève B
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+Graphique de l'élève C
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+A. Explique-en quoi les graphiques de l’élève A et de l’élève C sont similaires et décrivez- en quoi ils diffèrent du graphique de l’élève B.
+
+B. Décris la méthode que l’élève A et l’élève C pourraient suivre, en utilisant leurs graphiques pour trouver le point d’équilibre des données.
+
+C. Explique la méthode que l’élève B pourrait suivre, en utilisant son graphique pour trouver le point d’équilibre et décrive quelle méthode est-elle différente de celles des autres?
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+
+Leçon 1 • Explorer l’équilibre des ensembles de données | 101

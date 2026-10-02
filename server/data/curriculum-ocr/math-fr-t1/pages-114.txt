@@ -1,0 +1,29 @@
+UNITÉ 7
+CONCEPT 1
+Explorer les mesures de la tendance centrale et de la propagation
+
+Nombre de frères et soeurs des élèves de 6 ème primaire
+
+0 1 2 3 4 5 6 7 8 9
+
+Frères et soeurs Voici les données d'une classe de 6 ème primaire. En examinant le diagramme de points des données sur les frères et soeurs des élèves, comment la valeur aberrante affecte-t-elle la moyenne ?
+
+A. La valeur aberrante n'aurait pas d'effet sur moyenne arithmétique.
+B. La valeur aberrante entraînerait une moyenne inférieure.
+C. La valeur aberrante entraînerait une moyenne arithmétique beaucoup plus élevée.
+D. La valeur aberrante entraînerait une moyenne arithmétique plus élevée, mais la quantité serait négligeable.
+
+Effet sur la médiane La valeur aberrante change-t-elle la médiane de cet ensemble de données? Explique tes causes.
+
+Quelle mesure de centre ? Selon toi, quelle mesure de tendance centrale est-il préférable d'utiliser avec ces données qui incluent une valeur aberrante : la moyenne ou la médiane ? Explique ton raisonnement.
+Considérez les deux diagrammes de points..
+
+Hauteurs des girafes
+5 5.2 5.4 5.6 5.8 5.10 6.0 6.2 6.4 6.6 6.8 6.10 7
+Hauteur en mètres
+
+Résultats des examens de mathématiques
+0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100
+Score
+
+106 |

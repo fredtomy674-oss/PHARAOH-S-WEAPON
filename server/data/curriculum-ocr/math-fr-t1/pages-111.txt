@@ -1,0 +1,35 @@
+Analyser les solutions Saeed a trouvé la moyenne arithmétique de ces nombres sans créer de diagramme de points ni déplacer les éléments de comptages. Explique comment Saeed aurait pu trouver la moyenne arithmétique.
+
+Analyser une autre situation Comment Saïd a-t-il pu trouver la moyenne de deux valeurs de données, 39 et 51, sans tracer un graphique ? Explique le processus qu'il pourrait utiliser et comment cette valeur pourrait être considérée comme une moyenne arithmétique.
+
+Parlons ensemble discute avec ton collègue la raison pour laquelle deplacer il n'est pas toujours nécessaire de tracer un graphique des éléments de comptages et de les trouver la moyenne d'un ensemble de données. Cette méthode fonctionnera-t-elle pour chaque ensemble de données?
+
+Partie B:La moyenne arithmétique comme une part égale le point d'équilibre n'est qu'une façon de penser à la moyenne. Explorons-en un autre.
+le professeur fera un test standardise pour ta classe. il regroupera les élèves en 5 tables et demande à chaque groupe d'élèves d'apporter deux crayons pour le test.
+Utilise les éléments de comptages pour t'aider à réaliser les exercices suivants.
+Trouver le nombre de crayons Supposons que chaque élève des deux premiers groupes d'élèves apporte le nombre de crayons montré dans ce tableau..
+
+Crayon bien taillé
+
+| Groupe 1 | | Groupe 2 | |
+| --- | --- | --- | --- |
+| Élève A | 3 | Élève G | 3 |
+| Élève B | 12 | Élève H | 8 |
+| Élève C | 6 | Élève I | 2 |
+| Élève D | 8 | Élève J | 4 |
+| Élève E | 2 | Élève K | 0 |
+| Élève F | 5 | Élève L | 10 |
+
+Utilise les éléments de comptages pour représenter le nombre de crayons apportés par chaque membre. Ensuite, complète les tâches définies pour chaque groupe.
+A. Groupe 1 : Ajuste les éléments de comptages dans ta représentation afin que chaque membre du groupe reçoive le même nombre de crayons. Combien de crayons chaque élève reçoit-il ?
+B. Groupe 2 : Est-il possible d'ajuster les éléments de comptages dans ta représentation pour que chaque membre du groupe reçoive le même nombre de crayons et que tous les crayons soient utilisés ? Explique en quoi part égale est différente du groupe 1..
+
+Résoudre un problème Le groupe 3 n'a pas compté le nombre de crayons apportés par chacun des 6 élèves, mais ils savaient qu'ils avaient un total de 42 crayons. Combien de crayons chaque élève devrait-il recevoir, si les crayons sont répartis de manière égale ?
+A. 4 crayons
+B. 6 crayons
+C. 7 crayons
+D. 42 crayons
+
+Photo Credit: Photographee.eu / Shutterstock.com
+
+Leçon 2 • Explication de la moyenne arithmétique | 103

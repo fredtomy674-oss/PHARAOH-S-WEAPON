@@ -631,9 +631,7 @@ function verifyMathEnTree(): { ok: boolean; problems: string[] } {
  * Terme», 2026/2027 edition): the same seven units as the Arabic `eg-g6-math` and
  * the English `eg-g6-math-en`, with each printed concept as an app lesson,
  * grounded on the OCR text of the pages the book prints for it
- * (server/data/curriculum-ocr/math-fr-t1/); the pages OCR could not reach before
- * its quota ran out are read from the PDF's own embedded text layer
- * (server/data/curriculum-text-layer/math-fr-t1/), measured clean page by page.
+ * (server/data/curriculum-ocr/math-fr-t1/ — the whole book is OCR'd, one source).
  * Each lesson's concepts are the printed «Objectif(s) d'apprentissage» bullets of
  * its lessons, verbatim. There is no second-term spec: its book has not been
  * imported.

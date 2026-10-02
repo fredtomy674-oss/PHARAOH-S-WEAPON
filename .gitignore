@@ -20,10 +20,8 @@ server/drizzle/meta/0000_snapshot.json
 *.db
 server/data/*
 # The official imported curriculum text (from the Ministry PDF) is authoritative
-# source, not runtime state — keep it under version control. The text-layer dir
-# holds the pages OCR could not reach, read from the PDF's own embedded text.
+# source, not runtime state — keep it under version control.
 !server/data/curriculum-ocr/
-!server/data/curriculum-text-layer/
 server/uploads/
 web/uploads/
 

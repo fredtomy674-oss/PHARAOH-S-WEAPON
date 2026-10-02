@@ -1,0 +1,41 @@
+Histogramme de fréquence nombre de chansons sur les dispositifs de stockage
+
+20
+16
+12
+8
+4
+0
+
+0–29
+30–59
+60–89
+90–119
+120–149
+150–179
+180–209
+210–239
+
+Nombre d'élèves
+Nombre de chansons
+
+Diagramme de représentations de données : : chansons sur des dispositifs musicaux
+
+50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 210 220 230 240 250
+Nombre de chansons
+
+Diagramme à boîte : Chansons sur dispositifs musicaux
+
+50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 210 220 230 240 250
+Nombre de chansons
+
+Histogramme de fréquence : laquelle de ces questions peut-it-on répondre à l’aide de l’histogramme de fréquence ? l’histogramme de fréquence.
+
+A. Quelle est la période la plus fréquente pour le nombre de chansons ?
+B. Combien d’élèves sont représentés dans les données ?
+C. Combien d’élèves ont 180 chansons ou plus sur leurs appareils?
+D. Combien d’élèves ont 120 chansons sur leurs appareils?
+E. Quel était le plus grand nombre de chansons qu’un élève possédait ?
+F. Combien d’élèves avaient entre 90 et 179 chansons ?
+
+Leçon 5 • Applications sur les représentations de données | 95
