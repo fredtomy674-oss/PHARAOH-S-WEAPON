@@ -1,0 +1,61 @@
+UNITÉ
+1
+CONCEPT 1
+Algorithme de division, GCF et PCM
+
+Tableau numérique : diagrammes de Venn
+premier factorisation de 12 et 18 pour compléter le
+diagramme de Venn. Démontre ta comprehension en
+dessinant dans ton journal ou en utilisant l'outil
+numérique..
+Facteurs
+premiers de
+12
+Facteurs
+Facteurs
+premiers premiers
+communs de 18
+2
+2
+2
+3
+3
+3
+
+Factoriser 12 et 18 en ses facteurs premiers Détermine les factorisations premières pour 12 et
+18. Si nécessaire, crée un arbre factoriel pour chaque nombre..
+12
+18
+X
+X
+X
+X
+
+Trouver le GCF et le PCM Utilise ton diagramme de Venn pour répondre à ces questions..
+A. Quel est le GCF de 12 et 18 ?
+B. Quel est le PCM de 12 et 18?
+
+Parlons Examine le diagramme de Venn. Examine tous les facteurs premiers pour voir leur lien
+avec le PCM et le PCM. Discute de tes découvertes avec un partenaire.
+
+Utiliser des facteurs premiers Réponde à chaque question.
+A. Comment le diagramme de Venn peut-il t' aider à trouver le GCF ?
+B. Comment le diagramme de Venn peut-il t' aider à trouver le PCM ?
+Relativement premier les nombres sont des nombres dont le seul diviseur commun 1
+
+Parlons
+• Si tu dessinais un diagramme de Venn pour deux nombres relativement premiers, comme 4 et 9, à quoi
+ressemblerait-il ?
+• Si nous faisions un diagramme de Venn pour montrer les facteurs premiers communs aux deux
+nombres, quels facteurs se retrouveraient dans le chevauchement ? Justifiez votre réponse
+
+Relativement premier Pour deux nombres relativement premiers, lesquels des énoncés suivants
+sont vrais ? Identifie tout ce qui s'applique.
+A. Puisqu'il n'y a pas de facteurs communs à l'intersection, le GCF est égal à 0.
+B. Puisqu'il n'y a pas de facteurs communs à l'intersection, le GCF est de 1.
+C. Le PCM est le produit de deux nombres..
+D. Le PCM est le produit de tous les facteurs premiers du diagramme de Venn.
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité
+
+4

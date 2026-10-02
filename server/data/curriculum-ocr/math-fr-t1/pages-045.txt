@@ -1,0 +1,24 @@
+Analyser d’autres situations Le poids d’un astronaute et la durée de son sommeil sont également affectés lorsque l’astronaute part en mission spatiale
+
+Poids sur la Lune Certains astronautes ont été envoyés en mission sur la Lune. Un astronaute sur la lune pèse ce que pèse l’astronaute sur Terre. $\frac{1}{6}$ du poids de l’astronaute sur Terre..
+
+Astronaute
+
+Montrez vos calculs pour le poids de certains astronautes lors de votre visite sur la Lune
+
+| Poids sur Terre (Newton)) | Poids sur la Lune (Newton) |
+| :---: | :---: |
+| $66$ | $(A)$ |
+| $84$ | $(B)$ |
+
+Écrire une expression Pensez à la relation entre le poids d’un astronaute sur Terre et son poids sur la Lune, comme indiqué dans le tableau que vous venez de remplir. Utilisez les informations du tableau pour effectuer ces trois tâches..
+
+A. Quelle valeur varie selon l’astronaute ?
+B. Quelle partie de la relation entre le poids d’un astronaute sur Terre reste la même chaque fois que vous trouvez le poids d’un astronaute sur la Lune ?
+C. Écrivez une expression algébrique qui représenterait le poids de n’importe quel astronaute visitant la Lune. Sélectionnez une lettre que vous pouvez utiliser pour représenter le poids d’un astronaute sur la Lune en utilisant le poids de l’astronaute sur Terre..
+
+Dormir dans l’espace Les astronautes doivent s’attacher lorsqu’ils dorment afin de ne pas flotter. Ils planifient $8$ heures de sommeil chaque jour où ils sont dans l’espace.
+
+Écrivez une expression mathématique qui représente le nombre d’heures qu’un astronaute dort pendant une mission, où le nombre de jours est le nombre inconnu. Expliquez votre raisonnement..
+
+Leçon 1 • Créer des expressions mathématiques | 37

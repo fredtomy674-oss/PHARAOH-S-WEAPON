@@ -1,0 +1,63 @@
+CONSTRUIRE ET CONNECTER
+
+Partie A : Analyser les données sur une droite numérique
+
+Utiliser des droites numériques pour afficher les données Affichez les données sur les
+poissons sous forme d'entiers sur une droite numérique. Étiquetez chaque point avec la lettre
+d'observation. Ensuite, expliquez ce que vous remarquez sur les points.
+
+Analyser une autre situation Supposons que votre amie souhaite que vous la rencontriez à
+l'étang à poissons à .14h30. Vous arrivez à 14h25. Votre amie arrive à 14h35.
+
+Représentez ce scénario sur une droite numérique et expliquez votre raisonnement. Au lieu
+d'utiliser les heures données, représentez le temps écoulé et l'heure de la réunion sous forme de
+nombres entiers..
+
+Sélectionnez les vraies déclarations En supposant que zéro représente l'heure d'arrivée,
+sélectionnez toutes .les affirmations qui sont vraies.
+
+A. Votre arrivée peut être représentée comme -5 sur la droite numérique
+B. Votre arrivée peut être représentée par 5 sur la droite numérique.
+C. Votre arrivée peut être représentée par un point à 5 unités de 0.
+D. L'arrivée de votre ami peut être représentée comme -5 sur la droite numérique.
+E. L'arrivée de votre ami peut être représentée par 5 sur la droite numérique.
+F. L'arrivée de votre ami peut être représentée par un point qui est à 5 unités de 0..
+
+Parlons ensemble Discutez de vos pensées avec un partenaire.
+
+Partie B : La valeur absolue est la distance entre la position de n'importe quel nombre et la
+position de zéro sur la droite numérique, et elle est toujours positive ou égale à zéro..
+
+Valeur absolue
+|-2| = 2
+
+-3
+-2
+-1
+0
+1
+2
+3
+
+Saleh, Omar, Nour et Tarek sont des frères
+partis en sortie avec leur père dans un
+parc d'attractions. Leur père leur a acheté
+le même nombre de jetons, mais certains
+d'entre eux ont joué plus que d'autres et ont
+dû emprunter des jetons à leurs frères pour
+continuer à jouer. Le tableau représente
+le nombre de jetons que chaque frère
+possédait à la fin de la journée.
+
+Nom
+Fin du nombre de jetons
+Saleh
+10
+Omar
+-8
+Nour
+-2
+Tarek
+8
+
+Leçon 5 • Explorer la valeur absolue 29

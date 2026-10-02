@@ -1,0 +1,42 @@
+CONCEPT 1 | UNIT 5
+Explorer la relation entre deux variables
+
+LEÇON 1
+la relation entre les variables independantes et dependantes
+
+Quick Code
+egm6089
+
+Objectifs d'apprentissage
+• Je peux explorer et appliquer les définitions formelles des variables indépendantes et variables dépendantes.
+
+Pratiques en classe
+• Raisonner de manière abstraite et quantitative.
+• Rechercher et exprimer la regularite cdans le raisonnement repete.
+
+ACCÈS
+Allons au parc d'attractions es-tu déjà allé dans un parc d'attractions ? Dans la plupart des parcs d'attractions, tu peux faire des manèges, jouer à des jeux, voir des animaux et acheter des collations aux stands de nourriture.
+
+ROCK N ROLLER
+SWING
+VIKING
+Ferris Wheel
+CIRCUS SCRAMBLER
+BASKETBALL
+POP BALLOON POP
+DUNK
+RING TOSS
+HIT ME
+FOOD STOP
+Popcorn: 2 tokens | Kofte: 3 tokens | Water: 1 token
+Falafel: 2.50 tokens | Hawawshi: 3.50 tokens
+TICKETS
+SOUVENIRS
+Hats: 9.00 tokens
+Shirts: 10.50 tokens
+BUY
+Parc d'attractions
+
+Explore les photos du parc d’attractions. Quelles relations mathématiques peut-on observer dans le parc d’attractions ?
+
+Leçon 1 • La relation entre les variables independantes et dependantes | 69

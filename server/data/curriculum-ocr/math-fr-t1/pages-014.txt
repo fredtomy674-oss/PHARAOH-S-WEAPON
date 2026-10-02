@@ -1,0 +1,82 @@
+UNITÉ
+1
+CONCEPT 1
+Algorithme de division, P.G.C.D et P.P.C.M
+
+CONSTRUIRE ET CONNECTER
+Faire des boîtes Un étudiant a collecté 12 sacs de céréales et 8 paquets de
+fromage afin de confectionner des boîtes de dons pour les nécessiteux.
+
+Organiser les boîtes Aidez l'élève à déterminer le plus grand nombre de boîtes
+qu'il pourrait fabriquer afin que toutes les boîtes contiennent le même nombre
+d'articles. Soit g pour un sac de céréales et c pour un paquet de fromage. Tu peux
+représenter ces informations avec une expression..
+
+A.
+g g g
+g g g
+C C C
+C
+
+B.
+g g
+g
+C C
+
+g g
+g
+C C
+
+g g
+g
+C C
+
+g g
+g
+C C
+
+g g g
+g g g
+C C C
+C
+
+C.
+g g
+C
+
+g g
+C
+
+g g
+C
+
+g g
+C
+
+g g
+C
+
+g g
+C
+
+g g
+C
+
+g g
+C
+
+Écrire l'expression Quelle expression représente le nombre total d'objets que
+l'élève a mis dans ses boîtes? Identifie tout ce qui s'applique et note les
+expressions correctes.
+
+A. 4 + 3 + 2
+B. 4(3 + 2)
+
+C. (4 × 3) + (4 × 2)
+D. 4 + (3 × 2)
+
+Parlons Discute avec un partenaire de ta réponse à la tâche précédente..
+• As-tu choisi plus d'une expression?
+• Si oui, comment les expressions sont-elles liées?
+
+6

@@ -1,0 +1,34 @@
+UNITÉ 6 | CONCEPT 1 | Applications sur la collecte et la représentation de données
+
+LEÇON 4
+Explorer la boîte à moustaches
+
+Code Rapide
+egm6109
+
+Objectif d'apprentissage
+• Je peux calculer la médiane par résumé des 5 points d'un ensemble de données et décrire comment ces valeurs sont Représentées sur une boite à moustaches.
+
+Pratiques en classe
+• Modéliser avec les mathématiques.
+• s'occuper des précisions.
+
+ACCÈS
+Nombres aléatoires considère les chiffres sur l'image lorsque tu réponds aux questions
+Discutons.
+
+Parlons ensemble:
+• Quand tu collectes des données, les chiffres sont-ils dans l'ordre ou dans le désordre ?
+• Comment vas-tu classer les données ?
+• Comment le classement des données t' aide-t-il à les comprendre ?
+
+Nombres aléatoires
+
+APPRENDRE ET REFLECHIR
+Partie A: Trouver la médiane
+Certains graphiques nous donnent une image plus claire des données que d'autres graphiques. Une boîte à moustaches est l'un de ces graphiques. Pour explorer les boîtes à moustaches, nous devons comprendre la médiane.
+Ton professeur souhaite déterminer combien d'heures un élève consacre à résoudre des problèmes de mathématiques indépendants pendant la semaine scolaire. Rassemble les données de ta propre classe ou utilise les données fournies pour créer un diagramme de points afin d'organiser ces données.
+Exemple de nombre d'heures que les élèves consacrent à résoudre seuls des problèmes de mathématiques pendant une semaine.
+7, 3, 8, 7, 9, 8, 2, 4, 5, 0, 2, 1, 6, 4
+
+90 |

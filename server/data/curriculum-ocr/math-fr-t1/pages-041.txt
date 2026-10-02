@@ -1,0 +1,46 @@
+Représenter les déclarations Répondez à chaque question en choisissant l'une des comparaisons
+de nombres données qui représente correctement la réponse.
+
+-22 < -5
+-16 > -6
+-22 > -5
+-16 > -6
+-22 < -5
+-4,8 > -4,88
+-16 < -6
+-4,8 > 4,88
+
+A. C'est -5°C °Cdans le congélateur A et -22°C dans le congélateur B. Quel congélateur a la
+température la plus basse ?
+B. Le lac A a une distance de position de -16 mètres,, et le lac B à une distance de position de
+-6 m. Quel lac se trouve plus loin sous le niveau de la mer ?
+C. Deux nombres rationnels sont -4,88 et -4,8. Quel nombre est le plus grand ?
+
+Commander les distances de position La
+distance de position de plusieurs étangs
+est indiquée. Créez un tableau comme
+celui présenté pour classer les distances
+de position du plus proche du niveau de la
+mer au plus éloigné du niveau de la mer.
+
+Étang
+A
+B
+C
+D
+E
+Distance de position (en mètres)
+-28
+-430
+33
+89
+-214
+
+Le plus proche du niveau de la mer
+Le plus éloigné du niveau de la merl
+
+Parlons ensemble Partagez vos réponses avec un partenaire et expliquez votre raisonnement.
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+
+Leçon 6. Comparaison de valeurs absolues 33

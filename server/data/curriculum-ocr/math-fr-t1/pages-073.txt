@@ -1,0 +1,36 @@
+- Les valeurs de la variable x qui satisfont l'inégalité (a) dans l'ensemble des nombres rationnels sont tous des nombres rationnels supérieurs à -1
+
+- Les valeurs de la variable x qui satisfont l'inégalité (b) dans l'ensemble des nombres rationnels sont tous des nombres rationnels inférieurs ou égaux à -6
+
+Parlons: En quoi ces droites numériques sont-elles différentes de celles que tu as utilisées auparavant ? Considére ces énoncés algébriques pour préparer la discussion
+x > -6           x ≥ -6           x = -6
+x < -6           x ≤ -6
+
+Parlons Réfléchisse comment tu vas lire chaque affirmation, puis discutez des éléments suivants avec un partenaire.
+• À quoi ressemblerait chaque inégalité sur une droite numérique ?
+• Dans quelle direction chaque graphique pointerait-il ? Pourquoi?
+
+Photo Credit: EugeniaSh / Shutterstock.com
+
+Comparaison 1 Enregistre chaque affirmation vraie concernant les graphiques de X > - 2 et X < -2 su la droite numérique.
+A. -2 appartient à l'ensemble des solutions de chacun d'eux.
+B. -2 appartient à l'ensemble de solutions d'un seul d'entre eux.
+C. L'inegalite X > - 2 inclut toutes les valeurs à gauche de-2sur la droite numérique.
+D. L'inegalite X < - 2 inclut toutes les valeurs à droite de-2sur la droite numérique.
+E. Ils n'ont aucun point commun.
+
+Comparaison 2 Enregistre chaque affirmation vraie concernant les graphiques de X > - 2 et X ≥ - 2 su la droite numérique.
+F. -2 appartient à l'ensemble des solutions de chacun d'eux.
+G. -2 appartient à l'ensemble des solutions de chacun d'eux..
+H. L'inégalitéX≥ -2inclut toutes les valeurs à gauche de-2sur la droite numérique..
+I. L'inégalitéX> -2inclut toutes les valeurs à droite de-2sur la droite numérique.e.
+J. Ils n'ont aucun point commun.
+
+Faire une conjecture En quoi les graphiques de chaque paire d'énoncés algébriques seront-ils similaires ? En quoi les graphiques seront-ils différents ?
+A. x < -2 and x ≤ -2
+B. x ≤ -2 and x ≥ -2
+C. x = -2 and x > -2
+
+Maintenant, tu as exploré les inégalités sur la droite numérique, réfléchis à ce que signifie pour un point d'être inclus sur le graphique d'inégalité. Par exemple, est-ce que2 serait sur le graphique deX≤ -1?
+
+Leçon 3 • Résoudre les inégalités | 65

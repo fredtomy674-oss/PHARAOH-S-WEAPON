@@ -1,0 +1,27 @@
+Unité 4 Équations et inégalités
+Concept 4.1 Ecrire et resoudre des equations et des inegalites
+LECON 1 Résoudre des équations algébriques
+LECON 2 Explorer les inégalités
+LECON 3 Résoudre les inégalités
+Theme 2| Operations mathématiques et Pensee algebrique : statistiques et
+analyse de donnees
+Unité 5 variables independantes et dependantes
+Concept 5.1 Explorer la relation entre deux variables
+LECON 1 la relation entre les variables independantes et dependantes
+LECON 2 Applications sur les variables dependantes et independantes
+LECON 3 Analyser la relation entre la variable dependante et independante
+LECON 4 Representation graphique des variables dependantes et independantes 76
+Unité 6 Distribution des données
+Concept 6.1 Applications sur la collecte et la representation de donnees
+LECON 1 Donnees et questions statistiques
+LECON 2 Explorer l’histogramme
+LECON 3 Representer des donnees a l'aide d'histogrammes
+LECON 4 Explorer la boite a moustaches
+LECON 5 Applications sur les representations de donnees
+Unité 7 Mesures de tendance centrale et de propagation
+Concept 7.1 Explorer les mesures de la tendance centrale et de la propagation
+LECON 1 Explorer l’equilibre des ensembles de donnees
+LECON 2 explication de la moyenne arithmetique
+LECON 3 Explorer la mediane ; le mode et les valeurs aberrantes
+LECON 4 Explorer l’etendue
+Maths 1er Terme V

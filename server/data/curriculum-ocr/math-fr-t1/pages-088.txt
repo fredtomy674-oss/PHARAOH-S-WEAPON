@@ -1,0 +1,28 @@
+UNITÉ
+6
+
+Théme 2 | Opérations mathématiques et pensée algébrique : statistiques et analyse de données
+
+Distribution des données
+
+Vidéo
+Distributions de données
+
+Ouvre-unité
+Vidéo :
+Données
+Distribution
+
+Les graphiques
+peuvent être utilisées pour fournir représentations simplifiées de données complexes
+
+Code Rapide
+egm6101
+
+Vocabulaire clé
+graphique à barres, boîte à moustaches, données catégorielles, clusters, diagramme de points, lacunes, histogramme, intervalle, quartile inférieur, maximum, médiane, représentations simplifiées de données complexes. minimum, données numériques, valeur aberrante, pics, plage, échelle, asymétrique (distribution), asymétrique à gauche, asymétrique à droite , répartition, question statistique, symétrique (distribution), quartile supérieur, variabilité
+
+MINISTRY OF EDUCATION AND TECHNICAL EDUCATION
+وزارة التربية والتعليم والتعليم الفني
+
+Photo Credit: (a) Pixabay / Shutterstock.com; (b) woodpencil / Shutterstock.com

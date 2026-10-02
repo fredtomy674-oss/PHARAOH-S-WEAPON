@@ -1,0 +1,48 @@
+UNITÉ 6 | CONCEPT 1
+Applications sur la collecte et la représentation de données
+
+LEÇON 3
+Représenter des données à l'aide d'histogrammes
+
+Code Rapide
+egm6107
+
+Objectifs d'apprentissage
+• Je peux créer un histogramme pour un ensemble de données.
+• Je peux collecter des données à l'aide de cubes numériques et créer un histogramme pour ces données.
+
+Pratiques en classe
+• Modéliser avec les mathématiques.
+• sois attentif à la précision
+
+ACCÈS
+Mesurer un arbre. Une classe de 6 ème primaire a décidé de s'occuper de quelques arbres dans son quartier. Ils voulaient préciser les arbres à mesurer en utilisant l'envergure de leurs bras. Ils ont commencé par poser cette question statistique : « Quelle est l'envergure de tes bras ? »
+
+Parlons ensemble:Discute avec un camarade comment ces élèves ont pu mesurer la distance entre leurs bras.
+
+APPRENDRE ET REFLECHIR
+Créer un histogramme: Voici les données collectées par les élèves dans un tableau de fréquence. Utilise le tableau numérique ou du papier millimétré pour créer un histogramme afin d'afficher ces données. Assure-toi de choisir un intervalle taille qui a du sens pour cet ensemble de données.
+
+| Longueur des bras (cm) | Fréquence |
+| :---: | :---: |
+| 127 | 2 |
+| 132 | 3 |
+| 135 | 1 |
+| 138 | 1 |
+| 141 | 1 |
+| 142 | 2 |
+| 143 | 1 |
+| 144 | 2 |
+
+| Longueur des bras (cm) | Fréquence |
+| :---: | :---: |
+| 147 | 2 |
+| 149 | 2 |
+| 152 | 3 |
+| 153 | 2 |
+| 157 | 2 |
+| 158 | 3 |
+| 160 | 1 |
+| 166 | 1 |
+
+88 |

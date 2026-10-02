@@ -1,0 +1,57 @@
+UNITÉ
+1
+CONCEPT 1
+Algorithme de division, P.G.C.D et P.P.C.M
+
+LEÇON 4
+Analyse des multiples les moins
+communs
+Code Rapide
+egm6019
+
+Objectifs d'apprentissage
+• Je peux analyser et évaluer l'addition et la
+soustraction de fractions.
+• Je peux utiliser le plus petit commun
+multiple pour créer un dénominateur
+commun..
+
+Pratiques en classe
+• Construire des arguments viables et
+critiquer le raisonnement des autres.
+• Modéliser avec les mathématiques.
+• Recherche et utilise la structure.
+
+ACCÈS
+Fruit Lorsque tu achètes différents types de fruits, le prix
+peut être le même, mais les morceaux à l'intérieur du
+récipient peuvent être très différents en taille et en nombre..
+Fruit
+
+Parlons Partage avec tes pairs comment tu pourrais diviser équitablement un paquet de 32 raisins
+entre 4 ; 2 ; et 8 amis..
+
+CONSTRUIRE ET CONNECTER
+Partitionnement et P.P.C.M Une famille a acheté un ensemble de sacs en plastique pour
+conserver les fruits coupés pour les collations et la cuisine. Chaque fruit entier a été
+coupé en morceaux pour former un emballage complet. Le tableau montre une liste de
+fruits et le nombre de morceaux constituant un emballage complet. Pense à la façon dont
+tu partageras équitablement différents fruits avec un frère ou une sœur si chacun de tu
+avais des paquets de fruits différents.
+
+Type de fruit
+Nombre de pièces dans un sac
+
+Chérimoya
+2
+
+Kakis
+4
+
+Bananes
+8
+
+Rendez-vous
+16
+
+8 |

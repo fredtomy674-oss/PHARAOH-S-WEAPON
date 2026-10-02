@@ -1,0 +1,45 @@
+UNITÉ
+1
+CONCEPT 1
+Algorithme de division, P.G.C.D et P.P.C.M
+
+Ensuite, entre la somme initiale de deux fractions comme $u$ $\frac{a}{b} + \frac{c}{d}$.
+Inclue la justification de ta somme et la valeur finale à l'aide du P.P.C.M
+Sous la direction de ton professeur, échange ta création avec un pair pour trouver des sommes, en comparant
+ton raisonnement et tes réponses. Révise tes réponses ou justifications si nécessaire.
+
+Partagez s'il vous plait Tu achètes un paquet de dattes de 16 pièces. Tu en as déjà mangé
+un morceau lorsque tu te souvenes que tu dois à ton ami la moitié d'un paquet de fruits.
+
+$$\frac{1}{16} \quad \frac{2}{16} \quad \frac{3}{16} \quad \frac{4}{16}$$
+$$\frac{5}{16} \quad \frac{6}{16} \quad \frac{7}{16} \quad \frac{8}{16}$$
+
+Utilise les montants donnés pour répondre à ces deux questions..
+A. Quelle fraction représente le nombre de pièces que tu dois donner à ton ami.
+B. Après avoir donné sa part à ton ami, quelle fraction représente la quantité restante du
+paquet de fruits
+
+Maintenant, choisis parmi les expressions et les nombres proposés pour répondre aux deux
+questions suivantes.
+
+$$\begin{array}{cccc}
+\displaystyle\frac{6}{16} - \frac{1}{16} & \displaystyle\frac{1}{2} - \frac{15}{16} & \displaystyle\frac{15}{16} - \frac{1}{2} & \displaystyle\frac{16}{16} - \frac{8}{16} & \displaystyle\frac{8}{16} - \frac{15}{16} \\
+36 & 24 & 16 & 12 & 8 & 6 & 4 & 2
+\end{array}$$
+
+C. Quelle expression correspond à ce scénario ?
+D. Quell est le P.P.C.M des dénominateurs dans l'expression ?
+
+Essaye ça! !Trouve chaque expression en utilisant le P.P.C.M des dénominateurs. Justifie
+mathématiquement ton raisonnement..
+
+A. $\displaystyle\frac{5}{6} - \frac{3}{8}$
+B. $\displaystyle 1\frac{1}{12} - \frac{5}{9}$
+
+Parlons Lorsque ton enseignant tu le demandes, discute de ton raisonnement sur la façon dont tu
+as utilisé le P.P.C.M pour chaque expression avec un partenaire. Révise et soumette à nouveau tes réponses,
+si nécessaire..
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité
+
+12

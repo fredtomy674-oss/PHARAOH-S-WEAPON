@@ -1,0 +1,40 @@
+UNIT
+1
+CONCEPT 1
+Divisibility, P.G.C.D and P.P.C.M
+
+B. Du tableau précédent complète ce qui suit :
+- Les nombres divisibles par 2 sont ............................
+- Les nombres divisibles par 3 sont ............................
+- Les nombres divisibles par 4 sont ............................
+- Les nombres divisibles par 5 sont ............................
+- Les nombres divisibles par 6 sont ............................
+- Les nombres divisibles par 10 sont ............................
+
+Parlons
+• Discute avec tes partenaires et déduis une règle pour divisibilité par les nombres 10;6;5;4;3;2
+et déduis la relation de divisibilité des facteurs et des multiples d'un nombre
+
+Attitudes de la divisibilité: Quelles attitudes sont à l'origin de la divisibilité détèrmine toutes les
+phrases justes:
+
+a) 6 personnes se sont portés volontaire pour travailler à la banque alimentaire: Les volontaire
+ont travaillé 720 heures par ans. est-ce que toutes les personnes ont travaillé le même
+nombre d' heures?
+
+b) Une école a pris 254 élèves pour participer à une collectè de fouds pour la banque
+alimentaire égyptienne. est-ce que les élèves vont être diviser également par 5 autobus?
+
+c) La banque alimentaire. est-ce que on peut distribuer équitablement par 4 villages.
+
+d) Le nombre d' actions donneés par un grand donateur de la banque alimentaire s'élèves
+à 1250 pour chacune des 10 branches différeutes. est-ce que les actions vont être distribuer
+équitablement par les branches de la banque alimentaire ?
+
+Parlons discute avec un partenaire.
+Les étapes de solution pour déterminer pourquoi vous choisissez certaines situations et pourquoi
+vous ne le faites pas.
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité
+
+2 |

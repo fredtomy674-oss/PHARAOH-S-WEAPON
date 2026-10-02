@@ -1,0 +1,33 @@
+Supposons qu'une élève choisisse un trajet et dise que pour son trajet, le nombre de billets ( t ) dont elle aurait besoin pour faire son trajet ( r ) , les temps pourraient être représentés par t = 5r.
+
+Quel trajet a-t-elle choisi ? Comment peux-tu utiliser son équation pour déterminer le nombre de billets dont elle aurait besoin si elle voulait faire ce trajet 15 fois ?
+
+L'élève dit qu'elle comprend maintenant pourquoi elle a besoin d'en apprendre davantage sur les variables dépendantes et indépendantes. Elle peut voir dans l'équation= 5r, que la valeur de ( r ) dépend de la valeur de ( t ).
+
+Explique si elle a raison.
+
+Parlons ensemble Discute de tes réponses avec ton collègue.
+
+Écrire une équation Maintenant, sélectionnez un autre trajet. Pense à la relation entre le nombre de billets dont tu as besoin pour le nouveau trajet et le nombre de fois que tu souhaites voyager. Écris une équation pour représenter la situation en utilisant les Variables r et t
+
+Utiliser votre équation Comment peux-tu utiliser ton équation pour trouver le nombre de billets que tu utiliserais pour faire ton trajet 12 fois ? Explique ton raisonnement..
+
+Analyser une autre situation: Maintenant, cherchez les relations mathématiques au stand de nourriture.
+
+Équation du pop-corn Pense à la relation entre la nourriture que tu souhaites acheter et le montant de jetons que tu souhaites dépenser. Supposons que tu achetais une boîte de pop-corn pour un ami et que tu ne saches pas quoi acheter pour vous-même. Détermine ce qui est connu et ce qui va changer.
+
+Trajet | Nombre de billets
+Grande roue | 3 billets
+Rock N Roller | 6 billets
+Scrambler | 8 billets
+Swing | 4 billets
+Viking | 5 billets
+
+FOOD STOP
+Popcorn: 2 tokens Kofta: 3 tokens Water: 1 token
+Falafel: 2.50 tokens Hawawshi: 3.50 tokens
+
+Sélectionne deux variables pour écrire une équation pour le montant total de jetons que vous dépenserez au stand de nourriture et expliquez ce que représente chaque partie de l'équation..
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+Leçon 2 • Applications sur les variables dépendantes et indépendantes | 73

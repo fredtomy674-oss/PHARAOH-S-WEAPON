@@ -1,0 +1,75 @@
+UNITÉ
+2
+|
+CONCEPT 2
+Enquêter sur les nombres rationnels
+
+CONSTRUIRE ET CONNECTER
+Ensembles de nombres Lorsque vous placez
+des nombres dans des groupes de nombres
+rationnels, entiers, naturels ou comptés, il
+est important de placer le nombre dans son
+meilleur ensemble. Les sous-ensembles sont
+dans des ensembles. Exemple : Compter
+des nombres incluant le chiffre 2 même s'il
+s'agit également d'un nombre naturel, entier
+et rationnel. Étant donné que l'ensemble des
+nombres comptés se trouve dans l'ensemble
+naturel et que l'ensemble des nombres
+naturels est dans l'ensemble des nombres
+entiers et que l'ensemble des nombres
+entiers est dans l'ensemble rationnel.
+
+Relier les nombres rationnels
+Placer des numéros Décrivez les critères que
+vous avez utilisés pour placer chaque numéro
+dans le tableau blanc : diagramme de Venn..
+
+Nombres rationnels
+nombres non entiers
+(Fractions et décimales)
+nombres entiers
+nombres naturels
+Nombres entiers négatifs
+les nombres à compter
+Zéro
+nombres rationnels
+nombres naturels
+entiers
+les nombres à compter
+
+Nommer les numéros Faites correspondre les nombres au meilleur sous-ensemble.
+A. 0,585757;
+B. 4;
+C. -455;
+D. 0;
+E. -0,606;
+F. 6\frac{2}{3};
+G. -11;
+H. -28 765;
+I. \frac{1}{2};
+J. 1;
+K. 12 892;
+L. 4,9;
+
+Parlons Partagez vos réponses au problème précédent avec un partenaire, en les révisant si
+nécessaire. Discutez ensuite les ensembles de nombres que vous venez de nommer et des critères que
+vous avez utilisés pour nommer chaque ensemble. Discutez des questions suivantes.
+• Dans quels sous-ensembles se trouve le nombre 14? Que diriez-vous-3et 0,5 ?
+• Comment les différents ensembles de nombres sont-ils liés les uns aux autres ?
+• Que signifie appartenir un élément à un ensemble ?
+• Qu'entend-on par sous-ensembles et inclusion d'un ensemble dans un autre ensemble ?
+
+Analyser les relations Identifiez les affirmations qui sont toujours vraies. Sélectionnez toutes les
+déclarations qui s'appliquent.
+A. Tous les nombres entiers (Positif, Négatif et Zéro) sont également des nombres naturels.
+B. Tous les nombres à compter sont également des nombres naturels, des nombres entiers
+(positifs, négatifs et zéro) et des nombres rationnels.
+C. Tous les nombres rationnels sont également des entiers (Positif, Négatif et Zéro)..
+D. Tous les nombres naturels sont également des nombres entiers (positifs, négatifs et zéro)
+et rationnels
+E. Tous les nombres entiers (Positif, Négatif et Zéro) sont également des nombres rationnels..
+F. Tous les nombres rationnels sont également des nombres naturels et des nombres
+comptés
+
+24

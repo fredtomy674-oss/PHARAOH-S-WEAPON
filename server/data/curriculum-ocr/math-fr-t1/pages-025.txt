@@ -1,0 +1,31 @@
+Tracer et comparer des nombres Dans une
+journée froide, un pêcheur est en train de pêcher.
+
+A quelle température l'eau de mer gèle-t-elle ?
+L'eau douce gèle à 0 degré Celsius, mais d'autres
+liquides, comme l'eau de mer, gèlent à d'autres
+températures. Le tableau indique la température à
+laquelle certains liquides gèlent..
+
+Liquide Point de congélation (°C)
+L'huile de maïs -20
+Eau fraiche 0
+Eau de mer -2
+Huile d'arachide 3
+jus d'orange -6
+
+Pêcher par temps froid
+
+Tu peux représenter graphiquement les températures à l'aide d'une droite numérique horizontale
+ou verticale. Utilise l'un des tableaux blancs suivants avec ta classe pour visualiser et discuter des
+deux options graphiques. Ensuite, choisis l'orientation de la droite numérique que tu souhaite
+utiliser pour représenter graphiquement les points de congélation donnés.
+
+Tableau numérique : ligne numérique
+verticale Choisissez une échelle, étiquetez la droite
+numérique et représentez graphiquement les points de
+congélation donnés sur la droite numérique verticale.
+Démontrez votre compréhension en dessinant dans
+votre journal ou en utilisant l'outil numérique..
+
+Leçon 1 • Utiliser une droite numérique pour décrire des données | 17

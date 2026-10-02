@@ -1,0 +1,44 @@
+Tableau numérique : Créer un histogramme Dessine un histogramme pour afficher les données. Assure-toi de choisir un intervalle logique pour cet ensemble de données. Démontre ta réponse en dessinant dans ton cahier de mathématiques ou en utilisant l’outil numérique
+
+bras | Frequence
+127 | 2
+132 | 3
+135 | 1
+138 | 1
+141 | 1
+142 | 2
+143 | 1
+144 | 2
+147 | 2
+149 | 2
+152 | 3
+153 | 2
+157 | 2
+158 | 3
+160 | 1
+166 | 1
+
+0
+
+Histogramme de fréquence pour la distance entre les bras Explique pourquoi tu as choisi les intervalles que tu as utilisés. Compare ta fréquence pour la distance entre les avec celui d’un camarade..
+
+Mesures des arbres A l’aide des informations collectées sur l’envergure des bras des élèves et sur l’entourage des espèces d’arbres données, déterminez les arbres que les les élèves peuvent mesurer.
+
+Érable : 127 cm Chêne : 182,9 cm Cornouiller : 91,4 cm
+Sassafras : 137,2 cm Frêne : 148,6 cm
+
+HANDS-ON
+ACTIVITY
+Sommes des cubes numériques Dans cette activité pratique, crée un histogramme des données que tu collectes toi-même. Utilise cette ressource numérique en ligne pour une exploration pratique.
+
+Sommes des cubes numériques Réponds aux questions suivantes.
+
+A. Pourquoi une classe pourrait-elle vouloir collecter des données pour des sommes de cubes numériques ? À quelle question statistique cette collecte de données pourrait-elle répondre?
+
+B. Quelles informations peux-tu obtenir en examinant les histogrammes créés par ta classe pour ces données ?
+
+Plus de données si tu combines les données de toute votre classe, comment penses-tu que l’histogramme changerait ?
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité..
+
+Leçon 3 • Représenter des données à l’aide d’histogrammes | 89

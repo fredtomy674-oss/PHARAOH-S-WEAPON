@@ -1,0 +1,51 @@
+UNITÉ
+6
+
+CONCEPT 1
+Applications sur la collecte et la représentation de données
+
+Tracé de points Ecris deux questions auxquelles on ne peut répondre qu’à l’aide du diagramme de
+points, et pas les deux autres diagrammes.
+Boîte à moustaches Ecris deux questions auxquelles on peut répondre à l’aide du diagramme en
+boîte et une autre à laquelle on ne peut pas répondre avec cette boite de moutaches. Assurez-tu
+d’utiliser de nouvelles questions que tu n’avez pas encore vues ou écrites.
+
+Choisissez un graphique Etiquete chaque question selon le type de graphique quiva afficher la réponse.
+
+Tracé de points    histogramme    boîte à moustaches
+
+A. Combien d’élèves ont 150 chansons sur leurs appareils ?
+B. Quel est le nombre médiane des chansons ?
+C. Combien d'élèves ont entre 90 et 119 chansons sur leurs appareils ?
+
+Parlons ensemble Discute tes réponses avec un camarade. Quels sont les avantages de
+l'utilisation de chaque type de graphique ? Quels en sont les inconvénients ?
+
+Analyser les valeur urs des données : Supposons que les élèves rassemblent des informations
+pour déterminer le temps passé par les élèves de la 6ème primaire à écouter de la musique
+
+Nombre de minutes que les étudiants passent à écouter de la musique par
+semain
+120 | 15 | 45 | 30 | 60 | 90 | 0 | 125 | 30 | 240
+75 | 45 | 80 | 10 | 20 | 35 | 45 | 90 | 100 | 115
+75 | 40 | 70 | 100 | 120 | 120 | 150 | 15 | 0 | 20
+5 | 120 | 45 | 80 | 10 | 45 | 50 | 100 | 15 | 0
+20 | 35 | 120 | 150 | 30 | 60 | 90 | 20 | 35 | 40
+
+Parlons ensemble: Si tu veux former un diagramme de représentation de données, de quelles
+informations auras-tu besoin avant de continuer ? Pourquoi choisir un tel diagrammer plutôt qu’un autre ?
+Discutez avec un camarade.
+
+Choisissezune représentation Supposons que tu souhaites afficher ces données pour déterminer
+le nombre habituel de minutes que les élèves passent à écouter la musique. Quel graphique
+utiliseriez-tu ? Explique votre choix.
+
+Parlons Avec un partenaire, nomme le ou les graphiques que tu utilises pour effectuer les
+opérations, suivantes :
+• Afficher les valeurs de données individuelles
+• Afficher des centaines d'observations
+• Représenter les clusters et les lacunes dans les données
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité
+
+96 |

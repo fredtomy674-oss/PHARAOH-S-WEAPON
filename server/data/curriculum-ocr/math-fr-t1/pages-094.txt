@@ -1,0 +1,56 @@
+UNITÉ 6 | CONCEPT 1
+Applications sur la collecte et la représentation de données
+
+Faire une conjecutre : Tiens compte de ce que tu sais sur les tracés de points lorsque tu finis les tâches.
+A. Crée une question statistique qu'Amira aurait pu poser sur ce sujet pour créer un diagramme de points.
+B. Prédis la forme du diagramme de points en fonction de ta question statistique.
+
+Analyser un tracé de point Voici un tracé de points réalisé par Amira. Enregistre tes réponses à chaque question.
+
+Les movies vus au théâtre le mois dernier
+
+•
+•  •
+•  •  •
+•  •  •  •     •           •
+0  1  2  3  4  5  6  7  8  9 10
+Nombre de movies
+
+A. Combien de personnes ont été interrogées ?
+B. Quelles autres informations peux-tu déterminer à partir du graphique ?
+
+Identifier les caractéristiques Tous les tracés de points partagent certaines caractéristiques. Identifie lesquelles de ces caractéristiques sont communes à tous les diagrammes de points.
+A. Les tracés de points doivent avoir des titres.
+B. Les tracés de points doivent avoir des données représentées graphiquement au-dessus d'une droite numérique .
+C. Les tracés de points doivent contenir exactement 20 éléments de données.
+D. Chaque élément de données peut être vu sur un diagramme de points et est représenté par un point.
+E. Les droites numériques dans les tracés à points doivent commencer à 0.
+F. Les droites numériques dans les tracés à points doivent être étiquetées avec les unités utilisées pour mesurer les données.
+G. Tu peux déterminer le nombre d'observations dans un diagramme de points en trouvant la somme des valeurs numériques représentées par chaque point.
+H. Seuls les nombres comportant des points de données doivent être marqués sur la droite numérique.
+
+Explorons maintenant d'autres types de graphiques.
+Graphiques à barres et histogrammes : Supposons que la classe d'Amira a dessiné les 2 graphiques à barres pour montrer d'autres données collectées auprès de différents groupes de personnes sur leurs habitudes a dessiné les 2 films..
+
+cinéma préféré
+Nombre élèves
+25
+20
+15
+10
+5
+0
+Cinéma de l'ouest | Cinéma central | Cinéma de l'est
+cinéma
+
+Acteurs préférés
+Nombre de gens
+200
+150
+100
+50
+0
+Acteur A | Acteur B | Acteur C | Acteur D
+Acteurs
+
+86 |

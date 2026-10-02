@@ -1,0 +1,38 @@
+Table des matières
+lettre parents -tuteurs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . viii
+
+Theme 1 Sens des nombres et opérations : Expressions et équations
+Unité 1 La divisibilité, Factors, and Multiples
+Concept 1.1 Algorithme de division, P.G.C.D et P.P.C.M
+LECON 1 La divisibilité . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+LECON 2 Factoriser un nombre en ses facteurs premiers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+LECON 3 Ecriture d’expressions a l'aide du P.G.CM . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+LECON 4 Analyse des multiples les moins communs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+
+Unité 2 Nombres Rationnels
+Concept 2.1 Explorer la droite numerique
+LECON 1 Utiliser une droite numérique pour décrire des données . . . . . . . . . . . . . . . . . . . . . . . . 15
+LECON 2 Utiliser une droite numérique et des symboles pour comparer des
+nombres . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+
+Concept 2.2 Enquêter sur les nombres rationnels
+LECON 3 Analyser des nombres rationnels à l’aide de modèles . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+LECON 4 Comparer et commander Nombres rationnels . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+
+Concept 2.3 Interpréter et utiliser la valeur absolue
+LECON 5 Explorer la valeur absolue . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+LECON 6 Comparaison de valeurs absolues . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+
+Unité 3 Expressions algébriques
+Concept 3.1 Utiliser et analyser des expressions
+LECON 1 Créer des expressions mathématiques . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+LECON 2 Analyser des expressions mathematiques . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+LECON 3 Ecrire des expressions algébriques . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+
+Concept 3.2 Expressions algebriques et exposants
+LECON 4 Ordre des operations et des exposants . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+LECON 5 Evaluation d’expressions algébriques . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+LECON 6 Applications sur les expressions algébriques . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+LECON 7 Détermination d'expressions algébriques équivalentes . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+
+iv

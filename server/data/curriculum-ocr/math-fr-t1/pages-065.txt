@@ -1,0 +1,31 @@
+Évaluer pour l'équivalence 2 Évaluez les expressions données en utilisant deux entiers positifs différents de votre choix.
+Si les expressions sont égales, répondez Oui.. S'ils ne sont pas égaux, répondezNon.
+
+| | 3x + 6 | x + 3 + 2(x + 1) | Égal? |
+| :--- | :--- | :--- | :--- |
+| If x = (A) | (B) | (C) | (D) |
+| If x = (E) | (F) | (G) | (H) |
+
+Évaluer pour l'équivalence 3 Évaluez ces expressions en utilisant deux entiers positifs différents de votre choix.
+Si les expressions sont égales, répondez Oui. S'ils ne sont pas égaux, répondez Non..
+
+| | 4x + 6 | 3(x + 2) | Égal? |
+| :--- | :--- | :--- | :--- |
+| If x = (A) | (B) | (C) | (D) |
+| If x = (E) | (F) | (G) | (H) |
+
+ParlonsEst-il possible que la valeur de deux expressions soit parfois égale et pas d'autres ?
+
+Sont-ils équivalents ? Examinez ces deux expressions et déterminez si elles sont égales. Si tel est le cas, demandez-vous s'ils sont toujours égaux. Terminez chaque tâche.
+
+2(x + 1) 2x + x
+
+A. .Essayez de trouver une valeur pour X cela rendra ces expressions égales..
+B. .Essayez de trouver une valeur pour X cela rendra les expressions inégales.
+C. .Décidez si ces deux expressions sont toujours égales et si elles doivent être considérées comme des expressions équivalentes.
+
+ParlonsPartagez avec un partenaire vos réponses dans Sont-elles équivalentes ?. Révisez vos réponses si nécessaire. Soyez prêt à partager vos découvertes avec vos pairs.
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+
+Leçon 7 • Détermination d'expressions algébriques équivalentes | 57

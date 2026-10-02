@@ -1,0 +1,41 @@
+LEÇON 6
+Comparaison de valeurs absolues
+
+Objectifs d'apprentissage
+- Je peux comparer des valeurs absolues à l'aide de symboles.
+- Je peux interpréter l'utilisation de la valeur absolue à travers des situations réelles impliquant l'argent et la température..
+
+Pratiques en classe
+- Raisonner de manière abstraite et quantitative.
+- Construire des arguments viables et critiquer le raisonnement des autres.
+
+ACCÈS
+Absolute Values Pesez à certaines valeurs que vous avez comparées, comme $-\frac{5}{6}$ et $\frac{2}{3}$ Pensez maintenant à comparer les valeurs absolues de ces nombres rationnels. Pensez-vous que les comparaisons seront identiques ou différentes ?
+
+CONSTRUIRE ET CONNECTER
+Partie A : Comparer les valeurs
+Comparer les valeurs absolues Écrivez chaque affirmation en utilisant <, >, or =.
+A. $|-4|$ ________ $|-3|$
+B. $|-8,2|$ ________ $-7,9$
+C. $-1,4$ ________ $|-1,4|$
+D. $5\frac{5}{6}$ ________ $\left|\frac{35}{6}\right|$
+E. $9\left|\frac{3}{5}\right|$ ________ $\left|-9\frac{3}{4}\right|$
+F. $|-2,71|$ ________ $2,7$
+
+Symboles importants Utilisez cette déclaration de valeur absolue pour vous aider à choisir le terme qui complète correctement les phrases.
+$|2| = |-2|$
+
+valeur absolue
+équivaut à
+distance
+négatif
+direction
+positif
+
+A. Le ________ symbole dans l'expression $|2|$, signifie la distance de 0 à 2.
+B. Le ________ symbole dans l'expression $|-2|$, signifie la distance de 0 à $-2$.
+C. Le ________ Le signe montre la relation entre chaque côté et que leurs valeurs sont les mêmes ________ de 0.
+
+Chaque symbole d'un énoncé a de l'importance et contribue au sens de la phrase mathématique.
+
+Leçon 6 • Comparaison de valeurs absolues 31

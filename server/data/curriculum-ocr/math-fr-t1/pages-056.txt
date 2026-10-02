@@ -1,0 +1,62 @@
+UNITÉ
+3
+CONCEPT 2
+Expressions algébriques et exposants
+
+CONSTRUIRE ET CONNECTER
+Simplifier les expressions numériques
+
+Simplifier une expressionÉ Étant donné l'expression 19 – 36 + 4÷2, expliquez comment simplifier
+cette expression en utilisant l'ordre des opérations
+
+Explorer une autre opération Considérez comment simplifier une expression exponentielle
+avec une base de 10.
+
+10² = 10 x 10 = 100
+10³ = 10 x 10 x 10 = 1 000
+
+Utiliseriez-vous un processus similaire pour simplifier une expression exponentielle avec une
+base autre que 10 ?
+
+Simplifier Utilisez ce que vous savez sur les exposants pour répondre aux questions posées..
+
+A. Décrivez ce que l'expression 92 représente en répondant à chacune des questions
+suivantes :
+• Quelle est la base ?
+• Quel est l'exposant ?
+• Quelle est la valeur simplifiée et comment l'avez-vous trouvée ?
+B. Décrivez ce que l'expression 23 représente en répondant à chacune des questions
+suivantes :
+• Quelle est la base ?
+• Quel est l'exposant ?
+• Quelle est la valeur simplifiée et comment l'avez-vous trouvée ?
+Examinons quelques expressions qui incluent des exposants.
+
+Il a été demandé à trois étudiants de simplifier l'expression : 8 + 2(6 – 2)÷23. Les réponses étaient
+différentes.
+
+La réponse d'Omnia
+8 + 2(6 – 2) ÷ 2³
+10(6 – 2) ÷ 2³
+10(4) ÷ 2³
+40 ÷ 2³
+20³
+8,000
+
+La réponse de Menna
+8 + 2(6 – 2) ÷ 2³
+8 + 2(4) ÷ 2³
+8 + 2(4) ÷ 8
+8 + 8 ÷ 8
+8 + 1
+9
+
+Réponse de Hadeel
+8 + 2(6 – 2) ÷ 2
+8 + 2(4) ÷ 2³
+8 + 8 ÷ 2³
+8 + 4³
+12³
+1,728
+
+48

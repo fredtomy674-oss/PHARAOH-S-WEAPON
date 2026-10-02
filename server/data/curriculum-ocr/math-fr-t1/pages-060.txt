@@ -1,0 +1,53 @@
+UNITÉ
+3
+CONCEPT 2
+Expressions algébriques et exposants
+
+LEÇON 6
+Applications sur les expressions
+algébriques
+
+Quick Code
+egm6055
+
+Objectif d’apprentissage
+• Je peux évaluer des expressions
+impliquant des exposants et des
+parenthèses.
+
+Pratiques en classe
+• Raisonner de manière abstraite et
+quantitative.
+• Rechercher et utilisez la structure.
+• Rechercher et exprimer la régularité dans la
+répétition du raisonnement.
+
+ACCÈS
+Étapes dans l’ordre des opérations Quelles étapes suivez-vous pour évaluer une expression en
+utilisant l’ordre des opérations ?
+
+Escaliers
+
+Example Expression
+12 – 8 : 4 + 7 + 1 – 2² × 3
+12 – 8 : 4 + 8 – 2² × 3
+12 – 8 : 4 + 6² × 3
+12 – 8 : 4 + 36 × 3
+12 – 2 + 108
+118
+
+ParlonsConsidérez où se situent les exposants dans l’ordre des opérations et comment évaluer les
+expressions.
+
+• Quel est l’ordre des opérations ?
+• Comment l’ordre des opérations change-t-il lorsqu’il y a des exposants ?
+• Quand remplacez-vous la valeur de la variable ?
+
+APPRENDRE ET RÉFLICHIR
+Évaluation des expressions exponentielle
+
+Utilisez ce que vous savez sur l’ordre des opérations pour évaluer l’expression donnée.
+Ordonnancement des opérations Quelles mesures prendriez-vous pour évaluer l’expression 9
+9 + (p² – 3) + 2 for p = 5?
+
+52

@@ -1,0 +1,58 @@
+UNITÉ
+3
+CONCEPT 1
+Utiliser et analyser des expressions
+
+CONSTRUIRE ET CONNECTER
+Partie A : Expressions et variables
+
+La taille d’un astronaute ansique les changements dans la vie quotidienne qu’un astronaute
+rencontre dans l’espace, la gravité modifie sa taille.
+
+Effets de la gravité Les astronautes mesurent environ 0,05 mètre de plus lorsqu’ils voyagent
+dans l’espace que sur Terre. Complétez le tableau pour déterminer la taille de certains
+astronautes lors d’un voyage dans l’espace.
+
+Hauteur sur Terre (mètres)
+Hauteur dans l’espace (mètres)
+
+1,65
+(A)
+
+1,73
+(B)
+
+1,80
+(C)
+
+1,84
+(D)
+
+Parlons Comment avez-vous déterminé la taille des astronautes alors qu’ils voyageaient dans
+l’espace ? Expliquez comment vous pouvez écrire une expression pour représenter la taille de chaque
+astronaute.
+
+Analyser la situation Pensez à la relation entre la taille d’un astronaute sur Terre et sa taille dans
+l’espace. Répondez à ces questions..
+
+A. Pensez aux valeurs qui sont toujours les mêmes dans cette situation et aux valeurs qui
+varient. Quelles valeurs varient selon l’astronaute ?
+
+B. Quelle valeur dans cette situation reste la même chaque fois que vous trouvez la hauteur
+d’un astronaute dans l’espace ? Expliquez votre raisonnement.
+
+Construire une expression mathématique Supposons que la taille d’un astronaute lors d’un
+voyage dans l’espace soit mesurée et que vous souhaitiez connaître la taille de l’astronaute sur
+Terre. Utilisez les termes et les donnés pour créer une expression mathématique qui représente la
+hauteur sur Terre si la hauteur dans l’espace esthmètres.
+
+h
+-
++
+0,05
+1,73
+
+Parlons La lettre h dans l’expression que vous venez de créer s’appelle une variable. Pourquoi
+pensez-vous que cela s’appelle une variable ? À votre avis, qu’est-ce qu’une variable ?
+
+36

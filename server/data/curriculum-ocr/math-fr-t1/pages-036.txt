@@ -1,0 +1,54 @@
+UNITÉ
+2
+|
+CONCEPT 3
+Interpréter et utiliser la valeur absolue
+LEÇON 5
+Explorer la valeur absolue
+Objectifs d'apprentissage
+• Je peux représenter la distance dans des
+situations réelles impliquant des sauts de
+poissons et des rencontres entre amis dans
+un étang à poissons.
+• Je peux comprendre la valeur absolue sur
+une droite numérique..
+Pratiques en classe
+Code Rapide
+egm6035
+• Raisonner de manière abstraite et
+quantitative.
+• Construire des arguments viables et
+critiquer le raisonnement des autres.
+• Utiliser les outils appropriés de manière
+stratégique
+ACCÈS
+Excursion Votre classe participe à une excursion
+dans un centre des sciences naturelles .Le guide
+vous montre un type de poisson qui peut plonger
+sous la surface de l'eau et sauter au dessus de la
+surface de l'eau. Il garde la trace des plongeons et
+des sauts dans le tableau suivant.
+Poisson
+Observation
+Plonger
+(En mètres)
+Niveau d'eau
+(En mètres)
+Saut (en mètres)
+A
+3
+0
+3
+B
+2
+0
+2
+C
+4
+0
+4
+Ton ami pense que le guide aurait dû utiliser des entiers négatifs pour représenter les plongées.
+Ton ami demande au guide pourquoi il a utilisé des entiers positifs pour représenter les plongées
+et pourquoi le niveau d'eau est à 0.
+Photo Credit: Al McGlashan / Shutterstock.com
+28 |

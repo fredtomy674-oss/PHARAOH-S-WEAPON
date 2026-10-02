@@ -1,0 +1,48 @@
+Comparer les nombres Écris chaque énoncé en remplissant chaque espace avec le symbole
+d'inégalité, < ou >, cela complète correctement la déclaration.
+
+A. -7 -3
+B. 8 0
+C. 3 4
+D. 2 -9
+E. -6 0
+F. 2 -2
+
+Parlons Avec un partenaire, utilisez une droite numérique pour expliquer votre raisonnement sur
+le symbole que vous avez choisi pour chaque énoncé..
+
+Peux-tu avoir l'opposé d'un nombre (additif inverse)? Aide le serveur à équilibrer son plateau
+tout en recherchant les opposés des nombres..
+
+Code Rapide
+egm6025
+
+Plateau numérique interactif
+Va en ligne pour explorer cette activité interactive.
+
+Interactif
+
+Photo Credit: EugeniaSh/Shutterstock.com
+-5 -4 -3 -2 -1 0 1 2 3 4 5
+
+Définition Utilise ce que tu as appris pour rédiger une définition denombres opposés.
+
+Utilise un langage mathématique et inclue un exemple avec ta définition..
+
+Les contrairesE Enregistre chaque nombre donné puis écris son contraire.
+
+1
+A. -5; C. -;
+2
+
+3
+E. - - ;
+2
+
+B. 6;
+D. -16;
+
+Équilibrage Pourquoi pensez-vous que les nombres opposés s'équilibrent ? Expliquez votre
+raisonnement.
+
+Leçon 2. symboles pour comparer des nombres 21

@@ -1,0 +1,51 @@
+UNITÉ
+5
+
+CONCEPT 1
+Explorer la relation entre deux variables
+
+LEÇON 2
+Applications sur les variables dépendantes et indépendantes
+
+Quick Code
+egm6091
+
+Objectif d’apprentissage
+• Je peux examiner et créer des équations algébriques pour modéliser des situations réelles.
+
+Pratiques en classe
+• Raisonner de manière abstraite et quantitative.
+• Modéliser avec les mathématiques.
+
+ACCÈS
+Repense à la relation que tu as explorée concernant les montagnes russes du parc d’attractions.
+
+Explorer une équation Une équation pour représenter la relation est t = 6r. Écris lequel des choix proposés doit être utilisés pour définir chaque description.
+
+r          t          6
+
+(A) Nombre de fois où vous souhaitez monter sur les montagnes russes
+(B) Nombre total de billets dont vous avez besoin
+(C) Nombre de billets nécessaires pour monter les montagnes russes une fois
+
+APPRENDRE ET RÉFLÉCHIR
+Écrire et utiliser une équation: Maintenant, retourne au parc d’attractions. Cette fois-ci, rendez-vous dans la zone des manèges et explore les autres manèges
+
+Ferris Wheel
+3 Tickets
+
+ROCK N ROLLER
+6 Tickets
+
+O VIKING O
+5 Tickets
+
+CIRCUS SCRAMBLER
+8 Tickets
+
+SWING
+4 Tickets
+
+O VIKIN
+
+72 |

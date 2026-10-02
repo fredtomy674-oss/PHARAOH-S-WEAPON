@@ -1,0 +1,47 @@
+CONCEPT 1
+UNITÉ
+Algorithme de division, P.G.C.D et P.P.C.M
+1
+LEÇON 2
+Factoriser un nombre en ses
+facteurs premiers
+Objectif d'apprentissage
+• Je peux utiliser factorisation un nombre en
+ses facteurs premiers pour trouver P.G.C.D et
+P.P.C.M
+Pratiques en classe
+• Raisonner de manière abstraite et
+quantitative.
+• Construire des arguments viables et
+critiquer le raisonnement des autres.
+• Recherche et utilise la structure.
+Code Rapide
+egm6015
+ACCÈS
+Factorisation première Tu as appris à utiliser des arbres factoriels pour trouver les facteurs premiers
+des nombres. Ensuite, Tu as écrit la factorisation première des nombres. Existe-t-il d'autres moyens
+de trouver la factorisation première ?
+40
+4
+10
+(2) (2) (2) (5)
+Parlons
+• Quelle est la signification de la factorisation première ?
+• Quelles méthodes peux-tu utiliser pour trouver des facteurs premiers ?
+• Quels sont les avantages ou les inconvénients de ces méthodes ?
+CONSTRUIRE ET CONNECTER
+diagrammes de Venn Comparer les similitudes et les
+différences entre les éléments. Là où les cercles se
+chevauchent, c'est là que les informations sont partagées.
+Voyons comment utiliser les facteurs premiers pour trouver
+P.G.C.D et P.P.C.M
+les facteurs premiers de 42
+les facteurs premiers de 30
+5
+2
+3
+11
+les facteurs premiers de 33
+7
+Leçon 2 • Factoriser un nombre en ses facteurs premiers
+3

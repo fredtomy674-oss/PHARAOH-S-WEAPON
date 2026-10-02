@@ -1,0 +1,47 @@
+UNITÉ 4
+CONCEPT 1
+Écrire et résoudre des équations et des inégalités
+
+LEÇON 3
+Résoudre les inégalités
+
+Code Rapide
+egm6081
+
+Objectif d'apprentissage
+• Je peux utiliser une droite numérique pour représenter inégalités.
+
+Pratiques en classe
+• Raisonner de manière abstraite et quantitative.
+
+ACCÈS
+Explorer les inégalités sur une droite numerique : Dans cette leçon, vous utiliserez des droites numériques pour représenter les inégalités. Pens aux autres manières dont tu as utilisé les droites numériques pour représenter des nombres, par exemple en identifiant des nombres rationnels ou en résolvant des problèmes.
+
+Parlons ensemble : Discute de la manière dont tu peux représenter une plage de nombres sur une droite numérique.
+
+APPRENDRE ET RÉFLÉCHIR
+Solution d'une inegalite : Utilise cette droite numérique pour étudier à quoi ressemblent les inégalités.
+
+Code rapide
+egm6081
+
+Représenter les inégalités sur une droite numérique interactivee
+Interactif
+
+Vas en ligne pour explorer cette activité interactive.
+
+Les solutions d'inégalités dans l'ensemble des entiers peuvent être représentées comme suit :
+
+x > -1
+a.
+-5 -4 -3 -2 -1 0 1 2 3 4 5
+
+Est-ce que -1 appartient à l’ensemble de solutions de l’inégalité ci-dessus ? explique.
+
+x ≤ -6
+b.
+-8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5
+
+Est-ce que - 6 appartient-il à l’ensemble de solutions de l’inégalité ci-dessus ? explique.
+
+64 |

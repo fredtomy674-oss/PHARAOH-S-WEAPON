@@ -1,0 +1,100 @@
+UNITÉ
+2
+CONCEPT 1
+Explorer la droite numérique
+Distance de position Trace une droite numérique vierge et sans étiquette pour représenter
+graphiquement chaque emplacement et répondez aux questions suivantes.
+A. .Comment as-tu représenté graphiquement la position de la péninsule du Sinaï ?
+B. .Comment as-tu représenté graphiquement l'emplacement du désert occidental ?
+Analyser un autre problème L le père de Mohamed et Hoda achète chaque semaine 10 paquets de
+biscuits à partager à parts égales entre Mohamed et Hoda. Tandis que Mohamed a demandé à sa
+sœur d'aller chercher des paquets de biscuits une semaine et il les lui rendra la semaine suivante.
+Si Mohamed a effectivement mangé 8 paquets de biscuits cette semaine.
+Quelle droite numérique indique correctement le nombre de paquets que Mohamed a mangés
+cette semaine..
+1.
+2.
+3.
+4.
+5.
+-10
+0
+-8
+2
+-10
+-8
+-10
+-8
+Début
+Des paquets de biscuits
+-6
+-4
+2
+4
+Début
+Des paquets de biscuits
+6
+-6
+-4
+-2
+-6
+-4
+-2
+0
+-2
+0
+0
+Le numéro que
+Mohamed a pris
+2
+4
+6
+8
+10
+Le numéro que
+Mohamed a pris
+8
+10
+12
+14
+16
+18
+20
+6
+Le numéro que
+Mohamed a pris
+8
+10
+12
+14
+16
+18
+20
+Le numéro que
+Mohamed a pris
+-2
+0
+2
+4
+Début
+Des paquets de biscuits
+6
+8
+10
+Le numéro que
+Mohamed a pris
+-2
+0
+2
+4
+Début
+Des paquets de biscuits
+6
+8
+10
+Parlons Pensez aux droites numériques et discutez des questions suivantes avec un partenaire.
+• Qu'indique 0 sur chaque droite numérique ?
+• Que remarquez-vous à propos des nombres à gauche de 0 ? Que signifient ces valeurs dans le
+contexte du problème ?
+16
+Photo Credit: EugeniaSh / Shutterstock.com

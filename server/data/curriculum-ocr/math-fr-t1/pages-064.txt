@@ -1,0 +1,61 @@
+UNITÉ
+3
+
+CONCEPT 2
+Expressions algébriques et exposants
+
+APPRENDRE ET RÉFLICHIR
+
+Sont-ils équivalents ?
+
+Gardez le niveau, Decouvrez comment identifier les expressions équivalentes. Utilisez cette ressource numérique en ligne pour une exploration pratique.
+
+Parlons Si les instructions vous demandaient d'utiliser deux éléments de poids égal pour représenter à la fois les variables et les constantes, l'une de vos réponses changerait-elle? Pourquoi ou pourquoi pas?
+
+Évaluez les expressions suivantes en utilisant deux entiers positifs de votre choix. Montrez votre travail tel qu'il est réalisé dans cet exemple.
+
+$x+2x$
+$2(x+2)$
+Equal?
+
+If $x=1$
+$1+2(1)$
+$1+2$
+$3$
+$2(1+2)$
+$2(3)$
+$6$
+no
+
+If $x=2$
+$2+2(2)$
+$2+4$
+$6$
+$2(2+2)$
+$2(4)$
+$8$
+no
+
+Photo Credit: TK
+
+Évaluer l'équivalence 1 Évaluez chacune de ces expressions en utilisant deux entiers positifs différents de votre choix..
+
+Si les expressions sont égales, répondez Oui. S'ils ne sont pas égaux, répondezNon.
+
+$3(2x+1)$
+$6x+3$
+Equal?
+
+If $x=$
+(A)
+(B)
+(C)
+(D)
+
+If $x=$
+(E)
+(F)
+(G)
+(H)
+
+56

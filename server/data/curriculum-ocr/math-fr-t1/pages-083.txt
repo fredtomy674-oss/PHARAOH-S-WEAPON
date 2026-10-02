@@ -1,0 +1,44 @@
+**APPRENDRE ET RÉFLÉCHIR**
+
+**Règles ; variables et équations**
+
+**Règles** Peux-tu toujours trouver la bonne règle avec un seul numéro d'entrée et de sortie ? Pourquoi ou pourquoi pas ?
+
+**Variables** Utiliser l'équation Y= 3X pour répondre à ces questions..
+
+**A.** Quelle variable représente le nombre entré ?
+**B.** Quelle variable représente le numéro de sortie ?
+**C.** Quelle est la variable dépendante?
+**D.** Quelle est la variable indépendante?
+
+**Montre ce que tu as appris** Complète chaque affirmation en utilisant les variables X et Y.
+
+**1.** Si la règle est « Multiplier par 2 » ; vous écrirez l'équation comme suit : (A) Donc si X= 2,3 ; alors Y serait :: \_\_\_(B)\_\_\_ .
+
+**2.** Si la règle est « Ajoute 6 » ; l'équation est: \_\_\_(C)\_\_\_ .
+Donc si X=1 4 ;alors Y serait: \_\_\_(D)\_\_\_ .
+
+> 💬 **Parlons ensemble.** Les équations peuvent avoir plus d'une opération. Discute avec ton collègue d'une manière dont tu as prédit quels nombres d'entrée et de sortie auraient probablement deux opérations
+
+**Écrire une équation** Utiliser les variables X et Y ; où X est la variable indépendante. Écris l'équation pour « multiplier par 3 et ajouter 4 ». Sélectionner la bonne réponse.
+
+**A.** $x = y + 3x + 4$
+**B.** $x = 3y + 4$
+**C.** $y = 3x + 4$
+**D.** $y = -3 + 4x$
+
+**Équation d'un tableau** Utiliser des variables X et Y écrire l'équation de chacun des tableaux..
+
+**A.**
+| x | 0 | 4 | 8 | 12 |
+|---|---|---|---|---|
+| y | 4 | 8 | 12 | 16 |
+
+**B.**
+| x | 12 | 20 | 8 | 4 |
+|---|---|---|---|---|
+| y | 7 | 11 | 5 | 3 |
+
+✔️ **Vérifie ta compréhension** suis les instructions de ton professeur pour réaliser cette activité..
+
+**Leçon 3 • Analyser la relation entre la variable dépendante et indépendante | 75**

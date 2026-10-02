@@ -1,0 +1,26 @@
+Tableau numérique : heures de maths indépendantes à l'aide des données des heures d'étude, crée un tracé de points, en marquant les valeurs nécessaires le long de la droite numérique et en traçant une ligne verticale sur la droite numérique à l'endroit où tu penses que le milieu des données pourrait se trouver. Ensuite, observe la moitié inférieure des données et trace une ligne verticale à l'endroit où tu penses que le milieu de la moitié inférieure des données pourrait se trouver. Faites de même avec la moitié supérieure des données. Démontre ta réponse avec un dessin dans ton cahier ou en utilisant l'outil numérique.
+
+Diviser les donnée Utilise ton diagramme de points pour répondre à ces questions.
+
+A. Combien de sections de la droite numérique ont été créées lorsque tu as tracé les lignes de division verticales sur tes données ?
+B. Quelle est la somme de chaque section ?
+
+En classant les données par ordre croissant ( du plus petit au plus grand, la valeur moyenne est appelée médiane. En trouvant la médiane ; tu pouvez déterminer une valeur typique de l'ensemble de données.
+
+Parlons ensemble: Discute avec un camarade de la stratégie que tu vas utiliser pour trouver la médiane d'un ensemble de données formé d'un chiffre pair de points de données.
+
+Trouver la médian Ecris la médiane pour chaque ensemble de données.
+
+A. 1, 2, 3, 5, 7
+B. 1, 2, 3, 3, 5, 7
+C. 1, 2, 2, 3, 5, 7
+
+Est-ce correct? Ayman cherche le nombre typique de points que les joueurs de son équipe de basket marquent à chaque match. Il enregistre les valeurs suivantes pour le dernier match et détermine que la médiane est de 3,5.A- t-il raison ? expliquez pourquoi il a raison ou pourquoi il n'a pas raison...
+
+Points de chaque joueur dans un match de basket : 1 ; 12 ; 6 ; 6 ; 5 ; 2 ; 0 ; 10 ;7 ; 2
+
+PRATIQUES
+ACTIVITÉS
+Ligne numérique modèle Pour tu entraîner davantage à trouver la médiane, complétez l'activité : Ligne numérique modèle. Utilisez la ressource numérique en ligne
+
+Leçon 4 • Explorer la boîte à moustaches | 91

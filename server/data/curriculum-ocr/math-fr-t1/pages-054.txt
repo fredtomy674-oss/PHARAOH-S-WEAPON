@@ -1,0 +1,47 @@
+UNITÉ
+3
+CONCEPT 2
+Expressions algébriques et exposants
+
+Division Écrivez une déclaration verbale ou une situation du monde réel qui pourrait être
+représentée par une expression algébrique utilisant la division.
+
+Quelle est l'expression algébrique qui modélise votre énoncé verbal ?
+
+Les tâches suivantes vous aideront à découvrir certaines erreurs courantes et à les éviter.
+
+L'essai de Hazem Hazem a écrit : « majouté à 18 divisé par 3” comme expression écrite pour
+m + $\frac{18}{3}$. Hazem, c'est vrai ? Expliquez votre raisonnement. 18. Est 3.
+
+La maison de grand-mère Écrivez une expression
+algébrique pour calculer le nombre de litres d'essence
+que Fares doit acheter pour faire l'aller-retour chez sa
+grand-mère. Sa voiture atteint 15 kilomètres au litre.
+Utilisez la variable pour représenter la distance en
+kilomètres jusqu'à la maison de sa grand-mère..
+
+Ramasser des œufs Maram a vu ce problème dans
+son livre de mathématiques ::
+
+“« Tante Farha ramasse le même nombre d'œufs de
+ses poules chaque jour pendant deux semaines.
+Rassembler des œufs
+
+La troisième semaine, elle cuit exactement la moitié des œufs
+elle avait rassemblé auparavant. Combien d'œufs reste-t- elle ?
+
+Ramasser des œufs
+
+Laquelle de ces options aidera Maram à résoudre ce problème ?
+
+A. Diviser X par 2 et soustrayer par 14.
+
+B. Multiplier X par 14 et divisez le produit par 2
+
+C. Multiplier X par 14 et soustrayez le quotient de X et 2.
+
+D. Diviser X par $\frac{1}{2}$ soustrayez-le de 14 plus X..
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+
+46

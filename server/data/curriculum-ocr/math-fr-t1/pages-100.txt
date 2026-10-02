@@ -1,0 +1,42 @@
+UNITÉ 6 | CONCEPT 1
+Applications sur la collecte et la représentation de données
+
+Partie B : Boîtes à moustaches
+
+Code Rapide
+egm6109
+
+Activité numérique pour la boite à moustaches
+Interactive
+
+Allez en ligne pour explorer cette activité interactive.
+
+Boites a moustaches
+0, 1, 7, 4, 18, 12, 0, 9, 12, 11, 13, 17, 15
+
+0 2.5 11 14 18
+0 2 4 6 8 10 12 14 16 18 20
+
+Parlons ensemble: discute avec un camarade les caractéristiques importantes d’une boîte à moustaches.
+
+Boîte à moustaches Compléte les tâches suivantes. utilise la boîte à moustaches pour répondre aux questions.
+
+A. Quelle est la valeur du point minimum des données?
+B. Quelle est la valeur du point maximum des données ?
+C. Quelle est la valeur de la médiane de l’ ensemble de données ?
+D. Explique quelle caractéristique du diagramme en boîte montre la place de la médiane de l'ensemble de données.
+E. Que représente la boîte rectangulaire située au milieu de l’ensemble de données?
+F. Les extrémités de la boîte rectangulaire sont appelées 1er quartile (Q1) et 3 ème quartile (Q3). Utilise le diagramme en boîte et les valeurs des données pour expliquer la signification de Q1 et Q3.
+G. Les deux segments allant de la valeur minimale à Q1 et de Q3 à la valeur maximale sont parfois appelés moustaches. Que représente chaque moustache ?
+
+Résumé en 5 chiffres Un ensemble de données peut être décrit à l'aide de cinq valeurs, appelées résumé à 5 nombres. Identifie le terme correct pour chacun des 5 points indiqués sur la boîte à moustaches.
+
+Le minimum    Maximum    Médiane    Quartile supérieur    Lower Quartile
+
+C D
+B E
+A
+
+0 2 4 6 8 10 12 14 16 18 20 22 24 26 28
+
+92 |

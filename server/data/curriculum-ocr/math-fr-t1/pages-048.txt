@@ -1,0 +1,30 @@
+UNITÉ
+3
+CONCEPT 1
+Utiliser et analyser des expressions
+
+Parlons Discutez des points suivants avec un partenaire ::
+• • Quelle est la différence entre une expression algébrique et une équation ?
+• • Décrire une situation réelle pouvant être modélisée par une expression.
+• • Comment changeriez-vous la situation pour qu'elle puisse être représentée par une équation ?
+
+Comprendre les termes Chaque expression algébrique que vous rencontrez comporte des
+termes, et certaines ont des termes similaires. Examinez les cinq premiers exemples de ce
+tableau pour voir si vous pouvez déterminer ce que sont les termes et les termes similaires.
+Ensuite, identifiez le nombre de termes et les termes similaires pour les expressions restantes.
+
+Expression | Nombre de termes | Termes semblables
+5 | 1 | None
+8 + 2 | 2 | 8 ; 2
+x + 12 | 2 | None
+4n + 2n + 2 | 3 | 4n; 2n
+6 + 3x + 3 | 3 | 6 ; 3
+m + 3 + 2n + 2 | (A) | (B)
+16x + 2x | (C) | (D)
+8z + 3z + 9 | (E) | (F)
+7x + 7x + 1 + 2x | (G) | (H)
+
+Parlons Discutez de vos réponses au dernier exercice avec un partenaire. Ensuite, discutez de la
+façon dont vous définiriez termes et termes semblables.
+
+40

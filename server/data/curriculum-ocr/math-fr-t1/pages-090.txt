@@ -1,0 +1,57 @@
+UNITÉ 6 | CONCEPT 1
+Applications sur la collecte et la représentation de données
+
+Résultats de la capsule temporelle
+
+Nombre de frères et soeurs par élève
+0 1 2 3 4 5 6 7 8 9 10 11
+Nombre de frères et de soeurs
+
+Voyager en avion
+As tu voyagé en
+avion?
+Oui: 15
+Non: 3
+
+Nombre de déjeuners achetés par semaine
+Nombre élèves
+8
+7
+6
+5
+4
+3
+2
+1
+0
+0 1 2 3 4 5
+Nombre de déjeuners achetés
+
+Posséder des tourne-disques
+les élèves qui ont enrgistré comme joueurs
+les élèves qui n'ont pas enrgistré comme joueurs
+
+Emissions de télévision préférées
+Nombre élèves
+8
+7
+6
+5
+4
+3
+2
+1
+0
+télévisés émissions de varietes Sports Comédies
+Emissions de variétés
+
+Analyser la capsule temporelle Quelles informations peux-tu apprendre en regardant la capsule temporelle ? Cite au moins trois exemples.
+
+Rédiger des questions Quelles sont les trois questions que les élèves qui ont collecté des données pour la capsule temporelle ont pu se poser ?
+
+APPRENDRE ET RÉFLÉCHIR
+Partie A : Trier les données
+
+Maintenant que tu as exploré les questions possibles posées par les élèves, reviens sur les différents types résultants de ces questions. Comment peux-tu trier les données de la capsule temporelle ?
+
+82 |

@@ -1,0 +1,44 @@
+Deux opérations Lorsqu'une expression algébrique comporte plus d'une opération, il devient
+plus compliqué d'écrire une expression verbale.
+
+Enregistrez toutes les expressions verbales qui représentent l'expression 5 + 2x.
+A. .la somme de 2 et 5 multipliée parX
+B. .le produit de 7 etX
+C. .la somme de 5 et la quantité 2 foisX
+D. le produit de2Xet 5
+E. la somme de 2 foisXet 5
+
+Expressions algébriques à partir d'expressions écrites et de scénarios du monde réel
+Pour écrire des expressions algébriques, attribuez une variable au nombre inconnu. Utilisez
+des parenthèses lorsqu'une somme ou une différence est multipliée. Par exemple, << Quatre fois
+la somme d'un nombre et sept >> se traduit par4(X+ 7), tandis que << la somme de quatre fois un
+nombre et sept >> est4X+ 7.Moins que et tplus quesont des mots clés pour changer l'ordre des
+termes. Par exemple, un nombre inférieur à dixSe traduit par "10 -X", alors queun nombre moins
+dixest "X- 10>>.Maintenant, essayez d'écrire des expressions algébriques pour les expressions
+écrites et les scénarios du monde réel suivants.
+
+L'addition Indiquez quelles expressions peuvent être représentées par une expression
+algébrique contenant une addition.n.
+
+A. Soustrayez 14 d'un nombre.
+B. .Ammar possède 7 jetons de plus que Tamer..
+C. Un nombre augmenté de 3;5.
+D. .Baher a mis 12 autocollants supplémentaires dans le livre d'autocollants..
+E. Un étudiant partageait son orange à parts égales avec ses 2 amis.
+
+Soustraction Sélectionnez l'expression algébrique qui représente l'expression verbale :
+Douze moins de trois groupes deoui
+A. 12 – 3y
+B. y – 3(12)
+C. 3y – 12
+D. 12(3) – y
+
+Multiplication Deux étudiants écrivent l'expression algébrique de cette situation réelle : <<
+Mohammed a apporté 4 boîtes contenantcdes biscuits à l'école pour son anniversaire
+
+Ali écrit une expression algébrique pour décrire le nombre total de cookies::
+“c + c + c + c”. Kamal pense qu'il existe également une autre expression.
+
+À quelle expression Kamal aurait-il pu reflichir, et pourquoi ont-elles toutes deux correctes ?
+
+Leçon 3 • Écrire des expressions algébriques | 45

@@ -1,0 +1,53 @@
+UNITÉ
+1
+CONCEPT 1
+Algorithme de division, P.G.C.D et P.P.C.M
+
+Ta soeur et 3 de ses amies ont 4 paquets de bananes. Chaque paquet contient 8 fruits
+identiques, chacun d'elles a pris un certain nombre de fruits pour faire du pudding à la banane..
+
+C'est ce qui reste des paquets de bananes..
+
+$$\frac{3}{8}, \frac{2}{8}, \frac{5}{8}, \frac{7}{8}$$
+
+Utilise le Tableau numérique: Fruits pour t'aider à répondre à la question. Pour chaque question,
+choisis le montant correct parmi les nombres fractionnaires donnés..
+
+$$1\frac{1}{8} \quad 1\frac{1}{4} \quad 1\frac{3}{8} \quad 1\frac{1}{2} \quad 1\frac{5}{8} \quad 1\frac{3}{4} \quad 1\frac{7}{8}$$
+$$2\frac{1}{8} \quad 2\frac{1}{4} \quad 2\frac{3}{8} \quad 2\frac{1}{2} \quad 2\frac{5}{8} \quad 2\frac{3}{4} \quad 2\frac{7}{8}$$
+
+A. Si tu dois regrouper les bananes en paquets, combien de paquets pourrait-on fabriquer à
+partir des bananes restantes ?
+
+B. Combien de paquets ont été utilisés ?
+
+Ton frere et Collation de fruits ton frère a décidé d'essayer une nouvelle collation qui nécessitait
+des kakis et des bananes..
+
+C'est ce qui restait des packages complets une fois terminé. Utilise le Tableau numérique: Fruits
+pour t'aider à répondre à la question..
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Kakis} & \textbf{Bananes} \\
+\hline
+$\frac{3}{4}, \frac{2}{4}$ & $\frac{3}{8}, \frac{2}{8}, \frac{5}{8}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Ton frère veut rassembler les fruits restants. Combien reste-t-il de colis de chaque type ??
+
+Trouvez ensuite la somme des deux nombres ensemble.
+
+Ta famille avait deux paquets de fruits et la famille en mangeait un peu.
+
+Maintenant il y a $\frac{3}{8}$ d'un paquet de bananes $\frac{1}{4}$ d'un paquet de kakis.
+
+Utilise le Tableau numérique: fruits, marqueurs ou modèles en papier pour faire des conjectures
+concernant chacune des questions posées. sois prêt à expliquer votre raisonnement.
+
+A. Combien reste-t-il de colis pour chaque type ?
+
+10

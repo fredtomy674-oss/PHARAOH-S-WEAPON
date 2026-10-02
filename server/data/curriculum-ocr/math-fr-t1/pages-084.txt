@@ -1,0 +1,43 @@
+UNITÉ 5 | CONCEPT 1
+Explorer la relation entre deux variables
+
+LEÇON 4
+Représentation graphique des variables dépendantes et indépendantes
+
+Quick Code
+egm6095
+
+Objectifs d'apprentissage
+• Je peux connecter des représentations de variables dépendantes et indépendantes dans des tableaux, des équations et des graphiques.
+• Je peux représenter des variables dépendantes et indépendantes sur un plan de coordonnées.
+
+Pratiques en classe
+• Modéliser avec les mathématiques..
+
+ACCÈS
+Faire des graphiques Dans les leçons précédentes, tu as exploré la zone des manèges et les stands de nourriture du parc d'attractions. Maintenant, explorons les jeux. Choisissez l'un de ces jeux.
+
+RING TOSS
+4 Rings for 5 tokens
+[Rings also sold individually]
+
+BALLOON POP
+3 Darts for 4.50 tokens
+(darts also sold individually)
+
+BASKETBALL
+2 Balls for 5 tokens
+(balls also sold individually)
+
+Parlons ensemble Quelles informations vous sont données sur le jeu
+
+APPRENDRE ET RÉFLÉCHIR
+Partie A : Tableaux, équations et graphiques
+Faire un tableau Choisis l'un des trois jeux. Crée un tableau qui montre le nombre d'objets que tu achètes et le montant que cela coûterait pour ces objets. Laisser soit le nombre d'anneaux, de balles ou de fléchettes, selon le jeu que tu as choisi, et laisse-Y soit le coût total.
+
+| Lancer des Bagues | Balloon Pop | Basketball |
+| :--- | :--- | :--- |
+| 4 anneaux pour 5,00 jetons | pour 4,50 jetons | 2 balles pour 5,00 jetons |
+| Bagues également vendues individuellement | Fléchettes également individuellement | Ballons également vendus individuellement |
+
+76 |

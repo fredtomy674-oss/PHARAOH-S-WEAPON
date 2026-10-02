@@ -1,0 +1,39 @@
+**Analyser des phrases** Compléte ces affirmations en remplissant chaque espace avec une phrase donnée pour montrer laquelle dépend de l’autre. Tu dois utiliser toutes les expressions pour créer trois dépendances différentes.
+
+Comme tu ris fort | ce qu'il y a au menu
+à quoi tu dépenses tes billets | comme c'est drôle blagu
+
+<u>(A)</u> dépend du type de manèges que tu aimes.
+Ce que tu commandes dans un stand de nourriture dépend de <u>(B)</u>.
+<u>(C)</u> dépend de <u>(D)</u>.
+
+---
+Parlons ensemble Certaines de ces expressions sont dépendantes et d’autres sont des expressions indépendantes.
+• Que penses -tu mots dépendant et indépendant signifient?
+• Quelle partie des phrases que tu as complétées est indépendante ?
+• Lesquels sont dépendants ? Discute de ces termes avec to collègue
+Repense à l’exemple des montagnes russes. Quelle quantité dépend de l’autre : du nombre de billets dont tu as besoin ou du nombre de fois que tu souhaites monter sur les montagnes russes ? Comment sais-tu ?
+---
+
+**Partie B : Variables dépendantes et indépendantes**
+
+Vous pouvez représenter des expressions pouvant être quantifiées avec des variables. Supposons que ( t ) cela représente le nombre de billets dont tu as besoin et ( r ) représente nombre de fois que tu souhaites monter sur les montagnes russes. Quelle variable dépend de l’autre ?
+
+Une variable indépendante est une variable dont la valeur n’est pas déterminée par aucune autre valeur ou variable, elle peut donc se voir attribuer n’importe quelle valeur. La variable qui change en fonction de la valeur de la variable indépendante est appelée variable dépendante.
+
+Dans la situation des montagnes russes, quelle est la variable indépendante et quelle est la variable dépendante ?
+
+**Écrire des déclarations** Compléte les affirmations. Assure-toi de nommer une variable pour représenter chaque quantité que vous remplissez et soyez prêt à expliquer comment vous savez quelle variable est indépendante et laquelle est dépendante..
+
+1. Le nombre de ballons est (b) que vous achetez dépend de <u>(A)</u>.
+2. <u>(B)</u> dépend du temps que vous pouvez passer au parc d’attractions.
+3. <u>(C)</u> dépend d <u>(D)</u>.
+
+---
+Parlons ensemble Discutez de tes réponses au dernier exercice avec ton collègue.
+quelle variable est dépendante ? dans chacune de tes déclarations ? Laquelle est indépendante ? Explique comment tu la sais
+---
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+
+Leçon 1 • la relation entre les variables independentes et dependantes | 71

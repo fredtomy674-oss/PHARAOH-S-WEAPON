@@ -1,0 +1,49 @@
+Explorer des histogrammes: La classe d'Amira a également dessiné des histogrammes pour représenterquelques données collectées. Voyons si tu pouvez déterminer comment un histogramme est construit en analysant les deux graphiques suivants.
+
+Des heures passees a regarder des films ce mois
+Nombre de gens
+200
+150
+100
+50
+0
+0-1 2-3 4-5 6-7 8-9 10-11
+Heures
+
+durée de movies
+Nombres de films
+12
+10
+8
+6
+4
+2
+0
+0-29 30-59 60-89 90-119 120-149 150-179 180-209
+minutes
+
+Parlons ensemble:
+• Selon toi, pourquoi la classe d'Amira a utilisé des histogrammes au lieu de graphiques à barres pour représenter chaque ensemble de données ?
+• Quels sont les points de ressemblance entre les 2 histogrammes? et quels sont les points de différences?
+• Quelles unités sont utilisées dans chaque histogramme ?
+• Peux-tu dire combien d'observations la classe d'Amira a collectées pour chaque histogramme ?
+
+Tableau numérique : comparaison des histogrammes et de graphiques à barres Compléte le diagramme de Venn pour comparer graphiques à barres et les histogrammes. Démontre votre réponse avec un dessin sur ton cahier de mathématiques ou en utilisant l'outil numérique..
+
+comparaison des histogrammes et de graphiques à barres
+histogrammes
+graphiques à barres
+
+Comparaison entre les histogrammess et graphiques à barre Dessine une copie de ton diagramme de Venn.
+
+Identifier les caractéristiques d'un histogramme Tous les histogrammes partagent certaines caractéristiques communes. Identifie les caractéristiques communes entre tous les histogrammes..
+A. Les histogrammes doivent avoir un titre et chaque axe doit être étiqueté.
+B. Les histogrammes montrent des points de données individuels.
+C. Les histogrammes affichent les données regroupées en intervalles.
+D. Les barres d'un histogramme doivent se toucher.
+E. Les intervalles sur un histogramme ne doivent pas nécessairement avoir la même valeur.
+F. Les intervalles d'un histogramme ne doivent présenter aucun écart ni chevauchement de valeurs.
+
+Vérifie ta compréhension suis les instructions de ton professeur pour réaliser cette activité.
+
+LEÇON 2 Explorer l'histogramme | 87

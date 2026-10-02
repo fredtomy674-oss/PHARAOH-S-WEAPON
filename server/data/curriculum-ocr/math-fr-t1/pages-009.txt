@@ -1,0 +1,69 @@
+CONCEPT 1
+Algorithme de division, P.G.CM et P.P.C.M
+UNITÉ
+1
+
+LEÇON 1
+La divisibilité
+
+Objectif d'apprentissage
+• Je peux déduire la divisibilité par 4; 3; 2;
+6; 5 et 10.
+
+Pratiques en classe:
+• Construire des arguments viables et
+critiquer le raisonnement des autres.
+• Rechercher et bénéficier de modèles ou de
+caractéristique communs.
+
+ACCÉS
+
+Problème dans la vie courante: À ci-dessous des nombres
+de vonlentaires de 6 villes égyptiennes pour participer aux
+banques alimentaires. 101; 100; 120; 225; 102; 21.
+
+Observe les nombres précédents puis complète:
+1) Les nombres paires sont ............
+2) Les nombres impaires sont ............
+3) Quels sont les nombres qui sont divisibles par 2?...............
+
+Food Bank
+
+Parlons Discute avec ton partenaire la divisibilité par 2 tel que la divisibilité veut dire que le
+quotient est un nombre entire et le reste est le zéro.
+
+CONSTRUIRE ET CONNECTER:
+
+La divisibilité :
+A. En utilisant les nombres précédents complète le tableau suivant :
+
+Le nombre
+Divisible par
+2
+Divisible par
+3
+Divisible par
+4
+Divisible par
+5
+Divisible par
+6
+Divisible par
+10
+
+102
+✓
+✓
+✓
+
+21
+
+225
+
+100
+
+120
+
+101
+
+Leçon 1 • La divisibilité | 1
