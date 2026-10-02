@@ -57,6 +57,12 @@ export function cleanText(raw: string): string {
     .replace(/[ \t]+$/gm, "")
     .replace(/^[ \t]+/gm, "")
     .replace(/\n{3,}/g, "\n\n")
+    // A scanned page can send one punctuation character into a runaway (a
+    // single OCR pass emitted 127k dots for one printed dot-leader line).
+    // Printed answer lines are short, so cap any run of the same non-alphanumeric
+    // character at three: noise can never dominate a chunk, and the book's real
+    // letters/digits are untouched.
+    .replace(/([^\p{L}\p{N}\s])\1{3,}/gu, "$1$1$1")
     .trim();
 }
 

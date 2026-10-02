@@ -30,6 +30,12 @@ describe("cleanText", () => {
     expect(cleaned).not.toMatch(/\n{3,}/);
     expect(cleaned).toBe("أ\n\nب");
   });
+
+  it("caps runaway punctuation runs but keeps letters and digits", () => {
+    expect(cleanText(`سؤال${".".repeat(127206)}الجواب`)).toBe("سؤال...الجواب");
+    expect(cleanText("1....2----3")).toBe("1...2---3");
+    expect(cleanText("نص عادي")).toBe("نص عادي");
+  });
 });
 
 describe("contentHash", () => {
