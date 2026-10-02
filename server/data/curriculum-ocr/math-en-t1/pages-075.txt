@@ -1,0 +1,35 @@
+UNIT
+4
+
+CONCEPT 1
+Write and Solve Equations and Inequalities
+
+Let's Chat Discuss with a partner. Inequalities have an infinite set of solutions. The solution set for
+$x < 4$ would be every number less than 4. How would $x < 4$ be represented on a number line?
+
+Define the Solution of an Inequality In your own words, explain what you think a solution of an
+inequality is. How is the graph of an inequality related to the solution of an inequality? Record
+your answer.
+
+Think about how you can use the definition of the solution of an inequality or its graph on the
+number line to determine if a given value is a solution of an inequality. Also, think about how
+many solutions an inequality has.
+
+Find Solutions Determine whether each of the given values are solutions of $x < 9$. Record all the
+values that are solutions.
+
+A. $-9$
+B. 10
+C. 0
+
+D. $2.4$
+E. $9.1$
+F. $-0.9$
+
+G. $8.9$
+H. $-6$
+I. 15
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+
+66

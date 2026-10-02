@@ -1,0 +1,63 @@
+Examining Histograms Amira's class also constructed some histograms to represent some of the
+data they collected. See if you can determine how a histogram is constructed by analyzing the
+next two graphs.
+
+Number of People
+Hours Spent Watching
+Movies This Month
+200
+150
+100
+50
+0
+0-1
+2-3
+4-5
+6-7
+8-9
+10-11
+Hours
+
+Number of Movies
+Length of Movies
+12
+10
+8
+6
+4
+2
+0
+0-29
+30-59
+60-89 90-119 120-149 150-179 180-209
+Minutes
+
+Let's Chat
+• Why do you think Amira's class used histograms instead of bar graphs to represent each set of data?
+• How are the histograms similar to each other? How are they different?
+• What units are used in each histogram?
+• Can you tell how many observations Amira's class collected for each histogram?
+
+Whiteboard: Comparing Histograms and Bar Graphs Fill in the Venn diagram to compare
+bar graphs and histograms. Demonstrate your understanding by drawing in your journal or using
+the digital tool.
+
+Comparing Histograms
+and Bar Graphs
+Histograms
+Bar Graphs
+
+Comparing Histograms and Bar Graphs Sketch a copy of your Venn diagram.
+
+Identify Characteristics of a Histogram There are certain characteristics that all histograms
+share. Identify the characteristics that are common to all histograms.
+
+A. Histograms should have a title, and each axis should be labeled.
+B. Histograms show individual data points.
+C. Histograms show data grouped into intervals.
+D. The bars on a histogram should touch.
+E. The intervals on a histogram do not have to be the same size.
+F. The intervals in a histogram should have no gaps or overlaps in values.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 2 • Exploring the Histogram | 87

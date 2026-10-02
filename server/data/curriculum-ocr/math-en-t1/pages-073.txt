@@ -1,0 +1,59 @@
+UNIT
+4
+CONCEPT 1
+Write and Solve Equations and Inequalities
+LESSON 3
+Solving Inequalities
+Learning Target
+• I can use a number line to represent inequalities.
+Classroom Practices
+• Reason abstractly and quantitatively.
+ACCESS
+Exploring Inequalities on a Number Line In this lesson, you will be using number lines to
+represent inequalities. Think about other ways in which you have used number lines to represent
+numbers, such as identifying rational numbers or solving problems.
+Let's Chat Discuss how you could show a range of numbers on a number line.
+BUILD AND CONNECT
+Solution of an Inequality Use this number line to investigate how inequalities look.
+Quick Code
+egm6081
+Representing Inequalities on a
+Number Line Interactive
+Go online to explore this interactive activity.
+Interactive
+Solutions of inequalities in the set of integers can be represented as follows:
+a.
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+4
+5
+x > -1
+Does -1 belong to the solution set of the above inequality? explain that.
+x ≤ -6
+b.
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+4
+5
+Does -6 belong to the solution set of the above inequality? explain that.
+64 |

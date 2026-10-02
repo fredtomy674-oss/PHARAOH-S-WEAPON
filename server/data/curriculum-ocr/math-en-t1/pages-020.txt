@@ -1,0 +1,39 @@
+Let's Chat Discuss your reasoning and answers with a partner.
+• How did your thinking change when the fruit were cut into different quantities per package?
+• What would be the common size fruit amount you could use if you were determining how many
+complete fruit packages would be equivalent to the sum of these partial packages: <tex>$\frac{3}{4} + \frac{7}{12}$</tex>?
+• How is the LCM related to the size of the fruit package you would use to make these fractions
+equivalent?
+
+LCM Choose the LCM for each pair of numbers from the given values.
+
+<tex>$$\begin{matrix} 12 & 16 & 18 & 20 & 24 & 28 & 30 \\ 32 & 36 & 40 & 48 & 54 & 60 \end{matrix}$$</tex>
+
+A. ____ 4 and 12    B. ____ 5 and 8    C. ____ 6 and 10    D. ____ 6 and 9
+
+Counting Fruit Evaluate these partial fruit combinations. The denominator describes the total
+number of pieces the package of fruit is divided into for pleasurable eating or easy sharing. You
+may also use Whiteboard, counters, or paper models to assist you in your reasoning, if needed.
+
+As you reason these sums, think about the LCM of the denominators and how the LCM
+determines the "common fruit package size" that needs to be used to find the actual equivalent
+amount of a complete package.
+
+Show your steps, and explain your reasoning.
+
+A. <tex>$\frac{1}{4} + \frac{1}{12}$</tex>    B. <tex>$\frac{1}{5} + \frac{1}{8}$</tex>
+
+Another Sum Recall the LCM of the denominator values. Create equivalent fractions using the
+LCM as the common denominator in each fraction, and find the sum.
+
+Include your steps and explain your reasoning.
+<tex>$$\frac{7}{10} + \frac{5}{6} =$$</tex>
+
+Your Sum Creation Create your own fruit package fraction combination in the form of <tex>$\frac{a}{b} + \frac{c}{d}$</tex>,
+such that:
+
+• The values $a$, $b$, $c$, and $d$ all represent different whole numbers between 2 and 12, so each
+  fraction value is less than <tex>$\frac{1}{2}$</tex>.
+• The sum of your fractions is greater than or equal to <tex>$\frac{1}{2}$</tex>.
+
+Lesson 4 • Analyzing Least Common Multiples | 11

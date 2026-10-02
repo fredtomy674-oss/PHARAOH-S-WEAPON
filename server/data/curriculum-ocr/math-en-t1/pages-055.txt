@@ -1,0 +1,37 @@
+UNIT
+3
+
+CONCEPT 1
+Use and Analyze Expressions
+
+Division Write a verbal statement or real-world situation that could be represented by an algebraic expression that uses division.
+
+What is the algebraic expression that models your verbal statement?
+
+The following tasks will help you to learn about some common errors and how to avoid them.
+
+Hazem's Try Hazem wrote "$m$ added to $18$ divided by $3$" as the written expression for $m + \frac{18}{3}$. Is Hazem correct? Explain your reasoning.
+
+Grandma's House Write an algebraic expression to compute the number of liters of gas Fares needs to buy to make the round trip to visit his grandma. His car gets $15$ kilometers per liter. Use the variable $d$ to represent the distance in kilometers to his grandma's house.
+
+Gathering Eggs Maram saw this problem in her math book:
+
+"Aunt Farha gathers the same number of eggs from her chickens every day for two weeks.
+
+In the third week, she cooks exactly half of the eggs she had gathered previously. How many eggs does she have left?"
+
+Which one of these options will help Maram solve this problem?
+
+A. Divide $x$ by $2$ and subtract it from $14$.
+
+B. Multiply $x$ by $14$ and divide the product by $2$.
+
+C. Multiply $x$ by $14$ and subtract the quotient of $x$ and $2$.
+
+D. Divide $x$ by $\frac{1}{2}$ and subtract it from $14$ plus $x$.
+
+Gathering Eggs
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+
+46

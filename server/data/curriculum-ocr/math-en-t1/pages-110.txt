@@ -1,0 +1,23 @@
+Analyze Graphs Suppose three students made these graphs based on some first names in their
+class. Use the graphs to complete the three tasks.
+
+Student A's Graph
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+Student B's Graph
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+Student C's Graph
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+A. Explain how the graphs from Student A and Student C are similar to one another and
+describe how they differ from Student B's graph.
+
+B. Describe the method that Student A and Student C could follow, using their graphs to find
+the balance point of the data.
+
+C. Explain the method that Student B could follow, using his graph to find the balance point
+and describe how this is different from the method the other students could use.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 1 • Exploring the Balance of Data Sets | 101

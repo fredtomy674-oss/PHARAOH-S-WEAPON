@@ -1,0 +1,70 @@
+UNIT
+5
+|
+CONCEPT 1
+Explore Relationship between Two Variables
+
+LESSON 4
+Graph Representation for Dependent
+and Independent Variables
+
+Learning Targets
+• I can connect representations of dependent
+and independent variables in tables,
+equations, and graphs.
+• I can represent dependent and independent
+variables on a coordinate plane.
+
+Classroom Practices
+• Model with mathematics.
+
+ACCESS
+
+Making Graphs In previous lessons, you explored the rides area and the food stand at the
+amusement park. Now, let's explore the games. Choose one of these games.
+
+RING TOSS
+4 Rings
+for 5 tokens
+(Rings also
+sold
+individually)
+
+BALLOON
+P
+3 Darts for 4.50 tokens
+(darts also sold individually)
+
+BASKETBALL
+2 Balls for 5 tokens
+(balls also sold individually)
+
+Let's Chat What information are you given about the game?
+
+BUILD AND CONNECT
+
+Part A: Tables, Equations, and Graphs
+
+Make a Table Choose one of the three games. Create a table that shows the number of objects
+you buy and the amount of money it would cost for those objects. Let x be the number of rings,
+balls, or darts, depending on the game you chose, and let y be the total cost.
+
+Ring Toss
+4 Rings
+for 5.00 tokens
+Rings also sold
+individually!
+
+Balloon Pop
+3 Darts
+for 4.50 tokens
+Darts also sold
+individually!
+
+Basketball
+2 Balls
+for 5.00 tokens
+Balls also sold
+individually!
+
+76 |

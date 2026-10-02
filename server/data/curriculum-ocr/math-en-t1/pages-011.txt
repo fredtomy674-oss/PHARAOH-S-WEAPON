@@ -1,0 +1,34 @@
+UNIT
+1
+CONCEPT 1
+Divisibility, GCF and LCM
+
+B. From the previous table, complete the following:
+- The numbers that divisible by 2 are:
+- The numbers that divisible by 3 are:
+- The numbers that divisible by 4 are:
+- The numbers that divisible by 5 are:
+- The numbers that divisible by 6 are:
+- The numbers that divisible by 10 are:
+
+Let's Chat
+- Discuss with a partner and deduce a rule for divisibility by each of the numbers
+2, 3, 4, 5, 6,10.
+- Deduce the relation between divisibility, factors and multiples
+
+Real-Situations for Divisibility which situation is expressing divisibility? Mark all the correct
+answers.
+a) 6 persons volunteered to work at the Food Bank. If the total number of voluntary work hours
+is 720 hours per year. Did all the persons volunteer with the same number of full hours?
+b) A school accompanied 254 students to participate in a campaign to donate for the Egyptian
+Food Bank. Is it possible to distribute the students equally among 5 buses?
+c) The Food Bank needs to distribute 116 food boxes. Is it possible to distribute the boxes
+equally among 4 villages?
+d) The number of shares donated by The food bank's top donor 1,250 shares at each of 10
+different branches. Are the shares distributed equally among the Food Bank branches?
+
+Let's Chat Discuss with a partner the solution steps to determine the reasons of your choosing for
+some situations and the reasons for not choosing.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+2

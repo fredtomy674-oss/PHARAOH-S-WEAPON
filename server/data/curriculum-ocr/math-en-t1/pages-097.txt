@@ -1,0 +1,43 @@
+UNIT | CONCEPT 1
+6 Applications on Collecting and Representing Data
+
+LESSON 3
+Representing Data Using Histograms
+
+Learning Targets
+• I can create a histogram for a given set of data.
+• I can collect data using number cubes and create a histogram for that data.
+
+Classroom Practices
+• Model with mathematics.
+• Attend to precision.
+
+ACCESS
+Measuring a Tree A Primary 6 class decided to take care of some trees in their neighborhood. They wanted to find trees that students could measure by using their arm spans. They started by asking this statistical question: "What is your arm span?"
+
+Let's Chat Discuss with a partner how these students may have measured their arm spans.
+
+BUILD AND CONNECT
+Make a Histogram Here is the data that the students collected in a frequency table. Use the Whiteboard or graph paper to create a histogram to display this data. Be sure to choose an interval size that makes sense for this data set.
+
+Arm Span (cm) | Frequency
+127 | 2
+132 | 3
+135 | 1
+138 | 1
+141 | 1
+142 | 2
+143 | 1
+144 | 2
+
+Arm Span (cm) | Frequency
+147 | 2
+149 | 2
+152 | 3
+153 | 2
+157 | 2
+158 | 3
+160 | 1
+166 | 1
+
+88 |

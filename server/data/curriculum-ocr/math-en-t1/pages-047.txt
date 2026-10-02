@@ -1,0 +1,65 @@
+UNIT
+3
+CONCEPT 1
+Use and Analyze Expressions
+
+Part B: Sort Expressions
+
+Sort Expressions Sort the given expressions into two different groups. Clearly explain what
+criteria you used for the two groups.
+
+9
+2 + 7.8
+3(6) + 2
+7(1.4 + 3.2)
+
+48 - 1
+1
+4
+m - 2
+2n
+3p + 4q
+
+5x + 3x - 1
+x - 36
+r + s - t
+
+A. What is your first group of terms?
+B. What is your second group of terms?
+
+Analyze Suppose a student sorted the expressions into two groups, as shown in the table.
+
+Group 1
+Group 2
+
+1
+4
+m - 2
+9
+
+2n
+2 + 7.8
+
+3p + 4q
+3(6) + 2
+
+5x + 3x - 1
+7(1.4 + 3.2)
+
+x - 36
+48 - 1
+
+r + s - t
+
+Explain your reasoning for these questions.
+
+A. What criteria do you think was used to sort the expressions this way?
+B. The first group contains only algebraic expressions. The second group contains only numeric
+expressions. How would you define an algebraic expression? A numeric expression?
+
+Let's Chat Share with a partner your answers in Sort Expressions and Analyze. Revise your
+answers as needed. Be prepared to share your findings with your peers.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+
+38

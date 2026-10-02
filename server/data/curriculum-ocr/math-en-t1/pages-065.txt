@@ -1,0 +1,64 @@
+UNIT
+3
+CONCEPT 2
+Algebraic Expressions and Exponents
+
+BUILD AND CONNECT
+Are They Equivalent?
+
+HANDS-ON
+ACTIVITY
+
+Keep it Level Explore how to identify equivalent expressions. Use this online digital
+resource for Hands-On exploration.
+
+Let's Chat If the directions asked for you to use two things of equal weight to represent both
+variables and constants, would any of your answers change? Why or why not?
+
+Evaluate the following expressions using two positive integers of your choosing. Show your work
+as done in this example.
+
+$x + 2x$
+$2(x + 2)$
+Equal?
+
+If $x = 1$
+$1 + 2(1)$
+$1 + 2$
+$3$
+$2(1 + 2)$
+$2(3)$
+$6$
+no
+
+If $x = 2$
+$2 + 2(2)$
+$2 + 4$
+$6$
+$2(2 + 2)$
+$2(4)$
+$8$
+no
+
+Evaluate for Equivalency 1 Evaluate each of these expressions using two different positive
+integers of your choosing.
+
+If the expressions are equal, answer yes. If they are not equal, answer no.
+
+$3(2x + 1)$
+$6x + 3$
+Equal?
+
+If $x =$
+(A)
+(B)
+(C)
+(D)
+
+If $x =$
+(E)
+(F)
+(G)
+(H)
+
+56

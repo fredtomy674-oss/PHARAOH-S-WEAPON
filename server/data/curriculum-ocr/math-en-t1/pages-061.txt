@@ -1,0 +1,36 @@
+UNIT
+3
+CONCEPT 2
+Algebraic Expressions and Exponents
+LESSON 6
+Applications on Algebraic
+Expressions
+Learning Target
+• I can evaluate expressions involving
+exponents and parentheses.
+Classroom Practices
+• Reason abstractly and quantitatively.
+• Look for and make use of structure.
+• Look for and express regularity in repeating
+reasoning.
+ACCESS
+Steps in the Order of Operations What steps do you take to evaluate an expression using the
+order of operations?
+Stairs
+Example Expression
+12-8÷4+7+1-2²×3
+12-8÷4+8-2²×3
+12-8÷4+6²×3
+12-8÷4+36×3
+12-2+108
+118
+Let's Chat Consider where exponents fit into the order of operations and how to evaluate expressions.
+• What is the order of operations?
+• How does the order of operations change when there are exponents?
+• When do you substitute the value of the variable?
+BUILD AND CONNECT
+Evaluating Exponential Expressions
+Use what you know about the order of operations to evaluate the expression given.
+Ordering the Operations What steps would you take to evaluate the expression 9+ (p² - 3) ÷ 2
+for p = 5?
+52

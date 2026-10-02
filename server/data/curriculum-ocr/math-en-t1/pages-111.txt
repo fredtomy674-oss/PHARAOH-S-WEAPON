@@ -1,0 +1,40 @@
+UNIT
+7
+
+CONCEPT 1
+Exploring Measures of Central Tendency and Spread
+
+LESSON 2
+Interpreting Mean
+
+Learning Targets
+- I can explore mean as a fair share.
+- I can determine an algorithm for calculating the mean of a data set.
+
+Classroom Practices
+- Use appropriate tools strategically.
+- Look for and make use of structure.
+
+ACCESS
+The Balance Point and Mean A measure of center of tendency summarizes a data set with a single value by telling you how data are clustered.
+
+Football Players
+
+Mean of Jersey Numbers
+$$\frac{4 + 11 + 16 + 20}{4}$$
+$$\text{Mean} = 12\frac{3}{4}$$
+
+The mean is one measure of central tendency. Locating the balance point is one way to determine the mean of a data set.
+
+Let's Chat
+- Why do you think the balance point is a good mean value?
+- Discuss your thoughts with a partner.
+
+BUILD AND CONNECT
+Part A: Mean as Balance Point Suppose that every year your class makes greeting cards for charity.
+
+Find the Mean Last year, your teacher divided your class into 5 groups. Each group made the following numbers of cards: 32, 34, 36, 38, and 40. Calculate the mean number of cards that the student groups made.
+
+Students Making Cards
+
+102

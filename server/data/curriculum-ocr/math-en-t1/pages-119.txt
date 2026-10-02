@@ -1,0 +1,49 @@
+UNIT | CONCEPT 1
+7 | Exploring Measures of Central Tendency and Spread
+
+Range There is a value called range that will help you understand the spread of the data. The
+range for the spring data is 14. The range for the summer data is 10.
+
+Understand Range Use the data from the dot plots to answer these questions.
+A. How do you think the range was calculated for spring temperatures?
+B. How do you think the range was calculated for summer temperatures?
+
+Analyze Range Explain what the range tells you about a data set.
+
+Let's Chat Discuss with a partner your responses.
+• Why is range a good measure to represent the data for the spring and summer temperatures?
+• What do you think the higher range means in this scenario?
+
+Analyze Other Situations Now that you know what range is, you can try finding it yourself.
+
+Points Scored Omar used a dot plot to show the total
+points he scored per basketball game this season. Omar
+told his teacher that the range is 20. His friend Rami said
+that the range is 7. The teacher told them that they both
+calculated the range incorrectly. Explain the errors each
+student made. What is the correct range?
+
+Points Scored per Game
+10 12 14 16 18 20 22 24 26 28 30
+Number of Points
+
+Practices Ali drew a box plot to show the number of times that students in a band practiced their
+musical instruments last week. What is the range of the number of times students practiced?
+
+Number of Practices Last Week
+0 1 2 3 4 5 6 7
+Number of Practices
+
+Quiz Scores The table shows Nour's quiz scores. What is the range of these quiz scores?
+
+Quiz Number | Score
+1 | 18
+2 | 15
+3 | 17
+4 | 20
+5 | 18
+6 | 19
+7 | 18
+8 | 16
+
+110 |

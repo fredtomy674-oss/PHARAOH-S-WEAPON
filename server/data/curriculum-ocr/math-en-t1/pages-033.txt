@@ -1,0 +1,65 @@
+UNIT
+2
+CONCEPT 2
+Investigate Rational Numbers
+
+BUILD AND CONNECT
+Sets of Numbers When placing numbers
+into groupings for rational, integer, natural,
+or counting numbers, it is important to place
+the number in its best set. Subsets are within
+sets. Example: Counting numbers includes
+the number 2 even though it is also a natural,
+integer and rational number. Being that
+counting numbers' set is within the natural set
+and natural number set is within the integer set
+and the integer set is within the rational set.
+
+Relating Rational Numbers from the opposite figure note that:
+• Counting Numbers are: 1, 2, 3 ...................
+• Natural Numbers are: 0, 1, 2, ...................
+• Integers are: ...............,-4,-3,-2,-1,0,1,2,3,4,.............
+Examples for rational numbers:
+1, 2, 3, ............................................
+0, 1,2,3,...........................................
+-1, -2, -3, -4, ............................
+-7
+4
+2
+3
+13
+15
+...................
+0.1, 0.02, 10.5 ............
+
+Naming Numbers Match the numbers to the best subset.
+A. 0.585757, __________
+B. 4, __________
+C. -455, __________
+D. 0, __________
+E. -0.606, __________
+F. 6
+2
+3
+, __________
+G. -11, __________
+H. -28,765, __________
+I.
+1
+2
+, __________
+J. 1, __________
+K. 12,892, __________
+L. 4.9, __________
+
+Let's Chat Share your answers with partners then discuss the following:
+• Show your thoughts about the following set of numbers: Counting Numbers, Natural Numbers, Integers,
+Rational Numbers.
+• In which subsets is the number 14? How about -3 and 0.5?
+• How are the different sets of numbers related to each other?
+• What means by belonging an element to a set?
+• What means by subsets and including a set to another set?
+
+Analyze Relationships Identify the statements that are always true. Select all statements that apply.
+
+24

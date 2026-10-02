@@ -1,0 +1,63 @@
+Whiteboard: Create
+a Histogram Create a
+histogram to display the
+data. Be sure to choose an
+interval that makes sense
+for this data set.
+Demonstrate your
+understanding by drawing
+in your journal or using the
+digital tool.
+
+Arm Span
+(cm)
+Frequency
+127 2
+132 3
+135 1
+138 1
+141 1
+142 2
+143 1
+144 2
+147 2
+149 2
+152 3
+153 2
+157 2
+158 3
+160 1
+166 1
+
+0
+
+Arm Span Histogram Explain why you chose the intervals you used. Compare your histogram
+with a partner's.
+
+Tree Measurements Using the information gathered about students' arm spans and
+the circumferences of species of trees given, determine which trees students could measure
+using arm span.
+
+Maple: 127 cm
+Sassafras: 137.2 cm
+
+Oak: 182.9 cm
+Ash: 148.6 cm
+
+Dogwood: 91.4 cm
+
+Number Cube Sums In this Hands-On Activity, make a histogram of data that you
+collect yourself. Use this online digital resource for Hands-On exploration.
+
+Number Cube Sums Answer the following questions.
+
+A. Why might a class want to collect data for sums of number cubes? What statistical question
+could be answered by this data collection?
+
+B. What information can you get by looking at the histograms your class made for this data?
+
+More Data If you combined the data for your whole class, how do you think the histogram would
+change?
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 3 • Representing Data Using Histograms | 89

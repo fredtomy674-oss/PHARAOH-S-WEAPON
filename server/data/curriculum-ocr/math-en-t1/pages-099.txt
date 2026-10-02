@@ -1,0 +1,51 @@
+UNIT 
+6
+
+CONCEPT 1
+Applications on Collecting and Representing Data
+
+LESSON 4
+Exploring Box Plot
+
+Learning Target
+. I can calculate the median and 5-point
+summary of a data set and describe how these
+values are represented on a box plot.
+
+Classroom Practices
+. Model with mathematics.
+. Attend to precision.
+
+ACCESS
+
+Random Numbers Consider the numbers
+in the picture when answering the Let's
+Chat questions.
+
+Let's Chat
+. When you gather data, are the
+numbers in order or out of order?
+. What are some ways in which you can
+order the data?
+. How does ordering the data help you
+understand it?
+
+Random Numbers
+
+BUILD AND CONNECT
+
+Part A: Find the Median
+
+Some graphs may give us a clearer picture of data than others. A box plot is one of those graphs.
+In order to explore box plots, we need to have an understanding of median.
+
+Your teacher wants to determine how many hours a student spends doing independent math work
+during the school week. Gather data from your own class or use the data provided to create a dot
+plot to organize this data.
+
+Number of hours students spend doing independent math work during the school week
+sample data.
+
+7, 3, 8, 7, 9, 8, 2, 4, 5, 0, 2, 1, 6, 4
+
+90

@@ -1,0 +1,79 @@
+UNIT
+6
+CONCEPT 1
+Applications on Collecting and Representing Data
+
+Part B: Box Plots
+
+Quick Code
+egm6109
+
+Box Plot Maker Interactive
+Go online to explore this interactive activity.
+
+Interactive
+
+Box plot example
+0, 1, 7, 4, 18, 12, 0, 9, 12, 11, 13, 17, 15
+0
+2.5
+11
+14
+18
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+
+Let's Chat Discuss with a partner the important characteristics of a box plot.
+
+Box Plot Complete the following tasks. With your peers, use the Box Plot to solve the questions.
+A. What is the value of your minimum data point?
+B. What is the value of your maximum data point?
+C. What is the value of the median of your data set?
+D. Explain what feature in the box plot shows the location of the median of the data set.
+E. What does the data displayed in the entire rectangular box found in the middle of the data
+set represent?
+F. The endpoints of the rectangular box are called the 1st quartile (Q1) and the 3rd quartile
+(Q3). Use the box plot and the data values to explain the meaning of Q1 and Q3.
+G. The two segments from the minimum value to Q1 and from Q3 to the maximum value are
+sometimes called whiskers. What does each whisker represent?
+
+5-Number Summary A data set can be described using five values, called a 5-number summary.
+Identify the correct term for each of the 5 points shown on the box plot.
+
+Minimum
+Maximum
+Median
+Upper Quartile
+Lower Quartile
+
+A
+B
+C
+D
+E
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+22
+24
+26
+28
+
+92

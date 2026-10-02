@@ -1,0 +1,90 @@
+UNIT
+6
+CONCEPT 1
+Applications on Collecting and Representing Data
+
+Dot Plot Write two questions that can only be answered using the dot plot, but not the other two displays.
+
+Box Plot Write two questions that can be answered using the box plot and one that cannot. Be sure
+to use new questions that you haven't seen or written yet.
+
+Choose a Graph Label each question with the type of graph that would display the answer best.
+
+dot plot histogram box plot
+
+A. How many students have exactly 150 songs on their devices?
+B. What is the median number of songs?
+C. How many students had from 90 to 119 songs on their devices?
+
+Let's Chat Discuss your answers with a partner. What are the benefits of using each type of graph?
+What are the limitations?
+
+Analyze Data Values Suppose the students gathered information to find how long Primary 6
+students spent listening to music each week. The data they collected is given in the table.
+
+Number of Minutes Students Spent Listening to Music per Week
+120
+15
+45
+30
+60
+90
+0
+125
+30
+240
+75
+45
+80
+10
+20
+35
+45
+90
+100
+115
+75
+40
+70
+100
+120
+120
+150
+15
+0
+20
+5
+120
+45
+80
+10
+45
+50
+100
+15
+0
+20
+35
+120
+150
+30
+60
+90
+20
+35
+40
+
+Let's Chat If you wanted to make a data display of this data, what types of information would you
+need to know before you proceeded? Why might you choose one particular display over another? Discuss
+your thoughts with a partner.
+
+Choose a Display Suppose you want to display this data to determine a typical number of minutes
+that students spent listening to music. Which graph would you use? Explain your reasoning.
+
+Let's Chat With a partner, name the graph or graphs you would use to do the following:
+• Show individual data values
+• Show hundreds of observations
+• Show clusters and gaps in the data
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+96

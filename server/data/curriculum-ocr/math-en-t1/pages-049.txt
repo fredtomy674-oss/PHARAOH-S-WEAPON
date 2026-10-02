@@ -1,0 +1,59 @@
+UNIT
+3
+
+CONCEPT 1
+Use and Analyze Expressions
+
+Let's Chat Discuss the following with a partner:
+• What is the difference between an expression and an equation?
+• Describe a real-life situation that can be modeled by an expression.
+• How would you change the situation so that it could be represented by an equation?
+
+Understand Terms Every expression that you encounter has terms, and some have like terms.
+Look at the first five examples in this table to see if you can determine what terms and like terms
+are. Then, identify the number of terms and like terms for the remaining expressions.
+
+Expression
+Number of Terms
+Like Terms
+
+5
+1
+None
+
+8 + 2
+2
+8, 2
+
+x + 12
+2
+None
+
+4n + 2n + 2
+3
+4n, 2n
+
+6 + 3x + 3
+3
+6, 3
+
+m + 3 + 2n + 2
+(A)
+(B)
+
+16x + 2x
+(C)
+(D)
+
+8z + 3z + 9
+(E)
+(F)
+
+7x + 7x + 1 + 2x
+(G)
+(H)
+
+Let's Chat Discuss your answers to the last exercise with a partner. Then, discuss how you would
+define terms and like terms.
+
+40

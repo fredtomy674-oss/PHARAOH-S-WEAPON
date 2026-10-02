@@ -1,0 +1,55 @@
+Suppose a student chose a ride and said that for her ride, the number of tickets, $t$, she would
+need to go on her ride $r$ times could be represented by $t = 5r$.
+
+Which ride did she choose? How can you use her equation to find how many tickets she would
+need if she wanted to go on this ride 15 times?
+
+The student says that she now understands why she needs to learn about dependent and independent
+variables. She can see in the equation $t = 5r$, that the value of $r$ depends on the value of $t$.
+
+Explain whether she is correct.
+
+Let's Chat Discuss your answers with a partner.
+
+Write an Equation Now, select a different
+ride. Think about the relationship between
+the number of tickets you need for the new
+ride and the number of times you want to ride.
+Write an equation to represent the situation
+using the variables $r$ and $t$.
+
+Use Your Equation How can you use your
+equation to find the number of tickets you
+would use to go on your ride 12 times?
+Explain your reasoning.
+
+Analyze Another Situation Now, look for
+mathematical relationships at the food stand.
+
+Popcorn Equation Think about a relationship
+between the food you want to buy and the
+amount of tokens you want to spend. Suppose
+you are buying 1 box of popcorn for a friend
+and you are not sure what to buy for yourself.
+Determine what is known and what will change.
+
+Select two variables to write an equation for
+the total amount of tokens you will spend at the
+food stand and explain what each part of the
+equation represents.
+
+| Ride | Number of Tickets |
+| :--- | :--- |
+| Ferris Wheel | 3 Tickets |
+| Rock N Roller | 6 Tickets |
+| Scrambler | 8 Tickets |
+| Swing | 4 Tickets |
+| Viking | 5 Tickets |
+
+BALLOON
+FOOD STOP
+Popcorn: 2 tokens Kofta: 3 tokens Water: 1 token
+Falafel: 2.50 tokens Hawawshi: 3.50 tokens
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 2 • Applications on Dependent and Independent Variables | 73

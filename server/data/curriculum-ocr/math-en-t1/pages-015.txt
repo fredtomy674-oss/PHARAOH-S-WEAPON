@@ -1,0 +1,78 @@
+UNIT
+1
+CONCEPT 1
+Divisibility, GCF and LCM
+
+BUILD AND CONNECT
+Making Boxes A student has collected 12 grain bags and 8 packs of cheese in order to make
+donation boxes for the needy.
+
+Organize the Boxes Help the student determine the greatest number of boxes she could make
+so that all boxes include the same number of items. Let g stand for a grain bag and c stand for a
+pack of cheese. You can represent this information with an expression.
+
+A.
+g g g
+g g g
+c c c
+c
+
+g g g
+g g g
+c c c
+c
+
+B.
+g g
+g
+c c
+
+g g
+g
+c c
+
+g g
+g
+c c
+
+g g
+g
+c c
+
+C.
+g g
+c
+
+g g
+c
+
+g g
+c
+
+g g
+c
+
+g g
+c
+
+g g
+c
+
+g g
+c
+
+g g
+c
+
+Write the Expression Which expression represents the total number of items the student put into
+her boxes? Identify all that apply, and record the correct expressions.
+A. 4 + 3 + 2
+B. 4(3 + 2)
+C. (4 × 3) + (4 × 2)
+D. 4 + (3 × 2)
+
+Let's Chat Discuss with a partner your answer to the previous task.
+• Did you choose more than one expression?
+• If so, how are the expressions related?
+
+6

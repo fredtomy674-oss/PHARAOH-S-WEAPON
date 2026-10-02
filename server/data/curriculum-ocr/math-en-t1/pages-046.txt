@@ -1,0 +1,38 @@
+Analyze Other Situations An astronaut's weight and the amount of time the astronaut sleeps is
+also affected when the astronaut goes on space missions.
+
+Weight on the Moon Some astronauts have been sent on missions to the moon. An astronaut on
+the moon weighs $\frac{1}{6}$ of what the astronaut weighs on Earth.
+
+Astronaut
+
+Show your calculations for the weights of some astronauts while visiting the moon.
+
+\begin{tabular}{|c|c|}
+\hline
+Weight on Earth (Newton) & Weight on the Moon (Newton) \\
+\hline
+$66$ & $(A)$ \\
+\hline
+$84$ & $(B)$ \\
+\hline
+\end{tabular}
+
+Write an Expression Think about the relationship between the weight of an astronaut on Earth
+and his weight on the moon, as shown in the table you just completed. Use the information in the
+table to complete these three tasks.
+
+A. Which value varies depending on the astronaut?
+B. What part of the relationship between the weight of an astronaut on Earth remains the same
+each time you find the weight of an astronaut on the moon?
+C. Write an algebraic expression that would represent the weight of any astronaut while
+visiting the moon. Select a letter that you can use to represent the weight of an astronaut
+on the moon using the astronaut's weight on Earth.
+
+Sleeping in Space Astronauts must strap themselves in when sleeping so that they don't float
+around. They schedule 8 hours of sleep each day they are in space.
+
+Write an expression that represents the number of hours an astronaut sleeps during any mission,
+where the number of days is the unknown number. Explain your reasoning.
+
+Lesson 1 • Creating Mathematical Expressions | 37

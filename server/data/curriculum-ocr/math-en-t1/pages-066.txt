@@ -1,0 +1,71 @@
+Evaluate for Equivalency 2 Evaluate the given expressions using two different positive integers of your choosing.
+
+If the expressions are equal, answer yes. If they are not equal, answer no.
+
+3x + 6
+
+x + 3 + 2(x + 1)
+
+Equal?
+
+If x = (A)
+
+(B)
+
+(C)
+
+(D)
+
+If x = (E)
+
+(F)
+
+(G)
+
+(H)
+
+Evaluate for Equivalency 3 Evaluate these expressions using two different positive integers of your choosing.
+
+If the expressions are equal, answer yes. If they are not equal, answer no.
+
+4x + 6
+
+3(x + 2)
+
+Equal?
+
+If x = (A)
+
+(B)
+
+(C)
+
+(D)
+
+If x = (E)
+
+(F)
+
+(G)
+
+(H)
+
+Let's Chat Is it possible for the value of two expressions to be equal sometimes and not others?
+
+Are They Equivalent? Examine these two expressions and determine whether they are equal. If so, consider whether they are always equal. Complete each task.
+
+2(x + 1)
+
+2x + x
+
+A. Try to find a value for x that will make these expressions equal.
+
+B. Try to find a value for x that will make the expressions not equal.
+
+C. Decide if these two expressions are always equal and if they should be considered equivalent expressions.
+
+Let's Chat Share with a partner your answers in Are They Equivalent?. Revise your answers as needed. Be prepared to share your findings with your peers.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+
+Lesson 7 • Determining Equivalent Algebraic Expressions 57

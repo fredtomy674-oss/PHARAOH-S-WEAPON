@@ -1,0 +1,49 @@
+UNIT
+6
+CONCEPT 1
+Applications on Collecting and Representing Data
+
+Make a Conjecture Consider what you know about dot plots as you complete the tasks.
+A. Create a statistical question that Amira could have asked about this topic to create a dot plot.
+B. Predict what the dot plot might look like based on your statistical question.
+
+Analyze a Dot Plot Here is one dot plot that Amira made. Record your responses to each question.
+
+Movies Seen at the Theater Last Month
+Number of Movies
+0 1 2 3 4 5 6 7 8 9 10
+
+A. How many people were surveyed?
+B. What other information can you determine from the graph?
+
+Identify Characteristics There are certain characteristics that all dot plots share. Identify which of these characteristics are common to all dot plots.
+
+A. Dot plots should have titles.
+B. Dot plots should have data graphed above a number line.
+C. Dot plots should have exactly 20 pieces of data.
+D. Each individual piece of data can be seen on a dot plot and is represented by a dot.
+E. The number lines in dot plots should start at 0.
+F. The number lines in dot plots should be labeled with the units used to measure the data.
+G. You can determine the number of observations in a dot plot by finding the sum of the numerical value represented by each dot.
+H. Only numbers that have data points should be marked on the number line.
+
+Now, let's explore some other types of graphs.
+
+Bar Graphs and Histograms Suppose Amira's class constructed these bar graphs to show some other data they collected from different groups of people about their movie-watching habits.
+
+Favorite Cinema
+Number of Students
+Cinema
+West Cinema
+Central Cinema
+East Cinema
+
+Favorite Actors
+Number of People
+Actors
+Actor A
+Actor B
+Actor C
+Actor D
+
+86

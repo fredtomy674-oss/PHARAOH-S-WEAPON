@@ -1,0 +1,71 @@
+UNIT
+1
+CONCEPT 1
+Divisibility, GCF and LCM
+
+Whiteboard: Venn Diagrams Use the prime
+factorization of 12 and 18 to complete the Venn diagram.
+Demonstrate your understanding by drawing in your
+journal or using the digital tool.
+
+2
+2
+2
+3
+3
+3
+
+Prime
+Factors
+of 12
+
+Common
+Prime
+Factors
+
+Prime
+Factors
+of 18
+
+12 and 18 Determine the prime factorizations for 12 and 18. If necessary, create a factor tree for
+each number.
+
+12
+
+18
+
+×
+
+×
+
+×
+
+×
+
+Find the GCF and LCM Use your Venn diagram to answer these questions.
+A. What is the GCF of 12 and 18?
+B. What is the LCM of 12 and 18?
+
+Let's Chat Examine the Venn diagram. Look at all the prime factors to see how they relate to the
+LCM and GCF. Discuss your findings with a partner.
+
+Use Prime Factors Answer each question.
+A. How can the Venn diagram help you find the GCF?
+B. How can the Venn diagram help you find the LCM?
+
+Relatively prime numbers are numbers whose only common factor is 1.
+
+Let's Chat
+• If you drew a Venn diagram for two relatively prime numbers, such as 4 and 9, what would it look like?
+• If we made a Venn diagram to show the common prime factors of the two numbers, what factors would
+be in the overlap? Justify your answer.
+
+Relatively Prime For two relatively prime numbers, which of the following statements are true?
+Identify all that apply.
+A. Because there are no common factors in the intersection, the GCF is 0.
+B. Because there are no common factors in the intersection, the GCF is 1.
+C. The LCM is the product of the two numbers.
+D. The LCM is the product of all prime factors in the Venn diagram.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+4

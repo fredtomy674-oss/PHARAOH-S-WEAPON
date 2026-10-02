@@ -1,0 +1,43 @@
+UNIT
+3
+
+CONCEPT 1
+Use and Analyze Expressions
+
+BUILD AND CONNECT
+Part A: Expressions and Variables
+
+An Astronaut’s Height In addition to the changes in daily life that an astronaut encounters in
+space, gravity changes an astronaut’s height.
+
+Effects of Gravity Astronauts are approximately 0.05 meters taller while traveling in space than
+they are on Earth. Complete the table to determine the height of some astronauts while traveling
+in space.
+
+Height on Earth (meters) | Height in Space (meters)
+1.65 | (A)
+1.73 | (B)
+1.80 | (C)
+1.84 | (D)
+
+Let’s Chat How did you find the heights of the astronauts while they were traveling in space?
+Explain how you can write an expression to represent each astronaut’s height.
+
+Analyze the Situation Think about the relationship between the height of an astronaut on Earth
+and the astronaut’s height in space. Respond to these questions.
+
+A. Think about what values are always the same in this situation and what values vary. What
+values vary depending on the astronaut?
+B. Which value in this situation stays the same each time you find an astronaut’s height in
+space? Explain your reasoning.
+
+Build an Expression Suppose the height of an astronaut while traveling in space is measured and
+you want to find the astronaut’s height on Earth. Use the given terms and operations to create a
+mathematical expression that represents the height on Earth if the height in space is $h$ meters.
+
+$h \quad - \quad + \quad 0.05 \quad 1.73$
+
+Let’s Chat The letter $h$ in the expression you just created is called a variable. Why do you think it is
+called a variable? What do you think a variable is?
+
+36

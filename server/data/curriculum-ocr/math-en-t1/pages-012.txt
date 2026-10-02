@@ -1,0 +1,53 @@
+CONCEPT 1
+Divisibility, GCF and LCM
+UNIT
+1
+
+LESSON 2
+Factorizing a number to its
+prime Factors
+
+Learning Target
+- I can utilize prime factorization in finding
+GCF and LCM.
+
+Classroom Practices
+- Reason abstractly and quantitatively.
+- Construct viable arguments and critique the
+reasoning of others.
+- Look for and make use of structure.
+
+ACCESS
+Prime Factorization You learned how to use factor trees to find the prime factors of numbers. Then,
+you wrote the prime factorization of the numbers. Are there other ways to find the prime factorization?
+
+Let's Chat
+- What is the meaning of prime factorization?
+- What are some methods that you can use to find prime factors?
+- What are the advantages or disadvantages of these methods?
+
+40
+4
+2
+2
+10
+2
+5
+
+Prime Factors of 30
+5
+2
+3
+11
+7
+Prime Factors of 42
+Prime Factors of 33
+
+BUILD AND CONNECT
+Venn Diagrams Venn diagrams can be used to compare
+similarities and differences between items. Where the
+circles overlap is where information is shared. Let's see
+how we can use prime factors to find GCF and LCM.
+
+Lesson 2 • Factorizing a number to its prime Factors
+3

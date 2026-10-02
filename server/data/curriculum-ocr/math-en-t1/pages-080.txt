@@ -1,0 +1,44 @@
+Analyze Phrases Complete these statements by filling in each blank with a given phrase to show
+which depends on the other. You should use all phrases to create three different dependencies.
+
+how hard you laugh
+what is on the menu
+what you spend your tickets on
+how funny a joke is
+
+(A) depends on the kinds of rides you like.
+What you order at a food stand depends on (B) .
+(C) depends on (D) .
+
+Let's Chat Some of these phrases are dependent and others are independent phrases.
+• What do you think the words dependent and independent mean here?
+• Which part of the sentences you completed are independent?
+• Which are dependent? Discuss these terms with a partner.
+Think back to the roller coaster example. Which quantity depends on the other: the number of tickets you
+need or the number of times you want to ride the roller coaster? How do you know?
+
+Part B: Dependent and Independent Variables
+You can represent phrases that can be quantified with variables. Suppose $t$ represents the
+number of tickets you need, and $r$ represents the number of times you want to ride the roller
+coaster. Which variable depends on the other?
+
+An independent variable is a variable whose value is not determined by any other value or
+variable, so it can be assigned any value. The variable that changes depending on the value of
+the independent variable is called the dependent variable.
+
+In the roller coaster situation, which is the independent variable and which is the dependent variable?
+
+Write Statements Complete the statements. Be sure to name a variable to represent each
+quantity you fill in and be prepared to explain how you know which variable is independent and
+which is dependent.
+
+1. The number of balloons, $b$, you buy depends on (A).
+2. (B) depends on how much time $t$ you can spend at the amusement park.
+3. (C) depends on (D).
+
+Let's Chat Discuss your answers to the last exercise with a partner.
+Which variable is dependent in each of your statements? Which is independent? Explain how you know.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 1 • The Relationship Between Dependent and Independent Variables
+71

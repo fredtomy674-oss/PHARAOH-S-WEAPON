@@ -1,0 +1,46 @@
+Two Operations When an algebraic expression has more than one operation, it gets more
+complicated to write a verbal expression.
+
+Record all verbal expressions that represent the expression 5 + 2x.
+A. the sum of 2 and 5 multiplied by x
+B. the product of 7 and x
+C. the sum of 5 and the quantity 2 times x
+D. the product of 2x and 5
+E. the sum of 2 times x and 5
+
+Algebraic Expressions from Written Expressions and Real-World Scenarios
+To write algebraic expressions, assign a variable to the unknown number. Use parentheses when
+a sum or difference is multiplied. For example, "Four times the sum of a number and seven,"
+translates to 4(x + 7), while "the sum of four times a number and seven" is 4x + 7.
+
+Less than and more than are key words for switching the order of the terms. For example, a
+number less than ten translates to "10 - x", while a number less ten is "x - 10".
+
+Now, try writing algebraic expressions for the following written expressions and real-world scenarios.
+
+Addition Record which expressions can be represented by an algebraic expression that contains
+addition.
+
+A. Take 14 away from a number.
+B. Ammar has 7 more tokens than Tamer.
+C. A number increased by 3.5.
+D. Baher put 12 more stickers in the sticker book.
+E. A student shared his orange equally with his 2 friends.
+
+Subtraction Select the algebraic expression that represents the verbal expression:
+Twelve less than three groups of y.
+
+A. 12 - 3y
+B. y - 3(12)
+C. 3y - 12
+D. 12(3) - y
+
+Multiplication Two students are writing the algebraic expression for this real-world situation:
+"Mohamed brought 4 boxes containing c cookies to school for his birthday."
+
+Ali writes an algebraic expression to describe the total number of cookies:
+"c + c + c + c". Kamal thinks there is another expression as well.
+
+What expression could Kamal have been thinking of, and why are they both correct?
+
+Lesson 3 • Writing Algebraic Expressions | 45

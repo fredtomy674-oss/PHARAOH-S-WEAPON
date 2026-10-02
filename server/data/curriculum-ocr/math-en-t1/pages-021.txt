@@ -1,0 +1,42 @@
+UNIT
+1
+
+CONCEPT 1
+Divisibility, GCF and LCM
+
+Then, enter the initial sum of two fractions as $\frac{a}{b} + \frac{c}{d}$.
+Include your sum justification and final value using the LCM.
+When directed by your teacher, trade your creation with a peer to find sums, comparing your reasoning and answers. Revise your answers or justifications as needed.
+
+Please Share You buy one package of dates with 16 pieces. You have already eaten one piece when you remember that you owe your friend half of a fruit package.
+
+$\begin{array}{cccc}
+\frac{1}{16} & \frac{2}{16} & \frac{3}{16} & \frac{4}{16} \\
+\frac{5}{16} & \frac{6}{16} & \frac{7}{16} & \frac{8}{16}
+\end{array}$
+
+Use the given amounts to answer these two questions.
+A. What fraction represents the number of pieces you are to give to your friend.
+B. After giving your friend his share, what fraction represents the amount of the fruit package that is left?
+
+Now, choose from the given expressions and numbers to answer the next two questions.
+
+$\begin{array}{ccccc}
+\frac{6}{16} - \frac{1}{16} & \frac{1}{2} - \frac{15}{16} & \frac{15}{16} - \frac{1}{2} & \frac{16}{16} - \frac{8}{16} & \frac{8}{16} - \frac{15}{16} \\
+2 & 4 & 6 & 8 & 12 & 16 & 24 & 36
+\end{array}$
+
+C. What expression fits this scenario?
+D. What is the LCM of the denominators in the expression?
+
+Try This! Evaluate each expression using the LCM of the denominators. Justify your reasoning mathematically.
+
+A. $\frac{5}{6} - \frac{3}{8}$
+
+B. $1\frac{1}{12} - \frac{5}{9}$
+
+Let's Chat When instructed by your teacher, discuss your reasoning of how you used the LCM for each expression with a partner. Revise and resubmit your answers, if needed.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+
+12

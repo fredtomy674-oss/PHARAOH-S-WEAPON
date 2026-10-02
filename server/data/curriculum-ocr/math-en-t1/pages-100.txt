@@ -1,0 +1,39 @@
+Whiteboard: Independent Math Hours Using the study hours data, create a dot plot,
+marking needed values along the number line and drawing a vertical line on the number
+line where you think the middle of the data might be. Then, examine the lower half of
+the data and draw a vertical line where you think the middle of the lower half of the data
+might be. Do the same with the upper half of the data. Demonstrate your understanding by
+drawing in your journal or using the digital tool.
+
+Dividing the Data Use your dot plot to answer these questions.
+
+A. How many sections of the number line were created when you drew the vertical dividing
+lines on your data?
+
+B. Approximately how much of the data does each section represent?
+
+When a set of data is ordered from least to greatest, the middle value is known as the median. By
+finding the median, you can determine a typical value of the data set.
+
+Let's Chat Discuss with a partner the strategy you would use to find the median of a data set with
+an even number of data points.
+
+Finding the Median Write the median for each set of data.
+
+A. 1, 2, 3, 5, 7
+
+B. 1, 2, 3, 3, 5, 7
+
+C. 1, 2, 2, 3, 5, 7
+
+Correct? Ayman is looking for the typical number of points that the players on his basketball
+team score each game. He records the following values for the last game and determines that the
+median is 3.5. Is he correct? Explain why or why not.
+
+Each player's points in a basketball game: 1, 12, 6, 6, 5, 2, 0, 10, 7, 2
+
+Human Number Line For further practice finding the median, complete the Hands-
+On Activity: Human Number Line. Use this online digital resource for Hands-On
+exploration.
+
+Lesson 4. Exploring Box Plot 91

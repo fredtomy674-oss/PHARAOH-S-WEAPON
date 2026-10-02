@@ -1,0 +1,28 @@
+Analyze an Expression Write your responses to the following questions.
+
+A. Think about what $4(2 + 3)$ may stand for. Consider the number of food items you started with, 8 and 12, and the number of boxes you made, 4. How is 4 related to 8 and 12?
+B. Consider the number of items in each box, 2 and 3. How do those numbers relate to the original problem?
+
+The distributive property states that multiplying a number by the sum of two addends is the same as multiplying that number by each addend individually and then adding those products.
+
+Let's Chat Discuss with a partner what the distributive property means and how it relates to your responses in the previous questions.
+
+Write Another Expression Is there another way to divide the items? Use a different number of boxes. Every box must have the same number of grain bags and the same number of packs of cheese. Write an expression to represent this information.
+($\underline{\hspace{2cm}} + \underline{\hspace{2cm}}$)
+
+Making Baskets Students have collected 36 packs of cheese and 48 grain bags to make baskets. They will make as many baskets as possible with no items left over, and each basket will have the same number of packs of cheese and the same number of grain bags.
+
+Basket Expression What might the expression $12(3 + 4)$ mean in terms of the baskets, packs of cheese, and grain bags?
+
+Explain Why is the expression $12(3 + 4)$ helpful when representing this situation?
+
+Analyze Another student is given 20 packs of cheese and 40 grain bags to make food boxes. He uses the expression $10(2 + 4)$ to represent how many boxes he could make with equal amounts of food in each box. His friend tells him that there is a way to make more boxes. Which one of these expressions would represent his friend's solution?
+
+A. $20(2 + 4)$
+B. $10(1 + 2)$
+
+C. $10(1 + 4)$
+D. $20(1 + 2)$
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 3 • Writing Expressions Using the G.C.F. | 7

@@ -1,0 +1,48 @@
+CONCEPT 1
+UNIT
+Exploring Measures of Central Tendency and Spread
+7
+LESSON 4
+Exploring The Range
+Learning Target
+I can define and compute the range of data
+sets as an introduction to the importance of
+measures of variability.
+Classroom Practices
+• Construct viable arguments and critique the
+reasoning of others.
+• Look for and express regularity in repeated
+reasoning.
+ACCESS
+Median Temperature in Spring and Summer You have
+previously explored how the mean and median can provide
+useful information by describing a data set with a single
+value. Do you think these measures of center give you a
+complete picture of a data set?
+°C
+°F
+50
+120
+40
+100
+30
+Thermometer
+80
+A group of students recorded the daily high temperatures for two
+weeks in the spring and two weeks in the summer. They found
+that the median of the daily high temperatures for each of the two-week periods were the same: 20 °C.
+Let's Chat Can you conclude that the weather was the same for each of the two weeks in the
+spring and summer?
+BUILD AND CONNECT
+Explore Range The students made dot
+plots of the data to help them compare
+the temperatures they recorded in the
+spring and the summer. What do you
+notice about these dot plots?
+Daily High Temperature: Spring
+0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30
+Temperature (degrees Celsius)
+Daily High Temperature: Summer
+30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60
+Temperature (degrees Celsius)
+Lesson 4. Exploring The Range 109

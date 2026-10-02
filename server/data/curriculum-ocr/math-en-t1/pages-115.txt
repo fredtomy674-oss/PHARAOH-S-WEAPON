@@ -1,0 +1,69 @@
+UNIT
+7
+CONCEPT 1
+Exploring Measures of Central Tendency and Spread
+
+Number of Siblings of Primary 6 Students
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+Siblings Here is the data from a Primary 6 class. In looking at the dot plot of the data about students' siblings, how does the outlier affect the mean?
+A. The outlier would not have an effect on the mean.
+B. The outlier would cause the mean to be lower.
+C. The outlier would cause the mean to be much higher.
+D. The outlier would cause the mean to be higher, but the amount would be negligible.
+
+Effect on Median Does the outlier change the median for this data set? Explain your reasoning.
+
+Which Measure of Center? Which measure of central tendency do you think is better to use with the data that includes an outlier-the mean or the median? Explain your reasoning.
+
+Consider the two dot plots.
+Heights of Giraffes
+5
+5.2
+5.4
+5.6
+5.8
+5.10
+6.0
+6.2
+6.4
+6.6
+6.8
+6.10
+7
+Height in Meters
+
+Math Exam Scores
+0
+5
+10
+15
+20
+25
+30
+35
+40
+45
+50
+55
+60
+65
+70
+75
+80
+85
+90
+95
+100
+Score
+
+106

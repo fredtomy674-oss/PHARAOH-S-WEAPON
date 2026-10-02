@@ -1,0 +1,49 @@
+LESSON 3
+Exploring Median, Mode, and
+Outliers
+
+Learning Target
+• I can determine how outliers and shape
+of a graph can help to determine whether
+mean or median is a better measure of
+central tendency.
+
+Classroom Practices
+• Reason abstractly and quantitatively.
+• Construct viable arguments and critique the
+reasoning of others.
+• Model with mathematics.
+
+ACCESS
+
+Siblings You wonder how the number of siblings
+you have compares to other families, so you ask your
+classmates how many siblings they have. You record
+the data and start to calculate the mean. Most of the
+values are between zero and two, but one student has
+nine siblings!
+
+Let's Chat
+• How would you calculate the mean of the data?
+• Nine siblings is an outlier. What is an outlier?
+• Do you think the data in your class would be similar?
+
+BUILD AND CONNECT
+
+Mean, Median, and Outliers Here is an example of mode, median, mean and outliers using a set
+of data.
+
+0, 1, 7, 4, 18, 12, 0, 0, 9, 12, 11, 13, 17, 15
+
+Order: 0, 0, 0, 1, 4, 7, 9, 11, 12, 12, 13, 15, 17, 18
+Mode = 0
+9+11
+Median = = 10
+2
+1
+Mean = 119 = 8-
+14
+2
+Outliers = None
+
+Lesson 3 • Exploring Median, Mode, and Outliers 105

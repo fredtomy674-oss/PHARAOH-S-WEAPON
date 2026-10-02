@@ -1,0 +1,48 @@
+BUILD AND CONNECT
+
+Part A: Analyze Data on a Number Line
+
+Use Number Lines to Show the Data Show the fish data as integers on a number line. Label
+each point with the observation letter. Then, explain what you notice about the points.
+
+Analyze Another Situation Suppose your friend wants you to meet her at the fishpond at 2:30
+p.m. You arrive at 2:25 p.m. Your friend arrives at 2:35 p.m.
+
+Represent this scenario on a number line and explain your reasoning. Instead of using the given
+times, represent the elapsed time and the meeting time as integers.
+
+Select the True Statements Assuming that zero represents the arrival time, select all of the
+statements that are true.
+
+A. Your arrival can be represented as -5 on the number line.
+B. Your arrival can be represented as 5 on the number line.
+C. Your arrival can be represented as a point that is 5 units from 0.
+D. Your friend's arrival can be represented as -5 on the number line.
+E. Your friend's arrival can be represented as 5 on the number line.
+F. Your friend's arrival can be represented as a point that is 5 units from 0.
+
+Let's Chat Discuss your thoughts with a partner.
+
+Part B: The absolute value is the distance between the position of any number and the
+position of zero on the number line, and it is always positive or equal to zero.
+
+Absolute Value
+|-2| = 2
+
+Saleh, Omar, Nour and Tarek are brothers
+who went on an outing with their father to
+an amusement park. Their father bought
+them the same number of tokens, but
+some of them played more than others and
+had to borrow tokens from their brothers
+to continue playing games. The table
+represents how many tokens each brother
+had at the end of the day.
+
+Name Ending Token Count
+Saleh 10
+Omar -8
+Nour -2
+Tarek 8
+
+Lesson 5 • Exploring Absolute Value 29

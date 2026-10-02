@@ -1,0 +1,20 @@
+UNIT | CONCEPT 2
+3 | Algebraic Expressions and Exponents
+
+Select the Order Which of the given orders of operations would you use to evaluate the
+expression $7 + 6(t^2 - 3)$ for $t = 4$? Select the appropriate order.
+
+A. multiply, simplify exponent, subtract, add
+B. simplify exponent, subtract, multiply, add
+C. add, multiply, simplify exponent, subtract
+D. simplify exponent, add, subtract, multiply
+E. simplify exponent, multiply, add, subtract
+
+Find the Value Evaluate the expression $7 + 6(t^2 - 3)$ for $t = 4$. Record your calculations and
+final value.
+
+Let's Chat Share with a partner your answers in Select the Order and Find the Value. Revise your
+answers as needed. Be prepared to share your findings with your peers.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+54

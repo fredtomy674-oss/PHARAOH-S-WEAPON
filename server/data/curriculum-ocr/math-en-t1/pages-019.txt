@@ -1,0 +1,45 @@
+UNIT
+1
+|
+CONCEPT 1
+Divisibility, GCF and LCM
+Your Sister and 3 of her friends have 4 packages of bananas. Each package contains 8
+identical fruits, Each of them took a number of fruits to make banana pudding.
+This is what remains of the banana packages.
+$\frac{3}{8}$ $\frac{2}{8}$ $\frac{5}{8}$ $\frac{7}{8}$
+Use the Whiteboard: Fruit to help you work through the question. For each question, choose the
+correct amount from the given mixed numbers.
+$1\frac{1}{8}$
+$1\frac{1}{4}$
+$1\frac{3}{8}$
+$1\frac{1}{2}$
+$1\frac{5}{8}$
+$1\frac{3}{4}$
+$1\frac{7}{8}$
+$2\frac{1}{8}$
+$2\frac{1}{4}$
+$2\frac{3}{8}$
+$2\frac{1}{2}$
+$2\frac{5}{8}$
+$2\frac{3}{4}$
+$2\frac{7}{8}$
+A. If you were to regroup the bananas into packages, how many packages could be made
+from the remaining bananas?
+B. How many packages were used?
+Brother and Fruit Snack Your brother decided to try a new snack that required some
+persimmons and bananas.
+This is what remained of the full packages once he finished. Use the Whiteboard: Fruit to help
+you work through the question.
+Persimmons
+$\frac{3}{4}, \frac{2}{4}$
+Bananas
+$\frac{3}{8}, \frac{2}{8}, \frac{5}{8}$
+Your brother wants to collect the remaining fruit together. How many packages are left of each
+type?
+Then find the sum of the two numbers together.
+Your family had two packages of fruit, and the family ate some of each.
+Now there are $\frac{3}{8}$ of a package of bananas and $\frac{1}{4}$ of a package of persimmons.
+Use the Whiteboard: Fruit, markers, or paper models to make conjectures regarding each of the
+given questions. Be prepared to explain your reasoning.
+A. How many packages are left for each type?
+10 |

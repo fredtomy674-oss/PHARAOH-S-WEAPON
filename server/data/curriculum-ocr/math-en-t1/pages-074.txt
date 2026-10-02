@@ -1,0 +1,38 @@
+- The values of the variable x that satisfy the inequality (a) in the set of rational numbers are all rational numbers greater than -1
+- The values of the variable x that satisfy the inequality (b) in the set of rational numbers are all rational numbers smaller than or equal -6
+
+Let's Chat How are these number lines different from ones you have used before? Consider these algebraic statements to prepare for discussion.
+x > -6
+x < -6
+
+x ≥ -6
+x ≤ -6
+
+x = -6
+
+Let's Chat Think about how you would read each statement, then discuss the following with a partner.
+• What would each inequality look like on a number line?
+• Which way would each graph point? Why?
+
+Comparison 1 Record each true statement about the graphs of $x > -2$ and $x < -2$ on the number line.
+A. -2 belongs to the solution set of each of them.
+B. -2 belongs to the solution set of only one of them.
+C. The inequality $x > -2$ includes all values to the left of -2 on the number line.
+D. The inequality $x < -2$ includes all values to the right of -2 on the number line.
+E. They have no points in common.
+
+Comparison 2 Record each true statement about the graphs of $x > -2$ and $x \ge -2$ on the number line.
+F. -2 belongs to the solution set of each of them.
+G. -2 belongs to the solution set of only one of them.
+H. The inequality $x \ge -2$ includes all values to the left of -2 on the number line.
+I. The inequality $x > -2$ includes all values to the right of -2 on the number line.
+J. They have no points in common.
+
+Make a Conjecture How will the graphs for each pair of algebraic statements be similar? How will the graphs be different?
+A. $x < -2$ and $x \le -2$
+B. $x \le -2$ and $x \ge -2$
+C. $x = -2$ and $x > -2$
+
+Now that you've explored inequalities on the number line, think about what it means for a point to be included on the graph of an inequality. For example, would 2 be on the graph of $x \le -1$?
+
+Lesson 3 • Solving Inequalities 65

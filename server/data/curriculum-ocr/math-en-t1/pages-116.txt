@@ -1,0 +1,43 @@
+Outlier's Effect In which set of data, the Heights of Giraffes or the Math Exam Scores, will the
+outlier make a greater difference on the mean? Explain your reasoning.
+
+Why Are There Outliers? Think about the context of these graphs. Does it make sense that there
+would be outliers? Explain your reasoning.
+
+Excluding the Outlier Asmaa found the mean of the test scores to be 75.9, including the outlier.
+The sum of the data was 4,100 and there are 54 pieces of data. She said it was easy to figure out
+what the mean would be if she excluded the outlier. Explain an easy way to find the mean without
+the outlier.
+
+Now, think about how you can use the graph of data to determine whether the mean or median
+better describes a data set.
+
+Changes How would these outliers affect the mean if they were included in the calculation? Use
+reasoning to assign each of the given descriptions with the related graph.
+
+Mean increases
+Mean decreases
+Mean stays the same
+
+Heights in Our Class
+(A)
+138
+140 142 144 146 148 150 152 154 156 158 160
+Height (cm)
+
+Test 3 Scores
+(B)
+0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100
+Test Score (%)
+
+Number of Siblings per Student
+(C)
+0
+1
+2
+3
+4
+5 6 7 8 9 10 11
+Number of Siblings
+
+Lesson 3. Exploring Median, Mode, and Outliers | 107

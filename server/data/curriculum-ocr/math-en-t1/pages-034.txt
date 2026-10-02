@@ -1,0 +1,44 @@
+A. All integers (Positive, Negative and Zero) are also natural numbers.
+B. All counting numbers are also natural numbers, integers, (Positive, Negative and Zero), and rational numbers.
+C. All rational numbers are also integers (Positive, Negative and Zero).
+D. All natural numbers are also integers (Positive, Negative and Zero) and rational numbers.
+E. All integers (Positive, Negative and Zero) are also rational numbers.
+F. All rational numbers are also natural numbers and counting numbers.
+
+Let's Chat
+• Based on the work you've done so far, what do you think would be the definition of a rational number?
+• Compare your definition to the glossary definition.
+
+Writing Rational Numbers Write the given rational numbers in fraction form, $\frac{a}{b}$.
+
+A. $4, \text{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}$  B. $0.75, \text{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}$  C. $-45, \text{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}$  D. $-1.5, \text{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}$
+
+Use what you know about rational numbers to investigate plotting these values on a number line.
+
+Whiteboard: Number Line Demonstrate your understanding by drawing in your journal or using the digital tool. Use this Whiteboard to help you complete the exercises. First, you will plot the given numbers on the number line. Then, you will plot the opposite of each number.
+
+$\begin{array}{ccccccccccccccccccccc}
+\bullet & | & | & | & | & | & | & | & | & | & \bullet & | & | & | & | & | & | & | & | & | & \bullet \\
+-10 & -9 & -8 & -7 & -6 & -5 & -4 & -3 & -2 & -1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10
+\end{array}$
+
+Plot Rational Numbers on a Number Line Draw the number line shown and plot the numbers $1$, $2.5$, $\frac{1}{2}$, $5.5$, and $6\frac{3}{4}$. Then, explain your reasoning for each of the following questions.
+
+A. Describe how you identified the location of each number.
+B. Use the number line you just created to plot the opposite of each number. Describe how you plotted the opposites.
+
+Let's Chat How did plotting the positive points first help you to find their opposites?
+
+Error Analysis A student tried to plot the following six numbers on a number line. Which points did the student plot correctly? Record all that apply.
+
+$\begin{array}{ccccccccccccccccccccc}
+\bullet & | & | & \bullet & | & \bullet & \bullet & \bullet & \bullet & | & \bullet & | & \bullet & | & | & | & | & \bullet & | & | & \bullet \\
+-10 & -9 & -8 & -7 & -6 & -5 & -4 & -3 & -2 & -1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10
+\end{array}$
+$\text{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ } B \text{\ \ \ \ \ \ \ \ \ } D \text{\ \ \ \ } F \text{\ \ \ } E \text{\ \ \ \ \ \ \ \ \ \ \ \ \ \ } C \text{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ } A$
+
+A. $7\frac{3}{4}$  B. $-8.25$  C. $2.5$  D. $-5.5$  E. $-2\frac{1}{3}$  F. $-4\frac{1}{2}$
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+
+Lesson 3 • Analyzing Rational Numbers by Using Models | 25

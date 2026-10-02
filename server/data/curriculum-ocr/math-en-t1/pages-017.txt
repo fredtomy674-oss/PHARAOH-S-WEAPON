@@ -1,0 +1,46 @@
+UNIT
+1
+
+CONCEPT 1
+Divisibility, GCF and LCM
+
+LESSON 4
+Analyzing Least Common Multiples
+
+Learning Targets
+• I can analyze and evaluate addition and subtraction of fractions.
+• I can use the least common multiple to create a common denominator.
+
+Classroom Practices
+• Construct viable arguments and critique the reasoning of others.
+• Model with mathematics.
+• Look for and make use of structure.
+
+ACCESS
+
+Fruit When you buy different types of fruit, the price may be the same, but the pieces inside the container may be quite different in size and number.
+
+Fruit
+
+Let's Chat Share with your peers how you could evenly divide a pack of 32 grapes between 2, 4, and 8 friends.
+
+BUILD AND CONNECT
+
+Partitioning and the LCM A family purchased a set of plastic bags to store cut up fruit in for snacks and cooking. Each whole fruit has been cut into pieces to make a full package. The table shows a list of fruit and how many pieces make a full package. Think about how you would fairly share different fruit with a sibling if each of you have different packages of fruit.
+
+Type of Fruit
+Number of Pieces in a Bag
+
+Cherimoya
+2
+
+Persimmons
+4
+
+Bananas
+8
+
+Dates
+16
+
+8

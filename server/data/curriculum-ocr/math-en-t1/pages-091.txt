@@ -1,0 +1,52 @@
+UNIT
+6
+|
+CONCEPT 1
+Applications on Collecting and Representing Data
+
+Time Capsule Findings
+
+Number of Siblings per Student
+0 1 2 3 4 5 6 7 8 9 10 11
+Number of Siblings
+
+Flying in a Plane
+Did you ever fly
+in a plane?
+Yes: 15
+No: 3
+
+Lunches Bought per Week
+Number of Students
+8 7 6 5 4 3 2 1 0
+0 1 2 3 4 5
+Number of Lunches Bought
+
+Owning Record Players
+Students who have
+record players: HHT HHT Ill
+Students who do not
+have record players: HHT
+
+Favorite TV Shows
+Number of Students
+8 7 6 5 4 3 2 1 0
+Game
+Shows
+Variety
+Shows
+Sports Comedies
+TV Shows
+
+Analyze the Time Capsule What information can you learn from looking at the time capsule? List at least three examples.
+
+Write Questions What are three questions that the students who collected data for the time
+capsule may have asked?
+
+BUILD AND CONNECT
+
+Part A: Sort the Data
+
+Now that you've explored the possible questions the students asked, take a look back at the different types of data that the questions produced. How can you sort the data from the time capsule?
+
+82 |

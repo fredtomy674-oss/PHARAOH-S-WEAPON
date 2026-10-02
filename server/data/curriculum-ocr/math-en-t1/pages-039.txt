@@ -1,0 +1,34 @@
+UNIT
+2
+CONCEPT 3
+Interpret and Use Absolute Value
+
+Whiteboard: Game Tokens Use the table to label the number line with the ending
+number of tokens for each person. Demonstrate your understanding by drawing in your
+journal or using the digital tool.
+-10
+-5
+0
+5
+10
+
+Let's Chat
+• Talk with a partner about absolute value.
+• What did you notice about the distance each person was from 0?
+
+Game Tokens Using the information gathered in the Whiteboard, respond to these questions.
+A. Which person was the farthest away from 0?
+B. Where there any people equally distanced from 0? If so, how far were they from 0?
+
+Definition Write a conjecture for each of the following.
+A. What do you think is the definition of absolute value?
+B. What do you think this statement means? |-3| = 3 = |3|
+
+Absolute Strategy Record all of the true statements.
+A. If numbers are opposites on the number line, then they have the same absolute values.
+B. The highest possible absolute value is further away from zero.
+C. The smaller the absolute value, the closer the number is to zero.
+D. The larger the absolute value, the closer the number is to zero.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+30

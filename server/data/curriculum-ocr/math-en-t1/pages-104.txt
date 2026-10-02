@@ -1,0 +1,85 @@
+Histogram: Songs on Music Devices
+
+20
+16
+12
+8
+4
+0
+
+Number of Students
+
+0-29
+30-59
+60-89
+90-119
+120-149
+150-179
+180-209
+210-239
+
+Number of Songs
+
+Dot Plot: Songs on Music Devices
+
+50
+60
+70
+80
+90
+100
+110
+120
+130
+140
+150
+160
+170
+180
+190
+200
+210
+220
+230
+240
+250
+
+Number of Songs
+
+Box Plot: Songs on Music Devices
+
+50
+60
+70
+80
+90
+100
+110
+120
+130
+140
+150
+160
+170
+180
+190
+200
+210
+220
+230
+240
+250
+
+Number of Songs
+
+Histogram Which of the following questions could be answered using the histogram? Identify all
+that apply.
+
+A. What is the most common interval for the number of songs?
+B. How many students are represented in the data?
+C. How many students had 180 songs or more on their music devices?
+D. How many students had exactly 120 songs on their music devices?
+E. What was the greatest number of songs a student had?
+F. How many students had from 90 to 179 songs?
+
+Lesson 5 • Applications on Data Representations | 95

@@ -1,0 +1,47 @@
+UNIT
+7
+CONCEPT 1
+Exploring Measures of Central Tendency and Spread
+
+Analyze Methods The table shows the number of pencils the students in the fourth group
+brought to class.
+
+Group 4
+Student M 9
+Student N 3
+Student O 12
+Student P 8
+Student Q 8
+
+When asked to find the mean of their group's pencils, Student M and Student P used different methods.
+
+Student M's Strategy Student M collected all of the pencils and passed out each pencil one by
+one to each of the 5 students until there were none left.
+
+Student P's Strategy Always looking for shortcuts, Student P didn't want to take the time to
+pass out each pencil one by one to his group members. He wanted to figure out how many each
+person would get and give them that many. To do so, he added up the total number of pencils in
+his group and divided that number by the number of students in his group.
+
+Write your responses to the following questions.
+A. Does Student M's method give each student in the group a fair share of the pencils? How
+about Student P's method? Explain.
+B. What are the numerical expressions that model Student P's method?
+
+Use an Expression Simplify the numerical expressions that model Student P's strategy to find the
+mean of the number of pencils Group 5 brought to class. Show your work and explain how you
+found your answer.
+
+Group 5
+Student R 9
+Student S 2
+Student T 10
+Student U 5
+Student V 9
+
+Let's Chat
+Discuss the expressions you wrote and simplified to find the mean with a partner.
+How does this value compare to what you would have gotten if you had found the balance point of the data?
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+104

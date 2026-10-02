@@ -1,0 +1,41 @@
+BUILD AND CONNECT
+Rules, Variables, and Equations
+Rules Can you always figure out the correct rule with one input and output number? Why or why not?
+Variables Use the equation y = 3x to answer these questions.
+
+A. Which variable represents the input number?
+B. Which variable represents the output number?
+C. Which is the dependent variable?
+D. Which is the independent variable?
+
+Show What You Learned Complete each statement, using the variables x and y as needed.
+
+1. If the rule is “Multiply by 2,” you would write the equation as: (A) _________.
+   So, if x = 2.3, then y would be: (B) _________.
+
+2. If the rule is “Add 6,” the equation is: (C) _________.
+   So, if x is $\frac{1}{4}$, then y would be: (D) _________.
+
+Let’s Chat Equations can have more than one operation. Talk with a partner about how you predicted which input and output numbers would probably have two operations.
+
+Write an Equation Use the variables x and y, where x is the independent variable. Write the equation for “multiply by 3 and add 4.” Select the correct answer.
+
+A. x = y + 3x + 4
+B. x = 3y + 4
+C. y = 3x + 4
+D. y = -3 + 4x
+
+Equation from a Table Use variables x and y to write the equation for each of the tables.
+
+A.
+| x | 0 | 4 | 8 | 12 |
+|---|---|---|---|----|
+| y | 4 | 8 | 12 | 16 |
+
+B.
+| x | 12 | 20 | 8 | 3 | [Note: the 4 under 8 is visible]
+|---|----|----|---|---|
+| y | 7 | 11 | 5 | 3 |
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 3 • Analyzing The Relationship Between Dependant and Independent Variables | 75

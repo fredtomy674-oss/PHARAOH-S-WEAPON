@@ -1,0 +1,56 @@
+UNIT
+4
+
+CONCEPT 1
+Write and Solve Equations and Inequalities
+
+BUILD AND CONNECT
+Road, Sale, Height, and Weight Signs
+
+Road Sign The sign shows the speed limit for a road in kilometers per hour. Record all speeds that are acceptable to drive on the road.
+
+A. $38\text{ km/hr}$
+B. $50\text{ km/hr}$
+C. $30\text{ km/hr}$
+D. $40\text{ km/hr}$
+E. $43\text{ km/hr}$
+F. $49\text{ km/hr}$
+
+خفّف السرعة
+Reduce Speed
+40
+Speed Limit
+
+Sale Sign The sign shows the sale prices of some clothing on a sale rack. Use the sign to determine any prices you might expect to pay for an item from this rack. Record all prices that apply.
+
+A. $140.99\text{ LE}$
+B. $180.99\text{ LE}$
+C. $150.49\text{ LE}$
+D. $290.99\text{ LE}$
+E. $120.99\text{ LE}$
+F. $150.99\text{ LE}$
+
+SALE
+Starting at
+150.99 LE
+
+Sale Prices
+
+Height Sign The sign shows the height limits for an amusement park ride.
+
+A. List three acceptable heights for a person to be able to ride the roller coaster.
+B. List three unacceptable heights for a person to be able to ride the roller coaster.
+
+CAN YOU RIDE
+THIS RIDE?
+YES
+NO SINGLE
+RIDERS
+117 cm
+WITH
+ADULT
+107 cm
+
+Ride Height Resstrictions
+
+62

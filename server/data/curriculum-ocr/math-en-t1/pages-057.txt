@@ -1,0 +1,58 @@
+UNIT
+3
+|
+CONCEPT 2
+Algebraic Expressions and Exponents
+
+BUILD AND CONNECT
+Simplifying Numeric Expressions
+
+Simplify an Expression Given the expression $36 - 19 + 4 \div 2$, explain how to simplify this expression using the order of operations.
+
+Exploring Another Operation Consider how to simplify an exponential expression with a base of 10.
+$10^2 = 10 \times 10 = 100$
+$10^3 = 10 \times 10 \times 10 = 1,000$
+
+Would you use a similar process to simplify an exponential expression with a base other than 10?
+
+Simplify Use what you know about exponents to respond to the given questions.
+
+A. Describe what the expression $9^2$ represents by answering each of the following:
+- What is the base?
+- What is the exponent?
+- What is the simplified value and how did you find it?
+
+B. Describe what the expression $2^3$ represents by answering each of the following:
+- What is the base?
+- What is the exponent?
+- What is the simplified value and how did you find it?
+
+Let’s look at some expressions that include exponents.
+
+Three students were asked to simplify the expression: $8 + 2(6 - 2) \div 2^3$. The answers were different.
+
+Omnia's Answer
+$8 + 2(6 - 2) \div 2^3$
+$10(6 - 2) \div 2^3$
+$10(4) \div 2^3$
+$40 \div 2^3$
+$20^3$
+$8,000$
+
+Menna's Answer
+$8 + 2(6 - 2) \div 2^3$
+$8 + 2(4) \div 2^3$
+$8 + 2(4) \div 8$
+$8 + 8 \div 8$
+$8 + 1$
+$9$
+
+Hadeel's Answer
+$8 + 2(6 - 2) \div 2$
+$8 + 2(4) \div 2^3$
+$8 + 8 \div 2^3$
+$8 + 4^3$
+$12^3$
+$1,728$
+
+48

@@ -1,0 +1,41 @@
+UNIT
+2
+CONCEPT 3
+Interpret and Use Absolute Value
+
+Justify Mouataz told his friend that absolute values are never negative. Is he correct?
+Explain why or why not.
+
+Conclusion Fill in the blanks to make the statements true.
+A. A negative number with an absolute value greater than 16 is _____.
+B. Absolute values of opposites are _____.
+C. The farther a number is from zero, the _____ the absolute value.
+D. The smaller the absolute value, the _____ the number is to zero.
+
+Part B: Comparing Real-World Values
+On a hot day, suppose you borrowed 6.50 LE from your
+friend Naglaa to buy a big bottle of water. Later on, you
+borrowed another 3.25 LE from your friend Rawan to buy
+a small bottle of water.
+Water Bottles
+
+Think about how you could use absolute value to represent
+and compare the amounts of money you borrowed.
+
+Compare Values Suppose Rawan says that she can
+represent the amounts in this situation with the numbers 6.50 and -3.25. She says that because
+-3.25 > 6.50, you owe her more money than you owe Naglaa.
+
+Is Rawan correct? Write your conclusion and explain your reasoning.
+
+Compare More Values In a lab, there are two freezers set at different temperatures to preserve
+specimen. Freezer A is -17°C and Freezer B is -33°C. Answer each of these questions.
+
+A. Which number is greater?
+B. Which temperature is colder? Explain how you know.
+
+Let's Chat Share your answers with a partner, revising them as needed. Then, discuss these questions.
+• What are the differences between the two questions in Compare More Values?
+• How might you determine what kind of comparison is appropriate for a given situation?
+
+32

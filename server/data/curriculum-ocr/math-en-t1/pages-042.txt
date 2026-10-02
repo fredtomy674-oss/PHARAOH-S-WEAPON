@@ -1,0 +1,37 @@
+Represent Statements Answer each question by choosing one of the given number comparisons
+that correctly represents the answer.
+
+-22 < -5
+-16 > -6
+-22 > -5
+-16 > -6
+-22 < -5
+-4.8 > -4.88
+-16 < -6
+-4.8 > 4.88
+
+A. It is -5°C in Freezer A and -22°C in Freezer B. Which freezer has the lower temperature?
+B. Lake A has a positional distance of -16 meters, and Lake B has a positional distance of -6
+m. Which lake is located farther below sea level?
+C. Two rational numbers are -4.88 and -4.8. Which number is greater?
+
+Order Positional Distances The positional
+distance of several ponds are given.
+Create a table like the one shown to order
+the positional distances from closest to sea
+level to farthest from sea level.
+
+Pond Positional Distance (In Meters)
+A -28
+B -430
+C 33
+D 89
+E -214
+
+Closest to Sea Level
+Farthest from Sea Level
+
+Let's Chat Share your answers with a partner and explain your reasoning.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 6 • Comparing Absolute Values 33

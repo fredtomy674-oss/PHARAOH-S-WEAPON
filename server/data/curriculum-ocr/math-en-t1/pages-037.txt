@@ -1,0 +1,58 @@
+UNIT
+2
+
+CONCEPT 3
+Interpret and Use Absolute Value
+
+LESSON 5
+Exploring Absolute Value
+
+Learning Targets
+• I can represent distance for real-world
+situations involving jumping fish and
+meeting friends at a fishpond.
+• I can understand absolute value on a
+number line.
+
+Classroom Practices
+• Reason abstractly and quantitatively.
+• Construct viable arguments and critique the
+reasoning of others.
+• Use appropriate tools strategically.
+
+ACCESS
+
+Field Trip Your class is on a field trip at a nature
+center. The tour guide is showing you a type of fish
+that can dive below the surface of the water and
+jump above the surface of the water. He keeps
+track of the dives and jumps in the following table.
+
+Fish
+
+Observation
+Dive
+(In Meters)
+Water Level
+(In Meters)
+Jump (In Meters)
+
+A
+3
+0
+3
+
+B
+2
+0
+2
+
+C
+4
+0
+4
+
+Your friend thinks the guide should have used negative integers to represent the dives. Your friend
+asks the guide why he used positive integers to represent the dives and why the water level is 0.
+
+28

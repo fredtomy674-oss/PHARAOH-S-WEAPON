@@ -1,0 +1,49 @@
+Analyze Displays Use what you know about range and the different data displays used in the
+previous exercises to answer these questions.
+
+A. Which representation of the data was the easiest for you to use to find range? Which was
+the hardest?
+B. Is it possible to use a histogram to find range? Why or why not?
+
+Understanding the Range Now that you know more about range, you can further analyze how
+range changes the view of the data.
+
+Let's Chat Can you think of a situation when the range might give you a distorted view of the
+data? Discuss your ideas with a partner.
+
+Comparing Ranges Consider the dot plots featuring the ages of members in the Running Club
+versus the Hiking Club.
+
+Running Club Members by Age
+10
+15
+20
+25
+30
+35
+40
+45
+50
+55
+60
+Age of Members
+
+Hiking Club Members by Age
+10
+15
+20
+25
+30
+35
+40
+45
+50
+55
+60
+Age of Members
+
+For which dot plot does the range give a more accurate picture of the ages of the majority of the
+people in each of the clubs? Explain your reasoning.
+
+Check Your Understanding Follow your teacher's instructions to complete this activity.
+Lesson 4 • Exploring The Range | 111

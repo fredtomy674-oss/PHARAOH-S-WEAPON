@@ -1,0 +1,64 @@
+LESSON 6
+Comparing Absolute Values
+
+Learning Targets
+• I can compare absolute values using symbols.
+• I can interpret the use of absolute value
+  through real-world situations involving
+  money and temperature.
+
+Classroom Practices
+• Reason abstractly and quantitatively.
+• Construct viable arguments and critique the
+  reasoning of others.
+
+ACCESS
+
+Absolute Values Think about some values you have compared, such as $-\frac{5}{6}$ and $\frac{2}{3}$.
+Now, think about comparing the absolute values of these rational numbers. Do you
+think the comparisons will be the same or different?
+
+Absolute Value
+$\left|-\frac{5}{6}\right| = \left|\frac{5}{6}\right|$
+$\left|\frac{2}{3}\right| = \left|\frac{2}{3}\right|$
+
+BUILD AND CONNECT
+
+Part A: Compare Values
+
+Compare Absolute Values Write each statement using <, >, or =.
+
+A. $|-4| \underline{\hspace{2cm}} |-3|$
+
+B. $|-8.2| \underline{\hspace{2cm}} -7.9$
+
+C. $-1.4 \underline{\hspace{2cm}} |-1.4|$
+
+D. $5 \frac{5}{6} \underline{\hspace{2cm}} \left|\frac{35}{6}\right|$
+
+E. $9\frac{3}{5} \underline{\hspace{2cm}} \left|-9\frac{3}{4}\right|$
+
+F. $|-2.71| \underline{\hspace{2cm}} 2.7$
+
+Significant Symbols Use this absolute value statement to help you choose the term that correctly
+completes the sentences.
+
+$|2| = |-2|$
+
+absolute value
+equals
+
+distance
+negative
+
+direction
+positive
+
+A. The $\underline{\hspace{1.5cm}}$ symbol in the expression $|2|$, signifies the distance from 0 to 2.
+B. The $\underline{\hspace{1.5cm}}$ symbol in the expression $|-2|$, signifies the distance from 0 to -2.
+C. The $\underline{\hspace{1.5cm}}$ sign shows the relationship between each side and that their values are the
+   same $\underline{\hspace{1.5cm}}$ from 0.
+
+Each symbol in a statement has importance and contributes to the meaning of the mathematical sentence.
+
+Lesson 6 • Comparing Absolute Values | 31
