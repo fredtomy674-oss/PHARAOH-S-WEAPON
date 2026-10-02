@@ -64,6 +64,12 @@ export interface ScienceT1Concept {
    * as data; its end page is derived (see the note above).
    */
   bookFrom: number;
+  /**
+   * The concept's printed «تعلّم …» learning topic(s), verbatim — the science
+   * book prints no objectives list, so this is the concept's own printed «what
+   * you will learn» heading (one per concept).
+   */
+  concepts: string[];
 }
 
 export interface ScienceT1Unit {
@@ -94,9 +100,14 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 6,
     bookTo: 17,
     concepts: [
-      { key: "1-1", title: "الهواء واحتراق الأشياء", bookFrom: 6 },
-      { key: "1-2", title: "دور الأكسجين", bookFrom: 8 },
-      { key: "1-3", title: "الهواء بعد الاحتراق", bookFrom: 12 },
+      { key: "1-1", title: "الهواء واحتراق الأشياء", bookFrom: 6, concepts: ["الهواء والاحتراق"] },
+      { key: "1-2", title: "دور الأكسجين", bookFrom: 8, concepts: ["الغاز الذي يساعد على الاحتراق"] },
+      {
+        key: "1-3",
+        title: "الهواء بعد الاحتراق",
+        bookFrom: 12,
+        concepts: ["التغير في تركيب الهواء بعد الاحتراق"],
+      },
     ],
   },
   {
@@ -105,8 +116,8 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 18,
     bookTo: 23,
     concepts: [
-      { key: "2-1", title: "كيف يحدث التنفس؟", bookFrom: 18 },
-      { key: "2-2", title: "كيف تعمل الرئتان؟", bookFrom: 20 },
+      { key: "2-1", title: "كيف يحدث التنفس؟", bookFrom: 18, concepts: ["التنفس وكيفية حدوثه"] },
+      { key: "2-2", title: "كيف تعمل الرئتان؟", bookFrom: 20, concepts: ["الرئتان هما مكان تبادل الغازات"] },
     ],
   },
   {
@@ -115,9 +126,14 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 24,
     bookTo: 33,
     concepts: [
-      { key: "3-1", title: "أين يذهب الطعام؟", bookFrom: 24 },
-      { key: "3-2", title: "وظيفة اللعاب", bookFrom: 26 },
-      { key: "3-3", title: "كيف يتم الامتصاص؟", bookFrom: 30 },
+      { key: "3-1", title: "أين يذهب الطعام؟", bookFrom: 24, concepts: ["الهضم وكيفية حدوثه"] },
+      { key: "3-2", title: "وظيفة اللعاب", bookFrom: 26, concepts: ["وظيفة اللعاب"] },
+      {
+        key: "3-3",
+        title: "كيف يتم الامتصاص؟",
+        bookFrom: 30,
+        concepts: ["تركيب الأمعاء الدقيقة وامتصاص العناصر الغذائية"],
+      },
     ],
   },
   {
@@ -126,9 +142,9 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 34,
     bookTo: 45,
     concepts: [
-      { key: "4-1", title: "القلب والدم", bookFrom: 34 },
-      { key: "4-2", title: "كيف تعمل الكليتان؟", bookFrom: 38 },
-      { key: "4-3", title: "أعضاء مختلفة", bookFrom: 40 },
+      { key: "4-1", title: "القلب والدم", bookFrom: 34, concepts: ["الدورة الدموية وكيفية عمل القلب"] },
+      { key: "4-2", title: "كيف تعمل الكليتان؟", bookFrom: 38, concepts: ["التخلص من الفضلات"] },
+      { key: "4-3", title: "أعضاء مختلفة", bookFrom: 40, concepts: ["ترتيب الأعضاء وتكامل عملها"] },
     ],
   },
   {
@@ -137,8 +153,8 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 46,
     bookTo: 53,
     concepts: [
-      { key: "5-1", title: "ضوء الشمس والنشا", bookFrom: 46 },
-      { key: "5-2", title: "تبادل الغازات", bookFrom: 50 },
+      { key: "5-1", title: "ضوء الشمس والنشا", bookFrom: 46, concepts: ["النباتات والعناصر الغذائية"] },
+      { key: "5-2", title: "تبادل الغازات", bookFrom: 50, concepts: ["العلاقة بين النباتات والهواء"] },
     ],
   },
   {
@@ -147,8 +163,8 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 54,
     bookTo: 61,
     concepts: [
-      { key: "6-1", title: "النتح", bookFrom: 54 },
-      { key: "6-2", title: "مسار الماء", bookFrom: 56 },
+      { key: "6-1", title: "النتح", bookFrom: 54, concepts: ["النباتات والماء"] },
+      { key: "6-2", title: "مسار الماء", bookFrom: 56, concepts: ["العلاقة بين النباتات والماء"] },
     ],
   },
   {
@@ -157,8 +173,13 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 62,
     bookTo: 67,
     concepts: [
-      { key: "7-1", title: "السلسلة الغذائية", bookFrom: 62 },
-      { key: "7-2", title: "الكائنات الحية والماء والهواء", bookFrom: 64 },
+      { key: "7-1", title: "السلسلة الغذائية", bookFrom: 62, concepts: ["كيف تعمل السلسلة الغذائية؟"] },
+      {
+        key: "7-2",
+        title: "الكائنات الحية والماء والهواء",
+        bookFrom: 64,
+        concepts: ["دوران الهواء والماء"],
+      },
     ],
   },
   {
@@ -166,7 +187,14 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     title: "الفصل الثامن: السلاسل الغذائية في مصر",
     bookFrom: 68,
     bookTo: 73,
-    concepts: [{ key: "8-1", title: "السلاسل الغذائية في الصحراء ونهر النيل", bookFrom: 68 }],
+    concepts: [
+      {
+        key: "8-1",
+        title: "السلاسل الغذائية في الصحراء ونهر النيل",
+        bookFrom: 68,
+        concepts: ["الأنظمة البيئية في مصر"],
+      },
+    ],
   },
   {
     ordinal: "التاسعة",
@@ -174,8 +202,13 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 74,
     bookTo: 81,
     concepts: [
-      { key: "9-1", title: "تصنيف المحاليل", bookFrom: 74 },
-      { key: "9-2", title: "ما الذي يذوب في المحاليل؟", bookFrom: 76 },
+      {
+        key: "9-1",
+        title: "تصنيف المحاليل",
+        bookFrom: 74,
+        concepts: ["المحاليل الحمضية، المتعادلة، والقلوية"],
+      },
+      { key: "9-2", title: "ما الذي يذوب في المحاليل؟", bookFrom: 76, concepts: ["تحديد المواد الذائبة"] },
     ],
   },
   {
@@ -184,8 +217,13 @@ export const EGYPT_SCIENCE_T1_UNITS: ScienceT1Unit[] = [
     bookFrom: 82,
     bookTo: 97,
     concepts: [
-      { key: "10-1", title: "المحاليل المائية والفلزات", bookFrom: 82 },
-      { key: "10-2", title: "ماذا يتبقى بعد التبخير؟", bookFrom: 84 },
+      {
+        key: "10-1",
+        title: "المحاليل المائية والفلزات",
+        bookFrom: 82,
+        concepts: ["تأثير المحاليل المائية على الفلزات"],
+      },
+      { key: "10-2", title: "ماذا يتبقى بعد التبخير؟", bookFrom: 84, concepts: ["التغيرات في الفلزات"] },
     ],
   },
 ];
@@ -265,6 +303,21 @@ export function conceptDocument(unitIndex: number, conceptIndex: number): string
 // ---------------------------------------------------------------------------
 // PHASE 59 — self-checks
 // ---------------------------------------------------------------------------
+
+/**
+ * Arabic-folded, punctuation-free text: lets a printed «تعلّم …» topic match
+ * across the OCR's inconsistent hamza/ya/ta-marbuta and its optional tashkeel.
+ */
+function normalize(text: string): string {
+  return text
+    .replace(/[\u064B-\u0652\u0670\u0640]/g, "")
+    .replace(/[\u0623\u0625\u0622\u0671]/g, "\u0627")
+    .replace(/\u0649/g, "\u064A")
+    .replace(/\u0629/g, "\u0647")
+    .replace(/\u0624/g, "\u0648")
+    .replace(/\u0626/g, "\u064A")
+    .replace(/[^\u0621-\u064A0-9]/g, "");
+}
 
 /**
  * Table invariants: every concept's key matches its position, every range is
@@ -391,6 +444,29 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
       if (!loadBookPage(book)) problems.push(`المفهوم ${r.key}: صفحة ${book} بلا نص OCR`);
     }
   }
+
+  // The printed «تعلّم …» learning topic of every concept must appear inside the
+  // concept's own pages: that heading is the app's `concepts` list, so it may not
+  // drift from the book.
+  EGYPT_SCIENCE_T1_UNITS.forEach((unit, ui) => {
+    unit.concepts.forEach((concept, ci) => {
+      if (concept.concepts.length === 0) {
+        problems.push(`المفهوم ${concept.key}: بلا عنوان تعلّم مطبوع`);
+        return;
+      }
+      const { from, to } = conceptBookRange(ui, ci);
+      let text = "";
+      for (let book = from; book <= to; book++) text += " " + loadBookPage(book);
+      const haystack = normalize(text);
+      for (const topic of concept.concepts) {
+        const fingerprint = normalize(topic).slice(0, 15);
+        if (fingerprint.length < 8) continue;
+        if (!haystack.includes(fingerprint)) {
+          problems.push(`المفهوم ${concept.key}: عنوان تعلمه «${topic}» غير مطبوع في صفحاته ${from}–${to}`);
+        }
+      }
+    });
+  });
 
   return { ok: problems.length === 0, problems, pagesChecked };
 }

@@ -189,8 +189,27 @@ describe("PHASE 59 — Egypt Grade-6 Science official Ministry tree", () => {
       expect(c.unitId).toBe(unit10.id);
     }
 
-    // Its concept row carries the book's concept title.
+    // Its concept row carries the book's printed «تعلّم …» learning topic.
     const lastConcept = (await db.db.select().from(concepts).where(eq(concepts.lessonId, last.id)).get())!;
-    expect(lastConcept.title).toBe("ماذا يتبقى بعد التبخير؟");
+    expect(lastConcept.title).toBe("التغيرات في الفلزات");
+  });
+
+  it("gives every concept its printed «تعلّم …» learning topic, not its title", () => {
+    let topics = 0;
+    let distinctFromTitle = 0;
+    EGYPT_SCIENCE_T1_UNITS.forEach((unit) =>
+      unit.concepts.forEach((concept) => {
+        expect(concept.concepts.length).toBeGreaterThan(0);
+        for (const topic of concept.concepts) {
+          expect(topic.trim().length).toBeGreaterThan(0);
+          if (topic !== concept.title) distinctFromTitle++;
+          topics++;
+        }
+      }),
+    );
+    expect(topics).toBe(22);
+    // The book prints a distinct learning topic for all but its one concept whose
+    // title and topic happen to be the same words («وظيفة اللعاب»).
+    expect(distinctFromTitle).toBe(21);
   });
 });

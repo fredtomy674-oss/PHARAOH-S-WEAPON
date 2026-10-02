@@ -81,9 +81,24 @@ describe("PHASE 47 — Egypt Grade-6 Math official Ministry tree", () => {
 
     const l = (await db.db.select().from(lessons).where(eq(lessons.code, "l-con-1-1")).get())!;
     const cs = await db.db.select().from(concepts).where(eq(concepts.lessonId, l.id)).orderBy(concepts.code);
-    // One app concept per printed مفهوم — the book's own concept title.
-    expect(cs.map((c) => c.code)).toEqual(["c-l-con-1-1-1"]);
-    expect(cs.map((c) => c.title)).toEqual(["قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر"]);
+    // A lesson's concepts are the printed «أهداف التعلم» bullets of the concept's
+    // four lessons (book pages 1, 3, 5 and 8), verbatim.
+    expect(cs.map((c) => c.code)).toEqual([
+      "c-l-con-1-1-1",
+      "c-l-con-1-1-2",
+      "c-l-con-1-1-3",
+      "c-l-con-1-1-4",
+      "c-l-con-1-1-5",
+      "c-l-con-1-1-6",
+    ]);
+    expect(cs.map((c) => c.title)).toEqual([
+      "أستطيع أن أستنتج قابلية القسمة على 2 ، 3 ، 4 ، 5 ، 10 ، 6",
+      "أستطيع أن أستخدم تحليل العدد إلى عوامل أولية في إيجاد العامل المشترك الأكبر والمضاعف المشترك الأصغر",
+      "أستطيع أن أكتب تعبيرات عددية تتضمن عامل مشترك أكبر وأحللها",
+      "أستطيع أن أتخيل كيف يمكن لتعبير عددي يمثل عددين كليين في صورة مضاعف مجموع عددين كليين أن يمثل موقفا حياتيا",
+      "أستطيع أن أحلل عمليتي جمع الكسور الاعتيادية وطرحها وأوجد ناتج هاتين العمليتين",
+      "أستطيع أن أستخدم المضاعف المشترك الأصغر لتكوين مقام مشترك",
+    ]);
   });
 
   it("stamps every chunk with its lesson's REAL term/unit, never the first unit (scope fix)", async () => {
@@ -129,14 +144,14 @@ describe("PHASE 47 — Egypt Grade-6 Math official Ministry tree", () => {
     });
     const first = await countAll();
     expect(first.lessons).toBe(13); // 10 official T1 concepts + 3 T2 placeholder
-    expect(first.concepts).toBe(16); // 10 (1 per official lesson) + 6 (T2 pairs)
+    expect(first.concepts).toBe(53); // 47 printed objectives (T1) + 6 (T2 pairs)
     expect(first.questions).toBe(15); // 11 MCQs + 4 open
     expect(first.chunks).toBeGreaterThan(0);
 
     // Simulate a stale/legacy concept code, then re-seed: nothing may duplicate
     // and the code must be repaired.
     const lCon11 = (await db.db.select().from(lessons).where(eq(lessons.code, "l-con-1-1")).get())!;
-    const concept = (await db.db.select().from(concepts).where(and(eq(concepts.lessonId, lCon11.id), eq(concepts.title, "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر"))).get())!;
+    const concept = (await db.db.select().from(concepts).where(and(eq(concepts.lessonId, lCon11.id), eq(concepts.title, "أستطيع أن أستنتج قابلية القسمة على 2 ، 3 ، 4 ، 5 ، 10 ، 6"))).get())!;
     await db.db.update(concepts).set({ code: "c-stale-9" }).where(eq(concepts.id, concept.id));
 
     await seedCountry(db, knowledge, EGYPT_SPEC);
@@ -144,5 +159,24 @@ describe("PHASE 47 — Egypt Grade-6 Math official Ministry tree", () => {
 
     const repaired = (await db.db.select().from(concepts).where(eq(concepts.id, concept.id)).get())!;
     expect(repaired.code).toBe("c-l-con-1-1-1");
+  });
+
+  it("prunes a concept the lesson no longer prints, so re-seeding converges", async () => {
+    const { db, knowledge } = setup();
+    await seedCountry(db, knowledge, EGYPT_SPEC);
+
+    const l = (await db.db.select().from(lessons).where(eq(lessons.code, "l-con-1-1")).get())!;
+    const before = await db.db.select().from(concepts).where(eq(concepts.lessonId, l.id));
+    expect(before).toHaveLength(6);
+    // Simulate a legacy row left over from before the lesson's printed objectives
+    // were imported: its title is in no spec.
+    await db.db.update(concepts).set({ title: "مفهوم قديم" }).where(eq(concepts.id, before[0]!.id));
+
+    await seedCountry(db, knowledge, EGYPT_SPEC);
+
+    const after = await db.db.select().from(concepts).where(eq(concepts.lessonId, l.id));
+    expect(after).toHaveLength(6); // the stale row is gone, the printed one is back
+    expect(after.some((c) => c.title === "مفهوم قديم")).toBe(false);
+    expect(after.map((c) => c.code)).toContain("c-l-con-1-1-1");
   });
 });

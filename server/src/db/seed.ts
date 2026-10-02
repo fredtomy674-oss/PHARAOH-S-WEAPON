@@ -26,7 +26,12 @@ import {
   users,
 } from "./schema.js";
 import { newId } from "../utils/ids.js";
-import { EGYPT_T1_UNITS, conceptDocument } from "./egyptT1.js";
+import {
+  EGYPT_T1_UNITS,
+  conceptDocument,
+  assertTreeMatchesTheBook as assertMathTreeMatchesBook,
+  isConsistent as isMathTreeConsistent,
+} from "./egyptT1.js";
 import {
   EGYPT_SCIENCE_T1_UNITS,
   conceptDocument as scienceConceptDocument,
@@ -141,13 +146,19 @@ type DbHandle = ReturnType<typeof openDbAndMigrate>;
 
 /** Egyptian Grade-6 Math skeleton + sample lesson documents (original PHASE 1 seed). */
 /**
- * Egyptian Grade-6 Math — OFFICIAL curriculum (PHASE 47).
+ * Egyptian Grade-6 Math — OFFICIAL curriculum (PHASE 47; concepts aligned in
+ * PHASE 69).
  *
  * The first-term tree IS the Ministry textbook (Math Techbook™ G6 T1): 7 units
  * with 10 printed concepts («المفاهيم» → app lessons), each grounded on the OCR
  * text of the book's own pages (server/data/curriculum-ocr/) so the tutor's RAG
- * retrieval reads from «كتاب الوزارة» verbatim. The second term remains a
- * hand-written placeholder until the T2 book is imported the same way.
+ * retrieval reads from «كتاب الوزارة» verbatim. Each lesson's `concepts` are the
+ * printed «أهداف التعلم» bullets of its lessons, verbatim. The tree is verified
+ * before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` re-reads every page to confirm each objective is
+ * printed in its concept's range and each lesson start prints the objective
+ * header. The second term remains a hand-written placeholder until the T2 book is
+ * imported the same way.
  */
 export const EGYPT_SPEC: CountrySeedSpec = {
   country: { code: "eg", name: "Egypt", nameAr: "مصر" },
@@ -159,6 +170,8 @@ export const EGYPT_SPEC: CountrySeedSpec = {
 
 /** Term 1 = the official book: one app lesson per printed مفهوم, pages OCR'd. */
 function buildEgyptT1Term(): TermSeedSpec {
+  const check = verifyMathTree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات غير متسقة:\n- ${check.problems.join("\n- ")}`);
   return {
     code: "term-1",
     title: "الفصل الدراسي الأول",
@@ -170,7 +183,7 @@ function buildEgyptT1Term(): TermSeedSpec {
         return {
           code: `l-con-${concept.key}`,
           title,
-          concepts: [concept.title],
+          concepts: concept.concepts,
           doc: { title, content: conceptDocument(ui, ci) },
         };
       }),
@@ -178,21 +191,32 @@ function buildEgyptT1Term(): TermSeedSpec {
   };
 }
 
+/** Both halves of the maths tree verification, as one verdict. */
+function verifyMathTree(): { ok: boolean; problems: string[] } {
+  const table = isMathTreeConsistent();
+  const book = assertMathTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
 /**
- * Egyptian Grade-6 **Science** — OFFICIAL curriculum (PHASE 59).
+ * Egyptian Grade-6 **Science** — OFFICIAL curriculum (PHASE 59; concepts aligned
+ * in PHASE 69).
  *
  * The first term IS the Ministry textbook (`Science_Primary6_T1.pdf`, 2026/2027
  * MoE edition): its 10 chapters, one app lesson per printed مفهوم, each lesson
  * grounded on the OCR text of the very pages the book prints for that concept
  * (server/data/curriculum-ocr/science-t1/) — so the tutor's RAG retrieval reads
- * from «كتاب الوزارة» verbatim. The second term is a placeholder until its book
- * is imported the same way.
+ * from «كتاب الوزارة» verbatim. The book prints no objectives list, so each
+ * lesson's `concepts` are the concept's own printed «تعلّم …» learning topic(s),
+ * verbatim. The second term is a placeholder until its book is imported the same
+ * way.
  *
  * The chapter/concept table itself is verified before seeding: `isConsistent`
  * checks the table's invariants and `assertTreeMatchesTheBook` re-reads every
  * printed page of the OCR corpus to confirm the concept head each page prints
- * falls inside that concept's page range. A wrong range would silently hide book
- * content from the tutor, so seeding refuses to run on an unverified table.
+ * falls inside that concept's page range and that each learning topic is printed
+ * in its own pages. A wrong range would silently hide book content from the
+ * tutor, so seeding refuses to run on an unverified table.
  */
 export const EGYPT_SCIENCE_SPEC: CountrySeedSpec = {
   country: { code: "eg", name: "Egypt", nameAr: "مصر" },
@@ -222,7 +246,7 @@ function buildEgyptScienceT1Term(): TermSeedSpec {
           // the wrong book. Codes stay unique across every seeded curriculum.
           code: `l-sci-con-${concept.key}`,
           title,
-          concepts: [concept.title],
+          concepts: concept.concepts,
           doc: { title, content: scienceConceptDocument(ui, ci) },
         };
       }),
@@ -961,9 +985,20 @@ export async function seedCountry(db: DbHandle, knowledge: KnowledgeService, spe
  * `c-<lesson-code>-<n>`: lesson-scoped, so numbering never collides across
  * units the way a per-spec index would. Identity is the row id — the code is a
  * display/order key, which is exactly why renumbering it here is safe.
+ *
+ * PHASE 69 — concepts the lesson no longer prints are deleted, so re-seeding
+ * converges on the spec instead of accumulating stale rows (the maths and
+ * science lessons moved from a single title concept to their printed objective
+ * bullets / learning topics).
  */
 async function reconcileConcepts(db: DbHandle, lessonId: string, lessonSpec: LessonSeedSpec): Promise<void> {
   const existing = await db.db.select().from(concepts).where(eq(concepts.lessonId, lessonId)).orderBy(asc(concepts.code));
+  const specTitles = new Set(lessonSpec.concepts);
+  for (const row of existing) {
+    if (!specTitles.has(row.title)) {
+      await db.db.delete(concepts).where(eq(concepts.id, row.id));
+    }
+  }
   const byTitle = new Map(existing.map((row) => [row.title, row]));
   for (const [j, title] of lessonSpec.concepts.entries()) {
     const code = `c-${lessonSpec.code}-${j + 1}`;
