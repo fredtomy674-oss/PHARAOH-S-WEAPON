@@ -5,6 +5,7 @@ import type { TutorIntent } from "./intentClassifier.js";
 import type { NumberLineWidget } from "./widgets.js";
 import { LANGUAGE_STYLES, replyLanguageTag, type TutorLanguage } from "./language.js";
 import { ADAPTATION_RULES, TEACHING_METHOD, lessonRoadmap, turnDirective } from "./teachingStrategy.js";
+import { bookPagesInText } from "../curriculum/bookStage.js";
 
 export interface LessonContext {
   countryNameAr: string;
@@ -156,7 +157,8 @@ export class PromptBuilder {
     // so a page the student cannot turn to is never cited.
     const pagesLine = input.lessonPages && input.lessonPages.length > 0 ? lessonPagesLine(input.lessonPages) : "";
     const pagesRule = pagesLine
-      ? "- صفحات درسنا من كتاب الوزارة هي المذكورة أعلاه وهذه وحدها؛ ابنِ شرحك وتفاعلك على مضمونها، وأشِر إلى رقم الصفحة التي تشرح منها، ولا تطلب من الطالب فتح صفحة ليست من صفحات الدرس ولا تذكر صفحات أخرى من الكتاب.\n"
+      ? "- صفحات درسنا من كتاب الوزارة هي المذكورة أعلاه وهذه وحدها؛ ابنِ شرحك وتفاعلك على مضمونها، ولا تطلب من الطالب فتح صفحة ليست من صفحات الدرس ولا تذكر صفحات أخرى من الكتاب.\n" +
+        "- كل نص مقتبس من الكتاب يبدأ برقم الصفحة التي أُخذ منها؛ فإذا أشَرت إلى صفحة فاذكر رقم الصفحة الذي يبدأ به الاقتباس الذي تشرح منه بالضبط، ولا تخمّن رقمًا من نطاق الدرس لم يظهر في اقتباس فعلي.\n"
       : "";
 
     const memoryLine = buildMemoryLine(input.memory);
@@ -172,7 +174,26 @@ export class PromptBuilder {
       de: (n) => `[Quelle ${n}]`,
     };
     const cite = (n: number) => sourceTag[language](n);
-    const context = input.chunks.length > 0 ? input.chunks.map((c, i) => `${cite(i + 1)}\n${c.content}`).join("\n\n---\n\n") : "";
+    // PHASE 77 — the page a passage stands on is a fact about the excerpt, not a
+    // choice from the lesson's page range. Naming it right next to the source tag
+    // (in the reply language the model is about to write in) is what stops a weak
+    // model from quoting a plausible-but-wrong page from the range (observed
+    // live: «page 4» while the explained text stood on page 1).
+    const excerptPageLabel: Record<TutorLanguage, (n: number) => string> = {
+      ar: (n) => (n === 0 ? "صفحة الافتتاح" : `صفحة ${n}`),
+      en: (n) => (n === 0 ? "opening page" : `page ${n}`),
+      fr: (n) => (n === 0 ? "page d'ouverture" : `page ${n}`),
+      de: (n) => (n === 0 ? "Auftaktseite" : `Seite ${n}`),
+    };
+    const context = input.chunks.length > 0
+      ? input.chunks
+          .map((c, i) => {
+            const pages = bookPagesInText(c.content);
+            const page = pages.length > 0 ? ` — ${excerptPageLabel[language](pages[0]!)}` : "";
+            return `${cite(i + 1)}${page}\n${c.content}`;
+          })
+          .join("\n\n---\n\n")
+      : "";
     const doc = input.documents?.[0];
     const hasDocument = doc !== undefined;
     // PHASE 48 — two extra lines, and only when a page is really on screen:

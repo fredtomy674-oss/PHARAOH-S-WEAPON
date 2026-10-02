@@ -118,6 +118,40 @@ describe("PromptBuilder", () => {
     expect(system).toContain("لا يُنفَّذ إطلاقًا");
   });
 
+  it("labels each excerpt with the printed page it stands on", () => {
+    const chunk: RankedChunk = {
+      chunkId: "c1",
+      content: "[صفحة الكتاب 6]\nنص الصفحة السادسة",
+      score: 1,
+      position: 0,
+      metadata: { documentId: "d1" },
+    };
+    const { messages } = builder.build({
+      intent: "explanation",
+      question: "اشرح",
+      lesson: {
+        countryNameAr: "مصر",
+        systemNameAr: "المنهج",
+        gradeNameAr: "الصف",
+        subjectNameAr: "الرياضيات",
+        curriculumTitle: "المنهج",
+        termTitle: "الفصل",
+        unitTitle: "الوحدة",
+        lessonTitle: "الدرس",
+        conceptTitles: [],
+      },
+      chunks: [chunk],
+      memory: emptyMemory,
+      studentName: "طالب",
+      language: "fr",
+    });
+    const system = messages[0]!.content;
+    // The page is named next to the source tag, in the reply language, so a weak
+    // model quotes a page it can actually see (PHASE 77).
+    expect(system).toContain("[source 1] — page 6");
+    expect(system).toContain("[صفحة الكتاب 6]");
+  });
+
   it("embeds memory and empty-context hints", () => {
     const { messages } = builder.build({
       intent: "motivation",
@@ -318,6 +352,24 @@ describe("PromptBuilder", () => {
       expect(system).toContain("صفحات هذا الدرس من كتاب الوزارة");
       expect(system).toContain("من صفحة 6 إلى صفحة 8");
       expect(system).toContain("ولا تطلب من الطالب فتح صفحة ليست من صفحات الدرس");
+    });
+
+    it("cites the excerpt's own page instead of guessing one from the range", () => {
+      const { messages } = builder.build({
+        intent: "explanation",
+        question: "اشرح",
+        lesson,
+        chunks: [],
+        memory: emptyMemory,
+        studentName: "طالب",
+        lessonPages: [6, 7, 8],
+      });
+      const system = messages[0]!.content;
+      // The page a fact came from is a fact about the excerpt, not a choice from
+      // the lesson's page range (observed live: a model cited «page 4» while
+      // explaining text that stood on page 1).
+      expect(system).toContain("كل نص مقتبس من الكتاب يبدأ برقم الصفحة");
+      expect(system).toContain("ولا تخمّن رقمًا من نطاق الدرس");
     });
 
     it("names a lesson with an appendix page page by page, never as a range", () => {
