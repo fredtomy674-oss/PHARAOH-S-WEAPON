@@ -350,6 +350,17 @@ export function LessonRoom({ session, onEnded }: Props) {
    */
   const speakLocally = (text: string) => {
     if (!ttsSupported()) return;
+    // PHASE 78 — never hand the reply to the machine's default voice just because
+    // it has no voice for this language: speechSynthesis then reads the text with
+    // whatever it has (usually en-US), so an Arabic reply is *heard* in English —
+    // the "listening switched to English" defect. The progressive narrator already
+    // asks before speaking for this exact reason; the last-resort path must ask
+    // too, or a server-voice outage turns every Arabic reply into English. Silent
+    // plus the actionable notice is the honest outcome.
+    if (!canSpeakLanguage(tutorLanguage)) {
+      setError(missingVoiceNotice(tutorLanguage));
+      return;
+    }
     const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
       if (activeUtterance.current === utterance) setSpeaking(false);
     });
