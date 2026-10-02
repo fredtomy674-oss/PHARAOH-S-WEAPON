@@ -64,6 +64,15 @@ describe("classifyIntent", () => {
     expect(classifyIntent("أعطني تلميح", pending).intent).toBe("hint_request");
   });
 
+  it("keeps an explicit «اشرح» / «كمّل» request as teaching while a question is pending (PHASE 76)", () => {
+    const pending = { pendingQuestion: true };
+    for (const t of ["اشرح الدرس", "اشرح تاني", "وضّح أكتر", "كمّل", "علّمني"]) {
+      expect(classifyIntent(t, pending).intent).toBe("explanation");
+    }
+    // A genuine short answer is still an answer.
+    expect(classifyIntent("نعم", pending).intent).toBe("answer");
+  });
+
   it("does not swallow a brand-new student question as an answer while one is pending", () => {
     const pending = { pendingQuestion: true };
     expect(classifyIntent("كم يساوي 14 + 18؟", pending).intent).toBe("explanation");

@@ -50,6 +50,12 @@ export interface TutorHandleInput {
    */
   lessonPages?: number[];
   /**
+   * PHASE 76 — the lesson's concepts in printed order. Together with the recent
+   * transcript this is the teacher's roadmap: it teaches one concept at a time
+   * and moves forward, instead of looping on a single question.
+   */
+  conceptTitles?: string[];
+  /**
    * PHASE 50 — «لوح الحبر»: the student drew on a printed page of the book.
    *
    * The picture is already inside `images` (the page as he marked it); this
@@ -141,6 +147,14 @@ function safeRefusal(language: TutorLanguage): TutorResponse {
 const MAX_PROMPT_ECHO_REGENS = 2;
 
 /**
+ * PHASE 76 — how many recent messages the teacher is reminded of. Enough to
+ * hold the thread of the explanation and the student's last reactions, small
+ * enough to stay cheap: the lesson content itself already arrives through
+ * retrieval, this is only the dialogue around it.
+ */
+const TUTOR_HISTORY_LIMIT = 8;
+
+/**
  * PHASE 46 — last-resort student-facing reply when the model keeps mirroring
  * the prompt even after a nudged regeneration. Never leak internal prompt text;
  * say honestly that this turn hiccuped and invite a retry.
@@ -208,7 +222,6 @@ export class TutorEngine {
       (lastTutorRow.kind === "question" || /[؟?]\s*$/.test(lastTutorRow.content ?? ""));
     const intent = classifyIntent(input.question, { pendingQuestion });
     const isAnswerTurn = intent.intent === "answer" && !!lastTutorMessage;
-    const lastTutorQuestion = isAnswerTurn ? lastTutorMessage : undefined;
 
     // 3) Prompt-injection tripwire — no model call, no retrieval. A student
     // file must never change the system's rules: the extracted document text
@@ -280,6 +293,12 @@ export class TutorEngine {
     // 5) Memory snapshot (long-term).
     const memory = await this.memory.snapshot(input.student.id);
 
+    // 5b) PHASE 76 — the recent transcript (oldest first), so the teacher
+    // continues the lesson instead of restarting it. Without it the model only
+    // ever sees the current question, cannot know what it already explained,
+    // and falls back to asking a question every turn.
+    const history = await this.recentHistory(input.session.id, input.excludeMessageId);
+
     // PHASE 48 — the page the student has open. Its OCR text is the *same*
     // corpus the retriever draws from, so "the tutor sees the page" costs no
     // extra model call and no latency: it is a lookup, not a vision request.
@@ -348,7 +367,7 @@ export class TutorEngine {
       termTitle: input.breadcrumb.term.title,
       unitTitle: input.breadcrumb.unit.title,
       lessonTitle: input.breadcrumb.lesson.title,
-      conceptTitles: [],
+      conceptTitles: input.conceptTitles ?? [],
     };
     const { messages } = this.promptBuilder.build({
       intent: intent.intent,
@@ -363,9 +382,16 @@ export class TutorEngine {
       ink: input.ink,
       documents: input.documents,
       language,
-      lastQuestion: isAnswerTurn ? lastTutorQuestion : undefined,
+      // PHASE 76 — the pending question travels on EVERY turn where the tutor
+      // actually asked one, not only answer turns. On a non-answer turn it lets
+      // the prompt say "this message is not an answer — don't grade a reply that
+      // was never given"; on an answer turn the prompt builder still derives
+      // `isAnswerTurn` from the intent, so nothing else changes.
+      lastQuestion: pendingQuestion && lastTutorMessage ? lastTutorMessage : undefined,
       viewingPage,
       lessonPages: input.lessonPages,
+      // PHASE 76 — the dialogue so far, so the teacher continues the lesson.
+      history,
       widget: pin,
     });
 
@@ -381,7 +407,7 @@ export class TutorEngine {
             ...m,
             content:
               `${m.content}\n\n⚠️ أجب الآن مباشرةً: لا تعِد صياغة التعليمات ولا تلخص السياق ولا تذكر أي قواعد داخلية. ` +
-              `ابدأ ردّك فورًا بعبارة ودّية موجّهة للطالب، ثم اشرح بإيجاز واسأل سؤالًا قصيرًا.`,
+              `ابدأ ردّك فورًا موجّهًا إلى الطالب، ثم علّم فعلًا: اشرح أو اخطُ خطوةً أو اعرض مثال الكتاب، وتابع الدرس من حيث وقفتما.`,
           }
         : m,
     );
@@ -417,7 +443,11 @@ export class TutorEngine {
           // so this keeps generous headroom while halving what a rambling
           // model can burn on a degraded day (≈60s at 10 tok/s). A cap that
           // trims mid-envelope yields a fragment, which the guard regenerates.
-          maxOutputTokens: 600,
+          // PHASE 76 — raised to 800: a real teaching turn explains an idea and
+          // works the book's example before it can ask anything, which does not
+          // fit the old "one question" budget. The prompt still asks for a
+          // focused 2–4 parts, so this is headroom, not an invitation to ramble.
+          maxOutputTokens: 800,
           // PHASE 56 — ask for no thinking. Measured on the real prompt: the
           // Gemini 3 family reasons by default, those tokens arrive BEFORE the
           // first visible word, and a fallback model that thought freely spent
@@ -473,6 +503,31 @@ export class TutorEngine {
     }
 
     return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages, widgets: split.widgets };
+  }
+
+  /**
+   * PHASE 76 — the last `TUTOR_HISTORY_LIMIT` messages of this session, oldest
+   * first, as chat turns the provider understands. `excludeMessageId` is the
+   * just-stored student message (already committed by the caller), excluded so
+   * the dialogue ends where the current turn begins. Empty content never travels
+   * (an attachment-only turn would otherwise look like a blank line).
+   */
+  private async recentHistory(sessionId: string, excludeMessageId?: string): Promise<LLMMessage[]> {
+    const rows = await this.db.db
+      .select({ role: messagesTable.role, content: messagesTable.content })
+      .from(messagesTable)
+      .where(
+        excludeMessageId
+          ? and(eq(messagesTable.sessionId, sessionId), ne(messagesTable.id, excludeMessageId))
+          : eq(messagesTable.sessionId, sessionId),
+      )
+      .orderBy(desc(messagesTable.createdAt))
+      .limit(TUTOR_HISTORY_LIMIT)
+      .all();
+    return rows
+      .reverse()
+      .filter((m) => (m.content ?? "").trim().length > 0)
+      .map((m) => ({ role: (m.role === "tutor" ? "assistant" : "user") as LLMMessage["role"], content: m.content! }));
   }
 }
 

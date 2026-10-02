@@ -495,6 +495,10 @@ export class SessionService {
       ? await this.curriculum.lessonBreadcrumb(session.lessonId)
       : null;
     if (!breadcrumb) throw Errors.badRequest("جلسة بدون درس غير مدعومة بعد — ابدأ جلسة من درس محدد", "NO_LESSON");
+    // PHASE 76 — the lesson's concepts in printed order are the teacher's
+    // roadmap: it teaches them one at a time and moves on, instead of looping
+    // on a single question. A scoped read on the lesson, no model call.
+    const lessonConcepts = await this.curriculum.listConcepts(breadcrumb.lesson.id);
     // PHASE 20 — the daily tutor budget is plan-derived now: free students are
     // capped by DAILY_MESSAGE_LIMIT, premium by PREMIUM_DAILY_MESSAGE_LIMIT (0 = unlimited).
     const dailyLimit = await this.subscriptions.dailyLimitFor(studentRow.id);
@@ -610,6 +614,8 @@ export class SessionService {
       // the tutor knows every page of the stage and every page it cites is one
       // the student can actually turn to.
       lessonPages: stage ? stage.pages.map((p) => p.bookPage) : undefined,
+      // PHASE 76 — the lesson concepts, so the teacher has a roadmap.
+      conceptTitles: lessonConcepts.map((c) => c.title),
       // The just-stored question, so history lookups resolve to earlier turns.
       excludeMessageId: userMessage.id,
       ...(ink ? { ink: { bookPage: inkPage, strokes: strokeCount } } : {}),

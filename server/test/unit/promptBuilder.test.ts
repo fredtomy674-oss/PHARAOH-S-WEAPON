@@ -520,3 +520,128 @@ describe("PromptBuilder", () => {
     });
   });
 });
+
+// PHASE 76 — the tutor is a teacher, not a chat bot: it explains first, asks a
+// question only at a real checkpoint, follows the lesson's roadmap, and adapts
+// its pace to how the student responds.
+describe("teaching strategy (PHASE 76)", () => {
+  const builder = new PromptBuilder();
+  const lesson = {
+    countryNameAr: "مصر",
+    systemNameAr: "المنهج",
+    gradeNameAr: "الصف السادس",
+    subjectNameAr: "اللغة العربية",
+    curriculumTitle: "المنهج",
+    termTitle: "الفصل",
+    unitTitle: "الوحدة",
+    lessonTitle: "نص الاستماع",
+    conceptTitles: ["الفكرة العامة", "المعنى اللغوي"],
+  };
+
+  it("puts the lesson roadmap — the concepts in printed order — in front of the teacher", () => {
+    const { messages } = builder.build({ intent: "explanation", question: "اشرح", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    const system = messages[0]!.content;
+    expect(system).toContain("خطة درسنا");
+    expect(system).toContain("1) الفكرة العامة");
+    expect(system).toContain("2) المعنى اللغوي");
+    expect(system).toContain("خطوة واحدة في كل ردّ");
+  });
+
+  it("states the method: explain first, and a question is a tool not a habit", () => {
+    const { messages } = builder.build({ intent: "explanation", question: "اشرح", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    const system = messages[0]!.content;
+    expect(system).toContain("اشرح أولًا");
+    expect(system).toContain("السؤال أداةٌ لا عادة");
+    expect(system).toContain("لا تجعل السؤال كل الردّ");
+  });
+
+  it("tells the teacher how to adapt to the student's response", () => {
+    const { messages } = builder.build({ intent: "explanation", question: "اشرح", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    const system = messages[0]!.content;
+    expect(system).toContain("أجاب صحيحًا");
+    expect(system).toContain("بأسلوب مختلف");
+  });
+
+  it("turns an explanation request into a directive to teach, not to interrogate", () => {
+    const { messages } = builder.build({ intent: "explanation", question: "اشرح", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    expect(messages[0]!.content).toContain("شرحٌ لا استجواب");
+  });
+
+  it("moves to the next idea when the student says «فهمت»", () => {
+    const { messages } = builder.build({ intent: "check_understanding", question: "فهمت", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    const system = messages[0]!.content;
+    expect(system).toContain("علّمه الفكرة التالية");
+    // The ask line states the fact plainly (he confirmed understanding), so the
+    // model does not read «فهمت» as a request to simplify.
+    expect(system).toContain("أكّد أنه **فهم**");
+  });
+
+  it("evaluates and then teaches on an answer turn, keeping the old safety line", () => {
+    const { messages } = builder.build({ intent: "answer", question: "9", lastQuestion: "كم 5+4؟", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    const system = messages[0]!.content;
+    expect(system).toContain("قيّم إجابته");
+    expect(system).toContain("علّمه الخطوة التالية");
+    expect(system).toContain("لا تكرر السؤال نفسه");
+  });
+
+  it("starts the lesson on a greeting instead of interviewing", () => {
+    const { messages } = builder.build({ intent: "motivation", question: "السلام عليكم", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    expect(messages[0]!.content).toContain("ابدأ التعليم فعلًا");
+  });
+
+  it("replays the recent transcript between the system and the current turn", () => {
+    const { messages } = builder.build({
+      intent: "explanation",
+      question: "وبعدين؟",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+      history: [
+        { role: "user", content: "اشرح الفكرة العامة" },
+        { role: "assistant", content: "الفكرة العامة هي..." },
+      ],
+    });
+    expect(messages).toHaveLength(4);
+    expect(messages[0]!.role).toBe("system");
+    expect(messages[1]).toEqual({ role: "user", content: "اشرح الفكرة العامة" });
+    expect(messages[2]!.role).toBe("assistant");
+    expect(messages[3]!.role).toBe("user");
+    expect(messages[3]!.content).toContain("وبعدين؟");
+    // Mid-lesson, the teacher must not re-greet or re-introduce the lesson.
+    expect(messages[0]!.content).toContain("لا تُعِد الترحيب");
+  });
+
+  it("never invents a book page for a lesson with no pages", () => {
+    const { messages } = builder.build({ intent: "explanation", question: "اشرح", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" });
+    expect(messages[0]!.content).not.toContain("من كتاب الوزارة");
+  });
+
+  it("tells the model the pending question is stale when the student asks for something else", () => {
+    const { messages } = builder.build({
+      intent: "explanation",
+      question: "اشرح الدرس",
+      lastQuestion: "هل تحب الرياضة؟",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+    });
+    const system = messages[0]!.content;
+    expect(system).toContain("ليست إجابةً عليه");
+    expect(system).toContain("لا تصحّح أو تمدح إجابة لم تُقدَّم");
+  });
+
+  it("does not call the pending question stale on a real answer turn", () => {
+    const { messages } = builder.build({
+      intent: "answer",
+      question: "9",
+      lastQuestion: "كم 5+4؟",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+    });
+    expect(messages[0]!.content).not.toContain("ليست إجابةً عليه");
+  });
+});

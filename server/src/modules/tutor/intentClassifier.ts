@@ -62,6 +62,27 @@ const CONFUSED_PATTERNS = [/مش\s*(فاهم|فاهمة)/i, /ما\s*فهمتش/i
 const GREETING_PATTERNS = [/^(مرحبا|اهلا|السلام|صباح|مساء|ازيك|عامل)/i, /hi|hello|hey|salam/i];
 
 /**
+ * PHASE 76 — explicit "teach me more" commands. A student who types «اشرح»,
+ * «كمّل»، «وضّح» or «وبعدين؟» is asking for the next teaching move, NOT
+ * answering the tutor's pending question. Without this check the PHASE 45
+ * fallback (below) swallowed the lesson's most common request as an "answer"
+ * whenever a question was pending — «اشرح الدرس» became a reply to
+ * «هل تحب…؟», and the teacher praised an answer the student never gave instead
+ * of teaching. These patterns are checked after genuinely new questions
+ * (exercise/hint/confusion) and before the answer fallback.
+ */
+const TEACH_MORE_PATTERNS = [
+  /اشرح/i,
+  /وضّ?ح/i,
+  /فسّ?ر/i,
+  /علّ?مني|علّ?من|درّسني/i,
+  /كمّل|كمل|أكمل|اكمل|نكمل|نكمّل/i,
+  /بعد\s*(كده|كدا|ذلك)|وبعدين|ماذا\s*بعد|ثم\s*ماذا/i,
+  /عايز\s*أفهم|عاوز\s*أفهم|أريد\s*أن\s*أفهم/i,
+  /\bexplain\b|\bcontinue\b|\bgo\s*on\b|\bnext\b/i,
+];
+
+/**
  * PHASE 44 — short answers to the tutor's pending question. A bare "9",
  * "٥٠٠٠ جم", "نعم", "لا" or "ok" is almost always the student ANSWERING the
  * last question, never a new question of their own. Recognised deterministically
@@ -88,6 +109,9 @@ export function classifyIntent(question: string, opts: ClassifyOptions = {}): In
   if (HINT_PATTERNS.some((p) => p.test(text))) return { intent: "hint_request", confidence: 0.85, concepts };
   if (UNDERSTAND_PATTERNS.some((p) => p.test(text))) return { intent: "check_understanding", confidence: 0.8, concepts };
   if (CONFUSED_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.8, concepts };
+  // PHASE 76 — an explicit teach-me-more command stays an explanation request
+  // even with a question pending (see TEACH_MORE_PATTERNS).
+  if (TEACH_MORE_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.75, concepts };
   // PHASE 44 — short answers are checked after "confused" so "لا مش فاهم"
   // stays an explanation request, and "فهمت تماماً" stays check_understanding.
   if (NUMERIC_ANSWER_PATTERN.test(text) || WORD_ANSWER_PATTERN.test(text)) {
