@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { chunkText } from "../../src/modules/rag/chunker.js";
+import { chunkText, hasMeaningfulContent } from "../../src/modules/rag/chunker.js";
 
 describe("chunkText", () => {
   it("splits long content into ordered, non-empty pieces", () => {
@@ -30,5 +30,29 @@ describe("chunkText", () => {
     expect(chunks.length).toBeGreaterThan(2);
     // Overlapping windows share text.
     expect(chunks[0]!.content).toContain("ك".repeat(30));
+  });
+
+  it("drops content-free pieces and renumbers positions", () => {
+    const text = [
+      "الدرس الأول في الرياضيات يشرح قابلية القسمة على الأعداد.",
+      ".".repeat(600),
+      "الدرس الثاني يشرح العامل المشترك الأكبر بين عددين.",
+    ].join("\n\n");
+    const chunks = chunkText(text, { targetChars: 100, overlapChars: 10 });
+    expect(chunks.length).toBeGreaterThan(0);
+    for (const c of chunks) expect(hasMeaningfulContent(c.content)).toBe(true);
+    expect(chunks.map((c) => c.position)).toEqual(chunks.map((_, i) => i));
+  });
+
+  it("returns no chunks when the whole input is noise", () => {
+    expect(chunkText(".... .... ....\n\n---- ----\n\n،،، ،،،")).toEqual([]);
+  });
+
+  it("keeps digits and letters as meaningful content", () => {
+    expect(hasMeaningfulContent("٤٢")).toBe(true);
+    expect(hasMeaningfulContent("42")).toBe(true);
+    expect(hasMeaningfulContent("ABC")).toBe(true);
+    expect(hasMeaningfulContent("... ...")).toBe(false);
+    expect(hasMeaningfulContent("  \n  ")).toBe(false);
   });
 });

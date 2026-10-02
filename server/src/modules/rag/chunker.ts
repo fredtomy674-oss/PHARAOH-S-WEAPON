@@ -4,8 +4,21 @@ export interface ChunkInput {
 }
 
 /**
+ * True when a chunk carries at least one letter or digit, in any script.
+ *
+ * OCR of a real book sometimes yields pure-noise runs — the detached «......»
+ * dot columns of a printed answer key, rules, or stray punctuation. Such a run
+ * has nothing to explain and nothing to retrieve, so it must never become a
+ * searchable chunk (a teacher would see a chunk of dots as a defect).
+ */
+export function hasMeaningfulContent(text: string): boolean {
+  return /[\p{L}\p{N}]/u.test(text);
+}
+
+/**
  * Splits cleaned text into overlapping chunks sized for retrieval.
  * Strategy: paragraph blocks merged up to a target size with small overlap.
+ * Content-free pieces (see `hasMeaningfulContent`) are dropped.
  */
 export function chunkText(text: string, opts: { targetChars?: number; overlapChars?: number } = {}): ChunkInput[] {
   const target = opts.targetChars ?? 500;
@@ -45,7 +58,8 @@ export function chunkText(text: string, opts: { targetChars?: number; overlapCha
     buffer = buffer ? `${buffer}\n\n${paragraph}` : paragraph;
   }
   flush(true);
-  return chunks;
+  // Drop content-free pieces and renumber so positions stay contiguous.
+  return chunks.filter((c) => hasMeaningfulContent(c.content)).map((c, i) => ({ content: c.content, position: i }));
 }
 
 function sliceByChars(text: string, size: number, overlap: number): string[] {

@@ -18,6 +18,7 @@ import {
   lessons,
   parents,
   questions,
+  ragVectors,
   students,
   studentsParents,
   subjects,
@@ -26,6 +27,7 @@ import {
   users,
 } from "./schema.js";
 import { newId } from "../utils/ids.js";
+import { hasMeaningfulContent } from "../modules/rag/chunker.js";
 import {
   EGYPT_T1_UNITS,
   conceptDocument,
@@ -879,6 +881,8 @@ async function main(): Promise<void> {
   const knowledge = new KnowledgeService(db, ai, vectorStore);
   const curriculum = new CurriculumService(db);
 
+  await pruneContentFreeChunks(db);
+
   const egypt = await seedCountry(db, knowledge, EGYPT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_SPEC);
@@ -1016,6 +1020,25 @@ async function reconcileConcepts(db: DbHandle, lessonId: string, lessonSpec: Les
         description: `مفهوم ${title} من درس ${lessonSpec.title}`,
       });
     }
+  }
+}
+
+/**
+ * Content-free chunks are OCR noise — the detached dot columns of a printed
+ * answer key, rules, stray punctuation. `chunkText` refuses to create them, but
+ * rows ingested before that guard exist, and a seeder that skips a lesson whose
+ * chunks already exist would never repair them. This pass converges any
+ * knowledge base (local or deployed) by deleting such rows and their vectors.
+ */
+async function pruneContentFreeChunks(db: DbHandle): Promise<void> {
+  const rows = await db.db.select({ id: chunks.id, content: chunks.content }).from(chunks);
+  const noise = rows.filter((row) => !hasMeaningfulContent(row.content));
+  for (const row of noise) {
+    await db.db.delete(ragVectors).where(eq(ragVectors.chunkId, row.id));
+    await db.db.delete(chunks).where(eq(chunks.id, row.id));
+  }
+  if (noise.length > 0) {
+    console.log(`⌫ Removed ${noise.length} content-free chunk(s) left by OCR noise.`);
   }
 }
 
