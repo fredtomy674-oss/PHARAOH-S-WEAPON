@@ -37,6 +37,39 @@ SUBJECT=science TERM=t2 PDF_PATH="../Downloads/Science_Primary6_T2.pdf" \
 | OCR | `ocr-all.mjs` | OCRs every page with Gemini, `CONCURRENCY` calls in flight, per-page retry, and model rotation (`GEMINI_OCR_MODELS` / `GEMINI_OCR_MODEL`) with a pool-wide back-off on 429/503. Resumable: a non-empty `pages-NNN.txt` is skipped. Prints the «ن-م» concept heads it saw. |
 | manifest | `book-manifest.mjs` | Reads the OCR corpus and emits a **draft** tree skeleton: the dominant footer offset, chapter/unit openers, and concept heads. A draft, not an authority — the seeder still re-reads the book (`assertTreeMatchesTheBook`) before it will run. |
 
+## Rendered pages (the lesson-room stage)
+
+`render-book.mjs` writes each book's page images to
+`server/data/curriculum-pages/<curriculum-code>/pages-NNN.jpg` — one directory
+per book, because two books can both have a `pages-010.jpg`. These images are
+runtime data derived from the PDF (like the SQLite file, they are not committed),
+and the API serves them at
+`/api/curriculum/book-pages/:curriculumCode/:bookPage.jpg`. The stage takes each
+book's own offset and lesson→page ranges from its tree module
+(`server/src/modules/curriculum/bookStage.ts`), so the page the room shows is the
+same scan page whose OCR text the tutor reads. A book with no rendered pages
+(`hasImages: false`) teaches text-only without error.
+
+To (re)render one book, point `render-book.mjs` at its PDF and its code directory:
+
+```sh
+PDF_PATH="data/curriculum-books/Science_Primary6_T1.pdf" \
+  OUT_DIR="data/curriculum-pages/eg-g6-science" \
+  node scripts/render-book.mjs
+```
+
+| Curriculum code | Source PDF (`data/curriculum-books/`) |
+|---|---|
+| `eg-g6-arabic` | `Arabic_Primary6_T1.pdf` |
+| `eg-g6-christian-education` | `Christian_Education_Primary6_T1.pdf` |
+| `eg-g6-ict` | `ICT_Arabic_Primary6_T1.pdf` |
+| `eg-g6-islamic-education` | `Islamic_Education_Primary6_T1.pdf` |
+| `eg-g6-math-en` | `Math_Primary6_T1_EN.pdf` |
+| `eg-g6-math-fr` | `Math_Primary6_T1_FR.pdf` |
+| `eg-g6-science` | `Science_Primary6_T1.pdf` |
+| `eg-g6-social` | `Social_Studies_Primary6_T1.pdf` |
+| `eg-g6-math` | Arabic maths edition (its images shipped with the first import) |
+
 ## Verification and audit
 
 - `audit-curricula.ts` — for every committed Egypt curriculum, checks that lesson

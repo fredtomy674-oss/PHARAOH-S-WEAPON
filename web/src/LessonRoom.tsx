@@ -155,11 +155,11 @@ function pageLabel(bookPage: number): string {
 }
 
 /** One printed page of the book, as the room shows it. */
-function PageSheet({ bookPage, active, cited = false }: { bookPage: number; active: boolean; cited?: boolean }) {
+function PageSheet({ curriculumId, bookPage, active, cited = false }: { curriculumId: string; bookPage: number; active: boolean; cited?: boolean }) {
   return (
     <div className={`room-thumb-sheet${active ? " active" : ""}${cited ? " cited" : ""}`}>
       <img
-        src={bookPageUrl(bookPage)}
+        src={bookPageUrl(curriculumId, bookPage)}
         alt={`${pageLabel(bookPage)} من كتاب الوزارة`}
         loading="lazy"
         decoding="async"
@@ -575,9 +575,9 @@ export function LessonRoom({ session, onEnded }: Props) {
     // the same image the stage shows, so pointing cannot drift between screen
     // and model.
     let ink: { dataUrl: string; page: number; strokes: number } | undefined;
-    if (marks.length > 0 && openBookPage !== null) {
+    if (marks.length > 0 && openBookPage !== null && stage) {
       try {
-        const composed = await composeInkPage(bookPageUrl(openBookPage), marks);
+        const composed = await composeInkPage(bookPageUrl(stage.curriculumId, openBookPage), marks);
         ink = { dataUrl: composed.dataUrl, page: openBookPage, strokes: marks.length };
       } catch {
         setPending(false);
@@ -904,7 +904,7 @@ export function LessonRoom({ session, onEnded }: Props) {
                 <div className="room-sheet">
                   <img
                     ref={stageImgRef}
-                    src={bookPageUrl(currentPage.bookPage)}
+                    src={bookPageUrl(stage.curriculumId, currentPage.bookPage)}
                     alt={`${pageLabel(currentPage.bookPage)} من كتاب الوزارة`}
                     data-testid="stage-image"
                     onLoad={(e) => {
@@ -971,6 +971,7 @@ export function LessonRoom({ session, onEnded }: Props) {
                     onClick={() => setPageIndex(pages.findIndex((x) => x.bookPage === p.bookPage))}
                   >
                     <PageSheet
+                      curriculumId={stage.curriculumId}
                       bookPage={p.bookPage}
                       active={p.bookPage === currentPage.bookPage}
                       cited={citedPages.includes(p.bookPage)}

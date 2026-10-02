@@ -403,8 +403,8 @@ export async function lessonStage(lessonId: string): Promise<LessonStage | null>
 }
 
 /** URL of one printed textbook page image (a GET, so the cookie is enough). */
-export function bookPageUrl(bookPage: number): string {
-  return `/api/curriculum/book-pages/${encodeURIComponent(String(bookPage))}.jpg`;
+export function bookPageUrl(curriculumId: string, bookPage: number): string {
+  return `/api/curriculum/book-pages/${encodeURIComponent(curriculumId)}/${encodeURIComponent(String(bookPage))}.jpg`;
 }
 
 export async function startSession(input: { curriculumId: string; gradeId: string; subjectId: string; lessonId: string }): Promise<LearningSession> {

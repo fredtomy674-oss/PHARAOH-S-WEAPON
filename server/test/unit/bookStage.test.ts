@@ -3,42 +3,90 @@
 // The room shows a page and cites it as `[صفحة الكتاب N]`. That only works if
 // the stage's page numbers are the numbers printed on the paper, so these
 // tests pin the concept→page-range mapping and the book→scan page arithmetic.
+//
+// PHASE 74 — the stage covers every Egypt Grade-6 book, not only maths, so the
+// registry test below checks each book's code prefix, its own page offset and
+// its own lesson→range map.
 import { describe, expect, it } from "vitest";
 import {
   EGYPT_G6_MATH_CURRICULUM,
+  MAX_BOOK_PAGE,
   bookPageText,
   bookPageToPdfPage,
   bookPagesInText,
   pageImagePath,
   stageForLesson,
 } from "../../src/modules/curriculum/bookStage.js";
-import { BOOK_TO_PDF_OFFSET, EGYPT_T1_BOOK_END } from "../../src/db/egyptT1.js";
+import {
+  BOOK_TO_PDF_OFFSET,
+  EGYPT_T1_BOOK_END,
+  allConceptRanges as mathArRanges,
+} from "../../src/db/egyptT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as MATH_EN_OFFSET,
+  allConceptRanges as mathEnRanges,
+} from "../../src/db/egyptMathEnT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as MATH_FR_OFFSET,
+  allConceptRanges as mathFrRanges,
+} from "../../src/db/egyptMathFrT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_OFFSET,
+  allConceptRanges as scienceRanges,
+} from "../../src/db/egyptScienceT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SOCIAL_OFFSET,
+  allLessonRanges as socialRanges,
+} from "../../src/db/egyptSocialT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as ARABIC_OFFSET,
+  allLessonRanges as arabicRanges,
+} from "../../src/db/egyptArabicT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as ISLAMIC_OFFSET,
+  allLessonRanges as islamicRanges,
+} from "../../src/db/egyptIslamicT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as CHRISTIAN_OFFSET,
+  allLessonRanges as christianRanges,
+} from "../../src/db/egyptChristianT1.js";
+import {
+  BOOK_TO_PDF_OFFSET as ICT_OFFSET,
+  allLessonRanges as ictRanges,
+} from "../../src/db/egyptIctT1.js";
 
 describe("book page arithmetic", () => {
-  it("maps a printed page to its scan page by the verified offset", () => {
-    // book page 1 is scan page 10 (verified against the scan during PHASE 47).
-    expect(bookPageToPdfPage(1)).toBe(1 + BOOK_TO_PDF_OFFSET);
-    expect(bookPageToPdfPage(1)).toBe(10);
+  it("maps a printed page to its scan page by the book's verified offset", () => {
+    // maths: book page 1 is scan page 10 (verified against the scan in PHASE 47).
+    expect(bookPageToPdfPage(EGYPT_G6_MATH_CURRICULUM, 1)).toBe(1 + BOOK_TO_PDF_OFFSET);
+    expect(bookPageToPdfPage(EGYPT_G6_MATH_CURRICULUM, 1)).toBe(10);
   });
 
   it("refuses pages outside the book and non-integers", () => {
-    expect(pageImagePath(-1)).toBeNull();
-    expect(pageImagePath(EGYPT_T1_BOOK_END + 1)).toBeNull();
-    expect(pageImagePath(1.5)).toBeNull();
-    expect(pageImagePath(Number.NaN)).toBeNull();
+    expect(pageImagePath(EGYPT_G6_MATH_CURRICULUM, -1)).toBeNull();
+    expect(pageImagePath(EGYPT_G6_MATH_CURRICULUM, EGYPT_T1_BOOK_END + 1)).toBeNull();
+    expect(pageImagePath(EGYPT_G6_MATH_CURRICULUM, 1.5)).toBeNull();
+    expect(pageImagePath(EGYPT_G6_MATH_CURRICULUM, Number.NaN)).toBeNull();
   });
 
   it("resolves an installed page image, or null when pages are absent", () => {
     // The pages are runtime data (derived from the source PDF), so this test
     // asserts the *contract* — a path or nothing, never a crash or a traversal.
-    const resolved = pageImagePath(1);
+    const resolved = pageImagePath(EGYPT_G6_MATH_CURRICULUM, 1);
     expect(resolved === null || resolved.endsWith("pages-010.jpg")).toBe(true);
+  });
+
+  it("keeps each book's pages in its own directory", () => {
+    // The path must carry the curriculum code: two books both have pages-010.jpg.
+    const resolved = pageImagePath(EGYPT_G6_MATH_CURRICULUM, 1);
+    if (resolved !== null) expect(resolved).toContain(EGYPT_G6_MATH_CURRICULUM);
   });
 });
 
 describe("lesson stage", () => {
   it("returns null for curricula that ship no pages", () => {
     expect(stageForLesson("sa-1-math", "l-con-1-1")).toBeNull();
+    expect(stageForLesson("not-a-book", "l-con-1-1")).toBeNull();
   });
 
   it("returns null for a lesson code that is not a concept of the book", () => {
@@ -102,6 +150,34 @@ describe("lesson stage", () => {
     const anyPresent = stage.pages.some((p) => p.present);
     expect(stage.hasImages).toBe(anyPresent);
   });
+
+  it("registers every Egypt book with its own prefix, ranges and page offset", () => {
+    // Each book's flattened ranges are the source of truth the seeder used, so
+    // the stage must agree with them code-for-code and page-for-page.
+    const books: { code: string; prefix: string; offset: number; keyToCode?: (k: string) => string; ranges: { key: string; from: number; to: number }[] }[] = [
+      { code: EGYPT_G6_MATH_CURRICULUM, prefix: "l-con-", offset: BOOK_TO_PDF_OFFSET, ranges: mathArRanges() },
+      { code: "eg-g6-math-en", prefix: "l-men-", offset: MATH_EN_OFFSET, keyToCode: (k) => k.replace(".", "-"), ranges: mathEnRanges() },
+      { code: "eg-g6-math-fr", prefix: "l-mfr-", offset: MATH_FR_OFFSET, keyToCode: (k) => k.replace(".", "-"), ranges: mathFrRanges() },
+      { code: "eg-g6-science", prefix: "l-sci-con-", offset: SCIENCE_OFFSET, ranges: scienceRanges() },
+      { code: "eg-g6-social", prefix: "l-soc-", offset: SOCIAL_OFFSET, ranges: socialRanges() },
+      { code: "eg-g6-arabic", prefix: "l-ara-", offset: ARABIC_OFFSET, ranges: arabicRanges() },
+      { code: "eg-g6-islamic-education", prefix: "l-isl-", offset: ISLAMIC_OFFSET, ranges: islamicRanges() },
+      { code: "eg-g6-christian-education", prefix: "l-chr-", offset: CHRISTIAN_OFFSET, ranges: christianRanges() },
+      { code: "eg-g6-ict", prefix: "l-ict-", offset: ICT_OFFSET, ranges: ictRanges() },
+    ];
+    for (const book of books) {
+      expect(book.ranges.length, `${book.code} has no ranges`).toBeGreaterThan(0);
+      for (const range of book.ranges) {
+        const lessonCode = book.prefix + (book.keyToCode ? book.keyToCode(range.key) : range.key);
+        const stage = stageForLesson(book.code, lessonCode);
+        expect(stage, `${book.code} / ${lessonCode} has no stage`).not.toBeNull();
+        expect(stage!.fromBookPage).toBe(range.from);
+        expect(stage!.toBookPage).toBe(range.to);
+        expect(stage!.conceptKey).toBe(book.keyToCode ? book.keyToCode(range.key) : range.key);
+        expect(bookPageToPdfPage(book.code, range.from)).toBe(range.from + book.offset);
+      }
+    }
+  });
 });
 
 // PHASE 48 (part 2) — the two halves of "the teacher sees the page": the pages a
@@ -122,10 +198,10 @@ describe("book page references", () => {
     expect(bookPagesInText("")).toEqual([]);
   });
 
-  it("ignores a page number outside the book instead of trusting it", () => {
+  it("ignores a page number outside any book instead of trusting it", () => {
     // A hallucinated «[صفحة الكتاب 9999]» must never become a stage jump.
     expect(bookPagesInText("[صفحة الكتاب 9999]\n...")).toEqual([]);
-    expect(bookPagesInText(`[صفحة الكتاب ${EGYPT_T1_BOOK_END + 1}]`)).toEqual([]);
+    expect(bookPagesInText(`[صفحة الكتاب ${MAX_BOOK_PAGE + 1}]`)).toEqual([]);
     // The unnumbered opener is page 0 and is a real page of the first lesson.
     expect(bookPagesInText("[صفحة الكتاب 0]")).toEqual([0]);
   });
@@ -137,21 +213,30 @@ describe("book page references", () => {
 
 describe("the page in front of the student", () => {
   it("returns the page's own text, without the marker that framed it", () => {
-    const text = bookPageText(1);
+    const text = bookPageText(EGYPT_G6_MATH_CURRICULUM, 1);
     if (text.length === 0) {
       // A deployment without the OCR corpus has no text — a supported mode.
-      expect(bookPageText(EGYPT_T1_BOOK_END + 1)).toBe("");
+      expect(bookPageText(EGYPT_G6_MATH_CURRICULUM, EGYPT_T1_BOOK_END + 1)).toBe("");
       return;
     }
     expect(text).not.toContain("[صفحة الكتاب");
     // The text must be the page's, not a neighbour's: the corpus is per page.
-    expect(bookPageText(2)).not.toBe(text);
+    expect(bookPageText(EGYPT_G6_MATH_CURRICULUM, 2)).not.toBe(text);
   });
 
   it("returns nothing for a page outside the book or a non-integer", () => {
-    expect(bookPageText(-1)).toBe("");
-    expect(bookPageText(EGYPT_T1_BOOK_END + 1)).toBe("");
-    expect(bookPageText(1.5)).toBe("");
-    expect(bookPageText(Number.NaN)).toBe("");
+    expect(bookPageText(EGYPT_G6_MATH_CURRICULUM, -1)).toBe("");
+    expect(bookPageText(EGYPT_G6_MATH_CURRICULUM, EGYPT_T1_BOOK_END + 1)).toBe("");
+    expect(bookPageText(EGYPT_G6_MATH_CURRICULUM, 1.5)).toBe("");
+    expect(bookPageText(EGYPT_G6_MATH_CURRICULUM, Number.NaN)).toBe("");
+  });
+
+  it("reads the right book's text for a non-maths curriculum", () => {
+    // A science page must never return a maths page's text just because the
+    // page number matches: the text is looked up through the book's own loader.
+    const science = bookPageText("eg-g6-science", 6);
+    const maths = bookPageText(EGYPT_G6_MATH_CURRICULUM, 6);
+    expect(science.length > 0 || maths.length === 0).toBe(true);
+    if (science.length > 0 && maths.length > 0) expect(science).not.toBe(maths);
   });
 });

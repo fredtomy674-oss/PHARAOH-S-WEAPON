@@ -253,6 +253,18 @@ export function conceptBookRange(unitIndex: number, conceptIndex: number): { fro
   return { from, to };
 }
 
+/** Every concept's derived range, flattened — used by the stage registry, tests and audit. */
+export function allConceptRanges(): { key: string; title: string; from: number; to: number }[] {
+  const out: { key: string; title: string; from: number; to: number }[] = [];
+  EGYPT_T1_UNITS.forEach((unit, ui) => {
+    unit.concepts.forEach((concept, ci) => {
+      const { from, to } = conceptBookRange(ui, ci);
+      out.push({ key: concept.key, title: concept.title, from, to });
+    });
+  });
+  return out;
+}
+
 const OCR_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "data", "curriculum-ocr");
 
 /**

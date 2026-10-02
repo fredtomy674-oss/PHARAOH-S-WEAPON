@@ -92,14 +92,18 @@ export const curriculumRoutes: FastifyPluginAsync = async (app) => {
 
   /**
    * One textbook page image, addressed by its *printed* page number so the URL
-   * the client shows the student ("صفحة 12") is the number on the paper.
+   * the client shows the student ("صفحة 12") is the number on the paper, and by
+   * the curriculum code, because each book keeps its own scan pages.
    */
-  app.get("/book-pages/:bookPage.jpg", async (request, reply) => {
-    const { bookPage } = request.params as { bookPage: string };
+  app.get("/book-pages/:curriculumCode/:bookPage.jpg", async (request, reply) => {
+    const { curriculumCode, bookPage } = request.params as { curriculumCode: string; bookPage: string };
+    if (!/^[a-z0-9][a-z0-9-]{0,63}$/.test(curriculumCode)) {
+      throw Errors.badRequest("معرّف المنهج غير صالح", "INVALID_CURRICULUM");
+    }
     if (!/^\d{1,3}$/.test(bookPage)) {
       throw Errors.badRequest("رقم الصفحة غير صالح", "INVALID_PAGE");
     }
-    const image = readPageImage(Number(bookPage));
+    const image = readPageImage(curriculumCode, Number(bookPage));
     if (!image) throw Errors.notFound("صفحة الكتاب غير متاحة");
     // Textbook pages never change for a given edition: cache them hard.
     reply.header("cache-control", "public, max-age=86400, immutable");

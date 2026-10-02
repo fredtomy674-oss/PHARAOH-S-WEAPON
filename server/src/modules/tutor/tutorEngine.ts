@@ -278,7 +278,7 @@ export class TutorEngine {
     // Validated to a real printed page of the lesson's own range by the caller.
     const viewingPage =
       input.viewingPage !== undefined
-        ? { bookPage: input.viewingPage, text: bookPageText(input.viewingPage) }
+        ? { bookPage: input.viewingPage, text: bookPageText(input.breadcrumb.curriculum.code, input.viewingPage) }
         : undefined;
 
     // PHASE 48 — citations. Every book chunk carries a `[صفحة الكتاب N]` marker
