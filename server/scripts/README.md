@@ -44,6 +44,11 @@ SUBJECT=science TERM=t2 PDF_PATH="../Downloads/Science_Primary6_T2.pdf" \
   that span carries real OCR text. A page owned by no lesson, an empty page, or
   the OCR model's «لا يوجد نص مكتوب في الصورة المرفقة» placeholder is a gap the
   tutor cannot see. `npx tsx scripts/audit-curricula.ts` → `scripts/.audit-out.txt`.
+- `verify-live.mjs` — with the API running, walks the catalog for
+  `eg-g6-math-en` / `eg-g6-math-fr`, checks the breadcrumb reply language (`en` /
+  `fr`), and runs a real-embedding retrieval scoped to an anchor lesson to prove
+  it returns the book's own pages. It also asserts the live concept counts (47
+  Arabic-maths objectives, 22 science learning topics). `npx tsx scripts/verify-live.mjs`.
 - `extract-layer-all.mjs` — dumps a PDF's embedded text layer to `pages-NNN.txt`
   and reports pages with garbled font runs (missing `ToUnicode`). Used to decide
   OCR vs. text layer for a book, and to identify pages that are pure images.
