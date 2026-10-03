@@ -47,6 +47,12 @@ import {
   loadBookPage as loadMathG9Page,
 } from "../../db/egyptMathG9T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_G9_OFFSET,
+  EGYPT_SCIENCE_G9_T1_BOOK_END,
+  allLessonRanges as scienceG9LessonRanges,
+  loadBookPage as loadScienceG9Page,
+} from "../../db/egyptScienceG9T1.js";
+import {
   BOOK_TO_PDF_OFFSET as SCIENCE_OFFSET,
   EGYPT_SCIENCE_T1_BOOK_END,
   allConceptRanges as scienceConceptRanges,
@@ -213,6 +219,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g9-social", prefix: "l-g9-soc-", offset: SOCIAL_G9_OFFSET, bookEnd: EGYPT_SOCIAL_G9_T1_BOOK_END, ranges: socialG9LessonRanges(), loadPage: loadSocialG9Page }),
   buildBook({ code: "eg-g9-islamic-education", prefix: "l-g9-isl-", offset: ISLAMIC_G9_OFFSET, bookEnd: EGYPT_ISLAMIC_G9_T1_BOOK_END, ranges: islamicG9LessonRanges(), loadPage: loadIslamicG9Page }),
   buildBook({ code: "eg-g9-math", prefix: "l-g9-math-", offset: MATH_G9_OFFSET, bookEnd: EGYPT_MATH_G9_T1_BOOK_END, ranges: mathG9LessonRanges(), loadPage: loadMathG9Page }),
+  buildBook({ code: "eg-g9-science", prefix: "l-g9-sci-", offset: SCIENCE_G9_OFFSET, bookEnd: EGYPT_SCIENCE_G9_T1_BOOK_END, ranges: scienceG9LessonRanges(), loadPage: loadScienceG9Page }),
 ];
 
 const STAGE_BOOK_BY_CODE = new Map(STAGE_BOOKS.map((b) => [b.code, b]));

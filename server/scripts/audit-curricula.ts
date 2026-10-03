@@ -28,6 +28,7 @@ import * as christianG9 from "../src/db/egyptChristianG9T1.js";
 import * as mathEn from "../src/db/egyptMathEnT1.js";
 import * as mathFr from "../src/db/egyptMathFrT1.js";
 import * as mathG9 from "../src/db/egyptMathG9T1.js";
+import * as scienceG9 from "../src/db/egyptScienceG9T1.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OCR = path.join(HERE, "..", "data", "curriculum-ocr");
@@ -178,6 +179,13 @@ const audits: Audit[] = [
     end: mathG9.EGYPT_MATH_G9_T1_BOOK_END,
     ranges: mathG9.allLessonRanges(),
     page: mathG9.loadBookPage,
+  },
+  {
+    name: "العلوم — إعدادي (eg-g9-science)",
+    start: scienceG9.EGYPT_SCIENCE_G9_T1_BOOK_START,
+    end: scienceG9.EGYPT_SCIENCE_G9_T1_BOOK_END,
+    ranges: scienceG9.allLessonRanges(),
+    page: scienceG9.loadBookPage,
   },
 ];
 

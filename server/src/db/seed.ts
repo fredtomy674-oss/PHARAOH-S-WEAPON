@@ -112,6 +112,12 @@ import {
   isConsistent as isMathG9TreeConsistent,
   assertTreeMatchesTheBook as assertMathG9TreeMatchesBook,
 } from "./egyptMathG9T1.js";
+import {
+  EGYPT_SCIENCE_G9_T1_UNITS,
+  lessonDocument as scienceG9LessonDocument,
+  isConsistent as isScienceG9TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceG9TreeMatchesBook,
+} from "./egyptScienceG9T1.js";
 
 /** Where one seeded lesson lives — used as the RAG scope for its document. */
 interface SeededLesson {
@@ -276,6 +282,62 @@ function buildEgyptMathG9Term(): TermSeedSpec {
 function verifyMathG9Tree(): { ok: boolean; problems: string[] } {
   const table = isMathG9TreeConsistent();
   const book = assertMathG9TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-3 (Grade 9) **Science** — OFFICIAL curriculum (PHASE 84).
+ *
+ * The first term IS the Ministry textbook (`Science_AR_Prp3_Tr1.pdf`, 2026/2027
+ * MoE edition, 114 scan pages, all OCR'd): its 4 units and 10 lessons exactly as
+ * the book's المحتويات prints them. Like the other Preparatory books, it has no
+ * «مفهوم» layer, so each lesson's concepts are the printed «أهداف الدرس» at its
+ * head, and a unit's opener rides with its first lesson. There is no unit-level
+ * «مراجعة»: every unit ends on the last lesson's own «أسئلة تقييم الدرس». There
+ * is no second term yet: its book has not been imported.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson titles each lesson page prints, and the tiling. Seeding refuses to
+ * run on an unverified table.
+ */
+export const EGYPT_SCIENCE_G9_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-9", name: "Grade 9", nameAr: "الصف الثالث الإعدادي", levelOrder: 9 },
+  subject: { code: "science", name: "Science", nameAr: "العلوم" },
+  curriculum: { code: "eg-g9-science", title: "العلوم للصف الثالث الإعدادي" },
+  terms: [buildEgyptScienceG9Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptScienceG9Term(): TermSeedSpec {
+  const check = verifyScienceG9Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم (إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_G9_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g9-sci-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: scienceG9LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-9 science tree verification, as one verdict. */
+function verifyScienceG9Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceG9TreeConsistent();
+  const book = assertScienceG9TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -1203,6 +1265,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_EN_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_G9_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_G9_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
