@@ -77,6 +77,12 @@ import {
   assertTreeMatchesTheBook as assertChristianTreeMatchesBook,
 } from "./egyptChristianT1.js";
 import {
+  EGYPT_CHRISTIAN_G9_T1_UNITS,
+  lessonDocument as christianG9LessonDocument,
+  isConsistent as isChristianG9TreeConsistent,
+  assertTreeMatchesTheBook as assertChristianG9TreeMatchesBook,
+} from "./egyptChristianG9T1.js";
+import {
   EGYPT_MATH_EN_T1_UNITS,
   conceptDocument as mathEnConceptDocument,
   isConsistent as isMathEnTreeConsistent,
@@ -655,6 +661,68 @@ function verifyChristianTree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Preparatory-3 (Grade 9) **Christian Religious Education** — OFFICIAL
+ * curriculum (PHASE 80).
+ *
+ * The first term IS the Ministry textbook (`Christian_Education_Prep3_T1.pdf`,
+ * 2026/2027 MoE edition, reviewed by the Coptic Orthodox Church): its 3 units and
+ * 18 lessons, exactly as the book's unit openers print their «قائمة دروس
+ * الوحدة», each grounded on the OCR text of the pages the book prints for it
+ * (server/data/curriculum-ocr/christian-p3-t1/). The book prints no «مفهوم»
+ * layer, so each lesson's concepts are the printed «أهداف الدرس» the book puts
+ * at its head.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson topics each page prints, and the tiling. Seeding refuses to run on
+ * an unverified table.
+ */
+export const EGYPT_CHRISTIAN_G9_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-9", name: "Grade 9", nameAr: "الصف الثالث الإعدادي", levelOrder: 9 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: {
+    code: "eg-g9-christian-education",
+    title: "التربية الدينية المسيحية للصف الثالث الإعدادي",
+  },
+  terms: [buildEgyptChristianG9Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptChristianG9Term(): TermSeedSpec {
+  const check = verifyChristianG9Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب التربية الدينية المسيحية (إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_CHRISTIAN_G9_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g9-chr-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: christianG9LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-9 Christian tree verification, as one verdict. */
+function verifyChristianG9Tree(): { ok: boolean; problems: string[] } {
+  const table = isChristianG9TreeConsistent();
+  const book = assertChristianG9TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Grade-6 **Mathematics, English-medium edition** — OFFICIAL curriculum
  * (PHASE 66).
  *
@@ -954,6 +1022,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);

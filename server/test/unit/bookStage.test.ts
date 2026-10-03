@@ -58,6 +58,10 @@ import {
   BOOK_TO_PDF_OFFSET as ICT_G9_OFFSET,
   allLessonRanges as ictG9Ranges,
 } from "../../src/db/egyptIctG9T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as CHRISTIAN_G9_OFFSET,
+  allLessonRanges as christianG9Ranges,
+} from "../../src/db/egyptChristianG9T1.js";
 
 describe("book page arithmetic", () => {
   it("maps a printed page to its scan page by the book's verified offset", () => {
@@ -169,6 +173,7 @@ describe("lesson stage", () => {
       { code: "eg-g6-christian-education", prefix: "l-chr-", offset: CHRISTIAN_OFFSET, ranges: christianRanges() },
       { code: "eg-g6-ict", prefix: "l-ict-", offset: ICT_OFFSET, ranges: ictRanges() },
       { code: "eg-g9-ict", prefix: "l-g9-ict-", offset: ICT_G9_OFFSET, ranges: ictG9Ranges() },
+      { code: "eg-g9-christian-education", prefix: "l-g9-chr-", offset: CHRISTIAN_G9_OFFSET, ranges: christianG9Ranges() },
     ];
     for (const book of books) {
       expect(book.ranges.length, `${book.code} has no ranges`).toBeGreaterThan(0);

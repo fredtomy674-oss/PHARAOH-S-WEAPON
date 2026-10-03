@@ -22,6 +22,7 @@ import * as ict from "../src/db/egyptIctT1.js";
 import * as ictG9 from "../src/db/egyptIctG9T1.js";
 import * as islamic from "../src/db/egyptIslamicT1.js";
 import * as christian from "../src/db/egyptChristianT1.js";
+import * as christianG9 from "../src/db/egyptChristianG9T1.js";
 import * as mathEn from "../src/db/egyptMathEnT1.js";
 import * as mathFr from "../src/db/egyptMathFrT1.js";
 
@@ -126,6 +127,13 @@ const audits: Audit[] = [
     end: christian.EGYPT_CHRISTIAN_T1_BOOK_END,
     ranges: christian.allLessonRanges(),
     page: christian.loadBookPage,
+  },
+  {
+    name: "التربية الدينية المسيحية — إعدادي (eg-g9-christian-education)",
+    start: christianG9.EGYPT_CHRISTIAN_G9_T1_BOOK_START,
+    end: christianG9.EGYPT_CHRISTIAN_G9_T1_BOOK_END,
+    ranges: christianG9.allLessonRanges(),
+    page: christianG9.loadBookPage,
   },
   {
     name: "الرياضيات بالإنجليزية (eg-g6-math-en)",

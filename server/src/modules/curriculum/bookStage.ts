@@ -83,6 +83,12 @@ import {
   allLessonRanges as ictG9LessonRanges,
   loadBookPage as loadIctG9Page,
 } from "../../db/egyptIctG9T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as CHRISTIAN_G9_OFFSET,
+  EGYPT_CHRISTIAN_G9_T1_BOOK_END,
+  allLessonRanges as christianG9LessonRanges,
+  loadBookPage as loadChristianG9Page,
+} from "../../db/egyptChristianG9T1.js";
 
 /** The book whose pages shipped first; still the reference offset for maths. */
 export const EGYPT_G6_MATH_CURRICULUM = "eg-g6-math";
@@ -185,6 +191,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g6-christian-education", prefix: "l-chr-", offset: CHRISTIAN_OFFSET, bookEnd: EGYPT_CHRISTIAN_T1_BOOK_END, ranges: christianLessonRanges(), loadPage: loadChristianPage }),
   buildBook({ code: "eg-g6-ict", prefix: "l-ict-", offset: ICT_OFFSET, bookEnd: EGYPT_ICT_T1_BOOK_END, ranges: ictLessonRanges(), loadPage: loadIctPage }),
   buildBook({ code: "eg-g9-ict", prefix: "l-g9-ict-", offset: ICT_G9_OFFSET, bookEnd: EGYPT_ICT_G9_T1_BOOK_END, ranges: ictG9LessonRanges(), loadPage: loadIctG9Page }),
+  buildBook({ code: "eg-g9-christian-education", prefix: "l-g9-chr-", offset: CHRISTIAN_G9_OFFSET, bookEnd: EGYPT_CHRISTIAN_G9_T1_BOOK_END, ranges: christianG9LessonRanges(), loadPage: loadChristianG9Page }),
 ];
 
 const STAGE_BOOK_BY_CODE = new Map(STAGE_BOOKS.map((b) => [b.code, b]));
