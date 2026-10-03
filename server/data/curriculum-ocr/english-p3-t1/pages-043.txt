@@ -1,0 +1,41 @@
+LESSON 1 Artificial
+Intelligence
+
+Before you start
+
+Think and discuss in pairs
+
+1 Answer the following questions.
+1. What is Artificial Intelligence?
+2. Would you like a robot to help you with homework?
+Why / why not?
+
+Reading
+
+2 Read the following text about Artificial Intelligence.
+
+Many people think robots and Artificial Intelligence (AI) are the same, but they are
+different. A robot is a machine that can move and do tasks. Some robots are very simple,
+like a machine in a factory that puts bottles in a box. Other robots are more advanced,
+like robot dogs that can walk, run, and even play with people.
+
+Al is the "brain" that can go inside a robot. Al allows the robot to make decisions, learn
+from actions, and change its behavior. For example, a robot vacuum cleaner with Al can
+learn the shape of your room and clean it better each time. Without Al, the robot can
+only follow basic orders.
+
+Some robots with Al are used in hospitals. They can
+bring medicine to patients or help during surgery. In
+schools, robots can help students learn new languages
+or solve math problems.
+
+Still, robots and Al have limits. They can't truly
+understand emotions, and they often need humans to
+help or program them. Also, making smart robots can
+be very expensive.
+
+As technology improves, we will see more robots in our
+daily lives. But it's important to know: not all Al is in
+robots, and not all robots are smart.
+
+42 Unit 3 Artificial Intelligence

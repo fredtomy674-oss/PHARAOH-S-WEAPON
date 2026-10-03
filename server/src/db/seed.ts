@@ -118,6 +118,12 @@ import {
   isConsistent as isScienceG9TreeConsistent,
   assertTreeMatchesTheBook as assertScienceG9TreeMatchesBook,
 } from "./egyptScienceG9T1.js";
+import {
+  EGYPT_ENGLISH_G9_T1_SECTIONS,
+  lessonDocument as englishG9LessonDocument,
+  isConsistent as isEnglishG9TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishG9TreeMatchesBook,
+} from "./egyptEnglishG9T1.js";
 
 /** Where one seeded lesson lives — used as the RAG scope for its document. */
 interface SeededLesson {
@@ -338,6 +344,63 @@ function buildEgyptScienceG9Term(): TermSeedSpec {
 function verifyScienceG9Tree(): { ok: boolean; problems: string[] } {
   const table = isScienceG9TreeConsistent();
   const book = assertScienceG9TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-3 (Grade 9) **English** — OFFICIAL curriculum (PHASE 85).
+ *
+ * The first term IS the Ministry textbook (`English_language_prep3_t1.pdf`,
+ * 2026/2027 MoE edition, 114 scan pages, all OCR'd): the six units of its printed
+ * «Contents», the two reviews around them, and the «Start Smart» bridge that
+ * precedes unit 1. The app lesson is the book's printed **lesson** (a unit's
+ * Learning Outcomes opener rides with its first lesson, its Self-Reflection with
+ * its last); the reviews keep their printed «Lesson 1»/«Lesson 2». The book
+ * prints no per-lesson objectives — its outcomes sit on the unit opener, grouped
+ * by skill — so each lesson's `concepts` are the verbatim outcomes of the skill(s)
+ * it teaches. Each listening lesson also points at its own «Audioscripts» page so
+ * the tutor can quote the passage the book points to. The subject code `english`
+ * is what makes the tutor answer in English (D-042).
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson heads each lesson page prints, the appendix pages, and the tiling.
+ * Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_ENGLISH_G9_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-9", name: "Grade 9", nameAr: "الصف الثالث الإعدادي", levelOrder: 9 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g9-english", title: "اللغة الإنجليزية للصف الثالث الإعدادي" },
+  terms: [buildEgyptEnglishG9Term()],
+};
+
+/** Term 1 = the official book: printed section → printed lesson, as its document. */
+function buildEgyptEnglishG9Term(): TermSeedSpec {
+  const check = verifyEnglishG9Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الإنجليزي (إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_G9_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes stay unique across every seeded curriculum.
+        code: `l-g9-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: englishG9LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-9 English tree verification, as one verdict. */
+function verifyEnglishG9Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishG9TreeConsistent();
+  const book = assertEnglishG9TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -1266,6 +1329,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_FR_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_G9_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G9_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
