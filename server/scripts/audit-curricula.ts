@@ -27,6 +27,7 @@ import * as christian from "../src/db/egyptChristianT1.js";
 import * as christianG9 from "../src/db/egyptChristianG9T1.js";
 import * as mathEn from "../src/db/egyptMathEnT1.js";
 import * as mathFr from "../src/db/egyptMathFrT1.js";
+import * as mathG9 from "../src/db/egyptMathG9T1.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OCR = path.join(HERE, "..", "data", "curriculum-ocr");
@@ -170,6 +171,13 @@ const audits: Audit[] = [
     // Book 13 is a full-page picture (no text layer). Books 67/79 are pictures
     // too, but the French scan prints a photo credit on them, so they carry text.
     ignoreEmpty: new Set([13]),
+  },
+  {
+    name: "الرياضيات — إعدادي (eg-g9-math)",
+    start: mathG9.EGYPT_MATH_G9_T1_BOOK_START,
+    end: mathG9.EGYPT_MATH_G9_T1_BOOK_END,
+    ranges: mathG9.allLessonRanges(),
+    page: mathG9.loadBookPage,
   },
 ];
 

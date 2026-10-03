@@ -70,6 +70,10 @@ import {
   BOOK_TO_PDF_OFFSET as SOCIAL_G9_OFFSET,
   allLessonRanges as socialG9Ranges,
 } from "../../src/db/egyptSocialG9T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as MATH_G9_OFFSET,
+  allLessonRanges as mathG9Ranges,
+} from "../../src/db/egyptMathG9T1.js";
 
 describe("book page arithmetic", () => {
   it("maps a printed page to its scan page by the book's verified offset", () => {
@@ -184,6 +188,7 @@ describe("lesson stage", () => {
       { code: "eg-g9-christian-education", prefix: "l-g9-chr-", offset: CHRISTIAN_G9_OFFSET, ranges: christianG9Ranges() },
       { code: "eg-g9-social", prefix: "l-g9-soc-", offset: SOCIAL_G9_OFFSET, ranges: socialG9Ranges() },
       { code: "eg-g9-islamic-education", prefix: "l-g9-isl-", offset: ISLAMIC_G9_OFFSET, ranges: islamicG9Ranges() },
+      { code: "eg-g9-math", prefix: "l-g9-math-", offset: MATH_G9_OFFSET, ranges: mathG9Ranges() },
     ];
     for (const book of books) {
       expect(book.ranges.length, `${book.code} has no ranges`).toBeGreaterThan(0);
