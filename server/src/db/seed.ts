@@ -77,6 +77,12 @@ import {
   assertTreeMatchesTheBook as assertIslamicTreeMatchesBook,
 } from "./egyptIslamicT1.js";
 import {
+  EGYPT_ISLAMIC_G9_T1_UNITS,
+  lessonDocument as islamicG9LessonDocument,
+  isConsistent as isIslamicG9TreeConsistent,
+  assertTreeMatchesTheBook as assertIslamicG9TreeMatchesBook,
+} from "./egyptIslamicG9T1.js";
+import {
   EGYPT_CHRISTIAN_T1_UNITS,
   lessonDocument as christianLessonDocument,
   isConsistent as isChristianTreeConsistent,
@@ -663,6 +669,57 @@ function verifyIslamicTree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Preparatory-3 (Grade 9) **Islamic Religious Education** — OFFICIAL
+ * curriculum (PHASE 82).
+ *
+ * The first term IS the Ministry textbook (`Islamic_Education_Prep3_T1.pdf`,
+ * 2026/2027 MoE edition, 82 scan pages, all OCR'd): its 3 units and 21 lessons
+ * exactly as the book's المحتويات prints them. The book prints no «مفهوم» layer,
+ * so each lesson's concepts are the printed «أهداف الدرس» it puts at its head,
+ * and a unit's opener and «مراجعة على الوحدة» ride with its first/last lesson.
+ * There is no second term yet: its book has not been imported.
+ */
+export const EGYPT_ISLAMIC_G9_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-9", name: "Grade 9", nameAr: "الصف الثالث الإعدادي", levelOrder: 9 },
+  subject: { code: "islamic-education", name: "Islamic Religious Education", nameAr: "التربية الدينية الإسلامية" },
+  curriculum: { code: "eg-g9-islamic-education", title: "التربية الدينية الإسلامية للصف الثالث الإعدادي" },
+  terms: [buildEgyptIslamicG9Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptIslamicG9Term(): TermSeedSpec {
+  const check = verifyIslamicG9Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية الإسلامية (إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ISLAMIC_G9_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g9-isl-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: islamicG9LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-9 Islamic tree verification, as one verdict. */
+function verifyIslamicG9Tree(): { ok: boolean; problems: string[] } {
+  const table = isIslamicG9TreeConsistent();
+  const book = assertIslamicG9TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Grade-6 **Christian Religious Education** — OFFICIAL curriculum
  * (PHASE 65).
  *
@@ -1085,6 +1142,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_SPEC);

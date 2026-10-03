@@ -22,6 +22,7 @@ import * as arabic from "../src/db/egyptArabicT1.js";
 import * as ict from "../src/db/egyptIctT1.js";
 import * as ictG9 from "../src/db/egyptIctG9T1.js";
 import * as islamic from "../src/db/egyptIslamicT1.js";
+import * as islamicG9 from "../src/db/egyptIslamicG9T1.js";
 import * as christian from "../src/db/egyptChristianT1.js";
 import * as christianG9 from "../src/db/egyptChristianG9T1.js";
 import * as mathEn from "../src/db/egyptMathEnT1.js";
@@ -142,6 +143,13 @@ const audits: Audit[] = [
     end: socialG9.EGYPT_SOCIAL_G9_T1_BOOK_END,
     ranges: socialG9.allLessonRanges(),
     page: socialG9.loadBookPage,
+  },
+  {
+    name: "التربية الدينية الإسلامية — إعدادي (eg-g9-islamic-education)",
+    start: islamicG9.EGYPT_ISLAMIC_G9_T1_BOOK_START,
+    end: islamicG9.EGYPT_ISLAMIC_G9_T1_BOOK_END,
+    ranges: islamicG9.allLessonRanges(),
+    page: islamicG9.loadBookPage,
   },
   {
     name: "الرياضيات بالإنجليزية (eg-g6-math-en)",

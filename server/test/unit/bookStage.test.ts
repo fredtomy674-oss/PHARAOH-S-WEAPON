@@ -47,6 +47,10 @@ import {
   allLessonRanges as islamicRanges,
 } from "../../src/db/egyptIslamicT1.js";
 import {
+  BOOK_TO_PDF_OFFSET as ISLAMIC_G9_OFFSET,
+  allLessonRanges as islamicG9Ranges,
+} from "../../src/db/egyptIslamicG9T1.js";
+import {
   BOOK_TO_PDF_OFFSET as CHRISTIAN_OFFSET,
   allLessonRanges as christianRanges,
 } from "../../src/db/egyptChristianT1.js";
@@ -179,6 +183,7 @@ describe("lesson stage", () => {
       { code: "eg-g9-ict", prefix: "l-g9-ict-", offset: ICT_G9_OFFSET, ranges: ictG9Ranges() },
       { code: "eg-g9-christian-education", prefix: "l-g9-chr-", offset: CHRISTIAN_G9_OFFSET, ranges: christianG9Ranges() },
       { code: "eg-g9-social", prefix: "l-g9-soc-", offset: SOCIAL_G9_OFFSET, ranges: socialG9Ranges() },
+      { code: "eg-g9-islamic-education", prefix: "l-g9-isl-", offset: ISLAMIC_G9_OFFSET, ranges: islamicG9Ranges() },
     ];
     for (const book of books) {
       expect(book.ranges.length, `${book.code} has no ranges`).toBeGreaterThan(0);
