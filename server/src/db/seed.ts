@@ -47,6 +47,12 @@ import {
   assertTreeMatchesTheBook as assertSocialTreeMatchesBook,
 } from "./egyptSocialT1.js";
 import {
+  EGYPT_SOCIAL_G9_T1_UNITS,
+  lessonDocument as socialG9LessonDocument,
+  isConsistent as isSocialG9TreeConsistent,
+  assertTreeMatchesTheBook as assertSocialG9TreeMatchesBook,
+} from "./egyptSocialG9T1.js";
+import {
   EGYPT_ARABIC_T1_UNITS,
   lessonDocument as arabicLessonDocument,
   isConsistent as isArabicTreeConsistent,
@@ -371,6 +377,63 @@ function buildEgyptSocialT1Term(): TermSeedSpec {
 function verifySocialTree(): { ok: boolean; problems: string[] } {
   const table = isSocialTreeConsistent();
   const book = assertSocialTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-3 (Grade 9) **Social Studies** — OFFICIAL curriculum
+ * (PHASE 81).
+ *
+ * The first term IS the Ministry textbook (`Social_Studies_Prep3_T1.pdf`,
+ * 2026/2027 MoE edition): its 4 units and 11 lessons as printed in the المحتويات
+ * (book pages 5–6), each lesson carrying its printed «أهداف الدرس». Every
+ * lesson's RAG document is the OCR text of the very pages the book prints for it
+ * (server/data/curriculum-ocr/social-p3-t1/). There is no second-term spec: its
+ * book has not been imported, and a hand-written stand-in would misrepresent it.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping page by page from the
+ * printed footers, checks every lesson's opener prints its title, and confirms
+ * no printed page falls outside a lesson. Seeding refuses to run on an
+ * unverified table.
+ */
+export const EGYPT_SOCIAL_G9_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-9", name: "Grade 9", nameAr: "الصف الثالث الإعدادي", levelOrder: 9 },
+  subject: { code: "social", name: "Social Studies", nameAr: "الدراسات الاجتماعية" },
+  curriculum: { code: "eg-g9-social", title: "الدراسات الاجتماعية للصف الثالث الإعدادي" },
+  terms: [buildEgyptSocialG9Term()],
+};
+
+/** Term 1 = the official book: one app lesson per printed درس, pages OCR'd. */
+function buildEgyptSocialG9Term(): TermSeedSpec {
+  const check = verifySocialG9Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الدراسات الاجتماعية (إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SOCIAL_G9_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g9-soc-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: socialG9LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-9 social tree verification, as one verdict. */
+function verifySocialG9Tree(): { ok: boolean; problems: string[] } {
+  const table = isSocialG9TreeConsistent();
+  const book = assertSocialG9TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -1017,6 +1080,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_SPEC);
   await seedCountry(db, knowledge, EGYPT_SOCIAL_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SOCIAL_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);

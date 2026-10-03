@@ -5,6 +5,7 @@ import {
   EGYPT_ENGLISH_SPEC,
   EGYPT_ICT_G9_SPEC,
   EGYPT_SCIENCE_SPEC,
+  EGYPT_SOCIAL_G9_SPEC,
   EGYPT_SOCIAL_SPEC,
   EGYPT_SPEC,
   SAUDI_SPEC,
@@ -18,7 +19,7 @@ import {
  * fooled by exactly that. The codes are namespaced per book; this pins it at the
  * spec level, so a future curriculum cannot reintroduce the collision.
  */
-const SPECS = [EGYPT_SPEC, EGYPT_ENGLISH_SPEC, EGYPT_SCIENCE_SPEC, EGYPT_SOCIAL_SPEC, EGYPT_ARABIC_SPEC, EGYPT_ICT_G9_SPEC, EGYPT_CHRISTIAN_G9_SPEC, SAUDI_SPEC];
+const SPECS = [EGYPT_SPEC, EGYPT_ENGLISH_SPEC, EGYPT_SCIENCE_SPEC, EGYPT_SOCIAL_SPEC, EGYPT_ARABIC_SPEC, EGYPT_ICT_G9_SPEC, EGYPT_CHRISTIAN_G9_SPEC, EGYPT_SOCIAL_G9_SPEC, SAUDI_SPEC];
 
 type Spec = (typeof SPECS)[number];
 

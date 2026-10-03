@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import * as math from "../src/db/egyptT1.js";
 import * as science from "../src/db/egyptScienceT1.js";
 import * as social from "../src/db/egyptSocialT1.js";
+import * as socialG9 from "../src/db/egyptSocialG9T1.js";
 import * as arabic from "../src/db/egyptArabicT1.js";
 import * as ict from "../src/db/egyptIctT1.js";
 import * as ictG9 from "../src/db/egyptIctG9T1.js";
@@ -134,6 +135,13 @@ const audits: Audit[] = [
     end: christianG9.EGYPT_CHRISTIAN_G9_T1_BOOK_END,
     ranges: christianG9.allLessonRanges(),
     page: christianG9.loadBookPage,
+  },
+  {
+    name: "الدراسات الاجتماعية — إعدادي (eg-g9-social)",
+    start: socialG9.EGYPT_SOCIAL_G9_T1_BOOK_START,
+    end: socialG9.EGYPT_SOCIAL_G9_T1_BOOK_END,
+    ranges: socialG9.allLessonRanges(),
+    page: socialG9.loadBookPage,
   },
   {
     name: "الرياضيات بالإنجليزية (eg-g6-math-en)",
