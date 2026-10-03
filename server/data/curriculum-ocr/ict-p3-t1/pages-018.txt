@@ -1,0 +1,7 @@
+معالجة أخطاء مدخلات المستخدم / # handling user input errors
+الدرس الثاني: خوارزميات الذكاء الاصطناعي
+age = int(input("Enter your age: "))
+except ValueError:
+print("خطأ: يرجى إدخال رقم صحيح", Error: Please enter an integer)
+except Exception as e:
+print(f"Error: {e}")

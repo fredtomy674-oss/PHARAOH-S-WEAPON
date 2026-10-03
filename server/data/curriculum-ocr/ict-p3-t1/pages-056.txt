@@ -1,0 +1,36 @@
+الكمبيوتر وتكنولوجيا المعلومات والاتصالات
+
+try:
+    num1 = int(input("Enter number 1: "))
+    num2 = int(input("Enter number 2: "))
+    result = num1 / num2
+    print("Result =", result)
+except:
+    print("Error! Invalid input or division by zero.")
+
+شرح
+عزيزي الطالب، هنا يوجد نوعان من الأخطاء:
+• إدخال نص بدل رقم
+• القسمة على صفر
+10 ÷ 0 ← خطأ
+وهذا يوضح أهمية معالجة الأخطاء في البرامج.
+مثال 3 (تحديد نوع الخطأ)
+عزيزي الطالب، يمكننا جعل البرنامج أكثر دقة من خلال تحديد نوع الخطأ.
+
+try:
+    num = int(input("Enter a number: "))
+    result = 10 / num
+    print(result)
+except ValueError:
+    print("Please enter numbers only!")
+except ZeroDivisionError:
+    print("You cannot divide by zero!")
+
+الشرح
+• ValueError ← عند إدخال نص بدل رقم
+• ZeroDivisionError ← عند القسمة على صفر
+هنا أصبح البرنامج أذكى لأنه يحدد نوع الخطأ ويعطي رسالة مناسبة لكل حالة.
+مثال 4 (إعادة المحاولة)
+عزيزي الطالب، بعد أن تعلمنا معالجة الأخطاء، يمكننا تحسين البرنامج أكثر بحيث يطلب من المستخدم إعادة المحاولة.
+
+الفصل الدراسي الأول ٥٦

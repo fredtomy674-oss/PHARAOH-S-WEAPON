@@ -1,0 +1,36 @@
+الكمبيوتر وتكنولوجيا المعلومات والاتصالات
+
+١٥ - ما النتيجة المتوقعة للكود التالي؟
+try:
+    num1 = int(“10”)
+    num2 = int(“2”)
+    print(num1 / num2)
+except:
+    print(“Error”)
+
+أ. Error
+ب. 5
+ج. 102
+د. 20
+
+١٦ - أي من الكود التالي يُعطي رسالة مختلفة لكل نوع خطأ؟
+أ) try: ... except: print(“Error”)
+ب) try: ... except ValueError: print(“Numbers only!”) except ZeroDivisionError: print(“No zero!”)
+ج) try: ... print(“Error”)
+د) if error: print(“Error”)
+
+١٧ - ما الخطأ في الكود التالي؟
+try:
+x = int(input(“Enter:”))
+except ValueError:
+print(“Not a number!”)
+except:
+print(“Error!”)
+
+أ. لا يوجد خطأ، الكود صحيح
+ب. except يجب أن يأتي قبل :except ValueError
+ج. try يجب أن يحتوي على :else
+د. int(input()) غير صحيحة
+
+٦٢
+الفصل الدراسي الأول

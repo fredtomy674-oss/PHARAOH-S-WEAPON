@@ -19,6 +19,7 @@ import * as science from "../src/db/egyptScienceT1.js";
 import * as social from "../src/db/egyptSocialT1.js";
 import * as arabic from "../src/db/egyptArabicT1.js";
 import * as ict from "../src/db/egyptIctT1.js";
+import * as ictG9 from "../src/db/egyptIctG9T1.js";
 import * as islamic from "../src/db/egyptIslamicT1.js";
 import * as christian from "../src/db/egyptChristianT1.js";
 import * as mathEn from "../src/db/egyptMathEnT1.js";
@@ -104,6 +105,13 @@ const audits: Audit[] = [
     end: ict.EGYPT_ICT_T1_BOOK_END,
     ranges: ict.allLessonRanges(),
     page: ict.loadBookPage,
+  },
+  {
+    name: "تكنولوجيا المعلومات والاتصالات — إعدادي (eg-g9-ict)",
+    start: ictG9.EGYPT_ICT_G9_T1_BOOK_START,
+    end: ictG9.EGYPT_ICT_G9_T1_BOOK_END,
+    ranges: ictG9.allLessonRanges(),
+    page: ictG9.loadBookPage,
   },
   {
     name: "التربية الدينية الإسلامية (eg-g6-islamic-education)",

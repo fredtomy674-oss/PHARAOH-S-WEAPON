@@ -59,6 +59,12 @@ import {
   assertTreeMatchesTheBook as assertIctTreeMatchesBook,
 } from "./egyptIctT1.js";
 import {
+  EGYPT_ICT_G9_T1_UNITS,
+  lessonDocument as ictG9LessonDocument,
+  isConsistent as isIctG9TreeConsistent,
+  assertTreeMatchesTheBook as assertIctG9TreeMatchesBook,
+} from "./egyptIctG9T1.js";
+import {
   EGYPT_ISLAMIC_T1_UNITS,
   lessonDocument as islamicLessonDocument,
   isConsistent as isIslamicTreeConsistent,
@@ -471,6 +477,62 @@ function buildEgyptIctT1Term(): TermSeedSpec {
 function verifyIctTree(): { ok: boolean; problems: string[] } {
   const table = isIctTreeConsistent();
   const book = assertIctTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-3 (Grade 9) **Information and Communication Technology** —
+ * OFFICIAL curriculum (PHASE 79).
+ *
+ * The first term IS the Ministry textbook (`ICT_Arabic_Prp3_TR1.pdf`, 2026/2027
+ * MoE edition, 96 pages): its 2 units and 9 lessons exactly as the book's
+ * فهرس الموضوعات (book page 3) prints them, each grounded on the OCR text of the
+ * pages the book prints for it (server/data/curriculum-ocr/ict-p3-t1/). The book
+ * prints no «مفهوم» layer, so each lesson's concepts are the printed
+ * «أهداف الدرس» the book puts at its head.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson titles each page prints, and the tiling. Seeding refuses to run on
+ * an unverified table.
+ */
+export const EGYPT_ICT_G9_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-9", name: "Grade 9", nameAr: "الصف الثالث الإعدادي", levelOrder: 9 },
+  subject: { code: "ict", name: "Information and Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  curriculum: { code: "eg-g9-ict", title: "تكنولوجيا المعلومات والاتصالات للصف الثالث الإعدادي" },
+  terms: [buildEgyptIctG9Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptIctG9Term(): TermSeedSpec {
+  const check = verifyIctG9Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب تكنولوجيا المعلومات (إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ICT_G9_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g9-ict-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: ictG9LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-9 ICT tree verification, as one verdict. */
+function verifyIctG9Tree(): { ok: boolean; problems: string[] } {
+  const table = isIctG9TreeConsistent();
+  const book = assertIctG9TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -889,6 +951,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_SOCIAL_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_SPEC);

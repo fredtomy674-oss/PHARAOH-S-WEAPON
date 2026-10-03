@@ -1,0 +1,38 @@
+الوحدة الأولى: الذكاء الاصطناعي ولغات البرمجة
+
+١٨ -ما النتيجة المتوقعة للكود التالي إذا أدخل المستخدم «0»؟
+try:
+    num = int(input(“Enter: “))
+    result = 100 / num
+    print(result)
+except ValueError:
+    print(“Enter numbers only!”)
+except ZeroDivisionError:
+    print(“Cannot divide by zero!”)
+
+أ) 100
+ب) Enter numbers only!
+ج) Cannot divide by zero!
+د) 0
+
+١٩ -في الكود التالي، ما الرسالة التي تظهر إذا أدخل المستخدم “abc”؟
+try:
+    age = int(input(“Enter age: “))
+    print(“Next year:”, age + 1)
+except ValueError:
+    print(“Please enter a valid number!”)
+except:
+    print(“Unknown error!”)
+
+أ) Next year: abc1
+ب) Unknown error!
+ج) Please enter a valid number!
+د) يتوقف البرنامج بدون رسالة
+
+٢٠ -ما الفائدة الرئيسية من استخدام try و except داخل الدوال (Functions)؟
+أ) جعل الدالة أبطأ
+ب) إنشاء متغيرات عالمية
+ج) جعل الدالة أكثر قوة واحترافية وقادرة على التعامل مع مدخلات غير متوقعة
+د) إزالة الحاجة لاستخدام return
+
+الصف الثالث الاعدادى ٦٣

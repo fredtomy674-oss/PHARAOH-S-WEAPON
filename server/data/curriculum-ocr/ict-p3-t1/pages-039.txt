@@ -1,0 +1,40 @@
+الوحدة الأولى: الذكاء الاصطناعي ولغات البرمجة
+
+٦- أي دالة تُستخدم لتحويل جميع حروف السلسلة النصية إلى حروف كبيرة؟
+أ) ()lower
+ب) ()small
+ج) ()capitalize
+د) ()upper
+
+٧- ما النتيجة المتوقعة للكود التالي؟
+text = “hello”
+print(“z” in text)
+
+أ) True
+ب) False
+ج) خطأ في البرنامج
+د) “z”
+
+القوائم وعملياتها
+
+٨- ما النتيجة المتوقعة للكود التالي؟
+names = [“Ahmed”, “Ali”]
+names.append(“Sara”)
+print(names)
+
+أ) [“Ahmed”, “Ali”]
+ب) [“Sara”, “Ahmed”, “Ali”]
+ج) [“Ahmed”, “Ali”, “Sara”]
+د) خطأ في البرنامج
+
+٩- ما النتيجة المتوقعة للكود التالي؟
+names = [“Ahmed”, “Ali”, “Sara”]
+names.remove(“Ali”)
+print(names)
+
+أ) [“Ahmed”, “Ali”, “Sara”]
+ب) [“Ahmed”, “Sara”]
+ج) [“Ali”, “Sara”]
+د) خطأ في البرنامج
+
+٣٩ الصف الثالث الاعدادى

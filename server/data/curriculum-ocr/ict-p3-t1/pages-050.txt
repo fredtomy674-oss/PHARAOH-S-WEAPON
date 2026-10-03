@@ -1,0 +1,40 @@
+الكمبيوتر وتكنولوجيا المعلومات والاتصالات
+
+٨ - إذا استدعيت الدالة (10)circle_area، ما النتيجة المتوقعة؟
+أ) 31.4
+ب) 78.5
+ج) 314.0
+د) 628.0
+
+٩ - في الاستدعاء (5 ,3)add_numbers، ما اسم القيم 3 و 5؟
+أ) Parameters
+ب) Arguments
+ج) Variables
+د) Constants
+
+١٠ - أي من الكود التالي يُعرّف دالة بمعامل واحد فقط؟
+أ) def add(a, b)
+ب) def multiply()
+ج) def square(x)
+د) def calc(a, b, c)
+
+١١ - ما النتيجة المتوقعة للكود التالي؟
+def greet(name):
+    print(“Hello”, name)
+greet(“Ahmed”)
+
+أ) Hello
+ب) Ahmed
+ج) Hello Ahmed
+د) name Ahmed
+
+١٢ - ما الخطأ في الكود التالي؟
+def add(a, b):
+    return a + b
+result = add(5)
+
+أ) خطأ في كتابة def
+ب) نقص معامل (قيمة واحدة بدلاً من قيمتين)
+
+٥٠
+الفصل الدراسي الأول

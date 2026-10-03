@@ -1,0 +1,36 @@
+الوحدة الأولى: الذكاء الاصطناعي ولغات البرمجة
+
+١٢ - ما دور break في الكود التالي؟
+while True:
+    try:
+        num = int(input("Enter number: "))
+        break
+    except:
+        print("Try again!")
+
+أ) إيقاف البرنامج بالكامل
+ب) الانتقال إلى except
+ج) الخروج من الحلقة while عند نجاح الإدخال
+د) تكرار الحلقة مرة أخرى
+
+١٣ - ما النتيجة المتوقعة للكود التالي إذا أدخل المستخدم "hello" ثم "5"؟
+while True:
+    try:
+        num = int(input("Enter: "))
+        print("You entered:", num)
+        break
+    except:
+        print("Invalid! Try again.")
+
+أ) يتوقف ثم You entered: hello
+ب) يتوقف ثم Invalid! Try again
+ج) You entered: 5 ثم Invalid! Try again.
+د) يتوقف فوراً عند أول خطأ
+
+١٤ - في برنامج القسمة، ما الأخطاء المحتملة التي يجب معالجتها؟
+أ) خطأ في كتابة print فقط
+ب) إدخال نص بدلاً من رقم، والقسمة على صفر
+ج) خطأ في تهجئة المتغيرات فقط
+د) استخدام int بدلاً من str
+
+الصف الثالث الاعدادي ١٦

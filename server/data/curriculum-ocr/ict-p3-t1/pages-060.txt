@@ -1,0 +1,39 @@
+الكمبيوتر وتكنولوجيا المعلومات والاتصالات
+
+٨ - ما النتيجة المتوقعة للكود التالي؟
+try:
+    result = 10 / 0
+    print(result)
+except:
+    print("Cannot divide!")
+
+أ. 0
+ب. 10
+ج. Cannot divide!
+د. result = 10
+
+٩ - أي من الكود التالي يُعالج نوعين مختلفين من الأخطاء بشكل منفصل؟
+أ. ... try: ... except
+ب. ... try: ... except Error
+ج. ... try: ... except ValueError: ... except Zero Division Error
+د. ... try: ... finally
+
+١٠ - ما النتيجة المتوقعة للكود التالي؟
+try:
+    num = int("50")
+    print(num * 2)
+except ValueError:
+    print("Wrong input!")
+
+أ. Wrong input!
+ب. 50
+ج. 100
+د. خطأ ويتوقف البرنامج
+
+١١ - ما الغرض من استخدام while True مع try و except؟
+أ. تنفيذ الكود مرة واحدة فقط
+ب. إعادة طلب الإدخال من المستخدم حتى إدخال قيمة صحيحة
+ج. إيقاف البرنامج فوراً
+د. تسريع تنفيذ البرنامج
+
+٦٠ الفصل الدراسي الأول
