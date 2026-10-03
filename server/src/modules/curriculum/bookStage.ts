@@ -60,6 +60,13 @@ import {
   loadBookPage as loadEnglishG9Page,
 } from "../../db/egyptEnglishG9T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as ARABIC_G9_OFFSET,
+  EGYPT_ARABIC_G9_T1_BOOK_END,
+  allLessonRanges as arabicG9LessonRanges,
+  allLessonExtras as arabicG9LessonExtras,
+  loadBookPage as loadArabicG9Page,
+} from "../../db/egyptArabicG9T1.js";
+import {
   BOOK_TO_PDF_OFFSET as SCIENCE_OFFSET,
   EGYPT_SCIENCE_T1_BOOK_END,
   allConceptRanges as scienceConceptRanges,
@@ -228,6 +235,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g9-math", prefix: "l-g9-math-", offset: MATH_G9_OFFSET, bookEnd: EGYPT_MATH_G9_T1_BOOK_END, ranges: mathG9LessonRanges(), loadPage: loadMathG9Page }),
   buildBook({ code: "eg-g9-science", prefix: "l-g9-sci-", offset: SCIENCE_G9_OFFSET, bookEnd: EGYPT_SCIENCE_G9_T1_BOOK_END, ranges: scienceG9LessonRanges(), loadPage: loadScienceG9Page }),
   buildBook({ code: "eg-g9-english", prefix: "l-g9-eng-", offset: ENGLISH_G9_OFFSET, bookEnd: EGYPT_ENGLISH_G9_T1_BOOK_END, ranges: englishG9LessonRanges(), loadPage: loadEnglishG9Page, extras: englishG9LessonExtras() }),
+  buildBook({ code: "eg-g9-arabic", prefix: "l-g9-ara-", offset: ARABIC_G9_OFFSET, bookEnd: EGYPT_ARABIC_G9_T1_BOOK_END, ranges: arabicG9LessonRanges(), loadPage: loadArabicG9Page, extras: arabicG9LessonExtras() }),
 ];
 
 const STAGE_BOOK_BY_CODE = new Map(STAGE_BOOKS.map((b) => [b.code, b]));

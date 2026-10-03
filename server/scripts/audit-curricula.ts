@@ -30,6 +30,7 @@ import * as mathFr from "../src/db/egyptMathFrT1.js";
 import * as mathG9 from "../src/db/egyptMathG9T1.js";
 import * as scienceG9 from "../src/db/egyptScienceG9T1.js";
 import * as englishG9 from "../src/db/egyptEnglishG9T1.js";
+import * as arabicG9 from "../src/db/egyptArabicG9T1.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OCR = path.join(HERE, "..", "data", "curriculum-ocr");
@@ -194,6 +195,13 @@ const audits: Audit[] = [
     end: englishG9.EGYPT_ENGLISH_G9_T1_BOOK_END,
     ranges: englishG9.allLessonRanges(),
     page: englishG9.loadBookPage,
+  },
+  {
+    name: "اللغة العربية — إعدادي (eg-g9-arabic)",
+    start: arabicG9.EGYPT_ARABIC_G9_T1_BOOK_START,
+    end: arabicG9.EGYPT_ARABIC_G9_T1_BOOK_END,
+    ranges: arabicG9.allLessonRanges(),
+    page: arabicG9.loadBookPage,
   },
 ];
 

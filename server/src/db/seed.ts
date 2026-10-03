@@ -59,6 +59,12 @@ import {
   assertTreeMatchesTheBook as assertArabicTreeMatchesBook,
 } from "./egyptArabicT1.js";
 import {
+  EGYPT_ARABIC_G9_T1_UNITS,
+  lessonDocument as arabicG9LessonDocument,
+  isConsistent as isArabicG9TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicG9TreeMatchesBook,
+} from "./egyptArabicG9T1.js";
+import {
   EGYPT_ICT_T1_UNITS,
   lessonDocument as ictLessonDocument,
   isConsistent as isIctTreeConsistent,
@@ -676,6 +682,60 @@ function buildEgyptArabicT1Term(): TermSeedSpec {
 function verifyArabicTree(): { ok: boolean; problems: string[] } {
   const table = isArabicTreeConsistent();
   const book = assertArabicTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-3 (Grade 9) **Arabic language** — OFFICIAL curriculum
+ * (PHASE 86).
+ *
+ * The first term IS the Ministry textbook (`Arabic_language_prep3_t1.pdf`,
+ * 2026/2027 MoE edition, 162 scanned pages): its leading «مراجعة عامة», its 3
+ * units, their 12 lessons and every printed «مكوّن» of each lesson, exactly as the
+ * book's فهرس prints them. Each lesson is grounded on the OCR text of the pages
+ * the book prints for it (server/data/curriculum-ocr/arabic-p3-t1/); the listening
+ * lessons also carry the back-matter passage («نصوص الاستماع») the book points
+ * them to. There is no second-term spec: its book has not been imported.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed running
+ * feet, the section/lesson/component pages against what each page actually
+ * prints, and the tiling. Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_ARABIC_G9_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-9", name: "Grade 9", nameAr: "الصف الثالث الإعدادي", levelOrder: 9 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g9-arabic", title: "اللغة العربية للصف الثالث الإعدادي" },
+  terms: [buildEgyptArabicG9Term()],
+};
+
+/** Term 1 = the official book: section → lesson → the book's own printed components. */
+function buildEgyptArabicG9Term(): TermSeedSpec {
+  const check = verifyArabicG9Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية (إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_G9_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes stay unique across every seeded curriculum.
+        code: `l-g9-ara-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicG9LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-9 Arabic tree verification, as one verdict. */
+function verifyArabicG9Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicG9TreeConsistent();
+  const book = assertArabicG9TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -1319,6 +1379,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_SOCIAL_SPEC);
   await seedCountry(db, knowledge, EGYPT_SOCIAL_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_SPEC);
