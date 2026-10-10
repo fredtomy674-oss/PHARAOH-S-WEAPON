@@ -14,6 +14,13 @@ export interface IntentResult {
   confidence: number;
   /** Concept keywords spotted (e.g. "الجمع", "الكسور"). */
   concepts: string[];
+  /**
+   * PHASE 93/adaptive — the student explicitly said they did not understand, or
+   * asked for a different explanation. This is a *different* signal from a plain
+   * `explanation` request (which also covers «اشرح»): it drives the adaptive
+   * policy to pick a meaningfully different teaching action instead of repeating.
+   */
+  confused?: boolean;
 }
 
 /**
@@ -103,12 +110,12 @@ export function classifyIntent(question: string, opts: ClassifyOptions = {}): In
     return { intent: "admin_bypass_attempt", confidence: 0.95, concepts };
   }
   if (EXERCISE_PATTERNS.some((p) => p.test(text))) {
-    if (CONFUSED_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.7, concepts };
+    if (CONFUSED_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.7, concepts, confused: true };
     return { intent: "exercise", confidence: 0.8, concepts };
   }
   if (HINT_PATTERNS.some((p) => p.test(text))) return { intent: "hint_request", confidence: 0.85, concepts };
   if (UNDERSTAND_PATTERNS.some((p) => p.test(text))) return { intent: "check_understanding", confidence: 0.8, concepts };
-  if (CONFUSED_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.8, concepts };
+  if (CONFUSED_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.8, concepts, confused: true };
   // PHASE 76 — an explicit teach-me-more command stays an explanation request
   // even with a question pending (see TEACH_MORE_PATTERNS).
   if (TEACH_MORE_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.75, concepts };

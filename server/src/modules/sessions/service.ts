@@ -5,6 +5,7 @@ import { assessments, concepts as conceptsTable, learningSessions, messageAttach
 import { newId } from "../../utils/ids.js";
 import { Errors } from "../../utils/errors.js";
 import { safeParseAssessment } from "../progress/mastery.js";
+import { parseTeachingAction, type TeachingAction } from "../tutor/teachingActions.js";
 import {
   buildRecapMetadataBlock,
   buildSessionRecap,
@@ -53,9 +54,15 @@ type StoredMessage = typeof messages.$inferSelect;
  * PHASE 51 — same treatment for widgets: stored with answer keys, sent without
  * them (the exercise must not answer itself in devtools).
  */
-export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets"> & {
+export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets" | "teachingAction"> & {
   bookPages?: number[];
   widgets?: NumberLineView[];
+  /**
+   * PHASE 93/95 — the typed teaching action this tutor turn performed, decoded
+   * from the stored JSON (never raw). Absent on a row that predates the column
+   * or on a non-teaching message.
+   */
+  teachingAction?: TeachingAction;
 };
 
 /** What one student turn is made of (identical for the buffered and live paths). */
@@ -178,6 +185,20 @@ function parseBookPages(raw: string | null): number[] | undefined {
 }
 
 /**
+ * PHASE 93/95 — read back the stored teaching action of a tutor message
+ * (validated by zod on the way out). Same defensive rule as `parseBookPages`:
+ * corrupt text degrades to "no action", never to a 500.
+ */
+function parseTeachingActionStored(raw: string | null): TeachingAction | undefined {
+  if (!raw) return undefined;
+  try {
+    return parseTeachingAction(JSON.parse(raw)) ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
  * PHASE 48/50 — trust a printed page number only when it is a page this lesson
  * actually owns.
  *
@@ -291,6 +312,7 @@ export class SessionService {
         attachments: byMessage.get(m.id) ?? [],
         bookPages: parseBookPages(m.bookPages),
         widgets: widgetsForWire(parseStoredWidgets(m.widgets)),
+        teachingAction: parseTeachingActionStored(m.teachingAction),
       })),
     };
   }
@@ -616,6 +638,10 @@ export class SessionService {
       lessonPages: stage ? stage.pages.map((p) => p.bookPage) : undefined,
       // PHASE 76 — the lesson concepts, so the teacher has a roadmap.
       conceptTitles: lessonConcepts.map((c) => c.title),
+      // PHASE 95 — the same roadmap *with ids*, so the engine can derive the
+      // concept in focus, its real prerequisite (with the student's mastery) and
+      // the next objective — from stored order, never guessed.
+      concepts: lessonConcepts.map((c) => ({ id: c.id, title: c.title })),
       // The just-stored question, so history lookups resolve to earlier turns.
       excludeMessageId: userMessage.id,
       ...(ink ? { ink: { bookPage: inkPage, strokes: strokeCount } } : {}),
@@ -642,6 +668,8 @@ export class SessionService {
           bookPages: result.citedBookPages.length > 0 ? JSON.stringify(result.citedBookPages) : null,
           // PHASE 51 — the lines this reply drew, keys intact for verification.
           widgets: result.widgets.length > 0 ? JSON.stringify(result.widgets) : null,
+          // PHASE 93/95 — the typed teaching move the engine chose for this turn.
+          teachingAction: JSON.stringify(result.teachingAction),
           createdAt: new Date(),
         })
         .returning()
@@ -664,6 +692,7 @@ export class SessionService {
         ...tutorMessage!,
         bookPages: parseBookPages(tutorMessage!.bookPages),
         widgets: widgetsForWire(parseStoredWidgets(tutorMessage!.widgets)),
+        teachingAction: parseTeachingActionStored(tutorMessage!.teachingAction),
       },
       contextChunkCount: result.contextChunkCount,
       // PHASE 48 — the pages this answer is built on, so the room can offer

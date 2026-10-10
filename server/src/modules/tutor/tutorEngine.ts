@@ -11,6 +11,14 @@ import { ReplyRelay, type ReplyRelayHooks } from "./responseStream.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
 import { classifyIntent, type TutorIntent } from "./intentClassifier.js";
+import { decideTeachingAction, looksLikeNumericOrdering, type TeachingAction } from "./teachingActions.js";
+import {
+  buildPrerequisiteGraph,
+  conceptIndexFor,
+  nextConceptAfter,
+  prerequisiteOf,
+  type ConceptRef,
+} from "../progress/prerequisites.js";
 import { resolveTutorLanguage, type TutorLanguage } from "./language.js";
 import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
@@ -55,6 +63,13 @@ export interface TutorHandleInput {
    * and moves forward, instead of looping on a single question.
    */
   conceptTitles?: string[];
+  /**
+   * PHASE 95 — the lesson's concepts in printed order, *with ids*, so the engine
+   * can derive — from the real stored order and the student's real mastery — the
+   * prerequisite of the concept in focus (the previous concept) and the next
+   * objective (the following concept), and feed both to the teaching policy.
+   */
+  concepts?: ConceptRef[];
   /**
    * PHASE 50 — «لوح الحبر»: the student drew on a printed page of the book.
    *
@@ -113,6 +128,12 @@ export interface TutorHandleResult {
    * can render the line while the exercise keeps its key.
    */
   widgets: NumberLineWidget[];
+  /**
+   * PHASE 93/adaptive — the typed teaching action the ENGINE chose for this turn
+   * (see `teachingActions.ts`). Deterministic and evaluated from evidence known
+   * before the model call; the model performs it, it does not choose it.
+   */
+  teachingAction: TeachingAction;
 }
 
 const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟";
@@ -234,7 +255,19 @@ export class TutorEngine {
       const effectiveIntent: ReturnType<typeof classifyIntent> = documentBypass
         ? { intent: "admin_bypass_attempt", confidence: 0.95, concepts: intent.concepts }
         : intent;
-      return { reply: safeRefusal(language), intent: effectiveIntent, contextChunkCount: 0, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens: 0, citedBookPages: [], widgets: [] };
+      // A safety refusal is not a teaching move: the typed action stays explicit
+      // and neutral so the room never renders a board or a practice control.
+      return {
+        reply: safeRefusal(language),
+        intent: effectiveIntent,
+        contextChunkCount: 0,
+        memory,
+        usedMock: this.ai.providers.llm.id === "mock",
+        promptEchoRegens: 0,
+        citedBookPages: [],
+        widgets: [],
+        teachingAction: { type: "explain", concept: null, reason: "safety_refusal" },
+      };
     }
 
     // 4) Scope-guarded retrieval. Photo-only or document-only turns have no
@@ -298,6 +331,49 @@ export class TutorEngine {
     // ever sees the current question, cannot know what it already explained,
     // and falls back to asking a question every turn.
     const history = await this.recentHistory(input.session.id, input.excludeMessageId);
+
+    // 5c) PHASE 95 — the lesson roadmap in printed order, matched to the student
+    //     and to the conversation: which concept is in focus right now, its real
+    //     prerequisite (the previous concept) *with the student's real mastery*,
+    //     and the next objective. Everything is derived from stored data — never
+    //     guessed. A concept the conversation never names leaves these null, and
+    //     a prerequisite the student never attempted keeps its mastery null (no
+    //     fabricated 0/1).
+    const conceptChain = input.concepts ?? [];
+    let prerequisite: { title: string; mastery: number | null } | null = null;
+    let nextConcept: string | null = null;
+    let focusConcept: string | null = intent.concepts[0] ?? null;
+    if (conceptChain.length > 0) {
+      const graph = buildPrerequisiteGraph(conceptChain, memory.masteryByConcept);
+      const focusIndex = conceptIndexFor(conceptChain, [input.question, lastTutorMessage]);
+      prerequisite = prerequisiteOf(graph, focusIndex);
+      nextConcept = nextConceptAfter(conceptChain, focusIndex);
+      if (focusIndex >= 0) focusConcept = conceptChain[focusIndex]!.title;
+    }
+
+    // 5d) PHASE 93/adaptive — «المحرك يقرّر»: choose exactly one typed teaching
+    // action from the evidence already known *before* the model is called. This
+    // is deterministic and model-free; the model is told to perform this action,
+    // it does not choose the pedagogy itself. Fields we cannot derive with real
+    // evidence stay null/false on purpose (never guess mastery).
+    const teachingAction: TeachingAction = decideTeachingAction({
+      intent: intent.intent,
+      isAnswerTurn,
+      // No persisted per-answer verdict is wired yet: evaluate truthfully as
+      // "unverified" rather than pretend the last answer was right or wrong.
+      lastAnswerCorrect: null,
+      studentConfused: intent.confused === true,
+      // A lesson with prior turns has already been taught into at this session.
+      alreadyExplained: history.length > 0,
+      numericOrdering: looksLikeNumericOrdering(input.question),
+      hasBookPages: (input.lessonPages?.length ?? 0) > 0,
+      hasInk: input.ink !== undefined,
+      hasAttachment: (input.images?.length ?? 0) > 0 || hasDocument,
+      questionEmpty: input.question.trim().length === 0,
+      prerequisite,
+      nextConcept,
+      concept: focusConcept,
+    });
 
     // PHASE 48 — the page the student has open. Its OCR text is the *same*
     // corpus the retriever draws from, so "the tutor sees the page" costs no
@@ -411,6 +487,9 @@ export class TutorEngine {
       // PHASE 76 — the dialogue so far, so the teacher continues the lesson.
       history,
       widget: pin,
+      // PHASE 93 — the typed action the engine decided, so the builder emits the
+      // matching single instruction instead of the legacy intent directive.
+      teachingAction,
     });
 
     // PHASE 46 — prompt-mirror guard: a weak model occasionally answers a turn
@@ -520,7 +599,7 @@ export class TutorEngine {
       void this.memory.remember(input.student.id, "preference", "lesson_pace", "يفضل المتابعة بعد التأكيد", 1).catch(() => undefined);
     }
 
-    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages, widgets: split.widgets };
+    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages, widgets: split.widgets, teachingAction };
   }
 
   /**

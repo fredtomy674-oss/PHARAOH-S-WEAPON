@@ -792,6 +792,37 @@ p {
   color: #ffe9b3;
 }
 
+/* PHASE 93/95 — the engine's teaching move, as a legible chip on the reply. */
+/* PHASE 93/95 — the engine's teaching move, as a legible chip on the reply. */
+.action-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: rgba(99, 91, 255, 0.12);
+  color: #3b2fb5;
+  border: 1px solid rgba(99, 91, 255, 0.28);
+  border-radius: 999px;
+  padding: 0.12rem 0.6rem;
+  margin-top: 0.5rem;
+  margin-inline-end: 0.45rem;
+  vertical-align: middle;
+}
+
+.action-chip-detail {
+  font-style: normal;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-inline-start: 0.25rem;
+}
+
+.action-chip-detail::before {
+  content: "·";
+  margin-inline-end: 0.25rem;
+  opacity: 0.6;
+}
+
 .typing {
   color: rgba(255, 255, 255, 0.85);
   font-style: italic;
@@ -1807,6 +1838,107 @@ p {
 .room-stage-note {
   text-align: center;
   margin: 0;
+}
+
+/* PHASE 95 — «خريطة المفاهيم»: the lesson's concept order with real mastery. */
+.room-concept-map {
+  margin: 0.6rem auto 0;
+  width: min(760px, 100%);
+  background: var(--room-paper, #fffdf7);
+  border: 1px solid var(--room-line, rgba(10, 79, 60, 0.16));
+  border-radius: 16px;
+  padding: 0.8rem 0.9rem;
+}
+
+.room-concept-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--room-teal-deep, #0a4f3c);
+}
+
+.room-concept-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.room-concept-node {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 10px;
+  background: rgba(14, 124, 91, 0.05);
+}
+
+.room-concept-step {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: rgba(14, 124, 91, 0.14);
+  color: var(--room-teal-deep, #0a4f3c);
+}
+
+.room-concept-title {
+  font-weight: 700;
+  color: var(--room-ink, #1f2a26);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.room-concept-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  justify-self: end;
+}
+
+.room-concept-bar {
+  display: inline-block;
+  width: 74px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(10, 79, 60, 0.14);
+  overflow: hidden;
+}
+
+.room-concept-bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--room-teal, #0e7c5b);
+}
+
+.room-concept-node[data-level="needs_review"] .room-concept-bar > i {
+  background: #c0392b;
+}
+
+.room-concept-node[data-level="developing"] .room-concept-bar > i {
+  background: #d98a1f;
+}
+
+.room-concept-pct {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--room-teal-deep, #0a4f3c);
+}
+
+.room-concept-band {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--room-muted, #5b6b64);
 }
 
 /* PHASE 48 — the pages an answer came from, as places on the shared stage.

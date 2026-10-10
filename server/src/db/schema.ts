@@ -404,6 +404,14 @@ export const messages = sqliteTable(
      * strips it so the exercise cannot answer itself in devtools.
      */
     widgets: text("widgets"),
+    /**
+     * PHASE 93/95 — the typed teaching action the ENGINE chose for this turn,
+     * as JSON (see `tutor/teachingActions.ts`). Stored so a reopened session
+     * shows the same teaching move it showed live (a chip per turn), and so the
+     * decision is auditable after the fact. The model performs the action; it
+     * never chooses it. Null for user/system messages.
+     */
+    teachingAction: text("teaching_action"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("messages_session_idx").on(t.sessionId)],

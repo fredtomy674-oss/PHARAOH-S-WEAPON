@@ -5,6 +5,7 @@ import type { TutorIntent } from "./intentClassifier.js";
 import type { NumberLineWidget } from "./widgets.js";
 import { LANGUAGE_STYLES, replyLanguageTag, type TutorLanguage } from "./language.js";
 import { ADAPTATION_RULES, TEACHING_METHOD, lessonRoadmap, turnDirective } from "./teachingStrategy.js";
+import { teachingActionDirective, type TeachingAction } from "./teachingActions.js";
 import { bookPagesInText } from "../curriculum/bookStage.js";
 
 export interface LessonContext {
@@ -99,6 +100,14 @@ export interface BuildPromptInput {
    * behaviour. The caller bounds the list; empty for a brand-new lesson.
    */
   history?: LLMMessage[];
+  /**
+   * PHASE 93/adaptive — the single typed teaching action the ENGINE decided for
+   * this turn (see `teachingActions.ts`). When present it replaces the legacy
+   * intent-based `turnDirective`: the model no longer *chooses* the pedagogy, it
+   * performs this one action. Absent callers (and existing tests) keep the exact
+   * previous behaviour, so this is a purely additive contract.
+   */
+  teachingAction?: TeachingAction;
 }
 
 /**
@@ -269,13 +278,15 @@ export class PromptBuilder {
     // moving to the next idea; for a greeting it forces starting the lesson.
     // Attachment-only turns carry no directive — their ask line already names
     // the task and a directive would only add noise.
-    const turnLine = turnDirective({
-      intent: input.intent,
-      isAnswerTurn,
-      hasImage: input.hasImage === true,
-      hasDocument,
-      questionEmpty: input.question.trim().length === 0,
-    });
+    const turnLine = input.teachingAction
+      ? teachingActionDirective(input.teachingAction)
+      : turnDirective({
+          intent: input.intent,
+          isAnswerTurn,
+          hasImage: input.hasImage === true,
+          hasDocument,
+          questionEmpty: input.question.trim().length === 0,
+        });
     // PHASE 76 — a stale question: the tutor asked something last turn, but the
     // student's message is NOT an answer to it (a request or a confirmation).
     // Without this the model answers its own pending question and praises an

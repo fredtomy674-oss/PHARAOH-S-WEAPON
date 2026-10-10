@@ -1,0 +1,1 @@
+ALTER TABLE `messages` ADD `teaching_action` text;

@@ -174,6 +174,43 @@ export interface Message {
    * same lines the student saw live.
    */
   widgets?: NumberLineView[];
+  /**
+   * PHASE 93/95 — tutor replies only: the typed teaching action the ENGINE chose
+   * for this turn (see server `teachingActions.ts`). Persisted, so the room
+   * shows the same teaching move after a reload. The model performs it; it never
+   * chooses it.
+   */
+  teachingAction?: TeachingAction;
+}
+
+/** The teaching-action contract, mirrored from the server (display subset). */
+export type TeachingActionType =
+  | "explain"
+  | "diagnose"
+  | "hint"
+  | "visual_explanation"
+  | "interactive_board"
+  | "textbook_reference"
+  | "practice"
+  | "review_prerequisite"
+  | "celebrate_progress"
+  | "continue_learning";
+
+export interface TeachingAction {
+  type: TeachingActionType;
+  concept: string | null;
+  reason: string;
+  board?: "numberline" | "ink";
+  level?: number;
+  pages?: number[];
+  difficulty?: "easier" | "same" | "harder";
+  approach?: "book_example" | "simpler" | "alternative" | "default";
+  medium?: "text_steps" | "diagram";
+  /** review_prerequisite only. */
+  prerequisite?: string;
+  mastery?: number | null;
+  /** continue_learning only. */
+  nextConcept?: string | null;
 }
 
 export interface TurnResult {
@@ -740,6 +777,41 @@ export async function getSessionRecap(sessionId: string): Promise<SessionRecap |
 
 export async function myProgress(): Promise<ProgressDetail> {
   return api<ProgressDetail>("/progress/me");
+}
+
+// --- Prerequisite graph (PHASE 95) -----------------------------------------
+
+export interface PrerequisiteNode {
+  conceptId: string;
+  title: string;
+  /** Raw mastery 0..1, or null when the student never attempted it. */
+  mastery: number | null;
+  /** 0..100 integer for display, or null when untracked. */
+  percent: number | null;
+  level: MasteryLevel | null;
+  labelAr: string | null;
+}
+
+export interface PrerequisiteGraph {
+  nodes: Array<{
+    conceptId: string;
+    title: string;
+    mastery: number | null;
+    percent: number | null;
+    level: MasteryLevel | null;
+    labelAr: string | null;
+  }>;
+  edges: Array<{ from: string; to: string }>;
+  weakest: PrerequisiteNode | null;
+}
+
+/**
+ * PHASE 95 — the lesson's prerequisite graph (concept order) with the student's
+ * real mastery percentages. Locked to the session's own student.
+ */
+export async function getPrerequisites(lessonId: string): Promise<PrerequisiteGraph> {
+  const res = await api<{ graph: PrerequisiteGraph }>(`/progress/prerequisites/${encodeURIComponent(lessonId)}`);
+  return res.graph;
 }
 
 // --- Practice loop (PHASE 24) ----------------------------------------------

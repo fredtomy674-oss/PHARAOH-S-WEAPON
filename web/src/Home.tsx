@@ -195,19 +195,28 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                 </div>
               </div>
               <div className="row">
-                {hasActiveSession ? (
+                {hasActiveSession && (
                   <button className="btn primary" onClick={() => onResume(latestSession!)} data-testid="home-resume-inline">
                     استئناف الجلسة
                   </button>
-                ) : needsPractice ? (
+                )}
+                {!hasActiveSession && needsPractice && (
                   <button className="btn primary" onClick={() => { const el = document.querySelector('[data-testid="plan-section"]'); el?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} data-testid="home-focus-practice-inline">
                     عرض خطة الممارسة
                   </button>
-                ) : (
-                  <button className="btn primary" onClick={onStartLesson} data-testid="home-start-inline">
-                    ابدأ درسًا جديدًا
-                  </button>
                 )}
+                {/* Starting a new lesson is ALWAYS available — the contextual
+                    action above is a suggestion, not a replacement. Keeping the
+                    stable `start-lesson` handler here (the pre-PHASE-78 hero
+                    button) preserves the browser suite and, more importantly,
+                    never traps a student who already has an active session. */}
+                <button
+                  className={hasActiveSession || needsPractice ? "btn ghost" : "btn primary"}
+                  onClick={onStartLesson}
+                  data-testid="start-lesson"
+                >
+                  ابدأ درسًا جديدًا
+                </button>
               </div>
             </div>
           </div>

@@ -25,11 +25,10 @@ import {
   bookPageUrl,
   endSession,
   fetchSpeechAudio,
+  getPrerequisites,
   getSession,
   lessonContext,
   lessonStage,
-  listConcepts,
-  myProgress,
   resetSpeechAvailability,
   sendMessage,
   streamMessage,
@@ -40,6 +39,9 @@ import {
   type LearningSession,
   type LessonStage,
   type Message,
+  type PrerequisiteGraph,
+  type TeachingAction,
+  type TeachingActionType,
   type TutorLanguage,
   type User,
 } from "./api.js";
@@ -75,6 +77,45 @@ const KIND_LABEL: Record<string, string> = {
   example: "مثال",
   text: "",
 };
+
+/**
+ * PHASE 93/95 — what the ENGINE decided the tutor should do this turn, shown to
+ * the student as a small chip. The model performed it; the student can see the
+ * teaching move, which turns a wall of prose into a legible lesson.
+ */
+const ACTION_LABEL: Record<TeachingActionType, string> = {
+  explain: "يشرح الفكرة",
+  diagnose: "يتحقق من فهمك",
+  hint: "يمنحك تلميحًا",
+  visual_explanation: "يشرح بطريقة بصرية",
+  interactive_board: "يرسم على اللوح",
+  textbook_reference: "يستند إلى الكتاب",
+  practice: "يعرض تمرينًا",
+  review_prerequisite: "يعيد بناء الأساس",
+  celebrate_progress: "يحتفل بإجابتك",
+  continue_learning: "ينتقل للفكرة التالية",
+};
+
+const ACTION_ICON: Record<TeachingActionType, string> = {
+  explain: "💡",
+  diagnose: "❓",
+  hint: "🔎",
+  visual_explanation: "🧩",
+  interactive_board: "📐",
+  textbook_reference: "📖",
+  practice: "✏️",
+  review_prerequisite: "↩️",
+  celebrate_progress: "🎉",
+  continue_learning: "➡️",
+};
+
+/** The extra fact an action carries (prerequisite / next idea / concept), or null. */
+function actionDetail(action: TeachingAction): string | null {
+  if (action.type === "review_prerequisite" && action.prerequisite) return `راجع معك: ${action.prerequisite}`;
+  if (action.type === "continue_learning" && action.nextConcept) return `التالي: ${action.nextConcept}`;
+  if (action.concept) return action.concept;
+  return null;
+}
 
 // Mirrors the server cap (MAX_IMAGE_KB default 5000) for a friendlier UX error.
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
@@ -228,6 +269,11 @@ export function LessonRoom({ session, onEnded }: Props) {
   // the stored pair when the turn ends, so nothing shown here is ever the record.
   const [live, setLive] = useState<{ user: Message | null; text: string } | null>(null);
   const [mastery, setMastery] = useState<number | null>(null);
+  /**
+   * PHASE 95 — the lesson's prerequisite graph with the student's real mastery:
+   * the ribbon chip and the «خريطة المفاهيم» panel both read from it.
+   */
+  const [conceptMap, setConceptMap] = useState<PrerequisiteGraph | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const captionsRef = useRef<HTMLDivElement | null>(null);
   // PHASE 56 — measured on a 390×844 phone: the room opened 651px down the
@@ -272,12 +318,13 @@ export function LessonRoom({ session, onEnded }: Props) {
       .catch(() => setStage(null));
     // The ribbon's mastery chip: the concept this lesson teaches, and how much
     // of it the student already owns. Both are best-effort decoration.
-    Promise.all([listConcepts(session.lessonId), myProgress()])
-      .then(([concepts, progress]) => {
-        const conceptId = concepts[0]?.id;
-        if (!conceptId) return;
-        const found = progress.mastery.find((m) => m.conceptId === conceptId);
-        if (found) setMastery(Math.round(found.mastery));
+    // PHASE 95 — the same call also loads the lesson's prerequisite graph (the
+    // concept order + real percentages) for the «خريطة المفاهيم» panel.
+    getPrerequisites(session.lessonId)
+      .then((graph) => {
+        setConceptMap(graph);
+        const first = graph.nodes[0];
+        if (first && first.percent !== null) setMastery(first.percent);
       })
       .catch(() => undefined);
     getSession(session.id)
@@ -1021,6 +1068,49 @@ export function LessonRoom({ session, onEnded }: Props) {
           )}
         </section>
 
+        {/* PHASE 95 — «خريطة المفاهيم»: the lesson's concepts in printed order
+            with the student's real mastery per idea. It answers "what comes
+            before what, and how solid am I?" without inventing any relation: the
+            order is the book's own order, the percentages are real progress. */}
+        {conceptMap && conceptMap.nodes.length > 0 && (
+          <section className="room-concept-map" data-testid="concept-map" aria-label="خريطة المفاهيم">
+            <div className="room-concept-head">
+              <strong>🗺️ خريطة المفاهيم</strong>
+              <span className="muted small">ترتيب الدرس حسب الكتاب — وإتقانك لكل فكرة</span>
+            </div>
+            <ol className="room-concept-list">
+              {conceptMap.nodes.map((n, i) => (
+                <li
+                  key={n.conceptId}
+                  className="room-concept-node"
+                  data-testid="concept-map-node"
+                  data-level={n.level ?? "untracked"}
+                >
+                  <span className="room-concept-step" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                  <span className="room-concept-title">{n.title}</span>
+                  <span className="room-concept-progress">
+                    {n.percent === null ? (
+                      <span className="muted small">لم تُجرَّب بعد</span>
+                    ) : (
+                      <>
+                        <span className="room-concept-bar" aria-hidden="true">
+                          <i style={{ width: `${n.percent}%` }} />
+                        </span>
+                        <span className="room-concept-pct" data-testid="concept-percent">
+                          {n.percent}%
+                        </span>
+                        {n.labelAr && <span className="room-concept-band">{n.labelAr}</span>}
+                      </>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
         {/* ---- the dialogue: a live caption stream, plus the tutor's presence ---- */}
         <section className="room-live">
           <div className="room-presence" data-testid="room-presence" data-state={presence}>
@@ -1125,6 +1215,25 @@ export function LessonRoom({ session, onEnded }: Props) {
                       steps) instead of a flat wall of text. Words travel as
                       text nodes, so a reply can never inject markup. */}
                   <FormattedText text={m.content} />
+                  {/* PHASE 93/95 — the engine's teaching move, as a chip AFTER the
+                      reply. It must not lead the bubble: the room guarantees the
+                      student reads the answer as the leading text (the live
+                      preview is a prefix of what is kept), and this chip is
+                      metadata about the turn, not part of the answer. */}
+                  {m.role === "tutor" && m.teachingAction && (
+                    <span
+                      className="action-chip"
+                      data-testid="teaching-action"
+                      data-action={m.teachingAction.type}
+                      title={actionDetail(m.teachingAction) ?? undefined}
+                    >
+                      <span aria-hidden="true">{ACTION_ICON[m.teachingAction.type]}</span>{" "}
+                      {ACTION_LABEL[m.teachingAction.type]}
+                      {actionDetail(m.teachingAction) && (
+                        <em className="action-chip-detail">{actionDetail(m.teachingAction)}</em>
+                      )}
+                    </span>
+                  )}
                   {/* PHASE 51 — the lines this answer drew, each with the
                       student's own pin on it. The verdict travels as a normal
                       turn: pin value as a fact, words as the question. */}
