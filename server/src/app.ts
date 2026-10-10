@@ -115,6 +115,16 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
     });
   });
 
+  // --- Operational health aliases (no /api prefix) -------------------------
+  // The canonical health endpoint is GET /api/health (registered below).
+  // These aliases exist because operators and browsers habitually probe
+  // GET /health (with or without trailing slash): without them Fastify's
+  // default 404 ("Route GET:/health not found") looks like the server is
+  // down when it is actually healthy. Same minimal shape, no auth, never
+  // rate-limited.
+  app.get("/health", async () => ({ status: "ok", time: new Date().toISOString() }));
+  app.get("/health/", async () => ({ status: "ok", time: new Date().toISOString() }));
+
   // --- Routes --------------------------------------------------------------
   await app.register(
     async (api) => {
