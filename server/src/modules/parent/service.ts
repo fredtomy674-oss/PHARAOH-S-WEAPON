@@ -1,4 +1,4 @@
-import { and, count, desc, eq, inArray, sql } from "drizzle-orm";
+import { and, count, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
 import {
   assessments,
@@ -19,6 +19,10 @@ import type { SessionService } from "../sessions/service.js";
 import type { SessionRecap } from "../sessions/recap.js";
 import { Errors } from "../../utils/errors.js";
 import { safeParseAssessment } from "../progress/mastery.js";
+import {
+  buildWeeklyReport,
+  type ParentWeeklyReport,
+} from "./weeklyReport.js";
 
 export interface ChildSummary {
   studentId: string;
@@ -338,6 +342,107 @@ export class ParentService {
     if (!session || session.studentId !== studentId) throw Errors.notFound("الجلسة غير موجودة");
 
     return this.sessions.recap(sessionId, session.studentId, userId);
+  }
+
+  /**
+   * PHASE 93 — the parent's weekly digest. A metadata-only, seven-day roll-up
+   * per linked child: time studied, active days, current streak, which concepts
+   * went well or need support, and concrete actions for the parent. Built from
+   * session timestamps, assessment outcomes and concept titles — message
+   * CONTENT is never selected here. `now` is injectable so the window and the
+   * streak are deterministic in tests.
+   */
+  async weeklyReport(userId: string, studentId: string, now: Date = new Date(), days = 7): Promise<ParentWeeklyReport> {
+    const parent = await this.requireParent(userId);
+    const link = await this.db.db
+      .select()
+      .from(studentsParents)
+      .where(and(eq(studentsParents.parentId, parent.id), eq(studentsParents.studentId, studentId)))
+      .get();
+    if (!link) throw Errors.notFound("الطالب غير مربوط بحسابك");
+
+    const summary = await this.childSummaryOf(studentId);
+    const windowStart = new Date(now.getTime() - days * 86_400_000);
+
+    // Every session the child has ever had — the streak needs the full history,
+    // the activity figures only the window.
+    const allSessions = await this.db.db
+      .select({ id: learningSessions.id, startedAt: learningSessions.startedAt, endedAt: learningSessions.endedAt })
+      .from(learningSessions)
+      .where(eq(learningSessions.studentId, studentId));
+
+    const weekSessions = allSessions
+      .filter((s) => s.startedAt.getTime() >= windowStart.getTime())
+      .map((s) => {
+        const end = s.endedAt ?? now;
+        const cappedEnd = Math.min(end.getTime(), now.getTime());
+        const durationMinutes = Math.max(0, (cappedEnd - s.startedAt.getTime()) / 60_000);
+        return { startedAt: s.startedAt, endedAt: s.endedAt, durationMinutes };
+      });
+
+    // Message counts inside the window, across the child's sessions (the
+    // messages table carries no student id, so the session set scopes it).
+    const sessionIds = allSessions.map((s) => s.id);
+    let studentMessages = 0;
+    let tutorMessages = 0;
+    if (sessionIds.length > 0) {
+      const msgRows = await this.db.db
+        .select({ role: messages.role, n: count() })
+        .from(messages)
+        .where(and(inArray(messages.sessionId, sessionIds), gte(messages.createdAt, windowStart)))
+        .groupBy(messages.role);
+      for (const r of msgRows) {
+        if (r.role === "user") studentMessages = Number(r.n);
+        else if (r.role === "tutor") tutorMessages = Number(r.n);
+      }
+    }
+
+    // Assessment outcomes inside the window.
+    const assessmentRows = await this.db.db
+      .select()
+      .from(assessments)
+      .where(and(eq(assessments.studentId, studentId), gte(assessments.createdAt, windowStart)));
+    const weekAssessments: Array<{ conceptId: string; correct: boolean }> = [];
+    for (const row of assessmentRows) {
+      const parsed = safeParseAssessment(row.resultJson);
+      if (!parsed?.conceptId) continue;
+      weekAssessments.push({ conceptId: parsed.conceptId, correct: Boolean(parsed.correct) });
+    }
+
+    // Current mastery gives each focus concept a title + level, and the tally.
+    const mastery = await this.memory.masterySummary(studentId, now);
+    const conceptMetaById: Map<string, { title: string; mastery: number | null; labelAr: string | null }> = new Map(
+      mastery.map((m) => [m.conceptId, { title: m.title, mastery: m.mastery, labelAr: m.labelAr }]),
+    );
+    // Defensive: an assessed concept always has a progress row, but a missing
+    // title must never read as a blank. Resolve any stragglers from the table.
+    const missing = [...new Set(weekAssessments.map((a) => a.conceptId))].filter((id) => !conceptMetaById.has(id));
+    if (missing.length > 0) {
+      const conceptRows = await this.db.db.select().from(concepts).where(inArray(concepts.id, missing));
+      for (const c of conceptRows) conceptMetaById.set(c.id, { title: c.title, mastery: null, labelAr: null });
+    }
+
+    const report = buildWeeklyReport({
+      now,
+      childName: summary.displayName,
+      weekSessions,
+      weekMessages: { studentMessages, tutorMessages },
+      allSessionStarts: allSessions.map((s) => s.startedAt),
+      weekAssessments,
+      concepts: conceptMetaById,
+      masterySummary: mastery.map((m) => ({ mastery: m.mastery })),
+      days,
+    });
+
+    return {
+      child: {
+        studentId,
+        displayName: summary.displayName,
+        gradeNameAr: summary.gradeNameAr,
+      },
+      window: { from: windowStart, to: now, days },
+      ...report,
+    };
   }
 
   private async childSummaryOf(studentId: string): Promise<ChildSummary> {

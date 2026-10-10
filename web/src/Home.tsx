@@ -101,6 +101,12 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
   const studentName = user.student?.displayName ?? user.email;
 
+  // Determine next best action using existing data
+  const latestSession = sessions && sessions.length > 0 ? sessions[0] : null;
+  const hasActiveSession = latestSession?.status === "active";
+  const pendingConcepts = plan?.filter(p => (p.availableQuestions > 0 || p.openQuestions > 0)).length ?? 0;
+  const needsPractice = pendingConcepts > 0;
+
   function newPracticeState(mode: "mcq" | "open"): PracticeState {
     return { mode, question: null, chosen: null, text: "", result: null, busy: false, loading: true, error: null, shownAt: Date.now() };
   }
@@ -178,9 +184,33 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
         <section className="hero card">
           <h2>أهلاً {studentName} 👋</h2>
           <p className="muted">اختر درسك من المنهج وابدأ جلسة تعلّم معي. أنا أشرح، وأسأل، ونتأكد معًا أنك فهمت فعلًا.</p>
-          <button data-testid="start-lesson" className="btn primary big" onClick={onStartLesson}>
-            ابدأ درسًا جديدًا
-          </button>
+
+          {/* Next best action inline */}
+          <div className="next-action" style={{ marginTop: '0.8rem', padding: '0.7rem 0.9rem', border: '1px dashed var(--border)', borderRadius: '10px', background: 'var(--bg)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.6rem', flexWrap: 'wrap' }}>
+              <div>
+                <div className="small muted">خطوتك القادمة</div>
+                <div style={{ fontWeight: 600 }}>
+                  {hasActiveSession ? `استئناف الجلسة النشطة` : needsPractice ? `تمرّن على نقاط ضعفك (${pendingConcepts})` : `ابدأ درسًا جديدًا`}
+                </div>
+              </div>
+              <div className="row">
+                {hasActiveSession ? (
+                  <button className="btn primary" onClick={() => onResume(latestSession!)} data-testid="home-resume-inline">
+                    استئناف الجلسة
+                  </button>
+                ) : needsPractice ? (
+                  <button className="btn primary" onClick={() => { const el = document.querySelector('[data-testid="plan-section"]'); el?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} data-testid="home-focus-practice-inline">
+                    عرض خطة الممارسة
+                  </button>
+                ) : (
+                  <button className="btn primary" onClick={onStartLesson} data-testid="home-start-inline">
+                    ابدأ درسًا جديدًا
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
         </section>
 
         {user.linkCode && (

@@ -1,5 +1,11 @@
 # CHANGELOG.md
 
+## 2026-10-11
+- Recovery: the interrupted curriculum-prep work (Prep-1/G7 + Grade-8 import, PHASE 78, PHASE 87–92, OCR corpora, corrupted web orphans) was preserved intact on branch `wip/curriculum-prep1-g8` (commit 6d18b83). `master` was restored to the green committed baseline before building; the incomplete G7/G8 OCR import stays on that branch until a dedicated task completes it.
+- PHASE 78 re-applied on master: AI tutor answers are grounded in the lesson book (`<lesson-book>` block in promptBuilder, rules 4/10/11), with `loadLessonBookText()` in `curriculum/bookStage.ts` and `TUTOR_LESSON_BOOK_CHARS` (default 12000) in `env.ts`. Uses the existing STAGE_BOOKS registry only — no dependency on the WIP curriculum trees.
+- PHASE 87–92 actually applied on master (`web/src/Home.tsx`, `web/src/LessonRoom.tsx`, `web/src/styles.css`): the changelog documented these as done while the code existed only on the WIP branch; the code is now on master.
+- PHASE 93 — Parent Weekly Digest (Faheem-inspired periodic parent update): pure deterministic builder `parent/weeklyReport.ts` (window totals, active days, streak, accuracy bands, Arabic headline/highlights/parent actions), `ParentService.weeklyReport()`, route `GET /api/parent/children/:studentId/weekly-report?days=` (1–31, default 7), web `getParentWeeklyReport()` + weekly card in `web/src/Parent.tsx`. Metadata-only: message content can never appear (asserted by tests).
+
 ## 2026-10-09
 - Established project memory structure under docs/project
 - Recorded CURRENT_STATE with pilot v2 results

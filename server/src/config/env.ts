@@ -172,6 +172,17 @@ export const EnvSchema = z.object({
   RAG_TOP_K: z.coerce.number().int().positive().default(5),
   RAG_ENABLE_RERANK: boolFromString(true),
   RAG_MAX_CONTEXT_CHARS: z.coerce.number().int().positive().default(12000),
+  /**
+   * PHASE 78 — how much of a lesson's ENTIRE printed text (its full page set,
+   * marker-prefixed like the seeded lesson document) is injected into the tutor
+   * prompt next to the retrieved chunks. Retrieval alone tops out at RAG_TOP_K
+   * chunks (~2.5k chars), which can miss the page that carries the lesson's
+   * printed worked example or تمرين — and the tutor then invents its own. With
+   * the full lesson always on the table the tutor can and must draw examples
+   * and problems from the book pages. 0 = off (retrieval only, previous
+   * behaviour).
+   */
+  TUTOR_LESSON_BOOK_CHARS: z.coerce.number().int().nonnegative().default(12000),
   /** Reranker flavor: lexical (fast, deterministic, default) | model (LLM-scored, opt-in). */
   RAG_RERANKER: z.enum(["lexical", "model"]).default("lexical"),
 

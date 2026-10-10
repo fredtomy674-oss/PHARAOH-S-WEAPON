@@ -392,3 +392,44 @@ export function bookPageText(curriculumCode: string, bookPage: number): string {
   if (!Number.isInteger(bookPage) || bookPage < 0 || bookPage > book.maxPage) return "";
   return book.loadPage(bookPage).trim();
 }
+
+/**
+ * PHASE 78 — the lesson's whole printed text, marker-prefixed page by page
+ * exactly like the seeded lesson document (`[صفحة الكتاب N]` ahead of each
+ * page). The tutor receives this in full *beside* the retrieved chunks, so a
+ * printed worked example or printed تمرين can never be missing from the prompt
+ * just because retrieval kept a different five chunks: with the whole lesson on
+ * the table, «المعلم يعطي ما في صفحة الكتاب» becomes achievable instead of a
+ * lottery.
+ *
+ * The bound is a defence, not a rounding: when the pages exceed `maxChars` the
+ * whole injection is dropped ("" — retrieval keeps grounding the turn). A
+ * truncated lesson-pointer could drop the very page that holds its أسئلة الدرس,
+ * so we never ship a partial lesson pretending to be the full one. Pages whose
+ * OCR is empty (blank/placeholder) are skipped; a book with no stage returns "".
+ */
+export function loadLessonBookText(
+  curriculumCode: string,
+  lessonPages: readonly number[] | undefined,
+  maxChars: number,
+): string {
+  if (!lessonPages || lessonPages.length === 0 || maxChars <= 0) return "";
+  const book = STAGE_BOOK_BY_CODE.get(curriculumCode);
+  if (!book) return "";
+  const parts: string[] = [];
+  let total = 0;
+  const pages = [...new Set(lessonPages)]
+    .filter((p) => Number.isInteger(p) && p >= 0 && p <= book.maxPage)
+    .sort((a, b) => a - b);
+  for (const page of pages) {
+    const text = book.loadPage(page).trim();
+    if (!text) continue;
+    const part = `[صفحة الكتاب ${page}]\n${text}`;
+    parts.push(part);
+    total += part.length;
+  }
+  // The "\n\n" separator between pages is part of the final text's length.
+  if (parts.length > 1) total += (parts.length - 1) * 2;
+  if (total > maxChars) return "";
+  return parts.join("\n\n");
+}

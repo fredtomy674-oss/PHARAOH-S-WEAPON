@@ -14,6 +14,7 @@ import {
   bookPageText,
   bookPageToPdfPage,
   bookPagesInText,
+  loadLessonBookText,
   pageImagePath,
   stageForLesson,
 } from "../../src/modules/curriculum/bookStage.js";
@@ -320,5 +321,49 @@ describe("the lesson's own page set (PHASE 75)", () => {
     expect(bookPagesInText(text, new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]))).toEqual([5]);
     expect(bookPagesInText(text, new Set([50]))).toEqual([50]);
     expect(bookPagesInText(text, new Set())).toEqual([]);
+  });
+});
+
+// PHASE 78 — the tutor needs the lesson's *whole* printed text in front of it,
+// so a printed example or تمرين cannot be missing just because retrieval kept a
+// different five chunks. This is the loader that builds that full text, framed
+// with the same `[صفحة الكتاب N]` markers the seeder writes.
+describe("the lesson's whole printed text (PHASE 78)", () => {
+  it("joins the requested pages in printed order, marker-prefixed per page", () => {
+    const page1 = bookPageText(EGYPT_G6_MATH_CURRICULUM, 1);
+    const page2 = bookPageText(EGYPT_G6_MATH_CURRICULUM, 2);
+    if (page1.length === 0) {
+      // A deployment without the OCR corpus has no text — a supported mode.
+      expect(loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, [1, 2], 1_000_000)).toBe("");
+      return;
+    }
+    const text = loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, [1, 2], 1_000_000);
+    expect(text).toContain("[صفحة الكتاب 1]");
+    expect(text).toContain("[صفحة الكتاب 2]");
+    // The pages keep their own text and stay in printed order.
+    expect(text.indexOf("[صفحة الكتاب 1]")).toBeLessThan(text.indexOf("[صفحة الكتاب 2]"));
+    expect(text).toContain(page2.slice(0, 30));
+  });
+
+  it("returns nothing when there is no stage, no pages, or text is disabled", () => {
+    expect(loadLessonBookText("not-a-book", [1], 1000)).toBe("");
+    expect(loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, undefined, 1000)).toBe("");
+    expect(loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, [], 1000)).toBe("");
+    expect(loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, [1], 0)).toBe("");
+    // Non-integers and out-of-book pages are ignored, never honoured.
+    expect(loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, [1.5, Number.NaN, -1], 1000)).toBe("");
+  });
+
+  it("drops the whole injection rather than ship a truncated lesson", () => {
+    const page1 = bookPageText(EGYPT_G6_MATH_CURRICULUM, 1);
+    if (page1.length > 0) {
+      // The marker prefix adds to the page's own text: `[صفحة الكتاب 1]` + newline.
+      const full = `[صفحة الكتاب 1]\n${page1}`;
+      // A budget smaller than the whole page → nothing is shipped at all.
+      expect(loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, [1], full.length - 1)).toBe("");
+      // A budget that fits the whole thing ships it in full, marker included.
+      const shipped = loadLessonBookText(EGYPT_G6_MATH_CURRICULUM, [1], full.length);
+      expect(shipped).toBe(full);
+    }
   });
 });

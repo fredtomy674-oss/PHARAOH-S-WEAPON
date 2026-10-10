@@ -68,6 +68,23 @@ export const parentRoutes: FastifyPluginAsync = async (app) => {
     return { recap: await app.parents.sessionRecap(auth.user.id, studentId, sessionId) };
   });
 
+  // PHASE 93 — the weekly digest: a metadata-only seven-day roll-up (time
+  // studied, streak, concepts improved/needing support, parent actions).
+  // `?days=` (1–31) adjusts the window; it defaults to the last seven days.
+  app.get("/children/:studentId/weekly-report", { preHandler: requireAuth }, async (request, reply) => {
+    const auth = request.auth!;
+    if (auth.user.role !== "parent") {
+      return reply.code(403).send({ error: { code: "FORBIDDEN", message: "لوحة أولياء الأمور مخصصة لحسابات أولياء الأمور" } });
+    }
+    const { studentId } = request.params as { studentId: string };
+    const { days } = request.query as { days?: string };
+    const parsedDays = days === undefined ? 7 : Number(days);
+    if (!Number.isInteger(parsedDays) || parsedDays < 1 || parsedDays > 31) {
+      return reply.code(400).send({ error: { code: "INVALID_WINDOW", message: "مدة التقرير يجب أن تكون بين ١ و٣١ يومًا" } });
+    }
+    return { report: await app.parents.weeklyReport(auth.user.id, studentId, new Date(), parsedDays) };
+  });
+
   app.delete("/children/:studentId", { preHandler: requireAuth }, async (request, reply) => {
     const auth = request.auth!;
     if (auth.user.role !== "parent") {

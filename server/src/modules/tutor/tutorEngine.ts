@@ -6,7 +6,7 @@ import { messages as messagesTable } from "../../db/schema.js";
 import type { AiService } from "../ai/aiService.js";
 import type { DocumentInput, ImageInput, LLMMessage } from "../ai/types.js";
 import type { CurriculumBreadcrumb } from "../curriculum/service.js";
-import { bookPageText, bookPagesInText } from "../curriculum/bookStage.js";
+import { bookPageText, bookPagesInText, loadLessonBookText } from "../curriculum/bookStage.js";
 import { ReplyRelay, type ReplyRelayHooks } from "./responseStream.js";
 import type { RetrievalService } from "../rag/retrieval.js";
 import { Errors } from "../../utils/errors.js";
@@ -308,6 +308,17 @@ export class TutorEngine {
         ? { bookPage: input.viewingPage, text: bookPageText(input.breadcrumb.curriculum.code, input.viewingPage) }
         : undefined;
 
+    // PHASE 78 — the lesson's ENTIRE printed text, marker-prefixed page by page.
+    // Retrieval is top-5 chunks (~2.5k chars) and can miss the page holding the
+    // lesson's printed worked example or تمرين — which is how a tutor ends up
+    // inventing its own. Shipping the whole lesson (bounded; see the helper)
+    // makes the book's printed examples and problems part of every prompt.
+    const lessonBookText = loadLessonBookText(
+      input.breadcrumb.curriculum.code,
+      input.lessonPages,
+      config.TUTOR_LESSON_BOOK_CHARS,
+    );
+
     // PHASE 48 — citations. Every book chunk carries a `[صفحة الكتاب N]` marker
     // written by the seeder, so the pages a reply is built on are a fact about
     // the retrieval, not a guess the model has to make (and get wrong).
@@ -317,10 +328,14 @@ export class TutorEngine {
     // an appendix page this lesson does not point to — can never make the tutor
     // offer a page the student's stage does not have. Without a stage (text-only
     // curricula), the global sanity bound still applies.
+    //
+    // PHASE 78 — the full lesson text joins the markers, so when the tutor
+    // answers from the whole lesson (not just the retrieved five chunks) those
+    // pages are named as references too.
     const allowedPages =
       input.lessonPages && input.lessonPages.length > 0 ? new Set(input.lessonPages) : undefined;
     const citedBookPages = bookPagesInText(
-      retrieveResult.chunks.map((c) => c.content).join("\n"),
+      [...retrieveResult.chunks.map((c) => c.content), lessonBookText].filter(Boolean).join("\n"),
       allowedPages,
     );
 
@@ -390,6 +405,9 @@ export class TutorEngine {
       lastQuestion: pendingQuestion && lastTutorMessage ? lastTutorMessage : undefined,
       viewingPage,
       lessonPages: input.lessonPages,
+      // PHASE 78 — the whole lesson book text, so the tutor explains from the
+      // book's own pages instead of inventing examples the page never printed.
+      lessonBookText,
       // PHASE 76 — the dialogue so far, so the teacher continues the lesson.
       history,
       widget: pin,

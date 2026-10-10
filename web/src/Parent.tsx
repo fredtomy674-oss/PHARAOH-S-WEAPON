@@ -3,6 +3,7 @@ import {
   getParentChildDetail,
   getParentSessionDetail,
   getParentSessionRecap,
+  getParentWeeklyReport,
   linkParentChild,
   listParentChildren,
   unlinkParentChild,
@@ -10,6 +11,7 @@ import {
   type ParentChildDetail,
   type ParentSessionDetail,
   type ParentSessionSummary,
+  type ParentWeeklyReport,
   type SessionRecap,
   type User,
 } from "./api.js";
@@ -44,6 +46,10 @@ export function ParentScreen({ user, onLogout }: Props) {
   const [detailError, setDetailError] = useState<string | null>(null);
   const [sessionDetail, setSessionDetail] = useState<ParentSessionDetail | null>(null);
   const [sessionDetailError, setSessionDetailError] = useState<string | null>(null);
+  // PHASE 93 — the child's weekly digest (periodic parent update).
+  const [weekly, setWeekly] = useState<ParentWeeklyReport | null>(null);
+  const [weeklyError, setWeeklyError] = useState<string | null>(null);
+  const [weeklyLoading, setWeeklyLoading] = useState(false);
   // PHASE 29 (D-027) — safe session recap (idle = button, loading = fetching,
   // loaded = card or empty note). Same metadata-only payload as the student.
   const [parentRecap, setParentRecap] = useState<SessionRecap | null>(null);
@@ -104,12 +110,24 @@ export function ParentScreen({ user, onLogout }: Props) {
   const openChild = async (child: ParentChild) => {
     setBusy(true);
     setDetailError(null);
+    setWeekly(null);
+    setWeeklyError(null);
+    setWeeklyLoading(true);
     try {
       setDetail(await getParentChildDetail(child.studentId));
     } catch (e) {
       setDetailError(e instanceof Error ? e.message : "تعذر تحميل بيانات الطالب");
     } finally {
       setBusy(false);
+    }
+    // The digest is a separate, optional surface: a failure here must not hide
+    // the child's progress view, so it owns its own error state.
+    try {
+      setWeekly(await getParentWeeklyReport(child.studentId));
+    } catch (e) {
+      setWeeklyError(e instanceof Error ? e.message : "تعذر تحميل تقرير الأسبوع");
+    } finally {
+      setWeeklyLoading(false);
     }
   };
 
@@ -276,6 +294,75 @@ export function ParentScreen({ user, onLogout }: Props) {
               </p>
             )}
           </section>
+
+          {weeklyError && (
+            <p className="error" data-testid="parent-weekly-error">
+              {weeklyError}
+            </p>
+          )}
+          {weeklyLoading && !weekly && (
+            <section className="card" data-testid="parent-weekly-loading">
+              <h3>تقرير الأسبوع</h3>
+              <p className="muted">جارٍ إعداد تقرير الأسبوع…</p>
+            </section>
+          )}
+          {weekly && (
+            <section className="card weekly-report" data-testid="parent-weekly-report">
+              <h3>تقرير الأسبوع · آخر {weekly.window.days} أيام</h3>
+              <p className="weekly-headline" data-testid="parent-weekly-headline">
+                {weekly.headline}
+              </p>
+              <div className="weekly-stats" data-testid="parent-weekly-stats">
+                <div className="weekly-stat">
+                  <span className="weekly-stat-value" data-testid="parent-weekly-sessions">
+                    {weekly.activity.sessions}
+                  </span>
+                  <span className="muted small">جلسات</span>
+                </div>
+                <div className="weekly-stat">
+                  <span className="weekly-stat-value" data-testid="parent-weekly-minutes">
+                    {weekly.activity.studyMinutes}
+                  </span>
+                  <span className="muted small">دقيقة تعلّم</span>
+                </div>
+                <div className="weekly-stat">
+                  <span className="weekly-stat-value" data-testid="parent-weekly-activedays">
+                    {weekly.activity.activeDays}
+                  </span>
+                  <span className="muted small">أيام نشاط</span>
+                </div>
+                <div className="weekly-stat">
+                  <span className="weekly-stat-value" data-testid="parent-weekly-streak">
+                    {weekly.streak.currentDays}
+                  </span>
+                  <span className="muted small">أيام متتالية</span>
+                </div>
+              </div>
+              {weekly.highlights.length > 0 && (
+                <ul className="weekly-highlights" data-testid="parent-weekly-highlights">
+                  {weekly.highlights.map((h, i) => (
+                    <li key={i}>{h}</li>
+                  ))}
+                </ul>
+              )}
+              {weekly.parentActions.length > 0 && (
+                <div className="weekly-actions" data-testid="parent-weekly-actions">
+                  <h4>ماذا تفعل هذا الأسبوع؟</h4>
+                  <ul>
+                    {weekly.parentActions.map((a, i) => (
+                      <li key={i}>{a}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {weekly.focus.needsWork.length > 0 && (
+                <p className="muted" data-testid="parent-weekly-needswork">
+                  <span className="pill warn">تحتاج دعمًا هذا الأسبوع:</span>{" "}
+                  {weekly.focus.needsWork.map((c) => `${c.title} (${Math.round(c.accuracy * 100)}%)`).join("، ")}
+                </p>
+              )}
+            </section>
+          )}
 
           <section className="card" data-testid="parent-progress-card">
             <h3>التقدّم حسب المفاهيم</h3>

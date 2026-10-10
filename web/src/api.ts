@@ -969,6 +969,47 @@ export async function getParentSessionRecap(studentId: string, sessionId: string
   return res.recap;
 }
 
+// PHASE 93 — the parent's periodic (weekly) digest: metadata-only roll-up of
+// the child's last seven days with a headline, highlights and suggested actions.
+export interface ParentWeeklyFocusConcept {
+  conceptId: string;
+  title: string;
+  attempts: number;
+  correct: number;
+  accuracy: number;
+  mastery: number | null;
+  labelAr: string | null;
+}
+
+export interface ParentWeeklyReport {
+  child: { studentId: string; displayName: string; gradeNameAr: string | null };
+  window: { from: string; to: string; days: number };
+  activity: {
+    sessions: number;
+    studyMinutes: number;
+    activeDays: number;
+    studentMessages: number;
+    tutorMessages: number;
+  };
+  streak: { currentDays: number; daysThisWeek: number };
+  focus: {
+    practiced: ParentWeeklyFocusConcept[];
+    improving: ParentWeeklyFocusConcept[];
+    needsWork: ParentWeeklyFocusConcept[];
+  };
+  masteryLevels: { strong: number; developing: number; weak: number };
+  headline: string;
+  highlights: string[];
+  parentActions: string[];
+}
+
+export async function getParentWeeklyReport(studentId: string, days = 7): Promise<ParentWeeklyReport> {
+  const res = await api<{ report: ParentWeeklyReport }>(
+    `/parent/children/${encodeURIComponent(studentId)}/weekly-report?days=${days}`,
+  );
+  return res.report;
+}
+
 export async function unlinkParentChild(studentId: string): Promise<void> {
   await api(`/parent/children/${encodeURIComponent(studentId)}`, { method: "DELETE" });
 }

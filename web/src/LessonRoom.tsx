@@ -872,10 +872,12 @@ export function LessonRoom({ session, onEnded }: Props) {
       {/* ---- the ribbon: where the student stands in the book ---- */}
       <header className="room-ribbon" data-testid="room-ribbon">
         <div className="room-ribbon-where">
-          <strong data-testid="room-lesson-title">{b ? b.lesson.title : "الجلسة"}</strong>
-          <span className="muted small">
-            {b ? `${b.grade.nameAr} • ${b.subject.nameAr} — ${b.unit.title}` : ""}
-          </span>
+          <div>
+            <strong data-testid="room-lesson-title">{b ? b.lesson.title : "الجلسة"}</strong>
+            <div className="muted small" data-testid="lesson-context-line">
+              {b ? `${b.grade.nameAr} • ${b.subject.nameAr} • ${b.unit.title}` : ""}
+            </div>
+          </div>
           {/* PHASE 38/D-042 — say out loud which language the tutor will use, so
               a student in a language curriculum is not surprised by the reply. */}
           {b && (
@@ -902,6 +904,9 @@ export function LessonRoom({ session, onEnded }: Props) {
           )}
           <button data-testid="end-session" className="btn small ghost" onClick={end}>
             إنهاء الحصة
+          </button>
+          <button className="btn small ghost" onClick={onEnded} data-testid="return-home-compact">
+            الرئيسية
           </button>
         </div>
       </header>
@@ -1047,11 +1052,34 @@ export function LessonRoom({ session, onEnded }: Props) {
 
           <div className="room-captions" data-testid="messages" ref={captionsRef}>
             {messages.length === 0 && !live && (
-              <p className="muted center room-captions-empty">
-                {stage?.hasImages
-                  ? "ابدأ الحصة: اسأل بصوتك أو اكتب سؤالك — كل إجابة مبنيّة على صفحة الكتاب المفتوحة."
-                  : "ابدأ الحصة: اسألني عن أي شيء في درسنا."}
-              </p>
+              <div className="center room-captions-empty">
+                <p className="muted">
+                  {stage?.hasImages
+                    ? "ابدأ الحصة: اسأل بصوتك أو اكتب سؤالك — كل إجابة مبنيّة على صفحة الكتاب المفتوحة."
+                    : "ابدأ الحصة: اسألني عن أي شيء في درسنا."}
+                </p>
+                <div className="primary-action-block">
+                  <button
+                    className="btn primary big"
+                    data-testid="lesson-start-action"
+                    disabled={pending}
+                    onClick={() => {
+                      if (!input.trim() && !preview && !docFile) {
+                        const starter = "ابدأ الشرح";
+                        setInput(starter);
+                        setTimeout(() => send(starter), 50);
+                      } else {
+                        send(input);
+                      }
+                    }}
+                  >
+                    {pending ? "جارٍ التحضير..." : "ابدأ التعلم الآن"}
+                  </button>
+                  <p className="small muted" style={{ marginTop: '0.5rem' }}>
+                    {b ? `${b.subject.nameAr} — ${b.lesson.title}` : 'درس جاهز للبدء'}
+                  </p>
+                </div>
+              </div>
             )}
             {messages.map((m) => (
               <div
