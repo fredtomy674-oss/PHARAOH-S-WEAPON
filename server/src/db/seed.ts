@@ -215,6 +215,24 @@ import {
   assertTreeMatchesTheBook as assertScienceG8TreeMatchesBook,
 } from "./egyptScienceG8T1.js";
 import {
+  EGYPT_AGRICULTURE_G8_T1_UNITS,
+  lessonDocument as agricultureG8LessonDocument,
+  isConsistent as isAgricultureG8TreeConsistent,
+  assertTreeMatchesTheBook as assertAgricultureG8TreeMatchesBook,
+} from "./egyptAgricultureG8T1.js";
+import {
+  EGYPT_INDUSTRY_G8_T1_UNITS,
+  lessonDocument as industryG8LessonDocument,
+  isConsistent as isIndustryG8TreeConsistent,
+  assertTreeMatchesTheBook as assertIndustryG8TreeMatchesBook,
+} from "./egyptIndustryG8T1.js";
+import {
+  EGYPT_LIBRARIES_G8_T1_UNITS,
+  lessonDocument as librariesG8LessonDocument,
+  isConsistent as isLibrariesG8TreeConsistent,
+  assertTreeMatchesTheBook as assertLibrariesG8TreeMatchesBook,
+} from "./egyptLibrariesG8T1.js";
+import {
   EGYPT_SCIENCE_G8_EN_T1_UNITS,
   lessonDocument as scienceG8EnLessonDocument,
   isConsistent as isScienceG8EnTreeConsistent,
@@ -2550,6 +2568,184 @@ function verifyLibrariesP1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Grade-8 **Agriculture & entrepreneurship** («مهارات الزراعة وريادة
+ * الأعمال») — OFFICIAL curriculum (PHASE 99), one of the three Prep-2 books the
+ * Prep-1 sweep left out.
+ *
+ * The first term IS the Ministry textbook (`Agriculture_2_Preparatory_TR1.pdf`,
+ * 2026/2027 MoE edition): its two printed fields («مجال نباتات الزينة والمشاتل
+ * الإنتاجية» / «مجال الألبان») and nine printed lessons, one app lesson per
+ * printed lesson, each grounded on the OCR text of the very pages the lesson
+ * owns (server/data/curriculum-ocr/agriculture-p2-t1/). Each lesson's `concepts`
+ * are its own printed «الأهداف», verbatim.
+ *
+ * Verified before seeding: `isConsistent` checks the table's invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the 50 printed
+ * footers, each lesson opener's own title, the tiling, and that every printed
+ * objective really appears inside its lesson's pages.
+ */
+export const EGYPT_AGRICULTURE_G8_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-8", name: "Grade 8", nameAr: "الصف الثاني الإعدادي", levelOrder: 8 },
+  subject: { code: "agriculture", name: "Agriculture & Entrepreneurship", nameAr: "مهارات الزراعة وريادة الأعمال" },
+  curriculum: { code: "eg-g8-agriculture", title: "مهارات الزراعة وريادة الأعمال للصف الثاني الإعدادي" },
+  terms: [buildEgyptAgricultureG8Term()],
+};
+
+/** Term 1 = the official book: field → lesson, the whole lesson as its document. */
+function buildEgyptAgricultureG8Term(): TermSeedSpec {
+  const check = verifyAgricultureG8Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب الزراعة (ثانية إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_AGRICULTURE_G8_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g8-agri-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: agricultureG8LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-8 Agriculture tree verification, as one verdict. */
+function verifyAgricultureG8Tree(): { ok: boolean; problems: string[] } {
+  const table = isAgricultureG8TreeConsistent();
+  const book = assertAgricultureG8TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-8 **Industry & entrepreneurship** («مهارات الصناعة وريادة
+ * الأعمال») — OFFICIAL curriculum (PHASE 99), one of the three Prep-2 books the
+ * Prep-1 sweep left out.
+ *
+ * The first term IS the Ministry textbook (`Industry_Prep2_T1.pdf`, 2026/2027
+ * MoE edition): its two printed fields («مهارات الحفر على الخشب والأركت» /
+ * «مهارات تكنولوجيا الأعمال الصحية») and seven printed sections
+ * («أولاً/ثانيًا/…»), one app lesson per printed section, each grounded on the
+ * OCR text of the very pages the section owns
+ * (server/data/curriculum-ocr/industry-p2-t1/). Each lesson's `concepts` are the
+ * section's own printed «نواتج التعلم المستهدفة», verbatim.
+ *
+ * Verified before seeding: `isConsistent` checks the table's invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the 35 printed
+ * footers, each section opener's own title, the tiling, and that every printed
+ * outcome really appears inside its lesson's pages.
+ */
+export const EGYPT_INDUSTRY_G8_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-8", name: "Grade 8", nameAr: "الصف الثاني الإعدادي", levelOrder: 8 },
+  subject: { code: "industry", name: "Industry & Entrepreneurship", nameAr: "مهارات الصناعة وريادة الأعمال" },
+  curriculum: { code: "eg-g8-industry", title: "مهارات الصناعة وريادة الأعمال للصف الثاني الإعدادي" },
+  terms: [buildEgyptIndustryG8Term()],
+};
+
+/** Term 1 = the official book: field → section, the whole section as its document. */
+function buildEgyptIndustryG8Term(): TermSeedSpec {
+  const check = verifyIndustryG8Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب الصناعة (ثانية إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_INDUSTRY_G8_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g8-ind-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: industryG8LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-8 Industry tree verification, as one verdict. */
+function verifyIndustryG8Tree(): { ok: boolean; problems: string[] } {
+  const table = isIndustryG8TreeConsistent();
+  const book = assertIndustryG8TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-8 **Library & research skills** («المكتبات ومهارات البحث») —
+ * OFFICIAL curriculum (PHASE 99), one of the three Prep-2 books the Prep-1 sweep
+ * left out; the Grade-7 library book was already ported (PHASE 81).
+ *
+ * The first term IS the Ministry textbook (`Libraries_2prep_tr1.pdf`, 2026/2027
+ * MoE edition): its ten printed «الموضوعات», one app lesson per topic, each
+ * grounded on the OCR text of the very pages the topic owns
+ * (server/data/curriculum-ocr/libraries-p2-t1/). Each lesson's `concepts` are
+ * the topic's own printed «الأهداف», verbatim. The closing «قائمة المصطلحات»
+ * glossary is kept as back matter outside the lesson ranges.
+ *
+ * Verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the 53 printed
+ * footers, the topic titles each opener prints, the tiling, and that every
+ * printed objective really appears inside its topic's pages.
+ */
+export const EGYPT_LIBRARIES_G8_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-8", name: "Grade 8", nameAr: "الصف الثاني الإعدادي", levelOrder: 8 },
+  subject: { code: "libraries", name: "Library & Research Skills", nameAr: "المكتبات ومهارات البحث" },
+  curriculum: { code: "eg-g8-libraries", title: "المكتبات ومهارات البحث للصف الثاني الإعدادي" },
+  terms: [buildEgyptLibrariesG8Term()],
+};
+
+/** Term 1 = the official book: printed topic → its single app lesson. */
+function buildEgyptLibrariesG8Term(): TermSeedSpec {
+  const check = verifyLibrariesG8Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب المكتبات (ثانية إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_LIBRARIES_G8_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الموضوع ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g8-lib-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: librariesG8LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-8 Library tree verification, as one verdict. */
+function verifyLibrariesG8Tree(): { ok: boolean; problems: string[] } {
+  const table = isLibrariesG8TreeConsistent();
+  const book = assertLibrariesG8TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Grade-7 **Educational media** («الإعلام التربوي») — OFFICIAL
  * curriculum (PHASE 80).
  *
@@ -3106,6 +3302,9 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_SCIENCE_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_G8_EN_SPEC);
+  await seedCountry(db, knowledge, EGYPT_AGRICULTURE_G8_SPEC);
+  await seedCountry(db, knowledge, EGYPT_INDUSTRY_G8_SPEC);
+  await seedCountry(db, knowledge, EGYPT_LIBRARIES_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_EN_P1_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_P1_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_P1_SPEC);
