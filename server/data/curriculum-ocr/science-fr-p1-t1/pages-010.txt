@@ -15,16 +15,20 @@ Activité 2 Interprète
 Le tableau (1) montre les caractéristiques des particules subatomiques constituants l'atome.
 
 | Particule | Symbole | Charge électrique relative | Masse |
-| :--- | :--- | :--- | :--- |
+| :---: | :---: | :---: | :---: |
 | Proton | p | +1 | 1 u |
 | Neutron | n | 0 | 1 u |
-| Électron | e | -1 | 1/1836 u |
+| Électron | e | -1 | $\frac{1}{1836}$ u |
 
 Tableau (1)
 
 1 Pourquoi le noyau de l'atome est-il décrit comme étant chargé positivement ?
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2 Pourquoi la masse de l'atome est-elle concentrée dans le noyau ?
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 De ce qui précède, il es clair que :
 • La charge de proton est égale à celle de l'électron en quantité, mais différente en type.

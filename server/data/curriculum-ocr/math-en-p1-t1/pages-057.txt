@@ -1,12 +1,5 @@
-■ Previous Knowledge
-In a frequency table with
-intervals, because the
-intervals have the same
-length. Therefore, they are
-when represented using
-a histogram, the columns
-should have the same width
-with no gaps between them.
+- Previous Knowledge
+In a frequency table with intervals, because the intervals have the same length. Therefore, they are when represented using a histogram, the columns should have the same width with no gaps between them.
 
 Masses
 41 -
@@ -23,7 +16,7 @@ Frequency
 8
 6
 
-▶ Represent this data using a histogram.
+- Represent this data using a histogram.
 
 Frequency
 12
@@ -48,22 +41,21 @@ Frequency
 101
 Masses
 
+- Note that
+The histogram does not display the actual values of data.
+
 2 The number of players who have masses of 81 kg or more
 = 8 + 6 = 14 players.
 
 Stem-and-Leaf Plot
 
-A stem-and-leaf plot is a chart that presents numerical data arranged in
-order. Each number is split into two parts (Stem - Leaf).
+A stem-and-leaf plot is a chart that presents numerical data arranged in order. Each number is split into two parts (Stem - Leaf).
 
-For example: For a number that consists of two digits (41), the tens are
-represented by the stem (4), and the ones are represented by the leaf (1).
-This can be demonstrated by the following example:
+For example: For a number that consists of two digits (41), the tens are represented by the stem (4), and the ones are represented by the leaf (1). This can be demonstrated by the following example:
 
-■ Self-Evaluation 3
-The following data represents
-the temperatures of a city over
-three weeks:
+- Self-Evaluation 3
+
+The following data represents the temperatures of a city over three weeks:
 21
 41
 42
@@ -86,13 +78,11 @@ three weeks:
 28
 34
 
-Draw a stem-and-leaf plot,
-then deduce the median and
-the mode.
+Draw a stem-and-leaf plot, then deduce the median and the mode.
 
 Example 3
-If the number of weekly hours that 27 students spend using the Internet
-are as follows:
+
+If the number of weekly hours that 27 students spend using the Internet are as follows:
 
 14
 35
@@ -123,15 +113,9 @@ are as follows:
 30
 
 1 Organize and represent this data using a stem-and-leaf plot.
-2 From the stem-and-leaf plot, find the mode, the median, the first quartile,
-and the third quartile.
+2 From the stem-and-leaf plot, find the mode, the median, the first quartile, and the third quartile.
 3 Represent the data using a box plot.
 
 50
 Unit Three: Statistics
 Mathematics - First Preparatory
-
-■ Note that
-The histogram does
-not display the actual
-values of data.

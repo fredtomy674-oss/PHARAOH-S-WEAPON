@@ -1,46 +1,31 @@
 3 Rectangle
-A rectangle is a parallelogram that has
-one of its angles is a right angle.
+A rectangle is a parallelogram that has one of its angles is a right angle.
 
-- A rectangle has all the properties of a parallelogram, in addition to:
+▸ A rectangle has all the properties of a parallelogram, in addition to:
 1 All its angles are right angles.
 2 Its diagonals are equal in length.
 
 4 Rhombus
-A rhombus is a parallelogram in which two
-adjacent sides are equal in length.
+A rhombus is a parallelogram in which two adjacent sides are equal in length.
 
-- Enrichment Information
-The Great Pyramid of Giza
-(Khufu Pyramid)
-The Great Pyramid of Giza,
-is one of the Seven Wonders
-of the Ancient World, located
-in Giza. Its base is a square
-of side length 230.4 meters,
-and its current height is
-138.8 meters, after it was
-146.5 meters high originally.
-Find out why.
+▪ Enrichment Information
+The Great Pyramid of Giza (Khufu Pyramid)
+The Great Pyramid of Giza, is one of the Seven Wonders of the Ancient World, located in Giza. Its base is a square of side length 230.4 meters, and its current height is 138.8 meters, after it was 146.5 meters high originally. Find out why.
 
-- A rhombus has all the properties of a parallelogram, in addition to:
+▸ A rhombus has all the properties of a parallelogram, in addition to:
 1 All its sides are equal in length.
-2 Its diagonals are perpendicular
-and bisect its interior angles.
+2 Its diagonals are perpendicular and bisect its interior angles.
 
 5 Square
-A square is a parallelogram that has
-one right angle and two adjacent
-sides are equal in length.
+A square is a parallelogram that has one right angle and two adjacent sides are equal in length.
 
-- A square has all the properties of a parallelogram, in addition to:
+▸ A square has all the properties of a parallelogram, in addition to:
 1 All its sides are equal in length.
 2 All its angles are right angles.
 
-3 Its diagonals are equal in length, perpendicular,
-and bisect its interior angles.
+3 Its diagonals are equal in length, perpendicular, and bisect its interior angles.
 
 First Term
 Lesson Four: Quadrilaterals
 93
-EI Nemer Press
+El Nemer Press

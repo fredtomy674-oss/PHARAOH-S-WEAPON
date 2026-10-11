@@ -1,0 +1,38 @@
+De ce qui précède, il est clair que :
+La présence d'un objet opaque dans le trajet des rayons lumineux entraîne la formation
+d'une zone sombre appelée ombre, entourée d'une zone partiellement éclairée appelée pénombre.
+
+Concepts croisés : Cause et conséquence
+Les corps transparents laissent passer la lumière à travers eux, alors ils ne forment pas
+d'ombre. En revanche, les corps opaques ne laissent pas passer la lumière, alors il forme
+de l'ombre.
+
+Si on considère que la lampe utilisée dans l'activité (2) représente le Soleil, que la balle
+représente la Terre, et que la feuille blanche représente la Lune à la phase de pleine Lune, alors
+lorsque la Terre, pendant sa révolution autour du Soleil, se situe sur la ligne reliant le Soleil
+à la Lune, elle empêche complètement ou partiellement la lumière du Soleil, d'arriver à la Lune
+provoquant ainsi une éclipse lunaire.
+
+Activité 3 Observe et déduis
+
+La figure (6) montre deux types d'éclipse lunaire
+Éclipse totale : La pleine Lune apparaît comme un disque sombre car elle ne reçoit plus de
+lumière solaire.
+Éclipse partielle : La pleine Lune apparaît partiellement sombre.
+
+Figure (6) Éclipse lunaire
+
+- Où se trouve la Lune lors d'une : Éclipse totale : ..............................................................
+• Éclipse partielle : ................................................................
+
+- Lorsque la Lune est entièrement dans la zone de pénombre de la Terre, elle apparaît comme
+un disque rouge faiblement éclairé, ce qui n'est pas considéré comme une éclipse.
+- Peut-être tu te demandes pourquoi une éclipse lunaire ne se produit pas à chaque
+pleine Lune ?
+• En raison de l'inclinaison du plan de l'orbite de la Lune autour de la Terre de 5 degrés par
+rapport au plan de l'orbite de la Terre autour du Soleil, la Lune ne s'aligne pas toujours sur
+la ligne reliant le Soleil et la Terre à chaque pleine Lune. Il n'est donc pas nécessaire que
+la Lune soit en éclipse à chaque pleine Lune.
+
+october press
+LEÇON DEUX : L'éclipse de la Lune 91

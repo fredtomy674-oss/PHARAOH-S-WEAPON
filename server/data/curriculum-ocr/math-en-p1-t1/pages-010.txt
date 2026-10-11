@@ -1,135 +1,65 @@
 Cross Multiplication Property
-For each of the following proportions, find the products of extremes and
-means, and compare them.
-2 = 8
-5 20
-,
-24 = 3
-32 4
-,
-6 = 2
-18 6
+For each of the following proportions, find the products of extremes and means, and compare them.
+2/5 = 8/20 , 24/32 = 3/4 , 6/18 = 2/6
 What do you conclude?
 Property
-If a = c
-b d
-then a × d = b × c (cross multiplication)
-If a × d = b × c then a , b , c and d are proportional.
+If a/b = c/d , then a × d = b × c (cross multiplication)
+If a × d = b × c , then a, b, c and d are proportional.
 
 Identifying Proportion Using Cross Multiplication
 Example 1
 Identify which of the following ratio pairs represents a proportion.
-1
-4
-7
-,
-12
-21
-2
-6
-10
-,
-10
-25
-1
-4
-7
-?
-=
-12
-21
-2
-6
-10
-?
-=
-10
-25
-Use cross multiplication 4 x 21 27 x 12
+1. 4/7 , 12/21
+2. 6/10 , 10/25
+
+1. 4/7 = 12/21
+Use cross multiplication 4 × 21 =? 7 × 12
 84 = 84
-Therefore, 4
-7
-and 12
-21
-represent a proportion
-Use cross multiplication 6 x 25 = 10 x 10
+Therefore, 4/7 and 12/21 represent a proportion
+
+2. 6/10 = 10/25
+Use cross multiplication 6 × 25 =? 10 × 10
 150 ≠ 100
-Therefore, 6
-10
-and 10
-25
-do not represent a proportion
+Therefore, 6/10 and 10/25 do not represent a proportion
 
 Identifying Proportion Using Graphical Representation
 Example 2
-The opposite table illustrates the distance in meters (m)
-covered by Bassem in one of his running exercises.
-Determine whether the distance in meters (m) is
-proportional to the time in seconds (s).
-Explain your answer.
+The opposite table illustrates the distance in meters (m) covered by Bassem in one of his running exercises. Determine whether the distance in meters (m) is proportional to the time in seconds (s). Explain your answer.
+
 Covered Distances
 Time (s) Distance (m)
-1 6
-2 12
-3 18
-4 24
-Represent on a coordinate plane the ordered
-pairs that express the relation between time
-and distance. The points of the ordered pairs
-lie on a straight line passing through the origin,
-thus, the distance in meters is proportional to
-the time in seconds.
+1 | 6
+2 | 12
+3 | 18
+4 | 24
+
+Represent on a coordinate plane the ordered pairs that express the relation between time and distance. The points of the ordered pairs lie on a straight line passing through the origin, thus, the distance in meters is proportional to the time in seconds.
+
 Guide
-If the points do not lie on a straight line, or lie on a straight line
-does not pass through the origin, then the relationship does not
-represent a proportion.
+- If the points do not lie on a straight line, or lie on a straight line does not pass through the origin, then the relationship does not represent a proportion.
 
-Diversified Strategies
-In Example 1, you can
-solve problem (1) by
-simplifying the ratio 12
-21
-÷ 3
-12 = 4
-21 7
-÷ 3
-Could you solve problem (2)
-by simplifying ratios?
+---
 
-Self-Evaluation 1
-Identify which of the
-following represents
-a proportion.
-1
-4 ? 10
-8 = 20
-2
-30 ? 25
-42 = 40
+■ Diversified Strategies
+- In Example 1, you can solve problem 1 by simplifying the ratio 12/21 (÷ 3 = 4/7, ÷ 3).
+- Could you solve problem 2 by simplifying ratios?
 
-Using Technology
-Information provided
-in Example 2 can be
-represented graphically
-using different software
-and applications, such as:
-GeoGebra , Excel
-X
+■ Self-Evaluation 1
+Identify which of the following represents a proportion.
+1. 4/8 =? 10/20
+2. 30/42 =? 25/40
 
-Self-Evaluation 2
-Use Excel to represent
-the data in the table below
-graphically, then determine
-whether they express
-proportional relationship
-or not, and justify.
-Price of pies
-including delivery fees
-Number of Pies Price (LE)
-1 25
-2 45
-3 65
-4 85
+■ Using Technology
+Information provided in Example 2 can be represented graphically using different software and applications, such as: GeoGebra, Excel (X icon)
+
+■ Self-Evaluation 2
+Use Excel to represent the data in the table below graphically, then determine whether they express proportional relationship or not, and justify.
+Price of pies including delivery fees
+Number of Pies | Price (LE)
+1 | 25
+2 | 45
+3 | 65
+4 | 85
 
 First Term
 Lesson One: Proportion

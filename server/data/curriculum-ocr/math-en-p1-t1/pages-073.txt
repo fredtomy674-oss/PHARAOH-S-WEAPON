@@ -4,38 +4,35 @@ Evaluate your understanding!
 How well do you understand Unit Three?
 Tick the right box
 
-► Choose the correct answer from the given ones:
+▶ Choose the correct answer from the given ones:
 
 1 If the arithmetic mean of the numbers:
-$X+2, X-5, 2X+4, 8, X+1$ is $7$,
+$X+2, X-5,2X+4,8, X+1$ is $7$,
 what is the value of $X$?
 
-(a) $3$
-(b) $4$
-(c) $5$
-(d) $6$
+(a) 3
+(b) 4
+(c) 5
+(d) 6
 
 2 If the arithmetic mean of a student's marks
-in five exams is $94$, and his marks in the first
-four exams are $97, 92, 94,$ and $91$, how
+in five exams is 94, and his marks in the first
+four exams are 97, 92, 94, and 91, how
 many marks did he score in the fifth exam?
 
-(a) $90$
-(b) $93$
-(c) $96$
-(d) $98$
+(a) 90
+(b) 93
+(c) 96
+(d) 98
 
 3 The figure below shows the marks of
-$30$ students, what is the arithmetic mean of
+30 students, what is the arithmetic mean of
 these marks?
 
-(a) $17$
-
-(b) $17.1$
-
-(c) $17.6$
-
-(d) $18$
+(a) 17
+(b) 17.1
+(c) 17.6
+(d) 18
 
 Frequency
 10
@@ -53,34 +50,33 @@ Marks
 15 16 17 18 19
 
 4 The figure below represents the box plot of
-the heights of $50$ students in centimeters.
+the heights of 50 students in centimeters.
 What is the value of the first quartile?
 
 140 145 150 155 160 165 170
 
-(a) $140\text{ cm}$
-(c) $160\text{ cm}$
+(a) 140 cm
+(b) 150 cm
+(c) 160 cm
+(d) 165 cm
 
-(b) $150\text{ cm}$
-(d) $165\text{ cm}$
-
-► Complete each of the following with the correct answer :
+▶ Complete each of the following with the correct answer :
 
 5 The arithmetic mean of the marks
-of $10$ students is $87$ marks.
+of 10 students is 87 marks.
 If the marks of two more students
 are added to these marks,
 the arithmetic mean increases to
-$89$ marks. Thus, the arithmetic
+89 marks. Thus, the arithmetic
 mean of the two added students
 is ............
 
 6 The opposite figure shows
 a pie chart for the expenditure
 of a family whose monthly
-income is $10,000\text{ LE}$. The
+income is 10,000 LE. The
 monthly medical treatment
-expenses are ............ $\text{LE}$
+expenses are ............ LE
 
 Food
 20%
@@ -96,8 +92,8 @@ Expenses
 15%
 
 7 If the arithmetic mean of five
-integers is $14$, the median is $15$,
-and the mode is $11$, then the
+integers is 14, the median is 15,
+and the mode is 11, then the
 greatest of these integers,
 is ............
 
@@ -109,12 +105,17 @@ weeks. The range of
 these temperatures
 is ............
 
-Stems Leaves
-2 9
-3 3 4 4 5 6 6 7 8 9
-4 0 0 1 4
+Stems
+2
+3
+4
 
-Key $2|9$ represents $29$ degrees
+Leaves
+9
+3 4 4 5 6 6 7 8 9
+0 0 1 4
+
+Key 2|9 represents 29 degrees
 
 66
 Unit Three: Statistics

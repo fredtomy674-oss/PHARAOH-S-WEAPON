@@ -8,13 +8,13 @@ Eating fruits daily provides the body
 many benefits. Fruits are rich in
 vitamins your body needs.
 
-Regular car maintenance reduces
-environmentally harmful carbon emissions.
-
 (20) Science: A car uses 5 litres of petrol to
 cover a distance of 40 km. How much petrol
 would the car need to cover the distance of
 128 km if it travels at the same rate?
+
+Regular car maintenance reduces
+environmentally harmful carbon emissions.
 
 (21) Culture: Eman reads 10 pages in 40 minutes.
 How much time, in hours, would it take her to read
@@ -37,8 +37,8 @@ Does the relationship between the perimeter
 and the side length in the equilateral triangles
 represent a proportion? Explain your answer.
 
-(23) If 15% of x equals 20% of y, then which of
-the following is equal to x : y?
+(23) If 15% of $x$ equals 20% of $y$, then which of
+the following is equal to $x : y$?
 (a) 5 : 4
 (b) 3 : 2
 (c) 4 : 3
@@ -51,8 +51,4 @@ How well do you
 understand proportion?
 Tick the right box
 
-6
-
-Unit One: Numbers and Their Operations
-
-Mathematics - First Preparatory
+6 Unit One: Numbers and Their Operations Mathematics - First Preparatory

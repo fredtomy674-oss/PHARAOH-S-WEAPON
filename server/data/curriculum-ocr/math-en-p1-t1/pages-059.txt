@@ -1,10 +1,6 @@
 ■ Self-Evaluation (4)
-Both of the following graphs
-represent the masses of
-Sarah, Hind, and Amal in
-kilograms. Which graph
-could be misleading,
-and why?
+
+Both of the following graphs represent the masses of Sarah, Hind, and Amal in kilograms. Which graph could be misleading, and why?
 
 Frequency
 60
@@ -31,9 +27,8 @@ Sarah Hind Amal
 Names
 
 Example (4)
-Both of the following graphs represent the number of post offices in the
-governorates of Fayoum, Beni Suef, Luxor, and Kafr El Sheikh for the year
-2021/2022. Which graph could be misleading, and why?
+
+Both of the following graphs represent the number of post offices in the governorates of Fayoum, Beni Suef, Luxor, and Kafr El Sheikh for the year 2021/2022. Which graph could be misleading, and why?
 
 Frequency
 160
@@ -46,9 +41,7 @@ Fayoum
 Beni Suef
 Luxor
 Kafr El Sheikh
-Names
 Governorates
-Fig. (1)
 
 Frequency
 160
@@ -65,18 +58,21 @@ Beni Suef
 Luxor
 Kafr El Sheikh
 Governorates
+
+Fig. (1)
+
 Fig. (2)
 
-The graph in Figure (1) is clearly misleading because the vertical axis
-has unequal scale, which makes it appears as the number of post offices
-in Beni Suef is almost double the number of post offices in Luxor.
+The graph in Figure (1) is clearly misleading because the vertical axis has unequal scale, which makes it appears as the number of post offices in Beni Suef is almost double the number of post offices in Luxor.
 
 Collaborative Activity
-Collaborate with your classmates to answer the following
-question:
-What means of transportation is used to go to school?
-Organize the data you collect in a table, and present it using
-a suitable graphical chart. Analyze the data to reach some
-conclusions.
 
-52 Unit Three: Statistics Mathematics - First Preparatory
+Collaborate with your classmates to answer the following question:
+
+What means of transportation is used to go to school?
+
+Organize the data you collect in a table, and present it using a suitable graphical chart. Analyze the data to reach some conclusions.
+
+52
+Unit Three: Statistics
+Mathematics - First Preparatory

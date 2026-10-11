@@ -1,13 +1,12 @@
 UNITÉ 1
 La matière
-
 Leçons de l'unité
 Leçon Un : La structure de l'atome
 Leçon Deux : Le tableau périodique de classification des éléments
 Leçon Trois : La matière et ses propriétés
 Leçon Quatre : Les liaisons chimiques
 
-Résultats d'apprentissage :
+Résultats d'apprentissage:
 À la fin de cette unité, l'élève sera capable de :
 1. Déduire que l'atome est l'unité de construction de toute matière.
 2. Apprécier le rôle du scientifique Ernest Rutherford dans la découverte du noyau.

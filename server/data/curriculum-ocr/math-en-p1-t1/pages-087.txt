@@ -6,14 +6,25 @@ D
 A
 (3x+10)°
 x°
-C
 Find the value of X.
-
+C
+Example (3)
+The opposite figure shows
+a garden between two
+parallel roads. Find the
+values of X and Y.
+E
+3x° A
+(y+10)°
+C
+B
+2x°
+D
 ■ Think
 In each of the following:
 Is q//p? Why?
-n
 1
+n
 57°
 p
 q
@@ -21,39 +32,23 @@ q
 2
 n
 p
+q
 (180-x)°
 x°
-q
-
-80
-Unit Four: Geometry & Measurement
-Example 3
-E
-The opposite figure shows
-a garden between two
-parallel roads. Find the
-values of X and y.
-3x° A
-B
-2x°
-D
-C
-(y+10)°
 AB // CD
 ∠ ABD and ∠ CDB are supplementary angles, because they are interior
 and lie on the same side of the transversal.
-2X + 90° = 180°
-2X = 180° - 90° = 90°
+2 X + 90° = 180°
+2 X = 180° – 90° = 90°
 X =
 90°
 2
 = 45°
 ∠ ACD and ∠ BAE are equal in measure, because they are
 corresponding angles.
-(Y + 10)° = 3X
-y + 10° = 3 × 45° = 135°
-y = 135° - 10° = 125°
-
+(Y + 10)° = 3 X
+Y + 10° = 3 × 45° = 135°
+Y = 135° – 10° = 125°
 Proof parallelism of two straight lines
 The two straight lines are parallel if a third straight line intersects them
 (as a transversal) and one of the following cases has occurred:
@@ -67,29 +62,29 @@ m
 50°
 n
 Straight line m is parallel
-to straight line n (m//n),
+to straight line n (m // n),
 because there are two
 corresponding angles that
 are equal in measure.
 2
 Two Alternating Angles are
 Equal in Measure
+c
 a
-C
 120°
 b
 120°
 a
 b
-C
 60°
 60°
+c
 Straight line a is parallel to straight line b
-(a//b), because there are two alternating
+(a // b), because there are two alternating
 angles that are equal in measure.
 3 Two Interior Angles on the Same Side
 of the Transversal are Supplementary
-Straight line p is parallel to straight line q (p//q),
+Straight line p is parallel to straight line q (p // q),
 because there are two interior angles that are
 supplementary on the same side of the
 transversal.
@@ -98,4 +93,6 @@ q
 130°
 50°
 d
+80
+Unit Four: Geometry & Measurement
 Mathematics - First Preparatory

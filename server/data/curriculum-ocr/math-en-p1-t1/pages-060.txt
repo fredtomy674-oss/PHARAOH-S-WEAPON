@@ -1,0 +1,84 @@
+Lesson Assessment
+First Measuring Conceptual Understanding
+► Choose the correct answer from the given ones:
+1 From the opposite stem-and-leaf plot, what is the median?
+(a) 16
+(b) 17
+(c) 18
+(d) 20
+2 Which of the following charts does not display the actual data?
+(a) Dot plot
+(b) Histogram
+(c) Stem-and-leaf plot
+(d) Bar graph
+Stems
+0
+1
+2
+3
+9
+Leaves
+0 2 2 2 3 4 5 6 6
+0 1 1 5 7 8 9
+1 2 3
+Key 3|1 means 31 hours
+3 One of the following graphs represents the heights of three friends, and the other represents the
+number of tablets and smartphones owned by the employees of a company.
+Which of them is considered misleading?
+Frequency (A)
+2000
+1000
+750
+500
+250
+Smartphone Tablet
+Device
+(a) Only A is misleading
+(c) Both are misleading
+Second Applying Scientific Concepts
+Frequency
+160
+155
+150
+Mazen Wael Diaa
+(b) Only B is misleading
+(d) Both are not misleading
+4 The following data represents the number of toys sold by
+a store over 30 days:
+13
+36
+13
+32
+41
+32
+12
+45
+33
+33
+9
+14
+27
+38
+18
+37
+16
+28
+44
+46
+34
+8
+48
+25
+26
+29
+7
+32
+15
+18
+Name
+Represent this data using a stem-and-leaf plot, then find
+the median and the mode.
+First Term
+Lesson One: Organizing Data
+El Nemer Press
+53

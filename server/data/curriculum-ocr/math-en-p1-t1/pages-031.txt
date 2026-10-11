@@ -4,24 +4,24 @@ Lesson
 Operations on Rational
 Numbers
 
-Learning Outcomes
-• Learn different forms of
+■ Learning Outcomes
+- Learn different forms of
 a rational number.
-• Find the sum or difference
+- Find the sum or difference
 of two rational numbers.
-• Apply addition and
+- Apply addition and
 subtraction properties to
 solve rational numbers
 problems.
-• Find the product of two
+- Find the product of two
 rational numbers.
-• Find the quotient of
+- Find the quotient of
 two rational numbers
 (if possible).
-• Learn multiplication and
+- Learn multiplication and
 division properties of the
 rational numbers.
-• Utilize mathematical
+- Utilize mathematical
 operations properties to
 solve problems involving
 rational numbers.
@@ -33,7 +33,7 @@ diving destinations, boasting
 abundant coral reefs and rare
 marine creatures.
 A man dives $12\frac{1}{2}$ meters in the
-water. Then, he rose 4.75 meters.
+water. Then, he rose $4.75$ meters.
 At this point, what is the man's
 depth in water?
 In this lesson, you will learn how to perform operations on rational
@@ -48,32 +48,29 @@ above the ground surface?
 
 15.6m
 
-$1\frac{1}{2}\text{m}$
+$1\frac{1}{2}$ m
 
 ■ Vocabulary
-• Rational Number
-• Multiplicative Inverse
-• Recurring Decimal.
+- Rational Number
+- Multiplicative Inverse
+- Recurring Decimal.
 
 Learn!
 
 The Set of Rational Numbers
-
-• The set of rational numbers (Q) is the set
+- The set of rational numbers ($\mathbb{Q}$) is the set
 of all numbers that can be expressed
 in the form of $\frac{a}{b}$ where $a$ and $b$ are
 integers and $b \neq 0$
-$\mathbb{Q}=\{\frac{a}{b}: a \in \mathbb{Z},\; b \in \mathbb{Z},\; b \neq 0\}$
-• Based on the above definition:
+$\mathbb{Q} = \{\frac{a}{b} : a \in \mathbb{Z}, b \in \mathbb{Z}, b \neq 0\}$
+- Based on the above definition:
 The set of counting numbers, the set
 of natural numbers, and the set of
 integers are all subsets of the set of
 rational numbers. Discuss.
 
 Rational Numbers
-
 Integers
-
 Natural Numbers
 Counting Numbers
 

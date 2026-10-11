@@ -24,12 +24,20 @@ the selling activity during
 one day, and the results
 were as follows:
 
-Items Percentages
-Foodstuffs 45%
-Dairy 35%
+Items
+Percentages
+
+Foodstuffs
+45 %
+
+Dairy
+35 %
+
 Beverages
 & Juices
-Sweets 5%
+
+Sweets
+5%
 
 • Represent this data using
 a pie chart.
@@ -39,80 +47,110 @@ a pie chart.
 ► Calculate the measure of the central angle that represents the number
 of votes for each candidate:
 
-Measure of the central angle = $\frac{\text{Number of votes for each candidate}}{\text{Total number of votes}} \times 360^{\circ}$
+Measure of the central angle =
 
-"Khaled" $\frac{8}{30} \times 360^{\circ} = 96^{\circ}$
+Number of votes for each candidate
+Total number of votes
 
-"Anas" $\frac{12}{30} \times 360^{\circ} = 144^{\circ}$
+× 360°
 
-"Hamza" $\frac{10}{30} \times 360^{\circ} = 120^{\circ}$
+"Khaled"
+8
+30
+× 360° = 96°
+
+"Anas"
+12
+30
+× 360° = 144°
+
+"Hamza"
+10
+30
+× 360° = 120°
 
 ► Draw a suitable circle, and then draw
 the central angle representing the
 number of votes for each candidate.
 
-Example 2
-
 Anas
-$144^{\circ}$
+144°
+
 Khaled
-$96^{\circ}$
+96°
+120°
 Hamza
-$120^{\circ}$
 
 Drawing Steps:
 
 • Draw a circle by using a compass.
 • Draw a radius in the circle.
 • Draw a central angle of measure
-$96^{\circ}$, where this sector represents
+96°, where this sector represents
 the votes for Khaled.
 • Use the new radius to create
-a central angle of measure $144^{\circ}$,
+a central angle of measure 144°,
 where this sector represents
 the votes for Anas.
 • The remaining part is a circular
 sector with a central angle of
-measure $120^{\circ}$. It represents the
+measure 120°, it represents the
 votes for Hamza.
+
+Example (2)
 
 Sports: In a survey, a group of people were asked their favorite sport.
 The results were as follows:
 
-Sports Handball Basketball Football Volleyball
-Percentages $15\%$ $25\%$ $45\%$ ........
+Sports
+Handball Basketball Football Volleyball
+
+Percentages
+15%
+25%
+45%
 
 Represent the survey results using a pie chart.
 
 ► Find the percentage for volleyball:
-$100\% - (45\% + 25\% + 15\%) = 15\%$
+100 % − (45% + 25% + 15%) = 15%
 
 ► Calculate the measure of the central
 angle representing each sport:
 
-"Handball" $\frac{15}{100} \times 360^{\circ} = 54^{\circ}$
+"Handball"
+15
+100
+× 360° = 54°
 
-"Basketball" $\frac{25}{100} \times 360^{\circ} = 90^{\circ}$
+"Basketball"
+25
+100
+× 360° = 90°
 
-"Football" $\frac{45}{100} \times 360^{\circ} = 162^{\circ}$
+"Football"
+45
+100
+× 360° = 162°
 
-"Volleyball" $\frac{15}{100} \times 360^{\circ} = 54^{\circ}$
-
-Football
-$45\%$
+"Volleyball"
+15
+100
+× 360° = 54°
 
 Basketball
-$25\%$
+25%
 
 Handball
-$15\%$
-
+15%
+54°
+54°
 Volleyball
-$15\%$
+15%
 
-$54^{\circ}$
-$54^{\circ}$
-$162^{\circ}$
+Football
+45%
+162°
 
 ► Draw a suitable circle, and then draw the central angle for each sport.
 

@@ -1,27 +1,20 @@
 Les cellules souches se distinguent par plusieurs caractéristiques, notamment :
 (1) Leur capacité à se régénérer par division, produisant ainsi davantage de cellules souches.
 (2) Leur capacité à se différencier en types spécialisés de cellules présentes dans le corps.
-De ce qui précède, il est clair que les cellules souches sont des cellules non différenciées
-capables de se transformer et de se différencier en toutes les cellules du corps différenciées,
-dont chacune effectue une fonction spécialisée.
+
+De ce qui précède, il est clair que les cellules souches sont des cellules non différenciées capables de se transformer et de se différencier en toutes les cellules du corps différenciées, dont chacune effectue une fonction spécialisée.
 
 Concepts croisés : Structure et fonction
-La fonction de la cellule varie en fonction de sa structure. Par exemple, la construction du
-tissu musculaire à partir de cellules (fibres) musculaires longues lui permet d'effectuer la
-fonction de contraction et de relachement
+La fonction de la cellule varie en fonction de sa structure. Par exemple, la construction du tissu musculaire à partir de cellules (fibres) musculaires longues lui permet d'effectuer la fonction de contraction et de relachement.
 
 Evaluate ta compréhension
 ► Les procaryotes peuvent-ils être des cellules souches ? Justifie ta réponse.
 
 Applications médicales
-Les chercheurs espèrent que les études sur les cellules souches permettront de :
-- Accroître la compréhension de la manière dont les maladies surviennent ; en suivant la
-différenciation des cellules, on peut comprendre quand est-ce qu' elles se transforment en
-cellules saines ou pathologiques .
+Les chercheurs espèrent que les études sur les cellules souches permettront de:
+- Accroître la compréhension de la manière dont les maladies surviennent; en suivant la différenciation des cellules, on peut comprendre quand est-ce qu' elles se transforment en cellules saines ou pathologiques.
 - Produire des cellules saines pour remplacer les cellules infectées par des maladies.
-- Tester de nouveaux médicaments avant leur utilisation afin d'évaluer leur sécurité
-et leur efficacité, en cultivant des cellules souches au laboratoire et en les traitant avec
-le médicament à tester .
+- Tester de nouveaux médicaments avant leur utilisation afin d'évaluer leur sécurité et leur efficacité, en cultivant des cellules souches au laboratoire et en les traitant avec le médicament à tester.
 
 Question de discussion
 Le rôle de la banque de cellules souches dans le traitement médical futur

@@ -1,42 +1,43 @@
-■ Self-Evaluation (4)
+- Self-Evaluation (4)
 The algebraic expression
-$5X-7y+1$
+$5 X-7 y+1$
 consists of three terms,
 write:
-1 The terms of the
+1. The terms of the
 expression
-2 The constant term
-3 The variable with the
+2. The constant term
+3. The variable with the
 smallest coefficient
-4 The coefficient of $X$
+4. The coefficient of $X$
 
 ■ Remember:
 Properties of Operations
-1 Commutative property
+
+1. Commutative property
 In addition:
 $a+b=b+a$
 In multiplication:
-$a\times b=b\times a$
+$a \times b=b \times a$
 
-2 Associative property
+2. Associative property
 In addition:
 $(a+b)+c=a+(b+c)$
 In multiplication:
-$(a\times b)\times c=a\times(b\times c)$
+$(a \times b) \times c=a \times(b \times c)$
 
-3 Distributive property
+3. Distributive property
 In addition:
 $a(b+c)=a(b)+a(c)$
 In subtraction:
 $a(b-c)=a(b)-a(c)$
 
-■ Self-Evaluation (5)
+- Self-Evaluation (5)
 Simplify each of the following
 algebraic expressions:
-1 $2X+4y+X-7y$
-2 $5a+2a-b+3b$
-3 $13X-7+8X+19$
-4 $3(X-7)-5(2X-5)$
+1. $2 X+4 y+X-7 y$
+2. $5 a+2 a-b+3 b$
+3. $13 X-7+8 X+19$
+4. $3(X-7)-5(2 X-5)$
 
 ■ Think with your
 classmates
@@ -44,46 +45,46 @@ What are the steps of
 simplifying algebraic
 expression?
 
-Example 4
-The algebraic expression $4X+3y-8Xy-6$ consists of four
+Example (4)
+The algebraic expression $4 X+3 y-8 X y-6$ consists of four
 terms, write:
-1 The terms of the expression
-2 The constant term
-3 The coefficient of $Xy$
-4 The variable whose coefficient is $3$
+1. The terms of the expression
+2. The constant term
+3. The coefficient of $X y$
+4. The variable whose coefficient is 3
 
-1 The terms of the expression are $4X$, $3y$, $-8Xy$, and $-6$
-2 The constant
+1. The terms of the expression are $4 X, 3 y,-8 X y$, and $-6$
+2. The constant
 term is $-6$
-3 The coefficient
-of $Xy$ is $-8$
-4 The variable
+3. The coefficient
+of $X y$ is $-8$
+4. The variable
 whose coefficient
-is $3$ is $y$
+is 3 is $y$
 
 Simplification of Algebraic Expression
-• An algebraic expression is in its simplest form when it does not have
+- An algebraic expression is in its simplest form when it does not have
 any like terms.
-• To write an algebraic expression in its simplest form, add the like
+- To write an algebraic expression in its simplest form, add the like
 terms together after removing the brackets (if exist) using the
 distributive property.
 
-Example 5
+Example (5)
 Simplify each of the following algebraic expressions:
-1 $-X+2y-8y+5X+7$
-2 $2(3X-4)-3(X-2)$
+1. $-X+2 y-8 y+5 X+7$
+2. $2(3 X-4)-3(X-2)$
 
-1 $-X+2y-8y+5X+7$
-$=-X+5X+2y-8y+7$ (Commutative property)
-$=(-X+5X)+(2y-8y)+7$ (Associative property)
-$=(-1+5)X+(2-8)y+7$ (Add the coefficients of the like terms)
-$=4X-6y+7$ (Write the expression in the simplest form)
+1. $-X+2 y-8 y+5 X+7$
+$=-X+5 X+2 y-8 y+7 \quad$ (Commutative property)
+$=(-X+5 X)+(2 y-8 y)+7 \quad$ (Associative property)
+$=(-1+5) X+(2-8) y+7 \quad$ (Add the coefficients of the like terms)
+$=4 X-6 y+7 \quad$ (Write the expression in the simplest form)
 
-2 $2(3X-4)-3(X-2)$
-$=6X-8-3X+6$ (Use the distributive property in expanding the brackets)
-$=6X-3X-8+6$ (Commutative property)
-$=(6X-3X)+(-8+6)$ (Associative property)
-$=3X-2$ (Write the expression in the simplest form)
+2. $2(3 X-4)-3(X-2)$
+$=6 X-8-3 X+6 \quad$ (Use the distributive property in expanding the brackets)
+$=6 X-3 X-8+6 \quad$ (Commutative property)
+$=(6 X-3 X)+(-8+6) \quad$ (Associative property)
+$=3 X-2 \quad$ (Write the expression in the simplest form)
 
 First Term
 Lesson One: Mathematical Expressions and Formulas

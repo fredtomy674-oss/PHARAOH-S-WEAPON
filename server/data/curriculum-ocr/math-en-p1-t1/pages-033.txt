@@ -1,4 +1,4 @@
-■ Properties of addition
+- Properties of addition
 of rational numbers
 
 Addition of rational
@@ -12,18 +12,16 @@ additive identity (0)
 5 Existence of additive
 inverses
 
-■ Self-Evaluation (2)
+- Self-Evaluation 2
 
 Apply the properties
 of rational numbers
 addition to find the sum
 of each of the following:
-
 1 $\frac{-2}{7} + 1 + \frac{4}{14}$
-
 2 $1\frac{1}{4} + 0.6 + \frac{-1}{4}$
 
-■ Think with your
+- Think with your
 classmates
 
 Does the subtraction of
@@ -32,18 +30,13 @@ the same properties of
 the addition of rational
 numbers? Discuss.
 
-■ Self-Evaluation (3)
+- Self-Evaluation 3
 
 Find the result of each of
 the following:
-
 1 $\frac{3}{5} - (-\frac{1}{2})$
-
 2 $4\frac{7}{10} - 1\frac{3}{5}$
-
 3 $25\% - 0.1\bar{6}$
-
-26
 
 Using properties of addition of rational numbers
 
@@ -78,11 +71,8 @@ Find the result of each of the following:
 4 $0.36 - \frac{2}{25}$
 
 1 $2\frac{1}{2} - 3\frac{1}{4} = \frac{5}{2} - \frac{13}{4} = \frac{10}{4} - \frac{13}{4} = \frac{-3}{4}$
-
-2 $-3\frac{3}{5} - 2\frac{5}{6} = -3\frac{18}{30} - 2\frac{25}{30} = -5\frac{43}{30} = -5\frac{13}{30} = -6\frac{1}{2}$
-
-3 $35\% - |-1\frac{3}{5}| = \frac{35}{100} - \frac{8}{5} = \frac{7}{20} - \frac{32}{20} = \frac{7}{20} - \frac{12}{20} = \frac{-5}{20} = \frac{-1}{4}$
-
+2 $-3\frac{3}{5} - 2\frac{5}{6} = -3\frac{18}{30} - 2\frac{25}{30} = -5\frac{43}{30} = -6\frac{13}{30}$
+3 $35\% - |-1\frac{3}{5}| = \frac{35}{100} - \frac{3}{5} = \frac{7}{20} - \frac{3}{5} = \frac{7}{20} - \frac{12}{20} = \frac{-5}{20} = \frac{-1}{4}$
 4 $0.36 - \frac{2}{25} = \frac{36}{100} - \frac{2}{25} = \frac{9}{25} - \frac{2}{25} = \frac{7}{25}$
 
-Unit One: Numbers and Their Operations Mathematics - First Preparatory
+26 Unit One: Numbers and Their Operations Mathematics - First Preparatory

@@ -1,69 +1,50 @@
 ■ Note that
 
-When a variable is multiplied
-by another variable,
-or a number is multiplied by
-a variable, the multiplication
-sign (x) can be omitted:
-• l x w can be written as lw
-• 2 x n can be written as 2n
+When a variable is multiplied by another variable, or a number is multiplied by a variable, the multiplication sign (x) can be omitted:
+• $l \times w$ can be written as $l w$
+• $2 \times n$ can be written as $2 n$
+
+Equation:
+It consists of two mathematical expressions with an equal sign (=) between them.
+For examples: $2 x=5, \frac{x}{3}=5,3 y-4=2 y, \ldots$, etc.
+
+Inequality:
+It consists of two mathematical expressions with one of the inequality signs (<, >, $\leq, \geq$) between them.
+For examples: $x<-2,2 x-1>3, x+1<-2 x, \ldots$, etc.
+
+Mathematical Formula:
+It represents a fact, rule, or principle using mathematical form, such as equation, inequality, or other mathematical forms.
+$w$
+For example: The area of a rectangle $(A) = \text{Length } (l) \times \text{Width } (w)$
+$A = l \times w$
 
 ■ Self-Evaluation (1)
 
-1 Write the algebraic
-expression that
-represents subtracting
-5 from 3 times of the
-number X.
+1 Write the algebraic expression that represents subtracting 5 from 3 times of the number $x$.
 
-2 Write the mathematical
-formula expressing the
-volume (V) of a cube
-whose edge length is X.
-
-Equation:
-It consists of two mathematical expressions with an equal sign (=)
-between them.
-For examples: 2 X = 5 , X/3 = 5 , 3 y − 4 = 2 y , ... , etc.
-Inequality:
-It consists of two mathematical expressions with one of the inequality
-signs (<, >, ≤, ≥) between them.
-For examples: X < − 2 , 2X − 1 > 3 , X + 1 < − 2X , ... , etc.
-Mathematical Formula:
-It represents a fact, rule, or principle using
-mathematical form, such as equation, inequality,
-or other mathematical forms.
-W
-l
-For example: The area of a rectangle (A) = Length (l) × Width (w)
-A = l × w
+2 Write the mathematical formula expressing the volume $(V)$ of a cube whose edge length is $x$.
 
 Example 1
 
 Express each of the following in a mathematical form:
 
-1 The amount of money Ahmed paid for 5 cinema tickets, the price of each
-is X LE, and 3 popcorn cups, the price of each is y LE, after receiving
-a 20 LE discount on the total amount.
+1 The amount of money Ahmed paid for 5 cinema tickets, the price of each is $x$ LE, and 3 popcorn cups, the price of each is $y$ LE, after receiving a 20 LE discount on the total amount.
 
-2 The speed at which a car can travel on the (Cairo - Alexandria) desert
-road must not exceed 120 km/h.
+2 The speed at which a car can travel on the (Cairo - Alexandria) desert road must not exceed $120 \mathrm{~km} / \mathrm{h}$.
 
-3 Double the number X added to 5 is equal to 1.
+3 Double the number $x$ added to 5 is equal to 1.
 
-4 The area of a square (A) with side length (l).
+4 The area of a square $(A)$ with side length $(l)$.
 
 1 The amount Ahmed paid can be expressed by the algebraic expression:
-5 X + 3 y − 20
+$5 x+3 y-20$
 
 2 The speed at which the car can travel can be expressed by the inequality:
-X ≤ 120
+$x \leq 120$
 
-3 Double the number X added to 5 is equal to 1 can be expressed by the
-equation: 2 X + 5 = 1
+3 Double the number $x$ added to 5 is equal to 1 can be expressed by the equation: $2 x+5=1$
 
-4 The relation between the area of a square and its side length can be
-expressed by the mathematical formula: A = l²
+4 The relation between the area of a square and its side length can be expressed by the mathematical formula: $A = l^2$
 
 First Term
 Lesson One: Mathematical Expressions and Formulas

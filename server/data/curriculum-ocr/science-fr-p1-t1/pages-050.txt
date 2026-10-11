@@ -4,35 +4,48 @@ Activité 3 Déduis
 Suspends deux aimants librement, comme montré dans les figures (11) à (13).
 
 Figure (11)
+
 Figure (12)
+
 Figure (13)
 
 Que se passe-t-il lorsque :
-• Tu rapproches deux pôles différents de deux aimants (Figure 11) ? ...........................................
-• Tu rapproches le pôle sud d'un aimant avec le pôle sud d'un autre aimant (Figure 12) ? .............
-• Tu rapproches le pôle nord d'un aimant avec le pôle nord d'un autre aimant (Figure 13) ? ........
+• Tu rapproches deux pôles différents de deux aimants (Figure 11)? ....................................
+• Tu rapproches le pôle sud d'un aimant avec le pôle sud d'un autre aimant (Figure 12)? ..........
+• Tu rapproches le pôle nord d'un aimant avec le pôle nord d'un autre aimant (Figure 13) ? .......
 
 Déduis la loi d'attraction et de répulsion
-Les pôles magnétiques similaires ........................ et les pôles magnétiques différents ........................ .
+Les pôles magnétiques similaires .................... et les pôles magnétiques différents .....................
 
 Évalue ta compréhension
-La figure (14) montre quatre aimants en forme d'anneau placés de manière à passer à travers un axe vertical. Sachant que le pôle magnétique inférieur de l'aimant (A) est un pôle nord. déduis le type des pôles (1) et (2) à la lumière de ta compréhension de la loi d'attraction et de répulsion.
-......................................................................................................................................................
-......................................................................................................................................................
+La figure (14) montre quatre aimants en forme d'anneau placés
+de manière à passer à travers un axe vertical. Sachant que
+le pôle magnétique inférieur de l'aimant (A) est un pôle nord.
+déduis le type des pôles (1) et (2) à la lumière de ta
+compréhension de la loi d'attraction et de répulsion.
+
+Aimant (D)
+(2)
+Aimant (C)
+(1)
+Aimant (B)
+Pôle
+Aimant (A)
+nord
+N
 
 Figure (14)
-Aimant (D)
-Aimant (C)
-Aimant (B)
-Aimant (A)
-(2)
-(1)
-Pôle nord N
 
 Applications pratiques
-Les experts légistes utilisent dans les enquêtes criminelles pour réaliser la justice, un pinceau magnétique et de la limaille de fer dans les enquêtes criminelles pour établir la justice en détectant des empreintes digitales invisibles (voir Figures 15 et 16). Le pinceau passe sur les surfaces où il y a des empreintes indistinctes, et la limaille de fer se colle aux traces laissées par les empreintes, les rendant ainsi visibles.
+Les experts légistes utilisent dans les enquêtes criminelles pour réaliser la justice, un pinceau
+magnétique et de la limaille de fer dans les enquêtes criminelles pour établir la justice en
+détectant des empreintes digitales invisibles (voir Figures 15 et 16). Le pinceau passe sur
+les surfaces où il y a des empreintes indistinctes, et la limaille de fer se colle aux traces laissées
+par les empreintes, les rendant ainsi visibles.
 
 Figure (15)
+
 Figure (16)
 
-44 UNITÉ DEUX : Les champs de forces
+44
+UNITÉ DEUX: Les champs de forces

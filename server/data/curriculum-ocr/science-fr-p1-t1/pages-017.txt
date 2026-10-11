@@ -5,7 +5,8 @@ Les scientifiques ont fait de nombreuses tentatives pour classer les éléments 
 
 À propos du scientifique
 Dmitri Mendeleïev
-Dmitri Mendeleïev ,un scientifique russe, il a publié son tableau périodique des éléments en 1869 par suite il l'a modifié. Il a été honoré 48 ans après sa mort par nommer l'un des éléments découverts par son nom, le Mendélévium (Md).
+
+Dmitri Mendeleïev,un scientifique russe, il a publié son tableau périodique des éléments en 1869 par suite il l'a modifié. Il a été honoré 48 ans après sa mort par nommer l'un des éléments découverts par son nom, le Mendélévium (Md).
 
 Figure (1)
 
@@ -16,4 +17,5 @@ Technologie de l'information et des communications
 Consulte des sources numériques fiables pour en savoir plus sur les éléments du tableau périodique moderne.
 
 october press
-LEÇON DEUX : Le tableau périodique de classification des éléments 11
+LEÇON DEUX : Le tableau périodique de classification des éléments
+11

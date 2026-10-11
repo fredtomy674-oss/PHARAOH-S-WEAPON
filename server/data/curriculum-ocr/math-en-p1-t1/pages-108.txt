@@ -1,27 +1,10 @@
 ■ Self-Evaluation (3)
 F E
-K
-D
-L
-C
-A
-B
+K D
+L C
+A B
 M
-Find: m (∠ AMB)
-
-Example (3)
-The opposite figure consists of a regular
-pentagon and a regular hexagon.
-Calculate m (∠IAB)
-
-• ABCDE is a regular pentagon
-m (∠EAB) = 540° / 5 = 108°
-
-• AEFGHI is a regular hexagon
-m (∠EAI) = 720° / 6 = 120°
-
-• The sum of the measures of the accumulative angles at a point is 360°
-m (∠IAB) = 360° - (108 + 120°) = 132°
+Find: $m(\angle AMB)$
 
 ■ Activity
 How many axes of symmetry
@@ -30,14 +13,33 @@ have?
 
 ■ Think
 Do all irregular polygons
-have no axes of
-symmetry?
+have no axes of symmetry?
 
 ■ Note that
 The number of axes of
 symmetry in a regular
 polygon is equal to the
 number of its sides.
+
+Example 3
+The opposite figure consists of a regular
+pentagon and a regular hexagon.
+Calculate $m(\angle IAB)$
+
+D
+F E
+C
+G
+A
+B
+H
+I
+• ABCDE is a regular pentagon
+$m(\angle EAB) = \frac{540^\circ}{5} = 108^\circ$
+• AEFGHI is a regular hexagon
+$m(\angle EAI) = \frac{720^\circ}{6} = 120^\circ$
+• The sum of the measures of the accumulative angles at a point is $360^\circ$
+$m(\angle IAB) = 360^\circ - (108^\circ + 120^\circ) = 132^\circ$
 
 Axes of symmetry in Polygons
 

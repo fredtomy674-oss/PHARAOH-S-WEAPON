@@ -1,33 +1,157 @@
 Caractéristiques des composants des planètes du système solaire
+
 Le système solaire (figure 1) est constitué d'une étoile, le Soleil, autour duquel gravitent
 8 planètes dans des orbites elliptiques à des différentes distances de celui-ci, empêchant les
 planètes d'entrer en collision pendant leur mouvement.
 
-le Soleil
-Vénus
 Terre
+Vénus
 Mars
+Neptune
+le Soleil
+Mercure
 Jupiter
 Saturne
 Uranus
-Neptune
-Mercure
+
 Figure (1) Le système solaire
 
 Activité 1 Analyse des données
+
 Le tableau (1) montre des données recueillies par des instruments d'observation sur certaines
 caractéristiques des planètes du système solaire.
 
-| Planètes | Croûte | Enveloppe atmosphérique | Diamètre | Activité volcanique |
-| :--- | :--- | :--- | :--- | :--- |
-| Groupe des planètes internes | Mercure | A une croûte très fine, pleine de cratères résultant de la chute de météorites | Très fine, composée des gaz hydrogène et hélium | 4878 km | Pas de volcans actifs |
-| Vénus | A une croûte épaisse comparée à celle de la planète Mercure | Très dense, principalement composée du gaz de dioxyde de carbone | 12120 km | A de nombreux volcans actifs |
-| Terre | A une croûte plus épaisse à celle de Vénus | Composée principalement des gaz azote et oxygène, c'est la planète de la vie | 12756 km | A de nombreux volcans actifs |
-| Mars | A une croûte épaisse similaire à celle de la Terre, connue sous le nom "planète rouge" | Composée principalement du gaz de dioxyde de carbone | 6787 km | A des traces d'anciens volcans géants, mais pas d'activité volcanique actuelle |
-| Groupe des planètes externes | Jupiter | Planète gazeuse sans croûte, composée uniquement de gaz | Composée des gaz hydrogène et hélium | 142948 km | Pas de volcans |
-| Saturne | Similaire à la planète Jupiter | De même composition que l'enveloppe atmosphérique de Jupiter | 120536 km | Pas de volcans |
-| Uranus | Planète gazeuse sans croûte, composée de gaz et de glace | Composée des gaz hydrogène et hélium, en plus du gaz de méthane qui lui donne une couleur bleu-vert | 51118 km | Pas de volcans |
-| Neptune | Similaire à la planète Uranus | De même composition que l'enveloppe atmosphérique d'Uranus connue sous le nom "planète bleue" | 49660 km | Pas de volcans |
+Planètes
 
-Tableau (1) « Les valeurs des diamètres des planètes sont données pour la comparaison seulement »
-october press LEÇON UN : La Terre et le système solaire 81
+Croûte
+
+Enveloppe atmosphérique
+
+Diamètre
+
+Activité volcanique
+
+Groupe des planètes internes
+
+Mercure
+
+A une croûte très fine,
+pleine de cratères
+résultant de la chute
+de météorites
+
+Très fine, composée des gaz
+hydrogène et hélium
+
+4878 km
+
+Pas de volcans actifs
+
+Vénus
+
+A une croûte épaisse
+comparée à celle de
+la planète Mercure
+
+Très dense, principalement
+composée du gaz de
+dioxyde de carbone
+
+12120 km
+
+A de nombreux
+volcans actifs
+
+Terre
+
+A une croûte plus
+épaisse à celle de
+Vénus
+
+Composée principalement
+des gaz azote et oxygène,
+c'est la planète de la vie
+
+12756 km
+
+A de nombreux
+volcans actifs
+
+Mars
+
+A une croûte épaisse
+similaire à celle de la
+Terre, connue sous le
+nom "planète rouge"
+
+Composée principalement
+du gaz de dioxyde de
+carbone
+
+6787 km
+
+A des traces d'anciens
+volcans géants,
+mais pas d'activité
+volcanique actuelle
+
+Groupe des planètes externes
+
+Jupiter
+
+Planète gazeuse sans
+croûte, composée
+uniquement de gaz
+
+Composée des gaz
+hydrogène et hélium
+
+142948 km
+
+Pas de volcans
+
+Saturne
+
+Similaire à la planète
+Jupiter
+
+De même composition que
+l'enveloppe atmosphérique de 120536 km
+Jupiter
+
+Pas de volcans
+
+Uranus
+
+Planète gazeuse sans
+croûte, composée de
+gaz et de glace
+
+Composée des gaz
+hydrogène et hélium, en plus
+du gaz de méthane qui lui
+donne une couleur bleu-vert
+
+51118 km
+
+Pas de volcans
+
+Neptune
+
+Similaire à la planète
+Uranus
+
+De même composition que
+l'enveloppe atmosphérique
+d'Uranus connue sous le
+nom "planète bleue"
+
+49660 km
+
+Pas de volcans
+
+Tableau (1) « Les valeurs des diamètres des planètes sont données pour la comparaison seulement >>
+
+october press
+
+LEÇON UN: La Terre et le système solaire 81

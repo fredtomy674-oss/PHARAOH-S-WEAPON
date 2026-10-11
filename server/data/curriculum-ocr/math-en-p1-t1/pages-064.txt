@@ -1,8 +1,10 @@
 ■ Self-Evaluation ③
-The following table shows the number of children in each family for a group of families.
+
+The following table shows the number of children in each family for a group of
+families.
 
 | No. of children | No. of families |
-| :---: | :---: |
+|:---:|:---:|
 | 0 | 20 |
 | 1 | 40 |
 | 2 | 60 |
@@ -11,63 +13,87 @@ The following table shows the number of children in each family for a group of f
 
 Find the number of families that have 4 children, such that the arithmetic mean of the number of children is 3.
 
-Example 3
+---
+
+■ Beware of
+Misleading Data
+
+You can avoid misleading statistics by learning, training, verifying sources, and comparing them, so that you become a more intelligent consumer and critic of the data you encounter in your daily life.
+
+---
+
+■ Self-Evaluation ④
+
+A student got the following marks in five tests:
+$40, 50, 100, 45, 40$.
+If the full marks for each test is 100, find the arithmetic mean and the median of the student's marks.
+Which of these measures is more accurate?
+
+---
+
+Example ③
+
 The following table shows the number of working hours for a group of workers:
 
 | No. of hours ($X$) | 5 | 6 | 7 | 8 | 9 | 10 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | No. of workers ($f$) | 12 | $n$ | 30 | 39 | 16 | 9 |
 
-Find the number of workers who work 6 hours such that the arithmetic mean of the number of working hours is 7.5
-
-Nations are built through hard work.
+Find the number of workers who work 6 hours such that the arithmetic mean of the number of working hours is $7.5$
 
 | $x$ | $f$ | $f.x$ |
 | :---: | :---: | :---: |
 | 5 | 12 | 60 |
-| 6 | $n$ | $6\;n$ |
+| 6 | $n$ | $6\ n$ |
 | 7 | 30 | 210 |
 | 8 | 39 | 312 |
 | 9 | 16 | 144 |
 | 10 | 9 | 90 |
-| Sum | $n+106$ | $6\;n+816$ |
+| Sum | $n+106$ | $6\ n+816$ |
 
-$\bar{x} = \frac{\sum (f.x)}{\sum f}$
-$\frac{15}{2} = \frac{6\;n + 816}{n + 106}$
-$15\;(n + 106) = 2\;(6\;n + 816)$
-$15\;n + 1590 = 12\;n + 1632$
-$15\;n - 12\;n = 1632 - 1590$
-$3\;n = 42$
-$n = \frac{42}{3} = 14$
+Nations are built through hard work.
 
-■ Beware of
-Misleading Data
-You can avoid misleading statistics by learning, training, verifying sources, and comparing them, so that you become a more intelligent consumer and critic of the data you encounter in your daily life.
+$\bar{x} = \dfrac{\sum (f.x)}{\sum f}$
+
+$\dfrac{15}{2} = \dfrac{6\ n + 816}{n + 106}$
+
+$15\ (n + 106) = 2\ (6\ n + 816)$
+
+$15\ n + 1590 = 12\ n + 1632$
+
+$15\ n - 12\ n = 1632 - 1590$
+
+$3\ n = 42$
+
+$n = \dfrac{42}{3} = 14$
+
+---
 
 Misleading Statistical Data
+
 Using the arithmetic mean regardless of the overall distribution of the data can be misleading. If there are some extreme values (very large value or very small value), this can significantly affect the arithmetic mean. Therefore, in such cases, it is better to use the median or the mode.
 
-Example 4
+---
+
+Example ④
+
 A restaurant displayed the menu of the lunch meals with prices in LE. The restaurant announced that the average meal price is 132 LE. Explain why the average meal price is misleading.
 
 | Menu | |
-| :--- | :--- |
+| :--- | :---: |
 | Item | Price |
 | Kofta ($\frac{1}{2}\text{ kg}$) | $180$ |
-| Chicken $\frac{1}{2}$ | $150$ |
+| $\frac{1}{2}\text{ Chicken}$ | $150$ |
 | Shawarma | $160$ |
 | Fish ($\frac{1}{2}\text{ kg}$) | $150$ |
 | Water Bottle | $20$ |
 
-■ Self-Evaluation ④
-A student got the following marks in five tests:
-40, 50, 100, 45, 40.
-If the full marks for each test is 100, find the arithmetic mean and the median of the student's marks. Which of these measures is more accurate?
-
 The arithmetic mean of the meal prices is
-$\frac{180 + 150 + 160 + 150 + 20}{5} = 132\text{ LE.}$
+$\dfrac{180 + 150 + 160 + 150 + 20}{5} = 132\text{ LE.}$
 
 This means that the restaurant owner used the arithmetic mean to measure the average meal price. This measure (arithmetic mean) is misleading because there is an extreme value ($20$), which is not a price of any meal. However, the restaurant exploited this value to announce that the average meal price is 132 LE, which is not true. So, it is important to find another more accurate measure in the presence of extreme values, which is the median. The median in this case, is 150 LE, and it represents the meal prices more accurately.
+
+---
 
 First Term
 Lesson Two: Arithmetic Mean

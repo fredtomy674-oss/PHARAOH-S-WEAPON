@@ -227,6 +227,30 @@ import {
   assertTreeMatchesTheBook as assertScienceEnP1TreeMatchesBook,
 } from "./egyptScienceEnP1T1.js";
 import {
+  EGYPT_MATH_EN_P1_T1_UNITS,
+  lessonDocument as mathEnP1LessonDocument,
+  isConsistent as isMathEnP1TreeConsistent,
+  assertTreeMatchesTheBook as assertMathEnP1TreeMatchesBook,
+} from "./egyptMathEnP1T1.js";
+import {
+  EGYPT_SCIENCE_FR_P1_T1_UNITS,
+  lessonDocument as scienceFrP1LessonDocument,
+  isConsistent as isScienceFrP1TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceFrP1TreeMatchesBook,
+} from "./egyptScienceFrP1T1.js";
+import {
+  EGYPT_SCIENCE_P1_T1_UNITS,
+  lessonDocument as scienceP1LessonDocument,
+  isConsistent as isScienceP1TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceP1TreeMatchesBook,
+} from "./egyptScienceP1T1.js";
+import {
+  EGYPT_SOCIAL_P1_T1_UNITS,
+  lessonDocument as socialP1LessonDocument,
+  isConsistent as isSocialP1TreeConsistent,
+  assertTreeMatchesTheBook as assertSocialP1TreeMatchesBook,
+} from "./egyptSocialP1T1.js";
+import {
   EGYPT_ENGLISH_G9_T1_SECTIONS,
   lessonDocument as englishG9LessonDocument,
   isConsistent as isEnglishG9TreeConsistent,
@@ -901,6 +925,231 @@ function buildEgyptScienceEnP1Term(): TermSeedSpec {
 function verifyScienceEnP1Tree(): { ok: boolean; problems: string[] } {
   const table = isScienceEnP1TreeConsistent();
   const book = assertScienceEnP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-1 (Grade 7) **Mathematics, English-medium edition** —
+ * OFFICIAL curriculum (PHASE 99).
+ *
+ * The first term IS the Ministry textbook `Math_EN_Prp1_T1.pdf` (2026/2027 MoE
+ * edition, 122 scan pages, vision-OCR'd) — the English edition of the same book
+ * as `eg-g7-math`: four units and sixteen printed «الدرس» in the book's own
+ * order, each grounded on the OCR text of the pages the book prints for it
+ * (server/data/curriculum-ocr/math-en-p1-t1/). The app lesson is the printed
+ * «الدرس»; each one's head prints «Learning Outcomes», which become the
+ * lesson's concepts. A unit opener rides with its first lesson and each unit's
+ * «Unit N Assessment» — plus the closing «Final Assessment» — with its last.
+ *
+ * The tree is verified before seeding (`isConsistent` + `assertTreeMatchesTheBook`),
+ * including the printed running feet and the tiling to books 1–113 (book page 48
+ * is a textless figure page the verifier lists in `TEXTLESS_PAGES`).
+ */
+export const EGYPT_MATH_EN_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "math-en", name: "Mathematics (English)", nameAr: "الرياضيات (بالإنجليزية)" },
+  curriculum: { code: "eg-g7-math-en", title: "الرياضيات للصف الأول الإعدادي (بالإنجليزية)" },
+  terms: [buildMathEnP1Term()],
+};
+
+/** Term 1 = the official English maths book: unit → lesson, the whole lesson as one document. */
+function buildMathEnP1Term(): TermSeedSpec {
+  const check = verifyMathEnP1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات الإنجليزي (أولى إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_EN_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-math-en-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: mathEnP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 English-maths tree verification, as one verdict. */
+function verifyMathEnP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathEnP1TreeConsistent();
+  const book = assertMathEnP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-1 (Grade 7) **Science, Arabic edition** — OFFICIAL
+ * curriculum (PHASE 99).
+ *
+ * The first term IS the Ministry textbook `Science_Prep1_T1.pdf` (102 scan
+ * pages, vision-OCR'd) — the Arabic edition of the same book as `eg-g7-science-en`
+ * and `eg-g7-science-fr`: the same four units and twelve printed «الدرس» in the
+ * book's own order (server/data/curriculum-ocr/science-p1-t1/). Each app lesson
+ * is the printed «الدرس»; the lesson head prints «نواتج التعلم», which become
+ * the lesson's concepts. A unit opener rides with its first lesson and each
+ * unit's «تقييم الوحدة» — plus the closing «التقييم النهائي» — with its last.
+ *
+ * The tree is verified before seeding (`isConsistent` + `assertTreeMatchesTheBook`),
+ * including each page's printed running foot (captioned «الدرس»/«الوحدة») and the
+ * tiling to books 6–107.
+ */
+export const EGYPT_SCIENCE_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "science", name: "Science", nameAr: "العلوم" },
+  curriculum: { code: "eg-g7-science", title: "العلوم للصف الأول الإعدادي" },
+  terms: [buildScienceP1Term()],
+};
+
+/** Term 1 = the official Arabic science book: unit → lesson, the whole lesson as one document. */
+function buildScienceP1Term(): TermSeedSpec {
+  const check = verifyScienceP1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم (أولى إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-sci-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: scienceP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 Arabic-science tree verification, as one verdict. */
+function verifyScienceP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceP1TreeConsistent();
+  const book = assertScienceP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-1 (Grade 7) **Science, French-medium edition** —
+ * OFFICIAL curriculum (PHASE 99).
+ *
+ * The first term IS the Ministry textbook `Science_FR_Prp1_TR1.pdf` (101 scan
+ * pages, vision-OCR'd) — the French edition of the same book as `eg-g7-science-en`
+ * and `eg-g7-science`: the same four units and twelve printed «Leçon» in the
+ * book's own order (server/data/curriculum-ocr/science-fr-p1-t1/). The app lesson
+ * is the printed «Leçon», titled bilingually; its head prints «Objectifs», which
+ * become the lesson's concepts.
+ *
+ * The tree is verified before seeding (`isConsistent` + `assertTreeMatchesTheBook`),
+ * including each page's printed running foot («LEÇON»/«UNITÉ») and the tiling to
+ * books 1–93.
+ */
+export const EGYPT_SCIENCE_FR_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "science-fr", name: "Science (French)", nameAr: "العلوم (بالفرنسية)" },
+  curriculum: { code: "eg-g7-science-fr", title: "العلوم للصف الأول الإعدادي (بالفرنسية)" },
+  terms: [buildScienceFrP1Term()],
+};
+
+/** Term 1 = the official French science book: unit → lesson, the whole lesson as one document. */
+function buildScienceFrP1Term(): TermSeedSpec {
+  const check = verifyScienceFrP1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم الفرنسي (أولى إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_FR_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-sci-fr-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: scienceFrP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 French-science tree verification, as one verdict. */
+function verifyScienceFrP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceFrP1TreeConsistent();
+  const book = assertScienceFrP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Preparatory-1 (Grade 7) **Social Studies, Arabic edition** —
+ * OFFICIAL curriculum (PHASE 99).
+ *
+ * The first term IS the Ministry textbook `Social_Studies_Prep1_T1.pdf` (110
+ * scan pages, vision-OCR'd) — `server/data/curriculum-ocr/social-p1-t1/`. Four
+ * units and eleven printed «الدرس» mirror the Grade-8 social structure (unit →
+ * lesson, first lesson owns the unit opener, last owns «تقييم ختامي»), each
+ * grounded on its printed pages; the general review and the two term exams live
+ * in the lesson range of the closing «مراجعة عامة» section (books 96–107).
+ * There is no concepts fingerprint check (mirrors `eg-g8-social`): the book's
+ * «أهداف» are transcribed by hand and OCR-cleaned.
+ *
+ * The tree is verified before seeding (`isConsistent` + `assertTreeMatchesTheBook`),
+ * including each page's bare printed footer and the tiling to books 6–107 (book
+ * page 55 is a textless map page the verifier lists in `TEXTLESS_PAGES`).
+ */
+export const EGYPT_SOCIAL_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "social", name: "Social Studies", nameAr: "الدراسات الاجتماعية" },
+  curriculum: { code: "eg-g7-social", title: "الدراسات الاجتماعية للصف الأول الإعدادي" },
+  terms: [buildSocialP1Term()],
+};
+
+/** Term 1 = the official social-studies book: unit → lesson, the whole lesson as one document. */
+function buildSocialP1Term(): TermSeedSpec {
+  const check = verifySocialP1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الدراسات الاجتماعية (أولى إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SOCIAL_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-social-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: socialP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 social-studies tree verification, as one verdict. */
+function verifySocialP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isSocialP1TreeConsistent();
+  const book = assertSocialP1TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -2858,6 +3107,10 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_SCIENCE_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_G8_EN_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_EN_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_EN_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_FR_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SOCIAL_P1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_P1_SPEC);

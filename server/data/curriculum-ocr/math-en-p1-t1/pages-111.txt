@@ -1,6 +1,5 @@
 Lesson
 4 - 6
-
 Coordinates
 
 ■ Learning Outcomes
@@ -21,7 +20,6 @@ of the midpoint of a line
 segment.
 
 Get Ready!
-
 There are many scenarios where you
 need to determine the midpoint of
 a distance between two points, such as
@@ -29,7 +27,6 @@ placing a cell-phone tower to provide
 optimal coverage between two areas.
 How can you determine the best
 location to set up this tower?
-
 In this lesson, you will learn how to
 plot points in the coordinate plane
 and how to find the midpoint of a line
@@ -37,9 +34,9 @@ segment, Which enable you to solve
 such real-life problems.
 
 ■ Vocabulary
-• X-axis
+• x-axis
 • y-axis
-• X-coordinate
+• x-coordinate
 • y-coordinate
 • The Origin
 • 1st Quadrant
@@ -50,66 +47,25 @@ such real-life problems.
 Segment
 
 Think & Discuss!
-
 In the opposite figure,
 what is the distance between points A and B?
 
-y
-(5, 6)
-(1, 2)
-X
-O A
-B
-
-Learn!
-
 ■ Previous Knowledge
-
 Note the signs of the
 points in each quadrant of
 the coordinate plane.
 
-2nd quad.
-x < 0
-y > 0
-
-3rd quad.
-x < 0
-y < 0
-
-1st quad.
-x > 0
-y > 0
-
-4th quad.
-x > 0
-y < 0
-
-x
-
-y
-
+Learn!
 You have previously learned how to plot points
 on the coordinate plane.
 For example, in the opposite figure:
 • Point A is (2, 1)
 • Point B is (0, 3)
-• Point C is (-2, 2)
-• Point D is (-1, -3)
-• Point E is (3, -2)
+• Point C is (- 2, 2)
+• Point D is (- 1, - 3)
+• Point E is (3, - 2)
 • Point O is (0, 0)
 
-y
-B
-C
-A
--3 -2 -1
-O 1 2 3
--1
--2
--3
-D
-E
-X
-
-104 Unit Four: Geometry & Measurement Mathematics - First Preparatory
+104
+Unit Four: Geometry & Measurement
+Mathematics - First Preparatory

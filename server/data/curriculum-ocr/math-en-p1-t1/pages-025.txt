@@ -1,12 +1,14 @@
-Second Applying Scientific Concepts
+Second
+Applying Scientific Concepts
 ► Choose the correct answer from the given ones:
-8 If {3, 6, 7, X} = {6, y, 3, 5}, what is the value
+8 If {3, 6, 7, X} = {6, Y, 3, 5}, what is the value
 of y - X?
 (a) - 12
 (b) - 2
 (c) 2
 (d) 12
-9 If {4, 5, 7} c {3, X, 4, y, 8}, what is
+
+9 If {4, 5, 7} C {3, X, 4, Y, 8}, what is
 the value of X + y?
 (a) 5
 (b) 7
@@ -14,35 +16,35 @@ the value of X + y?
 (d) 12
 
 ► Use the listing method to write each of the following sets:
-10 A is the set of odd natural numbers less than 12
-12 C is the set of the digits of the number 12332551
-11 B is the set of negative integers.
-13 X = {X: XEZ, X> -3}, where Z is the
+(10) A is the set of odd natural numbers less than 12
+(11) B is the set of negative integers.
+(12) C is the set of the digits of the number 12332551
+(13) X = {X : X ∈ Z, X > - 3}, where Z is the
 set of integers.
 
 ► Answer the following questions:
-14 Find all the proper subsets of {2, 3, 5}
-15 If A = {1, 2, 3, 4}, and B = {3, 4, 5, 6}, find: 1 AUB
-2 AnB
-16 If A = {5, 2, 3, 7}, and B = {2, 7}, find: 1 AUB
-2 AnB
-17 If A = {5, 2, 3, 7}, B = {4, 5, 7}, and C = {7, 2},
-find: 1 An B n C
-2 AUBUC
-3 (AUB) NC
+(14) Find all the proper subsets of {2, 3, 5}
+(15) If A = {1, 2, 3, 4}, and B = {3, 4, 5, 6}, find: ① AUB
+② A∩ B
+(16) If A = {5, 2, 3, 7}, and B = {2, 7}, find: ① AUB
+② A∩B
+(17) If A = {5, 2, 3, 7}, B = {4, 5, 7}, and C = {7, 2},
+find: ① A ∩ B ∩ C
+② AUBUC
+③ (AU B) NC
 
-Third Analysis and Subjects Integration
+Third
+Analysis and Subjects Integration
 18 Education:
 Some students joined three school activities sets:
 • Press set (A) = {Sameh, Yasser, Mona, Shaimaa}.
 • Theatre set (B) = {Youssef, Mazen, Sameh, Mona, Sally}.
 • Community service set (C) = {Rami, Huda, Sameh, Mazen}.
-1 Represent the three sets in one Venn diagram.
-2 Find: An Bn C, BUC and An B
-3 Write using the listing method:
+① Represent the three sets in one Venn diagram.
+② Find: A ∩ B ∩ C, BU C and A∩ B
+③ Write using the listing method:
 • The set of students who joined any of the three activities.
 • The set of students who joined at least two activities.
-
 Participation in school activities
 develops personality, foster
 teamwork, and work spirit.
@@ -60,7 +62,7 @@ elements of A cannot be
 (b) 4
 (c) 5
 (d) 6
-21 If the number of elements of An B is 5, then the number of
+21 If the number of elements of A ∩ B is 5, then the number of
 elements of A cannot be
 (a) 4
 (b) 5
@@ -70,7 +72,7 @@ elements of A cannot be
 Evaluate your
 understanding!
 How well do you understand
-sets and their operations?
+sets and their operations ?
 Tick the right box
 
 18

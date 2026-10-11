@@ -1,5 +1,6 @@
 Lesson
-4 - 5
+4-5
+
 ■ Learning Outcomes
 • Learn the concept of
 polygon.
@@ -43,13 +44,14 @@ and the measure of each angle.
 Think & Discuss!
 Both Bassem and Islam calculated the sum of the measures
 of the interior angles of a shape with five sides.
+
 Bassem:
 The sum of the angles'
 measures: 3 x 180° = 540°
 
 Islam:
 The sum of the angles'
-measures: 180°+360° = 540°
+measures: 180°+360°= 540°
 
 How did each of them calculate the sum of the measures of the interior
 angles of this polygon?
@@ -57,8 +59,8 @@ angles of this polygon?
 Learn!
 Polygon: A polygon is a plan, closed shape formed from a union of
 three or more line segments, such that:
-▸ The line segments are known as the polygon's sides.
-▸ These line segments intersect at their endpoints, which are known as
+▶ The line segments are known as the polygon's sides.
+▶ These line segments intersect at their endpoints, which are known as
 the polygon's vertices.
 
 Triangle
@@ -77,11 +79,13 @@ Convex and Concave Polygons
 Convex Polygon:
 Does not contain any reflex interior
 angles.
+
 Convex Polygon
 
 Concave Polygon:
 Contains at least one reflex interior
 angle.
+
 Concave
 Polygon
 

@@ -1,4 +1,4 @@
-Think
+■ Think
 What are the common
 properties in each of the
 following:
@@ -6,60 +6,76 @@ following:
 2 A rhombus and a square.
 
 Quadrilateral Family Tree:
+
 Trapezium
-Quadrilateral
-Parallelogram
+
 Rhombus
+
+Quadrilateral
+
+Parallelogram
+
 Square
+
 Rectangle
 
-Self-Evaluation (4)
-D x cm C
-(3X - 50) cm
-A B
+■ Self-Evaluation (4)
+D
+x cm
+C
+A
+B
 The figure above shows
 a decorative design
 composed of four-square
 ceramic tiles. If the side
 length of one tile is X cm,
 and the length of AD equals
-(3 X - 50) cm,
+(3X-50) cm,
 find the value of X.
 
 Example 4
+
 1 In the following figure:
 If ABCD is a rhombus, find the
 value of X.
-D C
-60°
+
+D
 M
+A
+B
+C
+60°
 x°
-A B
 
 2 In the following figure:
 If ABCD is a rectangle, find the
 value of X.
-D C
+
+D
+M
+A
+B
+C
 3X
 4X-5
-M
-A B
 
-1 .:. ABCD is a rhombus.
-.:. Its diagonals are perpendicular.
-.:. m (∠ DMC) = 90°
+1 ∴ ABCD is a rhombus.
+∴ Its diagonals are perpendicular.
+∴ m (∠ DMC) = 90°
 From the triangle DMC:
-m (∠ DCM) = 180° - (90° + 60°) = 30°
-.:. DC // AB, and AC is a transversal.
-.:. m (∠ CAB) = m (∠ DCA) (Alternating interior angles)
-.:. X = 30°
+m (∠ DCM) = 180° – (90° + 60°) = 30°
+<->
+∴ DC // AB, and AC is a transversal.
+∴ m (∠ CAB) = m (∠ DCA) (Alternating interior angles)
+∴ X = 30°
 
-2 .:. ABCD is a rectangle
-.:. Its diagonals are equal in length and bisect each other.
-.:. AM = MD
-.:. 4 X - 5 = 3 X
-.:. 4 X - 3 X = 5
-.:. X = 5
+2 ∴ ABCD is a rectangle
+∴ Its diagonals are equal in length and bisect each other.
+∴ AM = MD
+∴ 4X-5 = 3X
+∴ 4X-3X = 5
+∴ X = 5
 
 94
 Unit Four: Geometry & Measurement

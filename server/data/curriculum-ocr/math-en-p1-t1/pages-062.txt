@@ -4,7 +4,6 @@ Lesson
 Arithmetic Mean
 
 ■ Learning Outcomes
-
 - Learn the measures of
 central tendency.
 - Learn how to calculate
@@ -17,7 +16,6 @@ a frequency table.
 by misleading statistics.
 
 Get Ready!
-
 The following frequency table
 shows the internet consumption
 of one family in GB over
@@ -26,75 +24,37 @@ daily internet consumption of
 this family?
 
 Internet consumption in GB
-
-12
-
-13
-
-5
-
-4
-
-20
-
 No. of days
 
+12
 5
 
+13
 7
 
+5
 4
 
+4
 12
 
+20
 2
 
 In this lesson, you will learn how to calculate the arithmetic mean of
 a frequency distribution, which will enable you to solve such real-life problems.
 
 ■ Vocabulary
-
 - Arithmetic Mean
 - Median
 - Mode
 
-Think & Discuss!
-
-If you have four numbers $a$, $b$, $c$, and $d$, the arithmetic mean of the first two
-numbers is 21, and the arithmetic mean of the other two numbers is 30,
-what is the arithmetic mean of the four numbers?
-
 ■ Helpful Hint
-
 The arithmetic mean (mean)
 sometimes called
 the average.
 
-Learn!
-
-You have previously learnt the measures of central tendency of a set of
-values, which are :
-
-(1) Arithmetic Mean
-(Average)
-
-(2) Median
-
-(3) Mode
-
-The arithmetic mean
-$=\frac{\text { Sum of values}}{\text { Their number}}$
-
-The median is the value
-in the middle of the
-values after arranging.
-
-The mode is the most
-common or frequent
-value in a set.
-
 ■ Previous Knowledge
-
 Measures of central
 tendency are the values
 that describe the central
@@ -105,40 +65,62 @@ mean is the most
 commonly used measure
 of central tendency.
 
+Think & Discuss!
+If you have four numbers $a$, $b$, $c$, and $d$, the arithmetic mean of the first two
+numbers is 21, and the arithmetic mean of the other two numbers is 30,
+what is the arithmetic mean of the four numbers?
+
+Learn!
+You have previously learnt the measures of central tendency of a set of
+values, which are :
+
+1 Arithmetic Mean
+(Average)
+The arithmetic mean
+= $\frac{\text{Sum of values}}{\text{Their number}}$
+
 For example:
 The arithmetic mean
 of the values
-$7, 4, 11, 8, 5$
+7, 4, 11, 8, 5
 equals
-$\frac{7 + 4 + 11 + 8 + 5}{5} = 7$
+$\frac{7+4+11+8+5}{5} = 7$
+
+2 Median
+The median is the value
+in the middle of the
+values after arranging.
 
 For example:
 - The median of the
 values
-$2, 2, 3, 4, 6, 9, 9$
+2, 2, 3, 4, 6, 9, 9
 is 4
 - The median of the
 values
-$2, 3, 4, 6, 9, 17$
+2, 3, 4, 6, 9, 17
 equals
-$\frac{4 + 6}{2} = 5$
+$\frac{4+6}{2} = 5$
+
+3 Mode
+The mode is the most
+common or frequent
+value in a set.
 
 For example:
 - The mode of the
 values:
-$8, 7, 3, 7, 6, 0, 9, 7$
+8, 7, 3, 7, 6, 0, 9, 7
 is 7
 - but, for the values:
-$7, 8, 3, 7, 6, 0, 5, 8$
+7, 8, 3, 7, 6, 0, 5, 8
 both 7 and 8 are modes
 (bimodal)
 - Meanwhile, the values:
-$7, 8, 3, 5, 0, 2$
+7, 8, 3, 5, 0, 2
 do not have a mode.
 
 First Term
-
 Lesson Two: Arithmetic Mean
 El Nemer Press
-
 55

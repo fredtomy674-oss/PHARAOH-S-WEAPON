@@ -1,7 +1,6 @@
 Leçon Un
 
-La force
-électrique
+La force électrique
 
 Vocabulaire de la leçon
 • Électricité statique
@@ -11,18 +10,18 @@ Vocabulaire de la leçon
 
 Objectifs de la leçon :
 À la fin de la leçon, l'élève devrait être capable de :
-(1) Réaliser des activités illustrant le concept d'électricité statique.
-(2) Expliquer comment charger des objets avec des charges statiques.
-(3) Fournir une preuve de la présence d'un champ électrique entre des corps qui ne sont pas en contact.
-(4) Reconnaître le champ électrique.
-(5) Décrire les propriétés des lignes de force électrique.
-(6) Énumérer les utilisations d'un électroscope.
-(7) Concevoir un modèle montrant que la force électrique agit à distance.
+1 Réaliser des activités illustrant le concept d'électricité statique.
+2 Expliquer comment charger des objets avec des charges statiques.
+3 Fournir une preuve de la présence d'un champ électrique entre des corps qui ne sont pas en contact.
+4 Reconnaître le champ électrique.
+5 Décrire les propriétés des lignes de force électrique.
+6 Énumérer les utilisations d'un électroscope.
+7 Concevoir un modèle montrant que la force électrique agit à distance.
 
 Compétences, valeurs et enjeux abordés :
-• Compétences : Déduction - Investigation - Recherche - Conception de modèles.
-• Valeurs : Appréciation des scientifiques - Protection de soi.
-• Enjeux : Protection des installations contre les effets des foudres.
+• Compétences: Déduction - Investigation - Recherche - Conception de modèles.
+• Valeurs: Appréciation des scientifiques - Protection de soi.
+• Enjeux: Protection des installations contre les effets des foudres.
 
 Concepts croisés :
 • Cause et conséquence
@@ -32,5 +31,5 @@ Introduction de la leçon :
 L'image ci-contre montre l'attraction de petits morceaux de papier par un peigne en plastique. Cette leçon explore des idées qui t'aideront à répondre à ces questions :
 • Que s'est-il passé au peigne pour qu'il puisse attirer les morceaux de papier ?
 • Comment les morceaux de papier ont-ils été attirés par le peigne malgré l'absence de contact ?
-• Les morceaux de papier sont-ils attirés par un peigne en fer ?
+• Les morceaux de papier sont-ils attirés par un peigne en fer?
 • Quel appareil peut déterminer si le peigne est chargé électriquement ou non ?

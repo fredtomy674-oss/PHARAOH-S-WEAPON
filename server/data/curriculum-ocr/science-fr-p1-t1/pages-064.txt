@@ -10,7 +10,8 @@ Champignon de la moisissure du pain
 Similarité :
 Différence :
 
-3 Identifie une similarité et une différence entre le champignon de la levure et le champignon de couche
+3 Identifie une similarité et une différence entre le champignon de la levure et le champignon
+de couche
 Similarité :
 Différence :
 
@@ -21,4 +22,4 @@ Et peut-être tu te demandes .. quelle est la différence entre :
 • Procaryotes et eucaryotes.
 • Organismes unicellulaires et organismes pluricellulaires
 
-58 UNITÉ TROIS : Les organismes vivants, leur structure et leurs fonctions
+58 UNITE TROIS : Les organismes vivants, leur structure et leurs fonctions

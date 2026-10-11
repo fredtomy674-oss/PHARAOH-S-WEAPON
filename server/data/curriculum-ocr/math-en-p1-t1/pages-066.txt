@@ -1,83 +1,80 @@
-(3) In five mathematics tests, Sandy got 18, 17, 16, 15, and 18 marks. If the teacher removes the
+3) In five mathematics tests, Sandy got 18, 17, 16, 15, and 18 marks. If the teacher removes the
 lowest mark, which of the following is true?
-
 (a) The average decreases
 (c) The average increases
-
-Second Applying Scientific Concepts
-
 (b) The median decreases
 (d) The median does not change
 
-(4) If the arithmetic mean of the numbers 16, n + 3, 14, 2 n - 2 is 15.25,
+Second
+Applying Scientific Concepts
+
+4) If the arithmetic mean of the numbers 16, n + 3, 14, 2 n - 2 is 15.25,
 find the median of these numbers.
 
-(5) The opposite table shows the number of minutes
+5) The opposite table shows the number of minutes
 a group of people spend on phone calls.
 Calculate the average number of minutes
 a person spends on one phone call.
 
 No. of minutes
 Frequency
-
 2
 12
-
 3
 20
-
 4
 36
-
 5
 20
-
 6
 12
 
 Third Analysis and Subjects Integration
 
-(6) Business Administration: The opposite table shows the salaries
+6) Business Administration: The opposite table shows the salaries
 of a group of company employees in LE. The company owner
 asserted that the average salary is 6,500 LE.
 Explain why the average salary is misleading and gives the impression
 that salaries are higher than their actual values for most employees.
 
-(7) Physical Activity: A group of first-year preparatory
+Salaries in LE
+Employee (1)
+Employee (2)
+Employee (3)
+Employee (4)
+Employee (5)
+Employee (6)
+25,000
+4,000
+3,000
+2,500
+2,500
+2,000
+
+7) Physical Activity: A group of first-year preparatory
 students were asked about the number of hours
 they spend in sports each week, and the answers
 are shown in the opposite table.
 Calculate the arithmetic mean of the number
 of hours these students spend in sports.
 
-(8) The opposite figure shows the marks of
+No. of hours
+Frequency
+8
+6
+9
+8
+10
+14
+11
+8
+12
+4
+
+8) The opposite figure shows the marks of
 72 students in a mathematics test represented
 by a bar graph. Find the average mark of those
 students.
-
-Creative Thinking
-
-Salaries in LE
-Employee (1)
-25,000
-Employee (2) 4,000
-Employee (3) 3,000
-Employee (4) 2,500
-Employee (5) 2,500
-Employee (6) 2,000
-
-No. of hours
-8
-9
-10
-11
-12
-Frequency
-6
-8
-14
-8
-4
 
 Frequency
 20
@@ -91,20 +88,13 @@ Frequency
 4
 2
 0
-5
-6
-7
-8
-9
-10
+5 6 7 8 9 10
 Marks
 
-(9) Open-ended Problem: Write down five numbers whose arithmetic
-mean is 11, median is 12, and mode is 14.
+Creative Thinking
 
-(10) Critical Thinking: If the arithmetic mean of a set of five different
-positive integers is 13, and the median is 17, find the maximum
-value of the greatest integer in this set.
+9) Open-ended Problem: Write down five numbers whose arithmetic
+mean is 11, median is 12, and mode is 14.
 
 Evaluate your
 understanding!
@@ -112,9 +102,11 @@ How well do you understand
 arithmetic mean?
 Tick the right box
 
-First Term
+10) Critical Thinking: If the arithmetic mean of a set of five different
+positive integers is 13, and the median is 17, find the maximum
+value of the greatest integer in this set.
 
+First Term
 Lesson Two: Arithmetic Mean
 El Nemer Press
-
 59

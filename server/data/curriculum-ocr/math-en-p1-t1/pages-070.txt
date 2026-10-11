@@ -22,20 +22,24 @@ a pie chart.
 | :--- | :---: | :---: | :---: | :---: |
 | Members (Frequency) | 900 | 1,200 | 2,700 | 2,400 |
 
-Since the sum of the measures of central angles in a circle is 360°
-the sum of frequencies = 900 + 1,200 + 2,700 + 2,400 = 7,200,
-measure of a central angle = $\frac{\text{frequency}}{\text{sum of frequencies}} \times 360^\circ$
+Since the sum of the measures of central angles in a circle is $360^{\circ}$
+the sum of frequencies $= 900 + 1,200 + 2,700 + 2,400 = 7,200$,
+$\text{measure of a central angle} = \frac{\text{frequency}}{\text{sum of frequencies}} \times 360^{\circ}$
 ► Calculate the measure of the central angle representing each interval.
 
-"Interval 1 -" $\frac{900}{7,200} \times 360^\circ = 45^\circ$
-"Interval 11 -" $\frac{1,200}{7,200} \times 360^\circ = 60^\circ$
-"Interval 21 -" $\frac{2,700}{7,200} \times 360^\circ = 135^\circ$
-"Interval 31 -" $\frac{2,400}{7,200} \times 360^\circ = 120^\circ$
+"Interval 1 -" $\frac{900}{7,200} \times 360^{\circ} = 45^{\circ}$
+
+"Interval 11 -" $\frac{1,200}{7,200} \times 360^{\circ} = 60^{\circ}$
+
+"Interval 21 -" $\frac{2,700}{7,200} \times 360^{\circ} = 135^{\circ}$
+
+"Interval 31 -" $\frac{2,400}{7,200} \times 360^{\circ} = 120^{\circ}$
 
 Technology Using Excel to Draw Pie Charts
 The opposite table shows a student's weekly study hours for each school
 subject. Use Excel to represent the table using a pie chart.
-Steps : 
+
+Steps :
 1 Insert the data into two columns, Say, Column A and Column B.
 2 Select the two columns, then from the Insert menu, click Pie,
 and from the upper ribbon, pick the pie chart you want.
@@ -48,6 +52,13 @@ and from the upper ribbon, pick the pie chart you want.
 | Science | 6 |
 | Social Studies | 7 |
 | English | 4 |
+
+Weekly Study Hours
+■ Arabic
+■ Math
+■ Science
+■ Social Studies
+■ English
 
 First Term
 Lesson Three: Pie Charts

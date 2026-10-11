@@ -1,37 +1,37 @@
-12 In the opposite figure:
+(12) In the opposite figure:
 $ABCD$ is a square.
-$BD = 5a - 4$, $MC = 2a - 1$.
+$BD=5a-4$, $MC=2a-1$.
 Find the value of $a$, and then find the length of $\overline{AC}$.
 
-13 In the following figure:
-$ABCD$ is a square , $\overleftrightarrow{AC} // \overleftrightarrow{ED}$ , $E \in \overleftrightarrow{BA}$
-Prove that: $AE = AB$
+(13) In the following figure:
+$ABCD$ is a square, $\overleftrightarrow{AC}\parallel\overleftrightarrow{ED}$, $E\in\overleftrightarrow{BA}$
+Prove that: $AE=AB$
 
-14 In the following figure:
+(14) In the following figure:
 Prove that $ABCD$ is a parallelogram.
 
 Third Analysis and Subjects Integration
 
-15 Architecture:
+(15) Architecture:
 If $ABCD$ is
 a parallelogram,
-$m(\angle B) = (3X + 37)^\circ$,
-and $m(\angle D) = (9X + 1)^\circ$,
+$m(\angle B)=(3X+37)^\circ$,
+and $m(\angle D)=(9X+1)^\circ$,
 what is the measure
 of $\angle C$?
+
+(16) Agriculture:
+A flowerpot that
+has one of its faces
+in the shape of
+a trapezium,
+$m(\angle C)=m(\angle D)$
+Find the value of $y$.
 
 Geometric shapes enhance
 the aesthetics of artworks,
 architectural designs, and
 decorations.
-
-16 Agriculture:
-A flowerpot that
-has one of its faces
-in the shape of
-a trapezium,
-$m(\angle C) = m(\angle D)$
-Find the value of $y$.
 
 Share in solving the
 climate change by planting
@@ -39,9 +39,9 @@ even just one flower.
 
 Creative Thinking
 
-17 In the opposite figure:
+(17) In the opposite figure:
 $\overrightarrow{DE}$ bisects $\angle ADC$, $\overrightarrow{CE}$ bisects $\angle BCD$.
-Find with proof: the value of $X + y$.
+Find with proof: the value of $X+y$.
 
 Evaluate your
 understanding!

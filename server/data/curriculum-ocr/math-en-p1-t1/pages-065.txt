@@ -15,72 +15,49 @@ the following set of values:
 
 Steps:
 1 Insert the numbers in one column, say, column A.
-fx
-2 Select any cell, and from the "Formulas" menu, select Insert
+2 Select any cell, and from the "Formulas" menu, select fx
+Insert
 Function
 3 To Calculate the Arithmetic Mean: - Select "AVERAGE", then press OK.
 - Select the cells from A2 to A10, and
 then press OK.
-
-4 To Calculate the Median: Repeat steps 2 and 3 but select “MEDIAN”.
-5 To Calculate the Mode: Repeat steps 2 and 3 but select “MODE”.
+4 To Calculate the Median: Repeat steps 2 and 3 but select "MEDIAN".
+5 To Calculate the Mode: Repeat steps 2 and 3 but select "MODE".
 
 Home Insert Page Layout Formulas Data Review View
-fx
 Calibri
-Paste
-11
-A A
-A-
-B IU
--
-Alignment
-Conditional Format as Normal
-Formatting Table-
-Number
-Bad
-Calculation
-Good
-Check Cell
-Insert Delete Format
-AutoSum-
-Fill
-Sort & Find &
-Clear Filter Select-
 Clipboard
-143
-X
-fx -MODE(A2:A10)
-Styles
-Cells
-Editing
+11
+Paste
+Format Painter
+Font
+BIU
+Alignment
+ab Wrap Text
+Merge & Center
+General
+$ %
+Number
+H3
+-MODE(A2:A10)
 A
 B
 C
 D
-E
-F
-G
-H
-1
-Numbers
+1 Numbers
 2
 5
 3
 2
 4.444444
 4
-2
-4
 9
 5
 2
-AVERAGE
-(MEAN)
-MEDIAN
-MODE
 6
 4
+AVERAGE
+(MEAN)
 7
 2
 8
@@ -92,21 +69,37 @@ MODE
 11
 12
 13
-K4 Sheet1 Sheet2 Sheet3
 Ready
+◄ Sheet1 Sheet2 Sheet 3
+New Microsoft Office Excel Worksheet (2) - Microsoft Excel
+Conditional Format as
+Formatting Table
+Styles
+Normal
+Bad
+Good
+Good
+Check Cell
+Insert Delete Format
+Cells
+4
+E
+F
+G
+H
+MEDIAN
+MODE
 Lesson Assessment
-
 First Measuring Conceptual Understanding
 ► Choose the correct answer from the given ones:
 1 For a set of values:
-If Σf= 10 and Σ (f. X) = 40,
+If ∑ f = 10 and ∑ (f . X) = 40,
 what is the value of X?
 (a) 4 (b) 30 (c) 50 (d) 400
+
 2 For a set of values:
-If X= 20 and Σ (f . X) = 1,500,
-what is the value of Σ f?
+If X = 20 and ∑ (f . X) = 1,500,
+what is the value of ∑ f?
 (a) 75 (b) 150 (c) 3,000 (d) 30,000
 
-58
-Unit Three: Statistics
-Mathematics - First Preparatory
+58 Unit Three: Statistics Mathematics - First Preparatory

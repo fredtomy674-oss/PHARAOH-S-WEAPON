@@ -1,11 +1,14 @@
 Propriétés des composés ioniques et covalents
 
-La plupart des composés ioniques se dissolvent dans l'eau, et leurs solutions aqueuses ainsi que leurs fondus conduisent l'électricité. Leurs points de fusion et d'ébullition sont élevés.
-En revanche, la plupart des composés covalents ne se dissolvent pas dans l'eau, ne conduisent généralement pas l'électricité, et leurs points de fusion et d'ébullition sont bas.
+La plupart des composés ioniques se dissolvent dans l'eau, et leurs solutions aqueuses ainsi que leurs fondus conduisent l'électricité. Leurs points de fusion et d'ébullition sont élevés. En revanche, la plupart des composés covalents ne se dissolvent pas dans l'eau, ne conduisent généralement pas l'électricité, et leurs points de fusion et d'ébullition sont bas.
 
-Propriétés uniques de l'atome de carbone en tant qu'élément essentiel dans les composés organiques
+Propriétés uniques de l'atome de carbone en tant
+qu'élément essentiel dans les composés organiques
 
-Le dernier niveau d'énergie de l'atome de carbone contient 4 électrons non-appariés Les atomes de carbone se distinguent des autres atomes d'éléments par leur capacité à se lier ensemble dans les composés organiques sous forme de chaînes linéaires (Figure 7), de chaînes ramifiées (Figure 8), ou de structures cycliques (Figure 9).
+Le dernier niveau d'énergie de l'atome de carbone contient 4 électrons non-appariés Les
+atomes de carbone se distinguent des autres atomes d'éléments par leur capacité à se lier
+ensemble dans les composés organiques sous forme de chaînes linéaires (Figure 7), de
+chaînes ramifiées (Figure 8), ou de structures cycliques (Figure 9).
 
 Figure (7)
 Chaîne linéaire
@@ -16,14 +19,23 @@ Chaîne ramifiée
 Figure (9)
 Structure cyclique
 
-La molécule de méthane CH4 (Figure 10) est la molécule organique la plus simple, dans laquelle un atome de carbone se lie à quatre atomes d'hydrogène par des liaisons covalentes simples.
+La molécule de méthane $\text{CH}_4$ (Figure 10) est la molécule
+organique la plus simple, dans laquelle un atome
+de carbone se lie à quatre atomes d'hydrogène par
+des liaisons covalentes simples .
 
-► Représente la liaison covalente dans la molécule de méthane à l'aide de la structure de Lewis.
-
-Figure (10)
-Composition de la molécule de méthane CH4
+Représente la liaison covalente dans la molécule de méthane
+à l'aide de la structure de Lewis.
 
 Technologies de l'information et des communications
-Tu peux créer des images de formes moléculaires en utilisant des logiciels de modélisation comme Chemsketch ou ChemDraw
+Tu peux créer des images de formes moléculaires en utilisant
+des logiciels de modélisation comme Chemsketch ou ChemDraw
 
-30 UNITÉ UN : La matière
+Figure (10)
+Composition
+de la molécule
+de méthane
+$\text{CH}_4$
+
+30
+UNITÉ UN : La matière

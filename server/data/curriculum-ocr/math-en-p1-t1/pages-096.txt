@@ -1,47 +1,59 @@
 Third Analysis and Subjects Integration
 ► Calculate the value of $X$ in each of the figures below:
 (13)
-$87^{\circ}$ $31^{\circ}$
-$2x$
+87° 31°
+2x
 (14)
-$37^{\circ}$
-$x^{\circ}$
+37°
+x°
 Final Position
 4 meters
+(15) Mental Math: At the entrance of a garage,
+when a car barrier is opened at an angle
+of less than 90°, the distance between the
+end point of the barrier in the initial and final
+positions is 4 meters. What is the smallest
+integer for the barrier's length?
 Initial Position
-(15) Mental Math: At the entrance of a garage, when a car barrier is opened at an angle of less than $90^{\circ}$, the distance between the end point of the barrier in the initial and final positions is 4 meters. What is the smallest integer for the barrier's length?
-
 School
 A
 C
 House
 B
 Gym
-(16) Roads: Mohamed wakes up early to go to his school, which is 300 meters away from his house. After the school day, Mohamed goes to the gym, which is 197 meters away from his school, and he leaves it after finishing his training and returns to his house as shown in the figure. What is the smallest integer for the distance travelled by Mohamed from his house until he returns?
-
+(16) Roads: Mohamed wakes up early to go to his school,
+which is 300 meters away from his house. After the
+school day, Mohamed goes to the gym, which is
+197 meters away from his school, and he leaves it
+after finishing his training and returns to his house as
+shown in the figure. What is the smallest integer for
+the distance travelled by Mohamed from his house
+until he returns?
 Creative Thinking
-(17) Critical Thinking: If $ABC$ is a triangle in which the length of $BC$ is $9\text{ cm}$. Find the smallest integer for the perimeter of $ABC$.
-► In each of the following figures, determine with proof: $\mathrm{m}(\angle ACB)$
-
+17 Critical Thinking: If $ABC$ is a triangle in which the length of $BC$ is 9 cm. Find the smallest integer
+for the perimeter of $ABC$.
+► In each of the following figures, determine with proof: m ($\angle ACB$)
 (18)
+A
+C
+B
 D
 68°
 31°
-C
 39°
-A
-B
-
 (19)
+C
+B
 A
 D
 124°
-C
-B
-
-Evaluate your understanding!
-How well do you understand triangle? Tick the right box.
-
+*
+*
+Evaluate your
+understanding!
+How well do you
+understand triangle?
+Tick the right box.
 First Term
 Lesson Three: Triangle
 El Nemer Press

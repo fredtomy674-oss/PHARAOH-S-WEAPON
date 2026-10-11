@@ -4,11 +4,11 @@ find the value of $X$ in centimeters.
 
 (14) Spot the mistake:
 Ahmed calculated the sum of $\frac{1}{3}$ and $\frac{3}{4}$ as follows :
-$\frac{1}{3} + \frac{3}{4} = \frac{1+3}{3+4}$
-
+$\frac{1}{3}+\frac{3}{4}=\frac{1+3}{3+4}$
 Find the mistake in his calculation and correct it.
 
 Third Analysis and Subjects Integration
+
 (15) If a shark ascends 124.1 meters from a depth of
 152.5 meters below the water surface, where is the
 shark position relative to the water surface now?
@@ -17,20 +17,20 @@ Regular plumbing system
 maintenance saves water
 and keeps buildings safe.
 
-(16) A plumber has a pipe $64 \frac{5}{8}$ decimeters long. He first
-cuts off a part of $2 \frac{7}{8}$ decimeters from the end of the
-pipe, and then he cuts off another $1 \frac{3}{8}$ decimeters.
+(16) A plumber has a pipe $64\frac{5}{8}$ decimeters long. He first
+cuts off a part of $2\frac{7}{8}$ decimeters from the end of the
+pipe, and then he cuts off another $1\frac{3}{8}$ decimeters.
 How long is the remaining part of the pipe ?
 
 (17) A mountaineer climbs a mountain with a height
-of $1 \frac{1}{2}$ kilometers. What is the height of the
+of $1\frac{1}{2}$ kilometers. What is the height of the
 mountaineer above the ground surface if he
 climbs $\frac{2}{3}$ of the mountain's height ?
 
 Sports teach us perseverance
 and facing difficulties.
 
-(18) The length of a fabric roll is $7 \frac{1}{2}$ meters. If the fabric roll is to be
+(18) The length of a fabric roll is $7\frac{1}{2}$ meters. If the fabric roll is to be
 divided into smaller pieces, each of length 30 centimeters,
 how many pieces will you get?
 

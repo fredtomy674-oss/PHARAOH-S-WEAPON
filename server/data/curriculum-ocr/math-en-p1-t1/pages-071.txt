@@ -1,87 +1,83 @@
 Lesson Assessment
-First Measuring Conceptual Understanding
+First
+Measuring Conceptual Understanding
 ► Choose the correct answer from the given ones:
-In a survey of 2,000 girls about their preferred hobby, as shown
-in the opposite pie chart.
+In a survey of 2,000 girls about their preferred hobby, as shown in the opposite pie chart.
 1 Which is the most preferred hobby?
 (a) Drawing
 (c) Swimming
 (b) Music
 (d) Reading
-Reading
-Swimming
-94°
-76°
-145°
-Drawing
-Music
 2 What is the central angle corresponding to the reading sector?
 (a) 35°
 (b) 45°
 (c) 86°
+(d) 104°
 3 Which hobby do approximately of the girls prefere?
 (a) Drawing
 (b) Music
 (c) Swimming
-Second Applying Scientific Concepts
+(d) Reading
+Second
+Applying Scientific Concepts
 ► Choose the correct answer from the given ones:
-4 The opposite pie chart shows the number of books read by 300
-students at a school. How many students read fewer than 4 books?
+4 The opposite pie chart shows the number of books read by 300 students at a school. How many students read fewer than 4 books?
 (a) 51
 (c) 231
 (b) 77
 (d) 282
-5 When representing the opposite table in a pie chart,
-what is the measure of the central angle corresponding
-to the coffee sector?
+5 When representing the opposite table in a pie chart, what is the measure of the central angle corresponding to the coffee sector?
 (a) 45°
 (c) 120°
 (b) 90°
 (d) 150°
 ► Answer the following questions:
-6 Sports: In a tennis match, a player hit 15 smashes,
-distributed as shown in the opposite table.
+Sports: In a tennis match, a player hit 15 smashes, distributed as shown in the opposite table.
 Draw a pie chart for this distribution.
-7 In a survey of a group of first-year preparatory
-students about their favorite color, the results
-were recorded in the opposite table.
+7 In a survey of a group of first-year preparatory students about their favorite color, the results were recorded in the opposite table.
 Draw a pie chart to represent this table.
-64
-Unit Three: Statistics
-(d) 104°
-(d) Reading
+Reading
+Swimming 94°
+76°
+145°
+Drawing
+Music
 5 books
 6%
+1 book
 4 books
 17%
+22%
 29%
 3 books
-Drink Coffee
+26%
+2 books
+Drink
 People
+Coffee
 150
 Tea
 350
+Juice
+100
 Set
-No. of hits
 First
+Second
+Third
+No. of hits
 7
+3
+5
 Favorite color
+Percentage
 Red
 Blue
 Green
 Yellow
-1 book
-22%
-26%
-2 books
-Juice
-100
-Second Third
-3
-5
-Percentage
 25%
 30%
 10%
 35%
+64
+Unit Three: Statistics
 Mathematics - First Preparatory

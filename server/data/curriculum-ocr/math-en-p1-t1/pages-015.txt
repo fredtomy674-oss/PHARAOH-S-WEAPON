@@ -12,81 +12,49 @@ the scale
 drawing.
 
 Example 1
-
 Geography: If the scale drawing of a map
 is 1:600,000 and the distance between two
 points on the map is 4.5 cm, find the real
 distance between the two points.
 
-Since scale drawing = Distance on map
-Real distance
-
-Therefore, $\frac{1}{600,000} = \frac{4.5\text{ cm}}{\text{Real distance}}$
-
-$1 \times \text{Real distance} = 600,000 \times 4.5\text{ cm}$
-Real distance = 2,700,000 cm.
-
-$= \frac{2,700,000}{100 \times 1,000} = 27\text{ km}$
-
-■ Quick Revision
-
-► 1 kilometer = 1,000 meters
-► 1 meter = 10 decimeters
+Quick Revision
+▸ 1 kilometer = 1,000 meters
+▸ 1 meter = 10 decimeters
 = 100 centimeters
-► 1 centimeter = 10 millimeters
+▸ 1 centimeter = 10 millimeters
 
-■ Technology
-
+Technology
 You can use a calculator
 to convert between metric
 measurement units.
 
+Since scale drawing = Distance on map
+Real distance
+
+Therefore, 1 = 4.5 cm
+600,000 Real distance
+
+1 x Real distance = 600,000 x 4.5 cm
+Real distance = 2,700,000 cm.
+
+= 2,700,000 = 27 km
+100 x 1,000
+
 (cross products)
 
-► Scale drawing can be expressed on maps as follows :
+► Scale drawing can be expressed on maps as follows:
 0 25 50 75 100 km
+1 1 1 1 1
 
 This means that every 1 cm on the map represents 25 km in reality.
 
 ■ Note
 
-► If the scale drawing <1, it
+▸ If the scale drawing <1, it
 is a minimization.
-► If the scale drawing >1, it
+
+▸ If the scale drawing >1, it
 is a magnification.
-
-Example 2
-
-Geometry: The opposite figure represents
-a room model, where every 1 cm in the model
-represents 1.2 m in reality.
-What is the room's real area?
-
-Scale drawing = $\frac{\text{Length in drawing}}{\text{Real length}}$
-
-$\frac{1\text{ cm}}{1.2\text{ m}} = \frac{3\text{ cm}}{\text{The room's real length}}$
-
-The room's real length = 3 × 1.2 = 3.6 m
-
-$\frac{1\text{ cm}}{1.2\text{ m}} = \frac{2.5\text{ cm}}{\text{The room's real width}}$
-
-The room's real width = 2.5 × 1.2 = 3 m
-
-The room's real area = 3.6 × 3 = 10.8 m²
-
-■ Diversified Strategies
-
-► You can use the double number
-line to find the room's length.
-0 1.2 2.4 3.6
-m
-cm
-0 1 2 3
-▲
-Scale drawing
-
-► Use the double number line to
-find the room's width.
 
 ■ Self-Evaluation (2)
 
@@ -98,4 +66,56 @@ represents 5 m in reality. What
 is the perimeter of the land for
 building a surrounding fence?
 
-8 Unit One: Numbers and Their Operations Mathematics - First Preparatory
+Example 2
+Geometry: The opposite figure represents
+a room model, where every 1 cm in the model
+represents 1.2 m in reality.
+What is the room's real area?
+
+3 cm
+2.5 cm
+
+Scale drawing = Length in drawing
+Real length
+
+1 cm = 3 cm
+1.2 m The room's real length
+
+The room's real length = 3 x 1.2 = 3.6 m
+
+1 cm = 2.5 cm
+1.2 m The room's real width
+
+The room's real width = 2.5 x 1.2 = 3 m
+
+The room's real area = 3.6 x 3 = 10.8 m²
+
+■ Diversified Strategies
+
+▸ You can use the double number
+line to find the room's length.
+0 1.2 2.4 3.6
+m
++
++
++
++
+cm
++
++
++
++
+0
+1
+2
+3
+Scale drawing
+
+▸ Use the double number line to
+find the room's width.
+
+8
+
+Unit One: Numbers and Their Operations
+
+Mathematics - First Preparatory

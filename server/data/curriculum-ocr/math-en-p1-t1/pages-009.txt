@@ -1,7 +1,5 @@
 Lesson
-1-1
-
-Proportion
+1-1 Proportion
 
 ■ Learning Outcomes
 • Learn the concept of
@@ -27,12 +25,10 @@ Get Ready!
 Khaled visited the Cairo International
 Book Fair to buy a children's book
 series for his kids.
-
 Given that the price of three books is
 96 LE, and Khaled bought 18 books,
 how much did Khaled pay for the
 books?
-
 In this lesson, you will learn about the
 concept and properties of proportion,
 which can help you solve such real-life
@@ -54,7 +50,6 @@ equivalent to another ratio
 by multiplying or dividing
 both of its terms by the
 same number, except zero.
-
 Example:
 $\times 2$
 $\frac{2}{3} = \frac{4}{6}$
@@ -67,27 +62,17 @@ $\div 2$
 Learn!
 Proportion Concept: A proportion is an equality of at least two
 ratios or two rates.
-
-Examples:
-Equality of two ratios
-(proportion)
-$\frac{2}{3} = \frac{4}{6}$
-
-Equality of two rates
-(proportion)
-$\frac{80\text{ km}}{1\text{ hour}} = \frac{160\text{ km}}{2\text{ hours}}$
+Examples: Equality of two ratios (proportion) $\frac{2}{3} = \frac{4}{6}$
+Equality of two rates (proportion) $\frac{80\text{ km}}{1\text{ hour}} = \frac{160\text{ km}}{2\text{ hours}}$
 
 How to write a proportion
 Assume the following proportion $\frac{a}{b} = \frac{c}{d}$
-
-Then the quantities $a$, $b$, $c$ and $d$ respectively
+Then the quantities $a, b, c$ and $d$ respectively
 are called proportional quantities.
-
 The proportion can be expressed as follows:
 $a : b = c : d$
-$\lceil\text{ Extremes }\rceil$
-$\lfloor\text{ Means }\rfloor$
-
+Extremes
+Means
 $a$ and $d$ are called extremes, and $b$ and $c$ are called means.
 
 ■ Quick Revision
@@ -102,7 +87,5 @@ following methods: $a$ to $b$,
 $a : b$ or $\frac{a}{b}$
 
 2
-
 Unit One: Numbers and Their Operations
-
 Mathematics - First Preparatory

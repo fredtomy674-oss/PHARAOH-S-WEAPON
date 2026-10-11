@@ -1,5 +1,4 @@
 ■ Self-Evaluation (1)
-
 From the following graph,
 $y$
 $A$
@@ -16,20 +15,17 @@ $3$
 $-1$
 $B$
 $C$
-
 Determine the coordinates
 of the vertices of the triangle
 $ABC$, then calculate its area.
 
 ■ Self-Evaluation (2)
-
 If point $A(-3\ k,\ 2\ k-4)$
 lies on the $x$-axis, determine
 the quadrant in which point
 $B(k-6,\ -3\ k)$ is located.
 
 ■ Note that
-
 ► If a point lies on the
 $x$-axis, its projection on
 the $x$-axis is the point
@@ -39,26 +35,21 @@ $y$-axis, its projection on
 the $y$-axis is the point
 itself.
 
-First Term
-
 Example 1
-
 In the coordinate plane, plot the following points:
 $A(3\ ,\ 2)\ ,\ B(-1\ ,\ 2)\ ,\ C(-3\ ,\ 0)\ ,\ D(1\ ,\ 0)$.
 Then, calculate the area of the figure $ABCD$.
 
 $ABCD$ is a parallelogram.
-Its area = Base length $\times$ The length
+Its $\text{area}=\text{Base length}\times\text{The length}$
 of the corresponding height
-$=4\times2=8$ square units.
-
+$=4\times2=8\text{ square units}$.
 $y$
 $B$
 $A$
 $3$
 $2$
 $1$
-$X$
 $C$
 $-3$
 $-2$
@@ -68,29 +59,27 @@ $1$
 $2$
 $3$
 $D$
+$X$
 $-1$
 
 Example 2
-
 If point $A(4\ k+4\ ,\ -k+3)$ lies on the $Y$-axis, determine the quadrant in
 which point $B(-2\ k,\ 4\ k+1)$ is located.
 
-$\because\ A(4\ k+4\ ,\ -k+3)$ lies on the $Y$-axis
-$\therefore$ The $x$-coordinate is equal to $0$
-$\therefore\ 4\ k+4=0\ \ \therefore\ 4\ k=-4\ \ \ \ \therefore\ k=-1$
+$\because A(4\ k+4\ ,\ -k+3)$ lies on the $Y$-axis
+$\because$ The $x$-coordinate is equal to $0$
+$\because 4\ k+4=0\ \therefore 4\ k=-4\ \therefore k=-1$
 By substituting the value of $k$ in point $B$,
 the coordinates of $B$ are $B(2\ ,\ -3)$
-$\therefore\ B$ is located in the $4^{\text{th}}$ quadrant.
+$\because B$ is located in the $4^{\text{th}}$ quadrant.
 
 ■ Note that
-
-► The point $(X\ ,\ 0)$ lies
+► The point $(X,\ 0)$ lies
 on the $x$-axis.
-► The point $(0\ ,\ Y)$ lies
+► The point $(0,\ Y)$ lies
 on the $Y$-axis.
 
 Projection of a Point on the Coordinate Axes
-
 To find the projection of a point, such as $A(2\ ,\ 3)$, on each of the
 $X$-axis and $Y$-axis:
 
@@ -100,15 +89,15 @@ perpendicular to the $X$-axis,
 intersecting it at point $A^{\prime}(2\ ,\ 0)$.
 
 $y$
-$A(2\ ,\ 3)$
 $3$
 $2$
 $1$
-$X$
+$A(2\ ,\ 3)$
+$A^{\prime}(2\ ,\ 0)$
 $O$
 $1$
 $2$
-$A^{\prime}(2\ ,\ 0)$
+$X$
 
 Therefore, $A^{\prime}(2\ ,\ 0)$ is
 the projection of point $A(2\ ,\ 3)$
@@ -125,16 +114,16 @@ $3$
 $A(2\ ,\ 3)$
 $2$
 $1$
-$X$
 $O$
 $1$
 $2$
+$X$
 
 Therefore, $A^{\prime}(0\ ,\ 3)$ is
 the projection of point $A(2\ ,\ 3)$
 on the $Y$-axis.
 
+First Term
 Lesson Six: Coordinates
 El Nemer Press
-
 105

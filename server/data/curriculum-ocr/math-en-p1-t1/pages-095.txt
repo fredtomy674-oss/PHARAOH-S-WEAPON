@@ -6,7 +6,8 @@ First Measuring Conceptual Understanding
 (b) 30°
 (c) 50°
 (d) 60°
-2 If the measures of two angles in a triangle are 30° and 70°, which of the following cannot be the measure of an exterior angle of the triangle?
+2 If the measures of two angles in a triangle are 30° and 70°, which of the following cannot be the
+measure of an exterior angle of the triangle?
 (a) 150°
 (b) 130°
 (c) 110°
@@ -16,53 +17,65 @@ First Measuring Conceptual Understanding
 (b) 3 cm, 4 cm, 7 cm
 (c) 7 cm, 7 cm, 7 cm
 (d) 9 cm, 7 cm, 5 cm
-4 The lengths of two sides of an isosceles triangle are 3 cm and 7 cm. What is the length of the third side?
+4 The lengths of two sides of an isosceles triangle are 3 cm and 7 cm. What is the length of the
+third side?
 (a) 3 cm
 (b) 4 cm
 (c) 5 cm
 (d) 7 cm
-5 If ABC is a scalene triangle in which the length of AC is 3 cm, and the length of BC is 5 cm. How many integers could be the length of AB?
+5 If ABC is a scalene triangle in which the length of AC is 3 cm, and the length of BC is 5 cm.
+How many integers could be the length of AB?
 (a) 2
 (b) 3
 (c) 4
 (d) 5
-
 Second Applying Scientific Concepts
 ► Find with proof the value of x in each of the following figures:
 6
 C x°
 110°
-B A 104°
+B
+A
+104°
 7
-C 24 B
+C
+24°
 82°
 A
 79°
 D
+BD CE = {A}
+B
 x° E
-BD ∩ CE = {A}
 8
-D 55° E
-C 30° A x° B
-9 In the given picture, a wire of length 48 cm. The ends of this wire are bent at two points to form a triangle.
+D
+55°
+C 30°
+A
+x°
+E
+B
+9 In the given picture, a wire of length 48 cm. The ends
+48 cm
+of this wire are bent at two points to form a triangle.
 Which of the following lengths could be bent to form a triangle with the remaining part?
 (a) 12 cm and 16 cm
 (b) 12 cm and 12 cm
-
 ► Find with proof the value of the required angles in each of the following figures:
 10
 C
 (2x-5)°
-(3x+4)°
+(3x + 4)°
 A
-(4x-8)°
 B
-m(∠B)
+(4x-8)°
+m (∠B)
 11
 C
 126°
-A B
-m(∠C)
+A
+B
+m (∠C)
 12
 A
 64°
@@ -70,12 +83,10 @@ A
 B F
 G
 C
-D
+m (∠ FGC)
+88
+Unit Four: Geometry & Measurement
 75°
 88°
 E
-m(∠FGC)
-
-88
-Unit Four: Geometry & Measurement
 Mathematics - First Preparatory

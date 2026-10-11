@@ -1,22 +1,35 @@
 De ce qui précède, il est clair que :
-L'intensité du champ gravitationnel de la Lune à sa surface est égale à 1/6 de l'intensité du champ gravitationnel de la Terre à sa surface.
+L'intensité du champ gravitationnel de la Lune à sa surface est égale à $\frac{1}{6}$ de l'intensité du champ
+gravitationnel de la Terre à sa surface.
+
 On observe que :
-• L'intensité du champ gravitationnel de la Terre diminue lorsque l'on s'éloigne du centre de la Terre.
-• Le poids d'un corps change d'une planète à l'autre en raison de la variation de l'intensité de son champ gravitationnel.
+• L'intensité du champ gravitationnel de la Terre diminue lorsque l'on s'éloigne du centre de la
+Terre.
+• Le poids d'un corps change d'une planète à l'autre en raison de la variation de
+l'intensité de son champ gravitationnel.
 
 Conception ingénierie
-La conception de ponts nécessite une compréhension précise des lois de la physique et des mathématiques pour éviter qu'ils ne s'effondrent sous l'effet de la force gravitationnelle de la Terre due à la grande masse des véhicules géantes qui circulent au-dessus. Cela nécessite le choix de matériaux robustes appropriés lors de la conception des ponts, ainsi qu'une répartition adéquate des charges sur les fondations des ponts.
-Conçois un pont à partir de matériaux disponibles dans l'environnement, comme illustré dans la Figure (24), et teste la masse maximale que ta conception peut supporter.
+La conception de ponts nécessite une compréhension précise des lois de la physique et des
+mathématiques pour éviter qu'ils ne s'effondrent sous l'effet de la force gravitationnelle de la
+Terre due à la grande masse des véhicules géants qui circulent au-dessus. Cela nécessite le
+choix de matériaux robustes appropriés lors de la conception des ponts, ainsi qu'une répartition
+adéquate des charges sur les fondations des ponts.
+Conçois un pont à partir de matériaux disponibles dans l'environnement, comme illustré dans
+la Figure (24), et teste la masse maximale que ta conception peut supporter.
 
 Figure (24)
 
 Compétences scientifiques Comparaison
 Compare entre la masse et le poids en trois points :
-Point de comparaison | Masse (m) | Poids (P)
-Définition | |
-Unité de mesure | |
-Variation selon la position de l'objet | |
+Point de comparaison
+Masse (m)
+Poids (P)
+Définition
+Unité de mesure
+Variation selon
+la position de l'objet
 
 Tableau (2)
 
-october press | LEÇON TROIS : La force gravitationnelle 53
+october press
+LEÇON TROIS : La force gravitationnelle 53

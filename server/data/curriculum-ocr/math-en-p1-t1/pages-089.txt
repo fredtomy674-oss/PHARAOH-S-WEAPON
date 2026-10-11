@@ -1,32 +1,31 @@
 ■ Self-Evaluation (5)
-D
-C
+D C
 58°
 E
-A
-B
 29°
-Prove that: $\overleftrightarrow{AB} // \overleftrightarrow{CD}$
+A B
+Prove that: AB // CD
 
 ■ Note that
-You can identify the givens and requirements in
+You can identify the givens
+and requirements in
 a problem while reading it,
 you don't need to write them
 again in the solution.
 
 Example 5
 In the opposite figure: $F \in \overleftrightarrow{BA}$
-$m(\angle CAD) = 40^\circ$, $m(\angle B) = 70^\circ$
+$m(\angle CAD) = 40^\circ, m(\angle B) = 70^\circ$
 Prove that: $\overleftrightarrow{AD} // \overleftrightarrow{BC}$
 
 $\because \angle BAF$ is a striaght angle
-$\because m(\angle BAF) = 180^\circ$
+$\therefore m(\angle BAF) = 180^\circ$
 $\because 2X + 40^\circ = 180^\circ$
-$\because 2X = 180^\circ - 40^\circ = 140^\circ$
-$\because X = \frac{140^\circ}{2} = 70^\circ$
-$\because m(\angle FAD) = 70^\circ$
+$\therefore 2X = 180^\circ - 40^\circ = 140^\circ$
+$\therefore X = \frac{140^\circ}{2} = 70^\circ$
+$\therefore m(\angle FAD) = 70^\circ$
 $\because m(\angle FAD) = m(\angle B)$, and they are corresponding angles.
-$\because \overleftrightarrow{AD} // \overleftrightarrow{BC}$
+$\therefore \overleftrightarrow{AD} // \overleftrightarrow{BC}$
 
 Collaborative Activity
 Collaborate a classmate and use GeoGebra to draw a parallelogram.
@@ -35,57 +34,41 @@ measures of its angles.
 
 Lesson Assessment
 
-First
-Measuring Conceptual Understanding
-
-► Find the value of X in each of the following figures:
-1
-B
-A
+First Measuring Conceptual Understanding
+► Find the value of $X$ in each of the following figures:
+(1)
+B A
 50°
 x°
-C
-D
-2
-A
-B
+C D
+
+(2)
+A B
 x°
 C
 110°
 D
 E
-3
-B
-D
+
+(3)
+B D
 65°
-G
-x°
-A
-C
-F
+G x° A C F
 E
-$\overleftrightarrow{FG} \cap \overleftrightarrow{BE} = \{A\}$
-4
-B
-D
-E
-A
-x°
-60°
-C
+$FG \cap BE = \{A\}$
+
+(4)
+B D
+x° 60°
+E A C
 
 ► In each of the following figures, prove that $m // n$:
-5
-n
-70°
-m
-70°
-6
-n
-80°
-m
-80°
+(5)
+n 70°
+m 70°
 
-82
-Unit Four: Geometry & Measurement
-Mathematics - First Preparatory
+(6)
+n 80°
+m 80°
+
+82 Unit Four: Geometry & Measurement Mathematics - First Preparatory

@@ -1,90 +1,86 @@
-- Self-Evaluation (1)
-
-Find the value of $X$.
+■ Self-Evaluation (1)
+120°
+2 x°
+x°
+2 x°
+Find the value of X.
 
 Example 1
-
-Find the value of $X$ in each of the following figures:
-
+Find the value of X in each of the following figures:
 1
 D
-$115^\circ$
-$C$
-$125^\circ$
-$x^\circ$
-$(x-5)^\circ$
+115°
+C
+125°
+x°
+(x-5)°
 A
 B
 
 2
 F
-$30^\circ$
-D
+30°
 C
-$E$
-$4x^\circ$
-$5x^\circ$
-$3x^\circ$
-B
+D
+E
+4 x°
+5 x°
+3 x°
 A
+B
 
-1 $X + X - 5^\circ + 115^\circ + 125^\circ = 360^\circ$
-$2X + 235^\circ = 360^\circ$
-$2X = 360^\circ - 235^\circ$
-$2X = 125^\circ$
-$X = \frac{125^\circ}{2} = 62.5^\circ$
+1 X + X - 5° + 115° + 125° = 360°
+2 X + 235° = 360°
+2 X = 360° - 235°
+2 X = 125°
+X = 125° / 2 = 62.5°
 
 2 In the triangle CEF:
-$\mathrm{m}(\angle ECF) = 180^\circ - 120^\circ = 60^\circ$
-$\mathrm{m}(\angle BCD) = \mathrm{m}(\angle ECF) = 60^\circ$
+m(∠ ECF) = 180° - 120° = 60°
+m(∠ BCD) = m(∠ ECF) = 60°
 (Vertically opposite angles)
 In the quadrilateral ABCD:
-$4X + 3X + 5X + 60^\circ = 360^\circ$
-$12X = 360^\circ - 60^\circ = 300^\circ$
-$X = \frac{300^\circ}{12} = 25^\circ$
+4 X + 3 X + 5 X + 60° = 360°
+12 X = 360° - 60° = 300°
+X = 300° / 12 = 25°
 
 The special quadrilaterals
 
 1 Trapezium
 It is a quadrilateral that has only two parallel sides.
-
 Trapezium
 Right Trapezium
 Isosceles Trapezium
 
-- Self-Evaluation (2)
-
-$ABCD$ is a trapezium
-$\mathrm{m}(\angle A) = \mathrm{m}(\angle B)$
+■ Self-Evaluation (2)
+ABCD is a trapezium
+m(∠ A) = m(∠ B)
 D
 C
-$(3x-35)^\circ$
-$2x^\circ$
+(3x-35)°
+2x°
 A
 B
-
-Find: $\mathrm{m}(\angle D)$
+Find: m(∠ D)
 
 Example 2
-
-In the opposite figure: $ABCD$ is a trapezium
-Find with proof: $\mathrm{m}(\angle D)$
-
+In the opposite figure: ABCD is a trapezium
+Find with proof: m(∠ D)
 D
 C
-$112^\circ$
-$3x^\circ$
-$4x^\circ$
+112°
+3 x°
+4 x°
 A
 B
 
-$\because \overline{AB} \parallel \overline{DC}$, $\overleftrightarrow{BC}$ is a transversal.
-$\therefore \mathrm{m}(\angle B) + \mathrm{m}(\angle C) = 180^\circ$ (Interior angles on the same side of the transversal)
-$\therefore 4X + 112^\circ = 180^\circ$
-$\therefore 4X = 68^\circ$
-$\therefore X = 17^\circ$
-$\therefore \mathrm{m}(\angle A) = 3X = 3 \times 17^\circ = 51^\circ$
-$\therefore \mathrm{m}(\angle D) = 360^\circ - (112^\circ + 68^\circ + 51^\circ) = 129^\circ$
+∵ AB // DC, BC is a transversal.
+∴ m(∠ B) + m(∠ C) = 180° (Interior angles on the same side of the transversal)
+∴ 4 X + 112° = 180°
+∴ 4 X = 68°
+∴ X = 17°
+∴ m(∠ A) = 3 X = 3 × 17° = 51°
+∴ m(∠ D) = 360° - (112° + 68° + 51°) = 129°
 
 First Term
 Lesson Four: Quadrilaterals

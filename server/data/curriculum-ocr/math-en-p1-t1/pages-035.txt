@@ -1,20 +1,13 @@
 Lesson Assessment
-
-First
-Measuring Conceptual Understanding
-
+First Measuring Conceptual Understanding
 ► Choose the correct answer from the given ones:
-1 Marine Creatures: A dolphin dived to a depth of $3\frac{1}{4}$ meters underwater, then it dived a further
-$2\frac{1}{2}$ meters. Which of the following does not express the dolphin's position relative to the water
-surface?
+1 Marine Creatures: A dolphin dived to a depth of $3\frac{1}{4}$ meters underwater, then it dived a further $2\frac{1}{2}$ meters. Which of the following does not express the dolphin's position relative to the water surface?
 (a) $-3\frac{1}{4}+(-2\frac{1}{2})$
 (b) $-3\frac{1}{4}+|-2\frac{1}{2}|$
 (c) $-3\frac{1}{4}-2\frac{1}{2}$
 (d) $-(3\frac{1}{4}+2\frac{1}{2})$
 
-2 Economy: If the stock price of a company listed on the Egyptian exchange increased by $3.25\text{ LE}$,
-and then if decreased by $2.75\text{ LE}$, which of the following expresses the change in the stock price
-at that moment?
+2 Economy: If the stock price of a company listed on the Egyptian exchange increased by $3.25\text{ LE}$, and then if decreased by $2.75\text{ LE}$, which of the following expresses the change in the stock price at that moment?
 (a) $-3.25+2.75$
 (b) $3.25-2.75$
 (c) $3.25+2.75$
@@ -38,9 +31,7 @@ at that moment?
 (c) $\frac{-2}{7}$
 (d) $\frac{2}{7}$
 
-Second
-Applying Scientific Concepts
-
+Second Applying Scientific Concepts
 ► Find the result of each of the following:
 6 $\frac{5}{8}+(\frac{-7}{8})$
 7 $-3.2+(-1.\overline{3})$
@@ -52,6 +43,5 @@ Applying Scientific Concepts
 11 $\frac{-5}{12}-(-\frac{7}{6})=\frac{1}{6}+X$
 12 $\frac{2}{7}-(-\frac{11}{21})=\frac{11}{21}-X$
 
-28
-Unit One: Numbers and Their Operations
+28 Unit One: Numbers and Their Operations
 Mathematics - First Preparatory

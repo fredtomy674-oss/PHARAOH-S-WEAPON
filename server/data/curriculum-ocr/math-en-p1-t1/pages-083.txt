@@ -1,67 +1,51 @@
-► In each of the following, calculate $m(\angle AOM)$:
-(15)
-C
-D
-B
-A
-O
+► In each of the following, calculate $m(\angle\text{AOM})$:
+15
+D A
+C O
 23°
-M
-$\overleftrightarrow{AB} \cap \overleftrightarrow{DM} = \{O\}$
-(16)
-B
-M
-O
-C
+B M
+$\overleftrightarrow{\text{AB}} \cap \overleftrightarrow{\text{DM}} = \{O\}$
+16
+M C
 70°
-A
-$O \in \overleftrightarrow{AB}$
-(17)
-B
-C
-A
-N
-O
+B O A
+$O \in \overleftrightarrow{\text{AB}}$
+17
+B A N
 M
-D
 70°
-$O \in \overleftrightarrow{CD}$
-► In each of the figures below, do $\vec{OA}$ and $\vec{OB}$ form a straight line or not? Why?
-(18)
-B
+C O D
+$O \in \overleftrightarrow{\text{CD}}$
+
+► In each of the figures below, do $\vec{\text{OA}}$ and $\vec{\text{OB}}$ form a straight line or not? Why?
+18
 C
-O
-A
 144° 36°
-(19)
-B
-O
-A
+B O A
+19
 65° 48°
-(20)
-B
-O
-A
+B O A
+20
 49° 42°
+B O A
 
 Third Analysis and Subjects Integration
 ► Answer the following:
-(21) Two vertically opposite angles: the measure of one of them is $(2X)^\circ$ and the measure of the other is $(X + 28)^\circ$. Find the measure of one of them.
-(22) Two complementary angles: the ratio between their measures is $5 : 7$. Find the measure of the smaller angle.
-(23) Sports:
+21 Two vertically opposite angles: the measure of one of them is $(2X)^\circ$ and the measure of the other is $(X + 28)^\circ$. Find the measure of one of them.
+22 Two complementary angles: the ratio between their measures is $5:7$. Find the measure of the smaller angle.
+23 Sports:
 In the opposite billiard table, if the measure of $\angle 1$ equals the measure of $\angle 3$, and the measure of $\angle 1$ is $43^\circ$, calculate measure of $\angle 2$.
 
 Creative Thinking
-(24) Critical Thinking: If the measures of both angles between the blades of a pair of scissors are $(3X - 18)^\circ$ and $(2X + 12)^\circ$, as shown in Figure (1), and the measure of one angle is reduced by $(X + 16)^\circ$ as shown in Figure (2), find the value of $Y$.
-Figure (1)
+24 Critical Thinking: If the measures of both angles between the blades of a pair of scissors are $(3X - 18)^\circ$ and $(2X + 12)^\circ$, as shown in Figure (1), and the measure of one angle is reduced by $(X + 16)^\circ$ as shown in Figure (2), find the value of $Y$.
 $(2X + 12)^\circ$
 $(3X - 18)^\circ$
+Figure (1)
 Figure (2)
-$Y$
 Evaluate your understanding!
 How well do you understand types of angles and relations between angles?
 Tick the right box.
-(25) Two supplementary angles, the sum of their measures is $74^\circ$ more than the difference between their measures. What are the measures of both angles?
+25 Two supplementary angles, the sum of their measures is $74^\circ$ more than the difference between their measures. What are the measures of both angles?
 (a) $74^\circ$, $106^\circ$
 (b) $16^\circ$, $74^\circ$
 (c) $37^\circ$, $53^\circ$

@@ -3,17 +3,15 @@ Propriétés de l'aimant
 Activité 2 Pratique
 
 1 Plonge une barre magnétique dans de la limaille de fer
-(Figure 7). Que remarques-tu ?
-....................................................................................................
+(Figure 7). Que remarques - tu ?
+
 Est-ce que la limaille de fer s'accroche-t-elle de de la même
 densité sur toutes ses parties ?
-....................................................................................................
 
 2 Suspends la barre magnétique par son milieu avec
 un fil de soie en la laissant libre, comme montré
 dans la Figure (8), jusqu'à ce qu'elle se stabilise
 Que remarques-tu ?
-....................................................................................................
 
 De cette activité, il est claire que:
 La force d'attraction de l'aimant est maximale
@@ -39,6 +37,8 @@ est sud (S) (Figure 10).
 Il est donc impossible d'obtenir un seul pôle
 magnétique.
 
+october press
+
 Figure (7)
 
 Figure (8)
@@ -49,7 +49,20 @@ Champ magnétique
 pôle magnétique
 Nord
 
+S
+N
+S
+N
+S
+N
+S
+N
+S
+N
+S
+N
+S
+N
 Figure (10)
 
-october press
 LEÇON DEUX : La force magnétique 43

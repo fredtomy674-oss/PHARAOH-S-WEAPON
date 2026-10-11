@@ -1,25 +1,35 @@
 Concept d'électricité statique
-• Tu entends un léger crépitement en enlevant des vêtements en laine en hiver (Figure 1).
-• Tu ressens une légère électricité en touchant une poignée métallique de porte après avoir marché pieds nus sur un tapis (Figure 2).
-
+- Tu entends un léger crépitement
+en enlevant des vêtements en laine
+en hiver (Figure 1).
+- Tu ressens une légère électricité en touchant
+une poignée métallique de porte après avoir
+marché pieds nus sur un tapis (Figure 2).
 Figure (1)
 Figure (2)
 Que se passe-t-il lorsque deux corps sont frottés ensemble ?!
-
 Activité 1 Pratique
-1 Frotte une extrémité d'une tige en ébonite avec un morceau de laine (Figure 3), puis approche la tige des bouts de papier légers (Figure 4) ou de petits morceaux de mousse. Que remarques-tu ?
-2 Répète l'étape 1 en utilisant une tige en cuivre à la place de la tige en ébonite. Que remarques-tu ?
-
+1 Frotte une extrémité d'une tige en ébonite
+avec un morceau de laine (Figure 3), puis
+approche la tige des bouts de papier légers
+(Figure 4) ou de petits morceaux de mousse.
+Que remarques-tu ?
 Figure (3)
 Figure (4)
-
+2 Répète l'étape 1 en utilisant une tige en
+cuivre à la place de la tige en ébonite.
+Que remarques-tu ?
 Que déduis-tu ?
-En frottant des objets fabriqués de certains matériaux avec d'autres fabriqués de matériaux appropriés, ils acquièrent la capacité d'attirer les objets légers, car ils ont été chargés avec des charges électriques statiques (électrostatiques). Ces charges se stabilisent seulement à la surface de la partie frottée de l'objet et ne se déplacent pas vers le reste de ses parties.
+En frottant des objets fabriqués de certains matériaux avec d'autres fabriqués de matériaux
+appropriés, ils acquièrent la capacité d'attirer les objets légers, car ils ont été chargés avec
+des charges électriques statiques (électrostatiques). Ces charges se stabilisent seulement
+à la surface de la partie frottée de l'objet et ne se déplacent pas vers le reste de ses parties.
 Les objets pouvant être chargés avec une charge électrique statique peuvent être :
-- Des objets fabriqués de matériaux non conducteurs de l'électricité, comme: le bois, le papier, la laine, le soie et le verre.
-- Des objets fabriqués de matériaux capables de conduire l'électricité, à condition que la partie chargée soit isolée pour empêcher la fuite des charges électriques, comme: les métaux et le carbone
-
+- Des objets fabriqués de matériaux non conducteurs de l'électricité, comme: le bois, le papier,
+la laine, le soie et le verre.
+- Des objets fabriqués de matériaux capables de conduire l'électricité, à condition que la partie
+chargée soit isolée pour empêcher la fuite des charges électriques, comme: les métaux et le
+carbone
 Évalue ta compréhension
 ► Pourquoi des chaînes métalliques touchant le sol pendent-elles des camions-citernes ?
-
 34 UNITÉ DEUX : Les champs de forces

@@ -2,19 +2,10 @@
 Trois cubes en bois ont été placés entre une lampe de poche et un écran (figure 7) :
 1 Détermine par dessiner sur la figure (7) la zone où
 l'ombre des cubes se formera.
-2 Qu'arrive-il à la taille de l'ombre lorsque l'écran
+(2) Qu'arrive-il à la taille de l'ombre lorsque l'écran
 est éloigné des cubes ?
-3 Comment peut-on augmenter la taille de l'ombre sans
+(3) Comment peut-on augmenter la taille de l'ombre sans
 changer la position des cubes et de l'écran ?
-
-écran
-lampe de
-poche
-Cubes
-en bois
-Distance entre la lampe
-et les cubes
-Figure (7)
 
 Intégration avec l'histoire
 Lors du quatrième voyage de Christophe Colomb vers les Amériques en 1504, les
@@ -31,4 +22,5 @@ Compétences scientifiques : Rédaction d'un rapport scientifique
 Recherche dans diverses sources d'information sur l'éclipse solaire,
 puis rédige un rapport scientifique en utilisant des termes scientifiques précis.
 
-92 UNITÉ QUATRE : Le système (Terre - Soleil - Lune)
+92
+UNITÉ QUATRE : Le système (Terre - Soleil - Lune)

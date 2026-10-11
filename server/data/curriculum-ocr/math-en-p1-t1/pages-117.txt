@@ -1,41 +1,54 @@
 Unit Four Assessment
+
 Evaluate your understanding!
 How well do you
 understand Unit Four?
 Tick the right box
+
 ► Choose the correct answer from the given ones:
+
 1 In the opposite figure:
-What is the value of X?
-(a) 70°
-(b) 140°
-(c) 35°
-(d) 100°
-(2) If A (3, 1) and B (3, -1), which of the following points is the midpoint of AB?
-(a) (0, 3)
-(b) (3, 0)
-(c) (6, 0)
-(d) (0, 6)
+What is the value of $X$?
+(a) $70^\circ$
+(b) $140^\circ$
+(c) $35^\circ$
+(d) $100^\circ$
+
+2 If $A$ $(3,1)$ and $B$ $(3,-1)$, which of the following points is the midpoint of $\overline{AB}$?
+(a) $(0,3)$
+(b) $(3,0)$
+(c) $(6,0)$
+(d) $(0,6)$
+
 3 In the opposite figure:
-What is the measure of ∠ CBD?
-(a) 35°
-(b) 45°
-(c) 55°
-(d) 65°
-4 The lengths of two sides in an isosceles triangle are 4 cm and 8 cm. What is the length of the third side?
-(a) 4 cm
-(b) 5 cm
-(c) 6 cm
-(d) 8 cm
+What is the measure of $\angle CBD$?
+(a) $35^\circ$
+(b) $45^\circ$
+(c) $55^\circ$
+(d) $65^\circ$
+
+4 The lengths of two sides in an isosceles triangle are $4\text{ cm}$ and $8\text{ cm}$. What is the length of the third side?
+(a) $4\text{ cm}$
+(b) $5\text{ cm}$
+(c) $6\text{ cm}$
+(d) $8\text{ cm}$
+
 ► Complete each of the following:
-5 The measure of each interior angle in a regular octagon is
-6 The projection of point A (-4, 0) on the y-axis is point
+
+5 The measure of each interior angle in a regular octagon is ...........
+
+6 The projection of point $A$ $(-4,\,0)$ on the $Y$-axis is point ...........
+
 7 In the opposite figure:
-X =
+$X = \dots\dots\dots\dots\dots^\circ$
+
 8 In the opposite figure:
-X =
+$X = \dots\dots\dots\dots\dots^\circ$
+
 ► Answer the following questions:
-9 ABCD is a parallelogram whose diagonals intersect at M.
-If A (3, 4) and M (-1, 5), find the coordinates of C.
-110
-Unit Four: Geometry & Measurement
+
+9 $ABCD$ is a parallelogram whose diagonals intersect at $M$.
+If $A$ $(3,\,4)$ and $M$ $(-1,\,5)$, find the coordinates of $C$.
+
+110 Unit Four: Geometry & Measurement
 Mathematics - First Preparatory

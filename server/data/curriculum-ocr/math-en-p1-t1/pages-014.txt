@@ -22,6 +22,24 @@ including scale drawings,
 proportional division,
 sales, and purchases.
 
+Get Ready!
+The Iconic Tower is one of the most
+significant projects in Egypt's New
+Administrative Capital. It is the tallest
+building in Africa.
+Sameh sketched a picture of the Iconic
+Tower, where its length measured 38.5 cm.
+Given that the ratio of the Tower's length
+in the picture to its real length is 1:1,000.
+What would you estimate as the height of
+the real Tower?
+In this lesson, you will learn some
+concepts related to ratio and proportion,
+such as scale drawing, which will help
+you solve similar real-life problems.
+
+The Iconic Tower
+
 ■ Vocabulary
 • Scale Drawings
 • Length in Drawing
@@ -31,6 +49,33 @@ sales, and purchases.
 • Proportional Division
 • Percentage
 
+Think & Discuss!
+Magdy and Amal each drew a rectangle representing a football pitch with
+a length of 20 m and a width of 10 m. Which one of them represented the
+pitch correctly? Explain your answer.
+
+Amal's Drawing
+Width
+2 cm
+Length
+4 cm
+
+Magdy's Drawing
+Width
+2 cm
+Length
+5 cm
+
+In which rectangle do you find that the ratios:
+Length in the drawing
+The pitch's real length
+and
+width in the drawing
+the pitch's real width
+represent a proportion?
+
+Learn!
+
 ■ Link to Life
 GPS apps use scale
 drawings to determine
@@ -38,73 +83,15 @@ distances on maps and
 estimate the journey's time
 based on the car's speed.
 
-Get Ready!
-
-The Iconic Tower is one of the most
-significant projects in Egypt's New
-Administrative Capital. It is the tallest
-building in Africa.
-
-Sameh sketched a picture of the Iconic
-Tower, where its length measured 38.5 cm.
-Given that the ratio of the Tower's length
-in the picture to its real length is 1:1,000.
-What would you estimate as the height of
-the real Tower?
-
-In this lesson, you will learn some
-concepts related to ratio and proportion,
-such as scale drawing, which will help
-you solve similar real-life problems.
-
-Think & Discuss!
-
-The Iconic Tower
-
-Magdy and Amal each drew a rectangle representing a football pitch with
-a length of 20 m and a width of 10 m. Which one of them represented the
-pitch correctly? Explain your answer.
-
-Amal's Drawing
-
-Magdy's Drawing
-
-Width
-2 cm
-
-Length
-4 cm
-
-Width
-2 cm
-
-Length
-5 cm
-
-In which rectangle do you find that the ratios:
-Length in the drawing
-width in the drawing
-and
-represent a proportion?
-The pitch's real length
-the pitch's real width
-
-Learn!
-
 First
-
 Scale Drawings
-
 The scale drawing is fundamental to understand and draw maps. It is an
 essential and effective tool for engineering drawings and model building.
-
 Scale Drawing Concept:
-
 Scale Drawing is the ratio of the dimension in the drawing or model to
 the dimension in reality.
 
 Scale Drawing =
-
 Length in drawing
 Real length
 

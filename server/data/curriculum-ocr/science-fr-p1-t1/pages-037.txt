@@ -1,16 +1,21 @@
-Questions d'évaluation de la quatrième leçon ?
+Questions d'évaluation de la quatrième leçon
 
 1 Choisis la réponse correcte aux
 questions de (1) à (3) :
 (1) Lequel de ce qui suit exprime une
 liaison ionique ?
-a [ K ] [ F ] b H •• H
-c [ Li ] [ Br ] d O •• C •• O
+a [ K ]⁺ [ F ]⁻ 
+b H •• O •• H
+c [ Li ]⁺ [ Br ]⁻ 
+d O •• C •• O
 (2) Quelle est la formule moléculaire du
 composé produit de la liaison d'un
 élément (A) des métaux alcalins et
 un élément (B) du groupe 6A
-a A2B2 b A2B c AB2 d AB
+a A₂B₂ 
+b A₂B 
+c AB₂ 
+d AB
 (3) Un atome de l'élément (X) se lie à
 deux atomes d'hydrogène comme
 indiqué ci-dessous :
@@ -47,8 +52,9 @@ composés qui peuvent être formés
 4 Complète le tableau suivant avec les
 charges des ions appropriées et leurs
 composants atomiques :
-Ion 37 R- X Y Z
-Nombre de
+Ion 
+Nombre de 
+37R⁻ X Y Z
 Protons 17 11 20
 Neutrons 12 10
 Électrons 10 10 18
@@ -60,13 +66,21 @@ organiques :
 - C -
 - C - C - C -
 - C -
-(1) (2)
-Quelle est la forme de la structure car-
+(1)
+C
+C C
+C - C
+(2)
+Quel est la forme de la structure car-
 bonée de chacun des deux composés?
 
 6 Parmi les éléments du tableau périodique :
-• 7N • 12Mg • 13Al
-• 16S • 15P • 19K
+• 7N 
+• 12Mg 
+• 13Al
+• 16S 
+• 15P 
+• 19K
 (1) Quels sont les deux éléments qui
 peuvent s'unir pour former un composé
 diatomique ?
@@ -80,4 +94,5 @@ Les propriétés des composés covalents et
 des composés ioniques.
 "Deux points sont suffisants"
 
-october press 31
+october press
+31

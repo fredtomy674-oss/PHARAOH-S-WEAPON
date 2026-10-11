@@ -1,31 +1,27 @@
-■ Self-Evaluation (4)
+■ Self-Evaluation 4
 D
 108°
 71°
 C
 A
 B
-
-Do $\overleftrightarrow{AB}$ and $\overleftrightarrow{AC}$ form
+Do AB and AC form
 a straight line? Explain why.
 
-
-■ Self-Evaluation (5)
+■ Self-Evaluation 5
 C
 E
 D
 B
 A
-
-If $B \in \overleftrightarrow{AD}$, $\overleftrightarrow{BC}$ bisects
-$\angle ABE$ and $m(\angle LEBA) = 150^\circ$,
+If BE AD, BC bisects
+ZABE and m (LEBA) = 150°,
 what is the measure of
-$\angle DBC$?
-(a) $150^\circ$
-(b) $105^\circ$
-(c) $75^\circ$
-(d) $30^\circ$
-
+ZDBC?
+(a) 150°
+(b) 105°
+(c) 75°
+(d) 30°
 
 ■ Critical Thinking
 In the figure below, there
@@ -33,7 +29,6 @@ are three straight lines
 intersecting at one point.
 Write down all the pairs of
 vertically opposite angles.
-
 C
 D
 B
@@ -42,8 +37,7 @@ E
 A
 F
 
-
-Example (4)
+Example 4
 1
 C
 D
@@ -51,8 +45,7 @@ D
 35°
 A
 B
-Is $\overleftrightarrow{AB} \perp \overleftrightarrow{AC}$? Give a reason.
-
+Is AB AC? Give a reason.
 2
 D
 142°
@@ -60,41 +53,40 @@ D
 C
 A
 B
-Do $\overleftrightarrow{AB}$ and $\overleftrightarrow{AC}$ form a straight line?
+Do AB and AC form a straight line?
 Give a reason.
 
-1 $\overleftrightarrow{AB} \perp \overleftrightarrow{AC}$
+1 AB AC
 Because:
-$m(\angle BAD) + m(\angle DAC) = 90^\circ$
-
-2 $\overleftrightarrow{AB}$ and $\overleftrightarrow{AC}$ form a straight line
+m (BAD) + m (DAC) = 90°
+2 AB and AC form a straight line
 Because:
-$m(\angle BAD) + m(\angle DAC) = 180^\circ$
+m (BAD) + m (DAC) = 180°
 
-
-Example (5)
+Example 5
 In the opposite figure:
-$O \in \overleftrightarrow{XN}$, $\overleftrightarrow{OM}$ bisects $\angle NOZ$.
-Calculate $m(\angle MOX)$.
-
+OE XN, OM bisects NOZ.
+Calculate m (MOX).
 Z
-Y
 M
+Y
 50°
 N
 O
 X
 
+m (NOZ) + 90° + 50° = 180°
+m (NOZ) = 180° - 90° - 50° = 40°
+m (NOM) = m ( MOZ) =
+40°
+2
+= 20°
+m (MOX) = 20° + 90° + 50° = 160°
+
 Angle Bisector
 It is a ray that divides an
 angle into two congruent
 angles (equal in measure).
-
-$m(\angle NOZ) + 90^\circ + 50^\circ = 180^\circ$
-$m(\angle NOZ) = 180^\circ - 90^\circ - 50^\circ = 40^\circ$
-$m(\angle NOM) = m(\angle MOZ) = \frac{40^\circ}{2} = 20^\circ$
-$m(\angle MOX) = 20^\circ + 90^\circ + 50^\circ = 160^\circ$
-
 
 4 Vertically Opposite Angles:
 The two vertically opposite angles
@@ -106,15 +98,13 @@ M
 A
 B
 C
-• $\angle AMC$ and $\angle BMD$ are vertically opposite angles.
-• $\angle AMD$ and $\angle BMC$ are vertically opposite angles.
-
+• ZAMC and ZBMD are vertically opposite angles.
+• ZAMD and ZBMC are vertically opposite angles.
 The two vertically opposite angles are congruent (equal in measure).
 In other words:
-$m(\angle AMC) = m(\angle BMD)$ and $m(\angle AMD) = m(\angle BMC)$
-
+m ( AMC) = m ( BMD) and m ( AMD) = m ( BMC)
 
 First Term
 Lesson One: Types of Angles and Relations between Angles
-73
 El Nemer Press
+73

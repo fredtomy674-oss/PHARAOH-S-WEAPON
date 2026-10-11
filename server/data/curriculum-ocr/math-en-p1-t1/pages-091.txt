@@ -1,91 +1,48 @@
 Lesson
 4 - 3
 
+- Learning Outcomes
+• Deduce the sum of the measures of the interior angles of a triangle.
+• Learn the concept of the exterior angle of a triangle.
+• Deduce the relationship between the exterior angle of a triangle and its interior angles.
+• Learn the concept of the triangle inequality
+
+■ Vocabulary
+• Interior Angle
+• Exterior Angle
+• Triangle Inequality
+
+■ Previous Knowledge
+Triangles are classified based on the measures of their angles into:
+• Acute-angled triangle (has 3 acute angles)
+• Right-angled triangle (has 1 right angle)
+• Obtuse-angled triangle (has 1 obtuse angle).
+
 Triangle
 
-- Learning Outcomes
-
-- Deduce the sum of the
-measures of the interior
-angles of a triangle.
-
-- Learn the concept of
-the exterior angle of
-a triangle.
-
-- Deduce the relationship
-between the exterior
-angle of a triangle and its
-interior angles.
-
-- Learn the concept of the
-triangle inequality
-
 Get Ready!
-
-Triangles are used in the
-construction of numerous projects,
-including building houses, crafting
-boat sails, and more. Demonstrate
-how to calculate the value of 'x' in
-the opposite figure.
-
-In this lesson, you will learn about
-some properties of triangles,
-which will enable you to solve such
-real-life problems.
+Triangles are used in the construction of numerous projects, including building houses, crafting boat sails, and more. Demonstrate how to calculate the value of 'X' in the opposite figure.
+In this lesson, you will learn about some properties of triangles, which will enable you to solve such real-life problems.
 
 Think & Discuss!
-
-If you have four wood planks of lengths of 30 cm, 20 cm, 15 cm, and 5 cm,
-which three can be used to make a triangle?
-
+If you have four wood planks of lengths of 30 cm, 20 cm, 15 cm, and 5 cm, which three can be used to make a triangle?
 5 cm
 15 cm
 20 cm
 30 cm
-
 Try all the possible combinations yourself.
 
-- Vocabulary
-
-- Interior Angle
-- Exterior Angle
-- Triangle Inequality
-
-- Previous Knowledge
-
-Triangles are classified
-based on the measures of
-their angles into:
-- Acute-angled triangle
-  (has 3 acute angles)
-- Right-angled triangle
-  (has 1 right angle)
-- Obtuse-angled triangle
-  (has 1 obtuse angle).
-
 Learn!
-
 Sum of Measures of Interior Angles of a Triangle
-
-Straight lines $m$ and $n$ are parallel,
-straight line $k$ intersects them at $A$ and
-$B$, and straight line $p$ intersects them at
-$A$ and $C$.
-
+Straight lines $m$ and $n$ are parallel, straight line $k$ intersects them at $A$ and $B$, and straight line $p$ intersects them at $A$ and $C$.
 $\angle 4$, $\angle 1$ and $\angle 5$ form a straight angle
-
-$\therefore m(\angle 4) + m(\angle 1) + m(\angle 5) = 180^{\circ}$
-
+$\therefore m(\angle 4) + m(\angle 1) + m(\angle 5) = 180^\circ$
 $\therefore m(\angle 4) = m(\angle 2)$ Alternating Angles
-
 $\therefore m(\angle 5) = m(\angle 3)$ Alternating Angles
-
-$\therefore m(\angle 2) + m(\angle 1) + m(\angle 3) = 180^{\circ}$
+$\therefore m(\angle 2) + m(\angle 1) + m(\angle 3) = 180^\circ$
 
 Rule:
-The sum of the measures of the interior angles of any triangle is $180^{\circ}$.
+The sum of the measures of the interior angles of any triangle is $180^\circ$.
 
 84
 Unit Four: Geometry & Measurement

@@ -3,8 +3,7 @@ B (X, -2), find the value of each of X and y.
 
 (13) If ABCD is a rhombus where A (3, 5), B (12, - 3), and C (13, 9), determine the coordinates of the
 following:
-(1) The point of intersection of its diagonals.
-(2) The vertex D.
+(1) The point of intersection of its diagonals. (2) The vertex D.
 
 (14) If A (- 7, 13) and B (3, 5), find the coordinates of the points that divide AB into four equal parts.
 
@@ -17,11 +16,10 @@ determine the coordinates of point D.
 
 y
 B
-C
-4
+4 C
 A(-4,2)
+X
 E
-0
 6
 D
 
@@ -36,7 +34,7 @@ y
 12
 8
 B(18,7)
-A(8,4)
+A (8, 4)
 4
 X
 4
@@ -48,26 +46,29 @@ X
 28
 
 Creative Thinking
+
 y
-Evaluate your
-understanding!
 D
 (18) In the opposite figure:
-How well do you
-understand coordinates?
 A(-3,5)
 C
-ABCD is a rhombus in which:
 M
-Tick the right box.
+ABCD is a rhombus in which:
 AC = 12 and BD = 6.
 B
 X
 Find the coordinates of the other vertices
-0
 of the rhombus
 
+Evaluate your
+understanding!
+How well do you
+understand coordinates?
+Tick the right box.
+
 First Term
+
 Lesson Six: Coordinates
 El Nemer Press
+
 109

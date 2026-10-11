@@ -1,51 +1,11 @@
 3 Le tableau périodique moderne
-Certaines lacunes sont apparues dans le tableau de Moseley ce qui a incité les scientifiques à essayer de le développer. Les éléments ont été réarrangés par ordre croissant selon une gradation régulière en fonction de leurs numéros atomiques et de la manière dont les sous-niveaux d'énergie sont remplis par les électrons dans le tableau périodique moderne actuel (Figure 2), qui est composé de 7 périodes horizontales et de 18 groupes verticaux, contenant 118 éléments.
 
-Les éléments du tableau périodique moderne
-Métaux
-Alcalins
-Alcalino-terreux
-Éléments de transition
-Lanthanides
-Actinides
-Non-métaux
-Halogènes
-Autres non-métaux
-Métalloïdes
-Inconnu
-Solide
-Gaz
-Liquide
-Éléments du bloc s
-1 gp. (1A) H 1
-2 gp. (2A) Li 3 Be 4
-3 Na 11 Mg 12
-4 K 19 Ca 20
-5 Rb 37 Sr 38
-6 Cs 55 Ba 56
-7 Fr 87 Ra 88
-Éléments du bloc d
-3 gp. (3B) Sc 21 Y 39 La 57 Ac 89
-4 gp. (4B) Ti 22 Zr 40 Hf 72 Rf 104
-5 gp. (5B) V 23 Nb 41 Ta 73 Db 105
-6 gp. (6B) Cr 24 Mo 42 W 74 Sg 106
-7 gp. (7B) Mn 25 Tc 43 Re 75 Bh 107
-8 gp. (8) Fe 26 Ru 44 Os 76 Hs 108
-9 gp. (9) Co 27 Rh 45 Ir 77 Mt 109
-10 gp. (10) Ni 28 Pd 46 Pt 78 Ds 110
-11 gp. (11) Cu 29 Ag 47 Au 79 Rg 111
-12 gp. (12) Zn 30 Cd 48 Hg 80 Cn 112
-Éléments du bloc p
-13 gp. (13A) B 5 Al 13 Ga 31 In 49 Tl 81 Nh 113
-14 gp. (14A) C 6 Si 14 Ge 32 Sn 50 Pb 82 Fl 114
-15 gp. (15A) N 7 P 15 As 33 Sb 51 Bi 83 Mc 115
-16 gp. (16A) O 8 S 16 Se 34 Te 52 Po 84 Lv 116
-17 gp. (17A) F 9 Cl 17 Br 35 I 53 At 85 Ts 117
-18 gp. (18) He 2 Ne 10 Ar 18 Kr 36 Xe 54 Rn 86 Og 118
-Gaz nobles (rares)
-Lanthanides Ce 58 Pr 59 Nd 60 Pm 61 Sm 62 Eu 63 Gd 64 Tb 65 Dy 66 Ho 67 Er 68 Tm 69 Yb 70 Lu 71
-Actinides Th 90 Pa 91 U 92 Np 93 Pu 94 Am 95 Cm 96 Bk 97 Cf 98 Es 99 Fm 100 Md 101 No 102 Lr 103
-Éléments du bloc f
-Numéro de la période
+Certaines lacunes sont apparues dans le tableau de Moseley ce qui a incité les scientifiques
+à essayer de le développer. Les éléments ont été réarrangés par ordre croissant selon une gradation
+régulière en fonction de leurs numéros atomiques et de la manière dont les sous-niveaux
+d'énergie sont remplis par les électrons dans le tableau périodique moderne actuel (Figure 2),
+qui est composé de 7 périodes horizontales et de 18 groupes verticaux, contenant 118 éléments.
+
+12 UNITÉ UN: La matière
+
 Figure (2) Le tableau périodique moderne
-12 UNITÉ UN : La matière

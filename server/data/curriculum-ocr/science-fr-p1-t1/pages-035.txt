@@ -13,33 +13,56 @@ une liaison covalente simple, et la paired'électrons qui constitue la
 liaison tourne autour des deux atomes dans la molécule du composé
 covalent, le chlorure d'hydrogène (HCI).
 
+H
+Atome d'hydrogène
+CI
+Atome de chlore
+
+Figure (4)
+Représentation de
+Lewis des atomes
+d'hydrogène et de
+chlore
+
 La liaison covalente dans la molécule de chlorure d'hydrogène est illustrée à (la figure 5,) où
 le tiret (-) entre les deux atomes représente la liaison covalente simple dans la molécule.
 
-H + Cl : ——————> H — Cl :
-Atome Atome de Molécule de chlorure
-d'hydrogène chlore d'hydrogène
+H
+Atome
+d'hydrogène
+CI
+Atome de
+chlore
+H - CI
+Molécule de chlorure
+d'hydrogène
 
 Figure (5)
 Formation de la liaison covalente simple dans la molécule de chlorure d'hydrogène
 
 Activité 2 Déduis
+
 Montre par un schéma la formation de la liaison dans les molécules suivantes à l'aide de
 la structure de Lewis par des points :
-- Molécule d'hydrogène : H + ——————>
-- Molécule d'oxygène : ——————> O = O
-- Molécule d'azote : ——————> + N ——————>
+
+- Molécule d'hydrogène : H +
+- Molécule d'oxygène :
+- Molécule d'azote :
++
++ N
+0=0
 
 Il est clair de ce qui précède que la liaison covalente se forme entre deux atomes d'un même
 élément non métallique ou entre deux atomes de deux différents éléments non métalliques.
-La liaison covalente peut être simple (-), double (=), ou triple (≡).
+La liaison covalente peut être simple (-), double (=), ou triple (=).
 
 Évalue ta compréhension
+
 Utilise les points (.) et les tirets (-) selon la méthode de Lewis pour représenter les électrons de
-valence et les liaisons covalentes dans la molécule d'eau H₂O illustrée à (la figure 6:)
+valence et les liaisons covalentes dans la molécule d'eau H2O illustrée à (la figure 6:)
 
-H + O + H ——————> H O H
-
+H+ O + H HOH
 Figure (6)
 
-october press LEÇON QUATRE : Les liaisons chimiques 29
+october press
+LEÇON QUATRE : Les liaisons chimiques 29

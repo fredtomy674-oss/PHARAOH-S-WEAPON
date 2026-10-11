@@ -1,33 +1,31 @@
 (18) Write the missing coefficients to make the following equation true:
-$10 X + 6 y - \Box X + \Box y = 3 X + 8 y$
+$10X + 6y - \Box X + \Box y = 3X + 8y$
 
-(19) Temperature is measured in Fahrenheit (°F) or Celsius (°C).
-Apply the mathematical formula $F = 1.8 \text{ C} + 32$
-to convert $30\text{ }^\circ C$ to Fahrenheit.
+(19) Temperature is measured in Fahrenheit ($^\circ\text{F}$) or Celsius ($^\circ\text{C}$).
+Apply the mathematical formula $F = 1.8\ C + 32$
+to convert $30\ ^\circ\text{C}$ to Fahrenheit.
 
 Third Analysis and Subjects Integration
+
 (20) Work: Nada is paid $X\text{ LE}$ per hour in her job.
 Write a mathematical expression for each of the following:
 (1) How much does Nada earn if she works for 8 hours?
-(2) If Nada got a raise of $3\text{ LE}$ per hour, what would she earn in 5 hours after the new raise?
-
-Work contributes to the evolution
-of our personalities and the
-progress of our homeland.
+(2) If Nada got a raise of $3\text{ LE}$ per hour,
+what would she earn in 5 hours after the new raise?
 
 (21) Geometry:
 Write, in the simplest form,
 a mathematical expression
 expressing the perimeter $4X$
-of the opposite shape $(P)$,
-then find $P$ at $X = 3, y = 2$
+of the opposite shape ($P$),
+then find $P$ at $X = 3$, $y = 2$
 
 (22) Geometry: XYZ is a triangle.
 Write the mathematical formula
 expressing its area ($A$),
 then find $A$ at $X = 1$
 
-(23) Education: The number of girls in a school is $(8 X + 15)$ and the number of boys is $(7 X - 10)$.
+(23) Education: The number of girls in a school is $(8X + 15)$ and the number of boys is $(7X - 10)$.
 Write the mathematical expression expresses the increase in the number of girls than the
 number of boys in the school.
 
@@ -37,6 +35,7 @@ the table's perimeter, and then find the value of the
 perimeter ($P$) at $X = 10$.
 
 Creative Thinking
+
 (25) The opposite figure represents
 a garden layout.
 (1) Write a mathematic expression to
@@ -45,11 +44,6 @@ express the area of the garden.
 expression representing the garden's
 perimeter.
 
-Evaluate your
-understanding!
-How well do you understand
-mathematical expressions
-and formulas?
-Tick the right box
-
-38 Unit Two: Algebra Mathematics - First Preparatory
+38
+Unit Two: Algebra
+Mathematics - First Preparatory

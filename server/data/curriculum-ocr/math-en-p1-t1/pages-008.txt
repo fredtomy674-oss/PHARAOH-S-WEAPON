@@ -1,5 +1,5 @@
-UNIT
-1
+UNIT 1
+
 Numbers
 and Their Operations
 
@@ -18,24 +18,19 @@ Operations on Numbers
 Artificial Intelligence (AI) is one of the latest fields and forms of
 technological development.
 It can be used to enhance teaching and learning techniques.
-
 Can we develop (AI) applications to solve mathematical problems
 in our daily life?
 
 Issues and Life Skills
-- Mathematical Communication
+- Mathematical Communication - Mathematical Understanding
 - Creative/Critical Thinking
-- Sustainable Development
-
-- Mathematical Understanding
 - Information Technology (IT)
+- Sustainable Development
 - Globalization
 
 Values
 - Respect
-- Perseverance
-- Belonging
-
 - Responsibility
-- Endurance
+- Perseverance - Endurance
+- Belonging
 - Justice

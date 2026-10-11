@@ -1,54 +1,73 @@
 Lesson Assessment
-First Measuring Conceptual Understanding
-► Choose the correct answer from the give ones:
+
+First
+Measuring Conceptual Understanding
+
+► Choose the correct answer from the give ones :
+
 1 In which quadrant is the point (3, - 4) located?
 (a) 1st quadrant
 (b) 2nd quadrant
 (c) 3rd quadrant
 (d) 4th quadrant
+
 2 If the origin is the midpoint of AB, and A is located in the 2nd quadrant, in which quadrant is point B located?
 (a) 1st quadrant
 (b) 2nd quadrant
 (c) 3rd quadrant
 (d) 4th quadrant
+
 3 Which of the following points does not lie on the Y-axis?
 (a) (0, - 5)
 (b) (3, 0)
 (c) (0, 0)
 (d) (0, 2)
+
 4 If X < 0 and Y > 0, in which quadrant is the point (X, - Y) located?
 (a) 1st quadrant
 (b) 2nd quadrant
 (c) 3rd quadrant
 (d) 4th quadrant
+
 5 If the point (3, k - 2) lies on the X-axis, what is the value of k?
-(a) - 3
-(b) - 2
+(a) -3
+(b) -2
 (c) 2
 (d) 3
-6 What is the point representing the projection of the point (- 3, 5) on the X-axis?
+
+6 What is the point representing the projection of the point (-3, 5) on the X-axis?
 (a) (0, 5)
-(b) (- 3, 0)
+(b) (-3, 0)
 (c) (3, - 5)
-(d) (- 3, 5)
-7 What is the projection of the point (- 3, 5) on the Y-axis?
+(d) (-3, 5)
+
+7 What is the projection of the point (-3, 5) on the Y-axis?
 (a) (0, 5)
-(b) (- 3, 0)
-(c) (3, - 5)
-(d) (- 3, 5)
-8 If the point (a, b) in the 3rd quadrant, then the quadrant which the point (- 2 a, b - 6) lies in is:
+(b) (-3, 0)
+(c) (3, -5)
+(d) (-3, 5)
+
+8 If the point (a, b) in the 3rd quadrant, then the quadrant which the point (-2 a, b - 6) lies in is:
 (a) 1st quadrant
 (b) 2nd quadrant
 (c) 3rd quadrant
 (d) 4th quadrant
+
 ► Discuss :
-9 A teacher asked his students about the position of the point (X, Y), such that XY < 0.
+
+9 A teacher asked his students about the position of the point (X, Y), such that X Y < 0.
 Ahmed answered that the point was located in the 2nd quadrant, while Hend answered that the point was located in the 4th quadrant. Who is correct?
-Second Applying Scientific Concepts
+
+Second
+Applying Scientific Concepts
+
 10 If the point (a - 2, 3 a + 9) lies on the X-axis, determine the quadrant in which the point (a, 6 - a) is located.
+
 11 Determine the length of the projection of the line segment AB on the X-axis in each of the following cases:
-1 A (- 2, 1), B (3, 6)
-2 A (- 4, 3), B (- 2, 3)
-3 A (5, 5), B (5, - 1)
-108 Unit Four: Geometry & Measurement
+1 A(-2, 1), B(3, 6)
+2 A(-4, 3), B(-2, 3)
+3 A(5, 5), B(5, -1)
+
+108
+Unit Four: Geometry & Measurement
 Mathematics - First Preparatory

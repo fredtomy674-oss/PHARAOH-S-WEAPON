@@ -23,11 +23,11 @@ de l'électricité comme l'une des ressources d'énergie
 renouvelables et il est également bénéfique naturellement
 pour purifier les surfaces d'eau des impuretés.
 
+Intégration avec les sciences spatiales
+
 Figure (13)
 Les marées dans la baie
 de Fundy
-
-Intégration avec les sciences spatiales
 
 Au début du XXe siècle, les scientifiques ont découvert des régions dans l'espace appelées
 trous noirs (Figure 14), qui se forment lorsqu'une étoile massive s'effondre la fin de sa vie.
@@ -43,6 +43,8 @@ sur la fragilité des os, la taille des poumons,
 le système circulatoire et la pression
 artérielle des astronautes.
 
+50 UNITÉ DEUX : Les champs de forces
+
 Technologie de l'information
 et des communications
 
@@ -50,5 +52,3 @@ Regarde dans des sources numériques fiables
 des vidéos éducatives montrant l'effet de
 la force gravitationnelle mutuelle entre la Lune
 et la Terre lors du phénomène des marées.
-
-50 UNITÉ DEUX: Les champs de forces

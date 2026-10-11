@@ -6,6 +6,7 @@ Procaryotes et eucaryotes
 Activité 3 Compare
 Collabore avec tes camarades pour comparer les structures de la cellule animale (Figure 4), de la cellule végétale (Figure 5) en tant qu'eucaryotes, et de la cellule bactérienne (Figure 6) en tant que procaryote
 
+Corps central (centrosome)
 Appareil de Golgi
 Membrane plasmique
 Cytoplasme
@@ -14,37 +15,42 @@ Noyau (entouré d'une membrane nucléaire)
 Réticulum endoplasmique
 Mitochondrie
 Vacuole
-Corps central (centrosome)
+
 Figure (4)
 Cellule animale
 
-plaste vert
-Paroi cellulaire
-Membrane plasmique
 Figure (5)
 Cellule végétale
 
 Cytoplasme
+plaste vert
+Paroi cellulaire
+Membrane plasmique
+
 Matériel génétique
 Ribosomes
+
 Figure (6)
 Cellule bactérienne
 
 Enregistre les observations en plaçant le signe (√) ou (x) dans les cases appropriées du tableau (1):
 
-Structures ou organites | Cellule animale | Cellule végétale | Cellule bactérienne
---- | --- | --- | ---
-(1) Présence de la paroi cellulaire | | |
-(2) Présence de la membrane plasmique (membrane cellulaire) | | |
-(3) Présence de noyau | | |
-(4) Présence de cytoplasme | | |
-(5) Présence de l'appareil de Golgi | | |
-(6) Présence des ribosomes | | |
-(7) Présence de réticulum endoplasmique | | |
-(8) Présence des mitochondries | | |
-(9) Présence de corps central (centrosome) | | |
-(10) Présence des plastes verts | | |
-(11) Présence des vacuoles | | |
+Structures ou organites
+(1) Présence de la paroi cellulaire
+(2) Présence de la membrane plasmique (membrane cellulaire)
+(3) Présence de noyau
+(4) Présence de cytoplasme
+(5) Présence de l'appareil de Golgi
+(6) Présence des ribosomes
+(7) Présence de réticulum endoplasmique
+(8) Présence des mitochondries
+(9) Présence de corps central (centrosome)
+(10) Présence des plastes verts
+(11) Présence des vacuoles
+
+Cellule animale
+Cellule végétale
+Cellule bactérienne
 
 october press
-LEÇON UN : Les cellules et la vie 59
+LEÇON UN: Les cellules et la vie 59

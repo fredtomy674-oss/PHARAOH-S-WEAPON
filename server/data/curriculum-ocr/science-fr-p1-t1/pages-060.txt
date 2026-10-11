@@ -1,39 +1,80 @@
 Questions d'évaluation de la Leçon Trois
 
-1 Mettre (✓) ou (X) devant les affirmations suivantes qui décrivent la gravité terrestre :
-(1) Force agissante à distance. ( )
-(2) Agit sur les masses des corps. ( )
-(3) Cause la chute des corps vers le centre de la Terre ( )
-(4) L'intensité de son champ diminue avec l'éloignement du centre de la Terre. ( )
+1 Mettre (✓) ou (✗) devant les affirmations
+suivantes qui décrivent la gravité terrestre :
+(1) Force agissante à distance.
+( )
+(2) Agit sur les masses des corps.
+( )
+(3) Cause la chute des corps vers
+le centre de la Terre
+( )
+(4) L'intensité de son champ diminue avec
+l'éloignement du centre de la Terre. ( )
 
-2 Choisir la réponse correcte aux questions de (1) à (3) :
-(1) Tu as deux corps, le premier a une masse de 5 kg et le deuxième a une masse de 20 kg. Lequel de ce qui suit décrit la force gravitationnelle entre les deux corps ?
-(a) La force gravitationnelle du premier corps est plus grande par rapport au deuxième corps est plus grande.
-(b) La force gravitationnelle du deuxième corps est plus grande par rapport au premier corps est plus grande.
-(c) Les deux corps s'attirent mutuellement avec la même force.
-(d) Il n'y a pas de force gravitationnelle entre les deux corps.
-(2) Quelle force cause la chute d'une balle d'un endroit élevé vers le sol ?
-(a) Gravité. (b) Magnétisme.
-(c) Frottement. (d) Collision.
-(3) Un corps a un poids de 600 N au pied d'une haute montagne. Lequel de ce qui suit peut décrire sa masse et son poids au sommet de la montagne ?
-choix | Masse | Poids
-a | 60 kg | 600 N
-b | 6 kg | 600 N
-c | 60 kg | 598 N
-d | 6 kg | 598 N
+2 Choisir la réponse correcte aux
+questions de (1) à (3) :
+(1) Tu as deux corps, le premier a une
+masse de 5 kg et le deuxième a une
+masse de 20 kg. Lequel de ce qui suit
+décrit la force gravitationnelle entre les
+deux corps ?
+a La force gravitationnelle du premier
+corps est plus grande par rapport
+au deuxième corps est plus grande.
+b La force gravitationnelle du deuxième
+corps est plus grande par rapport au
+premier corps est plus grande.
+c Les deux corps s'attirent mutuelle-
+ment avec la même force.
+d Il n'y a pas de force gravitationnelle
+entre les deux corps.
 
-3 Le graphique suivant montre la relation entre le poids et la masse de plusieurs corps sur la surface de deux planètes différentes :
-Laquelle des planètes a un champ gravitationnel plus faible ? justifie ta réponse.
+(2) Quelle force cause la chute d'une balle
+d'un endroit élevé vers le sol ?
+a Gravité.
+b Magnétisme.
+c Frottement.
+d Collision.
 
-4 Identife les similarités et les différences entre la force gravitationnelle et la force magnétique.
+(3) Un corps a un poids de 600 N au pied
+d'une haute montagne. Lequel de ce
+qui suit peut décrire sa masse et son
+poids au sommet de la montagne ?
 
-5 Citer une seule différence entre la force élastiques et la force gravitationnelles
+choix Masse Poids
+a 60 kg 600 N
+b 6 kg 600 N
+c 60 kg 598 N
+d 6 kg 598 N
 
-6 La figure suivante montre l'orbite d'une des planètes autour du Soleil :
-À quel endroit la force gravitationnelle entre le Soleil et la planète est-elle minimale ? Précise le facteur influant
+3 Le graphique suivant montre la relation
+entre le poids et la masse de plusieurs
+corps sur la surface de deux planètes
+différentes :
+
+Laquelle des planètes a un champ
+gravitationnel plus faible ? justifie ta
+réponse.
+
+4 Identife les similarités et les différences
+entre la force gravitationnelle et la force
+magnétique.
+
+5 Citer une seule différence entre la force
+élastiques et la force gravitationnelles
+
+6 La figure suivante montre l'orbite d'une
+des planètes autour du Soleil :
+
+À quel endroit la force gravitationnelle
+entre le Soleil et la planète est-elle
+minimale ? Précise le facteur influant
 
 7 D'après la figure suivante :
-la Lune | la Terre
-Explique la relation entre la force gravitationnelle de la Terre sur la Lune et la force gravitationnelle de la Lune sur la Terre.
+
+Explique la relation entre la force
+gravitationnelle de la Terre sur la Lune et la
+force gravitationnelle de la Lune sur la Terre.
 
 54

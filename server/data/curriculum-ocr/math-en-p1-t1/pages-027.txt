@@ -1,39 +1,39 @@
 First Addition of Integers
-Using the number line strategy for addition
 
-■ Self-Evaluation 1
-Using the number line, find the sum of each of the following:
-1 - 5 + (-3)
-2 4 + (-7)
+Using the number line strategy for addition
 
 Example 1
 Find the result of each of the following:
 1 - 2 + (-4)
 2 - 2 + 5
 
-- 7 - 6 - 5 - 4 - 3 - 2 - 1 0 1
-- 2 + (-4) = - 6
+- -7 -6 -5 -4 -3 -2 -1 0 1
+- -2 + (-4) = -6
+-2 -1 0 1 2 3 4
+- -2 + 5 = 3
 
-- 2 - 1 0 1 2 3 4
-- 2 + 5 = 3
-
-■ Number Line Strategy
+Number Line Strategy
 • Always start at 0.
 • Move right to add a positive integer.
 • Move left to add a negative integer.
 
-Using the absolute value strategy for addition
+■ Self-Evaluation 1
+Using the number line, find the sum of each of the following:
+1 - 5 + (-3)
+2 4 + (-7)
 
-■ Absolute Value Strategy
-• To find the sum of two integers with the same sign, add the absolute values of both integers, and the sum will have the same sign.
-• To find the sum of two integers with opposite signs, find the difference of the absolute values of both integers, and the difference will take the sign of the integer with the larger absolute value.
+Using the absolute value strategy for addition
 
 Example 2
 Find the result of each of the following:
 1 13 + 7
-2 - 13 + (-7)
-3 - 13 + 7
+2 -13 + (-7)
+3 -13 + 7
 4 13 + (-7)
+
+Solution Guide
+|7| = 7 , |-7| = 7
+|13| = 13 , |-13| = 13
 
 1 Since the integers are positive:
 Therefore, the sum will have the same positive sign (and find the sum of the absolute values)
@@ -41,28 +41,17 @@ Therefore, the sum will have the same positive sign (and find the sum of the abs
 
 2 Since the integers are negative:
 Therefore, the sum will have the same negative sign (and find the sum of the absolute values)
-- 13 + (- 7) = - 20
+-13 + (-7) = -20
 
 3 Since the integers have opposite signs, and:
-|7| < |- 13|
+|7| < |-13|
 Therefore, the sum will have the negative sign (and find the difference of the absolute values)
-- 13 + 7 = - 6
+-13 + 7 = -6
 
 4 Since the integers have opposite signs, and:
-|13| > |- 7|
+|13| > |-7|
 Therefore, the sum will have the positive sign (and find the difference of the absolute values)
-13 + (- 7) = 6
-
-■ Solution Guide
-|7| = 7 , |-7| = 7
-|13| = 13 , |-13| = 13
-
-■ Self-Evaluation 2
-Using the absolute value, find the sum of each of the following:
-1 - 6 + 14
-2 - 6 + (-14)
-3 6 + 14
-4 6 + (-14)
+13 + (-7) = 6
 
 Properties of Addition of Integers
 
@@ -70,9 +59,18 @@ Let $a$, $b$ and $c$ be three integers, the following properties hold for additi
 1 Closure: The sum of any two integers is an integer ($a + b \in \mathbb{Z}$).
 2 Commutative: $a + b = b + a$
 3 Associative: $(a + b) + c = a + (b + c)$
-4 Existence of an additive identity, which is $0$: $a + 0 = 0 + a = a$
+4 Existence of an additive identity, which is 0: $a + 0 = 0 + a = a$
 5 Existence of additive inverses: $a + (-a) = (-a) + a = 0$
 
-20
-Unit One: Numbers and Their Operations
-Mathematics - First Preparatory
+■ Absolute Value Strategy
+• To find the sum of two integers with the same sign, add the absolute values of both integers, and the sum will have the same sign.
+• To find the sum of two integers with opposite signs, find the difference of the absolute values of both integers, and the difference will take the sign of the integer with the larger absolute value.
+
+■ Self-Evaluation 2
+Using the absolute value, find the sum of each of the following:
+1 -6 + 14
+2 -6 + (-14)
+3 6 + 14
+4 6 + (-14)
+
+20 Unit One: Numbers and Their Operations Mathematics - First Preparatory

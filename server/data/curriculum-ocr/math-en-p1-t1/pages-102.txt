@@ -47,28 +47,28 @@ equal in length.
 Find the value of $X$ that
 makes:
 1 ABCD is a square.
-D C
-x°
-A B
+$D$ $C$
+$x^\circ$
+$A$ $B$
 2 The parallelogram ABCD
 is a rhombus.
-D C
-6 cm
-A $(X - 1)$ cm B
+$D$ $C$
+$A$ $(X - 1)\text{ cm}$ $B$
+$6\text{ cm}$
 
 Example (5)
 In the opposite figure:
 Find the value of $X$ that makes the
 parallelogram $ABCD$ is a rectangle.
-D C
-M
-5 cm
-A B
-$(2x - 1)$ cm
+$D$ $C$
+$A$ $B$
+$M$
+$5\text{ cm}$
+$(2X - 1)\text{ cm}$
 The parallelogram $ABCD$ is a rectangle if: $AC = BD$
-$2 (2 X - 1) = 2 \times 5$
-$2 X - 1 = 5$
-$2 X = 5 + 1 = 6$
+$2(2X - 1) = 2 \times 5$
+$2X - 1 = 5$
+$2X = 5 + 1 = 6$
 $X = \frac{6}{2} = 3$
 
 Collaborative Activity
@@ -76,7 +76,7 @@ Collaborate with a group of your classmates. Each one of
 you should draw a quadrilateral on a graph paper, so that you
 will have a variety of different quadrilaterals. Each time, use
 a protractor to measure each angle in each quadrilateral and
-verify that the sum of the measures of the interior angles is 360°.
+verify that the sum of the measures of the interior angles is $360^\circ$.
 
 First Term
 Lesson Four: Quadrilaterals

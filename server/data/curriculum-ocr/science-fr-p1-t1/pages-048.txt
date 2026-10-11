@@ -1,6 +1,24 @@
 Formes des aimants
-On pense que l'aimant naturel (roche magnétique) (Figure 1) a été découvert dans la région de Magnésie en Grèce antique. Parmi ses caractéristiques distinctives, la capacité d'attirer certains objets métalliques. La fabrication des aimants artificiels a commencé au XIXe siècle.
+
+On pense que l'aimant naturel (roche magnétique) (Figure 1) a été découvert dans la région de
+Magnésie en Grèce antique. Parmi ses caractéristiques distinctives, la capacité d'attirer certains
+objets métalliques. La fabrication des aimants artificiels a commencé au XIXe siècle.
 Il existe différentes formes d'aimants, dont certaines sont illustrées à la (Figure 2).
+
+N
+N S
+N
+
+S
+Aiguille
+magnétique
+
+Aimant en forme
+de fer à cheval
+
+S
+Barre
+magnétique
 
 Figure (1) : Aimant naturel
 (roche magnétique)
@@ -8,23 +26,62 @@ Figure (1) : Aimant naturel
 Figure (2) Aimants artificiels
 
 Activité 1 Essaie
-• Quel est l'effet d'approcher un aimant d'un mélange de tournure de cuivre, de limaille de fer et de sable (Figure 3)?
+
+• Quel est l'effet d'approcher un aimant d'un mélange de tournure
+de cuivre, de limaille de fer et de sable (Figure 3)?
 
 • Est-ce que l'aimant a la capacité d'attirer tous les métaux ?
-Il est claire de cette activité qu'il existe des matériaux qui sont attirés par l'aimant, connus par les matériaux magnétiques (Figure 4), et d'autres qui ne sont pas attirés, appelés matériaux non magnétiques (Figure 5).
+Il est claire de cette activité qu'il existe des matériaux
+qui sont attirés par l'aimant, connus par les matériaux
+magnétiques (Figure 4), et d'autres qui ne sont pas attirés,
+appelés matériaux non magnétiques (Figure 5).
+
+Aimant
+
+Mélange de
+tournure de cuivre,
+de limaille de
+fer et de sable
+
+Figure (3)
 
 Matériaux magnétiques
-- Matériaux qui sont attirés par l'aimant.
-Fer doux Cobalt Fer Nickel
+
+- Matériaux qui sont attirés par l'aimant .
+
+Fer doux
+
+Cobalt
+
+Fer
+
+Nickel
+
 Figure (4) Matériaux magnétiques
 
 Matériaux non magnétiques
-- Matériaux qui ne sont pas attirés par l'aimant.
-Or Aluminium Cuivre Argent
+
+- Matériaux qui ne sont pas attirés
+par l'aimant.
+
+Or
+
+Aluminium
+
+Cuivre
+
+Argent
+
 Figure (5) Matériaux non magnétiques
 
 Applications pratiques
-► La boussole est un ancien outil utilisé pour déterminer les quatre directions géographiques principales de la Terre. Elle se compose d'une aiguille magnétique à mouvement libre fixée à son axe (Figure 6). Elle est placée à l'intérieur d'une boîte en cuivre ou en plastique... Pourquoi ? Peux-tu fabriquer une boussole avec des matériaux disponibles dans ton environnement ?
+
+► La boussole est un ancien outil utilisé pour déterminer les quatre
+directions géographiques principales de la Terre. Elle se compose
+d'une aiguille magnétique à mouvement libre fixée à son axe
+(Figure 6). Elle est placée à l'intérieur d'une boîte en cuivre ou en
+plastique... Pourquoi ? Peux-tu fabriquer une boussole avec des
+matériaux disponibles dans ton environnement ?
 
 Figure (6) Boussole
 

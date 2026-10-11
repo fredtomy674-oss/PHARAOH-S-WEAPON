@@ -1,35 +1,103 @@
-Questions d'évaluation de la deuxième leçon ?
+Questions d'évaluation de la deuxième leçon
 
-1 Complète la phrase suivante avec les termes appropriés :
-Les éléments du tableau périodique moderne sont classés selon ................. et dans le tableau de Mendeleïev selon .................
+1 Complète la phrase suivante avec les
+termes appropriés :
+Les éléments du tableau périodique moderne
+sont classés selon ............ et dans le
+tableau de Mendeleïev selon ............
 
-2 La figure suivante représente une section du tableau périodique :
-(1) Quels sont les deux éléments qui se trouvent dans la même période ?
-(2) Quels sont les deux éléments qui se trouvent dans le même groupe ?
+2 La figure suivante représente une section
+du tableau périodique :
+(1) Quels sont les deux éléments qui se
+trouvent dans la même période ?
+(2) Quels sont les deux éléments qui se
+trouvent dans le même groupe ?
 
-3 Choisis la réponse correcte aux questions de (1) à (5) :
-(1) Lequel des choix suivants décrit correctement les métaux de lithium et de potassium?
-(2) La figure suivante représente une section du tableau périodique :
-Lequel de ce qui suit représente la structure électronique correcte de l'élément indiqué ?
-(a) Élément (W) : 2 , 8 , 1
-(b) Élément (X) : 2 , 4
-(c) Élément (Y) : 2 , 8 , 2
-(d) Élément (Z) : 2 , 8
-(3) La figure suivante montre certains groupes du tableau périodique :
+3 Choisis la réponse correcte aux
+questions de (1) à (5) :
+(1) Lequel des choix suivants décrit correctement
+les métaux de lithium et de potassium?
 
-Lequel de ce qui suit est correcte concernant les éléments des groupes ?
-(a) Groupe (A) : Non-métaux monovalents.
-(b) Groupe (B) : Les rayons atomiques de ses atomes diminuent avec l'augmentation du numéro atomique.
-(c) Groupe (C) : Ses éléments présentent une variété d'états physiques.
-(d) Groupe (D) : Non-métaux octovalent.
-(4) Trois cubes de matières (1), (2), (3) sont à température ordinaire, et le tableau suivant montre leurs points de fusion et d'ébullition :
-Après avoir augmenté la température des trois cubes à X°C, leur état physique est devenu le suivant :
+Choix
+Métal ayant le point de
+fusion le plus élevé
+Métal le plus actif dans
+sa réaction avec l'eau
+(a)
+Lithium
+Lithium
+(b)
+Lithium
+Potassium
+(c)
+Potassium
+Lithium
+(d)
+Potassium
+Potassium
+
+(2) La figure suivante représente une
+section du tableau périodique :
+Lequel de ce qui suit représente la structure
+électronique correcte de l'élément indiqué ?
+(a) Élément (W) : 2, 8, 1
+(b) Élément (X) : 2, 4
+(c) Élément (Y) : 2, 8, 2
+(d) Élément (Z) : 2, 8
+
+(3) La figure suivante montre certains
+groupes du tableau périodique :
+
+Lequel de ce qui suit est correcte
+concernant les éléments des groupes ?
+(a) Groupe (A): Non-métaux monovalents.
+(b) Groupe (B): Les rayons atomiques
+de ses atomes diminuent avec
+l'augmentation du numéro atomique.
+(c) Groupe (C): Ses éléments présentent
+une variété d'états physiques.
+(d) Groupe (D): Non-métaux octovalent.
+
+(4) Trois cubes de matières (1), (2), (3)
+sont à température ordinaire, et le
+tableau suivant montre leurs points
+de fusion et d'ébullition:
+
+Matière(1) Matière (2) Matière (3)
+Point de fusion 16° C 3°C 60° C
+Point d'ébullition 117°C 50°C 220°C
+
+Après avoir augmenté la température
+des trois cubes à X°C, leur état
+physique est devenu le suivant :
+
+(1)
+(2)
+(3)
+
 Quelle est la température X°C ?
 (a) 15°C (b) 45°C (c) 55°C (d) 75°C
-(5) Deux éléments (X) et (Y) : Si l'élément (X) est situé dans la 2e période du tableau périodique et que le nombre de protons dans le noyau de l'élément (Y) est supérieur de 5 à celui du noyau de l'élément (X), Lequel de ce qui suit est correcte ?
-(a) Les éléments (X) et (Y) sont nécessairement dans la même période.
-(b) Le nombre d'électrons dans le niveau d'énergie K des atomes des éléments (X) et (Y) est le même.
-(c) Le nombre d'électrons dans le dernier niveau d'énergie de l'atome de l'élément (Y) est nécessairement supérieur de 5 à celui de l'atome de l'élément (X).
-(d) Le nombre de nucléons dans le noyau de l'atome de l'élément (Y) est supérieur de 5 à celui du noyau de l'atome de l'élément (X).
 
-october press 17
+(5) Deux éléments (X) et (Y): Si l'élément
+(X) est situé dans la 2e période du
+tableau périodique et que le nombre
+de protons dans le noyau de l'élément
+(Y) est supérieur de 5 à celui du
+noyau de l'élément (X), Lequel de ce
+qui suit est correcte ?
+(a) Les éléments (X) et (Y) sont
+nécessairement dans la même période.
+(b) Le nombre d'électrons dans le niveau
+d'énergie K des atomes des éléments
+(X) et (Y) est le même.
+(c) Le nombre d'électrons dans le dernier
+niveau d'énergie de l'atome de l'élément
+(Y) est nécessairement supérieur de 5
+à celui de l'atome de l'élément (X).
+(d) Le nombre de nucléons dans le
+noyau de l'atome de l'élément (Y) est
+supérieur de 5 à celui du noyau de
+l'atome de l'élément (X).
+
+october press
+17

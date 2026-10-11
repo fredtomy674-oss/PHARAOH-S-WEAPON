@@ -4,6 +4,7 @@ La structure
 de l'atome
 
 Vocabulaire de la leçon
+
 • Matière
 • Molécule
 • Atome
@@ -20,6 +21,7 @@ Vocabulaire de la leçon
 
 Compétences, valeurs
 et enjeux abordés :
+
 • Compétences : Déduction -
 Prédiction - Analyse.
 • Valeurs : Appréciation des
@@ -27,10 +29,12 @@ scientifiques - Coopération.
 • Enjeux : Développement durable.
 
 Concepts croisés :
+
 • Mesure et proportion
 
 Objectifs de la leçon :
 À la fin de la leçon, l'élève devrait être capable de :
+
 1 Déduire que l'atome est l'unité de construction de toute matière.
 2 Montrer le rôle du scientifique Ernest Rutherford dans la découverte de
 la structure de l'atome.
@@ -46,6 +50,7 @@ constituant l'atome.
 10 Reconnaître les isotopes.
 
 Introduction de la leçon :
+
 Ci-contre les noyaux de trois atomes.
 Cette leçon explore les idées qui t'aideront
 à répondre à ces questions :

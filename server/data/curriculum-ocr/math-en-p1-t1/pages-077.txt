@@ -1,23 +1,15 @@
 ■ Geometric Tools
-
 Protractor is used to
 measure angles
-
 C
-
-100 90 80 70
-110 120 130 140 150 160 170 180
-160 150 140 130 120 110 100 90 80 70 60 50
 60°
 B
 A
-The measure of ∠ ABC
+The measure of \angle ABC
 is 60°.
-
 ► Use a protractor to
 measure each of the
 adjacent angles.
-
 ► Can you use this protractor
 in measuring the reflex
 angle?
@@ -25,19 +17,16 @@ angle?
 ■ Note that
 The measure of a circle is
 360°. Therefore, the sum of
-the measures of ZA and
-the reflex of ZA is 360°.
-
+the measures of \angle A and
+the reflex of \angle A is 360°.
 A
 70°
-
-If the measure of ZA is
+If the measure of \angle A is
 70°, then the measure
-of the reflex ZA is:
+of the reflex \angle A is:
 360° - 70° = 290°
 
-■ Self-Evaluation (1)
-
+■ Self-Evaluation ①
 Find the value of X in each
 of the following:
 1
@@ -48,78 +37,59 @@ Straight Angle
 120°
 
 Types of Angles
-
 1 Zero Angle
-
 An angle whose
 measure is 0° and
 whose sides coincide.
-
 4 Obtuse Angle
-
 An angle whose
 measure is more than
 90° and less than 180°.
-
-Example 1
-
 2 Acute Angle
-
 An angle whose
 measure is more than 0°
 and less than 90°.
-
 5 Straight Angle
-
 An angle whose measure
 is 180°, its sides are on
 opposite directions and
 form a straight line.
-
-Find the value of X in each of the following:
-
-1
-(2x-10)°
-Straight Angle
-
-1
-2X-10° = 180°
-2 X = 180° + 10°
-2 X = 190°
-190°
-2
-X=95°
-X=
-
-2
-(2x-10)°
-150°
-
 3 Right Angle
-
 An angle whose
 measure is 90°.
-
 6 Reflex Angle
-
 An angle whose
 measure is more than
 180° and less than 360°.
 
+Example 1
+Find the value of X in each of the following:
+1
+(2x-10)°
+Straight Angle
 2
-2 X-10° = 360° - 150°
-2 X-10° = 210°
+(2x-10)°
+150°
+
+1
+2 X - 10° = 180°
+2 X = 180° + 10°
+2 X = 190°
+X = \frac{190°}{2}
+X = 95°
+
+2
+2 X - 10° = 360° - 150°
+2 X - 10° = 210°
 2 X = 210° + 10°
 2 X = 220°
-220°
-2
+X = \frac{220°}{2}
 X = 110°
-X=
 
 ■ Verify the Solution Yourself:
 In problem 1:
 Substitute X with 95°
-2 X - 10° = 2 x 95° - 10° = 190° - 10° = 180°
+2 X - 10° = 2 \times 95° - 10° = 190° - 10° = 180°
 This means that the solution is correct, since the angle is straight.
 ► Can you verify the solution for problem 2?
 

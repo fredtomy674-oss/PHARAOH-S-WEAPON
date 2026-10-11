@@ -122,6 +122,30 @@ import {
   loadBookPage as loadMathP1Page,
 } from "../../db/egyptMathP1T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as MATH_EN_P1_OFFSET,
+  EGYPT_MATH_EN_P1_T1_BOOK_END,
+  allLessonRanges as mathEnP1LessonRanges,
+  loadBookPage as loadMathEnP1Page,
+} from "../../db/egyptMathEnP1T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_P1_OFFSET,
+  EGYPT_SCIENCE_P1_T1_BOOK_END,
+  allLessonRanges as scienceP1LessonRanges,
+  loadBookPage as loadScienceP1Page,
+} from "../../db/egyptScienceP1T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_FR_P1_OFFSET,
+  EGYPT_SCIENCE_FR_P1_T1_BOOK_END,
+  allLessonRanges as scienceFrP1LessonRanges,
+  loadBookPage as loadScienceFrP1Page,
+} from "../../db/egyptScienceFrP1T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SOCIAL_P1_OFFSET,
+  EGYPT_SOCIAL_P1_T1_BOOK_END,
+  allLessonRanges as socialP1LessonRanges,
+  loadBookPage as loadSocialP1Page,
+} from "../../db/egyptSocialP1T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G9_OFFSET,
   EGYPT_ARABIC_G9_T1_BOOK_END,
   allLessonRanges as arabicG9LessonRanges,
@@ -394,6 +418,10 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g8-math-en", prefix: "l-g8-math-en-", offset: MATH_G8_EN_OFFSET, bookEnd: EGYPT_MATH_G8_EN_T1_BOOK_END, ranges: mathG8EnLessonRanges(), loadPage: loadMathG8EnPage }),
   buildBook({ code: "eg-g8-math-fr", prefix: "l-g8-math-fr-", offset: MATH_G8_FR_OFFSET, bookEnd: EGYPT_MATH_G8_FR_T1_BOOK_END, ranges: mathG8FrLessonRanges(), loadPage: loadMathG8FrPage }),
   buildBook({ code: "eg-g7-math", prefix: "l-g7-math-", offset: MATH_P1_OFFSET, bookEnd: EGYPT_MATH_P1_T1_BOOK_END, ranges: mathP1LessonRanges(), loadPage: loadMathP1Page }),
+  buildBook({ code: "eg-g7-math-en", prefix: "l-g7-math-en-", offset: MATH_EN_P1_OFFSET, bookEnd: EGYPT_MATH_EN_P1_T1_BOOK_END, ranges: mathEnP1LessonRanges(), loadPage: loadMathEnP1Page }),
+  buildBook({ code: "eg-g7-science", prefix: "l-g7-sci-", offset: SCIENCE_P1_OFFSET, bookEnd: EGYPT_SCIENCE_P1_T1_BOOK_END, ranges: scienceP1LessonRanges(), loadPage: loadScienceP1Page }),
+  buildBook({ code: "eg-g7-science-fr", prefix: "l-g7-sci-fr-", offset: SCIENCE_FR_P1_OFFSET, bookEnd: EGYPT_SCIENCE_FR_P1_T1_BOOK_END, ranges: scienceFrP1LessonRanges(), loadPage: loadScienceFrP1Page }),
+  buildBook({ code: "eg-g7-social", prefix: "l-g7-social-", offset: SOCIAL_P1_OFFSET, bookEnd: EGYPT_SOCIAL_P1_T1_BOOK_END, ranges: socialP1LessonRanges(), loadPage: loadSocialP1Page }),
 ];
 
 const STAGE_BOOK_BY_CODE = new Map(STAGE_BOOKS.map((b) => [b.code, b]));

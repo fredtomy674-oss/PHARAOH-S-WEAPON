@@ -1,4 +1,4 @@
-■ Self-Evaluation (1)
+- Self-Evaluation (1)
 
 55, 75, 55, 42, and 47
 represent the numbers
@@ -13,8 +13,11 @@ of the following statements
 is true?
 
 a The median decreases
+
 b The mode increases
+
 c The average decreases
+
 d The average increases
 
 ► Hint:
@@ -25,7 +28,8 @@ before and after adding
 95, then compare the
 results.
 
-Example (1)
+Example 1
+
 Sarah took five tests, each with full marks
 of 100. If her marks in three tests are 94,
 88, and 81, what is the least mark she
@@ -35,12 +39,12 @@ tests?
 
 The sum of Sarah's marks in the three tests = 94 + 88 + 81 = 263 marks.
 To get an average of 83 marks in the five tests, the sum of the marks in the
-five tests should be = 83 x 5 = 415 marks
+five tests should be = 83 × 5 = 415 marks
 
 Thus, the sum of the marks that Sarah needs to get in the other two tests is
 the difference between 415 and 263
 
-415 - 263 = 152
+$415 - 263 = 152$
 
 Since the full mark that Sarah can get in one of the two tests is 100,
 the least marks she could possibly get is 52.
@@ -50,56 +54,78 @@ The Arithmetic Mean of a Frequency Distribution
 You can calculate the arithmetic mean of a frequency distribution using
 the following mathematical formula:
 
-Arithmetic mean $(\bar{x}) = \frac{\sum(f \cdot x)}{\sum f}$
+$$\text{Arithmetic mean } (\bar{x}) = \frac{\sum (f \cdot X)}{\sum f}$$
 
-Where: $\sum f$ is the sum of the frequencies, and $\sum (f \cdot x)$ is the sum of
+Where: $\sum f$ is the sum of the frequencies, and $\sum (f \cdot X)$ is the sum of
 the products of $f$ and $X$.
 
-■ Self-Evaluation (2)
+- Self-Evaluation (2)
 
 If the masses of the school's
 Karate team players in
 kilograms are given in the
 following table:
 
-Mass (Kg) Frequency
-71 1
-72 2
-73 4
-74 3
-75 5
-76 3
-77 2
+$$\begin{array}{|c|c|}
+\hline
+\text{Mass (Kg)} & \text{Frequency} \\
+\hline
+71 & 1 \\
+72 & 2 \\
+73 & 4 \\
+74 & 3 \\
+75 & 5 \\
+76 & 3 \\
+77 & 2 \\
+\hline
+\end{array}$$
 
 calculate the arithmetic
 mean of the masses of
 these players.
 
-Example (2)
+Example 2
+
 The opposite frequency table shows
 the daily pocket money of a student over
 one week. Find the average daily
 pocket money of this student.
 
-Pocket money in LE No. of days
-$(x)$ ($f$)
-16 2
-20 3
-25 1
-30 1
+$$\begin{array}{|c|c|}
+\hline
+\text{Pocket money in LE} & \text{No. of days} \\
+(X) & (f) \\
+\hline
+16 & 2 \\
+20 & 3 \\
+25 & 1 \\
+30 & 1 \\
+\hline
+\end{array}$$
 
-$x$ | $f$ | $f \cdot x$
-16 | 2 | 32
-20 | 3 | 60
-25 | 1 | 25
-30 | 1 | 30
-Sum | 7 | 147
+$$\begin{array}{|c|c|c|}
+\hline
+x & f & f \cdot X \\
+\hline
+16 & 2 & 32 \\
+20 & 3 & 60 \\
+25 & 1 & 25 \\
+30 & 1 & 30 \\
+\hline
+\text{Sum} & 7 & 147 \\
+\hline
+\end{array}$$
 
 The average daily pocket money
-$= \frac{\sum(f \cdot X)}{\sum f} = \frac{147}{7} = 21$ LE.
+
+$$= \frac{\sum (f \cdot X)}{\sum f} = \frac{147}{7} = 21 \text{ LE.}$$
 
 Your pocket money is helping
 you how to be responsible and
 how to make your own choices.
 
-56 | Unit Three: Statistics | Mathematics - First Preparatory
+56
+
+Unit Three: Statistics
+
+Mathematics - First Preparatory

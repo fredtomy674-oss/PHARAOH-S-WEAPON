@@ -1,87 +1,73 @@
 Second Subtraction of Integers
-
-The subtraction of $b$ from $a$ is the same as the addition of $a$ to the
-additive inverse of $b$.
-
-$a - b = a + (-b)$
+The subtraction of b from a is the same as the addition of a to the
+additive inverse of b.
+a-b = a + (-b)
 
 Using the number line strategy for subtraction
-
-Example (3)
-
-Find the result of each of the following: (1) $3 - 4$ (2) $-4 - (-6)$
-
-(1) $3 - 4 = 3 + (-4) = -1$
-(2) $-4 - (-6) = -4 + 6 = 2$
-
-Third Multiplication of Integers
-
-Multiplication is a repeated addition.
-
-Using the number line strategy for multiplication
-
-Example (4)
-
-Find the product of each of the following: (1) $3 \times (-3)$ (2) $(-2) \times 4$
-
-(1) $3 \times (-3) = (-3) + (-3) + (-3)$
-$3 \times (-3) = -9$
-
-(2) $(-2) \times 4 = (-2) + (-2) + (-2) + (-2)$
-$(-2) \times 4 = -8$
-
-Properties of Multiplication of Integers
-
-Let $a$, $b$ and $c$ be three integers, the following properties hold for
-multiplication:
-
-1 Closure: The product of any two integers is an integer ($a \times b \in \mathbb{Z}$).
-2 Commutative: $a \times b = b \times a$
-3 Associative: $(a \times b) \times c = a \times (b \times c)$
-4 Existence of a multiplicative identity, which is $1$: $a \times 1 = 1 \times a = a$
-5 Distributing multiplication on addition and subtraction:
-$a \times (b + c) = a \times b + a \times c$ , $a \times (b - c) = a \times b - a \times c$
+Example 3
+Find the result of each of the following: 1 3 - 4 2 -4-(-6)
+13-4 = 3 + (-4) = -1
+-2 -1 0 1 2 3
+2 -4 -(-6) = -4 + 6 = 2
+-4 -3 -2 -1 0 1 2 3
 
 Think with your
 classmates
-
 Does the subtraction of
 integers have the same
 properties as the addition
 of integers? Discuss.
 
-Self-Evaluation (3)
-
-Find the result of each of
+Self-Evaluation 3
+Find the resulf of each of
 the following:
-1 $6 - 10$
-2 $-4 - 8$
-3 $-5 - (-12)$
+16-10
+2-4-8
+3-5-(-12)
+
+Third Multiplication of Integers
+Multiplication is a repeated addition.
+
+Using the number line strategy for multiplication
+Example 4
+Find the product of each of the following: 1 3x (-3) 2 (-2) x 4
+13x (-3) = (-3) + (-3) + (-3)
+-9 -8 -7 -6 -5 -4 -3 -2 -1 0 1 2
+3x (-3) = -9
+2 (-2) x 4 = (-2) + (-2) + (-2) + (-2)
+-9 -8 -7 -6 -5 -4 -3 -2 -1 0 1 2
+(-2) x 4 = -8
+
+Properties of Multiplication of Integers
+Let a, b and c be three integers, the following properties hold for
+multiplication:
+1 Closure: The product of any two integers is an integer (axbe Z).
+2 Commutative: axb = bxa
+3 Associative: (a x b) x c = ax (b x c)
+4 Existence of a multiplicative identity, which is 1: ax1 = 1x a = a
+5 Distributing multiplication on addition and subtraction:
+ax (b+c) = axb+axc, ax (b-c) = axb-axc
 
 Note that
-
-- When multiplying two
+When multiplying two
 integers with the same sign,
 the product is positive.
-- When multiplying two
+When multiplying two
 integers with opposite signs,
 the product is negative.
-- When multiplying any
+When multiplying any
 number by zero, the product
 is zero.
 
-Self-Evaluation (4)
-
+Self-Evaluation 4
 Find the product of each
 of the following:
-1 $5 \times (-3)$
-2 $(-2) \times 3$
-3 $(-2) \times (-7)$
-4 $(-4) \times (-5)$
+15x (-3)
+2(-2) x 3
+3(-2) x (-7)
+4(-4) x (-5)
 
 First Term
-
 Lesson Four: Operations on Integers
 El Nemer Press
-
 21

@@ -9,12 +9,12 @@ x° (x+24)°
 104°
 125° 110°
 8
-100°
+* 100°
 x° 110°
 120°
 9 In the following figure:
 ABCDEF is a regular hexagon.
-Find with proof m (ZH)
+Find with proof m (∠H)
 E D
 F C H
 A B G
@@ -29,24 +29,29 @@ Third Analysis and Subjects Integration
 11 Decoration: Sometimes regular polygons
 are used as units for decoration, like the
 regular octagon and square shown in the
-figure. What is the measure of LABD?
+figure. What is the measure of ∠ABC?
 A B C
 12 Design: A designer used a right-angled trapezium to
 create a company logo, and produced the opposite
 regular polygon. What is the value of X in the figure?
+x°
 Creative Thinking
 13 In the opposite figure:
 ABCDE is a regular pentagon,
 EFGHIJ is a regular hexagon,
-AE IB, and J E IB
+AC ⊥ IB, and J ∈ IB
 Find the value of each of: X and y
 G F
-H E D C
+H E D
+C
 I J A B
+x
+y
 Evaluate your
 understanding!
 How well do you understand
 polygons?
 Tick the right box.
-First Term Lesson Five: Polygons 103
+First Term Lesson Five: Polygons
 El Nemer Press
+103

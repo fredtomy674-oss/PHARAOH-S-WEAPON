@@ -11,9 +11,10 @@ Deuxième leçon : L'éclipse de la Lune
 Résultats d'apprentissage :
 
 À la fin de cette unité, l'élève sera capable de :
-1. Reconnaître le système (Terre - Soleil - Lune).
+
+1. Reconnaitre le système (Terre - Soleil - Lune).
 2. Interpréter les données recueillies par des instruments d'observation sur certaines caractéristiques des planètes du système solaire.
-3. Déduire les similarités et les différences entre les planètes du système solaire.
+3. Déduire les similantés et les différences entre les planètes du système solaire.
 4. Déduire la relation entre l'inclinaison de l'axe de la Terre, sa révolution autour du Soleil, et la succession des saisons.
 5. Expliquer le phénomène de l'éclipse de la Lune comme une des phases du cycle lunaire.
 6. Rédiger un rapport sur les causes de l'éclipse solaire.

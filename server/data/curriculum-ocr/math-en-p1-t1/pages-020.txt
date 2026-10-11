@@ -24,16 +24,17 @@ for 42,000,000 LE within a week, calculate the total commission amount for this 
 22 If a TV price after deduction rate of 16% is 12,600 LE, what is the TV price before deduction?
 
 Creative Thinking
+
 23 Geometry: If figure (1) represents a minimization of figure (2) at a scale drawing, and width of
 room $B$ is $X$ cm, find the value of $X$.
 
-5 cm $X$ cm 4 cm
-Living | Room B | Room A
-Hallway
+$5\text{ cm}$ $\quad$ $X\text{ cm}$ $\quad$ $4\text{ cm}$
+Living $\quad$ $\begin{array}{|c|c|}\hline \text{Room} & \text{Room} \\ \text{B} & \text{A} \\ \hline \multicolumn{2}{|c|}{\text{Hallway}} \\ \hline\end{array}$ $\quad$ $6\text{ cm}$
+$2\text{ cm}$
 Fig. (1)
 
-Living | Room B | Room A
-Hallway
+$\begin{array}{c} \\ 24\text{ m} \\ \\ \hline\end{array}$ $\text{Living}$ $\begin{array}{|c|c|}\hline \text{Room} & \text{Room} \\ \text{B} & \text{A} \\ \hline \multicolumn{2}{|c|}{\text{Hallway}} \\ \hline\end{array}$
+$36\text{ m}$
 Fig. (2)
 
 24 The sum of a cuboid's edge lengths is 1,440 cm.
@@ -47,5 +48,7 @@ understand applications
 of ratio & proportion?
 Tick the right box
 
-First Term Lesson Two: Applications of Ratio and Proportion 13
+First Term
+Lesson Two: Applications of Ratio and Proportion
 El Nemer Press
+13

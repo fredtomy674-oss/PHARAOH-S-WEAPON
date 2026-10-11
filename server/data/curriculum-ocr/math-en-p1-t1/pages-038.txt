@@ -1,0 +1,27 @@
+UNIT
+2
+Algebra
+
+Unit Lessons
+2-1 Mathematical Expressions and Formulas
+2-2 Linear Equations
+
+news
++
+Teamwork
+
+Digital technology and algebra share a mutual relationship; the progress of
+one influences the other. Technology facilitates the creation of virtual learning
+environments, and software can also be used to solve algebraic equations.
+Can digital technology apps be further developed to solve more
+complex algebraic equations?
+
+Issues and Life Skills
+- Mathematical Communication - Sustainable Development
+- Language & Translation
+- Creative Thinking
+
+Values
+- Responsibility - Belonging
+- Work
+- Respecting Others

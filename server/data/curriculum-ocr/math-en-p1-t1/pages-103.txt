@@ -1,54 +1,40 @@
 Lesson Assessment
-
 First Measuring Conceptual Understanding
 ► Choose the correct answer from the given ones:
 1 In the given figure, what is
-the value of $X$?
-(a) $70^\circ$
-(c) $90^\circ$
-(b) $80^\circ$
-(d) $120^\circ$
-
+the value of X?
+(a) 70°
+(b) 80°
+(c) 90°
+(d) 120°
 2 In the given figure, what is
-the value of $X$ that makes
-$ABCD$ a parallelogram?
-(a) $109^\circ$
-(c) $80^\circ$
-(b) $120^\circ$
-(d) $60^\circ$
-
+the value of X that makes
+ABCD a parallelogram?
+(a) 109°
+(b) 120°
+(c) 80°
+(d) 60°
 3 Which of the following sets of quadrilaterals
 have all their sides are equal in length?
 (a) {Square, Rectangle}
 (b) {Trapezium, Rhombus}
 (c) {Square, Rhombus}
 (d) {Rectangle, Rhombus}
-
-4 In the given figure, $ABCD$ is a rhombus,
-what is the value of $X$?
-(a) $25^\circ$
-(c) $100^\circ$
-(b) $50^\circ$
-(d) $130^\circ$
-
-5 If $ABCD$ is a parallelogram in which: $AC = BD$, $\overline{AC} \perp \overline{BD}$, then $ABCD$ is:
-(a) a trapezium.
-(b) a rhombus.
-(c) a rectangle
-(d) a square.
-
+4 In the given figure, ABCD is a rhombus,
+what is the value of X?
+(a) 25°
+(b) 50°
+(c) 100°
+(d) 130°
+5 If ABCD is a parallelogram in which: AC = BD, AC ⊥ BD, then ABCD is:
+(a) a trapezium. (b) a rhombus. (c) a rectangle (d) a square.
 Second Applying Scientific Concepts
-
-► In each of the following figures, calculate with proof the value of $X$:
-
+► In each of the following figures, calculate with proof the value of X:
 6
-7
-8
-
 9
+7
 10
+8
 11
-
-96
-Unit Four: Geometry & Measurement
+96 Unit Four: Geometry & Measurement
 Mathematics - First Preparatory

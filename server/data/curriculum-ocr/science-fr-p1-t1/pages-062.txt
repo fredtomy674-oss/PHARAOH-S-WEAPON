@@ -4,20 +4,33 @@ Les cellules
 et la vie
 
 Vocabulaire de la leçon
-• Cellule • Tissu
-• Organe • Système
+• Cellule
+• Organe
 • Organisme vivant
+• Tissu
+• Système
 • Organismes unicellulaires
 • Organismes pluricellulaires
 • Eucaryotes • Procaryotes
 • Cellules spécialisées
 • Cellules différenciées
 • Cellule végétale • Cellule animale
-• Bactéries • Cellules souches
+• Bactéries
+• Cellules souches
+
+Objectifs de la leçon :
+À la fin de la leçon, l'élève devrait être capable de :
+1 Fournir une preuve que tous les organismes vivants sont constitués de cellules comme unité de structure et de fonction.
+2 Classifier les organismes vivants en procaryotes et eucaryotes.
+3 Classifier les organismes vivants en organismes unicellulaires et pluricel-
+lulaires.
+4 Comparer entre les procaryotes et les eucaryotes.
+5 Reconnaître le rôle des cellules souches dans la différenciation des
+tissus et des organes chez les organismes pluricellulaires.
 
 Compétences, valeurs
 et enjeux abordés :
-• Compétences : Fournir des
+• Compétences: Fournir des
 preuves - Classification -
 Comparaison - Observation.
 • Valeurs : Coopération.
@@ -27,17 +40,6 @@ médical futur.
 
 Concepts croisés :
 • Structure et fonction
-
-Objectifs de la leçon :
-À la fin de la leçon, l'élève devrait être capable de :
-1 Fournir une preuve que tous les organismes vivants sont constitués de
-cellules comme unité de structure et de fonction.
-2 Classifier les organismes vivants en procaryotes et eucaryotes.
-3 Classifier les organismes vivants en organismes unicellulaires et pluricel-
-lulaires.
-4 Comparer entre les procaryotes et les eucaryotes.
-5 Reconnaître le rôle des cellules souches dans la différenciation des
-tissus et des organes chez les organismes pluricellulaires.
 
 Introduction de la leçon :
 La figure ci-contre montre un type de

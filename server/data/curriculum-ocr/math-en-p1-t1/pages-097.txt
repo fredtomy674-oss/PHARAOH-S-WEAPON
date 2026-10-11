@@ -52,8 +52,6 @@ the quadrilateral?
 ► Can you use the sum of the measures of the interior angles of a triangle
 to find the sum of the measures of the interior angles of a quadrilateral?
 
-Learn!
-
 ■ Note that
 D
 C
@@ -67,6 +65,7 @@ vertices. Therefore, ABCD
 is a quadrilateral that has
 two diagonals, $\overline{AC}$ and $\overline{BD}$.
 
+Learn!
 The sum of the measures of the interior angles of a quadrilateral
 
 In the opposite figure:
@@ -75,22 +74,11 @@ drawn to split it into two triangles:
 $m(\angle 1) + m(\angle 2) + m(\angle 3) = 180^\circ$ (1)
 $m(\angle 4) + m(\angle 5) + m(\angle 6) = 180^\circ$ (2)
 From (1) and (2), you get:
-
-D
-5
-C
-4
-3
-6
-1
-2
-A
-B
-
 $m(\angle 1) + m(\angle 2) + m(\angle 3) + m(\angle 4) + m(\angle 5) + m(\angle 6) = 360^\circ$
 
 Thus, $m(\angle A) + m(\angle B) + m(\angle C) + m(\angle D) = 360^\circ$
-i.e., the sum of the measures of the interior angles of the quadrilateral ABCD is $360^\circ$.
+
+i.e., the sum of the measures of the interior angles of the quadrilateral $ABCD$ is $360^\circ$.
 
 Rule:
 The sum of the measures of the interior angles of any quadrilateral is $360^\circ$.

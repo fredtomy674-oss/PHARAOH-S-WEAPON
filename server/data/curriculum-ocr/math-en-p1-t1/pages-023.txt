@@ -1,76 +1,139 @@
 Operations on Sets
 
-- Think & Discuss
+■ Think & Discuss
+
+First : The Union of Two Sets
+
+$A$
+
+$B$
+
 For any two sets $A$ and $B$:
 • If $B \subset A$,
 Does $A \cup B = A$?
 Does $A \cap B = B$?
 • What is the result of
+
+$A \cup B$ equals the set of elements which
+belongs to set $A$ or set $B$.
+
 $A \cap \phi$?
 $A \cup \phi$?
 
-- Note that
+$A$
+
+$B$
+
+$A$
+
+$B$
+
+$A$
+
+$B$
+
+$•4$
+
+$•1$
+
+$•3$
+
+$•1$
+
+$•4$
+
+$•5$
+
+$•7$
+
+$•1$
+
+$•4$ $•3$
+
+$•5$
+
+$•2$
+
+$•2$
+
+$A \cup B = \{1, 2, 3, 4, 5\}$
+
+$A \cup B = \{1, 4, 5, 7\}$
+
+$A \cup B = \{1, 2, 3, 4\}$
+
+Second : The Intersection of Two Sets
+
+$A$
+
+$B$
+
+■ Note that
+
 If $A$ and $B$ are two non-empty
 sets and $A \cap B = \phi$,
 then $A$ and $B$ are disjoint
 (non-intersecting) sets.
 
-- Self-Evaluation 5
+$A \cap B$ equals the set of common
+elements between set $A$ and set $B$.
+
+$A$
+
+$B$
+
+$A$
+
+$B$
+
+$A$
+
+$B$
+
+$•4$
+
+$•1$
+
+$•3$
+
+$•1$
+
+$•4$
+
+$•5$
+
+$•7$
+
+$•1$
+
+$•5$
+
+$•2$
+
+$•4$ $•3$
+$•2$
+
+$A \cap B = \{1, 2\}$
+
+$A \cap B = \phi$
+
+$A \cap B = \{3, 4\}$
+
+■ Self-Evaluation (5)
+
+Example (3)
+
+■ Equal Sets
+
 If $\{1, 3, X\} = \{7, y, 1\}$,
 what is the value of:
 $X - y$?
 
-First : The Union of Two Sets
-$A \cup B$ equals the set of elements which
-belongs to set $A$ or set $B$.
-
-A
-B
-4
-1
-3
-1
-4
-5
-7
-1
-43
-2
-5
-2
-$A \cup B = \{1, 2, 3, 4, 5\}$
-$A \cup B = \{1, 4, 5, 7\}$
-$A \cup B = \{1, 2, 3, 4\}$
-
-Second : The Intersection of Two Sets
-$A \cap B$ equals the set of common
-elements between set $A$ and set $B$.
-
-A
-B
-4
-1
-3
-1
-4
-5
-7
-1
-43
-2
-5
-2
-$A \cap B = \{1, 2\}$
-$A \cap B = \phi$
-$A \cap B = \{3, 4\}$
-
-Example 3
 If $A$ is the set of digits of the number 243,
 and $B$ is the set of digits of the number 2234.
 Is $A = B$?
 What is the result of each of $A \cup B$ and $A \cap B$?
 
-- Equal Sets
 If every element in $A$ belongs
 to $B$, and every element in $B$
 belongs to $A$, then $A = B$
@@ -79,17 +142,29 @@ Therefore:
 • $A \cap B = A = B$
 
 $A = \{2, 4, 3\}$, and $B = \{2, 3, 4\}$
+
 Since $A$ and $B$ contain the same elements,
+
+$B$
+
 Therefore, $A = B$,
+
+$•3$
+
 Thus:
+
+$•2$
+
 • $A \cup B = \{2, 3, 4\}$
+
+$•4$
+
 • $A \cap B = \{2, 3, 4\}$
 
-B
-2
-3
-4
-A
+$A$
 
-16 Unit One: Numbers and Their Operations
+16
+
+Unit One: Numbers and Their Operations
+
 Mathematics - First Preparatory

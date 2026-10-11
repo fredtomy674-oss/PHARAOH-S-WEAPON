@@ -1,51 +1,132 @@
 ► Choose the correct answer from the given ones:
-(4) What is the type of the angle supplements an acute angle?
+
+4 What is the type of the angle supplements
+an acute angle?
+
 (a) Acute
+
+(b) Obtuse
+
 (c) Straight
-(b) Obtuse
+
 (d) Reflex
-(6) If the angles A and B are complementary, and $m(\angle A)=40^{\circ}$, what is the measure of $\angle B$?
-(a) $40^{\circ}$
-(b) $50^{\circ}$
-(c) $90^{\circ}$
-(d) $140^{\circ}$
-► Discuss:
-(5) What is the type of the angle complements a right angle?
+
+5 What is the type of the angle complements
+a right angle?
+
 (a) Acute
-(c) Zero
+
 (b) Obtuse
+
+(c) Zero
+
 (d) Straight
-(7) What is the measure of the angle that supplements an angle of measure $34^{\circ} 60^{\circ}$?
+
+6 If the angles A and B are complementary, and
+$m(\angle A)=40^{\circ}$, what is the measure of $\angle B$?
+
+(a) $40^{\circ}$
+
+(b) $50^{\circ}$
+
+(c) $90^{\circ}$
+
+(d) $140^{\circ}$
+
+7 What is the measure of the angle that
+supplements an angle of measure $34^{\circ}\ 60^{\circ}$?
+
 (a) $55^{\circ}$
+
 (b) $56^{\circ}$
+
 (c) $145^{\circ}$
+
 (d) $146^{\circ}$
-(8) Mariam and Sandy were asked the following question:
-What is the measure of one of two complementary angles if the difference between their measures is $12^{\circ}$ ?
+
+► Discuss:
+
+8 Mariam and Sandy were asked the following question:
+
+What is the measure of one of two
+complementary angles if the difference
+between their measures is $12^{\circ}$?
 Which of the two solutions is correct?
 Explain why the results are different.
+
 Mariam's Solution:
 $X+(X-12^{\circ})=90^{\circ}$
 $2X-12^{\circ}=90^{\circ}$
 $2X=90^{\circ}+12^{\circ}=102^{\circ}$
 $X=\frac{102^{\circ}}{2}=51^{\circ}$
+
 Sandy's Solution:
 $(90^{\circ}-X)-X=12^{\circ}$
 $90^{\circ}-2X=12^{\circ}$
 $2X=90^{\circ}-12^{\circ}=78^{\circ}$
 $X=\frac{78^{\circ}}{2}=39^{\circ}$
+
 Second Applying Scientific Concepts
+
 ► Find the value of $X$ in each of the following:
+
 (9)
-(10)
-(11)
+$E$
+$D$
+$70^{\circ}$
+$A$
+$M$
+$120^{\circ}$
+$C$
+$B$
 $\overleftrightarrow{AB}\cap\overleftrightarrow{CD}=\{M\}$
+
+(10)
+$C$
+$M$
+$140^{\circ}$
+$x^{*}$
+$x$
+$B$
+$A$
+
+(11)
+$D$
+$x$
+$A$
+$38^{\circ}$
+$E$
+$B$
+$L$
+$C$
 $\overleftrightarrow{AB}\cap\overleftrightarrow{CD}=\{E\}$
+
 (12)
-First Term
+$C$
+$D$
+$(2x+2)^{\circ}$
+$(x+1)^{\circ}$
+$A$
+$B$
+
 (13)
-$\overline{AE}\subseteq\overline{BC}$
+$D$
+$(10x-5)^{\circ}$
+$(4x+3)^{\circ}$
+$C$
+$A$
+$B$
+$A\in\overleftrightarrow{BC}$
+
 (14)
+$A$
+$M$
+$(3x-25)^{\circ}$
+$B$
+$(2x+15)^{\circ}$
+$C$
+
+First Term
 Lesson One: Types of Angles and Relations between Angles
-El Nemer Press
 75
+El Nemer Press

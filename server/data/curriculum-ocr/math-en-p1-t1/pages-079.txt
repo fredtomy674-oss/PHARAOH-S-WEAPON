@@ -1,25 +1,37 @@
 ■ Self-Evaluation (2)
-If the points $A, B$, and $C$ are on a straight line, calculate the value of $X$.
 
-D
-$(5x + 2)^{\circ} \quad (4x - 2)^{\circ}$
-$A \quad B \quad C$
+If the points A, B, and C are on a straight line, calculate the value of X.
+
+$D$
+$(5x+2)^{\circ}$
+$(4x-2)^{\circ}$
+$A$
+$B$
+$C$
 
 ■ Note that
+
 The two adjacent angles formed by a straight line and a ray with a starting point on this straight line are supplementary.
 
 ■ Self-Evaluation (3)
-The pass gate arm moves at an angle of measure $42^{\circ}$ from the vertical position. What is the measure of the angle the arm should move to become horizontal? What is the value of $X$?
 
-Example (2)
+The pass gate arm moves at an angle of measure $42^{\circ}$ from the vertical position. What is the measure of the angle the arm should move to become horizontal? What is the value of X?
+
+$42^{\circ}$
+$(3x+3)^{\circ}$
+
+Example 2
+
 Find the value of $X$ in each of the following:
 
-1 If $\overrightarrow{AB}$ is perpendicular to $\overrightarrow{AC}$
+1 If $\overleftrightarrow{AB}$ is perpendicular to $\overleftrightarrow{AC}$
 
-C
-D
-$(4x + 7)^{\circ} \quad 55^{\circ}$
-$A \quad B$
+$C$
+$D$
+$(4x+7)^{\circ}$
+$55^{\circ}$
+$A$
+$B$
 
 1 The two angles form a right angle.
 $55^{\circ} + 4X + 7^{\circ} = 90^{\circ}$
@@ -27,17 +39,13 @@ $4X + 62^{\circ} = 90^{\circ}$
 $4X = 90^{\circ} - 62^{\circ} = 28^{\circ}$
 $X = \frac{28^{\circ}}{4} = 7^{\circ}$
 
-Example (3)
-Sports: While Amgad was playing squash, he hits the ball against the wall, and it bounced back.
-Find the value of $X$, and substitute it to find: $m(\angle 1)$ and $m(\angle 2)$.
+2 If A, B, and C are on a straight line.
 
-2 If $A, B$, and $C$ are on a straight line.
-
-D
-$(4x + 8)^{\circ}$
-C
-$(x + 2)^{\circ}$
-B
+$D$
+$(4x+8)^{\circ}$
+$C$
+$(x+2)^{\circ}$
+$B$
 $A$
 
 2 The two angles form a straight angle
@@ -46,16 +54,17 @@ $5X + 10^{\circ} = 180^{\circ}$
 $5X = 180^{\circ} - 10^{\circ} = 170^{\circ}$
 $X = \frac{170^{\circ}}{5} = 34^{\circ}$
 
+Example 3
+
+Sports: While Amgad was playing squash, he hits the ball against the wall, and it bounced back.
+
+Find the value of $X$, and substitute it to find: $m(\angle 1)$ and $m(\angle 2)$.
+
 $50^{\circ}$
-$2 \vee 1$
-$(4x + 21)^{\circ}$
-$(6x - 1)^{\circ}$
-
-■ Did you know?
-The world squash champions, both male and female, are Egyptians.
-
-$42^{\circ}$
-$(3x + 3)^{\circ}$
+$2$
+$1$
+$(4x+21)^{\circ}$
+$(6x-1)^{\circ}$
 
 $4X + 21^{\circ} + 50^{\circ} + 6X - 1^{\circ} = 180^{\circ}$
 $10X + 70^{\circ} = 180^{\circ}$
@@ -64,8 +73,14 @@ $X = \frac{110^{\circ}}{10} = 11^{\circ}$
 $m(\angle 1) = 4X + 21^{\circ} = 4 \times 11^{\circ} + 21^{\circ} = 44^{\circ} + 21^{\circ} = 65^{\circ}$
 $m(\angle 2) = 6X - 1^{\circ} = 6 \times 11^{\circ} - 1^{\circ} = 66^{\circ} - 1^{\circ} = 65^{\circ}$
 
+■ Did you know?
+
+The world squash champions, both male and female, are Egyptians.
+
 Complementary and Supplementary Adjacent Angles:
+
 1 If two adjacent angles are complementary, then their outer sides are perpendicular.
+
 2 If two adjacent angles are supplementary, then their outer sides are on the same straight line.
 
 72

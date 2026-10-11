@@ -15,69 +15,49 @@ another method.
 
 ■ Self-Evaluation (4)
 In the following figure:
-$\overleftrightarrow{AB}$ // $\overleftrightarrow{EF}$
-$m(\angle D)=100^\circ$
-$m(\angle E)=115^\circ$
-$m(\angle DAE)=35^\circ$
+$\overleftrightarrow{AB} \parallel \overleftrightarrow{EF}$
+$m(\angle D) = 100^\circ$
+$m(\angle E) = 115^\circ$
+$m(\angle DAE) = 35^\circ$
 
-Prove that: $\overleftrightarrow{AB}$ // $\overleftrightarrow{DC}$
-► Think: Is $\overleftrightarrow{DC}$ // $\overleftrightarrow{EF}$?
+Prove that: $\overleftrightarrow{AB} \parallel \overleftrightarrow{DC}$
+▶ Think: Is $\overleftrightarrow{DC} \parallel \overleftrightarrow{EF}$ ?
 
 ■ Notation in
 Mathematics
-► ($\because$) is used for "since"
+▶ ($\because$) is used for "since"
 and is usually placed
 before a given
 information, a fact, or
 a theorem.
-► ($\therefore$) is used for "therefore"
+▶ ($\therefore$) is used for "therefore"
 and is placed before the
 concluded mathematical
 statement.
 
 How do you write a proof in geometry?
-When you want to write a geometric proof, you write a series of logical
-steps go from the givens to the conclusion to prove the validity of what
-you want to prove.
+
+When you want to write a geometric proof, you write a series of logical steps go from the givens to the conclusion to prove the validity of what you want to prove.
 
 Example (4)
-In the opposite figure :
-$\overleftrightarrow{CA}$ // $\overleftrightarrow{BE}$
-$m(\angle B)=55^\circ$, $m(\angle C)=125^\circ$
-Prove that: $\overleftrightarrow{AB}$ // $\overleftrightarrow{CD}$
+In the opposite figure:
+$\overleftrightarrow{CA} \parallel \overleftrightarrow{BE}$
+$m(\angle B) = 55^\circ$, $m(\angle C) = 125^\circ$
+Prove that: $\overleftrightarrow{AB} \parallel \overleftrightarrow{CD}$
 
-Proof Tactical Plan:
-Given:
-$\overleftrightarrow{CA}$ // $\overleftrightarrow{BE}$
-$\overleftrightarrow{AB}$ is a transversal
-Conclusion
-$m(\angle A)=m(\angle B)=55^\circ$
-Alternating interior angles
-
-Required to Prove
-$\overleftrightarrow{AB}$ // $\overleftrightarrow{CD}$
-Conclusion
-$m(\angle A)+m(\angle C)$
-$=55^\circ+125^\circ=180^\circ$
-They are interior angles on the
-same side of the transversal
-
-Given: $\overleftrightarrow{CA}$ // $\overleftrightarrow{BE}$, $\overleftrightarrow{AB}$ is a transversal.
-Required to Prove: $\overleftrightarrow{AB}$ // $\overleftrightarrow{CD}$
+Given: $\overleftrightarrow{CA} \parallel \overleftrightarrow{BE}$, $\overleftrightarrow{AB}$ is a transversal.
+Required to Prove: $\overleftrightarrow{AB} \parallel \overleftrightarrow{CD}$
 Proof:
-$\because \overleftrightarrow{CA}$ // $\overleftrightarrow{BE}$, and $\overleftrightarrow{AB}$ is a transversal.
-$\therefore m(\angle A)=m(\angle B)=55^\circ$
+$\because \overleftrightarrow{CA} \parallel \overleftrightarrow{BE}$, and $\overleftrightarrow{AB}$ is a transversal.
+$\therefore m(\angle A) = m(\angle B) = 55^\circ$
 Alternating interior angles.
-$\because m(\angle A)+m(\angle C)=55^\circ+125^\circ=180^\circ$,
+$\because m(\angle A) + m(\angle C) = 55^\circ + 125^\circ = 180^\circ$,
 and they are interior angles on the same side of the transversal.
-$\therefore \overleftrightarrow{AB}$ // $\overleftrightarrow{CD}$
-(Required to Prove "RTP")
+$\therefore \overleftrightarrow{AB} \parallel \overleftrightarrow{CD}$
 
 ■ Hint
-When writing a proof in
-geometry, it is important to
-provide logical reasoning
-for each step.
+When writing a proof in geometry, it is important to provide logical reasoning for each step.
+(Required to Prove "RTP")
 
 First Term
 Lesson Two: Parallelism
