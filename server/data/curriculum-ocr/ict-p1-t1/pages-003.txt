@@ -1,17 +1,15 @@
 قائمة المحتويات
-الصفحةالموضوعاتم
-امج والتطبيقات الرقمية)(البرالفصل األول
-5Green Technologyاءالتكنولوجيا الخضرالدرس األول:1
-11التحول الرقمى وأهميته في حياتنا اليوميةالدرس الثانى:2
-Digital transformation and its importance in our daily lives
-11Operating Systemsالتشغيلأنظمةالدرس الثالث:3
-22ة الرقمية الملحقةامج واألجهزالة البرتثبيت وإزابع:الدرس الر4
-Installationand removeof software and digital peripherals
-42E-mailالبريد اإللكترونىالدرس الخامس:5
-56Cloud Computingالحوسبة السحابيةالدرس السادس:6
-66ة مشروعكوإدارجوجل ميتالدرس السابع:2
-google Meet and manage your project
-25)Databases Designانات(تصميم قواعد البيالدرس الثامن:8
-82)Forms & Queries(النماذج واالستعالماتالدرس التاسع:1
-11Your Digital Projectمشروعك الرقمىالدرس العاشر:11
-3
+م | الموضوعات | الصفحة
+الفصل الأول (البرامج والتطبيقات الرقمية)
+١ | الدرس الأول: التكنولوجيا الخضراء Green Technology | ٥
+٢ | الدرس الثاني: التحول الرقمى وأهميته في حياتنا اليومية Digital transformation and its importance in our daily lives | ١١
+٣ | الدرس الثالث: أنظمة التشغيل Operating Systems | ١٩
+٤ | الدرس الرابع: تثبيت وإزالة البرامج والأجهزة الرقمية الملحقة Installation and remove of software and digital peripherals | ٢٧
+٥ | الدرس الخامس: البريد الإلكترونى E-mail | ٤٢
+٦ | الدرس السادس: الحوسبة السحابية Cloud Computing | ٥٦
+٧ | الدرس السابع: جوجل ميت وإدارة مشروعك google Meet and manage your project | ٦٦
+٨ | الدرس الثامن: (تصميم قواعد البيانات Databases Design ) | ٧٥
+٩ | الدرس التاسع: (النماذج والاستعلامات Forms & Queries ) | ٨٧
+١٠ | الدرس العاشر: مشروعك الرقمى Your Digital Project | ٩٩
+
+٣

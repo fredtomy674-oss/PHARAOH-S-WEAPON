@@ -1,6 +1,26 @@
-The printer that I want isn't listedنضغط-
-Add a local printer or network printer with manual settingsنختر-
-إلكمال عملية اإلعداد:
-الا تحديد المنفذ الذي تتصل به الطابعة، بالنسبة لمعظم الطابعات القديمة التي تتصل بمنفذيتعين عليك أو-
-.USB، وأما الطابعات الحديثة فتستخدم المنفذLPT1الصحيح هو المنفذي فإن االختيارمتواز
-33
+The printer that I want isn't listed - نضغط
+
+Add a device
+Choose a device or printer to add to this PC
+Searching for devices
+The printer that I want isn't listed
+Next Cancel
+
+Add a local printer or network printer with manual settings - نختر
+
+Add Printer
+Find a printer by other options
+My printer is a little older. Help me find it.
+Select a shared printer by name
+Browse...
+Example: \\computername\printername or
+http://computername/printers/printername/.printer
+Add a printer using a TCP/IP address or hostname
+Add a Bluetooth, wireless or network discoverable printer
+Add a local printer or network printer with manual settings
+Next Cancel
+
+لإكمال عملية الإعداد:
+- يتعين عليك أولاً تحديد المنفذ الذي تتصل به الطابعة، بالنسبة لمعظم الطابعات القديمة التي تتصل بمنفذ
+متوازي فإن الاختيار الصحيح هو المنفذ LPT1، وأما الطابعات الحديثة فتستخدم المنفذ USB.
+٣٣

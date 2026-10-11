@@ -1,17 +1,22 @@
-تسمىمن أي مكان،ي وقت وفي أخدمات تخزين الملفات ومشاركتها والوصول إليها-6
-........................بـ
-البرمجيات والتطبيقات.-بالبريد اإللكتروني-أ
-Google Sheets-دالتخزين الحوسبي-ج
-...........................امج معالجة النصوص السحابية مثلنستخدم بر-2
-Google Sheets-بGoogleDocs-أ
-GoogleCloudPlatform-دGoogle Classroom-ج
-...........................نستخدم جداول البيانات السحابية مثل-8
-Google Sheets-بGoogleDocs-أ
-GoogleCloudPlatform-دGoogle Classroom-ج
-نستخدم أدوات التعاون السحابية مثل...............................-1
-Google Sheets-بGoogleDocs-أ
-GoogleCloudPlatform-دGoogle Classroom-ج
-........................ي (مزودي) الخدمات الحوسبة السحابيةمن أشهر موفر-11
-Google Sheets-بGoogleDocs-أ
-GoogleCloudPlatform-دGoogle Classroom-ج
-63
+٦- خدمات تخزين الملفات ومشاركتها والوصول إليها في أي وقت ومن أي مكان، تسمى
+..........................
+أ- البريد الإلكتروني	ب- البرمجيات والتطبيقات.
+ج- التخزين الحوسبي	د- Google Sheets
+
+٧- نستخدم برامج معالجة النصوص السحابية مثل..........................
+أ- Google Docs	ب- Google Sheets
+ج- Google Classroom	د- Google Cloud Platform
+
+٨- نستخدم جداول البيانات السحابية مثل ..........................
+أ- Google Docs	ب- Google Sheets
+ج- Google Classroom	د- Google Cloud Platform
+
+٩- نستخدم أدوات التعاون السحابية مثل..........................
+أ- Google Docs	ب- Google Sheets
+ج- Google Classroom	د- Google Cloud Platform
+
+١٠- من أشهر موفري (مزودي) الخدمات الحوسبية مثل..........................
+أ- Google Docs	ب- Google Sheets
+ج- Google Classroom	د- Google Cloud Platform
+
+٦٣

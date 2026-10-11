@@ -159,7 +159,7 @@ export const EGYPT_ISLAMIC_P1_T1_UNITS: IslamicP1T1Unit[] = [
       {
         key: "1-6",
         ordinal: "السادس",
-        title: "قصة نبي الله يوسف في قصر العزيز",
+        title: "قصة نبي الله يوسف (عليه السلام) في قصر العزيز",
         bookFrom: 23,
         concepts: [
           "يتعرف حياة نبي الله يوسف في قصر العزيز.",
@@ -511,6 +511,10 @@ function normalize(text: string): string {
   return text
     .normalize("NFKC")
     .replace(/\uFDFA/g, "")
+    // The book prints Arabic-Indic digits (١–٥) in titles; fold them to Latin so a
+    // title like «سورة التحريم (الآيات من 1-5)» matches the printed head.
+    .replace(/[\u0660-\u0669]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+    .replace(/[\u06F0-\u06F9]/g, (d) => String(d.charCodeAt(0) - 0x06f0))
     .replace(/[ي]/g, "ى")
     .replace(/[^\p{L}\p{N}]/gu, "");
 }

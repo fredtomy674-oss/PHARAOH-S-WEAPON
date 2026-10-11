@@ -1,11 +1,23 @@
-إلدخال وعرض بيانات الجدول.:"Datasheet View""عرض بيانات" الجدول-ب
-:"Table Design"تصميم الجدول-أ
-ار نمط "تصميم الجدول" يتم اتباع الخطوات التاليةالختي
-."CREATEاختر إنشاء "-1
-."Table Designاختر تصميم الجدول "-2
-جدول:الواجهة نافذة تصميم
-وتتكون من:،"Table Design"يتم فتح نافذة تصميم الجدول
-لكتابة اسم الحقل-1
-ع البيانالختيار نو-2
-نمط عرض التصميم-3
-80
+ب- "عرض بيانات الجدول" Datasheet View: لإدخال وعرض بيانات الجدول.
+
+أ- تصميم الجدول "Table Design":
+لاختيار نمط "تصميم الجدول" يتم اتباع الخطوات التالية
+١- اختر إنشاء "CREATE".
+
+FILE HOME CREATE EXTERNAL DATA DATABASE TOOLS FIELDS TABLE
+Application Table Table SharePoint Query Query Form Form Blank Form Wizard
+Parts Design Lists Wizard Design Design Form Navigation
+Templates Tables Queries Forms
+All Access Obje... Table1
+Search... ID Click to Add
+Tables * (New)
+Table1
+
+٢- اختر تصميم الجدول "Table Design".
+واجهة نافذة تصميم الجدول:
+يتم فتح نافذة تصميم الجدول "Table Design"، وتتكون من:
+١- لكتابة اسم الحقل
+٢- لاختيار نوع البيان
+٣- نمط عرض التصميم
+
+٨٠

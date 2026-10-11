@@ -1,5 +1,35 @@
-.Createاختر عالمة التبويب-2
-.Formفوقانقر-3
-يتم عرض البيانات الخاصة بسجل كل طالبالنموذج، ومن خالل النموذجبإنشاءAccessبرنامجومفيق
-، كما في الشكل التالي:اعلى حد
-88
+٢-اختر علامة التبويب Create.
+٣-انقر فوق Form.
+
+FILE HOME CREATE EXTERNAL DATA DATABASE TOOLS FIELDS TABLE
+Application Table Table SharePoint Query Query Form Form Blank Form Wizard Navigation Report Report Blank Report Wizard Labels Module Class Module
+Parts Design Lists Wizard Design Design Form More Forms Design Report Macro Visual Basic
+Templates Tables Queries Forms Reports Macros & Code
+Tables درجات الطلاب
+Search. ID اسم الطالب درجة العربي درجة الانجليزي درجة الكمبيوتر
+درجات الطلاب 1 1 عمرو 19 18 19
+2 ياسمين 20 17 16
+3 رامي 15 19 14
+4 سر 17 18 16
+
+فيقوم برنامج Access بإنشاء النموذج، ومن خلال النموذج يتم عرض البيانات الخاصة بسجل كل طالب على حدا، كما في الشكل التالي:
+
+FILE HOME CREATE EXTERNAL DATA DATABASE TOOLS DESIGN ARRANGE FORMAT Sign in
+ID Times New Roman (De 11
+Select All B I U A
+Selection Font Number Background
+Custom درجات الطلاب
+Search. درجات الطلاب
+Custom Group 1
+Unassigned Ob...
+درجات الطلاب ID 1
+اسم الطالب عمرو
+درجة العربي 19
+درجة الانجليزي 18
+درجة الكمبيوتر 19
+Record: 14 1 of 10 No Filter Search
+Layout View
+٤ ٢ ٣ ١
+"أنشاء نموذج في طريقة عرض التخطيط Layout view"
+
+٨٨

@@ -143,6 +143,42 @@ import {
   assertTreeMatchesTheBook as assertChristianP1TreeMatchesBook,
 } from "./egyptChristianP1T1.js";
 import {
+  EGYPT_THEATER_P1_T1_UNITS,
+  lessonDocument as theaterP1LessonDocument,
+  isConsistent as isTheaterP1TreeConsistent,
+  assertTreeMatchesTheBook as assertTheaterP1TreeMatchesBook,
+} from "./egyptTheaterP1T1.js";
+import {
+  EGYPT_LIBRARIES_P1_T1_UNITS,
+  lessonDocument as librariesP1LessonDocument,
+  isConsistent as isLibrariesP1TreeConsistent,
+  assertTreeMatchesTheBook as assertLibrariesP1TreeMatchesBook,
+} from "./egyptLibrariesP1T1.js";
+import {
+  EGYPT_EDUCATIONAL_MEDIA_P1_T1_UNITS,
+  lessonDocument as educationalMediaP1LessonDocument,
+  isConsistent as isEducationalMediaP1TreeConsistent,
+  assertTreeMatchesTheBook as assertEducationalMediaP1TreeMatchesBook,
+} from "./egyptEducationalMediaP1T1.js";
+import {
+  EGYPT_ICT_P1_T1_UNITS,
+  lessonDocument as ictP1LessonDocument,
+  isConsistent as isIctP1TreeConsistent,
+  assertTreeMatchesTheBook as assertIctP1TreeMatchesBook,
+} from "./egyptIctP1T1.js";
+import {
+  EGYPT_ARABIC_P1_T1_UNITS,
+  lessonDocument as arabicP1LessonDocument,
+  isConsistent as isArabicP1TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicP1TreeMatchesBook,
+} from "./egyptArabicP1T1.js";
+import {
+  EGYPT_ISLAMIC_P1_T1_UNITS,
+  lessonDocument as islamicP1LessonDocument,
+  isConsistent as isIslamicP1TreeConsistent,
+  assertTreeMatchesTheBook as assertIslamicP1TreeMatchesBook,
+} from "./egyptIslamicP1T1.js";
+import {
   EGYPT_MATH_EN_T1_UNITS,
   conceptDocument as mathEnConceptDocument,
   isConsistent as isMathEnTreeConsistent,
@@ -2147,6 +2183,357 @@ function verifyChristianP1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Grade-7 **Theatre** («التربية المسرحية») — OFFICIAL curriculum (PHASE 82).
+ *
+ * The first term IS the Ministry textbook (`Thetar_prep1_Tr1.pdf`, 2026/2027 MoE
+ * teacher's guide): its ten printed «الموضوعات» as the book's فهرس الموضوعات
+ * (book page 5) prints them, one app lesson per topic, each grounded on the OCR
+ * text of the very pages the topic owns
+ * (server/data/curriculum-ocr/theater-p1-t1/) — so the tutor's RAG retrieval
+ * reads from «كتاب الوزارة» verbatim. Each lesson's `concepts` are the topic's
+ * own printed «الأهداف», verbatim. The closing self-evaluation form is kept as
+ * back matter outside the lesson ranges.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the topic heads each topic page prints, and the tiling. Seeding refuses to run
+ * on an unverified table.
+ */
+export const EGYPT_THEATER_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "theater", name: "Theatre", nameAr: "التربية المسرحية" },
+  curriculum: { code: "eg-g7-theater", title: "التربية المسرحية للصف الأول الإعدادي" },
+  terms: [buildEgyptTheaterP1Term()],
+};
+
+/** Term 1 = the official book: printed topic → its single app lesson. */
+function buildEgyptTheaterP1Term(): TermSeedSpec {
+  const check = verifyTheaterP1Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب التربية المسرحية (أول إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_THEATER_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الموضوع ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-the-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: theaterP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 Theatre tree verification, as one verdict. */
+function verifyTheaterP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isTheaterP1TreeConsistent();
+  const book = assertTheaterP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-7 **Library & research skills** («المكتبات ومهارات البحث») —
+ * OFFICIAL curriculum (PHASE 81).
+ *
+ * The first term IS the Ministry textbook
+ * (`Librarie_research_skills_prep1_Tr1.pdf`, 2026/2027 MoE edition): its ten
+ * printed «الموضوعات» as the book's فهرس الموضوعات (book page 3) prints them,
+ * one app lesson per topic, each grounded on the OCR text of the very pages the
+ * topic owns (server/data/curriculum-ocr/libraries-p1-t1/). Each lesson's
+ * `concepts` are the topic's own printed objectives, verbatim. The closing
+ * «المصطلحات» glossary is kept as back matter outside the lesson ranges.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the topic heads each topic page prints, and the tiling. Seeding refuses to run
+ * on an unverified table.
+ */
+export const EGYPT_LIBRARIES_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "libraries", name: "Library & Research Skills", nameAr: "المكتبات ومهارات البحث" },
+  curriculum: { code: "eg-g7-libraries", title: "المكتبات ومهارات البحث للصف الأول الإعدادي" },
+  terms: [buildEgyptLibrariesP1Term()],
+};
+
+/** Term 1 = the official book: printed topic → its single app lesson. */
+function buildEgyptLibrariesP1Term(): TermSeedSpec {
+  const check = verifyLibrariesP1Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب المكتبات ومهارات البحث (أول إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_LIBRARIES_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الموضوع ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-lib-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: librariesP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 Library tree verification, as one verdict. */
+function verifyLibrariesP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isLibrariesP1TreeConsistent();
+  const book = assertLibrariesP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-7 **Educational media** («الإعلام التربوي») — OFFICIAL
+ * curriculum (PHASE 80).
+ *
+ * The first term IS the Ministry textbook (`Educational_media_Pep1_Tr1.pdf`,
+ * 2026/2027 MoE edition): its ten printed «الموضوعات» as the book's فهرس
+ * الموضوعات (book page 3) prints them, one app lesson per topic, each grounded
+ * on the OCR text of the very pages the topic owns
+ * (server/data/curriculum-ocr/educational-media-p1-t1/). Each lesson's
+ * `concepts` are the topic's own printed «الأهداف», verbatim.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the topic heads each topic page prints, and the tiling. Seeding refuses to run
+ * on an unverified table.
+ */
+export const EGYPT_EDUCATIONAL_MEDIA_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "educational-media", name: "Educational Media", nameAr: "الإعلام التربوي" },
+  curriculum: { code: "eg-g7-educational-media", title: "الإعلام التربوي للصف الأول الإعدادي" },
+  terms: [buildEgyptEducationalMediaP1Term()],
+};
+
+/** Term 1 = the official book: printed topic → its single app lesson. */
+function buildEgyptEducationalMediaP1Term(): TermSeedSpec {
+  const check = verifyEducationalMediaP1Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب الإعلام التربوي (أول إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_EDUCATIONAL_MEDIA_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الموضوع ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-edm-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: educationalMediaP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 Educational-media tree verification, as one verdict. */
+function verifyEducationalMediaP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isEducationalMediaP1TreeConsistent();
+  const book = assertEducationalMediaP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-7 **Information & Communication Technology** («تكنولوجيا
+ * المعلومات والاتصالات») — OFFICIAL curriculum (PHASE 79).
+ *
+ * The first term IS the Ministry textbook (`ICT_ARABIC_Prp1_TR1.pdf`,
+ * 2026/2027 MoE edition): its single printed chapter «الفصل: المبادئ والأساسيات
+ * الرقمية» and its ten lessons, one app lesson per printed lesson, each grounded
+ * on the OCR text of the very pages the lesson owns
+ * (server/data/curriculum-ocr/ict-p1-t1/). Each lesson's `concepts` are the
+ * lesson's own printed «نواتج التعلم», verbatim.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson heads each lesson page prints, and the tiling. Seeding refuses to
+ * run on an unverified table.
+ */
+export const EGYPT_ICT_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "ict", name: "Information & Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  curriculum: { code: "eg-g7-ict", title: "تكنولوجيا المعلومات والاتصالات للصف الأول الإعدادي" },
+  terms: [buildEgyptIctP1Term()],
+};
+
+/** Term 1 = the official book: printed unit → printed lesson. */
+function buildEgyptIctP1Term(): TermSeedSpec {
+  const check = verifyIctP1Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب تكنولوجيا المعلومات (أول إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ICT_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-ict-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: ictP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 ICT tree verification, as one verdict. */
+function verifyIctP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isIctP1TreeConsistent();
+  const book = assertIctP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-7 **Arabic language** («اللغة العربية») — OFFICIAL curriculum
+ * (PHASE 88).
+ *
+ * The first term IS the Ministry textbook (`Arabic_Prep1_T1.pdf`, 2026/2027 MoE
+ * edition): its general review (مراجعة عامة) then the three units as the book's
+ * فهرس prints them, each lesson carrying the book's own printed components
+ * (قراءة، قواعد نحوية، قواعد إملائية، تحدث، كتابة، نص شعري), grounded on the OCR
+ * text of the pages the book prints for each
+ * (server/data/curriculum-ocr/arabic-p1-t1/). Listening lessons also carry their
+ * appendix passage («نصوص الاستماع»). Each lesson's `concepts` are its printed
+ * components, «النوع: العنوان».
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the unit/lesson/component pages against what each page actually prints, and
+ * the tiling. Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_ARABIC_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g7-arabic", title: "اللغة العربية للصف الأول الإعدادي" },
+  terms: [buildEgyptArabicP1Term()],
+};
+
+/** Term 1 = the official book: unit → lesson → the book's own printed components. */
+function buildEgyptArabicP1Term(): TermSeedSpec {
+  const check = verifyArabicP1Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب اللغة العربية (أول إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = lesson.title;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-ara-${lesson.key}`,
+          title,
+          concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+          doc: { title, content: arabicP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 Arabic tree verification, as one verdict. */
+function verifyArabicP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicP1TreeConsistent();
+  const book = assertArabicP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-7 **Islamic religious education** («التربية الدينية الإسلامية»)
+ * — OFFICIAL curriculum (PHASE 83).
+ *
+ * The first term IS the Ministry textbook (`Islamic_Education_Prep1_T1.pdf`,
+ * 2026/2027 MoE edition): its printed units and their lessons as the book's
+ * فهرس prints them, each grounded on the OCR text of the very pages the lesson
+ * owns (server/data/curriculum-ocr/islamic-p1-t1/). Each lesson's `concepts` are
+ * the lesson's own printed «الأهداف», verbatim.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers,
+ * the lesson heads each lesson page prints, and the tiling. Seeding refuses to
+ * run on an unverified table.
+ */
+export const EGYPT_ISLAMIC_P1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-7", name: "Grade 7", nameAr: "الصف الأول الإعدادي", levelOrder: 7 },
+  subject: { code: "islamic-education", name: "Islamic Religious Education", nameAr: "التربية الدينية الإسلامية" },
+  curriculum: { code: "eg-g7-islamic-education", title: "التربية الدينية الإسلامية للصف الأول الإعدادي" },
+  terms: [buildEgyptIslamicP1Term()],
+};
+
+/** Term 1 = the official book: printed unit → printed lesson. */
+function buildEgyptIslamicP1Term(): TermSeedSpec {
+  const check = verifyIslamicP1Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب التربية الإسلامية (أول إعدادي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ISLAMIC_P1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g7-isl-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: islamicP1LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-7 Islamic tree verification, as one verdict. */
+function verifyIslamicP1Tree(): { ok: boolean; problems: string[] } {
+  const table = isIslamicP1TreeConsistent();
+  const book = assertIslamicP1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Grade-6 **Mathematics, English-medium edition** — OFFICIAL curriculum
  * (PHASE 66).
  *
@@ -2454,6 +2841,12 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_THEATER_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_LIBRARIES_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_EDUCATIONAL_MEDIA_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_P1_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_G9_SPEC);

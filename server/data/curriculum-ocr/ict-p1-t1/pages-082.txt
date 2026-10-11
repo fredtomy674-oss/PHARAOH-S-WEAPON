@@ -1,9 +1,66 @@
-ع البيانكتب باقي اسماء الحقول، وحدد نوا-3
+A B 5 - 7 - نتائج الطلاب : Database - C:\Users\adir\Des... ? - X
+FILE HOME CREATE EXTERNAL DATA DATABASE TOOLS DESIGN
+Primary Key
+Builder
+View
+Test Validation Rules
+Views Tools
+Property Indexes Field, Record & Relationships
+Sheet Table Events
+Show/Hide
+! SECURITY WARNING Some active content has been disabled. Click for more details. Enable Content X
+All Access ... « Table1
+Search...
+Field Name Data Type
+id Short Text
+Short Text
+Field Long Text
+Number
+Generi Looku
+Field Size A The data type Date/Time
+that users can Currency
+Format
+h
+Input Ma AutoNumber
+Cantion Yes/No
+OLE Object
+Design view. F6 = Switch panes. F1 = Help.
+
+١
+٢
+
+١
+FILE HOME CREATE EXTERNAL ABASE TOOLS DESIGN Sign in
+View Paste Filter Refresh Find Text
+Formatting
+Views Clipboard S Save As ? X
+All Access ... Table Name: Data Type
+Search... درجات الطلاب mber
+OK Canon ٢
+General Lookup
+Field Size
+Format
+Decimal Places
+Input Mask
+Caption
+Default Value
+Validation Rule
+Validation Text
+Required
+Indexed
+Text Align
+The data type determines the kind of values
+that users can store in the field. Press F1 for
+help on data types.
+
+٣- اكتب باقي اسماء الحقول، وحدد نوع البيان
 المناسب لكل حقل.
 حفظ الجدول:
-اضغط أيقونة حفظ-1
-اكتب اسم الجدول "درجات الطالب"-2
-"عرض بيانات" الجدولب
+١-اضغط أيقونة حفظ
+٢-اكتب اسم الجدول "درجات الطلاب"
+
+ب "عرض بيانات" الجدول
 "Datasheet View"
-إلدخال وعرض بيانات الجدول.
-82
+لإدخال وعرض بيانات الجدول.
+
+٨٢

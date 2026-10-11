@@ -1,8 +1,37 @@
-"Viewاختر "-1
-"، فتظهر نافذة عرض البيانات.Datasheet Viewاختر "عرض البيانات" "-2
-سوف تظهر لك النافذة التالية:-3
-""Datasheet View"نافذة عرض البيانات
-ل.أدخل بياناتك وبيانات زمالئك بالجدو-4
-."Design View"، يتم اختيار "Viewع لنمط التصميم من "للرجو-5
-)2-4اسة األنشطة ( نشاط رقمع إلى كرلمزيد من األنشطة والتدريبات يمكنك الرجو
-83
+١- اختر "View"
+٢- اختر "عرض البيانات" "Datasheet View"، فتظهر نافذة عرض البيانات.
+
+١
+TABLE TOOLS
+FILE HOME CREATE EXTERNAL DATA DATABASE TOOLS DESIGN
+View Primary Builder Test Validation Rules Insert Rows Delete Rows Modify Lookups Property Indexes Sheet Show/Hide Create Data Macros Rename/ Delete Macro Field, Record & Table Event
+Datasheet View
+Design View
+Unassigned Objects
+درجات الطلاب
+درجات الطلاب Query1
+Field Name Data Type
+ID AutoNumber
+اسم الطالب Short Text
+درجة العربي Number
+درجة الانجليزي Number
+درجة الكمبيوتر Number
+٢
+
+FILE HOME CREATE EXTERNAL DATA DATABASE TOOLS FIELDS TABLE
+View Paste Cut Copy Format Painter Ascending Descending Remove Sort Selection Advanced Toggle Filter New Save Delete Totals Spelling More Refresh All Find Replace Go To Select
+Views Clipboard Sort & Filter Records Find
+All Access Obje...
+Search...
+Tables
+درجات الطلاب
+درجات الطلاب
+ID اسم الطالب درجة العربي درجة الانجليزي درجة الكمبيوتر
+(New) 0 0 0
+
+٣- سوف تظهر لك النافذة التالية:
+"نافذة عرض البيانات Datasheet View"
+٤- أدخل بياناتك وبيانات زملائك بالجدول.
+٥- للرجوع لنمط التصميم من "View"، يتم اختيار "Design View".
+لمزيد من الأنشطة والتدريبات يمكنك الرجوع إلى كراسة الأنشطة ( نشاط رقم ٤-٧)
+٨٣

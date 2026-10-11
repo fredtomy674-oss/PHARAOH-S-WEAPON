@@ -1,4 +1,26 @@
-.نختار اللغة العربية“Gmail display language”ومن خالل“General”,من القائمة
-Gmailتظهر واجهة نافذة البريد اإللكترونيSave Changesعند اختيار اللغة العربية والضغط على الزر
-باللغة العربية كما بالشكل التالي:
-51
+Quick settings
+See all settings
+
+من القائمة "General" ومن خلال "Gmail display language" نختار اللغة العربية.
+
+Settings
+General Labels Inbox Accounts and Import Filters and Blocked Addresses Forwarding and POP/IMAP Add-ons
+Chat and Meet Advanced Offline Themes
+Language: Gmail display language: English (US)
+Change language settings for other Google products
+
+Settings
+General Labels Inbox Accounts and Import Filters and Blocked Addresses Forwarding and POP/IMAP Add-ons
+Chat and Meet Advanced Offline Themes
+Language: Gmail display language: English (US)
+Change language settings for other Google products
+Enable input tools
+Right-to-left editing
+Right-to-left editing
+
+Only send a response to people in my Contacts
+Save Changes Cancel
+
+عند اختيار اللغة العربية والضغط على الزر Save Changes تظهر واجهة البريد الإلكتروني Gmail باللغة العربية كما بالشكل التالي:
+
+٥١

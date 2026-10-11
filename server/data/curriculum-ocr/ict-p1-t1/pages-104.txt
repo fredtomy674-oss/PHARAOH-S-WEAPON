@@ -1,6 +1,23 @@
 فتظهر الشاشة التالية.
-Usernameاكتب اسم المستخدم-4
-Nextاضغط-5
-5
-Nextثم اضغطPasswordاكتب كلمة المرور-6
-104
+٤-اكتب اسم المستخدم Username
+٥-اضغط Next
+
+(91) WhatsApp x G Google Drive: Sign-in x +
+← → C accounts.google.com/v3/signin/identifier?continue=https%3...
+M Gmail YouTube Google خرائط ترجمة Payment Details | C...
+G
+Sign in
+to continue to Google Drive
+Email or phone
+abeerxhamed@gmail.com
+Forgot email?
+Not your computer? Use Guest mode to sign in
+privately.
+Learn more about using Guest mode
+Create account Next
+Forgot password? Next
+٤
+
+٦-اكتب كلمة المرور Password ثم اضغط Next
+
+١٠٤

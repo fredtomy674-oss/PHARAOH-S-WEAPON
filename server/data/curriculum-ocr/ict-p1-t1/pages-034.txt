@@ -1,4 +1,28 @@
-ختيار برنامج التشغيل الصحيح.الNextفوقانقر-
-ع الطابعة.امج التشغيل يمكنك اختيار البرنامج المتوافق مع نوة في متجر برامج التشغيل المتوفرمن قائمة بر-
-HP LaserJet 5200Series PCL 5ازمن الطرHPتعريف طابعة
-34
+×
+← Add Printer
+Choose a printer port
+A printer port is a type of connection that allows your computer to exchange information with a printer.
+◎ Use an existing port: LPT1: (Printer Port)
+○ Create a new port:
+Type of port: Local Port
+Next Cancel
+
+- انقر فوق Next لاختيار برنامج التشغيل الصحيح.
+- من قائمة برامج التشغيل المتوفرة في متجر برامج التشغيل يمكنك اختيار البرنامج المتوافق مع نوع الطابعة.
+
+×
+← Add Printer
+Install the printer driver
+Choose your printer from the list. Click Windows Update to see more models.
+To install the driver from an installation CD, click Have Disk.
+Manufacturer Printers
+Honeywell HP LaserJet 5100 PCL 5
+HotLabel HP LaserJet 5200 Series PCL 5
+HP HP LaserJet 5200L Series PCL 5
+HUAWEI HP LaserJet 600 M601 M602 M603 PCL6
+This driver is digitally signed. Windows Update Have Disk...
+Tell me why driver signing is important
+Next Cancel
+
+تعريف طابعة HP من الطراز HP LaserJet 5200 Series PCL 5
+٣٤

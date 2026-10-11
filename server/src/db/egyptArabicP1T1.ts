@@ -561,7 +561,12 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
       }
 
       if (unit.kind !== "review") {
-        lesson.concepts.forEach((concept) => {
+        lesson.concepts.forEach((concept, ci) => {
+          // المكوّن الأول هو صدر الدرس نفسه: يثبّته فحص ترويسته («الدرس الن»)
+          // مع ترتيب الصفحات والفوتر، والكتاب لا يطبع كلمة النوع على هذا الصدر
+          // دائمًا (درس قراءة مقتطف من كتاب يطبع «من كتاب …» بدل «نص قراءة»،
+          // كما فى الدرس 2-2)، فلا نطلب علامة النوع إلا على ما يلي المكوّن الأول.
+          if (ci === 0) return;
           const marker = KIND_MARKER[concept.kind] ?? "";
           const page = loadBookPage(concept.bookFrom);
           if (!page) {

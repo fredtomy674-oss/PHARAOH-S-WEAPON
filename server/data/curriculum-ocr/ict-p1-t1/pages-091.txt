@@ -1,6 +1,142 @@
-فتظهر الشاشة التالية :-3
-اختر جدول مصدر البيانات المطلوب استخدامه وهو "درجات الطالب".-4
-.Close، ثم إغالقADDإضافةاضغط فوق-5
-الجدول مصدرء العلوي منها به"، وهي تنقسم لجزئين،الجزDesign Viewلتظهر نافذة تصميم االستعالم "
-.شبكة تصميم االستعالمء السفليجز، والالبيانات
-91
+1
+2
+File
+Home
+Create
+External Data
+Database Tools
+Fields
+Table
+Application
+Parts
+Templates
+Table
+Table
+Design
+SharePoint
+Lists
+SharePoint
+Wizard Design
+Queries
+Query
+Wizard
+Query
+Design
+Form
+Form
+Design
+Blank
+Form
+Forms
+Form Wizard
+Navigation
+More Forms
+Report
+Design
+Report
+Blank
+Design
+Report
+Reports
+Report Wizard
+Labels
+Macro
+Macr
+All Tables
+Search...
+درجات الطلاب
+Table : درجات الطلاب -
+ID
+اسم الطالب -
+درجة العربي -
+درجة الانجليزي
+درجة الكمبيوتر
+1
+عمرو 1
+2
+ياسمين 2
+3
+رامي 3
+4
+سمر 4
+5
+تامر 5
+19
+18
+19
+20
+17
+16
+15
+19
+14
+17
+18
+16
+14
+18
+16
+- فتظهر الشاشة التالية :
+3
+File
+Home
+Create
+External Data
+Database Tools
+Application
+Parts
+Templates
+Table
+Table
+Design
+SharePoint
+Lists
+SharePoint
+Wizard Design
+Queries
+Query
+Wizard
+Query
+Design
+Form
+Form
+Design
+Blank
+Form
+Forms
+Form Wizard
+Navigation
+More Forms
+Report
+Design
+Report
+Blank
+Design
+Report
+Reports
+Report Wizard
+Labels
+Macro
+Ma
+Cla
+Viss
+Macros &
+All Tables
+Search...
+درجات الطلاب
+Table : درجات الطلاب
+Query1
+درجات الطلاب
+Show Table
+?
+Tables
+Queries
+Both
+درجات الطلاب
+Add
+Close
+٤ - اختر جدول مصدر البيانات المطلوب استخدامه وهو "درجات الطلاب".
+ه - اضغط فوق إضافة ADD ، ثم إغلاق Close.
+لتظهر نافذة تصميم الاستعلام "Design View "، وهي تنقسم لجزئين، الجزء العلوي منها به الجدول مصدر
+البيانات، والجزء السفلي شبكة تصميم الاستعلام.
+۹۱

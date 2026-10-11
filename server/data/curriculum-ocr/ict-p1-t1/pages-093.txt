@@ -1,7 +1,110 @@
-اجها في شبكة التصميمحقول الجدول بعد ادر
-تنفيذ االستعالم:
-Designبالتبويب-
-Resultsفي المجموعةRunاضغط على أيقونة-
-طريقة تنفيذ االستعالم
-فتظهر نتيجة االستعالم على هيئة جدول، وتظهر به جميع بيانات الطالب.-
-93
+File Home Create External Data Database Tools Design
+View Run Select Make Append Update Crosstab Delete
+Table
+Results
+Query Type
+All Tables
+Search...
+م
+درجات الطلاب
+Table : درجات الطلاب
+111
+Union
+Pass-Through
+Data Definition
+Show
+Table
+Query Setup
+Query1
+درجات الطلاب - 0
+درجات الطلاب
+*
+ID
+اسم الطالب
+درجة العربي
+درجة الانجليزي
+درجة الكمبيوتر
+III
+Field:
+Table:
+Total:
+Sort:
+Show:
+Criteria:
+or:
+اسم الطالب
+درجات الطلاب
+Group By
+درجة العربي
+درجات الطلاب
+Group By
+درجة الانجليزي
+درجات الطلاب
+Group By
+درجة الكمبيوتر
+درجات الطلاب
+Group By
+Insert Rows
+Delete Rows
+Builder
+Insert Columns
+Delete Columns
+Return: All
+حقول الجدول بعد ادراجها في شبكة التصميم
+تنفيذ الاستعلام:
+- بالتبويب Design
+- اضغط على أيقونة Run في المجموعة Results
+File Home Create External Data Database Tools Design
+View Run Select Make Append Update Crosstab Delete
+Table
+Results
+All Tables
+Search...
+م
+درجات الطلاب
+Table : درجات الطلاب
+Query Type
+Union
+Pass-Through
+Data Definition
+Show
+Table
+Query Setup
+Query1
+درجات الطلاب - 0
+درجات الطلاب
+*
+ID
+اسم الطالب
+درجة العربي
+درجة الانجليزي
+درجة الكمبيوتر
+III
+Field:
+Table:
+Total:
+Sort:
+Show:
+Criteria:
+or:
+اسم الطالب
+درجات الطلاب
+Group By
+درجة العربي
+درجات الطلاب
+Group By
+درجة الانجليزي
+درجات الطلاب
+Group By
+درجة الكمبيوتر
+درجات الطلاب
+Group By
+Insert Rows
+Delete Rows
+Builder
+Insert Columns
+Delete Columns
+Return: All
+طريقة تنفيذ الاستعلام
+فتظهر نتيجة الاستعلام على هيئة جدول وتظهر به جميع بيانات الطلاب.
+۹۳
