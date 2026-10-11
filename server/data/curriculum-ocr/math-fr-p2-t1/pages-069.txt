@@ -1,0 +1,51 @@
+■ Auto-évaluation 3
+Dans la figure suivante:
+AB ≅ AD,
+AB = 3,6 cm,
+CD = 2,4 cm et
+AC bissecte ∠ BAD
+(1) Prouve que:
+Δ ACB ≅ Δ ACD
+(2) Trouve le périmètre du
+polygone ABCD
+
+Exemple 3
+Dans la figure ci-contre:
+Le point E est le milieu de AB et CD
+Prouve que: 1 Δ AEC ≅ Δ BED 2 AC // DB
+∵ Le point E est le milieu de AB et CD
+∴ AE ≅ BE et CE ≅ DE
+∵ m (∠ AEC) = m (∠ BED) (Opposés par le sommet)
+∴ Δ AEC ≅ Δ BED (Requis 1)
+Et de la congruence des deux triangles, il résulte que: m (∠ A) = m (∠ B)
+, ce sont deux angles en position d'alternance interne.
+∴ AC // DB (Requis 2)
+
+Le troisième cas: Angle-Côté-Angle (ACA)
+Les deux triangles sont congruents si deux angles et le côté tracé
+entre leurs sommets dans l'un des deux triangles sont congruents
+à leurs homologues dans l'autre triangle
+Si ∠ A ≅ ∠ D, AC ≅ DF et ∠ C ≅ ∠ F
+alors: Δ ABC ≅ Δ DEF
+
+■ Auto-évaluation 4
+Dans la figure suivante:
+AB // DC, AC // DE
+et BC ≅ EC
+Prouve que:
+Δ ABC ≅ Δ DCE
+
+Exemple 4
+Dans la figure ci-contre:
+∠ B ≅ ∠ C, ∠ ADE ≅ ∠ AED et BD ≅ CE
+Prouve que: Δ ABD ≅ Δ ACE
+∵ m (∠ ADB) + m (∠ ADE) = 180° et m (∠ AEC) + m (∠ AED) = 180°
+∵ m (∠ ADE) = m (∠ AED) ∴ m (∠ ADB) = m (∠ AEC)
+∴ ∠ ADB ≅ ∠ AEC
+dans les deux triangles: ABD et ACE
+∠ B ≅ ∠ C (donné) , BD ≅ CE (donné) et ∠ ADB ≅ ∠ AEC (démontré)
+∴ Δ ABD ≅ Δ ACE
+
+Premier semestre
+Leçon 1: La congruence
+65

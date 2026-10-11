@@ -1,0 +1,83 @@
+Leçon
+3 - 1
+
+La congruence
+
+■ Résultats
+d’apprentissage
+• Connaître le concept
+de la congruence des
+figures géométriques
+planes.
+• Connaître les conditions
+de congruence de deux
+polygones.
+• Connaître les cas de
+congruence de deux
+triangles.
+• Utiliser la congruence
+pour trouver les mesures
+des angles et les
+longueures des côtés.
+• Démontrer la congruence
+de deux triangles.
+• Utiliser la congruence
+des figures géométriques
+planes pour résoudre les
+problèmes de la vie.
+
+■ Vocabulaire
+• La congruence
+• L’hypoténuse
+• Le triangle rectangle
+• L’angle compris
+• Un côté reliant deux
+sommets
+
+■ La notation en
+mathématiques
+Le symbole ≅ est utilisé pour
+exprimer la congruence de
+deux figures géométriques.
+
+Sois prêt!
+Les ingénieurs utilisent des triangles
+congruents dans la construction
+des ponts en acier afin d’assurer
+l’équilibre et la solidité, car les triangles
+congruents contribuent à répartir les
+charges de manière égale. Dans l’image
+du pont ci-contre, peux-tu déterminer la
+valeur de x?
+Dans cette leçon, tu apprendras
+le concept de la congruence des
+figures géométriques planes et les
+cas de congruence des triangles, ce
+qui te permettra de résoudre de tels
+problèmes.
+
+Réfléchis et discute!
+Ibrahim a copié et collé
+plusieurs fois le triangle
+rouge pour créer une bande
+décorative en utilisant l’un des
+logiciels informatiques. Peux-tu
+déterminer la valeur de x
+dans cette figure?
+
+Apprends!
+La congruence de deux
+segments
+Deux segments sont congruents
+s’ils ont la même longueur.
+Si la longueur de AB = la
+longueur de CD, alors: AB ≅ CD
+
+La congruence de deux
+angles
+Deux angles sont congruents
+s’ils ont la même mesure.
+Si m (∠ A) = m (∠ B),
+alors: ∠ A ≅ ∠ B
+
+62 Unité 3: La géométrie Mathématiques - deuxième préparatoire

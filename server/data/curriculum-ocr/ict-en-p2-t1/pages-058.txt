@@ -1,0 +1,42 @@
+In this lesson, we will discuss External CSS and how to write code for External
+CSS.
+
+- CSS code is written in a separate file with the ".CSS" extension.
+- The CSS file is linked to the HTML page using the <link> tag within the head area.
+- The external CSS file allows you to change the appearance of all of your website's
+web pages by making changes to just one file!
+
+- The external CSS file should not contain any HTML tags.
+
+The <link> tag is written inside the HTML file as follows:
+<link href="fileName.css" rel="stylesheet">
+
+Where:
+The href attribute: is the name of the CSS file and the file path.
+The rel attribute: is used inside the <link> tag in HTML files to specify the
+relationship between the HTML file and another external file-often a CSS file.
+
+rel="stylesheet": tells the browser that the file referenced in the href attribute is a
+CSS file that should be loaded and applied to the page.
+
+Example: Creating an HTML file calls a CSS file named my style, which is stored in
+the same folder.
+
+First: HTML File Code
+<html>
+
+<head>
+<link rel="stylesheet" href="mystyle.css">
+</head>
+
+<body>
+<h1>Here is the page title</h1>
+<p> Here the content appears</p>
+</body>
+
+</html>
+
+Second: CSS File Code
+body {background-color: light blue;}
+
+58

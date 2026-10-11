@@ -1,0 +1,124 @@
+■ Self-Evaluation (1)
+
+The dot plot below illustrates
+the contributions of three
+friends (in thousands) to
+a project. Represent the
+share of each one in the
+project using a pie chart.
+
+Ahmed
+Yehia
+Adam
+
+■ Geometric Tools
+
+A compass and a protractor
+are used to draw circles and
+pie charts.
+
+■ Self-Evaluation (2)
+
+A shopping market observed
+the selling activity during
+one day, and the results
+were as follows:
+
+Items Percentages
+Foodstuffs 45%
+Dairy 35%
+Beverages
+& Juices
+Sweets 5%
+
+• Represent this data using
+a pie chart.
+
+► Calculate the total number of votes: 8 + 12 + 10 = 30.
+
+► Calculate the measure of the central angle that represents the number
+of votes for each candidate:
+
+Measure of the central angle = $\frac{\text{Number of votes for each candidate}}{\text{Total number of votes}} \times 360^{\circ}$
+
+"Khaled" $\frac{8}{30} \times 360^{\circ} = 96^{\circ}$
+
+"Anas" $\frac{12}{30} \times 360^{\circ} = 144^{\circ}$
+
+"Hamza" $\frac{10}{30} \times 360^{\circ} = 120^{\circ}$
+
+► Draw a suitable circle, and then draw
+the central angle representing the
+number of votes for each candidate.
+
+Example 2
+
+Anas
+$144^{\circ}$
+Khaled
+$96^{\circ}$
+Hamza
+$120^{\circ}$
+
+Drawing Steps:
+
+• Draw a circle by using a compass.
+• Draw a radius in the circle.
+• Draw a central angle of measure
+$96^{\circ}$, where this sector represents
+the votes for Khaled.
+• Use the new radius to create
+a central angle of measure $144^{\circ}$,
+where this sector represents
+the votes for Anas.
+• The remaining part is a circular
+sector with a central angle of
+measure $120^{\circ}$. It represents the
+votes for Hamza.
+
+Sports: In a survey, a group of people were asked their favorite sport.
+The results were as follows:
+
+Sports Handball Basketball Football Volleyball
+Percentages $15\%$ $25\%$ $45\%$ ........
+
+Represent the survey results using a pie chart.
+
+► Find the percentage for volleyball:
+$100\% - (45\% + 25\% + 15\%) = 15\%$
+
+► Calculate the measure of the central
+angle representing each sport:
+
+"Handball" $\frac{15}{100} \times 360^{\circ} = 54^{\circ}$
+
+"Basketball" $\frac{25}{100} \times 360^{\circ} = 90^{\circ}$
+
+"Football" $\frac{45}{100} \times 360^{\circ} = 162^{\circ}$
+
+"Volleyball" $\frac{15}{100} \times 360^{\circ} = 54^{\circ}$
+
+Football
+$45\%$
+
+Basketball
+$25\%$
+
+Handball
+$15\%$
+
+Volleyball
+$15\%$
+
+$54^{\circ}$
+$54^{\circ}$
+$162^{\circ}$
+
+► Draw a suitable circle, and then draw the central angle for each sport.
+
+First Term
+
+Lesson Three: Pie Charts
+El Nemer Press
+
+61

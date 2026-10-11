@@ -1,0 +1,17 @@
+UNIT 2
+Matter and Chemical Reactions
+
+The lessons
+Lesson one : Chemical Reactions
+Lesson two : Chemical Equations
+Lesson three : Nutritional Chemistry
+
+Learning Outcomes :
+At the end of this unit, students will be able to:
+1. Recognize the mechanism of chemical reactions.
+2. Deduce the occurrence of chemical reactions from laboratory observations.
+3. Analyze and explain information related to the properties of substances before and after the reaction, by giving examples of reactions involving the burning of sugar or the reaction of fats with sodium hydroxide in soap making.
+4. Design models at the molecular level for some molecules, including drawings, three-dimensional structures represented by balls and sticks, or computer representations showing different molecules composed of different types of atoms (or using open source software) such as ChemSketch and ChemDraw.
+5. Build a simple balanced chemical equation using words and chemical symbols, using the given molecular formulas.
+6. Design and use a model to describe that the total number of each type of atoms in a chemical reaction is constant and does not change, in accordance with the law of conservation of matter (conservation of mass).
+7. Recognize the importance of carbohydrates and proteins as natural chemicals in nutrition and industry.

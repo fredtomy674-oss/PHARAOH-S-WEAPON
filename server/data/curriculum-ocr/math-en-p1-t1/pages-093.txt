@@ -1,0 +1,87 @@
+■ Self-Evaluation (1)
+Find the value of $X$
+$(2x+16)^{\circ}$
+$(x+1)^{\circ}$
+$80^{\circ}$
+
+■ Geometric Tools
+▸ A compass is a geometric
+tool used for drawing
+circles. It can also be
+used to determine
+dimensions in a
+geometric drawing.
+
+▸ Use a protractor to
+measure the angles of
+the triangle that you have
+drawn, and determine
+its type based on the
+measures of its angles.
+
+Example (2)
+Find the value of the variable in each of the following:
+1
+22°
+82°
+X°
+2
+(2X-2)°
+(3X+7)°
+125°
+1 X = 82° + 22°
+X = 104°
+2 2X - 2° + 3 X + 7° = 125°
+5 X + 5° = 125°
+5 X = 120°
+X = 24°
+
+▸ Think: How can you verify the solution?
+Triangle Inequality
+Practical Activity
+Draw a triangle with side lengths 3 cm, 4 cm, and 5 cm, using
+a ruler and a compass.
+A
+B
+3 cm
+0
+1
+2
+3
+4
+1 Use the ruler to draw a line
+segment $\overline{AB}$ of length 3 cm.
+
+2 Set the compass to a length of
+4 cm, place the needle at point
+B, and draw an arc. Then, set the
+compass to a length of 5 cm, place
+the needle at point A, and draw
+another arc that intersects the first
+arc at point C.
+A
+B
+3 cm
+C
+
+3 Draw $\overline{AC}$ and $\overline{BC}$ to form
+triangle ABC with side
+lengths of 3 cm, 4 cm, and
+5 cm.
+A
+B
+3 cm
+C
+5 cm
+4 cm
+
+▸ Try to draw a triangle the lengths of its sides are 7 cm, 5 cm,
+and 5 cm. Can you draw this triangle? Discuss.
+▸ Try to draw a triangle the lengths of its sides are 8 cm, 4 cm,
+and 3 cm. Can you draw this triangle? Discuss.
+▸ Try to draw a triangle the lengths of its sides are 6 cm, 4 cm,
+and 2 cm. Can you draw this triangle? Discuss.
+
+86
+Unit Four: Geometry & Measurement
+Mathematics - First Preparatory

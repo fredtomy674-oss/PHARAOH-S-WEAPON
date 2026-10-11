@@ -1,0 +1,25 @@
+قائمة المحتويات
+م | الموضوعات | الصفحة
+--- | --- | ---
+| | الوحدة الأولى: الذكاء الاصطناعي وحماية بياناتنا الرقمية | ٤
+| | Artificial Intelligence and Protecting Our Digital Data |
+١ | الدرس الأول: الأنظمة الذكية وتأثيرها على التغيرات المناخية | ٦
+| | Smart Systems and Their Impact on Climate Change |
+٢ | الدرس الثاني: التهديدات السيبرانية المتقدمة | ٢٣
+| | Advanced Cyber Threats |
+٣ | الدرس الثالث: البيانات الضخمة | ٣٠
+| | Big Data |
+٤ | الدرس الرابع: البيانات الضخمة وعلاقتها بالذكاء الاصطناعي | ٣٧
+| | Big Data and Its Relationship to Artificial Intelligence |
+| | الوحدة الثانية: تصميم وإنشاء مواقع الويب | ٤٤
+| | Website Design and Creation |
+٥ | الدرس الأول: مبادئ تصميم واجهات احترافية شيقة للمواقع الإلكترونية. | ٤٥
+| | Principles of Designing Attractive, Professional Website Interfaces |
+٦ | الدرس الثاني: تنسيق صفحات الويب | ٥٩
+| | Web page Format |
+٧ | الدرس الثالث: مشروعي الرقمي لمدرستي | ٦٨
+| | My Digital Project for My School |
+٨ | الدرس الرابع: إنشاء موقعك الإلكتروني بمساعدة الذكاء الاصطناعي | ٧٩
+| | Create your website with the help of Artificial Intelligence |
+
+٣

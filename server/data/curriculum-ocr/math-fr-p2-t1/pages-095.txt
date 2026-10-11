@@ -1,0 +1,72 @@
+Le triangle équilatéral
+
+Le triangle équilatéral est un triangle dont les trois
+côtés sont congruents.
+
+Résultat:
+Le triangle équilatéral a trois
+angles congruents.
+
+Dans le triangle ABC:
+Si AB = AC = BC
+Alors:
+∠ A ≅ ∠ B ≅ ∠ C
+
+Résultat:
+Le triangle dont les trois angles
+sont congruents a des côtés de
+longueurs égales.
+
+Dans le triangle ABC:
+Si ∠ A ≅ ∠ B ≅ ∠ C
+Alors:
+AB = AC = BC
+
+■ Discute la preuve
+de la validité des
+résultats
+
+Utilise le théorème du
+triangle isocèle et sa
+réciproque pour prouver
+la validité des résultats
+adjacents.
+
+■ Auto-évaluation 3
+Dans la figure suivante:
+ABC est un triangle
+équilatéral
+BC = CD
+m (∠ DAC) = 75°
+m (∠ DCB) = 90°
+
+Trouve avec la démonstartion
+la valeur de X.
+
+Exemple 3
+Dans la figure ci-contre:
+ABC est un triangle équilatéral.
+AC ∩ ED = {F} et CF = CD
+Trouve la valeur de X
+
+∴ Δ ABC est équilatéral.
+∴ m (∠ ACB) = m (∠ A) = m (∠ B) = 60°
+∴ m (∠ FCD) = 180° - 60° = 120°
+∴ Δ FCD est isocèle dans lequel: CF = CD
+∴ m (∠ D) = m (∠ CFD) = 180° - 120° / 2 = 30°
+∴ ∠ AED est à l'extérieur du triangle EBD
+∴ m (∠ AED) = m (∠ B) + m (∠ D) = 60° + 30° = 90°
+∴ X = 90
+
+L'axe de symétrie du segment
+
+L'axe de symétrie du segment est la droite perpendiculaire passant par
+son milieu.
+
+Si la droite l ⊥ AB et la droite l coupe AB
+Alors: La droite l est l'axe de symétrie de
+AB.
+
+Premier semestre
+Leçon 5: Le triangle isocèle
+91

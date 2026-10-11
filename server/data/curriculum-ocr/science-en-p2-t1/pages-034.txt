@@ -1,0 +1,27 @@
+The quantity of heat required to raise the temperature of 1 kilogram of a substance by 1°C is called specific heat. Table (2) shows the approximate values of specific heat for some substances. These values are for illustration only:
+
+Table (2)
+| The substance | Mercury | Copper | Iron | Aluminum | Corn oil | Ice | Water |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Specific heat (J/kg°C) (at room temperature) | 140 | 385 | 450 | 900 | 2000 | 2090 | 4180 |
+
+Evaluate Your Understanding
+
+From Table (2):
+
+1 Which substance requires the greatest quantity of heat to raise the temperature of 1 kilogram of it by 1°C?
+
+2 Which is better thermally for making heating utensils... Copper or aluminum? Explain your answer.
+
+3 Why is mercury used in the manufacture of thermometers?
+
+4 Why does water make up such a large percentage of the human body?
+
+Life Application
+
+Water is an excellent cooling liquid because of its high specific heat, it absorbs large quantities of heat energy without a significant increase in its temperature, so it is used in the cooling system connected to car engines, known as the radiator (Figure 13) to protect them from damage.
+
+Figure (13)
+Radiator
+
+28 Unit One : MATTER AND ENERGY

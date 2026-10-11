@@ -1,0 +1,70 @@
+Evaluate your understanding!
+How well do you
+understand Unit Two?
+Tick the right box
+Unit Two Assessment
+
+▶ Choose the correct answer from the given ones:
+(1) If the trinomial (9 X² + k X + 49), is a perfect
+square, what is the value of k?
+(a) ± 7
+(b) ± 21
+(c) ± 42
+(d) ± 72
+
+(2) If X² - 14 X + 24 = (X - a) (X - b), what is
+the value of a + b?
+(a) - 10
+(b) - 14
+(c) 10
+(d) 14
+
+(3) If X + y = 7, m - n = 5,
+then X (m - n) - y (n - m) = .............
+(a) 2
+(b) 12
+(c) 35
+(d) 70
+
+(4) X³ + y³ = (............) (X² - X y + y²)
+(a) (X - y)
+(b) (X + y)
+(c) (X² - y²)
+(d) (X² + y²)
+
+▶ Complete each of the following with the correct answer:
+(5) The greatest common factor of the
+polynomial 16 X³ + 8 X² - 32 X is .............
+(6) When completing the square for (X² + 24 X),
+you should add .............
+(7) If (m² + 4 m + 8) is one of the factors of
+(m⁴ + 64), then the other factor is .............
+(8) If X³ - 3 X² - X + 3 = (X + a) (X + b) (X + c),
+then (a × b × c) equals .............
+
+▶ Answer the following questions:
+(9) Find the solution set of the equation: X² - 6 X = - 8 in R
+(10) Factorize each of the following completely:
+① 3 X² + 2 X - 5
+② k² - 64 m²
+③ X³ y³ - 27
+(11) A parallelogram has an area of 60 cm², and its base length is 7 cm more than its corresponding
+height. What is the height of the parallelogram?
+(12) Factorize each of the following completely:
+① X² - 6 X - y² + 6 y
+② 8 X⁵ - 10 X³ y² + 2 X y⁴
+
+Unit Two Activity The historical origins of
+algebraic factorization
+▶ Activity Aim:
+Acknowledge the contributions of Muslim Scientists in
+the development of algebra and algebraic expressions.
+▶ Implementation Steps:
+In collaboration with one of your friends,
+try to do the following:
+(1) Use an artificial intelligence application to find the name of a Muslim Scientist who contributed
+in the development of algebra.
+(2) Write about the role of this scientist in the factorization of algebraic expressions.
+(3) Are there any differences between the old and modem methods of factorization of algebraic expressions?
+
+60 Unit Two : Algebra Mathematics - Second Preparatory

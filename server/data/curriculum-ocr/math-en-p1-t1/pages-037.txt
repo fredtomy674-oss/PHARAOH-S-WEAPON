@@ -1,0 +1,70 @@
+Unit One Assessment
+
+Evaluate your understanding!
+How well do you understand Unit One?
+Tick the right box
+
+▶ Choose the correct answer from the given ones:
+
+1 Which of the following scale drawings is equivalent to "every 1 cm in the drawing represents 6.5 km in reality"?
+(a) 1 : 6,500,000
+(b) 1 : 6.5
+(c) 1 : 650,000
+(d) 1 : 6,500
+
+2 If $x \notin \{2, 5, 7\}$, which of the following can be a value of $x$?
+(a) 1
+(b) 2
+(c) 5
+(d) 7
+
+3 Which of the following is equal to $\frac{3}{5} + \frac{-2}{3}$?
+(a) $\frac{1}{8}$
+(b) $\frac{1}{15}$
+(c) $\frac{-6}{15}$
+(d) $\frac{-1}{15}$
+
+4 A piece of land with an area of 63 feddans was divided between two persons in the ratio of 4:5. Which of the following could represent the share of either person?
+(a) 9
+(b) 45
+(c) 28
+(d) 30
+
+▶ Complete each of the following with the correct answer:
+
+5 If $\frac{14}{x} = \frac{y}{7}$, then $xy =$ .................
+
+6 If $A = \{7, 8, 0\}$, then the number of all subsets of $A$ is .................
+
+7 Hesham packed 100 cardboard boxes in 2.5 hours. It would take Hesham ................. hours to pack 160 boxes, working at the same rate.
+
+8 If 13,500 tourists represent $12\%$ of a tourist group, then the number of tourists in the entire group is ................. tourists.
+
+▶ Answer the following questions:
+
+9 If $A = \{1, 5, 3, 7\}$, and $B = \{1, 2, 5, 9\}$. Find each of : $A \cup B$ and $A \cap B$
+
+10 Alaa purchased a mobile phone for 6,750 LE and sold it for 7,776 LE. Calculate the percentage of Alaa's profit.
+
+11 Spot the mistakes and make the necessary corrections.
+1 $ -8 - (-3) = -11 $
+2 $ \frac{-5}{3} \times \frac{9}{15} = 1 $
+3 $ \frac{5}{8} + \frac{-3}{7} = \frac{2}{15} $
+4 $ 48 \div (-8) = 6 $
+
+12 If the magnification ratio of an insect's image is $30 : 1$, and the insect's real length is $2 \frac{1}{2}\text{ mm}$, Find the length of the insect in the image in centimeters.
+
+Unit One Activity
+
+▶ Activity Aim: To employ Artificial Intelligence (AI) capabilities in understanding scale drawing and to create a cover or background for a Maths book.
+
+▶ Implementation Steps: Work in pairs and try to complete the following steps:
+1 Investigate a range of AI applications related to image editing.
+2 Find an image suitable for a Maths book cover.
+3 Use one of the chosen AI applications to magnify the selected image at two different scale drawings.
+4 Print the resulting images at both scales. Choose one as your final cover and justify your decision.
+5 Write a report that discusses the importance of AI applications in the learning process.
+
+30
+Unit One: Numbers and Their Operations
+Mathematics - First Preparatory

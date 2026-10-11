@@ -1,0 +1,46 @@
+Le quatrième cas: Angle-Angle-Côté (AAC)
+Les deux triangles sont congruents si deux angles et un côté non reliant aux deux sommets dans l'un des deux triangles sont congruents à leurs homologues dans l'autre triangle
+Si ∠ B ≅ ∠ E , ∠ C ≅ ∠ F et AB ≅ DE
+alors: Δ ABC ≅ Δ DEF
+
+■ Auto-évaluation 5
+Dans la figure suivante:
+AB bissecte ∠ DAC
+∠ ACB ≅ ∠ ADB
+Prouve que: Δ ACB ≅ Δ ADB
+
+Exemple 5
+Dans la figure ci-contre:
+AD ≅ BC et ∠ A ≅ ∠ B
+Prouve que: AE = BE
+Dans les deux triangles ADE et BCE:
+∵ ∠ A ≅ ∠ B (donné) , ∠ E ≅ ∠ E (angle commun) , AD ≅ BC (donné)
+∴ Δ ADE ≅ Δ BCE
+Il résulte de la congruence que: AE = BE
+
+■ Remarque que
+Dans le triangle rectangle, le côté opposé à l'angle qui mesure de 90° s'appelle l'hypoténuse du triangle et il est le plus long des côtés du triangle.
+
+Le cinquième cas: Hypoténuse-Côté (HC)
+Les deux triangles rectangles sont congruents si l'hypoténuse et l'un des deux côtés adjacents à l'angle droit dans l'un des deux triangles sont congruents à leurs homologues dans l'autre triangle.
+Si m (∠ B) = m (∠ E) = 90°
+AC ≅ DF et AB ≅ DE
+alors: Δ ABC ≅ Δ DEF
+
+■ Auto-évaluation 6
+Dans la figure suivante:
+BC = DE et AB = EB
+1 Prouve que: Δ ACB ≅ Δ BDE
+2 Trouve la valeur de: X
+
+Exemple 6
+Dans la figure ci-contre:
+Trouve la valeur de X
+Les deux triangles ABD et DCA ont:
+m (∠ B) = m (∠ C) = 90° (donné) , AB ≅ DC (donné) et AD ≅ DA (côté commun)
+∴ Δ ABD ≅ Δ DCA
+Et il résulte de la congruence que: m (∠ BDA) = m (∠ CAD) = 30°
+Dans le triangle DCA:
+∴ m (∠ CDA) = 180° - (90° + 30°) = 60° ∴ X = 60 - 30 = 30
+
+66 Unité 3: La géométrie Mathématiques - deuxième préparatoire

@@ -1,0 +1,55 @@
+■ Self-Evaluation (5)
+A teacher recorded the
+marks of 30 students in the
+first-term exam, and the
+results were as follows.
+
+| Marks | Students |
+| :---: | :---: |
+| 1 - | 6 |
+| 9 - | 16 |
+| 17 - | 8 |
+
+Represent these results
+using a pie chart.
+
+Example 5
+Social Life: The table below shows the number of children and youth
+members of one club according to their ages. Represent the results using
+a pie chart.
+
+| Intervals (Age-group) | 1 - | 11 - | 21 - | 31 - |
+| :--- | :---: | :---: | :---: | :---: |
+| Members (Frequency) | 900 | 1,200 | 2,700 | 2,400 |
+
+Since the sum of the measures of central angles in a circle is 360°
+the sum of frequencies = 900 + 1,200 + 2,700 + 2,400 = 7,200,
+measure of a central angle = $\frac{\text{frequency}}{\text{sum of frequencies}} \times 360^\circ$
+► Calculate the measure of the central angle representing each interval.
+
+"Interval 1 -" $\frac{900}{7,200} \times 360^\circ = 45^\circ$
+"Interval 11 -" $\frac{1,200}{7,200} \times 360^\circ = 60^\circ$
+"Interval 21 -" $\frac{2,700}{7,200} \times 360^\circ = 135^\circ$
+"Interval 31 -" $\frac{2,400}{7,200} \times 360^\circ = 120^\circ$
+
+Technology Using Excel to Draw Pie Charts
+The opposite table shows a student's weekly study hours for each school
+subject. Use Excel to represent the table using a pie chart.
+Steps : 
+1 Insert the data into two columns, Say, Column A and Column B.
+2 Select the two columns, then from the Insert menu, click Pie,
+and from the upper ribbon, pick the pie chart you want.
+3 Determine the heading of the chart.
+
+| School subject | Hours |
+| :--- | :---: |
+| Arabic | 9 |
+| Math | 10 |
+| Science | 6 |
+| Social Studies | 7 |
+| English | 4 |
+
+First Term
+Lesson Three: Pie Charts
+El Nemer Press
+63

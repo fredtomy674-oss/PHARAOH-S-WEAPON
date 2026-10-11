@@ -1,0 +1,31 @@
+Characteristics of The Components of The Planets of The Solar System
+The solar system (Figure 1) consists of a star, the sun, and 8 planets that orbit the sun in elliptical paths on different distances from it, ensuring that the planets do not collide during their movement.
+
+Sun
+Mercury
+Venus
+Earth
+Mars
+Jupiter
+Saturn
+Uranus
+Neptune
+Figure (1) The solar system
+
+Activity 1 Data analysis
+Table (1) exhibits data from monitoring devices about some characteristics of the planets in the solar system.
+
+| Planets | Crust | Atmosphere | Diameter | Volcanic activity |
+| :--- | :--- | :--- | :--- | :--- |
+| Mercury | Very thin, full of craters caused by meteor impacts | Very thin, composed of hydrogen and helium gases | 4878 km | No active volcanoes |
+| Venus | Thick compared to Mercury's crust | Very dense, composed mainly of carbon dioxide gas | 12120 km | Many active volcanoes |
+| Earth | Thicker than Venus's crust | Composed mainly of nitrogen and oxygen gases, where it is the planet of human life | 12756 km | Many active volcanoes |
+| Mars | Thick crust, relatively similar to Earth's crust, it is known as the Red Planet | Composed mainly of carbon dioxide gas | 6787 km | There are indications of volcanoes, but no current volcanic activity |
+| Jupiter | Gaseous planet, no crust, composed of gases only | Composed of hydrogen and helium gases | 142948 km | No volcanoes |
+| Saturn | Similar to Jupiter | Same Jupiter atomspheric components | 120536 km | No volcanoes |
+| Uranus | Gaseous planet, no crust, composed of gases and ice | Composed of hydrogen, helium gases, and methane gas which has greenish blue color | 51118 km | No volcanoes |
+| Neptune | Similar to Uranus | It has the same components of Uranus atmosphere, and known as the blue planet | 49660 km | No volcanoes |
+
+Table (1)
+"The planet diameters are for comparison purposes only"
+LESSON ONE : The Earth and the Solar System 81

@@ -1,0 +1,74 @@
+Bornes
+supérieures
+des
+intervalles
+Effectif cumulé
+croissant
+inférieure à 0 0
+inférieure à 6 6
+inférieure à 12 14
+inférieure à 18 26
+inférieure à 24 36
+inférieure à 30 40
+• L'ordre de la médiane = 40/2 = 20
+• La médiane (Q2) = 15
+
+Effectif cumulé
+croissant
+40
+36
+32
+28
+24
+Q2 ordre 20
+16
+12
+8
+4
+0 6 12 18 24 30 Intervalles
+Q2
+
+■ Remarque que
+On peut trouver la valeur de
+la médiane (Q2) à partir du
+tableau des effectifs cumulés
+croissants comme suit:
+L'ordre de la médiane = 20
+Q2 - 12 = 20 - 14
+18 - 12 26 - 14
+Q2 - 12 = 6
+6 12
+Q2 - 12 = 6 x 6
+12 = 3
+Q2 = 3 + 12 = 15
+
+Bornes supérieures
+des intervalles
+Effectif cumulé
+croissant
+inférieure à 0 0
+inférieure à 6 6
+inférieure à 12 14
+Valeur de la
+médiane Q2 20 Ordre de la
+médiane
+inférieure à 18 26
+inférieure à 24 36
+inférieure à 30 40
+
+3 Le mode d'une distribution des données par intervalles
+Tu peux estimer le mode d'une distribution
+des données par intervalles en traçant
+l'histogramme et en déterminant l'ensemble
+le plus répété, appelé l'ensemble modal,
+puis en déterminant le point d'intersection de
+CD et AB sur l'axe horizontal, ce qui donne
+la valeur du mode.
+C A
+D
+B
+L'ensemble
+modal Le mode
+
+Premier semestre Leçon 2: Les mesures de la tendance centrale
+du tableau des données par intervalles 115

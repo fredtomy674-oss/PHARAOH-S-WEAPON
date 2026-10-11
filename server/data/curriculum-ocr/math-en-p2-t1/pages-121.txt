@@ -1,0 +1,39 @@
+■ Self-Evaluation 4
+Eighty oranges were
+randomly selected from the
+quality control department
+of a juice factory and
+weighed. The results are
+shown in the following table:
+Weight Number of
+(grams) oranges
+75- 4
+100- 8
+125- 16
+150- 32
+175- 14
+200- 6
+Estimate the mode of the
+orange weights using the
+histogram.
+
+Example 4
+The following data shows the time spent using the mobile phone
+(in minutes) for thirty university students on one day.
+Time (minutes) 120- 150- 180- 210- 240- 270-
+Number of students 3 4 5 6 8 4
+Estimate the mode of the time spent using the mobile phone using the
+histogram.
+Frequency
+8
+7
+6
+5
+4
+3
+2
+1
+120 150 180 210 240 270 300 Intervals
+The mode ≈ 250 minutes
+
+116 Unit Four: Statistics Mathematics - Second Preparatory

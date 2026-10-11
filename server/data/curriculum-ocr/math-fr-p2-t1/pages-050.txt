@@ -1,0 +1,72 @@
+Leçon
+2 - 3
+
+La factorisation des cas particuliers
+
+■ Résultats
+d'apprentissage
+• Factoriser le trinôme qui
+représente un carré parfait
+• Factoriser la différence de
+deux carrés.
+• Factoriser la différence de
+deux cubes.
+• Factoriser la somme de
+deux cubes
+• Utiliser la factorisation
+pour faciliter d'effectuer les
+opérations mathématiques.
+• Utiliser la factorisation
+pour résoudre certains
+problèmes de la vie.
+
+Sois prêt!
+Les pyramides de Gizeh en
+Égypte sont l'une des plus grandes
+merveilles du monde antique. La
+base de la plus grande pyramide est
+de forme carrée et en supposant que
+son aire soit de (x² + 6x + 9) m²,
+peux-tu trouver son périmètre en
+fonction de x?
+Dans cette leçon, tu apprendras
+à factoriser le carré parfait et
+quelques autres cas particuliers, ce qui te permettra de résoudre de
+tels problèmes.
+
+Les pyramides de Gizeh
+
+Réfléchis et discute!
+• Si tu as un carré dont la longueur de son côté
+mesure x cm et que tu as décidé d'en découper un
+carré plus petit dont la longueur de son côté mesure
+5 cm, comme dans la figure ci-contre, alors peux-tu
+exprimer l'aire de la partie restante comme le produit
+de deux facteurs? Discute
+
+■ Vocabulaire
+• Le carré parfait.
+• La différence de deux
+carrés.
+• La différence de deux
+cubes.
+• La somme de deux cubes.
+
+• Si tu as un cube dont la longueur de son arête est
+x m et tu as décidé d'en découper un cube plus
+petit dont la longueur de son arête est y m comme
+dans la figure ci-contre, alors peux-tu exprimer le
+volume de la partie restante comme le produit de
+deux facteurs? Discute.
+
+Apprends!
+Premièrement La factorisation du trinôme qui représente un carré parfait
+Si le trinôme est classé par ordre croissant ou décroissant selon les
+exposants de l'un de ses symboles, il représente un carré parfait si:
+• Le premier terme est un carré parfait.
+• Le troisième terme est un carré parfait.
+• Le terme médian est égal au (±2 √premier terme × √troisième terme ).
+
+46
+Unité 2: L'algèbre
+Mathématiques - deuxième préparatoire

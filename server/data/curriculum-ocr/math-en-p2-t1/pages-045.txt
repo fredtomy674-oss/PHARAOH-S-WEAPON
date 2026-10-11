@@ -1,0 +1,105 @@
+■ Modelling
+You can use card models
+to factorize
+x² + 5 x + 6
+▶ Use the following cards:
+x² x x x x x
+1 1 1 1 1 1
+▶ Form a rectangle using
+all the cards as follows:
+x+3
+x² x x x
+x 1 1 1
+x 1 1 1
+x+2
+∴ x² + 5 x + 6
+= (x + 2) (x + 3)
+
+■ Self-Evaluation (1)
+Factorize each of the
+following:
+1 x² + 5 x + 4
+2 x² - 11 x + 24
+3 x² - 3 x - 28
+4 x² + x - 42
+
+■ Note that
+When factorizing the trinomial
+x² + b x + c to be in the
+form (x + l) (x + m), then:
+1 If c is positive, then l and
+m have the same sign
+as b.
+2 If c is negative, then l and
+m have different signs,
+and the number with larger
+absolute value will have
+the same sign as b.
+
+Factorizing a trinomial is the inverse operation of multiplication.
+For example:
+To factorize the trinomial x² + 5 x + 6
+look for two integers their product is 6 and their sum is 5. You will find that
+these numbers are 2 and 3,
+where: 2 x 3 = 6 , 2 + 3 = 5
+Thus : x² + 5 x + 6 = (x + 2) (x + 3)
+
+How to factorize a trinomial in the form x² + b x + c
+To factorize a trinomial in the form: x² + b x + c where b and c are
+integers, find two integers l and m such that : b = l + m , c = l m ,
+then write: x² + b x + c = (x + l) (x + m)
+
+Example 1
+Factorize each of the following:
+1 x² + 7 x + 12
+2 x² - 6 x + 8
+3 x² + x - 12
+4 x² - 7 x - 18
+
+1 To factorize the trinomial: x² + 7 x + 12,
+look for two integers their product is
+(+12) and their sum is (+7).
+∴ The two numbers are positive.
+∴ x² + 7 x + 12 = (x + 4) (x + 3)
+
+2 To factorize the trinomial: x² - 6 x + 8,
+look for two integers their product is
+(+8) and their sum is (-6).
+∴ The two numbers are negative.
+∴ x² - 6 x + 8 = (x - 2) (x - 4)
+
+3 To factorize the trinomial: x² + x - 12,
+look for two integers their product is
+(-12) and their sum is (+1).
+∴ The two numbers have different
+signs, the number with larger
+absolute value will be positive.
+∴ x² + x - 12 = (x + 4) (x - 3)
+
+Possible
+products
+Their sum
+(1) (12) 13 X
+(2) (6) 8 X
+(3) (4) 7 ✓
+∴ The two numbers are
++ 4 , + 3
+
+Possible
+products
+Their sum
+(-1) (-8) - 9 X
+(-2) (-4) - 6 ✓
+∴ The two numbers are
+- 2 , - 4
+
+Possible
+products
+Their sum
+(-1) (12) + 11 X
+(-2) (6) + 4 X
+(-3) (4) + 1 ✓
+∴ The two numbers are
+- 3 , + 4
+
+40 Unit Two: Algebra Mathematics - Second Preparatory

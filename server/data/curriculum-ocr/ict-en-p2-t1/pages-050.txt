@@ -1,0 +1,31 @@
+Learn by doing
+
+Choose the correct answer from the following:
+1- What is the primary focus of User Experience (UX) design?
+a) The visual appeal of the design.
+b) The usability and effectiveness of the product.
+c) The colors and fonts used in the design.
+d) The website's loading speed.
+
+2- What is the primary focus of User Interface (UI) design?
+a) Ease of navigation within the application.
+b) User satisfaction with the product.
+c) The visual appeal of the product.
+d) The logical organization of information.
+
+3- Which of the following is a fundamental principle of User Experience (UX) design?
+a) Using decorative fonts to attract attention.
+b) Providing clear and easy navigation for the user.
+c) Using as many colors as possible.
+d) Placing as much information on a single page as possible.
+
+4- Which of the following is a fundamental principle of User Interface (UI) design?
+a) Making all buttons the same size and shape.
+b) Choosing colors that are consistent and pleasing to the eye.
+c) Providing multiple ways to accomplish the same task.
+d) Ensure that all text is unreadable.
+
+5- What does the principle of "consistency" mean in UX/UI design?
+a) Use different elements on each page to make it stand out.
+
+50

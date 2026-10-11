@@ -1,0 +1,44 @@
+Covalent Bonding
+If chlorine is bonded to sodium with an ionic bond, so why doesn't it bind
+to hydrogen in the same way?
+Figure (4) shows that hydrogen atom needs one electron to reach
+the same electron configuration as helium, and chlorine atom also
+needs one electron to reach the same electronic configuration as argon.
+How can this be achieved?
+• Each atom shares a single valence electron to form together a single
+covalent bond, and the pair of electrons which forms the bond rotates
+around the two atoms in the covalent compound molecule of
+hydrogen chloride (HCl).
+The covalent bond in hydrogen chloride molecule is represented in (Figure 5), where
+the dash (-) between the two atoms represents the single covalent bond in the molecule.
+
+H • + • Cl : ——————> H — Cl :
+Hydrogen atom Chlorine atom Hydrogen chloride molecule
+Figure (5)
+The formation of covalent bond in hydrogen chloride molecule
+
+H
+Hydrogen atom
+• Cl :
+Chlorine atom
+Figure (4)
+Lewis structures
+of hydrogen and
+chlorine atoms
+
+Activity 2 Conclude
+Illustrate by drawing the bond formation in the following molecules using Lewis dot structures :
+- Hydrogen molecule : H • + .................... ——————> ....................
+- Oxygen molecule : .................... + .................... ——————> O = O
+- Nitrogen molecule : .................... + • N • ——————> ....................
+It is clear from the previous that covalent bonds are formed between two atoms of the same
+nonmetal element or between atoms of two different nonmetal elements, and the covalent
+bond may be single (-), double (=), or triple (≡) bond.
+
+Evaluate Your Understanding
+Use dots (•) and dashes (-) to represent valence electrons and covalent bonds in water
+molecule H2O as shown in (Figure 6) using Lewis dot structure:
+H + O + H ——————> H O H
+Figure (6)
+
+LESSON FOUR : Chemical Bonds 29

@@ -1,0 +1,45 @@
+First: The Concept of Interconnected Intelligent Systems (Internet of Things
+with Artificial Intelligence and Robotics)
+
+Nowadays, devices communicate with each other, think, and move! How does this
+happen? It happens through a new technology that combines three important
+fields: The Internet of Things (IoT), Artificial Intelligence (AI), and Robotics.
+
+When we combine (IoT) with (AI) and (Robotics), we get interconnected smart
+systems that can communicate with each other, think, and perform tasks without
+constant human intervention.
+
+Interconnected Intelligent Systems:
+
+Dear student, in smart homes, there is communication between the three
+interconnected intelligent systems. Through devices connected to the Internet
+(IoT), lighting and temperature can be controlled. Through artificial intelligence
+(AI), it can detect when you return from school at 2 p.m. and turn on the air
+conditioning before you arrive. A (robot) in the house can prepare your food or
+clean the floor before you enter.
+
+We can now start thinking and designing new and useful ideas using these
+amazing systems.
+
+Dear student, let's review a simple example of your father's car breaking down on
+the road. Imagine you're driving with your father on a long road, and suddenly the
+car stops due to an engine problem. This is when the role of smart systems starts:
+
+1- Internet of Things (IoT)
+
+IoT function:
+
+The car is equipped with sensors connected to the internet. When a breakdown
+occurs, the car automatically sends a message to a maintenance center or an app
+on your phone. It determines your precise location using GPS. The car sends a
+message saying: "Engine failure - Location: Cairo-Suez Road - Kilometer 75."
+
+2- Artificial Intelligence (AI)
+
+AI function:
+
+AI analyzes the breakdown data and suggests the possible cause (such as engine
+overheating, low oil, etc.). The AI then suggests solutions, such as: "Stop the car
+immediately - a maintenance robot will be sent to you and on its way."
+
+7

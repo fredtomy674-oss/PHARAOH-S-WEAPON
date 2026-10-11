@@ -1,0 +1,39 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+(1) If a + √5 = 0, what is the value of a?
+(a) 0 (b) √5 (c) -√5 (d) 1/√5
+(2) If a × √2 = 1, what is the value of a?
+(a) 1 (b) √2 (c) -√2 (d) √2/2
+(3) What is the value of √3 + √3?
+(a) √3 (b) 2√3 (c) √6 (d) 3
+(4) If a√5 - 4√5 = 3√5, then:
+(a) a = -1 (b) a = 1 (c) a = 7 (d) a = 10
+(5) If (2√3)^n = 12, then:
+(a) n = 2 (b) n = 3 (c) n = 4 (d) n = 6
+(6) If ∛5 + 3a = 4∛5, then:
+(a) a = 1 (b) a = √5 (c) a = ∛5 (d) a = 5
+(7) What is the additive inverse of the number 7/√7 in its simplest form?
+(a) √7/7 (b) 7 (c) -√7 (d) -7
+(8) What is the multiplicative inverse of the number √3 - 2?
+(a) 2 - √3 (b) √3 + 2 (c) -√3 - 2 (d) √3 - 2
+
+Second Applying Concepts
+(9) Make the denominator in each of the following an integer and write the number in its simplest form:
+(1) 1/√15
+(2) 30/√10
+(3) 10/2√5
+(4) (√2+3)/√2
+(5) 1/(2+√6)
+(6) 20/(5-√15)
+(7) 3/(√5+√2)
+(10) Find the result of each of the following in its simplest form:
+(1) 2√7 - 3√3 + √7 + 2√3
+(2) 2√5 - 3∛2 + 4√5 + ∛2
+(3) (∛5)^3 × 2√3
+(4) √5 (2 - √5) - 2 (1 + √5)
+(5) (√7 - 1)^2 + (√7 + 2) (√7 - 3)
+(6) (3 + 2√2)^2 - √2 (1 - √2)
+
+18 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

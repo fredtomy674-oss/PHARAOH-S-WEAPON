@@ -1,0 +1,51 @@
+<p> School Information &copy; 2025 </p>
+</footer>
+
+</div>
+</body>
+</html>
+Explanation of the HTML code for a school data page
+
+<html>
+
+This tag is the main element that contains the entire content of the page.
+
+<head>
+
+This part contains important information for the browser but does not appear within
+the content of the page itself. For example:
+
+<title>
+
+Defines the title that appears in the browser bar (in this case: "School Data").
+
+<link rel="stylesheet" href="style.css">
+
+Links the HTML file to an external CSS file called style.css so that it can be used to
+style the page.
+
+<body>
+
+This is where the content that appears to the user is written.
+
+<div class="container">
+
+The div element is used as a container or section of the page to organize the page
+content and can be used to group elements for purposes such as styling.
+
+class="container" refers to code within a CSS file used to style the container and its
+content.
+
+<header>
+
+It is used to define the top of the page or container, which contains important
+information and typically contains the main heading. Its use enhances the
+organization of the page.
+
+<h1>[School Name] Middle School</h1>:
+
+Provides a main title for the page.
+
+<section>
+
+66

@@ -1,0 +1,21 @@
+UNIT
+3
+Statistics
+Unit Lessons
+3-1 Organizing Data
+3-2 Arithmetic Mean
+3-3 Pie Charts
+Machine Learning is used in analyzing data to extract the information it
+contains, which helps in making decisions and improving performance in
+various areas.
+▶ Can Machine Learning algorithms be developed to solve statistical
+problems in our daily lives?
+Issues and Life Skills
+- Information Technology
+- Creative Thinking
+- Predicting
+- Decision Making
+Values
+- Responsibility - Work
+- Justice
+- Persistence

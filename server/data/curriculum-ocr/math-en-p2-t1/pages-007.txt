@@ -1,0 +1,47 @@
+Lesson
+1 - 1
+Real Numbers
+
+■ Learning Outcomes
+• Learn the concept of irrational number.
+• Estimate the approximate value of irrational number and represent it on a number line.
+• Learn the set of real numbers.
+• Arrange a set of real numbers in descending or ascending order.
+• Solve equations in the set of real numbers.
+
+■ Vocabulary
+• Irrational number
+• Real numbers
+
+■ Previous Knowledge
+A rational number is any number that can be written in the form of a/b where a and b are integers, b ≠ 0, and the set of rational numbers is denoted by the symbol Q.
+• Give examples of rational numbers.
+
+Get Ready!
+The golden rectangle is a rectangle whose length is equal (1 + √5)/2 to its width, and this ratio is called the 'golden ratio.' It is denoted by the symbol φ and appears in many aspects of nature. Artists have used it in their designs because it gives a sense of beauty and harmony. Leonardo da Vinci's Mona Lisa is one of the most famous artistic designs that applies this ratio. Why is this ratio not considered a rational number?
+In this lesson, you will learn the concept of irrational number and a new set of numbers called real numbers, which will enable you to answer questions like this.
+
+The Mona Lisa Portrait
+
+Think & Discuss!
+You have a set of numbers. Explain how you can arrange them from smallest to largest. Discuss with your classmates.
+√40
+6
+4
+√12
+
+Learn!
+Irrational numbers
+An irrational number is a number that cannot be written in the form of a/b where a and b are integers, b ≠ 0, and the set of irrational numbers is denoted by the symbol Q'.
+
+Examples of irrational numbers:
+• The square root of any number that is not a perfect square, such as: √2 where √2 ≈ 1.414213562 ...
+• The cube root of any number that is not a perfect cube, such as: ∛5 where ∛5 ≈ 1.709975947 ...
+
+■ Note That
+Calculators give approximate values for irrational numbers such as:
+√2, ∛5 where the decimal fraction is infinite and non-recurring, so such numbers cannot be written as rational numbers.
+
+2
+Unit One: Numbers and Their Operations
+Mathematics - Second Preparatory

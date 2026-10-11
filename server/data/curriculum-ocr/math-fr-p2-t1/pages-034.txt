@@ -1,0 +1,47 @@
+(12) Simplifie chacun de ce qui suit à la forme la plus simple:
+(1) $\frac{(\sqrt{6})^{n+2} \times (\sqrt{3})^n}{4 \times (\sqrt{2})^{n-2}}$, puis trouve la valeur du résultat lorsque $n=1$
+(2) $\frac{10^{-n} \times 0,01}{10^{-n-6} \times 10^n}$, puis trouve la valeur du résultat lorsque $n=3$
+(13) Si $X=\sqrt{2}$ et $Y=\sqrt{6}$, quelle est la valeur de $\frac{y^6 x^{-4}}{x^2}$ ?
+(14) Si $X=2\sqrt{3}$ et $Y=3\sqrt{2}$, trouve la valeur numérique de l'expression $(X^2-y^2)^{-1}$
+(15) Si $2^X=5$, trouve la valeur de chacun de ce qui suit:
+(1) $2^{X+1}$ (2) $2^{1-X}$ (3) $2^{X+2}+2^{X+3}$
+(16) Si $X=\sqrt{5}$ et $Y=5$, trouve la valeur de $X^{-10} y^{10}$
+
+Troisièmement L'analyse et l'intégration des disciplines
+
+(17) Géographie: Si tu sais que l'aire de la
+Péninsule du Sinaï est environ 6 % de l'aire de
+la République Arabe d'Égypte, qui est d'environ
+$10^6$ km², quelle est l'aire approximative de la
+Péninsule du Sinaï en kilomètres carrés?
+
+Le Sinaï, la terre de turquoise, et les villes du canal connaissent
+un véritable essor et des réalisations dans tous les secteurs du
+développement, ce qui est une source de fierté.
+
+On doit suivre les consignes de sécurité et
+de sûreté dans l'environnement du travail
+afin d'assurer la sécurité des personnes.
+
+(18) Menuiserie: Un menuisier a fabriqué une boîte
+en bois en forme de parallélépipède rectangle avec
+une base de forme carré dont le côté mesure
+$2\sqrt{7}$ pieds et la hauteur mesure $3\sqrt{7}$ pieds. Alors,
+quel est le volume de la boîte?
+
+Pensée créative
+(19) Lequel de ce qui suit exprime la moyenne arithmétique de deux
+nombres $2^{X+1}$ et $2^X$ où $X \in Z$?
+(a) 2
+(b) $2^{2X+1}$
+(c) $2^{X-1}+2^X$
+(d) $2^{X+1}+2^X$
+
+Évalue ta compréhension!
+Quel est ton niveau de
+compréhension des lois des
+exposants dans les nombres
+réels?
+Coche la case appropriée.
+
+30 Unité 1: Les nombres et les opérations sur les nombres Mathématiques - deuxième préparatoire

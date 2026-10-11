@@ -1,0 +1,30 @@
+Learn by doing
+
+Choose the correct answer from the following:
+
+1. Which of the following technologies allows devices to connect to the internet
+and exchange data?
+a) AI
+b) Robotics
+c) IoT
+d) VR
+
+2. What is the main function of artificial intelligence (AI)?
+a) Data transfer only.
+b) Data analysis and decision making.
+c) Device manufacturing.
+d) Powering the internet.
+
+3. What is the name given to systems that combine IoT, AI, and robotics?
+a) Traditional systems.
+b) Manual systems.
+c) Mechanical systems.
+d) Interconnected intelligent systems.
+
+4. How does IoT help in a smart home?
+a) By shutting down all devices.
+b) By repairing broken devices.
+c) By connecting devices to the internet to control them.
+d) By manually operating devices.
+
+12

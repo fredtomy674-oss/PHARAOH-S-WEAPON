@@ -1,0 +1,56 @@
+Relation between Angles
+1 Adjacent Angles: They are two angles that lie in the same plane,
+share the same vertex, have a common side, and their outer sides
+lie on different sides of the common side.
+Example:
+∠ BAC and ∠ CAD are adjacent angles, because:
+• They share the same vertex A, and have
+a common side AC.
+• The outer sides AD and AB lie on
+different sides of the common side AC.
+
+Think with your classmates
+• Are ∠ BAC and
+∠ CDE adjacent
+angles?
+• Are ∠ BAD and
+∠ BAC adjacent
+angles?
+
+2 Complementary Angles: They are two angles whose measures
+have a sum of 90°.
+Example:
+If m (∠ 1) = 60°, and m (∠ 2) = 30°
+Then ∠ 1 and ∠ 2 are complementary angles, because:
+m (∠ 1) + m (∠ 2) = 60° + 30° = 90°
+
+3 Supplementary Angles: They are two angles whose measures
+have a sum of 180°.
+Example:
+If m (∠ 1) = 60°, and m (∠ 2) = 120°
+Then ∠ 1 and ∠ 2 are supplementary angles, because:
+m (∠ 1) + m (∠ 2) = 60° + 120° = 180°
+
+■ Critical Thinking
+Write all the pairs of
+adjacent angles in the
+figure below.
+
+■ Notation in Mathematics
+The measure of an angle is
+denoted by the letter (m).
+Thus, the measure of angle
+(ABC) is written as follows:
+m (∠ABC).
+
+■ Think
+Is it necessary for two
+angles to share the same
+vertex to be identified
+as complementary or
+supplementary angles?
+
+First Term
+Lesson One: Types of Angles and Relations between Angles
+71
+El Nemer Press

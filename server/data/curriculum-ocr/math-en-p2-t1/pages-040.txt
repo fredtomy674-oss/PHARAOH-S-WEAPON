@@ -1,0 +1,71 @@
+■ Self-Evaluation (2)
+Find the numerical value
+of each of the following
+using factorization by
+taking out the greatest
+common factor:
+1 83 × 57 + 83 × 43
+2 43 × 87 - 43 × 30 + (43)²
+3 13 × 115 - 13 × 16 + 13
+
+Example 2
+Find the numerical value of each of the following using factorization
+by taking out the greatest common factor:
+1 19 × 23 + 19 × 27
+2 37 × 163 - 37 × 26 - (37)²
+3 25 × 158 - 25 × 57 - 25
+
+1 19 × 23 + 19 × 27 = 19 (23 + 27) = 19 × 50 = 950
+2 37 × 163 - 37 × 26 - 37 × 37 = 37 (163 - 26 - 37)
+= 37 × 100 = 3700
+3 25 × 158 - 25 × 57 - 25 × 1 = 25 (158 - 57 - 1)
+= 25 × 100 = 2500
+
+■ Self-Evaluation (3)
+Factorize the following
+polynomials by taking out
+the greatest common factor:
+1 16 a (a - b) + 24 b (a - b)
+2 (x + 2)² + 3 (x + 2)
+3 (x - 5)² - x + 5
+
+Example 3
+Factorize the following polynomials by taking out the greatest
+common factor:
+1 12 x (x + y) - 18 y (x + y)
+2 (x - 5)² - 2 (x - 5)
+3 (x + 3)² - x - 3
+
+■ Note that
+The polynomial in brackets
+can be taken as a common
+factor.
+
+1 Since the GCF is 6 (x + y)
+∴ 12 x (x + y) - 18 y (x + y) = 6 (x + y) (2 x - 3 y)
+2 Since the GCF is (x - 5)
+∴ (x - 5)² - 2 (x - 5) = (x - 5) (x - 5 - 2) = (x - 5) (x - 7)
+3 (x + 3)² - x - 3 = (x + 3)² - (x + 3)
+= (x + 3) (x + 3 - 1)
+= (x + 3) (x + 2)
+
+■ Self-Evaluation (4)
+If (5 a + 4 b) = 65,
+5 a (2 a - 3 b) +
+4 b (2 a - 3 b) = 195,
+find the numerical value of
+the expression
+(2 a - 3 b)
+
+Example 4
+If x + 2 y = 8 , 2 x + y = 7 ,
+find the numerical value of the expression: 2 x (x + 2 y) + y (x + 2 y)
+
+Factorization by taking out GCF can be used to simplify the given
+expression as follows:
+2 x (x + 2 y) + y (x + 2 y) = (x + 2 y) (2 x + y)
+= 8 × 7 = 56
+
+First Term
+Lesson One: Factorizing by Taking Out Greatest Common Factor GCF
+35

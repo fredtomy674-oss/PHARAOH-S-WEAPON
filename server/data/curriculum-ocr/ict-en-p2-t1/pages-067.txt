@@ -1,0 +1,54 @@
+The container is divided into two sections.
+
+The first: represents a section within the container related to basic school information.
+
+The second: represents a section within the container for school activities.
+
+<h2>Basic Information</h2>
+
+A subtitle for the first section.
+
+<h2>School Activities</h2>
+
+A subtitle for the second section.
+
+<footer>
+
+Represents the bottom of the page or container and often contains copyright or contact information.
+
+<p> &copy; 2025 School Information</p>
+
+A paragraph of text displaying the copyright. The &copy; symbol represents the copyright symbol.
+
+</div>
+
+Close the div container
+
+</body>
+
+Close the body element
+
+</html>
+
+Close the html element
+
+Activity:
+
+Dear student, with the help of your teacher and in cooperation with your
+classmates, write the HTML code for the student information page design in the
+student.htm file and save it.
+
+Student Data Page HTML Code
+
+<html>
+
+<head>
+
+<title>Student Data</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+67

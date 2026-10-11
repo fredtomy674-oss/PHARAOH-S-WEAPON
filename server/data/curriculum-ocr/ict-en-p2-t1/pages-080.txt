@@ -1,0 +1,41 @@
+Fifth: Add an Image Gallery
+
+Images add vibrancy and appeal to your website. Let's request a dedicated section to display images.
+
+In the designated text box, enter a command for the AI:
+
+I'm adding a photo section where I can display photos of club events and book covers we've read. I want to display the photos in a nice grid format that allows visitors to click on the image to view it larger.
+
+Available gallery types:
+
+• Grid Gallery: Equal-sized images arranged in a grid
+
+• Slideshow: Animated images appear one after the other
+
+• Masonry Gallery: Images of different sizes arranged in a grid
+
+• Lightbox Gallery: Opens in a large format on click
+
+Important note: The AI adds default images, which you can later replace with your own.
+
+Sixth: Add a contact form and contact information
+
+It's important for your website visitors to be able to contact you. Let's add a way for them to contact you.
+
+In the provided text box, type a command for the AI:
+
+Add a contact form on a separate page called 'Contact Us' so that those interested in joining the club can submit their applications. Also include contact information such as the club's email address and meeting times.
+
+What you can add in the contact section:
+
+• Contact form: For visitors to send you direct messages
+
+• Email (with your teacher or parent's permission)
+
+• Social media links (if you have them)
+
+• QR code leading to your website or contact information
+
+Important safety alert: Remember to use secure contact information with the permission of your teacher or administrator and your parents. Be careful when sharing personal information online and consult your parents or teacher before adding real contact information.
+
+80

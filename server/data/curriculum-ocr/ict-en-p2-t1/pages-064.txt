@@ -1,0 +1,64 @@
+Lesson 3:
+
+My Digital Project for My School
+
+Objectives:
+
+By the end of the lesson, I will
+be able to:
+- Explain the concept of my digital
+project using HTML.
+- Write my project code correctly.
+
+- Design my school's page in an
+attractive way.
+
+After the lesson, check the correct box:
+I can...
+Very good
+Ok
+Need more work
+
+Very good
+Ok
+Need more work
+
+Very good
+Ok
+Need more work
+
+Engage:
+How can you design an attractive website?
+
+Learn:
+Write the HTML code needed to design two web pages
+And write the CSS code needed to format them
+
+Steps
+First: Prepare a folder containing the files needed to create the pages
+
+Activity:
+Dear student, with the help of your teacher and in cooperation with your
+classmates,
+
+- Create a folder named "project"
+
+- Within the "project" folder, using a text editor, create the files needed to implement
+the project:
+
+File
+School.htm
+Student.htm
+Style.css
+
+Type
+HTML
+HTML
+CSS
+
+Function
+It stores the HTML code for the school data page.
+It stores the HTML code for the student data page.
+It stores the CSS code used to format the two pages.
+
+64

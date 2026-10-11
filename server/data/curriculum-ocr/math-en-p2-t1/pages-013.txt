@@ -1,0 +1,72 @@
+Lesson
+1 - 2
+
+Intervals and
+Their Operations
+
+■ Learning Outcomes
+• Learn the concept of
+interval as a subset of the
+set of real numbers.
+• Represent an interval on
+the number line.
+• Perform intersection,
+union, difference, and
+complement operations on
+intervals.
+• Use the concept of intervals
+to solve real-life problems.
+
+Get Ready!
+Hurghada is one of the world's most
+popular diving destinations, where
+tourists can enjoy diving in the Red Sea
+to see beautiful coral reefs and a variety
+of marine life.
+On one of the diving trips in Hurghada,
+the divers wanted to see two species of
+fish at the same time. If you know that:
+• The first kind lives at depths from
+15 m to 60 m.
+• The second kind lives at depths from
+10 m to 25 m. Magdy dived to a depth of 30 m, and Amal dived to a
+depth of 12 m., while Bassem dived to a depth of 20 m. Which of them
+can see both species at the same time?
+In this lesson, you will learn the concept of intervals, types of intervals,
+and operations on intervals, which will enable you to solve such real-life
+problems.
+Coral reefs and fish in the Red Sea
+
+■ Vocabulary
+• Interval
+• Bounded interval
+• Unbounded interval
+• Closed interval
+• Open interval
+• Intersection
+• Union
+• Difference
+• Complement
+• Universal set
+• Infinity
+
+Think & Discuss!
+One day, Mustafa's university lectures
+were scheduled as follows:
+From 9:00 a.m. to 12:00 p.m.
+Then from 2:00 p.m. to 4:00 p.m.
+If the university sports center is used to
+open daily from 10:00 a.m. to 1:00 p.m.,
+what is the appropriate time for Mustafa
+to exercise at the university sports center
+on that day without affecting his lectures
+attendance? Discuss.
+
+Learn!
+Intervals
+• Between any two real numbers there are infinite real numbers.
+• The set of real numbers and its subsets cannot be expressed by listing
+method, because it is impossible to list all its elements. Therefore,
+another method is used to express them, it is called ‘intervals’.
+
+8 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

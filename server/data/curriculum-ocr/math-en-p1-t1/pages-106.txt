@@ -1,0 +1,93 @@
+■ Self-Evaluation (1)
+
+Which of the following
+polygons are convex, and
+which are concave?
+
+1
+
+2
+
+3
+
+■ Remember
+
+The diagonal of a polygon is
+the line segment joining two
+non-consecutive vertices of
+the polygon.
+
+For example:
+► A quadrilateral has two
+diagonals.
+
+► A pentagon has five
+diagonals.
+
+Example (1)
+
+$ABCD$ is a quadrilateral in which $m(\angle A)=4X^{\circ}$, $m(\angle B)=5X^{\circ}$
+, $m(\angle C)=7X^{\circ}$, and $m(\angle D)=20X^{\circ}$. Find the value of $X$,
+then determine whether the quadrilateral is convex or concave.
+
+$\because ABCD$ is a quadrilateral.
+$\because m(\angle A)+m(\angle B)+m(\angle C)+m(\angle D)=360^{\circ}$
+$\therefore 4X^{\circ}+5X^{\circ}+7X^{\circ}+20X^{\circ}=360^{\circ}$
+$\therefore 36X^{\circ}=360^{\circ}$
+$\therefore X^{\circ}=\frac{360^{\circ}}{36}=10^{\circ}$
+$\therefore m(\angle D)=20\times10^{\circ}=200^{\circ}$ (Reflex Angle)
+$\therefore ABCD$ is a concave polygon.
+
+The sum of the measures of the interior angles of a polygon
+
+To calculate the sum of the measures of the interior angles of a convex
+polygon, draw all possible diagonals from one of its vertices, dividing the
+polygon into number of triangles, as shown in the following figures.
+
+(2)
+(1)
+
+Quadrilateral
+
+(3)
+(2)
+(1)
+
+Pentagon
+
+(4)
+(3)
+(2)
+(1)
+
+Hexagon
+
+(5)
+(4)
+(3)
+(2)
+(1)
+
+Heptagon
+
+| Polygon | Sides | Number of
+Triangles | Sum of the measures of
+the Interior Angles |
+| :---: | :---: | :---: | :---: |
+| Quadrilateral | 4 | 2 | $2\times180^{\circ}=360^{\circ}$ |
+| Pentagon | 5 | 3 | $3\times180^{\circ}=540^{\circ}$ |
+| Hexagon | 6 | 4 | $4\times180^{\circ}=720^{\circ}$ |
+| Heptagon | 7 | 5 | $5\times180^{\circ}=900^{\circ}$ |
+| $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+| Decagon | 10 | 8 | $8\times180^{\circ}=1440^{\circ}$ |
+
+► Find out the relationship between the number of sides of a polygon and
+the number of the triangles formed by drawing all possible diagonals
+from one of its vertices.
+
+First Term
+
+Lesson Five: Polygons
+El Nemer Press
+
+99

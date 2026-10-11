@@ -1,0 +1,49 @@
+Corollaries of the axis of symmetry of a line segment
+Corollary:
+Any point belongs to the axis of symmetry of a line segment is equidistant from its terminals.
+If the straight line l is the axis of symmetry of AB, D ∈ l,
+then DA = DB
+Corollary:
+Any point that is equidistant from the terminals of a line segment lies on the axis of symmetry of that line segment.
+If the straight line l is the axis of symmetry of AB, DA = DB,
+then D ∈ l
+
+■ Self-Evaluation 4
+1 In the following figure:
+Find: m (∠ A)
+2 In the following figure:
+AE = EC, AD = CB
+Find: m (∠ C)
+
+Example 4
+1 In the given figure:
+Find the length of XB
+1
+∴ CA = CB, XC ⊥ AB
+∴ XC is the axis of symmetry of AB
+∴ X ∈ XC
+∴ XB = XA = 5.4 cm
+
+2 In the given figure:
+Find the value of n
+2
+∴ XA = XB = 15 cm
+∴ X lies on the axis of symmetry of AB
+∴ YA = YB = 13 cm
+∴ Y lies on the axis of symmetry of AB
+∴ XY is the axis of symmetry of AB
+∴ XY ⊥ AB, CB = AC
+∴ n + 5 = 10
+∴ n = 10 - 5 = 5
+
+■ Note that
+• The isosceles triangle has only one axis of symmetry.
+• The equilateral triangle has three axes of symmetry.
+• The scalene triangle has no axis of symmetry.
+
+Axis of symmetry of an isosceles triangle
+The axis of symmetry of an isosceles triangle is a straight line passing through the vertex of the triangle perpendicular to its base.
+If AB = AC, AD ⊥ BC,
+then AD is the axis of symmetry of the triangle ABC
+
+92 Unit Three: Geometry Mathematics - Second Preparatory

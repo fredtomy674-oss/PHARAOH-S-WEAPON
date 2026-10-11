@@ -1,0 +1,46 @@
+(13) Answer the following questions:
+① If 4 √5 = 2 √a and 2 √24 = b √6 find a + b.
+② If X = √3 + √2 and Y = √3 - √2, find in the simplest form each of the following:
+(1) X × Y
+(2) X/Y
+(3) (X - 1/X)^2
+③ If a = ∛5 + ∛2 and b = ∛5 - ∛2, find in the simplest form each of the following:
+(1) (a + b)^3
+(2) a × b
+(3) a^2 - b^2
+
+Third Analysis and Subjects Integration
+(14) Geometry: Calculate the area of each of the following coloured shapes:
+① 4√2 cm, √18 cm
+② √28 cm, √63 cm
+③ √50 cm, √32 cm, √128 cm
+
+(15) Geometry: Each of the two opposite shapes consists of squares of equal area.
+Find the perimeter of each shape
+(the area of each shape is given below).
+Area = 300 square centimeters
+Area = 132 square centimeters
+
+(16) Construction: A piece of land in shape of a square with an area of 500 m^2. A square house with an area of 180 m^2 was built on it, and the rest of the area was left as a garden, as shown in the diagram. What is the length of the outer fence of the garden in meters?
+
+(17) Geometry:
+If the area of rectangle ABCD
+is equal to the area of square EFGH,
+what is the length of EF?
+D C
+A √48 cm B
+H G
+E F
+√12 cm
+
+Creative Thinking
+(18) A square with an area of 432 cm^2 is divided into rectangles and squares as shown in the figure.
+What is the difference between the perimeters of shapes A and B?
+A A
+B B B
+C C C C
+
+Evaluate your understanding!
+How well do you understand laws of square and cube roots? Tick the right box
+
+24 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

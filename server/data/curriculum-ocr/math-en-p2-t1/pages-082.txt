@@ -1,0 +1,37 @@
+Third Analysis and Subjects Integration
+8
+2X+1 2X-1 8 X+2
+17 Games :
+You have a kite with the dimensions shown in the figure. Find the perimeter of the kite.
+
+18 Arts : An artist placed a ladder to reach a window 24 feet above the ground. The base of the ladder was 7 feet away from the wall of the house. While mixing paint, the ladder slipped, causing its base to move another 8 feet away from the wall of the house. What is the height of the ladder at that moment?
+24
+x
+8 7
+Safety and security rules must be followed when performing home maintenance.
+
+Creative Thinking
+19 In the following figure:
+Three squares, the area of square (1) = 16 cm^2 and the area of square (2) = 48 cm^2. Find with proof the length of the side of square (3).
+3
+1 2
+
+20 In the following figure:
+If AB + CD = 16 cm, AC + DE = 12 cm, find with proof the length of BE.
+A
+B C D E
+
+21 Critical Thinking: Khalid uses stylus pen of a tablet device in the shape of a rectangle ABCD, the length of one of its sides is 15 units and the length of its diagonal is 17 units.
+D E C
+10:50 17
+A 15 B
+D C
+10:50
+A F B
+If the length of FB is four units longer than the length of DE, find the length of the stylus pen.
+
+Evaluate your understanding!
+How well do you understand Pythagoras' theorem and its converse?
+Tick the right box
+
+First Term Lesson Two: Pythagoras' Theorem and Its Converse 77

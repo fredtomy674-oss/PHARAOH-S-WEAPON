@@ -1,0 +1,39 @@
+It is clear from the previous that :
+The presence of an opaque object in the path of light rays leads to the formation of a dark
+area known as a shadow, surrounded by a partially illuminated area known as the penumbra.
+
+Cross-Cutting Concepts : Cause and Effect
+Transparent objects allow light to pass through them, so they do not cast shadows ,
+whereas opaque objects block light and therefore they cast shadows .
+
+If we consider the lamp used in Activity (2) to represent the Sun, the ball to represent the Earth,
+and the white screen to represent the Moon in the Full Moon phase, then when Earth, during
+its orbit around the Sun, aligns itself between the Sun and the Moon, it partially or completely
+blocks sunlight from reaching the Moon, resulting in the lunar eclipse
+
+Activity 3 Observation and Conclusion
+Figure (6) shows two types of lunar eclipses :
+Total Eclipse : The Full Moon appears as a dark disc because no sunlight reaches it .
+Partial Eclipse : The Full Moon appears partially dark .
+
+Partial eclipse
+Earth's
+penumbra
+Total eclipse
+Moon
+Earth's shadow
+Earth
+No eclipse
+
+Figure (6) Lunar eclipses
+- Where is the moon located during : • Total eclipse : ....................................................
+• Partial eclipse : ....................................................
+- When the Moon is completely within Earth's penumbra, The full moon phase appears
+as a red disc which is dimly lit, which is not considered an eclipse.
+- You may wonder .. Why doesn't the lunar eclipse occur every time the moon is full ?
+• Due to the 5-degree tilt of the Moon's orbit around Earth relative to Earth's orbit around the
+sun, the moon does not always align on the line between the sun and Earth during every
+full moon. Therefore, it is not necessarily for the moon to undergo an eclipse during every
+full moon.
+
+LESSON TWO : Lunar Eclipse 91

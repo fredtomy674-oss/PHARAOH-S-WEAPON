@@ -1,0 +1,93 @@
+Leçon
+4-2
+
+Les mesures de la tendance
+centrale du tableau des données
+par intervalles
+
+■ Résultats
+d'apprentissage
+• Déterminer la moyenne
+arithmétique du tableau
+des données par
+intervalles.
+• Déterminer la médiane du
+tableau des données par
+intervalles.
+• Déterminer le mode du
+tableau des données par
+intervalles.
+• Lire et interpréter des
+tableaux et des graphiques
+d'effectifs d'une population.
+
+Sois prêt!
+En regardant les tailles des
+étudiants dans le tableau suivant:
+Taille (cm) Nombre
+d'étudiants
+155 - 5
+160 - 10
+165 - 25
+170 - 6
+175 - 4
+Peux-tu estimer la taille moyenne des
+étudiants?
+Dans cette leçon, tu apprendras à trouver
+les mesures de la tendance centrale
+(la moyenne arithmétique- la médiane-le mode) pour le tableau des données
+par intervalles, ce qui te permettra de résoudre de tels problèmes.
+
+■ Vocabulaire
+• La moyenne
+arithmétique (X)
+• Le mode
+• La médiane (Q2)
+
+Réfléchis et discute!
+Le tableau des effectifs ci-contre indique le
+nombre d'heures que 50 garçons et filles
+passent pendant le week-end à utiliser
+Internet et les réseaux sociaux.
+Peux-tu calculer la moyenne arithmétique,
+la médiane et le mode du nombre d'heures passées à utiliser Internet et
+les réseaux sociaux? Discute.
+Heures de
+suivi 10 12 16
+Nombre de
+suiveurs 15 17 18
+
+■ Information
+précédente
+Les mesures de la tendance
+centrale sont les valeurs
+qui décrivent le centre d'un
+ensemble de données, telles
+que la moyenne arithmétique,
+la médiane et le mode, où:
+• La moyenne arithmétique =
+La somme des valeurs
+leur nombre
+• La médiane est la valeur
+qui se trouve au centre
+des valeurs après les
+avoir ordonnées.
+• Le mode est la valeur la
+plus fréquente
+(la plus répétée).
+
+Apprends!
+1 La moyenne arithmétique d'une distribution de données
+par intervalles
+Tu peux estimer la moyenne arithmétique d'une distribution de données
+par intervalles en utilisant la formule mathématique suivante:
+La moyenne arithmétique (X) = Σ (f. Xm)
+Σ f
+où Σ f est la somme des effectifs
+Xm est le centre de l'intervalle et est égal à
+La borne inférieure de l'intervalle + Sa borne supérieure
+2
+Σ (f. Xm) est la somme des produits du centre de chaque intervalle Xm
+par l'effectif correspondant f
+
+112 Unité 4: Les statistiques Mathématiques - deuxième préparatoire

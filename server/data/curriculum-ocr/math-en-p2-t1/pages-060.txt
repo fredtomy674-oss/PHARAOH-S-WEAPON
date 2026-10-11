@@ -1,0 +1,63 @@
+Note
+The trinomial in the form a x² + b x + c, where (a ≠ 1) can be
+factorized by using grouping as follows:
+1 Find two factors whose product is (ac) and whose sum is (b).
+2 Rewrite (b x) as the sum of these two factors.
+3 Use factorization by grouping.
+
+■ Self-Evaluation 2
+Use factorizing by grouping
+to factorize each of the
+following trinomials:
+1 2 x² - x - 28
+2 6 x² + 19 x + 15
+
+Example 2
+Factorize 3 x² + 8 x + 4 using factorizing by grouping.
+✓
+∴ a = 3, b = 8, c = 4
+Find two numbers whose product (a c) is 12 and whose sum (b) is 8
+∴ These two numbers are 6, 2
+Rewrite 8 x as the sum of (6 x + 2 x) and then use factorizing by
+grouping as follows:
+3 x² + 8 x + 4 = 3 x² + 6 x + 2 x + 4 = (3 x² + 6 x) + (2 x + 4)
+= 3 x (x + 2) + 2 (x + 2)
+= (x + 2) (3 x + 2)
+
+The second method
+Group the polynomial into a trinomial that represents a perfect square,
+and the fourth term must also be a perfect square, so that the original
+polynomial is factorized as a difference between two squares.
+
+■ Self-Evaluation 3
+Factorize each of the
+following completely:
+1 x² - 12 x y + 36 y² - 4
+2 x² + y² - 64 + 2 x y
+
+■ Think
+When factorizing the
+following polynomials by
+grouping:
+1 x² + 4 x - y² + 4
+2 x² + 4 x - y² + 4 y
+discuss how each one is
+grouped.
+
+Example 3
+Factorize each of the following completely:
+1 x² + 16 y² - 8 x y - 49
+2 4 m² - n² + 10 n k - 25 k²
+✓
+1 x² + 16 y² - 8 x y - 49 = (x² - 8 x y + 16 y²) - 49
+= (x - 4 y)² - (7)²
+= (x - 4 y - 7) (x - 4 y + 7)
+
+2 4 m² - n² + 10 n k - 25 k² = 4 m² - (n² - 10 n k + 25 k²)
+= 4 m² - (n - 5 k)²
+= [2 m - (n - 5 k)] [2 m + (n - 5 k)]
+= (2 m - n + 5 k) (2 m + n - 5 k)
+
+First Term
+Lesson Four: Factorizing by Grouping
+55

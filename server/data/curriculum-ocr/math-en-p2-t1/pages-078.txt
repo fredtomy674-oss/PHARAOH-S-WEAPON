@@ -1,0 +1,74 @@
+■ Self-Evaluation 5
+Which of the following
+represents the lengths of
+the sides of a right-angled
+triangle?
+1 41 cm, 40 cm, 9 cm
+2 5 cm, 3√2 cm, √7 cm
+3 60 cm, 40 cm, 30 cm
+
+■ Self-Evaluation 6
+In the following figure:
+EC = AC
+Prove that:
+m (∠ A) = 90°
+A
+12 cm
+3 cm D
+4 cm
+B E C
+
+■ Note that
+▶ Pythagoras' inequality
+used to determine whether
+a triangle is acute-angled
+or obtuse-angled.
+▶ The converse of
+Pythagoras' theorem is
+used to determine whether
+a triangle is right-angled
+or not.
+
+Example 5
+Which of the following represents the lengths of the sides of
+a right-angled triangle?
+1 8 cm, 13 cm, 15 cm
+✔ 1 The length of
+the longest side = 15
+∴ (13)² + (8)² = 233 ,
+∴ (15)² = 225
+∴ (13)² + (8)² ≠ (15)²
+∴ The triangle is not right-angled.
+2 24 cm, 7 cm, 25 cm
+2 The length of the longest
+side = 25
+∴ (7)² + (24)² = 625
+∴ (25)² = 625
+∴ (7)² + (24)² = (25)²
+∴ The triangle is right-angled.
+
+Example 6
+In the given figure:
+XYZM is a concave quadrilateral,
+m (∠ XYZ) = 90°.
+Find the area of the quadrilateral XYZM.
+✔ Construction: Draw XZ
+∴ Δ XYZ is right-angled at Y
+∴ (XZ)² = (3)² + (4)² = 9 + 16 = 25 ∴ XZ = 5
+In Δ XZM :
+∴ (XZ)² + (ZM)² = (5)² + (12)² = 25 + 144 = 169 ,
+(XM)² = (13)² = 169
+∴ (XM)² = (XZ)² + (ZM)² ∴ m (∠ XZM) = 90°
+∴ The area of the quadrilateral XYZM = Area of Δ XZM – Area of Δ XYZ
+∴ A = (1/2 × 5 × 12) – (1/2 × 3 × 4) = 30 – 6 = 24 cm²
+
+Pythagoras' inequality
+In Δ ABC: If c is the length of longest side of the triangle, and:
+c² < a² + b²
+Δ ABC is acute-angled
+c² > a² + b²
+Δ ABC is obtuse-angled
+
+First Term
+Lesson Two: Pythagoras' Theorem and Its Converse
+73

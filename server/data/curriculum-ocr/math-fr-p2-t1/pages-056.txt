@@ -1,0 +1,59 @@
+Troisièmement L'analyse et l'intégration des disciplines
+
+(14) Technologie: Les données sont stockées dans des
+unités de stockage sous forme d'unités cubiques.
+Une unité de stockage de première génération contient
+216 X³ unités de données et une unité de stockage de
+deuxième génération contient 343 Y³ unités de données.
+Trouve la somme de leur capacité sous forme de produit
+de deux facteurs.
+
+Le stockage et l'organisation des données
+de manière correcte facilitent leur gestion
+et renforcent la sécurité des informations.
+
+Le voyage contribue à renforcer la
+compréhension et la tolérance entre les
+différentes cultures et approfondit la conscience
+de la valeur de la diversité culturelle.
+
+(15) Sciences: La formule de la différence de pression
+P entre le haut et le bas d'une aile d'avion est
+décrite par la formule P = 1/2 d v² - 1/2 d u² où
+d est la densité de l'air, v est la vitesse de l'air
+passant au-dessus de l'aile et u est la vitesse de
+l'air passant en dessous. Écris cette formule sous
+forme de produit de polynômes irréductibles.
+
+(16) Investissement: Une entreprise de construction a divisé un terrain vide de
+forme carré dont la longueur de son côté est de (2 X + 1) m en 4 pièces
+carrées dont la longueur de chaque côté est de Y m, comme indiqué dans la
+figure ci-contre et elle a laissé le reste du terrain comme espace vert.
+Écris l'aire de la zone colorée comme le produit de plusieurs facteurs.
+
+(17) Géométrie: Si le volume d'un parallélépipède rectangle est (X⁴ - 625) unités
+cubes, comment peux-tu trouver ses
+dimensions possibles en utilisant la factorisation?
+
+(18) Agriculture: Un jardin est composé de deux parcelles de
+terrain adjacentes, la plus grande est un carré d'une aire
+de (25 X² + 10 X + 1) m² et la plus petite est un carré
+d'une aire de (4 X² + 4 X + 1) m² et on veut construire
+une clôture autour du jardin. Trouve la longueur de la
+clôture en fonction de X, puis trouve le périmètre du
+jardin si X est égal à 10 m.
+
+Pensée créative
+
+(19) Dans la figure ci-contre:
+La somme des périmètres des deux carrés est égale à
+76 cm et l'aire de la zone colorée est égale à 57 cm².
+Quelle est la valeur de (m - n)?
+
+Évalue ta compréhension!
+Quel est ton niveau de
+compréhension de la
+factorisation des cas particuliers?
+Coche la case appropriée.
+
+52 Unité 2: L'algèbre Mathématiques - deuxième préparatoire

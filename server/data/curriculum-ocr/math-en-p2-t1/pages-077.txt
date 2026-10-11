@@ -1,0 +1,66 @@
+■ Self-Evaluation 3
+In the following figure:
+A
+F
+15 cm
+B 9 cm C
+D
+E
+2 cm
+Δ ACB ≅ Δ FDE
+Find the length of AF
+
+Example 3
+In the given figure:
+Find the length of EC
+B 5 cm C
+12 cm
+E
+A 13 cm D
+∵ Δ ABC is right-angled at B
+∴ (AC)² = (AB)² + (BC)² = (12)² + (5)² = 169
+∴ AC = √169 = 13
+∵ m (∠ C) + m (∠ BAC) = 90°, m (∠ DAE) + m (∠ BAC) = 90°
+∴ m (∠ C) = m (∠ DAE)
+∵ In Δ ABC and Δ DEA :
+m (∠ ABC) = m (∠ DEA) , AC = DA , m (∠ C) = m (∠ DAE)
+∴ Δ ABC ≅ Δ DEA ∴ AE = CB = 5
+∴ EC = AC - AE = 13 - 5 = 8 cm
+
+■ Self-Evaluation 4
+130 feet
+50 feet
+The figure shows Omar
+drifting in a balloon pulled by
+a boat across the sea. What
+is the height of Omar above
+the horizontal level of the
+boat?
+
+Example 4
+Design: Osama designed a rectangular
+home garden and plans to build a diagonal
+path as shown in the figure. Find the length
+of this path
+D C
+15 m
+A 20 m B
+∵ ABCD is a rectangle ∴ m (∠ A) = 90°
+∵ In Δ ABD :
+(BD)² = (AB)² + (AD)² = (20)² + (15)² = 625
+∴ The length of the path = √625 = 25 m.
+
+Converse of Pythagoras' Theorem
+If the sum of the squares of two side lengths of a triangle is equal to
+the square of the third side length, then the triangle is right-angled.
+In Δ ABC :
+If a² + b² = c²,
+then m (∠ C) = 90°
+Thus:
+The triangle ABC is right-angled at C
+B
+c
+a
+A b C
+
+72 Unit Three: Geometry Mathematics - Second Preparatory

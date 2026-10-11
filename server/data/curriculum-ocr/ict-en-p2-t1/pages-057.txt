@@ -1,0 +1,35 @@
+- Loading speed: When you place the formatting code in a CSS file and include it in website pages, the browser only downloads the file once and stores it. Then, when accessing any page linked to this file, the browser uses the previously stored version instead of downloading the file each time.
+
+- Ease of modification: Once you modify the formatting code placed in the CSS file, all web pages linked to it will automatically have their formatting adjusted.
+
+- Improved aesthetic appearance: The page becomes more attractive and visually organized.
+
+- Improved readability: Choosing appropriate fonts and colors makes the content easier to read.
+
+- Separating design and formatting from web page content: The appearance and formatting of a web page and all other web pages can be changed from the original file. A way to modify a separate CSS file without having to change the HTML structure of each page. When we want to change colors or fonts again, the CSS file is modified.
+
+- Building responsive and adaptive pages: Using CSS, you can make the screen design responsive to different screen sizes (computer, mobile, tablet, etc.) on which pages are viewed, so that they appear appropriately relative to the size of the page on which they are opened.
+
+The basic structure of CSS
+
+The general syntax of CSS code is as follows:
+
+Selector {Property: Value};
+
+Selector: Represents an HTML element or group of elements to which formatting will be applied, such as "body."
+
+Property: Specifies what you want to change (e.g., color, size, spacing, etc.)
+
+Value: Specifies how you want to change the property.
+
+How to add CSS to HTML code?
+
+There are three ways to insert CSS:
+
+1. Inline CSS: Used to apply formatting directly to page elements.
+
+2. Internal CSS: Used to format individual pages.
+
+3. External CSS: Preferably used in large websites to unify the design and layout of their pages.
+
+57

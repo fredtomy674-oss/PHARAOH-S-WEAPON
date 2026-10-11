@@ -1,0 +1,42 @@
+Cross-Cutting Concepts : Patterns
+Electric, magnetic and gravitational forces are similar in that they all act at a distance.
+In case of electric forces, an electric charge affects another electric charge, while in
+case of magnetic forces, one magnetic pole affects another magnetic pole.
+In case of gravitational forces, the mass of one object affects the mass of another object.
+
+Role of Gravity in Orbital Motion
+There is a gravitational attraction between any object moving in a curved path in space around
+another central object (orbiting this central object). This motion is known as orbital motion, such as
+the motion of the moon around Earth, Earth's motion around the sun (Figure 15), and the motion of
+satellites around Earth (Figure 16).
+
+Figure (15)
+Satellite
+Earth's
+gravitational
+force
+Figure (16)
+Orbital motion of satellites depends
+on Earth's gravitational force
+
+Evaluate Your Understanding
+According to what you have studied, explain
+the types of field forces in a helium atom 2He
+(Figure 17), and identify the weakest force among them.
+
+(e-) Electron
+(n) Neutron
+(p) Proton
+Figure (17)
+Helium atom
+
+The Relation Between Weight and Gravity
+Why is the mass of an ostrich egg greater than the mass
+of a chicken egg as in Figure (18) ?
+Does the weight of the egg equal to its mass ?
+The mass of an object (m) is the amount of matter it
+contains, while the weight of an object (w) is
+the gravitational force that Earth exerts on it.
+
+Figure (18)
+LESSON THREE : Gravitational Forces 51

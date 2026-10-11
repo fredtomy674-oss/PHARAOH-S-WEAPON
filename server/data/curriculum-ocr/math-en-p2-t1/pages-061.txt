@@ -1,0 +1,56 @@
+Completing the square
+
+Completing the square is the operation of adding a term to a binomial
+so that it becomes a trinomial in the form of a perfect square.
+
+Completing the square can be done in one of the following two ways:
+1 Either add (the middle term) = (± 2 × √ the first term × √ the third term).
+For example: (x² + 49) and add ± 2 √x² √49 = ± 14 x
+Then (x² ± 14x + 49) is a perfect square, i.e. it is written as (x ± 7)²
+2 OR add (the third term) = The square of the middle term / 4 × The first term
+For example: (x² + 10x) and add (10x)² / 4x² = 25
+Then (x² + 10x + 25) is a perfect square, i.e. it is written as (x + 5)²
+and the following examples illustrate this.
+
+■ Self-Evaluation 4
+Factorize each of the following:
+1 x⁴ + 64
+2 4x⁴ + 11x² + 9
+
+■ Note that
+To factorize polynomials that
+include at least two terms
+each is a perfect square,
+and the exponents of their
+variables are 4 or multiples
+of 4, use the method of
+completing the square by
+adding and subtracting
+(twice the product of the
+square roots of the two
+square terms) in order not
+to affect the value of the
+polynomial, then factorize by
+grouping.
+
+Example 4
+Factorize each of the following:
+1 81x⁴ + 4
+2 x⁴ + 15x²y² + 64y⁴
+
+1
+81x⁴ + 4 = 81x⁴ + 4 + 36x² - 36x²
+«Add and subtract 2√81x⁴ √4 = 36x²
+= (81x⁴ + 36x² + 4) - (36x²)
+= (9x² + 2)² - (6x)²
+= (9x² + 2 - 6x) (9x² + 2 + 6x)
+= (9x² - 6x + 2) (9x² + 6x + 2)
+
+2
+x⁴ + 15x²y² + 64y⁴ = x⁴ + 15x²y² + 64y⁴ + 16x²y² - 16x²y²
+«Add and subtract 2√x⁴ √64y⁴ = 16x²y²
+= (x⁴ + 16x²y² + 64y⁴) + 15x²y² - 16x²y²
+= (x² + 8y²)² - x²y²
+= (x² + 8y² - xy) (x² + 8y² + xy)
+
+56 Unit Two: Algebra Mathematics - Second Preparatory

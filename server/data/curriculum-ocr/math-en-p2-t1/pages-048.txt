@@ -1,0 +1,34 @@
+■ Verify the Solution
+You can verify the solution by substituting each value of X into the original equation to check that both sides of the equation are equal.
+
+(2) ∴ X² + 30 = - 13 X ∴ X² + 13 X + 30 = 0
+∴ (X + 3) (X + 10) = 0
+∴ Either X + 3 = 0 hence X = - 3
+or X + 10 = 0 hence X = - 10
+∴ The solution set = { - 3, - 10 }
+
+(3) ∴ 6 X² - 13 X + 6 = 0 ∴ (2 X - 3) (3 X - 2) = 0
+∴ Either 2 X - 3 = 0 hence X = 3/2
+or 3 X - 2 = 0 hence X = 2/3
+∴ The solution set = { 3/2, 2/3 }
+
+■ Self-Evaluation 5
+X 12 8 X
+One of the sponsors of the annual school party wants to increase the length and width of one of the pictures in their advertisement by the same amount in order to double the picture's area. If the original picture was 8 cm wide and 12 cm long, what are the new dimensions of the enlarged picture?
+
+Example 5
+Sarah has a rectangular garden with an area of (3 X² + 4 X - 7) m². Use factorization to find two possible dimensions for the garden. If Sarah wants to expand the garden so that each dimension is 3 m larger than it was, what is the area of the garden after it is expanded?
+
+∴ The area of the garden = (3 X² + 4 X - 7) m²
+= (3 X + 7) (X - 1)
+∴ The width of the garden = (X - 1) m,
+The length of the garden = (3 X + 7) m.
+After expanding the garden:
+Its width = (X - 1 + 3) = (X + 2) m.
+Its length = (3 X + 7 + 3) = (3 X + 10) m.
+∴ The area of the garden after expansion = (3 X + 10) (X + 2)
+= (3 X² + 16 X + 20) m².
+
+First Term
+Lesson Two: Factorizing Trinomial
+43

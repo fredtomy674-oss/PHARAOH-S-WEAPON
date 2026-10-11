@@ -1,0 +1,81 @@
+■ Remarque que
+B
+30° 30°
+x x
+60° 60°
+A 1/2 x D 1/2 x C
+x
+L'axe de symétrie du
+triangle équilatéral le
+divise en deux triangles
+congruents, chacun étant
+un triangle trente-soixante.
+
+■ Auto-évaluation 6
+Dans la figure suivante:
+Le triangle ADE est
+équilatéral.
+C
+5 cm
+8 cm
+A E x cm B
+Trouve la valeur de X.
+
+Résultat:
+Dans un triangle trente-soixante, la longueur du côté opposé à l'angle qui
+mesure de 30° est égale à la moitié de la longueur de l'hypoténuse.
+Si Δ ABC est un triangle rectangle en B et
+m (∠ A) = 30°
+alors: BC = 1/2 AC
+
+Exemple 6
+Dans la figure ci-contre
+Si Δ ABC est équilatéral
+Trouve la valeur de X
+Δ ABC est équilatéral
+m (∠ C) = 60°
+m (∠ DEC) = 90° ∴ m (∠ EDC) = 30°
+Le triangle DEC est trente-soixante
+EC = 1/2 DC = 1/2 x 4 = 2
+BC = AC ∴ 3 X + 2 = X + 4 ∴ 3 X - X = 4 - 2
+2 X = 2 ∴ X = 1
+
+Évaluation de la leçon
+
+Premièrement Mesurer les concepts
+▶ Choisis la bonne réponse parmi les réponses données:
+1 Dans la figure ci-contre:
+Quelle est la valeur de X?
+(a) 42 (b) 21
+(c) 69 (d) 84
+B
+42°
+x°
+A C
+
+2 Dans la figure ci-contre:
+Quelle est la valeur de X?
+(a) 26 (b) 52
+(c) 76 (d) 38
+R
+(2X)° 52°
+S T
+
+3 Dans la figure ci-contre:
+Quelle est la longueur de PN?
+(a) 8 cm (b) 3 cm
+(c) 6 cm (d) 4 cm
+P
+(2n) cm
+(n+1) cm
+M 3 cm N
+
+4 Dans la figure ci-contre:
+Quelle est la valeur de X?
+(a) 10 (b) 20
+(c) 30 (d) 60
+C
+(3x)°
+A B
+
+94 Unité 3: La géométrie Mathématiques - deuxième préparatoire

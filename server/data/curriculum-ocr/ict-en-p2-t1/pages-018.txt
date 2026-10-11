@@ -1,0 +1,25 @@
+27. How can the role of artificial intelligence in education be evaluated?
+a) They completely replace teachers
+b) They are not useful
+c) They reduce students’ interaction
+d) They are a tool to enhance the learning experience and provide personalized explanation.
+
+28. If you were asked to design a robot to assist the elderly, what features would you add?
+a) The ability to remind them of their medication times and call for help in emergencies
+b) The ability to clean only
+c) The ability to play only
+d) Not communicating with them
+
+29. How can an early warning system for natural disasters be developed using smart systems?
+a) By ignoring data
+b) By waiting until the disaster occurs
+c) By shutting down all systems
+d) By connecting sensors to the IoT, using AI to predict disasters, and sending warnings via robots
+
+30. What is an innovative function for using robots in public parks?
+a) Planting and trimming trees, and cleaning parks automatically
+b) Neglecting plants
+c) Increasing litter
+d) Not caring for visitors
+
+18

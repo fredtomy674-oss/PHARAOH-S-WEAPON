@@ -1,0 +1,33 @@
+11. After AI creates the basic structure of the website, what can you do?
+a) Nothing, it can't be modified
+b) Make minor changes to the design and text
+c) Recreate the website from scratch
+d) Delete the entire website
+
+12. Why is it important for prompts to be simple and clear?
+a) To reduce the size of the website
+b) To help AI better understand your request
+c) To increase the number of visitors
+d) To save time when publishing
+
+13. The main goal of using AI in website building in our lesson is to..............
+a) Transform you into professional web developers
+b) Introduce you to the capabilities of AI in website building
+c) Save money on programmers
+d) Create gaming websites only
+
+Second: Put a check mark (✓) in front of the correct sentence and a check mark (*) in front of the incorrect sentence.
+
+1. Creating a website using artificial intelligence requires you to write complex code. ( )
+2. The importance of websites is limited to large companies only. ( )
+3. You can use wegic.ai to create a simple website using text commands. ( )
+4. The "About Us" page is used to display images of your activities. ( )
+5. The prompt is the text command you give to the artificial intelligence to understand your request. ( )
+6. After the website is created by artificial intelligence, you cannot make any modifications to it. ( )
+7. Choosing colors and design at the beginning of work is not very important. ( )
+
+Third: Complete the following sentences with the appropriate words or phrases:
+1. To create a website that showcases your ideas to the world, you need
+____________________.
+
+87

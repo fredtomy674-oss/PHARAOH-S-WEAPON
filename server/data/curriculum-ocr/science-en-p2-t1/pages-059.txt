@@ -1,0 +1,48 @@
+A profile of the scientist
+Antoine Lavoisier
+French chemist, philosopher, economist, and
+biologist, Lavoisier was the first to formulate
+the law of conservation of mass. He was also
+the first to prove that oxygen is an essential element
+in combustion, and he gave oxygen its name. He
+developed the modern system for naming chemical
+substances and was known as the father of chemistry
+for his emphasis on precise experimentation.
+
+Figure (5)
+Scientist Antoine Lavoisier
+
+How to balance a chemical equation
+The symbolic equation is balanced by applying the law of conservation of mass,
+by following these steps:
+1 Write the correct molecular formulas of all reactants and products in the form of
+a symbolic equation.
+2 Count the number of atoms for each element in the reactants and products.
+3 If the numbers of atoms are not equal, adjust one of
+the coefficients preceding the molecular formulas of
+the compounds or the symbols of the elements and repeat
+the process of counting the numbers of the atoms.
+If the inequality persists, repeat the adjustment of the coefficients,
+even more than once. Take care not to write the coefficient if
+it is equal to 1 and not to alter the subscripts (Figure 6) under
+the symbols of the elements that make up the molecule and
+represent their number in a single molecule.
+
+Coefficient
+2Fe2O3
+Subscripts
+Figure (6)
+Subscripts and coefficient
+
+4 Check the balance of the equation to ensure that the number of atoms for all elements on
+both sides of the equation are equal, taking into account that the ratio between
+the coefficients of the balanced chemical equation should be as simple as possible.
+
+Mathematical understanding
+The balance of a chemical equation is similar to number scale (figure 7) in terms of
+adjusting the coefficients.
+
+Number scale
+Figure (7)
+
+Lesson Two : CHEMICAL EQUATIONS 53

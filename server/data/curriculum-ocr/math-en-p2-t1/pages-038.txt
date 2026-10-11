@@ -1,0 +1,74 @@
+Lesson
+2-1
+
+Factorizing by Taking Out
+Greatest Common Factor GCF
+
+■ Learning Outcomes
+• Learn the concept of
+factorization by taking
+out the greatest common
+factor.
+• Factorization a polynomial
+by taking out the greatest
+common factor.
+• Use factorize by taking
+out the greatest common
+factor to solve problems.
+• Solve equations using
+factorization by taking
+out the greatest common
+factor.
+
+Get Ready!
+Egypt occupies a world-leading
+position in squash, where Egyptian
+men and women players won
+many major championships in
+recent years. Suppose the area of
+the squash court is equal to
+(4 X^5 + 12 X) m^2, can its dimensions
+be (4 X^5) m, (12 X) m?
+Or can they be (X^4 + 3) m, 4 X m?
+In this lesson, you will learn how to factorize by taking out the greatest
+common factor, which will enable you to solve such problems.
+
+Egyptian champions in squash
+
+■ Vocabulary
+• Factorization
+• Polynomial
+• Monomial
+• Binomial
+• Trinomial
+
+Think & Discuss!
+The expression (12 X^4 + 18 X^3) can be written as a product of two factors
+in more than one way as follows:
+3 X (4 X^3 + 6 X^2)
+2 X^2 (6 X^2 + 9 X)
+6 X^3 (2 X + 3)
+6 X (2 X^3 + 3 X^2)
+3 X^2 (4 X^2 + 6 X)
+Which of the above products is a factorization of the expression
+(12 X^4 + 18 X^3) by taking out the greatest common factor? Discuss.
+
+■ Think with your
+classmates
+Why is - 2 X^3 a polynomial
+while 3 X^-2 is not
+a polynomial, and also 3 X^1/2 + 2
+is not a polynomial?
+
+Learn!
+Factorizing a polynomial by taking out the greatest common factor (GCF)
+A polynomial is a mathematical expression in which all the
+exponents of its variables are positive integers.
+Examples of polynomials:
+• polynomial (monomial): - 3 X Y
+• polynomial (binomial): 4 X Y^2 + 2 X
+• polynomial (trinomial): 2 X^2 + 3 Y + 8
+
+First Term
+Lesson One: Factorizing by Taking Out Greatest Common Factor GCF
+33

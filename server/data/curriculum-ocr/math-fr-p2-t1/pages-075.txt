@@ -1,0 +1,75 @@
+L’utilisation du théorème de Pythagore
+Tu peux utiliser le théorème de Pythagore pour trouver la longueur d’un côté dans un triangle rectangle lorsque les longueurs des deux autres côtés sont connues.
+
+■ Auto-évaluation 1
+Trouve la valeur de X dans chacun de ce qui suit, puis trouve l’aire du triangle dans la seconde figure.
+1
+B
+x cm
+3 cm
+C 4 cm A
+2
+C
+x cm
+12 cm
+A 13 cm B
+
+Exemple 1
+Trouve la valeur de X dans chacun de ce qui suit, puis trouve l’aire du triangle dans la seconde figure.
+1
+B
+x cm
+8 cm
+C 15 cm A
+2
+C
+15 cm
+x cm
+B 25 cm A
+
+1
+∴ c² = a² + b²
+∴ x² = (8)² + (15)²
+= 64 + 225 = 289
+∴ x = √289 = 17
+
+2
+∴ c² = a² + b²
+∴ (25)² = (15)² + x²
+∴ x² = (25)² - (15)² = 400
+∴ x = √400 = 20
+∴ L’aire = 1/2 x 15 x 20 = 150 cm²
+
+■ Auto-évaluation 2
+Dans la figure suivante:
+Si AB // DC.
+Trouve le périmètre du polygone ABCD.
+5 cm
+A B
+13 cm
+D 35 cm C
+
+Exemple 2
+Dans la figure ci-contre:
+m(∠ B) = 90°, AC = 4√5 cm
+BD = 6 cm et DC = 2√13 cm
+Trouve avec la démonstration la longueur de AD.
+A
+D
+4√5 cm
+2√13 cm
+6 cm
+B C
+
+Dans le triangle DBC rectangle en B:
+(BC)² = (DC)² - (DB)² = (2√13)² - (6)² = 16
+∴ BC = √16 = 4
+Dans le triangle ABC rectangle en B:
+(AB)² = (AC)² - (BC)² = (4√5)² - (4)² = 64
+∴ AB = √64 = 8
+∴ AD = AB - BD = 8 - 6 = 2
+∴ La longueur de AD = 2 cm
+
+Premier semestre
+Leçon 2: Le théorème de Pythagore et sa réciproque
+71

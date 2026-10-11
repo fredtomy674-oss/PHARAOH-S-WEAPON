@@ -1,0 +1,79 @@
+Converse of theorem 5-1 Converse of the isosceles triangle theorem
+If two angles of a triangle are congruent, then the two sides opposite
+to these two angles are congruent.
+In Δ ABC:
+If ∠ B ≅ ∠ C,
+then AC ≅ AB
+
+■ Self-Evaluation 1
+Find the value of x in each
+of the following figures:
+1
+C
+110°
+A x° B
+2
+R
+5√2 cm
+45°
+S x cm T
+
+Example 1
+Find the value of x in each of the following figures:
+1
+C
+70°
+A x° B
+2
+C
+(x + 30) cm
+120° 30°
+A 70 cm B
+
+1
+∴ AB ≅ CB ∴ ∠ A ≅ ∠ C
+∴ m (∠ A) = m (∠ C) = 70°
+∴ m (∠ B) = 180° - (70° + 70°)
+= 40°
+∴ x = 40
+
+2
+∴ m (∠ C) = 180° - (120° + 30°)
+= 30°
+∴ ∠ C ≅ ∠ B ∴ AC ≅ AB
+∴ x + 30 = 70
+∴ x = 70 - 30 = 40
+
+■ Self-Evaluation 2
+In the following figure:
+A
+72°
+D
+B C
+AB = AC, m (∠ A) = 72°,
+→
+BD bisects ∠ ABC,
+→
+CD bisects ∠ ACB
+Prove that:
+Δ DBC is an isosceles
+triangle.
+
+Example 2
+In the given figure:
+D ∈ BC, E ∈ BC
+Prove that: Δ ABC is an isosceles triangle.
+A
+20° 20°
+50°
+B D E C
+
+In Δ ADE:
+∴ AD ≅ AE
+∴ m (∠ ADE) = m (∠ AED) = 180° - 50° / 2 = 65°
+∴ m (∠ ADB) = m (∠ AEC) = 180° - 65° = 115°
+∴ m (∠ B) = m (∠ C) = 180° - (20° + 115°) = 45°
+∴ ∠ B ≅ ∠ C ∴ AB ≅ AC
+∴ Δ ABC is an isosceles triangle.
+
+90 Unit Three: Geometry Mathematics - Second Preparatory

@@ -1,0 +1,24 @@
+UNITÉ 1
+Les nombres et les opérations sur les nombres
+
+Leçons de l’unité
+1-1 Les nombres réels
+1-2 Les intervalles et les opérations sur les intervalles
+1-3 Les opérations sur les nombres réels
+1-4 Les lois des racines carrées et cubiques
+1-5 Les lois des exposants dans les nombres réels
+
+Les nombres réels constituent la structure fondamentale de toutes les opérations mathématiques dans les systèmes d’intelligence artificielle. Sans eux, nous ne pouvons pas représenter le monde réel avec précision. Alors, la relation entre l’intelligence artificielle et les nombres réels est une relation d’intégration fondamentale entre les mathématiques et la technologie.
+Peut-on développer le rôle des nombres réels dans la construction et l’entraînement des algorithmes d’intelligence artificielle?
+
+Les enjeux et les compétences de la vie
+- La pensée critique
+- La pensée créative
+- Le développement durable
+- La communication mathématique
+
+Les valeurs
+- Le respect de l’autre
+- La conscience environnementale
+- La responsabilité
+- La conscience de la sécurité alimentaire

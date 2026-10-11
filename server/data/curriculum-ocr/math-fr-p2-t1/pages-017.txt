@@ -1,0 +1,37 @@
+(10) Trouve chacun de ce qui suit:
+(1) [2; 5 [ ∪ ]− 2; 3] (2) [2; 7] − [3; 8[ (3) ]− 1; 3 [ ∩ ]− 5; 1]
+(4) X̅ où X = [4; 8 [ (5) [3; ∞ [ ∩ ]− ∞; 7 [ (6) ]2; 5] ∪ ]5; ∞ [
+(11) Trouve chacun de ce qui suit:
+(1) ℕ ∩ [2; 5 [ (2) ℝ⁺ ∪ ]0; 2] (3) ℝ⁻ − [− 2; 0[ (4) ℝ⁻ ∪ ℝ⁺
+(12) Trouve chacun de ce qui suit:
+(1) ℕ ∩ [− 3; 0[ (2) ℤ⁺ ∩ ]− 1; 2[ (3) ℤ⁻ ∩ ]− 2; 3] (4) {3; 5} ∪ ]3; 5[
+(5) {3; 7} ∩ [3; 7[ (6) [2; 5] − {2; 5} (7) [0; 5] − {5}
+
+Troisièmement L'analyse et l'intégration des disciplines
+(13) Exprime chacune des deux situations suivantes par une inéquation appropriée, puis écris-la sous forme d'intervalle et représente-la sur la droite numérique.
+(1) Travail: Il faut que ton âge ne soit pas inférieur à 25 ans et ne dépasse pas 45 ans pour rejoindre n'importe quel emploi.
+(2) Géographie: Les températures dans une des villes d'Amérique du Nord varient de − 2°C à 10°C.
+
+(14) Alimentation: Laila a décidé de conserver deux types d'aliments dans le réfrigérateur:
+• Le premier type est le lait frais, qu'il est préférable de le conserver à une température de 1°C à 4°C
+• Le deuxième type est la viande fraise, qu'il est préférable de la conserver à une température de − 2°C à 2°C
+Quel intervalle de température Leila peut-elle régler dans le réfrigérateur pour conserver les deux types ensemble en même temps sans les abîmer?
+
+La conservation des aliments est essentielle pour réaliser le développement durable et renforcer la sécurité alimentaire.
+
+Prendre soin des parents et s'occuper d'eux n'est pas un service, mais un devoir et une responsabilité.
+
+(15) Responsabilité sociale: Amal et Iman sont deux sœurs, elles voulaient organiser leur temps le samedi pour s'occuper de leur mère âgée, afin que chacune d'elles soit sûre que leur mère ne reste seule à aucun moment du jour jusqu'au retour de leur père à la maison.
+• Amal peut être libre de 10:00h du matin à 2:00h de l'après-midi.
+• Quant à Iman, elle peut être libre de 12:00h du midi à 4:00h de l'après-midi.
+Quelle période de temps qui garantit au moins la présence de l'une d'elles avec leur mère?
+
+Pensée créative
+(16) Si a, b, c et d sont des nombres réels, a < c < b < d, alors trouve chacun de ce qui suit:
+[a; b] ∩ [c; d] et [a; b] − [c; d]
+(17) Si [− 2; a] ∩ [b; 7] = [2; 4], alors quelle est la valeur de b^a / a^b ?
+
+Évalue ta compréhension!
+Quel est ton niveau de compréhension des intervalles et les opérations sur les intervalles? Coche la case appropriée.
+
+Premier semestre Leçon 2: Les intervalles et les opérations sur les intervalles 13

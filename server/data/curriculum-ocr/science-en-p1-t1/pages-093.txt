@@ -1,0 +1,33 @@
+Activity 4 Conclusion
+Table (2) shows the sunrise and sunset times in Egypt on four different days of the year 2024
+
+| Day | Sunrise | Sunset | Number of day hours | Relation between day hours and night hours |
+| :--- | :--- | :--- | :--- | :--- |
+| | Hour | Min | Hour | Min | Hour | Min | |
+| 21/3/2024 | 05 | 57 | 18 | 07 | .................... | Day hours ............... Night hours |
+| | | | (6 : 07) pm | | | |
+| 13/7/2024 | 06 | 03 | 19 | 58 | .................... | Day hours ............... Night hours |
+| | | | (7 : 58) pm | | | |
+| 23/9/2024 | 06 | 44 | 18 | 49 | .................... | Day hours ............... Night hours |
+| | | | (6 : 49) pm | | | |
+| 22/12/2024 | 06 | 47 | 17 | 00 | .................... | Day hours ............... Night hours |
+| | | | (5 : 00) pm | | | |
+
+Table (2)
+1 Record the number of daylight hours for each day in the table by subtracting the sunrise time from the sunset time.
+2 Choose the appropriate mathematical symbol ( > / = / < ) to represent the approximate relation between the length of day time and night time on each day.
+3 Conclude the relation between the length of day and night (the day length) in the four seasons.
+• In summer : ...................................................................................................................................
+• In winter : ...................................................................................................................................
+• In spring and autumn : .................................................................................................................
+
+Combination with Agricultural Science
+The times of planting and harvesting the different crops in Egypt vary with the seasons of the year. For example, watermelon, cucumber, and zucchini, are summer crops, while orange, wheat and lettuce are winter crops
+
+Information and Communication Technology
+Search reliable digital sources to find out the sunrise and sunset times and the day length in different cities.
+
+Topic for Discussion
+Changes in electricity consumption in different seasons.
+
+86 UNIT FOUR : The (Earth - Sun - Moon) System

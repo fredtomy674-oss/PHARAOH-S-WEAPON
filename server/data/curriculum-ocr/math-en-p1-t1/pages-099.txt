@@ -1,0 +1,55 @@
+■ When does a quadrilateral
+become a parallelogram?
+
+If one of the following
+conditions has occurred:
+1 Each two opposite
+sides are parallel.
+2 Each two opposite sides
+are equal in length.
+3 Two opposite sides are
+parallel and equal in
+length.
+4 Diagonals bisect each
+other.
+5 Each two opposite
+angles are equal in
+measure.
+
+■ Self-Evaluation (3)
+ABCD is a parallelogram.
+Find the length of each of:
+1 MB
+2 BD
+3 MA
+4 MC
+
+2 Parallelogram
+A parallelogram is a quadrilateral in which
+each two opposite sides are parallel.
+
+► Parallelogram Properties
+
+1 Each two opposite sides are
+equal in length.
+2 The diagonals bisect each other.
+3 Each two opposite angles are equal in measure.
+4 Each two consecutive angles are supplementary.
+
+Example (3)
+In the opposite figure:
+Prove that ABCD is a parallelogram.
+∵ AB // DC, BC is a transversal.
+∴ m (∠ B) + m (∠ C) = 180° (Interior angles on the same side of the
+transversal)
+∴ 4X + 10° + 3 X - 40° = 180°
+∴ 7 X - 30° = 180°
+∴ 7 X = 180° + 30° = 210°
+∴ X = 210°/7 = 30°
+∴ m (∠ B) = 4 × 30° + 10° = 130°
+∴ m (∠ A) + m (∠ B) = 50° + 130° = 180°,
+and they are interior angles on the same side of the transversal.
+∴ AD // BC
+∴ ABCD is a parallelogram (Required to Prove)
+
+92 Unit Four: Geometry & Measurement Mathematics - First Preparatory

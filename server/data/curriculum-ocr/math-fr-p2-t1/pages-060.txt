@@ -1,0 +1,42 @@
+Complétion d’un carré
+Complétion d’un carré est une opération qui consiste à ajouter un terme à un binôme afin qu’il devienne un trinôme sous la forme d’un carré parfait.
+
+On peut compléter le carré par l’une des deux méthodes suivantes:
+1 Soit en ajoutant (Le terme médian)
+= (± 2 √ Le premier terme × √ Le troisième terme )
+Par exemple: (X² + 49) on y ajoute ± 2 √X² √49 = ± 14 X
+Ce sera (X² ± 14 X + 49) un carré parfait, c’est-à-dire écrit sous la forme (X ± 7)²
+2 Et soit en ajoutant (Le troisième terme) = Le carré du terme médian / 4 × Le premier terme
+Par exemple: (X² + 10 X), on y ajoute (10 X)² / 4 X² = 25
+ce sera (X² + 10 X + 25) un carré parfait , c’est-à-dire écrit sous la forme (X + 5)²
+Les exemples suivants illustrent cela.
+
+Exemple 4
+Factorise chacun de ce qui suit:
+1 81 X⁴ + 4
+2 X⁴ + 15 X² y² + 64 y⁴
+
+1
+81 X⁴ + 4 = 81 X⁴ + 4 + 36 X² – 36 X²
+«Ajouter et soustraire 2√81 X⁴ √4 » = 36 X²
+= (81 X⁴ + 36 X² + 4) – (36 X²)
+= (9 X² + 2)² – (6 X)²
+= (9 X² + 2 – 6 X) (9 X² + 2 + 6 X)
+= (9 X² – 6 X + 2) (9 X² + 6 X + 2)
+
+2
+X⁴ + 15 X² y² + 64 y⁴ = X⁴ + 15 X² y² + 64 y⁴ + 16 X² y² – 16 X² y²
+«Ajouter et soustraire 2√X⁴ √64 y⁴ » = 16 X² y²
+= (X⁴ + 16 X² y² + 64 y⁴) + 15 X² y² – 16 X² y²
+= (X² + 8 y²)² – X² y²
+= (X² + 8 y² – X y) (X² + 8 y² + X y)
+
+■ Auto-évaluation 4
+Factorise chacun de ce qui suit:
+1 X⁴ + 64
+2 4 X⁴ + 11 X² + 9
+
+■ Remarque que
+Pour factoriser des polynômes qui comprennent au moins deux termes, chacun étant un carré parfait et dont les exposants de ses variables sont 4 ou ses multiples, nous utilisons la méthode de complétion d’un carré en ajoutant et en soustrayant (le double du produit des racines des deux termes carrés) afin de ne pas affecter la valeur du polynôme, puis nous effectuons la factorisation par partition.
+
+56 Unité 2: L’algèbre Mathématiques - deuxième préparatoire

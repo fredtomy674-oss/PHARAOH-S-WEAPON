@@ -1,0 +1,108 @@
+■ Modélisation
+Tu peux utiliser les modèles
+de cartes pour factoriser
+x² + 5x + 6
+▶ Utilise les cartes
+suivantes:
+x² x x x x x
+1 1 1 1 1 1
+▶ Forme un rectangle
+en utilisant toutes les
+cartes comme suit:
+x+3
+x² x x x
+x 1 1 1
+x 1 1 1
+∴ x² + 5x + 6
+= (x + 2) (x + 3)
+
+■ Auto-évaluation 1
+Factorise chacun de ce qui
+suit:
+1 x² + 5x + 4
+2 x² - 11x + 24
+3 x² - 3x - 28
+4 x² + x - 42
+
+■ Remarque que
+Lorsqu'on factorise le trinôme
+x² + bx + c de la forme
+(x + l) (x + m)
+alors:
+1 Si c est positif, alors l et m
+ont le même signe que b.
+2 Si c est négatif, alors
+l et m ont des signes
+différents et le plus grand
+numériquement a le même
+signe que b.
+
+L'opération de factorisation d'un trinôme est une opération inverse de
+la multiplication.
+Par exemple:
+Pour factoriser le trinôme x² + 5x + 6,
+cherche deux nombres entiers dont le produit est 6 et la somme est 5,
+tu trouves que les deux nombres sont 2 et 3,
+où: 2 x 3 = 6 et 2 + 3 = 5
+c'est-à-dire que: x² + 5x + 6 = (x + 2) (x + 3)
+
+Comment factoriser un trinôme de la forme x² + bx + c
+Pour factoriser un trinôme de la forme: x² + bx + c où b et c sont
+deux nombres entiers, trouve deux nombres entiers l et m tels que:
+b = l + m et c = l m ,
+puis écris: x² + bx + c = (x + l) (x + m)
+
+Exemple 1
+Factorise chacun de ce qui suit:
+1 x² + 7x + 12
+2 x² - 6x + 8
+3 x² + x - 12
+4 x² - 7x - 18
+
+1 Pour factoriser le trinôme:
+x² + 7x + 12, cherche deux
+nombres entiers dont le produit est
+(+12) et la somme est (+7).
+∴ Les deux nombres sont positifs
+∴ x² + 7x + 12 = (x + 4) (x + 3)
+
+2 Pour factoriser le trinôme:
+x² - 6x + 8, cherche deux
+nombres entiers dont le produit est
+(+8) et la somme est (-6).
+∴ Les deux nombres sont négatifs
+∴ x² - 6x + 8 = (x - 2) (x - 4)
+
+3 Pour factoriser le trinôme:
+x² + x - 12, cherche deux
+nombres entiers dont le produit est
+(-12) et la somme est (+1)
+∴ Les deux nombres ont des
+signes différents et le plus grand
+numériquement a un signe positif
+∴ x² + x - 12 = (x + 4) (x - 3)
+
+Les produits | La somme
+possibles | correspondante
+(1) (12) | 13 X
+(2) (6) | 8 X
+(3) (4) | 7 ✓
+∴ Les deux nombres sont
++ 4 et + 3
+
+Les produits | La somme
+possibles | correspondante
+(-1) (-8) | - 9 X
+(-2) (-4) | - 6 ✓
+∴ Les deux nombres sont
+- 2 et - 4
+
+Les produits | La somme
+possibles | correspondante
+(-1) (12) | + 11 X
+(-2) (6) | + 4 X
+(-3) (4) | + 1 ✓
+∴ Les deux nombres sont
++ 4 et - 3
+
+40 Unité 2: L'algèbre Mathématiques - deuxième préparatoire

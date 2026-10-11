@@ -1,0 +1,35 @@
+| Upper limits of intervals | Ascending cumulative frequency |
+| :--- | :--- |
+| less than 0 | 0 |
+| less than 6 | 6 |
+| less than 12 | 14 |
+| less than 18 | 26 |
+| less than 24 | 36 |
+| less than 30 | 40 |
+
+• The order of the median = 40/2 = 20
+• The median (Q2) = 15
+
+■ Note that
+The value of the median (Q2) can be found from the ascending cumulative frequency table, as follows:
+The order of the median = 20
+∴ Q2 - 12 / 18 - 12 = 20 - 14 / 26 - 14
+∴ Q2 - 12 / 6 = 6 / 12
+∴ Q2 - 12 = 6 x 6 / 12 = 3
+∴ Q2 = 3 + 12 = 15
+
+| Upper limits of intervals | Ascending cumulative frequency |
+| :--- | :--- |
+| less than 0 | 0 |
+| less than 6 | 6 |
+| less than 12 | 14 |
+| less than 18 | 26 |
+| less than 24 | 36 |
+| less than 30 | 40 |
+
+3 The mode of a frequency distribution with intervals
+You can estimate the mode of a frequency distribution with intervals by drawing the histogram and identifying the interval with the most frequency, it is called the modal interval, and then determine the projection of the intersection point of AB and CD on the horizontal axis, which is the mode.
+
+First Term
+Lesson Two: Measurements of Central Tendency of the Frequency Table with Intervals
+115

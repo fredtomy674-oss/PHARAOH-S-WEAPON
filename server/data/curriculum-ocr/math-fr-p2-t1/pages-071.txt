@@ -1,0 +1,29 @@
+Évaluation de la leçon
+
+Premièrement Mesurer les concepts
+► Quel est le cas utilisé pour prouver la congruence des deux triangles dans chacun de ce qui suit?
+(1) C 3 cm 40° A 4 cm B F 3 cm 40° D 4 cm E
+(2) D 5 cm C 4 cm A 5 cm B
+(3) C 6 cm D 6 cm B A
+(4) A D C B
+
+► Choisis la bonne réponse parmi les réponses données:
+(5) Dans la figure ci-contre: Le polygone EFGD est l'image du polygone ABCD par symétrie par rapport à l'axe des y.
+Quelle est la valeur de K?
+(a) 90 (b) 60
+(c) 120 (d) 70
+G 60° F E D k° 120° A B y x
+
+(6) Lequel des triangles suivants ne congrue pas aux autres triangles?
+(a) (b) (c) (d)
+
+► Découvre l'erreur:
+(7) Ahmed a utilisé la congruence de deux triangles pour trouver la valeur de X.
+Découvre l'erreur dans la solution d'Ahmed, puis corrige-la.
+La solution d'Ahmed:
+4 X + 6 = 3 X + 9
+X + 6 = 9
+X = 3
+Y (5X-1) cm (4X+6) cm W X (5X-5) cm Z (3X+9) cm
+
+Premier semestre Leçon 1: La congruence 67

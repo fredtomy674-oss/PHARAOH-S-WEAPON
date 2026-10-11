@@ -1,0 +1,76 @@
+Electroscope
+The electroscope is also known as the electric detector.
+What is this device used for ?
+
+Activity 4 Practical
+(1) Touch the metal disc of the electroscope,
+Figure (31), with your hand to ensure
+that it is free of any electric charge.
+(2) Bring the object which is required to be
+tested close to the electroscope's disc
+until it touches the disc. Figure (32).
+
+What do you conclude if :
+- The electroscope's leaves diverge
+(separate) ?
+..........................................................................
+- The electroscope's leaves do not diverge ?
+..........................................................................
+
+(3) Bring the object whose charge type is to
+be tested close to a charged electroscope disc
+(assuming it is positively charged).
+
+What do you conclude if :
+- The electroscope's leaves diverge further?
+..........................................................................
+- The electroscope's leaves diverge less?
+..........................................................................
+
+From the previous it is concluded that the electroscope
+is used for :
+(1) Determining if an object is electrically charged.
+(2) Identifying the type of charge on the charged object.
+It is also used to compare the magnitude of the charges
+on different charged objects.
+
+Analytical Thinking
+Mention two methods to charge objects with
+electrostatic charges.
+..........................................................................
+
+Evaluate Your Understanding
+► Explain why the divergence of the leaves of a positively
+charged electroscope decrease when an ebonite rod
+rubbed with wool touches the electroscope disc.
+..........................................................................
+
+Insulator plug
+Copper rod
+Disc
+Glass bottle
+Two gold leaves
+Figure (31)
+The electroscope
+
+Figure (32)
+Charging by
+touching
+
+A profile of the Scientist
+Charles-Augustin de Coulomb
+
+Figure (33)
+A French physicist who
+formulated a law describing
+electric forces between charged
+particles, known as Coulomb's
+Law or the Inverse Square Law.
+His studies and discoveries in
+the late 18th century laid the
+foundation for the development
+of electromagnetic theory. In his
+honor, the unit of electric charge
+(Coulomb) is named after him
+
+LESSON ONE : Electric Forces 39

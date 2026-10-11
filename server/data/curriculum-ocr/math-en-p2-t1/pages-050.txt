@@ -1,0 +1,56 @@
+Second Applying Concepts
+9 Factorize each of the following completely:
+(1) x² - 7 x + 12
+(2) y² + 42 + 13 y
+(3) -x² + 3 x + 40
+(4) 14 x - 32 + x²
+(5) 3 x² + 6 x - 45
+(6) 5 n² - 20 n - 105
+(7) 3 a² - 6 a - 9
+(8) 2 x² - 7 x + 6
+(9) 3 x² + 14 x + 15
+(10) 6 x² + 7 x y - 3 y²
+(11) 5 x² - 4 y (7 x + 3 y)
+(12) (x + 2) (x - 5) - 8
+(13) 6 x³ - 60 x - 2 x²
+(14) 18 - 21 x² - 9 x⁴
+(15) 42 x² y² - 30 x² y⁴ + 12 x² y³
+
+10 Solve each of the following equations in R :
+(1) m² - 14 m + 45 = 0
+(2) x² - 21 = 4 x
+(3) 3 y² + 17 y + 10 = 0
+
+Third Analysis and Subjects Integration
+11 Agriculture: Youssef has a rectangular garden of dimensions 6 m and 15 m, and he wants to increase its area by 46 m².
+If the length and width of the garden are increased by the same amount, what are the new dimensions of the garden?
+x
+15
+6
+x
+Gardening adds aesthetic appeal to cities and plays a major role in purifying the air.
+
+x
+x
+6 m
+4 m
+Placing carpets in the right place with the right colours reflects good taste and an awareness of the importance of visual harmony.
+
+12 Decoration: A rectangular room has a floor area of 48 m². Fatma wanted to cover the floor with a carpet 6 m long and 4 m wide, leaving a strip of space between the carpet and the wall from each side of width x.
+Find the width of this strip.
+
+13 Geometry: A triangle has an area of 35 cm². If the length of its base is 9 cm greater than its corresponding height, what is the height of the triangle?
+
+Creative Thinking
+14 Find the positive integer values of b that make each of the following factorizable:
+(1) x² + b x + 12
+(2) x² + b x - 14
+(3) x² + 8 x + b
+
+Evaluate your understanding!
+How well do you understand factorizing trinomial?
+Tick the right box
+
+First Term
+Lesson Two: Factorizing Trinomial
+45

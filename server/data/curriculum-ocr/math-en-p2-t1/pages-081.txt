@@ -1,0 +1,107 @@
+(10) In each of the following figures, find the value of x:
+(1)
+A
+20 cm
+25 cm
+52 cm
+B D x cm C
+(2)
+D x cm C
+√13 cm √15 cm
+A 6 cm B
+(3)
+C B
+E 6 cm
+15 cm x cm
+11 cm
+A
+(4)
+3 cm A
+E x cm
+4 cm C B
+20 cm
+16 cm
+D
+(5)
+D C
+289 cm²
+x cm
+25 cm²
+A B E
+(6)
+A 8 cm B
+4 cm
+D 5 cm C
+x cm
+E 8 cm
+
+(11) In the given figure:
+Prove that: m (∠ C) = 90°
+A
+3 cm
+B
+11 cm
+7 cm
+C 9 cm D
+
+(12) In the given figure:
+ABCD is a rectangle.
+Prove that:
+Δ BEC is
+a right-angled triangle,
+then find its area.
+A E D
+20 cm
+12 cm
+B 25 cm C
+
+(13) In the given figure:
+The rectangle ABCD
+is congruent to
+the rectangle AGFE.
+Find by proof the
+length of BF
+D G C
+16 cm
+F
+A 20 cm B
+E
+
+(14) In the given figure:
+ABCD is
+a trapezium
+in which: AB = 15 cm, AD = 20 cm,
+DC = 20 cm. If the height of the trapezium is
+12 cm, find its area.
+A 20 cm D
+15 cm 12 cm 20 cm
+B E C
+
+(15) In the given figure:
+ABCD is a rhombus with a perimeter of 52 m
+and a diagonal BD of length 24 m.
+Find the area of the rhombus ABCD in square meters.
+A
+B D
+C
+
+(16) Spot the mistake:
+Amal and Maryam are trying to determine
+whether the numbers 5, 12, and 13 can be the
+lengths of the sides of a right-angled triangle or
+not. Which of them followed the correct method?
+Discuss and correct the mistake if found.
+Amal's solution:
+a² + b² = 5² + 12²
+= 169
+c² = 13² = 169
+a² + b² = c²
+can be
+Maryam's solution:
+a² + b² = 13² + 5²
+= 194
+c² = 12² = 144
+a² + b² ≠ c²
+cannot be
+
+76 Unit Three: Geometry Mathematics - Second Preparatory

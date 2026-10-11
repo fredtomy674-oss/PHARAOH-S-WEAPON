@@ -1,0 +1,43 @@
+Ministry of Education
+Login
+Search
+Login
+Settings
+E-mail
+Help
+Notifications
+Password
+login
+Contact us
+The buttons confuse the user because
+they are inconsistent, with different
+shapes and colors.
+
+Activity:
+• Using drawing tools, design two buttons with the same shape and color to illustrate
+the importance of symmetry.
+
+Activity:
+Dear student, with the help of your teacher and in cooperation with your classmates,
+name an app or website you like best for its beautiful and eye-catching design.
+
+• Example: Imagine if the app buttons were too small to be easily pressed. This
+indicates a UI design problem.
+
+1. What is User Interface (UI) Design?
+"User Interface (UI) design is the way a website, app, or game appears, such as:
+• Are the colors attractive? Are the buttons clear? Are the fonts easy to read? All of
+these elements form an interface that the user sees and interacts with in an attractive,
+organized, and easy-to-understand manner.
+
+Example: Imagine if the app buttons were too small to be easily pressed. This
+indicates a UI design problem
+
+Logiin
+Login
+Pretsonane
+Pusseword
+Login
+Design problem
+
+46

@@ -1,0 +1,25 @@
+• The books are thrown randomly
+• The books are arranged in an organized manner
+
+2. The Importance of User Experience (UX) Design:
+
+• "If an app or website is easy to use, the user will feel satisfied and will return. If it's difficult, they may abandon it forever."
+
+Activity: Dear student, with the help of your teacher and in cooperation with your classmates, name one of the websites or apps you use. Describe what makes the website or app easy or difficult to use.
+
+Reasons for the ease of the site or application | Reasons for the difficulty of the site or application
+........................................................................... | ...........................................................................
+........................................................................... | ...........................................................................
+........................................................................... | ...........................................................................
+
+Activity: Dear student, with the help of your teacher and in cooperation with your classmates, discuss the basic principles that must be present and observed to facilitate user interaction with a website or application.
+
+- Basic principles to consider in UX design:
+
+1. Ease of navigation:
+
+• Ease of navigation means that the user can quickly and effortlessly find what they are looking for.
+
+• Illustrated examples:
+
+43

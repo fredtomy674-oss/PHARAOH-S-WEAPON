@@ -1,0 +1,90 @@
+Types of Sets
+Finite Set
+A set that has a finite
+number of elements.
+For example:
+X = {2, 3, 5},
+containing 3 elements.
+Infinite Set
+A set that has an
+infinite number of
+elements.
+For example :
+N = {0, 1, 2, 3, ...}
+Empty Set (Null Set)
+A set that has no
+elements and is
+denoted by the
+symbol & or { }.
+For example:
+The set of integers
+between 1 and 2
+
+■ Self-Evaluation (2)
+Give an example of each
+of the following:
+1 Finite set.
+2 Infinite set.
+3 Empty set.
+
+Inclusion (Subset)
+If A = {2, 3, 4, 5, 7}, and B = {4, 7},
+then 4 ∈ A, 4 ∈ B and 7 ∈ A, 7 ∈ B
+i.e. Every element of set B belongs to set A.
+Hence, B is a subset of A and written as BCA
+You can express this as:
+B is a subset of A, or A contains B.
+When A and B are represented by a Venn diagram, draw B inside A.
+
+■ Note
+The symbol ∈
+is read as "belongs to" and
+is used to express that an
+element belongs to a set.
+
+The symbol ∉
+is read as "does not
+belong to" and is used to
+express that an element
+does not belong to a set.
+
+Example 1
+Which of the following sets is a subset of X = {1, 3, 4, 5, 6}?
+1 A = {3, 5, 9}
+2 B = {1, 5, 6}
+
+1 9 ∈ A and 9 ∉ X, thus A ⊄ X "The symbol ⊄ is read as not subset"
+2 Every element of B is an element of X, hence, BC X
+
+■ Self-Evaluation (3)
+If X = {2, 9, 3, 5}, which
+of the following sets is
+a subset of X?
+1 A = {1, 5, 9}
+2 B = {2, 3}
+
+Example 2
+Write all the subsets of the set A = {4, 6, 8}, and mention their number.
+
+The subsets of the set A are:
+{4}, {6}, {8}
+{4,6}, {4,8}, {6,8}
+{4,6,8}, φ
+The number of subsets of A = 2³ = 8
+
+■ Self-Evaluation (4)
+Find the number of subsets
+of a set that contains
+5 elements.
+
+■ Solution Guide
+• The number of subsets of
+an n-element set is 2"
+• The empty set "o" and
+the set A itself are called
+improper subsets.
+
+First Term
+Lesson Three: Sets and Their Operations
+El Nemer Press
+15

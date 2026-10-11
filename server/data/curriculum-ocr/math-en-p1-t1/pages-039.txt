@@ -1,0 +1,105 @@
+Lesson
+2 - 1
+
+Mathematical Expressions
+and Formulas
+
+■ Learning Outcomes
+• Represent variables
+  using symbols.
+• Learn algebraic term and
+  algebraic expression.
+• Learn mathematical
+  expression and
+  mathematical formula.
+• Differentiate between
+  mathematical expression
+  and mathematical formula.
+• Learn equation and
+  inequality.
+• Simplify and evaluate
+  algebraic expression at
+  a specific value.
+• Learn about temperature
+  measuring units (Celsius
+  and Fahrenheit) and the
+  relationship between them.
+
+Get Ready!
+
+Salwa is planning to spend
+her vacation in Aswan,
+exploring its tourist attractions,
+such as Abu Simbel Temple.
+To make a decision about
+the best time to visit, she
+used a weather app on her
+smartphone. She found that
+the temperature in Aswan
+reaches 95° F.
+
+Could you help Salwa convert
+this Fahrenheit temperature
+(°F) to Celsius (°C) using the
+mathematical formula:
+$C = (F - 32) \times \frac{5}{9}$
+
+Now, do you think it is the best time for Salwa
+to visit Aswan?
+
+Abu Simbel Temple in Aswan
+
+In this lesson, you'll learn essential concepts
+in algebra, including mathematical expression,
+formula, and equation, which will empower you
+to solve such real-life problems.
+
+Do you know ?!
+In the International System
+of Units (IS), temperature is
+measured using three units:
+Celsius, Fahrenheit, and
+Kelvin. Each of them can
+be converted to the others.
+
+■ Vocabulary
+• Term
+• Mathematical Expression
+• Variable
+• Constant
+• Equation
+• Inequality
+• Mathematical Formula
+• Coefficient
+
+Think & Discuss!
+
+Which of the following mathematical expressions
+represent the perimeter of the opposite rectangle?
+
+$2x + 2y$
+$x + y$
+$xy$
+
+Learn!
+
+Using symbols to represent unknown numbers or variables
+
+Mathematical Expression:
+1 Numerical Mathematical Expression: It consists of one or more
+   numbers with one or more arithmetic operations ($+, -, \times \text{ or } \div$).
+   For examples: $5, 4 + 2, 2 \times (5 - 7), \text{ or } 4 \div 7 \times (3 - 2), ... \text{ etc.}$
+2 Algebraic Mathematical Expression (Algebraic Expression): It
+   consists of (one or more variables) or (a combination of numbers and
+   variables) with one or more arithmetic operations ($+, -, \times \text{ or } \div$).
+   For examples: $xy, 2 \times n, \frac{m}{4}, \text{ or } x^2 + 3x - 1, ... \text{ etc.}$
+
+■ Note that
+A variable is a symbol that
+represents an unknown
+quantity.
+e.g. $x, y, z, ... \text{ etc.}$
+
+32
+Unit Two: Algebra
+Mathematics - First Preparatory

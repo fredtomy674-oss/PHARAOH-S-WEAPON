@@ -1,0 +1,39 @@
+Champ électrique
+La région entourant une charge électrique, où apparait son effet sans contact, est appelée champ électrique. Le champ électrique d'une charge électrique peut être représenté par des lignes connues sous le nom de lignes de forces électriques ou lignes de champ électrique, qui sont des lignes imaginaires montrant le chemin pris par une petite charge positive libre placée dans ce champ.
+
+Activité 3 Déduis
+Observe les figures (13) à (18), puis réponds aux questions suivantes
+
+Figure (13)
+Lignes de forces électriques d'une charge positive
+
+Figure (14)
+Lignes de forces électriques d'une charge négative
+
+Figure (15)
+Lignes de forces électriques entre deux plaques métalliques chargées avec des charges différentes
+
+Figure (16)
+Lignes de forces électriques de deux charges différentes
+
+Figure (17)
+Lignes de forces électriques de deux charges similaires
+
+Figure (18)
+Lignes de forces électriques entre une plaque chargée et une charge opposée
+
+(1) D'où commencent les lignes de force et où se terminent-elles ?
+(2) Les lignes de force se croisent-elles ?
+(3) Les lignes de force pénètrent-elles les surfaces des objets métalliques chargés ou s'arrêtent-elles à leur surface ?
+
+Concepts croisés :
+Le système et ses modèles
+Les lignes de forces électriques sont des représentations simplifiées du système (modèle) et sont utilisées pour comprendre comment fonctionne le système.
+
+De ce qui précède déduis les propriétés des lignes de forces électriques :
+(1) Les lignes de forces électriques sont des lignes imaginaires qui ne .................................... .
+(2) Elles commencent à la charge .................................... et se terminent à la charge .................................... .
+(3) .................................... les lignes de forces sur .................................... les objets chargés et ne .................................... .
+
+october press
+LEÇON UN : La force électrique 37

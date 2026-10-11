@@ -1,0 +1,60 @@
+(10) In the given figure:
+Find with proof the length
+of BK
+
+(11) In the given figure:
+ABCD is a quadrilateral in which
+E and F are the midpoints
+of AB and BC respectively.
+Find the area of Δ BEF.
+
+(12) In the given figure:
+ABCD is a parallelogram.
+If E and F are the midpoints
+of BC and AD respectively,
+prove that: AC = 3 AG
+
+(13) In the given figure:
+K, L, S, T are the midpoints
+of the sides of the
+quadrilateral ABCD
+Prove that:
+the figure KLST is
+a parallelogram.
+
+Third Analysis and Subjects Integration
+(14) Decoration: The given figure represents
+a wooden bookcase in the shape
+of an equilateral triangle with side length
+3 m and three shelves made of glass.
+What is the length of each of the three shelves?
+
+The optimal distribution of decorative elements
+according to the area reflects aesthetic
+awareness and creates a feeling of comfort.
+
+Choosing safe places to play
+reduces the risk of injury.
+
+(15) Engineering design: When designing a swing as
+shown in the given picture, the length of the horizontal
+beam connecting the midpoints of the legs is equal
+to X feet, where 3 ≤ X ≤ 4. Find the shortest distance
+between the ends of the legs on the ground.
+
+Creative Thinking
+(16)
+Figure (1) Figure (2) Figure (3) Figure (4)
+Evaluate your
+understanding!
+How well do you understand
+applications of parallelism?
+Tick the right box
+
+Figure (1) represents a triangle with a perimeter of 8 cm. The triangle formed by the three
+midsegments was coloured as shown in Figure (2), then this was repeated on the uncoloured
+triangles to obtain Figure (3) and in the same pattern, Figure (4) is formed.
+Calculate the sum of the perimeters of the coloured triangles in Figure (3). Can you calculate the
+sum of the perimeters of the coloured triangles in Figure (4)?
+
+82 Unit Three: Geometry Mathematics - Second Preparatory

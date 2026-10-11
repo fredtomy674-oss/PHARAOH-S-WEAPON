@@ -1,0 +1,61 @@
+Lesson Assessment
+First Measuring Conceptual Understanding
+► Choose the correct answer from the given ones:
+1 What is the mathematical expression for subtracting (-2) from X?
+(a) X - 2
+(b) 2 - X
+(c) -2 - X
+(d) X + 2
+
+2 What is the mathematical formula representing the area (A) of a parallelogram with a base length (l) and its corresponding height (h)?
+(a) A = 1/2 l h
+(b) A = l + h
+(c) A = l h
+(d) A = l / h
+
+3 What is the suitable equation to find the side length of an equilateral triangle whose perimeter is 12 cm?
+(a) X + 3 = 12
+(b) 3 X = 12
+(c) 2 X = 12
+(d) X = 12
+
+4 What is the inequality expressing that the suitable height (n) cm of a person should not be less than 180 cm to join one of the sports?
+(a) n < 180
+(b) n > 180
+(c) n ≤ 180
+(d) n ≥ 180
+
+5 Which of the following pairs of terms are like terms?
+(a) 2 X, -2 X²
+(b) 3 a, 8 a
+(c) 7 X, 7
+(d) X², Y²
+
+6 Which of the following is equal to 5 a?
+(a) 3 + 2 a
+(b) 2 + 3 a
+(c) 2 a + 3 a
+(d) 5 + a
+
+Second Applying Scientific Concepts
+► Express each of the following mathematically:
+7 Sally's age 5 years ago, if she is now X years old.
+8 The arithmetic mean of the two numbers X and Y is not less than 18.
+9 The perimeter (p) of a triangle, if the lengths of its sides are a, b and c.
+10 A rectangle with dimensions X and Y, whose area is 36 square centimeters.
+11 Bassem has X one-pound banknotes, Y five-pound banknotes, and Z ten-pound banknotes.
+
+► Write the following algebraic expressions in their simplest forms:
+12 7 m - 2 n - 7 m + 1
+13 -2 n + 3 (n - 1)
+14 3 (2 X - 5) - 4 (X - 6)
+
+► Find the value of each of the following expressions, given that a = 8, b = 3, d = 4, f = -1:
+15 -a / 4
+16 b² - 2 f
+17 a f + 3 d
+
+First Term
+Lesson One: Mathematical Expressions and Formulas
+El Nemer Press
+37

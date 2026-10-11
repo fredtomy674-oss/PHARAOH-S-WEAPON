@@ -1,0 +1,89 @@
+■ Critical Thinking
+Deduce the full mark of the teacher's quiz in Example 1. Based on this mark, conclude the decision that the teacher would make regarding her students.
+
+■ Self-Evaluation ②
+The following data represents the masses in kilograms of a group of 30 students:
+70, 43, 48, 72, 53, 81, 76, 54, 58, 64, 51, 53, 75, 62, 84, 67, 72, 80, 88, 65, 60, 43, 53, 42, 57, 61, 55, 75, 82, 71
+
+1 Organize this data in a table using equal intervals $40-, 50-, \dots$
+
+2 Which interval has the greatest number of students?
+
+3 How many students have masses less than 70 kg?
+
+4 Represent the data in a histogram.
+
+Using the previous table, create the dot plot and bar graph to represent this data as follows:
+(1)
+
+Frequency
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+Mark
+2 3 4 5 6 7 8 9
+Dot Plot
+
+3 4 5 6 7 8
+Bar Graph
+
+2 The number of students who got at least 7 marks is $5+3=8$
+
+3 The mark that most of the students got (mode) is 6
+
+■ Note that
+Both the dot plot and bar graph display the actual values of data.
+
+Frequency Table with Intervals and its Representation
+
+If the amount of data is large, the data is organized into equal intervals or groups, from which the frequency table with intervals is formed.
+
+Example 2
+
+A judo trainer at a club weighed all the judo players before they joined one of the judo championships. The masses of a group of 40 players in kilograms were as follows:
+
+$$
+\begin{array}{llllllllll}
+41 & 85 & 74 & 86 & 65 & 62 & 100 & 95 & 77 & 82 \\
+50 & 83 & 77 & 93 & 73 & 72 & 69 & 73 & 87 & 50 \\
+98 & 66 & 47 & 100 & 50 & 89 & 78 & 70 & 75 & 95 \\
+80 & 78 & 83 & 81 & 72 & 75 & 48 & 63 & 58 & 56
+\end{array}
+$$
+
+1 Organize this data and represent it using a histogram.
+
+2 How many judo players have masses of 81 kg or more?
+
+1 To form a frequency table with intervals, do the following:
+
+- Find the range: the greatest value minus the smallest value, $100-41=59$ i.e. the range is approximately 60.
+
+- Divide 60 into a suitable number of intervals, let's say 6 intervals. Thus, the length of each interval $=10$.
+
+| Masses | Tally | Frequency |
+| :--- | :--- | :--- |
+| $41-$ | HH I | 6 |
+| $51-$ | II | 2 |
+| $61-$ | HH I | 6 |
+| $71-$ | HH HH II | 12 |
+| $81-$ | HH III | 8 |
+| $91-$ | HH I | 6 |
+
+For example, the first interval represents the masses from 41 kg till less than 51 kg, and it is written as $(41-)$
+
+Therefore, the intervals are: $41-, 51-, 61-, 71-, 81-, 91-$
+
+- Write down the intervals and the frequency in the above table, then remove the tally column to obtain the following table:
+
+First Term
+Lesson One: Organizing Data
+El Nemer Press
+49

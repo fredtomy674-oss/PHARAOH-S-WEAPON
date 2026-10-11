@@ -1,0 +1,54 @@
+Second Proportional Division
+
+Proportional Division Concept:
+Proportional division is dividing something such as money, a piece of land, or weight, etc. into two or more parts based on a specified ratio. Proportional division is used in many real-life applications, including dividing profits, distributing inheritance, and other practical applications.
+
+■ Self-Evaluation (3)
+If a man wants to distribute 3,600 LE between two people in a ratio of 3:2, what would be the share of each one?
+
+■ Diversified Strategies
+► You can calculate the number of atoms of each of (O) and (H) without calculating the part value.
+• Number of oxygen atoms (O)
+$= 1 \times \frac{1,200,000}{3}$
+• Number of hydrogen atoms (H)
+$= 2 \times \frac{1,200,000}{3}$
+
+■ Entrepreneurship
+There are many projects in Egypt that aim to boost the Egyptian economy and achieve sustainable development, including projects for developing factories and industrial facilities such as steel, petrochemicals, and car manufacturing.
+
+■ Self-Evaluation (4)
+Three people invested in a project with a total capital of 500,000 LE. The ratio of their investment contributions was 2:5:3. Calculate how much capital each one contributed.
+
+Example 3
+Science: If the ratio between the number of hydrogen atoms ($H$) to oxygen atoms ($O$) in water molecule is 2:1, how many atoms of each of them are there in a drop of water containing 1,200,000 atoms?
+
+Ratio of hydrogen to oxygen is 2:1
+Sum of parts = 2 + 1 = 3
+Part value = $\frac{1,200,000}{3} = 400,000\text{ atoms.}$
+Number of oxygen atoms = $1 \times 400,000 = 400,000\text{ atoms.}$
+Number of hydrogen atoms = $2 \times 400,000 = 800,000\text{ atoms.}$
+
+Example 4
+Business: Three persons invested in the construction of a factory. The first person paid 9,000,000 LE, the second person paid 6,000,000 LE, and the third person paid 7,500,000 LE.
+At the end of the first year, the profits amounted to 2,250,000 LE, and the profits were distributed based on each person's capital contribution. Calculate the share of the first year's profit for each person.
+
+The profits were distributed according to each person's capital contribution ratio.
+First : Second : Third
+$9,000,000 : 6,000,000 : 7,500,000 \quad (\div 100,000)$
+$90 \quad : \quad 60 \quad : \quad 75 \quad (\div 15)$
+$6 \quad : \quad 4 \quad : \quad 5$
+
+Profit distribution ratio = 6 : 4 : 5
+Sum of parts = 6 + 4 + 5 = 15
+Part value = $\frac{2,250,000}{15} = 150,000\text{ LE}$
+The first persons's share = $6 \times 150,000 = 900,000\text{ LE}$
+The second persons's share = $4 \times 150,000 = 600,000\text{ LE}$
+The third persons's share = $5 \times 150,000 = 750,000\text{ LE}$
+
+■ Technology
+You can use a calculator to perform the calculations in this example and make sure the results are correct.
+
+First Term
+Lesson Two: Applications of Ratio and Proportion
+El Nemer Press
+9

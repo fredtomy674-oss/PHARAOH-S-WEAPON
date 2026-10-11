@@ -1,0 +1,79 @@
+La relation entre le nombre de particules subatomiques
+Coopère avec un camarade pour découvrir la relation entre les composants subatomiques en
+réalisant l'activité (4).
+Activite 4 Découvre
+La figure (8) montre les particules subatomiques qui composent les atomes de certains éléments :
+Hydrogène H
+Hélium He
+Lithium Li
+Béryllium Be
+Bore B
+Proton.
+Neutron.
+Électron.
+Figure (8)
+Enregistre dans le tableau (4) les nombres des composants atomiques, et choisis le signe
+mathématique approprié (> / = / <) pour exprimer la relation entre :
+- le nombre de protons et d'électrons. - le nombre de protons et de neutrons.
+Élément
+H
+He
+Li
+Be
+B
+Nombre de protons
+1
+5
+Nombre de neutrons
+0
+Nombre d'électrons
+2
+Relation entre le nombre de
+protons et d'électrons
+P
+e
+P = e¯
+P
+e
+P
+e
+P
+e
+Relation entre le nombre de
+protons et de neutrons
+P> n
+P
+n
+P
+n
+P
+n
+P
+n
+Tableau (4)
+De ce qui précède, on peut déduire que :
+1 Le nombre de protons positifs (P) est égal au nombre d'électrons
+négatifs (e-) dans tout atome, alors l'atome est électriquement neutre.
+2 Le nombre de protons est appelé le numéro atomique, représenté par
+le symbole Z, et il est écrit en bas à gauche du symbole de l'élément.
+3 Le nombre de protons peut être égal au nombre de neutrons dans les noyaux
+des atomes de certains éléments, Le nombre de neutrons peut être aussi
+supérieur au nombre des protons dans les noyaux des atomes d'autres éléments.
+Figure (9)
+4 La somme des nombres de protons et de neutrons constituant le noyau d'un atome
+représente le nombre de nucléons, également connu sous le nom de nombre de masse,
+représenté par le symbole A et il est écrit en haut à gauche du symbole de l'élément
+5 La différence entre le nombre de masse A et le numéro atomique Z est égale au nombre de
+neutrons dans le noyau de l'atome.
+Évalue ta compréhension
+1
+H
+He
+Li
+Be
+B
+Tableau (5)
+Complète les nombres Z et A pour les symboles des éléments
+dans le tableau (5) en utilisant les résultats du tableau (4).
+october press
+LEÇON UN: La structure de l'atome 7

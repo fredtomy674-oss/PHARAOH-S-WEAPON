@@ -1,0 +1,67 @@
+■ Auto-évaluation 2
+Réduis chacun de ce qui suit
+à la forme la plus simple:
+1 2√32-√18+√50
+2 2³√16+³√54-³√128
+
+■ Auto-évaluation 3
+D E C
+A √32 cm F B
+L'aire du carré ABCD est
+égale à 200 cm².
+On en découpe le
+rectangle AFED dont la
+largeur est de √32 cm.
+Quelle est l'aire de la
+figure FBCE?
+
+■ Auto-évaluation 4
+Si X = √3 - √2 / √3 + √2,
+trouve sous la forme la
+plus simple la valeur de:
+x + 1/x
+
+■ Remarque que
+Pour simplifier y, rends le
+dénominateur un nombre
+rationnel en multipliant
+le numérateur et le
+dénominateur par
+(√5 - √2).
+
+2 3√40 - 2³√135 / ³√5 = ³√8 x 5 - 2³√27 x 5 / ³√5
+= ³√8 x ³√5 - 2 x ³√27 x ³√5 / ³√5
+= 2³√5 - 2 x 3³√5 / ³√5
+= 2³√5 - 6³√5 / ³√5
+= -4³√5 / ³√5 = -4
+
+■ Diversité des stratégies
+³√40 - 2³√135 / ³√5
+= ³√40 / ³√5 - 2³√135 / ³√5
+= ³√40/5 - 2³√135/5
+= ³√8 - 2³√27
+= 2 - 2 x 3 = -4
+
+Exemple 3
+Géométrie: Dans la figure ci-contre, ABC est un triangle dont le
+périmètre est de √1440 cm. Trouve la longueur de BC.
+∴ Le périmètre d'un triangle = la somme des longueurs
+de ses côtés
+∴ √250 + √160 + BC = √1440
+∴ √25 x 10 + √16 x 10 + BC = √144 x 10
+∴ 5√10 + 4√10 + BC = 12√10
+∴ 9√10 + BC = 12√10
+∴ BC = 12√10 - 9√10 = 3√10
+C'est-à-dire que la longueur de BC est égal
+à 3√10 cm.
+
+Exemple 4
+Si x = √5 + √2 et y = 3/x, alors trouve sous la forme la plus simple:
+1 x - y
+2 y/x
+y = 3/x = 3 / √5 + √2 x √5 - √2 / √5 - √2 = 3(√5 - √2) / (√5)² - (√2)² = 3(√5 - √2) / 5 - 2 = √5 - √2
+1 x - y = (√5 + √2) - (√5 - √2) = √5 + √2 - √5 + √2 = 2√2
+2 y/x = √5 - √2 / √5 + √2 x √5 - √2 / √5 - √2 = (√5 - √2)² / 5 - 2 = 5 - 2√10 + 2 / 3
+= 7 - 2√10 / 3 = 7/3 - 2/3√10
+
+22 Unité 1: Les nombres et les opérations sur les nombres Mathématiques - deuxième préparatoire

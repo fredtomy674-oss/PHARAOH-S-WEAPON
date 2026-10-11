@@ -1,0 +1,37 @@
+3- Financial Data:
+
+Electronic payments, banking transactions, and stock trading contribute to the generation of massive amounts of data by collecting information about amounts paid, users, locations, and times.
+
+Example: when someone makes an online purchase using a credit card, data is recorded about the amount, store, and geographic location.
+
+4- Data from Smart Devices:
+
+Devices such as mobile phones, cameras, and smart home devices generate data about usage, location, and interactions.
+
+Example: A mobile phone constantly tracks your geographic location and collects data about the places you've visited and the apps you've used.
+
+5- Digital Content:
+
+Videos, images, and audio content uploaded or viewed online generate big data such as the number of views, interactions, comments, and shares.
+
+Example: When someone watches a YouTube video, data is collected about the viewing time, video interactions, and comments.
+
+6- Government Data:
+
+Governments generate data through population registers, statistics, tax data, and censuses.
+
+Example: Data about the population of a particular area or information about income and expenditures is collected through government surveys.
+
+7- Geographic and Spatial Data:
+
+Satellites and GPS devices collect data about geographic locations, roads, and the environment.
+
+Example: a mapping application like Google Maps collects data about traffic, vehicle speed, and congested roads to improve routing.
+
+The 5Vs of Big Data
+
+1- Volume
+
+Refers to the massive amount of data collected and stored. As technology advances, we have greater capacity to collect data from multiple sources such as smart devices, social media, and others.
+
+30

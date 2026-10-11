@@ -1,0 +1,45 @@
+Lesson
+3 - 1
+
+Congruence
+
+■ Learning Outcomes
+• Learn the concept of congruence in plane geometric shapes.
+• Learn the conditions for two polygons to be congruent.
+• Learn the cases of two triangles to be congruent.
+• Use congruence to find the measures of angles and lengths of sides.
+• Prove the congruence of two triangles.
+• Use congruence of geometric shapes to solve real-life problems.
+
+■ Vocabulary
+• Congruence
+• Hypotenuse
+• Right-angled triangle
+• Included angle
+• Included side
+
+■ Notation in Mathematics
+The symbol ≅ is used to express the congruence of two geometric shapes.
+
+Get Ready!
+Engineers used congruent triangles to build steel bridges to ensure balance and strength, as congruent triangles contribute distributing of loads equally. In the given picture of a bridge, can you determine the value of x?
+In this lesson, you will learn the concept of congruence of plane geometric shapes and the cases of triangle congruence, which will enable you to solve such problems.
+
+Think & Discuss!
+Ibrahim copied the red triangle and pasted it several times to create a decorative strip using a computer program. Can you determine the value of x in this figure?
+
+Learn!
+
+Congruence of two line segments
+Two line segments are congruent if they are equal in length.
+If length of AB = length of CD
+then AB ≅ CD
+
+Congruence of two angles
+Two angles are congruent if they are equal in measure.
+If m (∠ A) = m (∠ B)
+then ∠ A ≅ ∠ B
+
+62
+Unit Three: Geometry
+Mathematics - Second Preparatory

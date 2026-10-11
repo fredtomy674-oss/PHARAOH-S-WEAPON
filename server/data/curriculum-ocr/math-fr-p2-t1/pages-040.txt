@@ -1,0 +1,53 @@
+Résous les équations en utilisant la factorisation en extrayant le plus grand commun diviseur
+
+Propriété:
+Si a et b sont deux nombres réels et que a × b = 0, alors:
+a = 0 ou b = 0 ou les deux sont égaux à zéro.
+
+Exemple 5
+Trouve l'ensemble des solutions de chacune des équations suivantes dans R:
+1 3x² + 6x = 0
+2 10x³ - 25x² = 0
+3 x² = 3x
+
+1 ∵ 3x² + 6x = 0 ∴ 3x (x + 2) = 0
+∴ Soit 3x = 0 et donc x = 0
+ou x + 2 = 0 et donc x = -2
+∴ L'ensemble de solution = {0 ; -2}
+
+2 ∵ 10x³ - 25x² = 0
+∴ 5x² (2x - 5) = 0
+∴ Soit 5x² = 0 et donc x = 0
+ou 2x - 5 = 0 et donc x = 5/2
+∴ L'ensemble de solution = {0 ; 5/2}
+
+3 ∵ x² = 3x ∴ x² - 3x = 0
+∴ x (x - 3) = 0
+∴ Soit x = 0
+ou x - 3 = 0 et donc x = 3
+∴ L'ensemble de solution = {0 ; 3}
+
+■ Auto-évaluation 5
+Trouve l'ensemble des solutions de chacune des équations suivantes dans R:
+1 x² + 2x = 0
+2 2x² - 3x = 0
+3 15x³ + 12x² = 0
+
+■ La vérification de la validité de la solution
+Pour vérifier la validité de la solution de l'équation 3x² + 6x = 0, remplace la valeur de x par 0 et -2 dans l'équation d'origine comme suit:
+▶ Remplace x par 0:
+3 (0)² + 6 (0) = 0
+0 + 0 = 0
+0 = 0
+Ce qui signifie que 0 est une solution de l'équation.
+▶ Remplace x par -2:
+3 (-2)² + 6 (-2) = 0
+12 + (-12) = 0
+0 = 0
+Ce qui signifie que -2 est une solution de l'équation.
+▶ Essaie de vérifier par toi-même la validité de la solution dans chacune des deux équations 2 et 3 à l'aide de l'exemple ci-contre.
+
+■ Pensée critique
+En résolvant l'équation x² = 3x, peut-on diviser les deux membres de l'équation par la variable x?
+
+36 Unité 2: L'algèbre Mathématiques - deuxième préparatoire

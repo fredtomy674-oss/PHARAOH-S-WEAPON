@@ -1,0 +1,95 @@
+■ Self-Evaluation (1)
+Find the value of each of
+the following:
+1 3√5 - 4√5
+2 -5√2 x 3√2
+3 (√7)² x 3√3 / 7√3
+
+■ Note that
+• If X ≥ 0, then :
+√X x √X = (√X)² = X
+• If X ∈ R, then :
+³√X x ³√X x ³√X = (³√X)³ = X
+
+Critical Thinking
+1 Dina wrote:
+2√3 + 3√2 = 5√5
+Is what Dina wrote
+correct? Discuss.
+2 Islam wrote:
+2√5 + 5 = 7√5
+Is what Islam wrote
+correct? Discuss.
+
+■ Self-Evaluation (2)
+Write each of the following
+in the simplest form, so
+that the denominator is an
+integer:
+1 6/√3
+2 -5/√2
+3 9/5√3
+
+Example 1
+If X = -4√3 , y = √3 , z = ³√5 ,
+find the value of each of the following:
+1 x + y
+2 x x y
+3 x / 2y
+4 2x - z³
+
+1 x + y = -4√3 + √3
+= (-4 + 1)√3
+= -3√3
+
+2 x x y = -4√3 x √3
+= (-4 x 1) x (√3)²
+= -4 x 3 = -12
+
+3 x / 2y = -4√3 / 2√3
+= -4√3 / 2√3 = -4/2 x √3/√3
+= -2 x 1 = -2
+
+4 2x - z³ = 2 x (-4√3) - (³√5)³
+= -8√3 - 5
+
+■ Note that
+When adding and subtracting
+like radical terms, we use the
+same method as for adding and
+subtracting like algebraic terms:
+-4 X + X = (-4 + 1) X = -3 X
+
+■ Note that
+When multiplying radical terms,
+we use the same method as for
+multiplying algebraic terms:
+-4 X x X = (-4 x 1) X² = -4 X²
+
+■ Note that
+The radical term - 8√3 is not
+like to the term 5, so they can
+not be subtracted.
+
+Example 2
+Write each of the following numbers in the simplest form , so that the
+denominator is an integer:
+1 7/√3
+2 -15/√5
+3 12/5√2
+
+1 To make the denominator an integer, multiply both numerator
+and denominator by √3
+∴ 7/√3 = 7/√3 x √3/√3 = 7√3 / 3
+
+2 To make the denominator an integer, multiply both numerator
+and denominator by √5
+∴ -15/√5 = -15/√5 x √5/√5 = -15√5 / 5 = -3√5
+
+3 To make the denominator an integer, multiply both numerator
+and denominator by √2
+∴ 12 / 5√2 = 12 / 5√2 x √2/√2 = 12√2 / 5 x 2 = 6√2 / 5
+
+First Term
+Lesson Three: Operations on Real Numbers
+15

@@ -1,0 +1,121 @@
+Forming Equation
+
+Example 1
+
+Represent each of the following
+situations in the form of a suitable equation:
+1 When 5 is added to a number, the result
+is (-3).
+2 When 15 is subtracted from twice a number,
+the result is 12.
+3 The sum of three consecutive odd numbers is 87.
+
+1 X + 5 = -3
+2 2X - 15 = 12
+3 Y + (Y + 2) + (Y + 4) = 87
+
+Solving Equation
+
+• Substitution Set
+The set of potential values for the unknown in the equation.
+• Solution Set
+The set of values that belong to the substitution set and satisfy the
+equality of the two sides of the equation.
+
+Solving Equations Using the Substitution Method
+
+Example 2
+
+Find the solution set of the equation:
+2X + 1 = 7, if the substitution set is {2, 3, 4}
+
+The values of X in the
+substitution set
+
+2
+
+3
+
+4
+
+Substitute the values of
+X into the equation
+2X + 1 = 7
+
+2(2) + 1 = 7
+
+2(3) + 1 = 7
+
+2(4) + 1 = 7
+
+5 ≠ 7
+
+7 = 7
+
+9 ≠ 7
+
+Are both sides of the
+equation equal?
+
+X
+
+✓
+
+X
+
+Therefore, the equation has a solution at X = 3,
+i.e., the solution set of the equation is {3}
+
+Note that The solution set of an equation is a subset of the substitution set.
+
+Properties of Equality
+
+The substitution method above becomes almost impossible when the
+substitution sets are infinite as N, Z, Q. So, we need simpler techniques
+to find solutions. That's why studying the properties of equality is essential:
+it allows us to find an equivalent equation of the original equation where the
+variable is isolated on one side of the equation.
+
+■ Self-Evaluation 1
+
+Represent each of the
+following situations in the
+form of an equation:
+1 When 3 is added to
+a number, the result is 0
+2 When (-8) is subtracted
+from three times a number,
+the result is (-5)
+3 The sum of two
+consecutive even
+numbers is 54
+
+■ Self-Evaluation 2
+
+Find the solution set of the
+equation 3X + 2 = 17,
+if the substitution set is
+{3, 4, 5, 6}
+
+■ Note that
+
+Linear equations in one
+variable that have the
+same solution are called
+equivalent equations.
+For example:
+2X + 7 = 19
+2X = 12
+X = 6
+are equivalent equations.
+
+To form the suitable
+equation for each situation,
+assume the unknown is
+(X, Y, ..., etc.)
+
+40
+
+Unit Two: Algebra
+
+Mathematics - First Preparatory

@@ -1,0 +1,39 @@
+(13) Réponds aux questions suivantes:
+① Si 4√5 = 2√a et 2√24 = b√6, trouve a + b.
+② Si x = √3 + √2 et y = √3 - √2, trouve sous la forme la plus simple chacun de ce qui suit:
+(1) x × y (2) x/y (3) (x - 1/x)²
+③ Si a = ∛5 + ∛2 et b = ∛5 - ∛2, trouve sous la forme la plus simple chacun de ce qui suit:
+(1) (a + b)³ (2) a × b (3) a² - b²
+
+Troisièmement L'analyse et l'intégration des matières
+(14) Géométrie: Calcule l'aire de chacune des figures ombrées suivantes:
+① 4√2 cm, √18 cm
+② √63 cm, √28 cm
+③ √50 cm, √32 cm, √128 cm
+
+(15) Géométrie: Chacune des deux figures ci-contre est composée de carrés qui ont la même aire.
+Trouve le périmètre de chaque figure
+(l'aire de la figure est indiquée en dessous).
+L'aire = 300 centimètres carrés
+L'aire = 132 centimètres carrés
+
+(16) Construction: Un terrain de forme carrée a une aire de 500 m². Une partie de forme carrée, d'une aire de 180 m², a été utilisée pour construire une maison et le reste de l'aire a été laissé comme jardin, comme indiqué sur la figure. Quelle est la longueur de la clôture extérieure du jardin en mètres?
+
+(17) Géométrie:
+Si l'aire du rectangle ABCD est égale à l'aire du carré EFGH, quelle est la longueur de EF?
+D C
+A √48 cm B
+H G
+E F
+√12 cm
+
+Pensée créative
+(18) Un carré d'une aire de 432 cm² est divisé en rectangles et en carrés comme sur la figure. Quelle est la différence entre les périmètres des deux figures A et B?
+A A
+B B B
+C C C C
+
+Évalue ta compréhension!
+Quel est ton niveau de compréhension des lois des racines carrées et cubiques? Coche la case appropriée.
+
+24 Unité 1: Les nombres et les opérations sur les nombres Mathématiques - deuxième préparatoire

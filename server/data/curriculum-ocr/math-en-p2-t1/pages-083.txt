@@ -1,0 +1,38 @@
+Lesson
+3-3 Applications of Parallelism
+
+■ Learning Outcomes
+• Learn the relationship between the lengths of line segments enclosed between parallel lines.
+• Use the ray drawn from the midpoint of one side of a triangle parallel to another side.
+• Learn the midsegment of a triangle.
+• Learn the relationship between the midsegment of a triangle and its opposite side.
+• Use parallelism to solve problems in geometry.
+
+Get Ready!
+A road engineer is planning to build a new road connecting the school and the hospital, parallel to the main road. If you know that the school is located halfway along the road AB and the hospital is located halfway along the road AC, what is the length of this new road?
+
+In this lesson, you will learn about the relationship between parallel lines and the enclosed line segments between them, as well as the relationship between the midsegment of a triangle and its sides, which will enable you to solve such problems.
+
+■ Vocabulary
+• Parallelism
+• Midpoint
+• Midsegment
+
+Think & Discuss!
+In the given figure, if the length of the horizontal bar at the middle of the ladder is 0.75 m, can you determine the distance between the two ends of the ladder on the ground? Discuss.
+
+Learn!
+Some applications of parallelism
+
+■ Discuss the proof of theorem (3-1)
+By drawing DG, EH parallel to the straight line t1, and using the properties of parallelogram and parallelism to prove that the triangles EDG, FEH are congruent, you can prove theorem (3-1). Discuss this.
+
+Theorem 3-1
+If a straight line intersects several parallel straight lines, and the parts of the transversal between these straight lines are equal in length, then the parts between them for any other transversal are equal in length.
+
+If l1 // l2 // l3 // l4,
+t1, t2 are transversals
+such that AB = BC = CD,
+then EF = FG = GH
+
+78 Unit Three: Geometry Mathematics - Second Preparatory

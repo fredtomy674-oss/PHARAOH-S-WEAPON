@@ -1,0 +1,51 @@
+16 Alloys: Medals are made of a bronze alloy consisting of three metals,
+copper, tin, and zinc, in the ratio of $\frac{1}{5}:\frac{1}{18}:\frac{1}{45}$. Given that the mass of
+one medal is 425 grams, calculate the mass of each of the three metals.
+
+17 Inheritance: A man passed away, leaving 150,000 LE for his wife, two sons,
+and one daughter. If his wife's share is $\frac{1}{8}$ of the total amount, and the remaining
+sum is to be distributed among his children, what is the share of each son and
+the daughter, considering the ratio of a son to a daughter is 2:1?
+
+18 Geometry: If the ratio among the side lengths of a triangle with a perimeter of 135 cm is 7:5:3,
+find the length of its longest side.
+
+19 A meal costs 150 LE, and 18% of the cost is added as the
+meal's profit. What is the meal's sale price ?
+
+20 Shopping: Mariam wants to buy a vacuum for 6,800 LE.
+If the discount rate is 12%, find what Mariam will pay to buy
+the vacuum.
+
+21 E-commerce: An online store receives a commission rate of
+1.5% for marketing seller products. If the store sold products
+for 42,000,000 LE within a week, calculate the total commission amount for this week.
+
+22 If a TV price after deduction rate of 16% is 12,600 LE, what is the TV price before deduction?
+
+Creative Thinking
+23 Geometry: If figure (1) represents a minimization of figure (2) at a scale drawing, and width of
+room $B$ is $X$ cm, find the value of $X$.
+
+5 cm $X$ cm 4 cm
+Living | Room B | Room A
+Hallway
+Fig. (1)
+
+Living | Room B | Room A
+Hallway
+Fig. (2)
+
+24 The sum of a cuboid's edge lengths is 1,440 cm.
+Given that the dimensions of the cuboid are in
+the ratio of 3:4:5, calculate its volume.
+
+Evaluate your
+understanding!
+How well do you
+understand applications
+of ratio & proportion?
+Tick the right box
+
+First Term Lesson Two: Applications of Ratio and Proportion 13
+El Nemer Press

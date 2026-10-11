@@ -1,0 +1,35 @@
+Wegic | Jimdo Dolphin
+--- | ---
+A tool that uses artificial intelligence to generate websites based on the commands and preferences you provide. | An easy-to-use platform that uses artificial intelligence to generate websites based on simple information you provide.
+**Features:** | **Features:**
+• Easy-to-use interface | • Mobile-friendly
+• Diverse design options suitable for students | • Modern design suitable for small businesses
+• **Link:** wegic.ai | • No technical skills required
+ | • **Link:** jimdo.com
+
+In this lesson, we will use **wegic.ai** for its ease of use and availability of a free plan suitable for students. The steps for using it apply to all similar smart tools.
+
+**Remember: You don't need to write any code! Artificial intelligence will do all the hard work for you.**
+
+**Activity: Dear student, with the help of your teacher and in cooperation with your classmates, discuss the type of website you would like to create today. Write down your ideas:**
+
+• The type of website you want to create (personal, blog, hobby site, school project, etc.)
+
+• Select 2-3 colors for the web pages that reflect your personality
+
+• Select the theme of the website
+
+• The pages you will need to create on the website, such as (home page, about us, contact, etc.)
+
+**<u>Steps to create a website using the artificial intelligence tool Wegic.ai</u>**
+
+We will create a website step by step using text commands that we will direct to the artificial intelligence through the **wegic.ai** tool.
+
+Steps to get started:
+1. Log in to https://wegic.ai/app
+
+2. Create a simple account using your email.
+
+3. Click "Start Now" and follow the steps.
+
+76

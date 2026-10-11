@@ -1,0 +1,38 @@
+Balancing the chemical equations and the law of conservation of mass
+
+Experiments have proved that there is a relation between the substances that enter into a chemical reaction and the substances that result from it, and that they are subject to special laws known as the laws of chemical combination, including the conservation of mass (conservation of matter).
+
+The Law of Conservation of Mass
+
+Activity 1 Practical
+
+Materials and Tools Used:
+• Calcium chloride solution.
+• Test tube.
+• Flask.
+• Sodium sulphate solution.
+• Sensitive balance.
+• Stopper.
+
+Steps:
+1 Put a quantity of calcium chloride solution in the test tube and a quantity of sodium sulphate solution in the flask.
+
+CaCl2(aq) Na2SO4(aq) NaCl(aq) CaSO4(s)
+Figure (2)
+
+2 Place the test tube in the flask carefully so that the two solutions do not mix.
+3 Cover the flask with the stopper.
+4 Find the mass of the flask with the test tube inside.
+
+5 Turn the flask upside down to cause a reaction between the two solutions.
+6 Find the total mass again after the occurrence of the reaction.
+
+7 Compare between the total mass before and after the reaction (Figure 2).
+What do you observe?
+
+Conclusion:
+The mass of the reactants did not change despite the occurrence of the chemical reaction which is accompanied by the formation of calcium sulphate precipitate.
+This indicates that the total mass of the substances involved in the chemical reaction is equal to the total mass of the substances resulting from it.
+This is called the law of conservation of mass.
+
+Lesson Two : CHEMICAL EQUATIONS 51

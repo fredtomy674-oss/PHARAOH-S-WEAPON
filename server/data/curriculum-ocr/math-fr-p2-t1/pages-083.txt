@@ -1,0 +1,57 @@
+■ Auto-évaluation 1
+Dans la figure suivante:
+t1 t2
+l1 A
+l2 B (7X + 1) cm
+l3 C 22 cm
+Trouve la valeur de X.
+
+■ Discute la preuve de la validité du théorème (3-2)
+l A
+D E
+B C
+En traçant une droite à partir du point A parallèle à chacun de DE et BC et en remarquant que AD = DB. Et en utilisant le théorème (3-1), tu peux prouver la validité du théorème (3-2), Discutes-en.
+
+■ Remarque que
+Il existe trois segments moyens dans chaque triangle.
+A
+D E
+B F C
+DE, DF et FE sont les segments moyens du triangle ABC
+
+Premier semestre
+
+Exemple 1
+Dans la figure ci-contre:
+l1 // l2 // l3 // l4
+Les deux droites t1 et t2 les coupent.
+Trouve la valeur de X et y.
+t1 t2
+l1 A 4X cm
+l2 B 8 cm
+l3 C (y + 1) cm
+l4 D
+
+l1 // l2 // l3 // l4 , AB = BC = CD
+∴ 4X = 8 ∴ X = 8/4 = 2
+y + 1 = 8 ∴ y = 8 - 1 = 7
+
+Théorème 3-2
+La demi-droite tracée à partir du milieu d’un côté du triangle parallèlement à l’un des deux autres côtés coupe le troisième côté en son milieu.
+Si D est le point milieu de AB et DE // BC
+alors: E est le point milieu de AC,
+c’est-à-dire que: AE = EC
+A
+D E
+B C
+
+Le segment moyen dans le triangle
+le segment moyen dans le triangle est le segment tracé entre les milieux de deux côtés du triangle.
+Si D est le point milieu de AB et
+E est le point milieu de AC.
+alors: DE est le segment moyen de Δ ABC.
+A
+D E
+B C
+
+Leçon 3: Les applications du parallélisme 79

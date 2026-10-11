@@ -1,0 +1,48 @@
+Chemical Bonding
+The molecules of substances around us differ in the type, number of atoms, and how they are bonded together. (Table 1) shows some properties of sodium chloride (NaCl) and hydrogen chloride (HCl).
+Think : Why do the properties of the two compounds differ from each other despite both containing chlorine ?
+The difference in how atoms are bonded leads to differences in the physical and chemical properties of the resulting compounds' molecules.
+Types of chemical bonding include : Ionic bonding and covalent bonding.
+
+| Compound | Sodium chloride | Hydrogen chloride |
+| :--- | :--- | :--- |
+| Physical state | Solid | Gas |
+| Ability to react with caustic soda solution | Doesn't react | Reacts |
+
+Table (1)
+
+Ionic Bonding
+Atoms become positive or negative ions by losing or gaining electrons to reach the stable electronic configuration of the nearest noble gas in atomic number on the periodic table.
+
+Activity 1 Discover
+(Table 2) shows the electronic configuration of four elements' atoms:
+
+| Sodium 11Na | | | | | | Chlorine 17Cl | Neon 10Ne | Argon 18Ar |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+
+Table (2)
+
+1 Explain : The stability of the atoms of a noble gas according to their electron configuration.
+
+2 What is the nearest noble gas to each of sodium and chlorine ?
+• Sodium : .................................................... • Chlorine : ....................................................
+
+3 Fill in blanks in (Tables 3 and 4) :
+
+| | Sodium atom | Sodium ion |
+| :--- | :--- | :--- |
+| Number of protons | .................... | .................... |
+| Number of electrons | .................... | .................... |
+| Electric charge | .................... | .................... |
+
+Table (3)
+
+| | Chlorine atom | Chloride ion |
+| :--- | :--- | :--- |
+| Number of protons | .................... | .................... |
+| Number of electrons | .................... | .................... |
+| Electric charge | .................... | .................... |
+
+Table (4)
+
+LESSON FOUR : Chemical Bonds 27

@@ -1,0 +1,30 @@
+padding: 15px
+
+Adds a 15px margin between the content of the element (the content box) and its
+border
+
+h2
+
+Controls the subheading format (for example, "Basic Information")
+
+padding-bottom: 10px
+
+Specifies the spacing after the subheading.
+
+border-bottom: 5px solid blue
+
+Make a 5px thick line under the subheading and color blue
+
+footer
+
+Contains the formatting for the bar below the container
+
+.................. .................. ............... .......... (Almost identical to the header formatting)
+
+Self-assess
+
+Go to the objectives at the beginning of the lesson.
+
+Check the correct, I can........ box.
+
+72

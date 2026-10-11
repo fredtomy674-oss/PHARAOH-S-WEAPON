@@ -1,0 +1,51 @@
+■ Discuss
+How can you prove that the length of the midsegment of a triangle is equal to half the length of its opposite side?
+
+■ Hint
+Draw DK parallel to AC and intersecting BC at K, then prove that DKCE is a parallelogram.
+
+■ Self-Evaluation (2)
+In the following figure:
+AB = BC = 16 cm
+EB = 2 cm
+Find the length of EF.
+
+■ Self-Evaluation (3)
+In the following figure:
+The sides of the triangle KLM are the midsegments of the triangle XYZ, which is right angled at Y. Calculate the perimeter of the triangle KLM.
+
+Theorem 3-3 (Theorem of the midsegment of a triangle)
+The midsegment of a triangle is parallel to the third side and its length is equal to half the length of that side.
+
+If DE is a midsegment of Δ ABC,
+then : 1 DE // BC
+2 DE = 1/2 BC
+
+Example 2
+In the given figure:
+Find with proof the length of EF.
+
+∴ Δ ABD is right-angled at D
+∴ (AD)² = (AB)² - (BD)² = (13)² - (5)² = 144
+∴ AD = √144 = 12
+∴ m (∠ ADB) = m (∠ EFB) = 90° (and they are corresponding angles)
+∴ AD // EF
+In Δ ADC : ∵ E is the midpoint of AC, AD // EF
+∴ F is the midpoint of DC
+∴ EF = 1/2 AD
+∴ EF = 1/2 x 12 = 6 cm.
+
+Example 3
+In the given figure:
+If D is the midpoint of AB, E is the midpoint of AC,
+G is the midpoint of DF,
+prove that: BC = 4 GH
+
+In Δ ABC :
+∵ D is the midpoint of AB, E is the midpoint of AC
+∴ DE // BC, DE = 1/2 BC
+In Δ FDE :
+∵ G is the midpoint of DF, DE // GH ∴ H is the midpoint of EF
+∴ GH = 1/2 DE ∴ GH = 1/2 (1/2 BC) = 1/4 BC ∴ BC = 4 GH
+
+80 Unit Three: Geometry Mathematics - Second Preparatory

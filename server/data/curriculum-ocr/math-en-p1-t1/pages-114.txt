@@ -1,0 +1,86 @@
+Midpoint of a Line Segment
+The midpoint of the line segment AB is
+a point that lies on the line segment AB
+and is equidistant from both endpoints.
+If M is the midpoint of AB,
+where A (X1, Y1), B (X2, Y2),
+Then M= (X1 + X2 / 2, Y1 + Y2 / 2)
+
+y
+y2
+B (x2, y2)
+M (x1 + x2 / 2, y1 + y2 / 2)
+y1 + y2 / 2
+A (x1, y1)
+x
+y1
+O
+x1
+x1 + x2 / 2
+x2
+
+Self-Evaluation 4
+Determine the coordinates
+of the midpoint of AB, where
+A (1, -6) and B (5, 2).
+
+Example 4
+Determine the coordinates of the midpoint of AB, where the coordinates of
+points A and B are A (2, -2) and B (-6, 8).
+
+Let that the midpoint of AB be M
+M=(2 + (-6) / 2, -2 + 8 / 2)=(-4 / 2, 6 / 2)=(-2, 3)
+
+Self-Evaluation 5
+If point M (3, 5) is in the
+middle of the distance
+between points A (X, 5) and
+B (4, y), find the values of
+X and y.
+
+Example 5
+If the point M (0, -3) is in the middle of the distance between points
+A (X, -10) and B (7, y), calculate the values of X and y.
+
+∴ (0, -3)=(7 + x / 2, y - 10 / 2)
+∴ 7 + x / 2 = 0
+∴ 7 + X = 0
+∴ X = -7
+y - 10 / 2 = -3
+∴ y - 10 = -6
+∴ y = 4
+
+Self-Evaluation 6
+If ABCD is a parallelogram
+where A (-4, 2), B (4, -2),
+and C (9, 1), determine the
+coordinates of the following:
+1 The point of intersection
+of its diagonals.
+2 The vertex D.
+
+Example 6
+If ABCD is a parallelogram where A (-1, 1), B (4, 2), and D (1, 4), determine
+the coordinates of the following:
+1 The point of intersection of its diagonals.
+2 The vertex C.
+
+Let that M be the point of intersection of the diagonals
+∴ M is the midpoint of BD
+∴ M=(4 + 1 / 2, 2 + 4 / 2)=(2.5, 3)
+
+∵ M is also the midpoint of AC
+Let C=(X1, Y1)
+∴ (-1 + X1 / 2, 1 + Y1 / 2)=(2.5, 3)
+∴ -1 + X1 / 2 = 2.5
+∴ -1 + X1 = 5
+∴ X1 = 6
+1 + Y1 / 2 = 3
+∴ 1 + Y1 = 6
+∴ Y1 = 5
+∴ C=(6, 5)
+
+First Term
+Lesson Six: Coordinates
+El Nemer Press
+107

@@ -1,0 +1,66 @@
+■ Self-Evaluation 7
+Use factorization to facilitate finding the value of each of the following:
+1 (49)² - 2 (49) (39) + (39)²
+2 (87)² - (13)²
+
+■ Self-Evaluation 8
+If b - a = -3 , a² - b² = 12, find the numerical value of the expression: a + b
+
+Example 7
+Use factorization to facilitate finding the value of each of the following:
+1 (57)² + 2 (57) (43) + (43)²
+2 (99)² - 1
+
+1 (57)² + 2 (57) (43) + (43)² = (57 + 43)² = (100)² = 10000
+2 (99)² - 1 = (99 + 1) (99 - 1) = 100 × 98 = 9800
+
+Example 8
+If 4x² - 9y² = 115 , 2x - 3y = 5,
+find the numerical value of the expression: 2x + 3y
+
+∴ 4x² - 9y² = 115
+∴ 5 (2x + 3y) = 115
+∴ (2x - 3y) (2x + 3y) = 115
+∴ 2x + 3y = 23
+
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+1 If x² - b² = (x - 3) (x + 3), what is the value of b?
+(a) ± 1
+(b) ± 3
+(c) ± 6
+(d) ± 9
+
+2 If ax² - b = (3x - 2) (3x + 2), what is the value of a + b?
+(a) - 13
+(b) 13
+(c) - 5
+(d) 5
+
+3 If ax³ - 27 = (2x - 3) (4x² + bx + 9), what is the value of ab?
+(a) 6
+(b) 12
+(c) 24
+(d) 48
+
+4 If the polynomial (4x² + kx + 1) is a perfect square trinomial, what is the value of k?
+(a) ± 1
+(b) ± 2
+(c) ± 4
+(d) ± 8
+
+5 If the polynomial (kx² - 12x + 9) is a perfect square trinomial, what is the value of k?
+(a) 4
+(b) ± 4
+(c) 2
+(d) ± 2
+
+6 If x - y = -2 , x² - y² = -16 , what is the arithmetic mean of the two numbers x, y?
+(a) 2
+(b) 4
+(c) 8
+(d) 16
+
+50 Unit Two: Algebra Mathematics - Second Preparatory

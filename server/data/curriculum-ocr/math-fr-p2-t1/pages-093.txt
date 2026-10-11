@@ -1,0 +1,82 @@
+Leçon
+3-5
+
+Le triangle isocèle
+
+■ Résultats
+d’apprentissage
+• Connaître les propriétés du
+triangle isocèle.
+• Connaître les propriétés du
+triangle équilatéral.
+• Connaître la symétrie dans
+le triangle.
+• Connaître la relation entre
+les longueurs des côtés du
+triangle trente-soixante.
+• Utiliser les propriétés
+du triangle isocèle et du
+triangle équilatéral dans la
+résolution des problèmes
+de la vie.
+
+Sois prêt!
+La ville égyptienne de Dahab, qui
+appartient au gouvernorat du Sud-
+Sinaï, n’est pas seulement une ville
+côtière, mais aussi l’une des plus
+belles villes touristiques du monde.
+Si Adel et son ami Yasser installent
+une tente triangulaire pour camper sur
+l’une des plages de Dahab, quelle est
+la hauteur approximative de la tente?
+Dans cette leçon, tu connaîtras le
+triangle isocèle, le triangle équilatéral
+et leurs axes de symétrie, ce qui
+te permettra de résoudre de tels
+problèmes de la vie.
+
+Réfléchis et discute!
+Les artistes utilisent la roue chromatique pour montrer
+les relations entre les couleurs.
+Les douze triangles de la figure sont des triangles isocèles
+et les angles de leurs sommets sont congruents.
+Peux-tu trouver la mesure des angles intérieurs dans
+l’un de ces triangles? Discute.
+
+■ Vocabulaire
+• Triangle isocèle
+• Triangle équilatéral
+• Le côté
+• La base
+• L’axe de symétrie
+
+Apprends!
+Le triangle isocèle
+Le triangle isocèle est un triangle qui a deux côtés
+congruents.
+• Les deux côtés congruents sont appelés les jambes
+du triangle.
+• L’angle comprise entre eux est appelé l’angle au
+sommet.
+• Les deux autres angles sont appelés les deux
+angles de la base.
+
+■ Discute la preuve de
+la validité du théorème
+(5-1)
+Trace AD ⊥ BC et à partir
+de la congruence de deux
+triangles ABD et ACD
+On peut prouver que:
+∠ B ≅ ∠ C
+
+Théorème 5-1 Théorème du triangle isocèle.
+Les deux angles de la base d’un triangle isocèle sont congruents.
+Dans le triangle ABC:
+Si AB ≅ AC
+Alors ∠ B ≅ ∠ C
+
+Premier semestre
+Leçon 5: Le triangle isocèle
+89

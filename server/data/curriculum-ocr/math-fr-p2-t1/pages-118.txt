@@ -1,0 +1,52 @@
+| Intervalles | Effectif (f) | Centres des intervalles (Xm) | f.xm |
+| :--- | :--- | :--- | :--- |
+| 60 – | 1 | 65 | 65 |
+| 70 – | 5 | 75 | 375 |
+| 80 – | k | 85 | 85 k |
+| 90 – | 10 | 95 | 950 |
+| 100 – | 6 | 105 | 630 |
+| Total | 22 + k | | 2020 + 85 k |
+
+∴ X = Σ (f.Xm) / Σf = (2020 + 85 k) / (22 + k) = 90
+∴ 90 (22 + k) = 2020 + 85 k
+∴ 90 k – 85 k = 2020 – 1980
+∴ 1980 + 90 k = 2020 + 85 k
+∴ 5 k = 40
+∴ k = 8
+
+2 La médiane d’une distribution de données par intervalles
+
+La médiane peut être estimée à partir de la courbe des effectifs cumulés croissants comme suit:
+• Détermine l’ordre de la médiane (n/2) où n est la somme des effectifs sur l’axe vertical.
+• Lorsque tu ordonnes la médiane, trace une ligne horizontale qui coupe la courbe cumulative croissante en un point, la valeur de la médiane (Q2) est alors la projection de ce point sur l’axe horizontal.
+
+Effectif cumulé croissant
+Ordre de la médiane n/2
+Q2
+Valeur de la médiane
+Intervalles
+
+Exemple 3
+À partir des données du tableau des effectifs suivant:
+| Intervalles | 0 – | 6 – | 12 – | 18 – | 24 – |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Effectif | 6 | 8 | 12 | 10 | 4 |
+
+Trace la courbe des effectifs cumulés croissants et estime la valeur de la médiane.
+
+■ Auto-évaluation 3
+Le tableau suivant indique la distribution des notes obtenues par 60 élèves à un examen de mathématiques.
+| Notes | Effectif |
+| :--- | :--- |
+| 5 – | 2 |
+| 10 – | 5 |
+| 15 – | 14 |
+| 20 – | 20 |
+| 25 – | k |
+| 30 – | 5 |
+| 35 – | 1 |
+| Total | 60 |
+
+Trouve la valeur de k, puis trace la courbe des effectifs cumulés croissants et estime la valeur de la moyenne.
+
+114 Unité 4: Les statistiques Mathématiques - deuxième préparatoire

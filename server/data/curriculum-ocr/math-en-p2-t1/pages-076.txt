@@ -1,0 +1,76 @@
+Using Pythagoras' Theorem
+You can use Pythagoras' theorem to find the length of a side in
+a right-angled triangle when the lengths of the other two sides are known.
+
+■ Self-Evaluation (1)
+Find the value of X in each
+of the following, then find
+the area of the triangle in
+the second figure.
+1
+B
+X cm
+3 cm
+C 4 cm A
+2
+C
+12 cm
+X cm
+A 13 cm B
+
+Example 1
+Find the value of X in each of the following, then find the area of the
+triangle in the second figure.
+1
+B
+X cm
+8 cm
+C 15 cm A
+2
+C
+15 cm
+X cm
+B 25 cm A
+1 ∴ c² = a² + b²
+∴ X² = (8)² + (15)²
+= 64 + 225 = 289
+∴ X = √289 = 17
+2 ∴ c² = a² + b²
+∴ (25)² = (15)² + X²
+∴ X² = (25)² - (15)² = 400
+∴ X = √400 = 20
+∴ The area = 1/2 x 15 x 20 = 150 cm²
+
+■ Self-Evaluation (2)
+In the following figure:
+If AB // DC,
+find the perimeter of the
+polygon ABCD.
+5 cm
+A B
+13 cm
+D 35 cm C
+
+Example 2
+In the given figure:
+m(∠ B) = 90°, AC = 4√5 cm
+BD = 6 cm, DC = 2√13 cm
+Find the length of AD with proof.
+A
+D
+6 cm
+2√13 cm
+4√5 cm
+B C
+
+∴ Δ DBC is right-angled at B :
+∴ (BC)² = (DC)² - (DB)² = (2√13)² - (6)² = 16
+∴ BC = √16 = 4
+∴ Δ ABC is right-angled at B :
+∴ (AB)² = (AC)² - (BC)² = (4√5)² - (4)² = 64
+∴ AB = √64 = 8
+∴ AD = AB - BD = 8 - 6 = 2 cm
+
+First Term
+Lesson Two: Pythagoras' Theorem and Its Converse
+71

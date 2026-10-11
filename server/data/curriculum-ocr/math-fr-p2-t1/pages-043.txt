@@ -1,0 +1,67 @@
+Leçon
+2-2
+
+La factorisation d’un trinôme
+
+■ Résultats
+d’apprentissage
+• Factoriser un trinôme de
+la forme: X² + b X + c
+• Factoriser un trinôme de
+la forme: a X² + b X + c
+(où a ≠ ± 1).
+• Utiliser la factorisation
+pour résoudre des
+équations quadratiques.
+• Utiliser la factorisation
+pour résoudre des
+problèmes de la vie.
+
+■ Vocabulaire
+• Factorisation
+• Trinôme
+• Équation quadratique
+
+Sois prêt!
+Avec le développement fulgurant
+de l’industrie des smartphones,
+les entreprises mondiales se font
+concurrence pour concevoir des
+écrans aux dimensions précises
+qui assurent le confort d’utilisation
+et la qualité d’affichage.
+Lors de la phase de conception
+d’un nouveau smartphone, les
+concepteurs ont décidé que
+l’écran du téléphone serait de
+forme rectangulaire, de sorte
+que la longueur de l’écran soit supérieure à sa largeur de 7 cm et que
+l’aire totale de l’écran soit de 120 cm². Quelles sont alors la longueur et la
+largeur de l’écran proposé?
+Dans cette leçon, tu apprendras à factoriser un trinôme, puis à utiliser
+la factorisation pour résoudre des équations quadratiques, ce qui te
+permettra de résoudre de tels problèmes.
+
+Réfléchis et discute!
+Omar prévoit de construire une piscine de forme
+rectangulaire dont l’aire de son sol est de 40 m²
+et le périmètre est de 26 m. Peux-tu savoir les
+deux dimensions du sol de cette piscine?
+▶ Réfléchis à trouver deux nombres dont le
+produit est 40 et dont la somme est 13
+(la moitié du périmètre du sol de la piscine).
+
+Apprends!
+Premièrement La factorisation d’un trinôme de la forme X² + b X + c
+Lorsqu’on multiplie les deux binômes (X + 2) et (X + 3), on constate
+que le résultat est un trinôme comme suit:
+(X + 2) (X + 3) = X² + 5 X + 6.
+Remarque que:
+• Le dernier terme 6 dans le trinôme est le produit des deux derniers
+termes dans les deux binômes 2 et 3.
+• Le coefficient du terme médian 5 dans le trinôme est le résultat de la
+somme des deux derniers termes dans les deux binômes 2 et 3.
+
+Premier semestre
+Leçon 2: La factorisation d’un trinôme
+39

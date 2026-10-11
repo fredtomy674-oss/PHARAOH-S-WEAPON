@@ -1,0 +1,61 @@
+(8) The given table shows the ascending
+cumulative frequency distribution of the
+marks of 100 students in the second
+preparatory class in mathematics
+(1) How many students got less than 25
+marks?
+(2) How many students got 30 marks or
+more?
+(3) Form a frequency table with intervals.
+
+| Upper limits of intervals | Ascending cumulative frequency |
+| :--- | :--- |
+| less than 5 | 0 |
+| less than 10 | 10 |
+| less than 15 | 36 |
+| less than 20 | 61 |
+| less than 25 | 79 |
+| less than 30 | 89 |
+| less than 35 | 95 |
+| less than 40 | 100 |
+
+Third Analysis and Subjects Integration
+
+(9) Tourism: The given pie chart shows the number of tourists
+visited the Khan Al-Khalili area on one day according to
+their ages in years (20- , 30- , ...).
+If the total number of tourists is 600, form an ascending
+cumulative frequency table and represent it graphically.
+
+(10) Shopping: A survey was conducted on 40 people who purchased tablet devices to find out the
+screen size of their devices in inches. The following table summarises the results of this survey.
+
+| Size (inches) | Frequency |
+| :--- | :--- |
+| 7- | 5 |
+| 8- | 6 |
+| 9- | 9 |
+| 10- | 16 |
+| 11- | 3 |
+| 12- | 1 |
+
+Form an ascending cumulative frequency table and represent it graphically, then answer the
+following questions:
+(1) How many tablets have the following sizes:
+From 7 to less than 8 inches?
+Less than 11 inches?
+9 inches or more?
+(2) What is the percentage of tablets that have the
+following sizes:
+From 10 to less than 11 inches?
+Less than 9 inches?
+
+Evaluate your
+understanding!
+How well do you understand
+ascending cumulative
+frequency table and its
+graphical representation?
+Tick the right box
+
+First Term Lesson One: Ascending Cumulative Frequency Table and Its Graphical Representation 111

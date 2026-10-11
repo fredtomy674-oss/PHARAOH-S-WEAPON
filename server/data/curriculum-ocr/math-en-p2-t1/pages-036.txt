@@ -1,0 +1,55 @@
+Unit One Assessment
+
+Evaluate your understanding!
+How well do you
+understand Unit One?
+Tick the right box
+
+▶ Choose the correct answer from the given ones:
+(1) If a = 2 3√1/4 - 1 3√16, what is the value of a?
+(a) -1
+(b) 1
+(c) 3√2
+(d) 0
+
+(2) Which interval does represent R ∩ ]- 2, 3]?
+(a) ]- 2, 0[
+(b) ]- 2, 0]
+(c) ]- 2, 1]
+(d) ]0, 3]
+
+(3) If (√2)^x-1 = √3, what is the value of (√2)^x?
+(a) 1/2 √6
+(b) 1/2 √3
+(c) √6
+(d) 1/6 √6
+
+(4) Which of the following numbers is an irrational number?
+(a) 3√-27
+(b) -√2 1/4
+(c) 0.5
+(d) 3√1/3
+
+▶ Complete each of the following with the correct answer:
+(5) The solution set of the equation 1/2 x^2 + 2 = 0 in R is .............
+(6) If n is an integer, n < √29 < n + 1 then n = .............
+(7) The multiplicative inverse of the number √10 - 3 in its simplest form is .............
+(8) If X = ]- 1, ∞[, then the interval that represents the complement of X is equal to .............
+
+▶ Answer the following questions:
+(9) Simplify the expression: (√15)^n-2 x (√6)^n / 2 x (√10)^n-2 to its simplest form, then find the numerical value of the result when n = 1
+(10) If X = √7 - √6, then find in simplest form: X - 1/X
+(11) If A = ]- ∞, 1], B = ]- 2, 2], then find in the form of an interval B - A
+(12) Arrange the numbers in ascending order: 3 1/2, 3.5, 2√3
+
+Unit One Activity The Golden Triangle
+▶ Activity Aim: To learn new models and shapes that shows the golden ratio in mathematics.
+▶ Implementation Steps:
+In collaboration with one of your friends, try to do the following:
+(1) Use an artificial intelligence application to search for some examples of the golden ratio in mathematics.
+(2) List some shapes in which the golden ratio can be found.
+(3) Can the golden ratio be found in a triangle?
+Collect data on this case and mention the type of triangle that can be called (a golden triangle).
+(4) Explain the steps you made to answer the previous questions, showing some pictures of the shapes you came up with.
+
+First Term Unit One Assessment 31

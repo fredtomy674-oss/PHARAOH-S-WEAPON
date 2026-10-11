@@ -1,0 +1,28 @@
+À la lumière des activités (1) et (2), il est clair que:
+- Le tableau périodique reflète la structure électronique et les propriétés des atomes.
+- La position d'un élément dans le tableau périodique est déterminé par la connaissance de nombre des niveaux d'énergie occupés dans son atome (numéro de la période) et le nombre des électrons dans son dernier niveau d'énergie (numéro du groupe)
+- La structure électronique de la plupart des métaux se termine par un nombre de 1, 2 ou 3 électrons tandis que la structure électronique de la plupart des non-métaux se termine par un nombre 5, 6 ou 7 électrons.
+- Les métalloïdes ne peuvent pas être identifiés par le nombre d'électrons dans le niveau d'énergie externe.
+- Les éléments d'un même groupe ont des propriétés chimiques similaires et leur activité chimique augmente, dans le groupe des alcalins et des alcalino-terreux, avec l'augmentation du numéro atomique, et l'activité chimique des alcalino-terreux est inférieure à celle des métaux alcalins qui sont très actifs, alors que l'activité chimique dans le groupe des halogènes diminue avec l'augmentation du numéro atomique.
+
+Valence de l'élément
+Les électrons du dernier niveau d'énergie sont appelés (les électrons de valence) et sont représentés par des points autour du symbole de l'élément sur les quatre côtés d'abord individuellement, puis commence l'appariement jusqu'à ce qu'ils soient tous distribués dans ce que l'on appelle la représentation de Lewis (tableau 2)
+
+| Numéro du groupe | 1A | 2A | 3A | 4A | 5A | 6A | 7A | 0 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Élément | Li | Be | B | C | N | O | F | Ne |
+| Valence | Monovalent | Bivalent | Trivalent | Tétravalent | Trivalent | Bivalent | Monovalent | Zéro |
+
+Tableau (2)
+On peut déduire la valence d'un élément en fonction du nombre d'électrons non appariés dans sa représentation de Lewis. On remarque dans le tableau (2) que la valence des éléments des groupes (1A à 4A) est égale au numéro du groupe, tandis que la valence des éléments des groupes (5A à 0) est égale à (8 - le nombre d'électrons dans le dernier niveau d'énergie).
+
+Évalue ta compréhension
+(Les figures 3 et 4) montrent la structure électronique des atomes de deux éléments (X) et (Y). Détermine la valence et la position de chacun d'eux dans le tableau périodique.
+• Élément (X): ........................................................
+........................................................
+• Élément (Y): ........................................................
+........................................................
+
+Figure (3) Figure (4)
+
+october press LEÇON DEUX : Le tableau périodique de classification des éléments 15

@@ -1,0 +1,51 @@
+It is observed that the type of charge acquired
+by the rubbed object differs depending on the
+material of the rubbing object.
+(Table 1) shows the order of some materials in
+the electrostatic series according to the easiness
+of losing electrons.
+When a material is rubbed with another material
+that follows it in this series, the preceding material
+will be charged with a positive electric charge,
+and the following one will be charged with a negative
+electric charge. Weak electric charges are measured
+by a device known as a coulometer (Figure 9).
+Charged objects affect each other with mutual forces,
+which may be attractive forces or repulsive forces.
+Attraction may occur between an uncharged object and a charged object, such as the attraction
+of paper scraps to the comb after rubbing it.
+When do electrically charged objects attract or repel each other ? .......................................................
+
+Evaluate Your Understanding
+▶ What is the type of charge formed on each
+of a piece of synthetic leather and a wooden
+rod when rubbed together ? Explain.
+
+Cross-Cutting Concepts : Cause and effect
+The type of charge acquired by the rubbed
+object differs depending on the material of
+the rubbing object.
+
+Scientific Skills Prediction
+When passing a beam of subatomic particles through
+an electric field composed of two plates, one is positively
+charged and the other is negatively charged (Figure 10), then :
+- Neutrons ....................................................................................................................................................
+- Protons ........................................ toward the ........................................ plate.
+- Electrons ........................................ toward the ........................................ plate.
+
+Life Applications
+1 When metal is coated using the electrostatic coating method,
+Figure (11), the object to be coated is charged with negative
+electric charge, and the paint spray with positive electric charge.
+When the paint is sprayed, attraction occurs between
+the object and the paint spray due to the difference in charge;
+resulting in a uniform paint layer and reducing paint waste.
+2 Lightning Rod is a system used to protect installations and
+buildings from lightning strikes, Figure (12). It consists of a metal
+rod whose lower end is fixed in a metal plate that is buried in the
+ground, while its upper end is pointed, through which, the electric
+charges that are accumulated on nearby clouds pass to the
+ground without causing any damage to the building.
+
+36 UNIT TWO : Force Fields

@@ -1,0 +1,79 @@
+■ Self-Evaluation ③
+Solve each of the
+following proportions:
+1) $\frac{2}{5} = \frac{x}{20}$
+2) $a : 36 = 25 : 20$
+
+■ Enriched Information
+Units of measuring weights
+are different from units of
+measuring mass.
+Examples of units of
+measuring weight are
+Newton - Dyne
+While,
+Ton - Kilogram - Gram
+are units of measuring mass.
+
+■ Self-Evaluation ④
+If a car covers a distance
+of 320 km in 4 hours,
+how much time would it take
+the car to cover another
+distance of 480 km if it
+travels at the same rate?
+
+Solving Proportion
+Example 3
+Solve the proportion: $\frac{12}{16} = \frac{21}{x}$
+
+Solving the proportion means finding the
+unknown value in the proportion.
+Write the proportion $\frac{12}{16} = \frac{21}{x}$
+Use cross multiplication $x \times 12 = 16 \times 21$
+Multiply $12x = 336$
+Divide by 12 $\frac{12x}{12} = \frac{336}{12}$
+Simplify $x = 28$
+
+Example 4
+Science: The weight of a body on earth is 90 Newtons.
+If its weight on the moon is 15 Newtons.
+What is the weight of another body on the moon if its weight on earth is
+60 Newtons?
+
+Let $x$ be the weight of the other body
+on the moon.
+Then, $\frac{15}{90} = \frac{x}{60}$
+The proportion
+$x \times 90 = 15 \times 60$ Cross multiplication
+$90x = 900$ by Multiplying
+$\frac{90x}{90} = \frac{90}{90}$ Dividing by 90
+$x = 10$ by Simpling
+Hence, the weight of the other body on the moon is 10 Newtons.
+
+■ Mental Math
+- You can simplify the ratio
+$\frac{12}{16}$ before using cross
+multiplication
+$\div 4$
+$\frac{12}{16} = \frac{3}{4}$
+$\div 4$
+Then, the proportion
+becomes as follows $\frac{3}{4} = \frac{21}{x}$
+
+- You can solve the previous
+proportion using mental
+math directly
+$\times 7$
+$\frac{3}{4} = \frac{21}{x}$
+$\times 7$
+Then, $x = 28$
+
+Collaborative Activity
+Collaborate with one of your friends and use the Internet to discover
+the relationship between the weight of a body on earth and its weight
+on the moon.
+Use your research to calculate the weight of your friend on the moon,
+and let your friend calculate your weight on the moon.
+
+4 Unit One: Numbers and Their Operations Mathematics - First Preparatory

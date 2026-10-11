@@ -1,0 +1,65 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+
+▶ Choose the correct answer from the given ones:
+
+(1) What is the center of the second interval of the intervals:
+5-, 15-, 25-, 35-?
+(a) 5 (b) 10 (c) 15 (d) 20
+
+(2) If Σ f = 50, Σ (f . Xm) = 800, what is the arithmetic mean X?
+(a) 16 (b) 160 (c) 750 (d) 850
+
+(3) If the upper limit of an interval is 18 and its center is 15.5, what is the lower limit of this interval?
+(a) 12 (b) 12.5 (c) 13 (d) 13.5
+
+(4) The following frequency table shows the marks of 150 students in mathematics:
+Marks: 4-, 12-, 20-, 28-, 36-, 44-, 52- | Total
+Frequency: 15, 3 k, 4 k, 32, 25, 22, 14 | 150
+
+(1) What is the value of k?
+(a) 4 (b) 5 (c) 6 (d) 7
+
+(2) What is the order of the median?
+(a) 37.5 (b) 75 (c) 112.5 (d) 150
+
+(3) What is the value of the median?
+(a) 28 (b) 32.5 (c) 34.5 (d) 36
+
+(5) From the given histogram, what is the modal interval?
+(a) 30-
+(b) 40-
+(c) 50-
+(d) 70-
+
+Frequency
+28
+24
+20
+16
+12
+8
+4
+0
+30 40 50 60 70 80
+Intervals
+
+(6) The given ascending cumulative frequency table shows the number of weekly working hours for 40 workers in a factory. What is the value of the median?
+(a) 28.75
+(b) 30.25
+(c) 24.75
+(d) 31.25
+
+Upper limits of intervals | Frequency
+less than 20 | 0
+less than 24 | 2
+less than 28 | 7
+less than 32 | 23
+less than 36 | 35
+less than 40 | 38
+less than 44 | 40
+
+First Term
+Lesson Two: Measurements of Central Tendency of the Frequency Table with Intervals
+117

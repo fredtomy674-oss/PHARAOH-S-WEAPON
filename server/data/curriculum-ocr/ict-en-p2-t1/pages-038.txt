@@ -1,0 +1,24 @@
+Learn by doing
+
+Put a check mark (✔) in front of the correct sentence and a check mark (*) in front of the incorrect sentence.
+
+1. Big data has no role in the development and effectiveness of artificial intelligence.
+( )
+2. AI technologies help in processing and analyzing big data. ( )
+3. One of the stages of big data processing is data cleaning. ( )
+4. The data collection stage is the process of collecting large amounts of data from various sources. ( )
+5. The process of processing big data does not require storing that data. ( )
+6. Data cleaning means dealing with errors, duplication, or incorrect data. ( )
+7. Data analysis using advanced tools and techniques such as artificial intelligence.
+( )
+8. Information extraction takes place before data analysis. ( )
+9. Machine learning and deep learning do not require big data. ( )
+10. Big data is used to monitor networks and cybersecurity. ( )
+11. E-commerce platforms rely on big data to understand customer behavior. ( )
+12. Big data does not allow models to be trained on a wide range of scenarios and conditions. ( )
+13. Computer vision applications, such as face recognition and object detection, do not require massive datasets of images and videos to train their models. ( )
+14. The role of big data in AI is to improve accuracy and performance and enable AI applications. ( )
+15. Advanced AI applications include predictive analytics and computer vision. ( )
+16. AI does not use big data to understand customer interactions with products and services. ( )
+
+38

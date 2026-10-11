@@ -1,0 +1,22 @@
+h1 {color: brown; font-size: 24px;}
+
+Dear student... Note the following:
+• The body element in the CSS file affects the body area of the HTML file and makes it appear light blue.
+• The h1 element in the CSS file affects the main web page headings and makes them brown and 24px in size.
+
+New Text Document.htm
+X
++
+File C:/Users/Mohamed/Desktop/New%20folder/New%20Text%20Document.htm
+Here is the page title
+Here the content appears
+
+Activity:
+Dear student, based on your study of HTML in previous years, create
+- The two web pages shown below.
+- Use external CSS code to create a uniform format for the web pages.
+
+A web page containing school data.
+A web page containing student data.
+
+59

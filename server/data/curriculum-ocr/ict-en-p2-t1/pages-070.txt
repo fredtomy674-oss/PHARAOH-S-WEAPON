@@ -1,0 +1,45 @@
+...................... ....................... ...............
+
+</div>
+
+Close the container div
+
+</body>
+
+...................... ....................... ...............
+
+</html>
+
+Close the HTML element
+
+Activity: Dear student, with the help of your teacher and in cooperation with
+your classmates, the CSS code for formatting my two web pages
+
+body {
+text-align: center;
+font-weight: bold;
+}
+
+.container {
+width: 80%;
+margin: auto;
+background-color: lightcyan;
+}
+
+header {
+padding: 10px;
+color: white;
+background-color: darkblue;
+}
+
+section {
+padding: 15px;
+}
+
+h2 {
+padding-bottom: 10px;
+color: blue;
+border-bottom: 5px solid blue;
+}
+
+70

@@ -1,0 +1,72 @@
+■ Note that
+Congruent polygons must be
+named in the same order as
+their corresponding vertices.
+For example:
+C F
+A B D E
+Δ ABC ≅ Δ DEF
+
+■ Remember that
+Reflection, translation,
+and rotation are geometric
+transformations that give
+an image congruent to the
+geometric shape because
+they preserve the following:
+• Angle measures.
+• Side lengths.
+• Parallelism.
+
+■ Self-Evaluation 1
+In the following figure:
+Δ BCD is the image of
+Δ BAD by reflection in DB
+D
+30°
+A 20 cm C
+(2y)° 100° X cm
+B
+Find the value of each of
+X and Y.
+
+Congruence of two polygons
+Two polygons are congruent if the following two conditions are satisfied
+together:
+1 Their corresponding sides are equal in length.
+2 Their corresponding angles are equal in measure.
+If ABCD and EFGH are two polygons in which:
+1 AB = EF, BC = FG,
+CD = GH, AD = EH
+2 m (∠ A) = m (∠ E), m (∠ B) = m (∠ F),
+m (∠ C) = m (∠ G), m (∠ D) = m (∠ H)
+then The polygon ABCD ≅ the polygon EFGH
+
+Example 1
+In the given figure:
+If the polygon EFGH is the image
+of the polygon ABCD by rotation
+around a point,what is the value
+of each of X and Y?
+G 6 cm F
+H X°
+E
+D C
+50° 2 y cm
+A B
+∴ AB // DC
+∴ m (∠ A) + m (∠ D) = 180°
+(Two interior angles on the same side of the transversal AD)
+∴ m (∠ D) = 180° - 50° = 130°
+∴ The polygon EFGH is the image of the polygon ABCD by rotation
+∴ The polygon ABCD ≅ the polygon EFGH
+∴ m (∠ H) = m (∠ D) = 130° ∴ X = 130
+BC = FG = 6 ∴ 2 y = 6 ∴ y = 3
+
+Congruence of two triangles
+The triangle is a polygon with 6 elements (3 sides and 3 angles).
+To prove that two triangles are congruent, it is not necessary to prove
+that all corresponding elements are congruent. It is sufficient to prove
+that three elements, including at least one side, are congruent.
+
+First Term Lesson One: Congruence 63

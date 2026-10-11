@@ -1,0 +1,37 @@
+**4- Data analysis:**
+
+After storing and cleaning the data, it is time to analyze the data using advanced tools and techniques such as artificial intelligence and machine learning.
+
+**5- Information extraction:**
+
+After analyzing the data, valuable information is extracted that can be used to improve operations or make strategic decisions.
+
+**Second: Uses of Big Data**
+
+**1- Artificial Intelligence (AI)**
+
+It is a branch of information systems science that creates and designs algorithms that mimic human intelligence methods, enabling computers to perform certain tasks instead of humans, such as pattern recognition, speech, hearing, movement, and logical reasoning.
+
+**2- Machine Learning and Deep Learning:**
+
+Big data is used to train models that can improve their performance over time. The greater the quality, volume, and variety of data available, the greater the ability of these models to learn and make accurate predictions and decisions. For example, machine learning is used to predict future events such as weather.
+
+**3- Network Monitoring and Cybersecurity**
+
+Big data is used to monitor network traffic and analyze patterns to detect security threats and protect systems from attacks.
+
+**4- E-commerce**
+
+E-commerce platforms rely on big data to understand customer behavior, improve recommendations, adjust prices, and achieve higher sales using advanced analytics.
+
+**Third: The Role of Big Data in Artificial Intelligence:**
+
+**A- Improving Accuracy and Performance:**
+
+Big data enables models to be trained on a wide range of scenarios and conditions, improving their generalization ability and reducing the overfitting problem, thus increasing their accuracy and effectiveness in the real world.
+
+**B- Enabling Advanced AI Applications:**
+
+**1-Natural Language Processing (NLP):**
+
+36

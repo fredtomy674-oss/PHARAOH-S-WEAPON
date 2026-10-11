@@ -1,0 +1,78 @@
+Leçon
+2 - 4 La factorisation par partition
+
+■ Résultats
+d’apprentissage
+• Factoriser un polynôme à
+travers la partition.
+• Savoir la complétion d’un
+carré.
+• Utiliser la complétion
+d’un carré dans la
+factorisation et la
+résolution d’équations.
+• Utiliser la factorisation
+par partition pour
+résoudre des problèmes
+de la vie.
+
+■ Vocabulaire
+• La factorisation par
+partition
+• La complétion d’un carré
+
+Sois prêt!
+La bibliothèque centrale à l’université du
+Caire est l’un des établissements éducatifs
+et culturels les plus importants à l’intérieur
+de l’université. Elle est également l’une des
+plus grandes bibliothèques universitaires
+du monde arabe.
+Et elle peut accueillir plus d’un millier de
+lecteurs en même temps. Si l’aire du terrain
+rectangulaire sur lequel elle est construite
+est (3 X³ - 6 X² + 4 X - 8) m². Comment
+peut-on déterminer des dimensions
+possibles de ce terrain?
+Dans cette leçon, tu apprendras à factoriser par partition, ce qui te
+permettra de résoudre de tels problèmes.
+
+Réfléchis et discute!
+Voici quatre rectangles dont les dimensions sont comme suit:
+y
+b
+x
+a
+x
+y
+b
+b
+a
+x
+y
+b
+Ces quatre rectangles sont disposés pour former
+un grand rectangle comme sur la figure.
+► Quelle est l’aire du grand rectangle?
+
+La réponse de Bassem:
+L’aire du rectangle est égale à
+ab + X y + a X + b y
+
+La réponse de Mariam:
+L’aire du rectangle est égale à
+(b + X) (a + Y)
+
+Lequel d’eux a raison? Discute et que conclus-tu?
+
+Apprends!
+La factorisation par partition
+On peut factoriser le polynôme formé de quatre termes en utilisant l’une
+des deux méthodes suivantes:
+La première méthode
+Divise le polynôme en deux binômes de sorte que tu puisse factoriser
+chaque binôme , puis retire le binôme répété comme un facteur commun.
+
+Premier semestre
+Leçon 4: La factorisation par partition
+53

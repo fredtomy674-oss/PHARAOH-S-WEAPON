@@ -1,0 +1,74 @@
+■ Auto-évaluation 5
+Lequel de ce qui suit
+représente les longueurs
+des côtés d'un triangle
+rectangle?
+1 9 cm, 40 cm, 41 cm
+2 √7 cm, 3√2 cm, 5 cm
+3 30 cm, 40 cm, 60 cm
+
+■ Auto-évaluation 6
+Dans la figure suivante:
+EC = AC
+Prouve que:
+m (∠ A) = 90°
+
+■ Remarque que
+►L'inégalité de Pythagore
+est utilisée pour savoir
+si le triangle est aigu ou
+obtus.
+►Tandis que la réciproque
+du théorème de Pythagore
+est utilisée pour savoir si
+le triangle est rectangle
+ou non.
+
+Exemple 5
+Lequel de ce qui suit représente les longueurs des côtés d'un
+triangle rectangle?
+1 8 cm, 13 cm, 15 cm
+2 25 cm, 7 cm, 24 cm
+1 La longueur du plus long
+côté = 15
+∵ (13)² + (8)² = 233,
+∵ (15)² = 225
+∴ (13)² + (8)² ≠ (15)²
+∴ Le triangle n'est pas rectangle.
+2 La longueur du plus long
+côté = 25
+∵ (7)² + (24)² = 625,
+∵ (25)² = 625
+∴ (7)² + (24)² = (25)²
+∴ Le triangle est rectangle.
+
+Exemple 6
+Dans la figure ci-contre:
+XYZ est un quadrilatère non convexe et
+m (∠ XYZ) = 90°.
+Trouve l'aire du quadrilatère XYZM
+
+✔ La construction: Trace XZ
+Dans le triangle XYZ rectangle en Y:
+∵ (XZ)² = (3)² + (4)² = 9 + 16 = 25 ∴ XZ = 5
+Dans le triangle XZM:
+∵ (XZ)² + (ZM)² = (5)² + (12)² = 25 + 144 = 169,
+(XM)² = (13)² = 169
+∴ (XM)² = (XZ)² + (ZM)² ∴ m (∠ XZM) = 90°
+∵ L'aire du quadrilatère XYZM = L'aire du Δ XZM – l'aire du Δ XYZ
+∴ A = (1/2 × 5 × 12) – (1/2 × 3 × 4) = 30 – 6 = 24
+C'est-à-dire que l'aire du quadrilatère XYZM est égale à 24 cm².
+
+L'inégalité de Pythagore
+Dans le triangle ABC: Si c est la longueur du plus long côté
+du triangle et que:
+c² < a² + b²
+Δ ABC est un triangle
+acutangle
+c² > a² + b²
+Δ ABC est un triangle
+obtusangle
+
+Premier semestre
+Leçon 2: Le théorème de Pythagore et sa réciproque
+73

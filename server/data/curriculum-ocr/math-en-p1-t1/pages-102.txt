@@ -1,0 +1,84 @@
+■ Think
+► Can a square be
+considered as a rhombus
+that has one right angle?
+► Can a square be
+considered as a rectangle
+that has two adjacent
+sides are equal in length?
+
+When does a parallelogram become a rectangle,
+a rhombus, or a square?
+A parallelogram becomes as:
+A Rectangle
+If:
+► It has one right
+angle,
+Or
+► Its diagonals
+are equal in
+length.
+A Rhombus
+If:
+► It has two
+adjacent sides
+equal in length,
+Or
+► Its diagonals are
+perpendicular.
+A Square
+If:
+► It has one right angle
+and two adjacent sides
+equal in length,
+► It has one right angle
+and its diagonals are
+perpendicular,
+► Its diagonals are
+perpendicular and
+equal in length,
+Or
+► It has two adjacent
+sides equal in length
+and its diagonals are
+equal in length.
+
+■ Self-Evaluation (5)
+Find the value of $X$ that
+makes:
+1 ABCD is a square.
+D C
+x°
+A B
+2 The parallelogram ABCD
+is a rhombus.
+D C
+6 cm
+A $(X - 1)$ cm B
+
+Example (5)
+In the opposite figure:
+Find the value of $X$ that makes the
+parallelogram $ABCD$ is a rectangle.
+D C
+M
+5 cm
+A B
+$(2x - 1)$ cm
+The parallelogram $ABCD$ is a rectangle if: $AC = BD$
+$2 (2 X - 1) = 2 \times 5$
+$2 X - 1 = 5$
+$2 X = 5 + 1 = 6$
+$X = \frac{6}{2} = 3$
+
+Collaborative Activity
+Collaborate with a group of your classmates. Each one of
+you should draw a quadrilateral on a graph paper, so that you
+will have a variety of different quadrilaterals. Each time, use
+a protractor to measure each angle in each quadrilateral and
+verify that the sum of the measures of the interior angles is 360°.
+
+First Term
+Lesson Four: Quadrilaterals
+El Nemer Press
+95

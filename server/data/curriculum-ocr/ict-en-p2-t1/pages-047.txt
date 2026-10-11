@@ -1,0 +1,45 @@
+2. The Importance of UI:
+• Visual Appeal: A beautiful interface creates a good first impression by displaying a
+simplified image of one eye looking with admiration at a beautiful design, and
+another eye looking with displeasure at a disorganized and ugly design. If the
+interface isn't visually appealing, users won't like it.
+Activity: Dear student, with the help of your teacher and in cooperation with your
+classmates, discuss the basic principles that must be present and taken into account in
+designing the user interface of a website or application.
+
+- Basic Principles of User Interface (UI) Design
+1. Colors:
+• "Choosing the right colors affects the user's mood."
+• Illustrated Examples:
+
+Educational application
+
+Discover our interactive lessons and enjoy
+learning in a fun way.
+
+Lessons
+
+Tests
+
+Games
+
+A harmonious color scheme such as
+blue and gray. The colors look calm
+and relaxing.
+
+Bright colors like red, yellow, and
+purple are annoying and distracting.
+
+Games area
+
+Play
+Results
+Settings
+
+neon blue box
+
+Pink box
+
+Click to start now
+
+47

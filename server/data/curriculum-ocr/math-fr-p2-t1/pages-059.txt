@@ -1,0 +1,52 @@
+Remarque
+On peut factoriser le trinôme qui est de la forme: a x² + b x + c où (a ≠ 1) en utilisant la factorisation par partition comme ce qui suit:
+1 Trouve deux facteurs dont le produit est (ac) et dont la somme est (b).
+2 Réécris (b x) sous la forme de la somme de ces deux facteurs.
+3 Utilise la factorisation par partition.
+
+■ Auto-évaluation 2
+Utilise la factorisation par partition pour factoriser chacun des deux trinômes suivants:
+1 2 x² - x - 28
+2 6 x² + 19 x + 15
+
+Exemple 2
+Factorise 3 x² + 8 x + 4 en utilisant la factorisation par partition.
+✓
+∵ a = 3, b = 8 et c = 4
+Trouve deux nombres dont le produit est (a c) 12 et dont la somme est (b) 8 ∴ Les deux nombres sont 2 et 6
+Réécris 8 x sous la forme de l'addition de (6 x + 2 x), puis utilise la factorisation par partition comme ce qui suit:
+3 x² + 8 x + 4 = 3 x² + 6 x + 2 x + 4 = (3 x² + 6 x) + (2 x + 4)
+= 3 x (x + 2) + 2 (x + 2)
+= (x + 2) (3 x + 2)
+
+La seconde méthode
+Divise le polynôme en un trinôme qui représente un carré parfait et le quatrième terme doit également être un carré parfait, de sorte que le polynôme d'origine soit factorisé comme la différence entre deux carrés.
+
+■ Auto-évaluation 3
+Factorise complètement chacun de ce qui suit:
+1 x² - 12 x y + 36 y² - 4
+2 x² + y² - 64 + 2 x y
+
+Exemple 3
+Factorise complètement chacun de ce qui suit:
+1 x² + 16 y² - 8 x y - 49
+2 4 m² - n² + 10 n k - 25 k²
+✓
+1 x² + 16 y² - 8 x y - 49 = (x² - 8 x y + 16 y²) - 49
+= (x - 4 y)² - (7)²
+= (x - 4 y - 7) (x - 4 y + 7)
+
+2 4 m² - n² + 10 n k - 25 k² = 4 m² - (n² - 10 n k + 25 k²)
+= 4 m² - (n - 5 k)²
+= [2 m - (n - 5 k)] [2 m + (n - 5 k)]
+= (2 m - n + 5 k) (2 m + n - 5 k)
+
+■ Réfléchis
+Lorsqu'on factorise les deux polynômes suivants par partition:
+1 x² + 4 x - y² + 4
+2 x² + 4 x - y² + 4 y
+Discute la méthode de la partition de chacun d'eux.
+
+Premier semestre
+Leçon 4: La factorisation par partition
+55

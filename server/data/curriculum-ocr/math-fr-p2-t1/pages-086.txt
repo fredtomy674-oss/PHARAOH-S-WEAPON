@@ -1,0 +1,67 @@
+(10) Dans la figure ci-contre:
+Trouve avec la
+démonstration la
+longueur de BK.
+
+(11) Dans la figure ci-contre:
+ABCD est un quadrilatère
+dans lequel E et F sont les
+deux milieux de
+AB et BC respectivement.
+Trouve l'aire: Δ BEF.
+
+(12) Dans la figure ci-contre:
+ABCD est un parallélogramme,
+Si E et F sont les deux
+milieux de
+BC et AD respectivement.
+Prouve que: AC = 3 AG
+
+(13) Dans la figure ci-contre:
+T, S, L et K sont les milieux
+des côtés du
+quadrilatère ABCD
+Prouve que:
+La figure KLST est un
+parallélogramme.
+
+Troisièmement L'analyse et l'intégration des disciplines
+
+(14) Décoration: La figure ci-contre représente
+une bibliothèque en bois sous la forme de triangle
+équilatéral dont la longueur de son côté mesure 3 m
+et qui contient trois étagères en verre.
+Quelle est la longueur de chaque étagère des trois étagères?
+
+La répartition optimale des pièces décoratives
+en fonction des espaces reflète une conscience
+esthétique et crée une sensation de confort.
+
+(15) Conception géométrique: Lors de la conception d'une
+balançoire comme dans la figure ci-contre ,la longueur de
+la barre transversale horizontale qui relie les deux milieux
+des deux pieds était égale à X pieds, où 3 ≤ X ≤ 4. Trouve
+la plus petite distance entre les deux extrémités des pieds
+au sol.
+
+Choisir des endroits sûrs pour
+jouer réduit le risque de blessures.
+
+Pensée créative
+
+(16)
+Figure (1) Figure (2) Figure (3) Figure (4)
+
+Évalue ta compréhension!
+Quel est ton niveau de
+compréhension des
+applications du parallélisme?
+Coche la case appropriée.
+
+La figure (1) représente un triangle dont le périmètre est de 8 cm et le triangle résultant des trois
+segments médians a été coloré comme dans la figure (2), puis on a répété cela sur les triangles non
+colorés pour obtenir la figure (3) puis avec le même modèle la figure (4) a été formée.
+Calcule la somme des périmètres des triangles colorés dans la figure (3). Peux-tu calculer la somme
+des périmètres des triangles colorés dans la figure (4)?
+
+82 Unité 3: La géométrie Mathématiques - deuxième préparatoire

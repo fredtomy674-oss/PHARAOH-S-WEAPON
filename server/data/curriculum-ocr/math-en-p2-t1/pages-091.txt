@@ -1,0 +1,49 @@
+■ Self-Evaluation (4)
+In the following figure:
+If C ∈ BD, AB ⊥ BD,
+E is the midpoint of AC,
+EF // CD
+AB = 24 cm, BC = 18 cm,
+CD = 14 cm
+Find the perimeter of the
+triangle BEF.
+
+Example 4
+In the given figure:
+If ABC is a right-angled triangle at B,
+BD and CE are two medians in it, EF // BD,
+EF = 5 cm, find the length of AC
+In Δ ABD:
+∵ E is the midpoint of AB, EF // BD ∴ F is the midpoint of AD
+∴ EF = 1/2 BD ∴ BD = 2 × 5 = 10 cm
+∵ BD is the median drawn from the right angle at vertex B
+∴ BD = 1/2 AC ∴ AC = 2 × 10 = 20 cm
+
+Converse of theorem 4-3
+If the length of the median drawn from a vertex of a triangle equals half
+the length of the opposite side to this vertex, then the angle at this
+vertex is right.
+In the given figure:
+If AD is a median drawn from the vertex A,
+and AD = BD = CD = 1/2 BC,
+then m (∠ BAC) = 90°
+
+■ Self-Evaluation (5)
+In the following figure:
+If D is the midpoint of BC,
+prove that: m (∠ BAC) = 90°
+
+Example 5
+In the given figure:
+If AD is a median of the triangle ABC,
+prove that: m (∠ BAC) = 90°,
+then find the area of the triangle ABC
+∵ AD = 17 cm, BC = 34 cm.
+∴ AD = 1/2 BC ∴ m (∠ BAC) = 90°
+From Pythagoras' Theorem,
+(AC)² = (BC)² - (AB)²
+= (34)² - (16)² = 900
+∴ AC = √900 = 30 cm
+∴ The area of Δ ABC = 1/2 × AB × AC = 1/2 × 16 × 30 = 240 cm².
+
+86 Unit Three: Geometry Mathematics - Second Preparatory

@@ -1,0 +1,23 @@
+Learn by doing
+
+First: Put a check mark (✓) in front of the correct sentence and a check mark (*) in front of the incorrect sentence.
+1. The HTML language is used only to describe the appearance of web pages. ( )
+2. The CSS language was created to facilitate the formatting of web pages and to separate the formatting from the content. ( )
+3. One of the benefits of CSS is that it is used to design the structure and content of a page. ( )
+4. An external CSS file can be used to format a large number of HTML pages at once. ( )
+5. The <font> tag is still the preferred method for formatting text in modern HTML pages. ( )
+6. An external CSS file is embedded in HTML using the <link> tag. ( )
+7. The browser loads the external CSS file only once and then uses the saved copy.
+( )
+8. The rel="stylesheet" attribute is used when linking a CSS file to an HTML file.
+( )
+9. An external CSS file can contain HTML tags. ( )
+10. CSS can be used to change the font size and color. ( )
+11. Inline CSS is used to apply styles to all pages on a website. ( )
+12. Internal CSS is best used on large websites to standardize formatting. ( )
+13. CSS makes it easy to modify the appearance of all linked pages at once. ( )
+14. Formatting HTML elements with CSS makes a page more organized and attractive. ( )
+15. In CSS code, the Selector defines properties such as "color" and "size." ( )
+16. The body element in CSS can change the background of the entire page. ( )
+
+61

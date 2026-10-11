@@ -1,0 +1,72 @@
+■ Self-Evaluation (1)
+The following frequency table shows the heights of a sample of plants in a nursery.
+| Intervals (mm) | Frequency |
+| :--- | :--- |
+| 300 - | 3 |
+| 320 - | 18 |
+| 340 - | 47 |
+| 360 - | 32 |
+| 380 - | 14 |
+| 400 - | 6 |
+Estimate the arithmetic mean of the plant heights.
+
+■ Note that
+The lengths of the intervals are equal. In example (1), the length of each interval = 10
+∴ The first interval is (80 - 90)
+∴ The center of the first interval = 80 + 90 / 2 = 85
+∴ The second interval is (90 - 100)
+∴ The center of the second interval = 90 + 100 / 2 = 95
+And so on ...
+∴ The last interval is (120 - 130)
+∴ The center of the last interval = 120 + 130 / 2 = 125
+Then form the table as shown.
+
+■ Self-Evaluation (2)
+The number of patients visiting a clinic in a hospital over a number of days was recorded as follows:
+| Number of patients | Frequency |
+| :--- | :--- |
+| 10 - | 16 |
+| 20 - | 15 |
+| 30 - | m |
+| 40 - | 10 |
+| 50 - | 3 |
+| 60 - | 2 |
+If the mean of patients per day is 30 patients, find the value of m.
+
+Example (1)
+When measuring the speeds of some cars passing on a motorway, the traffic department found the following data when observing the speeds of 100 cars on one day.
+| Speed (km/h) | Frequency |
+| :--- | :--- |
+| 80 - | 13 |
+| 90 - | 17 |
+| 100 - | 24 |
+| 110 - | 32 |
+| 120 - | 14 |
+
+Estimate the arithmetic mean of the speeds of cars passing on that day.
+
+| Intervals | Frequency (f) | Centers of intervals (Xm) | f.Xm |
+| :--- | :--- | :--- | :--- |
+| 80 - | 13 | 85 | 1105 |
+| 90 - | 17 | 95 | 1615 |
+| 100 - | 24 | 105 | 2520 |
+| 110 - | 32 | 115 | 3680 |
+| 120 - | 14 | 125 | 1750 |
+| Total | 100 | | 10670 |
+
+X̄ = Σ (f.Xm) / Σf = 10670 / 100 = 106.7
+∴ The arithmetic mean of the speeds of cars = 106.7 km/h
+
+Example (2)
+The given table shows the number of points scored by one of the teams in the league of basketball games. If the mean of points scored by the team is 90, find the value of k.
+| Number of points | Frequency |
+| :--- | :--- |
+| 60 - | 1 |
+| 70 - | 5 |
+| 80 - | k |
+| 90 - | 10 |
+| 100 - | 6 |
+
+First Term
+Lesson Two: Measurements of Central Tendency of the Frequency Table with Intervals
+113

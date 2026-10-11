@@ -1,0 +1,70 @@
+Third Multiplication of Rational Numbers
+If $\frac{a}{b}$ and $\frac{c}{d}$ are two rational numbers , then $\frac{a}{b} \times \frac{c}{d} = \frac{a \times c}{b \times d}$
+
+Example 4
+Find the product of each of the following:
+1 $\frac{4}{3} \times \frac{6}{7}$
+2 $\frac{1}{2} \times 6\frac{2}{7}$
+3 $-\frac{3}{5} \times (-0.8\overline{3})$
+4 $-1\frac{3}{4} \times (-2\frac{2}{7})$
+
+1 $\frac{4}{3} \times \frac{6^{2}}{7} = \frac{8}{7}$
+2 $\frac{1}{2} \times 6\frac{2}{7} = \frac{1}{2} \times \frac{44^{22}}{7} = \frac{22}{7} = 3\frac{1}{7}$
+3 $-\frac{3}{5} \times (-0.8\overline{3}) = -\frac{3^{1}}{5} \times (-\frac{5^{1}}{6_{2}}) = \frac{1}{2}$
+4 $-1\frac{3}{4} \times (-2\frac{2}{7}) = 1\frac{3}{4} \times (-2\frac{2}{7})$
+$= -\frac{7^{1}}{4^{1}} \times -\frac{16^{-4}}{17} = -4$
+
+■ Note that
+• When multiplying zero by any rational number, the product is zero.
+• The number zero does not have a multiplicative inverse, since the division by zero is undefined.
+
+■ Properties of multiplication of rational numbers
+Multiplication of rational numbers has the following properties
+1 Closure
+2 Commutative
+3 Associative
+4 Existence of a multiplicative identity (1)
+5 Existence of multiplicative inverses
+6 Distributing multiplication on addition
+
+■ Self-Evaluation 4
+Find the product of each of the following:
+1 $0.3 \times (-\frac{4}{9})$
+2 $-3\frac{1}{4} \times (-1\frac{1}{2})$
+3 $25\% \times 2\frac{1}{2}$
+
+■ Mental Math
+Problem 2 can be solved using the distributive property, as follows:
+$\frac{1}{2} \times 6\frac{2}{7} = \frac{1}{2} (6 + \frac{2}{7})$
+$= \frac{1}{2}(6) + \frac{1}{2}(\frac{2}{7})$
+$= 3 + \frac{1}{7} = 3\frac{1}{7}$
+
+Note that
+The multiplicative inverse of the rational number $\frac{a}{b}$ is $\frac{b}{a}$ (where : $(a \neq 0)$.
+For example: • The multiplicative inverse of $\frac{3}{8}$ is $\frac{8}{3}$
+• The multiplicative inverse of $-\frac{1}{2}$ is $-2$
+
+Fourth Division of Rational Numbers
+Division of rational numbers is multiplying the dividend by the multiplicative inverse of the divisor.
+If $\frac{a}{b}$ and $\frac{c}{d}$ are two rational numbers, then $\frac{a}{b} \div \frac{c}{d} = \frac{a}{b} \times \frac{d}{c}$, where $\frac{c}{d} \neq 0$
+
+Example 5
+Find the quotient of each of the following:
+1 $-\frac{2}{3} \div \frac{4}{9}$
+2 $-3\frac{3}{4} \div (-2\frac{1}{4})$
+3 $0.6\overline{3} \div 1\frac{3}{11}$
+
+1 $-\frac{2}{3} \div \frac{4}{9} = -\frac{2^{1}}{3_{1}} \times \frac{9^{3}}{4_{2}} = \frac{-3}{2}$
+2 $-3\frac{3}{4} \div (-2\frac{1}{4}) = -\frac{15}{4} \div -\frac{9}{4} = -\frac{15^{5}}{4_{1}} \times -\frac{4^{1}}{9_{3}} = \frac{5}{3}$
+3 $0.6\overline{3} \div 1\frac{3}{11} = \frac{7}{11} \div \frac{14}{11} = \frac{7^{1}}{11_{1}} \times \frac{11^{1}}{14_{2}} = \frac{1}{2}$
+
+■ Self-Evaluation 5
+Find the quotient of each of the following:
+1 $\frac{4}{7} \div \frac{12}{7}$
+2 $(-\frac{1}{2})^{2} \div (-3\frac{3}{4})$
+3 $\frac{1}{8} \div 0.\bar{1}$
+
+First Term
+Lesson Five: Operations on Rational Numbers
+El Nemer Press
+27

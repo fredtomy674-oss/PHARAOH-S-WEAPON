@@ -1,0 +1,55 @@
+نقطة منتصف قطعة مستقيمة
+
+نقطة منتصف القطعة المستقيمة $\overline{\text{AB}}$ هى نقطة تنتمى للقطعة المستقيمة $\overline{\text{AB}}$
+وتكون على مسافتين متساويتين من نهايتيها.
+
+إإذا كانت $\text{M}$ هى نقطة منتصف $\overline{\text{AB}}$ ،
+حيث $(x_1, y_1)\text{ A }$ ، $(x_2, y_2)\text{ B }$
+فإن: $\text{M} = (\frac{x_1 + x_2}{2}, \frac{y_1 + y_2}{2})$
+
+مثال (4)
+أوجد إحداثي نقطة منتصف $\overline{\text{AB}}$ ، حيث $(2, -2)\text{ A }$ ، $(-6, 8)\text{ B }$
+
+بفرض أن نقطة منتصف $\overline{\text{AB}}$ هى $\text{M}$
+$\text{M} = (\frac{x_1 + x_2}{2}, \frac{y_1 + y_2}{2}) = (\frac{2 + (-6)}{2}, \frac{-2 + 8}{2}) = (\frac{-4}{2}, \frac{6}{2}) = (-2, 3)$
+
+تقييم ذاتى (4)
+أوجد إحداثي نقطة منتصف $\overline{\text{AB}}$ ،
+حيث $(1, -6)\text{ A }$ ، $(5, 2)\text{ B }$
+
+مثال (5)
+إذا كانت النقطة $(0, -3)\text{ M }$ فى منتصف المسافة بين النقطتين $(-10, x)\text{ A }$ ، $(y, 7)\text{ B }$
+فأوجد قيمة كل من $x$ ، $y$.
+
+تقييم ذاتى (5)
+إذا كانت النقطة $(3, 5)\text{ M }$
+تنصف المسافة بين النقطتين
+$(x, 5)\text{ A }$ ، $(4, y)\text{ B }$ ،
+أوجد قيمة كل من $x$ ، $y$.
+
+$\because (0, -3) = (\frac{7 + x}{2}, \frac{y - 10}{2})$
+$\therefore \frac{7 + x}{2} = 0 \quad \therefore 7 + x = 0 \quad \therefore x = -7$
+$\therefore \frac{y - 10}{2} = -3 \quad \therefore y - 10 = -6 \quad \therefore y = 4$
+
+مثال (6)
+إذا كان $\text{ABCD}$ متوازى أضلاع حيث $(1, -1)\text{ A }$ ، $(4, 2)\text{ B }$ ، $(1, 4)\text{ D }$
+فأوجد إحداثى كل من: 1 نقطة تقاطع القطرين. 2 الرأس $\text{C}$.
+
+بفرض أن $\text{M}$ هى نقطة تقاطع القطرين $\because \text{M}$ هى نقطة منتصف $\overline{\text{BD}}$
+$\therefore \text{M} = (\frac{4 + 1}{2}, \frac{2 + 4}{2}) = (2.5, 3)$
+$\because \text{M}$ هى أيضًا نقطة منتصف $\overline{\text{AC}}$ ، وبفرض أن $(x_1, y_1)\text{ C } = (x_1, y_1)$
+$\therefore (\frac{-1 + x_1}{2}, \frac{1 + y_1}{2}) = (2.5, 3)$
+$\therefore \frac{-1 + x_1}{2} = 2.5 \quad \therefore -1 + x_1 = 5 \quad \therefore x_1 = 6$
+$\therefore \frac{1 + y_1}{2} = 3 \quad \therefore 1 + y_1 = 6 \quad \therefore y_1 = 5 \quad \therefore \text{C} = (6, 5)$
+
+تقييم ذاتى (6)
+إذا كان $\text{ABCD}$ متوازى أضلاع
+حيث $(4, -2)\text{ A }$ ، $(4, 2)\text{ B }$
+، $(9, 1)\text{ C }$
+أوجد إحداثى كل من:
+1 نقطة تقاطع القطرين.
+2 الرأس $\text{D}$.
+
+الفصل الدراسي الأول (2026 / 2027)
+الدرس السادس الإحداثيات
+107

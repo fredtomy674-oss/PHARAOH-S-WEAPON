@@ -1,0 +1,75 @@
+④ Pour factoriser le trinôme:
+x² - 7x - 18, cherche deux
+nombres entiers dont le produit est
+(-18) et la somme est (-7).
+∴ Les deux nombres ont des
+signes différents et le plus grand
+numériquement a un signe
+négatif.
+∴ x² - 7x - 18 = (x - 9) (x + 2)
+
+Les produits | La somme
+possibles | correspondante
+(1) (-18) | -17 X
+(2) (-9) | -7 ✓
+(3) (-6) | -3 X
+∴ Les deux nombres sont
+-9 et +2
+
+■Auto-évaluation ②
+Factorise complètement
+chacun de ce qui suit:
+① 4x² - 8x - 60
+② -x² - 13x - 36
+
+■ Remarque que
+La factorisation complète
+est l'écriture d'un polynôme
+de la forme d'un produit de
+polynômes irréductibles.
+
+Exemple ②
+Factorise complètement chacun de ce qui suit:
+① 3x² + 6x - 72
+③ x² - 5xy + 6y²
+⑤ x⁶ - 10b⁴ - 3x³b²
+② 12x - 3x³ - 9x²
+④ y(y + 1) - 30
+
+✓
+① 3x² + 6x - 72 = 3(x² + 2x - 24) = 3(x + 6)(x - 4)
+② 12x - 3x³ - 9x² = -3x³ - 9x² + 12x
+«Classification des termes par ordre décroissant selon les exposants de x »
+= -3x(x² + 3x - 4) «Extraction du PGCD »
+= -3x(x - 1)(x + 4) «Factorisation d'un trinôme»
+③ x² - 5xy + 6y² = (x - 3y)(x - 2y)
+④ y(y + 1) - 30 = y² + y - 30 «Suppression des parenthèses»
+= (y + 6)(y - 5)
+⑤ x⁶ - 10b⁴ - 3x³b² = x⁶ - 3x³b² - 10b⁴
+«Classification des termes par ordre décroissant selon les exposants de x »
+= (x³ + 2b²)(x³ - 5b²)
+
+Deuxièmement | La factorisation d'un trinôme de la forme
+ax² + bx + c où (a ≠ ± 1)
+
+Exemple ③
+Factorise chacun de ce qui suit:
+① 2x² + 7x + 6
+② 4x² + x - 3
+③ 2x⁴ + 9x² + 10
+
+✓
+① Factorise 2x² à x et 2x ———> (x )(2x )
+Factorise 6 à +1 et +6 ou +2 et +3
+en excluant les facteurs négatifs car le coefficient de x est positif.
+
+■ Auto-évaluation ③
+Factorise chacun de ce qui
+suit :
+① 3x² - 11x + 6
+② 6x² + 7x + 2
+③ 2x² + x - 10
+④ 5x² - 28x - 12
+
+Premier semestre
+Leçon 2: La factorisation d'un trinôme 41

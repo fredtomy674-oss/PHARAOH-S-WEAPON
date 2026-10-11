@@ -1,0 +1,54 @@
+Equilateral triangle
+
+An equilateral triangle is a triangle whose three sides are congruent.
+
+Corollary:
+If the triangle is equilateral, then it is equiangular (has three congruent angles).
+In Δ ABC:
+If
+AB = AC = BC,
+then:
+∠ A ≅ ∠ B ≅ ∠ C
+
+Corollary:
+If a triangle is equiangular, then it is equilateral.
+In Δ ABC:
+If
+∠ A ≅ ∠ B ≅ ∠ C,
+then:
+AB = AC = BC
+
+■ Discuss the proof of the corollaries
+Use the theorem of the isosceles triangle and its converse to prove the adjacent corollaries.
+
+■ Self-Evaluation (3)
+In the following figure:
+ABC is an equilateral triangle,
+BC = CD,
+m (∠ DAC) = 75°,
+m (∠ DCB) = 90°
+Find with proof the value of x
+
+Example (3)
+In the given figure:
+ABC is an equilateral triangle,
+AC ∩ ED = {F}, CF = CD
+Find the value of x
+
+∴ Δ ABC is an equilateral triangle.
+∴ m (∠ ACB) = m (∠ A) = m (∠ B) = 60°
+∴ m (∠ FCD) = 180° - 60° = 120°
+∴ Δ FCD is an isosceles triangle in which CF = CD
+∴ m (∠ D) = m (∠ CFD) = 180° - 120° / 2 = 30°
+∴ ∠ AED is an exterior angle of Δ EBD
+∴ m (∠ AED) = m (∠ B) + m (∠ D) = 60° + 30° = 90°
+∴ x = 90
+
+Axis of symmetry of a line segment
+The axis of symmetry of a line segment is the perpendicular straight line passing through its midpoint.
+If the straight line l ⊥ AB, the straight line l bisects AB,
+then the straight line l is the axis of symmetry of AB
+
+First Term
+Lesson Five: Isosceles Triangle
+91

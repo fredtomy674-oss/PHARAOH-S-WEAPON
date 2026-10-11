@@ -1,0 +1,32 @@
+The Energy Levels
+Electrons revolve around the nucleus at different energy levels according to their energy.
+There are 7 main energy levels in the heavier atoms expressed by the letters (K, L, M, N, ......)
+the number of each level is represented by the symbol (n).
+
+Activity 3 Analyze
+Figure (4) The number of electrons required to saturate the first four energy levels
+Figure (5) The energy of some levels in which the electrons revolve around the nucleus
+
+Observe : Figures (4), (5) then answer the following questions :
+1 What is the number of the electrons that saturate each of the first four energy levels?
+• First energy level K (n = 1) : ........................
+• Second energy level L (n = 2) : ........................
+• Third energy level M (n = 3) : ........................
+• Fourth energy level N (n = 4) : ........................
+2 What happens to the energy of the electron when it moves farther from the nucleus ?
+
+Mathematical Understanding :
+► The number of electrons required to saturate the first four energy levels can be determined by the mathematical relationship (2n²), where (n) represents the number of the main energy level.
+► Verify the results of Activity (3) by applying the relationship (2n²).
+
+► Scientists have found that each main energy level consists of a number of energy sublevels in which electrons orbit in different shapes, and each main level can be occupied by a specific number of electrons. Any extra electrons occupy the next higher energy level.
+► The first energy level is filled with electrons, and then the higher energy levels are filled with electrons successively according to the number of electrons in each atom.
+► The outermost energy level of any atom does not contain more than 8 electrons.
+
+Evaluate Your Understanding:
+According to your understanding of electronic configuration in the energy levels, place dots (•) to represent the electrons in the energy levels of the atomic models shown in Figure (6).
+8 Electrons
+12 Electrons
+19 Electrons
+Figure (6)
+LESSON ONE : Structure of the Atom 5

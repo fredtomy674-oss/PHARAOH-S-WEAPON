@@ -1,0 +1,60 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+► In each of the following, what is the case used to prove that the two triangles are congruent?
+(1)
+C
+3 cm
+40°
+A 4 cm B
+F
+3 cm
+40°
+D 4 cm E
+(2)
+D 5 cm C
+4 cm 4 cm
+A 5 cm B
+(3)
+C
+6 cm
+D B
+6 cm
+A
+(4)
+A
+x x
+C
+D * * B
+
+► Choose the correct answer from the given ones:
+(5) In the given figure: The polygon EFGD is
+the image of the polygon ABCD by reflection in
+the y-axis.
+What is the value of k?
+(a) 90 (b) 60
+(c) 120 (d) 70
+G
+60°
+D
+k°
+120°
+F E A B x
+
+(6) Which of the following triangles is not congruent to the other triangles?
+(a) (b) (c) (d)
+
+► Spot the mistake:
+(7) Ahmed used the triangle congruence
+to find the value of X.
+Find the mistake in Ahmed's
+solution, then correct it.
+Ahmed's solution:
+4X + 6 = 3X + 9
+X + 6 = 9
+X = 3
+Y
+(4X+6) cm (5X-1) cm
+X (5X-5) cm Z (3X+9) cm W
+
+First Term Lesson One: Congruence 67

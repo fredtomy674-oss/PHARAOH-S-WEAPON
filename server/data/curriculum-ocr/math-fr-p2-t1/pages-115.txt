@@ -1,0 +1,64 @@
+8 Le tableau ci-contre indique la
+distribution des effectifs cumulés
+croissants des notes obtenues
+par 100 élèves de deuxième
+préparatoire en mathématiques.
+1 Combien d’élèves ont obtenu
+une note inférieure
+à 25 points?
+2 Combien d’élèves ont obtenu
+30 points ou plus?
+3 Dresse le tableau
+des données par intervalles .
+
+| Bornes supérieures des intervalles | Effectif cumulé croissant |
+| :--- | :--- |
+| inférieure à 5 | 0 |
+| inférieure à 10 | 10 |
+| inférieure à 15 | 36 |
+| inférieure à 20 | 61 |
+| inférieure à 25 | 79 |
+| inférieure à 30 | 89 |
+| inférieure à 35 | 95 |
+| inférieure à 40 | 100 |
+
+Troisièmement L'analyse et l'intégration des disciplines
+9 Tourisme: Le diagramme en secteurs circulaires ci-contre
+indique le nombre de touristes dans la région de Khan
+al-Khalili au cours d'une journée, selon leur âge en années
+(20 - ; 30 - ; ...). Si le nombre total de touristes est de 600
+touristes, dresse le tableau des effectifs cumulés croissants
+et représente-le graphiquement.
+
+10 Achat: Un questionnaire a été mené auprès de 40 personnes ayant acheté une tablette afin de
+connaître la taille de l'écran de leur appareil en pouces. Le tableau ci-contre résume les résultats
+de ce questionnaire.
+
+Dresse le tableau des effectifs cumulés croissants et représente-le
+graphiquement, puis réponds aux questions suivantes:
+1 Combien de tablettes ont les tailles suivantes:
+de 7 d'inférieure à 8 pouces?
+inférieure à 11 pouces?
+9 pouces ou plus?
+2 Quel est le pourcentage de tablettes ayant les tailles suivantes:
+de 10 d'inférieure à 11 pouces?
+inférieure à 9 pouces?
+
+| Taille (pouces) | Effectif |
+| :--- | :--- |
+| 7 - | 5 |
+| 8 - | 6 |
+| 9 - | 9 |
+| 10 - | 16 |
+| 11 - | 3 |
+| 12 - | 1 |
+
+Évalue ta compréhension!
+Quel est ton niveau de
+compréhension du tableau des
+effectis cumulés croissants et
+sa représentation graphique?
+Coche la case appropriée.
+
+Premier semestre Leçon 1: Le tableau des effectifs cumulés croissants
+et sa représentation graphique 111

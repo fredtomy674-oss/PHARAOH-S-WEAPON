@@ -1,0 +1,64 @@
+■ Auto-évaluation 1
+Trouve la valeur de chacun
+de ce qui suit:
+1 (-√2)⁵ 2 -(√2)⁵
+3 (-√2)⁶
+
+■ Réfléchis avec tes
+camarades
+Si a est un nombre réel
+non nul et n est un nombre
+entier, alors comment peux-
+tu prouver chacun de ce
+qui suit:
+1 a⁰ = 1 2 a⁻ⁿ = 1/aⁿ
+
+■ Remarque que
+La division par zéro n'a pas
+de sens. Par conséquent,
+lorsqu'il y a des symboles
+au dénominateur, il est
+nécessaire que ces
+symboles ne soient pas
+égaux à zéro.
+
+■ Remarque que
+(a + b)ⁿ ≠ aⁿ + bⁿ
+(a - b)ⁿ ≠ aⁿ - bⁿ
+
+26
+
+Exemple 1
+Trouve la valeur de chacun de ce qui suit:
+1 (-√5)⁴ 2 -(√5)⁴ 3 (-√5)³
+1 (-√5)⁴ = -√5 × -√5 × -√5 × -√5
+= 5 × 5 = 5² = 25
+2 -(√5)⁴ = -(√5 × √5 × √5 × √5)
+= -( 5 × 5 ) = -(5)² = -25
+3 (-√5)³ = -√5 × -√5 × -√5
+= 5 × -√5 = -5√5
+
+L'exposant zéro et l'exposant négatif
+Tout nombre réel non nul élevé à l'exposant zéro est égal à 1.
+C'est-à-dire que: a⁰ = 1 où a est un nombre réel non nul.
+Exemples: 5⁰ = 1 , (√3)⁰ = 1 , (-∛4)⁰ = 1
+Tout nombre réel non nul, élevé à l'exposant (- n) où n est un nombre
+entier, est égal à l'inverse du nombre lui-même élevé à l'exposant n.
+C'est-à-dire que: a⁻ⁿ = 1/aⁿ où a est un nombre réel non nul.
+Exemples: (√3)⁻⁴ = (1/√3)⁴ = 1/(√3)⁴ = 1/9 , (1/∛4)⁻³ = (∛4)³ = 4
+
+Les lois des exposants dans les nombres réels
+Premièrement Les lois de la multiplication
+Lorsqu'on multiplie les puissances ayant la même base, on conserve la
+base et on additionne les exposants.
+aᵐ × aⁿ = aᵐ⁺ⁿ où a est un nombre réel non nul, m et n sont deux
+nombres entiers.
+Exemples: 2⁴ × 2⁶ = 2⁴⁺⁶ = 2¹⁰ , a⁻³ × a⁵ = a⁻³⁺⁵ = a²
+Lorsqu'on trouve une puissance du produit de deux nombres, l'exposant
+est destribué sur chacun des deux nombres.
+C'est-à-dire que: (a × b)ⁿ = aⁿ × bⁿ où a et b sont deux nombres réels
+non nuls et n est un nombre entier
+Exemple: (3√2)² = (3)² × (√2)² = 9 × 2 = 18
+
+Unité 1: Les nombres et les opérations sur les nombres
+Mathématiques - deuxième préparatoire

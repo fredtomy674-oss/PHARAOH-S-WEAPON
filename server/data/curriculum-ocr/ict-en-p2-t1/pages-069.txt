@@ -1,0 +1,56 @@
+This section contains important information for the browser but does not appear
+within the page content itself. For example:
+
+<title>
+
+........................................................
+
+<link rel="stylesheet" href="style.css">
+
+Links the HTML file to an external CSS file named style.css so that it can be used to
+style pages.
+
+<body>
+
+Here is written the content that appears to the user.
+
+<div class="container">
+
+........................................................
+
+class="container" refers to code within the CSS file used to style the container and its
+contents.
+
+<header>
+
+Used to identify the top of a page or container, containing important information and
+typically containing the main heading. Its use enhances the organization of the page.
+
+<h1>Student Information</h1>
+
+................................................................................
+
+<section>
+
+The container is divided into two sections.
+
+The first represents a section within the container related to basic school information.
+
+The second represents a section within the container for school activities.
+
+<h2>Personal Information</h2>
+
+.............................................................................................
+
+<h2>Contact Information</h2>
+
+A subheading for the second section.
+
+<footer>
+
+Represents the bottom of the page or container and often contains copyright or
+contact information.
+
+<p> &copy; 2025 Student Information</p>
+
+69

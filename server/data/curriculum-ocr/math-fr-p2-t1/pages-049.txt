@@ -1,0 +1,43 @@
+Deuxièmement Appliquer les concepts
+9 Factorise complètement chacun de ce qui suit:
+① $x^2 - 7x + 12$
+② $y^2 + 42 + 13y$
+③ $-x^2 + 3x + 40$
+④ $14x - 32 + x^2$
+⑤ $3x^2 + 6x - 45$
+⑥ $5n^2 - 20n - 105$
+⑦ $3a^2 - 6a - 9$
+⑧ $2x^2 - 7x + 6$
+⑨ $3x^2 + 14x + 15$
+⑩ $6x^2 + 7xy - 3y^2$
+⑪ $5x^2 - 4y(7x + 3y)$
+⑫ $(x + 2)(x - 5) - 8$
+⑬ $6x^3 - 60x - 2x^2$
+⑭ $18 - 21x^2 - 9x^4$
+⑮ $42x^2y^2 - 30x^2y^4 + 12x^2y^3$
+
+10 Résous chacune des équations suivantes dans R:
+① $m^2 - 14m + 45 = 0$
+② $x^2 - 21 = 4x$
+③ $3y^2 + 17y + 10 = 0$
+
+Troisièmement L'analyse et l'intégration des disciplines
+11 Agriculture: Youssef a un jardin de forme rectangulaire dont les dimensions sont de 6 m et 15 m. Il veut augmenter son aire de 46 m². Si la longueur et la largeur du jardin sont augmentées de la même expression, quelles seront alors les nouvelles dimensions du jardin?
+Le jardinage ajoute une touche esthétique aux villes et joue un rôle important dans la purification de l'air.
+
+Placer les tapis à l'endroit approprié et dans les couleurs convenables reflète un goût raffiné et une conscience de l'importance de l'harmonie visuelle.
+
+12 Décoration: Une pièce de forme rectangulaire dont l'aire de son sol est de 48 m². Fatma voulait recouvrir son sol, d'un tapis de 6 m de longueur et 4 m de largeur, en laissant une bordure de largeur x entre le tapis et le mur de tous les côtés. Trouve la largeur de cette bordure.
+
+13 Géométrie: Un triangle a une aire de 35 cm². Si la longueur de sa base est supérieure de 9 cm à la hauteur correspondante, quelle est alors la hauteur du triangle?
+
+Pensée créative
+14 Trouve les valeurs entières positives de b qui rendent chacun de ce qui suit factorisable:
+① $x^2 + bx + 12$
+② $x^2 + bx - 14$
+③ $x^2 + 8x + b$
+
+Évalue ta compréhension!
+Quel est ton niveau de compréhension de la factorisation d'un trinôme? Coche la case appropriée.
+
+Premier semestre Leçon 2: La factorisation d'un trinôme 45

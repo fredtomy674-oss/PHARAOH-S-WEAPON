@@ -1,0 +1,35 @@
+À propos du scientifique
+Ernest Rutherford
+Rutherford, un scientifique néo-zélandais, né
+en 1871. Il a reçu le prix Nobel de chimie en
+1908 et est décédé en 1937.
+La Nouvelle-Zélande a honoré le scientifique
+Rutherford en plaçant sa photo sur le plus
+grand billet de monnaie (Figure 3),
+en reconnaissance de ses efforts dans
+la découverte la structure de l'atome.
+
+(Figure 3)
+
+Activité 2 Interprète
+Le tableau (1) montre les caractéristiques des particules subatomiques constituants l'atome.
+
+| Particule | Symbole | Charge électrique relative | Masse |
+| :--- | :--- | :--- | :--- |
+| Proton | p | +1 | 1 u |
+| Neutron | n | 0 | 1 u |
+| Électron | e | -1 | 1/1836 u |
+
+Tableau (1)
+
+1 Pourquoi le noyau de l'atome est-il décrit comme étant chargé positivement ?
+
+2 Pourquoi la masse de l'atome est-elle concentrée dans le noyau ?
+
+De ce qui précède, il es clair que :
+• La charge de proton est égale à celle de l'électron en quantité, mais différente en type.
+• Les masses des composants subatomiques sont évaluées en unités de masse atomique (u).
+• La masse des électrons est négligée en calculant la masse de l'atome en raison de sa très
+petite masse par rapport à celle des protons ou des neutrons.
+
+4 UNITÉ UN : La matière

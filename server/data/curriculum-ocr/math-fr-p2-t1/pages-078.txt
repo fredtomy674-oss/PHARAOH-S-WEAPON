@@ -1,0 +1,61 @@
+■ Auto-évaluation 7
+Détermine le type du triangle en fonction de ses angles si les longueurs de ses côtés sont comme suit:
+1 5√2 cm, 5 cm, 5 cm
+2 16 cm, 12 cm, 11 cm
+3 21 cm, 20 cm, 4,5 cm
+
+■ Information enrichissante
+Le triplet de Pythagore est trois nombres entiers qui réalisent la formule mathématique:
+a² + b² = c²
+où c est le plus grand nombre.
+▶ Voici les triplets de Pythagore les plus courants et certains de leurs multiples:
+3, 4, 5
+6, 8, 10
+9, 12, 15
+3x, 4x, 5x
+5, 12, 13
+10, 24, 26
+15, 36, 39
+5x, 12x, 13x
+8, 15, 17
+16, 30, 34
+24, 45, 51
+8x, 15x, 17x
+7, 24, 25
+14, 48, 50
+21, 72, 75
+7x, 24x, 25x
+
+Exemple 7
+Détermine le type de chaque triangle en fonction de ses angles si les longueurs de ses côtés sont comme suit:
+1 11 cm, 10 cm, 9 cm
+2 3√3 cm, 2√3 cm, 3 cm
+3 2,5 cm, 2 cm, 1,5 cm
+
+1 ∵ La longueur du plus long côté du triangle = 11 cm
+∵ (11)² = 121 , (9)² + (10)² = 81 + 100 = 181
+∵ (11)² < (9)² + (10)²
+∴ Le triangle est acutangle.
+
+2 ∵ La longueur du plus long côté du triangle = 3√3 cm
+∵ (3√3)² = 27 , (3)² + (2√3)² = 9 + 12 = 21
+∵ (3√3)² > (3)² + (2√3)²
+∴ Le triangle est obtusangle.
+
+3 ∵ La longueur du plus long côté du triangle = 2,5 cm
+∵ (2,5)² = 6,25 , (1,5)² + (2)² = 2,25 + 4 = 6,25
+∵ (2,5)² = (1,5)² + (2)²
+∴ Le triangle est rectangle.
+
+Activité technologique
+Utilise le logiciel GeoGebra et trace un triangle comme indiqué dans la figure, les longueurs de ses côtés sont a, b et c. Copie le triangle pour obtenir quatre triangles congruents, puis réorganise-les pour former un carré comme indiqué dans l'écran suivant.
+
+Trouve l'aire du grand carré de deux manières:
+• L'aire du grand carré est égale à la somme des aires des quatre triangles et du petit carré.
+∴ A = 4 (1/2 a b) + c² (1)
+• L'aire du grand carré est égale au carré de la longueur de son côté.
+∴ A = (a + b)² (2)
+De 1 et 2 : 4 (1/2 a b) + c² = (a + b)²
+Résume pour vérifier par toi même que: c² = a² + b²
+
+74 Unité 3: La géométrie Mathématiques - deuxième préparatoire

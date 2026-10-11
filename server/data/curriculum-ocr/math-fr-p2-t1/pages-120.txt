@@ -1,0 +1,33 @@
+■ Auto-évaluation 4
+Quatre-vingts oranges ont été choisies au hasard dans le service de contrôle qualité dans l'une des usines de jus de fruits, puis pesées. Les résultats sont présentés dans le tableau suivant:
+| Poids (grammes) | Nombre d'oranges |
+| :--- | :--- |
+| 75 - | 4 |
+| 100 - | 8 |
+| 125 - | 16 |
+| 150 - | 32 |
+| 175 - | 14 |
+| 200 - | 6 |
+Estime le mode du poids des oranges à l'aide de l'histogramme.
+
+Exemple 4
+L'ensemble des données suivant indique les temps d'utilisation du téléphone portable (en minutes) de trente étudiants universitaires au cours d'une journée.
+| Temps (minute) | 120 - | 150 - | 180 - | 210 - | 240 - | 270 - |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Nombre d'étudiants | 3 | 4 | 5 | 6 | 8 | 4 |
+
+Estime le mode des temps d'utilisation du téléphone portable à l'aide de l'histogramme.
+
+Effectif
+8
+7
+6
+5
+4
+3
+2
+1
+120 150 180 210 240 270 300 Intervalles
+Le mode ≈ 250 minutes
+
+116 Unité 4: Les statistiques Mathématiques - deuxième préparatoire

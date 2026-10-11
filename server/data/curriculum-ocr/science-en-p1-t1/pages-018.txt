@@ -1,0 +1,20 @@
+Attempts of Elements Classification
+
+1 Mendeleev's Table
+Scientists have made several attempts to classify elements to facilitate their study and conclude relations between them and their physical and chemical properties. Mendeleev's periodic table is considered the first periodic table for the classification of the elements, where elements were arranged in an ascending order according to their atomic masses without a regular pattern upon moving from the left of the table to the right in horizontal rows. He discovered that their properties repeated periodically at the beginning of each new row.
+
+A profile of the scientist
+Dmitri Mendeleev
+Dmitri Mendeleev was a Russian chemist who published his periodic table of elements in 1869 and later he modified it,
+He was honored 48 years after his death by naming one of the discovered elements after him, which is called Mendelevium (Md)
+
+Figure (1)
+
+2 Moseley's Table
+After Rutherford discovered the protons, Moseley discovered that the periodicity of elements properties is related to their atomic numbers rather than to their atomic masses. Thus, he modified Mendeleev's table by arranging the elements in an ascending order according to their atomic numbers, so that the atomic number of each element exceeds the atomic number of the preceding element in the same period by 1.
+He also added the noble (inert) gases and other new elements discovered after Mendeleev formulated his table.
+
+Information and Communication Technology
+Watch reliable digital sources to learn about the elements of the modern periodic table.
+
+LESSON TWO : The Periodic Table of elements 11

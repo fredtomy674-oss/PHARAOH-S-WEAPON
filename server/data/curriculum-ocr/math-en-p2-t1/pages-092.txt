@@ -1,0 +1,66 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+(1) In the given figure:
+If G is the centroid of the triangle
+ABC, GE = 3 cm,
+GD = 4 cm,
+which of the following
+is correct?
+(a) AG = 6 cm
+(b) CG = 8 cm
+(c) CE = 9 cm
+(d) AG = 12 cm
+
+(2) In the given figure:
+AD is a median of the
+triangle ABC
+What is the length of BC?
+(a) 3 cm
+(b) 6 cm
+(c) 14 cm
+(d) 28 cm
+
+(3) In the given figure:
+If G is the centroid of the
+triangle ABC which is right-
+angled at B, GD = 2 cm,
+what is the length of AC?
+(a) 8 cm
+(b) 12 cm
+(c) 18 cm
+(d) 24 cm
+
+(4) In the given figure:
+AE and CF are two medians of the triangle ABC,
+AE ∩ CF = {G}, CG = 12 cm,
+AE = 15 cm, AC = 20 cm. What is the
+perimeter of the triangle GEF?
+(a) 18 cm
+(b) 21 cm
+(c) 24 cm
+(d) 27 cm
+
+(5) In the given figure:
+If G is the centroid of the triangle ABC, and K is the centroid
+of the triangle AEF, what is the length of GD?
+(a) 2 cm
+(b) 4 cm
+(c) 6 cm
+(d) 8 cm
+
+▶ Spot the mistake:
+(6) Bassem and Sameh solved the following problem:
+In the given figure: If the length of AE = 48 cm, what is the length of DE?
+Bassem's solution:
+DE = 2/3 AE
+DE = 2/3 (48)
+DE = 32
+Sameh's solution:
+DE = 1/3 AE
+DE = 1/3 (48)
+DE = 16
+Which of them followed the right method? Discuss.
+
+First Term Lesson Four: Medians of the Triangle 87

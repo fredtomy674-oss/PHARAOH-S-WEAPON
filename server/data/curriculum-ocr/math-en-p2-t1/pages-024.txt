@@ -1,0 +1,33 @@
+(11) If $x = \frac{1}{\sqrt{3}+2}$, $y = \sqrt{3}+2$, find the value of each of the following in its simplest form:
+① $(x+y)^2$
+② $x y$
+③ $x^2+y^2$
+
+(12) If $\frac{x}{3\sqrt{2}} = \frac{y}{2\sqrt{3}} = 1$, then find the value of $x^2+y^2$
+
+Third Analysis and Subjects Integration
+
+(13) Geometry : Find the area of each of the following shapes in its simplest form :
+① Square $3\sqrt{5}$ cm
+② Rectangle $(2\sqrt{5}+\sqrt{3})$ cm $(2\sqrt{5}-\sqrt{3})$ cm
+③ $(\sqrt{5}+\sqrt{3})$ cm $4$ cm
+
+(14) Agriculture :
+Omar built two flower beds in his garden, one of which is rectangular with dimensions $(5+\sqrt{7})$ m, $(5-\sqrt{7})$ m, and the other is square with the same area as the first bed. Find the perimeter of each bed. Which one has the larger perimeter?
+Growing roses helps purify the air, improves mood, and reduces stress.
+
+(15) Handicrafts:
+Ahmed is working on a small project to produce box frames.
+If he has a copper wire $90$ cm long and wants to make two wire frames, one of them is a cube with a volume of $27$ $cm^3$ and the other is a cuboid with dimensions $4\sqrt{3}$ cm, $4$ cm, and $2\sqrt{3}$ cm. Is Ahmed's wire long enough to make both structures?
+Learning handicrafts develops fine motor skills and promotes creativity and innovation.
+
+Creative Thinking
+(16) When constructing a storage room in the shape of a cuboid, its dimensions were $a$, $b$, and $c$ meters. If $a b = 3\sqrt{3}$, $b c = 5\sqrt{3}$, $a c = 5$, find the volume of the storage room.
+
+Evaluate your understanding!
+How well do you understand operations on real numbers?
+Tick the right box
+
+First Term
+Lesson Three: Operations on Real Numbers
+19

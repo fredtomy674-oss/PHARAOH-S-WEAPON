@@ -1,0 +1,32 @@
+31. How can energy efficiency in cities be improved using smart systems?
+a) By increasing consumption
+b) By turning off electricity completely
+c) By using IoT to monitor consumption, AI to analyze data, and robots to
+automatically adjust appliances
+d) By ignoring the problem
+
+32. What are some innovative solutions to reduce waste in homes?
+a) Increased waste
+b) Using robots to automatically sort waste, IoT to monitor quantities, and AI to
+suggest recycling routes
+c) Dumping waste on the streets
+d) Inattention
+
+33. What do IoT, AI, and robotics have in common in smart systems?
+a) They all operate independently without connectivity
+b) There is no commonality
+c) They are limited to large industries only
+d) They integrate to create smart systems capable of communication, analysis, and
+implementation
+
+34. What is the biggest challenge in implementing smart systems on a large
+scale?
+a) High cost and maintenance requirements
+b) Increased speed
+c) Decreased efficiency
+d) Unnecessary
+
+35. How can smart systems improve the quality of life in cities?
+a) By increasing pollution
+
+19

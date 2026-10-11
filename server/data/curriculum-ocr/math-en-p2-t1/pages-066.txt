@@ -1,0 +1,32 @@
+UNIT 3
+Geometry
+
+Unit Lessons
+3-1 Congruence
+3-2 Pythagoras' Theorem and Its Converse
+3-3 Applications of Parallelism
+3-4 Medians of the Triangle
+3-5 Isosceles Triangle
+3-6 Interior and Exterior Angles of Polygons
+
+c b
+a
+
+a² + b² = c²
+
+Geometric theories are used in many artificial intelligence calculations,
+especially in the analysis of geometric shapes and the design of industrial robots.
+► Can machine learning algorithms be developed to solve geometric
+problems in our daily life?
+
+Issues and Life Skills
+- Mathematical Communication
+- Creative Thinking
+- Critical Thinking
+- Mathematical Language
+
+Values
+- Beauty of Nature
+- Health Awareness
+- Appreciation of Art
+- Environmental Awareness

@@ -1,0 +1,36 @@
+Table des matières
+Deuxième Préparatoire - Premier semestre
+
+UNITÉ 1
+Les nombres et les opérations sur les nombres
+1-1 Les nombres réels ................................................................. 2
+1-2 Les intervalles et les opérations sur les intervalles ........ 8
+1-3 Les opérations sur les nombres réels .............................. 14
+1-4 Les lois des racines carrées et cubiques ......................... 20
+1-5 Les lois des exposants dans les nombres réels ........... 25
+
+UNITÉ 2
+L’algèbre
+2-1 La factorisation en extrayant le plus grand commun
+diviseur ........................................................................................ 33
+2-2 La factorisation d’un trinôme ............................................ 39
+2-3 La factorisation des cas particuliers ............................... 46
+2-4 La factorisation par partition ............................................ 53
+
+UNITÉ 3
+La géométrie
+3-1 La congruence ....................................................................... 62
+3-2 Le théorème de Pythagore et sa réciproque ............... 70
+3-3 Les applications du parallélisme ..................................... 78
+3-4 Les médianes d’un triangle ............................................... 83
+3-5 Le triangle isocèle ................................................................ 89
+3-6 Les angles intérieurs et extérieurs des polygones ...... 97
+
+UNITÉ 4
+Les statistiques
+4-1 Le tableau des effectifs cumulés croissants et sa
+représentation graphique ....................................................... 106
+4-2 Les mesures de la tendance centrale du tableau des
+données par intervalles ............................................................ 112
+
+iv

@@ -1,0 +1,45 @@
+23. What is the smart solution to reduce traffic congestion in major cities?
+
+a) Increasing the number of cars.
+
+b) Using IoT to monitor traffic, AI to analyze data and direct cars, and robots to manage traffic lights.
+
+c) Closing all roads.
+
+d) Ignoring the problem.
+
+
+24. What is the main drawback of using robots in elderly care?
+
+a) Inability to provide emotional support like humans
+
+b) Increased efficiency
+
+c) Time saving
+
+d) Cost reduction
+
+
+25. How can the impact of intelligent systems on the environment be evaluated?
+
+a) They are not useful
+
+b) They help monitor pollution and suggest sustainable solutions
+
+c) They increase pollution
+
+d) They are simply expensive
+
+
+26. What is one potential downside of self-driving cars?
+
+a) Their complete reliance on artificial intelligence may lead to errors in the event of a system failure
+
+b) They save energy
+
+c) They improve road safety
+
+d) They reduce accidents
+
+
+17

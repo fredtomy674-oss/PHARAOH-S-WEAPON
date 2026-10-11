@@ -1,0 +1,45 @@
+Common design patterns:
+• Modern: Simple and elegant
+• Playful: Bright colors and
+animated elements
+• Professional: Elegant and calm
+• Creative: Untraditional and
+distinctive
+
+Color coordination ideas:
+• Blue, green, and white
+• Purple, pink, and light white
+• Black, gold, and white
+
+Important Note: Choose colors that harmonize with each other (2-3 colors
+maximum). Clashing colors can make your site difficult to read and visually
+distracting!
+
+Third: Adding Basic Pages
+
+Every website needs a structure of different pages to organize the content. Let's ask
+the AI to create these pages.
+
+In the designated writing area, type a command for the AI:
+
+Add a home page, an 'About Us' page, a 'Our Activities' page, and a
+'Contact Us' page.
+
+Suggested home pages:
+• Home: Overview and welcome
+• About us: Information about you or your project
+• Blog/articles: A place to share your ideas
+• Image gallery: Images that express your interests
+• Contact us: Ways to contact you
+
+Fourth: Add content to each page, for example:
+In the designated writing space, type a command for the AI:
+
+Add an 'About Us' page explaining that this site is for my school's book
+club. We are a group of students who are interested in reading and meet
+weekly to discuss the books we are reading.
+
+Don't worry if the text suggested by the AI isn't perfect; you can modify it later to
+highlight your personality.
+
+79

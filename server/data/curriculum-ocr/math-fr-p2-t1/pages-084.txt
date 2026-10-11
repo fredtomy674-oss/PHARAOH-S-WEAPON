@@ -1,0 +1,86 @@
+■ Discute
+Comment peux-tu
+prouver que la longueur
+du segment moyen dans
+le triangle est égale à la
+moitié de la longueur du
+côté opposé?
+• Indice:
+Trace DK parallèle à AC
+et coupe BC en K, puis
+prouve que la figure DKCE
+est un parallélogramme.
+A
+D E
+B K C
+
+■ Auto-évaluation 2
+Dans la figure suivante:
+AB = BC = 16 cm
+EB = 2 cm
+A
+D F
+E
+B C
+Trouve la longueur de EF.
+
+■ Auto-évaluation 3
+Dans la figure suivante:
+Y
+M L
+X K Z
+15 cm
+Les côtés du triangle KLM
+sont les segments moyens
+du triangle XYZ qui est
+rectangle en Y. Calcule le
+périmètre du triangle KLM.
+
+Théorème 3-3 (Théorème du segment moyen dans le triangle)
+Le segment moyen tracé entre les milieux de deux côtés d’un triangle
+est parallèle au troisième côté et sa longueur est égale à la moitié de la
+longueur de ce côté.
+Si DE est le segment moyen dans Δ ABC
+alors: 1 DE // BC
+2 DE = 1/2 BC
+A
+D E
+B C
+
+Exemple 2
+Dans la figure ci-contre:
+Trouve avec la démonstration la longueur de EF.
+A
+13 cm
+E
+B 5 cm D F C
+✔
+∵ Le triangle ABD est rectangle en D
+∴ (AD)² = (AB)² – (BD)² = (13)² – (5)² = 144
+∴ AD = √144 = 12
+∵ m (∠ ADB) = m (∠ EFB) = 90°
+(et ils sont deux angles en position symétrique)
+∴ AD // EF
+Dans le triangle ADC : ∵ E est le milieu de AC et AD // EF
+∴ F est le milieu de DC
+∴ EF = 1/2 AD ∴ EF = 1/2 x 12 = 6
+C'est-à-dire que la longueur de EF = 6 cm.
+
+Exemple 3
+Dans la figure ci-contre:
+Si D est le milieu de AB, E est le milieu de AC
+et G est le milieu de DF,
+Prouve que BC = 4 GH
+A
+D E
+B G H C
+F
+✔
+Dans le triangle ABC :
+∵ D est le milieu de AB et E est le milieu de AC
+∴ DE // BC et DE = 1/2 BC
+Dans le triangle FDE :
+∵ G est le milieu de DF et GH // DE ∴ H est le milieu de EF
+∴ GH = 1/2 DE ∴ GH = 1/2 (1/2 BC) = 1/4 BC ∴ BC = 4 GH
+
+80 Unité 3: La géométrie Mathématiques - deuxième préparatoire

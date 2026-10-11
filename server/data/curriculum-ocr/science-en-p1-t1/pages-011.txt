@@ -1,0 +1,26 @@
+A profile of the scientist
+Ernest Rutherford
+Rutherford was a New Zealand physicist, born
+in 1871, he won the Nobel Prize in Chemistry in
+1908, and he died in 1937.
+In 1992, New Zealand honored him by placing
+his image on its one hundred-dollar
+note (Figure 3), in recognition of his efforts.
+(Figure 3)
+
+Activity 2 Explain
+Table (1) shows the properties of the subatomic particles that compose the atom.
+Particle Symbol Relative electric charge Mass
+Proton p +1 1 u
+Neutron n 0 1 u
+Electron e -1 1/1836 u
+Table (1)
+1 Why is the nucleus of the atom described as positively charged ?
+2 Why is the mass of the atom concentrated in the nucleus?
+It is concluded from the previous table that :
+• The charge of the proton equals the charge of the electron in magnitude but they are
+opposite in type.
+• The masses of the subatomic components are measured in atomic mass units (u).
+• The mass of the electrons is neglected in the calculation of the atomic mass due to
+its smallness compared to the mass of the protons or the neutrons.
+4 UNIT ONE : The Matter

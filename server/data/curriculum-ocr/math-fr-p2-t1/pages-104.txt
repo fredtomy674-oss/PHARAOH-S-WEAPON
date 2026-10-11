@@ -1,0 +1,49 @@
+■ Auto-évaluation 4
+Dans la figure suivante:
+Quel est le nombre de côtés du polygone régulier lorsqu'on complète son dessin selon le même motif?
+
+Exemple 4
+Trouve le nombre de côtés du polygone régulier dans chacun de ce qui suit:
+1 Si la mesure de l'un de ses angles intérieurs = 150°
+2 Si la mesure de l'un de ses angles extérieurs = 24°
+
+1 ∵ Le polygone est régulier et la mesure de l'un de ses angles intérieurs = 150°
+∴ (n - 2) × 180° / n = 150°
+∴ 180° n - 360° = 150° n
+∴ 180° n - 150° n = 360°
+∴ 30° n = 360°
+∴ n = 360° / 30° = 12
+∴ Le nombre de côtés du polygone = 12 côtés.
+
+2 ∵ Le polygone est régulier et la mesure de l'un de ses angles extérieurs = 24°
+∴ 360° / n = 24°
+∴ 24° n = 360°
+∴ n = 360° / 24° = 15
+∴ Le nombre de côtés du polygone = 15 côtés.
+
+La formule mathématique pour le nombre de diagonales d'un polygone convexe
+Le nombre de diagonales d'un polygone convexe dont le nombre de côtés est n côtés est égal à n(n - 3) / 2
+
+■ Auto-évaluation 5
+Trouve chacun de ce qui suit:
+1 Le nombre de diagonales du pentagone convexe.
+2 Le nombre de côtés d'un polygone convexe ayant 27 diagonales
+
+Exemple 5
+1 Trouve le nombre de diagonales de l'octogone convexe.
+2 Trouve le nombre de côtés d'un polygone convexe dont le nombre de diagonales est égal à 35 diagonales.
+
+1 Le nombre de diagonales de l'octogone convexe = n(n - 3) / 2
+= 8(8 - 3) / 2
+= 20 diagonales.
+
+2 ∵ Le nombre de diagonales = 35
+∴ n(n - 3) / 2 = 35
+∴ n(n - 3) = 70
+∴ n² - 3n - 70 = 0
+∴ (n + 7) (n - 10) = 0
+∴ Soit n + 7 = 0 et donc n = - 7 (rejeté)
+Ou n - 10 = 0 et donc n = 10
+∴ Le nombre de côtés = 10 côtés.
+
+100 Unité 3: La géométrie Mathématiques - deuxième préparatoire

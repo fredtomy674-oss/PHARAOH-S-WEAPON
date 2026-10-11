@@ -1,0 +1,31 @@
+Deuxième groupe
+
+▶ Réponds aux questions suivantes:
+
+1 Si X = ]– 4 ; 1] et Y = [– 2 ; 5[ , trouve sous forme d’intervalle à l’aide de la droite numérique , ce qui suit:
+(1) X ∩ Y (2) X ∪ Y (3) Y – X
+
+2 Simplifie l’expression $\frac{(\sqrt{3})^{2n+3}}{(\sqrt{2})^{1-n} \times (\sqrt{6})^{n-1}}$ à la forme la plus simple,
+puis trouve la valeur du résultat lorsque n = 0
+
+3 Dans la figure ci-contre:
+si la longueur de $\overline{DE}$ = 6 cm,
+trouve avec la démonstration la longueur de $\overline{MN}$.
+
+4 Dans la figure ci-contre:
+ABC est un triangle équilatéral.
+CF = CD et $\overline{AC} \cap \overline{ED} = \{F\}$
+Trouve avec la démonstration la valeur de X.
+
+5 Factorise chacun de ce qui suit:
+(1) $4X^2 - 25$ (2) $b^3 - 8$ (3) $4X^2 + 14X - 30$
+
+6 Exprime l’aire de la partie ombrée dans la figure ci-contre
+comme un produit de deux facteurs.
+
+7 Trouve la moyenne arithmétique de la distribution de données par intervalles suivante:
+| Intervalles | 5 – | 15 – | 25 – | 35 – | Total |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Effectif | 6 | 8 | k | 2 | 20 |
+
+122 Évaluation finale Mathématiques - deuxième préparatoire

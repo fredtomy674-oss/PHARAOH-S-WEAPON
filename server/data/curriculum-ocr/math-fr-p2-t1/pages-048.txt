@@ -1,0 +1,82 @@
+Évaluation de la leçon
+
+Premièrement Mesurer les concepts
+
+▶ Choisis la bonne réponse parmi les réponses données:
+1 Lequel de ce qui suit représente la factorisation du polynôme X² + X - 20?
+(a) (X - 4) (X + 5)
+(b) (X + 4) (X + 5)
+(c) (X - 4) (X - 5)
+(d) (X + 4) (X - 5)
+
+2 Lequel des graphiques suivants représente la factorisation du polynôme 9 X² - 9 X - 4?
+(3 X - 4)
+(3 X + 1)
+(a)
+(3 X - 2)
+(3 X + 2)
+(b)
+(9 X - 1)
+(X + 4)
+(c)
+(9 X - 4)
+(X + 1)
+(d)
+
+3 Si (X - 3) (X + 5) = 0, lequel de ce qui suit est correct?
+(a) X = 3 ou X = 5
+(b) X = 3 ou X = - 5
+(c) X = - 3 ou X = 5
+(d) X = - 3 ou X = - 5
+
+4 Si X² + a X + 15 = (X + 3) (X + b), quelle est la valeur de a b?
+(a) 5
+(b) 8
+(c) 13
+(d) 40
+
+5 Si X² - 11 X + 28 = (X - a) (X - b), quelle est la valeur de a + b?
+(a) - 16
+(b) - 11
+(c) 11
+(d) 16
+
+6 Si (X - 5) est l'un des deux facteurs du trinôme, (2 X² - 7 X - 15), quel est l'autre facteur?
+(a) X + 3
+(b) 2 X - 3
+(c) 2 X + 3
+(d) X - 3
+
+7 Si 3 X - 2 y = 6 et 2 X + 3 y = 5, quelle est la valeur numérique du polynôme
+(6 X² + 5 X y - 6 y²) ?
+(a) 10
+(b) 11
+(c) 12
+(d) 30
+
+▶ Découvre l'erreur:
+8 Recherche l'erreur dans chacun de ce qui suit et corrige-la.
+1
+3 X² + 7 X - 6 = 0
+( 3 X + 2 ) ( X - 3 ) = 0
+∴ Soit 3 X + 2 = 0
+et donc X = -2/3
+ou X - 3 = 0
+et donc X = 3
+
+2
+2 X² - 5 X - 3 = 9
+( 2 X + 1 ) ( X - 3 ) = 0
+∴ Soit 2 X + 1 = 0
+et donc X = -1/2
+ou X - 3 = 0
+et donc X = 3
+
+3
+X² + 5 X = 24
+X ( X + 5 ) = 24
+∴ Soit X = 24
+ou X + 5 = 24
+et donc X = 19
+
+44 Unité 2: L'algèbre Mathématiques - deuxième préparatoire

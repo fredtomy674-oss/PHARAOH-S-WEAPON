@@ -1,0 +1,82 @@
+Operations on intervals
+Intervals are subsets of the set of real numbers, therefore, union,
+intersection, difference, and complement operations can be performed
+on them in the same way as on sets, as follows :
+
+■ Note that
+The universal set is a set
+that contains all of its
+subsets, and it is denoted
+by the symbol U.
+
+Sets
+Assuming that:
+U = {1, 2, 3, 4, 5, 6}
+where U is the
+universal set
+X = {2, 3, 4, 5}
+Y = {1, 2, 3}
+
+Intervals
+Assuming that:
+U = R
+where U is the universal set
+X = [-1, 3]
+Y = [1, 4]
+
+Union (X ∪ Y) :
+The set of
+elements that
+belong to
+X or Y.
+X ∪ Y = {1, 2, 3, 4, 5}
+X ∪ Y = [-1, 4]
+
+Intersection
+(X ∩ Y) :
+The set of
+elements that
+belong to both
+X and Y
+X ∩ Y = {2, 3}
+X ∩ Y = [1, 3]
+
+Difference
+(X - Y) :
+The set of
+elements that
+belong to X
+but not to Y
+X - Y = {4, 5}
+X - Y = [-1, 1[
+
+Complement X' :
+The set of
+elements that
+belong to U
+but not to X
+X' = U - X = {1, 6}
+X' = R - X
+= ]-∞, -1 [ ∪ ] 3, ∞[
+
+■ Think & Discuss
+Is : X - Y = Y - X?
+
+■ Self-Evaluation 3
+Find using the number
+line:
+1 [4, 9] ∩ [7, 10[
+2 ]-3, 2[ ∪ ]0, ∞[
+3 ]0, 5[ - ]3, 7]
+4 X' where X = [-5, ∞[
+
+Example 3
+Find using the number line each of the following:
+1 [-3, 5[ ∪ ]2, 7[
+2 ]1, 5] ∩ ]-∞, 3]
+3 ]-∞, 6] - ]4, ∞[
+4 X' where X = ]-∞, 3[
+
+First Term
+Lesson Two: Intervals and Their Operations
+11

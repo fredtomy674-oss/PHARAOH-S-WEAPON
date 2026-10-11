@@ -1,0 +1,90 @@
+Lesson
+4 - 5
+■ Learning Outcomes
+• Learn the concept of
+polygon.
+• Distinguish between convex
+and concave polygons.
+• Deduce the sum of the
+measures of the interior
+angles of a polygon.
+• Learn the regular polygon.
+• Learn the concept of the
+axis of symmetry.
+• Determine the axes of
+symmetry in polygons.
+
+■ Vocabulary
+• Polygon
+• Regular
+• Irregular
+• Convex
+• Concave
+
+■ Note that
+None of the following
+shapes represents
+a polygon.
+
+Polygons
+
+Get Ready!
+Bees build their hive in the form
+of a pattern of polygons. Can you
+identify the polygon and calculate
+the measures of its interior angles?
+In this lesson, you will learn about
+various types of polygons, how to
+determine the sum of the measures
+of the interior angles of a polygon
+and explore the regular polygons
+and the measure of each angle.
+
+Think & Discuss!
+Both Bassem and Islam calculated the sum of the measures
+of the interior angles of a shape with five sides.
+Bassem:
+The sum of the angles'
+measures: 3 x 180° = 540°
+
+Islam:
+The sum of the angles'
+measures: 180°+360° = 540°
+
+How did each of them calculate the sum of the measures of the interior
+angles of this polygon?
+
+Learn!
+Polygon: A polygon is a plan, closed shape formed from a union of
+three or more line segments, such that:
+▸ The line segments are known as the polygon's sides.
+▸ These line segments intersect at their endpoints, which are known as
+the polygon's vertices.
+
+Triangle
+3 sides
+
+Quadrilateral
+4 sides
+
+Pentagon
+5 sides
+
+Hexagon
+6 sides
+
+Convex and Concave Polygons
+Convex Polygon:
+Does not contain any reflex interior
+angles.
+Convex Polygon
+
+Concave Polygon:
+Contains at least one reflex interior
+angle.
+Concave
+Polygon
+
+98
+Unit Four: Geometry & Measurement
+Mathematics - First Preparatory

@@ -1,0 +1,35 @@
+Deuxièmement Les lois de la division
+
+Lorsqu'on divise les puissances ayant la même base, on conserve la base et on soustrait les exposants.
+C'est-à-dire que: a^m / a^n = a^(m-n) où a est un nombre réel non nul, m et n sont deux nombres entiers.
+
+Exemple: (∛7)^5 / (∛7)^2 = (∛7)^(5-2) = (∛7)^3 = 7
+
+Lorsqu'on trouve une puissance du quotient de la division de deux nombres, l'exposant est distribué sur chacun des deux nombres.
+C'est-à-dire que: (a/b)^n = a^n / b^n où a et b sont deux nombres réels non nuls et n est un nombre entier.
+
+Exemple: (6 / √3)^2 = 6^2 / (√3)^2 = 36 / 3 = 12
+
+■ Auto-évaluation 2
+Simplifie chacun de ce qui suit à la forme la plus simple:
+1 (√3)^2 x (√3)^4 x (√3)^-1 / (√3)^5 x (√3)^-2
+2 (√18)^5 x (√2)^3 / (√12)^4
+
+Exemple 2
+Simplifie chacun de ce qui suit à la forme la plus simple:
+1 (6 a)^2 / 2 a
+2 (-√3 a b)^4 / 3 a^4 b^2
+3 (√8)^4 x (√2)^3 / (2 √2)^5
+
+1 (6 a)^2 / 2 a = 6^2 x a^2 / 2 a = 36 a^2 / 2 a = 18 a^(2-1) = 18 a
+
+2 (-√3 a b)^4 / 3 a^4 b^2 = (-√3)^4 x a^4 x b^4 / 3 x a^4 x b^2
+= 9 / 3 x a^(4-4) x b^(4-2)
+= 3 x a^0 x b^2
+= 3 x 1 x b^2 = 3 b^2
+
+3 (√8)^4 x (√2)^3 / (2 √2)^5 = (2 √2)^4 x (√2)^3 / (2 √2)^5 = 2^4 x (√2)^4 x (√2)^3 / 2^5 x (√2)^5
+= (2)^(4-5) x (√2)^(4+3-5)
+= (2)^-1 x (√2)^2 = 1/2 x 2 = 1
+
+Premier semestre Leçon 5: Les lois des exposants dans les nombres réels 27

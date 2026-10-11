@@ -1,0 +1,52 @@
+■ Auto-évaluation 1
+Le tableau suivant indique la masse de 20 boîtes en kilogrammes.
+
+| Intervalles (kg) | Effectif |
+| :--- | :--- |
+| 45 – | 2 |
+| 50 – | 3 |
+| 55 – | 3 |
+| 60 – | 6 |
+| 65 – | 4 |
+| 70 – | 2 |
+
+Dresse le tableau des effectifs cumulés croissants et représente-le graphiquement.
+
+Exemple 1
+Le tableau des effectifs ci-contre indique les meilleurs résultats obtenus par 100 nageurs dans une course de distance de 50 mètres.
+Dresse le tableau des effectifs cumulés croissants et représente-le graphiquement, puis trouve:
+1 Le nombre de nageurs ayant obtenu des résultats inférieurs à 40 secondes.
+2 Le nombre de nageurs ayant obtenu des résultats de 35 secondes ou plus.
+3 Le pourcentage de nombres de nageurs ayant obtenu des résultats inférieurs à 45 secondes.
+
+| Intervalles en secondes | Effectif |
+| :--- | :--- |
+| 25 – | 5 |
+| 30 – | 17 |
+| 35 – | 34 |
+| 40 – | 29 |
+| 45 – | 15 |
+
+| Bornes supérieures des intervalles | Effectif cumulé croissant |
+| :--- | :--- |
+| inférieure à 25 | 0 |
+| inférieure à 30 | 5 |
+| inférieure à 35 | 22 |
+| inférieure à 40 | 56 |
+| inférieure à 45 | 85 |
+| inférieure à 50 | 100 |
+
+1 Le nombre de nageurs ayant obtenu des résultats inférieurs à 40 secondes est: 56 nageurs.
+2 Le nombre de nageurs ayant obtenu des résultats de 35 secondes ou plus est: 100 – 22 = 78
+3 Le pourcentage du nombre de nageurs ayant obtenu des résultats inférieurs à 45 secondes est:
+85/100 × 100% = 85%
+
+■ Auto-évaluation 2
+Si l'histogramme suivant indique les longueurs de 100 poissons pêchés dans l'un des concours de pêche, mesurées au centimètre près.
+
+Dresse le tableau des données par inetrvalles, le tableau des effectifs cumulés croissants et représente-le graphiquement.
+
+Exemple 2
+Si l'histogramme ci-contre indique les masses de 50 pièces d'un produit mises en vente sur Internet. Dresse le tableau des données par intervalles et le tableau des effectifs cumulés croissants, et représente-le graphiquement.
+
+108 Unité 4: Les statistiques Mathématiques - deuxième préparatoire

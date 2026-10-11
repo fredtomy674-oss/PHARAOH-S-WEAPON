@@ -1,0 +1,102 @@
+Leçon
+3 - 2
+
+Le théorème de Pythagore et
+sa réciproque
+
+■ Résultats
+d'apprentissage
+• Connaître la relation entre
+les longueurs des côtés du
+triangle rectangle.
+• Trouver la longueur de l'un
+des deux côtés de l'angle
+droit dans un triangle
+rectangle si la longueur de
+l'hypoténuse et la longueur
+de l'autre côté sont connues.
+• Trouver la longueur de
+l'hypoténuse dans un triangle
+rectangle si les longueurs
+des deux côtés de l'angle
+droit sont connues.
+• Prouver que le triangle est
+un triangle rectangle si les
+longueurs de ses trois côtés
+sont connues.
+• Déterminer le type du triangle
+en fonction de ses angles si
+les longueurs de ses côtés
+sont connues.
+
+■ Vocabulaire
+• Théorème de Pythagore
+• L'hypoténuse
+
+■ Information
+historique
+Les anciens Égyptiens
+utilisaient une corde reliée
+à 12 nœuds avec des
+distances égales pour former
+un triangle dont le rapport
+entre les longueurs de côtés
+est de 3 : 4 : 5
+Ce triangle contient un angle
+droit entre les deux côtés
+dont les longueurs sont de 3
+et 4 unités.
+Les Égyptiens utilisaient cette
+procédure pour construire
+leurs angles droits.
+
+On tient la corde aux
+nœuds indiqués
+
+Rends la Ligne d'un côté
+corde tendue du bâtiment
+
+Sois prêt!
+Tu as une échelle de 13 pieds de
+longueur appuyée contre un mur
+vertical. Si la base de l'échelle est à
+5 pieds du mur, quelle est la hauteur
+atteinte par l'échelle sur le mur?
+Dans cette leçon, tu connaîtras
+le théorème de Pythagore et sa
+réciproque, ce qui te permettra de
+résoudre de tels problèmes de la vie.
+
+Réfléchis et discute!
+Si tu as quatre morceaux de bois de
+9 cm, 10 cm, 12 cm et 15 cm de longueur,
+quels trois d'entre eux peux-tu utiliser
+pour former un triangle rectangle?
+
+9 cm 10 cm 12 cm 15 cm
+
+Apprends!
+Le théorème de Pythagore
+Le théorème de Pythagore est une équation
+qui relie les longueurs des côtés du
+triangle rectangle. Il est nommé d'après le
+mathématicien grec «Pythagore», qui vivait
+au VIème siècle avant J.-C.
+
+Le théorème de Pythagore
+L'aire du carré construit sur l'hypoténuse
+dans un triangle rectangle est égale à la
+somme des aires des deux carrés construits
+sur les deux côtés de l'angle droit.
+
+Autre formulation du théorème
+de Pythagore:
+Dans le triangle rectangle, le carré de
+la longueur de l'hypoténuse est égal
+à la somme des carrés des longueurs
+des deux côtés de l'angle droit.
+
+C'est-à-dire que: c² = a² + b² où a et b sont les longueurs des deux côtés de
+l'angle droit dans le triangle et c est la longueur de l'hypoténuse du triangle.
+
+70 Unité 3: La géométrie Mathématiques - deuxième préparatoire

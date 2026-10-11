@@ -1,0 +1,76 @@
+■ Self-Evaluation ③
+In a survey of a group
+of people about their
+preferred season, the
+results were as follows:
+
+20% 25% 20% 35%
+Autumn Spring Summer Winter
+
+Represent the survey
+results using a pie chart.
+
+■ Enriched Information
+
+Normal human sleeping
+hours range between 7
+and 8 hours daily. In other
+words, humans spend one
+third of their lives sleeping.
+
+■ Self-Evaluation ④
+
+The graph below represents
+the broadcasting of a TV
+channel for 10 hours on one
+day.
+
+Culture
+4 hours
+News
+2 hours
+Sports
+1 hour
+Entertainment
+3 hours
+
+• Calculate the percentage
+of the broadcasting hours
+for entertainment shows.
+• Find the measure of
+the central angle for the
+cultural shows' sector.
+
+Example ③
+Daily Life: The figure below illustrates how Bassem spends his entire day :
+0% 30% 55% 65% 85% 100%
+Sleeping School Homework Entertainment Other
+Draw a pie chart expressing this routine.
+
+▶ From the above figure, create the following table:
+Practice Sleeping School Homework Entertainment Other
+Percentage 30 % 25 % 10 % 20 % 15 %
+
+▶ Calculate the measure of the central angle representing each practice:
+"Sleeping" $\frac{30}{100} \times 360^{\circ} = 108^{\circ}$
+"School" $\frac{25}{100} \times 360^{\circ} = 90^{\circ}$
+"Homework" $\frac{10}{100} \times 360^{\circ} = 36^{\circ}$
+"Entertainment" $\frac{20}{100} \times 360^{\circ} = 72^{\circ}$
+"Other" $\frac{15}{100} \times 360^{\circ} = 54^{\circ}$
+
+▶ Draw a suitable circle, and then draw the central angle for each practice.
+
+Example ④
+Nutrition: The opposite pie chart shows the
+percentage of calories Sally had in her meals
+on one day.
+If Sally had 2,500 calories that day, how many
+calories did she have at dinner? Find the
+measure of the central angle for the breakfast
+sector.
+
+Dinner Calories: $2,500 \times 32 \% = 2,500 \times 0.32 = 800$
+Measure of the central angle for the breakfast sector :
+$\frac{18}{100} \times 360^{\circ} = 64.8^{\circ} \approx 65^{\circ}$
+
+62 Unit Three: Statistics Mathematics - First Preparatory

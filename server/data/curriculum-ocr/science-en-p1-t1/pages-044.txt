@@ -1,0 +1,39 @@
+Electric field
+• The region of space around an electric charge, in which its influence appears without contact, is called the electric field.
+• The electric field of a charge can be represented by lines known as electric force lines or electric field lines, which are imaginary lines that show the path taken by a small free-moving positive charge placed in it.
+
+Activity 3 Conclude
+Study the Figures (13) : (18), then answer the following questions :
+
+Figure (13)
+Electric force lines for a positive charge
+
+Figure (14)
+Electric force lines for a negative charge
+
+Figure (15)
+Electric force lines between two metal plates charged with opposite charges
+
+Figure (16)
+Electric force lines for two opposite charges
+
+Figure (17)
+Electric force lines for two similar charges
+
+Figure (18)
+Electric force lines between a charged plate and an opposite charge
+
+1 Where do the force lines start, and where do they end ?
+2 Do the force lines intersect with each other ?
+3 Do the force lines penetrate the surfaces of charged metallic objects, or do they end there ?
+
+Cross-Cutting Concepts :
+System and its models
+Electric force lines are imaginary lines which simplify the representation of the system (model) and are used to understand how the system works.
+
+Conclude from the previous the properties of the electric force lines :
+1 Electric force lines are imaginary lines that do not ............................ .
+2 They start from the ............................ charge and end at the ............................ charge.
+3 Force lines ............................ on ............................ charged objects and do not ............................ .
+
+LESSON ONE : Electric Forces 37

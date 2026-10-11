@@ -1,0 +1,56 @@
+Third Percentage Applications
+
+First : Calculating Deduction (Discount):
+When the price of an item decreases at a rate of $d\%$, then:
+$\text{Deduction value} = \text{Item price} \times d\% = \text{Item price} \times \frac{d}{100}$
+The item's price after deduction = Original price − Deduction value
+
+Finding the price after deduction or discount
+
+Example 5
+If the price of a smart phone displayed in a store is 12,750 LE, and the store offered a $8\%$ discount rate. What is the phone's price after discount?
+
+$\text{Discount value} = 12,750 \times \frac{8}{100} = 1,020\text{ LE}$
+
+$\text{Phone's price after discount} = 12,750 - 1,020 = 11,730\text{ LE}$
+
+Finding the original price before discount
+
+Example 6
+Sandy received a $15\%$ discount rate on a pair of sneakers from one of the stores. She paid $340\text{ LE}$. What was the original price of the sneakers?
+
+Percentage of the sale price to the original price is:
+$100\% - 15\% = 85\%$
+
+$P \times \frac{85}{100} = 340$
+
+$P = 340 \div \frac{85}{100}$
+
+$P = 340 \times \frac{100}{85} = 400$
+
+Therefore, the original price = $400\text{ LE}$
+
+Diversified Strategies
+Ratio $\rightarrow \frac{85}{100} = \frac{340}{P} \leftarrow \text{Sale price} \leftarrow \text{original price}$
+Use cross products
+$P \times 85 = 340 \times 100$
+Divide by 85
+$P = \frac{340 \times 100}{85} = 400$
+
+Second : Calculating Addition (Increase):
+When the price of an item increases due to the addition of a tax, commission, or profit at a rate of $t\%$, then:
+$\text{Increase value} = \text{Item price} \times t\% = \text{Item price} \times \frac{t}{100}$
+The item's price after the increase = Original price + Increase value
+
+■ Self-Evaluation (5)
+A store offers a $20\%$ discount rate on all items. What is the sale price of a shirt whose price before discount is $420\text{ LE}$?
+
+■ Self-Evaluation (6)
+If a jacket costs $498\text{ LE}$ after a $17\%$ discount rate of its original price, find the original price.
+
+12750 LE
+8%
+
+17%
+
+10 Unit One: Numbers and Their Operations Mathematics - First Preparatory

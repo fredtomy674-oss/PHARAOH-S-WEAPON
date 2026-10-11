@@ -1,0 +1,49 @@
+Lesson
+3 - 6
+
+Interior and Exterior Angles
+of Polygons
+
+■ Learning Outcomes
+• Learn the mathematical formula for calculating the sum of the measures of the interior angles of a convex polygon.
+• Learn the sum of the measures of the exterior angles of a convex polygon.
+• Learn the mathematical formula for calculating the measure of an interior angle of a regular polygon.
+• Learn the mathematical formula for calculating the number of diagonals of a convex polygon.
+
+■ Vocabulary
+• Polygon
+• Regular polygon
+• Convex polygon
+• Interior angle
+• Exterior angle
+
+Get Ready!
+The Octagon building is the new headquarters of the Egyptian Ministry of Defence in the new administrative capital. It is one of the largest and most modern defence ministry headquarters in the world.
+Can you find the measure of the interior angle of the polygon represented by this building?
+In this lesson, you will learn how to calculate the sum of the measures of the interior and exterior angles of a convex polygon and how to calculate the measure of each angle of a regular polygon, which will enable you to solve such real-life problems.
+
+The Octagon Building in the New Administrative Capital
+
+Think & Discuss!
+While organizing a conference hall, the organizer used identical tables, each in the shape of an isosceles trapezoid. How many tables does the organizer need to form a regular polygon? Discuss.
+
+Learn!
+The mathematical formula for the sum of the measures of the interior angles of a convex polygon
+The sum of the measures of the interior angles of a convex polygon = (n - 2) × 180°, where n is the number of sides of the polygon.
+For example:
+• The sum of the measures of the interior angles of a convex pentagon = (5 - 2) × 180° = 540°
+• The sum of the measures of the interior angles of a convex octagon = (8 - 2) × 180° = 1080°
+
+▶ The previous formula can be deduced by noticing the following pattern:
+n = 4
+2 triangles
+n = 5
+3 triangles
+n = 6
+4 triangles
+n = 7
+5 triangles
+
+First Term
+Lesson Six: Interior and Exterior Angles of Polygons
+97

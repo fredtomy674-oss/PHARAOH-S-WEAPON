@@ -1,0 +1,39 @@
+(10) Factorise complètement chacun de ce qui suit:
+① x² - y² - 6x - 6y
+③ x⁴ + 2x³ - 9x² - 18x
+⑤ 5 a² b - 10 a² b² + 4 b² - 8 b³
+⑦ 4 k⁴ - 49 k² + 14 k - 1
+② x² - a² - 2x + 1
+④ 4 x² - 12 x y + 9 y² - 49
+⑥ m³ + n³ - m - n
+⑧ 16 x² - 25 a² + y² + 8 x y
+
+(11) Factorise complètement chacun de ce qui suit:
+① x⁴ + 4 y⁴
+② 4 m⁴ + 1
+③ 64 x⁴ + y⁴
+④ a⁴ + a² b⁴ + b⁸
+⑤ y⁴ - 23 y² + 1
+⑥ x⁴ - 11 x² + 1
+⑦ 16 a⁴ + 20 a² b² + 9 b⁴
+⑧ k⁵ + 5 k³ + 9 k
+⑨ 4 x² (4 x² - 7 y²) + y⁴
+
+(12) Trouve l'ensemble de solution de chacune des équations suivantes dans R:
+① x³ + x² - 4x = 4
+② x² + 12 x + 15 = 0
+
+Troisièmement L'analyse et l'intégration des disciplines
+(13) Géométrie: Si le volume de la boîte correspondante est égal à 12 unités cubes, trouve ses dimensions.
+(14) Géométrie: Si le volume d'un parallélépipède rectangle est (x⁴ - 2x³ + 3x² - 6x) pieds cubes, trouve les dimensions possibles du parallélépipède rectangle en fonction de x, puis trouve la valeur numérique des dimensions lorsque x = 4
+
+(15) Décoration: Une image est entourée d'un cadre d'une épaisseur de x pouces, comme illustré dans la figure. Si l'aire de l'image est de (4x³ + 6x² + 2x + 3) pouces carrés, trouve les dimensions possibles de l'image et du cadre ensemble en fonction de x.
+
+Pensée créative
+(16) Si a + b = 3, trouve la valeur de a³ + 3 a² b + 3 a b² + b³
+(17) Factorise complètement: x⁸ - 16 y⁸
+
+Évalue ta compréhension!
+Quel est ton niveau de compréhension de la factorisation par partition? Coche la case appropriée.
+
+Premier semestre Leçon 4: La factorisation par partition 59

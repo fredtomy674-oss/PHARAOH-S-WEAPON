@@ -1,0 +1,62 @@
+(13)
+A
+100°
+F 120°
+130° B
+E * X°
+110° * C
+D
+
+(14)
+A
+5a°
+5a°
+E
+B
+3a° X° 3a°
+C
+2a° D
+
+(15)
+84° (X+19)°
+79°
+55°
+(2X)°
+
+(16) Find each of the following:
+(1) The number of sides of a convex polygon whose sum of measures of its interior angles is 2700°, then find the number of its diagonals.
+(2) The number of sides of a convex polygon that has 9 diagonals.
+(3) The number of sides of a regular polygon whose interior angle measure is 156°, then find the number of its diagonals.
+
+(17) In the given figure:
+X + y = 230
+Find with proof the value of: a + b + c
+
+E
+c°
+A
+a°
+y° D
+x°
+B C
+b°
+
+Third Analysis and Subjects Integration
+
+(18) Old Egyptian coins:
+Find the measure of the interior angle of each of the following regular polygons:
+
+Creative Thinking
+
+(19) If the number of sides of a regular polygon increases by
+two, the measure of the exterior angle decreases by 9°.
+How many sides does the polygon have?
+
+Evaluate your
+understanding!
+How well do you understand
+interior and exterior angles
+of polygons?
+Tick the right box
+
+102 Unit Three: Geometry Mathematics - Second Preparatory

@@ -1,0 +1,81 @@
+■ Réfléchis avec tes
+camarades
+Si deux médianes d'un
+triangle se coupent en
+un point, ce point est-il le
+point d'intersection des
+médianes du triangle?
+
+■ Ajoute à tes
+informations
+Le point d'intersection
+des médianes du triangle
+est appelé le centre
+géométrique du triangle ou
+le point d'équilibre.
+
+■ Réfléchis avec tes
+camarades
+Quel est le rapport
+par lequel le point
+d'intersection des
+médianes du triangle
+divise l'une de ses
+médianes à partir de la
+base?
+
+■ Auto-évaluation 1
+Dans la figure suivante:
+Si G est le point
+d'intersection des médianes
+du triangle ABC, AP = 21 cm,
+GQ = 5 cm et BG = 16 cm.
+A
+Q
+R
+G
+B
+P
+C
+Trouve la longueur de chacun
+de: PG, CG et BR.
+
+84 Unité 3: La géométrie
+
+Théorème 4-1
+Les médianes du triangle se coupent en un seul point.
+Dans la figure ci-contre:
+Si AD, BE et CF sont les médianes du triangle ABC,
+alors: AD ∩ BE ∩ CF = {G}
+C'est-à-dire que: Le point G est le point
+d'intersection des médianes du triangle ABC.
+
+Théorème 4-2
+Le point d'intersection des médianes du triangle divise chacune d'elles
+dans un rapport de 2:1 à partir du sommet.
+Dans la figure ci-contre:
+Si G est le point d'intersection des médianes
+du triangle ABC, alors:
+AG = 2 GD , AG = 2/3 AD et GD = 1/3 AD
+
+Résultat
+Le point qui divise la médiane du triangle dans un rapport de 2 : 1 à
+partir du sommet est le point d'intersection des médianes du triangle.
+Dans la figure ci-contre:
+Si AD est une médiane dans le triangle ABC
+et G ∈ AD tel que AG = 2 GD,
+alors G est le point d'intersection des médianes
+du triangle ABC.
+
+Exemple 1
+Dans la figure ci-contre:
+Si G est le point d'intersection des médianes du triangle ABC,
+AG = 8 cm, GE = 3,5 cm et CF = 7,5 cm
+Trouve la longueur de chacun de AD, BE et CG
+• AD = 3/2 AG = 3/2 x 8 = 12
+• BE = 3 GE = 3 x 3,5 = 10,5
+• CG = 2/3 CF = 2/3 x 7,5 = 5
+C'est-à-dire que: La longueur de AD = 12 cm, la longueur de BE = 10,5 cm
+et la longueur de CG = 5 cm
+
+Mathématiques - deuxième préparatoire

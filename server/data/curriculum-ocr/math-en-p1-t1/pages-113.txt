@@ -1,0 +1,78 @@
+Projection of a Line Segment on the Coordinate Axes
+
+To determine the projection of a line segment on either axis, find the
+projection of its endpoints on that axis. In each of the following examples,
+notice the projection of AB on both the X-axis and Y-axis:
+
+1 A'B' is the projection
+of AB on the X-axis.
+
+2 A'B' is the projection
+of AB on the X-axis.
+
+3 A'B' is the projection
+of AB on the X-axis.
+
+4 A'B' is the projection
+of AB on the Y-axis.
+
+5 Point N is the
+projection of AB on
+the Y-axis.
+
+6 A'B' is the projection
+of AB on the Y-axis.
+
+■ Think
+
+What is the relationship
+between the length of
+a line segment and the
+length of its projection?
+
+Example 3
+
+Determine the length of the projection of the line segment AB on the X-axis,
+where the coordinates of points A and B are A (- 3, 4) and B (2, 2).
+
+■ Self-Evaluation 3
+
+In the coordinate plane,
+Draw AB, where the
+coordinates of points A and
+B are A (5, 6) and B (3, 2),
+and determine the following
+on the plane:
+
+1 The projection of AB on
+the X-axis.
+
+2 The projection of AB on
+the Y-axis.
+
+Then, calculate the length
+of each projection.
+
+► Draw the line segment AB on the
+coordinate plane.
+
+► From both points A and B, draw
+lines perpendicular to the X-axis,
+as shown in the figure.
+
+Thus, point A' (- 3, 0) is the projection
+of point A on the X-axis, and point
+B' (2, 0) is the projection of point B on the X-axis.
+
+So, line segment A'B' is the projection of the line segment AB on the
+X-axis.
+
+A'B' = |2| + |-3| = 5.
+
+Therefore, the length of AB is 5 length units.
+
+106
+
+Unit Four: Geometry & Measurement
+
+Mathematics - First Preparatory

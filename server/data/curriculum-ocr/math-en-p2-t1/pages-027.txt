@@ -1,0 +1,72 @@
+■ Self-Evaluation (2)
+Simplify each of the following
+to its simplest form:
+1 2√32 - √18 + √50
+2 2∛16 + ∛54 - ∛128
+
+■ Self-Evaluation (3)
+D E C
+A √32 cm F B
+The area of the square
+ABCD is equal to 200 cm².
+The rectangle AFED, which
+has a width of √32 cm.
+has been removed
+What is the area of the
+shape FBCE?
+
+■ Self-Evaluation (4)
+If X = √3 - √2 / √3 + √2,
+find in its simplest form the
+value of:
+x + 1/x
+
+■ Note that
+To simplify y, make the
+denominator a rational
+number by multiplying
+the numerator and
+denominator by (√5 - √2).
+
+2 ∛40 - 2 ∛135 / ∛5 = ∛8 × 5 - 2 ∛27 × 5 / ∛5
+= ∛8 × ∛5 - 2 × ∛27 × ∛5 / ∛5
+= 2 ∛5 - 2 × 3 ∛5 / ∛5
+= 2 ∛5 - 6 ∛5 / ∛5
+= -4 ∛5 / ∛5 = -4
+
+■ Diversified strategies
+∛40 - 2 ∛135 / ∛5
+= ∛40 / ∛5 - 2 ∛135 / ∛5
+= ∛40/5 - 2 ∛135/5
+= ∛8 - 2 ∛27
+= 2 - 2 × 3 = -4
+
+Example 3
+Geometry: In the opposite figure,
+ABC is a triangle with perimeter
+√1440 cm. Find the length of BC.
+A
+√250 cm √160 cm
+B C
+
+✔ ∴ Perimeter of a triangle = sum of the
+lengths of its sides
+∴ √250 + √160 + BC = √1440
+∴ √25 × 10 + √16 × 10 + BC = √144 × 10
+∴ 5√10 + 4√10 + BC = 12√10
+∴ 9√10 + BC = 12√10
+∴ BC = 12√10 - 9√10 = 3√10 cm.
+
+Example 4
+If x = √5 + √2 , y = 3 / x , find in its simplest form:
+1 x - y
+2 y / x
+
+✔
+y = 3 / x = 3 / √5 + √2 × √5 - √2 / √5 - √2 = 3(√5 - √2) / (√5)² - (√2)² = 3(√5 - √2) / 5 - 2 = √5 - √2
+
+1 x - y = (√5 + √2) - (√5 - √2) = √5 + √2 - √5 + √2 = 2√2
+2 y / x = √5 - √2 / √5 + √2 × √5 - √2 / √5 - √2 = (√5 - √2)² / 5 - 2 = 5 - 2√10 + 2 / 3
+= 7 - 2√10 / 3 = 7/3 - 2/3 √10
+
+22 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

@@ -1,0 +1,73 @@
+■ Auto-évaluation 1
+Trouve la valeur de chacun de ce qui suit:
+1 3√5 - 4√5
+2 -5√2 x 3√2
+3 (√7)² x 3√3 / 7√3
+
+■ Remarque que:
+• Si X ≥ 0, alors:
+√x x √x = (√x)² = x
+• Si X ∈ R, alors:
+³√x x ³√x x ³√x = (³√x)³ = x
+
+■ Pensée critique
+1 Dina a écrit que:
+2√3 + 3√2 = 5√5
+Ce que Dina a écrit est-il correct? Discute.
+2 Islam a écrit que:
+2√5 + 5 = 7√5
+Ce qu'Islam a écrit est-il correct? Discute.
+
+■ Auto-évaluation 2
+Écris chacun de ce qui suit sous la forme la plus simple, de sorte que le dénominateur soit un nombre entier:
+1 6/√3
+2 -5/√2
+3 9/5√3
+
+Exemple 1
+Si X = -4√3, y = √3 et Z = ³√5
+Trouve la valeur de chacun de ce qui suit:
+1 x + y
+2 x x y
+3 x/y
+4 2x - Z³
+
+1 x + y = -4√3 + √3
+= (-4 + 1)√3
+= -3√3
+2 x x y = -4√3 x √3
+= (-4 x 1) x (√3)²
+= -4 x 3 = -12
+3 x/y = -4√3 / 2√3
+= -4√3 / 2√3 = -4/2 x √3/√3
+= -2 x 1 = -2
+4 2x - Z³ = 2 x (-4√3) - (³√5)³
+= -8√3 - 5
+
+■ Remarque que
+Lors de l'addition et la soustraction des termes radicaux similaires, on utilise la même méthode pour additionner et soustraire des termes algébriques similaires:
+-4 X + X = (-4 + 1) X = -3 X
+
+■ Remarque que
+Lors de la multiplication des termes radicaux, on utilise la même méthode pour multiplier des termes algébriques:
+-4 X x X = (-4 x 1) X² = -4 X²
+
+■ Remarque que
+Le terme radical -8√3 n'est pas semblable au terme 5, donc on ne peut pas les soustraire
+
+Exemple 2
+Écris chacun des nombres suivants sous la forme la plus simple, de sorte que le dénominateur soit un nombre entier:
+1 7/√3
+2 -15/√5
+3 12/5√2
+
+1 Pour que le dénominateur soit un nombre entier, multiplie le numérateur et le dénominateur par √3
+∴ 7/√3 = 7/√3 x √3/√3 = 7√3 / 3
+2 Pour que le dénominateur soit un nombre entier, multiplie le numérateur et le dénominateur par √5
+∴ -15/√5 = -15/√5 x √5/√5 = -15√5 / 5 = -3√5
+3 Pour que le dénominateur soit un nombre entier, multiplie le numérateur et le dénominateur par √2
+∴ 12/5√2 = 12/5√2 x √2/√2 = 12√2 / 5 x 2 = 12√2 / 10 = 6√2 / 5
+
+Premier semestre
+Leçon 3: Les opérations sur les nombres réels
+15

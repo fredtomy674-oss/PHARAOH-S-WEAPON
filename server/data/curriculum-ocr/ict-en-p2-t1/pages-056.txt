@@ -1,0 +1,34 @@
+Lesson 2:
+
+Web page Format
+
+Objectives:
+
+By the end of the lesson, I will be able to:
+- Discuss web page layout (CSS).
+- Write the basic structure of CSS correctly.
+- List the benefits of the CSS language:
+
+After the lesson, check the correct box:
+I can...
+☐ Very good   ☐ Ok   ☐ Need more work
+☐ Very good   ☐ Ok   ☐ Need more work
+☐ Very good   ☐ Ok   ☐ Need more work
+
+Engage:
+What is CSS? Explain.
+
+Learn:
+In previous years, we studied HTML, a coding language used to create static website pages that are displayed using internet browsers.
+
+HTML was designed to describe the content of a web page. To format a web page, tags such as <font> and color attributes were added to HTML. Developing large websites became cumbersome and tedious, as font and color formatting had to be added to each page, and formatting each web page became a lengthy and expensive process.
+
+To solve this problem, the World Wide Web Consortium (W3C) created CSS, eliminating the need to add tags within an HTML page!
+
+Cascading Style Sheets (CSS):
+We use CSS to format the appearance of web pages (such as font color, font size, web page color, etc.). It saves a lot of effort, as it can control the formatting of multiple web pages simultaneously.
+
+Benefits of CSS:
+- Time-saving: You can place the required formatting code in a separate CSS file and include it in any number of HTML pages you want to use.
+
+56

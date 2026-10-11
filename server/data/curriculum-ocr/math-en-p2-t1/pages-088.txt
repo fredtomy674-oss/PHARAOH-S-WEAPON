@@ -1,0 +1,36 @@
+Lesson
+3 - 4
+Medians of the Triangle
+
+■ Learning Outcomes
+• Learn the concept of the median of a triangle.
+• Learn the point of intersection of the medians of a triangle.
+• Learn the relationship between the length of the median drawn from the right vertex and the length of the hypotenuse in a right-angled triangle.
+• Use the medians of a triangle to solve real-life problems.
+
+■ Vocabulary
+• Medians
+• Centroid
+• Equilibrium point.
+
+Get Ready!
+Drones are used in various fields, such as aerial photography, rescue operations, surveillance, etc., and their importance is increasing with the development of technology.
+You have a drone with three arms, each ending with a motor.
+If these motors are identical, where is the geometric center of the drone?
+In this lesson, you will learn how to find the intersection point of the medians of a triangle, which will enable you to solve such real-life problems.
+
+Think & Discuss!
+An interior designer is creating a custom table for a client.
+The tabletop is made of glass and is shaped like a triangle that needs to be balanced on a single leg.
+At which point should the leg be fixed? Discuss.
+
+Learn!
+Median of a triangle
+The median of a triangle is a line segment drawn from one vertex of a triangle to the midpoint of the opposite side. Every triangle has three medians, as follows:
+AD is the median drawn from vertex A
+BE is the median drawn from vertex B
+CF is the median drawn from vertex C
+
+First Term
+Lesson Four: Medians of the Triangle
+83

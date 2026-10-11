@@ -1,0 +1,72 @@
+Leçon
+1 - 5
+
+Les lois des exposants
+dans les nombres réels
+
+■ Résultats
+d'apprentissage
+• Connaître la multiplication
+répétée dans l'ensemble
+des nombres réels.
+• Connaître les lois des
+exposants dans les
+nombres réels.
+• Utiliser les lois des
+exposants pour simplifier
+des expressions
+mathématiques.
+• Utiliser les lois des
+exposants pour résoudre
+des problèmes de la vie.
+
+Sois prêt!
+Une entreprise spécialisée
+dans la fabrication de jouets
+éducatifs pour les enfants a
+décidé de produire un jouet
+sous la forme d'un cube coloré
+fabriqué du plastique sûr, dont
+la longueur de l'arête du cube
+est de 4√3 cm. Quel est le
+volume de ce cube?
+Dans cette leçon, tu connaîtras les lois des exposants dans les nombres
+réels, ce qui te permettra de résoudre de tels problèmes de la vie.
+
+■ Vocabulaire
+• La multiplication répétée
+• Exposant
+• Base
+• Puissance
+
+Réfléchis et discute!
+Si X + z = 4 et y + z = 2
+, quelle est l'aire du triangle ABC où CD ⊥ AB? Discute.
+
+■ Remarque que
+• (-a)ⁿ = aⁿ
+si n est un nombre entier
+pair.
+• (-a)ⁿ = - aⁿ
+si n est un nombre entier
+impair.
+
+Apprends!
+La multiplication répétée dans l'ensemble des nombres réels
+L'expression mathématique aⁿ est utilisée pour exprimer le produit du
+nombre réel a multiplié par lui-même n fois.
+a x a x a x ... x a = aⁿ
+Un nombre
+réel répété n fois.
+n ← L'exposant
+↑
+La base
+
+Exemple:
+√2 x √2 x √2 x √2 x √2 = (√2)⁵
+5 ← L'exposant
+√2 = La base
+
+Premier semestre
+Leçon 5: Les lois des exposants dans les nombres réels
+25

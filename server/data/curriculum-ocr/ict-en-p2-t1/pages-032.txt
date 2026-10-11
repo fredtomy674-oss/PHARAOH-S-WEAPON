@@ -1,0 +1,22 @@
+Learn by doing
+
+Put a check mark (✔) in front of the correct sentence and a check mark (×) in front of the incorrect sentence.
+
+1. Big data can be easily processed using Excel. ( )
+2. Big data analysis allows analysts, researchers, and entrepreneurs to make better and faster decisions. ( )
+3. Internet-connected devices are a source of big data. ( )
+4. All data collected through social media is documented. ( )
+5. Financial data is not considered big data. ( )
+6. When you make an online purchase using a credit card, data about the amount, the store, and the geographic location is recorded. ( )
+7. Smartphones do not generate big data. ( )
+8. Your mobile phone constantly tracks your geographic location and collects data about the places you visit and the apps you use. ( )
+9. Digital content such as videos generates big data. ( )
+10. Videos, images, and audio content uploaded or viewed online do not generate big data. ( )
+11. Governments generate data through population registers, statistics, tax data, and censuses. ( )
+12. Satellites and GPS devices collect data about geographic locations, roads, and the environment. ( )
+13. The characteristics of big data include "volume" and "value." ( )
+14. The speed of data generation is not a characteristic of big data. ( )
+15. The variety of data types includes structured data (such as databases) and unstructured data (such as text, images, and videos). ( )
+16. Veracity refers to the reliability and quality of data. ( )
+
+32

@@ -1,0 +1,24 @@
+UNITÉ 2
+L’algèbre
+
+Leçons de l’unité
+2-1 La factorisation en extrayant le plus grand commun diviseur
+2-2 La factorisation d’un trinôme
+2-3 La factorisation des cas particuliers
+2-4 La factorisation par partition
+
+La factorisation est une opération mathématique important utilisé dans certains algorithmes d’intelligence artificielle, où chaque type de factorisation s’intègre à un aspect spécifique de la conception et de l’entraînement des modèles intelligents (applications d’intelligence artificielle).
+Peut-on développer le rôle de factorisation sous ses différents types dans la construction et le développement de modèles et d’applications d’intelligence artificielle?
+
+Les enjeux et les compétences de la vie
+- La pensée critique
+- La pensée créative
+- Le développement durable
+- La communication mathématique
+
+Les valeurs
+- L’appréciation de l’art et de la beauté
+- La conscience environnementale
+- Le respect
+- La responsabilité
+- La conscience culturelle

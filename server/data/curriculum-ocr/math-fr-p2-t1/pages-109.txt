@@ -1,0 +1,21 @@
+UNITÉ 4
+Les statistiques
+
+Leçons de l’unité
+4-1 Le tableau des effectifs cumulés croissants et sa représentation graphique
+4-2 Les mesures de la tendance centrale du tableau des données par intervalles
+
+Les algorithmes d’apprentissage des mécanismes d’intelligence artificielle sont utilisés dans des méthodes statistiques telles que l’analyse de régression et la distribution normale pour analyser les performances des élèves et proposer des parcours éducatifs adaptés pour eux.
+► Est-il possible de développer des algorithmes des mécanismes d’intelligence artificielle pour résoudre les problèmes statistiques complexes?
+
+Les enjeux et les compétences de la vie
+- Les technologies de l’information
+- La prise de décision
+- La pensée créative
+- La prévision
+
+Les valeurs
+- La responsabilité
+- La rationalisation des dépenses
+- L’équité dans la répartition
+- Le respect des autres

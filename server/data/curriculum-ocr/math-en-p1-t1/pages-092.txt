@@ -1,0 +1,62 @@
+Collaborative Activity
+Collaborate with your classmate and follow the steps below:
+1 Draw a triangle.
+2 Cut the triangle into three pieces.
+3 Rearrange the angles of the triangle to be adjacent.
+• What is the type of the angle formed by the three angles in step 3?
+• Can you deduce the rule that states the sum of the measures of the interior angles of a triangle?
+■ Self-Evaluation 1
+Find the value of the variable
+in each of the following:
+Example 1
+Determine the value of the variable in each of the following figures:
+50°
+31°
+x°
+x°
+49°
+62°
+5a
+3a
+a
+4y°
+3y°
+2y°
+1 62° + 49° + x = 180°
+x = 180° - 111°
+x = 69°
+2 5 a + 3 a + a = 180°
+9 a = 180°
+a = 180°/9 = 20°
+► Think: How can you verify the solution?
+■ Think
+C
+A
+B
+D
+Is ∠ CBD an exterior angle
+of the triangle ABC? Why?
+The Exterior Angle of a Triangle
+If ABC is a triangle, D ∈ AB,
+D ∉ AB, then ∠ 4 is called an
+exterior angle of the triangle ABC,
+∠ 1, ∠ 2, and ∠ 3 are the interior
+angles of the triangle.
+C
+3
+A
+1 4
+B
+D
+2
+m (∠ 1) + m (∠ 2) + m (∠ 3) = 180° (1)
+∠ 1 and ∠ 4 form a straight angle.
+m (∠ 1) + m (∠ 4) = 180° (2)
+From (1) and (2), you will find that: m (∠ 4) = m (∠ 2) + m (∠ 3)
+Rule:
+The measure of the exterior angle of any triangle is equal to the sum
+of the measures of the two non-adjacent interior angles.
+First Term
+Lesson Three: Triangle
+El Nemer Press
+85

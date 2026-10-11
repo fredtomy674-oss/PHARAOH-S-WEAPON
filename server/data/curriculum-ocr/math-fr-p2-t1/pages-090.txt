@@ -1,0 +1,54 @@
+■ Auto-évaluation 4
+Dans la figure suivante:
+Si AB ⊥ BD , CE ⊥ BD ,
+E est le milieu de AC,
+EF // CD , AB = 24 cm
+, BC = 18 cm et CD = 14 cm
+Trouve le périmètre du
+triangle BEF.
+
+Exemple 4
+Dans la figure ci-contre:
+Si ABC est un triangle rectangle en B
+BD et CE sont des médianes en celui-ci, EF // BD
+et EF = 5 cm
+Trouve la longueur de AC
+✔ Dans le triangle ABD:
+∵ E est le milieu de AB et EF // BD ∴ F est le milieu de AD
+∴ EF = 1/2 BD ∴ BD = 2 × 5 = 10
+∵ BD est une médiane dans le triangle rectangle ABC en B
+∴ BD = 1/2 AC ∴ AC = 2 × 10 = 20
+C'est-à-dire que la longueur de AC est égale à 20 cm.
+
+Le réciproque du théorème (4-3)
+Si la longueur de la médiane du triangle tracé à partir d'un de ses
+sommets est égale à la moitié de la longueur du côté opposé à ce
+sommet, alors l'angle de ce sommet est un angle droit.
+Dans la figure ci-contre:
+Si AD est une médiane tracée à partir
+du sommet A,
+et AD = BD = CD = 1/2 BC
+Alors: m (∠ BAC) = 90°
+
+■ Auto-évaluation 5
+Dans la figure suivante:
+Si D est le milieu de BC
+Prouve que:
+m (∠ BAC) = 90°
+
+Exemple 5
+Dans la figure ci-contre:
+Si AD est une médiane dans le triangle ABC
+Prouve que: m (∠ BAC) = 90°,
+puis trouve l'aire du triangle ABC
+✔ ∵ AD = 17 , BC = 34
+∴ AD = 1/2 BC ∴ m (∠ BAC) = 90°
+D'après le théorème de Pythagore, tu trouves que:
+(AC)² = (BC)² - (AB)²
+= (34)² - (16)² = 900
+∴ AC = √900 = 30
+∴ L'aire du triangle ABC = 1/2 × AB × AC
+= 1/2 × 16 × 30
+= 240 cm²
+
+86 Unité 3: La géométrie Mathématiques - deuxième préparatoire

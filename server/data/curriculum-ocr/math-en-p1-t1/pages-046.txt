@@ -1,0 +1,123 @@
+Lesson
+2 - 2
+
+Linear Equations
+
+■ Learning Outcomes
+• Form a linear equation in
+one variable.
+• Recognize the
+relationship between the
+substitution set and the
+solution set.
+• Solve a linear equation
+in one variable within the
+sets of natural numbers,
+integers, and rational
+numbers.
+
+Get Ready!
+
+Hani took a taxi from his home to
+school. The starting fare for the
+taximeter was 10 LE, and an extra
+charge of 5.50 LE for each kilometer
+covered. If Hani paid 87 LE for his
+journey, how many kilometers did the
+taxi cover during this ride?
+
+In this lesson, you'll learn how to
+form and solve a linear equation in
+one variable, enabling you to solve
+real-life problems, such as the above
+problem.
+
+■ Vocabulary
+• Linear Equation
+• Solution
+• Substitution Set
+• Solution Set
+
+Think & Discuss!
+
+Assume that the card +1 represents positive 1
+, then the equation: X + 2 = 5 can be modelled
+as in the opposite figure.
+
+Activity:
+Collaborate with your classmates and use the
+cards to model and solve each of the following
+equations:
+
+X + 3 = 4
+
+X - 2 = 3
+
+X - 1 = -3
+
+X + 5 = 2
+
+X
+X + 2
+
+=
+
++1 +1
++1
++1 +1
+
+=
+
+5
+
+X
+X
+
+=
+
++1 +1 +1
++1 +1
++1 +1
+3
+
+=
+
+■ Enriched Information
+Linear equations are
+graphically represented in
+the plane by a straight line.
+And each of their variables
+is raised to the power of one.
+
+■ Using Technology
+You can explore the
+graphical representation
+of a linear equation on
+a plane using the
+GeoGebra application.
+
+Learn!
+
+Equation Concept: An equation is a mathematical statement
+expressing that two mathematical expressions are equal.
+
+Examples:
+Equations in One Variable (Unknown)
+
+X + 2 = 5 (Linear Equation)
+4X² + 1 = 4 (Quadratic Equation)
+X³ + X = 2 (Cubic Equation)
+
+Linear Equations
+
+X + 5 = -2 (Equation in One Variable)
+X + 2y = 5 (Equation in Two Variables)
+
+In this term, you will study only the linear equations in one variable.
+
+First Term
+
+Lesson Two: Linear Equations
+El Nemer Press
+
+39

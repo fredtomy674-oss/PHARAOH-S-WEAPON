@@ -1,0 +1,88 @@
+■ Note that
+B
+30° 30°
+X X
+60° 60°
+A 1/2 X D 1/2 X C
+X
+The axis of symmetry of
+an equilateral triangle
+divides it into two congruent
+triangles, each of which is
+a 30°-60°-90° triangle.
+
+■ Self-Evaluation 6
+In the following figure:
+Δ ADE is equilateral.
+C
+5 cm
+D
+8 cm
+A E X cm B
+Find the value of X
+
+Corollary:
+In a 30°-60°-90° triangle, the length of the side opposite to the angle of
+measure 30° is equal to half the length of the hypotenuse.
+If Δ ABC is a right-angled triangle at B,
+m (∠ A) = 30°,
+then BC = 1/2 AC
+C
+30°
+A B
+
+Example 6
+In the given figure:
+If Δ ABC is an equilateral triangle,
+find the value of X
+B
+3.X cm
+E
+A X cm D 4 cm C
+
+✓ ∵ Δ ABC is an equilateral triangle
+∴ m (∠ C) = 60°
+∴ m (∠ DEC) = 90° ∴ m (∠ EDC) = 30°
+∴ Δ DEC is a 30°-60°-90° triangle
+∴ EC = 1/2 DC = 1/2 x 4 = 2 cm
+∴ BC = AC ∴ 3 X + 2 = X + 4 ∴ 3 X - X = 4 - 2
+∴ 2 X = 2 ∴ X = 1
+
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+(1) In the given figure:
+What is the value of X?
+(a) 42 (b) 21
+(c) 69 (d) 84
+B
+42°
+X°
+A C
+
+(2) In the given figure:
+What is the value of X?
+(a) 26 (b) 52
+(c) 76 (d) 38
+R
+(2X)° 52°
+S T
+
+(3) In the given figure:
+What is the length of PN?
+(a) 8 cm (b) 3 cm
+(c) 6 cm (d) 4 cm
+P
+(n+1) cm (2n) cm
+M 3 cm N
+
+(4) In the given figure:
+What is the value of X?
+(a) 10 (b) 20
+(c) 30 (d) 60
+C
+(3X)°
+A B
+
+94 Unit Three: Geometry Mathematics - Second Preparatory

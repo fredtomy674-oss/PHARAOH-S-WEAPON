@@ -1,0 +1,39 @@
+3- Robotics
+
+Robot Function:
+
+An intelligent robot is directed to the location of the vehicle. Equipped with tools, it can inspect the vehicle and repair minor faults by opening the hood. It then replaces the damaged part. It then tells you, "You can proceed safely now." If it is unable to repair the damage, it automatically requests a transport vehicle.
+
+| Intelligent Component | Function |
+| :--- | :--- |
+| Internet of Things (IoT) | transmits information and determines location |
+| Artificial Intelligence (AI) | analyzes the problem and makes appropriate decisions |
+| Robotics | performs repairs or field assistance |
+
+Second: Practical applications of intelligent systems in our lives.
+
+Devices now rely on artificial intelligence (AI), the Internet of Things (IoT), and robotics to think and operate on their own. We use these smart systems daily without realizing it, whether at home, school, or the hospital.
+
+These systems help us save time and effort and make our lives more comfortable and easier.
+
+Some examples we see and use in our daily lives:
+
+1- Smart Home:
+
+The Internet of Things (IoT): connects lighting, air conditioning, and appliances to a mobile phone or the internet.
+
+Artificial Intelligence (AI): understands the situation; if the weather is hot, it automatically turns on the air conditioning.
+
+Robots: can assist with tasks, such as operating a vacuum cleaner or moving objects.
+
+Example: you tell your phone, "Turn on the air conditioning." The command is sent over the internet, and the device determines the optimal temperature and operates it.
+
+2- School Robot:
+
+The Internet of Things (IoT): connects the robot to online educational resources.
+
+Artificial Intelligence (AI): helps it understand students' questions and respond correctly.
+
+Robot: Speaks, writes, or moves to display the answer.
+
+8

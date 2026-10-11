@@ -1,0 +1,119 @@
+(10) Dans chacune des figures suivantes, trouve la valeur de x:
+(1)
+A
+20 cm
+25 cm
+52 cm
+B D C
+x cm
+
+(2)
+D x cm C
+√13 cm √15 cm
+A 6 cm B
+
+(3)
+C B
+6 cm
+E x cm
+15 cm
+11 cm
+A
+
+(4)
+A 3cm
+E x cm
+4 cm C
+B
+20 cm
+16 cm
+D
+
+(5) D C
+289 cm²
+x cm
+25cm²
+A B E
+
+(6) A 8 cm B
+4 cm
+8 cm
+D 5 cm C
+x cm
+E
+
+(11) Dans la figure ci-contre:
+Prouve que: m (∠ C) = 90°
+A
+3 cm
+B
+11 cm
+7 cm
+C 9 cm D
+
+(12) Dans la figure ci-contre:
+ABCD est un rectangle.
+Prouve que
+le triangle BEC
+est rectangle,
+puis trouve son aire.
+A E D
+20 cm
+12 cm
+B 25 cm C
+
+(13) Dans la figure ci-contre:
+Le rectangle ABCD
+congrue
+au rectangle AGFE.
+Trouve avec la
+démonstration
+la longueur de BF
+D G C
+16 cm
+A 20 cm B
+F
+E
+
+(14) Dans la figure ci-contre:
+ABCD est un trapèze
+dans lequel:
+A 20 cm D
+15 cm
+12 cm
+20 cm
+B E C
+AB = 15 cm, AD = 20 cm et DC = 20 cm.
+Si la hauteur du trapèze est de 12 cm, trouve son
+aire.
+
+(15) Dans la figure ci-contre:
+ABCD est un losange dont le périmètre est de 52 m
+et dont la diagonale BD est égale à 24 m.
+Trouve l'aire du losange ABCD en mètres carrés.
+A
+B D
+C
+
+(16) Découvre l'erreur:
+Amal et Mariam déterminent si les nombres 13; 12
+et 5 conviennent pour être des longueurs des
+côtés d'un triangle rectangle ou non. Laquelle des
+deux a suivi la bonne méthode pour la solution?
+Discute et corrige l'erreur s'il y en a.
+
+La solution d'Amal:
+a² + b² = 5² + 12²
+= 169
+c² = 13² = 169
+a² + b² = c²
+convient
+
+La solution de Mariam:
+a² + b² = 13² + 5²
+= 194
+c² = 12² = 144
+a² + b² ≠ c²
+ne convient pas
+
+76 Unité 3: La géométrie Mathématiques - deuxième préparatoire

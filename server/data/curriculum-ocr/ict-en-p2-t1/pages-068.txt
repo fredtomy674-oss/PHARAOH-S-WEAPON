@@ -1,0 +1,43 @@
+<div class="container">
+<header>
+<h1>Student Information</h1>
+</header>
+
+<section>
+<h2>Personal Information</h2>
+<img src="st.jpg" width="300" height="200"><br><br>
+Student Name: [Student's Full Name]<br><br>
+Date of Birth: [Student's Date of Birth]<br><br>
+Grade: [Student's Grade]<br><br>
+Residence: [Student's Residence]
+</section>
+
+<section>
+<h2>Contact Information</h2>
+Parent Phone Number: [Parent Phone Number] <br><br>
+Student Email (if applicable): [Student's Email]
+</section>
+
+<footer>
+<p> Student Information &copy; 2025</p>
+</footer>
+
+</div>
+</body>
+</html>
+
+Explaining the HTML code for the student data page
+
+Activity:
+
+Dear student, with the help of your teacher and in cooperation with your
+classmates, complete the explanation of the following HTML code for designing
+the student data page.
+
+<html>
+
+.............................................................
+
+<head>
+
+68

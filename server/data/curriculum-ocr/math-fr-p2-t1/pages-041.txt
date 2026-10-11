@@ -1,0 +1,73 @@
+Évaluation de la leçon
+
+Premièrement Mesurer les concepts
+
+► Choisis la bonne réponse parmi les réponses données:
+1 Quel est le plus grand commun diviseur entre les termes du polynôme 12 X² – 8 X?
+(a) 2
+(b) 4
+(c) 2 X
+(d) 4 X
+
+2 Lequel de ce qui suit représente la factorisation du polynôme 16 X² – 24 X³ en extrayant le PGCD?
+(a) 8 X (2 X – 3 X²)
+(b) 4 X² (4 – 6 X)
+(c) 8 X² (2 – 3 X)
+(d) 8 (2 X² – 3 X³)
+
+3 6 a – 8 b = .............
+(a) 6 (a – 2 b)
+(b) 4 (2 a – 4 b)
+(c) 2 (3 a – 4 b)
+(d) 14 (a – b)
+
+4 x² y – x y² = .............
+(a) x y (x – y)
+(b) x² y (1 – y)
+(c) x y² (x – 1)
+(d) x y (y – x)
+
+5 X (a + b) + Y (a + b) = .............
+(a) (X – y) (a – b)
+(b) (X + y) (a + b)
+(c) (X – y) (a + b)
+(d) (X + y) (a – b)
+
+6 Si X + y = 10 et a – b = 7, alors:
+X (a – b) – y (b – a) = .............
+(a) 3
+(b) 17
+(c) 51
+(d) 70
+
+► Découvre l'erreur:
+7 Sameh et Islam ont résolu l'équation 4 X² = 8 X, comme indiqué devant toi:
+Lequel d'entre eux a trouvé la bonne solution? Discute.
+
+La solution de Sameh:
+4 X² = 8 X
+4 X² / 4 X = 8 X / 4 X
+X = 2
+
+La solution d'Islam:
+4 X² = 8 X
+4 X² – 8 X = 0
+4 X (X – 2) = 0
+Soit 4 X = 0 et donc X = 0
+ou X – 2 = 0 et donc X = 2
+
+Deuxièmement Appliquer les concepts
+
+8 Factorise les polynômes suivants en extrayant le plus grand commun diviseur (le PGCD):
+1 12 y + 4
+2 4 m – m n
+3 15 a – 25 b
+4 18 a + 27 a b
+5 – 7 k – 49 m
+6 9 a² b – 6 a b² + 3 a b
+7 2 a – 4 a b – 6 a b c
+8 x² y³ + x² y² + x³ y²
+9 – 4 X⁵ + 6 X⁴ – 8 X³ + 12 X²
+10 16 a⁶ – 4 a⁴ + 12 a²
+
+Premier semestre Leçon 1: La factorisation en extrayant le plus grand commun diviseur 37

@@ -1,0 +1,51 @@
+■ Self-Evaluation 4
+In the following figure:
+How many sides does the regular polygon have when it is completed in the same way?
+
+Example 4
+Find the number of sides of the regular polygon in each of the following :
+1 If the measure of one of its interior angles = 150°
+2 If the measure of one of its exterior angles = 24°
+
+1 ∵ The polygon is regular and the measure of one of its interior
+angles = 150°
+∴ (n - 2) × 180° / n = 150°
+∴ 180° n - 360° = 150° n
+∴ 180° n - 150° n = 360°
+∴ 30° n = 360°
+∴ n = 360° / 30° = 12
+∴ The number of sides of the polygon = 12 sides.
+
+2 ∵ The polygon is regular and the measure of one of its exterior
+angles = 24°
+∴ 360° / n = 24°
+∴ 24° n = 360°
+∴ n = 360° / 24° = 15
+∴ The number of sides of the polygon = 15 sides.
+
+The mathematical formula for the number
+of diagonals of a convex polygon
+The number of diagonals of a convex polygon with n sides is equal to n(n - 3) / 2
+
+■ Self-Evaluation 5
+Find each of the following:
+1 The number of diagonals of a convex pentagon.
+2 The number of sides of a convex polygon with 27 diagonals.
+
+Example 5
+1 Find the number of diagonals of a convex octagon.
+2 Find the number of sides of a convex polygon with 35 diagonals.
+
+1 The number of diagonals of a convex octagon = n(n - 3) / 2 = 8 (8 - 3) / 2
+= 20 diagonals.
+
+2 ∵ The number of diagonals = 35
+∴ n(n - 3) / 2 = 35
+∴ n(n - 3) = 70
+∴ n² - 3 n - 70 = 0
+∴ (n + 7) (n - 10) = 0
+∴ Either n + 7 = 0 hence n = - 7 (refused)
+or n - 10 = 0 hence n = 10
+∴ The number of sides = 10 sides.
+
+100 Unit Three: Geometry Mathematics - Second Preparatory

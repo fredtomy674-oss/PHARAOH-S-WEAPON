@@ -1,0 +1,52 @@
+■ Auto-évaluation 4
+Trouve sous la forme la plus simple l'opposé et l'inverse de chacun de ce qui suit:
+1 - 4√2 2 √5/5
+3 3√7 - 4
+
+Exemple 4
+Trouve sous la forme la plus simple l'opposé et l'inverse de chacun de ce qui suit:
+1 3√2 2 2 - √3
+1 L'opposé = - 3√2
+L'inverse = 1 / 3√2
+∴ 1 / 3√2 = 1 / 3√2 * √2 / √2 = √2 / 6
+∴ L'inverse sous la forme la plus simple = √2 / 6
+2 L'opposé = - (2 - √3)
+= - 2 + √3
+L'inverse = 1 / 2 - √3
+∴ 1 / 2 - √3 = 1 / 2 - √3 * 2 + √3 / 2 + √3
+= 2 + √3 / 4 - 3 = 2 + √3 / 1
+∴ L'inverse sous la forme la plus simple = 2 + √3
+■ Remarque que
+Pour mettre le nombre 1 / 2 - √3
+sous la forme la plus simple,
+tu dois multiplier chacun de
+numérateur et de dénominateur
+par (2 + √3).
+
+■ Auto-évaluation 5
+(√5 - √2) m
+√5 m
+(√5 + √2) m
+Dans la figure, le pot de fleurs a une base en forme de trapèze.
+Trouve l'aire de la base du pot.
+
+Exemple 5
+Dans la figure ci-contre:
+Un aquarium en verre couvert en forme de parallélépipède rectangle pour exposer des poissons. Trouve:
+1 Le volume du aquarium en verre.
+2 L'aire totale du aquarium au m² près.
+√2 m
+2m
+2√2 m
+1 ∴ Le volume du aquarium (V) = La longueur × La largeur × La hauteur
+∴ V = 2√2 × 2 × √2
+= 2 × 2 × √2 × √2 = 4 × 2 = 8
+∴ Le volume du aquarium = 8 m³.
+2 ∴ L'aire totale (A) = 2 (la longueur × la largeur + la longueur × la hauteur + la largeur × la hauteur)
+∴ A = 2 (2√2 × 2 + 2√2 × √2 + 2 × √2)
+= 2 (4√2 + 4 + 2√2) = 2 (6√2 + 4) = 12√2 + 8 ≈ 24,97
+∴ L'aire totale du aquarium ≈ 25 m².
+
+Premier semestre
+Leçon 3: Les opérations sur les nombres réels
+17

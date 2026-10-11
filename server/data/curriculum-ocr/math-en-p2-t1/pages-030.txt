@@ -1,0 +1,65 @@
+Lesson
+1 - 5
+
+Laws of Exponents
+in Real Numbers
+
+■ Learning outcomes
+• Learn repeated
+multiplication in the set of
+real numbers.
+• Learn the laws of
+exponents in real numbers.
+• Use the laws of exponents
+to simplify mathematical
+expressions.
+• Use the laws of exponents
+to solve real-life problems.
+
+Get Ready!
+A company specializing in
+producing educational toys for
+children has decided to produce
+a toy in the form of a coloured
+cube made of safe plastic,
+with edge length 4√3 cm.
+What is the volume of this cube?
+
+In this lesson, you will learn the laws of exponents in real numbers,
+which will enable you to solve such real-life problems.
+
+■ Vocabulary
+• Repeated multiplication
+• Exponent
+• Base
+• Power
+
+Think & Discuss!
+If x + z = 4 , y + z = 2,
+what is the area of triangle ABC
+where CD ⊥ AB? Discuss.
+
+■ Note that
+• (-a)^n = a^n
+if n is an even integer.
+• (-a)^n = -a^n
+if n is an odd integer.
+
+Learn!
+Repeated multiplication in the set of real numbers
+The mathematical expression a^n is used to express the product of
+the real number a multiplied by itself n times.
+a × a × a × ... × a = a^n
+real number
+repeated n times
+Exponent
+Base
+
+Example:
+√2 × √2 × √2 × √2 × √2 = (√2)^5
+Exponent = 5
+Base = √2
+
+First Term
+Lesson Five: Laws of Exponents in Real Numbers
+25

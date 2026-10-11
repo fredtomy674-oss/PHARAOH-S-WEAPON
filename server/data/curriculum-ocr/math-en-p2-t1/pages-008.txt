@@ -1,0 +1,68 @@
+■ Self-Evaluation 1
+Which of the following numbers are rationals, and which are irrationals?
+-√4 | 17 | √8
+0.2 | 0.3 | 1 1/2
+0 | 25% | 3√25
+√5 + 1 | 3√-64
+
+■ Enriched Information
+Not all irrational numbers are roots; there are other irrational numbers such as:
+▶ The number π where: π ≈ 3.141592654... It is equal to the ratio between the circumference of the circle and the length of its diameter.
+▶ The golden ratio (φ) where: φ ≈ 1.618033989... which is a distinctive ratio associated with beauty and harmony in design.
+
+■ Note that
+9 < 11 < 16
+is an inequality of three sides which means that:
+The number 11 is greater than the number 9 (11 > 9)
+and the number 11 is less than the number 16 (11 < 16)
+which means that: The number 11 lies between the two numbers 9 and 16.
+
+Example 1
+Which of the following numbers are rational numbers, and which are irrational? Give reasons.
+1 -12
+2 √25
+3 √13
+4 3√-27
+5 2 2/5
+6 -3√10
+7 0.125
+8 3.6
+
+■ Think
+Can a number be both rational and irrational at the same time?
+
+✔
+▶ Each of the following numbers is a rational number
+-12, √25, 3√-27, 2 2/5, 0.125, 3.6
+because each can be written in the form of a/b where a and b are integers and b ≠ 0, as follows:
+-12 = -12/1
+√25 = 5 = 5/1
+3√-27 = -3 = -3/1
+2 2/5 = 12/5
+0.125 = 125/1000 = 1/8
+3.6 = 11/3
+
+■ Remember that
+The number 3.6 is an infinite decimal (recurring) and it is a rational number where 3.6 = 3.6666... = 11/3
+
+▶ Both numbers √13, -3√10 are irrational numbers.
+Because: the number 13 is not a perfect square, the number 10 is not a perfect cube, and therefore neither can be written in the form of a/b where a and b are integers and b ≠ 0.
+
+Finding an approximate value for an irrational number
+Any irrational number lies between two rational numbers and it can be represented on the number line by a point that lies between these two numbers.
+
+Example 2
+Find two consecutive integers between which each of the following numbers lies, and determine its approximate location on the number line.
+1 √11
+2 3√20
+
+✔ 1 Find two consecutive integers, each of which is a perfect square, and 11 lies between them.
+▶ The number 11 lies between the two numbers 9 and 16.
+9 < 11 < 16 ∴ √9 < √11 < √16 ∴ 3 < √11 < 4
+∴ The number √11 lies between the two numbers 3 and 4 and since the number 11 is closer to the number 9 than to the number 16,
+then the number √11 is closer to the number 3.
+√9 (3) --- √11 --- √16 (4)
+
+First Term
+Lesson One: Real Numbers
+3

@@ -1,0 +1,32 @@
+Niveaux d'énergie
+Les électrons gravitent autour du noyau, chacun selon son énergie, dans 7 niveaux d'énergie principaux dans les atomes les plus lourds dont leur numéro est indiqué par le symbole (n). Ils sont représentés par les lettres (K, L, M, N, ...).
+
+Activité 3 Analyse
+Figure (4) Nombre d'électrons nécessaire pour saturer les quatre premiers niveaux d'énergie
+Figure (5) Énergie de certains niveaux où les électrons gravitent autour du noyau
+
+Observe les figures (4) et (5), puis réponds aux questions suivantes :
+1) Combien d'électrons saturent chaque niveau d'énergie des quatre premiers niveaux ?
+• Premier niveau d'énergie K (n = 1) : ....................
+• Deuxième niveau d'énergie L (n = 2) : ....................
+• Troisième niveau d'énergie M (n = 3) : ....................
+• Quatrième niveau d'énergie N (n = 4) : ....................
+2) Que se passe-t-il à l'énergie d'un électron au fur et à mesure qu'il s'éloigne du noyau ?
+
+Compréhension mathématique :
+► Le nombre d'électrons nécessaires pour saturer les quatre premiers niveaux d'énergie est déterminé par la relation mathématique (2n²), où (n) représente le numéro du niveau d'énergie principal.
+► Vérifie les résultats de l'activité (3) en appliquant la relation (2n²)
+
+► Les scientifiques ont découvert que chaque niveau d'énergie principal se compose d'un certain nombre de sous-niveaux d'énergie, où les électrons tournent selon des formes différentes et que chaque niveau principal est occupé par un nombre défini d'électrons, et tout électron supplémentaire occupe le niveau d'énergie supérieur.
+► Le premier niveau d'énergie est rempli d'électrons en premier, suivi par les niveaux d'énergie supérieurs en fonction du nombre d'électrons dans chaque atome.
+► Le niveau d'énergie externe de tout atome ne contient pas plus de 8 électrons
+
+Évalue ta compréhension
+Selon ta compréhension de la répartition des électrons sur les niveaux d'énergie, place des points (•) représentant les électrons dans les niveaux d'énergie des atomes illustrés dans la figure (6).
+8 électrons
+12 électrons
+19 électrons
+Figure (6)
+
+october press
+LEÇON UN : La structure de l'atome 5

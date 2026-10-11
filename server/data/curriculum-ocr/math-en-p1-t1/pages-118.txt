@@ -1,0 +1,56 @@
+10 In the opposite figure:
+$\overleftrightarrow{BE} \cap \overleftrightarrow{CF} = \{A\}$
+Prove that: $\overrightarrow{AD}$ bisects $\angle EAC$.
+
+11 ABCD is a rectangle whose diagonals are intersecting at $M$.
+If $AC = (3X - 4)$ cm, and $BM = (X + 1)$ cm, what is the value of $X$?
+
+12 In the opposite figure:
+Prove that: $\overline{ED} \parallel \overline{AB}$
+
+C
+$70^\circ$
+D
+E $40^\circ$ A
+B
+F
+
+C
+$64^\circ$
+E $116^\circ$ D
+$52^\circ$
+A
+B
+
+Unit Four Activity Tangram
+
+Tangram is a renowned puzzle that involves arranging geometric pieces to form various shapes.
+
+► Activity Aims:
+- To enhance the understanding of geometric shapes among students.
+- To develop geometric skills students have.
+- To develop the ability to focus and pay attention.
+
+► Implementation steps:
+1 Students are divided into competing teams (2-3 students per team) to promote positive competitiveness.
+2 Each team should select a specific geometric shape (square, rectangle, parallelogram, etc.).
+3 The opposing team is challenged to form this shape multiple times using the Tangram pieces, starting with the fewest number of pieces till to use all the pieces within a time limit of (3-5) minutes.
+4 Teams take turns carrying out steps 2 and 3.
+5 Steps 2, 3, and 4 are repeated after each team chooses a different shape.
+6 The winner is the team that manages to form the required shape in the shortest time.
+
+► Note: One of the teams can ask the other teams to form different shapes, such as numbers or various figures like a cat, dog, or house, and so on.
+
+5
+4
+1
+3
+6
+2
+7
+(Tangram)
+
+First Term
+Unit Four Assessment
+El Nemer Press
+111

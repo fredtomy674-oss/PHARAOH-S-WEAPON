@@ -1,0 +1,46 @@
+Example
+Write a balanced symbolic equation of the reaction of hydrogen gas with nitrogen gas to form ammonia gas.
+
+▶ Idea of answering :
+Step (1) Write the correct molecular formulas in the form of an equation (Figure 8).
+Step (2) Calculate the number of atoms of each element in the reactants and products, Table (4):
+
+Nitrogen Hydrogen Ammonia
+N2(g) + H2(g) ----> NH3(g)
+Figure (8)
+
+Table (4)
+Element Number of atoms in reactants Number of atoms in products
+H 2 3
+N 2 1
+
+The coefficients of this equation do not represent a balanced equation, because the number of atoms of each element in the reactants is not equal to the number of atoms of the same element in the products.
+
+Step (3) Change the coefficient of ammonia to 2 to balance the number of nitrogen atoms (Figure 9), and recalculate the number of atoms (Table 5):
+
++ ---->
+N2(g) + H2(g) ----> 2NH3(g)
+Figure (9)
+
+Table (5)
+Element Number of atoms in reactants Number of atoms in products
+H 2 6
+N 2 2
+
+The coefficients of this equation do not represent a balanced equation. Why?
+
+Step (4) Change the coefficient of hydrogen to 3 to balance the number of hydrogen atoms (Figure 10), and recalculate the number of atoms (Table 6):
+
++ ---->
+N2(g) + 3H2(g) ----> 2NH3(g)
+Figure (10)
+
+Table (6)
+Element Number of atoms in reactants Number of atoms in products
+H 6 6
+N 2 2
+
+Step (5) Check the balance of the equation by equalling the numbers of atoms on both sides of the equation.
+Answer : Balanced symbolic equation: N2(g) + 3H2(g) ----> 2NH3(g)
+
+54 Unit Two : MATTER AND CHEMICAL REACTIONS

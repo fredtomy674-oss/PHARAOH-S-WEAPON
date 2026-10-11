@@ -1,0 +1,48 @@
+Click on the option (Build your site)
+
+English
+
+Log in
+
+Build Your Site
+
+First: Determine the type of website
+
+The first step is to tell the AI what type of website you want to create. Be clear and specific to get the best results for your site.
+
+In the designated writing space, type a command for the AI:
+
+"Create a website for my school reading club. It should be simple and attractive for a 13-year-old student. Name the club (School Read Club)."
+
+Note: The text commands written by the artificial intelligence tool to build v
+
+Wegic
+2
+
+Conversational interface with artificial intelligence to write the name of the site
+
+Create a website for my school reading club. It should be simple and attractive for a 13-year-old student, Name the club (School Read Club).
+
+3
+
+What a great idea for a book club! Let me start with a simple question to define the primary purpose of the site. What is the main purpose of the site?
+
+Command Prompt Window
+
+Say what you want and Kimmy will surprise you
+
+1
+
+A. You will be asked: For the website name: Enter a new name that represents the unused website. It is preferable to write the website name in English.
+
+B. You will be asked what type of content you would like to display on your website (e.g., educational articles, book reviews, reading recommendations, etc.).
+
+C. Follow the remaining steps below while directing commands to the website until completion.
+
+You can modify this command to suit your website's theme. For example:
+
+• "Create a website to display my graphics"
+
+Important note: Be as specific as possible when describing your website. For example, instead of "Create a website for football," you could say "Create a website
+
+77

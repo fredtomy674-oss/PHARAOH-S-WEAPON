@@ -1,0 +1,51 @@
+Lesson
+3-2
+
+Pythagoras' Theorem
+and Its Converse
+
+■ Learning Outcomes
+• Learn the relationship among the lengths of the sides of a right-angled triangle.
+• Find the length of one of the sides of a right-angled triangle if the length of the hypotenuse and the length of the other side are known.
+• Find the length of the hypotenuse of a right-angled triangle if the lengths of the other two sides are known.
+• Prove that a triangle is right-angled if the lengths of its three sides are known.
+• Determine the type of a triangle according to its angles if the lengths of its sides are known.
+
+■ Vocabulary
+• Pythagoras' Theorem
+• Hypotenuse
+
+■ Historical information
+The ancient Egyptians used a joined rope with 12 knots at equal distances to form a triangle with side lengths in the ratio 5 : 4 : 3.
+This triangle has a right angle between two sides of lengths 3 and 4 units. The Egyptians used this method to construct right angles.
+
+Hold the rope at the indicated knots
+
+Keep the rope taut
+Hold the rope aligned with the building
+
+Get Ready!
+You have a ladder that is 13 feet long leaning against a vertical wall. If the base of the ladder is 5 feet away from the wall, how high does the ladder reach up the wall?
+In this lesson, you will learn about the Pythagoras' theorem and its converse, which will enable you to solve such problems.
+
+Think & Discuss!
+If you have four pieces of wood of lengths 9 cm, 10 cm, 12 cm, and 15 cm, which three can you use to make a right-angled triangle?
+9 cm 10 cm 12 cm 15 cm
+
+Learn!
+Pythagoras' Theorem
+Pythagoras' Theorem is an equation that relates the side lengths of a right-angled triangle. It is named after the Greek mathematician Pythagoras, who lived in the 6th century BC
+
+Pythagoras' Theorem
+The area of the square drawn on the hypotenuse of a right-angled triangle is equal to the sum of the areas of the squares drawn on the other two sides.
+
+Another form of Pythagoras' theorem:
+In a right-angled triangle, the square of the hypotenuse length is equal to the sum of the squares of the other two side lengths.
+
+Thus: c² = a² + b² where a and b are the lengths of the sides of the right angle of the triangle, and c is the length of the hypotenuse.
+
+Pythagoras
+
+70
+Unit Three: Geometry
+Mathematics - Second Preparatory

@@ -1,0 +1,86 @@
+Leçon
+1 - 3
+
+Les opérations
+sur les nombres réels
+
+■ Résultats
+d'apprentissage
+• Effectuer des opérations
+arithmétiques (l'addition, la
+soustraction, la multiplication
+et la division) sur les
+nombres réels.
+• Connaître les propriétés
+de l'addition et de la
+multiplication des nombres
+réels.
+• Résoudre certains
+problèmes de la vie en
+utilisant les opérations
+arithmétiques sur les
+nombres réels.
+
+■ Vocabulaire
+• La stabilité
+• La commutativité
+• L'associativité
+• L'élément neutre pour
+l'addition
+• L'élément neutre pour la
+multiplication
+• L'opposé
+• L'inverse
+• Le terme radical
+
+Sois prêt!
+La lave provient du réservoir
+magmatique situé dans
+les profondeurs de la Terre
+par un canal appelé canal
+magmatique, jusqu'à atteindre
+le cratère du volcan, où elle
+explose et jaillit sous forme
+de lave, des gaz et de cendres
+volcaniques.
+Dans la figure devant toi, à
+quelle distance le cratère du
+volcan est loin par rapport au
+niveau de la mer?
+Dans cette leçon, tu apprendras à effectuer des opérations
+arithmétiques sur les nombres réels, ce qui te permettra de résoudre
+de tels problèmes de la vie.
+
+Réfléchis et discute!
+Un tapis de forme rectangulaire
+dont les dimensions sont (√5 + 1) m
+et (√5 - 1) m.
+Un tapis de forme carrée dont la longeur de son
+côté mesure √5 m.
+Lequel des deux tapis a la plus grande aire?
+Et lequel a le plus grand périmètre? Discute.
+
+Apprends!
+Les opérations sur les nombres réels
+Avant d'étudier comment effectuer les opérations arithmétiques (l'addition,
+la soustraction, la multiplication et la division) sur les nombres réels,
+premièrement nous allons connaître la notion des termes radicaux similaires.
+Les termes radicaux similaires sont des
+termes qui contiennent des racines en
+ayant le même indice de la racine et le
+même radicande
+(le nombre sous la racine)
+
+Exemples de termes radicaux
+similaires:
+• 4√3 et 2√3
+• ∛5 et -3∛5
+
+Exemples de termes radicaux
+différents:
+• 2√3 et 3√2
+• 2√5 et 2∛5
+
+14
+Unité 1: Les nombres et les opérations sur les nombres
+Mathématiques - deuxième préparatoire

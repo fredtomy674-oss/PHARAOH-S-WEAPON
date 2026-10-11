@@ -1,0 +1,60 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+(1) Which of the following represents the factorization of the polynomial X^2 + X - 20?
+(a) (X - 4) (X + 5)
+(b) (X + 4) (X + 5)
+(c) (X - 4) (X - 5)
+(d) (X + 4) (X - 5)
+(2) Which of the following represents the factorization of the polynomial 9 X^2 - 9 X - 4?
+(3 X - 4) (3 X + 1) (a)
+(3 X - 2) (3 X + 2) (b)
+(9 X - 1) (X + 4) (c)
+(9 X - 4) (X + 1) (d)
+(3) If (X - 3) (X + 5) = 0, which of the following is true?
+(a) X = 3 or X = 5
+(b) X = 3 or X = -5
+(c) X = -3 or X = 5
+(d) X = -3 or X = -5
+(4) If X^2 + a X + 15 = (X + 3) (X + b), what is the value of a b?
+(a) 5
+(b) 8
+(c) 13
+(d) 40
+(5) If X^2 - 11 X + 28 = (X - a) (X - b), what is the value of a + b?
+(a) - 16
+(b) - 11
+(c) 11
+(d) 16
+(6) If (X - 5) is one of the factors of the trinomial (2 X^2 - 7 X - 15), what is the other factor?
+(a) X + 3
+(b) 2 X - 3
+(c) 2 X + 3
+(d) X - 3
+(7) If 3 X - 2 Y = 6, 2 X + 3 Y = 5, what is the numerical value of the polynomial (6 X^2 + 5 X Y - 6 Y^2)?
+(a) 10
+(b) 11
+(c) 12
+(d) 30
+▶ Spot the mistake:
+(8) Find the mistake in each of the following and correct it.
+(1) 3 X^2 + 7 X - 6 = 0
+(3 X + 2) (X - 3) = 0
+∴ Either 3 X + 2 = 0
+hence X = -2/3
+or X - 3 = 0
+hence X = 3
+(2) 2 X^2 - 5 X - 3 = 9
+(2 X + 1) (X - 3) = 0
+∴ Either 2 X + 1 = 0
+hence X = -1/2
+or X - 3 = 0
+hence X = 3
+(3) X^2 + 5 X = 24
+X (X + 5) = 24
+∴ Either X = 24
+or X + 5 = 24
+hence X = 19
+
+44 Unit Two: Algebra Mathematics - Second Preparatory

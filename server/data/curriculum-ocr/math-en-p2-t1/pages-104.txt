@@ -1,0 +1,49 @@
+■ Think & Discuss
+Discuss the validity of the following statement:
+The sum of the measures of the exterior angles (one at each vertex) of the convex hexagon and the convex 12-side polygon are equal.
+
+The previous rule can be deduced by noticing that for any convex polygon with n sides:
+• At each vertex there is a pair of angles, one of them is exterior and the other is interior the sum of their measures is 180°.
+• The sum of the measures of the pairs of angles at all vertices of the polygon = 180° n
+• The sum of the measures of the exterior angles (one at each vertex) is :
+180° n - (n - 2) x 180° = 180° n - (180° n - 360°) = 360°
+
+■ Self-Evaluation 3
+In the following figure:
+Find: m (∠ BCD)
+
+Example 3
+In the given figure:
+Find: 1 The value of a 2 m (∠ BCD)
+
+∴ The sum of the measures of the exterior angles of a convex polygon = 360°
+∴ 2 a° + 4 a° + 3 a° + 2 a° + 2 a° + 5 a° = 360°
+∴ 18 a = 360 ∴ a = 360 / 18 = 20 ( Required 1 )
+∴ The measure of the exterior angle at vertex C = 20° x 3 = 60°
+∴ m (∠ BCD) = 180° - 60° = 120° ( Required 2 )
+
+■ Remember that
+The regular polygon is a polygon that has the following two properties:
+1 All sides are equal in length.
+2 All interior angles are equal in measure.
+
+■ Think & Discuss
+Discuss the validity of the following statements :
+1 The measure of the interior angle of a regular nonagon is 140°.
+2 The measure of the exterior angle of a regular pentagon at one of its vertices is 108°
+
+Mathematical formula for the measure of the angle of a regular polygon
+
+In a regular polygon with n sides:
+• The measure of the interior angle = (n - 2) x 180° / n
+• The measure of the exterior angle at one of its vertices = 360° / n
+
+Example:
+The given figure is a regular hexagon.
+• m (∠ 1) = (n - 2) x 180° / n
+= (6 - 2) x 180° / 6 = 120°
+• m (∠ 2) = 360° / n = 360° / 6 = 60°
+
+First Term
+Lesson Six: Interior and Exterior Angles of Polygons
+99

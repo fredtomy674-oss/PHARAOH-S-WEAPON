@@ -1,0 +1,47 @@
+Évaluation de la leçon
+
+Premièrement Mesurer les concepts
+▶ Choisis la bonne réponse parmi les réponses données:
+1) Lequel des nombres suivants est un nombre irrationnel?
+(a) 0,3 (b) √9/25 (c) √5 (d) ∛-125
+2) Si X ∈ Z et X < √29 < X + 1, quelle est la valeur de X?
+(a) 4 (b) 5 (c) 6 (d) 7
+3) Quelle est la valeur approchée du nombre √41 au nombre entier le plus proche?
+(a) 6 (b) 7 (c) 36 (d) 49
+4) Quelle est la valeur approchée du nombre ∛25 au nombre entier le plus proche?
+(a) 2 (b) 3 (c) 5 (d) 12,5
+5) Lequel des nombres suivants est un nombre irrationnel qui compris entre 2 et 3?
+(a) 2,5 (b) √10 (c) √6,25 (d) ∛9
+6) Si 1 < √n < 2, laquelle des valeurs suivantes est une valeur possible pour le nombre n?
+(a) 1 (b) 2 (c) 4 (d) 8
+7) Lequel des nombres suivants est le mieux représenté par le point k sur la droite numérique suivante?
+(a) √86 (b) √96 (c) √81 (d) √78
+8) Si X et Y sont deux nombres entiers consécutifs, quelle est la valeur de X + Y?
+(a) 11 (b) 13 (c) 15 (d) 17
+
+▶ Discute:
+9) Hamza et Aser ont répondu à la question suivante:
+Trouve deux nombres entiers consécutifs qui en cadrent le nombre irrationnel -√5
+La solution de Hamza:
+4 < 5 < 9
+√4 < √5 < √9
+2 < √5 < 3
+-3 < -√5 < -2
+La solution d'Aser:
+-9 < -5 < -4
+-√9 < -√5 < -√4
+-3 < -√5 < -2
+Lequel d'entre eux a suivi la méthode correcte pour la solution?
+
+Deuxièmement Appliquer les concepts
+10) Classe chacun des nombres dans le tableau ci-contre comme rationnel ou irrationnel en expliquant ton choix:
+0,323232... | -∛64 | 1,6 | √4/9 | 12/31 | √6
+∛16 | 17% | 2 2/3 | ∛-27 | -√121 | 0
+
+▶ Trouve deux nombres entiers consécutifs qui en cadrent chaque nombre des nombres suivants et indique sa place approximative sur la droite numérique:
+11) √5
+12) √13
+13) -√11
+14) ∛14
+
+6 Unité 1: Les nombres et les opérations sur les nombres Mathématiques - deuxième préparatoire

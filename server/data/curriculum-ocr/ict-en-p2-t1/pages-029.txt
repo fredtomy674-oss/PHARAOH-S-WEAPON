@@ -1,0 +1,36 @@
+Lesson 3
+
+Big Data
+
+Objectives:
+
+By the end of the lesson, I will be able to:
+- Explain the characteristics of big data.
+- Discuss secure big data sources.
+- Infer the types of big data.
+
+After the lesson, check the correct box:
+I can...
+[ ] Very good [ ] Ok [ ] Need more work
+[ ] Very good [ ] Ok [ ] Need more work
+[ ] Very good [ ] Ok [ ] Need more work
+
+Engage:
+What is big data? How can we securely obtain data that helps us make proper decisions?
+
+Learn:
+The concept of big data:
+A collection of large, complex data that cannot be efficiently processed using traditional technology (such as Excel) to make meaningful use of it. Analyzing big data allows analysts, researchers, and entrepreneurs to make better, faster decisions.
+
+Sources of big data:
+1- Internet-connected devices (IoT):
+Internet-connected devices such as smart refrigerators, smart watches, or connected cars continuously generate data by collecting information about their location, temperature, behavioral patterns, and energy usage.
+
+Example: A smart watch measures heart rate, physical activity level, and temperature and collects this data to send it to the relevant application.
+
+2- Social Media:
+Social media generates data from users' daily activities, such as posts, comments, photos, videos, and likes (and these sources may be unreliable).
+
+Example: when someone posts a photo on Instagram or shares an opinion on Facebook, data is generated about the time, location, reactions, and hashtags.
+
+29

@@ -1,0 +1,51 @@
+Deuxièmement Appliquer les concepts
+
+4 La direction de l'une des usines a étudié le temps nécessaire aux employés pour atteindre l'usine afin de déterminer les moyens de transport les plus appropriés, pour préserver le temps des employés et du travail.
+
+| Intervalles (le temps en minutes) | Effectif (le nombre d'employés) |
+| :--- | :--- |
+| 0 - | 6 |
+| 20 - | 39 |
+| 40 - | 31 |
+| 60 - | 14 |
+| 80 - | 6 |
+| 100 - | 4 |
+
+Dresse le tableau des effectifs cumulés croissants et représente-le graphiquement.
+
+5 Le tableau suivant indique le temps de livraison des commandes en secondes pour un restaurant fast-food.
+
+| Intervalles (le temps en secondes) | Effectif (le nombre de repas) |
+| :--- | :--- |
+| 75 - | 11 |
+| 120 - | 24 |
+| 165 - | 10 |
+| 210 - | 3 |
+| 255 - | 2 |
+
+Dresse le tableau des effectifs cumulés croissants et représente-le graphiquement.
+
+6 Le tableau suivant indique le nombre de maisons ayant différentes aires (mesurées en mètres carrés).
+
+| Intervalles (m²) | 100 - | 150 - | 200 - | 250 - | 300 - | 350 - |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Effectif | 5 | 23 | 27 | 21 | 9 | 5 |
+
+1 Dresse le tableau des effectifs cumulés croissants et représente-le graphiquement.
+2 Trouve le nombre de maisons dont l'aire est inférieure à 300 mètres carrés.
+3 Trouve le nombre de maisons dont l'aire est de 150 mètres carrés ou plus.
+4 Trouve le pourcentage de maisons dont l'aire est de 250 mètres carrés ou plus.
+
+7 À partir de l'histogramme ci-contre, dresse le tableau des effectifs cumulés croissants et représente-le graphiquement.
+
+Effectif
+25
+20
+15
+10
+5
+0
+10 20 30 40 50 60 70 80
+Intervalles
+
+110 Unité 4: Les statistiques Mathématiques - deuxième préparatoire

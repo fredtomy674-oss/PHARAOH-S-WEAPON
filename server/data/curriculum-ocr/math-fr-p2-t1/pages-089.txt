@@ -1,0 +1,73 @@
+■ Discute la preuve de la
+validité du théorème
+Complète le dessin du
+rectangle.
+Les deux diagonales du
+rectangle sont égales en
+longueur et chacune d'elles
+coupe l'autre en son milieu.
+C'est-à-dire que:
+BD = AD = DC = DE
+= 1/2 AC
+
+■ Auto-évaluation 2
+Dans la figure suivante:
+Si AD est une médiane dans
+le triangle rectangle ABC
+en A
+Trouve la longueur de AD.
+
+■ Auto-évaluation 3
+Dans la figure suivante:
+Si D et E sont les
+milieux de AB et AC
+respectivement,
+BE ∩ CD = {G}
+AC = 9 cm et AG = 5 cm
+Trouve la longueur de AB.
+
+Théorème 4-3
+La longueur de la médiane du triangle rectangle tracé à partir du
+sommet de l'angle droit est égale à la moitié de la longueur de
+l'hypoténuse de ce triangle.
+
+Dans la figure ci-contre:
+Si BD est une médiane tracée à partir du sommet
+de l'angle droit B
+Alors: BD = AD = DC = 1/2 AC
+
+Exemple 2
+Dans la figure ci-contre:
+Le triangle ABC est rectangle en A
+et AD est une médiane en celui-ci.
+Trouve la longueur de AD.
+
+✔ ∵ AD est une médiane dans le triangle ABC et tracé à partir
+du sommet de l'angle droit.
+∴ AD = 1/2 BC
+∴ X + 12 = 4 X
+∴ AD = X + 12 = 4 + 12 = 16
+∴ X + 12 = 1/2 x 8 X
+∴ 3 X = 12
+∴ X = 4
+C'est-à-dire que la longueur de AD est égale à 16 cm.
+
+Exemple 3
+Dans la figure ci-contre:
+Si G est le point d'intersection des médianes du
+triangle ABC rectangle en A,
+trouve la longueur de AG
+
+✔ ∵ Le triangle ABC est rectangle en A
+∴ (BC)² = (AB)² + (AC)² (Le théorème de Pythagore)
+= (24)² + (18)² = 900
+∴ BC = √900 = 30
+∵ AD est la médiane tracé à partir du sommet de l'angle droit
+∴ AD = 1/2 BC = 1/2 x 30 = 15
+∵ G est le point d'intersection des médianes du triangle ABC
+∴ AG = 2/3 AD = 2/3 x 15 = 10
+C'est-à-dire que la longueur de AG est égale à 10 cm.
+
+Premier semestre
+Leçon 4: Les médianes du triangle
+85

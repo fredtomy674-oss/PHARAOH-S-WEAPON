@@ -1,0 +1,39 @@
+Activity 3 Practical
+1 Hang a mass of 1 kg on the hook of a spring balance (Newton meter) (Figure 19) and record the weight in Newtons (N) in Table (1):
+Mass (kg) 1 2 3 4 5
+Weight (N) ............. ............. ............. ............. .............
+Table (1)
+Figure (19)
+Weight (N)
+Mass (kg)
+Figure (20)
+2 Repeat step 1 with different masses.
+3 Represent the results with a graph in which weight in Newtons is represented on the vertical axis and mass in kilograms is represented on the horizontal axis (Figure 20).
+It is evident from practical activity (3) that the weight of an object is calculated using the mathematical relation :
+Weight (w) = Mass (m) × Gravitational field intensity (g)
+Knowing that Earth's gravitational field intensity is approximately 10 N/kg, i.e. any mass of 1 kg at Earth's surface is attracted towards Earth's center by a force that equals approximately 10 N
+
+Activity 4 Discover
+What is the relation between the weight of an object and the gravitational field intensity acting on it ?
+Figures (21) : (23) show the masses and weights of an object in three different locations.
+The moon
+6 kg
+10 N
+Figure (21)
+Earth
+6 kg
+60 N
+Figure (22)
+Outer space
+6 kg
+00.0 N
+Figure (23)
+1 Does the mass of an object change depending on its location ?
+......................................................................................................................................................
+2 Does the weight of an object change depending on its location ?
+......................................................................................................................................................
+3 Which is greater: Earth's gravitational pull on the objects or the moon's gravitational pull on them ?
+......................................................................................................................................................
+4 Why does the weight of an object become zero in outer space ?
+......................................................................................................................................................
+52 UNIT TWO : Force Fields

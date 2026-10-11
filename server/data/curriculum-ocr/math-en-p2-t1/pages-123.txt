@@ -1,0 +1,30 @@
+Second Applying Concepts
+(7) The following table shows the mean of daily expenditure of 50 students in the second preparatory grade within a school.
+Expenditure (in pounds) 0- 10- 20- 30- 40- 50-
+Frequency 7 12 15 9 5 2
+Estimate the arithmetic mean of the daily expenditure.
+(8) The following table shows the ages of teachers enrolled in a training course on safety and security in educational institutions.
+Ages (years) 26- 30- 34- 38- 42- 46-
+Frequency 4 10 28 35 15 8
+Draw the histogram and estimate the modal age.
+(9) The following table shows the masses (in kilograms) of 40 people who joined a weight loss program.
+Intervals 70- 80- 90- 100- 110- 120- 130-
+Frequency 2 5 9 12 7 3 2
+Estimate the median graphically.
+(10) The following table shows the frequency distribution of the marks of 40 students in a test.
+Intervals 5- 10- 15- 20- 25- Total
+Frequency k 10 3k 8 k+2 40
+Find the value of k, then estimate the value of the median.
+Third Analysis and Subjects Integration
+(11) The following table shows the monthly electricity consumption in kilowatt hours for 100 houses.
+Intervals (k.w.h) 0- 100- 200- 300- 400- 500- 600-
+Number of houses 4 10 28 35 15 6 2
+(1) Estimate the arithmetic mean of consumption.
+(2) Estimate the median. (3) Estimate the mode.
+(4) Arrange the values of measurements you obtained in ascending order.
+Creative Thinking
+(12) The lifespan of two batteries of two different types, A and B, was tested. Then, fifty batteries of each type were randomly selected and tested in the same way. The lifespan of each battery was recorded in hours. The test results are shown in the given table .Estimate the median lifespan of each type and compare them.
+Duration (hours) 0- 5- 10- 15- 20- 25- 30-
+Frequency of type A 3 5 8 10 12 7 5
+Frequency of type B 1 2 10 20 9 4 4
+118 Unit Four: Statistics Mathematics - Second Preparatory

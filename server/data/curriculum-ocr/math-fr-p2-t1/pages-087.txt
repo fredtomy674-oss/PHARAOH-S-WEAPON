@@ -1,0 +1,70 @@
+Leçon
+3 - 4
+
+Les médianes du triangle
+
+■ Résultats
+d’apprentissage
+• Connaître le concept de la
+médiane du triangle.
+• Connaître le point
+d’intersection des
+médianes du triangle.
+• Connaître la relation entre
+la longueur de la médiane
+tracé à partir du sommet de
+l’angle droit et la longueur
+de l’hypoténuse dans le
+triangle rectangle.
+• Utiliser les médianes du
+triangle pour résoudre des
+problèmes de la vie.
+
+■ Vocabulaire
+• Médianes
+• Le point d’intersection
+des médianes du triangle
+• Point d’équilibre
+
+Sois prêt!
+Les drones sont utilisés dans plusieurs
+domaines, tels que la photographie
+aérienne, les opérations de sauvetage,
+la surveillance, etc. Leur importance ne
+cesse de croître avec le développement
+de la technologie.
+Tu as devant toi un drone qui contient
+trois bras, chacun se terminant par un
+moteur.
+Si ces moteurs sont identiques, où se
+situe le centre géométrique du drone?
+Dans cette leçon, tu apprendras à trouver le point d’intersection des médianes
+du triangle, ce qui te permettra de résoudre de tels problèmes de la vie.
+
+Réfléchis et discute!
+Un décorateur conçoit une table sur
+mesure pour l’un des clients.
+Le plateau de la table est un triangle
+en verre qui nécessite d’être équilibré
+sur un seul support.
+À quel point doit-on placer le support?
+Discute.
+
+Apprends!
+La médiane du triangle
+La médiane du triangle est un segment tracé de l’un des sommets du
+triangle jusqu’au milieu du côté opposé à ce sommet. Chaque triangle
+a trois médianes, comme suit:
+
+AD est la médiane
+tracée du sommet A
+
+BE est la médiane
+tracée du sommet B
+
+CF est la médiane
+tracée du sommet C
+
+Premier semestre
+Leçon 4: Les médianes du triangle
+83

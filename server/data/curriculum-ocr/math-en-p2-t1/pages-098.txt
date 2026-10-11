@@ -1,0 +1,49 @@
+Corollaries of the axis of symmetry of an isosceles triangle
+Corollary:
+The median of an isosceles triangle drawn from the vertex bisects the vertex angle and is perpendicular to the base.
+If AB = CB,
+BD is a median,
+then:
+① BD ⊥ AC
+② m (∠ ABD) = m (∠ CBD)
+
+Corollary:
+The bisector of the vertex angle of an isosceles triangle bisects the base and is perpendicular to it.
+If AB = CB,
+BD bisects ∠ ABC,
+then:
+① AD = CD
+② BD ⊥ AC
+
+Corollary:
+The straight line drawn from the vertex of an isosceles triangle perpendicular to the base bisects both the base and the vertex angle.
+If AB = CB, BD ⊥ AC,
+then:
+① AD = DC
+② m (∠ ABD) = m (∠ CBD)
+
+■ Self-Evaluation 5
+In the following figure:
+E ∈ BD
+Find the value of n
+
+Example 5
+In the given figure:
+AB = AC, EA = EB, AD ⊥ BC,
+m (∠ EBD) = 48°
+Find the value of X
+In Δ EDB:
+m (∠ DEB) = 180° - (90° + 48°) = 42°
+∵ ∠ DEB is an exterior angle of Δ AEB, EA = EB
+∴ m (∠ EAB) = m (∠ EBA) = 42° / 2 = 21°
+∵ Δ ABC is an isosceles triangle, AD ⊥ BC
+∴ m (∠ CAD) = m (∠ BAD) = 21°
+∴ X = 21
+
+30°-60°-90° triangle
+30°-60°-90° triangle is a right-angled triangle
+with two acute angles of measures 30° and 60°.
+
+First Term
+Lesson Five: Isosceles Triangle
+93

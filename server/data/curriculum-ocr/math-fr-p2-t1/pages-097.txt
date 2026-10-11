@@ -1,0 +1,55 @@
+Résultats de l'axe de symétrie du triangle isocèle
+Résultat:
+La médiane du triangle isocèle
+tracée à partir du sommet est une
+bissectrice de l'angle au sommet et
+elle est perpendiculaire à la base.
+Si AB = CB
+BD est la médiane
+,alors:
+1 BD ⊥ AC
+2 m (∠ ABD) = m (∠ CBD)
+
+Résultat:
+La bissectrice de l'angle au
+sommet dans le triangle isocèle
+coupe la base en son milieu et
+elle est perpendiculaire à celle-ci.
+Si AB = CB
+BD est la
+bissectrice de
+∠ ABC, alors:
+1 AD = CD
+2 BD ⊥ AC
+
+Résultat:
+La ligne droite tracée au sommet du triangle isocèle perpendiculairement à
+la base coupe la base en son milieu et est une bissectrice au sommet.
+Si AB = CB, BD ⊥ AC,
+alors:
+1 AD = DC 2 m (∠ ABD) = m (∠ CBD)
+
+■ Auto-évaluation 5
+Dans la figure suivante:
+E ∈ BD
+Trouve la valeur de n.
+
+Exemple 5
+Dans la figure ci-contre:
+AB = AC, EA = EB et AD ⊥ BC
+m (∠ EBD) = 48°
+Trouve la valeur de X
+✔ Dans le triangle EDB:
+m (∠ DEB) = 180° – (90° + 48°) = 42°
+∵ ∠ DEB est à l'extérieur du triangle AEB et EA = EB.
+∴ m (∠ EAB) = m (∠ EBA) = 42° / 2 = 21°
+∵ Le triangle ABC est isocèle et AD ⊥ BC
+∴ m (∠ CAD) = m (∠ BAD) = 21° ∴ X = 21
+
+Le triangle trente-soixante
+Le triangle trente-soixante est un triangle rectangle
+avec deux angles aigus mesurent de 30° et 60°.
+
+Premier semestre
+Leçon 5: Le triangle isocèle
+93

@@ -1,0 +1,29 @@
+Learn by doing
+
+First: Choose the correct answer from the following:
+1. Which of the following is an example of ransom ware?
+A) A program that displays annoying ads.
+B) A program that encrypts your files and demands a ransom to decrypt them.
+C) A program that cleans temporary files from your device.
+d) A program that helps you organize your files.
+2. What is the primary goal of a distributed denial of service (DDoS) attack?
+a) Stealing user data.
+b) Disabling a website or online service.
+c) Spreading false information.
+d) Spying on user communications.
+3. Which of the following is considered a social engineering technique?
+a) Using programs to crack passwords.
+b) Tricking people into revealing their information.
+c) Sending viruses via email.
+d) Exploiting software vulnerabilities.
+4. What does the term "security updates" mean?
+a) Changing the appearance of the operating system.
+b) Adding new features to software.
+c) Fixing security vulnerabilities in software and hardware.
+d) Speeding up application performance.
+5. What are the botnets used in DDoS attacks?
+a) Advanced artificial intelligence programs.
+b) A network of compromised devices that are remotely controlled.
+c) Superfast computers.
+
+26

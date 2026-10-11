@@ -1,0 +1,50 @@
+Ministry of Education
+Home
+What is User Experience (UX)?
+Courses
+User experience (UX) is how a user interacts with a particular
+website or application. Improving usability and design
+efficiency is key to achieving the best possible experience.
+UX design involves considering user needs, ensuring content
+clarity, and ease of navigation within the site.
+Library
+Support
+Contact Us
+Follow us on social media
+Large, clear, and easy-to-read
+text.
+Small, ornate font text. Difficult to read and
+may be frustrating.
+Ministry of Education
+Home
+Support
+Courses
+Contact us
+Library
+What is user experience (UX)?
+User experience is the way a visitor interacts with a website, whether they
+navigate easily or encounter difficulties understanding it. The success of a design
+depends on the clarity of elements and ease of use.
+1
+Follow us on social media
+Activity:
+• Write a short sentence, "Water is the secret of life," using clear and complex
+writing, and compare the two.
+3. Consistency:
+• Interface consistency means maintaining the same style throughout the application
+or website.
+• Illustrated examples:
+Ministry of Education
+Login
+Search
+Login
+Settings
+Help
+E-mail
+Notifications
+Password
+login
+45
+The buttons feel familiar to the
+user, with the same shape and
+color everywhere

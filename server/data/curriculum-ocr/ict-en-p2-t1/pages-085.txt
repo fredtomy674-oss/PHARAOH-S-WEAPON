@@ -1,0 +1,30 @@
+Learn by doing
+
+First: Choose the correct answer from the following:
+1. What is the primary purpose of creating a website?
+a) Playing games only
+b) Communicating and displaying information to the world
+c) Storing personal files
+d) Sending text messages only
+2. What has made creating websites much easier now?
+a) The increase in the number of programmers
+b) The use of artificial intelligence technologies
+c) The decrease in the price of computers
+d) The disappearance of programming languages
+3. An example of an AI tool that helps in building websites is...............
+a) Paint
+b) Word
+c) Wegic.ai
+d) Calculator
+4. When using AI tools to build a website, do you need to be a programming
+expert?
+a) Yes, you must be a professional
+b) Yes, you need some experience
+c) No, you don't need advanced programming experience
+d) Only if you want a complex website
+5. What are the scripts we write to an AI tool to create a website called?
+a) Code
+b) Descriptive Images
+c) Prompt
+
+85

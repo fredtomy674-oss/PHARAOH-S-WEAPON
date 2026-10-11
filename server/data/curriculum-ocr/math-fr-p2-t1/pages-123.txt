@@ -1,0 +1,111 @@
+Évaluation de l’unité 4
+Évalue ta compréhension!
+Quel est ton niveau de compréhension de l’unité 4?
+Coche la case appropriée.
+
+▶ Choisis la bonne réponse parmi les réponses données:
+
+1 On a demandé à 40 étudiants de résoudre une énigme simple et les temps qu’ils ont mis pour la résolution ont été enregistrés en secondes. Les résultats ont été représentés graphiquement à l’aide de la courbe des cumulés croissants suivante.
+Effectif cumulé croissant
+40
+30
+20
+10
+Temps en secondes
+180 190 200 210 220
+Combien d’étudiants ont mis 3,5 minutes ou plus?
+(a) 30
+(b) 35
+(c) 37
+(d) 3
+
+2 À partir du tableau des effectifs cumulés croissants ci-contre.
+Quelle est la valeur de la médiane?
+(a) 154,9
+(b) 155,9
+(c) 157,9
+(d) 160,9
+Bornes supérieures des intervalles
+inférieure à 142
+inférieure à 148
+inférieure à 154
+inférieure à 160
+inférieure à 166
+inférieure à 172
+Effectif cumulé croissant
+0
+4
+12
+32
+44
+50
+
+3 Si la moyenne arithmétique (X) du tableau des effectifs est 24,5 et que Σ (f. Xm) = 980, quelle est la valeur de Σ f?
+(a) 40 (b) 50 (c) 60 (d) 70
+
+4 Quel est le centre du troisième intervalle dans les intervalles 6–; 10–; 14–; 18–; ...?
+(a) 12 (b) 14 (c) 16 (d) 18
+
+▶ Complète chacun de ce qui suit avec la bonne réponse à l’aide du tableau des effectifs suivant:
+Intervalles
+Effectif
+2–
+k
+6–
+6
+10–
+7
+14–
+11
+18–
+8
+22–
+k²+1
+26–
+1
+Total
+40
+
+5 La valeur de k = ……………
+6 La moyenne arithmétique = ……………
+7 L’ordre de la médiane = ……………
+8 La médiane = ……………
+
+▶ Réponds aux questions suivantes:
+
+9 Si la moyenne arithmétique de la distribution des effectifs suivante est 36,6, trouve la valeur de X et k.
+Notes
+Effectif
+10–
+12
+20–
+20
+30–
+k
+X–
+30
+50–
+15
+
+10 Le tableau suivant indique la masse de 50 élèves en kilogrammes dans une école.
+Trace l’histogramme et trouve la masse modale.
+Masses (kg)
+Effectif
+30–
+6
+35–
+10
+40–
+12
+45–
+8
+50–
+6
+55–
+5
+60–
+3
+
+Premier semestre
+Évaluation de l’unité 4
+119

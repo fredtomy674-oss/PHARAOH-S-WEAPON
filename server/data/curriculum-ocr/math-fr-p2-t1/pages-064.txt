@@ -1,0 +1,66 @@
+Évaluation de
+l’unité 2
+
+Évalue ta compréhension!
+Quel est ton niveau de
+compréhension de l’unité 2?
+Coche la case appropriée.
+
+▶ Choisis la bonne réponse parmi les réponses données:
+(1) Si le polynôme:
+(9 X² + k X + 49) est un carré parfait,
+quelle est la valeur de k ?
+(a) ± 7 (b) ± 21
+(c) ± 42 (d) ± 72
+
+(2) Si X² – 14 X + 24 = (X – a) (X – b) ,quelle
+est la valeur de a + b ?
+(a) – 10 (b) – 14
+(c) 10 (d) 14
+
+(3) Si m – n = 5 et X + y = 7,
+alors: X (m – n) – Y (n – m) = .............
+(a) 2 (b) 12
+(c) 35 (d) 70
+
+(4) x³ + y³ = (............) (x² – x y + y²)
+(a) (x – y) (x + y)
+(c) (x² – y²) (d) (x² + y²)
+
+▶ Complète chacun de ce qui suit avec la réponse correcte:
+(5) Le plus grand commun diviseur entre les termes
+du polynôme 16 X³ + 8 X² – 32 X est .............
+(6) Lors de la complétion d’un carré de l’expression
+(X² + 24 X) , nous ajoutons .............
+(7) Si (m² + 4 m + 8) est l’un des deux facteurs
+de l’expression (m⁴ + 64) , alors l’autre
+facteur est .............
+(8) Si X³ – 3 X² – X + 3 = (X + a) (X + b) (X + c) ,
+alors (a × b × c) est égale à .............
+
+▶ Réponds aux questions suivantes:
+(9) Trouve l’ensemble de solution de l’équation: X² – 6 X = – 8 dans R
+(10) Factorise complètement chacun de ce qui suit:
+① 3 X² + 2 X – 5 ② k² – 64 m² ③ x³ y³ – 27
+(11) Un parallélogramme a une aire de 60 cm² et la longueur de sa base est supérieure à sa hauteur
+correspondante de 7 cm, quelle est la hauteur du parallélogramme?
+(12) Factorise complètement chacun de ce qui suit:
+① x² – 6 x – y² + 6 y ② 8 x⁵ – 10 x³ y² + 2 x y⁴
+
+Activité de l’unité 2
+L’origine historique de la factorisation
+des expressions algébriques
+▶ L’objectif de l’activité:
+Apprécier le rôle des savons musulmans dans le
+développement de la science de l’algèbre et des
+expressions algébriques.
+Les étapes de mise en œuvre:
+En collaboration avec l’un de tes amis, essaie
+de faire ce qui suit:
+(1) Utilise l’une des applications d’intelligence artificielle pour trouver le nom d’un des savans
+musulmans qui ont contribué au développement de la science de l’algèbre.
+(2) Écris le rôle de ce savant dans le sujet de la factorisation des expressions algébriques.
+(3) Y a-t-il des différences entre la méthode de la factorisation des expressions algébriques ancienne et
+celle moderne?
+
+60 Unité 2: L’algèbre Mathématiques - deuxième préparatoire

@@ -1,0 +1,39 @@
+► Mets dans chaque case l’un des symboles <, >, ou = pour que l’expression soit correcte:
+(15) √96 ☐ 14 (16) -√7 ☐ -2,6 (17) ∛25 ☐ √9
+
+(18) Mets en ordre les nombres: 6,36 , 6 4/5 , 7 , √40 du plus petit au plus grand.
+
+► Trouve dans R l’ensemble des solutions de chacune des équations suivantes:
+(19) x³ - 11 = 5 (20) 2x³ + 13 = 67 (21) 3x² - 1 = - 13
+
+► Trouve dans Q` l’ensemble des solutions de chacune des équations suivantes:
+(22) 2x² - 3 = 9 (23) 6x² - 3 = 4x² + 7 (24) 2(x³ + 1) = 18
+
+Troisièmement L’analyse et l’intégration des disciplines
+(25) Géométrie: Un carré d’une aire de 29 cm². Auxquels des ensembles de nombres suivants appartient la longueur de son côté? Détermine tous les ensembles possibles.
+☐ R ☐ Q ☐ Q` ☐ Z ☐ N
+
+(26) Arts: Samar a façonné un morceau d’argile en forme de cube d’une aire totale de 300 cm².
+Trouve la longueur de son arête. La longueur de l’arête est-elle un nombre rationnel?
+
+Les arts contribuent au développement de la créativité et de l’innovation chez l’individu.
+
+(27) Géométrie: Lequel est le plus grand: la longueur d’un côté d’un carré dont l’aire est de 16 cm² ou la longueur d’une diagonale d’un carré dont l’aire est de 9 cm²?
+
+(28) Agriculture: Un jardin de forme rectangulaire a une aire de 80 m², sa longueur est le double de sa largeur.
+Trouve la longueur et la largeur au mètre près.
+
+Les jardins purifient l’air et améliorent la santé mentale des individus.
+
+(29) Quelle est la plus petite valeur correcte de la variable n qui rend les deux nombres √41 + n et √2n + 20 un nombre rationnel?
+
+Pensée créative
+(30) Trouve un nombre irrationnel qui compris entre 0,3 et 0,6
+(31) Si 10 < √x < 11 et 12 < √y < 13 où x et y sont deux nombres entiers positifs, trouve la plus grande valeur de l’expression y - x.
+
+Évalue ta compréhension!
+Quel est ton niveau de compréhension des nombres réels?
+Coche la case appropriée.
+☐ ☐ ☐ ☐
+
+Premier semestre Leçon 1: Les nombres réels 7

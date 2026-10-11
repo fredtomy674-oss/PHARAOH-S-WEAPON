@@ -1,0 +1,48 @@
+■ Réfléchis et discute
+Discute la validité de la phrase suivante:
+La somme des mesures des angles extérieurs (un à chaque sommet) des deux polygones, l'hexagone convexe et le dodécagone convexe ,est égale.
+
+■ Auto-évaluation 3
+Dans la figure suivante:
+Trouve: m (∠ BCD)
+
+■ Rappelle-toi que
+Le polygone régulier est un polygone qui possède les deux propriétés suivantes:
+1 Tous ses côtés sont de longueur égale.
+2 Tous ses angles intérieurs sont de mesure égale.
+
+■ Réfléchis et discute
+Discute la validité des deux phrases suivantes:
+1 La mesure de l'angle intérieur d'un polygone régulier à 9 côtés est égale à 140°.
+2 La mesure de l'angle extérieur d'un pentagone régulier à l'un de ses sommets = 108°
+
+On peut déduire la règle précédente en observant que pour n'importe quel polygone convexe, le nombre de ses côtés est égal à n.
+• À chaque sommet, il y a une paire d'angles, l'un est extérieur et l'autre est intérieur, dont la somme est de 180°.
+• La somme des mesures des paires d' angles à tous les sommets du polygone = 180° n
+• La somme des mesures des angles extérieurs (un à chaque sommet) est:
+180° n – (n – 2) × 180° = 180° n – (180° n – 360°) = 360°
+
+Exemple 3
+Dans la figure ci-contre:
+Trouve: 1 La valeur de a 2 m (∠ BCD)
+
+∴ La somme des mesures des angles extérieurs du polygone convexe = 360°
+∴ 2 a° + 4 a° + 3 a° + 2 a° + 2 a° + 5 a° = 360°
+∴ 18 a = 360 ∴ a = 360 / 18 = 20 (Requis 1)
+∴ La mesure de l'angle extérieur au sommet C = 3 × 20° = 60°
+∴ m (∠ BCD) = 180° – 60° = 120° (Requis 2)
+
+La formule mathématique pour mesurer l'angle du polygone régulier
+
+Dans un polygone régulier dont le nombre de côtés est n côtés, on a:
+• La mesure de l'angle intérieur = (n – 2) × 180° / n
+• La mesure de l'angle extérieur à l'un de ses sommets = 360° / n
+
+Exemple:
+La figure ci-contre est un hexagone régulier.
+• m (∠ 1) = (n – 2) × 180° / n = (6 – 2) × 180° / 6 = 120°
+• m (∠ 2) = 360° / n = 360° / 6 = 60°
+
+Premier semestre
+Leçon 6: Les angles intérieurs et extérieurs des polygones
+99

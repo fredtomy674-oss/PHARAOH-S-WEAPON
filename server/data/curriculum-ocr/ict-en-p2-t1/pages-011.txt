@@ -1,0 +1,40 @@
+Cause: Climate change leads to sudden and intense rainfall.
+
+Solution: using smart systems:
+
+IoT: Measures the amount of rain and the speed of water in the streets.
+
+AI: Sends warnings before flooding and suggests rescue routes.
+
+Robotics: Helps drain water or rescue people in emergency situations.
+
+Example: When sensors detect that water is starting to rise, the road is automatically
+closed and cars are directed to safe routes.
+
+5- Melting Ice at the Poles
+
+Dear student, there are mountains of ice at the North and South Poles, but they have
+begun to melt due to global warming.
+
+Cause: ongoing climate change, which is raising temperatures.
+
+Solution: using smart systems:
+
+IoT: monitors the ice and measures its rate of melting.
+
+AI: predicts when the ice will melt and suggests prevention methods.
+
+Robotics: used to monitor ice or protect it from rapid erosion.
+
+Example: special robots send accurate data to scientists to determine how to reduce
+pollution and global warming.
+
+Dear student, as you have seen, smart systems are not just advanced inventions; they
+are effective tools that help protect our planet from dangers. Using the Internet of
+Things, artificial intelligence, and robotics, we can create a better future and preserve
+the environment for future generations.
+
+Activity... Dear student, suggest ideas through which intelligent interconnected
+systems can be used to help face environmental problems.
+
+11

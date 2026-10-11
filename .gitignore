@@ -22,6 +22,9 @@ server/data/*
 # The official imported curriculum text (from the Ministry PDF) is authoritative
 # source, not runtime state — keep it under version control.
 !server/data/curriculum-ocr/
+# …but the transient OCR run logs each book's folder collects are not source.
+server/data/curriculum-ocr/**/.ocr*.txt
+server/data/curriculum-ocr/**/.dot-leader-backup.jsonl
 server/uploads/
 web/uploads/
 

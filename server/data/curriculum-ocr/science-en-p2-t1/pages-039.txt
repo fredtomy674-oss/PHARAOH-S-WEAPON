@@ -1,0 +1,34 @@
+Explanation of heat transfer by conduction
+• When one end of a metal rod is heated, the average kinetic energy of its particles increases, causing them to vibrate to a greater extent.
+Some of the energy of these particles is transferred when they collide with neighbouring particles, which increases the kinetic energy of these neighbouring particles, and in the same manner, part of the energy is transferred to the next particles, without the particles moving from their position (Figure 7).
+
+Hot object Cold object
+Figure (7)
+Heat transfer by
+particle vibration
+
+Activity 3 Practical
+Materials and Tools Used :
+• Two iron and copper rods of the same dimensions.
+• Metal pins. • Two holders. • Wax.
+• Heat source. • Stopwatch.
+
+Steps :
+1 Hang both of the two rods horizontally on the holders.
+2 Use wax to attach the pins to each rod at equal distances.
+3 Place the heat source under each end of the rods (figure 8).
+4 Record the time (in seconds) it takes for each pin to fall from the moment the flame is lit in Table (1).
+
+Table (1)
+Time required
+for a pin to fall (s)
+Number of the pin (1) (2) (3) (4)
+From iron rod ............... ............... ............... ...............
+From copper rod ............... ............... ............... ...............
+
+Conclusion :
+
+Thermal conductors and thermal insulators
+Thermal conductivity is a measure for the extent to which a substance can conduct heat through it, the substances differ in their thermal conductivity. Metals are good conductors of heat and are called thermal (heat) conductors. substances with very low thermal conductivity, such as wood and plastic, are considered poor conductors of heat and are called thermal insulators.
+
+Lesson Four : METHODS OF HEAT TRANSFER 33

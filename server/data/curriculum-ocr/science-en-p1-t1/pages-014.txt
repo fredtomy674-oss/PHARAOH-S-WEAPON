@@ -1,0 +1,46 @@
+Relation Between The Numbers of The Subatomic Particles
+Team up with one of your classmates to discover the relation between the subatomic
+components by performing Activity (4).
+Activity 4 Discover
+Figure (8) shows the subatomic particles that form the atoms of some elements.
+Hydrogen H Helium He Lithium Li Beryllium Be Boron B
+Proton.
+Neutron.
+Electron.
+Figure (8)
+Record the number of the atomic components in Table (4), and choose the appropriate
+mathematical symbol ( > / = / < ) to express the relation between :
+- The number of protons and electrons. - The number of protons and neutrons.
+Element H He Li Be B
+Number of protons 1 5
+Number of neutrons 0
+Number of electrons 2
+Relation between number
+of protons and number of
+electrons
+P e P = e P e P e P e
+Relation between number
+of protons and number of
+neutrons
+P > n P n P n P n P n
+Table (4)
+From the previous it is concluded that :
+1 The number of positive protons (P) equals the number of negative
+electrons (e) in any atom, so the atom is electrically neutral.
+2 The number of protons is called the atomic number, represented by the
+symbol Z, and is written at the lower left side of the element symbol.
+3 The number of protons may equal the number of neutrons in the nuclei
+of some atoms, or the number of neutrons may exceed the number of
+protons in the nuclei of other atoms.
+4 The sum of the numbers of the protons and the neutrons which compose the nucleus
+of an atom represents the number of nucleons which is called the mass number, represented
+by the symbol A, and is written at the upper left side of the element symbol.
+5 The difference between the mass number A and the atomic number Z equals the number of
+neutrons in the nucleus of the atom.
+Figure (9)
+Evaluate Your Understanding
+Complete the numbers Z and A for the elements
+symbols in Table (5) based on the results in Table (4).
+1H He Li Be B
+Table (5)
+LESSON ONE : Structure of the Atom 7

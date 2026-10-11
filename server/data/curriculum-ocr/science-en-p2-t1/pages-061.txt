@@ -1,0 +1,31 @@
+Evaluate your understanding
+Place the correct coefficient in each cell to fulfill the balancing of the following equations:
+1 H2 + I2 → HI
+2 Al + O2 → Al2O3
+3 Mg + O2 → MgO
+4 C6H12O6 + O2 → CO2 + H2O
+
+Designing models at the molecular level for certain molecules
+Collaborate with your classmates to design molecular models
+of some molecules and chemical reactions (Figure 12) using
+Lego cubes (Figure 11).
+Design a model of the combustion reaction of methane in
+oxygen (Figure 13).
+Lego cubes
+Figure (11)
+Figure (12)
+CH4(g) + 2O2(g) → CO2(g) + 2H2O(g)
++ +
+Figure (13)
+Cross-Cutting Concepts : Systems and their models
+A chemical equation is a symbolic model of
+what happens during a chemical reaction.
+It represents a mental representation
+of what's happening at the molecular or
+atomic level. Which are levels that can't be
+seen by the naked eye.
+Information and Communication Technology
+Use open source software to
+automatically balance chemical
+equations, such as PhET Simulation.
+Lesson Two : CHEMICAL EQUATIONS 55

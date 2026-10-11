@@ -1,0 +1,94 @@
+■ Modélisation
+On peut utiliser les modèles
+de cartes pour factoriser
+2 X² + 7 X + 6
+► Utilise les cartes
+suivantes:
+x² x²
+x x x x x x x
+1 1 1 1 1 1 1
+► Forme un rectangle
+en utilisant toutes les
+cartes comme suit:
+2X+3
+x² x² x x x
+x x 1 1 1
+x+2
+∴ 2 X² + 7 X + 6
+= (2 X + 3) (X + 2)
+
+■ Réfléchis avec tes
+camarades:
+Est-il possible de factoriser
+3 X⁴ + 11 X + 6 ?
+■ Auto-évaluation 4
+Trouve un ensemble des
+solutions pour chacune
+des équations suivantes
+dans R:
+1 X² - 8 X + 15 = 0
+2 X² - 3 X = 10
+3 - X² + 24 = 5 X
+4 3 X² + 11 X - 20 = 0
+
+• Détermine le terme médian
+correspondant comme suit:
+∴ 2 X² + 7 X + 6 = (X + 2) (2 X + 3)
+Et on peut utiliser la méthode
+de l'intersection (les ciseaux)
+pour effectuer les tentatives
+précédentes comme suit:
+(2 X + 6)
+(X + 1)
+2 X + 6 X = 8 X
+≠ 7 X
+(X)
+(2 X + 1)
+(X + 6)
+12 X + X = 13 X
+≠ 7 X
+(X)
+(2 X + 3)
+(X + 2)
+4 X + 3 X = 7 X
+(le terme médian)
+(✓)
+(2 X + 2)
+(X + 3)
+6 X + 2 X = 8 X
+≠ 7 X
+(X)
+∴ 2 X² + 7 X + 6 = (2 X + 3) (X + 2)
+2 Factorise 4 X² à 2 X et 2 X (2 X ) (2 X )
+ou X et 4 X (X ) (4 X )
+Factorise - 3 à - 1 et + 3 ou + 1 et - 3
+Détermine le terme médian correspondant comme suit:
+La factorisation
+possible
+(2 X - 1) (2 X + 3)
+(2 X + 1) (2 X - 3)
+(X - 1) (4 X + 3)
+(X + 1) (4 X - 3)
+(X - 3) (4 X + 1)
+(X + 3) (4 X - 1)
+Le terme médian
+correspondant
+4 X X
+- 4 X X
+- X X
+X ✓
+- 11 X X
+11 X X
+∴ 4 X² + X - 3 = (X + 1) (4 X - 3)
+3 2 X⁴ + 9 X² + 10 = (2 X² + 5) (X² + 2)
+Résous les équations en utilisant la factorisation
+Exemple 4
+Trouve l'ensemble des solutions de chacune des équations
+suivantes dans R:
+1 X² + 5 X - 36 = 0 2 X² + 30 = - 13 X 3 6 X² - 13 X + 6 = 0
+✓ 1 ∴ X² + 5 X - 36 = 0 ∴ (X - 4) (X + 9) = 0
+∴ Soit X - 4 = 0 et donc X = 4
+ou X + 9 = 0 et donc X = - 9
+∴ L'ensemble de solution = {4; -9}
+
+42 Unité 2: L'algèbre Mathématiques - deuxième préparatoire

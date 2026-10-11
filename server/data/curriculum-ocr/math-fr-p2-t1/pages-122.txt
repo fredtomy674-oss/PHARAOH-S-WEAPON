@@ -1,0 +1,41 @@
+Deuxièmement Appliquer les concepts
+
+7 Le tableau suivant indique la dépense moyenne de l'étudiant au sein d'une école pour le nombre de cinquante élèves de deuxième année préparatoire.
+Dépense (en livres) | 0 – | 10 – | 20 – | 30 – | 40 – | 50 –
+Effectif | 7 | 12 | 15 | 9 | 5 | 2
+Estime la moyenne arithmétique de la dépense quotidienne.
+
+8 Le tableau suivant indique l'âge des enseignants inscrits à un cours de formation sur la sécurité et la sûreté des établissements d'enseignement.
+Âges (en années) | 26 – | 30 – | 34 – | 38 – | 42 – | 46 –
+Effectif | 4 | 10 | 28 | 35 | 15 | 8
+Trace l'histogramme et estime l'âge modal.
+
+9 Le tableau suivant indique le poids de 40 personnes (en kilogrammes) pour s'inscrire à l'un des programmes de perte de poids.
+Intervalles | 70 – | 80 – | 90 – | 100 – | 110 – | 120 – | 130 –
+Effectif | 2 | 5 | 9 | 12 | 7 | 3 | 2
+Estime la médiane graphiquement.
+
+10 Le tableau suivant indique la distribution des effectifs des notes de 40 étudiants dans l'un des examens.
+Intervalles | 5 – | 10 – | 15 – | 20 – | 25 – | Total
+Effectif | k | 10 | 3k | 8 | k + 2 | 40
+Trouve la valeur de k, puis estime la valeur de la médiane.
+
+Troisièmement L'analyse et l'intégration des disciplines
+
+11 Le tableau suivant indique la consommation mensuelle d'électricité en kilowattheures pour 100 maisons.
+Intervalles (K.W.h) | 0 – | 100 – | 200 – | 300 – | 400 – | 500 – | 600 –
+Effectif | 4 | 10 | 28 | 35 | 15 | 6 | 2
+1 Estime la moyenne arithmétique de la consommation. 2 Estime la médiane.
+3 Estime le mode.
+4 Mets en ordre les valeurs des mesures obtenues par ordre croissant.
+
+Pensée créative
+
+12 La durée de vie de deux piles de types différents A et B, a été testée, puis cinquante piles de chaque type ont été choisies au hasard et testées de la même manière. La durée de vie de chaque pile a ensuite été enregistrée en heures. Les résultats des tests sont présentés dans le tableau ci-contre.
+Estime la médiane de la durée de vie de chaque type et compare-les.
+
+Durée (heure) | 0 – | 5 – | 10 – | 15 – | 20 – | 25 – | 30 –
+Effectif du type A | 3 | 5 | 8 | 10 | 12 | 7 | 5
+Effectif du type B | 1 | 2 | 10 | 20 | 9 | 4 | 4
+
+118 Unité 4: Les statistiques Mathématiques - deuxième préparatoire

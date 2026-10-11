@@ -1,0 +1,80 @@
+■ Discuss the proof
+of the theorem
+Complete the rectangle.
+A E
+D
+B C
+The diagonals of a rectangle
+are equal in length and
+bisect each other.
+Thus:
+BD = AD = DC = DE = 1/2 AC
+
+■ Self-Evaluation 2
+In the following figure:
+If AD is a median in the
+triangle ABC which is
+right-angled at A
+A
+B (2X-3)cm D (3X-8)cm C
+Find the length of AD.
+
+■ Self-Evaluation 3
+In the following figure:
+If D and E are the midpoints
+of AB and AC, respectively,
+BE ∩ CD = {G},
+AC = 9 cm, AG = 5 cm
+A
+D E
+G
+B C
+Find the length of AB.
+
+Theorem 4-3
+In the right-angled triangle, the length of the median from the vertex of
+the right angle equals half the length of the hypotenuse.
+In the given figure:
+If BD is the median drawn from the vertex
+of the right angle B
+then BD = AD = DC = 1/2 AC
+A
+D
+B C
+
+Example 2
+In the given figure:
+The triangle ABC is right-angled at A,
+and AD is a median.
+Find the length of AD.
+A
+(X+12)cm
+B D C
+8 X cm
+
+∴ AD is the median drawn from the right angle at vertex A in the
+triangle ABC
+∴ AD = 1/2 BC ∴ X + 12 = 1/2 × 8X
+∴ X + 12 = 4X ∴ 3X = 12 ∴ X = 4
+∴ AD = X + 12 = 4 + 12 = 16 cm
+
+Example 3
+In the given figure:
+If G is the centroid of Δ ABC,
+which is right-angled at A
+Find the length of AG
+A
+24 cm 18 cm
+G
+B D C
+
+∴ Δ ABC is right-angled at A
+∴ (BC)² = (AB)² + (AC)² (Pythagoras' theorem)
+= (24)² + (18)² = 900
+∴ BC = √900 = 30 cm
+∴ AD is the median drawn from the vertex of the right angle
+∴ AD = 1/2 BC = 1/2 × 30 = 15 cm
+∴ G is the centroid of the triangle ABC
+∴ AG = 2/3 AD = 2/3 × 15 = 10 cm
+
+First Term Lesson Four: Medians of the Triangle 85

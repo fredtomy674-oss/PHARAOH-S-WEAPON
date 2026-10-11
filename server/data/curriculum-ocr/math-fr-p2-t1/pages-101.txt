@@ -1,0 +1,90 @@
+Leçon
+3 - 6
+
+Les angles intérieurs et
+extérieurs des polygones
+
+■ Résultats
+d’apprentissage
+• Connaître la formule
+mathématique pour
+calculer la somme des
+mesures des angles
+intérieurs d’un polygone
+convexe.
+• Connaître la somme
+des mesures des angles
+extérieurs d’un polygone
+convexe.
+• Connaître la formule
+mathématique pour
+calculer la mesure de
+l’angle intérieur d’un
+polygone régulier.
+• Connaître la formule
+mathématique pour
+calculer le nombre de
+diagonales du polygone
+convexe.
+
+■ Vocabulaire
+• Polygone
+• Polygone régulier
+• Polygone convexe
+• Angle intérieur
+• Angle extérieur
+
+Sois prêt!
+Le bâtiment de l’Octagone est
+le nouveau siège du ministère
+de la Défense égyptien dans la
+nouvelle capitale administrative.
+Il est considéré comme l’un
+des plus grands et des plus
+modernes sièges de ministères
+de la Défense au monde.
+Peux-tu trouver la mesure de
+l’angle intérieur du polygone
+représenté par ce bâtiment?
+Dans cette leçon, tu apprendras à calculer la somme des mesures des
+angles intérieurs et extérieurs d’un polygone convexe et à calculer la
+mesure de l’angle d’un polygone régulier, ce qui te permettra de résoudre
+de tels problèmes de la vie.
+
+Le bâtiment de l’Octagone dans la nouvelle
+capitale administrative
+
+Réfléchis et discute!
+Lors de l’organisation d’une salle de
+conférence, l’organisateur utilise des
+tables identiques, chacune ayant la
+forme d’un trapèze isocèle.
+De combien de tables l’organisateur
+a-t-il besoin pour former un polygone
+régulier? Discute.
+
+Apprends!
+La formule mathématique de la somme des mesures
+des angles intérieurs d’un polygone convexe
+
+La somme des mesures des angles intérieurs d’un polygone convexe
+= (n – 2) × 180°, où n est le nombre de côtés du polygone.
+Par exemple:
+• La somme des mesures des angles intérieurs d’un pentagone convexe
+= (5 – 2) × 180° = 540°
+• La somme des mesures des angles intérieurs d’un octogone convexe
+= (8 – 2) × 180° = 1080°
+
+▶ On peut déduire la formule précédente en observant le modèle suivant:
+n = 4
+n = 5
+n = 6
+n = 7
+2 triangles
+3 triangles
+4 triangles
+5 triangles
+
+Premier semestre
+Leçon 6: Les angles intérieurs et extérieurs des polygones
+97

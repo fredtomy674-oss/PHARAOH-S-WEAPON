@@ -1,0 +1,79 @@
+• Les diagonales tracées à partir d’un des sommets du polygone divisent
+le polygone en un nombre de triangles = (n – 2) triangles.
+• La somme des mesures des angles intérieurs de chaque triangle = 180°.
+• La somme des mesures des angles intérieurs du polygone
+= 180° × le nombre de triangles
+= (n – 2) × 180°
+
+■ Auto-évaluation 1
+Quel est le nombre de
+côtés d’un polygone
+convexe dont la somme
+des mesures des angles
+intérieurs est égale à
+1260°?
+
+Exemple 1
+Dans chacun de ce qui suit, trouve le nombre de côtés d’un polygone
+convexe dont la somme des mesures des angles intérieurs est:
+1 720°
+2 1440°
+1 (n – 2) × 180° = 720°
+∴ n – 2 = 720° / 180° = 4
+∴ n = 4 + 2 = 6
+∴ Le nombre de côtés
+= 6 côtés
+2 (n – 2) × 180° = 1440°
+∴ n – 2 = 1440° / 180° = 8
+∴ n = 8 + 2 = 10
+∴ Le nombre de côtés
+= 10 côtés
+
+■ Auto-évaluation 2
+Dans la figure suivante:
+Une table à manger dont
+le plateau est en forme de
+parallélogramme.
+B C
+2a° a°
+A a° 2a° D
+Trouve: m (∠ D)
+
+Exemple 2
+Menuiserie: Un menuisier fabrique une armoire en bois
+pour la placer dans l’un des coins d’une pièce de forme
+rectangulaire. Si le menuisier fabrique l’armoire avec les
+angles indiqués sur la figure, est-elle adaptée ou non?
+Pour que l’armoire soit adaptée,
+il faut que m (∠ A) = 90°
+▶ Calcule la somme des mesures des angles
+intérieurs du pentagone comme suit:
+(n – 2) × 180° = (5 – 2) × 180° = 540°
+∴ m (∠ A) + 100° + 125° + 125° + 100° = 540°
+∴ m (∠ A) = 540° – 450° = 90°
+∴ L’armoire est adaptée pour être placée dans l’un des coins de la pièce.
+
+■ Remarque que
+Pour n’importe quel
+polygone convexe ,il y a
+deux angles extérieurs à
+chacun de ses sommets,
+comme dans la figure.
+2
+1
+Ces deux angles sont
+opposés par le sommet, ils
+sont donc égaux en mesure.
+
+La somme des mesures des angles
+extérieurs d’un polygone convexe
+Règle
+La somme des mesures des angles extérieurs d’un polygone convexe
+(un angle à chaque sommet) est égale à 360°.
+Dans la figure ci-contre:
+m (∠ 1) + m (∠ 2) + m (∠ 3) + m (∠ 4) = 360°
+4
+1
+3 2
+
+98 Unité 3: La géométrie Mathématiques - deuxième préparatoire

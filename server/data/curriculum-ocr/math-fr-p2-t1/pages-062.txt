@@ -1,0 +1,42 @@
+Évaluation de la leçon
+
+Premièrement Mesurer les concepts
+
+► Choisis la bonne réponse parmi les réponses données:
+(1) $x^2 - aX + bX - ab = \dots\dots\dots\dots$
+(a) $(X - a) (X - b)$ (b) $(X - a) (X + b)$ (c) $(X + a) (X - b)$ (d) $(X + a) (X + b)$
+
+(2) Si $X Y + 5X + 7Y + 35 = (X + a) (Y + b)$, quelle est la valeur de $a - b$?
+(a) 2 (b) - 2 (c) 12 (d) - 12
+
+(3) Si $X^3 + 5X^2 - 4X - 20 = (X + a) (X + b) (X + c)$, quelle est la valeur de $a + b + c$?
+(a) 2 (b) 5 (c) 7 (d) 9
+
+(4) Si $X + b = 5$ et $X^2 + a = 12$, quelle est la valeur numérique de l'expression
+$(X^3 + bX^2 + aX + ab)$?
+(a) 7 (b) 17 (c) 30 (d) 60
+
+(5) Lors de la complétion d'un carré de l'expression $(X^2 + 9)$, nous ajoutons à cela .............
+(a) $\pm 3X$ (b) $\pm 6X$ (c) $\pm 9X$ (d) $\pm 12X$
+
+(6) Lors de la complétion d'un carré de l'expression $(X^2 + 12X)$, nous ajoutons à cela .............
+(a) $\pm 9$ (b) $\pm 36$ (c) 9 (d) 36
+
+(7) Si $(X^2 + 2X + 2)$ est l'un des facteurs de l'expression $(X^4 + 4)$, quel est l'autre facteur?
+(a) $X^2 - 2X + 2$ (b) $X^2 - 2X - 2$ (c) $X^2 + X + 2$ (d) $X^2 - X + 2$
+
+Deuxièmement Appliquer les concepts
+(8) Factorise complètement chacun de ce qui suit:
+(1) $aX + bX + b + a$
+(2) $12Y + 2X - 8XY - 3$
+(3) $6m - n + 3mn - 2$
+(4) $X^2 - 2X - XY + 2Y$
+(5) $11X^3 - 6X^2 + 11X - 6$
+(6) $45X^3 + 20X^2 + 9X + 4$
+
+(9) Factorise chacun des trinômes suivants en utilisant la factorisation par partition:
+(1) $2X^2 + 5X + 3$
+(2) $4X^2 - 7X - 2$
+(3) $2X^2 + 13X + 15$
+
+58 Unité 2: L'algèbre Mathématiques - deuxième préparatoire

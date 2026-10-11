@@ -1,0 +1,49 @@
+■ Self-Evaluation (1)
+The following table shows the masses of 20 boxes in kilograms.
+| Intervals (kg) | Frequency |
+| :--- | :--- |
+| 45 - | 2 |
+| 50 - | 3 |
+| 55 - | 3 |
+| 60 - | 6 |
+| 65 - | 4 |
+| 70 - | 2 |
+Form an ascending cumulative frequency table and represent it graphically.
+
+Example 1
+The given frequency table shows the best record times achieved by 100 swimmers in a 50 meters race.
+Form an ascending cumulative frequency table and represent it graphically, then find:
+1 The number of swimmers who achieved record less than 40 seconds.
+2 The number of swimmers who achieved record 35 seconds or more.
+3 The percentage of swimmers who achieved record of less than 45 seconds.
+
+| Intervals in seconds | Frequency |
+| :--- | :--- |
+| 25 - | 5 |
+| 30 - | 17 |
+| 35 - | 34 |
+| 40 - | 29 |
+| 45 - | 15 |
+
+| Upper limits of intervals | Ascending cumulative frequency |
+| :--- | :--- |
+| less than 25 | 0 |
+| less than 30 | 5 |
+| less than 35 | 22 |
+| less than 40 | 56 |
+| less than 45 | 85 |
+| less than 50 | 100 |
+
+1 The number of swimmers who achieved record less than 40 seconds is: 56 swimmers.
+2 The number of swimmers who achieved record 35 seconds or more is: 100 - 22 = 78 swimmers
+3 The percentage of swimmers who achieved record less than 45 seconds is:
+85/100 * 100% = 85%
+
+■ Self-Evaluation (2)
+If the following histogram shows the lengths of 100 fish caught in a fishing competition, measured to the nearest centimeter.
+Form the frequency table with intervals, the ascending cumulative frequency table, and represent it graphically.
+
+Example 2
+If the given histogram shows the masses of 50 pieces of a product for sale online, form a frequency table with intervals and an ascending cumulative frequency table, and represent it graphically.
+
+108 Unit Four: Statistics Mathematics - Second Preparatory

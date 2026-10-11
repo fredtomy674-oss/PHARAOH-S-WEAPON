@@ -1,0 +1,43 @@
+Ransom ware is a type of malware that encrypts your files (making them
+unreadable) or locks your devices, demanding a sum of money (a ransom) to regain
+access.
+
+How does it work? These programs are often spread via suspicious emails, malicious
+websites, malicious links, or even by downloading software from an untrusted site.
+Once they infiltrate your device, they quickly encrypt your files, and a ransom
+message appears.
+
+PLEASE PAY
+$5 $5 TO
+UNLOCK ME?
+
+PLEASE ENTER
+PASSWORD
+
+Activity:
+
+Dear student, in cooperation with your classmates, discuss why ransom ware is a
+serious threat and how we can protect ourselves and our devices from it.
+
+The concept and methods of advanced social engineering:
+
+Social engineering is not a hack of hardware or software, but rather a hack of minds!
+It is the art of tricking people into revealing confidential information or performing
+actions that threaten their security.
+
+Advanced social engineering methods:
+
+• Spear phishing: This is an advanced type of phishing that targets specific
+individuals or organizations with highly personal and convincing emails or text
+messages. The attacker relies on gathering detailed information about you, such as
+your name and other information about you, through social media and company
+websites to convince you to trust them.
+
+• Pretexting: The attacker creates a fake story or scenario to trick the victim into
+obtaining information or performing a specific action. They may pretend to be a
+technical support employee or a bank official.
+
+• Baiting: The attacker offers the victim something attractive (such as a free USB
+drive containing malware) to entice them to click on or use it.
+
+23

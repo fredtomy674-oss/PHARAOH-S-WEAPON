@@ -1,0 +1,131 @@
+الصفحة الرئيسية
+Yousof - Tawab
+Unpublished
+Preview
+Publish
+30
+Upgrade
+?
+ne wrap
+1 <!doctype html>
+2 <html lang="en" class="notranslate" translate="no">
+3 <head>
+4
+<meta charset="UTF-8" />
+5
+<link
+6
+rel="icon"
+7
+type="image/x-icon"
+8
+href="https://cdn.wegic.ai/assets/email/lugu.ico"
+9
+/>
+10
+11
+<meta
+12
+name="viewport"
+13
+content="width=device-width, initial-scale=1.0, user-scala
+14
+15
+<title>Wegic | Your AI website team: designer, developer, an
+16
+<meta
+17
+name="description"
+18
+content="Hi, we're Wegic - your AI website team: designer,
+19
+/>
+20
+<!-- Twitter -->
+21
+<meta name="twitter:card" content="summary_large_image" />
+22
+<meta
+23
+name="twitter:image"
+24
+content="https://cdn.wegic.ai/assets/email/Wegic-large-pre
+25
+/>
+26
+<!-- og Facebook -->
+27
+<meta property="og:url" content="https://wegic.ai" />
+28
+<meta
+29
+property="og:title"
+30
+content="Wegic | Your AI website team: designer, developer
+31
+/>
+32
+<meta
+33
+property="og:description"
+34
+content="Hi, we're Wegic - your AI website team: designer,
+35
+/>
+36
+<meta
+37
+property="og:image"
+38
+content="https://cdn.wegic.ai/assets/email/Wegic-large-pre
+انضم إلى نادي القراءة
+المدرسي
+اكتشف متعة القراءة وشارك شغفك بالكتب مع
+.مجتمعنا
+ابدأ القراءة مجاناً
+أداة تصميم تحويلية
+New
+قم بمعالجة وتنظيم تصميماتك بسهولة من خلال ميزاتنا
+المبتكرة التي تم تطويرها خصيصًا لمحترفي التصميم
+نادي القراءة المدرسي :Edit
+لصفحة html مشاهدة كود
+Add texts or images
+Reference image
+إنضم إلى نادي القراءة المدرسي 4
+Say what you want and Kimmy will surprise you
+81
+
+Customize and Edit Your Website
+
+After the AI has created the basic structure of your website, it's time to add your own
+personal touch and make it unique!
+
+Edit Text
+
+Click on any text on the website to edit and add personalized content that expresses
+you.
+
+In the designated text area, type a command for the AI:
+
+"This text has been modified to be more engaging and suitable for middle
+school students."
+
+Change colors and fonts
+
+Try different color combinations to find what best expresses your personality and the
+theme of your website.
+
+In the designated text box, type the command for the AI:
+
+Change the title color to light green and the background color to beige.
+
+Adding personal photos
+
+Replace the default photos with your own (after obtaining teacher permission).
+
+In the designated text box, type the command for the AI:
+
+"Replace this image with another image showing a group of students
+reading."
+
+81

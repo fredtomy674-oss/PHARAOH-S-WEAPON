@@ -1,0 +1,88 @@
+Leçon
+1 - 2
+
+Les intervalles et les
+opérations sur les intervalles
+
+■ Résultats
+d’apprentissage
+• Définir la notion
+d’intervalle comme
+un sous-ensemble de
+l’ensemble des nombres
+réels.
+• Représenter un intervalle
+sur la droite numérique.
+• Effectuer les opérations
+d’intersection, d’union,
+de différence et de
+complémentaire sur les
+intervalles.
+• Utiliser le concept des
+intervalles pour résoudre
+des problèmes de la vie.
+
+Sois prêt!
+La ville de Hurghada est l’une des zones
+de plongée les plus reputées au monde,
+où les touristes peuvent s’amuser de
+l’expérience de la plongée dans les
+eaux de la mer Rouge pour observer
+les magnifiques récifs coralliens et les
+poissons variés.
+Lors d’une excursion de plongée à
+Hurghada, les plongeurs ont voulu
+observer deux espèces de poissons
+ensemble, sache que:
+• Le premier espèce vit à des
+profondeurs comprises entre 15 m et 60 m.
+• Le deuxième espèce vit à des profondeurs comprises entre 10 m et
+25 m. Magdi a plongé à une profondeur de 30 m et Amal a plongé à une
+profondeur de 12 m, tandis que Bassem a plongé à une profondeur de
+20 m. Lequel d’entre eux peut voir les deux espèces ensemble?
+Dans cette leçon, tu apprendras la notion d’intervalle, les types
+d’intervalles et les opérations sur les intervalle, ce qui te permettra de
+résoudre de tels problèmes de la vie.
+
+Les récifs coralliens et les poissons à la mer Rouge
+
+■ Vocabulaire
+• Intervalle
+• Intervalle borné
+• Intervalle non borné
+• Intervalle fermé
+• Intervalle ouvert
+• Intersection
+• Union
+• Différence
+• Complémentaire
+• L’ensemble universel
+• Infini
+
+Réfléchis et discute!
+Dans l’un des jours, les horaires des
+cours de Mostafa à l’université étaient
+comme suit:
+De 9:00h du matin à 12:00h du midi,
+puis de 2:00h de l’après-midi à 4:00h de
+l’après-midi. Si les horaires du centre
+sportif de l’université étaient tous les jours
+de 10:00h du matin à 1:00h de l’après-
+midi, quel est l’intervalle des heures qui
+convient à Mostafa pour faire du sport au
+centre sportif à l’université ce jour-là sans
+que cela n’affecte sa présence en cours?
+Discute.
+
+Apprends!
+Les intervalles
+• N’importe quels deux nombres réels entre lesquels se trouve un nombre
+infini de nombres réels.
+• Il n’est pas possible d’exprimer l’ensemble des nombres réels et ses
+sous-ensembles par la méthode de la liste ,car il est impossible de
+lister tous ses éléments. On utilise donc une autre méthode pour les
+exprimer, à savoir les "intervalles".
+
+8
+Unité 1: Les nombres et les opérations sur les nombres
+Mathématiques - deuxième préparatoire

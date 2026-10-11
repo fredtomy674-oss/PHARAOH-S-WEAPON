@@ -1,0 +1,77 @@
+■ Remarque que
+▶ [a ; b] est un intervalle
+fermé.
+a ∈ [a ; b] et b ∈ [a ; b]
+▶ ]a ; b[ est un intervalle
+ouvert
+a ∉ ]a ; b[ et b ∉ ]a ; b[
+▶ [a ; b[ est un intervalle
+semi-ouvert ou semi-fermé
+a ∈ [a ; b[ et b ∉ [a ; b[
+▶ ]a ; b] est un intervalle
+semi-ouvert ou semi-fermé
+a ∉ ]a ; b] et b ∈ ]a ; b]
+
+■ Auto-évaluation 1
+Écris sous forme d'intervalle,
+puis représente sur la droite
+numérique chacun des deux
+ensembles suivants.
+1 {X : X ∈ R ; −1 < X < 5}
+2 {X : X ∈ R ; 0,5 ≤ X < √9}
+
+Premier semestre
+
+Premièrement Les intervalles bornés
+Si a et b sont deux nombres réels où a < b, alors:
+L'ensemble des nombres réels
+supérieurs ou égaux à a et
+inférieurs ou égaux à b
+{X : X ∈ R ; a ≤ X ≤ b} = [a ; b]
+[---a---b---]
+
+L'ensemble des nombres réels
+supérieurs ou égaux à a et
+inférieurs à b
+{X : X ∈ R ; a ≤ X < b} = [a ; b[
+[---a---b---(
+
+L'ensemble des nombres réels
+supérieurs à a et inférieurs à b
+{X : X ∈ R ; a < X < b} = ]a ; b[
+)---a---b---(
+
+L'ensemble des nombres réels
+supérieurs à a et inférieurs ou
+égaux à b
+{X : X ∈ R ; a < X ≤ b} = ]a ; b]
+)---a---b---]
+
+Exemple 1
+1 Écris sous forme d'intervalle,
+puis représente sur la droite
+numérique l'ensemble A:
+A = {X : X ∈ R ; 1 < X ≤ 3}
+Est-ce que √2 ∈ A?
+
+2 Écris sous forme d'intervalle,
+puis représente sur la droite
+numérique l'ensemble B:
+B = {X : X ∈ R ; −2 < X < 2}
+Est-ce que ∛−9 ∈ B?
+
+1 A = ]1 ; 3]
+)---1---2---3---]
+En utilisant la calculatrice:
+√2 ≈ 1,4
+∴ 1 < √2 ≤ 3
+∴ √2 ∈ ]1 ; 3]
+
+2 B = ]−2 ; 2[
+)---−2---−1---0---1---2---(
+En utilisant la calculatrice:
+∛−9 ≈ −2,08
+∴ ∛−9 < −2
+∴ ∛−9 ∉ ]−2 ; 2[
+
+Leçon 2: Les intervalles et les opérations sur les intervalles 9

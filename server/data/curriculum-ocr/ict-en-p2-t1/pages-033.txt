@@ -1,0 +1,12 @@
+17. Structured data is data that comes in an unstructured form, such as customer data
+and financial data. ( )
+18. Unstructured data is data that does not come in a structured form, such as tables or
+databases. ( )
+19. Semi-structured data is a hybrid of structured and unstructured data. ( )
+20. Emails are a good example of structured data. ( )
+
+Self-assess
+Go to the objectives at the beginning of the lesson.
+Check the correct, I can........ box.
+
+33

@@ -1,0 +1,81 @@
+■ Auto-évaluation 2
+Trouve la valeur correcte
+de n qui vérifie:
+n < √17 < n + 1,
+puis trouve une valeur
+approchée au dixième
+près du nombre √17 et
+détermine sa position
+approximative sur la droite
+numérique.
+
+■ Remarque que
+Le rapport entre la longueur
+du rectangle d'or et sa
+largeur est égale à
+1 + √5
+2
+≈ 1,6
+et a été estimé dans
+l'exemple (3) à environ
+1,5, c'est-à-dire que la
+longueur du rectangle d'or
+est approximativement égale
+à une fois et demie de sa
+largeur.
+
+■ Auto-évaluation 3
+Une pièce carrée a une aire
+du sol de 15 m². Ahmed
+veut entourer son sol d'une
+bande décorative. Estime la
+longueur de cette bande.
+
+(2) Trouve deux nombres entiers consécutifs où chacun d'eux soit un
+cube parfait et que le nombre 20 se trouve entre eux.
+▶ Le nombre 20 se trouve entre les nombres 8 et 27
+∴ 8 < 20 < 27 ∴ ∛8 < ∛20 < ∛27 ∴ 2 < ∛20 < 3
+∴ Le nombre ∛20 se trouve entre les nombres 2 et 3
+Et puisque le nombre 20 est plus proche du nombre 27 que du
+nombre 8, alors le nombre ∛20 est plus proche du nombre 3.
+∛8 ∛20 ∛27
++----------------+----------------+
+2 3
+
+■ Utilisation de la technologie
+Tu peux utiliser une calculatrice pour trouver de meilleures valeurs approchées pour un
+nombre irrationnel, par exemple:
+• √11 ≈ 3,3
+√9 √11 √16
++---+---+---+---+---+---+---+---+
+3 3,1 3,2 3,3 3,4 3,5 3,6 3,7 3,8 3,9 4
+• ∛20 ≈ 2,7
+∛8 ∛20 ∛27
++---+---+---+---+---+---+---+---+
+2 2,1 2,2 2,3 2,4 2,5 2,6 2,7 2,8 2,9 3
+
+Exemple 3
+Nature: Le rectangle d'or se trouve dans la
+coquille d'un organisme marin et le rapport entre
+sa longueur et sa largeur est égal à 1 + √5
+2
+.
+Estime cette valeur. 1 + √5
+
+Estime d'abord la valeur de √5 comme suit:
+∴ Le nombre 5 se trouve entre les deux nombres carrés parfaits 4 et 9
+∴ 4 < 5 < 9 ∴ √4 < √5 < √9 ∴ 2 < √5 < 3
+∴ Le nombre 5 est plus proche du nombre 4 que du nombre 9
+∴ √5 est plus proche du nombre 2.
+Utilise « √5 ≈ 2 » pour estimer la valeur de l'expression 1 + √5
+2
+∴ 1 + √5 ≈ 1 + 2 ∴ 1 + √5 ≈ 1,5
+2 2 2
+
+Les nombres réels
+L'ensemble des nombres réels est l'ensemble formé par l'union de
+l'ensemble des nombres rationnels et de l'ensemble des nombres
+irrationnels et il est symbolisé par le symbole R
+c'est-à-dire que R = Q U Q' où Q ∩ Q' = Ø
+
+4 Unité 1: Les nombres et les opérations sur les nombres Mathématiques - deuxième préparatoire

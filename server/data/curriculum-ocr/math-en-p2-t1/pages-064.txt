@@ -1,0 +1,42 @@
+(10) Factorize each of the following completely:
+① $x^2 - y^2 - 6x - 6y$
+③ $x^4 + 2x^3 - 9x^2 - 18x$
+⑤ $5a^2b - 10a^2b^2 + 4b^2 - 8b^3$
+⑦ $4k^4 - 49k^2 + 14k - 1$
+② $x^2 - a^2 - 2x + 1$
+④ $4x^2 - 12xy + 9y^2 - 49$
+⑥ $m^3 + n^3 - m - n$
+⑧ $16x^2 - 25a^2 + y^2 + 8xy$
+
+(11) Factorize each of the following completely:
+① $x^4 + 4y^4$
+② $4m^4 + 1$
+③ $64x^4 + y^4$
+④ $a^4 + a^2b^4 + b^8$
+⑤ $y^4 - 23y^2 + 1$
+⑥ $x^4 - 11x^2 + 1$
+⑦ $16a^4 + 20a^2b^2 + 9b^4$
+⑧ $k^5 + 5k^3 + 9k$
+⑨ $4x^2(4x^2 - 7y^2) + y^4$
+
+(12) Find the solution set of each of the following equations in R:
+① $x^3 + x^2 - 4x = 4$
+② $x^2 + 12x + 15 = 0$
+
+Third Analysis and Subjects Integration
+(13) Geometry: If the volume of the box is 12 cubic units, find its dimensions.
+(14) Geometry: If the volume of a cuboid is $(x^4 - 2x^3 + 3x^2 - 6x)$ cubic feet, find possible dimensions of the cuboid in terms of $x$, then find the numerical values of the dimensions when $x = 4$
+
+(15) Decoration: A picture is surrounded by a frame with a thickness of $x$ inches, as shown in the figure. If the area of the picture is $(4x^3 + 6x^2 + 2x + 3)$ square inches, find possible dimensions of the framed picture in terms of $x$.
+
+Creative Thinking
+(16) If $a + b = 3$, find the value of $a^3 + 3a^2b + 3ab^2 + b^3$
+(17) Factorize completely: $x^8 - 16y^8$
+
+Evaluate your understanding!
+How well do you understand factorizing by grouping?
+Tick the right box
+
+First Term
+Lesson Four: Factorizing by Grouping
+59

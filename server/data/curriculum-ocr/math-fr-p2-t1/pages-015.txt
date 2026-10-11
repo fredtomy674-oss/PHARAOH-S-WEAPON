@@ -1,0 +1,60 @@
+Les opérations sur les intervalles
+Les intervalles sont des sous-ensembles de l'ensemble des nombres réels, donc on peut effectuer les opérations d'union, d'intersection, de différence et de complémentaire de la même manière que les ensembles, comme suit:
+
+■ Remarque que
+L'ensemble universel est un ensemble qui contient tous les sous-ensembles de lui-même et il est symbolisé par le symbole U
+
+■ Réfléchis et discute
+Est-ce que: X - Y = Y - X?
+
+■ Auto-évaluation 3
+Trouve à l'aide de la droite numérique:
+1 [4; 9] ∩ [7; 10[
+2 ]-3; 2[ U ]0; ∞[
+3 ]0; 5[ - ]3; 7]
+4 X` où X = [-5; ∞[
+
+Premier semestre
+
+Les ensembles
+En supposant que:
+U = {1; 2; 3; 4; 5; 6}
+où U est l'ensemble universel
+X = {2; 3; 4; 5}
+Y = {1; 2; 3}
+
+Les intervalles
+En supposant que:
+U = R
+où U est l'ensemble universel
+X = [-1; 3]
+Y = [1; 4]
+
+L'union (X U Y):
+L'ensemble des éléments qui appartiennent à X ou Y.
+X U Y = {1; 2; 3; 4; 5}
+X U Y = [-1; 4]
+
+L'intersection (X ∩ Y):
+L'ensemble des éléments qui appartiennent à X et Y
+X ∩ Y = {2; 3}
+X ∩ Y = [1; 3]
+
+La différence (X - Y):
+L'ensemble des éléments qui appartiennent à X et n'appartiennent pas à Y
+X - Y = {4; 5}
+X - Y = [-1; 1[
+
+Le complémentaire X`:
+L'ensemble des éléments qui appartiennent à U et qui n'appartiennent pas à X
+X` = U - X = {1; 6}
+X` = R - X = ]-∞; -1 [U] 3; ∞[
+
+Exemple 3
+Trouve à l'aide de la droite numérique chacun de ce qui suit:
+1 [-3; 5[ U ]2; 7[
+2 ]1; 5] ∩ ]-∞; 3]
+3 ]-∞; 6] - ]4; ∞[
+4 X` où X = ]-∞; 3[
+
+Leçon 2: Les intervalles et les opérations sur les intervalles 11

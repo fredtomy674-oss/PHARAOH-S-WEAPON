@@ -1,0 +1,63 @@
+(Figure 3) shows the heating curve of water in its three fundamental states under certain
+conditions:
+
+Temperature (°C)
+140
+120
+Boiling 100
+point (100°C) 80
+60
+40
+(Liquid + Gas)
+(Gas)
+(Liquid)
+(Solid
++ Liquid)
+20
+Melting 0
+point (0°C) -20
+-40
+(solid)
+Beginning Complete
+of fusion fusion
+Beginning
+of boiling
+Complete
+boiling
+Time
+(min)
+Figure (3)
+Water heating curve
+
+From graph (3), we can conclude the following :
+• When ice gains a quantity of thermal energy, its temperature gradually rises till it reaches
+the melting point, which is equal to 0°C at normal atmospheric pressure.
+• At the melting point, ice (solid) starts to turn into water (liquid), and the temperature remains
+constant till complete melting.
+• As water continues to gain more thermal energy, its temperature gradually rises till it reaches
+its boiling point, which is 100°C at normal atmospheric pressure. The temperature of both
+the liquid water and its vapour remains constant till complete evaporation.
+
+Explanation :
+• When a substance in one of its physical states
+gains thermal energy, the kinetic energy of its
+particles increases, causing the temperature
+of the substance to rise (Figure 4).
+• When a substance loses thermal energy in one
+of its states, the kinetic energy of its particles
+decreases, and therefore the temperature of
+the substance decreases.
+• During the melting and boiling processes,
+the temperature of the substance remains constant,
+and the thermal energy which is gained by
+the substance weakens the attractive forces
+between the particles of the substance, so
+the substance converts from one physical state to
+another.
+
+Solid Liquid Gas
+Figure (4)
+The kinetic energy of particles increases
+when their temperature increases
+
+12 Unit One : MATTER AND ENERGY

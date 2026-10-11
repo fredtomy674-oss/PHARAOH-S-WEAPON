@@ -1,0 +1,85 @@
+Addition of Algebraic Expressions
+
+Example 6
+A person has distributed an amount of money among three other persons.
+The first person has received $(X + 5)$ LE, the second person has received
+$(2X + 3)$ LE, and the third person has received $(3X - 1)$ LE.
+Express in the simplest form the total amount of money has been distributed.
+If $X = 20$, what is the value of this amount?
+
+The amount distributed by that person can be expressed as follows:
+$X + 5 + 2X + 3 + 3X - 1 = X + 2X + 3X + 5 + 3 - 1$
+$= (1 + 2 + 3)X + (5 + 3 - 1)$
+$= 6X + 7$
+
+At $X = 20$, the amount of money is:
+$6 \times 20 + 7 = 120 + 7 = 127\text{ LE}$.
+
+---
+
+Subtraction of Algebraic Expressions
+
+Example 7
+The price of a children's car model is $5X\text{ LE}$.
+A shopkeeper purchases it with a discount of
+$10\text{ LE}$ and assembles it, then he sells it for
+$(6X + 7)\text{ LE}$. Write the algebraic expression
+for the shopkeeper's profit.
+If $X = 40$, what is the profit?
+
+- The purchase price is $5X - 10$
+- The sale price is $6X + 7$
+- The profit is calculated as the sale price minus the purchase price
+$(6X + 7) - (5X - 10) = 6X + 7 - 5X + 10 = 6X - 5X + 7 + 10$
+$= (6 - 5)X + 7 + 10 = X + 17$
+
+Thus, the shopkeeper's profit is $(X + 17)\text{ LE}$
+At $X = 40$, the profit is $40 + 17 = 57\text{ LE}$
+
+---
+
+■ Self-Evaluation (6)
+Omar read a book over
+three days. On the first day,
+he read $X$ pages. On the
+second day, he read 31
+pages. On the third day,
+he read $(2X + 17)$ pages.
+Write, in the simplest form,
+the algebraic expression
+representing the number of
+pages Omar read, and then
+find the number of pages
+Omar read at $X = 20$.
+
+---
+
+■ Self-Evaluation (7)
+Mohammed decided to read
+a book of $(7X + 31)$ pages.
+He read $(4X + 17)$ pages
+over three days.
+How many pages are left
+for Mohammed to read to
+finish the book?
+
+---
+
+■ Note that
+$-(X + y) = -X - y$
+$-(X - y) = -X + y$
+$-(-X + y) = X - y$
+$-(-X - y) = X + y$
+
+---
+
+Collaborative Activity
+Collaborate with one of your friends and use the internet to find out the
+temperature at which water freezes and the temperature at which it boils
+in Fahrenheit. Then, apply the mathematical formula $C = \frac{5}{9}(F - 32)$ to
+convert both temperatures to Celsius, where $F$ represents Fahrenheit
+and $C$ represents Celsius.
+
+---
+
+36 Unit Two: Algebra Mathematics - First Preparatory

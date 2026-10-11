@@ -1,0 +1,45 @@
+La liaison covalente
+
+Si le chlore est lié au sodium par une liaison ionique, pourquoi
+ne se lie-t-il pas à l'hydrogène de la même manière?
+
+(La figure 4) montre que l'atome d'hydrogène a besoin d'un électron
+pour avoir la même structure électronique que l'hélium, et l'atome de
+chlore a également besoin d'un électron pour avoir la même structure
+électronique que l'argon. Comment cela peut se réaliser ?
+
+• Chaque atome partage l'électron de valence non-apparié pour former
+une liaison covalente simple, et la paired'électrons qui constitue la
+liaison tourne autour des deux atomes dans la molécule du composé
+covalent, le chlorure d'hydrogène (HCI).
+
+La liaison covalente dans la molécule de chlorure d'hydrogène est illustrée à (la figure 5,) où
+le tiret (-) entre les deux atomes représente la liaison covalente simple dans la molécule.
+
+H + Cl : ——————> H — Cl :
+Atome Atome de Molécule de chlorure
+d'hydrogène chlore d'hydrogène
+
+Figure (5)
+Formation de la liaison covalente simple dans la molécule de chlorure d'hydrogène
+
+Activité 2 Déduis
+Montre par un schéma la formation de la liaison dans les molécules suivantes à l'aide de
+la structure de Lewis par des points :
+- Molécule d'hydrogène : H + ——————>
+- Molécule d'oxygène : ——————> O = O
+- Molécule d'azote : ——————> + N ——————>
+
+Il est clair de ce qui précède que la liaison covalente se forme entre deux atomes d'un même
+élément non métallique ou entre deux atomes de deux différents éléments non métalliques.
+La liaison covalente peut être simple (-), double (=), ou triple (≡).
+
+Évalue ta compréhension
+Utilise les points (.) et les tirets (-) selon la méthode de Lewis pour représenter les électrons de
+valence et les liaisons covalentes dans la molécule d'eau H₂O illustrée à (la figure 6:)
+
+H + O + H ——————> H O H
+
+Figure (6)
+
+october press LEÇON QUATRE : Les liaisons chimiques 29

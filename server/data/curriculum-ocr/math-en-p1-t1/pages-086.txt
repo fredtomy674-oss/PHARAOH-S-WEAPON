@@ -1,0 +1,107 @@
+Practical Activity
+Use a protractor to
+measure each of the eight
+angles formed when a
+transversal intersects two
+parallel straight lines and
+verify the relationships
+between each pairs of
+angles yourself.
+
+Self-Evaluation 1
+n
+m₁
+1/2
+50°/3
+m₂
+5/4
+6/7
+
+Find the measures of the
+numbered angles in the
+figure and explain your
+reasoning.
+
+Self-Evaluation 2
+(5x+15)°
+(9x-5)°
+
+Find the value of X and
+verify the solution yourself.
+
+If a straight line intersects two parallel straight lines, then each two
+interior angles on the same side of the transversal are supplementary.
+
+∠ 3 and ∠ 5 are interior angles on the same
+side of the transversal
+
+∠ 4 and ∠ 6 are interior angles on the same
+side of the transversal
+m ( ∠ 3) + m ( ∠ 5) = 180°
+m ( ∠ 4) + m ( ∠ 6) = 180°
+
+Example 1
+In the opposite figure, there are three
+angles, the measure of each is 120°.
+Identify these angles and state the reason.
+Given that n₁ // n₂ and m is the transversal.
+
+m ( ∠ 3) = 120° (Vertically opposite angles)
+m ( ∠ 4) = 120° (Corresponding angles)
+m ( ∠ 7) = 120° (Alternating exterior angles)
+i.e., the three angles are: ∠ 3 , ∠ 4 and ∠ 7
+
+Example 2
+In the opposite figure:
+AB // DC . What is the value of X?
+
+AB // DC , ∠ BAD and ∠ ADC are interior
+angles on the same side of the transversal, thus:
+m ( ∠ BAD) + m ( ∠ ADC) = 180°
+3 X + 15° + 75° = 180°
+3 X + 90° = 180°
+3 X = 180° - 90°
+3 X = 90°
+X = 90° / 3 = 30°
+
+3
+4
+5
+6
+
+n₁
+n₂
+120°
+m
+1
+2/3
+4/5
+6/7
+
+Think
+Try to solve the example
+using different methods
+yourself.
+
+A
+(3x+15)°
+D 75°
+C
+B
+
+Verifying the Solution
+Substitute X with 30° in the
+expression (3 X + 15)°
+3 X + 15° = 3 × 30° + 15°
+= 90° + 15°
+= 105°
+m ( ∠ BAD) + m ( ∠ ADC)
+= 105° + 75° = 180°
+The solution is correct
+because the two angles are
+supplementary.
+
+First Term
+Lesson Two: Parallelism
+El Nemer Press
+79

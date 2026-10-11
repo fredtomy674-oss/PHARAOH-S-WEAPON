@@ -1,0 +1,55 @@
+Cause: Increased harmful gases such as carbon dioxide from factories and cars.
+
+Solution: using smart systems:
+
+IoT: Sensitive devices measure temperature and air pollution levels.
+
+AI: Analyzes this data and suggests solutions to reduce pollution.
+
+Robotics: Can plant trees or automatically purify the air.
+
+Example: When the temperature rises, the smart system sends a warning to the
+government to reduce factory exhaust and operate air purification filters.
+
+2- Air Pollution:
+
+Dear student, the air we breathe may be polluted by car and factory fumes, and this is
+harmful to our health.
+
+Cause: Car exhaust, factories, and garbage burning.
+
+Solution: using smart systems:
+
+IoT: Measures the level of harmful gases in the air.
+
+AI: Identifies polluted areas and suggests reducing the number of cars.
+
+Robotics: Grow plants or use air purifiers.
+
+Example: In some cities, notifications are sent to residents asking them to stay home
+when air pollution increases.
+
+3- Water Shortage and Drought:
+
+Dear student, imagine that plants are not growing because the land isn't receiving
+enough water. This is a major problem called drought.
+
+Cause: excessive water use, lack of rain, and irregular irrigation.
+
+Solution: using smart systems:
+
+IoT: Devices measure soil moisture and report when the land needs water.
+
+AI: Calculates the appropriate amount of water to be provided.
+
+Robotics: Automatically irrigates the land only when needed.
+
+Example: On some farms, the land is only irrigated when sensors signal that it needs
+water, saving huge amounts.
+
+4- Floods and Heavy Rain:
+
+Dear student, sometimes a lot of rain falls in a short time, flooding the streets and
+causing flooding.
+
+10

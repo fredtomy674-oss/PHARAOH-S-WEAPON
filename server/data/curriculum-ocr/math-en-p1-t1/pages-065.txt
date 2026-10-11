@@ -1,0 +1,112 @@
+■ Technological
+Evaluation
+Write down the ages of
+ten of your classmates in
+years, and then calculate
+their arithmetic mean,
+median, and mode using
+Excel.
+
+Technology Using Excel to Find Arithmetic Mean, Median, and Mode
+
+Use Excel to calculate the arithmetic mean, the median, and the mode of
+the following set of values:
+5, 2, 9, 2, 4, 2, 5, 8, 3
+
+Steps:
+1 Insert the numbers in one column, say, column A.
+fx
+2 Select any cell, and from the "Formulas" menu, select Insert
+Function
+3 To Calculate the Arithmetic Mean: - Select "AVERAGE", then press OK.
+- Select the cells from A2 to A10, and
+then press OK.
+
+4 To Calculate the Median: Repeat steps 2 and 3 but select “MEDIAN”.
+5 To Calculate the Mode: Repeat steps 2 and 3 but select “MODE”.
+
+Home Insert Page Layout Formulas Data Review View
+fx
+Calibri
+Paste
+11
+A A
+A-
+B IU
+-
+Alignment
+Conditional Format as Normal
+Formatting Table-
+Number
+Bad
+Calculation
+Good
+Check Cell
+Insert Delete Format
+AutoSum-
+Fill
+Sort & Find &
+Clear Filter Select-
+Clipboard
+143
+X
+fx -MODE(A2:A10)
+Styles
+Cells
+Editing
+A
+B
+C
+D
+E
+F
+G
+H
+1
+Numbers
+2
+5
+3
+2
+4.444444
+4
+2
+4
+9
+5
+2
+AVERAGE
+(MEAN)
+MEDIAN
+MODE
+6
+4
+7
+2
+8
+5
+9
+8
+10
+3
+11
+12
+13
+K4 Sheet1 Sheet2 Sheet3
+Ready
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+► Choose the correct answer from the given ones:
+1 For a set of values:
+If Σf= 10 and Σ (f. X) = 40,
+what is the value of X?
+(a) 4 (b) 30 (c) 50 (d) 400
+2 For a set of values:
+If X= 20 and Σ (f . X) = 1,500,
+what is the value of Σ f?
+(a) 75 (b) 150 (c) 3,000 (d) 30,000
+
+58
+Unit Three: Statistics
+Mathematics - First Preparatory

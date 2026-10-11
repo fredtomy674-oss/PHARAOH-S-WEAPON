@@ -1,0 +1,76 @@
+How to factorize a polynomial by taking out the greatest common factor
+
+When factorizing the polynomial 6 X² - 15 X by taking out the GCF,
+follow the steps below:
+1 Factorize each term as a product of primes and variables to the
+exponent of 1 as follows:
+6 X² = 2 x 3 x X x X
+15 X = 3 x 5 x X
+∴ The greatest common factor is 3 X
+2 Divide (6 X² - 15 X) by the greatest common factor (3 X),
+the quotient is (2 X - 5)
+3 Write the greatest common factor
+outside the brackets, write the
+quotient inside the brackets as
+in the given diagram.
+Factorization
+6 X² - 15 X = 3 X (2 X - 5)
+Distribution
+
+■ Previous Knowledge
+• Multiplication can be
+distributed over addition,
+example :
+2 X (X + 4) = 2 X² + 8 X
+• Multiplication can
+be distributed over
+subtraction, example :
+3 X (2 X - 5) = 6 X² - 15 X
+
+■ Self-Evaluation 1
+Factorize the following
+polynomials by taking out
+the greatest common factor:
+1 12 X² + 16
+2 6 a⁴ - 5 a²
+3 4 X³ - 8 X² + 12 X
+4 36 ab - 24 a² b - 18 ab²
+
+■ Verifying the Solution
+You can verify the solution
+by multiplying the factors to
+get the original polynomial.
+
+Example 1
+Factorize the following polynomials by taking out the greatest
+common factor:
+1 8 X² - 16
+2 15 X² y² - 30 X y³
+3 2 a³ b² + 8 a² b³ - 16 a b
+4 - 4 X⁴ + 12 X³ - 8 X²
+
+■ Note that
+To find GCF between the
+terms of a polynomial:
+1 Find GCF for numerical
+factors.
+2 Take the repeated
+variable sharing in all
+terms with its smallest
+exponent.
+
+1 Since the GCF is 8
+∴ 8 X² - 16 = 8 (X² - 2)
+2 Since the GCF is 15 X y²
+∴ 15 X² y² - 30 X y³ = 15 X y² (X - 2 y)
+3 2 a³ b² + 8 a² b³ - 16 a b = 2 a b (a² b + 4 a b² - 8)
+4 - 4 X⁴ + 12 X³ - 8 X² = - 4 X² (X² - 3 X + 2)
+
+■ Note that
+▶ If the coefficient of the first term in a polynomial is negative, it is preferable to take (-1)
+as a common factor from each term of the polynomial.
+For example: - a + b - c = - (a - b + c)
+▶ A polynomial that cannot be factorized is called "prime polynomial".
+As: 2 X⁴ + 7 , 3 X² + 4 y²
+
+34 Unit Two: Algebra Mathematics - Second Preparatory

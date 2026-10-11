@@ -1,0 +1,51 @@
+Évaluation de la leçon
+
+Premièrement Mesurer les concepts
+
+► Choisis la bonne réponse parmi les réponses données:
+
+1 Quel est le centre du deuxième intervalle dans les intervalles:
+5 –; 15 –; 25 –; 35 – ?
+(a) 5 (b) 10 (c) 15 (d) 20
+
+2 Si Σ f = 50 et Σ (f . Xm) = 800 ,quelle est la moyenne arithmétique de X?
+(a) 16 (b) 160 (c) 750 (d) 850
+
+3 Si la borne supérieure d'un intervalle est 18 et son centre est 15,5, quelle est la borne inférieure de cet intervalle?
+(a) 12 (b) 12,5 (c) 13 (d) 13,5
+
+4 Le tableau des effectifs suivant indique les notes de 150 étudiants en mathématiques:
+Notes 4 – 12 – 20 – 28 – 36 – 44 – 52 – Total
+Effectif 15 3 k 4 k 32 25 22 14 150
+
+1 Quelle est la valeur de k?
+(a) 4 (b) 5 (c) 6 (d) 7
+
+2 Quel est l'ordre de la médiane?
+(a) 37,5 (b) 75 (c) 112,5 (d) 150
+
+3 Quelle est la valeur de la médiane?
+(a) 28 (b) 32,5 (c) 34,5 (d) 36
+
+5 À partir de l'histogramme ci-contre, quelle est l'intervalle du mode?
+(a) 30 –
+(b) 40 –
+(c) 50 –
+(d) 70 –
+
+6 Le tableau des effectifs cumulés croissants ci-contre indique le nombre d'heures de travail hebdomadaires pour 40 ouvriers dans l'une des usines, quelle est la valeur de la médiane?
+(a) 28,75
+(b) 30,25
+(c) 24,75
+(d) 31,25
+
+Bornes supérieures des intervalles Effectif
+inférieure à 20 0
+inférieure à 24 2
+inférieure à 28 7
+inférieure à 32 23
+inférieure à 36 35
+inférieure à 40 38
+inférieure à 44 40
+
+Premier semestre Leçon 2: Les mesures de la tendance centrale du tableau des données par intervalles 117

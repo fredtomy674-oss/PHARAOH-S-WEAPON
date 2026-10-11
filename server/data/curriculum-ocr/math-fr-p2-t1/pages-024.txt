@@ -1,0 +1,97 @@
+Leçon
+1 - 4
+
+Les lois des racines
+carrées et cubiques
+
+■ Résultats
+d'apprentissage
+• Connaître les lois de
+la multiplication et de
+la division des racines
+carrées.
+• Connaître les lois de
+la multiplication et de
+la division des racines
+cubiques.
+• Utiliser les lois des
+racines carrées et
+cubiques pour simplifier
+les nombres.
+• Utiliser les lois des
+racines pour résoudre
+les problèmes de la vie.
+
+Sois prêt!
+Dans le cadre d'un projet
+scolaire, Ossama et ses
+camarades de classe ont décidé
+de créer une petite pépinière à
+l'intérieur de l'école, composée
+de deux carrés adjacents.
+• Le premier carré est destiné
+à la culture des plants
+ornementaux et son aire est
+de 48 m².
+• Le second carré est destiné à la
+culture de plantes aromatiques et
+son aire est de 12 m².
+Ossama et ses camarades veulent construire une clôture autour de la
+pépinière en entier pour la protéger. Quelle est la longueur de cette clôture?
+Dans cette leçon, tu apprendras les lois des racines, ce qui te permettra de
+résoudre de tels problèmes de la vie.
+
+■ Vocabulaire
+• La racine carrée
+• La racine cubique
+
+Réfléchis et discute!
+Dans un jeu consistant à choisir deux cartes
+portant des deux nombres égaux, Sarah et
+Amal ont chacune choisi une carte jaune et
+une carte verte.
+• Sara a choisi les cartes A et C.
+• Tandis qu'Amal a choisi les cartes B et C.
+Laquelle a choisi correctement?
+Et pourquoi?
+
+Apprends!
+
+■ Pensée critique
+• Si a et b sont deux
+nombres réels non négatifs:
+Est-ce que:
+√a + √b = √a + b?
+Est-ce que:
+√a - √b = √a - b?
+• Si a et b sont deux nombres
+réels:
+Est-ce que:
+³√a + ³√b = ³√a + b?
+Est-ce que:
+³√a - ³√b = ³√a - b?
+
+Multiplication et division des racines
+Les racines carrées
+Si a et b sont deux nombres réels
+non négatifs, alors:
+√a x √b = √a x b
+Exemple:
+√2 x √8 = √2 x 8 = √16 = 4
+√a / √b = √a/b à condition b ≠ 0
+Exemple:
+√6 / √2 = √6/2 = √3
+
+Les racines cubiques
+Si a et b sont deux nombres réels,
+alors:
+³√a x ³√b = ³√a x b
+Exemple:
+³√3 x ³√-4 = ³√3 x (-4) = ³√-12
+³√a / ³√b = ³√a/b à condition b ≠ 0
+Exemple:
+³√16 / ³√2 = ³√16/2 = ³√8 = 2
+
+20
+Unité 1: Les nombres et les opérations sur les nombres
+Mathématiques - deuxième préparatoire

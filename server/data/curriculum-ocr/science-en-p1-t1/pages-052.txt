@@ -1,0 +1,41 @@
+Magnetic Field
+
+What is the similarity between an electric field and a magnetic field ?
+An electric charge has an electric field that extends through the space around it, and exerts a certain force on the charged objects found inside it at a distance. The electric forces are represented by imaginary lines called electric field lines. Similarly, a magnet has a magnetic field that extends through the space around it and affects magnetic materials placed in it at a distance by a magnetic force.
+The magnetic field is represented by imaginary lines called magnetic field lines,
+as shown in (Figures 17 : 19).
+
+Figure (17)
+Magnetic field lines
+of a magnet
+
+Figure (18)
+Magnetic field lines between
+two opposite poles of two magnets
+
+Figure (19)
+Magnetic field lines between
+two similar poles of two magnets
+
+Conclude the properties of magnetic field lines from (Figure 20).
+(1) Imaginary lines that do not .................... each other.
+(2) They start from the .................... pole of the magnet
+and end at the ....................
+(3) They are denser near .................... and far
+separated .................... from them.
+According to the above, conclude the definition of
+the magnetic field.
+• The magnetic field is the region of space ....................
+the magnet, where the effect of the magnetic ....................
+appears in it.
+
+Figure (20)
+
+◄ Does the mutual forces among a magnet and the magnetic substances that are found within
+its field considered a force of repulsion or attraction or both ?
+
+Research Activity
+Search in the different knowledge sources, including the internet or the Egyptian Knowledge Bank,
+about the advantages of each of the electric monorail and the maglev (magnetic levitation) train.
+
+LESSON TWO : Magnetic Forces 45

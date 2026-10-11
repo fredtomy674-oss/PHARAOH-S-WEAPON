@@ -1,0 +1,54 @@
+footer {
+padding: 5px 0;
+color: white;
+background-color: black;
+}
+
+Explanation of the CSS code for formatting my web pages
+
+body
+
+This part controls the appearance of the entire page.
+
+text-align: center; Centers text in the center of the page.
+
+font-weight: bold
+
+To make the text bold
+
+container
+
+This part of the formatting code controls the div container's layout
+
+width: 80%
+
+Container width represents 80% of the page's width
+
+margin: auto
+
+Horizontally centers the container within the page
+
+background-color: lightcyan
+
+Makes the container's color light cyan
+
+header
+
+Contains the layout for the top bar containing the container's title
+
+padding: 10px
+
+Adds 10 pixels of internal space around the content to make the bar taller. color:
+white
+
+Make the font color white for the top bar
+
+background-color: darkblue
+
+Make the top bar color dark blue
+
+section
+
+Is the main content box (for example, "School Information")
+
+71

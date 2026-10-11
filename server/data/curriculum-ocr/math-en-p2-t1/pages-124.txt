@@ -1,0 +1,71 @@
+Unit Four Assessment
+
+Evaluate your understanding!
+How well do you understand Unit Four?
+Tick the right box
+
+▶ Choose the correct answer from the given ones:
+
+(1) 40 students were asked to solve a simple puzzle, and the times they took to solve it were recorded in seconds. The results were presented graphically using the following ascending cumulative frequency curve.
+
+How many students took 3.5 minutes or more?
+(a) 30
+(b) 35
+(c) 37
+(d) 3
+
+(2) From the given ascending cumulative frequency table, what is the median value?
+(a) 154.9
+(b) 155.9
+(c) 157.9
+(d) 160.9
+
+| Upper limits of intervals | Ascending cumulative frequency |
+| :--- | :--- |
+| Less than 142 | 0 |
+| Less than 148 | 4 |
+| Less than 154 | 12 |
+| Less than 160 | 32 |
+| Less than 166 | 44 |
+| Less than 172 | 50 |
+
+(3) If the arithmetic mean ($\bar{X}$) of a frequency table is 24.5 and $\sum(f.X_m) = 980$, what is the value of $\sum f$?
+(a) 40
+(b) 50
+(c) 60
+(d) 70
+
+(4) What is the center of the third interval of the intervals 6−, 10−, 14−, 18−, ... ?
+(a) 12
+(b) 14
+(c) 16
+(d) 18
+
+▶ Complete each of the following with the correct answer using the following frequency table:
+
+| Intervals | 2− | 6− | 10− | 14− | 18− | 22− | 26− | Total |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Frequency | $k$ | 6 | 7 | 11 | 8 | $k^2+1$ | 1 | 40 |
+
+(5) The value of $k = \dots\dots\dots\dots$
+(6) The arithmetic mean $= \dots\dots\dots\dots$
+(7) The order of the median $= \dots\dots\dots\dots$
+(8) The median $= \dots\dots\dots\dots$
+
+▶ Answer the following questions:
+
+(9) If the arithmetic mean of the following frequency distribution is 36.6, find the value of each of $X$ and $k$.
+
+| Marks | 10− | 20− | 30− | $X−$ | 50− |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Frequency | 12 | 20 | $k$ | 30 | 15 |
+
+(10) The following table shows the masses of 50 students in kilograms at a school. Draw the histogram and find the modal mass.
+
+| Masses (kg) | 30− | 35− | 40− | 45− | 50− | 55− | 60− |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Frequency | 6 | 10 | 12 | 8 | 6 | 5 | 3 |
+
+First Term
+Unit Four Assessment
+119

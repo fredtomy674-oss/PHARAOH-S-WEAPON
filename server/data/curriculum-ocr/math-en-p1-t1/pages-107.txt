@@ -1,0 +1,59 @@
+■ Self-Evaluation (2)
+Find the value of $X$ in the following figure:
+$(5x+9)^\circ$
+$(6x-5)^\circ$
+$(7x-23)^\circ$
+$(5x+17)^\circ$
+$(7x-19)^\circ$
+$(4x+27)^\circ$
+
+■ Think
+Can a regular polygon be concave?
+
+■ Activity
+Calculate the measure of each interior angle of a regular polygon that has:
+1 8 sides
+2 10 sides
+
+Example 2
+In the opposite figure:
+Calculate the value of $X$.
+$(2x-3)^\circ$
+$(4x-16)^\circ$
+$(3x-1)^\circ$
+$(2x+10)^\circ$
+$(3x-10)^\circ$
+$\because$ The sum of the measures of the interior angles of a pentagon is $540^\circ$
+$\therefore 2X - 3^\circ + 3X - 1^\circ + 3X - 10^\circ + 2X + 10^\circ + 4X - 16^\circ = 540^\circ$
+$\therefore 14 X - 20^\circ = 540^\circ$
+$\therefore 14 X = 540^\circ + 20^\circ = 560^\circ$
+$\therefore X = \frac{560^\circ}{14} = 40^\circ$
+
+Regular Polygons
+A regular polygon is a polygon that has both of the following properties:
+1 All its sides are equal in length.
+2 All its interior angles are equal in measure.
+
+Examples of Regular Polygons:
+Equilateral Triangle
+Regular Triangle
+Square
+Regular Quadrilateral
+Regular Pentagon
+Regular Hexagon
+
+Note:
+$\text{The measure of each interior} \\ \text{angle of a regular polygon} = \frac{\text{sum of the measures of the interior angles}}{\text{number of interior angles}}$
+
+For example :
+• The measure of each interior angle of an equilateral triangle
+$= \frac{180^\circ}{3} = 60^\circ$
+$60^\circ$
+$60^\circ$
+$60^\circ$
+
+• The measure of each interior angle of a square $= \frac{360^\circ}{4} = 90^\circ$
+
+100
+Unit Four: Geometry & Measurement
+Mathematics - First Preparatory

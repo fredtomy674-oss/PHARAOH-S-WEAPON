@@ -1,0 +1,31 @@
+d) A group of secure servers.
+
+Second: Put a check mark (✓) in front of the correct sentence and a check mark
+(*) in front of the incorrect sentence.
+
+1. Ransomware permanently damages your device. ( )
+2. Distributed denial of service (DDoS) attacks target only one device. ( )
+3. Social engineering relies on exploiting vulnerabilities in technical systems. ( )
+4. Sharing your personal information with anyone you trust online is always safe. ( )
+
+
+Third: Fill in the gaps:
+
+1. A program helps detect and remove malware from your device.
+2. Attempts to steal your personal information via fake emails are called
+3. A program encrypts your files and demands a ransom to recover them.
+4. A attack aims to disable a website or online service by sending massive
+amounts of requests.
+5. The art of tricking people into giving up confidential information is called
+
+6. In DDoS attacks, a network of compromised devices is called
+7. A targeted is an advanced type of phishing that targets specific
+individuals.
+
+Self-assess
+
+Go to the objectives at the beginning of the lesson.
+
+Check the correct, I can........ box.
+
+27

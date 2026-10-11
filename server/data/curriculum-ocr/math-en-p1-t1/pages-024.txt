@@ -1,0 +1,95 @@
+■ Self-Evaluation 6
+A
+.4
+.2
+.5
+B
+3
+7
+9
+.1
+C
+From the above Venn
+diagram, find:
+1 ΑΠΒ
+2 AUC
+3 ΑΠΒΟC
+4 A∩ (BUC)
+
+Example 4
+From the opposite Venn diagram, find:
+1) ΑΠΒ
+2 BUC
+3 ΑΠΒΠC
+4 AU (BOC)
+A
+• 4
+B
+3 7 1
+2
+• 9
+C
+.5
+1 A B = {3,7} = B
+3 ΑΠΒNC = {7}
+2 BUC = {3, 7, 1, 9, 5}
+4 AU (BOC) = {1, 2, 3, 4, 7} U {7} = {1, 2, 3, 4, 7}
+
+Collaborative Activity
+Collaborate with one of your friends in the class, using Egyptian
+Knowledge Bank, and draw a Venn diagram using one of the computer
+application for drawing diagrams. Place on it the names of the Arab
+countries whose flags contain a crescent moon, or at least one star,
+or both.
+EKB
+Egyptian Knowledge Bank
+
+Lesson Assessment
+First Measuring Conceptual Understanding
+► Choose the correct answer from the given ones:
+1 If x ∈ {2, 5, 8}, what is the value that cannot
+be x?
+(a) 2
+(b) 3
+(c) 5
+(d) 8
+2 If x ¢ {3, 4, 1}, which of the following can
+be x?
+(a) 1
+(b) 2
+(c) 3
+(d) 4
+3 If A = {2, 5, 8}, which of the following is
+correct?
+(a) {2} ∈ A
+(c) {5} CA
+(b) {3} ¢ A
+(d) {8, 5} ¢ A
+4 If A = {4, 2, 7} and BCA, which of the
+following can be the set B?
+(a) {4, 6}
+(c) {4, 3, 7}
+(b) {1, 3, 5}
+(d) {7, 2}
+5 If A = {8, 9, 6}, and B = {2, 6, 7}, which set
+expresses AUB?
+(a) {6}
+(c) {8, 9}
+(b) {2, 7}
+(d) {2, 6, 7, 8, 9}
+6 If A = {8, 9, 6}, and B = {2, 6, 7}, which
+set expresses A B?
+(a) {6}
+(c) {8, 9}
+(b) {2, 7}
+(d) {2, 6, 7, 8, 9}
+7 If A = {5, 7}, what is the number of all subsets of set A?
+(a) 2
+(b) 4
+(c) 6
+(d) 8
+
+First Term
+Lesson Three: Sets and Their Operations
+El Nemer Press
+17

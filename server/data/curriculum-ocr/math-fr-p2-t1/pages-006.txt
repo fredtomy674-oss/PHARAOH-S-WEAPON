@@ -1,0 +1,95 @@
+Leçon
+1 - 1
+
+Les nombres réels
+
+■ Résultats
+d'apprentissage
+• Définir la notion de nombre
+irrationnel.
+• Estimer la valeur
+approximativement d'un
+nombre irrationnel et la
+représenter sur une droite
+numérique.
+• Reconnaître l'ensemble de
+nombres réels.
+• Classer un ensemble de
+nombres réels par ordre
+décroissant ou croissant.
+• Résoudre des équations
+dans l'ensemble de
+nombres réels.
+
+■ Vocabulaire
+• Le nombre irrationnel
+• Les nombres réels
+
+■ Information
+précédente
+Un nombre rationnel est
+n'importe quel nombre qui
+peut être écrit sous la forme
+a/b où a et b sont deux
+nombres entiers, b ≠ 0 et
+l'ensemble des nombres
+rationnels est noté par le
+symbole Q.
+• Donne des exemples de
+nombres rationnels.
+
+Sois prêt!
+Le rectangle d'or est le rectangle dont le
+rapport entre sa longueur et sa largeur est
+égal à 1 + √5 / 2. Ce rapport est appelé
+«le nombre d'or» et il est symbolisé
+par le symbole φ. C'est un rapport qui
+apparaît dans de nombreux aspects
+de la nature et les artistes l'ont utilisé
+dans leurs créations pour l'esthétique
+et l'harmonie qu'il confère au dessin. Le
+tableau de La Joconde de Léonard de
+Vinci est l'une des œuvres d'art les plus
+célèbres qui aient appliqué ce rapport.
+Pourquoi ce nombre d'or n'est-il pas
+considéré comme un nombre rationnel?
+Dans cette leçon, tu apprendras le concept de nombre irrationnel ainsi
+que tu reconnaîtras un nouvel ensemble de nombres, les nombres réels,
+qui te permettra de répondre à des questions telles que celles-ci.
+
+Le tableau de La Joconde
+
+Réfléchis et discute!
+Tu as devant toi un ensemble
+de nombres. Explique comment tu peux
+les classer du plus petit au plus grand.
+Discute avec tes camarades.
+
+Apprends!
+Les nombres irrationnels
+Un nombre irrationnel est un nombre qui ne peut pas être écrit sous la
+forme a/b où a et b sont deux nombres entiers, b ≠ 0 et l'ensemble des
+nombres irrationnels est noté par le symbole Q'
+
+Exemples de nombres irrationnels:
+► La racine carrée de n'importe quel nombre
+qui n'est pas un carré parfait, tel que: √2
+où √2 ≈ 1,414213562 ...
+► La racine cubique de n'importe quel nombre
+qui n'est pas un cube parfait, tel que: ∛5
+où ∛5 ≈ 1,709975947 ...
+
+■ Remarque que
+La calculatrice donne des
+valeurs approximatives pour
+les nombres irrationnels
+tels que √2 et ∛5 où la
+fraction décimale est infinie
+et non périodique. Il n'est
+donc pas possible d'écrire de
+tels nombres sous la forme
+d'un nombre rationnel.
+
+2
+Unité 1: Les nombres et les opérations sur les nombres
+Mathématiques - deuxième préparatoire

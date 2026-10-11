@@ -1,0 +1,79 @@
+(4) To factorize the trinomial:
+x² - 7x - 18, look for two integers
+their product is (-18) and their
+sum is (-7).
+∴ The two numbers have different
+signs, the number with larger
+absolute value will be negative.
+∴ x² - 7x - 18 = (x - 9) (x + 2)
+
+Possible
+products
+(1) (-18)
+(2) (-9)
+(3) (-6)
+Their sum
+-17 X
+-7 ✓
+-3 X
+∴ The two numbers are
++2, -9
+
+■ Self-Evaluation (2)
+Factorize each of the
+following completely:
+1 4x² - 8x - 60
+2 -x² - 13x - 36
+
+■ Note that
+The complete factorization
+is to write the polynomial in
+the form of the product of
+prime polynomials.
+
+Example 2
+Factorize each of the following completely:
+1 3x² + 6x - 72
+3 x² - 5xy + 6y²
+5 x⁶ - 10b⁴ - 3x³b²
+2 12x - 3x³ - 9x²
+4 y (y + 1) - 30
+
+✓
+1 3x² + 6x - 72 = 3 (x² + 2x - 24) = 3 (x + 6) (x - 4)
+2 12x - 3x³ - 9x² = -3x³ - 9x² + 12x
+«Arrange the terms in descending order according to the exponents of x »
+= -3x (x² + 3x - 4) «Take out GCF»
+= -3x (x - 1) (x + 4) «Factorize the trinomial»
+3 x² - 5xy + 6y² = (x - 3y) (x - 2y)
+4 y (y + 1) - 30 = y² + y - 30 «Expand the brackets»
+= (y + 6) (y - 5)
+5 x⁶ - 10b⁴ - 3x³b² = x⁶ - 3x³b² - 10b⁴
+«Arrange the terms in descending order according to the exponents of x »
+= (x³ + 2b²) (x³ - 5b²)
+
+Second Factorizing the trinomial in the form ax² + bx + c
+where (a ≠ ± 1)
+
+Example 3
+Factorize each of the following:
+1 2x² + 7x + 6
+2 4x² + x - 3
+3 2x⁴ + 9x² + 10
+
+■ Self-Evaluation (3)
+Factorize each of the
+following:
+1 3x² - 11x + 6
+2 6x² + 7x + 2
+3 2x² + x - 10
+4 5x² - 28x - 12
+
+✓
+1 Factorize 2x² into x, 2x (x ) (2x )
+Factorize 6 into +1, +6 or +2, +3
+Ignore the negative factors because the coefficient of x is positive.
+
+First Term
+Lesson Two: Factorizing Trinomial
+41

@@ -1,0 +1,84 @@
+- Using Technology
+You can use the calculator
+to convert a rational
+number in the form of $\frac{a}{b}$ to
+a recurring decimal, and
+vice versa, as follows:
+• To express the fraction $\frac{2}{9}$
+in the form of an infinite
+(recurring) decimal,
+enter $\frac{2}{9}$ on your calculator.
+Press the $=$ key,
+and then $S \Leftrightarrow D$.
+The calculator will display
+$0.2222222$, which is
+written as $0.\bar{2}$
+• Conversely, to express
+the recurring decimal $0.\bar{2}$
+in the form of $\frac{a}{b}$,
+enter $0.2222222$ on your
+calculator till you have
+full screen of 2 s, then
+press the $=$ key. The
+calculator will display $\frac{2}{9}$.
+
+■ Self-Evaluation (1)
+Find the result of each of
+the following:
+1 $\frac{3}{7}+\left(-\frac{6}{7}\right)$
+2 $\left|\frac{-8}{9}\right|+2 \frac{1}{9}$
+3 $-\frac{1}{5}+\frac{2}{3}$
+4 $0.\bar{4}+1 \frac{2}{3}$
+
+The different Forms of a Rational Number
+• Expressing a rational number in the form of
+a percentage:
+For example: $\frac{1}{2} = 50\%$, $2\frac{1}{4} = 225\%$
+• Expressing a rational number in the form of
+a finite decimal:
+For example: $\frac{2}{5} = 0.4$, $1\frac{3}{4} = 1.75$
+• Expressing a rational number in the form of an infinite (recurring) decimal:
+For example: $\frac{2}{9}$ can be expressed in the form of an infinite decimal,
+$0.222...$ or $0.\bar{2}$ (which is read as $0.2$ recurring)
+
+Think
+How can you use division
+to find the decimal
+equivalent of a rational
+number?
+
+The three dots mean
+that the decimal is
+infinite.
+
+The line above one digit
+or more means that these
+digits are repeating.
+
+First Addition of Rational Numbers
+• If $\frac{a}{c}$ and $\frac{b}{c}$ are two rational numbers with equal denominators, then:
+$\frac{a}{c} + \frac{b}{c} = \frac{a+b}{c}$
+• If $\frac{a}{b}$ and $\frac{c}{d}$ are two rational numbers with different denominators, then:
+$\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}$
+
+Example (1)
+Find the result of each of the following in the simplest form:
+1 $-\frac{5}{8} + \frac{3}{8}$
+2 $\frac{1}{4} + \left(-\frac{1}{3}\right)$
+3 $2.6 + 2.\bar{6}$
+
+1 $-\frac{5}{8} + \frac{3}{8} = \frac{-5 + 3}{8} = \frac{-2}{8} = \frac{-1}{4}$
+2 $\frac{1}{4} + \left(-\frac{1}{3}\right) = \frac{3 + (-4)}{12} = \frac{-1}{12}$
+3 $2.6 + 2.\bar{6} = 2 \frac{6}{10} + 2 \frac{2}{3} = 2 \frac{3}{5} + 2 \frac{2}{3} = 2 \frac{9}{15} + 2 \frac{10}{15}$
+$= 4 \frac{19}{15} = 5 \frac{4}{15}$
+
+■ Diversified Strategies:
+You can use the number line strategy to find the sum of two rational
+numbers, as follows:
+
+$-\frac{5}{8} + \frac{3}{8} = -\frac{2}{8}$
+
+First Term
+Lesson Five: Operations on Rational Numbers
+El Nemer Press
+25

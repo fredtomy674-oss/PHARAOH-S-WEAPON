@@ -1,0 +1,52 @@
+Il est à noter que le type de charge acquise par l'objet frotté varie selon le type de matériau du frottement.
+Le tableau (1) montre le classement de certains matériaux dans la série électrostatique selon la facilité de perdre les électrons. Lorsqu'un matériau est frotté avec un autre qui le suit dans la série, celui qui précède dans le classement sera chargé positivement et celui qui le suit sera chargé négativement. Les faibles charges électriques sont mesurées à l'aide d'un appareil connu sous le nom de Coulombmètre Figure (9).
+Les corps chargés influent les uns sur les autres par une force mutuelle qui peut être force d'attraction ou force de répulsion.
+Une attraction peut se produire entre un corps non chargé et un autre chargé, comme l'attraction des bouts de papier au peigne après l'avoir frotté .
+Quand les corps électriquement chargés s'attirent-ils ou se repoussent-ils ?
+
+verre
+Cheveux
+Bois
+cuir
+synthétique
+soie
+laine
+coton
+papier
+Ébonite
+Tableau (1)
+Série
+électrostatique
+
+Figure (9)
+Appareil
+coulombmètre
+
+Évalue ta compréhension
+► Quel type de charge se forme t-il sur un morceau de cuir synthétique et sur une tige en bois lorsqu'ils sont frottés ensemble ? Interprète.
+
+Concepts croisés : Cause et conséquence
+Le type de charge acquise par le corps frotté varie selon le matériau du frottement.
+
+Compétences scientifiques Prédiction
+Lorsqu'un faisceau fin de particules subatomiques est introduit dans un champ électrique composé de deux plaques, l'une de charge positive et l'autre de charge négative Figure (10), alors :
+- Les neutrons ....................................................................................................
+- Les protons ........................................ vers la plaque ........................................
+- Les électrons ........................................ vers la plaque ........................................
+
+Figure (10)
+
+Applications pratiques
+(1) Lors du revêtement des métaux par la méthode de revêtement électrostatique Figure (11), l'objet à peindre est chargé par une charge électrique négative, le brouillard de peinture est chargée par une charge positive. Lors de l'application, une attraction se produit entre l'objet et le brouillard de peinture en raison de la différence de charge, ce qui rend la couche de peinture uniforme et réduit le gaspillage de peinture.
+
+(2) Le paratonnerre est un système utilisé pour protéger les installations et les bâtiments des coups de foudre Figure (12). Il se compose d'une tige métallique dont l'extrémité inférieure est fixée à une plaque métallique enterrée dans le sol, tandis que l'extrémité supérieure est pointue, permettant aux charges électriques accumulées sur les nuages de se décharger vers le sol sans causer de dommages au bâtiment.
+
+Objet
+à peindre
+Brouillard de peinture
+Figure (11)
+Peinture électrostatique
+
+Figure (12) Paratonnerre
+
+36 UNITÉ DEUX : Les champs de forces

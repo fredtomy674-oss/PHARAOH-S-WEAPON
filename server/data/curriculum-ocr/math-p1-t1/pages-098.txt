@@ -1,0 +1,82 @@
+تقييم ذاتي (1)
+120°
+2x°
+x°
+2x°
+أوجد قيمة X.
+
+مثال (1)
+أوجد قيمة X في كل شكل من الشكلين الآتيين :
+D
+C
+115°
+125°
+X°
+(x-5)°
+A
+B
+1
+2
+F
+30°
+D
+C
+E
+4x°
+5.x°
+3x°
+A
+B
+2
+1
+$X + X - 5^\circ + 115^\circ + 125^\circ = 360^\circ$
+$2X + 235^\circ = 360^\circ$
+$2X = 360^\circ - 235^\circ$
+$2X = 125^\circ$ (بالتقابل بالرأس)
+$X = \frac{125^\circ}{2} = 62.5^\circ$
+في المثلث CEF :
+$\mathrm{m}(\angle\mathrm{ECF}) = 180^\circ - 120^\circ = 60^\circ$
+$\mathrm{m}(\angle\mathrm{BCD}) = \mathrm{m}(\angle\mathrm{ECF}) = 60^\circ$
+في الشكل الرباعي ABCD :
+$4X + 3X + 5X + 60^\circ = 360^\circ$
+$12X = 360^\circ - 60^\circ = 300^\circ$
+$X = \frac{300^\circ}{12} = 25^\circ$
+
+الأشكال الرباعية الخاصة
+1 شبه المنحرف
+شبه المنحرف هو شكل رباعي فيه ضلعان فقط متوازيان.
+شبه منحرف
+شبه منحرف قائم الزاوية شبه منحرف متساوي الساقين
+
+مثال (2)
+في الشكل المقابل : ABCD شبه منحرف
+أوجد بالبرهان : $\mathrm{m}(\angle\mathrm{D})$
+D
+C
+112°
+3x°
+4x°
+A
+B
+$\therefore \overline{\mathrm{AB}} // \overline{\mathrm{DC}}$ ، $\overleftrightarrow{\mathrm{BC}}$ قاطع لهما.
+(زاويتان داخليتان وفي جهة واحدة من القاطع)
+$\therefore \mathrm{m}(\angle\mathrm{B}) + \mathrm{m}(\angle\mathrm{C}) = 180^\circ$
+$\therefore 4X + 112^\circ = 180^\circ$
+$\therefore 4X = 68^\circ$
+$\therefore X = 17^\circ$
+$\therefore \mathrm{m}(\angle\mathrm{A}) = 3X = 3 \times 17^\circ = 51^\circ$
+$\therefore \mathrm{m}(\angle\mathrm{D}) = 360^\circ - (112^\circ + 68^\circ + 51^\circ) = 129^\circ$
+
+تقييم ذاتي (2)
+شبه منحرف ABCD
+$\mathrm{m}(\angle\mathrm{A}) = \mathrm{m}(\angle\mathrm{B})$
+D
+C
+$(3x-35)^\circ$
+2x°
+A
+B
+أوجد : $\mathrm{m}(\angle\mathrm{D})$
+
+91 الدرس الرابع الأشكال الرباعية
+الفصل الدراسي الأول (2026 / 2027)

@@ -1,0 +1,33 @@
+UNITÉ 3
+La géométrie
+
+Leçons de l’unité
+3-1 La congruence
+3-2 Le théorème de Pythagore et sa réciproque
+3-3 Les applications du parallélisme
+3-4 Les médianes d’un triangle
+3-5 Le triangle isocèle
+3-6 Les angles intérieurs et extérieurs des polygones
+
+c b
+a
+a² + b² = c²
+
+Les théories géométriques sont utilisées dans de nombreux calculs
+d’intelligence artificielle, en particulier dans l’analyse des figures géométriques
+et la conception de robots industriels.
+► Est-il possible de développer les algorithmes d’apprentissage
+automatique pour résoudre des problèmes géométriques dans notre
+vie quotidienne?
+
+Les enjeux et les compétences de la vie
+- La communication mathématique
+- La pensée créative
+- La pensée critique
+- Le langage mathématique
+
+Les valeurs
+- La beauté de la nature
+- La conscience sanitaire
+- L’appréciation de l’art
+- La conscience environnementale

@@ -1,0 +1,36 @@
+Evaluate Your Understanding
+
+You have two equal masses of water and oil at 20°C, they were heated by a uniform heat
+source.
+Which of these two liquids takes longer time to reach 60°C? Explain.
+
+3 State of the substance
+
+Activity 4 Practical
+
+Materials and tools used
+• Two equal masses of water and ice.
+• A heat source (flame).
+• Holder.
+• Two thermometers.
+• Stopwatch.
+
+Steps :
+1 Use the thermometer to measure the temperature of water and ice.
+2 Make the flame steady, in order for the heating time to become a measure for the quantity of heat gained by each of water and ice.
+3 Heat the water and the ice for the same period of time (figure 12).
+4 Record the thermometer readings for both water and ice.
+What do you observe?
+
+Figure (12)
+
+5 From the experiment, identify each of the following :
+- The independent variable :
+- The dependent variable :
+- The controlled variable :
+
+Conclusion :
+• The amount of the change in temperature of equal masses of different states of the same substance varies when they gain or lose the same quantity of thermal energy.
+The increase in the temperature of a mass of ice is greater than the increase in the temperature of an equal mass of water when they gain the same quantity of thermal energy.
+
+Lesson Three : INTERNAL ENERGY AND TEMPERATURE 27

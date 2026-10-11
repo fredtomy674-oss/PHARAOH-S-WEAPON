@@ -1,0 +1,39 @@
+Activité 3 Pratique
+1 Suspends un poids de 1 kg de masse au crochet d'une balance à ressort (dynamomètre) (Figure 19) et enregistre la lecture du poids en newtons (N) dans le tableau (1) :
+Masse (kg) 1 2 3 4 5
+Poids (N)
+Tableau (1)
+Figure (19)
+Poids (N)
+Masse (kg)
+Figure (20)
+2 Répète l'étape 1 avec des différentes masses.
+3 Représente les résultats sous forme de graphique, où le poids en newtons est sur l'axe vertical et la masse en kilogrammes est sur l'axe horizontal (Figure 20).
+
+On peut déduire de l'activité pratique (3) que le poids d'un corps est calculé à partir de la relation mathématique :
+Poids (P) = Masse (m) × Intensité du champ gravitationnel (g)
+
+Sachant que l'intensité du champ gravitationnel de la Terre est d'environ 10 N/kg.
+Ainsi, chaque masse de 1 kg au niveau de la surface de la Terre est attirée vers le centre de la Terre par une force d'environ 10 N.
+
+Activité 4 Découvre
+Quelle est la relation entre le poids d'un objet et l'intensité du champs gravitationnel qui agit sur lui?
+Les figures de (21) à (23) montrent les masses et les poids d'un objet à trois places différentes.
+La lune
+6 kg
+10 N
+Figure (21)
+La Terre
+6 kg
+60 N
+Figure (22)
+L'espace extérieur
+6 kg
+00.0 N
+Figure (23)
+1 La masse du corps varie-t-elle selon son emplacement ?
+2 Le poids du corps varie-t-il selon son emplacement ?
+3 Laquelle est la plus grande: la force de gravité de la Terre sur les corps ou la force de gravité de la Lune ?
+4 Pourquoi le poids des objets est-il nul dans l'espace ?
+
+52 UNITÉ DEUX : Les champs de forces

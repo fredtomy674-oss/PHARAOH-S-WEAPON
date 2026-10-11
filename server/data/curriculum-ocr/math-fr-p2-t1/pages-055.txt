@@ -1,0 +1,39 @@
+(7) Laquelle des expressions suivantes représente l'aire de la zone colorée
+dans la figure ci-contre?
+(a) 5 X² - 2 y² (b) 25 X - 4 y
+(c) (5 X - 2 y)² (d) (5 X - 2 y) (5 X + 2 y)
+
+▶ Découvre l'erreur:
+(8) Omar et Khaled ont factorisé (X³ - 8) comme suit:
+La solution d' Omar:
+X³ - 8 = (X - 2) (X² - 2 X + 4)
+La solution de Khaled:
+X³ - 8 = (X - 2) (X² - 4 X + 4)
+
+Lequel d'entre eux a trouvé la bonne solution? Corrige l'erreur s'il y en a une
+
+Deuxièmement Appliquer les concepts
+
+(9) Factorise chacun de ce qui suit:
+① a² + 18 a + 81 ② b² - 14 b + 49 ③ 9 X² + 6 X + 1
+④ 25 - 9 X² ⑤ 1 - 4 a² b² ⑥ k² - 36 m²
+⑦ y³ - 8 ⑧ X³ + 27 ⑨ 64 X³ - 125 y³
+
+(10) Factorise complètement chacun de ce qui suit:
+① X⁴ + 8 X³ + 16 X² ② 2 X y⁴ - 16 y X⁴ ③ 121 y - y³
+④ 20 X³ - 45 X ⑤ - 27 X² + 75 ⑥ X⁴ - 81
+⑦ 54 X³ + 16 ⑧ a X⁴ - 343 a X b³ ⑨ 4 X⁴ + 4000 X
+
+(11) Factorise complètement chacun de ce qui suit:
+① X² - 4/81 ② 125 X³ + 1/8 ③ 1/5 X² - 5
+④ (X + 3)³ + 64 ⑤ (X + 3)² - 16 ⑥ 6 a² (X + 2 y) - 24 b² (X + 2 y)
+⑦ X⁴ - 13 X² + 36 ⑧ X⁶ - 7 X³ - 8 ⑨ m⁶ - 64 n³
+⑩ 4 X¹⁶ - 16 y⁴ ⑪ X⁶ - 64 y⁶
+
+(12) Résous chacune des équations suivantes dans R:
+① 4 X² + 1 = 4 X ② X³ = 25 X ③ X² + 6 X = - 9
+
+(13) Si a - b = 3 et a b = 10
+, trouve la valeur numérique de l'expression: a³ - b³
+
+Premier semestre Leçon 3: La factorisation des cas particuliers 51

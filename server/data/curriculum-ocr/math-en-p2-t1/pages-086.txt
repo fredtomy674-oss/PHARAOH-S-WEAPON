@@ -1,0 +1,56 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+(1) In the given figure:
+If the length of DF = 15 cm,
+what is the length of EF?
+(a) 10 cm
+(b) 7.5 cm
+(c) 5 cm (d) 2.5 cm
+
+(2) In the given figure:
+If AC = 12 cm,
+what is the length of AE?
+(a) 3 cm (b) 4 cm
+(c) 6 cm (d) 8 cm
+
+(3) In the given figure:
+If the length of EB = 10 cm,
+what is the length of AB?
+(a) 20 cm (b) 10 cm
+(c) 7.5 cm (d) 5 cm
+
+(4) In the given figure:
+What is the value of X?
+(a) 16 (b) 8
+(c) 4 (d) 2
+
+(5) In the given figure:
+What is the value of X?
+(a) 9 (b) 4.5
+(c) 13.5 (d) 2.25
+
+(6) In the given figure:
+If the perimeter of Δ ABC is
+equal to 18 cm,
+what is the perimeter of Δ DEF?
+(a) 6 cm (b) 12 cm
+(c) 36 cm (d) 9 cm
+
+Second Applying Concepts
+(7) In each of the following figures, find the value of each of X and Y.
+
+(8) In the given figure:
+If E is the midpoint of AB,
+EF // BC, FG // CD,
+prove that BD = 2 EG
+
+(9) In the given figure:
+GK = 8 cm, FD // GE,
+AG = GF = FB
+Find the length of KE.
+
+First Term
+Lesson Three: Applications of Parallelism
+81

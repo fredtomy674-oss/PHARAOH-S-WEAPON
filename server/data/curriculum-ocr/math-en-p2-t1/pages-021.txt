@@ -1,0 +1,53 @@
+Properties of operations on real numbers
+If a, b, and c are three real numbers, then:
+Property | Addition operation | Multiplication operation
+--- | --- | ---
+Closure | a + b ∈ R | a × b ∈ R
+Commutativity | a + b = b + a | a × b = b × a
+Association (grouping) | (a + b) + c = a + (b + c) | (a × b) × c = a × (b × c)
+Distribution of multiplication over addition | a (b + c) = ab + ac
+Identity | The additive identity is 0, a + 0 = 0 + a = a | The multiplicative identity is 1, a × 1 = 1 × a = a
+Inverse | The additive inverse of the number a is (- a) where : a + (- a) = 0 | The multiplicative inverse of the number a is 1/a (where a ≠ 0) where : a × 1/a = 1
+
+■ Think & Discuss
+For any three real numbers a, b, and c:
+1 Is a - b = b - a ?
+2 Is a/b = b/a ?
+3 Is a/b ∈ R ?
+4 Is a (b - c) = ab - ac ?
+
+Example 3
+Find the result of each of the following in its simplest form :
+1 2√3 (4+√3) - 4√3
+2 (√7 - 1) (2√7 + 3)
+3 (2√2 + 1) (2√2 - 1)
+4 (2√5 - 5)²
+
+✔ 1 2√3 (4+√3) - 4√3 = 2√3 × 4 + 2√3 × √3 - 4√3
+= 8√3 + 2 × 3 - 4√3
+= 8√3 + 6 - 4√3
+= 8√3 - 4√3 + 6 = 4√3 + 6
+2 (√7 - 1) (2√7 + 3) = √7 × 2√7 + √7 × 3 - 1 × 2√7 - 1 × 3
+= 14 + 3√7 - 2√7 - 3
+= (14 - 3) + (3√7 - 2√7)
+= 11 + √7
+3 (2√2 + 1) (2√2 - 1) = (2√2)² - (1)² = 8 - 1 = 7
+4 (2√5 - 5)² = (2√5)² + (2 × 2√5 × (-5)) + (-5)²
+= 20 - 20√5 + 25
+= 45 - 20√5
+
+■ Self-Evaluation 3
+If x = (√5 - 2), y = (√5 + 2)
+Find in its simplest form the value of the expression x² - y²
+
+■ Previous Knowledge
+• (x + y) (x - y) = x² - y²
+• (x + y)² = x² + 2xy + y²
+• (x - y)² = x² - 2xy + y²
+
+■ Try it yourself
+Try to find the product directly by inspection as follows:
+(x + 3) (x + 2)
+= x² + 5x + 6
+
+16 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

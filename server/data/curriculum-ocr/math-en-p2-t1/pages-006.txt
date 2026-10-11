@@ -1,0 +1,24 @@
+UNIT 1
+Numbers and Their Operations
+
+Unit Lessons
+1-1 Real Numbers
+1-2 Intervals and Their Operations
+1-3 Operations on Real Numbers
+1-4 Laws of Square and Cube Roots
+1-5 Laws of Exponents in Real Numbers
+
+Real numbers represent the fundamental structure of all mathematical operations within artificial intelligence systems, and without them we cannot accurately represent the real world. Therefore, the relationship between artificial intelligence and real numbers is a fundamental integration between mathematics and technology.
+► Can the role of real numbers be developed in building and training artificial intelligence algorithms?
+
+Issues and Life Skills
+- Critical Thinking
+- Creative Thinking
+- Sustainable Development
+- Mathematical Communication
+
+Values
+- Respecting Others
+- Environmental Awareness
+- Responsibility
+- Food Security Awareness

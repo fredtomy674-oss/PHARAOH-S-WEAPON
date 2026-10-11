@@ -1,0 +1,56 @@
+Book Haven
+Home
+Books
+Authors
+Contact us
+Naguib
+Mahfouz
+Gibran Khalil
+Gibran
+Ahmed Shawqi
+Taha Hussein
+• A main menu with clear buttons
+such as "Home," "Books," and
+"Contacts".
+Naguib Mahfouz's works
+1. The Trilogy: Palace Walk, Palace of Desire, Sugar Street
+2. The Harafish
+3. Children of the Alley
+4. The Thief and the Dogs
+5. Miramar
+• This menu is easy to navigate
+because the options are clear and
+organized.
+Follow us on social media
+Book library
+Home
+Taha Hussein
+Ahmed Shawqi
+Gibran Khalil Gibran
+Naguib Mahfouz
+Contact Us
+• A nested menu with many sub-
+items. This menu is disorganized
+and "confusing" because the
+options are too many and
+unclear.
+Naguib Mahfouz's works
+1. The Trilogy: Palace Walk, Palace of Desire, Sugar Street
+2. The Harafish
+3. Children of the Alley
+4. The Thief and the Dogs
+5. Miramar
+Follow us on social media
+E-Mail
+Twitter
+Facebook
+• Activity:
+Dear student, with the help of your teacher and in cooperation with your classmates,
+draw a simple navigation menu for an imaginary app or website.
+
+2. Clarity:
+• "Interface clarity is the presentation of information in a way that is easy to
+understand."
+• Illustrated examples:
+
+44

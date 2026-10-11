@@ -1,0 +1,43 @@
+Student Data
+C:\Users\DrTaher\Desktop\wassim/st.htm
+Student Information
+
+Personal Information
+
+Student Name: [Student's Full Name]
+Date of Birth: [Student's Date of Birth]
+Grade: [Student's Grade]
+Residence: [Student's Residence]
+
+Contact Information
+
+Parent Phone Number: [Parent Phone Number]
+Student Email (if applicable): [Student's Email]
+
+Student Information © 2025
+
+School data
+C:\Users\DrTaher\Desktop\wassim/sc.htm
+[School Name] Middle School
+
+Basic Information
+
+School Name: [Full School Name]
+Address: [Detailed School Address]
+Phone Number: [School Phone Number]
+Email: [School Email]
+
+School activities
+
+[List one or two activities offered at the school]
+[List another activity, if applicable]
+
+School Information © 2025
+
+Note:
+
+Notice the uniform formatting of both pages – how can this be achieved with minimal coding?
+
+As we'll see, we'll write the code responsible for formatting both pages once in the CSS file, rather than duplicating it within each HTML page.
+
+60

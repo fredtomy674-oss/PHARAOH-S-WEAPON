@@ -1,0 +1,73 @@
+■ Self-Evaluation 7
+Determine the type of the
+triangle with respect to its
+angles if the lengths of
+sides are as follows:
+1 5 cm, 5 cm, 5√2 cm
+2 11 cm, 12 cm, 16 cm
+3 4.5 cm, 20 cm, 21 cm
+
+■ Enriched Information
+Pythagoras' triples are three
+integers that satisfy the
+following formula:
+a² + b² = c²
+where c is the largest number.
+▶ The following are common
+Pythagoras' triples and
+some of their multiples:
+3, 4, 5
+6, 8, 10
+9, 12, 15
+3x, 4x, 5x
+5, 12, 13
+10, 24, 26
+15, 36, 39
+5x, 12x, 13x
+8, 15, 17
+16, 30, 34
+24, 45, 51
+8x, 15x, 17x
+7, 24, 25
+14, 48, 50
+21, 72, 75
+7x, 24x, 25x
+
+74 Unit Three: Geometry Mathematics - Second Preparatory
+
+Example 7
+Identify the type of each triangle with respect to its angles if the
+lengths of its sides are as follows:
+1 9 cm, 10 cm, 11 cm
+3 1.5 cm, 2 cm, 2.5 cm
+2 3 cm, 2√3 cm, 3√3 cm
+
+(1) ∵ The length of the longest side of the triangle = 11 cm
+∵ (11)² = 121 , (9)² + (10)² = 81 + 100 = 181
+∴ (11)² < (9)² + (10)²
+∴ The triangle is acute-angled.
+
+(2) ∵ The length of the longest side of the triangle = 3√3 cm
+∵ (3√3)² = 27 , (3)² + (2√3)² = 9 + 12 = 21
+∴ (3√3)² > (3)² + (2√3)²
+∴ The triangle is obtuse-angled.
+
+(3) ∵ The length of the longest side of the triangle = 2.5 cm
+∵ (2.5)² = 6.25 , (1.5)² + (2)² = 2.25 + 4 = 6.25
+∴ (2.5)² = (1.5)² + (2)²
+∴ The triangle is right-angled.
+
+Technology activity
+Use GeoGebra program and draw a triangle as shown in the figure. The
+lengths of its sides are a, b, and c. Copy the triangle to get four congruent
+triangles, and rearrange them to form a square as shown in the following
+screen.
+
+Find the area of the large square in two ways:
+• The area of the large square is equal to the sum of the areas of the four
+triangles and the small square.
+∴ A = 4 (1/2 a b) + c² (1)
+• The area of the large square is equal to the square of its side length.
+∴ A = (a + b)² (2)
+From (1) and (2) : 4 (1/2 a b) + c² = (a + b)²
+Simplify to verify that: c² = a² + b²

@@ -1,0 +1,53 @@
+■ Auto-évaluation 1
+Mets chacun de ce qui suit sous la forme la plus simple:
+1 √50 2 4√1/2
+3 2³√16 4 2³√2/4
+
+■ Rappelle-toi que
+Pour rendre le dénominateur du nombre irrationnel √a/√b un nombre entier, multiplie chacun de son numérateur et son dénominateur par √b comme suit:
+√a/√b = √a/√b × √b/√b = √ab/b
+
+■ Rappelle-toi que
+Pour rendre le dénominateur du nombre irrationnel ³√a/³√b un nombre entier, multiplie chacun de son numérateur et son dénominateur par ³√b × ³√b comme suit:
+³√a/³√b = ³√a/³√b × ³√b/³√b × ³√b/³√b = ³√ab²/b
+
+■ Remarque que
+Lorsqu' on additionne et soustrait les radicaux différents, simplifie chaque terme séparément.
+Si tu obtiens des termes radicaux similaires, que tu peux les additionner ou les soustraire.
+
+Exemple 1
+Mets sous la forme la plus simple chacun des nombres suivants:
+1 √32 2 ³√24 3 2√5/2 4 3³√-2/3
+
+1 Décompose le nombre 32 en deux facteurs, dont l'un est 16 et qui est le plus grand facteur carré parfait (32 = 16 × 2)
+∴ √32 = √16 × 2 = √16 × √2 = 4√2
+
+2 Décompose le nombre 24 en deux facteurs, dont l'un est 8 et qui est le plus grand facteur cube parfait (24 = 8 × 3)
+∴ ³√24 = ³√8 × 3 = ³√8 × ³√3 = 2³√3
+
+3 2√5/2 = 2 × √5/√2
+= 2 × √5/√2 × √2/√2
+= 2 × √10/2 = √10
+
+4 3³√-2/3 = 3 × ³√-2/³√3
+= 3 × ³√-2/³√3 × ³√3/³√3 × ³√3/³√3
+= 3 × ³√-2 × 3 × 3 / 3
+= 3 × ³√-18 / 3 = -³√18
+
+■ Diversité des stratégies
+∴ 2 = √2 × √2
+∴ 2√5/√2 = √2 × √2 × √5/√2
+= √2 × √5 = √10
+
+Exemple 2
+Réduis chacun de ce qui suit à la forme la plus simple:
+1 2√3 + 5√27 - √48 2 ³√40 - 2³√135 / ³√5
+
+1 2√3 + 5√27 - √48 = 2√3 + 5√9 × 3 - √16 × 3
+= 2√3 + 5 × √9 × √3 - √16 × √3
+= 2√3 + 5 × 3√3 - 4√3
+= 2√3 + 15√3 - 4√3 = 13√3
+
+Premier semestre
+Leçon 4: Les lois des racines carrées et cubiques
+21

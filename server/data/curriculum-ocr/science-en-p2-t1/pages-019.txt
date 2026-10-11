@@ -1,0 +1,28 @@
+Issue for Discussion
+The impact of melting of the ice of the two poles on coastal cities.
+
+Evaluate Your Understanding
+From chart (1) :
+Ice  X / Y  Water  W / Z  Water vapour
+Chart (1)
+Determine the two processes in which the kinetic energy of the particles of matter increases.
+
+Factors affecting the melting and boiling points of the substances
+Each pure substance has fixed melting point and boiling point at normal atmospheric pressure, which are affected by several factors, including :
+1 Atmospheric pressure.
+2 The degree of purity of the substance.
+
+1 Atmospheric pressure
+Atmospheric pressure affects the melting and boiling points of substances.
+In case of water, as the atmospheric pressure on pure water increases higher than the normal pressure, its boiling point becomes higher than 100°C and its freezing point (the melting point of ice) becomes lower than 0°C
+And as the atmospheric pressure decreases, (as on the mountains peaks) decreases lower than the normal pressure, the boiling point of water becomes lower than 100°C, where the temperature decreases by 1°C for every 300 m of altitude. (Table 2) shows some values of the boiling point of pure water at different altitudes above sea level.
+‘Note that the values are for illustration only’.
+
+Table (2)
+Elevation above sea level | Atmospheric pressure | Boiling point of pure water
+0 m | 1 atm | 100°C
+1800 m | 0.8 atm | 94°C
+3000 m | 0.69 atm | 90°C
+4800 m | 0.56 atm | 84°C
+
+Lesson Two : CHANGES IN THE STATES OF MATTER 13

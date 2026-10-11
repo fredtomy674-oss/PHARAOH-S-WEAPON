@@ -1,0 +1,58 @@
+Les propriétés des opérations sur les nombres réels
+
+Si a, b et c sont trois nombres réels, alors:
+
+| La propriété | L'opération d'addition | L'opération de multiplication |
+| :--- | :--- | :--- |
+| La stabilité | a + b ∈ R | a × b ∈ R |
+| La commutativité | a + b = b + a | a × b = b × a |
+| L'associativité | (a + b) + c = a + (b + c) | (a × b) × c = a × (b × c) |
+| La distributivité de la multiplication sur l'addition | \multicolumn{2}{c|}{a (b + c) = a b + a c} |
+| L'élément neutre | L'élément neutre pour l'addition est 0 <br> a + 0 = 0 + a = a | L'élément neutre pour la multiplication est 1 <br> a × 1 = 1 × a = a |
+| L'inverse | L'inverse additif (l'opposé) du nombre a est (- a) <br> où: a + (- a) = 0 | L'inverse multiplicatif (l'inverse) du nombre a est 1/a (où a ≠ 0) <br> où: a × 1/a = 1 |
+
+■ Réfléchis et discute!
+Pour tous les trois nombres réels a, b et c:
+1 Est-ce que a - b = b - a ?
+2 Est-ce que a/b = b/a ?
+3 Est-ce que a/b ∈ R ?
+4 Est-ce que a (b - c) = ab - ac ?
+
+■ Auto-évaluation 3
+Si x = (√5 - 2) et y = (√5 + 2)
+Trouve sous la forme la plus simple la valeur de l'expression x² - y²
+
+■ Information précédente
+• (x + y) (x - y) = x² - y²
+• (x + y)² = x² + 2xy + y²
+• (x - y)² = x² - 2xy + y²
+
+■ Essaie par toi-même
+Essaie de trouver le résultat de la multiplication directement en observant simplement comme suit:
+Les premiers (x + 3) (x + 2) Les derniers
+Les moyens + Les extrémités
+= x² + 5 x + 6
+
+Exemple 3
+Trouve le résultat de chacun de ce qui suit sous la forme la plus simple:
+1 2√3 (4 + √3) - 4 √3
+2 (√7 - 1) (2√7 + 3)
+3 (2√2 + 1) (2√2 - 1)
+4 (2√5 - 5)²
+
+✔ 1 2√3 (4 + √3) - 4 √3 = 2√3 × 4 + 2√3 × √3 - 4√3
+= 8√3 + 2 × 3 - 4√3
+= 8√3 + 6 - 4√3
+= 8√3 - 4√3 + 6 = 4√3 + 6
+
+2 (√7 - 1) (2√7 + 3) = √7 × 2√7 + √7 × 3 - 1 × 2√7 - 1 × 3
+= 14 + 3√7 - 2√7 - 3
+= (14 - 3) + (3√7 - 2√7)
+= 11 + √7
+
+3 (2√2 + 1) (2√2 - 1) = (2√2)² - (1)² = 8 - 1 = 7
+4 (2√5 - 5)² = (2√5)² + (2 × 2√5 × (-5)) + (-5)²
+= 20 - 20√5 + 25
+= 45 - 20√5
+
+16 Unité 1: Les nombres et les opérations sur les nombres Mathématiques - deuxième préparatoire

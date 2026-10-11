@@ -1,0 +1,36 @@
+Lesson
+2-3 Factorizing Special Cases
+
+■ Learning Outcomes
+• Factorize a trinomial that represents a perfect square.
+• Factorize the difference between two squares.
+• Factorize the difference between two cubes.
+• Factorize the sum of two cubes.
+• Use factorization to facilitate mathematical operations.
+• Use factorization to solve some real-life problems.
+
+■ Vocabulary
+• Perfect square.
+• Difference between two squares.
+• Difference between two cubes.
+• Sum of two cubes.
+
+Get Ready!
+The pyramids of Giza in Egypt are one of the greatest wonders of the ancient world. The base of the Great Pyramid is a square, and assuming that its area is (X² + 6X + 9) m², can you find its perimeter in terms of X?
+In this lesson, you will learn how to factorize a perfect square trinomial and some other special cases, which will enable you to solve such problems.
+
+The Pyramids of Giza
+
+Think & Discuss!
+• If you have a square with a side length of X cm, and you decide to cut out a smaller square with a side length of 5 cm, as shown in the figure, can you express the area of the remaining part as the product of two factors? Discuss.
+
+• If you have a cube with an edge length of X m, and you decide to cut out a smaller cube with an edge length of Y m, as shown in the figure, can you express the volume of the remaining part as the product of two factors? Discuss.
+
+Learn!
+First Factorizing the trinomial that represents a perfect square
+If the trinomial is arranged in ascending or descending order according to the exponents of one of its variables, it represents a perfect square if:
+• The first term is a perfect square.
+• The third term is a perfect square.
+• The middle term is equal to (± 2 × √The first term × √The third term).
+
+46 Unit Two: Algebra Mathematics - Second Preparatory

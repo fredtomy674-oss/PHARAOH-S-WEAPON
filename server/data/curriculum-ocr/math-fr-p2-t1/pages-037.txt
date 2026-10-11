@@ -1,0 +1,82 @@
+Leçon
+2 - 1
+
+La factorisation en extrayant
+le plus grand commun diviseur
+
+■ Résultats
+d'apprentissage
+• Connaître le concept
+de la factorisation en
+extrayant le plus grand
+commun diviseur.
+• Factoriser un polynôme
+en extrayant le plus
+grand commun diviseur.
+• Utiliser la factorisation en
+extrayant le plus grand
+commun diviseur pour
+résoudre des problèmes.
+• Résoudre des équations
+en utilisant la factorisation
+en extrayant le plus grand
+commun diviseur.
+
+■ Vocabulaire
+• La factorisation
+• Polynôme
+• Monôme
+• Binôme
+• Trinôme
+
+■ Réfléchis avec tes
+camarades
+Pourquoi - 2 X³ est un
+polynôme, tandis que 3 X⁻²
+n'est pas un polynôme et
+que 3 X^(1/2) + 2 n'est pas un
+polynôme?
+
+Sois prêt!
+L'Égypte occupe des positions
+avancées à l'échelle mondiale dans
+le sport du squash, où les joueurs
+égyptiens, hommes et femmes, ont
+remporté de nombreux championnats
+majeurs ces dernières années.
+En supposons que l'aire d'un terrain
+de squash soit égale à
+(4 X⁵ + 12 X) m², ses dimensions
+peuvent-elles être (4 X⁵) m et (12 X) m?
+Ou ses dimensions peuvent-elles être (X⁴ + 3) m et 4 X m?
+Dans cette leçon, tu apprendras à factoriser en extrayant le plus grand
+commun diviseur, ce qui te permettra de résoudre de tels problèmes.
+
+Les champions d'Egypte dans le jeu du squash
+
+Réfléchis et discute!
+On peut écrire l'expression (12 X⁴ + 18 X³) comme le produit de deux
+facteurs de plus d'une façon, comme suit:
+3 X (4 X³ + 6 X²)
+2 X² (6 X² + 9 X)
+6 X³ (2 X + 3)
+6 X (2 X³ + 3 X²)
+3 X² (4 X² + 6 X)
+Lequel des produits précédents est une factorisation de l'expression
+(12 X⁴ + 18 X³) en extrayant le plus grand commun diviseur? Discute.
+
+Apprends!
+La factorisation d'un polynôme en extrayant le plus grand
+commun diviseur (PGCD)
+
+Un polynôme est une expression mathématique dont toutes les
+exposants de ses variables sont des nombres entiers positifs.
+
+Exemples de polynômes:
+• Polynôme (monôme): - 3 X Y
+• Polynôme (binôme): 4 X Y² + 2 X
+• Polynôme (trinôme): 2 X² + 3 Y + 8
+
+Premier semestre
+Leçon 1: La factorisation en extrayant le plus grand commun diviseur
+33

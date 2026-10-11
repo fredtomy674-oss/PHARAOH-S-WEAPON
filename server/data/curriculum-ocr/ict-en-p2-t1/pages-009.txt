@@ -1,0 +1,53 @@
+Example: A student asks, "What is the capital of Egypt?" The robot understands
+the question and answers, "Cairo."
+
+3- Smart Farming:
+
+The Internet of Things: Sensors transmit information about the condition of the
+soil.
+
+Artificial Intelligence: Analyzes this data to determine whether the soil needs
+water.
+
+Robots: Automatically water plants or spray pesticides.
+
+Example: If the soil is dry, the system decides to water the soil without the
+farmer's intervention.
+
+4- Voice Assistant:
+
+The Internet of Things: Used to access information online.
+
+Artificial Intelligence: Understands what you say and provides an appropriate
+response.
+
+Robots: Not here, because the device doesn't move; it just speaks.
+
+Example: You say, "What's the weather today?" The device understands your
+question and answers in a clear voice.
+
+5- Smart Car:
+
+The Internet of Things: Connects the car to satellites and maps.
+
+Artificial Intelligence: Monitors the road and analyzes hazards.
+
+Robots: Control the vehicle's movement, such as stopping or changing direction.
+
+Example: If a child suddenly crosses the road, the vehicle detects this and stops on
+its own to protect you.
+
+Third: Intelligent Systems and Their Impact on Climate Change
+
+Today, the planet Earth faces major challenges due to climate change (e.g., rising
+temperatures, air pollution, melting ice, drought, floods). Through "smart systems,"
+we can monitor the environment, reduce pollution, and protect the planet. We will
+now review some of these problems and how to reduce and mitigate them using these
+intelligent systems.
+
+1- Global Warming (Global Warming):
+
+Dear student, have you noticed that the weather in the summer is hotter than before?
+This is due to what is known as "global warming."
+
+9

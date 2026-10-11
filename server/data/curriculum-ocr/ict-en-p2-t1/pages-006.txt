@@ -1,0 +1,65 @@
+Lesson 1
+
+Intelligent Systems and Their Impact on Climate Change
+
+Objectives :
+
+By the end of the lesson, I will
+be able to:
+
+- Explain the concept of intelligent
+interconnected systems (the
+Internet of Things, artificial
+intelligence, and robotics).
+
+- Conclude the impact of
+intelligent interconnected systems
+on facing environmental problems
+(air pollution and drought).
+
+- Suggest as many ideas as possible
+for employing intelligent systems
+to help protect the environment
+and reduce the effects of climate
+change.
+
+After the lesson, check the correct box:
+I can...
+
+Very good
+Ok
+Need more work
+
+Very good
+Ok
+Need more work
+
+Very good
+Ok
+Need more work
+
+Engage:
+
+What are intelligent connected systems? How can they contribute to protecting
+our planet?
+
+Learn
+
+In previous years, we learned about the concept of the Internet of Things (IoT), which
+connects different devices to the internet to exchange data. We also learned about
+artificial intelligence (AI), which is the ability of a machine to think and make
+decisions like a human. We also learned about robotics, which are devices that can
+perform tasks similar to those performed by humans.
+
+In this lesson, we will review how these intelligent systems work together in an
+interconnected manner to become more intelligent and useful in our lives.
+
+Dear student... Imagine a smart robot that can clean your house, move around on its
+own, avoid obstacles, and charge itself when its battery runs out. This robot uses
+(IoT) to connect to the internet, (AI) to analyze information and make decisions, and
+(robotics) to move and perform tasks.
+
+When these three technologies work together, we get what are called) smart
+connected systems).
+
+6

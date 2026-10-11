@@ -1,0 +1,53 @@
+Intervals 2- 4- 6- 8- 10- 12-
+Frequency 5 18 12 9 5 1
+
+Upper limits of intervals Ascending cumulative frequency
+less than 2 0
+less than 4 5
+less than 6 23
+less than 8 35
+less than 10 44
+less than 12 49
+less than 14 50
+
+Ascending cumulative frequency
+50
+40
+30
+20
+10
+2 4 6 8 10 12 14 Intervals
+
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+► Choose the correct answer from the given ones:
+The given figure represents the ascending cumulative
+curve of the marks of a class of 40 students in an exam.
+
+(1) How many students got less than 12 marks?
+(a) 5 (b) 10
+(c) 20 (d) 40
+
+(2) How many students got 18 marks or more?
+(a) 20 (b) 30
+(c) 35 (d) 40
+
+(3) What is the percentage of students who got less than
+6 marks?
+(a) 5 % (b) 10 %
+(c) 15 % (d) 20 %
+
+Ascending cumulative frequency
+40
+35
+30
+25
+20
+15
+10
+5
+0
+6 12 18 24 30 Marks
+
+First Term Lesson One: Ascending Cumulative Frequency Table and Its Graphical Representation 109

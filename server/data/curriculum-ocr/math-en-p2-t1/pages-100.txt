@@ -1,0 +1,46 @@
+(5) If the lengths of two sides of an isosceles
+triangle are 3 cm and 7 cm, what is the
+length of the third side?
+(a) 3 cm (b) 4 cm
+(c) 7 cm (d) 10 cm
+
+(6) In the given figure:
+What is the value of n?
+(a) 3 (b) 6
+(c) 9 (d) 12
+
+(7) In the given figure:
+What is the measure of ∠ C?
+(a) 23° (b) 46°
+(c) 67° (d) 60°
+
+(8) In the given figure:
+What is the value of X?
+(a) 10 (b) 7
+(c) 5 (d) 3
+
+Second Applying Concepts
+▶ In each of the following figures, find the value of X :
+(9)
+(10)
+(11)
+
+(12) In the given figure:
+Δ SRT is an equilateral triangle, and its side length is 12 cm,
+MR = SN, NM ⊥ SR
+Find with proof the length of NM
+
+(13) In the given figure:
+m (∠ B) = 30°, m (∠ DCB) = 20°,
+CE = DE, AE ⊥ CD
+Find with proof m (∠ CAE)
+
+▶ In each of the following figures, prove that the triangle ABC is an isosceles triangle:
+(14)
+(15)
+(16)
+(17)
+
+First Term
+Lesson Five: Isosceles Triangle
+95

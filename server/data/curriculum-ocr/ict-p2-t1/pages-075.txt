@@ -1,0 +1,36 @@
+...........................................................................................
+
+</html>
+
+إغلاق عنصر html
+
+نشاط: عزيزي الطالب بمساعدة معلمك وبالتعاون مع زملائك، كود CSS الخاص بتنسيق صفحتي الويب
+
+body {
+    text-align: center;
+    font-weight: bold;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    background-color: lightcyan;
+}
+
+header {
+    padding: 10px;
+    color: white;
+    background-color: darkblue;
+}
+
+section {
+    padding: 15px;
+}
+
+h2 {
+    padding-bottom: 10px;
+    color: blue;
+    border-bottom: 5px solid blue;
+}
+
+٧٥

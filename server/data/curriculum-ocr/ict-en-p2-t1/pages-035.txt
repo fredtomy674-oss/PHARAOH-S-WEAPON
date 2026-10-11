@@ -1,0 +1,56 @@
+Lesson 4:
+
+Big Data and Its Relationship to Artificial Intelligence
+
+Objectives:
+
+By the end of the lesson, I will be able to:
+- Discuss the stages of big data processing.
+- Explain the uses of big data.
+
+- Cite as many examples as possible of how artificial intelligence relies on big data.
+
+After the lesson, check the correct box:
+I can...
+
+Very good
+
+Ok
+
+Need more work
+
+Very good
+
+Ok
+
+Need more work
+
+Very good
+
+Ok
+
+Need more work
+
+Engage:
+
+How does artificial intelligence rely on big data?
+
+Learn:
+
+Big data play a vital and fundamental role in the development and effectiveness of artificial intelligence. AI requires big data to operate and learn, while AI technologies help process and analyze this massive amount of data and extract value from it.
+
+First: The stages of big data processing:
+
+1- Big data collection:
+
+This is the process of collecting massive amounts of data from the sources mentioned above.
+
+2- Data storage:
+
+Once the data is collected, it is stored in large databases, which can be located on servers or cloud systems.
+
+3- Data cleaning:
+
+The collected data may contain errors, duplication, or incorrect data. Therefore, it must be cleaned and verified.
+
+35

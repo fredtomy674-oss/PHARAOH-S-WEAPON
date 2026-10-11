@@ -1,0 +1,82 @@
+Leçon
+3-3 Les applications du parallélisme
+
+■ Résultats
+d’apprentissage
+• Connaître la relation
+entre les longueurs des
+parties des sécantes
+comprises entre des
+droites parallèles.
+• Utiliser la demi-droite
+tracée à partir du milieu
+de l’un des côtés d’un
+triangle parallèle à l’un
+des deux autres côtés.
+• Connaître le segment
+moyen d’un triangle.
+• Connaître la relation entre
+le segment moyen d’un
+triangle et le côté qui lui
+est opposé.
+• Utiliser le parallélisme
+dans la résolution de
+problèmes en géométrie.
+
+■ Vocabulaire
+• La parallélisme
+• Le point milieu
+• Le segment moyen
+
+■ Discute la preuve de la
+validité du théorème (3-1)
+t1 t2
+l1 A D
+l2 B G E
+l3 C H F
+En dessinant DG et EH
+parallèles à la droite t1, et
+en utilisant les propriétés
+du parallélogramme et du
+parallélisme pour prouver
+la congruence des deux
+triangles EDG et FEH, tu
+peux prouver la validité du
+théorème (3-1), discutes-en.
+
+Sois prêt!
+L’un des ingénieurs routiers
+planifie de construire une
+nouvelle route reliant
+l’école à l’hôpital, de sorte
+qu’elle soit parallèle à la route
+principale. Si tu sais que
+l’école se situe à mi-chemin
+AB et que l’hôpital se situe à
+mi-chemin AC, quelle est la
+longueur de cette nouvelle
+route?
+Dans cette leçon, tu connaîtras la relation entre les droites parallèles et
+les parties comprises entre elle, ainsi que la relation entre le segment
+moyen d’un triangle et les côtés du triangle, ce qui te permettra de
+résoudre de tels problèmes.
+
+Réfléchis et discute!
+Dans la figure ci-contre:
+Si la longueur de la barre transversale
+horizontale au milieu de l’échelle est de 0,75 m,
+peux-tu déterminer la distance entre les deux
+extrémités de l’échelle au sol? Discute.
+
+Apprends!
+Quelques applications du parallélisme
+Théorème 3-1
+Si une droite coupe plusieurs droites parallèles et que les parties de la sécante
+comprises entre ces droites sont égales en longueur, alors les parties comprises
+entre ces droits pour toute autre sécante seront également égales en longueur
+Si l1 // l2 // l3 // l4,
+t1, t2 sont leurs sécantes
+où AB = BC = CD
+alors: EF = FG = GH
+
+78 Unité 3: La géométrie Mathématiques - deuxième préparatoire

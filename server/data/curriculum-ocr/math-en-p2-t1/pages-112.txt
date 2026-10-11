@@ -1,0 +1,41 @@
+▸ Some information can be obtained directly from the table, such as:
+• The number of students who got marks belong to the interval [20, 30[ is equal to 10 students.
+• The number of students who got marks belong to the interval [40, 50[ is equal to 5 students.
+
+▸ However, you cannot obtain some other information directly from the table, such as:
+• The number of students who got less than 30 marks.
+• The number of students who got 20 marks or more.
+To obtain this information directly, you must learn how to form an ascending cumulative frequency table as follows:
+
+Marks | Frequency
+--- | ---
+10 – | 2 → 2 (less than 20)
+20 – | 10 → 2 + 10 = 12 (less than 30)
+30 – | 9 → 12 + 9 = 21 (less than 40)
+40 – | 5 → 21 + 5 = 26 (less than 50)
+50 – | 2 → 26 + 2 = 28 (less than 60)
+
+Write this data in a table as follows, which is represented graphically as follows:
+
+■ Note that
+There is no student with a mark less than 10, which means:
+The ascending cumulative frequency of students who got less than 10 marks is 0.
+
+Upper limits of intervals | Ascending cumulative frequency
+--- | ---
+less than 10 | 0
+less than 20 | 2
+less than 30 | 12
+less than 40 | 21
+less than 50 | 26
+less than 60 | 28
+«Ascending cumulative frequency table»
+
+«Ascending cumulative frequency curve»
+
+▸ From the table, note that:
+• The number of students who got less than 30 marks = 12 students.
+• The number of students who got 20 marks or more is equal to:
+Number (2) subtracted from the total number (28) = 26 students.
+
+First Term | Lesson One: Ascending Cumulative Frequency Table and Its Graphical Representation | 107

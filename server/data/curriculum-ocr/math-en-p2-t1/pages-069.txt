@@ -1,0 +1,68 @@
+■ Notation in Mathematics
+In cases of triangle
+congruence, the letter S is
+used to denote a side in
+a triangle, the letter A is
+used to denote an angle
+in a triangle, the letter
+R is used to denote the
+right angle, and the letter
+H is used to denote the
+hypotenuse.
+
+■ Critical Thinking
+Could two triangles be
+congruent if the three angles
+of one triangle are congruent
+to their corresponding angles
+of the other triangle?
+
+■ Self-Evaluation 2
+In the following figure:
+A C
+B O D
+1 Prove that:
+Δ OAB ≅ Δ OCD
+2 Find: m (∠ AOC)
+
+■ Critical Thinking
+Could two triangles be
+congruent if two sides and
+non included angle of one
+triangle are congruent to
+their corresponding elements
+of the other triangle?
+
+Cases of Congruent Triangles
+
+First Case: Side - Side - Side (SSS)
+Two triangles are congruent if each side of one triangle is congruent to
+its corresponding side of the other triangle.
+If AB ≅ DE, BC ≅ EF, AC ≅ DF
+then Δ ABC ≅ Δ DEF
+
+Example 2
+In the given figure:
+The point D is the midpoint of BC, AB = AC, m (∠ B) = 63°
+1 Prove that: Δ ADB ≅ Δ ADC
+2 Find by proof: m (∠ DAC)
+
+∵ The point D is the midpoint of BC
+∴ BD = DC
+∵ In Δ ADB and Δ ADC:
+AB ≅ AC (given) BD ≅ CD (proved) AD ≅ AD (common side)
+∴ Δ ADB ≅ Δ ADC (required 1)
+From the congruence:
+m (∠ C) = m (∠ B) = 63° , m (∠ DAC) = m (∠ DAB)
+In Δ ABC:
+∴ m (∠ CAB) = 180° - (63° + 63°) = 54°
+∴ m (∠ DAC) = m (∠ DAB) = 54° / 2 = 27° (required 2)
+
+Second Case: Side - Angle - Side (SAS)
+Two triangles are congruent if two sides and the included angle of
+one triangle are congruent to their corresponding elements of the
+other triangle.
+If AB ≅ DE, ∠ B ≅ ∠ E, BC ≅ EF
+then Δ ABC ≅ Δ DEF
+
+64 Unit Three: Geometry Mathematics - Second Preparatory

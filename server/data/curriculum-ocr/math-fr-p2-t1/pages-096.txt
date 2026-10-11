@@ -1,0 +1,69 @@
+Résultats de l'axe de symétrie du segment
+Résultat:
+Le point appartenant à l'axe
+de symétrie d'un segment
+est équidistant de ses deux
+extrémités.
+Si la droite ℓ
+est l'axe de symétrie
+de AB et D ∈ ℓ
+alors: DA = DB
+
+Résultat:
+Le point qui est équidistant des
+deux extrémités d'un segment se
+trouve sur l'axe de symétrie de ce
+segment.
+Si la droite ℓ
+est l'axe de symétrie
+de AB et DA = DB
+alors: D ∈ ℓ
+
+Exemple 4
+1 Dans la figure ci-contre:
+Trouve la longueur de XB
+
+2 Dans la figure ci-contre:
+Trouve la valeur de n
+
+1
+∵ CA = CB et XC ⊥ AB
+∴ XC est l'axe de symétrie
+de AB
+∵ X ∈ XC
+∴ XB = XA = 5,4
+∴ La longueur de XB = 5,4 cm
+
+2
+∵ XA = XB = 15
+∴ X se situe sur l'axe de symétrie de AB
+∵ YA = YB = 13
+∴ Y se situe sur l'axe de symétrie de AB
+∴ XY est l'axe de symétrie de AB
+∴ XY ⊥ AB et CB = CA
+∴ n + 5 = 10
+∴ n = 10 - 5 = 5
+
+■ Auto-évaluation 4
+1 Dans la figure suivante:
+Trouve: m (∠ A)
+2 Dans la figure suivante:
+AE = EC et AD = CB
+Trouve: m (∠ C)
+
+■ Remarque que
+• Le triangle isocèle a un
+seul axe de symétrie.
+• Le triangle équilatéral a
+trois axes de symétrie.
+• Le triangle scalène n'a
+pas d'axes de symétrie.
+
+L'axe de symétrie du triangle isocèle
+L'axe de symétrie du triangle isocèle est une droite passant par le
+sommet du triangle et perpendiculaire à sa base.
+Si AB = AC et AD ⊥ BC
+Alors: AD est l'axe de symétrie
+du triangle ABC
+
+92 Unité 3: La géométrie Mathématiques - deuxième préparatoire

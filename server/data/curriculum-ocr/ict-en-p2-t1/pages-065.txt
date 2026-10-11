@@ -1,0 +1,41 @@
+Activity:
+
+Dear student, with the help of your teacher and in cooperation with your
+classmates, write the HTML code for the school data page design in the
+school.htm file and save it.
+
+HTML Code for the School Data Page
+
+<html>
+<head>
+<title>School Data</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+<header>
+<h1> [School Name] Middle School</h1>
+</header>
+
+
+<section>
+<h2>Basic Information</h2>
+<img src="sc.jpg" width="300" height="200"> <br><br>
+School Name: [Full School Name] <br><br>
+Address: [Detailed School Address] <br><br>
+Phone Number: [School Phone Number] <br><br>
+Email: [School Email]
+</section>
+
+
+<section>
+<h2>School Activities</h2>
+[List one or two activities offered at the school] <br><br>
+[List another activity, if applicable]
+</section>
+
+
+<footer>
+
+65

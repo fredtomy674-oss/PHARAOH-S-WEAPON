@@ -1,0 +1,63 @@
+Lesson
+1-3 Sets and Their Operations
+
+■ Learning Outcomes
+• Learn the concept of sets.
+• Express sets using the listing method.
+• Express sets using the set-builder method.
+• Represent sets using Venn diagrams.
+• Learn the "belongs to" and "subset" symbols.
+• Learn the "intersection" and "union" symbols.
+• Find the union or intersection of two sets.
+• Represent the operations of union and intersection of two sets using Venn diagrams.
+
+■ Vocabulary
+• Set
+• Venn Diagram
+• Listing Method
+• Set-Builder Method
+• Belong to
+• Subset
+• Intersection
+• Union
+
+■ History of Maths
+One of the uses of Venn diagram is to represent sets and show the relationships between them.
+It was developed by the English mathematician John Venn (1834 - 1923) in the nineteenth century A.D.
+
+■ Self-Evaluation (1)
+1 Write the set of digits of the number 4540 using the listing method.
+2 Write the set {2,3,5} using the set-builder method.
+
+Get Ready!
+Omar created a set of the Arab countries whose flags contain a crescent moon, and Salwa created a set of the Arab countries whose flags contain one star at least. What is the set of the common Arab countries between them?
+
+In this lesson, you will learn the concept of sets and the related concepts and operations, which will help you solve such real-life problems.
+
+Think & Discuss!
+Numbers 4, 6, 8 and 12 are divisible by 2, and numbers 6, 9 and 12 are divisible by 3. Could you place all the numbers mentioned above in the opposite Venn diagram?
+What do the numbers that you placed in the common area of the Venn diagram represent?
+
+Learn!
+
+Set Concept
+Set Concept:
+A set is a collection of well-defined objects, which are completely determined.
+These objects are called elements of the set, and they are written inside the braces { } without repetition. The order does not matter.
+
+Expressing Sets:
+Sets can be expressed using the listing method, the set-builder method, or Venn diagrams.
+For example, if $A$ is the set of natural numbers less than 4, then $A$ can be expressed using any of the following methods:
+
+Listing Method
+$$A = \{0, 1, 2, 3\}$$
+
+Set-Builder Method
+$$A = \{X : X \in \mathbb{N}, X < 4\}$$
+where $\mathbb{N}$ is the set of natural numbers.
+
+Venn Diagram
+$$A = \begin{Bmatrix} .0 & .1 \\ .2 & .3 \end{Bmatrix}$$
+
+14 Unit One: Numbers and Their Operations
+Mathematics - First Preparatory

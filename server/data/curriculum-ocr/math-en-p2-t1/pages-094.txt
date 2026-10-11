@@ -1,0 +1,47 @@
+Lesson
+3-5
+Isosceles Triangle
+
+■ Learning Outcomes
+• Learn the properties of an isosceles triangle.
+• Learn the properties of an equilateral triangle.
+• Learn the symmetry in a triangle.
+• Learn the relationship among the lengths of the sides of a 30°-60°-90° triangle.
+• Use the properties of isosceles triangles and equilateral triangles to solve real-life problems.
+
+■ Vocabulary
+• Isosceles triangle
+• Equilateral triangle
+• Leg
+• Base
+• Axis of symmetry
+
+■ Discuss the proof of theorem (5-1)
+Draw AD ⊥ BC, and from the congruence of the two triangles ABD, ACD,
+You can prove that:
+∠ B = ∠ C
+
+Get Ready!
+The Egyptian city of Dahab, located in South Sinai Governorate, is not just a coastal city, but one of the most beautiful tourist cities in the world. If Adel and his friend Yasser set up a triangular tent for camping on one of Dahab's beaches, what is the approximate height of the tent?
+In this lesson, you will learn about isosceles triangles, equilateral triangles, and their axes of symmetry, which will enable you to solve such real-life problems.
+
+Think & Discuss!
+Artists use the colour spinner to show the relationships between colours. The twelve triangles in the figure are isosceles triangles with congruent vertices angles.
+Can you find the measures of the interior angles of any of these triangles? Discuss.
+
+Learn!
+Isosceles triangle
+An isosceles triangle is a triangle with two congruent sides.
+• The two congruent sides are called the legs of the triangle.
+• The angle between them is called the vertex angle.
+• The other two angles are called the base angles.
+
+Theorem 5-1 The isosceles triangle theorem.
+The base angles of an isosceles triangle are congruent.
+In Δ ABC:
+If AB ≅ AC,
+then ∠ B ≅ ∠ C
+
+First Term
+Lesson Five: Isosceles Triangle
+89

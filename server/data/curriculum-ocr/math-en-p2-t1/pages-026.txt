@@ -1,0 +1,71 @@
+■ Self-Evaluation (1)
+Write each of the following
+in its simplest form:
+1 √50 2 4√1/2
+3 2√16 4 2³√3/4
+
+■ Remember that
+To make the denominator
+of an irrational number √a/√b
+an integer, multiply
+both the numerator and
+the denominator by √b as
+follows:
+√a/√b = √a/√b × √b/√b = √ab/b
+
+■ Remember that
+To make the denominator
+of an irrational number ³√a/³√b
+an integer, multiply both
+the numerator and the
+denominator by
+³√b × ³√b as follows:
+³√a/³√b = ³√a/³√b × ³√b/³√b × ³√b/³√b
+= ³√ab²/b
+
+■ Note that
+When adding and subtracting
+unlike radical terms, simplify
+each term separately.
+If you get like radical
+terms, you can add or
+subtract them.
+
+Example 1
+Write each of the following numbers in its simplest form:
+1 ³√32 2 ³√24 3 2√5/2 4 3³√-2/3
+
+1 Factorize the number 32 into two factors, one of which is 16, which
+is the largest perfect square factor (32 = 16 × 2)
+∴ √32 = √16 × 2 = √16 × √2 = 4√2
+
+2 Factorize the number 24 into two factors, one of which is 8, which is
+the largest perfect cube factor (24 = 8 × 3)
+∴ ³√24 = ³√8 × 3 = ³√8 × ³√3 = 2 ³√3
+
+3 2√5/2 = 2 × √5/√2
+= 2 × √5/√2 × √2/√2
+= 2 × √10/2 = √10
+
+4 3³√-2/3 = 3 × ³√-2/³√3
+= 3 × ³√-2/³√3 × ³√3/³√3 × ³√3/³√3
+= 3 × ³√-2 × 3 × 3 / 3
+= 3 × ³√-18 / 3 = -³√18
+
+■ Diversified strategies
+∴ 2 = √2 × √2
+∴ 2√5/2 = √2 × √2 × √5/√2
+= √2 × √5 = √10
+
+Example 2
+Simplify each of the following to its simplest form:
+1 2√3 + 5√27 - √48 2 ³√40 - 2³√135 / ³√5
+
+1 2√3 + 5√27 - √48 = 2√3 + 5√9 × 3 - √16 × 3
+= 2√3 + 5√9 × √3 - √16 × √3
+= 2√3 + 5 × 3√3 - 4√3
+= 2√3 + 15√3 - 4√3 = 13√3
+
+First Term
+Lesson Four: Laws of Square and Cube Roots
+21

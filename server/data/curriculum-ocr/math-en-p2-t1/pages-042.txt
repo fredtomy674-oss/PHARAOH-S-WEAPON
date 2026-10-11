@@ -1,0 +1,60 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+(1) What is the greatest common factor between the terms of the polynomial 12 x^2 - 8 x?
+(a) 2 (b) 4
+(c) 2 x (d) 4 x
+
+(2) Which of the following represents the factorization of the polynomial 16 x^2 - 24 x^3 by taking out GCF ?
+(a) 8 x (2 x - 3 x^2) (b) 4 x^2 (4 - 6 x)
+(c) 8 x^2 (2 - 3 x) (d) 8 (2 x^2 - 3 x^3)
+
+(3) 6 a - 8 b = .............
+(a) 6 (a - 2 b) (b) 4 (2 a - 4 b)
+(c) 2 (3 a - 4 b) (d) 14 (a - b)
+
+(4) x^2 y - x y^2 = .............
+(a) x y (x - y) (b) x^2 y (1 - y)
+(c) x y^2 (x - 1) (d) x y (y - x)
+
+(5) x (a + b) + y (a + b) = .............
+(a) (x - y) (a - b) (b) (x + y) (a + b)
+(c) (x - y) (a + b) (d) (x + y) (a - b)
+
+(6) If x + y = 10 , a - b = 7, then :
+x (a - b) - y (b - a) = .............
+(a) 3 (b) 17
+(c) 51 (d) 70
+
+▶ Spot the mistake:
+(7) Sameh and Islam solved the equation 4 x^2 = 8 x as shown:
+Which solution is correct?
+Discuss.
+
+Sameh's solution:
+4 x^2 = 8 x
+4 x^2 / 4 x = 8 x / 4 x
+x = 2
+
+Islam's solution:
+4 x^2 = 8 x
+4 x^2 - 8 x = 0
+4 x (x - 2) = 0
+Either 4 x = 0, hence x = 0
+Or x - 2 = 0, hence x = 2
+
+Second Applying Concepts
+(8) Factorize the following polynomials by taking out the greatest common factor (GCF):
+(1) 12 y + 4
+(2) 4 m - m n
+(3) 15 a - 25 b
+(4) 18 a + 27 a b
+(5) - 7 k - 49 m
+(6) 9 a^2 b - 6 a b^2 + 3 a b
+(7) 2 a - 4 a b - 6 a b c
+(8) x^2 y^3 + x^2 y^2 + x^3 y^2
+(9) - 4 x^5 + 6 x^4 - 8 x^3 + 12 x^2
+(10) 16 a^6 - 4 a^4 + 12 a^2
+
+First Term Lesson One: Factorizing by Taking Out Greatest Common Factor GCF 37

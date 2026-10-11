@@ -1,0 +1,48 @@
+(16) In the given figure:
+Prove that:
+(1) AB // CD
+(2) DF = BE
+
+(17) In the given figure:
+Find the length of BD
+
+(18) In the given figure:
+(1) Prove that: Δ BCD ≅ Δ BED
+(2) Find the value of X
+
+(19) In the given figure:
+ABCD is a square,
+its side length is 12 cm
+CF ⊥ CE, AF = 3 cm
+(1) Prove that: Δ CBE ≅ Δ CDF
+(2) Find the length of BE
+
+Third Analysis and Subjects Integration
+(20) Fish farming: A rectangular plot of land ABCD
+has been divided into congruent rectangular ponds
+for farming 4 types of fish.
+What is the perimeter of the plot of land?
+
+Egypt occupies an advanced position in the
+field of fish farming according to the global
+classification of the Food and Agriculture
+Organisation of the United Nations.
+
+(21) Engineering: To build a bridge like AB over a river, you
+need to find the distance from the point A to the point B.
+So you have to identify the points A, C, and E on
+a straight line as shown in the figure. If DE = 600 m, then
+what is the distance from the point A to the point B?
+
+Creative Thinking
+(22) In the given figure:
+(1) Prove that: Δ BFD ≅ Δ ECD
+(2) Find the value of X
+
+Evaluate your
+understanding!
+How well do you understand
+congruence?
+Tick the right box
+
+First Term Lesson One: Congruence 69

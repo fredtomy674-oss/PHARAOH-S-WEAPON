@@ -1,0 +1,38 @@
+Concepts croisés : Les motifs
+Les forces électriques et magnétiques ressemblent à la force gravitationnelle en qu'elles agissent toutes à distance. Dans le cas des forces électriques, une charge électrique agit sur une autre charge électrique, tandis que dans le cas des forces magnétiques, un pôle magnétique agit sur un autre pôle magnétique. En ce qui concerne la force gravitationnelle, la masse d'un corps agit sur la masse d'un autre corps.
+
+Rôle de la gravitation dans les mouvements orbitaux
+Il existe une force d'attraction entre tout corps qui se déplace sur une trajectoire courbée dans l'espace autour d'un autre corps central. Ce mouvement est appelé mouvement orbital, comme le mouvement de la Lune autour de la Terre et celui de la Terre autour du Soleil (Figure 15), ainsi que le mouvement des satellites autour de la Terre (Figure 16).
+
+Satellite artificiel
+la force de
+gravité
+terrestre
+La Soleil
+La Terre
+Lune
+Figure (15)
+Figure (16)
+Le mouvement orbital de satellite
+dépend de la force de gravité terrestre
+
+Évalue ta compréhension
+Explique, à la lumière de ce que tu as appris, les types de
+champs de forces dans l'atome d'hélium He (Figure 17) et
+identifier la plus faible de ces forces.
+(e) Electron
+(n) Neutron
+(p) Proton
+Figure (17)
+Atome d'hélium He
+
+Relation entre le poids et la gravité
+Pourquoi la masse de l'œuf d'autruche est-elle supérieure
+à celle de l'œuf de poule (Figure 18)?
+Est-ce que le poids de l'œuf est égal à sa masse?
+La masse d'un corps (m) est la quantité de matière
+qu'il contient, tandis que le poids du corps (P)
+est la force d'attraction exercée par la Terre sur lui.
+Figure (18)
+october press
+LEÇON TROIS : La force gravitationnelle 51

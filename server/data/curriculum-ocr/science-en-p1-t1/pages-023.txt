@@ -1,0 +1,54 @@
+► The electron configuration of elements' atoms reflects its properties.
+
+Activity 3 Predict
+(1) The following data are the possible values for atomic radius, melting point, and
+boiling point of some elements :
+157 pm 883°C 99 pm 181°C 235 pm - 34°C
+Discuss with your classmate the suitable value for each blank cell in the following tables :
+
+| Metals | Atomic radius | Melting point | Boiling point |
+| :--- | :--- | :--- | :--- |
+| Lithium 3Li 2, 1 | 157 pm | ................. | 1347°C |
+| Sodium 11Na 2, 8, 1 | 191 pm | 98°C | ................. |
+| Potassium 19K 2, 8, 8, 1 | ................. | 64°C | 774°C |
+
+Table (3) Properties of some alkali metals
+
+| Halogens | Atomic radius | Melting point | Boiling point |
+| :--- | :--- | :--- | :--- |
+| Chlorine 17Cl 2, 8, 7 | ................. | -101°C | ................. |
+| Bromine 35Br 2, 8, 18, 7 | 114 pm | - 7°C | 59°C |
+| Iodine 53I 2, 8, 18, 18, 7 | 133 pm | 114°C | 184°C |
+
+Table (4) Properties of some halogens
+
+(2) What happens to the atomic radii in the same group by increasing the atomic number ?
+......................................................................................................................................................
+
+(3) Compare between the graduation in the melting and the boiling points in both the alkali
+metals (Table 3) and the halogens (Table 4) as the atomic number increases.
+......................................................................................................................................................
+......................................................................................................................................................
+
+(4) Determine the physical state of elements (Tables 3 and 4) at room temperature (25°C)
+based on their melting and boiling points.
+
+| Element | Lithium | Sodium | Potassium | Chlorine | Bromine | Iodine |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Physical state | ................. | Solid | ................. | ................. | ................. | ................. |
+
+From the previous, it is concluded that :
+• The atomic radii of elements in the same group increase as the atomic number increases.
+• The melting and boiling points of alkali metals decrease as the atomic number increases.
+• The melting and boiling points of halogens increase as the atomic number increases.
+
+Cross-Cutting Concepts : Structure and function
+The chemical properties of elements depend on the number of electrons in the last energy
+level of their atoms, while the difference, in the number of neutrons in their nuclei results in
+different physical properties.
+
+Creative Thinking
+Design a 3D-model for the periodic table where each side of this model includes the elements
+of each block of the modern periodic table.
+
+16 UNIT ONE : The Matter

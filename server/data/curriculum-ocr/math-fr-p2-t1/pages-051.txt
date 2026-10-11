@@ -1,0 +1,66 @@
+• La factorisation d’un trinôme qui représente un carré parfait consiste à
+l’écrire de la forme du produit de deux facteurs égaux (c’est-à-dire le
+carré de l’un de ces deux facteurs égaux).
+C’est-à-dire que:
+a² + 2 a b + b² = (a + b)²
+a² - 2 a b + b² = (a - b)²
+
+■ Auto-évaluation 1
+Indique lequel des polynômes
+suivants représente un carré
+parfait et lequel n’est pas un
+carré parfait, puis factorise le
+polynôme qui a la forme d’un
+carré parfait:
+1 16 b² - 8 b + 1
+2 5 x² + 20 x + 4
+3 x² + 2 x y - y²
+4 9 x⁴ - 12 x² y + 4 y²
+
+Exemple 1
+Indique lequel des polynômes suivants représente un carré parfait
+et lequel n’est pas un carré parfait, puis factorise le polynôme qui
+a la forme d’un carré parfait:
+1 4 x² + 20 x + 25
+2 x² - 6 x - 9
+3 x² + 9 x + 81
+4 25 x⁴ - 30 x² y + 9 y²
+
+1 ∴ 4 x² = (2 x)²
+«Carré parfait»
+25 = (5)²
+«Carré parfait»
+2 (2 x) (5) = 20 x
+«Le terme médian»
+∴ Le polynôme (4 x² + 20 x + 25) représente un carré parfait et il est:
+4 x² + 20 x + 25 = (√4 x² + √25)² = (2 x + 5)²
+de même signe que
+le terme médian
+
+2 Le polynôme (x² - 6 x - 9) n’est pas un carré parfait car le troisième terme
+(- 9) est négatif, c’est-à-dire qu’il n’est pas un carré parfait.
+
+3 ∴ x² = (x)²
+«Carré parfait»
+81 = (9)²
+«Carré parfait»
+2 (x) (9) = 18 x
+«N’est pas égal
+au terme médian»
+∴ Le polynôme (x² + 9 x + 81) n’est pas un carré parfait car le terme
+médian n’est pas égal au (± 2 √premier terme x √troisième terme ).
+
+4 ∴ 25 x⁴ = (5 x²)²
+«Carré parfait»
+9 y² = (3 y)²
+«Carré parfait»
+- 2 (5 x²) (3 y) = - 30 x² y
+«Le terme médian»
+∴ Le polynôme (25 x⁴ - 30 x² y + 9 y²) représente un carré parfait
+et il est:
+25 x⁴ - 30 x² y + 9 y² = (√25 x⁴ - √9 y²)² = (5 x² - 3 y)²
+de même signe que
+le terme médian
+
+Premier semestre
+Leçon 3: La factorisation des cas particuliers 47

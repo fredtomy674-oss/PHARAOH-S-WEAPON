@@ -1,0 +1,77 @@
+Deuxièmement Appliquer les concepts
+
+7 Dans la figure ci-contre:
+Si BH est une médiane
+dans le triangle rectangle ABC
+en B, F et E sont les milieux
+de CD et AD respectivement
+Prouve que: BH = EF
+
+8 Dans la figure ci-contre:
+ABC est un triangle dans lequel
+AD ⊥ BC, E et F
+sont les milieux de AB
+et AC respectivement.
+Prouve que: Le périmètre
+du triangle EFD = 1/2 le périmètre du triangle ABC
+
+9 Dans la figure ci-contre:
+Si E est le milieu de
+AC, D est le milieu
+de BC, AD ⊥ BE,
+CE = 15 cm et
+BG = 18 cm
+Trouve avec la démonstration la longueur
+de AD.
+
+10 Dans la figure ci-contre:
+G est le point d'intersection
+des médianes
+du triangle
+ABC, AE = 5 cm,
+CG = 10 cm
+GD = 4 cm et
+GF = 3 cm
+Trouve avec la démonstration l'aire du
+triangle ABD.
+
+11 Dans la figure ci-contre:
+Si AD et CF sont deux
+médianes dans
+le triangle ABC
+Trouve la longueur
+de FB
+
+12 Dans la figure ci-contre:
+G est le point d'intersection des médianes
+du triangle ABC,
+DC = DG et
+GF = 4 cm
+Trouve avec
+la démonstration
+la longueur de BE.
+
+Troisièmement L'analyse et l'intégration des disciplines
+
+13 Conception géométrique: Il y a trois chemins dans
+un jardin de forme triangulaire, chaque chemin est
+la médiane du triangle qui représente le jardin et
+ces chemins se croisent au point d'intersection des
+médianes.
+1 Si DC = 81 m, trouve chacun de DG et CG
+2 Si GF = 25 m, trouve chacun de GA et AF
+
+Pensée créative
+
+14 Dans la figure ci-contre:
+Si BE = 15 cm et CD = 9 cm
+Trouve l'intervalle auquel appartient
+la longueur de BC.
+
+Évalue ta compréhension!
+Quel est ton niveau de
+compréhension des médianes
+du triangle?
+Coche la case appropriée.
+
+88 Unité 3: La géométrie Mathématiques - deuxième préparatoire

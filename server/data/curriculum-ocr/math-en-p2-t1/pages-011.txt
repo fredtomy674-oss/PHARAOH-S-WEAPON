@@ -1,0 +1,44 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+▶ Choose the correct answer from the given ones:
+(1) Which of the following numbers is an irrational number?
+(a) 0.3 (b) 9/25 (c) √5 (d) ∛-125
+(2) If X ∈ Z, X < √29 < X + 1, what is the value of X?
+(a) 4 (b) 5 (c) 6 (d) 7
+(3) Estimating √41 to the closest integer is ........
+(a) 6 (b) 7 (c) 36 (d) 49
+(4) Estimating ∛25 to the closest integer is ........
+(a) 2 (b) 3 (c) 5 (d) 12.5
+(5) Which of the following numbers is an irrational number that lies between 2 and 3?
+(a) 2.5 (b) √10 (c) √6.25 (d) ∛9
+(6) If 1 < √n < 2, which of the following is a possible value for the number n?
+(a) 1 (b) 2 (c) 4 (d) 8
+(7) Which of the following numbers is represented by k on the number line below?
+(a) √86 (b) √96 (c) √81 (d) √78
+(8) If X and y are two consecutive integers, what is the value of X + y?
+(a) 11 (b) 13 (c) 15 (d) 17
+
+▶ Discuss:
+(9) Hamza and Aser answered the following question:
+Find two consecutive integers between which the irrational number -√5 lies.
+Hamza’s answer:
+4 < 5 < 9
+√4 < √5 < √9
+2 < √5 < 3
+-3 < -√5 < -2
+Aser’s answer:
+-9 < -5 < -4
+-√9 < -√5 < -√4
+-3 < -√5 < -2
+Which of them followed the correct method to solve the problem?
+
+Second Applying Concepts
+(10) Classify each number in the opposite table as rational or irrational and explain why:
+0.323232... -∛64 1.6 √(4/9) 12/31 √6
+∛16 17% 2 2/3 ∛-27 -√121 0
+
+▶ Find two consecutive integers between which each of the following numbers lies, and determine its approximate location on the number line:
+(11) √5 (12) √13 (13) -√11 (14) ∛14
+
+6 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

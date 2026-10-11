@@ -1,0 +1,29 @@
+(11) From the following frequency table:
+| Intervals | 2– | 6– | 10– | 14– | 18– | 22– | 26– | Total |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Frequency | 4 | 6 | 11 | k | 14 | 8 | 5 | 60 |
+
+Form the ascending cumulative frequency table, represent it graphically, and estimate the median value from the graph.
+
+(12) From the given ascending cumulative frequency table, form the frequency table with intervals, then find the modal interval.
+
+| Upper limits of intervals | Ascending cumulative frequency |
+| :--- | :--- |
+| Less than 10 | 0 |
+| Less than 15 | 3 |
+| Less than 20 | 9 |
+| Less than 25 | 16 |
+| Less than 30 | 24 |
+| Less than 35 | 33 |
+| Less than 40 | 44 |
+| Less than 45 | 50 |
+
+Unit Four Activity Measurements of Central Tendency
+▶ Activity Aim: Form a frequency table with intervals from realistic data and calculate their measurements of central tendency.
+▶ Implementation Steps:
+Collaborate with two of your classmates and try to do the following:
+1 Choose one of the life situations you encounter in (the club - a park - the market - the schoolyard), and gather a number of data points about this situation.
+2 Organize the data into a frequency table with intervals.
+3 Calculate the measurements of central tendency ( arithmetic mean - median - mode) from this table, and draw the necessary graphs for each of median and mode.
+
+120 Unit Four: Statistics Mathematics - Second Preparatory

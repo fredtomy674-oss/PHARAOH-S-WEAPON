@@ -1,0 +1,100 @@
+Lesson
+4 - 4
+
+Quadrilaterals
+
+■ Learning Outcomes
+• Learn the concept of
+quadrilaterals.
+• Deduce the sum of
+measures of the interior
+angles of a quadrilateral.
+• Distinguish between the
+special quadrilaterals.
+• Identify the relationships
+among the quadrilaterals
+in the quadrilateral family
+tree.
+
+Get Ready!
+There are many buildings
+with unique designs
+around the world. In the
+given picture, a building
+with a front in the shape
+of a parallelogram, one of
+its angles of measure 25°.
+Can you determine the
+measures of the other
+three angles?
+
+25°
+
+In this lesson, you will learn about quadrilaterals in general, as well as
+some special quadrilaterals and their properties, which enable you to
+solve such real-life problems.
+
+■ Vocabulary
+• Quadrilateral
+• Trapezium
+• Parallelogram
+• Rectangle
+• Rhombus
+• Square
+
+Think & Discuss!
+► Use a protractor to measure each angle in
+the given quadrilateral. What is the sum of the
+measures of the four angles?
+► Draw a diagonal from one vertex to the opposite
+one. What are the shapes formed by splitting
+the quadrilateral?
+► Can you use the sum of the measures of the interior angles of a triangle
+to find the sum of the measures of the interior angles of a quadrilateral?
+
+Learn!
+
+■ Note that
+D
+C
+A
+B
+
+A diagonal of a quadrilateral
+is the line segment that
+joins two non-consecutive
+vertices. Therefore, ABCD
+is a quadrilateral that has
+two diagonals, $\overline{AC}$ and $\overline{BD}$.
+
+The sum of the measures of the interior angles of a quadrilateral
+
+In the opposite figure:
+ABCD is a quadrilateral in which a diagonal $\overline{AC}$ is
+drawn to split it into two triangles:
+$m(\angle 1) + m(\angle 2) + m(\angle 3) = 180^\circ$ (1)
+$m(\angle 4) + m(\angle 5) + m(\angle 6) = 180^\circ$ (2)
+From (1) and (2), you get:
+
+D
+5
+C
+4
+3
+6
+1
+2
+A
+B
+
+$m(\angle 1) + m(\angle 2) + m(\angle 3) + m(\angle 4) + m(\angle 5) + m(\angle 6) = 360^\circ$
+
+Thus, $m(\angle A) + m(\angle B) + m(\angle C) + m(\angle D) = 360^\circ$
+i.e., the sum of the measures of the interior angles of the quadrilateral ABCD is $360^\circ$.
+
+Rule:
+The sum of the measures of the interior angles of any quadrilateral is $360^\circ$.
+
+90
+Unit Four: Geometry & Measurement
+Mathematics - First Preparatory

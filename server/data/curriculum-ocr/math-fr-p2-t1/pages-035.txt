@@ -1,0 +1,70 @@
+Évaluation
+de l’unité 1
+
+Évalue ta compréhension!
+Quel est ton niveau de
+compréhension de l’unité 1?
+Coche la case appropriée.
+
+▶ Choisis la bonne réponse parmi les réponses données:
+1 Si a = 2 3√1/4 - 1/2 3√16, quelle est la valeur de a ?
+(a) -1
+(b) 1
+(c) 3√2
+(d) 0
+
+2 Quel est l’intervalle qui représente
+R ∩ ]- 2 ; 3]?
+(a) ]- 2 ; 0[
+(b) ]- 2 ; 0]
+(c) ]- 2 ; 1]
+(d) ]0 ; 3]
+
+3 Si (√2)x-1 = √3, quelle est la valeur de (√2)x ?
+(a) 1/2 √6
+(b) 1/2 √3
+(c) √6
+(d) 1/6 √6
+
+4 Lequel des nombres suivants n’est pas un
+nombre irrationnel?
+(a) 3√-27
+(b) -√2 1/4
+(c) 0,5
+(d) 3√1/3
+
+▶ Complète chacun de ce qui suit avec la bonne réponse:
+5 L’ensemble de solution de l’équation
+1/2 x² + 2 = 0 dans R est .............
+6 Si n est un nombre entier, n + 1 > √29 > n,
+alors n = .............
+7 L’inverse du nombre √10 - 3 sous la forme la
+plus simple est égal à .............
+8 Si X = ]- 1 ; ∞[ , alors l’intervalle qui représente
+le complémentaire de X est égal à .............
+
+▶ Réponds aux questions suivantes:
+9 Simplifie à la forme la plus simple l’expression (√15)n-2 x (√6)n , puis trouve la valeur
+numérique du résultat lorsque n = 1 2 x (√10)n-2
+10 Si X = √7 - √6, alors trouve sous la forme la plus simple X - 1/X
+11 Si A = ]- ∞ ; 1] et B = ]- 2 ; 2], alors trouve sous la forme d’intervalle B - A
+12 Classe les nombres par ordre croissant: 3 1/2, 3,5 et 2√3
+
+Activité de l’unité 1 Le triangle d’or
+▶ L’objectif de l’activité: Connaître de nouveaux modèles et
+formes illustrant le nombre d’or en mathématiques.
+▶ Les étapes de mise en œuvre:
+En collaboration avec l’un de tes amis, essaye de
+faire ce qui suit:
+1 Utilise une des applications d’intelligence artificielle pour
+rechercher des exemples du nombre d’or en mathématiques.
+2 Cite un certain nombre de formes dans lesquelles le nombre d’or peut être trouvé.
+3 Le nombre d’or peut-il être trouvé dans un triangle?
+Recueille des données sur ce cas et mentionne le type de triangle qui peut être appelé (le
+triangle d’or).
+4 Explique les étapes que tu as suivies pour répondre aux questions précédentes, en montrant
+quelques images des formes que tu as trouvées.
+
+Premier semestre
+Évaluation de l’unité 1
+31

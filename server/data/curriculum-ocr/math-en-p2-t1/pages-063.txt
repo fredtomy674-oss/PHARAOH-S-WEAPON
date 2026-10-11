@@ -1,0 +1,34 @@
+Lesson Assessment
+
+First Measuring Conceptual Understanding
+► Choose the correct answer from the given ones:
+(1) X^2 - aX + bX - ab = .............
+(a) (X - a) (X - b) (b) (X - a) (X + b) (c) (X + a) (X - b) (d) (X + a) (X + b)
+(2) If X Y + 5X + 7 Y + 35 = (X + a) (Y + b), what is the value of a - b?
+(a) 2 (b) - 2 (c) 12 (d) - 12
+(3) If X^3 + 5X^2 - 4X - 20 = (X + a) (X + b) (X + c), what is the value of a + b + c?
+(a) 2 (b) 5 (c) 7 (d) 9
+(4) If X^2 + a = 12, X + b = 5, what is the numerical value of the polynomial
+(X^3 + bX^2 + aX + ab)?
+(a) 7 (b) 17 (c) 30 (d) 60
+(5) When completing the square for: (X^2 + 9) add .............
+(a) ± 3 X (b) ± 6 X (c) ± 9 X (d) ± 12 X
+(6) When completing the square for: (X^2 + 12 X) add .............
+(a) ± 9 (b) ± 36 (c) 9 (d) 36
+(7) If (X^2 + 2X + 2) is one of the two factors of (X^4 + 4), what is the other factor?
+(a) X^2 - 2X + 2 (b) X^2 - 2X - 2 (c) X^2 + X + 2 (d) X^2 - X + 2
+
+Second Applying Concepts
+(8) Factorize each of the following completely:
+(1) aX + bX + b + a
+(2) 12 y + 2X - 8 X y - 3
+(3) 6 m - n + 3 m n - 2
+(4) X^2 - 2X - X y + 2 y
+(5) 11 X^3 - 6 X^2 + 11 X - 6
+(6) 45 X^3 + 20 X^2 + 9 X + 4
+(9) Factorize each of the following trinomials using factorizing by grouping:
+(1) 2 X^2 + 5 X + 3
+(2) 4 X^2 - 7 X - 2
+(3) 2 X^2 + 13 X + 15
+
+58 Unit Two: Algebra Mathematics - Second Preparatory

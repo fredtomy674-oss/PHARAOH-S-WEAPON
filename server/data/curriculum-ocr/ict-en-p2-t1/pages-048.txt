@@ -1,0 +1,61 @@
+Activity: Dear student, with the help of your teacher and in cooperation with your
+classmates, choose three harmonious colors to design an imaginary interface.
+
+
+2. Fonts:
+
+• "Interface fonts should be legible and appropriate to the context."
+
+• Illustrated examples:
+
+Login
+E-mail
+Enter e-mail
+Password
+Enter password
+login
+
+Login
+E-mail
+Enter E-mail
+Password
+Enter Password
+login
+
+Simple, clear font. Description:
+"This font is easy to read and looks
+formal.".
+
+A complex and decorative font.
+Description: "This font is difficult to
+read and not suitable for practical
+applications."
+
+
+Activity: Dear student, with the help of your teacher and in cooperation with your
+classmates, choose three appropriate font names for an educational application.
+
+
+3. Layout:
+
+• "Organizing interface elements in a logical manner makes the website or the
+application are easy-to-use."
+
+• Illustrated examples:
+
+Website Logo
+Home Activities Games Communication
+Teaching children
+Fun and interesting learning for children
+Contact us: info@childrenedu.com | Tel. 0180111111
+
+• A page divided into clear sections
+such as "Home," "News," and
+"Articles." Description: "This page is
+organized and easy to navigate."
+• A page full of tightly packed
+elements. It's cluttered and causes
+headaches.
+
+
+48

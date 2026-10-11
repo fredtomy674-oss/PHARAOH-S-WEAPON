@@ -1,0 +1,36 @@
+(9) Factorise les polynômes suivants en extrayant le plus grand commun diviseur (le PGCD):
+① a(b+5)+2(b+5)
+② (4x-1)-y(4x-1)
+③ (2x-3)²-2(2x-3)
+④ (7x-5)²-7x+5
+⑤ (x+2)³-2(x+2)²
+⑥ 3x+6-(x+2)²
+
+(10) Trouve l'ensemble des solutions de chacune des équations suivantes dans R:
+① x²-x=0
+② 4x²+8x=0
+③ 5x-x²=0
+④ x²=5x
+⑤ 2x²-3x=0
+⑥ 12x²-4x=0
+
+Troisièmement L'analyse et l'intégration des disciplines
+(11) Géométrie: Trouve le périmètre de chacune des deux figures ci-contre sous forme de deux facteurs en utilisant la factorisation en extrayant le plus grand commun diviseur.
+(12) Géométrie: Un ingénieur a un terrain en forme de carré dont la longueur de son côté mesure (2x) m. Il souhaite y construire une maison en forme de rectangle dont les dimensions sont x m et 20 m et utiliser l'espace restant comme jardin, comme indiqué sur la figure. Trouve l'aire du jardin et écris le résultat comme un produit de deux facteurs en utilisant la factorisation en extrayant le plus grand commun diviseur.
+Il faut préserver l'environnement aquatique de la pollution afin de protéger les vivants aquatiques.
+
+(13) Les vivants aquatiques: Un dauphin saute vers le haut de telle sorte que sa hauteur en mètres après un temps (t) en secondes soit égale à (32t-16t²). Écris la hauteur du dauphin comme un produit de deux facteurs en utilisant la factorisation en extrayant le plus grand commun diviseur, puis trouve sa hauteur lorsque t=1
+
+(14) Industrie: Une usine de fournitures scolaires produit deux types de produits, des cahiers et des stylos. Le coût d'un seul cahier est de (6x²y) Livres et le coût d'un seul stylo est de (9xy²) Livres. Si l'usine produit 300 cahiers et 200 stylos, écris l'expression mathématique qui représente le coût total de fabrication comme un produit de deux facteurs en utilisant la factorisation en extrayant le plus grand commun diviseur.
+Les petites et moyennes industries créent des occasions du travail et soutiennent l'économie locale.
+
+Pensée créative
+(15) Si 14x+10=a(7x+b) et 6x+9=c(2x+d)
+Trouve la valeur numérique de l'expression dᶜ+bᵃ
+► Problème ouvert
+(16) Écris un trinôme tel que le plus grand commun diviseur de ses termes soit 3x²
+
+Évalue ta compréhension!
+Quel est ton niveau de compréhension de la factorisation en extrayant le plus grand commun diviseur? Coche la case appropriée.
+
+38 Unité 2: L'algèbre Mathématiques - deuxième préparatoire

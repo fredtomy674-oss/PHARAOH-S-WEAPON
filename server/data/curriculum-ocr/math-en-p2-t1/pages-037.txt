@@ -1,0 +1,29 @@
+UNIT 2
+Algebra
+
+Unit Lessons
+2-1 Factorizing by Taking Out Greatest Common Factor GCF
+2-2 Factorizing Trinomial
+2-3 Factorizing Special Cases
+2-4 Factorizing by Grouping
+
+x + 2
+x^2 | x | x
+x | 1 | 1
+x | 1 | 1
+
+Factorization is an important mathematical operation used in certain algorithms of artificial intelligence, where each type of factorization integrates with a specific aspect of the design and training of intelligent models (applications of artificial intelligence).
+► Can the role of factorization, in its various types, be developed in the construction and development of models and applications of artificial intelligence?
+
+Issues and Life Skills
+- Critical Thinking
+- Sustainable Development
+- Mathematical Communication
+- Creative Thinking
+
+Values
+- Appreciation of Art and Beauty
+- Environmental Awareness
+- Respect
+- Responsibility
+- Cultural Awareness

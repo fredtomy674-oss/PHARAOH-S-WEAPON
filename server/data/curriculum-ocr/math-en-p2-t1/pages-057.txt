@@ -1,0 +1,26 @@
+Third Analysis and Subjects Integration
+(14) Technology : Data is stored in storage units in the form of cubic units.
+The capacity of the first-generation storage unit is 216 X³ data unit, and the capacity of the second-generation storage unit is 343 Y³ data unit. Find the total capacity of both units as the product of two factors.
+Storing and organizing data facilitates its management and enhances information security.
+
+(15) Science : The pressure difference P above and below the wing of an aircraft is described by the formula P = 1/2 d v² - 1/2 d u² where d is the air density, v is the speed of the air passing over the wing, and u is the speed of the air passing under the wing.
+Write this formula as the product of prime polynomials.
+Travel contributes to promoting understanding and tolerance between different cultures and deepens awareness of the value of cultural diversity.
+
+(16) Investment : A construction company divided a square plot of land with side length (2 X + 1) m into 4 squares, each with side length Y m, as shown in the figure. The rest of the land was left as green space. Write the area of the coloured region as the product of some factors.
+
+(17) Geometry : If the volume of a cuboid is (X⁴ - 625) cubic units, by using factorization, how can you find its possible dimensions?
+
+(18) Agriculture: A garden consists of two adjacent plots of land, the larger one is a square with an area of (25 X² + 10 X + 1) m², and the smaller one is a square with an area of (4 X² + 4 X + 1) m².
+A fence is to be built around the garden.
+Find the length of the fence in terms of X, then find the perimeter of the garden if X is equal to 10 m.
+
+Creative Thinking
+(19) In the given figure, the sum of the perimeters of the two squares is 76 cm, and the area of the coloured region is 57 cm².
+What is the value of (m - n) ?
+
+Evaluate your understanding!
+How well do you understand factorizing special cases?
+Tick the right box
+
+52 Unit Two: Algebra Mathematics - Second Preparatory

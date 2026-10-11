@@ -1,0 +1,43 @@
+(5) Si les longueurs de deux côtés d’un triangle
+isocèle sont 3 cm et 7 cm, quelle est la
+longueur du troisième côté?
+(a) 3 cm (b) 4 cm
+(c) 7 cm (d) 10 cm
+(7) Dans la figure ci-contre:
+Quelle est la mesure de ∠ C?
+(a) 23° (b) 46°
+(c) 67° (d) 60°
+
+(6) Dans la figure ci-contre:
+Quelle est la valeur de n?
+(a) 3 (b) 6
+(c) 9 (d) 12
+
+(8) Dans la figure ci-contre:
+Quelle est la valeur de X?
+(a) 10 (b) 7
+(c) 5 (d) 3
+
+Deuxièmement Appliquer les concepts
+▶ Dans toutes les figures suivantes, trouve la valeur de X:
+(9)
+(10)
+(11)
+
+(12) Dans la figure ci-contre:
+Le triangle SRT est équilatéral et la longueur de son côté est de 12 cm.
+MR = SN et NM ⊥ SR
+Trouve avec la démonstration la longueur de NM.
+
+(13) Dans la figure ci-contre:
+m (∠ B) = 30°, m (∠ DCB) = 20°
+CE = DE et AE ⊥ CD
+Trouve avec la démonstration m (∠ CAE)
+
+▶ Dans chacune des figures suivantes, prouve que le triangle ABC est isocèle:
+(14)
+(15)
+(16)
+(17)
+
+Premier semestre Leçon 5: Le triangle isocèle 95

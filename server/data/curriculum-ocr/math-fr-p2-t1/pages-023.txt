@@ -1,0 +1,28 @@
+(11) Si $x = \frac{1}{\sqrt{3} + 2}$ et $y = \sqrt{3} + 2$, trouve la valeur de chacun de ce qui suit sous la forme la plus simple:
+① $(x + y)^2$ ② $x y$ ③ $x^2 + y^2$
+(12) Si $\frac{x}{3\sqrt{2}} = \frac{y}{2\sqrt{3}} = 1$, trouve la valeur de $x^2 + y^2$
+
+Troisièmement L'analyse et l'intégration des disciplines
+
+(13) Géométrie: Trouve l'aire de chacune des figures suivantes sous la forme la plus simple:
+① Carré $3\sqrt{5}$ cm
+② Rectangle $(2\sqrt{5} + \sqrt{3})$ cm $(2\sqrt{5} - \sqrt{3})$ cm
+③ $4$ cm $(\sqrt{5} + \sqrt{3})$ cm
+
+(14) Agriculture:
+Omar a créé dans le jardin de sa maison deux parterres pour cultiver des roses. L'un a une forme rectangulaire et ses dimensions sont $(5 + \sqrt{7})$ m et $(5 - \sqrt{7})$ m. Et l'autre a une forme carré et a la même aire que le premier parterre. Trouve le périmètre de chacun des deux parterres. Lequel a le plus grand périmètre?
+La culture des roses contribue à purifier l'air, améliore l'humeur et réduit le stress.
+
+(15) Travaux manuels:
+Ahmed mène un petit projet pour produire les structures de boîtes. S'il a un fil de cuivre d'une longueur de 90 cm et il veut fabriquer deux structures, l'une pour un cube dont le volume est de 27 cm³ et l'autre pour un parallélépipède rectangle dont les dimensions sont de $4\sqrt{3}$ cm, 4 cm et $2\sqrt{3}$ cm. Donc, le fil dont dispose Ahmed est-il suffisant pour fabriquer les deux structures?
+L'apprentissage des travaux manuels développe les habiletés motrices fines et favorise la créativité et l'innovation.
+
+Pensée créative
+(16) Lors de la construction d'un entrepôt de réunion en forme de parallélépipède rectangle, ses dimensions étaient $a$, $b$ et $c$ mètres.
+Si $a b = 3\sqrt{3}$, $b c = 5\sqrt{3}$ et $a c = 5$, trouve le volume de l'entrepôt.
+
+Évalue ta compréhension!
+Quel est ton niveau de compréhension des opérations sur les nombres réels?
+Coche la case appropriée.
+
+Premier semestre Leçon 3: Les opérations sur les nombres réels 19

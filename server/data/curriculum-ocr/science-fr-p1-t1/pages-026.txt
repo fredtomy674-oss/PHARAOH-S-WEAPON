@@ -1,0 +1,27 @@
+▸ Il est clair du diagramme (1) que :
+• Les mélanges sont des substances composées de deux ou plusieurs matières qui ne sont pas unis chimiquement, et leurs composants peuvent être séparés par des méthodes physiques, comme la filtration, la séparation magnétique, l'évaporation et la condensation.
+• De la figure (1), la solution de sel de cuisine est un mélange homogène dont ses composants peuvent être séparés par évaporation et condensation, tandis que le mélange de sable dans l'eau est un mélange hétérogène dont ses composants peuvent être séparés par filtration.
+• Les substances pures peuvent être des composés ou des éléments.
+• Les composés sont des substances formées par l'union chimique de deux ou plusieurs éléments dans des rapports de masse fixes, et leurs composants peuvent être séparés par des méthodes chimiques. Par exemple, le composé d'oxyde de mercure peut être séparé en ses composants, l'oxygène et le mercure, par chauffage.
+• Les éléments, comme le mercure et l'oxygène, sont les formes les plus simples et pures de la matière. Ils ne peuvent être dissociés en forme plus simple, ni par des méthodes physiques ni par des méthodes chimiques.
+
+💡 Évalue ta compréhension
+L'appareil de voltamètre de Hofmann (Figure 3) est utilisé pour obtenir les gaz hydrogène et oxygène par électrolyse de l'eau acidifiée avec de l'acide sulfurique :
+
+Eau acidifiée par l'acide sulfurique
+Eau H2O
+Robinet
+gaz oxygène O2
+gaz hydrogène H2
+Anode (+)
+Cathode (-)
+Source d'électricité
+Figure (3):
+Électrolyse de l'eau
+
+(1) Pourquoi l'hydrogène est-il classé comme un élément ?
+......................................................................................................................................................
+(2) Pourquoi l'eau est-elle classée comme un composé ?
+......................................................................................................................................................
+
+20 UNITÉ UN : La matière

@@ -1,0 +1,86 @@
+Comment factoriser un polynôme en extrayant le plus grand commun diviseur
+Lorsqu’on factorise le polynôme 6 X² – 15 X en extrayant le PGCD,
+on suit les étapes suivantes:
+1 Factorise chaque terme comme le produit de nombres premiers et de
+variables à l’exposant 1 comme suit:
+6 X² = 2 x 3 x X x X
+15 X = 3 x 5 x X
+∴ Le plus grand commun diviseur est 3 X .
+2 Divise (6 X² – 15 X) par le plus grand commun diviseur (3 X), alors
+le quotient est (2 X – 5)
+3 Écris le plus grand commun
+diviseur en dehors des
+parenthèses et écris le quotient
+à l’intérieur des parenthèses
+comme dans la figure ci-contre.
+Factorisation
+6 X² – 15 X = 3 X (2 X – 5)
+Distribution
+
+■ Information
+précédente
+• On peut distribuer
+la multiplication sur
+l’addition, exemple:
+2 X (X + 4) = 2 X² + 8 X
+• On peut distribuer la
+multiplication sur la
+soustraction, exemple:
+3 X (2 X – 5) = 6 X² – 15 X
+
+■ Auto-évaluation 1
+Factorise les polynômes
+suivants en extrayant
+le plus grand commun
+diviseur:
+1 12 X² + 16
+2 6 a⁴ – 5 a²
+3 4 X³ – 8 X² + 12 X
+4 36 ab – 24 a²b – 18 ab²
+
+■ La vérification de
+la validité de la
+factorisation
+Tu peux vérifier la validité de
+la factorisation en multipliant
+les facteurs résultants les
+uns par les autres pour
+obtenir le polynôme original.
+
+Exemple 1
+Factorise les polynômes suivants en extrayant le plus grand
+commun diviseur:
+1 8 X² – 16
+2 15 X² y² – 30 X y³
+3 2 a³ b² + 8 a² b³ – 16 a b
+4 – 4 X⁴ + 12 X³ – 8 X²
+
+1 Où le PGCD est 8
+÷
+∴ 8 X² – 16 = 8 (X² – 2)
+÷
+2 Où le PGCD est 15 X y²
+÷
+∴ 15 X² y² – 30 X y³ = 15 X y² (X – 2 y)
+÷
+3 2 a³ b² + 8 a² b³ – 16 a b = 2 a b (a² b + 4 a b² – 8)
+4 – 4 X⁴ + 12 X³ – 8 X² = – 4 X² (X² – 3 X + 2)
+
+■ Remarque que
+Pour trouver le PGCD entre
+les termes d’un polynôme:
+1 On trouve le PGCD des
+facteurs numériques.
+2 On prend chaque variable
+répétée dans tous les
+termes avec son plus
+petit exposant.
+
+■ Remarques:
+▶ Si le coefficient du premier terme dans un polynôme est négatif, alors il est préférable de
+prendre (–1) comme un facteur commun de chacun des termes du polynôme.
+Par exemple: – a + b – c = – (a – b + c)
+▶ Un polynôme qui ne peut pas être factorisé s’appelle «un polynôme irréductible».
+Exemple: 2 X⁴ + 7 et 3 X² + 4 y²
+
+34 Unité 2: L’algèbre Mathématiques - deuxième préparatoire

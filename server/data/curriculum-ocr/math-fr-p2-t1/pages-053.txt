@@ -1,0 +1,55 @@
+■ Auto-évaluation 5
+Factorise chacun de ce qui suit:
+1 y² - 1/9
+2 27 x³ - 1/64
+3 c³ + 1/8
+4 x² + x + 1/4
+
+Exemple 5
+Factorise chacun de ce qui suit:
+1 1/4 x² - 1/25 y²
+2 8 y³ - 1/27
+3 a³ b³ + 1/216
+4 1/4 x² + 2/3 x + 4/9
+
+1 1/4 x² - 1/25 y² = (1/2 x - 1/5 y) (1/2 x + 1/5 y)
+2 8 y³ - 1/27 = (2 y - 1/3) (4 y² + 2/3 y + 1/9)
+3 a³ b³ + 1/216 = (a b + 1/6) (a² b² - 1/6 a b + 1/36)
+4 1/4 x² + 2/3 x + 4/9 = (1/2 x + 2/3)²
+
+■ Remarque que
+On peut factoriser des polynômes contenant des coefficients et des constantes rationnels en un produit de facteurs où chaque facteur est un polynôme contenant également des coefficients et des constantes rationnels.
+
+■ Auto-évaluation 6
+Factorise complètement chacun de ce qui suit:
+1 8 x³ - 18 x
+2 75 x³ y + 60 x² y + 12 x y
+3 1/3 x² - 3
+4 32 x³ (3 a + b) - 50 x (3 a + b)
+
+Exemple 6
+Factorise complètement chacun de ce qui suit:
+1 5 x⁵ - 320 x²
+2 16 x⁴ - y⁴
+3 12 x - 9 x² - 4
+4 64 - (a + b)²
+
+1 5 x⁵ - 320 x² = 5 x² (x³ - 64)
+= 5 x² (x - 4) (x² + 4 x + 16)
+2 16 x⁴ - y⁴ = (4 x² - y²) (4 x² + y²)
+= (2 x - y) (2 x + y) (4 x² + y²)
+3 Classe d'abord le polynôme par ordre décroissant selon les exposants de x comme suit :
+- 9 x² + 12 x - 4 = - (9 x² - 12 x + 4)
+= - (3 x - 2)²
+4 64 - (a + b)² = (8 + (a + b)) (8 - (a + b))
+= (8 + a + b) (8 - a - b)
+
+■ Remarque que
+le plus grand commun diviseur est pris en premier, puis nous factorisons la parenthèse résultante si possible.
+
+■ Remarque que
+le polynôme (- 9 x² + 12 x - 4) n'est pas un carré parfait, tandis que le polynôme (9 x² - 12 x + 4) est un carré parfait.
+
+Premier semestre
+Leçon 3: La factorisation des cas particuliers
+49

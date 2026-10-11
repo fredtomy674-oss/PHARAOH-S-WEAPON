@@ -1,0 +1,58 @@
+■ Remarque que
+On doit écrire les deux polygones congruents dans le même ordre que les sommets homologues.
+Exemple:
+C F
+A B D E
+Δ ABC ≅ Δ DEF
+
+■ Rappelle-toi que
+La symétrie, la translation et la rotation sont des transformations géométriques qui donnent une image congruente à la figure géométrique car elles conservent ce qui suit:
+• Les mesures des angles.
+• Les longueurs des côtés.
+• Le parallélisme
+
+■ Auto-évaluation 1
+Dans la figure suivante:
+Δ BCD est l'image de Δ BAD par la symétrie par rapport à DB
+D
+30°
+30 cm
+A 20 cm C
+(2y)° x cm
+B
+Trouve la valeur de chacun de X et Y.
+
+La congruence de deux polygones
+Deux polygones sont congruents si les deux conditions suivantes sont réalisées ensemble:
+1 Leurs côtés homologues sont de même longueur.
+2 Leurs angles homologues sont de même mesure.
+Si ABCD et EFGH sont deux polygones dans lesquels:
+1 AB = EF, BC = FG,
+CD = GH et AD = EH
+2 m (∠ A) = m (∠ E), m (∠ B) = m (∠ F),
+m (∠ C) = m (∠ G) et m (∠ D) = m (∠ H)
+alors: Le polygone ABCD ≅ Le polygone EFGH
+
+Exemple 1
+Dans la figure ci-contre:
+Si le polygone EFGH est l'image du polygone ABCD par une certaine rotation autour d'un point,
+quelle est la valeur de X et Y?
+G 6cm F
+H x° E
+D C
+2 y cm
+A 50° B
+
+∴ AB // DC
+∴ m (∠ A) + m (∠ D) = 180°
+(Deux angles intérieurs du même côté de la sécante AD)
+∴ m (∠ D) = 180° - 50° = 130°
+∴ Le polygone EFGH est l'image du polygone ABCD par rotation
+∴ Le polygone ABCD ≅ Le polygone EFGH
+∴ m (∠ H) = m (∠ D) = 130° ∴ X = 130
+BC = FG = 6 ∴ 2 y = 6 ∴ y = 3
+
+La congruence de deux triangles
+Le triangle est un polygone à trois côtés qui contient 6 éléments (3 côtés et 3 angles). Pour prouver la congruence de deux triangles, il n'est pas nécessaire de prouver la congruence de tous les éléments homologues, mais il suffit que trois éléments dont au moins un côté.
+
+Premier semestre Leçon 1: La congruence 63

@@ -1,0 +1,69 @@
+▶ On peut obtenir certaines informations à partir du tableau
+directement, telles que:
+• Le nombre d'étudiants ayant obtenu une note appartenant à l'intervalle
+[20 ; 30[ est égal à 10 étudiants.
+• Le nombre d'étudiants ayant obtenu une note appartenant à l'intervalle
+[40 ; 50[ est égal à 5 étudiants.
+▶ Mais tu ne peux pas obtenir certaines autres informations de manière
+directe à partir du tableau, telles que:
+• Le nombre d'étudiants ayant obtenu une note inférieure à 30 points.
+• Le nombre d'étudiants ayant obtenu 20 points ou plus.
+Pour obtenir ces informations directement, tu dois apprendre à dresser
+un tableau des effectifs cumulés croissants comme suit:
+
+| Notes | Effectif | |
+| :--- | :--- | :--- |
+| 10 - | 2 | → 2 (inférieure à 20) |
+| 20 - | 10 | → 2 + 10 = 12 (inférieure à 30) |
+| 30 - | 9 | → 12 + 9 = 21 (inférieure à 40) |
+| 40 - | 5 | → 21 + 5 = 26 (inférieure à 50) |
+| 50 - | 2 | → 26 + 2 = 28 (inférieure à 60) |
+
+Écris ces données dans le tableau suivant et qui est représenté graphiquement
+comme suit:
+
+■ Remarque que
+Il n'y a aucun étudiant dont
+la note inférieure à 10, ce
+qui signifie que:
+L'effectif cumulé croissant
+des étudiants ayant obtenu
+une note inférieure à 10
+points est de 0.
+
+| Bornes supérieures des intervalles | Effectif cumulé croissant |
+| :--- | :--- |
+| inférieure à 10 | 0 |
+| inférieure à 20 | 2 |
+| inférieure à 30 | 12 |
+| inférieure à 40 | 21 |
+| inférieure à 50 | 26 |
+| inférieure à 60 | 28 |
+
+«Le tableau des effectifs
+cumulés croissants»
+
+Effectif
+cumulé
+croissant
+30
+25
+20
+15
+10
+5
+10 20 30 40 50 60
+«Courbe des effectifs
+cumulés croissants»
+Intervalles
+
+▶ À partir du tableau, remarque que:
+• Le nombre d'étudiants ayant obtenu une note inférieure à 30 points =
+12 étudiants.
+• Le nombre d'étudiants ayant obtenu 20 points ou plus est égal à:
+Le nombre (2) soustrait du nombre total (28) = 26 étudiants.
+
+Premier semestre
+Leçon 1: Le tableau des effectifs cumulés croissants
+et sa représentation graphique
+107

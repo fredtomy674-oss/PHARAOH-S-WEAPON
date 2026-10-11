@@ -1,0 +1,18 @@
+UNIT 1
+Matter and Energy
+
+The lessons
+Lesson one : States of Matter.
+Lesson two : Changes in States of Matter.
+Lesson three : Internal Energy and Temperature.
+Lesson four : Methods of Heat Transfer.
+
+Learning Outcomes :
+At the end of this unit, students will be able to:
+1. Relate the cohesive force between molecules of gases, liquids, and solids to their properties.
+2. Conclude that converting matter from one state to another doesn't change its components or make new materials
+3. Design a model to describe changes in the state of matter (gaseous, liquid, and solid) under the effect of change in temperature (due to gain or loss of thermal energy).
+4. Verify that the kinetic energy of particles of matter in their different states changes when energy is transferred from it or to it.
+5. Verify that the relationship between temperature and total energy of a system depends on type, state and mass of the matter.
+6. Practically identifies ways of energy transfer (conduction, convection and radiation).
+7. Describe applications of conduction, convection and radiation through common examples.

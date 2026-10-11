@@ -1,0 +1,48 @@
+■ Auto-évaluation 3
+Dans la figure suivante:
+A
+F
+15 cm
+B 9 cm C
+D
+E
+2 cm
+Δ ACB ≅ Δ FDE
+Trouve la longueur de AF
+
+Exemple 3
+Dans la figure ci-contre:
+Trouve la longueur de EC
+✔ ∵ Le triangle ABC est rectangle en B
+∴ (AC)² = (AB)² + (BC)² = (12)² + (5)² = 169
+∴ AC = √169 = 13
+∵ m (∠ C) + m (∠ BAC) = 90° et m (∠ DAE) + m (∠ BAC) = 90°
+∴ m (∠ C) = m (∠ DAE)
+∵ Les deux triangles ABC et DEA ont:
+m (∠ ABC) = m (∠ DEA) , AC = DA et m (∠ C) = m (∠ DAE)
+∴ Δ ABC ≅ Δ DEA ∴ AE = CB = 5
+∴ EC = AC - AE = 13 - 5 = 8
+∴ La longueur de EC = 8 cm.
+
+■ Auto-évaluation 4
+130 pides
+50 pides
+La figure représente le vol d'Omar dans une montgolfière tirée par un bateau en mer. Quelle est la hauteur d'Omar par rapport au niveau horizontal du bateau?
+
+Exemple 4
+Conception: Osama a conçu un jardin de forme rectangulaire pour sa maison et il planifie à construire un passage en diagonale comme sur la figure.
+Trouve la longueur de ce passage.
+✔ ∵ ABCD est un rectangle ∴ m (∠ A) = 90°
+∴ Dans le triangle ABD:
+(BD)² = (AB)² + (AD)² = (20)² + (15)² = 625
+∴ La longueur du passage = √625 = 25 m.
+
+La réciproque du théorème de Pythagore
+Si la somme des carrés des longueurs de deux côtés dans un triangle est égale au carré de la longueur du troisième côté, alors le triangle est rectangle.
+Si le triangle ABC a :
+a² + b² = c²
+alors: m (∠ C) = 90°
+C'est-à-dire que:
+Le triangle ABC est rectangle en C.
+
+72 Unité 3: La géométrie Mathématiques - deuxième préparatoire

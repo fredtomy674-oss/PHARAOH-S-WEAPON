@@ -1,0 +1,69 @@
+Solving equations using factorization by taking out the greatest
+common factor
+
+Property:
+If a, b are real numbers, and a x b = 0, then :
+Either a = 0 or b = 0 or both equal zero.
+
+■ Self-Evaluation 5
+Find the solution set of
+each of the following
+equations in R:
+1 x^2 + 2x = 0
+2 2x^2 - 3x = 0
+3 15x^3 + 12x^2 = 0
+
+■ Verifying the Solution
+To verify the solution of the
+equation 3x^2 + 6x = 0,
+substitute the value of x with
+both 0 and - 2 in the original
+equation as follows:
+▶ Substitute x with 0:
+3(0)^2 + 6(0) = 0
+0 + 0 = 0
+0 = 0
+So, 0 is a solution to the
+equation.
+▶ Substitute x with - 2:
+3(-2)^2 + 6(-2) = 0
+12 + (-12) = 0
+0 = 0
+So, - 2 is a solution to the
+equation.
+▶ Try to verify the solution to
+both equations 2, 3 in
+example (5).
+
+Example 5
+Find the solution set of each of the following equations in R:
+1 3x^2 + 6x = 0
+2 10x^3 - 25x^2 = 0
+3 x^2 = 3x
+
+1 3x^2 + 6x = 0
+∴ 3x(x + 2) = 0
+∴ Either 3x = 0 hence x = 0
+or x + 2 = 0 hence x = -2
+∴ The solution set = {0, -2}
+
+2 10x^3 - 25x^2 = 0
+∴ 5x^2(2x - 5) = 0
+∴ Either 5x^2 = 0 hence x = 0
+or 2x - 5 = 0 hence x = 5/2
+∴ The solution set = {0, 5/2}
+
+3 x^2 = 3x ∴ x^2 - 3x = 0
+∴ x(x - 3) = 0
+∴ Either x = 0
+or x - 3 = 0 hence x = 3
+∴ The solution set = {0, 3}
+
+■ Critical Thinking
+When solving the equation
+x^2 = 3x,
+is it possible to divide both
+sides of the equation by the
+variable x?
+
+36 Unit Two: Algebra Mathematics - Second Preparatory

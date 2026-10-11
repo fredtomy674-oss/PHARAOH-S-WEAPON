@@ -1,0 +1,46 @@
+d) By ignoring traffic signals.
+
+19. If you wanted to design a smart system to reduce water consumption in a school, what components would you need?
+
+a) IoT to monitor water consumption, AI to analyze data, and robots to automatically turn off taps
+
+b) Air conditioners only
+
+c) Smartphones without an internet connection
+
+d) Standard lighting systems
+
+
+20. How can robots be integrated into education using smart systems?
+
+a) By completely replacing teachers
+
+b) By ignoring students' needs
+
+c) By stopping all educational activities
+
+d) By helping students solve questions and providing interactive explanations
+
+
+21. What is the suggested smart solution to address the problem of drought in agriculture?
+
+a) Using IoT to measure soil moisture, AI to calculate the required amount of water, and robots for automatic irrigation.
+
+b) Increasing water irrigation without analysis.
+
+c) Stopping agriculture completely.
+
+d) Relying only on rainfall.
+
+
+22. How can a regular hospital be transformed into a smart hospital using smart systems?
+
+a) By removing all medical devices.
+
+b) By stopping all medical services.
+
+c) By linking medical devices to IoT, using AI to diagnose patients, and robots to assist in operations.
+
+d) By relying only on staff.
+
+16

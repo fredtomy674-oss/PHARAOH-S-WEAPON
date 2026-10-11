@@ -1,0 +1,82 @@
+■ Auto-évaluation 5
+Trouve l'ensemble de
+solution de l'équation:
+x² - 2x - 4 = 0 dans R
+
+■ Auto-évaluation 6
+Si 3 b - 2 a = 1 et
+a² - 2 b = 10
+Trouve la valeur
+numérique de l'expression
+2 a³ - 3 a² b - 4 a b + 6 b²
+
+■ Auto-évaluation 7
+L'une des entreprises
+fabrique des unités de
+stockage de matériel
+photographique de voyage.
+L'unité est de forme d'un
+parallélépipède rectangle
+dont la base est de forme
+d'un carré dont la longueur
+de son côté est de (x - 1)
+pieds et la hauteur est de x
+pieds.
+Si le volume de l'unité est
+égal à 2 pieds cubes, trouve
+les dimensions de l'unité de
+stockage.
+
+Exemple 5
+Trouve l'ensemble de solution de l'équation:
+x² - 8x + 3 = 0 dans R
+
+∴ x² - 8x + 3 = 0
+∴ x² - 8x = -3
+En ajoutant (-8x)² / 4x² = 16 aux deux côtés de l'équation
+∴ x² - 8x + 16 = -3 + 16
+∴ (x - 4)² = 13
+∴ x - 4 = ±√13
+∴ x = 4 ±√13
+∴ L'ensemble de solution = {4 - √13 ; 4 + √13}
+
+■ Remarque que
+Nous ne pouvons pas
+résoudre cet exemple en
+utilisant la factorisation
+d'un trinôme, mais nous
+pouvons le résoudre en
+utilisant la complétion
+d'un carré.
+
+Exemple 6
+Si 2x - y = 8 et x² + 3y = 31,
+quelle est la valeur numérique de l'expression 2x³ - x²y + 6xy - 3y²?
+
+2x³ - x²y + 6xy - 3y² = (2x³ - x²y) + (6xy - 3y²)
+= x² (2x - y) + 3y (2x - y)
+= (2x - y) (x² + 3y) = 8 x 31 = 248
+
+Exemple 7
+Un aquarium en verre utilisé pour
+la décoration est sous la forme
+d'un parallélépipède rectangle dont
+les dimensions sont indiquées en
+mètres dans la figure. Si le volume de
+l'aquarium est égal à 5 m³, trouve ses
+dimensions en mètres.
+
+Le volume de l'aquarium = 5 m³.
+∴ x (x - 2) (2x - 1) = 5
+∴ x (2x² - 5x + 2) = 5
+∴ 2x³ - 5x² + 2x - 5 = 0
+∴ (2x³ - 5x²) + (2x - 5) = 0
+∴ x² (2x - 5) + (2x - 5) = 0
+∴ (2x - 5) (x² + 1) = 0
+∴ Soit 2x - 5 = 0 et donc x = 5/2
+ou x² + 1 = 0 et donc x² = -1 (rejeté)
+∴ Les dimensions de l'aquarium sont 0,5 m, 2,5 m et 4 m.
+
+Premier semestre
+Leçon 4: La factorisation par partition
+57

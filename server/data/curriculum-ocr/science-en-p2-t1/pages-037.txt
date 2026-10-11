@@ -1,0 +1,46 @@
+Heat transfer
+When a cup containing a hot drink (its temperature is 70°C) is placed
+in a room at a temperature of 25°C (Figure 1) The drink cools quickly.
+What is the reason for this?
+70°C
+Figure (1)
+Activity 1 Practical
+Materials and Tools Used :
+• 2 glass beakers.
+• Thermometer.
+• Tap water.
+• Metal block suspended by a string.
+• Heat source.
+Steps :
+1 Put tap water in beaker (1) and measure its temperature using the thermometer.
+2 Heat another quantity of tap water in beaker (2) till boiling.
+3 Immerse the metal block in the boiling water in beaker (2).
+4 Predict the direction of heat transfer.
+5 Transfer the metal block from the boiling water
+in beaker (2) to the cold water in beaker (1),
+(Figure 2).
+6 Predict the direction of heat transfer.
+7 Measure and record the temperature of the water
+in beaker (1) after placing the metal block in it.
+What do you observe ?
+8 Is your observation matching your prediction?
+Conclusion :
+• When two non-isolated systems with different temperatures come into contact, energy is
+transferred from the system with the higher temperature to the system with the lower temperature.
+• The energy that is transferred from one system to another due to their difference in
+temperature is called heat (thermal energy).
+• Heat continues to transfer (flow) between the two systems till they reach the same
+temperature, i.e., they reach thermal equilibrium.
+Beaker
+(2)
+Boiling water
+Metal block
+Beaker
+(1)
+Thermometer
+Tap
+water
+Figure (2)
+Figure (3)
+Heat continues to flow when in contact until thermal equilibrium is reached
+Lesson Four : METHODS OF HEAT TRANSFER 31

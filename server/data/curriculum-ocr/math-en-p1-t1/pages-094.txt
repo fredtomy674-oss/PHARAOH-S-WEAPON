@@ -1,0 +1,75 @@
+■ Remember
+Triangles are classified
+according to the lengths of
+their sides as follows:
+• A scalene triangle.
+• An isosceles triangle.
+• An equilateral triangle.
+
+Triangle Inequality:
+The sum of the lengths of any two sides of a triangle is greater than
+the length of the third side.
+$AB + BC > AC$
+$AB + AC > BC$
+$AC + BC > AB$
+
+■ Self-Evaluation (3)
+Which of the following sets
+of side lengths can be
+used to form a triangle?
+Why?
+1 9 cm, 5 cm, 4 cm
+2 7 cm, 6 cm, 5 cm
+3 10 m, 5 m, 2 m
+
+Example 3
+Can you draw a triangle with each of the following sets of side lengths:
+1 10 cm, 6 cm, 5 cm.
+2 8 cm, 4 cm, 4 cm.
+3 12 cm, 3 cm, 6 cm.
+
+Compare the sum of the lengths of the two shortest sides to the length of
+the third side
+
+1 $5 + 6 = 11$
+$11 > 10$
+The triangle can be
+drawn
+
+2 $4 + 4 = 8$
+$8 = 8$
+The triangle cannot
+be drawn
+
+3 $6 + 3 = 9$
+$9 < 12$
+The triangle cannot
+be drawn
+
+Note:
+The length of any side of a triangle is greater than the difference
+between the lengths of the other two sides and smaller than their sum.
+
+■ Self-Evaluation (4)
+In triangle ABC, the length
+of AB is 5 cm, and the
+length of BC is 7 cm. What
+is the smallest possible
+integer value for the length
+of AC?
+
+Example 4
+If the lengths of two sides of a triangle are 5 cm and 2 cm, what is the
+largest integer that can represent the length of the third side?
+
+The length of the third side is greater than the difference between 5 cm
+and 2 cm, and smaller than the sum of 5 cm and 2 cm.
+i.e. the length of the third side is greater than 3 cm and smaller than
+7 cm. Since the length of the required side must be an integer, the
+possible lengths for the third side could be 4 cm, 5 cm, or 6 cm.
+Therefore, the largest integer length for the third side is 6 cm.
+
+First Term
+Lesson Three: Triangle
+El Nemer Press
+87

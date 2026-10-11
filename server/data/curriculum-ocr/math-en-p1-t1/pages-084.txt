@@ -1,0 +1,144 @@
+Lesson
+
+4-2
+
+Parallelism
+
+■ Learning Outcomes
+
+• Learn the concept of
+parallelism.
+
+• Identify the angles
+formed when a straight
+line intersects two other
+straight lines.
+
+• Learn about the
+corresponding angles.
+
+• Learn about the alternating
+angles.
+
+• Learn about the interior
+angles on the same side of
+a transversal.
+
+• Identify the relationship
+between angles formed
+when a straight line
+intersects two parallel
+straight lines.
+
+• Prove that two straight
+lines are parallel.
+
+• Learn how to write
+a geometric proof.
+
+■ Vocabulary
+
+• Parallelism
+
+• Corresponding Angles
+
+• Alternating Angles
+
+• Interior Angles
+
+• Transversal
+
+Get Ready!
+
+Parallel lines are used in engineering,
+architectural, decorative designs,
+and in the construction of roads and
+bridges.
+
+In the given picture, a garage was
+planned by drawing several parallel
+and intersecting lines. If the measure
+of one of the angles formed by the
+intersection of two lines is 65°,
+can you find the other angles have the
+same measure? Can you find angles
+measuring 115°?
+
+65°
+
+In this lesson, you are going to learn the relationship between angles
+formed when a straight line intersects two parallel straight lines, which
+enable you to solve such real-life problems.
+
+Think & Discuss!
+
+Ibrahim drew two parallel straight lines,
+AB and CD. When he drew a straight line
+BD, perpendicular to one of them, he found
+out that BD also perpendicular to the other.
+Ibrahim draws an inclined straight line AC,
+to intersect both AB and CD.
+Does m (∠1) = m (∠2)?
+
+A 1
+
+B
+
+C 2
+
+D
+
+Learn!
+
+■ Notation in Mathematics
+
+• The symbol (⊥) is used to
+indicate that two straight
+lines are perpendicular,
+such that (m ⊥ n) means
+that m is a straight line
+perpendicular to the
+straight line n.
+
+• The symbol (//) is used to
+indicate that two straight
+lines are parallel, such that
+(p // q) means that p is
+a straight line parallel to
+the straight line q.
+
+Two perpendicular straight lines
+Two perpendicular straight lines
+are two straight lines that
+intersect and form 4 right angles.
+
+n
+
+The symbol of the
+right-angle indicates
+that they are
+perpendicular lines.
+m
+
+m ⊥ n
+
+Two parallel straight lines
+Two parallel straight lines are two
+straight lines that never intersect.
+
+p
+
+q
+
+The arrows indicates
+that they are
+parallel straight lines.
+
+p // q
+
+First Term
+
+Lesson Two: Parallelism
+El Nemer Press
+
+77

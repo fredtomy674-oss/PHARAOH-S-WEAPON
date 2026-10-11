@@ -1,0 +1,78 @@
+Lesson
+1 - 4
+
+Operations on Integers
+
+■ Learning Outcomes
+- Find the sum or difference of two integers.
+- Apply the properties of addition and subtraction to solve problems involving integers.
+- Find the product of two integers.
+- Find the quotient of two integers (if possible).
+- Learn the properties of multiplication and division of integers.
+
+■ Vocabulary
+- Addition
+- Subtraction
+- Multiplication
+- Division
+- Closure
+- Commutative
+- Associative
+- Additive Identity
+- Multiplicative Identity
+- Additive Inverse (Opposite)
+
+Get Ready!
+
+The highest point in Egypt is the peak of Mount Catherine, located in South Sinai, at 2,620 meters above sea level. On the other hand, the lowest point in Egypt is located at Qattara Depression, lying at a depth of 134 meters below sea level. What is the difference between these two points in meters?
+
+Mount Catherine, South Sinai
+
+In this lesson, you will learn how to perform operations on integers, which will help you solve such real-life problems.
+
+Think & Discuss!
+
+Consider that the card +1 represents Positive One and the card -1 represents Negative One. Then, an addition problem such as 2 + (-4) can be represented by the opposite figure.
+
+Activity:
+- Collaborate with your classmates and use the counting cards to find each of the following:
+$3 + 5$ , $-4 + (-2)$ , $5 + (-2)$ , $-6 + 4$
+
+- Could you use the counting cards to find each of the following?
+$5 - 3$ , $2 - 6$ , $-3 - 2$ , $-2 - (-3)$
+
+2 + (-4)
++1 -1
++1 -1
+-1
+-1
+
++1 -1 = 0
++1 -1 = 0
+-1
+-1
+2 + (-4) = -2
+
+Learn!
+
+■ History of Maths
+Al-Khwarizmi, a mathematician who lived in Baghdad ($780 - 850$ A.D.), authored several math books.
+His works played a crucial role in spreading Hindu numerals and the concept of zero all over the world.
+
+- The set of integers consists of positive integers, zero and negative integers.
+- The set of integers ($Z$) = {..., -3, -2, -1, 0, 1, 2, 3, ...}
+
+Negative Integers
+-7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7
+
+Positive Integers
+
+Zero is neither positive nor negative.
+
+- The set of integers is an ordered set increasing on the number line from left to right. For example:
+$3 > -2$ , $0 > -4$ , $-3 > -5$
+
+First Term
+Lesson Four: Operations on Integers
+El Nemer Press
+19

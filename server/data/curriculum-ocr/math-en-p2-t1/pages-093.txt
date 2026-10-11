@@ -1,0 +1,70 @@
+Second Applying Concepts
+
+7 In the given figure:
+If BH is a median of
+the triangle ABC, which is
+right-angled at B,
+E and F are the midpoints of
+AD and CD, respectively,
+prove that: BH = EF
+
+8 In the given figure:
+ABC is a triangle in which
+AD ⊥ BC,
+E and F are the midpoints of
+AB and AC respectively.
+Prove that : the perimeter of
+Δ EFD = 1/2 the perimeter of Δ ABC
+
+9 In the given figure:
+If E is the midpoint of AC,
+D is the midpoint of BC,
+AD ⊥ BE, CE = 15 cm,
+BG = 18 cm,
+find with proof
+the length of AD.
+
+10 In the given figure:
+G is the centroid of the triangle ABC
+AE = 5 cm,
+CG = 10 cm
+GD = 4 cm,
+GF = 3 cm
+Find with proof the
+area of the triangle ABD.
+
+11 In the given figure:
+If AD and CF are two medians
+of the triangle ABC,
+find the length of FB
+
+12 In the given figure:
+G is the centroid of the
+triangle ABC,
+DC = DG,
+GF = 4 cm
+Find with proof
+the length of BE.
+
+Third Analysis and Subjects Integration
+
+13 Engineering design : There are three paths inside
+a triangular garden, each path is a median of the
+triangle that represents the garden, and these paths
+intersect at the point of concurrency of the medians.
+1 If DC = 81 m, find DG, CG
+2 If GF = 25 m, find GA, AF
+
+Creative Thinking
+
+14 In the given figure:
+If BE = 15 cm, CD = 9 cm,
+find the interval to which the length of BC belongs.
+
+Evaluate your
+understanding!
+How well do you understand
+medians of the triangle?
+Tick the right box
+
+88 Unit Three: Geometry Mathematics - Second Preparatory

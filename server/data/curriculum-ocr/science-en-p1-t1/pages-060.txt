@@ -1,0 +1,31 @@
+It is evident from the previous that :
+The moon’s gravitational field intensity at its surface is 1/6 of Earth’s gravitational field intensity
+at its surface.
+
+It is noted that :
+• Earth’s gravitational field intensity decreases as we move away from Earth’s center (upwards).
+• The weight of an object changes from one planet to another due to the change of
+the gravitational field intensity.
+
+Engineering design
+Designing bridges requires a precise understanding of physics and mathematics to prevent them
+from collapsing due to Earth’s gravitational pull on the large combined masses of the heavy
+vehicles that travel on them. This requires choosing suitable strong materials during designing
+the bridges and distributing loads appropriately on the bridge foundations.
+Design a bridge from materials available in the environment, as shown in Figure (24), and test
+the maximum load your design can hold.
+
+Figure (24)
+
+Scientific Skills Comparison
+Compare between mass and weight in three points :
+
+Comparison point | Mass (m) | Weight (w)
+--- | --- | ---
+Definition | ...................................................... | ......................................................
+Measuring unit | ...................................................... | ......................................................
+Change in magnitude with changing object's position | ...................................................... | ......................................................
+
+Table (2)
+
+LESSON THREE : Gravitational Forces 53

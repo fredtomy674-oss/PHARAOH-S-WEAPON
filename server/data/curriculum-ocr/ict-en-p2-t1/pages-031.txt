@@ -1,0 +1,39 @@
+2- Velocity
+
+Refers to the speed at which data is generated and processed. In the internet age, data is generated very quickly, such as electronic payments, social media updates, and data streams from connected devices.
+
+3- Variety
+
+Refers to the variety of data types collected. This includes structured data (such as databases) and unstructured data (such as text, images, and videos).
+
+4- Veracity
+
+Refers to the reliability and quality of the data. Sometimes, data may be inaccurate or contain errors, making it difficult to extract accurate information from it.
+
+5- Value
+
+Refers to the usefulness that can be derived from the data. It is essential to extract and analyze data in a way that delivers actual value to the organization or individual.
+
+Types of Big Data
+
+1- Structured Data:
+
+Data that is organized and arranged in tables with rows and columns, similar to traditional databases.
+
+Examples: Customer data, financial data, transaction records.
+
+2- Unstructured Data
+
+This is data that does not come in a structured form, such as tables or databases. This type of data is difficult to analyze using traditional tools.
+
+Sources: Text, images, videos, and social media posts.
+
+Example: A Facebook post containing text, images, and videos.
+
+3- Semi-Structured Data
+
+Semi-structured data is a hybrid of structured and unstructured data. Emails are a good example because they include unstructured data in the message body, as well as additional structural features such as sender, recipient, subject, and date.
+
+Dear student, always make sure to record data accurately and cite the sources of the information you have relied on, as this enhances the reliability of the information and helps verify its accuracy.
+
+31

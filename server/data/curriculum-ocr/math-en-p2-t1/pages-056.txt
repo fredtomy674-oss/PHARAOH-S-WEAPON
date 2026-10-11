@@ -1,0 +1,38 @@
+(7) Which of the following statements represents the area of the coloured
+region in the given figure?
+(a) 5 X^2 - 2 y^2 (b) 25 X - 4 y
+(c) (5 X - 2 y)^2 (d) (5 X - 2 y) (5 X + 2 y)
+
+► Spot the mistake:
+(8) Omar and Khalid factorized (X^3 - 8) as follows:
+Omar's solution:
+X^3 - 8 = (X - 2) (X^2 - 2 X + 4)
+Khalid's solution:
+X^3 - 8 = (X - 2) (X^2 - 4 X + 4)
+
+Which of them was correct? Correct the mistake, if any.
+
+Second Applying Concepts
+(9) Factorize each of the following:
+① a^2 + 18 a + 81 ② b^2 - 14 b + 49 ③ 9 X^2 + 6 X + 1
+④ 25 - 9 X^2 ⑤ 1 - 4 a^2 b^2 ⑥ k^2 - 36 m^2
+⑦ y^3 - 8 ⑧ X^3 + 27 ⑨ 64 X^3 - 125 y^3
+
+(10) Factorize each of the following completely:
+① X^4 + 8 X^3 + 16 X^2 ② 2 X y^4 - 16 y X^4 ③ 121 y - y^3
+④ 20 X^3 - 45 X ⑤ - 27 X^2 + 75 ⑥ X^4 - 81
+⑦ 54 X^3 + 16 ⑧ a X^4 - 343 a X b^3 ⑨ 4 X^4 + 4000 X
+
+(11) Factorize each of the following completely:
+① X^2 - 4/81 ② 125 X^3 + 1/8 ③ 1/5 X^2 - 5
+④ (X + 3)^3 + 64 ⑤ (X + 3)^2 - 16 ⑥ 6 a^2 (X + 2 y) - 24 b^2 (X + 2 y)
+⑦ X^4 - 13 X^2 + 36 ⑧ X^6 - 7 X^3 - 8 ⑨ m^6 - 64 n^3
+⑩ 4 X^16 - 16 y^4 ⑪ X^6 - 64 y^6
+
+(12) Solve each of the following equations in R:
+① 4 X^2 + 1 = 4 X ② X^3 = 25 X ③ X^2 + 6 X = - 9
+
+(13) If a b = 10 , a - b = 3 ,
+find the numerical value of the expression: a^3 - b^3
+
+First Term Lesson Three: Factorizing Special Cases 51

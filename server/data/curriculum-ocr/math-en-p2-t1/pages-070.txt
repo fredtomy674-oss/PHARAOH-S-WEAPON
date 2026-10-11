@@ -1,0 +1,55 @@
+■ Self-Evaluation (3)
+In the following figure:
+AB ≅ AD,
+AB = 3.6 cm,
+CD = 2.4 cm,
+AC bisects ∠ BAD
+
+(1) Prove that:
+Δ ACB ≅ Δ ACD
+(2) Find the perimeter of the
+polygon ABCD
+
+Example 3
+In the given figure:
+E is the midpoint of each of AB and CD
+Prove that: (1) Δ AEC ≅ Δ BED (2) AC // DB
+
+∵ E is the midpoint of each of AB and CD
+∴ AE ≅ BE, CE ≅ DE
+∵ m (∠ AEC) = m (∠ BED) (vertically opposite angles)
+∴ Δ AEC ≅ Δ BED (required 1)
+From the congruence, m (∠ A) = m (∠ B)
+and they are two alternating angles
+∴ AC // DB (required 2)
+
+Third Case: Angle - Side - Angle (ASA)
+Two triangles are congruent if two angles and the included side of
+one triangle are congruent to their corresponding elements of the
+other triangle.
+
+If ∠ A ≅ ∠ D, AC ≅ DF, ∠ C ≅ ∠ F
+then Δ ABC ≅ Δ DEF
+
+■ Self-Evaluation (4)
+In the following figure:
+AB // DC, AC // DE,
+BC ≅ EC
+Prove that:
+Δ ABC ≅ Δ DCE
+
+Example 4
+In the given figure:
+∠ B ≅ ∠ C, ∠ ADE ≅ ∠ AED, BD ≅ CE
+Prove that: Δ ABD ≅ Δ ACE
+
+∵ m (∠ ADB) + m (∠ ADE) = 180°, m (∠ AEC) + m (∠ AED) = 180°
+∵ m (∠ ADE) = m (∠ AED) ∴ m (∠ ADB) = m (∠ AEC)
+∴ ∠ ADB ≅ ∠ AEC
+In Δ ABD and Δ ACE:
+∠ B ≅ ∠ C (given), BD ≅ CE (given), ∠ ADB ≅ ∠ AEC (proved)
+∴ Δ ABD ≅ Δ ACE
+
+First Term
+Lesson One: Congruence
+65

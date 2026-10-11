@@ -1,0 +1,74 @@
+■ Self-Evaluation (3)
+F E
+K
+D
+L
+C
+A
+B
+M
+Find: m (∠ AMB)
+
+Example (3)
+The opposite figure consists of a regular
+pentagon and a regular hexagon.
+Calculate m (∠IAB)
+
+• ABCDE is a regular pentagon
+m (∠EAB) = 540° / 5 = 108°
+
+• AEFGHI is a regular hexagon
+m (∠EAI) = 720° / 6 = 120°
+
+• The sum of the measures of the accumulative angles at a point is 360°
+m (∠IAB) = 360° - (108 + 120°) = 132°
+
+■ Activity
+How many axes of symmetry
+does the following shape
+have?
+
+■ Think
+Do all irregular polygons
+have no axes of
+symmetry?
+
+■ Note that
+The number of axes of
+symmetry in a regular
+polygon is equal to the
+number of its sides.
+
+Axes of symmetry in Polygons
+
+Axis of Symmetry:
+The axis of symmetry of a shape is a straight
+line that divides the shape into two identical
+parts. When the shape is folded along the axis
+of symmetry, both parts coincide. A shape may
+have one or more axes of symmetry, or no axes
+of symmetry.
+
+Axes of Symmetry of a Regular Polygon:
+The axis of symmetry of a regular polygon is a straight line that passes
+through the center of the polygon and divides it into two identical polygons.
+
+Equilateral Triangle
+(3 axes of symmetry)
+
+Square
+(4 axes of symmetry)
+
+Regular Pentagon
+(5 axes of symmetry)
+
+Regular Hexagon
+(6 axes of symmetry)
+
+Regular Heptagon
+(7 axes of symmetry)
+
+First Term
+Lesson Five: Polygons
+El Nemer Press
+101

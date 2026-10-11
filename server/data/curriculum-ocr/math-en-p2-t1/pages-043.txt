@@ -1,0 +1,37 @@
+(9) Factorize the following polynomials by taking out the greatest common factor (GCF):
+① a(b + 5) + 2(b + 5)
+② (4X - 1) - y(4X - 1)
+③ (2X - 3)² - 2(2X - 3)
+④ (7X - 5)² - 7X + 5
+⑤ (X + 2)³ - 2(X + 2)²
+⑥ 3X + 6 - (X + 2)²
+
+(10) Find the solution set of each of the following equations in R:
+① X² - X = 0
+② 4X² + 8X = 0
+③ 5X - X² = 0
+④ X² = 5X
+⑤ 2X² - 3X = 0
+⑥ 12X² - 4X = 0
+
+Third Analysis and Subjects Integration
+(11) Geometry : Find the perimeter of each of the two given figures as two factors using factorization by taking out the greatest common factor.
+(12) Engineering : An engineer has a plot of land in form of a square with a side length of 2X m. He wants to build a house on it in form of a rectangle with dimensions of X m, 20 m and use the remaining area as a garden as shown in the figure, find the area of the garden and write the result as the product of two factors using factorization by taking out the greatest common factor.
+
+(13) Aquatic life: A dolphin jumps up so that its height, in meters, after (t) seconds is equal to (32 t - 16 t²). Write the height of the dolphin as the product of two factors using factorization by taking out the greatest common factor, then find its height at t = 1
+The aquatic environment must be preserved from pollution to protect aquatic life
+
+(14) Industry: A school supplies factory produces two kinds of products, notebooks and pens, each notebook costs (6 X² y) LE and each pen costs (9 X y²) LE
+If the factory produces 300 notebooks and 200 pens, write the mathematical expression that represents the total cost as the product of two factors using factorization by taking out the greatest common factor.
+Small and medium sized enterprises create jobs and support the local economy.
+
+Creative Thinking
+(15) If 6 X + 9 = c (2 X + d) , 14 X + 10 = a (7 X + b), find the numerical value of the expression dᶜ + bᵃ
+▶ Open Problem
+(16) Write a trinomial such that the greatest common factor of its terms is 3X²
+
+Evaluate your understanding!
+How well do you understand factorizing by taking out the greatest common factor GCF?
+Tick the right box
+
+38 Unit Two: Algebra Mathematics - Second Preparatory

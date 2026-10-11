@@ -1,0 +1,51 @@
+Fourth Case: Angle - Angle - Side (AAS)
+Two triangles are congruent if two angles and a non-included side of one triangle are congruent to their corresponding elements of the other triangle.
+
+If ∠ B ≅ ∠ E , ∠ C ≅ ∠ F , AB ≅ DE
+then Δ ABC ≅ Δ DEF
+
+■ Self-Evaluation 5
+In the following figure:
+AB bisects ∠ DAC,
+∠ ACB ≅ ∠ ADB
+Prove that: Δ ACB ≅ Δ ADB
+
+Example 5
+In the given figure:
+AD ≅ BC , ∠ A ≅ ∠ B
+Prove that : AE = BE
+In Δ ADE and Δ BCE :
+∴ ∠ A ≅ ∠ B (given) , ∠ E ≅ ∠ E (common angle) , AD ≅ BC (given)
+∴ Δ ADE ≅ Δ BCE
+From the congruence, AE = BE
+
+■ Note that
+In a right-angled triangle, the side opposite to the angle of measure 90° is called the hypotenuse and it is the longest side of the triangle.
+
+Fifth Case: Right angle - Hypotenuse - Side (RHS)
+Two right-angled triangles are congruent if the hypotenuse and a side of one triangle are congruent to their corresponding elements of the other triangle.
+
+If m (∠ B) = m (∠ E) = 90°,
+AC ≅ DF , AB ≅ DE
+then Δ ABC ≅ Δ DEF
+
+■ Self-Evaluation 6
+In the following figure:
+BC = DE, AB = EB
+1 Prove that:
+Δ ACB ≅ Δ BDE
+2 Find the value of X
+
+Example 6
+In the given figure:
+Find the value of X
+∴ In Δ ABD and Δ DCA :
+m (∠ B) = m (∠ C) = 90° (given), AB ≅ DC (given), AD ≅ DA (common side)
+∴ Δ ABD ≅ Δ DCA
+From the congruence,
+m (∠ BDA) = m (∠ CAD) = 30°
+In Δ DCA :
+∴ m (∠ CDA) = 180° - (90° + 30°) = 60°
+∴ X = 60 - 30 = 30
+
+66 Unit Three: Geometry Mathematics - Second Preparatory

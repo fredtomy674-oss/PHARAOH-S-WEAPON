@@ -1,0 +1,50 @@
+The Concept of Temperature
+
+• According to the particle theory of matter,
+systems are composed of particles, each of
+which has kinetic energy and potential energy,
+the summation of these two energies is known
+as internal energy of the system, the internal
+energy of the system increases with increasing
+the kinetic energy of its particles, or their
+potential energy, or both of them.
+• The potential energy of solid particles is
+the highest, while the potential energy of gas
+particles is almost zero.
+• Temperature of a system, simply represents
+how hot or cold the system is, and is considered
+a measure of the average kinetic energy of its
+particles.
+
+Mathematical understanding
+▶ The average of several values
+(in mathematics) equals one of
+these values, if they were all equal.
+▶ The average kinetic energy of
+the particles in a system is equal
+to the kinetic energy of a single
+particle if the kinetic energies of all
+particles were equal.
+▶ Average kinetic energy of particles =
+Total kinetic energy of all particles
+Number of particles
+▶ Internal energy of the system =
+Kinetic energy + Potential energy
+(for all particles)
+
+• An increase in the average kinetic energy of the particles in the system leads to an increase in
+its temperature, so hot water particles have a higher average kinetic energy than in cold water
+particles.
+If we assume that the kinetic energies of all particles are equal, then the temperature of
+this substance or system is a measure of the kinetic energy of one of the particles.
+
+Heat
+
+Figure (5)
+The internal energy of a solid system increases when it gains thermal energy
+
+Cross-Cutting Concepts : System and its models
+Matter is a system containing molecules, the change in its internal energy affects
+its temperature.
+
+Lesson Three : INTERNAL ENERGY AND TEMPERATURE 23

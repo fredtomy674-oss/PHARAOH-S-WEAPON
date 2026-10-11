@@ -1,0 +1,63 @@
+5 Draw a histogram to represent the following table:
+
+| Intervals | 1 - | 11 - | 21 - | 31 - | 41 - |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| Frequency | 8 | 12 | 36 | 24 | 20 |
+
+6 The following data represents the heights of 32 students in centimeters:
+134 152 140 134 130 142 131 144
+144 132 147 143 135 135 145 137
+148 151 133 142 136 138 132 146
+140 139 141 148 130 144 149 139
+
+1 Form a frequency table with intervals (130 - , 135 - , ...), then represent it using a histogram.
+2 How many students have heights less than 145 cm?
+
+Third Analysis and Subjects Integration
+
+7 Business Administration: The following table demonstrates the sales of a computer shop last year:
+
+| Product | Frequency |
+| :--- | :---: |
+| PC | 60 |
+| Laptop | 100 |
+| Tablet | 80 |
+| Spare parts | 240 |
+
+Represent this data using a suitable graphical chart.
+
+Creative Thinking
+
+9 Industry: The opposite stem-and-leaf plot displays the average battery lives of 25 smartphones.
+1 Draw the box plot of this data.
+2 How many smartphones have an average battery life more than 17 hours?
+3 Calculate the percentage of smartphones whose average battery life is less than 12 hours.
+
+8 Saving: The following table illustrates the savings of the first preparatory students at one school:
+
+| Intervals | Frequency |
+| :---: | :---: |
+| 1 - | 6 |
+| 101 - | 10 |
+| 201 - | 18 |
+| 301 - | 12 |
+| 401 - | 8 |
+
+Represent these savings using a histogram.
+
+| Stems | Leaves |
+| :---: | :--- |
+| 0 | 8 9 |
+| 1 | 0 1 1 2 2 2 3 4 5 6 7 8 9 |
+| 2 | 0 2 5 6 7 8 9 9 |
+| 3 | 1 2 |
+
+Key $3|2$ means 32 hours
+
+Evaluate your understanding!
+
+How well do you understand organizing data? Tick the right box
+
+54
+Unit Three: Statistics
+Mathematics - First Preparatory

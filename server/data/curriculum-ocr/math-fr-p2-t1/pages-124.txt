@@ -1,0 +1,39 @@
+(11) D'après le tableau des effectifs suivant:
+
+| Intervalles | 2– | 6– | 10– | 14– | 18– | 22– | 26– | Total |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Effectif | 4 | 6 | 11 | $k$ | 14 | 8 | 5 | 60 |
+
+Dresse le tableau des effectifs cumulés croissants et représente-le graphiquement et estime la valeur de la médiane à partir du graphique.
+
+(12) À partir du tableau des effectifs cumulés croissants
+ci-contre, dresse un tableau des données par intervalles,
+puis trouve l'intervalle modal.
+
+| Bornes supérieures des intervalles | Effectif |
+| :--- | :---: |
+| inférieure à 10 | 0 |
+| inférieure à 15 | 3 |
+| inférieure à 20 | 9 |
+| inférieure à 25 | 16 |
+| inférieure à 30 | 24 |
+| inférieure à 35 | 33 |
+| inférieure à 40 | 44 |
+| inférieure à 45 | 50 |
+
+Activité de l'unité 4 Les mesures de la tendance centrale
+▶ L'objectif de l'activité: Dresse un tableau
+des données par intervalles à partir de données réelles,
+et calcule les mesures de la tendance centrale.
+▶ Les étapes de l'activité:
+Collabore avec deux de tes camarades
+de classe et essaie de faire ce qui suit:
+1 Choisis une des situations de la vie quotidienne
+que tu vis (au club, dans un parc, au marché,
+dans la cour de l'école) et recueille un certain
+nombre de données sur cette situation.
+2 Organise ces données dans un tableau des données par intervalles .
+3 Calcule les mesures de la tendance centrale (la moyenne arithmétique, la médiane, le mode) à
+partir de ce tableau, en traçant les graphiques nécessaires pour chaque la médiane et la mode.
+
+120 Unité 4: Les statistiques Mathématiques - deuxième préparatoire

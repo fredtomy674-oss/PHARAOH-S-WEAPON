@@ -1,0 +1,58 @@
+Lesson
+2 - 4
+
+Factorizing by Grouping
+
+■ Learning Outcomes
+• Factorize a polynomial by grouping.
+• Learn how to complete the square.
+• Use completing the square to factorize and solve equations.
+• Use factorization by grouping to solve real-life problems.
+
+■ Vocabulary
+• Factorizing by grouping
+• Completing the square
+
+Get Ready!
+The Central Library at Cairo University is one of the most important educational and cultural facilities within the university, and it is one of the largest university libraries in the Arab world.
+It can accommodate more than a thousand readers at the same time. If the area of the rectangular plot of land on which it is built is (3x³ - 6x² + 4x - 8) m²,
+how can you determine the dimensions of this plot?
+In this lesson, you will learn how to factorize by grouping, which will enable you to solve such problems.
+
+Cairo University
+
+Think & Discuss!
+The following figures are four rectangles with the given dimensions:
+y
+b
+x
+a
+x
+y
+b
+a
+b
+a
+x
+y
+b
+These four rectangles have been arranged to form a large rectangle, as shown in the figure.
+► What is the area of the large rectangle?
+
+Bassem's answer:
+The area of the rectangle is equal to ab + xy + ax + by
+
+Maryam's answer:
+The area of the rectangle is equal to (b + x) (a + y)
+
+Which one of them is correct? Discuss, what do you deduce?
+
+Learn!
+Factorizing by grouping
+A four-term polynomial can be factorized using one of the following two methods:
+The first method
+Group the polynomial into two binomials so that you can factorize each binomial, then take out the common binomial as a common factor.
+
+First Term
+Lesson Four: Factorizing by Grouping
+53

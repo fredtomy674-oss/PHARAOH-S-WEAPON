@@ -1,0 +1,25 @@
+Activity:
+
+Dear student, in cooperation with your classmates, think of examples of fraudulent messages or calls you or a classmate might have received. How can you distinguish between a real message and a fake one?
+
+Distributed Denial of Service (DDoS) Attacks:
+
+Imagine a popular website that many people love to use. Suddenly, a huge number of people (under orders from an attacker to take the site down) start trying to access it at the same time. The site becomes so congested that it cannot receive or provide services to visitors, and consequently, it stops working. This is similar to completely blocking traffic on a street, making it so crowded with cars that it becomes impossible for anyone to pass.
+
+This is what happens in a Distributed Denial of Service (DDoS) attack. The attacker uses multiple compromised devices (called "Botnets") to send massive amounts of requests to a website server or online service, slowing it down or disabling it and preventing legitimate users from accessing it.
+
+DDOS attiais of Sttack)
+SUEVICEE
+Ceto delcas
+Data Packesete
+Sute Packets
+Data Phanine
+Distriet and
+Data Service
+stravign
+
+Activity:
+
+Dear student, in cooperation with your classmates, draw a simple diagram that illustrates how a DDoS attack occurs.
+
+24

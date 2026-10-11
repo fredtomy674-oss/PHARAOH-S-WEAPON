@@ -1,0 +1,74 @@
+■ Note that
+▶ [a, b] is called a closed
+interval where a ∈ [a, b],
+b ∈ [a, b]
+▶ ]a, b[ is called an open
+interval where a ∉ ]a, b[,
+b ∉ ]a, b[
+▶ [a, b[ is called a half-open
+or half-closed interval
+where a ∈ [a, b[, b ∉ [a, b[
+▶ ]a, b] is called a half-open
+or half-closed interval
+where a ∉ ]a, b], b ∈ ]a, b]
+
+■ Self-Evaluation (1)
+Write in the form of an interval
+and represent on the number
+line each of the following sets:
+1 {X : X ∈ R, -1 < X < 5}
+2 {X : X ∈ R, 0.5 ≤ X < √9}
+
+First The bounded intervals
+If a and b are real numbers such that a < b, then:
+The set of real numbers greater
+than or equal to a and less than
+or equal to b
+{X : X ∈ R, a ≤ X ≤ b} = [a, b]
+(a) (b)
+
+The set of real numbers greater
+than or equal to a and less
+than b
+{X : X ∈ R, a ≤ X < b} = [a, b[
+(a) (b)
+
+The set of real numbers greater
+than a and less than b
+{X : X ∈ R, a < X < b} = ]a, b[
+(a) (b)
+
+The set of real numbers greater
+than a and less than or equal
+to b
+{X : X ∈ R, a < X ≤ b} = ]a, b]
+(a) (b)
+
+Example 1
+1 Write in the form of an interval
+and represent on the number
+line set A:
+A = {X : X ∈ R, 1 < X ≤ 3}
+Is √2 ∈ A?
+
+2 Write in the form of an interval
+and represent on the number
+line set B:
+B = {X : X ∈ R, -2 < X < 2}
+Is ∛-9 ∈ B?
+
+1 A = ]1, 3]
+(1) (3)
+By using a calculator :
+√2 ≈ 1.4
+∴ 1 < √2 ≤ 3
+∴ √2 ∈ ]1, 3]
+
+2 B = ]-2, 2[
+(-2) (2)
+By using a calculator :
+∛-9 ≈ -2.08
+∴ ∛-9 < -2
+∴ ∛-9 ∉ ]-2, 2[
+
+First Term Lesson Two: Intervals and Their Operations 9

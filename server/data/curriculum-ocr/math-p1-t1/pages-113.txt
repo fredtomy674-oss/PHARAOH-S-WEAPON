@@ -1,0 +1,35 @@
+مسقط قطعة مستقيمة على محوري الإحداثيات
+لإيجاد مسقط قطعة مستقيمة علي أحد المحورين، أوجد مسقط كل من نهايتيها على هذا المحور.
+في كل مما يلى لاحظ مسقط $\overline{\text{AB}}$ على محور $x$ أو محور $y$:
+1 $\overline{\text{A}^{\prime}\text{B}^{\prime}}$ هى مسقط $\overline{\text{AB}}$ على محور $x$
+2 $\overline{\text{A}^{\prime}\text{B}^{\prime}}$ هى مسقط $\overline{\text{AB}}$ على محور $x$
+3 $\overline{\text{A}^{\prime}\text{B}^{\prime}}$ هى مسقط $\overline{\text{AB}}$ على محور $x$
+4 $\overline{\text{A}^{\prime}\text{B}^{\prime}}$ هى مسقط $\overline{\text{AB}}$ على محور $y$
+5 النقطة N هى مسقط $\overline{\text{AB}}$ على محور $y$
+6 $\overline{\text{A}^{\prime}\text{B}^{\prime}}$ هى مسقط $\overline{\text{AB}}$ على محور $y$
+
+فكّر
+ما العلاقة بين طول القطعة المستقيمة وطول مسقطها ؟
+
+تقييم ذاتى 3
+ارسم فى مستوى الإحداثيات
+$\overline{\text{AB}}$ حيث $\text{A}(5, 6)$ ، $\text{B}(3, 2)$
+، وحدد على الرسم :
+1 مسقط $\overline{\text{AB}}$ على محور $x$
+2 مسقط $\overline{\text{AB}}$ على محور $y$
+ثم أوجد طول كل مسقط.
+
+مثال 3
+أوجد طول مسقط القطعة المستقيمة $\overline{\text{AB}}$ على محور $x$،
+حيث $\text{A}(-3, 4)$ ، $\text{B}(2, 2)$.
+
+◄ نرسم القطعة المستقيمة $\overline{\text{AB}}$ في المستوى الإحداثي.
+◄ نرسم من كل من $\text{A}$ ، $\text{B}$ عمودًا على محور $x$ كما بالشكل،
+فتكون النقطة $\text{A}^{\prime}(-3, 0)$ هى مسقط النقطة $\text{A}$ على محور $x$ ، والنقطة $\text{B}^{\prime}(2, 0)$ هى مسقط النقطة $\text{B}$ على محور $x$،
+وبالتالى القطعة المستقيمة $\overline{\text{A}^{\prime}\text{B}^{\prime}}$ هى مسقط القطعة المستقيمة $\overline{\text{AB}}$ على محور $x$
+$\text{A}^{\prime}\text{B}^{\prime} = |2| + |-3| = 5$
+أى أن طول $\overline{\text{A}^{\prime}\text{B}^{\prime}}$ يساوى 5 وحدات طول.
+
+الرياضيات للصف الأول الإعدادي
+106
+الوحدة الرابعة الهندسة والقياس

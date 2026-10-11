@@ -1,0 +1,35 @@
+b) Maintain a consistent style for elements throughout the product.
+c) Change the website design frequently to keep users interested.
+d) Use random fonts and colors.
+
+6- Why is usability important in UX design?
+a) To make the design look more professional.
+b) To increase user satisfaction and interaction with the product.
+c) To reduce the cost of product development.
+d) To make the product run faster.
+
+7- Why is visual appeal important in UI design?
+a) To make the product easy to use.
+b) To leave a good first impression with the user.
+c) To better organize information.
+d) To make the product compatible with all devices.
+
+8- Which of the following examples illustrates a confusing navigation design?
+a) A main menu with clear buttons.
+b) A search bar in a prominent location.
+c) A list of overlapping, unorganized items.
+d) Clear links at the end of the page.
+
+9- Which of the following examples illustrates the use of inconsistent colors in UI
+design?
+a) Using simple color gradients.
+b) Using complementary colors from the color wheel.
+c) Using many bright, different colors randomly.
+d) Using white as the primary color with a muted secondary color.
+
+Put a check mark ($\checkmark$) in front of the correct sentence and a check
+mark ($\times$) in front of the incorrect sentence.
+1. User Experience (UX) design focuses primarily on the appearance of the product,
+not how it is used. ( )
+
+51

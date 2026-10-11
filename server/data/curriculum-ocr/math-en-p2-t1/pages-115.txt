@@ -1,0 +1,51 @@
+Second Applying Concepts
+
+(4) The management of a factory studied the time taken for employees to arrive at the factory in order to determine the most appropriate means of transportation to save employees' time and maintain productivity.
+
+| Intervals (time in minutes) | Frequency (number of employees) |
+| :--- | :--- |
+| 0 - | 6 |
+| 20 - | 39 |
+| 40 - | 31 |
+| 60 - | 14 |
+| 80 - | 6 |
+| 100 - | 4 |
+
+Form an ascending cumulative frequency table and represent it graphically.
+
+(5) The following table shows the delivery times in seconds for a fast food restaurant.
+
+| Intervals (time in seconds) | Frequency (number of meals) |
+| :--- | :--- |
+| 75 - | 11 |
+| 120 - | 24 |
+| 165 - | 10 |
+| 210 - | 3 |
+| 255 - | 2 |
+
+Form an ascending cumulative frequency table and represent it graphically.
+
+(6) The following table shows the number of houses with different areas (measured in square meters).
+
+| Intervals ($m^2$) | 100 - | 150 - | 200 - | 250 - | 300 - | 350 - |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Frequency | 5 | 23 | 27 | 21 | 9 | 5 |
+
+(1) Form an ascending cumulative frequency table and represent it graphically.
+(2) Find the number of houses with an area less than 300 square meters.
+(3) Find the number of houses with an area of 150 square meters or more.
+(4) Find the percentage of houses with an area of 250 square meters or more.
+
+(7) From the given histogram, form an ascending cumulative frequency table and represent it graphically.
+
+Frequency
+25
+20
+15
+10
+5
+0
+10 20 30 40 50 60 70 80
+Intervals
+
+110 Unit Four: Statistics Mathematics - Second Preparatory

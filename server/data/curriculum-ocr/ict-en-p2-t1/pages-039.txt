@@ -1,0 +1,13 @@
+17. Big data helps machine learning algorithms recognize patterns and make decisions
+    without human interference. ( )
+18. Big data improves task automation in areas such as customer service, logistics, and
+    finance. ( )
+19. Big data is not the raw material that feeds artificial intelligence. ( )
+20. AI is just a set of theoretical algorithms that are incapable of learning or delivering
+    real value without big data. ( )
+
+Self-assess
+Go to the objectives at the beginning of the lesson.
+Check the correct, I can........ box.
+
+39

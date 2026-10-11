@@ -1,0 +1,98 @@
+Deuxièmement Les intervalles non bornés
+
+■ Remarque que
+l'intervalle ] − ∞ ; ∞ [
+représente l'ensemble des
+nombres réels R,
+∞ ∉ R et − ∞ ∉ R
+
+■ L'histoire des
+mathématiques
+Le savant
+anglais
+John Wallis
+est le premier
+qui a utilisé le
+symbole de l'infini (∞).
+
+• L'ensemble des nombres réels s'étend sur la droite numérique dans la
+direction positive jusqu'à l'infini (∞) et s'étend dans la direction négative
+jusqu'à l'infini (− ∞)
+• Les symboles ∞ et − ∞ sont utilisés pour exprimer les ensembles infinis
+comme suit:
+Si a ∈ R , alors:
+
+L'ensemble des nombres réels
+supérieurs ou égaux à a
+{X : X ∈ R ; X ≥ a} = [a ; ∞ [
+<----|---->
+     a
+
+L'ensemble des nombres réels
+inférieurs ou égaux à a
+{X : X ∈ R ; X ≤ a} = ]− ∞ ; a]
+<----|---->
+     a
+
+L'ensemble des nombres réels
+supérieurs à a
+{X : X ∈ R ; X > a} = ]a ; ∞ [
+<----|---->
+     a
+
+L'ensemble des nombres réels
+inférieurs à a
+{X : X ∈ R ; X < a} = ]− ∞ ; a[
+<----|---->
+     a
+
+Exemple 2
+Écris sous forme d'intervalle chacun des ensembles suivants et
+représente-les sur la droite numérique:
+
+1 L'ensemble des nombres réels
+positifs
+2 L'ensemble des nombres réels
+non positifs
+3 {X : X ∈ R ; X ≥ − 2}
+4 {X : X ∈ R ; X < 1}
+
+1 ] 0 ; ∞ [
+<----|---->
+     0
+2 ]− ∞ ; 0]
+<----|---->
+     0
+3 [− 2 ; ∞ [
+<----|---->
+    − 2
+4 ]− ∞ ; 1[
+<----|---->
+     1
+
+■ Remarque que
+• R = R⁺ ∪ {0} ∪ R⁻
+où: R⁺ est l'ensemble des
+nombres réels positifs,
+R⁻ est l'ensemble
+des nombres réels
+négatifs.
+• L'ensemble des nombres
+réels non négatifs
+= R⁺ ∪ {0}
+• L'ensemble des nombres
+réels non positifs
+= R⁻ ∪ {0}
+
+■ Auto-évaluation 2
+Écris sous forme d'intervalle
+et représente sur la droite
+numérique:
+1 L'ensemble des nombres
+réels négatifs R⁻
+2 L'ensemble des
+nombres réels non
+négatifs
+3 {X : X ∈ R⁺ ; X < 3}
+
+10 Unité 1: Les nombres et les opérations sur les nombres Mathématiques - deuxième préparatoire

@@ -1,0 +1,31 @@
+Technological Application
+Thermographic camera is a camera (device)
+that can detects the thermal radiation emitted
+by objects (infrared rays) and converts it into
+coloured images, these colours depend on
+changes in the temperature of the object
+(Figure 21).
+These cameras are used for imaging in the dark
+and for detecting the temperature of objects.
+
+Figure (21)
+Thermal imaging
+
+Integration with Biology
+Snakes are able to hunt their prey at night because
+they have sensory receptors at the front of their
+heads which enable them to detect infrared rays
+emitted by their prey (Figure 22).
+
+Figure (22)
+
+Evaluate Your Understanding
+From Figure (23), identify the methods by which
+heat is transferred indicated by numbers (1) - (3).
+(1) : ...........................................................................
+(2) : ...........................................................................
+(3) : ...........................................................................
+
+Figure (23)
+
+Lesson Four : METHODS OF HEAT TRANSFER 37

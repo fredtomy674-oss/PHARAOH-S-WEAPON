@@ -1,0 +1,30 @@
+5. Why is artificial intelligence important in intelligent systems?
+a) Because it analyzes data and makes intelligent decisions.
+b) Because it manufactures devices.
+c) Because it repairs broken devices.
+d) Because it provides free internet.
+
+6. How can robots help in agriculture?
+a) By selling crops.
+b) By automatically watering plants.
+c) By shutting down farms.
+d) By storing water only.
+
+7. What is the main role of sensors in IoT?
+a) Sending text messages.
+b) Manually operating devices.
+c) Collecting and transferring data.
+d) Repairing networks.
+
+8. How can smart systems help reduce pollution?
+a) By increasing vehicle exhaust.
+b) By ignoring the problem.
+c) By shutting down all factories.
+d) By monitoring air quality and suggesting solutions.
+
+9. If a car is equipped with IoT and AI, what can it do when a malfunction
+occurs?
+a) Send a message to the maintenance center with the location.
+b) Turn off without informing the driver.
+c) Wait until the driver detects the fault.
+13

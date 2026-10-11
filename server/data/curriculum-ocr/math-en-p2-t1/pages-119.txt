@@ -1,0 +1,41 @@
+| Intervals | Frequency (f) | Centers of intervals (Xm) | f.Xm |
+| :--- | :--- | :--- | :--- |
+| 60 - | 1 | 65 | 65 |
+| 70 - | 5 | 75 | 375 |
+| 80 - | k | 85 | 85 k |
+| 90 - | 10 | 95 | 950 |
+| 100 - | 6 | 105 | 630 |
+| Total | 22 + k | | 2020 + 85 k |
+
+∴ X̄ = Σ (f.Xm) / Σ f = (2020 + 85 k) / (22 + k) = 90
+∴ 90 (22 + k) = 2020 + 85 k ∴ 1980 + 90 k = 2020 + 85 k
+∴ 90 k - 85 k = 2020 - 1980 ∴ 5 k = 40 ∴ k = 8
+
+2 The median of a frequency distribution with intervals
+
+The median can be estimated from the ascending cumulative frequency curve as follows:
+• Determine the order of the median (n/2) where n is the sum of the frequencies on the vertical axis.
+• At the median order, draw a horizontal line that intersects the ascending cumulative curve at a point, so that the value of the median (Q2) is the projection of this point on the horizontal axis.
+
+■ Self-Evaluation (3)
+The following table shows the frequency distribution of the marks of 60 students in a mathematics test.
+| Marks | Frequency |
+| :--- | :--- |
+| 5 - | 2 |
+| 10 - | 5 |
+| 15 - | 14 |
+| 20 - | 20 |
+| 25 - | k |
+| 30 - | 5 |
+| 35 - | 1 |
+| Total | 60 |
+Find the value of k, then draw the ascending cumulative frequency curve, and from it estimate the median value.
+
+Example 3
+From the data of the following frequency table:
+| Intervals | 0 - | 6 - | 12 - | 18 - | 24 - |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Frequency | 6 | 8 | 12 | 10 | 4 |
+Draw the ascending cumulative frequency curve, and from it estimate the median value.
+
+114 Unit Four: Statistics Mathematics - Second Preparatory

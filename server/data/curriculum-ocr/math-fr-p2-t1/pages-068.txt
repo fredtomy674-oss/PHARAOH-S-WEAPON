@@ -1,0 +1,87 @@
+■ La notation en
+mathématiques
+
+Dans les cas de
+congruence des triangles,
+la lettre C est utilisée
+pour désigner un côté du
+triangle, la lettre A pour
+désigner un angle du
+triangle, la lettre R pour
+désigner l’angle droit et
+la lettre H pour désigner
+l’hypoténuse du triangle
+rectangle.
+
+■ Pensée critique
+
+Les deux triangles sont-ils
+congruents si les trois angles
+de l’un d’eux sont congruents
+à leurs homologues dans
+l’autre triangle?
+
+■ Auto-évaluation 2
+
+Dans la figure suivante:
+A
+C
+?
+34°
+B O D
+
+1 Prouve que:
+Δ OAB ≅ Δ OCD
+
+2 Trouve: m (∠ AOC)
+
+■ Pensée critique
+
+Les deux triangles sont-ils
+congruents si deux côtés et
+un angle non compris dans
+l’un d’eux sont congruents
+à leurs homologues dans
+l’autre triangle?
+
+64 Unité 3: La géométrie
+
+Les cas de congruence de deux triangles
+
+Le premier cas: Côté-Côté-Côté (CCC)
+
+Les deux triangles sont congruents si chaque côté de l’un des triangles
+est congruent à son homologue dans l’autre triangle.
+
+Si AB ≅ DE, BC ≅ EF et AC ≅ DF
+alors: Δ ABC ≅ Δ DEF
+
+Exemple 2
+
+Dans la figure ci-contre:
+Le point D est le milieu de BC, AB = AC et m (∠ B) = 63°
+1 Prouve que: Δ ADB ≅ Δ ADC
+2 Trouve par démonstration: m (∠ DAC)
+
+✓
+∵ Le point D est le milieu de BC
+∴ BD = DC
+∵ Les deux triangles ADB et ADC ont:
+AD ≅ AD (côté commun) BD ≅ CD (démontré) AB ≅ AC (donné)
+∴ Δ ADB ≅ Δ ADC (Requis 1)
+Et de la congruence, il résulte que:
+m (∠ C) = m (∠ B) = 63° et m (∠ DAC) = m (∠ DAB)
+Dans le triangle ABC:
+∴ m (∠ CAB) = 180° – (63° + 63°) = 54°
+∴ m (∠ DAC) = m (∠ DAB) = 54° / 2 = 27° (Requis 2)
+
+Le deuxième cas: Côté-Angle-Côté (CAC)
+
+Les deux triangles sont congruents si deux côtés et l’angle
+compris entre eux dans l’un des deux triangles avec leurs
+homologues dans l’autre triangle.
+
+Si AB ≅ DE, ∠ B ≅ ∠ E et BC ≅ EF
+alors: Δ ABC ≅ Δ DEF
+
+Mathématiques - deuxième préparatoire

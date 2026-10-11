@@ -1,0 +1,83 @@
+Lesson
+4-2
+
+Measurements of Central
+Tendency of the Frequency
+Table with Intervals
+
+■ Learning Outcomes
+• Estimate the arithmetic
+mean of the frequency
+table with intervals.
+• Estimate the median of
+the frequency table with
+intervals.
+• Estimate the mode of
+the frequency table with
+intervals.
+• Read and interpret frequency
+tables and graphs for
+a given society.
+
+Get Ready!
+Looking at the heights of the students
+in the following table:
+
+Height (cm) | Number of students
+--- | ---
+155 - | 5
+160 - | 10
+165 - | 25
+170 - | 6
+175 - | 4
+
+Can you estimate the mean height of
+the students?
+In this lesson, you will learn how to find the measurements of central
+tendency (arithmetic mean, median, and mode) for a frequency table
+with intervals, which will enable you to solve such problems.
+
+■ Vocabulary
+• Mean (X̄)
+• Mode
+• Median (Q₂)
+(Second quartile)
+
+Think & Discuss!
+The given frequency table shows the number
+of hours that 50 boys and girls spend on the
+internet and social media on weekends.
+Can you calculate the arithmetic mean, median,
+and mode for the number of hours spent on the
+internet and social media? Discuss.
+
+Hours spent | 10 | 12 | 16
+--- | --- | --- | ---
+Number of followers | 15 | 17 | 18
+
+■ Previous Knowledge
+Measurements of central
+tendency are values that
+describe the center of
+a set of data, such as the
+arithmetic mean, median,
+and mode, where:
+• Arithmetic mean = Sum of values / Their number
+• Median is the value that
+lies in the middle of the
+values after they have
+been arranged in order.
+• Mode is the most common
+value (more repeated)
+
+Learn!
+1 The arithmetic mean of a frequency distribution with intervals
+You can estimate the arithmetic mean of a frequency distribution with
+intervals using the following mathematical formula:
+The arithmetic mean (X̄) = Σ(f.Xm) / Σf
+where Σf is the sum of all frequencies
+Xm is the center of the interval and is equal to Lower limit + Upper limit / 2
+Σ(f.Xm) is the sum of the products of center of each interval Xm by
+its corresponding frequency f
+
+112 Unit Four: Statistics Mathematics - Second Preparatory

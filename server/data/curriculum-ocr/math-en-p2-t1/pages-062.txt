@@ -1,0 +1,69 @@
+■ Self-Evaluation 5
+Find the solution set of the equation:
+x² - 2x - 4 = 0 in R
+
+■ Self-Evaluation 6
+If 3b - 2a = 1, a² - 2b = 10,
+find the numerical value of
+the expression:
+2 a³ - 3 a² b - 4 a b + 6 b²
+
+■ Self-Evaluation 7
+A company manufactures
+storage units for
+photography equipments
+for trips. The unit is in the
+shape of a cuboid with
+a square base whose side
+length is (x - 1) feet and
+its height is x feet.
+If the volume of the unit
+is 2 cubic feet, find the
+dimensions of the storage
+unit.
+
+Example 5
+Find the solution set of the equation : x² - 8x + 3 = 0 in R
+∴ x² - 8x + 3 = 0
+∴ x² - 8x = -3
+By adding (-8x)² / 4x² = 16 to both sides of the equation
+∴ x² - 8x + 16 = -3 + 16
+∴ (x - 4)² = 13 ∴ x - 4 = ±√13
+∴ x = 4 ± √13
+∴ The solution set = {4 - √13, 4 + √13}
+■ Note that
+We cannot solve this
+example using trinomial
+factorization, but it can
+be solved by using
+completing the square.
+
+Example 6
+If x² + 3y = 31, 2x - y = 8,
+what is the numerical value of the expression
+2x³ - x²y + 6xy - 3y²?
+2x³ - x²y + 6xy - 3y² = (2x³ - x²y) + (6xy - 3y²)
+= x² (2x - y) + 3y (2x - y)
+= (2x - y) (x² + 3y) = 8 × 31 = 248
+
+Example 7
+A cuboid glass box used for
+decoration. Its dimensions, in meters,
+are shown in the figure. If the volume
+of the box is 5 m³, find its dimensions
+in meters.
+(2x - 1) m
+(x - 2) m
+(x) m
+The volume of the box = 5 m³
+∴ x (x - 2) (2x - 1) = 5
+∴ x (2x² - 5x + 2) = 5 ∴ 2x³ - 5x² + 2x - 5 = 0
+∴ (2x³ - 5x²) + (2x - 5) = 0 ∴ x² (2x - 5) + (2x - 5) = 0
+∴ (2x - 5) (x² + 1) = 0
+∴ Either 2x - 5 = 0 hence x = 5/2
+or x² + 1 = 0 hence x² = -1 (refused)
+∴ The dimensions of the glass box are 0.5 m, 2.5 m, and 4 m.
+
+First Term
+Lesson Four: Factorizing by Grouping
+57

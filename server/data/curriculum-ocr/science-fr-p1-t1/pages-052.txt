@@ -1,0 +1,61 @@
+Questions d'évaluation de la deuxième leçon
+
+1 Choisir la réponse correcte aux questions de (1) à (3).
+(1) l'extrémité d'une tige est attirée par une barre magnétique. Lequel de ce qui suit décrit la nature de la tige ?
+a) Tige en nickel uniquement.
+b) Tige en nickel ou aimant.
+c) Aimant uniquement.
+d) Tige en nickel ou en cuivre.
+
+(2) Le schéma ci-contre : montre trois aimants disposés correctement.
+A B
+C
+D E F
+Lequel des schémas suivants les représente après les avoir réarrangés correctement ?
+E A B
+F D
+C
+(a)
+D
+C F E
+A
+B
+(b)
+E C A
+F D B
+(c)
+A E F
+B C D
+(d)
+
+(3) La figure ci-contre montre l'attraction d'un trombone par un aimant, malgré la présence d'une feuille entre les deux. Que peut-on déduire ?
+Aimant
+Feuille
+Trombone
+a) Les pôles différents s'attirent.
+b) La force magnétique est toujours attractive.
+c) L'attraction du trombone vers le pôle nord de l'aimant.
+d) La force magnétique agit à distance.
+
+2 Lequel oui numéros indiqués sur le schéma suivant représente une tige en argent ? Avec interprétation
+Est-ce une matière métallique ?
+Oui
+Non 1
+Est-ce qu'elle se repousse avec le pôle N d'un aimant ?
+Non
+Oui 2
+Est-ce qu'elle est attirée par le pôle S d'un aimant ?
+Non
+Oui 3
+4
+
+3 Lorsque l'aimant montré dans la figure ci-contre est placé dans de la limaille de fer, la densité de la limaille était élevée à certains endroits. Identifie ces endroits
+A D
+B C
+
+4 Le tableau suivant montre le Non mbre d'épingles attirées par quatre aimants placés à la même hauteur au-dessus d'un récipient contenant des épingles
+Aimant (A) (B) (C) (D)
+Nombre d'épingles attirées par lui 4 6 2 8
+Classe ces aimants par ordre croissant selon l'intensité de leur champ magnétique.
+
+46

@@ -1,0 +1,21 @@
+17. CSS makes it impossible to make a design responsive to different screen sizes.
+( )
+
+18. Writing formatting code within each HTML page is more efficient than using
+external CSS. ( )
+
+19. Separating formatting from content helps speed up editing and updating
+processes. ( )
+
+20. When you change formatting in an external CSS file, the appearance of the linked
+pages is not affected. ( )
+
+
+Self-assess
+
+Go to the objectives at the beginning of the lesson.
+
+Check the correct, I can........ box.
+
+
+62

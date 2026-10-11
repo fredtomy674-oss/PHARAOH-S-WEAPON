@@ -1,0 +1,44 @@
+Expressing a chemical reaction with a word equation does not clarify the number of molecules or atoms present in the reaction mixture, so it is expressed with a symbolic chemical equation.
+
+Symbolic chemical equation
+A chemical equation is a symbolic representation of a chemical reaction, showing the reactants and products by using symbols and molecular formulas, with the simplest integer ratio of the number of molecules or atoms entering and resulting from the reaction (Figure 1).
+
+Reactants
+C(s) + O2(g)
+Carbon molecule Oxygen molecule
+Composed of Composed of
+1 carbon atom 2 oxygen atoms
+
+Products
+CO2(g)
+Carbon dioxide molecule
+Composed of
+1 carbon atom
+2 oxygen atoms
+
+(Figure 1)
+Example of a chemical equation
+
+• The symbols and formulas of the reactants are written on the left side of the equation, and the symbols and formulas of the products are written on the right side, below each of them is a subscript symbol that expresses the physical state in which it exists in the reaction, as shown in (Table 1).
+The reactants and products are linked by an arrow that indicates the direction of the reaction, and the reaction conditions, if found, are written on the arrow, such as the use of substances known as catalysts that increase the speed of the reaction without being consumed or changed, as shown in (Table 2).
+
+Table (1)
+Symbol Physical state
+(s) Solid or precipitate that is insoluble in water
+(l) Liquid
+(g) Gas
+(v) Vapour
+(aq) Aqueous solution (a substance dissolved in water)
+
+Table (2)
+Symbol Meaning
+Δ Heat (heating)
+cat. Use of a catalyst
+dil. Using dilute acid
+conc. Using concentrated acid
+
+Evaluate Your Understanding
+Solid sodium bicarbonate reacts with dilute hydrochloric acid with an effervescence to form a solution of sodium chloride, water, and carbon dioxide gas.
+Represent this reaction using a symbolic equation.
+
+50 Unit Two : MATTER AND CHEMICAL REACTIONS

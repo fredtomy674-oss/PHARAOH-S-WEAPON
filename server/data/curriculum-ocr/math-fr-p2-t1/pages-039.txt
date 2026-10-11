@@ -1,0 +1,58 @@
+■ Auto-évaluation 2
+Trouve la valeur numérique de chacun de ce qui suit en utilisant la factorisation en extrayant le plus grand commun diviseur:
+1 83 × 57 + 83 × 43
+2 43 × 87 – 43 × 30 + (43)²
+3 13 × 115 – 13 × 16 + 13
+
+Exemple 2
+Trouve la valeur numérique de chacun de ce qui suit en utilisant la factorisation en extrayant le plus grand commun diviseur:
+1 19 × 23 + 19 × 27
+2 37 × 163 – 37 × 26 – (37)²
+3 25 × 158 – 25 × 57 – 25
+✔
+1 19 × 23 + 19 × 27 = 19 (23 + 27) = 19 × 50 = 950
+2 37 × 163 – 37 × 26 – 37 × 37 = 37 (163 – 26 – 37)
+= 37 × 100 = 3700
+3 25 × 158 – 25 × 57 – 25 × 1 = 25 (158 – 57 – 1)
+= 25 × 100 = 2500
+
+■ Auto-évaluation 3
+Factorise les polynômes suivants en extrayant le plus grand commun diviseur:
+1 16 a (a – b) + 24 b (a – b)
+2 (x + 2)² + 3 (x + 2)
+3 (x – 5)² – x + 5
+
+Exemple 3
+Factorise les polynômes suivants en extrayant le plus grand commun diviseur:
+1 12 x (x + y) – 18 y (x + y)
+2 (x – 5)² – 2 (x – 5)
+3 (x + 3)² – x – 3
+■ Remarque que
+On peut prendre la parenthèse répétée contenant un polynôme comme un facteur commun.
+✔
+1 Où le PGCD est 6 (x + y)
+∴ 12 x (x + y) – 18 y (x + y) = 6 (x + y) (2 x – 3 y)
+2 Où le PGCD est (x – 5)
+∴ (x – 5)² – 2 (x – 5) = (x – 5) (x – 5 – 2) = (x – 5) (x – 7)
+3 (x + 3)² – x – 3 = (x + 3)² – (x + 3)
+= (x + 3) (x + 3 – 1)
+= (x + 3) (x + 2)
+
+■ Auto-évaluation 4
+Si (5 a + 4 b) = 65 et
+5 a (2 a – 3 b)
++ 4 b (2 a – 3 b) = 195
+Trouve la valeur numérique de l'expression
+(2 a – 3 b)
+
+Exemple 4
+Si x + 2 y = 8 et 2 x + y = 7
+Trouve la valeur numérique de l'expression: 2 x (x + 2 y) + y (x + 2 y)
+✔
+On peut utiliser la factorisation en extrayant le PGCD pour simplifier l'expression donnée comme suit:
+2 x (x + 2 y) + y (x + 2 y) = (x + 2 y) (2 x + y)
+= 8 × 7 = 56
+
+Premier semestre
+Leçon 1: La factorisation en extrayant le plus grand commun diviseur
+35

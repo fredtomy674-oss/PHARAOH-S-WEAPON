@@ -1,0 +1,41 @@
+Evaluation Questions on Lesson Three
+
+1 Mark (✓) or (X) next to each of the following statements that describe Earth's gravity :
+(1) A force that acts at a distance. ( )
+(2) It affects the masses of objects. ( )
+(3) It causes objects to fall towards Earth's center. ( )
+(4) Its intensity decreases with increasing the distance from Earth's center. ( )
+
+2 Choose the correct answer for the questions (1) to (3):
+(1) You have two objects, the mass of the first is 5 kg and the mass of the second is 20 kg. Which of the following describes the attraction forces between the two objects?
+(a) The force of attraction of the first object to the second is greater.
+(b) The force of attraction of the second object to the first is greater.
+(c) Both objects attract each other with the same force.
+(d) There is no attraction force between the two objects.
+(2) What is the force that causes a ball to fall from a high position to Earth's surface?
+(a) Gravity. (b) Magnetism.
+(c) Friction. (d) Collision.
+(3) An object weight is 600 N at the base of a high mountain. Which of the following could describe its mass and weight at the top of this mountain?
+Choices | Mass | Weight
+(a) | 60 kg | 600 N
+(b) | 6 kg | 600 N
+(c) | 60 kg | 598 N
+(d) | 6 kg | 598 N
+
+3 The graph below shows the relation between weight and mass for several different objects on the surfaces of two different planets:
+[Graph showing Planet (X) and Planet (Y)]
+Which planet has lower gravitational field ? Explain.
+
+4 Identify the similarity and the difference between gravitational force and magnetic force.
+
+5 Mention one difference between elasticity forces and gravitational forces.
+
+6 The following figure shows the orbit of a planet around the sun :
+[Diagram of orbit with points (1), (2), (3), (4)]
+At which point is the gravitational force between the sun and the planet is the weakest ? Explain the affecting factor.
+
+7 From the following figure :
+[Diagram of Moon and Earth]
+Explain the relation between Earth's gravitational pull on the moon and the moon's gravitational pull on Earth.
+
+54

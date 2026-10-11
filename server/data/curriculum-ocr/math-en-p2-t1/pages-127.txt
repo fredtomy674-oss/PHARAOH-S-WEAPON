@@ -1,0 +1,22 @@
+Second Group
+▶ Answer the following questions:
+(1) If X = ]-4, 1], Y = [-2, 5[, find the following in the form of an interval using the number line:
+(1) X ∩ Y (2) X ∪ Y (3) Y - X
+(2) Simplify the expression (√3)^(2n+3) / ((√2)^(1-n) × (√6)^(n-1)) to its simplest form,
+then find the value of the result when n = 0
+(3) In the given figure:
+If the length of DE = 6 cm,
+find with proof the length of MN.
+(4) In the given figure:
+ABC is an equilateral triangle,
+AC ∩ ED = {F}, CF = CD
+Find with proof the value of x.
+(5) Factorize each of the following:
+(1) 4x² - 25 (2) b³ - 8 (3) 4x² + 14x - 30
+(6) Express the area of the coloured part in the given figure as
+a product of two factors.
+(7) Find the arithmetic mean of the following frequency distribution:
+Intervals 5- 15- 25- 35- Total
+Frequency 6 8 k 2 20
+
+122 Final Assessment Mathematics - Second Preparatory

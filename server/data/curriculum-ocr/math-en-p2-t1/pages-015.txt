@@ -1,0 +1,78 @@
+■ Note that
+The interval ] − ∞ , ∞ [
+represents the set of real
+numbers R ,
+∞ ∉ R and − ∞ ∉ R
+
+■ History of mathematics
+English scientist
+John Wallis
+was the first
+to use the
+symbol (∞).
+
+■ Note that
+• R = R+ ∪ {0} ∪ R−
+where :
+R+ is the set of positive
+real numbers,
+R− is the set of negative
+real numbers.
+• The set of non-negative
+real numbers = R+ ∪ {0}
+• The set of non-positive
+real numbers = R− ∪ {0}
+
+■ Self-Evaluation 2
+Write in the form of an
+interval and represent on
+the number line:
+1 The set of negative real
+numbers R−
+2 The set of non-negative
+real numbers
+3 {X : X ∈ R+, X < 3}
+
+Second The unbounded intervals
+• The set of real numbers extends along the number line in the positive
+direction to infinity (∞) and extends in the negative direction to infinity
+(− ∞)
+• The symbols ∞ and − ∞ are used to express the unbounded sets as
+follows: If a ∈ R, then:
+
+The set of real numbers greater
+than or equal to a
+{X : X ∈ R , X ≥ a} = [ a , ∞ [
+(arrow diagram)
+a
+
+The set of real numbers less
+than or equal to a
+{X : X ∈ R , X ≤ a} = ] − ∞ , a ]
+(arrow diagram)
+a
+
+The set of real numbers greater
+than a
+{X : X ∈ R , X > a} = ] a , ∞ [
+(arrow diagram)
+a
+
+The set of real numbers less
+than a
+{X : X ∈ R , X < a} = ] − ∞ , a [
+(arrow diagram)
+a
+
+Example 2
+Write each of the following sets as an interval and represent it on the
+number line:
+1 The set of positive real numbers 2 The set of non-positive real numbers
+3 {X : X ∈ R , X ≥ − 2} 4 {X : X ∈ R , X < 1}
+
+1 ] 0 , ∞ [ (arrow diagram) 0
+2 ] − ∞ , 0 ] (arrow diagram) 0
+3 [ − 2 , ∞ [ (arrow diagram) − 2
+4 ] − ∞ , 1 [ (arrow diagram) 1
+
+10 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

@@ -1,0 +1,51 @@
+■ Self-Evaluation (1)
+In the following figure :
+Find the value of X.
+
+■ Discuss the proof
+of theorem (3-2)
+By drawing a straight line
+from the point A parallel to
+DE and BC, and noticing
+that AD = DB and by using
+theorem (3-1), you can prove
+theorem (3-2).
+Discuss this.
+
+■ Note that
+There are three midsegments
+in any triangle.
+DE, DF, FE are the
+midsegments of the
+triangle ABC
+
+Example 1
+In the given figure:
+l1 // l2 // l3 // l4
+The straight lines t1, t2 are
+two transversals.
+Find the value of each of X and y.
+
+l1 // l2 // l3 // l4, AB = BC = CD
+∴ 4X = 8
+y + 1 = 8
+∴ X = 8/4 = 2
+∴ y = 8 - 1 = 7
+
+Theorem 3-2
+The ray drawn from the midpoint of a side of a triangle parallel to one
+of the other two sides bisects the third side.
+If D is the midpoint of AB, DE // BC,
+then E is the midpoint of AC,
+i.e. AE = EC
+
+The midsegment of a triangle
+The midsegment of a triangle is the line segment drawn between
+the midpoints of two sides of the triangle.
+If D is the midpoint of AB,
+E is the midpoint of AC,
+then DE is a midsegment of Δ ABC.
+
+First Term
+Lesson Three: Applications of Parallelism
+79

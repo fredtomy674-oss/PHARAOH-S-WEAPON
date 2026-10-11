@@ -1,0 +1,29 @@
+According to the two activities (1) and (2), it is clear that :
+- The periodic table reflects the electron configuration and properties of atoms.
+- The location of an element in the periodic table is determined by the number of occupied energy levels in its atom (period number) and the number of electrons in its last energy level (group number).
+- The electron distribution of most metals ends with 1, 2 or 3 electrons, while the electron distribution of most nonmetals ends with 5, 6 or 7 electrons.
+- Metalloids cannot be identified by the number of electrons in their outermost energy levels.
+- Elements in the same group have similar chemical properties, and the chemical activity increases in alkali metals group and alkaline earth metals group with increasing the atomic number. The chemical activity of alkaline earth metals is less than that of the alkali metals which are highly active, while the chemical activity in the halogens group decreases with increasing the atomic number.
+
+Valency of the element
+The electrons in the last energy level are called “valence electrons” and are represented by dots around the element’s symbol on four sides individually first, then they are paired up until they are distributed completely, this is known as Lewis structure (Table 2).
+
+| Group number | 1A | 2A | 3A | 4A | 5A | 6A | 7A | 0 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Element | Li | Be | B | C | N | O | F | Ne |
+| Valency | Monovalent | Divalent | Trivalent | Tetravalent | Trivalent | Divalent | Monovalent | Zero |
+
+Table (2)
+The valency of an element can be concluded from the number of the unpaired electrons in its Lewis structure. It is noted from (Table 2) that the valency of elements in groups (1A to 4A) equals the group number, while the valency of elements in groups 5A to group 0 equals (8 minus the number of electrons in the last energy level).
+
+Evaluate Your Understanding
+(Figures 3 and 4) illustrate the electron distribution of the atoms of two elements (X) and (Y). Determine the valency and the location of each of them in the periodic table.
+• Element (X) : ......................................................
+......................................................
+• Element (Y) : ......................................................
+......................................................
+
+Figure (3)
+Figure (4)
+
+LESSON TWO : The Periodic Table of elements 15

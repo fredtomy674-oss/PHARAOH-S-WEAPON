@@ -1,0 +1,32 @@
+Lesson 2
+
+Advanced Cyber Threats
+
+Objectives:
+
+By the end of the lesson, I will be able to:
+- Explain advanced fraudulent threats.
+- Mention several ideas for countering advanced cyber threats.
+- Propose a plan to counter distributed denial-of-service attacks.
+
+After the lesson, check the correct box:
+I can...
+☐ Very good  ☐ Ok  ☐ Need more work
+☐ Very good  ☐ Ok  ☐ Need more work
+☐ Very good  ☐ Ok  ☐ Need more work
+
+Engage:
+What do you know about the concept of social engineering in the online world?
+
+Learn:
+Dear student... In recent years, we've studied how to protect personal data. We've talked about how to choose your passwords and the need to update your antivirus software to prevent hackers from stealing your personal data. In this lesson, we'll discuss one of the advanced methods hackers use to steal your data.
+
+Advanced Cyber Threats:
+Imagine that there are highly skilled thieves, known as hackers, who use sophisticated methods to harm us or steal our information. These methods are called advanced cyber threats, just like these professional thieves. These advanced cyber threats are not limited to simple viruses; they are carefully planned attacks that exploit specific vulnerabilities, whether in the systems or devices used, or even in our behavior as users.
+
+Example: A thief trying to break into your home will not only try to break down the front door, but will also monitor your home to determine when you leave, try to enter through the back window, or even pretend to be a repairman. This is what hackers attempt in the digital world. In previous years, various hacking methods, such as ransom ware, have been discussed.
+
+Types of Ransom ware and How It Works:
+Imagine someone has broken into your home, locked you out, and told you that you can't unlock it unless you pay them a sum of money. That's what ransom ware does!
+
+22

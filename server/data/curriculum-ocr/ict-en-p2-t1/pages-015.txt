@@ -1,0 +1,30 @@
+14. What is the main difference between IoT and AI?
+a) AI connects to the internet, while IoT analyzes data.
+b) IoT builds robots, while AI repairs them.
+c) IoT connects to the internet, while AI analyzes data.
+d) There is no difference between them.
+
+15. Why are robots considered an important part of intelligent systems?
+a) Because they completely replace humans.
+b) Because they perform mechanical or motor tasks based on AI decisions.
+c) Because they operate without an internet connection.
+d) Because they only analyze data.
+
+16. How can intelligent systems help fight melting ice?
+a) By increasing temperature.
+b) By melting the ice more quickly.
+c) By ignoring the problem.
+d) By monitoring the melting rate and proposing solutions.
+
+17. What is the potential drawback of fully relying on IoT for smart systems?
+a) Reducing the efficiency of devices.
+b) Increasing internet speed.
+c) Inability to make decisions without AI.
+d) No need for robots.
+
+18. How can AI improve the efficiency of self-driving cars?
+a) By increasing fuel consumption.
+b) By analyzing traffic and making safe decisions.
+c) By stopping the car suddenly.
+
+15

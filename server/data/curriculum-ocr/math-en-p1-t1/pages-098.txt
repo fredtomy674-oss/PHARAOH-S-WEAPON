@@ -1,0 +1,92 @@
+- Self-Evaluation (1)
+
+Find the value of $X$.
+
+Example 1
+
+Find the value of $X$ in each of the following figures:
+
+1
+D
+$115^\circ$
+$C$
+$125^\circ$
+$x^\circ$
+$(x-5)^\circ$
+A
+B
+
+2
+F
+$30^\circ$
+D
+C
+$E$
+$4x^\circ$
+$5x^\circ$
+$3x^\circ$
+B
+A
+
+1 $X + X - 5^\circ + 115^\circ + 125^\circ = 360^\circ$
+$2X + 235^\circ = 360^\circ$
+$2X = 360^\circ - 235^\circ$
+$2X = 125^\circ$
+$X = \frac{125^\circ}{2} = 62.5^\circ$
+
+2 In the triangle CEF:
+$\mathrm{m}(\angle ECF) = 180^\circ - 120^\circ = 60^\circ$
+$\mathrm{m}(\angle BCD) = \mathrm{m}(\angle ECF) = 60^\circ$
+(Vertically opposite angles)
+In the quadrilateral ABCD:
+$4X + 3X + 5X + 60^\circ = 360^\circ$
+$12X = 360^\circ - 60^\circ = 300^\circ$
+$X = \frac{300^\circ}{12} = 25^\circ$
+
+The special quadrilaterals
+
+1 Trapezium
+It is a quadrilateral that has only two parallel sides.
+
+Trapezium
+Right Trapezium
+Isosceles Trapezium
+
+- Self-Evaluation (2)
+
+$ABCD$ is a trapezium
+$\mathrm{m}(\angle A) = \mathrm{m}(\angle B)$
+D
+C
+$(3x-35)^\circ$
+$2x^\circ$
+A
+B
+
+Find: $\mathrm{m}(\angle D)$
+
+Example 2
+
+In the opposite figure: $ABCD$ is a trapezium
+Find with proof: $\mathrm{m}(\angle D)$
+
+D
+C
+$112^\circ$
+$3x^\circ$
+$4x^\circ$
+A
+B
+
+$\because \overline{AB} \parallel \overline{DC}$, $\overleftrightarrow{BC}$ is a transversal.
+$\therefore \mathrm{m}(\angle B) + \mathrm{m}(\angle C) = 180^\circ$ (Interior angles on the same side of the transversal)
+$\therefore 4X + 112^\circ = 180^\circ$
+$\therefore 4X = 68^\circ$
+$\therefore X = 17^\circ$
+$\therefore \mathrm{m}(\angle A) = 3X = 3 \times 17^\circ = 51^\circ$
+$\therefore \mathrm{m}(\angle D) = 360^\circ - (112^\circ + 68^\circ + 51^\circ) = 129^\circ$
+
+First Term
+Lesson Four: Quadrilaterals
+El Nemer Press
+91

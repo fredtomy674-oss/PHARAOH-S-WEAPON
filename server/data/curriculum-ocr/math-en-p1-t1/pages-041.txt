@@ -1,0 +1,80 @@
+■ Note that
+• An algebraic term must contain at least one variable.
+• An algebraic term is a mathematical algebraic expression that does not involve addition (+) or subtraction (-).
+
+■ Note that
+The terms that do not contain any variables, and contain numbers only are called constant terms and they are like terms, such as:
+2, - 3/5, 1, ... etc.
+
+■ Self-Evaluation ②
+Group the like terms:
+4X, 5y, 2xy,
+- 3X, - 5xy, 8y,
+6X²
+
+■ Self-Evaluation ③
+DE C
+x
+F
+A
+3x
+B
+The figure shows a rectangular piece of paper from which a square is cut off. Write the mathematical expression representing the length of EC.
+
+Algebraic Terms
+• Algebraic Term:
+An algebraic term is the product (or quotient) of a non-zero number and at least one variable. The number is called the coefficient of the algebraic term.
+
+Examples:
+Algebraic Term
+3 a
+Coefficient Variable
+
+Algebraic Term
+- 2xy
+Coefficient Variable Variable
+
+Algebraic Term
+1/4 m
+Coefficient Variable
+
+• Like Algebraic Terms:
+They are terms with the same variables and raised to the same powers even though their coefficients are different.
+• - 3X² and 4X² are like terms.
+• 4y and 1/2 y² are unlike terms because the variable y in both terms is raised to a different power.
+• 2n²m and 2nm² are unlike terms because the variables m and n in both terms are raised to different powers.
+
+Example 2
+Identify the like terms (if exist) in each of the following groups:
+1 2X, 5y, 3X
+3 5y, 3xy, - 2yx, 3X
+2 a², -a, 3a³, 5
+4 4X, 5y, - 3X, 2y
+
+1 2X and 3X are like terms.
+2 There are no like terms.
+3 3xy and - 2yx are like terms.
+4 4X and - 3X are like terms,
+5y and 2y are like terms.
+
+Addition of Like Algebraic Terms
+Example 3
+Find the mathematical expression representing the perimeter of the opposite triangle, and then determine its numerical value at: X = 1
+
+The perimeter of the triangle can be represented by the mathematical expression:
+4X + 3X + 5X = (4 + 3 + 5) X = 12X
+The numerical value of the triangle's perimeter at X = 1 is 12 x 1 = 12
+
+Note that
+xy = yx
+
+5x
+3x
+4x
+
+■ Remember
+The perimeter of a triangle is the sum of the lengths of its sides.
+
+34
+Unit Two: Algebra
+Mathematics - First Preparatory

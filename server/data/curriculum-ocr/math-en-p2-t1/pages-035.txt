@@ -1,0 +1,26 @@
+(12) Simplify each of the following to its simplest form:
+(1) (√6)^(n+2) × (√3)^n / 4 × (√2)^(n-2) , then find the value of the result when n = 1
+(2) 10^-n × 0.01 / 10^-n-6 × 10^n , then find the value of the result when n = 3
+(13) If X = √2 , Y = √6 , what is the value of y^6 x^-4 / x^2 ?
+(14) If X = 2√3 , Y = 3√2 , find the numerical value of the expression (x^2 - y^2)^-1
+(15) If 2^x = 5, find the value of each of the following:
+(1) 2^x+1 (2) 2^1-x (3) 2^x+2 + 2^x+3
+(16) If X = √5 , Y = 5 , find the value of x^-10 y^10
+
+Third Analysis and Subjects Integration
+(17) Geography: If you know that the area of the Sinai Peninsula is approximately 6% of the area of the Arab Republic of Egypt, which is approximately 10^6 km², what is the approximate area of the Sinai Peninsula in square kilometers?
+Sinai, the land of turquoise, and the cities of the canal are witnessing a real boom and achievements in all sectors of development, which is a source of pride.
+Safety and security instructions must be followed in the workplace to ensure the safety of individuals.
+(18) Carpentry: A carpenter made a wooden box in the shape of a cuboid with a square base of side length 2√7 feet, and a height of 3√7 feet. What is the volume of the box?
+
+Creative Thinking
+(19) Which of the following expresses the arithmetic mean of the two numbers 2^x+1 and 2^x where x ∈ Z ?
+(a) 2
+(b) 2^2x+1
+(c) 2^x-1 + 2^x
+(d) 2^x+1 + 2^x
+
+Evaluate your understanding!
+How well do you understand laws of exponents in real numbers? Tick the right box
+
+30 Unit One: Numbers and Their Operations Mathematics - Second Preparatory

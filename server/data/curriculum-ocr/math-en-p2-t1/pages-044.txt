@@ -1,0 +1,36 @@
+Lesson
+2 - 2
+
+Factorizing Trinomial
+
+■ Learning Outcomes
+• Factorize the trinomial in the form: X² + bX + c
+• Factorize the trinomial in the form: aX² + bX + c (where a ≠ ± 1).
+• Use factorization to solve quadratic equations.
+• Use factorization to solve real-life problems.
+
+Get Ready!
+With the tremendous development in the smartphone industry, Global companies are competing to design screens with precise dimensions that provide ease of use and display quality.
+To design a new smartphone, designers decided that the phone screen should be a rectangle, with the length of the screen 7 cm longer than its width, and the total area of the screen 120 cm². What are the length and width of the screen?
+In this lesson, you will learn how to factorize trinomial, then use factorization to solve quadratic equations, which will enable you to solve such problems.
+
+■ Vocabulary
+• Factorizing
+• Trinomial
+• Quadratic equation
+
+Think & Discuss!
+Omar plans to build a rectangular swimming pool with a floor area of 40 m² and a perimeter of 26 m.
+Can you find the dimensions of the floor of this swimming pool?
+▶ Think about finding two numbers whose product is 40 and whose sum is 13 (half the perimeter of the floor of the swimming pool).
+
+Learn!
+First Factorizing the trinomial in the form X² + bX + c
+When you multiply the binomials (X + 2) and (X + 3), you will find that the result is a trinomial as follows: (X + 2) (X + 3) = X² + 5 X + 6.
+Note that:
+• The last term, 6, in the trinomial is the product of the last two terms in the binomials 2, 3.
+• The coefficient of the middle term, 5, in the trinomial is the sum of the last two terms in the binomials 2, 3.
+
+First Term
+Lesson Two: Factorizing Trinomial
+39

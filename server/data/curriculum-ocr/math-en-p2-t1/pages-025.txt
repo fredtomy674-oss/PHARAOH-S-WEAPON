@@ -1,0 +1,83 @@
+Lesson
+1 - 4
+
+Laws of Square and
+Cube Roots
+
+■ Learning Outcomes
+• Learn the laws of
+multiplication and division
+of square roots.
+• Learn the laws of
+multiplication and division
+of cube roots.
+• Use the laws of square
+and cube roots to simplify
+numbers.
+• Use the laws of roots to
+solve real-life problems.
+
+Get Ready!
+As a part of a school project,
+Osama and his classmates
+decided to create a small seedbed
+inside the school. It consists of
+two adjoining squares.
+• The first square is for growing
+ornamental seedlings and has
+an area of 48 $m^2$.
+• The second square is for growing
+aromatic plants and has an
+area of 12 $m^2$.
+Osama and his friends wanted to build a fence around the entire seedbed
+to protect it. How long is this fence?
+In this lesson, you will learn the laws of roots, which will enable you to
+solve such real-life problems.
+
+■ Vocabulary
+• Square root
+• Cube root
+
+Think & Discuss!
+In a game where you choose two cards with
+two equal numbers, Sarah and Amal each
+chose a yellow card and a green card.
+• Sarah chose cards A, C.
+• Amal chose cards B, C.
+Which one chose two equal numbers?
+Why?
+
+■ Critical Thinking
+• If a, b are two non-negative
+real numbers:
+Is: $\sqrt{a} + \sqrt{b} = \sqrt{a+b}$?
+Is: $\sqrt{a} - \sqrt{b} = \sqrt{a-b}$?
+• If a, b are two real numbers:
+Is: $\sqrt[3]{a} + \sqrt[3]{b} = \sqrt[3]{a+b}$?
+Is: $\sqrt[3]{a} - \sqrt[3]{b} = \sqrt[3]{a-b}$?
+
+Learn!
+
+Multiplication and division of roots
+Square roots
+If a, b are two non-negative real
+numbers, then:
+$\sqrt{a} \times \sqrt{b} = \sqrt{a \times b}$
+Example:
+$\sqrt{2} \times \sqrt{8} = \sqrt{2 \times 8} = \sqrt{16} = 4$
+$\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}}$ where $b \neq 0$
+Example:
+$\frac{\sqrt{6}}{\sqrt{2}} = \sqrt{\frac{6}{2}} = \sqrt{3}$
+
+Cube roots
+If a, b are two real numbers, then:
+$\sqrt[3]{a} \times \sqrt[3]{b} = \sqrt[3]{a \times b}$
+Example:
+$\sqrt[3]{3} \times \sqrt[3]{-4} = \sqrt[3]{3 \times (-4)} = \sqrt[3]{-12}$
+$\frac{\sqrt[3]{a}}{\sqrt[3]{b}} = \sqrt[3]{\frac{a}{b}}$ where $b \neq 0$
+Example:
+$\frac{\sqrt[3]{16}}{\sqrt[3]{2}} = \sqrt[3]{\frac{16}{2}} = \sqrt[3]{8} = 2$
+
+20
+Unit One: Numbers and Their Operations
+Mathematics - Second Preparatory

@@ -1,0 +1,35 @@
+Particle theory of matter
+
+Scientists always try to explain different natural phenomena by making assumptions in an attempt to understand how things work. When these assumptions succeed in explaining many phenomena, they become a scientific theory.
+One of the theories that has succeeded in explaining much of the behavior and properties of matter is the particle theory of matter.
+
+Assumptions of the particle theory of matter
+
+1 All matter is made up of particles which are so tiny that they cannot be seen with naked eye.
+2 Particles of the same substance are identical, and their types differ from one substance to another.
+3 There are attraction forces between the particles of a substance, and the particles store potential energy due to these forces of attraction between them.
+4 There are interparticle spaces between the particles of a substance that vary depending on its physical state.
+5 The particles of a substance have kinetic energy, whereas they are in a state of continuous motion in straight lines, and the way the particles move and their speed differ depending on the state of the matter.
+
+Explanation of the Properties of the States of Matter
+
+The properties of the states of matter differ according to the forces of attraction between the particles (Figure 8).
+
+In the solid state, the forces of attraction between particles are very strong, so that they are tightly bound together, and the interparticle spaces are very small. The particles cannot move from their position, but they vibrate in their fixed position without moving to another position, causing the solid matter to have fixed shape and volume.
+
+Solid
+Liquid
+Gas
+Figure (8)
+
+In liquids, the forces of attraction between particles are relatively weak, which allows them to move more freely, but they are sufficient to hold them together, and the interparticle spaces are relatively greater, which explains the ability of the liquid to flow and take the shape of the container.
+
+Figure (9)
+
+In gases, however, the forces of attraction between particles are very weak, so gas particles move randomly and completely freely.
+
+When relatively large particles are present in fluids, such as dust in air or pollen grains in water, collisions occur between the molecules of the fluid and these particles, making these particles move randomly in all directions. This is known as Brownian motion (Figure 9), named after the scientist Brown who discovered this phenomenon. This explains the ability of gas to diffuse and take the shape and the volume of the container.
+
+Gas is characterised by the compressibility, as the large interparticle spaces between gas particles allow the volume of the gas to be reduced by increasing the pressure exerted on it, without changing the size of the particles themselves.
+
+6 Unit One : MATTER AND ENERGY

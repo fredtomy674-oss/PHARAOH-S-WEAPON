@@ -1,0 +1,60 @@
+■ Auto-évaluation 1
+Le tableau des effectifs suivant indique les longueurs d'un échantillon de plantes dans une pépinière.
+Intervalles (mm) Effectif
+300 – 3
+320 – 18
+340 – 47
+360 – 32
+380 – 14
+400 – 6
+Estime la moyenne arithmétique des longueurs des plantes.
+■ Remarque que
+Les longueurs des intervalles sont égales.
+Dans l'exemple (1) la longueur de chaque intervalle = 10
+∴ Le premier intervalle (80 – 90)
+∴ Le centre du premier intervalle = 80 + 90 / 2 = 85
+∴ Le deuxième intervalle (90 – 100)
+∴ Le centre du deuxième intervalle = 90 + 100 / 2 = 95
+Et ainsi de suite....
+∴ Le dernier intervalle (120 – 130)
+∴ Le centre du dernier intervalle = 120 + 130 / 2 = 125
+Puis on dresse le tableau ci-contre.
+■ Auto-évaluation 2
+Le nombre de patients consultant dans l'une des cliniques dans l'un des hôpitaux pendant plusieurs jours a été enregistré comme suit:
+Nombre de patients Effectif
+10 – 16
+20 – 15
+30 – m
+40 – 10
+50 – 3
+60 – 2
+Si la moyenne du nombre de patients par jour est de 30 patients, trouve la valeur de m.
+
+Exemple 1
+En mesurant la vitesse des voitures circulant sur l'une des autoroutes, la direction de la circulation a relevé les données suivantes après avoir observé la vitesse de 100 voitures au cours d'une journée.
+Vitesse (km/h) Effectif
+80 – 13
+90 – 17
+100 – 24
+110 – 32
+120 – 14
+Estime la moyenne arithmétique des vitesses des voitures circulant ce jour-là.
+Intervalles Effectif (f) Centres des intervalles (Xm) f.Xm
+80 – 13 85 1105
+90 – 17 95 1615
+100 – 24 105 2520
+110 – 32 115 3680
+120 – 14 125 1750
+Total 100 10670
+X = Σ (f.Xm) / Σf = 10670 / 100 = 106,7
+∴ La moyenne arithmétique des vitesses des voitures circulant = 106,7 km/h
+Exemple 2
+Le tableau ci-contre montre le nombre de points marqués par une équipe de la Premier League lors des matchs de basket-ball.
+Si la moyenne des points de l'équipe est de 90 points, trouve la valeur de k.
+Nombre de points Effectif
+60 – 1
+70 – 5
+80 – k
+90 – 10
+100 – 6
+Premier semestre Leçon 2: Les mesures de la tendance centrale du tableau des données par intervalles 113

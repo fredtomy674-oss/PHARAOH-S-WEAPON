@@ -1,0 +1,71 @@
+• The diagonals drawn from one of the vertices of a polygon divide the
+polygon into a number of triangles = (n – 2) triangles.
+• The sum of the measures of the interior angles of each triangle = 180°.
+• The sum of the measures of the interior angles of the polygon
+= 180° × number of triangles
+= (n – 2) × 180°
+
+■ Self-Evaluation (1)
+What is the number of
+sides of the convex polygon
+whose sum of measures of
+its interior angles is 1260°?
+
+Example 1
+In each of the following, find the number of sides of the convex
+polygon whose sum of measures of its interior angles is:
+1 720°
+2 1440°
+1 (n – 2) × 180° = 720°
+∴ n – 2 = 720° / 180° = 4
+∴ n = 4 + 2 = 6 sides
+2 (n – 2) × 180° = 1440°
+∴ n – 2 = 1440° / 180° = 8
+∴ n = 8 + 2 = 10 sides
+
+■ Self-Evaluation (2)
+In the following figure:
+A dining table has
+a surface in the shape
+of a parallelogram.
+B C
+2a° a°
+A 2a° D
+a°
+Find: m (∠ D)
+
+Example 2
+Carpentry: A carpenter wants to make
+a wooden locker to be fit properly in one
+corner of a rectangular room. If the carpenter
+makes the locker with the angles shown in
+the figure, does it fit properly or not?
+For the locker to be fit properly,
+m (∠ A) must be 90°
+► Calculate the sum of the measures of the interior angles
+of the pentagon as follows:
+(n – 2) × 180° = (5 – 2) × 180° = 540°
+∴ m (∠ A) + 100° + 125° + 125° + 100° = 540°
+∴ m (∠ A) = 540° – 450° = 90°
+∴ The locker fits properly the corners of the room.
+
+■ Note that
+For any convex polygon,
+there are two exterior
+angles at each vertex, as
+shown in the figure.
+2
+1
+These two angles are
+vertically opposite angles, so
+they are equal in measure.
+
+The sum of the measures of the exterior
+angles of a convex polygon
+Rule
+The sum of the measures of the exterior angles of a convex polygon
+(one angle at each vertex) is equal to 360°.
+In the given figure:
+m (∠ 1) + m (∠ 2) + m (∠ 3) + m (∠ 4) = 360°
+
+98 Unit Three: Geometry Mathematics - Second Preparatory
