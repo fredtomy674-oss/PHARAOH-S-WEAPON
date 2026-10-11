@@ -351,29 +351,9 @@ export class TutorEngine {
       if (focusIndex >= 0) focusConcept = conceptChain[focusIndex]!.title;
     }
 
-    // 5d) PHASE 93/adaptive — «المحرك يقرّر»: choose exactly one typed teaching
-    // action from the evidence already known *before* the model is called. This
-    // is deterministic and model-free; the model is told to perform this action,
-    // it does not choose the pedagogy itself. Fields we cannot derive with real
-    // evidence stay null/false on purpose (never guess mastery).
-    const teachingAction: TeachingAction = decideTeachingAction({
-      intent: intent.intent,
-      isAnswerTurn,
-      // No persisted per-answer verdict is wired yet: evaluate truthfully as
-      // "unverified" rather than pretend the last answer was right or wrong.
-      lastAnswerCorrect: null,
-      studentConfused: intent.confused === true,
-      // A lesson with prior turns has already been taught into at this session.
-      alreadyExplained: history.length > 0,
-      numericOrdering: looksLikeNumericOrdering(input.question),
-      hasBookPages: (input.lessonPages?.length ?? 0) > 0,
-      hasInk: input.ink !== undefined,
-      hasAttachment: (input.images?.length ?? 0) > 0 || hasDocument,
-      questionEmpty: input.question.trim().length === 0,
-      prerequisite,
-      nextConcept,
-      concept: focusConcept,
-    });
+
+
+
 
     // PHASE 48 — the page the student has open. Its OCR text is the *same*
     // corpus the retriever draws from, so "the tutor sees the page" costs no
@@ -447,6 +427,43 @@ export class TutorEngine {
             line: lastLine,
           }
         : undefined;
+
+    // 5d) PHASE 96 — evaluate the student's answer against real evidence when
+    //     possible (number-line verification). Keep `null` in all other cases
+    //     — never guess mastery. This makes `celebrate_progress`/`hint`/`review_prerequisite`
+    //     fire for real number-line answers instead of always falling through.
+    let lastAnswerCorrect: boolean | null = null;
+    if (isAnswerTurn && input.widget !== undefined && lastLine && lastLine.answer !== undefined) {
+      const snapped = snapToStep(input.widget.value, lastLine.from, lastLine.step);
+      // Floating point: compare with a small epsilon (same as the room's rounding).
+      if (Math.abs(snapped - lastLine.answer) <= 1e-9) {
+        lastAnswerCorrect = true;
+      } else {
+        lastAnswerCorrect = false;
+      }
+    }
+
+    // 5d bis) PHASE 93/adaptive — «المحرك يقرّر»: choose exactly one typed teaching
+    // action from the evidence already known *before* the model is called. This
+    // is deterministic and model-free; the model is told to perform this action,
+    // it does not choose the pedagogy itself. Fields we cannot derive with real
+    // evidence stay null/false on purpose (never guess mastery).
+    const teachingAction: TeachingAction = decideTeachingAction({
+      intent: intent.intent,
+      isAnswerTurn,
+      lastAnswerCorrect,
+      studentConfused: intent.confused === true,
+      // A lesson with prior turns has already been taught into at this session.
+      alreadyExplained: history.length > 0,
+      numericOrdering: looksLikeNumericOrdering(input.question),
+      hasBookPages: (input.lessonPages?.length ?? 0) > 0,
+      hasInk: input.ink !== undefined,
+      hasAttachment: (input.images?.length ?? 0) > 0 || hasDocument,
+      questionEmpty: input.question.trim().length === 0,
+      prerequisite,
+      nextConcept,
+      concept: focusConcept,
+    });
 
     // 6) Build prompt & call provider.
     const lessonContext = {
