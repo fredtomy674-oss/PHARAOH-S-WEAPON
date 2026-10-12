@@ -77,6 +77,12 @@ import {
   assertTreeMatchesTheBook as assertArabicStoryG10TreeMatchesBook,
 } from "./egyptArabicStoryG10T1.js";
 import {
+  EGYPT_INTEGRATED_SCIENCE_G10_T1_UNITS,
+  lessonDocument as integratedScienceG10LessonDocument,
+  isConsistent as isIntegratedScienceG10TreeConsistent,
+  assertTreeMatchesTheBook as assertIntegratedScienceG10TreeMatchesBook,
+} from "./egyptIntegratedScienceG10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2204,6 +2210,62 @@ function verifyArabicStoryG10Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Integrated Science** — OFFICIAL curriculum (PHASE 107).
+ *
+ * The first term IS the Ministry textbook (`العلوم المتكاملة – الصف الأول الثانوي`,
+ * 114 scan pages, Gemini OCR): the two وحدة of its printed index and the pages they
+ * occupy (book pages 3–108). The book proves its own mapping with the printed folio
+ * glued to the running foot «العلوم المتكاملة – الصف الأول الثانوي», so a book page N
+ * is scan page N + 5 (`BOOK_TO_PDF_OFFSET = 5`). A lesson is each printed درس — its
+ * printed head and the «نشاط / تدريبات» pages it owns. Each lesson's `concepts` are
+ * the book's own printed heads (نواتج التعلم، القضايا المتضمنة، the inner topic heads,
+ * «تدريبات»), verbatim in Arabic. The subject code `science` keeps the tutor in the
+ * science register and answers in Arabic.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed folios, the
+ * book-wide running foot on the pages the OCR left folio-less, the printed lesson
+ * heads, the exact-one-owner tiling and the coverage of every page of the term.
+ * Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_INTEGRATED_SCIENCE_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "science", name: "Science", nameAr: "العلوم المتكاملة" },
+  curriculum: { code: "eg-g10-integrated-science", title: "العلوم المتكاملة للصف الأول الثانوي" },
+  terms: [buildEgyptIntegratedScienceG10Term()],
+};
+
+/** Term 1 = the official book: printed وحدة → printed درس, as its document. */
+function buildEgyptIntegratedScienceG10Term(): TermSeedSpec {
+  const check = verifyIntegratedScienceG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم المتكاملة (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_INTEGRATED_SCIENCE_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-isci-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: integratedScienceG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Integrated Science tree verification, as one verdict. */
+function verifyIntegratedScienceG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isIntegratedScienceG10TreeConsistent();
+  const book = assertIntegratedScienceG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -3743,6 +3805,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_STORY_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_INTEGRATED_SCIENCE_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);

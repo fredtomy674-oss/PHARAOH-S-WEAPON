@@ -220,6 +220,13 @@ import {
   loadBookPage as loadArabicStoryG10Page,
 } from "../../db/egyptArabicStoryG10T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as INTEGRATED_SCIENCE_G10_OFFSET,
+  EGYPT_INTEGRATED_SCIENCE_G10_T1_BOOK_END,
+  allLessonRanges as integratedScienceG10LessonRanges,
+  allLessonExtras as integratedScienceG10LessonExtras,
+  loadBookPage as loadIntegratedScienceG10Page,
+} from "../../db/egyptIntegratedScienceG10T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G8_OFFSET,
   EGYPT_ARABIC_G8_T1_BOOK_END,
   allLessonRanges as arabicG8LessonRanges,
@@ -480,6 +487,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g10-french", prefix: "l-g10-fra-", offset: FRENCH_G10_OFFSET, bookEnd: EGYPT_FRENCH_G10_T1_BOOK_END, ranges: frenchG10LessonRanges(), loadPage: loadFrenchG10Page, extras: frenchG10LessonExtras() }),
   buildBook({ code: "eg-g9-arabic", prefix: "l-g9-ara-", offset: ARABIC_G9_OFFSET, bookEnd: EGYPT_ARABIC_G9_T1_BOOK_END, ranges: arabicG9LessonRanges(), loadPage: loadArabicG9Page, extras: arabicG9LessonExtras() }),
   buildBook({ code: "eg-g10-arabic-story", prefix: "l-g10-story-", offset: ARABIC_STORY_G10_OFFSET, bookEnd: EGYPT_ARABIC_STORY_G10_T1_BOOK_END, ranges: arabicStoryG10LessonRanges(), loadPage: loadArabicStoryG10Page, extras: arabicStoryG10LessonExtras() }),
+  buildBook({ code: "eg-g10-integrated-science", prefix: "l-g10-isci-", offset: INTEGRATED_SCIENCE_G10_OFFSET, bookEnd: EGYPT_INTEGRATED_SCIENCE_G10_T1_BOOK_END, ranges: integratedScienceG10LessonRanges(), loadPage: loadIntegratedScienceG10Page, extras: integratedScienceG10LessonExtras() }),
   buildBook({ code: "eg-g8-arabic", prefix: "l-g8-ara-", offset: ARABIC_G8_OFFSET, bookEnd: EGYPT_ARABIC_G8_T1_BOOK_END, ranges: arabicG8LessonRanges(), loadPage: loadArabicG8Page, extras: arabicG8LessonExtras() }),
   buildBook({ code: "eg-g7-arabic", prefix: "l-g7-ara-", offset: ARABIC_G7_OFFSET, bookEnd: EGYPT_ARABIC_P1_T1_BOOK_END, ranges: arabicP1LessonRanges(), loadPage: loadArabicP1Page, extras: arabicP1LessonExtras() }),
   buildBook({ code: "eg-g8-english", prefix: "l-g8-eng-", offset: ENGLISH_G8_OFFSET, bookEnd: EGYPT_ENGLISH_G8_T1_BOOK_END, ranges: englishG8LessonRanges(), loadPage: loadEnglishG8Page, extras: englishG8LessonExtras() }),
