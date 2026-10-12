@@ -287,6 +287,12 @@ import {
   assertTreeMatchesTheBook as assertEnglish2G10TreeMatchesBook,
 } from "./egyptEnglish2G10T1.js";
 import {
+  EGYPT_ITALIAN_G10_T1_SECTIONS,
+  lessonDocument as italianG10LessonDocument,
+  isConsistent as isItalianG10TreeConsistent,
+  assertTreeMatchesTheBook as assertItalianG10TreeMatchesBook,
+} from "./egyptItalianG10T1.js";
+import {
   EGYPT_ENGLISH_G8_T1_SECTIONS,
   lessonDocument as englishG8LessonDocument,
   isConsistent as isEnglishG8TreeConsistent,
@@ -1358,6 +1364,67 @@ function buildEgyptEnglish2G10Term(): TermSeedSpec {
 function verifyEnglish2G10Tree(): { ok: boolean; problems: string[] } {
   const table = isEnglish2G10TreeConsistent();
   const book = assertEnglish2G10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Secondary-1 (Grade 10) **Italian** — OFFICIAL curriculum (PHASE 102).
+ *
+ * The first term IS the Ministry textbook (`Progetto italiano Junior 1 Plus`,
+ * the combined «libro di classe & quaderno degli esercizi» volume, 112 scan
+ * pages, text-layer extracted): the six Unità of its printed «Indice» and the
+ * pages they occupy (book pages 7–46). The book prints its own page number on
+ * every content page, so the offset is zero (book page = scan page). The app
+ * lesson is the book's printed **lesson** (a unit's «Per cominciare...» opener
+ * rides with its first lesson); the culture+review block that closes Unità 2, 4
+ * and 6 is one extra lesson. The book prints no per-lesson objectives — its
+ * «Elementi comunicativi e lessicali» / «Elementi grammaticali» sit in the Indice
+ * beside each lesson letter — so every lesson's `concepts` are those lines,
+ * verbatim, in the student's own Contents. The subject code `italian` is what
+ * makes the tutor answer in Italian.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed page
+ * numbers, the printed lesson heads, the culture anchors, the exact-one-owner
+ * tiling and the coverage of every page of the term. Seeding refuses to run on an
+ * unverified table.
+ */
+export const EGYPT_ITALIAN_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "italian", name: "Italian", nameAr: "اللغة الإيطالية" },
+  curriculum: { code: "eg-g10-italian", title: "اللغة الإيطالية للصف الأول الثانوي" },
+  terms: [buildEgyptItalianG10Term()],
+};
+
+/** Term 1 = the official book: printed section → printed lesson, as its document. */
+function buildEgyptItalianG10Term(): TermSeedSpec {
+  const check = verifyItalianG10Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب الإيطالي (أولى ثانوي) غير متسقة:\n${check.problems.join("\n")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ITALIAN_G10_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-ita-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: italianG10LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Italian tree verification, as one verdict. */
+function verifyItalianG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isItalianG10TreeConsistent();
+  const book = assertItalianG10TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -3446,6 +3513,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH2_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ITALIAN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_P1_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
