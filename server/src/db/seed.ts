@@ -107,6 +107,12 @@ import {
   assertTreeMatchesTheBook as assertIctG10EnTreeMatchesBook,
 } from "./egyptIctG10EnT1.js";
 import {
+  EGYPT_FRENCH2_G10_T1_SECTIONS,
+  lessonDocument as french2G10LessonDocument,
+  isConsistent as isFrench2G10TreeConsistent,
+  assertTreeMatchesTheBook as assertFrench2G10TreeMatchesBook,
+} from "./egyptFrench2G10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2515,6 +2521,59 @@ function verifyIctG10EnTree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **second French** — OFFICIAL-curriculum slot (PHASE 112).
+ *
+ * The first term IS the method book `Club@dos plus 1` (Livre de l'élève, Difusión/Santillana;
+ * 126 pages, born-digital): its four unités — Le Club de ma classe / des artistes / des
+ * lecteurs / des athlètes — and the pages they occupy (book pages 6–69, including the two
+ * Aide-Mémoire). Book page = scan page − 1 (proven by the printed folios: scan 8 = «7sept»,
+ * scan 13 = «12 douze», scan 17 = «seize», scan 19 = «dix-huit»). The corpus duplicates one
+ * printed page (scans 9 and 10 are byte-identical), recorded as a documented equality rather
+ * than a silent mismatch. A lesson is each printed Leçon/rubric (Le coin de la grammaire, Le
+ * coin du lexique, A lire), and the unit opener rides with its first lesson; `concepts` are
+ * the book's own printed objectives/headings, verbatim in French.
+ *
+ * NOTE: the book prints no school grade on its cover or imprint; it is seeded as the G10
+ * second French curriculum by explicit user decision.
+ */
+export const EGYPT_FRENCH2_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  curriculum: { code: "eg-g10-french2", title: "Club@dos plus 1 للصف الأول الثانوي (فرنسية ثانية)" },
+  terms: [buildEgyptFrench2G10Term()],
+};
+
+/** Term 1 = the Club@dos method: printed unité → printed leçon/rubric, as its document. */
+function buildEgyptFrench2G10Term(): TermSeedSpec {
+  const check = verifyFrench2G10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب Club@dos plus 1 (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FRENCH2_G10_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-fra2-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: french2G10LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 French2 tree verification, as one verdict. */
+function verifyFrench2G10Tree(): { ok: boolean; problems: string[] } {
+  const table = isFrench2G10TreeConsistent();
+  const book = assertFrench2G10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4059,6 +4118,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_NAHW_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G10_EN_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FRENCH2_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
