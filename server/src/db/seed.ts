@@ -305,6 +305,12 @@ import {
   assertTreeMatchesTheBook as assertSpanishG10TreeMatchesBook,
 } from "./egyptSpanishG10T1.js";
 import {
+  EGYPT_FRENCH_G10_T1_SECTIONS,
+  lessonDocument as frenchG10LessonDocument,
+  isConsistent as isFrenchG10TreeConsistent,
+  assertTreeMatchesTheBook as assertFrenchG10TreeMatchesBook,
+} from "./egyptFrenchG10T1.js";
+import {
   EGYPT_ENGLISH_G8_T1_SECTIONS,
   lessonDocument as englishG8LessonDocument,
   isConsistent as isEnglishG8TreeConsistent,
@@ -1558,6 +1564,71 @@ function buildEgyptSpanishG10Term(): TermSeedSpec {
 function verifySpanishG10Tree(): { ok: boolean; problems: string[] } {
   const table = isSpanishG10TreeConsistent();
   const book = assertSpanishG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Secondary-1 (Grade 10) **French** — OFFICIAL curriculum (PHASE 105).
+ *
+ * The first term IS the Ministry textbook (`Nouveau Champion 1 – Méthode de
+ * français, Première année secondaire`, Clé International – DENH, 170 scan
+ * pages, Gemini OCR): the four Unités of its printed «Tableau des contenus»
+ * (book pages 5–6, scan 6–7) and the pages they occupy (book pages 8–157). The
+ * printed book page = scan page − 1 (`BOOK_TO_PDF_OFFSET = 1`), proven by the
+ * folios the contents print before the term begins. A lesson is each printed
+ * component of a Unité: the four «Leçons», the two-page «Point de culture», the
+ * «Projet final» page and its «Grille d'évaluation». Each «Leçon»'s `concepts`
+ * are its printed «À la fin de cette leçon, je serai capable de :» bullets,
+ * verbatim in French. The subject code `french` is what makes the tutor answer
+ * in French.
+ *
+ * Three printed double leaves are genuinely blank and separate the units (book
+ * pages 44–45, 82–83, 120–121): they belong to no lesson, and the strong check
+ * requires them to be empty and unowned while the 144 real content pages tile the
+ * term exactly with one owner each.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed page
+ * numbers, the printed lesson heads, the blank leaves, the exact-one-owner tiling
+ * and the coverage of every content page of the term. Seeding refuses to run on
+ * an unverified table.
+ */
+export const EGYPT_FRENCH_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  curriculum: { code: "eg-g10-french", title: "اللغة الفرنسية للصف الأول الثانوي" },
+  terms: [buildEgyptFrenchG10Term()],
+};
+
+/** Term 1 = the official book: printed Unité → printed lesson, as its document. */
+function buildEgyptFrenchG10Term(): TermSeedSpec {
+  const check = verifyFrenchG10Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب الفرنسي (أولى ثانوي) غير متسقة:\n${check.problems.join("\n")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FRENCH_G10_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-fra-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: frenchG10LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 French tree verification, as one verdict. */
+function verifyFrenchG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isFrenchG10TreeConsistent();
+  const book = assertFrenchG10TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -3649,6 +3720,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ITALIAN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_GERMAN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_SPANISH_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FRENCH_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_P1_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
