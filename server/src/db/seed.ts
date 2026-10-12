@@ -95,6 +95,12 @@ import {
   assertTreeMatchesTheBook as assertNahwG10TreeMatchesBook,
 } from "./egyptNahwG10T1.js";
 import {
+  EGYPT_ARABIC_G10_T1_UNITS,
+  lessonDocument as arabicG10LessonDocument,
+  isConsistent as isArabicG10TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicG10TreeMatchesBook,
+} from "./egyptArabicG10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2387,6 +2393,62 @@ function verifyNahwG10Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Arabic Language** — OFFICIAL curriculum (PHASE 110).
+ *
+ * The first term IS the Ministry textbook (`اللغة العربية – الصف الأول الثانوي`; 152 scan
+ * pages, Gemini OCR): its three وحدات — قيم عربية، التسامح والسلام، العلم والأخلاق — each
+ * holding three printed دروس (قراءة/شعر/نثر with their قواعد نحوية and لمحات), and the
+ * pages they occupy (book pages 1–79). The printed page → scan page map is a constant +6,
+ * proven by the folios (scan 30 = ٢٤، scan 50 = ٤٤، scan 85 = ٧٩) and by the index (المعجم
+ * اللغوي ٨١ = scan 87، المراجع ٨٥ = scan 91). Front matter = scans 1–6 (cover, مقدمة,
+ * المحتويات، تنبيه); back matter = scans 86–152 (تنبيه، ملحق المعجم اللغوي، المراجع، then the
+ * separate bound «كتاب الأنشطة والتدريبات» with its own numbering). A lesson is each printed
+ * درس; its `concepts` are the lesson's own printed heads (الدرس، القواعد النحوية، لمحة
+ * أدبية/بلاغية), verbatim in Arabic.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the mapping from the printed folios and running foot
+ * («اللغة العربية – الصف الأول الثانوي … أم القرى للطباعة»), the printed lesson heads, the
+ * exact-one-owner tiling and the coverage of every page of the term.
+ */
+export const EGYPT_ARABIC_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g10-arabic", title: "اللغة العربية للصف الأول الثانوي" },
+  terms: [buildEgyptArabicG10Term()],
+};
+
+/** Term 1 = the official Arabic book: printed وحدة → printed درس, as its document. */
+function buildEgyptArabicG10Term(): TermSeedSpec {
+  const check = verifyArabicG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-ara-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Arabic tree verification, as one verdict. */
+function verifyArabicG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicG10TreeConsistent();
+  const book = assertArabicG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -3929,6 +3991,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_INTEGRATED_SCIENCE_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_PHILOSOPHY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_NAHW_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
