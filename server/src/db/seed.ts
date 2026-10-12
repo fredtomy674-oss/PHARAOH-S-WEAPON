@@ -293,6 +293,12 @@ import {
   assertTreeMatchesTheBook as assertItalianG10TreeMatchesBook,
 } from "./egyptItalianG10T1.js";
 import {
+  EGYPT_GERMAN_G10_T1_SECTIONS,
+  lessonDocument as germanG10LessonDocument,
+  isConsistent as isGermanG10TreeConsistent,
+  assertTreeMatchesTheBook as assertGermanG10TreeMatchesBook,
+} from "./egyptGermanG10T1.js";
+import {
   EGYPT_ENGLISH_G8_T1_SECTIONS,
   lessonDocument as englishG8LessonDocument,
   isConsistent as isEnglishG8TreeConsistent,
@@ -1425,6 +1431,66 @@ function buildEgyptItalianG10Term(): TermSeedSpec {
 function verifyItalianG10Tree(): { ok: boolean; problems: string[] } {
   const table = isItalianG10TreeConsistent();
   const book = assertItalianG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Secondary-1 (Grade 10) **German** — OFFICIAL curriculum (PHASE 103).
+ *
+ * The first term IS the Ministry textbook (`Schritte international 1`,
+ * Schulbuchausgabe Ägypten — Kursbuch + Arbeitsbuch, 112 scan pages, Gemini
+ * OCR): the four Lektionen of its printed «Inhalt Kursbuch» (book page 5) and
+ * the pages they occupy (book pages 8–47). Every content page prints its own
+ * number glued to the running head («acht 8 LEKTION 1»), so the offset is zero.
+ * A lesson is each printed component of a Lektion: the Einstiegsdoppelseite
+ * (which carries the Lektion title and its five «Lernziele» A–E), the five
+ * Lernschritte A–E, the «Grammatik» overview and the closing Zwischenspiel
+ * double page. Each lesson's `concepts` are the book's own «Lernziele» / overview
+ * lines, verbatim in German. The subject code `german` is what makes the tutor
+ * answer in German.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed page
+ * numbers, the per-Lektion running heads, the printed lesson heads, the
+ * Zwischenspiel anchors, the exact-one-owner tiling and the coverage of every page
+ * of the term. Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_GERMAN_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "german", name: "German", nameAr: "اللغة الألمانية" },
+  curriculum: { code: "eg-g10-german", title: "اللغة الألمانية للصف الأول الثانوي" },
+  terms: [buildEgyptGermanG10Term()],
+};
+
+/** Term 1 = the official book: printed Lektion → printed lesson, as its document. */
+function buildEgyptGermanG10Term(): TermSeedSpec {
+  const check = verifyGermanG10Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب الألماني (أولى ثانوي) غير متسقة:\n${check.problems.join("\n")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_GERMAN_G10_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-deu-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: germanG10LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 German tree verification, as one verdict. */
+function verifyGermanG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isGermanG10TreeConsistent();
+  const book = assertGermanG10TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -3514,6 +3580,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH2_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ITALIAN_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_GERMAN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_P1_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);

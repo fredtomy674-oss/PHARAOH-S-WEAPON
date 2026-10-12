@@ -88,6 +88,13 @@ import {
   loadBookPage as loadItalianG10Page,
 } from "../../db/egyptItalianG10T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as GERMAN_G10_OFFSET,
+  EGYPT_GERMAN_G10_T1_BOOK_END,
+  allLessonRanges as germanG10LessonRanges,
+  allLessonExtras as germanG10LessonExtras,
+  loadBookPage as loadGermanG10Page,
+} from "../../db/egyptGermanG10T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ENGLISH_P1_OFFSET,
   EGYPT_ENGLISH_P1_T1_BOOK_END,
   allLessonRanges as englishP1LessonRanges,
@@ -447,6 +454,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g10-english", prefix: "l-g10-eng-", offset: ENGLISH_G10_OFFSET, bookEnd: EGYPT_ENGLISH_G10_T1_BOOK_END, ranges: englishG10LessonRanges(), loadPage: loadEnglishG10Page, extras: englishG10LessonExtras() }),
   buildBook({ code: "eg-g10-english2", prefix: "l-g10-eng2-", offset: ENGLISH2_G10_OFFSET, bookEnd: EGYPT_ENGLISH2_G10_T1_BOOK_END, ranges: english2G10LessonRanges(), loadPage: loadEnglish2G10Page, extras: english2G10LessonExtras() }),
   buildBook({ code: "eg-g10-italian", prefix: "l-g10-ita-", offset: ITALIAN_G10_OFFSET, bookEnd: EGYPT_ITALIAN_G10_T1_BOOK_END, ranges: italianG10LessonRanges(), loadPage: loadItalianG10Page, extras: italianG10LessonExtras() }),
+  buildBook({ code: "eg-g10-german", prefix: "l-g10-deu-", offset: GERMAN_G10_OFFSET, bookEnd: EGYPT_GERMAN_G10_T1_BOOK_END, ranges: germanG10LessonRanges(), loadPage: loadGermanG10Page, extras: germanG10LessonExtras() }),
   buildBook({ code: "eg-g9-arabic", prefix: "l-g9-ara-", offset: ARABIC_G9_OFFSET, bookEnd: EGYPT_ARABIC_G9_T1_BOOK_END, ranges: arabicG9LessonRanges(), loadPage: loadArabicG9Page, extras: arabicG9LessonExtras() }),
   buildBook({ code: "eg-g8-arabic", prefix: "l-g8-ara-", offset: ARABIC_G8_OFFSET, bookEnd: EGYPT_ARABIC_G8_T1_BOOK_END, ranges: arabicG8LessonRanges(), loadPage: loadArabicG8Page, extras: arabicG8LessonExtras() }),
   buildBook({ code: "eg-g7-arabic", prefix: "l-g7-ara-", offset: ARABIC_G7_OFFSET, bookEnd: EGYPT_ARABIC_P1_T1_BOOK_END, ranges: arabicP1LessonRanges(), loadPage: loadArabicP1Page, extras: arabicP1LessonExtras() }),
