@@ -227,6 +227,14 @@ import {
   loadBookPage as loadIntegratedScienceG10Page,
 } from "../../db/egyptIntegratedScienceG10T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as PHILOSOPHY_G10_OFFSET,
+  bookToPdfPage as philosophyG10BookToPdfPage,
+  EGYPT_PHILOSOPHY_G10_T1_BOOK_END,
+  allLessonRanges as philosophyG10LessonRanges,
+  allLessonExtras as philosophyG10LessonExtras,
+  loadBookPage as loadPhilosophyG10Page,
+} from "../../db/egyptPhilosophyG10T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G8_OFFSET,
   EGYPT_ARABIC_G8_T1_BOOK_END,
   allLessonRanges as arabicG8LessonRanges,
@@ -415,6 +423,12 @@ interface StageBook {
    */
   extras: Map<string, number[]>;
   loadPage: (bookPage: number) => string;
+  /**
+   * A book whose printed page → scan page is not a simple constant shift (the
+   * philosophy book has an unnumbered unit divider bound between printed 46 and
+   * 47, so its mapping is two-segment). When absent, `offset` is the whole map.
+   */
+  bookToPdf?: (bookPage: number) => number;
 }
 
 function buildBook(opts: {
@@ -428,6 +442,8 @@ function buildBook(opts: {
   keyToCode?: (key: string) => string;
   /** PHASE 75 — appendix pages per printed lesson key (`1-1` → `[146]`). */
   extras?: Map<string, number[]>;
+  /** Non-affine printed → scan page mapping; falls back to `bookPage + offset`. */
+  bookToPdf?: (bookPage: number) => number;
 }): StageBook {
   const ranges = new Map<string, { from: number; to: number }>();
   for (const r of opts.ranges) {
@@ -449,6 +465,7 @@ function buildBook(opts: {
     ranges,
     extras,
     loadPage: opts.loadPage,
+    bookToPdf: opts.bookToPdf,
   };
 }
 
@@ -488,6 +505,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g9-arabic", prefix: "l-g9-ara-", offset: ARABIC_G9_OFFSET, bookEnd: EGYPT_ARABIC_G9_T1_BOOK_END, ranges: arabicG9LessonRanges(), loadPage: loadArabicG9Page, extras: arabicG9LessonExtras() }),
   buildBook({ code: "eg-g10-arabic-story", prefix: "l-g10-story-", offset: ARABIC_STORY_G10_OFFSET, bookEnd: EGYPT_ARABIC_STORY_G10_T1_BOOK_END, ranges: arabicStoryG10LessonRanges(), loadPage: loadArabicStoryG10Page, extras: arabicStoryG10LessonExtras() }),
   buildBook({ code: "eg-g10-integrated-science", prefix: "l-g10-isci-", offset: INTEGRATED_SCIENCE_G10_OFFSET, bookEnd: EGYPT_INTEGRATED_SCIENCE_G10_T1_BOOK_END, ranges: integratedScienceG10LessonRanges(), loadPage: loadIntegratedScienceG10Page, extras: integratedScienceG10LessonExtras() }),
+  buildBook({ code: "eg-g10-philosophy", prefix: "l-g10-phil-", offset: PHILOSOPHY_G10_OFFSET, bookToPdf: philosophyG10BookToPdfPage, bookEnd: EGYPT_PHILOSOPHY_G10_T1_BOOK_END, ranges: philosophyG10LessonRanges(), loadPage: loadPhilosophyG10Page, extras: philosophyG10LessonExtras() }),
   buildBook({ code: "eg-g8-arabic", prefix: "l-g8-ara-", offset: ARABIC_G8_OFFSET, bookEnd: EGYPT_ARABIC_G8_T1_BOOK_END, ranges: arabicG8LessonRanges(), loadPage: loadArabicG8Page, extras: arabicG8LessonExtras() }),
   buildBook({ code: "eg-g7-arabic", prefix: "l-g7-ara-", offset: ARABIC_G7_OFFSET, bookEnd: EGYPT_ARABIC_P1_T1_BOOK_END, ranges: arabicP1LessonRanges(), loadPage: loadArabicP1Page, extras: arabicP1LessonExtras() }),
   buildBook({ code: "eg-g8-english", prefix: "l-g8-eng-", offset: ENGLISH_G8_OFFSET, bookEnd: EGYPT_ENGLISH_G8_T1_BOOK_END, ranges: englishG8LessonRanges(), loadPage: loadEnglishG8Page, extras: englishG8LessonExtras() }),
@@ -517,6 +535,7 @@ export const MAX_BOOK_PAGE = Math.max(...STAGE_BOOKS.map((b) => b.maxPage));
 /** Scan/PDF page that holds a printed book page for this book. */
 export function bookPageToPdfPage(curriculumCode: string, bookPage: number): number {
   const book = STAGE_BOOK_BY_CODE.get(curriculumCode);
+  if (book?.bookToPdf) return book.bookToPdf(bookPage);
   return bookPage + (book?.offset ?? 0);
 }
 

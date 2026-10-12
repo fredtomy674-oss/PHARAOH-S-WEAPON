@@ -83,6 +83,12 @@ import {
   assertTreeMatchesTheBook as assertIntegratedScienceG10TreeMatchesBook,
 } from "./egyptIntegratedScienceG10T1.js";
 import {
+  EGYPT_PHILOSOPHY_G10_T1_UNITS,
+  lessonDocument as philosophyG10LessonDocument,
+  isConsistent as isPhilosophyG10TreeConsistent,
+  assertTreeMatchesTheBook as assertPhilosophyG10TreeMatchesBook,
+} from "./egyptPhilosophyG10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2266,6 +2272,61 @@ function verifyIntegratedScienceG10Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Philosophy & Logic** — OFFICIAL curriculum (PHASE 108).
+ *
+ * The first term IS the Ministry textbook (`الفلسفة والمنطق – الصف الأول الثانوي`,
+ * ministerial decree 138/2024; 111 scan pages, Gemini OCR): its two وحدة — الفلسفة
+ * and المنطق — each holding two فصول, and the pages they occupy (book pages 1–102).
+ * The printed page → scan page map is **two-segment** because one unnumbered unit-2
+ * divider leaf sits between printed 46 and 47: book 1–46 are scan +6, book 47–102 are
+ * scan +7 (proven by the printed folios: scan 20 = ١٤، scan 52 = ٤٦، scan 60 = ٥٣،
+ * scan 109 = ١٠٢). A lesson is each printed فصل; its `concepts` are the chapter's own
+ * printed heads (أهداف الموضوع، القضايا/المهارات المتضمنة، the numbered topical heads،
+ * «أسئلة عامة علي الفصل»، «أنشطة الفصل»), verbatim in Arabic.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the two-segment mapping from the printed folios,
+ * the printed chapter heads, the exact-one-owner tiling and the coverage of every
+ * page of the term. Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_PHILOSOPHY_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "philosophy", name: "Philosophy", nameAr: "الفلسفة والمنطق" },
+  curriculum: { code: "eg-g10-philosophy", title: "الفلسفة والمنطق للصف الأول الثانوي" },
+  terms: [buildEgyptPhilosophyG10Term()],
+};
+
+/** Term 1 = the official book: printed وحدة → printed فصل, as its document. */
+function buildEgyptPhilosophyG10Term(): TermSeedSpec {
+  const check = verifyPhilosophyG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الفلسفة والمنطق (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_PHILOSOPHY_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-phil-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: philosophyG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Philosophy tree verification, as one verdict. */
+function verifyPhilosophyG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isPhilosophyG10TreeConsistent();
+  const book = assertPhilosophyG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -3806,6 +3867,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ARABIC_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_STORY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_INTEGRATED_SCIENCE_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_PHILOSOPHY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
