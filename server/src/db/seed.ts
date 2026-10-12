@@ -71,6 +71,12 @@ import {
   assertTreeMatchesTheBook as assertArabicG9TreeMatchesBook,
 } from "./egyptArabicG9T1.js";
 import {
+  EGYPT_ARABIC_STORY_G10_T1_UNITS,
+  lessonDocument as arabicStoryG10LessonDocument,
+  isConsistent as isArabicStoryG10TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicStoryG10TreeMatchesBook,
+} from "./egyptArabicStoryG10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2143,6 +2149,61 @@ function verifyArabicG9Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Arabic story** — OFFICIAL curriculum (PHASE 106).
+ *
+ * The first term IS the Ministry story book «أبو الفوارس عنترة بن شداد» (محمد فريد
+ * أبو حديد، مركز تطوير المناهج) — a single historical novel, 124 scan pages, Gemini
+ * OCR. The book prints a standalone folio at the foot of every content page, so
+ * `BOOK_TO_PDF_OFFSET = 0` and the term is the novel's printed pages 6–118 (front
+ * matter 1–5, blank leaves + end matter 119–124). A section is one of the sixteen
+ * printed chapters; a lesson is the component the book itself distinguishes — the
+ * narrative («النص») and the printed «أسئلة الفصل N». The subject code `arabic` is
+ * what makes the tutor answer in Arabic.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed folios, the
+ * book-wide running foot «أبو الفوارس» on the pages the OCR left folio-less, the
+ * printed chapter/lesson heads, the exact-one-owner tiling and the coverage of every
+ * page of the term. Seeding refuses to run on an unverified table.
+ */
+export const EGYPT_ARABIC_STORY_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g10-arabic-story", title: "قصة أبو الفوارس عنترة بن شداد للصف الأول الثانوي" },
+  terms: [buildEgyptArabicStoryG10Term()],
+};
+
+/** Term 1 = the official story: printed chapter → printed component, as its document. */
+function buildEgyptArabicStoryG10Term(): TermSeedSpec {
+  const check = verifyArabicStoryG10Tree();
+  if (!check.ok) throw new Error(`شجرة قصة عنترة (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_STORY_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-story-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicStoryG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Arabic story tree verification, as one verdict. */
+function verifyArabicStoryG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicStoryG10TreeConsistent();
+  const book = assertArabicStoryG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -3681,6 +3742,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_SOCIAL_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G9_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_STORY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
