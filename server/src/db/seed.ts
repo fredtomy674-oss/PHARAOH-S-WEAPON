@@ -101,6 +101,12 @@ import {
   assertTreeMatchesTheBook as assertArabicG10TreeMatchesBook,
 } from "./egyptArabicG10T1.js";
 import {
+  EGYPT_ICT_G10_EN_T1_UNITS,
+  lessonDocument as ictG10EnLessonDocument,
+  isConsistent as isIctG10EnTreeConsistent,
+  assertTreeMatchesTheBook as assertIctG10EnTreeMatchesBook,
+} from "./egyptIctG10EnT1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2449,6 +2455,66 @@ function verifyArabicG10Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **ICT — English edition** — OFFICIAL curriculum (PHASE 111).
+ *
+ * The first term IS the Ministry textbook (`Programming and Artificial Intelligence — An
+ * Introduction to Information and Communication Technology, For First Year of Secondary
+ * School`, 2025–2026; 202 born-digital pages, text layer already extracted): its thirteen
+ * chapters and the pages they occupy (book pages 4–201). Book page = scan index (offset 0),
+ * proven by the printed folios glued to the running head («4Information Study»). The text
+ * layer skips printed 175 (scan 175 prints «176» onward), which the spec records as a
+ * documented folio shift rather than a gap. A lesson is each printed section (the Contents
+ * prints chapters and their sections); its `concepts` are the lesson's own printed heads,
+ * verbatim in English (this book prints no «Objectives» list).
+ */
+export const EGYPT_ICT_G10_EN_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: {
+    code: "ict-en",
+    name: "Information and Communication Technology (English)",
+    nameAr: "تكنولوجيا المعلومات والاتصالات (بالإنجليزية)",
+  },
+  curriculum: {
+    code: "eg-g10-ict-en",
+    title: "تكنولوجيا المعلومات والاتصالات (بالإنجليزية) للصف الأول الثانوي",
+  },
+  terms: [buildEgyptIctG10EnTerm()],
+};
+
+/** Term 1 = the official English ICT book: printed chapter → printed section, as its document. */
+function buildEgyptIctG10EnTerm(): TermSeedSpec {
+  const check = verifyIctG10EnTree();
+  if (!check.ok) throw new Error(`شجرة كتاب تكنولوجيا المعلومات (بالإنجليزية) (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ICT_G10_EN_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g10-ict-en-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: ictG10EnLessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 ICT EN tree verification, as one verdict. */
+function verifyIctG10EnTree(): { ok: boolean; problems: string[] } {
+  const table = isIctG10EnTreeConsistent();
+  const book = assertIctG10EnTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -3992,6 +4058,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_PHILOSOPHY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_NAHW_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G10_EN_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
