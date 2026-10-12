@@ -37,6 +37,21 @@
 
 > ملاحظة على المدوّنة: طبقة النص في هذا الكتاب تُسقط العناوين المرسومة (raster) في صفحات الدروس 24/36/39، فتمت إعادة OCR كاملة بـGemini لضمان اكتمال العناوين وتوحيد الشكل.
 
+### ✅ منجز (2026-10-12): **إيطالي** — الصف الأول الثانوي (PHASE 102)
+
+- **تاريخ:** 2026-10-12
+- **مهمة:** ثالث كتاب من الثانوي — الإيطالية (لغة أجنبية ثانية) للصف الأول الثانوي
+- **تفاصيل:**
+  - **إيطالي (أولى ثانوي)** — `eg-g10-italian` + بادئة `l-g10-ita-`. الكتاب الوزاري «Progetto italiano Junior 1 Plus» (libro di classe & quaderno degli esercizi، 112 صفحة، استخراج طبقة نصية، `server/data/curriculum-ocr/italian-g10-t1/`). الملف `server/src/db/egyptItalianG10T1.ts`.
+  - **الإزاحة صفر** (`book = scan`): كل صفحة محتوى تطبع رقمها (ص45 رقمه ملتصق بسطر المصدر: «45 Fonte: Top girl»).
+  - **النطاق 7–46:** الوحدات الست للكتاب الأساسي فقط. الصفحات 1–6 (الغلاف/الفهرس) و47–112 (Minitest، Presentiamo l'Egitto، تمارين، قواعد، معجم، حلول) خارج الفصل.
+  - **6 وحدات / 21 درسًا:** كل درس = حرف الدرس المطبوع (A/B/C/D)؛ وكتلة «Conosciamo l'Italia» + «Che cosa ricordate…?» تُغلق الوحدات 2 و4 و6 كدرس ثقافة إضافي. فاتحة الوحدة («Per cominciare...» في الوحدتين 3 و5) تركب الدرس الأول للوحدة.
+  - **المفاهيم:** أسطر «Elementi comunicativi e lessicali» / «Elementi grammaticali» من الفهرس المطبوع (ص5–6) حرفيًا لكل درس — الكتاب نفسه لا يطبع أهدافًا على صفحة الدرس.
+- **ناتج التحقق:** `isConsistent: true` + `assertTreeMatchesTheBook: true` — 40 صفحة: رقم كل صفحة مطابق، وعنوان كل درس على صدره، ومراسي عناوين الثقافة («Città italiane» ص18، «La scuola in Italia» ص30، «I mezzi di trasporto urbano» ص44، «Il tempo libero dei ragazzi italiani» ص45)، وتغطية كاملة بلا فراغ.
+- **الربط:** `seed.ts` (import + SPEC + build/verify + `seedCountry`) + `curriculumCodes.test.ts` (namespace `l-g10-ita-1-1`) + `bookStage.ts` (`eg-g10-italian`، بادئة `l-g10-ita-`).
+- **الزرع:** 6 وحدات / 21 درسًا / 62 مفهومًا في `eg-g10-italian`.
+- **نتيجة الفحص:** typecheck (server) PASS، lint PASS، الحزمة الكاملة **PASS — 102 ملف / 925 اختبارًا**.
+
 ### سابقة (2026-10-11): إكمال **Prep1 (الصف الأول الإعدادي) نهائيًا** — الكتب الأربعة الأخيرة (علوم عربي، دراسات عربي، رياضيات إنجليزي، علوم فرنسي)
 
 - **تاريخ:** 2026-10-11
