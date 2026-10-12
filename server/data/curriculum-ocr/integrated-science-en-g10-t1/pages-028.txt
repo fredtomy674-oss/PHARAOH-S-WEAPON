@@ -1,0 +1,38 @@
+1
+First Secondary Grade 23
+Latent Heat of Vaporization:
+Latent heat of vaporization is the thermal energy absorbed by a unit
+mass (1 kg) of a substance to change from a liquid to a gaseous (vapor)
+state without a change in temperature. (Or, released when the substance
+changes from a gaseous (vapor) state to a liquid state without a change in
+temperature).
+Water has a high
+latent heat of vaporization
+due to the presence of
+hydrogen bonds between
+its molecules. To vaporize
+water, the hydrogen bonds
+between its molecules
+must be broken down.
+That requires a significant
+amount of energy.
+This property is useful for many living organisms, as they can use water
+evaporation as a mechanism for regulating their body temperature. When
+animals sweat or plants perform transpiration, the evaporating water
+molecules carry heat away from the body.
+(Figure 1-20) shows the amount of energy needed to vaporize a mass
+of water (area C) compared to the amount of heat needed to raise the
+temperature of the same mass of water from 0 o C to 100 o C (area B).
+Effect of Heat and Temperature on Marine Organisms
+1. Most living organisms require a specific temperature range to survive.
+Abrupt changes in temperature can often be fatal, especially for very
+small organisms.
+2. Changes in ocean temperature affect the distribution of marine
+organisms. Organisms living in warm surface waters may be unable
+to live in colder deep waters. For example, coral reefs require specific
+temperatures to survive. Temperature changes due to climate change
+may lead to their death.
+Figure (1-20) Amount of heat gained by water when heated
+A
+B
+C

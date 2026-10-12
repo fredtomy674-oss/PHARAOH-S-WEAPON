@@ -1,0 +1,39 @@
+UNIT 2 : THE ATMOSPHERE 1 74 Integrated S ciences
+They also provide accurate data on weather and climate, helping to
+predict natural disasters, monitor Earth and outer space, and enhance our
+understanding of the planet and the universe.
+Escape Velocity :
+It’s fascinating to know that Mercury is the
+smallest planet in the solar system and has no
+gaseous atmosphere. As a result, an enormous
+amount of solar radiation reaches the planet’s
+surface, causing its temperature to rise significantly
+due to the absorption of that radiation.
+When the sun is no longer shining on Mercury-as
+the planet rotates-this radiation is emitted back into space, and the planet
+cools rapidly because there is no atmosphere to retain the heat.
+You might be wondering why Earth retains its atmosphere, while
+Mercury does not have one?
+Gas molecules move at extremely high
+speeds, depending on the mass of the gas
+molecule and the temperature. Naturally, the
+effective speed of gas molecules, known as
+Vrms becomes greater when the molecular
+mass is lower and the temperature is higher.
+To escape a planet’s gravity, an object-
+regardless of its mass-must reach a specific speed called the escape velocity
+(Ve), which is a fixed value for any given
+planet.
+For Earth, the escape velocity is
+approximately 11.2 km/s.
+The presence of a gas around a planet
+is linked to the relationship between the
+Vrms of gas molecules and the planet’s
+escape velocity (Ve).
+If the effective speed of gas molecules (Vrms) is less than Ve, (Vrms< Ve),
+the gas molecules cannot escape into space, and the planet retains its
+atmosphere.
+Figure (2-11) Gas Molecule
+Movement
+Figure (2-10) Mercury
+Figure (2-12) Escape from Gravity

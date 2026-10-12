@@ -1,0 +1,37 @@
+UNIT 1 : AQUATIC ECOSYSTEMS 1 20 Integrated Sciences
+Heat and Temperature:
+In daily experience, some people confuse the concepts of "temperature"
+and "heat" . Although these concepts are related, there is a distinct
+difference between their meanings in physics.
+A body or a system is composed of a huge number of constantly
+moving molecules with intermolecular spaces among them. The sum of the
+potential energy (due to the relative positions of these molecules) and the
+kinetic energy (due to their motion) is called
+the internal energy of the body or system.
+The concept of heat refers to the energy
+transferred from or to a body or system
+when there is a difference in temperature.
+Heat is measured in Joules (J).
+Temperature is a quantitative description
+of how hot or cold a body or system is. It
+represents the average kinetic energy of the
+molecules within that body or system, and its
+international unit is the Kelvin (K).
+To find the value of temperature in Kelvin that corresponds to a value in
+degree Celsius, the following relation is used: ( T K = t °C + 273 )
+Keep in mind that an increase in temperature by one degree Celsius ( ° C)
+is equivalent to an increase of one Kelvin (K).
+When a body or system gains a quantity of thermal energy, the
+amplitude of its molecules' vibration and their kinetic energy increase. Thus,
+its temperature rises.
+The question here is, does a unit mass
+(1 kg) of different substances require
+the same amount of heat to raise the
+temperature of each by one Kelvin?
+Page: 20_1
+Figure (1-17)
+Kelvin and Celsius Scales of
+Temperature
+Page: 20_2
+Figure (1-18)
+Thermal Energy and Temperature

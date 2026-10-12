@@ -1,0 +1,38 @@
+1
+First Secondary Grade 57
+At sea level, the pressure equals the atmospheric pressure (Pa). The
+standard atmospheric pressure at 0°C equals one atmosphere (1 atm.),
+which is equivalent to 1.013 × 10⁵ N/m².
+Water pressure increases by approximately one atmospheric pressure
+for every 10 meters below the surface. For example, at a depth of 100
+meters, the pressure caused by
+water will be about 10 times the
+atmospheric pressure. Therefore,
+the total pressure at this depth
+equals 11 times the atmospheric
+pressure, where the total pressure
+acting at the point is:
+P=P a +P water
+In th e depths of seas, pressure
+is un imaginable, yet many marine organisms can adapt to the high water
+pressure.
+Effects of Pressure on Biological Adaptations of Marine Organisms
+Â First: The Air Bladder (Swim Bladder)
+Surface organisms: Organisms that live near water surface face a
+relatively low water pressure, and therefore their physical structure is less
+strong compared to organisms that live in the depths.
+Organisms at intermediate depths: At depths from 200 meters to
+1000 meters, living organisms are more specialized to deal with increasing
+pressure. For example, some fish have swim bladders filled with gas that
+help them control their buoyancy
+and balance in water, or to move
+between different depths during
+their migration between seas and
+rivers, such as salmon fish.
+Organisms at great depths:
+Greater than 2000 meters, water pressure is very intense. Organisms
+that live in these environments are often characterized by compact body
+structures, protein components and internal fluids that withstand high
+pressure. Also, some of these organisms, such as rays do not have gas
+bladders to ensure they don't collapse under such high pressure.
+(Figure 1-50) Air Bladder

@@ -1,0 +1,38 @@
+UNIT 1 : AQUATIC ECOSYSTEMS 1 28 Integrated Sciences
+1-4 Properties of Aqueous Solutions
+You’ve learned that water has unique properties, such as the polarity of
+its molecules, the hydrogen bonds between them, its ability to dissolve other
+polar molecules and ionic compounds, and its high boiling point. However,
+the water found in natural bodies like lakes and oceans is not pure. It is mixed
+with various dissolved or suspended substances. These dissolved materials
+directly affect the properties of water, leading to changes in water currents
+and biodiversity.
+A solution is a homogeneous mixture of a solvent and a solute. In aquatic
+environments, water is usually the solvent, while the solute can be a chemical
+substance such as salts or other materials.
+Colligative Properties of Solutions:
+Colligative properties are properties of solution that depend on the num -
+ber of molecules or ions of a non-volatile solute in the solution, and not on
+the type of solute.
+Colligative properties of solutions include:
+Decrease in Vapor Pressure, Elevation of Boiling Point, Depression of
+Freezing Point , and Osmotic Pressure.
+1.Decrease in the vapor pressure of a liquid:
+Assume a liquid in a closed flask (a closed
+system). At a certain temperature, some
+molecules of the liquid escape from its surface
+and become vapor molecules, meanwhile some
+vapor molecules return from air to the liquid.
+When the rate of evaporation equals the rate of
+condensation, resulting in a stable amount of
+both the liquid and the vapor. are said to be in a
+state of dynamic equilibrium.
+The vapor formed above the liquid surface
+due to evaporation exerts pressure on the liquid
+surface. This is called the vapor pressure of the liquid.
+In pure water , the surface molecules are able to escape and convert into
+vapor. Between water molecules, there are attractive forces resulting from
+hydrogen bonding.
+Figure (1-22) Dynamic
+equilibrium between a liquid
+and its vapor

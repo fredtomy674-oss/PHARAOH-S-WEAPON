@@ -1,0 +1,36 @@
+1
+First Secondary Grade 85
+Exercise
+Find the value of the freezing point of pure water and its boiling point on
+the Kelvin and Fahrenheit scales, and record them in the following table.
+Temperature t c t F T K
+Freezing point of pure water
+(Melting point of ice) 0 ° C
+Boiling point of pure water 100 ° C
+Mechanisms of Heat Transfer:
+Heat generally transfers through three methods, which are:
+1 . Conduction: Heat transfers through a solid body or between two
+touching bodies, moving from the region with a higher temperature to
+regions with lower temperatures,
+without the particles of the body
+themselves moving. Some materials
+are characterized by good thermal
+conductivity, such as metals, while
+others have low thermal
+conductivity, such as cork.
+2 . Convection: Heat transfers through
+fluids (liquids and gases) by convection currents, where the density of the
+fluid parts with higher temperature is less than those with lower tempera -
+ture. The less dense parts begin to rise, replacing the denser parts.
+Have you ever seen a bird soaring high without flapping its wings?
+This is not just a wonderful sight; it
+is the result of birds exploiting what is
+known as thermal flight. Thermal flight is a
+phenomenon that birds use to stay in the
+air for long periods without the need to
+constantly flap their wings, saving energy as
+the bird floats over rising warm air currents by
+convection and maintains its altitude.
+Figure (2-19) Mechanisms of Heat Transfer
+Figure (2-20) Convection
+Currents in The Air

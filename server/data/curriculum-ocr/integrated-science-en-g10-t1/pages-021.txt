@@ -1,0 +1,35 @@
+UNIT 1 : AQUATIC ECOSYSTEMS 1 16 Integrated Sciences
+1-3 Physical Properties of Water
+Water possesses unique physical properties that distinguish it from other
+fluids (liquids and gases). Of these properties, a decrease in density upon
+freezing and a high specific heat. These properties affect many natural phe -
+nomena and the distribution of living organisms in different environments.
+Have you ever wondered: Why does solid ice float on the surface of liquid
+water? Why does sand on the beach always feel much hotter than the ocean
+water? Why does water in seas and oceans remain warm even after sunset?
+How does temperature affect living organisms, especially marine life?
+Density:
+Density is the mass per unit volume of a
+substance at a specific temperature. Since
+a substance is composed of molecules, its
+density depends on the mass of molecules,
+and the intermolecular spaces between them.
+For pure water, the mass of 1 cm3 at 4 o C is
+1 g. This means that density of water at 4 o C
+is 1g /cm 3 , which is equivalent in international
+units to 1000 kg/m 3
+As the temperature of water decreases below 4 o C to its freezing point,
+its density decreases. The ratio between the density of a specific substance
+and the density of pure water at 4 o C is known as the relative density of
+substance.
+Hydrometer (Liquid Density Meter):
+Density or relative density of liquids is measured with
+a hydrometer. Its operating principle is based on the law
+of buoyancy, where a body floating in different liquids
+shows a smaller submerged part in the more dense liquid.
+The hydrometer is a sealed, hollow glass vessel with a
+wider lower part for flotation, containing lead or mercury
+balls (ballast) to make it vertically stable. Its reservoir is
+Figure (1-11) Change of Water
+Density with Temperature
+Figure (1-12) Hydrometer

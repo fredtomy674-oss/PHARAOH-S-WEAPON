@@ -1,0 +1,39 @@
+UNIT 1 : AQUATIC ECOSYSTEMS 1 56 Integrated Sciences
+1-9: Effect of Water Pressure on Organisms
+Organisms at great depths in oceans face harsh environmental
+conditions such as immense water pressure that require unique
+adaptations for survival. How does water pressure affect organisms at deep
+water? And how do the physiological adaptations of these organisms help
+them live under this immense pressure?
+Fluids are substances characterized by their ability to flow, and include
+liquids and gases. While gases are easily compressible and occupy any
+space they are in, liquids resist compression and therefore maintain an
+approximately constant volume.
+Pressure at a Point Inside a Static Liquid
+A liquid has pressure at any point inside it that
+equals the weight of the liquid column above that
+point, acting on the unit of area around that point.
+If an object exists at that point, it is affected by a
+force resulting from this pressure, and the force is
+perpendicular to its surface.
+The force acting on an object submerged in a
+liquid - measured in Newtons - is calculated using
+the formula: F = P × A, where P is the pressure at
+that point in N/m² and A is the surface area exposed to that pressure in m².
+Water Pressure
+Water pressure is the pressure exerted by
+water at any point below the water surface.
+This pressure increases as the depth (h) from
+its surface increases, due to the increase in the
+weight of water acting on the unit areas at that
+point.
+The pressure inside water also increases
+with the increase in water density (ρ). Therefore,
+water pressure at a certain depth in seawater
+will be greater than its pressure at the same depth in a fresh water lake
+having lower proportion of salts and plankton.
+(Figure 1-48) The pressing
+forces acting on an object
+submerged in a liquid
+(Figure 1-49) Pressure
+increases with depth

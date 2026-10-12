@@ -1,0 +1,37 @@
+UNIT 2 : THE ATMOSPHERE 1 84 Integrated S ciences
+2-3 Physical factors and their effect on the atmosphere
+First: Heat:
+Heat is considered one of the most important climatic factors because it
+affects other factors such as atmospheric
+pressure, wind, humidity, condensation,
+and consequently rainfall. When the Sun’s
+rays reach Earth’s surface, both land
+and water, heats up more, then the heat
+transfers to the gaseous atmosphere
+surrounding Earth, causing its temperature to begin rising. The layers of
+the atmosphere close to the earth’s surface are higher in temperature than
+those farther away.
+Measuring Air Temperature:
+The meteorological authorities
+periodically measure the air
+temperature and compare it with the
+temperature in other regions, as well
+as with the temperatures recorded in
+previous years during the same climate
+season. These authorities use one of
+the following scales:
+1- Celsius scale (t °C): For example, it
+is the scale used in Egypt.
+2- Fahrenheit scale (t °F): For example, it is The scale used in the United
+States of America.
+3- Kelvin scale (T K ): The absolute temperature scale used in scientific fields.
+The Relationship Between Temperature Scales:
+The relationship between the Celsius scale (t c ) and the absolute
+temperature scale (T K ) is: T K = t c + 273
+The relationship between the Celsius scale (t c ) and the Fahrenheit scale (t F )
+is: t F = ( 1.8 × tc ) + 32
+? Critical Thinking
+Why is the temperature in
+the lower part of the troposphere
+higher than that in the upper part?
+Figure (2-18) Temperature Scales

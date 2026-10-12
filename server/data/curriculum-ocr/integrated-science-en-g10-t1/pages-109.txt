@@ -1,0 +1,35 @@
+UNIT 2 : THE ATMOSPHERE 1 104 Integrated S ciences
+(1) Satellites and Remote Sensing
+Satellites perform multiple tasks
+to monitor the components of the
+atmosphere and their interactions.
+Remote sensors devices aboard
+satellites measure concentrations
+of gases such as carbon dioxide
+and methane, which are gases
+responsible for the global warming
+phenomena. Satellites also
+continuously monitor the state of the
+ozone layer, detecting any depletion
+and track its recovery over time. Additionally, satellites provide data on
+cloud movement and wind patterns, helping climate scientists understand
+how weather and climate patterns are changing.
+(2) Meteorological Monitoring Stations
+Weather stations distributed around the world measure temperature,
+air pressure, humidity, wind speed, and pollutant concentrations. These
+measurements help in the early detection
+of air pollution or dangerous weather
+phenomena (such as dust storms or heat
+waves).
+Â In 1985 , a weather monitoring
+station in Antarctica, operated by
+the British Meteorological Office,
+discovered a large hole in the ozone
+layer . This discovery was not just a
+scientific finding—it led to the launch of the Montreal Protocol in 1987 ,
+an international agreement that limited the use of ozone - depleting
+substances such as chlorofluorocarbons ( CFCs ). As a result, the ozone
+layer began to gradually recover, helping to protect humans and living
+organisms .
+Figure (2-43) Satellites for Remote Sensing
+Figure (2-43) Weather Monitoring Station

@@ -1,0 +1,21 @@
+1
+First Secondary Grade 11
+Â Hydrolysis of Salts :
+Hydrolysis is the reaction occurring when a solid salt dissolves in water,
+forming an acid and a base, one or both of which are weak.
+Salts are classified into three categories according to their hydrolysis:
+(a) Acidic salts :
+When an acidic salt dissolves in water, hydrolysis of the salt occurs,
+leading to a decrease in concentration of hydroxide ion (OH - ) and an increase
+in concentration of hydrogen ion (H + ) , making the salt solution acidic.
+Example: Dissolving ammonium chloride salt ( NH 4 Cl ) in water:
+(b) Basic salts :
+When a basic salt dissolves in water, hydrolysis of the salt occurs, leading
+to a decrease in concentration of hydrogen ion (H + ) and an increase in
+concentration of hydroxide ion (OH - ), making the salt solution basic.
+Example: Dissolving sodium bicarbonate salt ( NaHCO 3 ) in water:
+(c) Neutral Salts :
+When a neutral salt is dissolved in water, hydrolysis of the salt occurs that
+does not affect the equity of the concentration of hydrogen ions (H+) and
+hydroxide ions (OH - ), which maintain the salt solution neutral.
+Example: Dissolving Ammonium bicarbonate salt ( NH 4 HCO 3 ) in water:

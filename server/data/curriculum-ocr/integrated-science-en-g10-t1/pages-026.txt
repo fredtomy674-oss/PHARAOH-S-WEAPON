@@ -1,0 +1,27 @@
+1
+First Secondary Grade 21
+Specific Heat (c):
+The amount of heat gained by 1 kg of the substance to raise its
+temperature by 1 K is called specific heat of substance, symbolized by (c). Its
+measuring unit is J/kg. K
+The higher the specific heat of substance, the more thermal energy a
+given mass of that substance needs to have its temperature raised by 1 K,
+compared to the same mass of another substance with a lower specific heat.
+The following table shows the specific heat of some substances, most of
+which are at room temperature.
+Note that specific heat depends on the type of substance, its physical
+state, and the presence of impurities or dissolved substances. Also, note
+that water has a relatively high specific heat capacity compared to the other
+substances.
+The amount of thermal energy ( Q th ) gained or lost by a body can be
+calculated using the relation:
+Q th = m c ∆t
+m: mass of the body in kilograms (kg)
+Δt: change in the body's temperature in ( ° C) or (K)
+c: specific heat of the substance in ( J / kg . °C ) or ( J / kg . K )
+Calculate the amount of heat required to raise the
+temperature of 0.3 kg of copper from 20 ° C to 70 ° C Knowing
+that the specific heat of copper is =390 J/kg.K.
+Solution:
+Q th = mc ∆t = 0.3 × 390 × ( 70 - 20 ) = 5850 J
+Example:

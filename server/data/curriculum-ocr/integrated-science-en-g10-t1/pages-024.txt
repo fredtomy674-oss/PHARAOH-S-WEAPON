@@ -1,0 +1,30 @@
+1
+First Secondary Grade 19
+Water Density and Temperature in Polar Regions:
+Generally, the liquid volume
+increases as its temperature
+rises and decreases as its
+temperature falls. However,
+water is an exception to this
+rule.
+As the temperature of pure water increases from 0 o C to 4 o C, water
+contracts (its volume decreases), and its density increases. The density
+of water reaches its maximum value (of 1000 kg/m 3 ) at 4 o C. Above 4 o C,
+as temperature increases, water expands (its volume increases), and its
+density decreases.
+These scientific facts help explain why water in a lake in a polar
+region begins to freeze at its surface instead of the bottom. As the air
+temperature drops from 4 o C
+to 0 o C, the water surface in the
+lake expands and becomes less
+dense than the water below. This
+means that when water freezes
+and turns into ice, it becomes
+even less dense. This is because
+ice molecules are spaced farther
+apart than in liquid water. Consequently, ice floats, creating an insulating
+layer that prevents the rest of water below from freezing. This allows
+aquatic organisms to survive in that environment, which is another reason
+why water is considered as an ideal habitat. (Figure 1-16)
+Figure (1-15) Change in Water Volume with Temperature
+Figure (1-16) Aquatic Organisms in a Frozen Lake

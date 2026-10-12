@@ -1,0 +1,26 @@
+1
+First Secondary Grade 101
+Carbon monoxide
+Carbon monoxide is a colorless and odorless gas, commonly produced by
+the incomplete combustion of fossil fuels (such as gasoline, coal, and natural
+gas). It is characterized by a molecule that can quickly penetrate from the
+lungs into the bloodstream, where CO competes with oxygen (O ₂ ) to bind with
+hemoglobin inside red blood cells. Carbon monoxide binds to hemoglobin
+with a strength approximately 200 to 250 times greater than oxygen bonding,
+and when it binds it form a compound called carboxyhemoglobin (HbCO).
+This compound is relatively stable and prevents oxygen from binding to
+hemoglobin.
+The reduced binding of oxygen to hemoglobin leads to a decrease in
+oxygen supply to tissues, causing hypoxia—a condition where cells do not
+receive enough oxygen for cellular respiration. As a result, cells begin to
+rely on anaerobic respiration, leading to the accumulation of lactic acid and
+symptoms such as fatigue and headache.
+If HbCO concentration in the blood increases, serious symptoms may
+occur, including dizziness, loss of consciousness, and brain damage.
+Sulfur oxides and nitrogen oxides
+Sulfur oxides (SOx), especially sulfur dioxide (SO 2 ), are mainly emitted
+from the combustion of coal and oil in power plants and factories, as well as
+from certain industrial processes sich as oil refining and metals melting.
+Nitrogen oxides (NO ₓ ), including nitric oxide (NO) and nitrogen dioxide
+(NO ₂ ), are produced in large quantities during high-temperature combustion
+(e.g., in car engines, power stations, and industrial furnaces).

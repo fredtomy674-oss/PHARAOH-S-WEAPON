@@ -1,0 +1,26 @@
+UNIT 1 : AQUATIC ECOSYSTEMS 1 12 Integrated Sciences
+pH Value :
+pH Scale is a quantitative scale that expresses the degree of acidity or
+alkalinity of liquids or solutions. It ranges from 0 to 14.
+pH value expresses the relationship between the concentrations of
+hydrogen ions (H + ) and hydroxide ions (OH - ). This term is widely used in the
+fields of chemistry, biology, and agriculture.
+The acid-base balance in water depends on the of the concentrations of
+hydrogen ions (H + ) relative to hydroxide ions (OH - ). Pure water is neutral
+because the concentrations of hydrogen ions and hydroxide ions are
+equal, and its pH value equals 7. If the concentration of H + increases, the
+aqueous solution becomes acidic, and its pH value becomes less than 7. If the
+concentration of OH - increases, the aqueous solution becomes alkaline, and
+its pH value gets greater than 7.
+To measure pH values of different water samples (sea water,
+river water, well water), you can perform the following experiment:
+Tools Required:
+1. pH meter or pH test strips.
+2. Water samples (sea water, river
+water, well water).
+3. Sample cups.
+4. Distilled water (for calibration).
+5. Stirring rod.
+6. Paper towels.
+Figure (1-10) Measuring pH value
+Activity: Measuring pH Values of Various Water Samples:

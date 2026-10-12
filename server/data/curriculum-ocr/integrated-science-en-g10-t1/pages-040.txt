@@ -1,0 +1,25 @@
+1
+First Secondary Grade 35
+Figure (1-28) Enzyme as a catalyst
+For metabolic processes to occur in the cell, they require a high
+activation energy to initiate the reaction. Activation energy is the minimum
+amount of energy needed to start a chemical reaction. Some substances,
+such as enzymes, work to lower the activation energy of reactions. These
+substances are called catalysts or activators.
+Enzymes are composed of specialized protein substances that increase
+the speed of chemical reactions
+in living cells. Enzymes work
+through a mechanism called "lock
+and key," where the active site
+of the enzyme binds specifically
+to the substance it affects (the
+substrate), which helps reactants
+convert into products more
+efficiently. At the end of the
+reaction, the enzyme remains
+unchanged, ready to catalyze another reaction of the same type.
+Each enzyme has an ideal temperature and pH value at which it works
+most effectively. If the temperature or pH value deviates higher or lower
+than its optimal range, the enzyme's activity gradually decreases until it
+stops completely.
+Figure (1-29) Enzyme activity curve

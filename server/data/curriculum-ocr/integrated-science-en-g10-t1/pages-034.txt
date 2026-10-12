@@ -1,0 +1,43 @@
+1
+First Secondary Grade 29
+When dissolving a non-volatile substance in water, some molecules or
+ions of the dissolved substance occupy part in the liquid surface, reducing
+the number of water molecules exposed to evaporation at the surface.
+There are also strong attractive forces between water molecules and the
+solute molecules or ions, besides the
+attractive forces among water molecules.
+This requires more energy to overcome
+such attractions and liberate water
+molecules. Consequently, the number of
+water molecules able to evaporate is
+reduced, and the vapor pressure of the
+liquid decreases. The decrease in vapor
+pressure is directly proportional to the
+number of solute molecules or ions in the
+solution.
+2. Rising in Boiling Point,
+The boiling point of a liquid is the temperature at which its vapor
+pressure becomes equal to the atmospheric pressure at the liquid surface.
+Therefore, the boiling point
+of a pure liquid under normal
+atmospheric pressure is
+constant, and can be used as
+an indicator of the purity of
+liquids.
+The boiling point of
+pure water under standard
+atmospheric pressure
+is 100°C. However, the
+boiling point of water varies
+depending on the pressure exerted on its surface. An increase in external
+pressure raises the boiling point of water, as in a pressure cooker. On
+the other hand, the boiling point decreases when the air pressure acting
+on its surface decreases. That takes place at high-altitude locations where
+atmospheric pressure is lower, resulting in a decreasing the boiling point for
+water.
+When a non-volatile substance is dissolved in water to form a solution,
+the vapor pressure of the solution becomes lower than that of pure water.
+Figure 1-23) Vapor pressure of liquid
+decreases when a substance is dissolved in it.
+(Figure 1-24)
+Decrease of water boiling point as altitude increases.

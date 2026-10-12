@@ -1,0 +1,41 @@
+1
+First Secondary Grade 73
+The ionosphere can reflect electromagnetic waves, that is why it is used in
+long-distance wireless communication. Its ability to reflect radio waves allows
+signals to travel over vast distances without the need for satellites or cables.
+Aurora :
+The importance of the ionosphere is not limited to wireless
+communication; it is also responsible for the phenomenon known as the
+aurora.
+This phenomenon is observed near
+the Earth’s north and south poles. When
+high-energy charged particles from the
+sun (part of the solar wind) reach Earth,
+they are influenced by the planet’s
+magnetic field and are directed toward
+the poles.
+There, these particles collide with
+ions and atoms in the ionosphere, exciting them. As these atoms return to
+their ground state (lower energy level), they release light photons of various
+wavelengths, resulting in the bright, colorful lights we see in the sky.
+5. Exosphere:
+The exosphere is the highest
+layer of Earth’s atmosphere.
+Some scientists consider it
+the uppermost part of the
+thermosphere. It extends from
+an altitude of about 700 km to
+1000 km above Earth’s surface.
+In the exosphere, atoms
+and molecules move over vast
+distances without colliding with
+one another. This allows them to reach extremely high speeds, enabling
+some particles to escape Earth’s gravity and drift into outer space.
+Due to its extremely low density and near-vacuum conditions, the
+exosphere is an ideal region for placing satellites and spacecraft, as they face
+virtually no resistance, allowing them to remain in orbit for long periods.
+Satellites in this layer have a direct impact on our daily lives-they facilitate
+international communication, wireless internet, and are a core part of Global
+Positioning Systems (GPS).
+Figure (2-8) Aurora
+Figure (2-9) Ionosphere

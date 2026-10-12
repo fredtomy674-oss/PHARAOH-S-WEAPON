@@ -1,0 +1,27 @@
+1
+First Secondary Grade 17
+connected to a long glass rod with a small diameter, graduated with density
+values. The lower part of the scale indicates the highest density measures,
+while the upper part of the scale indicates the lowest density measures
+(Figure 1-12).
+To measure pH values of different water samples (sea water,
+river water, well water), you can perform the following experiment:
+Materials :
+1. Hydrometer (liquid density meter).
+2. A sample of the liquid you want to measure its density.
+3. Test tube.
+Procedure:
+1. Pour a sample of the liquid into
+the hydrometer's test tube.
+2. Carefully insert the hydrometer
+into the liquid, ensuring that it does
+not touch the tube sides .
+3. Gently spin the hydrometer to
+remove any trapped air bubbles.
+4. Allow the hydrometer to settle
+for a moment.
+5. Take a reading from the part of the scale that corresponds to
+the meniscus (the curved surface) of the liquid (Figure 1-13). This
+reading represents the relative density of the liquid.
+Figure (1-13) Using a Hydrometer
+Activity: Measuring Density of Different Water Samples:

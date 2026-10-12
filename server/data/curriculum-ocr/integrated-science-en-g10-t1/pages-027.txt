@@ -1,0 +1,32 @@
+UNIT 1 : AQUATIC ECOSYSTEMS 1 22 Integrated Sciences
+A 200 g piece of aluminum at 80 ° C was placed in a quantity of
+water at room temperature. If the final temperature of the system
+became 40 ° C, calculate the amount of heat gained by the water.
+Assume the specific heat of aluminum is 900 J/kg.K and that no
+thermal energy was lost from the system.
+Solution:
+( Important note: Use international units )
+According to the law of conservation of energy, the amount
+of thermal energy gained by the water is equal to the amount of
+thermal energy lost by the piece of aluminum.
+Thermal energy gained by the water = Thermal energy lost by
+the aluminum piece
+Q th = mc ∆t = 0.2 × 900 × ( 40 - 80 ) = - 7200 J
+The negative sign here indicates that the piece of aluminum
+has lost heat, which has been gained by the water sample.
+Therefore, the amount of heat transferred to the water is 7200 J .
+Example:
+Sea Breeze:
+Water is characterized by its high specific heat due to the presence of
+hydrogen bonds between its molecules. This property partially contributes
+to the moderation of the climate
+near large bodies of water. The
+temperature of a large body of water
+during the summer is low compared
+to the temperature of the beach
+sand and rocks. The air above the
+land heats up, its density decreases,
+and it rises. The cooler air from over
+the surface of water moves toward
+the land to replace the rising hot air, creating a sea breeze .
+Figure (1-19) Sea Breeze

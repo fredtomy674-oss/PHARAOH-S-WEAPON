@@ -1,0 +1,28 @@
+1
+First Secondary Grade 79
+In the atmosphere, nitrogen (N 2 ) , oxygen (O 2 ) molecules and atomic
+oxygen absorb photons of electromagnetic spectrum with wavelengths
+shorter than 240 nm.
+Meanwhile, the formation of ozone (O 3 ), causes the
+absorption of photons in the ultraviolet region with
+wavelengths ranging from 240 nm to 310 nm.
+In this way, the ozone present in the stratosphere protects
+us from these high-energy photons.
+Ozone Formation:
+Ozone is a molecule made up of three oxygen atoms (O ₃ ) bonded together.
+It is formed by the effect of ultraviolet (UV) rays coming from the Sun,
+on oxygen molecules (O ₂ ), as follows:
+1- Photodissociation occurs, in which the chemical bonds of the oxygen
+molecule are broken as a result of light absorption.
+Ultraviolet (UV) rays with a wavelength shorter than 240 nm breaks the
+covalent bond in the oxygen molecule (O ₂ ), resulting in two individual oxygen
+atoms ( O ).
+2- The individual oxygen atom (in its atomic state) combines with an oxygen
+molecule (O ₂ ) to form an ozone molecule (O ₃ ).
+Ozone Layer Depletion:
+It is the gradual deterioration of the protective
+ozone layer in the atmosphere. This deterioration
+occurs mainly due to the release of chemical
+compounds containing chlorine and bromine, such
+as chlorofluorocarbons ( CFCs ), which result from
+industrial activities. Figure (2-15) Ozone Hole

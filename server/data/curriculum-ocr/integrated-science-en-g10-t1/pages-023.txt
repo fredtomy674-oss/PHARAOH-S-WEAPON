@@ -1,0 +1,23 @@
+UNIT 1 : AQUATIC ECOSYSTEMS 1 18 Integrated Sciences
+Density of Ocean Water:
+Density of water in oceans is affected by:
+Â Water Pressure :
+In shallow water, density of water does not change significantly with
+increasing depth because water is almost incompressible. However, at great
+depths in the ocean, density of water may increase slightly. At these depths,
+pressure increases, and water molecules are pushed closer together. That in
+turn increases water density.
+Â Amount of Dissolved Salts:
+The higher the salinity of water (the higher the concentration of dissolved
+salts), the higher the water density.
+Â Water Temperature:
+As water temperature decreases, (till it reaches 4 o C), its molecules get
+closer together, taking up less volume and increasing the water density. If
+the temperature drops below 4 o C, the density of water decreases again.
+Differences in water density are one of the factors that cause ocean currents.
+Vertical ocean currents are usually produced due to density variations
+resulting from changes of temperature and salinity. These currents transport
+heat and salt from tropical regions to Earth's poles, nutrients from the deep
+ocean to the surface, and fresh water from rivers or melting glaciers to
+different regions around the world.
+Figure (1-14) Ocean Currents
