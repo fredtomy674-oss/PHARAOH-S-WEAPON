@@ -1,0 +1,22 @@
+152
+Answer the following questions.
+(1) Regarding the IF function of spreadsheet software, choose the appropriate combination of terms to fill in
+blanks [1] to [3] from the options A to D below, and answer using the letter.
+IF( ( [1] ), ( [2] ), ( [3] ) )
+A [1] logical_expression [2] value_if_true [3] value_if_false
+B [1] logical_expression [2] value_if_false [3] value_if_true
+C [1] value_if_true [2] value_if_false [3] logical_expression
+D [1] value_if_false [2] value_if_true [3] logical_expression
+(2) Using spreadsheet software as shown in the figure on the
+right, you want to display a 1 in cell B3 if the score in cell
+A3 is 60 or above, and a 0 if it is not. Choose which
+function should be entered in cell B3 from the options A
+to D below, and answer using the letter.
+A [Cell B3] =IF(A3<=60, 1, 0) B [Cell B3] =IF(A3<=60, 0, 1)
+C [Cell B3] =IF(A3>=60, 1, 0) D [Cell B3] =IF(A3>=60, 0, 1)
+Exercise
+1
+A B
+1 Pass/Fail judgment
+2 Score Pass/Fail judgement
+3 80 1

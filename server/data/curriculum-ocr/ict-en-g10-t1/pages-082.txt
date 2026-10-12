@@ -1,0 +1,37 @@
+82
+Organizing and Classifying Information
+(16LATCH method) : A principle for organizing information and presenting it in a way that is easy for
+users to understand. Information is organized and classified according to the
+following five criteria.
+• Location : Classification based on physical location.
+• Alphabet : Classification based on alphabetical or syllabary order.
+• Time : A classification based on the sequence of events in terms of time.
+• Category : A classification based on the differences between things, used as a criterion to
+distinguish realms.
+• Hierarchy : Classification based on quantitative changes such as size, level, etc.
+3
+Answer the following questions.
+(1) Choose the most appropriate example of visualization as a method used in information design from the
+options A to D below, and answer using the letter.
+A Pictograms for each classroom were created to guide people around the school building.
+B A web page to introduce the school was created. The page was organized with menus for each
+hierarchy.
+C The survey results were compiled into tables and graphs.
+D Text summarizing multiple matters is presented in bullet points.
+(2) Choose the term that best fits into the blanks [1] and [2] in the following sentences from the options A to
+D below, and answer using the letters.
+Current computers widely use ( [1] ), which allows users to manipulate graphically displayed
+information, such as icons, with a mouse or their finger. On the other hand, early computers used
+( [2] ), which was a method for conveying commands by inputting characters from a keyboard.
+A CUI B GUI C VUI D NUI
+(3) What is the term for a design that is thoughtfully created in advance to allow all individuals, regardless
+of nationality, gender, age, or physical ability, to use it without difficulty? Choose one from the options A
+to D below, and answer using the letter.
+A Usability B Universal design
+C Signifier D User interface
+Explanation
+(1) A is an example of abstraction, B of structuring, C of visualization, and D of structuring.
+Therefore, C
+(2) [1]: B [2]: A
+(3) B
+Warm Up

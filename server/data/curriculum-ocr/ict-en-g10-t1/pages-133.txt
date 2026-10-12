@@ -1,0 +1,52 @@
+133
+The following data represents the test scores of ten individuals. Answer the following questions.
+68 90 75 64 72 32 46 86 59 82 (Points)
+(1) Provide the first quartile, second quartile, and third quartile.
+(2) Draw a box-and-whisker plot based on this data.
+The figure on the right is a box-and-whisker plot representing the
+scores of tests A, B, and C taken by 50 first-year high school students.
+Answer the following questions.
+(1) Identify all tests where there are 13 or more students scoring 80
+or above.
+(2) Identify all tests where more than half of the students scored
+below 60 points.
+The following data represents the Japanese language test scores of 10 individuals. Answer the following
+questions.
+66 77 79 46 30 25 54 95 50 86 (Points)
+(1) Provide the first quartile, second quartile, and third quartile.
+(2) Draw a box-and-whisker plot based on this data.
+The figure on the right is a box-and-whisker plot representing
+the scores of tests A, B, and C taken by a class of 30 high
+school students.
+Answer the following questions.
+(1) Identify all tests where there are 8 or more students
+scoring 80 or above.
+(2) Identify all tests where more than half of the students
+scored below 60 points.
+Try
+1
+(Points)
+Test A Test B Test C
+100
+80
+60
+40
+20
+0
+2
+Exercise
+1
+(Points)
+Test A Test B Test C
+100
+80
+60
+40
+20
+90
+70
+50
+30
+10
+0
+2

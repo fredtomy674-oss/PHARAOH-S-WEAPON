@@ -1,0 +1,9 @@
+189
+Use generative AI to create web pages for various purposes using HTML and CSS.
+Examples:
+• A ranking of popular sports.
+• Recommended restaurants in [Region Name]
+• An introduction to [Your School Name].
+• Famous tourist spots in Egypt
+etc.
+Exercise

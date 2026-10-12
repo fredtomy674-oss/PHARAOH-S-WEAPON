@@ -1,0 +1,19 @@
+182
+Warm Up
+Let’s try modifying the self-introduction page using JavaScript.
+HTML Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Me</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1 id="name">Ichiro</h1>
+</body>
+</html>
+JavaScript Code
+document.getElementById("name").textContent = "Ohtani";
+Copy and paste (or type) into WebDen and run it.
+The name has changed.

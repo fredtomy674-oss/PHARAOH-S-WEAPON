@@ -1,0 +1,39 @@
+103
+4
+cent trois
+4 | Coche vrai ou faux.
+a) Le père de ma mère est ma grand-mère. Vrai Faux
+b) Mes parents sont mon père et ma mère. Vrai Faux
+c) Le fils de mon oncle est ma cousine. Vrai Faux
+d) Le père de mon frère est mon père. Vrai Faux
+e) La sœur de ma mère est ma tante. Vrai Faux
+3 | Complète la grille grâce aux définitions.
+Vertical :
+1 : C’est la fille de mes parents.
+3 : C’est le fils de mes parents.
+4 : C’est le père de mon père.
+6 : C’est la fille de mes grands-parents.
+Horizontal :
+2 : C’est le mari de ma tante.
+4 : C’est la mère de mon père.
+5 : C’est la sœur de mon père.
+7 : C’est le fils de mes grands-parents.
+-
+-
+1
+2
+3
+4
+5
+6
+7
+d) Clémence est une copine.
+e) Aïe, mes dents !
+f) Ma langue est rose.
+g) Ils sont intelligents.
+5 | Souligne le son [ɑ̃] dans les phrases suivantes.
+a) Mon père est grand.
+b) Ils jouent avec les enfants.
+c) Vendredi, ma tante vient
+à la maison.ue
+Phonétique

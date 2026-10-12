@@ -1,0 +1,37 @@
+84
+Answer the following questions.
+(1) Answer the following questions.
+[1] Choose the most appropriate explanation of visualization as a method used in information design
+from the options A to D below, and answer using the letter.
+A Extracting only the necessary elements from a large amount of information.
+B Discerning the overall picture and clearly organizing the relationships between elements.
+C Expressing the information you want to convey in a simple manner using diagrams or
+illustrations.
+D Representing information visually.
+[2] Choose all the appropriate examples of structure as a method used in information design from the
+options A to D below, and answer using the letters.
+A A web page to introduce the school was created. The page was organized with menus for each
+hierarchy.
+B The survey results were summarized into a graph to convey information in an easy-to-
+understand manner.
+C Expressed a warning to the other party through illustrations without using text.
+D A list was compiled to summarize the events of a particular day.
+(2) What is the term for symbols used in public facilities like train stations and airports
+to visually convey attention or information to others, as shown in the diagram on
+the right?
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to D
+below, and answer using the letters.
+( [1] ): A system for transferring information between humans and devices.
+( [2] ): ([1]) through text. Operate everything from the keyboard.
+( [3] ): ([1]) through visuals. Intuitive operation is possible using devices like a mouse.
+A GUI B CUI C UX D UI
+(2) Choose the most appropriate explanation of a signifier from the options A to D below, and answer using
+the letter.
+A A measure used to indicate how easy and understandable it is for users.
+B Design that is thoughtfully created with the assumption that everyone can use it without difficulty.
+C A state that is easily accessible to a wide range of people.
+D Cues that prompt users to take action.
+Exercise
+1
+2

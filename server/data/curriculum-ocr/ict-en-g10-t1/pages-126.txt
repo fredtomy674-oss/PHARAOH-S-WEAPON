@@ -1,0 +1,22 @@
+126
+Answer the following questions.
+(1) Choose the correct explanation for nominal data from the options A to D below, and answer using the
+letter.
+A Data that is expressed in numbers and where the size of the numbers has meaning.
+B Data published on the internet by governments or businesses that is freely accessible and usable by
+businesses.
+C Data to which numbers are assigned that have a meaningful order, but where the intervals have no
+meaning.
+D Data represented by names or characteristics for distinguishing and classifying subjects.
+Answer the following questions.
+(1) Choose one scale of measurement for each of the data types shown in [1] to [6] below from the options A
+to D below, and answer using the letters.
+[1] Temperature [2] Occupation [3] Number of visitors to an
+amusement park
+[4] Uniform numbers of
+baseball players
+[5] Number of cars sold [6] Marathon ranking
+A Interval scale B Ratio scale C Nominal scale D Ordinal scale
+Exercise
+1
+2

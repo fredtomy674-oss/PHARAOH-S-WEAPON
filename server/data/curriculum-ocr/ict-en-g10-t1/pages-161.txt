@@ -1,0 +1,44 @@
+161
+Answer the following questions.
+(1) Choose the program that displays “Hello” from the options A to D below, and answer using the letter.
+A Hello B ‘Hello’
+C print(Hello) D print(‘Hello’)
+(2) Choose the program that displays “Correct” from the options A to D below, and answer using the letter.
+A print(result)
+result = ‘Correct’
+B print(result)
+result == ‘Correct’
+C result = ‘Correct’
+print(result)
+D result == ‘Correct’
+print(result)
+(3) Choose the program that displays “2” from the options A to D below, and answer using the letter.
+A a = 20
+print(a % 3)
+B print(a % 3)
+a = 20
+C a = 20
+print(a * 3)
+D print(a * 3)
+a = 20
+(4) Choose the program that displays “81” from the options A to D below, and answer using the letter.
+A b == 9
+print(b // 2)
+B b = 9
+print(b // 2)
+C b == 3
+print(b ** 4)
+D b = 3
+print(b ** 4)
+(5) When the following program is executed, give the results for items [1] to [5].
+c = 5
+print(c + 3) ……[1]
+print(c - 2) ……[2]
+print(c * 4) ……[3]
+print(c / 2) ……[4]
+print(c ** 2) ……[5]
+(6) What is the term for a symbol like “=” used to assign a value to a variable? Choose one from the options A to D
+below, and answer using the letter.
+A Arithmetic operator B Comparison operator
+C Assignment operator D Logical operator
+Try

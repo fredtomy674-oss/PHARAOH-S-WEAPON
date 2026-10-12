@@ -1,0 +1,48 @@
+12Information Study
+Point!
+2-1 Personal Information
+Personal Information
+(1) (1Personal information) : Any data or information related to a natural person who can be
+identified directly or indirectly by linking it with other data.
+<Example> name, address, date of birth, gender, phone number,
+national ID number, passport number, driving license, or any
+data that identifies psychological, health, economic identity.
+• Among the different types of personal information, name, address, date of birth, and gender are
+referred to as the (2Four Basic Items), while numbers such as those on passports, driver’s licenses,
+or National IDs are known as (3Personal Identification Codes).
+• Information that requires careful handling to prevent prejudice and other disadvantages (for
+example, race, creed, social status, medical history, and criminal record) is referred to as (4Special
+Care-Required Personal Information).
+(2) (5Act on the Protection of Personal Information) : A law that stipulates the proper handling of
+personal information.
+(3) Provision of Personal Information to Third Parties
+• The Act on the Protection of Personal Information states that one cannot provide the personal
+information of an individual to a third party without the individual’s consent. However, in the
+following cases, it is permissible to provide personal information without obtaining the
+individual’s consent.
+[1] When provision is based on laws and regulations.
+[2] When necessary for the protection of national security or public interest.
+[3] When necessary for the protection of human life, body, or property.
+[4] When especially necessary for public health or the healthy development of children.
+[5] When cooperating with national or local governments, etc.
+Protection of Privacy and Image Rights
+(1) (6Right to Privacy) : The right of an individual to protect personal information that the individual
+does not want others to know.
+(2) (7Image Rights) : The right of an individual to prevent others from photographing or using their
+face or appearance without permission.
+(3) (8Publicity Rights) : A right that protects the economic interests of celebrities in their likeness,
+among other things.
+*These rights are recognized not by law but through court (9precedents).
+Protection of Personal Information in Corporations and Organizations
+(1) (10Privacy policy) : A policy that stipulates how companies and organizations manage personal
+information.
+(2) (11Personal Data Protection Center License) : the license obtained by companies from the
+regulatory authority (Personal Data Protection
+Center) to ensure compliance with the law.
+(3) (12Prior Approval System) : A method in which a provider does not collect user data or offer a
+service to a user unless prior consent is given.
+(4) (13Opjection System) : A method in which a service provider continues to offer a service to the
+user until the user requests the provider to discontinue the service.
+1
+2
+3

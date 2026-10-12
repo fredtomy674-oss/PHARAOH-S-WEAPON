@@ -1,0 +1,31 @@
+70
+Amount of Sound Data
+(1) Channels : The number of signals used when transmitting sound. A method of playback using a
+single signal is called (21monaural), and a method of playback using two different
+signals is called (22stereo).
+(2) How to Calculate the Amount of Audio Data
+Data amount [bits] per second = (23Sampling frequency × Quantization bit depth × Number of
+channels)
+3
+Answer the following questions.
+(1) Choose the one appropriate procedure for digitizing an analog sound signal from the options A to D.
+A Sampling → Quantization → Encoding B Encoding → Quantization → Sampling
+C Quantization → Sampling → Encoding D Quantization → Encoding → Sampling
+(2) Calculate the data amount for 1 second in kilobytes (KB) when digitizing music at a sampling frequency
+of 44,100 Hz, a quantization bit depth of 16 bits, and in 2-channel stereo. However, assume that 1 KB =
+1,000 B, and round off to the nearest whole number.
+(3) Calculate the data amount for 1 minute in megabytes (MB) when digitizing music at a sampling
+frequency of 44.1 kHz, a quantization bit depth of 24 bits, and in 2-channel stereo. However, assume that
+1 KB = 1,000 B, and 1 MB = 1,000 KB, and round off to the nearest whole number.
+Explanation
+(1) A
+(2) Data amount [bits] per second = Sampling frequency × Quantization bit depth × Number of channels
+Therefore, the amount of data per second is 44,100 [Hz] × 16 [bits] × 2 [channels] = 1,411,200 [bits].
+Since 1 B = 8 bits, 1,411,200 [bits] ÷ 8 = 176,400 [B]
+1 KB = 1,000 B, so 176,400 [B] ÷ 1,000 = 176.4 ≈ 176 [KB] 176 KB
+(3) 44.1 kHz = 44.1 × 1,000 = 44,100 Hz, and since 2 minutes = 120 seconds, the data amount per minute is
+44,100 [Hz] × 24 [bits] × 2 [channels] × 60 [seconds] = 127,008,000 [bits]
+Since 1 B = 8 bits, 127,008,000 [bits] ÷ 8 = 15,876,000 [B].
+1 KB = 1,000 B, 1 GB = 1,000 MB, therefore,
+15,876,000 [B] ÷ 1,000 ÷ 1,000 = 15.876 [MB] ≈ 16 [MB] 16 MB
+Warm Up

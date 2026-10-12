@@ -1,0 +1,28 @@
+111Information Study
+Point!
+9-1 Database [1]
+Database Management System
+(1) (1Database) : An organized collection of data, organized and stored in a format that makes it easy
+to access for specific purposes. In addition to collecting data, it also makes it easy to
+search, process, and share.
+<Examples> Smartphone contact lists, company customer information, etc.
+(2) (2Database management system (DBMS)) : A system that creates, operates, and manages
+databases.
+(3) Database Management System Functions
+[1] Data (3consistency) : Ensuring that concurrent operations for shared data do not cause
+inconsistencies.
+[2] Data (4integrity) : Preventing duplication, tampering, and unauthorized registration or
+updating of data.
+[3] Data (5independence) : Managing databases separately from the programs that use them.
+[4] Data (6confidentiality) : Setting access permissions and performing authentication.
+[5] Data (7availability) : Performing backups, restoration, and recovery to prepare for possible
+failures so that data can be recovered.
+Types of Databases
+(1) (8Hierarchical database) : Database where data is represented in a tree-like hierarchical structure.
+(2) (9Network database) : Database where data is represented in a structure similar to a web or mesh.
+(3) (10Relational database) : Database where collected data is organized and managed across multiple
+tables.
+(4) (11NoSQL) : Database management systems other than relational database management systems.
+1
+2
+Hierarchical database Network database Relational database

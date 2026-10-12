@@ -1,0 +1,38 @@
+Wohnungsanzeigen D 4
+
+D3 18 Welche Zahlen hören Sie? Markieren Sie die Zahlen und
+CD 22 finden Sie mit den Buchstaben das Lösungswort.
+
+[A] [Z] [M] [G] [H] [U] [L] [K] [P] [E]
+187 943 98 35 76 178 934 53 262 67
+[F] [S] [N] [W] [O]
+89 226 27 373 72 Lösungswort: ...... ...... ...... ...... ...... ......
+
+D5 19 Mein Traumhaus
+a Lesen Sie und kreuzen Sie an: richtig oder falsch?
+
+Mein Traumhaus ist sehr groß, 200 m². Einen
+Garten hat es auch. Er ist nicht groß. Ich arbeite nicht gern im
+Garten, 100 m² sind genug. Das Haus hat zwei Badezimmer mit Toiletten.
+Ein Badezimmer ist für meine Frau und mich. Ein Badezimmer ist für meine Kinder.
+Ich habe drei Kinder, Sabine ist vier, Klaus fünf und Maria sieben Jahre alt. Mein
+Wohnzimmer ist auch sehr groß und hell. Dort steht ein Sofa. Es ist sehr schön. Und natür-
+lich sind dort auch Stühle und ein Esstisch. Wir essen gern im Wohnzimmer. Küchen gefallen
+mir nicht so gut. Meine Küche ist sehr klein, nur ein Elektroherd, ein Kühlschrank, Schränke
+und vielleicht eine Spülmaschine sind da. Mehr brauche ich nicht. Im Schlafzimmer brau-
+che ich nur ein Bett und Schränke für meine Kleidung. Es kann also klein sein. Aber
+die Möbel sind weiß. Es ist hell. Das gefällt mir besonders gut. Einen
+Balkon habe ich dort auch. Ich sehe gern in den Garten.
+100 Euro Miete sind genug.
+
+richtig falsch
+1 Der Garten ist klein, das Haus ist groß. [x] []
+2 Das Haus hat nur ein Badezimmer – für meine Frau und mich. [] []
+3 Ich habe zwei Töchter und einen Sohn. [] []
+4 Das Wohnzimmer ist nicht sehr schön. [] []
+5 Wir essen gern in der Küche. [] []
+6 Das Bett und die Schränke im Schlafzimmer sind weiß. [] []
+7 Im Schlafzimmer sind viele Möbel. [] []
+8 Das Haus kostet 100 Euro im Monat. [] []
+
+neunundachtzig 89 LEKTION 4

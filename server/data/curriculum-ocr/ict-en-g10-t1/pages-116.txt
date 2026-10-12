@@ -1,0 +1,34 @@
+116Warm Up
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [4] with the appropriate terms.
+Summarizing data into a table often makes it easier to understand. A database where data is managed
+in a table is referred to as a ( [1] ). In a ([1]), rows are referred to as ( [2] ), and columns are
+referred to as ( [3] ). Also, establishing ( [4] ) between multiple tables makes it possible to
+eliminate duplicate data, which allows data to be handled with integrity.
+(2) Consider the operations of relational databases. Table 3 below was created by performing certain
+operations with Table 1 and Table 2. List all the operations performed among selection, projection, and
+join.
+Explanation
+(1) [1] Relational database (RDB) [2] Record [3] Field [4] Relationships
+(2) Table 3 combines “Student code” and “Student name” from Table 1, and “Club activity” from Table 2,
+indicating that a join operation has been performed. Also, since the “Club code” in Table 1 is not
+included in Table 3, it can be concluded that it also involves a projection.
+Therefore, join and projection
+Student code Student name Club code
+S2023010101 Ando ○○ C1
+S2023010102 Ishida ○○ C2
+S2023010103 Ito ○○ C1
+S2023010104 Udagawa ○○ C1
+S2023010105 Ezawa ○○ C2
+Table 1
+Student code Student name Club activity
+S2023010101 Ando ○○ Dance club
+S2023010102 Ishida ○○ Tennis club
+S2023010103 Ito ○○ Dance club
+S2023010104 Udagawa ○○ Dance club
+S2023010105 Ezawa ○○ Tennis club
+Table 3
+Club code Club activity
+C1 Dance club
+C2 Tennis club
+Table 2

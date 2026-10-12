@@ -1,0 +1,55 @@
+138
+There is data consisting of the following two variables, x and y.
+x 7 4 6 2 8 3 8 1 6 3
+y 3 6 5 8 3 4 2 8 2 5
+(1) Create a scatter plot.
+(2) Describe the tendency observed between x and y.
+To examine the relationship between study time, commuting time, and test scores, a survey was taken by 40
+students in a class regarding their daily study time on weekdays. Below are scatter plots representing the
+relationship between each student’s study time and test scores (Figure 1), and the relationship between
+commuting time and test scores (Figure 2). Answer the following questions.
+(1) Compare the two scatter plots, and choose the trend observed in each from the options A to D below, and
+answer using the letter.
+A Figure 1 shows a strong positive correlation, while Figure 2 shows a strong negative correlation.
+B Figure 1 shows a strong positive correlation, while Figure 2 shows a weak negative correlation.
+C Figure 1 shows a weak positive correlation, while Figure 2 exhibits a strong negative correlation.
+D Figure 1 shows a weak positive correlation, while Figure 2 shows a weak negative correlation.
+(2) Choose the number that best fits into the blanks [1] and [2] in the following sentence from the options A to
+D below, and answer using the letters.
+When the correlation coefficients for study time, commuting time, and test scores are determined, the
+correlation coefficient between study time and test scores is ( [1] ), and the correlation coefficient
+between commuting time and test scores is ( [2] ).
+A -0.9 B -0.4 C 0.4 D 0.9
+The table on the right shows the results
+of a survey taken by 50 students in a
+class regarding whether they like
+Japanese, math, and English. Fill in the
+appropriate values for blanks [1] to [7]
+in the table.
+Try
+1
+2
+Figure 1: Scatter plot of study time and test scores Figure 2: Scatter plot of commuting time and test scores
+Test scores (points)
+Study time (minutes)
+Test scores (points)
+Commuting time (minutes)
+100
+80
+60
+40
+20
+0
+0 100 200 300 400
+100
+80
+60
+40
+20
+0 0 100 200150 25050
+Like Dislike Neither Total
+Japanese 2 ( [1] ) ( [2] ) ( [3] )
+Math 6 ( [4] ) 5 13
+English ( [5] ) ( [6] ) 1 18
+Total 15 21 ( [7] ) 50
+3

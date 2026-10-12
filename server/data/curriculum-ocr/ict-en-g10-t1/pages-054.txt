@@ -1,0 +1,34 @@
+54
+Answer the following questions.
+(1) Choose the terms that best fit into the blanks [1] to [5] from the options A to F below.
+A quantity that is commonly found in our daily lives and changes continuously, such as time or
+temperature, is called ( [1] ). In contrast, a quantity that represents a continuously changing value by
+dividing it into regular intervals and expressing it numerically is called ( [2] ). Converting analog data to
+digital data is called ( [3] ) conversion, while the reverse is called ( [4] ) conversion.
+Furthermore, when handling characters, images, audio, video, and other data on a computer, the data is
+represented using two numbers, 0 and 1, which is referred to as ( [5] ).
+A Binary B Decimal C Digital D Analog
+E A/D F D/A
+(2) For each of the following statements A to E, answer whether the statement describes analog or digital.
+A Accumulation and duplication of information can be easily achieved.
+B Temperature is measured by assessing the height of the mercury column.
+C Even if some distortion occurs in the electrical signal due to noise during transmission, it can be easily
+corrected.
+D Quantities that change continuously, such as time or temperature.
+E It is possible to comprehensively handle various forms of media.
+Answer the following questions.
+(1) What is the term for quantities that can be measured continuously and with fine precision, such as mass or
+time?
+(2) What is the term for the process of converting digital data into analog data?
+(3) What is A/D conversion? Explain briefly using the terms “digital” and “analog.”
+(4) What is the term for the method of representing numbers using two types of digits (0 and 1)?
+Choose one statement that is incorrect in regard to digital data from the options A to D below, and answer using
+the letter.
+A Accumulation and duplication of information can be easily achieved.
+B It is possible to efficiently communicate the information.
+C It can express quantities that change continuously, such as time and temperature.
+D It is possible to combine various types of media.
+Try
+Exercise
+1
+2

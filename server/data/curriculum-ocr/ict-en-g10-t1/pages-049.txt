@@ -1,0 +1,28 @@
+49
+Answer the following questions.
+(1) Choose the methods that best fit into the blanks [1] to [4] in the following table from the options A to D, and
+answer using the letters.
+Synchronous Asynchronous
+One-to-one (Individual type) ( [1] ) ( [2] )
+One-to-many (Mass media type) ( [3] ) ( [4] )
+A Letter B Telephone C Live television broadcast D Social media
+(2) Choose all appropriate methods from the options A to F that match the following forms of communication,
+and answer using the letters.
+[1] Direct and synchronous [2] Indirect and synchronous [3] Indirect and asynchronous
+A Telephone B Email C Conversation
+D Electronic bulletin board E Messaging app F Video call
+Answer the following questions.
+(1) Choose the most suitable method for blanks [1] and [2] in the following text from the options A to D, and
+answer using the letters.
+Communication methods can be classified based on the number of senders and receivers.
+Communication with one sender for one receiver is called the individual type. This classification
+includes letters and ( [1] ). Communication with one sender and multiple recipients is called mass
+media. This classification includes newspapers, ( [2] ), and web pages.
+A Video conferencing B Television C Telephone D Survey tabulation
+(2) Choose the most suitable form of communication for each of the following methods from the options A to
+C below, and answer using the letters.
+[1] Email [2] Presentation [3] Video call
+A Direct and synchronous B Indirect and synchronous C Indirect and asynchronous
+Try
+Exercise
+1

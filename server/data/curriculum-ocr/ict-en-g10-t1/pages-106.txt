@@ -1,0 +1,29 @@
+106
+Answer the following questions.
+(1) You entered “https://www.example.co.jp” in the web browser and displayed the web page. Rearrange the
+steps A to D in the order of processing to display the web page.
+A The web server sends the data of the web page.
+B Access the IP address returned from the DNS server.
+C The DNS server returns the IP address of the web server corresponding to the domain name.
+D Query the DNS server for the IP address corresponding to the domain name.
+(2) Fill in the blanks [1] to [4] in the following sentence with the appropriate terms.
+An email address is composed of “username@( [1] ),” and the protocol ( [2] ) is used for
+sending emails, while ( [3] ) or ( [4] ) is utilized for receiving emails.
+Explanation
+(1) D → C → B → A
+(2) [1] Domain name [2] SMTP [3] POP [4] IMAP (note: [3] and [4] can be in any order)
+Warm Up
+(2) Process of Sending and Receiving Emails
+[1] (18SMTP) : A protocol for sending emails to a mail server.
+[2] (19POP) : A protocol used to download emails from a server and delete them from a server.
+[3] (20IMAP) : A protocol for accessing emails stored on a mail server.
+Outgoing
+mail server Incoming
+mail server
+Download and delete the
+email from the server
+View the email on
+the server
+POP
+IMAP
+SMTPSMTP

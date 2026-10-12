@@ -1,0 +1,44 @@
+63
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [4] with the appropriate terms and
+numbers.
+The rule for how characters and symbols are represented in binary or hexadecimal is called a
+( [1] ). Alphanumeric characters and symbols are represented by ( [2] ) byte. In principle, 1 byte
+can represent ( [4] ) types of characters, and 2 bytes can represent 65,536 types of characters.
+(2) Briefly explain the characteristics of the character code system Unicode.
+(3) Use the character code table below to answer the following questions.
+Most Significant 4 Bits
+Binary 0000 0001 0010 0011 0100 0101 0110 0111
+Least Significant 4 Bits
+Binary Hexadecimal 0 1 2 3 4 5 6 7
+0000 0
+Symbols for Controlling Computers
+(Omission)
+SP 0 @ P ` p
+0001 1 ! 1 A Q a q
+0010 2 ” 2 B R b r
+0011 3 # 3 C S c s
+0100 4 $ 4 D T d t
+0101 5 % 5 E U e u
+0110 6 & 6 F V f v
+0111 7 ' 7 G W g w
+1000 8 ( 8 H X h x
+1001 9 ) 9 I Y i y
+1010 A * : J Z j z
+1011 B + ; K [ k {
+1100 C , < L ￥ l |
+1101 D - = M ] m }
+1110 E . > N ^ n ~
+1111 F / ? O _ o DEL
+[1] What is the character code for “a” in binary?
+[2] What is the symbol corresponding to the character code “00111110(2)”?
+[3] What is the symbol corresponding to the character code “5C(16)”?
+[4] What is the character string corresponding to the character code “486172696E657A756D69(16)”?
+(4) Calculate the following data size.
+[1] The data size when “Welcome” is entered.
+(5) Choose the shape data of characters corresponding to character codes from the options A to C below.
+A Font B Environment-dependent
+characters
+C Emoji
+Try
+1

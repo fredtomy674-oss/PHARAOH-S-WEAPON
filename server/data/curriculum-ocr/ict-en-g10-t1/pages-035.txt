@@ -1,0 +1,73 @@
+35Information Study
+Point!
+3-4 Information Technology for Safety [1]
+Encryption
+(1) (1Encryption ) : A method used when sending information to prevent it from being intercepted by
+anyone other than the intended recipient. The encrypted text is called
+(2ciphertext), and the original, unencrypted text is called (3plaintext).
+(2) (4Decryption) : The process of converting ciphertext back into its original plaintext form.
+(3) (5Key) : The specific procedure or data used for encryption and decryption.
+Types of encryption
+(1) (6Symmetric key encryption) : An encryption method where the same (7shared key) is used for
+both encryption and decryption.
+The message is encrypted using the (8sender’s shared key) and
+decrypted using the (9sender’s shared key) that was sent in
+advance by the sender.
+(2) (10Public key encryption) : An encryption method that uses a publicly shared encryption key
+(11public key) and a private encryption key (12private key). The
+message is encrypted using the (13recipient’s public key), which was
+sent in advance, and decrypted using the (14recipient’s private key),
+which only the recipient possesses.
+(3) Characteristics of Symmetric Key Encryption and Public Key Encryption
+Symmetric Key Encryption Public Key Encryption
+Merit
+Compared to public-key encryption,
+encryption and decryption processing
+speed is (15faster).
+Since data can be decrypted by anyone
+with the key, a different shared key is
+needed for each sender.
+Demerit
+Because the public key can be shared
+freely, key management is easier.
+Compared to symmetric-key encryption,
+encryption and decryption processing
+speed is (16slower).
+(4) (17Session key method) : An encryption method that combines symmetric key encryption and
+public key encryption.
+1
+2
+Decryption
+Receiver
+Send
+Sender’s
+shared key
+Encryption
+Sender
+Plaintext
+Hello
+Ciphertext
+&SA+F\Cs+A
+Sender’s
+shared key
+Plaintext
+Hello
+ciphertext
+&SA+F\Cs+A
+Decryption
+Receiver
+Send
+Recipient’s
+public key
+Encryption
+Sender
+Plaintext
+Hello
+Ciphertext
+&SA+F\Cs+A
+Recipient’s
+private key
+Plaintext
+Hello
+Ciphertext
+&SA+F\Cs+A

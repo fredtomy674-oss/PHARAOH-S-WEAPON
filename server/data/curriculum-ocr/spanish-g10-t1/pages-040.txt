@@ -1,0 +1,37 @@
+3
+13. Cuestión de lógica. Lee las pistas y completa el cuadro.
+
+• La chica morena es Ana.
+• El chico que lleva vaqueros no es gordo.
+• El chico delgado se llama Luis.
+• Carmen es muy simpática.
+• La chica morena lleva un vestido rojo.
+• Luis es tímido.
+• La chica que lleva una falda azul no es Ana.
+• La chica simpática tiene los ojos azules.
+• La chica que no lleva falda es muy inteligente.
+
+| Nombre | Descripción Física | Carácter | Ropa |
+| :--- | :--- | :--- | :--- |
+| | | | |
+| | | | |
+| | | | |
+
+14. Describe a uno de tus compañeros sin decir su nombre. Tus compañeros tienen que adivinar quién es. Debes incluir:
+
+o Descripción física
+o Descripción de carácter
+o La ropa que lleva
+
+15. a. Miguel y Said juegan al fútbol. Los padres de Miguel, Antonio y Lola, miran el partido y comentan.
+
+Lola: ¡Ay, Antonio, qué bien juega el niño!
+Antonio: Sí, todos los niños del equipo juegan muy bien. Conoces a los compañeros de Miguel, ¿no?
+Lola: No, sólo conozco a Said.
+Antonio: Pues mira, ese niño, con la camiseta número 7, es el hijo del director de la escuela. Se llama Khaled.
+Lola: ¿Y quién es aquel?
+Antonio: ¿El número 15? Es el hijo de mi jefe. Juega muy bien y también es muy buen estudiante.
+
+MIS COMPAÑEROS
+40
+مطابع ول الجلبريع للتر براند

@@ -1,0 +1,16 @@
+112Warm Up
+Answer the following questions.
+(1) What is the term for information that is organized and stored in a format that makes it easy to access for
+a specific purpose?
+(2) Choose one correct statement regarding data integrity from the options A to D below, and answer using
+the letter.
+A Function where a database is managed separately from the programs that use it.
+B Function that grants access rights to the data being used and limits users.
+C Function that prevents duplication, tampering, and unauthorized registration or updating of data.
+D Function for backing up and restoring to prepare for data failures.
+(3) What is the term for a database with a structure like the one shown
+on the right?
+Explanation
+(1) Database
+(2) C
+(3) Data is represented in a tree-like hierarchical structure, therefore hierarchical database

@@ -1,0 +1,46 @@
+151
+A circle with a radius of 1 is drawn within a square with a side length of 2, with the circle centered at the origin.
+Random points were plotted within this square, and the number of points that fell inside the circle was counted.
+From this, the value of pi (π) was estimated. Answer the following questions.
+(1) What is the term for the method that solves problems using random numbers?
+(2) The procedure for calculating pi (π) based on (1) is as follows. Complete the following sentences by filling
+in the blanks A and B with the appropriate terms.
+[1] Place points randomly within a square.
+[2] Determine whether those points are (A) the circle.
+[3] Determine the (B) of the area of the circle to the area of the square using the number of points
+inside the circle and the total number of points within the square.
+[4] Use this (B) to calculate the value of pi (π).
+(3) How does the accuracy of the estimated value of pi change as the number of points plotted within the
+square increases?
+(4) When 10,000 points were randomly plotted inside a square, 8,000 of them were found to be inside a
+quadrant. Calculate the approximate value of pi in this situation.
+Using spreadsheet software, as shown in the diagram below, 1,000 points were plotted using random numbers
+between 0 and 1 for the X and Y coordinates. The number of points that fall within the area of a quadrant of a
+circle with a radius of 1 was examined, and from this, an approximate value of pi was calculated. Answer the
+following questions.
+A B C D E F G H
+1 Simulation of approximate calculation of pi
+2 Number of
+times X-coordinate Y-coordinate Distance from the
+origin Inside-outside
+determination Probability of being inside
+a circle Pi
+3 1 0.9090 0.8882 1.6152 0 0.800 3.200
+4 2 0.6769 0.1794 0.7003 1
+5 3 0.3127 0.9045 0.9570 1
+6 4 0.4324 0.0900 0.4417 1
+7 5 0.3476 0.8694 0.9363 1
+8 6 0.7042 0.9714 1.1998 0
+9 7 0.1034 0.0875 0.1354 1
+(1) What is the term for the method that solves problems using random numbers in this way?
+(2) The following formulas are entered in cells B3, E3, G3, and H3 in the diagram. Choose the formula that
+best fits into the blanks [1] to [4] from the options A to D below, and answer using the letters.
+[Cell B3] = [1]
+[Cell E3] = [2]
+[Cell G3] = [3]
+[Cell H3] = [4]
+A G3*4 B IF(D3<=1, 1, 0)
+C SUM(E3:E10002)/1000 D RAND()
+Try
+1
+2

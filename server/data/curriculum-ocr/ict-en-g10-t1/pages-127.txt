@@ -1,0 +1,66 @@
+127Information Study
+Point!
+10-2 Data Analysis [1]
+Data Organization
+(1) (1Frequency distribution table) : A table
+that organizes and summarizes data, as
+shown on the right.
+・ The interval of the frequency distribution
+table is referred to as a (2class), the width of
+the interval is called the (3class width), and
+the midpoint value of the class is called the
+(4class mark).
+・ The number of data values included in each
+class is referred to as the (5frequency).
+(2) (6Histogram) : A frequency distribution
+table presented as a bar graph. (see figure above)
+(3) Measure of central tendency
+Measure of central tendency : A single numerical value representing the characteristic of a dataset.
+[1] (7Mean) : The value obtained by dividing the sum of the data by the number of data points. In
+spreadsheet software, it can be determined using the (8AVERAGE) function.
+A B C D E F G H I
+1 Analysis of maximum temperatures in the 4th week of February 2023
+2 19th (Sun.) 20th (Mon.) 21st (Tue.) 22nd (Wed.) 23rd (Thurs.) 24th (Fri.) 25th (Sat.) Mean
+3 Tokyo 18.5 14.7 9.2 10.4 10.4 12.1 12.7 12.57
+4 Osaka 14.3 12.7 8.5 10 12.5 8.5 10 10.93
+[2] (9Median) : The value that appears at the center when all the data is arranged in ascending order. If
+the number of data points is even, the median is the mean of the two central values. In
+spreadsheet software, it can be determined using the (10MEDIAN) function.
+A B C D E F G H I
+1 Analysis of maximum temperatures in the 4th week of February 2023
+2 19th (Sun.) 20th (Mon.) 21st (Tue.) 22nd (Wed.) 23rd (Thurs.) 24th (Fri.) 25th (Sat.) Medium
+3 Tokyo 18.5 14.7 9.2 10.4 10.4 12.1 12.7 12.10
+4 Osaka 14.3 12.7 8.5 10 12.5 8.5 10 10.00
+[3] (11Mode) : The value that appears most frequently. When arranging data in a frequency distribution
+table, the class mark of the class with the highest frequency is considered the mode. In
+spreadsheet software, it can be determined using the (12MODE) function.
+A B C D E F G H I
+1 Analysis of maximum temperatures in the 4th week of February 2023
+2 19th (Sun.) 20th (Mon.) 21st (Tue.) 22nd (Wed.) 23rd (Thurs.) 24th (Fri.) 25th (Sat.) Mode
+3 Tokyo 18.5 14.7 9.2 10.4 10.4 12.1 12.7 10.40
+4 Osaka 14.3 12.7 8.5 10 12.5 8.5 10 8.50
+Frequency
+distribution table
+Class (°C) Frequency
+(days)
+13 or higher and
+lower than 16 3
+16 to 19 6
+19 to 22 15
+22 to 25 5
+25 to 28 1
+Total 30
+(Days)
+16
+14
+12
+10
+8
+6
+4
+2
+0 13 16 19 22 25 28 (℃)
+Histogram
+[Cell I3]=AVERAGE(B3:H3)
+[Cell I3]=MEDIAN(B3:H3)
+[Cell I3]=MODE(B3:H3)

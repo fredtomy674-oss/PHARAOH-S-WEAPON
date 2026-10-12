@@ -1,0 +1,41 @@
+93
+3
+quatre-vingt-treize
+4 | Observe le dessin et écris le bon numéro en face de chaque mot.
+5 | Complète avec
+combien de / combien d’:
+a) Il y a élèves dans ta classe ?
+b) tables il y a dans ta classe ?
+c) Tu as amis dans ta classe ?
+d) Il y a ordinateurs dans ton lycée ?
+e) Léa a stylos rouges ?
+f) Il y a fenêtres dans ta classe ?
+g) ordinateurs il y a dans ton CDI ?
+a) le squelette : 9
+b) les dictionnaires :
+c) la carte de France :
+d) le globe terrestre :
+e) l’ordinateur :
+f) le TNI :
+g) le portemanteau :
+h) la plante :
+i) la corbeille à papier :
+j) l’horloge :
+k) le bureau :
+l) la table :
+m) la chaise :
+n) la porte :
+o) la fenêtre :
+1
+15
+14
+9
+10
+11
+12
+13
+7
+2 3 4
+5
+8
+6

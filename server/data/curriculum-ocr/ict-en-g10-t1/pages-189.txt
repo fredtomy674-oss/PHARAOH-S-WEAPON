@@ -1,0 +1,18 @@
+190Information Study
+Point!
+Creating Dynamic Web Pages13-5
+In this lesson, we will have the Generative AI program dynamic (interactive) web pages using JavaScript.
+Warm Up
+Open “Copilot” and give it the following prompt:
+“Create a self-introduction page using HTML, CSS, and JavaScript. Make it so the background color changes
+when a button is pressed. Please provide separate code for HTML, CSS, and JavaScript.”
+Copy and paste the outputted code into WebDen and run it.
+(Note: Since using Generative AI results in different code each time, this is just one example.)
+Modify the HTML, CSS, and JavaScript code to change the preset background colors or increase the variety
+of colors available.
+Give the following prompt to the Generative AI and read the explanation: “Explain this code.”
+Rename the Copilot chat thread to “Creating Dynamic Web Pages”.
+Next, give it the following prompt:
+“Write a simple news page using HTML, CSS, and JavaScript. Make the main text switch when a headline is
+clicked.”
+Point!

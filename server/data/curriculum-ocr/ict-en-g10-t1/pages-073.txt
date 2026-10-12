@@ -1,0 +1,33 @@
+73Information Study
+Point!
+Digitization of Images
+(1) (1Pixel) : The smallest unit that composes an image.
+A digital image is represented by an arrangement of pixels.
+(2) Procedure for Digitization of Images
+Images captured by digital cameras or image scanners are digitized and imported into a computer
+through the following process.
+1) (2Sampling) : The image is divided into pixels, and the representative brightness is extracted.
+• (3Resolution) : The degree of fineness of pixels when sampling.
+The unit of resolution is (4dpi).
+It is sometimes expressed as vertical pixels × horizontal pixels.
+2) (5Quantization) : Converts the brightness of each pixel into numerical values divided into
+several levels.
+• (6Gradation) : The level value that represents the intensity of color per pixel. The gradation
+is determined by the number of bits allocated to each pixel.
+<Example> At 256 gradients (8 bits), it represents 256 levels from 0 to 255.
+3) (7 Encoding) : Expressing quantized values in binary numbers (0 and 1).
+(3) Digitization and Data Volume
+[1] Data amount of an image [bits]
+= (8 Number of pixels [vertical pixels × horizontal pixels) × Number of bits for color information)
+[2] The (9higher) the values of resolution and gradation, the smoother the image obtained and
+the image quality (10improves), but the amount of data (11increases).
+(4) Raster Format and Vector Format
+[1] (12Raster format) : An arrangement of pixels used to represent text or shapes. It appears
+jagged when enlarged (this appearance is called (13jaggies)).
+Images are drawn using (14painting software).
+[2] (15Vector format) : A representation that includes information about coordinates of points
+composing the image, as well as the angles and thickness of the lines
+connecting them. Images are drawn using (16drawing software).
+1
+Original Image 1) Sampling 2) Quantization 3) Encording
+6-8 Digitization of Images

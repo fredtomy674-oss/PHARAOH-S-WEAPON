@@ -1,0 +1,17 @@
+122
+Choose the most appropriate explanation of a POS system from the options A to D below, and answer using the
+letter.
+A A system that uses artificial satellites to determine current locations.
+B A system that operates by utilizing networks to collect, share, and transmit various data and information.
+C A system used in convenience stores and other shops to manage product sales information.
+D A system for transmitting and receiving road information to resolve issues such as traffic accidents and
+congestion.
+Choose the most appropriate explanation for vertical integration from the options A to D below, and answer
+using the letter.
+A Linking systems at the same level across different departments of the organization..
+B Linking systems at different levels of the organization.
+C Linking systems at a single level within a specific department.
+D Linking systems between two unrelated departments
+Exercise
+1
+22

@@ -1,0 +1,20 @@
+178Information Study
+Point!
+HTML, CSS13-2
+HTML (HyperText Markup Language) is a language used to display web pages in a web browser. Its role is
+to create the structure of the page, such as headings, tables, and bullet points.
+CSS (Cascading Style Sheets) is a language used to define the design of a web page. It allows for detailed
+specification of various designs, such as text size, fonts, and background colors.
+By combining HTML and CSS, you can create web pages efficiently.
+HTML
+Structure and Content
+“Headings, text, etc.”
+Code Example: Code Example:
+Browser Display
+CSS
+Design
+“Text color, etc.”
+
+
+In the example above, the text color inside the HTML <p> tags is set to “Red” using CSS. Because of this, you
+can change the text color of all <p> tags within the HTML from a single location in the CSS.

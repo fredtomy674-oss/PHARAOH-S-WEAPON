@@ -1,0 +1,13 @@
+124Warm Up
+Answer the following questions.
+(1) For the data shown in [1] to [6] below, answer A for quantitative data and B for qualitative data.
+[1] Time [2] Blood type [3] Names of U.S. states
+[4] Weight [5] Test ranking [6] Age
+(2) Into which scale of measurement can the data in [1] to [6] be classified? Choose one from the options A
+to D below, and answer using the letters.
+[1] Time [2] Blood type [3] Names of U.S. states
+[4] Weight [5] Test ranking [6] Age
+A Interval scale B Ratio scale C Nominal scale D Ordinal scale
+Explanation
+(1) [1] A [2] B [3] B [4] A [5] B [6] A
+(2) [1] A [2] C [3] C [4] B [5] D [6] B

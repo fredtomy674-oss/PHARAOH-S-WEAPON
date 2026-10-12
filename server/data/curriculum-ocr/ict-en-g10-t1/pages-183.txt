@@ -1,0 +1,23 @@
+184
+Let’s try changing the text size.
+HTML Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Me</title>
+</head>
+<body>
+<p id="name">Ichiro</p>
+<button id="btn">Change Size</button>
+</body>
+</html>
+JavaScript Code
+const text = document.getElementById("name");
+const btn = document.getElementById("btn");
+btn.onclick = () => {
+text.style.fontSize = 50 + "px";
+};
+Copy and paste (or type) into WebDen and run it.
+When you press the button:
+The name’s text became larger.

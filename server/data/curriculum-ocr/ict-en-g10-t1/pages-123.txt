@@ -1,0 +1,27 @@
+123Information Study
+Point!
+10-1 Types of Data and Analysis
+Types of Data
+(1) (1Quantitative data) : Data that is expressed in numbers and where the size of the numbers has
+meaning.
+[1] (2Interval scale) : Data where the intervals between numbers have meaning.
+<Examples> Time, temperature, calendar year, etc.
+[2] (3Ratio scale) : Data where not only the intervals between numbers but also the ratios of the
+numbers have meaning.
+<Examples> Length, weight, age, etc.
+(3) (4Qualitative data) : Data used to distinguish classifications or types.
+[1] (5Nominal scale) : Data that only holds meaning in distinguishing different categories.
+<Examples> Blood type, prefecture, phone number, etc.
+[2] (6Ordinal scale) : Data in which the order is meaningful but the intervals are not meaningful.
+<Examples> Grades on report cards, test rankings, grade level, etc.
+Data Analysis Approachs
+(1) (7Discriptive Statistics) : Summarizing and organizing historical data to get insights about the
+characteristics of a sample
+[1] (8Measures of centeral tendency) : Mean, Median,and Mode.
+[2] (9Measures of Spread) : Range, Variance,and Standard Deviation
+(2) (10Inferential Statistics) : Used to make inferences, predictions, and generalizations about the
+entire population from the data of a sample.
+[1] (11Hypothesis Testing)
+[2] (12Confidence Intervals)
+1
+3

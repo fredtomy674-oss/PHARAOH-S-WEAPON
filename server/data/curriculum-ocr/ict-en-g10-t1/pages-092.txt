@@ -1,0 +1,37 @@
+92Warm Up
+Answer the following questions.
+(1) Name the following logic circuit and create a truth table.
+(2) A circuit was created by combining logic circuits as shown in the following diagram. In this case, create
+a truth table for inputs A, B, and output X.
+Explanation
+(1) AND Circuit (logical conjunction circuit).
+An AND circuit is a circuit that outputs 1 only when all inputs are 1. Therefore, the truth table is as
+follows.
+Input Output
+A B X
+0 0 0
+0 1 0
+1 0 0
+1 1 1
+(2) Create and analyze the truth table for each circuit.
+Therefore, the truth table is as follows.
+A
+B X
+A
+B
+X
+A
+B D
+C
+X
+A B C D X
+0 0 0 1 1
+0 1 0 0 0
+1 0 0 1 1
+1 1 1 0 1
+Input Output
+A B X
+0 0 1
+0 1 0
+1 0 1
+1 1 1

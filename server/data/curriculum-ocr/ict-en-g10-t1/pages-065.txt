@@ -1,0 +1,32 @@
+65Information Study
+Point!
+6-5 Numerical Calculations [1]
+Addition and Subtraction of Binary Numbers
+Addition and subtraction in binary numbers are performed digit by digit, just like in decimal numbers.
+(1) Binary addition : In binary addition, the place value carries over by one position when the sum reaches 2.
+0(2) + 0(2) = (10(2)), 0(2) + 1(2) = (21(2)), 1(2) + 1(2) = (310(2)), 1(2) + 1(2) + 1(2) = (411(2))
+<Example> Addition of binary numbers 0101(2) + 1001(2)
+(2) Binary subtraction : In binary subtraction, when the minuend is insufficient, a value of 2 is borrowed
+from the next higher digit.
+0(2) － 0(2) = (60(2)), 1(2) － 0(2) = (71(2)), 1(2) － 1(2) = (80(2)), 10(2) － 1(2) = (91(2))
+<Example> Subtraction of binary numbers 1010(2) - 0110(2)
+Carry When two 1s are added together,
+a carry of 1 is generated to the
+next higher digit.
+Borrow When 1 is borrowed from the higher
+digit, it becomes two 1s in the lower
+digit.
+Perform the following binary calculations.
+(1) 0101(2) + 1010(2) (2) 1011(2) + 0011(2)
+(3) 1011(2) － 0101(2) (4) 1101(2) － 1010(2)
+Explanation
+(1) (2)
+(3) (4)
+Therefore, 1111(2)
+Carry
+Therefore, 1110(2)
+Borrow
+Therefore, 0110(2)
+Borrow
+Therefore, 0011(2)
+Warm Up

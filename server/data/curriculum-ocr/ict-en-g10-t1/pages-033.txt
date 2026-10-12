@@ -1,0 +1,20 @@
+33Warm Up
+Answer the following questions.
+(1) Choose the one that correctly describes phishing from the options A to D below, and answer using the
+letter.
+A A program that unknowingly steals personal information from inside a computer and sends it to a
+third party.
+B Pretending to be an email from a financial institution to lure someone to a fake website and illegally
+obtain their PIN or credit card number.
+C Clicking a URL once in a website or email triggers a false declaration of contract and a demand for a
+large payment.
+D Being billed for a service you don’t recognize and being defrauded of money.
+(2) Choose all that correspond to social engineering from the options A to D below, and answer using the
+letters.
+A Disabling access to data on a computer and demanding a ransom for its recovery.
+B Creating a fake website posing as a bank to steal the PIN of a bank account.
+C. Eavesdropping on conversations with other users.
+D Rummaging through trash to obtain discarded confidential information.
+Explanation
+(1) A is spyware, C is one-click fraud, and D is fraudulent billing. Answer: B
+(2) A is ransomware, B is phishing. Answers: C, D

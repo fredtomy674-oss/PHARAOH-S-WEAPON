@@ -1,0 +1,50 @@
+3 C Haben Sie Äpfel?
+
+C1 Lesen Sie den Notizzettel, hören Sie dann und führen Sie das Gespräch weiter.
+Kann ich Ihnen helfen?
+Ich brauche Äpfel. Haben Sie ...?
+Ja, natürlich.
+Wie viel möchten Sie?
+Zwei Kilo.
+Gern. Sonst noch etwas?
+...
+...
+Nein, danke.
+Das ist alles.
+Haben Sie Äpfel? Ja. Nein.
+Wie viel möchten Sie? Zwei Kilo.
+2 Kilo Äpfel
+1 Kilo Tomaten
+2 Kilo Birnen
+3 Bananen
+
+C2 Ordnen Sie zu.
+1 2 3
+A Joghurt Tee Reis Gemüse Saft
+B Sahne Fleisch Brot Mineralwasser Salz
+C Milch Käse Saft Fisch Obst
+Bild 1 2 3
+Text
+
+C3 Sehen Sie das Bild an.
+Fragen Sie und antworten Sie.
+■ Haben wir noch | Milch?
+Brauchen wir | Reis?
+◆ Ja.
+Nein.
+Obst ● Gemüse ● Brot ● Reis
+Käse ● Milch ● Sahne ● Fleisch
+Tee ● Wasser ● Zucker ● Salz
+
+C4 Spiel: Ihr Einkauf
+Anna braucht Reis, Salz und ... . Sie hat Obst, ... .
+Sandra braucht Fleisch, Fisch, ... . Sie hat Käse, Saft und Gemüse, ... .
+Joel braucht Zucker, ... . Er hat ... .
+Sandra, ich brauche Reis. Hast du Reis?
+Nein, tut mir leid.
+Joel, hast du Reis?
+Ja, hier bitte.
+OBST
+Anna
+
+zweiunddreißig 32 LEKTION 3

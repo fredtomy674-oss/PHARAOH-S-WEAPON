@@ -1,0 +1,41 @@
+83
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to E
+below, and answer using the letters.
+Methods of information design include the following.
+( [1] ): A method for discerning the overall picture and clearly organizing the relationships between
+elements.
+( [2] ): A method for visually representing information.
+( [3] ): A method for extracting only the necessary elements from a large amount of information.
+A Specification B Abstraction C Visualization D Materialization E Structuring
+(2) Choose the most appropriate example of abstraction as a method used in information design from the
+options A to D below, and answer using the letter.
+A Pictograms for each classroom were created to guide people around the school building.
+B A web page to introduce the school was created. The page was organized with menus for each
+hierarchy.
+C The survey results were compiled into tables and graphs.
+D Text summarizing multiple matters is presented in bullet points.
+(3) Choose one term that represents a pictorial symbol that conveys information by abstracting the intended
+message without using text from the options A to D below, and answer using the letter.
+A Usability B Affordance
+C Signifier D Pictogram
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] and [2] in the following sentences from the options A to
+D below, and answer using the letters.
+The experience that users gain through products or services is referred to as ( [1] ). The aim is not
+just to achieve ease of use, but also to achieve a sense of comfort. For that purpose, it is necessary to
+simplify the ( [2] ) that people use to operate devices and screens, choose colors with consideration
+for the fact that different people perceive colors differently, and add textual information.
+A GUI B CUI C UX D UI
+(2) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to F
+below, and answer using the letters.
+Regardless of the level of advancement for functions offered by a computer, those functions cannot be
+effectively applied in real life if they are difficult to use. The ease of use of such devices is referred to as
+( [1] ), and ([1]) varies depending on the user. On the other hand, ease of use for a wide range of
+people, regardless of their abilities or conditions, is referred to as ( [2] ). The term ( [3] ) refers to
+design that enables ease of use for everyone, regardless of age, language, nationality, or physical ability.
+A Accessibility B Usability C Affordance
+D Universal design E User interface F Barrier-free
+Try
+1
+2

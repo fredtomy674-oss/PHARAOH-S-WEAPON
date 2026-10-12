@@ -1,0 +1,56 @@
+158
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to F
+below, and answer using the letters.
+The order of calculations or the sequence for creating something is referred to as an ( [1] ).
+Among the diagrams that visually represent this, the one that is suitable for representing a single process
+flow is referred to as a ( [2] ), while the one suitable for representing parallel process flows is
+referred to as an ( [3] ).
+A Programming B Programming language C Activity diagram
+D Source code E Algorithm F Flowchart
+(2) Choose the symbols used in flowcharts that correspond to the meanings [1] to [4] from the options A to F
+below, and answer using the letters.
+[1] Start/End [2] Branching according to conditions
+[3] Start of a repetition [4] Data input and output
+A B C D
+E F
+(3) From the following flowcharts, choose the one from A to C that best represents a flowchart depicting the
+case where “If the product is in stock, purchase it; otherwise, stop shopping.” Answer with the appropriate
+letter.
+(4) The figure on the right is an activity diagram showing the
+relationship between yourself and a vending machine
+when purchasing a product. Choose the option that best
+fits into the blanks [1] to [4] from the options A to D
+below, and answer using the letters.
+A Insert money
+B Money is counted
+C Press button to purchase the product
+D Product is discharged
+(5) Choose the visual programming language developed for
+beginners and children from the options A to D, and
+answer using the letter.
+A Python B Scratch
+C JavaScript D BASIC
+Exercise
+1
+Loop condition
+Process 1
+Loop
+Start
+Process 1
+Process 2
+End
+Process 1
+Condition No
+Yes
+Process 2
+A B C
+Start
+End
+No
+Yes
+Person
+[1]
+[2] [3]
+[4]Receive the product
+Vending machine

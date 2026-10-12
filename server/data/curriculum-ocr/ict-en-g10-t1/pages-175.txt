@@ -1,0 +1,30 @@
+176Information Study
+Point!
+About Generative AI13-1
+Generative AI performs intellectual tasks on behalf of humans, so using it effectively can streamline your
+workflow.
+In the real world, Generative AI is used in various situations, such as generating new ideas, summarizing texts,
+supporting studies, and programming.
+Generative AI has learned from vast amounts of information worldwide. It generates natural text by selecting
+“the word most likely to come next” in response to a user’s “Prompt” (instruction).
+For example, if you provide the prompt “What is the capital of Egypt?”: The AI selects “Cairo” as the word
+most likely to follow “The capital of Egypt is,” and generates the sentence “The capital of Egypt is Cairo.”
+The key point is that the Generative AI does not “know” as a fact that the capital of Egypt is Cairo; it is merely
+selecting the word with the highest probability of following the phrase “The capital of Egypt is.”
+Therefore, Generative AI does not always provide the correct answer. Due to its mechanism, it is “certain to
+say incorrect things with some probability.” This is called “Hallucination.”
+When using Generative AI, please understand this characteristic and do not trust what the AI says 100%.
+Warm Up
+There are various Generative AIs in the world, such as ChatGPT, Google Gemini, and Microsoft Copilot. In
+this lesson, we will use Copilot.
+First, let’s create a text. Try giving Copilot the following prompt:
+“Write a story about a cat wizard going on an adventure.”
+Next, try giving the following prompt:
+“Rewrite it to include a dog companion.”
+In this way, simply by speaking to Generative AI in everyday language, you can create and modify text.
+Next, try giving the following prompt:
+“Give me a quiz about Egypt. Wait until I answer.”
+Generative AI can also generate questions using learned information. You can freely change the format of the
+questions, such as instructing it to wait for the user’s answer, or changing from multiple-choice to open-ended
+questions.
+By giving appropriate prompts to Generative AI, you can make use of it for learning.

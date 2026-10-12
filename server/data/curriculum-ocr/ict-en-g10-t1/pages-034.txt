@@ -1,0 +1,34 @@
+34
+Read the following passage and answer the questions that follow.
+As more people use the internet, cases of fraud involving the misuse of computers and smartphones are
+also increasing. For example, there are scams where simply clicking a URL on a website is treated as
+agreeing to a service contract, and a large fee is demanded ( [1] ), or emails pretending to be from
+financial institutions lead users to fake websites in order to steal PINs or credit card numbers ( [2] ).
+Various deceptive methods exist. In addition, (A)exploiting gaps in human psychology or carelessness can
+also lead to the unauthorized acquisition of information.
+(1) Write the terms that best fit in blanks [1] and [2].
+(2) What is the term used to describe the kind of activity mentioned in the underlined part A?
+(3) Choose all that are related to the answer in (2) from the options A to D below, and answer using the letters.
+A Individuals can communicate with each other over the internet.
+B Data on a computer is made inaccessible, and a ransom is demanded for its recovery.
+C Eavesdropping on conversations with other users.
+D Peeking while someone is entering their user ID or password.
+Answer the question to the following.
+(1) For each of the following sentences, choose the most closely related option from the options A to E below,
+and answer using the letters.
+[1] Being charged a usage fee simply by clicking a link, as if you had joined or signed a contract.
+[2] Pretending to be a financial institution to trick users into entering their user ID and password, which
+are then misused.
+[3] A basic policy established by a company or organization to maintain information security.
+[4] Illegally extracting information from someone else’s credit card or bank card.
+A Phishing B One-click fraud C Skimming
+D Information security policy E Social engineering
+(2) Choose all that fall under social engineering from the options A to D below, and answer using the letters.
+A Calling from outside while pretending to be an employee, in order to extract confidential internal
+information.
+B Being billed for a fictitious service you don’t recognize and being defrauded of money.
+C Rummaging through trash to obtain discarded confidential information.
+D Running a program that causes malicious software to be downloaded without the user’s knowledge.
+Try
+Exercise
+1

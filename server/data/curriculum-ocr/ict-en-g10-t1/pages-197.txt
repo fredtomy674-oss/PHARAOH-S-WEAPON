@@ -1,0 +1,13 @@
+198Information Study
+Point!
+Developing a Block Breaker Game 213-10
+In this lesson, you will use AI to update the block breaker game you created last time.
+Note: You will present your work in a future class.
+Warm Up
+Open Copilot and access the “Block Breaker Development” chat you created in the previous lesson.
+1. Update the Code Run a prompt like the following:
+“Make the ball change its angle every time it hits the player.”
+2. Run the Code Copy and paste the generated code into the HTML, CSS, and JavaScript tabs in WebDen and
+run it.
+(Note: Since generative AI produces different code each time, this is just an example.)
+Point!

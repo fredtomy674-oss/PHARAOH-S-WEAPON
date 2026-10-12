@@ -1,0 +1,60 @@
+139
+There is data consisting of the following two variables, x and y.
+x 6 4 7 5 8 6 2 9 8 5
+y 7 10 2 4 3 4 4 5 4 7
+(1) Create a scatter plot.
+(2) Describe the tendency observed between x and y.
+The rent of rental properties around a station was investigated to examine the relationship with the size of the
+room and the distance to the nearest station. The following are scatter plots representing the relationship
+between the size of each room and the rent (Figure 1), and the relationship between the distance to the nearest
+station from each room and the rent (Figure 2). Answer the following questions.
+(1) Compare the two scatter plots and provide the tendencies that can be observed in each. Choose one from
+the options A to D below, and answer using the letter.
+A Figure 1 shows a strong positive correlation, while Figure 2 shows a strong negative correlation.
+B Figure 1 shows a weak positive correlation, while Figure 2 exhibits a strong negative correlation.
+C Figure 1 shows a strong positive correlation, while Figure 2 shows a weak negative correlation.
+D Figure 1 shows a weak positive correlation, while Figure 2 shows a weak negative correlation.
+(2) Choose the number that best fits into the blanks [1] and [2] in the following sentence from the options A to
+D below, and answer using the letters.
+When the correlation coefficients for room size and rent, and distance to the nearest station and rent are
+determined, the correlation coefficient between room size and rent is ( [1] ), and the correlation
+coefficient between the distance to the nearest station and rent is ( [2] ).
+A -0.9 B -0.6 C 0.6 D 0.9
+The table on the right shows the results
+of a survey taken by 200 school students
+regarding their main means of
+commuting to and from school,
+categorized by grade. Fill in the
+appropriate values for blanks [1] to [7]
+in the table.
+Exercise
+1
+2
+Figure 1: Scatter plot of room size and rent Figure 2: Scatter plot of rent and distance to nearest station
+Rent (yen)
+Room size (m2
+)
+Rent (yen)
+Distance to the nearest station (m)
+140,000
+120,000
+100,000
+80,000
+60,000
+40,000
+20,000
+0
+0 20 40 60 80 100
+140,000
+120,000
+100,000
+80,000
+60,000
+40,000
+20,000
+0 0 500 1000 1500 2000 30002500
+3 On foot Bicycle Other Total
+Grade 1 29 33 ( [1] ) ( [2] )
+Grade 2 ( [3] ) ( [4] ) ( [5] ) 67
+Grade 3 ( [6] ) 32 9 66
+Total ( [7] ) 94 24 200

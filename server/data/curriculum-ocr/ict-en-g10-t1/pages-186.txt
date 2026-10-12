@@ -1,0 +1,16 @@
+187
+Warm Up
+Open copilot.microsoft.com in your browser, sign in, and launch Copilot.
+1. Generate a Self-Introduction Page Enter the following prompt into Copilot:
+“Create a simple self-introduction page using HTML and CSS.”
+2. Run the Code Copy and paste the generated output into WebDen and run it.
+(Note: Since generative AI produces different code each time, the result is just an example.)
+3. Modify the Code Modify the HTML and CSS code to make it your own self-introduction page.
+4. Understand the Code Ask the AI to explain the code by using the following prompt:
+“Explain this code.”
+5. Organize To make it easier to review your interactions in future lessons, rename the Copilot chat to
+“04 Creating Static Web Pages”.
+How to rename a chat:
+1.Click the “...” (three-dot menu) on the right side of the conversation.
+2.Select “Rename” from the menu.
+3.Enter the new name and confirm.

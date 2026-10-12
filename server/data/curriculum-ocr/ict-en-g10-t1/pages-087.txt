@@ -1,0 +1,31 @@
+87
+Answer the following questions.
+(1) The following diagram represents the relationship between computer components. Choose the appropriate
+device name that best fits into the blanks [1] to [6] from the options A to F, and answer using the letters. Note
+that the order of blanks [1] and [2] does not matter.
+Flow of data
+( [1] )
+CPU
+( [2] )
+( [4] ) ( [6] )( [3] )
+( [5] )
+A Input device B Output device C Control unit
+D Arithmetic unit E Main memory device F Secondary memory
+(2) Choose all computer components or peripheral devices corresponding to the following [1] to [5] from the
+options A to I below, and answer using the letters.
+[1] Arithmetic unit, control unit [2] Main memory device [3] Secondary memory
+[4] Input device [5] Output device
+A Memory B Display C SSD
+D Mouse E Keyboard F Printer
+G Hard disk H USB memory I CPU
+(3) Choose the term that best fits into the blanks [1] and [2] in the following sentences from the options A to D
+below, and answer using the letters.
+( [1] ) is called the main memory and exchanges data directly with the CPU. ( [2] ) is also called
+secondary memory and serves the role of storing large amounts of data.
+A Memory B Hardware
+C Interface D Storage
+(4) What is the interface described by each of the following [1] to [3]?
+[1] An interface that connects devices to output video and audio through a single cable.
+[2] The most commonly used interface for computer peripheral devices.
+[3] Communication standard used for wired LANs in homes, offices, etc.
+Try

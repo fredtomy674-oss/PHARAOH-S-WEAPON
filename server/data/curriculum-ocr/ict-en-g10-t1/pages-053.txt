@@ -1,0 +1,34 @@
+53Information Study
+Point!
+6-1 Analog and Digital
+Analog and Digital
+(1) (1Analog) : Refers to quantities that can be measured continuously and with
+fine precision, such as mass, time, or temperature. Data
+represented in analog form is referred to as (2analog data).
+(2) (3Digital) : Refers to quantities that continuously change and are represented
+numerically by segmenting at regular intervals. Data represented
+in digital form is referred to as (4digital data).
+(3) (5A/D conversion (digitization)) : The process of converting analog data
+into digital data.
+(4) (6D/A conversion) : Converting digital data into analog data.
+(5) Advantages of Digital Data
+[1] Data can be (7accumulated) or (8duplicated) without degradation.
+[2] It is easy to (9modify) and (10edit) the data.
+[3] It is possible to efficiently (11communicate) the information.
+[4] It is possible to (12combine) various types of media.
+(6) (13Binary) : A method of representing numbers using two types of digits, 0 and 1.
+• In computers, all types of information, such as numbers, characters, audio, and images, are represented
+in (14binary).
+Analog
+Digital
+For each of the following statements A to D, answer whether the statement describes analog or digital.
+A A thermometer that represents a continuous quantity using the length of a mercury column.
+B Accurate and highly reproducible, without any degradation due to duplication or transmission.
+C A quantity that changes continuously can be represented using the numbers 0 and 1.
+D All information (numbers, text, audio, images, videos, etc.) can be represented in binary.
+Explanation
+A: Analog
+B: Digital
+C: Digital
+D: Digital
+Warm Up

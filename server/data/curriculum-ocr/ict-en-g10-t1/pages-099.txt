@@ -1,0 +1,32 @@
+99Information Study
+Point!
+8-2 IP Addresses and Domain Names
+IP Addresses and Domain Names
+(1) (1IP address) : A unique identification number equivalent to an address assigned to devices on an
+information and communication network.
+<Features of IP Addresses>
+• The method of representing an IP address using binary with (232 bits) is referred to as (3IPv4).
+• It is represented in four blocks of (48 bits) each, separated by a dot (.) and expressed in decimal from
+0 to (5255).
+(2) Global IP Address and Private IP Address
+[1] (6Global IP address) : An IP address used on the internet.
+[2] (7Private IP address) : An IP address used within a local network, such as a LAN.
+(3) Issue of IP Address Exhaustion
+Due to the rapid proliferation of the internet, there are almost no new IPv4 addresses available for
+allocation. Therefore, we are currently transitioning to (8IPv6) IP addresses, which have been expanded
+to (9128 bits).
+(4) (10Domain name) : A string of characters assigned to make a numerical IP address more understandable
+for humans.
+(5) (11DNS) : A system that associates domain names with IP addresses and vice versa. The (12DNS server)
+is responsible for fulfilling that role.
+Binary
+32 bits
+Decimal
+Choose the appropriate example of an IPv4 IP address for a computer from the options A to D below, and
+answer using the letter.
+A 192.168.0.1 B kantei.go.jp
+C 555-1234-5678 D https://www.example.co.jp/
+Explanation
+An IPv4 address is divided into four blocks, with each block’s value ranging from 0 to 255.
+Therefore, A
+Warm Up

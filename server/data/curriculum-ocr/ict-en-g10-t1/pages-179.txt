@@ -1,0 +1,15 @@
+180
+CSS Code
+.name {
+color: blue;
+}
+Copy and paste (or type) into WebDen and run it.
+The text has turned blue.
+In this code, a class named class=“name” is specified inside the HTML tag, and the design for that class is
+defined in the CSS.
+By specifying classes in this way, you can individually change the design even for tags of the same type.
+Try adding more items (content) to display.
+Try changing the text size and font.
+Exercise
+Let’s try creating a page other than a self-introduction page.
+Try

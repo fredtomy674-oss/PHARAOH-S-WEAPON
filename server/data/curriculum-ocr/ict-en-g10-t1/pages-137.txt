@@ -1,0 +1,48 @@
+137Warm Up
+Answer the following questions.
+(1) There is data consisting of the following two variables, x and y.
+x 7 4 6 2 9 3 8 1 6 3
+y 3 6 5 8 3 4 2 9 2 5
+[1] Create a scatter plot.
+[2] Describe the tendency observed between x and y.
+(2) The relationship between mean temperature and
+ice cream expenditures was investigated and
+summarized in the scatter plot on the right.
+[1] Choose the description representing the
+tendency of the two from the options A to D
+below, and answer using the letter.
+A There is a weak negative correlation.
+B There is a strong negative correlation.
+C There is a weak positive correlation.
+D There is a strong positive correlation.
+[2] Choose the number that best fits into the blank in the following sentence from the options A to D
+below, and answer using the letter.
+The correlation coefficient between the mean temperature and ice cream expenditures was ( ).
+A -0.9 B -0.4 C 0.4 D 0.9
+Explanation
+(1) [1] The scatter plot is shown below.
+[2] There is a negative correlation according to the scatter plot.
+(2) [1] Based on the scatter plot, it can be interpreted as having a “strong positive correlation” because it
+forms a linear upward graph. Therefore, D.
+[2] Based on [1], since it is known that there is a strong positive correlation between mean temperature
+and ice cream expenditure, it can be inferred that the highest value of 0.9 is most appropriate.
+Therefore, D.
+Mean temperature (℃)
+1600
+1400
+1200
+1000
+800
+600
+400
+200
+0
+0.0 5.0 10.0 15.0 20.0 25.0 30.0 35.0
+Expenditures on ice cream (in yen)
+10
+8
+6
+4
+2
+00 2 4 6 8 10 x
+y

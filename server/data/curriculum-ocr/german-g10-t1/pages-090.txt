@@ -1,0 +1,72 @@
+4 D Wohnungsanzeigen
+
+b So ist meine Wohnung wirklich.
+   Lesen Sie den Text. Ergänzen Sie dann die Tabelle.
+
+Meine Wohnung ist 75 m² groß und kostet 350 Euro
+Miete im Monat, dazu kommen ungefähr 100 Euro Nebenkosten. Ich
+habe keinen Garten, nur einen Balkon. Der ist groß. Meine Frau, meine Kinder und
+ich haben dort alle Platz. Wir frühstücken oft dort. Wir haben nur ein Badezimmer mit
+Toilette. Das finde ich nicht praktisch. Im Schlafzimmer sind alle Schränke braun. Es ist sehr
+dunkel und gefällt mir nicht. Aber das Kinderzimmer ist groß und hell. Meine drei Kinder
+können hier schön spielen. Das Wohnzimmer ist klein. Der Esstisch mit Stühlen
+steht in der Küche, leider. Sie ist groß. Im Wohnzimmer stehen nur ein
+Sofa, der Fernseher und ein kleiner Tisch.
+
+<TABLE>
+<ROW>
+<CELL></CELL>
+<CELL>Traumhaus</CELL>
+<CELL>Wohnung</CELL>
+</ROW>
+<ROW>
+<CELL>Miete</CELL>
+<CELL>100 Euro</CELL>
+<CELL>350 Euro, 100 Euro Nebenkosten</CELL>
+</ROW>
+<ROW>
+<CELL>Garten</CELL>
+<CELL>klein</CELL>
+<CELL>kein Garten</CELL>
+</ROW>
+<ROW>
+<CELL>Badezimmer</CELL>
+<CELL></CELL>
+<CELL></CELL>
+</ROW>
+<ROW>
+<CELL>Schlafzimmer</CELL>
+<CELL></CELL>
+<CELL></CELL>
+</ROW>
+<ROW>
+<CELL>Kinderzimmer</CELL>
+<CELL>-</CELL>
+<CELL></CELL>
+</ROW>
+<ROW>
+<CELL>Wohnzimmer</CELL>
+<CELL></CELL>
+<CELL></CELL>
+</ROW>
+<ROW>
+<CELL>Küche</CELL>
+<CELL></CELL>
+<CELL></CELL>
+</ROW>
+</TABLE>
+
+D5 Phonetik 20 Hören Sie und markieren Sie: e, i lang (e, i) oder kurz (e, i).
+CD 23
+das Bett • Gute Idee! • die Adresse • sechzehn Liter •
+die Miete • der Tisch • das Zimmer • die Musik • die Familie
+
+CD 24 Hören Sie noch einmal und sprechen Sie nach.
+
+D5 Phonetik 21 Hören Sie und sprechen Sie nach.
+CD 25
+Ich lebe jetzt in England. • Möchten Sie Tee? • Lesen Sie bitte den Text. •
+Die Miete ist billig. • Das ist richtig. • Wo ist das Kinderzimmer? • Hier links. •
+Ein Liter Milch, ein Kilo Fisch.
+
+neunzig 90 LEKTION 4

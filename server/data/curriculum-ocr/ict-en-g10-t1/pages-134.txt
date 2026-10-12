@@ -1,0 +1,51 @@
+134Information Study
+Point!
+10-4 Data Analysis [3]
+Variance and Standard Deviation
+・Variance and standard deviation: These represent numerically how much the data is spread out from the
+mean (1mean). Let x1, x2, …, xn represent the values of the data. x refers to the mean, and n refers to the
+number of data points.
+(1) (2Deviation) : x1 - x, x2 - x, …, xn - x
+(2) (3Variance) : The mean value of (x - x )². The (4larger) the variance, the more dispersed the data is.
+In Google Sheets, the VARP function can be used to determine variance, while in Excel,
+the VAR.P function is used.
+(3) (5Standard deviation) : s = √Variance
+In spreadsheet software, the STDEV.P function can be used to determine the variance.
+The standard deviation should be expressed in the same unit as the data.
+<Steps for Calculating the Standard Deviation>
+Summarize data in a table as shown on the right according to
+the following steps.
+[1] Determine the (6mean) of the data.
+[2] Find the (7deviation) for each individual data point.
+[3] (8Square the deviation) of each individual data point.
+[4] Determine the variance, which is the (9mean) of [3].
+The deviation is the value obtained by subtracting the
+mean from a data value.
+The standard deviation is the positive square root of the
+variance.
+x x - x (x - x )2
+x1 [2] [3]
+x2 [2] [3]
+x3 [2] [3]
+Total
+Mean [1] [4]
+Variance
+Warm Up
+The following data represents the results of a handball throw by six individuals.
+26, 25, 32, 28, 32, 25 (m)
+(1) Determine the mean x of the data.
+(2) Determine the variance and standard deviation of the data.
+Explanation
+(1) Summarize the data in a table like the one on the right.
+The mean is 28 m.
+(2) The variance is 9, and the standard deviation is √ 9 = 3 (m).
+3 m
+x x - x (x - x)2
+x1 26 -2 4
+x2 25 -3 9
+x3 32 4 16
+x4 28 0 0
+x5 32 4 16
+x6 25 -3 9
+Total 168 54
+Mean 28 9

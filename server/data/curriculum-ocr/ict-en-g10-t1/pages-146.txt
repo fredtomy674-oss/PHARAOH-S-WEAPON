@@ -1,0 +1,33 @@
+146Warm Up
+Initially, 1,000 yen was saved. Using spreadsheet software, a table was created like the one below to simulate
+the relationship between the number of months and the amount saved when saving 500 yen each month.
+Answer the following questions.
+A B C D E
+1 Allowance simulation
+2 Initial savings amount
+(in yen) Allowance (yen) Number of months Savings amount
+3 1,000 500 0 1,000
+4 1 1,500
+5 2 2,000
+6 3 2,500
+(1) Can this model be represented as a deterministic model or a probabilistic model?
+(2) Choose the term that best fits into the blanks [1] to [3] in the following formula from the options A to D
+below, and answer using the letters.
+Savings amount = [1] + [2] × [3]
+A Number of months B Allowance
+C Initial savings amount D Amount saved last month
+(3) The formula entered in cell E4 in the diagram is as follows. Note that the formula in cell E4 is copied and
+used to E6. Complete the following formula by filling in the blanks [1] to [3] with the appropriate
+answers.
+[Cell E4] = [1] + [2] * [3]
+Explanation
+(1) The number of months and the savings amount change in a regular pattern. Therefore, it is a
+deterministic model.
+(2) Savings in the first month = 1,000 + 500 × 1
+Savings in the second month = 1,000 + 500 × 2
+︙
+Therefore, [1] C [2] B [3] A (note: [2] and [3] can be in any order)
+(3) Based on (2), enter the cell representing the initial savings amount in [1], the allowance in [2], and the
+number of months in [3]. Since the same cell is always used for [1] and [2], use “$” to make it an
+absolute reference. Also, for [3], the cell in column E is filled with the value from column D in the same
+row, so for cell E4, insert the value from D4. Therefore, [1] $A$3 [2] $B$3 [3] D4

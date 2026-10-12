@@ -1,0 +1,32 @@
+160Warm Up
+Answer the following questions.
+(1) Choose the program that displays “HelloWorld!” from the options A to D below, and answer using the
+letter.
+A HelloWorld! B ‘HelloWorld!’
+C print(HelloWorld!) D print(‘HelloWorld!’)
+(2) Choose the program that displays “Mr. Suzuki” from the options A to D below, and answer using the
+letter.
+A print(name)
+name = ‘Mr. Suzuki’
+B print(name)
+name == ‘Mr. Suzuki’
+C name = ‘Mr. Suzuki’
+print(name)
+D name == ‘Mr. Suzuki’
+print(name)
+(3) When the following program is executed, give the results for items [1] to [5].
+a = 6
+print(a + 4) ……[1]
+print(a - 1) ……[2]
+print(a * 5) ……[3]
+print(a / 2) ……[4]
+print(a ** 3) ……[5]
+Explanation
+(1) The print function is used to display character strings or values, and the character string
+“HelloWorld”! is enclosed with either ’ or ”. Therefore, D
+(2) “=” is used to assign a value to a variable. In addition, a variable cannot be used before it is defined.
+Therefore, C
+(3) Since the value 6 is assigned to the variable “a”, [1] is 6 + 4, which equals 10; [2] is 6 - 1, which equals
+5; [3] is 6 × 5, which equals 30; [4] is 6 ÷ 2, which equals 3; and [5] is 6 to the power of 3, which equals
+216.
+Therefore, the answers are [1] 10, [2] 5, [3] 30, [4] 3, [5] 216

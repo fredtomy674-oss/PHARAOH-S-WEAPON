@@ -1,0 +1,38 @@
+71
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [10] in the following sentences from the options A to
+M below, and answer using the letters.
+Sound is a phenomenon that is transmitted through the vibrations of air. The number of waves
+contained in one second is called ( [1] ) and is expressed in units of ( [2] ). The time it takes for
+one wave to propagate is called the ( [3] ), and it is expressed in seconds. These vibrations are
+( [4] ) data. In contrast, sound information stored on DVDs, CDs, etc. is ( [5] ) data. Next, follow
+these steps to convert the data from ([4]) to ([5]).
+First, the process of dividing sound waves at regular time intervals and extracting the amplitude
+values (voltage) for each interval is called ( [6] ). Next, divide the vertical axis (voltage) at regular
+intervals and determine the step values. This is called ( [7] ), and the component that determines the
+quantization levels is called ( [8] ). Typically, with n bits, there are 2n levels. Finally, ( [9] ) refers
+to the representation of values obtained through ([7]) in binary form. The method of converting
+information such as sound into binary codes by replacing numerical values in binary with two different
+voltage levels (high and low) is called the ( [10] ) method.
+A Encoding B Sampling C Quantization D Frequency E Period
+F Analog G Digital H Sampling period I Quantization bit depth
+J PCM K MIDI L Hertz M Second
+(2) Choose the one that enables waveform restoration closest to the original analog signal when digitizing an
+analog audio signal from the options A to D.
+A Increase the sampling frequency and increase the quantization bit depth.
+B Increase the sampling frequency and decrease the quantization bit depth.
+C Decrease the sampling frequency and increase the quantization bit depth.
+D Decrease the sampling frequency and decrease the quantization bit depth.
+Answer the following questions. In these questions, assume that 1 KB = 1,000 B, and 1 MB = 1,000 KB.
+(1) What is the data amount for 1 second in kilobytes (KB) when digitizing music at a sampling frequency of
+44,100 Hz, a quantization bit depth of 16 bits, and in 1-channel monaural? Round off to the nearest whole
+number in your answer.
+(2) What is the data amount for 1 minute in KB when digitizing music at a sampling frequency of 192 kHz, a
+quantization bit depth of 24 bits, and in 2-channel stereo?
+(3) What is the data amount for 3 minutes in MB when digitizing music at a sampling frequency of 44.1 kHz,
+a quantization bit depth of 16 bits, and in 2-channel stereo? If the length of one song is 3 minutes,
+approximately how many songs can be stored on a 650 MB CD? Round off to the nearest whole number in
+your answer.
+Try
+1
+2

@@ -1,0 +1,41 @@
+107
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [4] in the following sentences from the options A to E
+below, and answer using the letters.
+Web pages are written in a language called ( [1] ) and the location and communication protocol
+of the web page are specified by ( [2] ). The system for converting domain names and IP addresses
+within ([2]) is ( [3] ), and ( [4] ) fulfills that role.
+A URL B DNS C HTML
+D WWW E DNS server
+(2) What is the name of the service that allows you to view web pages on the internet?
+(3) Choose the appropriate names for sections [1] to [6] that compose the following URL from the options A
+to G below, and answer using the letters.
+A Scheme name B Country name C Organization type name D Name of organization
+E Hostname F File name G Domain name
+Answer the following questions.
+(1) Name the components labeled [1] and [2] that constitute the following email address.
+(2) The following diagram represents the flow of sending and receiving emails. Choose the appropriate
+combination of protocols that fit in [1] to [4] in the following diagram from the options A to D below.
+[1] [2] [3] [4]
+A POP SMTP SMTP IMAP
+B POP POP IMAP SMTP
+C SMTP SMTP POP IMAP
+D SMTP SMTP IMAP POP
+Try
+1
+https://www.mext.go.jp/index.html
+[1] [2] [3] [4] [5] [6]
+2
+[1] [2]
+hanako@example.ed.jp
+[1] [2]
+[3]
+[4]
+Outgoing
+mail server
+Incoming
+mail server
+Download and delete the
+email from the server
+View the email on
+the server

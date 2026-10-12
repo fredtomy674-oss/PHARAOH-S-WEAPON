@@ -1,0 +1,39 @@
+86
+Warm Up
+Answer the following questions.
+(1) The following diagram represents the relationship between computer components. Choose the
+appropriate device name that best fits into the blanks [1] to [6] from the options A to F, and answer using
+the letters.
+Flow of control
+Flow of data
+Storage
+device
+( [1] )
+( [2] )
+( [4] )
+( [6] )
+( [3] ) ( [5] )
+CPU
+A Input device B Output device C Control unit
+D Arithmetic unit E Main memory device F Secondary memory
+(2) Choose all of the following options from A to H that are output devices, and answer using the letters.
+A Memory B Display C SSD D Mouse
+E Keyboard F Printer G Hard disk H USB memory
+Explanation
+(1) [1] Control unit, because the flow of control is directed towards all devices. C
+[2] Among the components of the CPU, [1] is the control unit; therefore, the arithmetic unit. D
+[3] The starting point of the data flow; therefore, the input device. A
+[4] Among storage devices, this is identified as the main memory because data flows directly into it
+from the input device. E
+[5] Marks the end of the data flow; therefore, an output device. B
+[6] Among storage devices, [4] is the main memory; therefore, the secondary memory. F
+(2) B, F
+(4) (23Interface) : A component that mediates the exchange of information. It is used for connecting the main
+computer and peripheral devices.
+[1] (24USB) : The most widely used interface for computer peripheral devices.
+Compatible with printers, keyboards, and external hard drives.
+[2] (25HDMI) : A communication standard that allows video, audio, and other data to be transmitted
+through a single cable.
+Compatible with digital televisions and audio equipment.
+[3] (26Ethernet) : A communication standard used in wired LANs at home, the office, etc.
+Compatible with devices such as hubs and routers.

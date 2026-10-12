@@ -1,0 +1,40 @@
+142Information Study
+Point!
+11-1 Modeling
+Modeling
+(1) (1Model) : A simplified representation of a target phenomenon.
+(2) (2Modeling) : The process of creating models for events or phenomena.
+(3) Classification of Models by Characteristics
+[1] (3Static model) : A model that does not undergo changes over time.
+<Examples> Room layout diagrams, the relationship between the radius and
+volume of a sphere, etc.
+[2] (4Dynamic model) : A model that is influenced by changes over time.
+・(5Deterministic model) : A model that does not exhibit irregular behavior. There is only one result.
+<Examples> Bank account balance, relationship between time and travel
+distance for a car moving at a constant speed, etc.
+・(6Probabilistic model) : A model that includes irregular behavior. The result is not a single
+outcome.
+<Examples> Outcomes of dice rolls, lottery draws, weather forecasts, etc.
+(4) Classification of Models Based on Type of Expression
+[1] (7Physical model (scale model)) : A physical representation of an object.
+・(8Enlarged model) : A model that is larger than the actual object.
+<Examples> Molecular model, DNA model, etc.
+・(9Full-scale model) : A model that is the same size as the actual object.
+<Examples> Model room, life-size dummy, etc.
+・(10Reduced model) : A model smaller than the actual object.
+<Examples> Globe, plastic model, etc.
+[2] (11Diagrammatic model) : A representation of something using a diagram.
+<Examples> Flowcharts, route maps, etc.
+[3] (12Mathematical model) : A representation of something using mathematical formulas or logical
+expressions.
+<Examples> Speed × Time = Distance,
+Current × Resistance = Voltage, etc.
+(5) Modeling steps
+[1] Clearly define the (13purpose) of modeling.
+[2] Clarify the (14elements that constitute the model) and their relationships.
+[3] Determine the (15representation method) of the model.
+Condition
+Process 1 Process 2
+No
+Yes
+Flowchart

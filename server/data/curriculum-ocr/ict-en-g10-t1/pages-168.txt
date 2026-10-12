@@ -1,0 +1,51 @@
+168Information Study
+Point!
+12-4 Application of Programming [1] (Python)
+(List)
+(1) (1List) : A collection of data items arranged in sequence. Data can be managed collectively.
+List declaration List name = [data0, data1, data2, …]
+Adding elements to the end of an list List name.append(data)
+<Example> Character string list week = [‘Mon’, ‘Tue’, ‘Wed’, ‘Thu’, ‘Fri’, ‘Sat’, ‘Sun’]
+List of numbers number = [7, 22, 11, 34, 17]
+(2) (2Element) : Each value included in an list. Displays the list name and its place number
+Using (3Index)(element numbers) makes it possible to retrieve elements from a list. Note
+that Index do not start from 1, but from (40).
+(3) List operation : Allows list element to be managed using a single index.
+<Example> List declaration and method for accessing elements
+Using a variable as a index such as in a[i] makes it possible to specify elements with the variable.
+This is convenient when processing elements one at a time using a “for” statement.
+01 a = [7, 22, 11, 34, 17] Declares list “a” and assigns a
+numerical value to it.
+02 for␣i␣in␣range(0,5,1): Repeats while increasing variable i
+from 0 to (54) in increments of 1.
+03 ␣␣␣␣print(a[i]) Displays elements from list “a” that
+satisfy the condition (6a[i]).
+<Example> Adding an element to the end of a one-dimensional list
+01 a = [ ] Declares the list “a”.
+02 a.append(1) Adds (71) to the end of list “a”.
+03 a.append(4) Adds (84) to the end of list “a”.
+04 a.append(9) Adds (99) to the end of the list “a”.
+05 print(a) Displays the values for list “a”.
+(4) (10Two-dimensional list) : An list that manages data using indexs in both the row and column directions.
+An element at row “i” and column “j” would be specified using the two
+indexs as a[i][j].
+<Example> Definition of a two-dimensional list and the method for accessing elements
+01 a= [[‘A’, ‘B’, ‘C’],
+[‘D’, ‘E’, ‘F’],]
+Declares list “a” and assigns a character
+string to it.
+02 print(a[0][0]) Displays the value for (11a[0][0]).
+03 print(a[1][2]) Displays the value for (12a[1][2]).
+a 7 22 11 34 17
+a[0] a[1] a[2] a[3] a[4]
+7
+22
+11
+34
+17
+Execution result
+[1, 4, 9]
+Execution result
+A
+F
+Execution result

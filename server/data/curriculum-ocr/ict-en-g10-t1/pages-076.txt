@@ -1,0 +1,46 @@
+76
+Answer the following questions.
+(1) Choose the correct flow for digitizing an image captured by a digital camera from the options A to D, and
+answer using the letter.
+A Quantization → Encoding → Sampling B Quantization → Sampling → Encoding
+C Encoding → Quantization → Sampling D Sampling → Quantization → Encoding
+(2) The following diagram illustrates the process of converting the original image into digital data. Choose the
+diagram that best fits into the blanks [1] to [3] from the options A to D, and answer using the letters.
+Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to D
+below.
+In color printers, a variety of colors are expressed by combining the three colors of cyan, magenta,
+and yellow, which are the ( [1] ). When these colors are mixed together, they approach the color
+( [2] ). On the other hand, computer displays represent all colors by combining red, green, and blue,
+which are the ( [3] ).
+A Three primary colors of light B Three primary colors of pigment
+C White D Black
+Answer the following questions. In these questions, assume that 1 KB = 1,000 B, and 1 MB = 1,000 KB.
+(1) What is the data amount of an image in kilobytes with a resolution of 1,080 × 720 pixels, where each pixel
+has 8 bits? Round your answer to the nearest whole number.
+(2) What is the data amount of a 24-bit full-color image with a resolution of 320 × 480 pixels in kilobytes?
+Round your answer to the nearest whole number.
+(3) What is the data amount of a 24-bit full-color image with a resolution of 1,920 × 1,080 pixels in
+megabytes? Round your answer to two decimal places.
+Exercise
+1
+[2][1] [3]
+Original Image
+A B C D
+0 0 0 0 0 0 0 0
+0 1 1 1 1 1 1 0
+0 1 2 2 2 2 1 0
+0 1 2 3 3 2 1 0
+0 1 2 3 3 2 1 0
+0 1 2 2 2 2 1 0
+0 1 1 1 1 1 1 0
+0 0 0 0 0 0 0 0
+00 00 00 00 00 00 00 00
+00 01 01 01 01 01 01 00
+00 01 10 10 10 10 01 00
+00 01 10 11 11 10 01 00
+00 01 10 11 11 10 01 00
+00 01 10 10 10 10 01 00
+00 01 01 01 01 01 01 00
+00 00 00 00 00 00 00 00
+2
+3

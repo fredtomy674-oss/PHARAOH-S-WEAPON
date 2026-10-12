@@ -1,0 +1,36 @@
+24Information Study
+Point!
+3-1 Threats and Countermeasures in Information Security [1]
+Information Security
+(1) (1Information security) : The act of properly managing information and keeping it safe.
+(2) The three essential elements of information security
+[1] (2Confidentiality) : A state in which only authorized individuals can access the information.
+[2] (3Integrity) : A state in which the information is not destroyed, tampered with, or erased.
+[3] (4Availability) : A state in which information can be accessed at any time when needed.
+Various threats to information security
+(1) (5Unauthorized access) : When someone without permission gains access to a computer system.
+(2) (6Cracking) : The act of unlawfully accessing a system to tamper with, erase, or steal data.
+A person who commits such acts is called a (7cracker ).
+(3) (8Malware) : A general term for malicious programs designed to harm computers. Infection can
+occur through websites, email attachments, USB drives, or networks.
+[1] (9Computer virus) : A program designed to intentionally cause harm, such as destroying
+data or programs.
+[2] (10Trojan horse) : A program disguised as a legitimate one that infiltrates a system and
+quietly initiates attacks.
+[3] (11Worm) : A program that replicates itself and spreads across the internet like a worm,
+expanding the infection.
+[4] (12Spyware) : A program that collects personal information without the user’s knowledge
+and sends it to third parties.
+• (13Keylogger) : Software that monitors and records keystrokes.
+• (14Adware) : A program that displays unwanted advertisements without the user’s consent.
+[5] (15Ransomware) : A program that renders data inaccessible and demands a ransom to restore
+access.
+(4) (16Cybercrime) : Criminal acts committed over computer networks.
+[1] (17Violation of the Unauthorized Computer Access Law) : Illegally accessing a computer
+using someone else’s user ID or password.
+[2] Crimes involving computer or electronic records : Crimes involving tampering with stored
+data or unauthorized manipulation of devices.
+[3] Network-based crimes : Crimes committed using networks, such as fraud, defamation, or
+copyright infringement.
+1
+2

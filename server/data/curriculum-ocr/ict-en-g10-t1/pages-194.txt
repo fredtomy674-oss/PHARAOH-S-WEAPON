@@ -1,0 +1,28 @@
+195Information Study
+Point!
+Quiz App Review13-8
+In this lesson, you will summarize what you learned from the quiz app you created in the previous class.
+Warm Up
+Summarize your key takeaways from the quiz app based on the points below.
+1) What is the theme of the quiz you created?
+Examples:
+• A quiz about space.
+• A quiz about animals.
+2) What did you learn about HTML?
+Examples:
+• You can specify the app title using the <title> tag.
+• Assigning a class allows you to reference the element in CSS.
+3) What did you learn about CSS?
+Examples:
+• You can set the background color and font using the body selector.
+• You can specify the size and color of choice buttons using the .choice class selector.
+4) What did you learn about JavaScript?
+Examples:
+• Multiple options are handled using an array named choices.
+• The text color for correct or incorrect answers is changed using an if...else statement.
+Categorize the points you summarized into “Things I already knew” and “Things I didn’t know.”
+For the things you didn’t know, ask the AI to explain them further to deepen your understanding.
+Examples of questions to ask the AI:
+• “Tell me what the code <p id='result'></p> does.”
+• “What does background: #f5f5f5; mean?”
+Try

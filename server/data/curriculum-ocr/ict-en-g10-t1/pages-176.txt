@@ -1,0 +1,16 @@
+177
+• Give the following prompts to the Generative AI one by one in order:
+(1) Give me 5 quiz questions about Egypt (You can ask your school's history teacher for help).
+(2) Make them True or False questions.
+(3) Display the score after I answer all questions.
+• Once you confirm that the quiz has been updated, try changing the quiz topic or answer format, or increasing/
+decreasing the number of questions.
+• Have someone else try the quiz you created.
+Also, let’s ask about history like this:
+“Who built the pyramids of Egypt?”
+Try asking further questions based on the Generative AI’s response.
+Check search engines like Google to see if the Generative AI’s output is truly correct (You can ask your school's
+history teacher for help).
+Exercise
+Feel free to experiment with generating quizzes or stories, asking study-related questions, etc.
+Try

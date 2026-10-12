@@ -1,0 +1,58 @@
+108
+Answer the following questions.
+(1) Choose the most appropriate explanation of a DNS from the options A to D below, and answer using the
+letter.
+A A system that links countless pieces of content on the internet and is commonly called “the Web.”
+B Represents the location of a web page on the internet and the method of communication.
+C A language developed for creating web pages.
+D A system that maps domain names to IP addresses and vice versa.
+(2) The following diagram represents the flow of browsing a web page. Choose the term that best fits into the
+blanks [1] to [3] in the diagram from the options A to D below, and answer using the letters.
+A Web B URL C IP address D DNS
+(3) Choose the appropriate combination of names for the blanks [1] to [6] that compose the following URL
+from the options A to D below, and answer using the letter.
+[1] [2] [3] [4] [5] [6]
+A Scheme name Hostname Type of
+organization
+Name of
+organization
+Country
+name File name
+B Scheme name Hostname Name of
+organization
+Type of
+organization
+Country
+name File name
+C Hostname Scheme name Type of
+organization
+Name of
+organization
+Country
+name File name
+D Hostname File name Name of
+organization
+Type of
+organization
+Country
+name Scheme name
+Choose the appropriate options for protocols [1] to [3] from the options A to D below, and answer using the
+letters.
+(1) Protocol for sending emails to a mail server.
+(2) Protocol for accessing emails on a mail server.
+(3) A protocol that downloads emails from the mail server and deletes them from the server.
+A POP B SMTP C DNS D IMAP
+Exercise
+1
+Returns the ( [2] )
+( [1] )
+server
+Queries the ( [1] ) server
+Accesses via ( [2] )
+Displays ( [3] ) page
+I want to access
+www.mext.go.jp ( [3] )
+server
+[1] [2] [3] [4] [5] [6]
+https://www.mext.go.jp/index.html
+2

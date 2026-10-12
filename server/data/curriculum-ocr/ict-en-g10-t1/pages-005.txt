@@ -1,0 +1,35 @@
+5Warm Up
+Answer the following questions.
+(1) [1] For the following items a to c, answer whether they are related to: 1) Data, 2) Information, or 3)
+Knowledge. Write “1,” “2,” or “3” as your answer.
+a Temperature and
+humidity values
+b Analysis results of temperature and
+humidity over the past 10 years
+c Weather forecast
+[2] Choose one statement that is not suitable as a characteristic of information from the options A to D,
+and answer using the letters.
+A It has a form just like an object.
+B The meaning or value changes depending on the recipient.
+C It has the characteristic of persistence.
+D It has the characteristic of propagation.
+[3] Choose the content related to the following sentences a to c from the group of words labeled A to C
+below, and answer using the letters.
+a Even if you purchase a commercially available music CD, you are not allowed to make copies
+to distribute to friends.
+b Emails can be sent instantly overseas.
+c Rumors about people and false information can persist indefinitely.
+[Word group] A Persistence B Reproducibility C Propagation
+(2) [1] For the following media from a to f, answer whether they are classified as 1) Expression media, 2)
+Propagation/Transmission media, or 3) Recording media. Write “1,” “2,” or “3” as your answer.
+a Television b Cloud storage c Photograph
+d Internet e Text character f Book
+[2] What is the term for the ability to accurately interpret information obtained from media?
+Explanation
+(1) [1] a: 1 b: 2 c: 3
+[2] Unlike objects, information does not have form. Therefore, A
+[3] a: The characteristic of being easily copied is reproducibility. B
+b: The characteristic of being able to be sent instantaneously is propagation. C
+c: The characteristic of information, once created, that never disappears is persistence. A
+(2) [1] a: 2 b: 3 c: 1 d: 2 e: 1 f: 2
+[2] Media literacy

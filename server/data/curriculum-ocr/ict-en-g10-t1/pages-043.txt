@@ -1,0 +1,33 @@
+43
+Answer the following questions.
+(1) Choose the one that is the most appropriate sequence of societal development from the options A to D
+below, and answer using the letter.
+A Hunter-gatherer society → Agrarian society → Industrialized society → Information society
+B Agrarian society → Hunter-gatherer society → Information society → Industrialized society
+C Agrarian society → Hunter-gatherer society → Industrialized society → Information society
+D Hunter-gatherer society → Agrarian society → Information society → Industrialized society
+(2) Choose the most closely related option for the following sentences from the options 1) to 5) below, and
+answer using the letters.
+[1] Technology that connects all things (objects) to the internet.
+[2] A technology in which machines analyze data to extract rules and patterns from the data.
+[3] A vast amount of data that is difficult for humans to fully comprehend.
+[4] A virtual space which is created by a computer and allows for experiences that feel like reality.
+A Machine Learning B Big data C IoT (Internet of Things)
+D Virtual Reality E Augmented Reality
+(3) What is the term for the gap between those who can utilize information technology, such as the internet,
+and those who cannot?
+Explanation
+(1) A
+(2) [1] C [2] A [3] B [4] D
+(3) Digital Divide
+Changes in Life Caused by Information Technology
+(1) (17Technostress) : The overall term for mental and physical problems that arise from using
+computers.
+• (18Technophobia) : A state of anxiety or fear towards using computers due to a sense of discomfort
+or lack of confidence in handling them.
+• (19Techno-Addiction) : Excessive dependency on computers.
+• (20VDT Disorder) : Shoulder stiffness and eye strain caused by prolonged computer use.
+(2) (21Digital Divide) : The gap between those who can utilize information technology and those who
+cannot.
+3
+Warm Up

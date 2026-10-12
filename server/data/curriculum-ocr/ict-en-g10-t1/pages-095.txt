@@ -1,0 +1,41 @@
+95Information Study
+Point!
+8-1 Computer Networks
+Information and Communication Networks
+(1) (1Information and communication network) : A network resembling a web that utilizes
+communication lines to transmit information.
+(2) (2Computer network) : A communication system that connects information communication
+devices like computers and smartphones, enabling them to exchange data
+with one another.
+(3) Types of Networks
+[1] (3LAN) : A network that connects devices within a limited area, such as within a school or
+home.
+• (4Wired LAN) : A method of exchanging data by directly connecting to cables.
+• (5Wireless LAN) : A method of exchanging data via wireless radio waves instead of cables.
+[2] (6WAN) : A network that connects a broader area.
+(4) (7Internet) : A network that connects LANs and WANs on a global scale.
+(5) Connecting to the Internet
+[1] (8ISP (provider)) : A company that facilitates connection to the internet. It is necessary to
+sign a contract to connect to the internet.
+[2] (9Router) : A device that relays and forwards data between different networks.
+[3] (10Hub) : A central device that connects multiple cables.
+Network Usage Patterns
+(1) Server and Client
+[1] (11Server) : A computer that provides various services.
+• (12File server) : A server that manages files.
+• (13Printer server) : A server that handles print processing.
+• (14Mail server) : A server that handles the sending and receiving of emails.
+• (15Proxy server) : A server that acts as an intermediary for accessing the internet.
+[2] (16Client) : A computer that requests various services from a server.
+(2) Network Usage Patterns
+[1] (17Client-server system) : A method where services are provided and received between a
+server and a client.
+[2] (18Peer-to-peer system) : A method where computers are in an equal relationship, providing
+and receiving services to and from each other.
+Communication Methods
+(1) (19Circuit switching method) : A communication method where a communication path is
+established between the sender and the recipient before starting the
+transmission to exchange information.
+1
+2
+3

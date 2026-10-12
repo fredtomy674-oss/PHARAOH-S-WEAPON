@@ -1,0 +1,36 @@
+20Information Study
+Point!
+2-3 Utilization and Disclosure of Information
+Utilization and Disclosure of Information
+(1) Purpose of Copyright
+A copyright aims to contribute to cultural development by ensuring the (1fair use) of copyrighted works
+and the (2protection of rights).
+(2) Exceptions
+Under the purpose of copyright, there are exceptions where the copyright can be limited to allow use
+without obtaining permission from the copyright holder.
+<Example> Reproduction for private use, reproduction within educational institutions, non-profit
+performances, etc.
+(3) (3Quotation) : The act of using a portion of another person’s copyrighted work in your own copyrighted
+work.
+If certain requirements are met, portions of a copyrighted work can be quoted without
+obtaining permission from the author.
+<Quotation Methods and Rules>
+[1] Your own copyrighted work takes precedence, while the quoted work is subordinate.
+(Your own copyrighted work is the subject.)
+[2] There must be a necessity to engage in quotation.
+[3] Ensure that the quoted material is clearly identifiable by enclosing it in quotation marks.
+[4] The source is clearly specified.
+[5] Do not alter the quoted material.
+(4) Setting the duration of protection : The economic rights of the author expire (450) years after the death of
+the creator.
+(5) (5Creative Commons License) (CC License) : A mark indicating the conditions for using copyrighted
+works.
+<Types of Creative Commons Licenses>
+Mark Condition Content
+(6Credit to creator) (BY) Display the title of the work and name of the creator.
+(7Non-commercial) (NC) Do not use for (8commercial) purposes.
+(9No derivatives) (ND) Do not alter the original copyrighted work.
+(10Same terms for
+adaptations) (SA)
+Publish under the same combination of licenses as the
+original work.

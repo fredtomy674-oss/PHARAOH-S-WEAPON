@@ -1,0 +1,35 @@
+78Warm Up
+Answer the following questions.
+(1) [1] What is the data size, in megabytes, of a 10-second uncompressed video at 30 fps, where each
+frame is a 24-bit full-color still image with a resolution of 500 × 200 pixels? For this question,
+assume that 1 KB = 1,000 B and 1 MB = 1,000 KB.
+[2] Video [1] was converted into a compressed video file using a certain compression method, resulting
+in a file size of 30 MB. What is the compression ratio in this conversion? Round your answer to the
+nearest whole number and provide the answer as an integer.
+(2) Consider how to represent an image using pixels. In the case of the diagram on
+the right, the 25 pixels in the 5 × 5 grid are read one by one from the top-left,
+row by row, moving to the right. If a pixel is black, write “B”; if it is white,
+write “W”. This results in the sequence:
+“BBBBBBWWWWBBBBWBWWWWBWWWW”.
+Next, by representing consecutive characters “B” or “W” of length n (where n
+is an integer of 2 or more) as “Bn” or “Wn”, the sequence can be compressed to
+“B6W4B4WBW4BW4”. Using the same method with another 5 × 5 grid, what is the alphabet letter
+represented by the following compressed data?
+“B4WBW3B5WBW4BW4”
+Explanation
+(1) [1] The amount of data per frame is,
+500 × 200 × 24 [bits] = 2,400,000 [bits]
+Since 1 B = 8 bits, 2,400,000 [bits] ÷ 8 = 300,000 [B]
+The amount of data of a 10-second video at 30 fps is as follows:
+300,000 [B] × 30 [fps] × 10 [seconds] = 90,000,000 [B]
+1 KB = 1,000 B, 1 MB = 1,000 KB, therefore,
+90,000,000 [B] ÷ 1,000 ÷ 1,000 = 90 [MB] 90 MB
+[2] Compression ratio [%] = Amount of data after compression × 100,
+Original amount of data
+resulting in 30
+90 × 100 ＝ 33.3…〔%〕 33%
+(2) Expanding the pre-compressed data “B4WBW3B5WBW4BW4” yields
+“BBBBWBWWWBBBBBWBWWWWBWWWW”.
+If you fill in a 5 × 5 grid one pixel at a time from the top-left, row by row to the
+right, coloring black for “B” and white for “W”, you will get the image shown
+on the right. Therefore, P

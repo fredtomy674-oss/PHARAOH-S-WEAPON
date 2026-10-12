@@ -1,0 +1,39 @@
+59Information Study
+Point!
+6-3 Hexadecimal
+Hexadecimal
+(1) (1Hexadecimal) : A method of representing numbers using the digits 0 to 9 and the alphabet letters A to
+F. A number represented in hexadecimal is sometimes written with a subscript (16)
+placed at the bottom right of the number. This is known as a (2hexadecimal number).
+(2) Correspondence Between Decimal, Binary, and Hexadecimal
+Decimal Binary Hexadecimal Decimal Binary Hexadecimal
+0 0000 0 9 1001 9
+1 0001 1 10 1010 (3A)
+2 0010 2 11 1011 (4B)
+3 0011 3 12 1100 (5C)
+4 0100 4 13 1101 (6D)
+5 0101 5 14 1110 (7E)
+6 0110 6 15 1111 (8F)
+7 0111 7 16 10000 (910)
+8 1000 8
+(3) Conversion between Decimal, Binary, and Hexadecimal
+[1] Conversion from binary to hexadecimal
+Separate the binary number into groups of 4 digits starting from the least significant bit, convert
+each group into a hexadecimal value, and arrange these values in sequence.
+<Example> Convert the binary number 10011010(2) to a hexadecimal number.
+Separate into groups of 4 digits starting from the least significant bit: 1001/1010(2)
+1001(2) is (9(16)), 1010(2) is (A(16)), so 10011010(2) = (9A(16))
+[2] Conversion from hexadecimal to binary
+Convert each digit of the hexadecimal number into a 4-bit binary number, and arrange those
+numbers sequentially.
+<Example> Express hexadecimal A4(16) in binary.
+A(16) is (1010(2)), 4(16) is (0100(2)), so A4(16) = (10100100(2))
+[3] Conversion from hexadecimal to decimal
+Convert the hexadecimal number to a binary number, and then convert that binary number to a
+decimal number.
+<Example> Express the hexadecimal C6(16) in decimal format.
+First, to convert the hexadecimal C6(16) to binary, C(16) is (1100(2)),
+6(16) is (0110(2)), so C6(16) = (11000110(2))
+Next, to convert the binary number 11000110(2) into a decimal number,
+11000110(2) = (0 × 1 + 1 × 21 + 1 × 22 + 0 × 23 + 0 × 24 + 0 × 25 + 1 × 26 + 1 × 27)
+= 198

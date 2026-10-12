@@ -1,0 +1,18 @@
+196Information Study
+Point!
+Developing a Block Breaker Game 113-9
+In this lesson, you will use generative AI to generate code for a simple block breaker game using JavaScript.
+Note: You will present your work in a future class.
+Warm Up
+Open copilot.microsoft.com in your browser, sign in, and launch Copilot.
+1. Generate the Code Enter the following prompt into Copilot:
+“Create a simple block breaker game. Please provide separate code for HTML, CSS, and JavaScript.”
+2. Run the Code Copy and paste the generated code into the HTML, CSS, and JavaScript tabs in WebDen and
+run it.
+(Note: Since generative AI produces different code each time, your result may differ from others.)
+3. Understand the Code Give the following prompt to the AI and read its explanation:
+“Explain this code.”
+How much of the AI-written code can you understand?
+Note: Rename the Copilot chat to “Block Breaker Development” to make it easier to review your interactions
+in future lessons.
+Point!

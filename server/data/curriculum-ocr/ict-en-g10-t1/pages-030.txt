@@ -1,0 +1,34 @@
+30
+Answer the following questions.
+(1) Choose the one incorrect statement regarding password best practices from the options A to D below, and
+answer using the letter.
+A Do not use information such as phone numbers, birthdays, email addresses, or user IDs.
+B It is best to continue using the initial password without changing it.
+C Do not reuse the same password across different services.
+D Use a mix of uppercase and lowercase letters, numbers, and symbols.
+(2) Choose the one thing that can be prevented by using a one-time password from the options A to D below, and
+answer using the letter.
+A Password theft during transmission over a network
+B Tampering with confidential files after unauthorized access
+C Infection by a virus through malicious software
+D Unauthorized access using a leaked password
+(3) Choose the one correct example of biometric authentication from the options A to D below, and answer using
+the letter.
+A Authentication using the shape of a fingerprint or vein pattern
+B Authentication using a digital certificate
+C Authentication based on whether the user can correctly read distorted text in an image
+D Authentication using a one-time password
+(4) Choose the terms that best fit into the blanks [1] to [4] from the options A to F below, and answer using the
+letters.
+To protect computers and networks from threats such as unauthorized access and computer viruses, it is
+necessary to implement various security measures. For example, determining whether a person is authorized
+to access a computer or network is called ( [1] ). As countermeasures against computer viruses, there are
+the introduction of ( [2] ) and the ( [3] ) of hardware and operating systems. Furthermore, a system
+that hides internal LAN computers from external networks and prevents unauthorized access is called a
+( [4] ).
+A Firewall B Antivirus software C Encryption
+D Authentication E Update F Security hole
+(5) What is the term for restricting access so that only specific users can operate a computer system or network?
+(6) If a password uses 26 characters (A to Z), how many times greater is the maximum number of brute-force
+attempts required to crack the password when increasing the length from 4 characters to 6 characters?
+Try

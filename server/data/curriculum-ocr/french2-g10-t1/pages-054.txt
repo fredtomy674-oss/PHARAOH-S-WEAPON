@@ -1,0 +1,15 @@
+CahierCahier
+3
+2
+A B
+C
+1
+53cinquante-trois
+1 | Devine : quel est le sport préféré
+de Stéphane ?
+2 | Quels sports tu aimes ?
+Le tennis / Le basketball / Le cyclisme /
+La course / Le football / La natation /
+Le skate / Le ski / Le karaté / La gym
+3 | Observe les trois photos et
+associe un sport à un objet.

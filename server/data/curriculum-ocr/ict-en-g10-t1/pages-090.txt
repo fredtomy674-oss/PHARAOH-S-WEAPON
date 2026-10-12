@@ -1,0 +1,29 @@
+90
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [3] with the appropriate terms.
+Types of software include ( [1] ) software and ( [2] ) software. ([1]) software includes ( [3] ). In
+the case of computers, examples are Windows and macOS. Additionally, ([2]) software includes word
+processing software and spreadsheet software.
+(2) What is the term for software that is used to control and operate devices connected to a computer?
+(3) For the following statements A to D, answer with “a” if the statement is about operating systems or “b” if the
+statement is about application software.
+A A program executed on a computer that is designed for a specific purpose.
+B A program that controls software and hardware on a computer system.
+C Includes word processing software and spreadsheet software.
+D Included in the system software.
+Answer the following questions.
+(1) Choose all the devices and software corresponding to the following [1] to [3] from the options A to F
+below, and answer using the letters.
+[1] Operating system [2] Hardware [3] Application software
+A Memory B Spreadsheet software C Windows
+D macOS E CPU F Document processing software
+(2) Choose one correct statement regarding device drivers from the options A to D below, and answer using
+the letter.
+A A type of system software. Examples include, Windows, macOS, etc.
+B Also referred to as application software.
+C A program that controls communication between the devices connected to a computer and the
+software.
+D The software necessary for operating hardware.
+Try
+Exercise
+1

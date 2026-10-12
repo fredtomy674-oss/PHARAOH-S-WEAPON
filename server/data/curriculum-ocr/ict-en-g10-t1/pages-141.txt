@@ -1,0 +1,50 @@
+141
+The following figure is a scatter plot summarizing the results of
+a survey taken by 30 students from a class regarding their
+smartphone usage time and exercise time per day. Refer to this
+graph and answer the following questions.
+(1) What is the term for the equation for a straight line in the
+form y = ax + b representing the relationship between two
+variables: causal variable x and resulting variable y?
+(2) The straight line in the figure represents the relationship
+between two variables using a straight line. If the equation
+for this line is “y = − 0.9337x + 12.94,” what is the
+estimated exercise time when smartphone usage is 10 hours? Give the answer as an integer (rounded off to the
+nearest whole number).
+(3) Choose the term or number that best fits into the blanks [1] and [2] in the following sentences from the options
+A to D below.
+The least squares method is used to minimize the error between a straight line representing the
+relationship between two variables and the actual data. This type of error is referred to as ( [1] ). If
+the absolute value of the correlation coefficient is ( [2] ), the value obtained from the straight line
+determined by the least squares method is considered an estimate.
+A Residual B Deviation C 1 D Other than 1
+The following figure is a scatter plot summarizing the measurement results of the height and weight of 100
+adults. Refer to this graph and answer the following questions.
+(1) Choose the one that best fits into the blanks [1] and [2] in the following sentences from the options A to D
+below.
+Based on the scatter plot, there is a tendency for
+weight to increase as height increases. Accordingly,
+when ( [1] ), it is referred to as a ( [2] )
+between the two variables.
+A Positive correlation
+B Negative correlation
+C One value increases and the other value also increases
+D One value increases and the other value decreases
+(2) The straight line in the figure represents the relationship between two variables using a straight line. If the
+equation for the line is “y = 0.5511x − 32.958,” what is the approximate weight when the height is 173
+cm? Give the answer as an integer (rounded off to the nearest whole number).
+Try
+y = －0.9337x + 12.94
+14
+12
+10
+8
+6
+4
+2
+0
+0 5 10 15
+y: Exercise time (hours)
+x: Smartphone usage time (hours)
+Exercise
+1

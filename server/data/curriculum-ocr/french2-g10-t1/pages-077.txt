@@ -1,0 +1,73 @@
+76 soixante-seize
+Leçon 1 | Se présenter
+1 | Écoute et mets une croix en face des nombres que tu entends.
+2 | Écris les nombres suivants en lettres.
+a) 11 :
+b) 16 :
+c) 21 :
+d) 26 :
+e) 32 :
+f) 9 :
+g) 49 :
+h) 50 :
+Piste 02
+0 Zéro
+1 Un
+2 Deux
+3 Trois
+4 Quatre
+5 Cinq
+6 Six
+7 Sept
+8 Huit
+9 Neuf
+10 Dix
+11 Onze
+12 Douze
+13 Treize
+14 Quatorze
+15 Quinze
+16 Seize
+17 Dix-sept
+18 Dix-huit
+19 Dix-neuf
+20 Vingt
+21 Vingt et un
+22 Vingt-deux
+23 Vingt-trois
+24 Vingt-quatre
+25 Vingt-cinq
+26 Vingt-six
+27 Vingt-sept
+28 Vingt-huit
+29 Vingt-neuf
+30 Trente
+31 Trente et un
+32 Trente-deux
+33 Trente-trois
+34 Trente-quatre
+35 Trente-cinq
+36 Trente-six
+37 Trente-sept
+38 Trente-huit
+39 Trente-neuf
+40 Quarante
+41 Quarante et un
+42 Quarante-deux
+43 Quarante-trois
+44 Quarante-quatre
+45 Quarante-cinq
+46 Quarante-six
+47 Quarante-sept
+48 Quarante-huit
+49 Quarante-neuf
+50 Cinquante
+Piste 03
+3 | Écoute les mots et entoure quand tu entends le son « r ».ue
+Phonétique
+rouge
+bonjourappeler
+mère
+saluer
+identifier
+noir prénom

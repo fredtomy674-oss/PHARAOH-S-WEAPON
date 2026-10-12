@@ -1,0 +1,44 @@
+171
+Answer the following questions.
+(1) For programs A to C below, give the values displayed when each is executed.
+A a = [0, 1, 2, 3]
+print(a[1])
+B a = [‘A’]
+a.append(‘B’)
+a.append(‘C’)
+print(a[1])
+C a = [[‘Japanese’, ‘Mathematics’, ‘English’],
+[‘Social studies’, ‘Science’, ‘Information studies’]]
+print(a[1][2])
+(2) The following program is designed to find the minimum value among the elements in list “a”. Fill in the
+blanks A to C with the appropriate characters or numbers to complete the program.
+a = [24, 43, 9, 25, 17]
+min = A
+for i in range(0, B , 1):
+if a[i] < min:
+min = C
+print(min)
+(3) The following program counts the number of elements in list “a” that are greater than 10. Fill in the blanks
+A to C with the appropriate characters or numbers to complete the program.
+a = [12, 8, 9, 13, 11]
+count = 0
+for i in range( A , B , 1):
+if C > 10:
+count = count + 1
+print(count)
+(4) Fill in the blanks A to E in the following program with the appropriate characters or numbers to complete
+the program so that it displays the “Execution result” as shown.
+a = [[‘Japanese’, ‘Mathematics’, ‘English’],
+[‘Social studies’, ‘Science’, ‘Information studies’]]
+for i in range( A , B , 1):
+for j in range( C , D , 1):
+print( E )
+Exercise
+1
+Japanese
+Mathematics
+English
+Social studies
+Science
+Information studies
+Execution result

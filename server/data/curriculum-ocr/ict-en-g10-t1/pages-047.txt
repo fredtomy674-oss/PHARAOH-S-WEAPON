@@ -1,0 +1,38 @@
+47
+Answer the following questions.
+(1) Choose the terms that best fit into the blanks [1] to [9] from the options A to L.
+In ancient times, people would convey information by lighting ( [1] ) or beating drums to communicate
+basic information to others. Eventually, letters and symbols were carried on a medium called ( [2] ) and
+delivered using messengers or carrier pigeons. In the mid-15th century, thanks to ( [3] ) inventing the
+( [4] ), it became possible to easily reproduce large amounts of information as printed materials. As a
+result, newspapers and books could be published, thereby making it possible to convey information to a large
+number of people.
+In the 19th century, an American named ( [5] ) invented the ( [6] ), a technology for sending and
+receiving codes through telecommunications. Around the same time, Bell invented ( [7] ). Furthermore, at
+the end of the 19th century, an Italian named Marconi invented the ( [8] ), which later developed into
+radios, ( [9] ), and mobile phones.
+A Movable-type printing press B Television C Signal fires D Paper
+E Morse telegraph F Wireless telegraph G Telephone H Phonograph
+I Gutenberg J Edison K Morse L Watson
+(2) Complete the following sentences by filling in the blanks [1] and [2] with the appropriate terms.
+The internet developed from ( [1] ), which was created by the United States Department of Defense in
+1969, into a global computer network. Initially, it was mainly used by ( [2] ), but by the 1990s, it began to
+spread widely among the general public.
+Answer the following questions.
+(1) Choose the terms that best fit into the blanks [1] to [6] from the options A to F.
+The act of exchanging information is called ( [1] ). Among these, the means of sending
+information to a large number of people at once is referred to as ( [2] ). Similar to ( [3] ) and
+( [4] ), ([2]) primarily facilitates one-way information transmission from sender to receiver. In
+contrast, ( [5] ) and ( [6] ) are information communication methods that enable two-way
+information exchange.
+A Communication B Mass communication C Newspapers
+D Telephone E The internet F Television
+(2) A to D describe events regarding communication. Place these events in chronological order, and answer
+using the letters.
+A The telephone was invented.
+B The modern postal system was established.
+C Information was conveyed by lighting signal fires or beating drums.
+D Cellular phones, which are a type of mobile communication service, have become widespread.
+Try
+Exercise
+1

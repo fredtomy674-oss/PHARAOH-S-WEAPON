@@ -1,0 +1,50 @@
+91Information Study
+Point!
+7-3 Logic Circuits
+Logic Circuits
+(1) (1Logical operations) : Operations performed using combinations of the numbers 0 and 1. In
+computers, “1” is processed as true and “0” as false.
+(2) (2Logic circuit) : A circuit designed to perform logical operations.
+(3) (3Truth table) : A table that shows all possible combinations of inputs and outputs for a logic
+circuit.
+(4) (4AND gate (logical conjunction circuit)) : A circuit that outputs 1 only when all inputs are 1.
+(5) (5OR gate (logical disjunction circuit)) : A circuit that outputs 1 if at least one of the inputs is 1.
+(6) (6NOT circuit (inverter circuit)) : A circuit that outputs the opposite result of the input.
+Half Adder Circuit and Full Adder Circuit
+(1) (7Half adder circuit) : A circuit representing the addition of single-digit numbers, composed of
+AND, OR, and NOT gates.
+(2) (8Full adder circuit) : A circuit that considers carry from the lower bit and carry to the higher bit.
+1
+Input Output
+A B X
+0 0 0
+0 1 0
+1 0 0
+1 1 1
+A
+B X
+Input Output
+A B X
+0 0 0
+0 1 1
+1 0 1
+1 1 1
+A
+B
+X
+Input Output
+A X
+0 1
+1 0
+A X
+2
+Input Output
+A B C S
+0 0 0 0
+0 1 0 1
+1 0 0 1
+1 1 1 0
+A
+B
+C
+S

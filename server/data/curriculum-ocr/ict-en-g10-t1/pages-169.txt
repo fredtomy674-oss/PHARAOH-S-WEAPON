@@ -1,0 +1,37 @@
+169Warm Up
+Answer the following questions.
+(1) For programs A and B below, give the values displayed when each is executed.
+A a = [57, 16, 29, 44]
+print(a[2])
+B a = [[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9]]
+print(a[2][1])
+(2) The following program is designed to find the minimum value among the elements in list “a”. Fill in the
+blanks A and B with the appropriate characters or numbers to complete the program.
+a = [34, 52, 11, 40, 17]
+min = a[0]
+for i in range(1, A , 1):
+if a[i] < min:
+min = B
+print(min)
+(3) Fill in the blanks A to E in the following program with the appropriate characters or numbers to
+complete the program so that it displays the “Execution result” as shown.
+a = [[‘A’, ‘B’, ‘C’, ‘D’],
+[‘E’, ‘F’, ‘G’, ‘H’]]
+for i in range( A , B , 1):
+for j in range( C , D , 1):
+print( E )
+Explanation
+(1) Note that list index start at 0, not 1. In addition, an element in a two-dimensional list can be represented as
+a[i][j], where “i” indicates the row and “j” indicates the column. Therefore, A: 29, B: 8
+(2) Set “min” as the variable that stores the minimum value of the list “a” so it is a[0]. Next, examine each
+element of list “a” sequentially, and if a[i] is smaller than min, update min to that value.
+Therefore, A: 5, B: a[i]
+(3) A: 0, B: 2, C: 0, D: 4, E: a[i][j]
+A
+B
+C
+(Omitted)
+H
+Execution result

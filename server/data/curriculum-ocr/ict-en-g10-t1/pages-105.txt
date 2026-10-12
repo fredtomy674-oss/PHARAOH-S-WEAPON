@@ -1,0 +1,57 @@
+105Information Study
+Point!
+8-4 Mechanism of Web Pages and Emails
+Mechanism of the Internet
+(1) (1WWW) : A system that links countless pieces of content on the internet. Users can browse web
+pages that compile various data. It is commonly referred to as the Web.
+(2) (2HTML) : A language used for creating web pages.
+(3) (3URL) : Represents the location of a web page and the method of communication.
+<Structure of a URL>
+(4) Process of Browsing Web Pages
+Mechanism of Email
+(1) Email : A system for exchanging messages and data with specific users via the internet. When
+sending an email, you use an (10email address).
+(2) Structure of an Email Address
+[1] (11Username) : Identifies the recipient.
+[2] (12Domain name) : Identifies the mail server that the recipient is using.
+1
+( 9 File name)
+(8 Country
+name)
+(7 Type of
+organization)
+(6 Name of
+organization)
+(5 Host name)
+(Server name)
+( 4 Scheme name )
+(Protocol name)
+Domain name
+https://www.mext.go.jp/index.html
+<Examples of Types of Organizations> <Examples of Country Codes>
+Type Meaning Code Country name
+gov Government agency eg Egypt
+co Corporation jp Japan
+edu School (elementary, junior
+high, and high schools) hk Hong Kong
+ac University/educational
+corporation kr South Korea
+2) Returns the IP adress
+DNS
+server
+1) Queries the DNS server
+3) Accesses via IP adress
+4) Displays a web page
+I want to access
+www.mext.go.jp Web
+server
+2
+(14 Username)
+(13 Domain name)
+(17 Country
+name)
+( 16 Type of
+organization)
+( 15 Name of
+organization)
+hanako@example.co.jp

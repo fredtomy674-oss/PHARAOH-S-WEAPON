@@ -1,0 +1,7 @@
+185
+Try making both the text color and size change when the button is pressed.
+Add another item to display, and try creating a function where pressing the button combines (concatenates) the text
+of the two items.
+Exercise
+Try making the text color alternate between red and blue each time the button is pressed.
+Try

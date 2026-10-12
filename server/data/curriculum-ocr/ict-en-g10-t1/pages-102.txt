@@ -1,0 +1,24 @@
+102Warm Up
+Answer the following questions.
+(1) For the following statements A to D concerning protocols, mark “○” if the statement is appropriate, and
+“×” if it is incorrect.
+A A communication protocol refers to enhancing security by encrypting data.
+B UDP is a protocol that ensures reliable communication by guaranteeing data integrity and order.
+C TCP is a protocol that prioritizes data transfer speed, and it ensures the integrity and order of data
+while minimizing latency.
+D IP is a protocol used to assign IP addresses to deliver packets to the correct destination.
+(2) Data communication on the internet is transmitted according to TCP/IP. Rearrange the following steps A
+to D in the order of communication on the internet.
+A Assign IP address of the recipient or the sender.
+B Split the data into packets.
+C Select the destination and route for the data and deliver it to its destination.
+D Reorder the packets in sequence.
+Explanation
+(1) A A communication protocol is a common agreement in information and communication networks.
+Therefore, ×
+B UDP is a protocol that emphasizes sending data in real-time. To prioritize data transfer speed, it does
+not guarantee the integrity or order of the data. Therefore, ×
+C TCP is a protocol that divides the data to be sent into packets and retransmits any packets that are
+lost during transmission, ensuring reliable communication. Therefore, ×
+D ○
+(2) B → A → C → D

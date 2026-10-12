@@ -1,0 +1,57 @@
+128Warm Up
+Answer the following questions.
+(1) The data on the right represents the results of a handball
+throw from a class of 32 students. Answer [1] and [2].
+[1] Create a frequency distribution table where the
+class interval is 12 m to less than 15 m, with each
+class having a width of 3 m.
+[2] Based on the frequency distribution table created
+in question [1], draw a histogram.
+(2) The data on the right represents the scores of 12
+students who played a game. Determine the mean,
+median, and mode of the data.
+Explanation
+(1) [1]
+(2) Mean: = 6 + 9 + 3 + 6 + 10 + 12 + 4 + 3 + 8 + 10 + 7 + 6
+12 = 84
+12 = 7 7 points
+Median: First, arrange all the data in ascending order.
+3, 3, 4, 6, 6, 6, 7, 8, 9, 10, 10, 12
+Since the number of data points is even, the median is the mean of the two central values, which
+are 6 and 7.
+Therefore, 6 + 7
+2 = 6.5 6.5 points
+Mode: The value that occurs most frequently is 6 6 points
+15 20 21 23 30 27 27 16
+20 18 22 19 20 21 12 21
+24 27 22 26 25 32 24 21
+21 23 20 16 23 21 21 24
+The unit is m.
+6 9 3 6 10 12
+4 3 8 10 7 6
+The unit is points.
+Class (m) Frequency
+(persons)
+12 or higher and lower
+than 15 1
+15 to 18 3
+18 to 21 6
+21 to 24 12
+24 to 27 5
+27 to 30 3
+30 to 33 2
+Total 32
+12
+10
+8
+6
+4
+11
+9
+7
+5
+3
+2
+1
+12 15 18 21 24 27 30 33 (m)
+[2] (Persons)

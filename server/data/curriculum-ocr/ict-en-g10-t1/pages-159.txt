@@ -1,0 +1,50 @@
+159Information Study
+Point!
+12-2 Programming Basics [1] (Python)
+Variables and Sequential Structure
+(1) (1print) : Displays the character string or value inside the parentheses ( ).
+The character string is enclosed with half-width single quotation marks (’) or double
+quotation marks (").
+* Note that numerical values should not be enclosed using
+half-width quotation marks.
+01 print(‘Hello Khalid’) Displays “Hello Khalid”.
+02 print(2023) Displays “2023”.
+(2) (2Variable) : Like a box to store data. Data can be stored in and retrieved from variables.
+<Example> A program to display the character string “Cairo”
+01 city = ‘Cairo’ Assigns “Cairo” to the variable “city”.
+02 print(city) Displays the value for the variable “city”.
+* In programming, the “=” symbol does not mean “equal.” Rather, it means “(3assign the right side to
+the left side).”
+(3) (4Assignment operator) : Something such as “=” used to assign a value to a variable.
+(4) (5Arithmetic operator) : A symbol such as “+” and “-” used in calculations.
+Arithmetic operator Meaning
+a + b (6Addition)
+a - b (7Subtraction)
+a * b (8Multiplication)
+a / b (9Division)
+a // b (10Quotient)
+a % b (11Remainder when a is divided by b)
+a ** b (12a to the power of b)
+<Example> A program that performs four basic arithmetic operations
+01 a = 5 5 is assigned to variable a.
+02 b = 3 3 is assigned to variable b.
+03 print(a + b) Displays a + b.
+04 print(a - b) Displays a - b.
+05 print(a * b) Displays a × b.
+06 print(a / b) Displays a ÷ b.
+07 print(a // b) Displays the quotient when a is divided by b.
+08 print(a % b) Displays the remainder when a is divided by b.
+09 print(a ** b) Displays a to the power of b.
+Hello Khalid
+2023
+Execution result
+Cairo
+Execution result
+8
+2
+15
+1.66666
+1
+2
+125
+Execution result

@@ -1,0 +1,37 @@
+103
+Choose the most appropriate explanation of a communication protocol from the options A to D below, and
+answer using the letter.
+A Cable hub used for connecting devices such as computers and printers to a LAN
+B Description of the location of information specified in a web browser and how to retrieve it
+C The number used to identify a computer in internet communication
+D Protocols for communication over a network
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [7] in the following sentences from the options A to H
+below, and answer using the letters.
+The rules and procedures for communication over an information and communication network are
+called ( [1] ). On the internet, ( [2] ) is primarily used. Among them, ( [3] ) is responsible for
+dividing the data to be sent into ( [4] ), rearranging the received ([4]) in order, and retransmitting any
+data that may be missing during communication. On the other hand, ( [5] ) is responsible for
+attaching the ( [6] ), which is the destination address, to ([4]) and sending them to the destination. At
+this time, ([4]) are transmitted via the internet, searching for the most efficient route to the recipient
+computer. This is referred to as ( [7] ).
+A TCP/IP B IP C TCP D Packets
+E IP address F MAC address G Routing H Communication protocol
+(2) The layers in TCP/IP for data communication over the internet are summarized in the following table.
+Choose the term that best fits into the blanks [1] to [4] from the options A to D below, and answer using
+the letters.
+Layer Layer names Main functions
+Four layers ( [1] ) Communication between applications
+Three layers ( [2] ) Communication control, error detection, and data retransmission
+Two layers ( [3] ) IP address allocation, routing decision
+One layer ( [4] ) Physical connection, interaction between devices
+A Transport layer B Network interface layer
+C Internet layer D Application layer
+(3) Choose the appropriate example for each of the protocols [1] to [4] from the options A to D below, and
+answer using the letters.
+[1] Transport layer [2] Network interface layer
+[3] Internet layer [4] Application layer
+A UDP B IP C SMTP D Ethernet
+Try
+1
+2

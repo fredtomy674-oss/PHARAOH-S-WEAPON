@@ -1,0 +1,63 @@
+157
+Answer the following questions.
+(1) Choose the one that best fits into the blanks [1] to [4] in the following sentences from the options A to F below,
+and answer using the letters.
+A method or procedure for solving a particular problem is referred to as an ( [1] ). A language created to
+instruct a computer to execute an ([1]) is called ( [2] ), and creating a program using a ([2]) is called
+( [3] ). In addition, a ([2]) is converted to a ( [4] ) that can be understood by a computer, and
+ultimately becomes a set of instructions composed of combinations of 0s and 1s.
+A Program B Flowchart C Algorithm
+D Programming E Programming language F Machine language
+(2) The following table summarizes the symbols used in flowcharts. Choose the option that best fits into the blanks
+[1] to [8] from the options A to H below, and answer using the letters.
+Symbol Name Meaning
+Terminal ( [1] )
+Display ( [2] )
+Data ( [3] )
+Process ( [4] )
+Conditional branch ( [5] )
+Repetition ( [6] )
+( [7] )
+Line ( [8] )
+(3) Choose the one that represents [1] a branching structure and [2] a repeating structure from the following
+flowcharts A to C, and answer using the letters.
+(4) The figure on the right is an activity diagram that
+illustrates the relationship between yourself and a
+smartphone when unlocking its screen. Choose the
+option that best fits into the blanks [1] to [4] from the
+options A to D below, and answer using the letters.
+A Verify password
+B Enter password
+C Unlock screen
+D Screen turns ON
+(5) Name the programming language that can be confirmed only within a web browser, making it optimal for web-
+related purposes.
+Try
+A Start of a repetition
+B Start/End
+C Flow of data and control
+D Branching according to conditions
+E End of a repetition
+F Display on a screen, etc.
+G Data input and output
+H Operations and other processes
+Loop condition
+Process 1
+Loop
+Start
+Process 1
+Process 2
+End
+Process 1
+Condition No
+Yes
+Process 2
+A B C
+Start
+End
+NoYes
+Person
+[1]
+[2] [3]
+[4] Error message
+Smartphone

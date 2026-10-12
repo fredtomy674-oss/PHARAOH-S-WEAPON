@@ -1,0 +1,35 @@
+29Warm Up
+Answer the following questions.
+(1) Choose the one incorrect statement regarding password best practices from the options A to D below,
+and answer using the letter.
+A Do not reuse the same password across multiple services.
+B It is best to keep using the default password that was initially assigned.
+C Combine letters, numbers, and symbols when creating a password.
+D Avoid using easily guessable information such as your name or birthday.
+(2) Choose all correct statements about one-time passwords from the options A to D below, and answer
+using the letters.
+A If a one-time password is leaked, it can easily lead to unauthorized access.
+B Using a one-time password strengthens overall security.
+C A one-time password has a limited usage time and becomes invalid after expiration.
+D It can prevent unauthorized access using leaked passwords.
+(3) Choose the one correct example of biometric authentication from the options A to D below, and answer
+using the letter.
+A Authentication using a user ID and password assigned to each individual
+B Authentication using an SMS sent to a smartphone
+C Authentication by scanning a fingerprint on a sensor
+D Authentication using a one-time password
+(4) If a password can use the digits 0 to 9 and lowercase letters a to z, how many different combinations are
+there for a 3-character password? Give your answer in the form of an.
+Explanation
+(1) If an initial password is assigned via email or memo, there is a possibility that the password has been
+leaked to a third party. Therefore, the initial password must be changed. The correct answer is B.
+(2) A one-time password is a password that changes at fixed intervals and can only be used once. This
+strengthens security. The correct answers are B, C, and D.
+(3) Biometric authentication refers to the use of an individual’s physical or behavioral characteristics for
+verification. Examples include fingerprint, iris, vein, or handwriting-based authentication. The correct
+answer is C.
+Note: A is knowledge-based authentication, B is possession-based authentication, and D is also
+possession-based authentication.
+(4) There are 10 digits (0–9) and 26 letters (a–z), making 36 possible characters. Since each character in the
+password can be any of the 36, the total number of combinations for a 3-character password is 36 × 36 ×
+36 = 363 combinations.

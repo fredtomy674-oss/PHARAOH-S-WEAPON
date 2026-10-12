@@ -1,0 +1,23 @@
+183
+Next, let’s try changing the text using a button operation.
+HTML Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Me</title>
+</head>
+<body>
+<p id="name">Ichiro</p>
+<button id="btn">Change Text</button>
+</body>
+</html>
+JavaScript Code
+const p = document.getElementById("name");
+const btn = document.getElementById("btn");
+btn.onclick = () => {
+p.textContent = "Ohtani";
+};
+Copy and paste (or type) into WebDen and run it.
+When you press the button:
+The name changed.

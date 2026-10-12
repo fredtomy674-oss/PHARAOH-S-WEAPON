@@ -1,0 +1,72 @@
+1
+Altre espressioni con A e IN:
+A
+a pranzo, a cena
+a piedi (“andare a piedi” vuol dire “non usare mezzi di
+trasporto”)
+IN
+in piedi (vuol dire che non sono seduto)
+in vacanza
+1 uno
+2 due
+3 tre
+4 quattro
+5 cinque
+6 sei
+7 sette
+8 otto
+9 nove
+10 dieci
+11 undici
+12 dodici
+13 tredici
+14 quattordici
+15 quindici
+16 sedici
+17 diciassette
+18 diciotto
+19 diciannove
+20 venti
+21 ventuno
+22 ventidue
+23 ventitré
+24 ventiquattro
+25 venticinque
+26 ventisei
+27 ventisette
+28 ventotto
+29 ventinove
+30 trenta
+31 trentuno
+40 quaranta
+50 cinquanta
+60 sessanta
+70 settanta
+80 ottanta
+90 novanta
+100 cento
+101 centouno
+I numeri cardinali 1 - 101
+I numeri cardinali 200 - 5.000.000
+200 duecento
+300 trecento
+400 quattrocento
+500 cinquecento
+600 seicento
+700 settecento
+800 ottocento
+10.500 diecimilacinquecento
+52.803 cinquantaduemilaottocentotré
+505.000 cinquecentocinquemila
+1.000.000 un milione
+1.600.000 un milione seicentomila
+4.300.000 quattro milioni trecentomila
+5.000.000 cinque milioni
+900 novecento
+1.000 mille
+1.900 millenovecento
+2.000 duemila
+2.500 duemilacinquecento
+6.408 seimilaquattrocentootto
+9.710 novemilasettecentodieci
+86

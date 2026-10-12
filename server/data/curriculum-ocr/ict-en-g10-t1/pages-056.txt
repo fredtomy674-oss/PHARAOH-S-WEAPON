@@ -1,0 +1,40 @@
+56
+Warm Up
+Answer the following questions.
+(1) [1] Complete the following sentences by filling in the blanks A to E with the appropriate terms and
+numbers.
+The smallest unit of information is called a bit, which corresponds to ( A ) digit in binary
+notation. This makes it possible to represent ( B ) different types of information. Additionally,
+a group of ( C ) bits is called one ( D ), and is represented as 1 B. For example, 24 bits is
+( E ) B.
+[2] How many bits of information are required to represent all possible outcomes when throwing a set
+of dice (one large and one small)?
+[3] How many B is 1 MB? Answer in the form of a power of 2.
+[4] How many times greater is 4 bits of information compared to 2 bits of information?
+(2) [1] Express the following binary numbers in decimal form.
+(A) 11010(2) (B) 101011(2)
+[2] Express the following decimal number in binary.
+(A) 39 (B) 120
+Explanation
+(1) [1] A: A single digit in binary can represent two different values. 1 B: 2 C: 8
+D: Byte E: Since 8 bits = 1 B, 24 bits ÷ 8 = 3 B
+[2] When you roll two dice (one large and one small), there are 6 × 6 = 36 possible combinations of
+outcomes.
+With 5 bits, you can represent 25 = 32 combinations,
+and with 6 bits, you can represent 26 = 64 combinations,
+so the needed information is 6 bits
+[3] 1 MB = 1,024 KB, and 1 KB = 1,024 B,
+therefore, 1 MB = 1,024 KB = 1,024 × 1,024 B = 210 × 210 B = 220 B
+[4] The amount of information that can be represented with 2 bits is 22 = 4 possibilities, and the amount of
+information that can be represented with 4 bits is 24 = 16 possibilities. Therefore, 16 ÷ 4 = 4 times
+(2) [1] (A) 11010(2) = 0 × 1 + 1 × 21 + 0 × 22 + 1 × 23 + 1 × 24
+= 0 + 2 + 0 + 8 + 16 = 26
+(B) 101011(2) = 1 × 1 + 1 × 21 + 0 × 22 + 1 × 23 + 0 × 24 + 1 × 25
+= 1 + 2 + 0 + 8 + 0 + 32 = 43
+[2] (A) 2) 39 (B) 2) 120
+With n bits, it is possible to
+represent 2n different pieces of
+information.
+Therefore, 100111(2)
+Add (2) to the
+bottom right Therefore, 1111000(2)

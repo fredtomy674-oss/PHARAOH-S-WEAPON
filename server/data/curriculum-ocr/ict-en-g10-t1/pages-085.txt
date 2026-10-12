@@ -1,0 +1,50 @@
+85Information Study
+Point!
+7-1 Computer Configuration
+The Five Major Components of a Computer
+(1) (1Hardware) : Devices such as the main computer unit and peripheral devices.
+(2) Peripheral devices : Devices used by connecting them to a computer.
+<Examples> Keyboard, mouse, display, printer, etc.
+(3) The five major components of a computer : A computer is comprised of the following five components:
+(2the control unit), (3the arithmetic unit), (4the memory unit),
+(5the input unit), and (6the output unit).
+• The control unit and arithmetic unit together are referred to as the (7CPU (central processing unit)).
+• Storage devices are divided into (8main memory), which temporarily stores programs and data, and
+(9secondary memory), which is used for long-term storage.
+<Roles of the Five Major Components of a Computer>
+Five major components Role Example of major
+component
+Control unit CPU
+Executes a computer’s (10instructions) and
+issues (11commands) to each function. CPU
+Arithmetic unit Performs (12calculations).
+Storage device
+Main memory
+device
+(Memory)
+(13Temporarily) stores programs, data, etc. Main memory
+Secondary
+memory
+(Storage)
+For (14long-term) storage of programs and
+data.
+Hard disk, SSD,
+USB memory
+Input device (15Inputs) information from external
+sources.
+Keyboard, mouse,
+scanner
+Output device (16Outputs) information outside of the
+computer.
+Display, printer
+<Relationship of the Five Major Components of a Computer>
+Flow of control
+Flow of data
+Storage
+device
+CPU
+( 21 Output device )
+( 22 Secondary memory )
+( 20 Main memory )(19 Input device )
+(18 Arithmetic unit )
+(17 Control unit )

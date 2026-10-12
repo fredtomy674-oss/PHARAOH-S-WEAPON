@@ -1,0 +1,30 @@
+135
+The following data represents the English vocabulary test scores of ten students.
+9, 3, 4, 10, 10, 5, 7, 9, 10, 3 (points)
+(1) Determine the mean of the data.
+(2) Determine the variance and standard deviation of the data to two decimal places. However, let √ 2 =
+1.414.
+The following table shows the number of days it took five students to complete two types of assignments, A and
+B.
+A 22 28 25 26 24
+B 21 29 27 25 28
+(1) Determine the variance for assignment A.
+(2) Determine the standard deviation to two decimal places for assignment B. However, let √ 2 = 1.414.
+(3) Answer which data set, assignment A or assignment B, has a greater variance.
+The following data represents the weights of eight harvested strawberries.
+22, 25, 18, 17, 22, 21, 20, 15 (g)
+(1) Determine the mean of the data.
+(2) Determine the variance and standard deviation of the data.
+The following table shows the test scores in math and English for five students.
+Math 7 9 6 10 8
+English 10 8 6 4 2
+(1) Determine the variance of the math scores.
+(2) Determine the standard deviation of the English test scores to two decimal places. However, let √ 2 =
+1.414.
+(3) Answer which data set has a greater variance, math or English.
+Try
+1
+2
+Exercise
+1
+2

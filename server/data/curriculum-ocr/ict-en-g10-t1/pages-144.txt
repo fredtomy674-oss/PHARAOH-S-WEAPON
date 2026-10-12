@@ -1,0 +1,34 @@
+144
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [5] with the appropriate terms.
+( [1] ) are referred to as a simplified representation of a target phenomenon. Types of ([1]) include: a
+( [2] ) model, which is a physical representation of an object; a ( [3] ) model, which uses mathematical
+expressions or logical formulas to represent the behavior of phenomena; and a ( [4] ) model, which uses
+diagrams to represent phenomena. Examples of ([2]) models include full-scale models, ( [5] ) models, and
+scale models.
+(2) Choose the classification of the models most related to sentences [1] to [4] from the options A to C below, and
+answer using the letters.
+[1] A single die was rolled once to calculate the probability of rolling a five.
+[2] A layout diagram of a room was created to rearrange its furnishings.
+[3] The interest after five years was calculated with an interest rate of 1%.
+[4] A prediction of the weather tomorrow.
+A Static model B Deterministic model C Probabilistic model
+(3) Choose the models that correspond to [1] to [3] from the options A to F below, and answer using the letters.
+[1] Enlarged model [2] Full-scale model [3] Scale model
+A Model room B Globe C Life-size dummy
+D Plastic model E DNA model F Molecular model
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [3] in the following sentence from the options A to D
+below, and answer using the letters.
+The process of creating models of events or phenomena is referred to as ( [1] ). Additionally,
+models can be broadly classified based on their characteristics into two categories: ( [2] ) models
+that do not undergo changes over time, and ( [3] ) models that are influenced by changes over time.
+A Physical B Static C Dynamic D Modeling
+(2) Choose the models that correspond to [1] to [3] from the options A to F below, and answer using the
+letters.
+[1] Physical model [2] Diagrammatic model [3] Mathematical model
+A Plastic model B Flowchart C Life-size dummy
+D Route map E DNA model F Ohm’s law
+Try
+Exercise
+1

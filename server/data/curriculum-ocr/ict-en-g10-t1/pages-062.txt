@@ -1,0 +1,56 @@
+62Warm Up
+Answer the following questions.
+(1) Choose the numbers or terms that best fit into the blanks [1] to [5] from the options A to H below.
+Characters and symbols can also be represented by combinations of 0s and 1s. A system that maps
+characters and symbols to binary or hexadecimal is called a ( [1] ). There are several types within
+the ([1]), including ( [2] ), which accommodates the writing systems of countries around the world.
+Alphanumeric characters and symbols are represented by ( [3] ) byte, 1 byte can represent
+( [4] ) types of characters.
+A 1 B 2 C 128 D 256
+E Character code F Character corruption G Unicode H ASCII code
+(2) Use the character code table on the
+right to answer the following
+questions.
+[1] Use binary to represent the
+character code for “M”.
+[2] Use hexadecimal to represent
+the character code for
+“MILK”.
+[3] What is the character string
+corresponding to the character
+code “4C6F7665(16)”?
+Explanation
+(1) [1] E [2] G [3] A [4] B [5] D
+(2) [1] From the character code table, the most significant 4 bits of “M” are 0100 and the least significant 4
+bits are 1101; therefore, 01001101(2)
+[2] According to the character code table, the character codes corresponding to “M, I, L, K” are 4D, 49,
+4C, and 4B, respectively, in the order of most significant to least significant. Connecting these
+character codes results in 4D494C4B(16)
+[3] Consider the character code as separated into “4C/6F/76/65”.
+“4C” corresponds to the character “L” because it is located at the intersection of the most
+significant 4 and the least significant C.
+Similarly, “6F” corresponds to “o”, “76” to “v”, and “65” is “e”, so the resulting character string is
+Love
+Most Significant 4 Bits
+Binary 0000 0001 0010 0011 0100 0101 0110 0111
+Least Significant 4 Bits
+Binary Hexadecimal 0 1 2 3 4 5 6 7
+0000 0
+Symbols for Controlling Computers
+(Omission)
+SP 0 @ P ` p
+0001 1 ! 1 A Q a q
+0010 2 ” 2 B R b r
+0011 3 # 3 C S c s
+0100 4 $ 4 D T d t
+0101 5 % 5 E U e u
+0110 6 & 6 F V f v
+0111 7 ' 7 G W g w
+1000 8 ( 8 H X h x
+1001 9 ) 9 I Y i y
+1010 A * : J Z j z
+1011 B + ; K [ k {
+1100 C , < L ￥ l |
+1101 D - = M ] m }
+1110 E . > N ^ n ~
+1111 F / ? O _ o DEL

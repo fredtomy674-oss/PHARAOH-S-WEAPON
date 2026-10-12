@@ -1,0 +1,39 @@
+50Information Study
+Point!
+5-3 Internet and Communication
+Internet Communication
+(1) (1Email (Electronic mail)) : A tool for sending and receiving text-based messages over the
+internet. Email has the feature of (2broadcast capability) that allows
+the user to send messages to multiple recipients.
+[1] (3To) : Input the email address(es) of the recipient(s) to whom you want to send the email.
+[2] (4CC) : Input the email address(es) of the recipient(s) with whom you want to share the
+email content.
+[3] (5BCC) : Input the email address(es) of the recipient(s) with whom you want to share the
+email content but do not want the other recipient(s) to see. Other recipients cannot
+see the email addresses or the fact that BCC is being used.
+(2) (6Bulletin board system (BBS)) : A tool that allows the user to post messages and write replies
+to other messages.
+(3) (7Messaging app) : Tools that enable the exchange of text, images, and videos. This enables easy
+communication for individuals or groups.
+<Examples> SMS (Short Message Service), LINE, etc.
+(4) (8Video call) : A tool that allows real-time conversation while viewing the other person’s video via
+the internet.
+(5) (9Blog) : A word coined by combining “web” and “log.” A web service that allows you to compile
+and publish writings such as your diary on the internet.
+(6) (10Social media) : Services providing platforms where individuals can connect with each other on
+the internet.
+(7) (11Video sharing platform) : A service that allows a wide, unspecified audience to share and watch
+videos posted by other unspecified users on the internet.
+Characteristics of Communication on the Internet
+(1) (12Anonymity) : Allows a user to hide information that could lead to personal identification (name,
+affiliation, etc.).
+• Advantages: Users can express themselves freely, regardless of age or social status.
+• Disadvantages:
+[1] Flaming: A situation where critical comments focus on posts on social media and other
+platforms.
+[2] Fake news: False information that is distributed and spread on social media.
+(2) (13Immediacy) : Allows a user to receive an immediate response from the other party.
+(3) (14Convenience) : Allows a user to communicate smoothly.
+(4) (15Recordability) : Sending and receiving information on the internet leaves a record (log).
+1
+2

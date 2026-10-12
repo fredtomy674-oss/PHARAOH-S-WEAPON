@@ -1,0 +1,14 @@
+199
+Try making further changes to the game, such as:
+• Changing the ball speed.
+• Displaying a score.
+• Setting a number of lives.
+• Changing the durability of the blocks (making them harder to break).
+etc.
+You may use AI to generate the code or modify it yourself manually.
+Exercise
+Prepare for your next presentation by summarizing your work based on the following points:
+• What kind of game did you create?
+• What were the creative points (strategies you used) and what difficulties did you face?
+• What can AI do, and what can it not do?
+Try

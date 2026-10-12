@@ -1,0 +1,48 @@
+163Information Study
+Point!
+12-3 Programming Basics [2] (Python)
+Loop Structure
+(1) Using a (1for statement) makes it possible to execute a process repeatedly.
+A “for” statement is written as shown below.
+for␣variable␣in␣range([Variable range]):
+␣␣␣␣[Process to repeat]
+In a “for” statement, the indented block of code is executed repeatedly.
+(2) In a “for” statement, the range() instruction can be used to specify a range for a variable.
+Writing style Meaning
+range(end value) The value of the variable increases by 1, starting
+from (20) up to the (3end value - 1).
+range(start value, end value) The value of the variable increases by 1, starting
+from the (4start value) up to the (5end value - 1).
+range(start value, end value, increment) The value of the variable increases by the specified
+(6increment), starting from the (7start value) up to
+the (8end value - increment).
+<Example> A program that displays integers from 0 to 3
+01 for␣i␣in␣range(0, 4): Repeat variable “i” increasing by 1
+from 0 to 3.
+02 ␣␣␣␣print(i) Displays the value of variable “i”.
+<Example> A program that displays odd numbers from 1 to 5
+01 for␣i␣in␣range(1, 7, 2): Repeat variable “i” increasing by
+2 from 1 to 6.
+02 ␣␣␣␣print(i) Displays the value of variable “i”.
+Branching Structure
+(1) (9Comparison operator) : Operator used to compare expressions or values.
+Comparison
+operator
+Meaning Example Meaning of the example
+== (10Equal) x == 70 x is equal to 70
+! = (11Not equal) x ! = 70 x is not equal to 70
+< (12Less than) x < 70 x is less than 70
+> (13Greater than) x > 70 x is greater than 70
+<= (14Less than or equal to) x <= 70 x is less than or equal to 70
+>= (15Greater than or equal to) x >= 70 x is greater than or equal to 70
+1
+0
+1
+2
+3
+Execution result
+1
+3
+5
+Execution result
+2

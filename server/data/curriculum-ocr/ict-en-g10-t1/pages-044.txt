@@ -1,0 +1,44 @@
+44
+Read the following passage and answer the questions.
+In ancient times, people lived by hunting animals and gathering plants. In such a ( [1] ) society,
+technologies like stone axes, bows and arrows, fire-starting techniques, and even language itself supported the
+community. Eventually, humanity settled on fertile land and led a life growing crops. In this kind of ( [2] )
+society, the community was supported by technologies such as the invention of writing, agricultural tools,
+astronomy, and irrigation.
+From the mid-18th century, when the steam engine was invented in Britain, the ( [3] ) Revolution
+occurred, leading to the formation of ( [4] ) society. Economic activities were stimulated by operating
+industrial machinery in large factories and by the mass production, transportation, and consumption of goods.
+Natural sciences and printing technologies supported ([4]) society.
+Around the middle of the 20th century, with the development of media such as radio and television and the
+invention of the computer, the ( [5] ) society emerged. Humankind is currently aiming for a human-
+centered (A)new information society that harmonizes economic development with the resolution of social
+issues through systems that highly integrate cyberspace (virtual space) and physical space (real space).
+(1) Choose the terms that best fit into the blanks [1] to [5] in the passage from the options A to F, and answer
+using the letters.
+A Industrial B Hunter-gatherer C Information
+D The internet E Agrarian F Industrialized
+(2) What is the term for a society like the one referred to by the underlined section A?
+Answer the following questions.
+(1) Choose the most closely related options for the following sentences from the options A to F below, and
+answer using the letters.
+[1] Vast amounts of data collected and accumulated from people, objects, society, and nature, which is
+then analyzed and utilized for problem-solving, thanks to advancements in information technology.
+[2] An environment where all objects are connected to the internet and communicate with each other.
+[3] Technology that enhances reality by using computers to add information to real-world environments.
+[4] Residences that utilize IoT and AI technologies to achieve a more comfortable living environment.
+A AI B Augmented Reality C Virtual Reality
+D IoT (Internet of Things) E Smart Home F Big Data
+(2) Choose the one that is not a characteristic of Big Data from the options A to D, and answer using the
+letter.
+A The data has low versatility B The amount of data is enormous
+C The types of data are diverse D The data has a high frequency of occurrence
+Choose the term that best fits into the blank in the following text from the options A to D below, and answer
+using the letter.
+The disparity that arises between those who can use information and communication technologies like the
+internet and computers and those who cannot is referred to as ( ).
+A Technostress B Digital Divide
+C VDT Disorder D Techno-Addiction
+Try
+1
+2
+3

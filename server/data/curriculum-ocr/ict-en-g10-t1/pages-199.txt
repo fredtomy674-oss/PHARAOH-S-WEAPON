@@ -1,0 +1,27 @@
+200Information Study
+Point!
+Block Breaker Summary13-11
+In this lesson, you will prepare to present the block breaker game you created in the previous class.
+Note: You will present your work in the next class.
+Warm Up
+Reflect on the block breaker app you created in the last lesson and write down your thoughts on the following
+points.
+1) What kind of game did you create?
+• Game Title
+• Game Rules
+Examples:
+Number of lives, rankings, presence of items, etc.
+2) Development Stories
+• Creative Points (Strategies used)
+Examples:
+I made the ball speed change every time it hits the player.
+I made the score text color change when a high score is reached.
+• Difficulties
+Examples:
+Increasing the number of blocks made the game too difficult.
+The program stopped working halfway through, so I had to start over from scratch.
+3) Collaboration with AI
+• What AI can do.
+• What AI cannot do.
+You may use AI to help you think about the points above.
+Point!

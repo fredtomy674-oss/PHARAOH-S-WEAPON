@@ -1,0 +1,42 @@
+32Information Study
+Point!
+3-3 Threats and Countermeasures in Information Security [3]
+Fraudulent Billing
+(1Fraudulent billing): A scam in which a person is billed for a fictitious service they have never used,
+with the intent to fraudulently extract money.
+(2One-click fraud): A scam where clicking a URL in a website or email automatically triggers a message
+pretending a contract has been concluded, followed by an exorbitant payment
+demand.
+Unauthorized Acquisition of Information
+(1) (3Phishing) : A scam that uses fake websites disguised as financial institutions or public agencies
+to steal personal information such as PINs or account details.
+(2) (4Social engineering) : A method of fraudulently obtaining information by exploiting human
+psychology, carelessness, or lack of awareness.
+[1] (5Impersonation) : The act of pretending to be someone else—such as making a phone call
+in their name—to obtain information.
+[2] (6Shoulder surfing) : The act of peeking over someone’s shoulder to steal passwords or PIN
+codes.
+[3] (7Dumpster diving) : The act of rummaging through trash to obtain discarded confidential
+information.
+(3) (8Skimming) : The act of illegally extracting data from someone’s credit or debit card and using it
+to create a counterfeit card.
+Information security policy
+(9Information Security Policy) : A set of fundamental rules and guidelines established by a company or
+organization to maintain and protect information security.
+1
+2
+3
+Information
+Security
+Policy
+Basic Policy
+Security Standards
+Implementation Procedures
+and Operational Rules
+Describe the organization’s fundamental principles
+and declarations regarding information security.
+Set out the rules for putting the basic
+policy into practice.
+Clearly define the necessary
+procedures based on the target
+audience and intended use.

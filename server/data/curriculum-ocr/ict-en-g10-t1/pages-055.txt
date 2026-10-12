@@ -1,0 +1,41 @@
+55Information Study
+Point!
+6-2 Binary and Amount of Information
+Bits and Bytes
+(1) (1Bit) : The smallest unit of information, having only two possible states: “0” and “1”. One bit is
+capable of representing two states; for example, “a switch is on or off,” “voltage is high or
+low,” “or the orientation of a magnet is north or south.”
+• Actual information is represented by the arrangement of bits. In general, n bits can represent (22n)
+different pieces of information.
+<Example> 1 bit : 2 possibilities: 0 or 1
+2 bits : 4 possibilities: 00, 01, 10, 11
+3 bits : 8 possibilities: 000, 001, 010, 011, 100, 101, 110, 111
+(2) (3Byte) : A unit consisting of 8 bits. The notation is (4B).
+1 B = (58 bits), which can represent (6256) possibilities.
+(3) Unit of information : The basic unit is 1 B. The unit changes every 210 = (71,024) times.
+[1] 1 (8KB) = 1,024 B
+[2] 1 (9MB) = 1,024 KB
+[3] 1 (10GB) = 1,024 MB
+[4] 1 (11TB) = 1,024 GB
+Decimal and Binary
+(1) (12Decimal) : A method of representing numbers using ten digits from “0” to “9”. A number
+expressed in decimal notation is denoted as (13decimal).
+(2) (14Binary) : A method of representing numbers using two types of digits, “0” and “1”. A number
+represented in binary is sometimes written with a subscript (2) placed at the bottom
+right of the number, such as (15binary number).
+(3) Conversion between Decimal and Binary
+[1] Conversion from binary to decimal
+Starting from the rightmost digit, multiply each digit by 1, 21, 22, 23, ... in order, and then
+sum the results.
+<Example> Convert the binary number 1011(2) into decimal form.
+1011(2) = (1 × 20 + 1 × 21 + 0 × 22 + 1 × 23) = 11
+[2] Conversion from decimal to binary
+Take a decimal number and keep dividing it by 2 until the quotient becomes 1, then arrange
+the resulting quotients and remainders in reverse order from the left.
+<Example> Represent the number “6” in decimal as a number in binary.
+1
+22 = 4 possibilities
+23 = 8 possibilities
+28 = 256 possibilities
+2
+Therefore, 6 = (17110(2))

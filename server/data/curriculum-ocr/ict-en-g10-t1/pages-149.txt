@@ -1,0 +1,67 @@
+149Information Study
+Point!
+11-3 Simulations [2]
+Using Functions in Spreadsheet Software
+(1) (1Random number) : A number that can appear with equal probability within a certain range.
+(2) Functions of Spreadsheet Software
+[1] (2SUM (range1:range2)) : Calculates the sum for cell range1 to range2.
+[2] (3IF (logical_expression, value_if_true, value_if_false)) : When the logical expression is
+true, the value for “value_if_true” is displayed. When it is not true, the value for
+“value_if_false” is displayed.
+<Example> Display “Pass” if the score is 70 or above, otherwise display “Fail”
+A B
+1 Score Pass/Fail judgement
+2 80 Pass
+3
+[3] (4=RAND()) : Generates a random number between 0 and 1.
+Simulation of Probabilistic Models
+(1) (5Monte Carlo method) : A method for solving problems by using
+random numbers in probabilistic models.
+(2) Simulation of the Approximate Value of Pi (π)
+[1] Use the RAND function to randomly generate 100 points (= N)
+where both the X and Y coordinates are between 0 and 1.
+[2] Count the number (= n) of (6points that lie within a quadrant).
+[3] N: n ≈ 1: π
+4 Therefore, π ≈ 4n
+N .
+A B C D E F G H
+1 Simulation of approximate calculation of pi
+2 Number of
+times X-coordinate Y-coordinate The value of
+X^2+Y^2 Inside-outside
+determination Probability of being inside
+a circle Pi
+3 1 0.9066 0.9304 1.6876 0 0.800 3.200
+4 2 0.2029 0.2804 0.3461 1
+5 3 0.2695 0.3481 0.4402 1
+6 4 0.7563 0.9880 1.2443 0
+7 5 0.5256 0.3030 0.6067 1
+8 6 0.1675 0.9127 0.9279 1
+9 7 0.4017 0.9968 1.0758 0
+* The accuracy of the approximation of the value of pi (7increases) as the number of points placed
+within the square increases.
+(3) The Objective of the simulation:
+[1] Simulate approximating π using random numbers, without measuring the circle's circumference
+and diameter.
+[2] Draw random points inside a square, calculate the ratio of points inside a quarter circle
+1
+Pass/Fail judgment
+[Cell B2] =If (A2>=70, “Pass”, “Fail”)
+2
+y
+1
+Y
+O X
+P
+1 x
+√X 2 + Y 2
+Points generated randomly using random numbers
+[Cell D3] =B3^2+C3^2
+Approximate value of pi
+[Cell G3] =G3*4
+Probability of a point being inside a circle
+[Cell G3] =SUM(E3:E102)/100
+Points generated randomly using random numbers
+[Cell B3] =RAND()
+Determines if a point is inside or outside a circle
+[Cell E3] =IF(D3<=1,1,0)

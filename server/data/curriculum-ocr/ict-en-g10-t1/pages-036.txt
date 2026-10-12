@@ -1,0 +1,25 @@
+36
+Warm Up
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [4] with the appropriate terms.
+When sending information, the technology used to prevent it from being leaked or tampered with by
+anyone other than the intended recipient is called ( [1] ). The original data before encryption is
+called ( [2] ), and the act of converting the ciphertext back into plaintext is called ( [3] ). Also,
+during both ([1]) and ([3]), something called a ( [4] ) is used.
+(2) For each of the following items A to D, write “S” if the statement refers to symmetric key encryption, or
+“P” if it refers to public key encryption.
+A The encryption key is made public, and encryption is done using the public key while decryption is
+done with the private key.
+B Encryption uses separate keys held by the recipient — one for encryption and one for decryption.
+C Compared to the other method, the encryption and decryption processing speed is faster.
+D Compared to the other method, exchanging the key is more difficult.
+(3) What is the name of the hybrid encryption method that combines symmetric key encryption and public
+key encryption?
+Explanation
+(1) [1] encryption [2] plaintext [3] decryption [4] key
+(2) A and B: The method in which encryption is performed with the recipient’s public key and decryption
+with the recipient’s private key is public key encryption.
+C and D: Symmetric key encryption is faster than public key encryption, but since it uses the same key
+for both encryption and decryption, there is the issue of how to securely share the key with the recipient.
+Therefore, A: P, B: P, C: S, D: S
+(3) Session key method

@@ -1,0 +1,35 @@
+109Information Study
+Point!
+8-5 Network Transfer Speed
+Network Transfer Speed
+(1) Transfer speed : The (1number of bits) of data that can be transferred per second. The unit is (2bps).
+1 kbps = (31,000 bps), 1 Mbps = (4 1,000 kbps), 1 Gbps = (51,000 Mbps)
+(2) The relationship between transfer speed, transfer time, and data volume
+[1] Transfer speed [bps] = (6 Data volume [bits] )Transmission time [seconds]
+[2] Transfer time [seconds] = (7 Data volume [bits] )Data transfer speed [bps]
+[3] Data volume [bits] = (8Transfer speed [bps] × Transfer time [seconds])
+(3) (9Transfer efficiency) : The ratio at which a certain communication speed can be achieved.
+Actual transfer speed = (10Communication speed [bps] × Transfer efficiency)
+Warm Up
+Answer the following questions. In these questions, assume that 1 KB = 1,000 B, 1 MB = 1,000 KB, and 1 GB
+= 1,000 MB.
+(1) Calculate the time required to transfer 20 MB of data at a communication speed of 40 Mbps. Assume that
+the transfer efficiency is 100% and disregard any data other than the data volume.
+(2) Calculate the time required to transfer 1 GB of data with a communication speed of 100 Mbps. Assume
+that the transfer efficiency is 80% and disregard any data other than the data volume.
+Explanation
+(1) Transfer time [seconds] = Data volume [bits]
+Transfer speed [bps]
+1 B = 8 bits, 1 KB = 1,000B, 1 MB = 1,000 KB, therefore,
+20 [MB] = 20 × 1,000 × 1,000 × 8 [bits]
+Also, 40 [Mbps] = 40 × 1,000 × 1,000 [bps]
+Therefore, the calculation of transfer time is as follows:
+20 × 1,000 × 1,000 × 8 [bits] = 4 [seconds] 4 seconds
+40 × 1,000 × 1,000 [bps]
+(2) 1 [GB] = 1 × 1,000 × 1,000 × 1,000 × 8 [bits]
+Moreover, since the transfer efficiency is 80%, the actual transfer speed is 100 [Mbps] × 0.8 = 80 [Mbps]
+80 [Mbps] = 80 × 1,000 × 1,000 [bps], therefore,
+the calculation of transfer time is as follows:
+1 × 1,000 × 1,000 × 1,000 × 8 [bits] = 100 [seconds] 100 seconds
+80 × 1,000 × 1,000 [bps]
+Convert units

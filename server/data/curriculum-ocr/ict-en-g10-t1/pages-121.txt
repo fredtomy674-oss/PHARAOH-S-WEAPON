@@ -1,0 +1,12 @@
+121
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [4] with the appropriate terms.
+A system that utilizes a network to collect, share, and transmit various data and information is
+referred to as an ( [1] ). Examples of ([1]) include ( [2] ), which is a system that transmits and
+receives road information to resolve issues such as traffic accidents and congestion. In addition, a
+( [3] ) is a system used in convenience stores and supermarkets to collect and manage data at the
+point of sales.
+(2) What is the term for the satellite positioning system that collects location information for any place on
+Earth?
+Try
+1

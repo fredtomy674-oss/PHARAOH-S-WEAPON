@@ -1,0 +1,37 @@
+3 C Haben Sie Äpfel?
+
+C2 Phonetik 12 Hören Sie und markieren Sie die Satzmelodie.
+CD 13
+Haben Sie Äpfel? ↗ Wie viel möchten Sie? ↘
+a Kaufst du Erdäpfel? Erdäpfel? Was ist das?
+b Haben Sie Orangen? Ja. Wie viel möchten Sie?
+c Was ist das? Das ist Käse.
+d Und was ist das? Das ist Joghurt.
+e Hast du Tee? Nein, Milch.
+
+CD 14 Hören Sie noch einmal und markieren Sie die Betonung /. Sprechen Sie nach.
+Kaufst du Erdäpfel? ↗ Erdäpfel? Was ist das? ↘
+
+C3 13 Was passt? Kreuzen Sie an.
+a [x] Ist das Joghurt? d [ ] Ist das Käse?
+[ ] Was ist das? [ ] Was ist das?
+▲ Ja. ▲ Käse.
+b [ ] Haben wir noch Obst? e [ ] Ist das Sahne?
+[ ] Was haben wir noch? [ ] Was ist das?
+▲ Ja, Äpfel und Bananen. ▲ Nein, das ist Joghurt.
+c [ ] Haben wir noch Cola? f [ ] Hast du Milch, bitte?
+[ ] Wer hat noch keine Cola? [ ] Wo ist Milch, bitte?
+▲ Ich. ▲ Nein, tut mir leid.
+
+C3 14 Ordnen Sie zu.
+a Brauchen wir noch Mineralwasser? Eva.
+b Was brauchen wir noch? Nein, Anja.
+c Hast du Zucker? Nein, aber Saft.
+d Wie viel möchten Sie? Nein, tut mir leid.
+e Wie heißt du? In Berlin.
+f Wo studieren Sie? Nein, mein Familienname.
+g Heißt du Anna? Drei Kilo.
+h Hermann. Ist das Ihr Vorname? Mein Vater.
+i Wer ist das? Tomaten und Brot.
+
+sechsundsiebzig 76 LEKTION 3

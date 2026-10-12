@@ -1,0 +1,39 @@
+48Information Study
+Point!
+5-2 Communication and Its Forms
+Communication and Its Forms
+(1) (1Communication) : The process of receiving and exchanging information between people.
+(2) Classification of Communication
+[1] Classification by the Number of Senders and Receivers
+• (2One-to-one (Individual type)) : One sender to one receiver.
+<Examples> Letters, Telephones, etc.
+• (3One-to-many (Mass media type)) : One sender to multiple recipients.
+<Examples> Newspapers, Radio, Television, Web pages, etc.
+• (4Many-to-one (Reverse mass media type)) : Multiple senders to one recipient.
+<Examples> Survey tabulation, Inquiries, etc.
+• (5Many-to-many (Conference type)) : Multiple senders to multiple receivers.
+<Examples> Video conferencing, Group calls, Social media, etc.
+[2] Classification Based on the Location Relationship Between Sender and Receiver
+• (6Direct communication) : The sender and the receiver are directly face-to-face. This method
+enables communication while observing the other person’s reactions,
+but there are time and location constraints.
+<Examples> Conversations, Presentations, etc.
+• (7Indirect communication) : The sender and the receiver are separated. While it is not possible to
+directly see the other person’s reactions, it can remove time and
+location constraints.
+<Examples> Telephones, Email, Web pages, etc.
+[3] Classification by Synchronization of Communication
+• (8Synchronous) : The sender and receiver share information almost simultaneously.
+<Examples> Conversation, Telephones, Presentations, Video calls,
+Live television broadcasts, etc.
+• (9Asynchronous) : Information is sent and received at times convenient for both the sender and the
+receiver.
+<Examples> Letters, Email, Electronic bulletin boards, Messaging apps,
+Social media, etc.
+Warm Up
+Choose the most suitable form of communication for each of the following methods from the options A to C
+below, and answer using the letters.
+(1) Messaging app (2) Conversation (3) Video call
+A Direct and synchronous B Indirect and synchronous C Indirect and asynchronous
+Explanation
+(1) C (2) A (3) B

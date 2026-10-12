@@ -1,0 +1,68 @@
+118
+Answer the following questions.
+(1) Choose one correct statement regarding relational databases from the options A to D below, and answer
+using the letter.
+A The operation of searching for and extracting records that meet specific conditions from a table is
+called “projection.”
+B A table consists of records and fields, and allows data to be managed in a table format.
+C To maintain data integrity, it is not possible to link data from multiple tables.
+D By displaying only specific columns from a table, it is possible to eliminate data redundancy.
+(2) Choose one correct statement regarding SQL from the options A to D below, and answer using the letter.
+A Mechanism that ensures the integrity of data stored in a relational database.
+B Eliminating duplicate data from a relational database.
+C Programming language for manipulating relational databases.
+D Operations performed on a relational database such as selection, projection, and join.
+(3) Choose one correct statement regarding the “join” operation of a relational database from the options A to
+D below, and answer using the letter.
+A Creating a new table by linking information from multiple tables based on certain conditions.
+B Using a language called SQL to register or delete data in a table.
+C Extracting only the records from a table that meet specific conditions.
+D Extracting only the fields from information contained in a table that meet specific conditions.
+(4) For tables [1] to [3] which were created using the following two tables (Employee table and Branch table),
+choose the name of the operation that was performed from the options A to D below, and answer using the
+letters.
+A Projection B Join C Selection D Normalization
+Exercise
+1
+Employee number Name Department Branch number
+10001 Sato ○○ Sales department 101
+10002 Suzuki ○○ General affairs department 101
+10003 Sakai ○○ Accounting department 102
+10004 Kato ○○ Human resources department 102
+Employee table
+Employee
+number Name Department Branch
+number
+Branch
+name
+10001 Sato ○○ Sales department 101 Tokyo
+10002 Suzuki ○○ General affairs
+department 101 Tokyo
+10003 Sakai ○○ Accounting
+department 102 Osaka
+10004 Kato ○○
+Human
+resources
+department
+102 Osaka
+[1]
+Employee
+number Name Department Branch
+number
+10003 Sakai ○○ Accounting
+department 102
+10004 Kato ○○ Human resources
+department 102
+[2]
+Name Department
+Sato ○○ Sales department
+Suzuki ○○ General affairs department
+Sakai ○○ Accounting department
+Kato ○○ Human resources department
+[3]
+Branch number Branch name
+101 Tokyo
+102 Osaka
+103 Kyoto
+104 Sapporo
+Branch table

@@ -1,0 +1,39 @@
+26
+There are three elements of information security: Integrity, Confidentiality, and Availability. For each of these
+elements, choose the one most appropriate measure from the following options A to E.
+(1) Integrity (2) Confidentiality (3) Availability
+A Report your arrival at work to the network administrator.
+B Handle special data such as personal ID numbers in a room where only authorized personnel are allowed to
+enter.
+C Keep logs of data access and modifications to enable traceability.
+D Install backup power supplies for all devices related to critical information systems in preparation for
+power outages.
+E Run malware in order to always have access to important information.
+Choose the terms that best fit into the blanks [1] to [5] from the options A to H below, and answer using the
+letters.
+A Worm B Cracker C Unauthorized access
+D Trojan horse E Computer virus F Adware
+G Keylogger H Impersonation
+Answer the following questions.
+(1) Choose all items from A to D that present a risk of computer virus infection.
+A An email attachment sent from a computer infected with a virus.
+B Connecting to a network infected with a virus.
+C A USB memory stick that was used on a computer infected with a virus.
+D A movie DVD played on a computer infected with a virus.
+(2) Choose one act from A to D that constitutes a violation of the Unauthorized Computer Access Law.
+A Provided personal information to a third party without the individual’s consent.
+B Took a photo of a magazine page with a smartphone and uploaded it to social media.
+C Acquired a computer virus capable of automatically infiltrating networks.
+D Used another person’s user ID and password without permission to purchase products through online
+shopping.
+Try
+1
+2
+When a third party without network access rights uses someone else’s ID and password to illegally
+enter a computer system, it is called ( [1] ). Incidents have occurred in which individuals known
+as hackers or ( [2] ) have destroyed systems.
+Programs that destroy internal computer data or cause abnormal operations are called ( [3] ).
+Among these are ( [4] ), which disguise themselves as legitimate programs and silently infiltrate
+systems to carry out attacks, and ( [5] ), which replicate themselves and spread across the internet
+like worms to increase infections.
+3

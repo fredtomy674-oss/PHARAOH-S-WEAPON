@@ -1,0 +1,36 @@
+31
+Answer the following questions.
+(1) Choose the one incorrect statement regarding password creation from the options A to D below, and
+answer using the letter.
+A Use the shortest possible string to make it easy to remember.
+B Do not reuse passwords used for other services.
+C Do not write passwords down in a notebook or on sticky notes.
+D Combine uppercase and lowercase letters, numbers, and symbols.
+(2) Choose the one threat that can be prevented by using a one-time password from the options A to D below,
+and answer using the letters.
+A Theft of user ID through social engineering
+B Unauthorized access through brute-force attacks
+C Unauthorized access using a leaked password
+D Virus infection through a security hole
+(3) Choose the one correct example of biometric authentication from the options A to D below, and answer
+using the letter.
+A Authentication using a personal ID or password
+B Authentication using physical characteristics such as fingerprints or irises
+C Authentication based on an individual’s problem-solving ability
+D Authentication using physical performance such as grip strength or flexibility
+(4) Choose the terms that best fit into the blanks [1] to [5] from the options A to F below, and answer using
+the letters.
+System administrators must implement measures such as installing a ( [1] ) to prevent
+unauthorized access from outside the system and to minimize data tampering or leakage as much as
+possible. In order to deal with the constant emergence of new ( [2] ), it is essential to introduce
+( [3] ) and patch ( [4] ).
+To prevent unauthorized access, ( [5] ) is useful for restricting system or network usage to specific
+users only.
+A Firewall B Antivirus software C Security
+D Access control E Computer virus F Security hole
+(5) What is the name of the authentication method that combines two different elements from “knowledge,”
+“biometric,” and “possession”?
+(6) If a password can use the digits 0–9 and lowercase letters a–z, how many possible combinations are there
+for a 4-character password? Give your answer in the form of aⁿ.
+Exercise
+1

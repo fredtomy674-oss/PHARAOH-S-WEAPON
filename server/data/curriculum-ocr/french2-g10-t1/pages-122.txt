@@ -1,0 +1,111 @@
+121
+Test
+cent vingt et un 121
+Note : /20
+... est le contrôle
+de géo ?
+a. Combien
+b. À quelle heure
+c. Quelle
+1
+... matière tu préfères ?
+a. Quel
+b. Quelle
+c. Quels
+4
+Il y a des livres et
+des tables pour étudier ...
+a. dans le gymnase.
+b. au self.
+c. à la bibliothèque.
+2
+... tu termines le jeudi ?
+a. À quelle heure
+b. Qui
+c. Combien
+5
+Le ... j’ai trois heures
+de maths !
+a. lundi
+b. novembre
+c. semaine
+3
+C’est ... lycée.
+a. mon
+b. ma
+c. mes
+6
+La mère d’Anaïs est ...
+a. brune.
+b. blond.
+c. petits.
+7
+Son ... est grand.
+a. sœur
+b. frère
+c. grands-parents
+15
+Olivia est gauchière,
+elle écrit avec la ..gauche.
+a. bras
+b. dents
+c. main
+18
+Manon à trois frères mais
+elle ... de soeurs.
+a. n’a pas
+b. n’avez pas
+c. n’est pas
+16
+Tu as ... de frères ?
+a. quels
+b. combien
+c. qui
+19
+C’est mon ordinateur,
+il est ...
+a. à moi.
+b. à toi.
+c. à lui.
+17
+Dans la maison de ma
+grand-mère, il n’y a pas ...
+a. l’ordinateur.
+b. un ordinateur.
+c. d’ordinateur.
+20
+... grand-père est
+très dynamique !
+a. Ta
+b. Ton
+c. Tes
+8
+On ... la télévision.
+a. sommes
+b. regarde
+c. regardons
+11
+Elsa porte des ... rouges.
+a. lunettes
+b. bracelet
+c. sac à dos
+9
+Vous allez ... lycée ?
+a. au
+b. à l’
+c. aux
+12
+J’adore le foot, et toi?
+a. moi aussi
+b. toi aussi
+c. elle aussi
+13
+Ils ... à la plage.
+a. va
+b. allons
+c. vont
+14
+a. est
+b. as
+c. a
+10 Rémi ... les cheveux roux.

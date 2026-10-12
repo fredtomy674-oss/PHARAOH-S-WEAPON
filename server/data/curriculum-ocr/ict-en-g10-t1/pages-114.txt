@@ -1,0 +1,32 @@
+114
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] and [2] with the appropriate terms.
+A ( [1] ) refers to data that is organized and stored in a certain format for large-scale use. A ([1])
+not only makes data easy to store, but also to search, process, and share. A ( [2] ) is a system for
+creating, operating, and managing a ([1]).
+(2) Choose one correct statement regarding data availability from the options A to D below, and answer using
+the letter.
+A Function where a database is managed separately from the programs that use it.
+B Function that grants access rights to the data being used and limits users.
+C Function that prevents duplication, tampering, and unauthorized registration or updating of data.
+D Function for backing up and restoring to prepare for data failures.
+(3) For the following statements [1] to [5] regarding the functions of database management systems, mark “○”
+if the statement is correct, and “×” if it is incorrect.
+[1] Data confidentiality involves setting data access rights and implementing authentication.
+[2] Data integrity means ensuring that concurrent operations for shared data do not cause inconsistencies.
+[3] Data consistency involves not only preventing data duplication but also protecting against data
+tampering and the registration of fraudulent data.
+[4] Data availability involves performing backups, restoration, and recovery to prepare for data failures.
+[5] Data independence refers to managing databases separately from the programs that use them.
+Answer the following questions.
+(1) Choose the appropriate database for the following items [1] to [3] from the options A to C below, and
+answer using the letters.
+[1] A database that represents data in a mesh-like structure.
+[2] A database where collected data is organized and managed across multiple tables.
+[3] A database where data is represented in a tree-like hierarchical structure.
+A Hierarchical database B Network database
+C Relational database
+(2) What is the term for a database with a structure like the one shown on the right?
+Exercise
+1
+2

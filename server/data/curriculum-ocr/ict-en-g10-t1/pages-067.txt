@@ -1,0 +1,40 @@
+67Information Study
+Point!
+6-6 Numerical Calculations [2]
+Representation of Negative Numbers Using Complements
+(1Complement) : The smallest number which, when added to a given natural number, produces a carry
+to the next higher digit. Complements are used for representing negative numbers in
+computers.
+[1] (210’s complement) : In decimal, the smallest number which, when added, produces a carry to the
+next higher digit.
+<Examples> The 10’s complement of 71 is (329), and the 10’s complement
+of 635 is (4365).
+[2] (52’s complement) : In binary, the smallest number which, when added, produces a carry to the
+next higher digit.
+<How to calculate the 2’s complement>
+For each digit of the original binary number, invert 0s to 1s and 1s to 0s, then add 1 at the end to
+mechanically obtain the result.
+<Example> The 2’s complement of 0101(2)
+By inverting each digit from 0 to 1 and from 1 to 0, it becomes (61010(2)). Finally, by
+adding 1, it becomes (71011(2)).
+Subtraction Using Complements
+A computer uses subtraction by performing addition with complements.
+<Subtraction process>
+1) Find the (8complement) of the subtrahend.
+2) Use the complement to perform (9addition).
+3) Ignore the leading digits of the calculation result and provide the answer.
+<Example 1>
+Subtraction of “8 － 6” in decimal
+<Example 2>
+Subtraction of “1000(2) － 0111(2)” in binary
+1) The 10’s complement of the decimal
+number 6 is (104)
+1) The 2’s complement of the binary number
+0111(2) is (141001(2))
+2) 8 － 6 ⇒ 8 (11+ 4)
+= (1212)
+2) 1000(2) － 0111(2) ⇒ 1000(2) (15+ 1001(2))
+= (1610001(2))
+3) Ignoring the leading digit, (132) 3) Ignoring the leading digit, (170001(2))
+1
+2

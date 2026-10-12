@@ -1,0 +1,37 @@
+75
+The following diagram illustrates the process of converting a monochrome image into digital data. Choose the
+appropriate operations for steps [1] to [3] from [Group A], and then choose the name of each operation from
+[Group B]. Answer using the numbers.
+[Group A] A Replace the brightness levels of each region with integer values according to a fixed rule.
+B Divide the image into evenly spaced grid sections.
+C Represent integers in binary.
+[Group B] A Quantization B Encoding C Sampling
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] and [2] with the appropriate term and
+number.
+To represent colors, a computer display uses a combination of dots in red, green, and blue. These are
+known as the ( [1] ). The intensity of each of the primary colors is expressed in gradations. When
+representing one color with 8 bits, there are ( [2] ) gradients.
+(2) Complete the following sentences by filling in the blanks [1] and [2] with the appropriate terms.
+Images processed by computers can be divided into two formats: the ( [1] ) format, which treats
+the image as a collection of tiny dots, and the ( [2] ) format, which uses a combination of
+mathematical expressions to represent the coordinates of points, lines and surfaces connecting them, and
+color information.
+(3) Choose one statement that is incorrect as an explanation of the digital representation of images from the
+options A to D.
+A The unit dpi represents the degree of pixel density.
+B The number of gradations depends on the number of bits allocated per pixel.
+C The smaller the resolution and gradation values, the smoother the image obtained.
+D Gradation indicates the number of steps or levels of color or brightness.
+Answer the following questions. In these questions, assume that 1 KB = 1,000 B, and 1 MB = 1,000 KB.
+(1) What is the data amount of an image in kilobytes with a resolution of 800 × 600 pixels, where each pixel
+has 8 bits?
+(2) What is the data amount of a 24-bit full-color image with a resolution of 720 × 480 pixels in megabytes?
+Round your answer to two decimal places.
+(3) What is the data amount of a 24-bit full-color image with a resolution of 3,820 × 2,160 pixels in
+megabytes? Round your answer to two decimal places.
+Try
+1
+[1] [2] [3]
+2
+3

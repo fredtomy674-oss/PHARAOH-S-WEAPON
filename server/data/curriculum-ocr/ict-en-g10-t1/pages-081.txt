@@ -1,0 +1,40 @@
+81Information Study
+Point!
+6-10 Information Design
+Information Design
+(1) (1Information design) : The process of organizing and creatively expressing information
+according to its purpose, thereby ensuring that the intended message is
+correctly conveyed to the target audience.
+(2) Information Design Methods
+[1] (2Abstraction) : Conveying the intended information simply from
+within a large amount of data.
+• (3Pictogram) : A pictorial symbol designed for the purpose of
+conveying information without using words. It is
+used for information signs at stations and airports.
+• (4Icon) : A representation of a program’s content on a computer or
+smartphone depicted through images or illustrations.
+[2] (5Visualization) : Visually representing information to make it more
+understandable.
+<Examples> Tables, graphs, etc.
+[3] (6Structuring) : Organizing and expressing information clearly by arranging it according to
+relationships, connections, levels, stages, order, etc.
+<Examples> Hierarchical menus on web pages, department store floor maps, etc.
+Design Techniques for Ease of Understanding
+(1) (7User interface (UI)) : A system for transferring information between humans and devices
+<Examples> Voice input, touch panel, keyboard, etc.
+[1] (8CUI) : A user interface where a device is operated by entering commands via a keyboard.
+[2] (9GUI) : A user interface that allows users to issue commands in an intuitive and easy-to-
+understand way using icons and buttons.
+(2) (10User experience (UX)) : The experience or emotional impact that users gain from interacting
+with a product or service.
+(3) (11Affordance) : Actions or operations that can be performed on an object.
+(4) (12Signifier) : Cues that prompt users to take action.
+(5) (13Usability) : A measure used to indicate how easy and understandable it is for users.
+(6) (14Accessibility) : The ease of access to information and services for a wide range of people.
+(7) (15Universal design) : Design that is thoughtfully created with the intention that all people,
+regardless of age, language, nationality, or physical ability, can use it
+without difficulty.
+1
+Pictogram
+Icon
+2

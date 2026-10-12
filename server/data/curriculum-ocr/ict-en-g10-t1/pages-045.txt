@@ -1,0 +1,39 @@
+45
+Complete the following table by filling in the blanks [1] to [4] with the appropriate terms.
+Name Explanation
+( [1] ) society • From the birth of humanity
+• A society where people live through hunting.
+( [2] ) society • From around 13,000 BCE
+• A society where people lead a stable life by growing and harvesting food.
+( [3] ) society
+• From the mid-18th century (post-industrial revolution)
+• A society where industrialization advanced through mass production using machinery,
+facilitated by the invention of the steam engine and electricity.
+( [4] ) society • From the latter half of the 20th century
+• A society where automation has been promoted by the advancement of computers.
+Answer the following questions.
+(1) Choose the most closely related options for the following sentences from the options A to D below, and
+answer using the letters.
+[1] An environment where all objects are connected to the internet and communicate with each other.
+[2] A technology that uses computers to artificially mimic human intellectual behavior.
+[3] Technology for constructing virtual environments that can be perceived by humans.
+[4] A technology that adds information (still images, videos, etc.) by using computers to real-world
+environments.
+A Virtual Reality B IoT (Internet of Things) C Augmented Reality D AI
+(2) Choose one statement that is most inappropriate in regard to Big Data analysis from the options A to D
+below, and answer using the letter.
+A Doctors are able to make quick and accurate diagnoses by consolidating information such as treatment
+progress and test results of patients.
+B Monitor real-time traffic conditions, predict traffic congestion, and suggest optimal routes.
+C Analyze consumer behavior patterns based on the results of group interviews.
+D Analyze the large volume of posts on social media to identify trending keywords and understand
+current trends.
+Choose the term that best fits into the blank in the following text from the options A to D below, and answer
+using the letter.
+Anxiety and frustration from being unable to adapt to the operation of information devices such as computers
+or smartphones, as well as excessive dependency on the devices, are collectively referred to as ( ).
+A Technostress B Digital Divide C VDT Disorder D Techno-Addiction
+Exercise
+1
+2
+3

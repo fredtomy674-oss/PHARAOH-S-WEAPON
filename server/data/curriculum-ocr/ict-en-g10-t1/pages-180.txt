@@ -1,0 +1,19 @@
+181Information Study
+Point!
+Point!
+HTML, JS13-3
+JavaScript is a programming language that runs in web browsers.
+By embedding it into web pages, you can add interactivity to the page or cause changes to occur in response to
+user actions.
+HTML
+Structure and Content
+“Headings, text, etc.”
+Code Example: Code Example:
+Browser Display
+JavaScript
+Manipulation
+“Moving, zooming, changing, etc.”
+
+
+In the example above, an id is specified for the HTML <p> tag, and JavaScript uses that id to change the text
+inside the tag. .textContent is used when specifying (or accessing) the text inside a tag.

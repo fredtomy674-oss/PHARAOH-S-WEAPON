@@ -1,0 +1,40 @@
+165Warm Up
+Answer the following questions.
+(1) Choose the program that displays “Grade is A” from the options A to D below, and answer using the
+letter.
+A point = 90
+if point >= 85:
+result = ‘Grade is A’
+else:
+result = ‘Grade is B’
+B point = 90
+if point >= 85:
+result = ‘Grade is A’
+else:
+result = ‘Grade is B’
+print(result)
+C point 90
+if point >= 85:
+result = ‘Grade is A’
+else:
+result = ‘Grade is B’
+print(result)
+D point 90
+if point >= 85:
+result = ‘Grade is A’
+else:
+result = ‘Grade is B’
+(2) The following program displays the total and the average of all integers from 1 to 10. Fill in the blanks A
+to C with the appropriate characters or numbers to complete the program.
+total = 0
+for i in range(1, A ):
+total = B
+average = C /10
+print(total)
+print(average)
+Explanation
+(1) “=” is needed to assign a value to the variable “point”, and the print function is needed to display the
+value of the variable “result”. Therefore, B
+(2) Set the variable “total” to an initial value of 0 and then calculate the total by continuously adding
+integers 1 to 10 as variable “i” to the variable “total”. When counting variables from 1 to 10, be sure
+to specify up to the next number, 11. Therefore, A: 11, B: total+i, C: total

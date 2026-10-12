@@ -1,0 +1,43 @@
+97
+Choose the term that best fits into the blanks [1] to [6] in the following sentences from the options A to H
+below, and answer using the letters.
+A network within a relatively limited area, such as within a school or home, is referred to as a ( [1] ),
+while a network that covers a wider area is referred to as a ( [2] ). A network that connects ([1]) and ([2])
+on a global scale is called the ( [3] ). In order for regular households to use it, they need to have a contract
+with a business that facilitates connection to the internet, known as a ( [4] ).
+Additionally, computers within a local range are typically connected via cables through a concentrator
+device known as a ( [5] ). When connecting different networks, an intermediary device called a ( [6] )
+is used.
+A LAN B WAN C Wi-Fi D Hub
+E Server F Router G Internet H ISP (provider)
+Answer the following questions.
+(1) Choose the term that best fits into the blank in the following sentence from the options A to D below, and
+answer using the letter.
+A system configuration in which computers connected through a network are structured to allocate
+roles as service providers and service receivers is referred to as ( ).
+A Client-server system B Peer-to-peer system
+C Local Area Network (LAN) D Wide Area Network (WAN)
+(2) Fill in the blanks with the appropriate words.
+[1] A server that acts as an intermediary for accessing the internet is referred to as a ( ).
+[2] A server that manages files is referred to as a ( ).
+[3] A computer that requests various services from a server is referred to as a ( ).
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] and [2] with the appropriate terms.
+There are ( [1] ) methods and ( [2] ) methods in communication systems. The ([1]) method is a
+communication method where a communication path is established between the sender and the recipient
+before starting communication to exchange information. The ([2]) method is a communication method
+where the data to be sent is divided into small units called packets for exchange.
+(2) Choose all appropriate statements that describe circuit switching method and packet switching method
+from the options A to D below, and answer using the letters.
+A Circuit switching method allows for high communication speeds because the communication path is
+shared with other users.
+B In circuit switching method, once a connection is established, stable communication is possible
+because the communication path is occupied.
+C Packet switching method involves sharing the communication path, which can result in lower
+communication speeds.
+D Packet switching method has a low likelihood of complete communication failure, even when the
+network is congested.
+Try
+1
+2
+3

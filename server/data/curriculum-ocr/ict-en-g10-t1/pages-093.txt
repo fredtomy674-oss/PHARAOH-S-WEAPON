@@ -1,0 +1,46 @@
+93
+Answer the following questions.
+(1) Name the following logic circuit and create a truth table.
+(2) A circuit was created by combining logic circuits as shown in the following diagram. In this case, create a truth
+table for inputs A, B, and output X.
+(3) In the following half adder circuit, determine the values of each output a to d when input A is 0 and input B is
+1.
+(4) In the following full adder circuit, determine the values of each output a to f when input A is 1, input B is 1, and
+input Cin is 0.
+Try
+A
+B
+X
+A
+B
+X
+a
+b
+c
+d
+A
+B
+C
+S
+Half
+adder
+circuit Half
+adder
+circuit
+Carry from the
+lower digit
+a
+Cin
+C
+C
+b
+c
+d
+e
+f
+C out
+A
+B
+S
+S
+S

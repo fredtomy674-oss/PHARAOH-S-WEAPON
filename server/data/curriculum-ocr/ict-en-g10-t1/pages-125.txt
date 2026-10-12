@@ -1,0 +1,19 @@
+125
+Answer the following questions.
+(1) For the data shown in [1] to [9] below, answer A for quantitative data and B for qualitative data.
+[1] Marathon times [2] License plate numbers [3] Number of cars
+[4] Sales revenue of a company [5] Impressions of cooking [6] Days of the week
+[7] Length of traffic jams [8] Addresses [9] Favorite foods
+(2) Choose the description for the characteristics of scales of measurements [1] to [4] from the options A to D
+in [Group A]. Then, choose the item that represents the scale from the options a to d in [Group B]. Answer
+both questions using the letters.
+[1] Interval scale [2] Ordinal scale [3] Ratio scale [4] Nominal scale
+[Group A]
+A A scale with equal intervals but without meaningful ratios
+B A scale where the order has meaning, but the intervals do not
+C A scale represented by names or characteristics for classification and differentiation
+D A scale where the origin is defined and both intervals and ratios have meaning
+[Group B]
+a Grade b Product prices c Phone numbers d Western calendar years
+Try
+1

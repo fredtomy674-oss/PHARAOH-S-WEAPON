@@ -1,0 +1,42 @@
+174
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] and [2] from the options A to D below, and answer using the
+letters.
+def function name ( [1] ):
+[Process]
+return [2]
+A Argument B Return value C Complement D Random number
+(2) In the following program, the function “area” is used to calculate the area of a triangle. Give the program that
+fits in blanks A and B. Also, give the values displayed when rows [1] and [2] are executed.
+def area(base, height):
+S = A
+B S
+a = area(10, 5)
+b = area(6, 7)
+print(a) # [1]
+print(b) # [2]
+(3) In the following program, the function “celsius_to_fahrenheit” converts temperatures from Celsius to
+Fahrenheit. Give the program that fits in blanks A and B.
+def celsius_to_fahrenheit(celsius):
+fahrenheit = (celsius * 9/5) + 32
+return A
+temp_celsius = 25
+result = celsius_to_fahrenheit( B )
+print(result)
+(4) In the following program, test scores are given as arguments to the
+function “evaluate”. In addition, the relationship between scores
+and grades is according to the table on the right. Give the program
+that fits in the blanks A to C.
+def evaluate(score):
+if score A 80:
+print(‘A’)
+B score C 50:
+print(‘B’)
+else:
+print(‘C’)
+evaluate(40)
+Try
+Score Grade
+80 or higher A
+50 or higher but less than 80 B
+Less than 50 C

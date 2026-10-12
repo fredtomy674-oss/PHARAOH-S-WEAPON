@@ -1,0 +1,30 @@
+89Information Study
+Point!
+7-2 Computer Software
+Hardware and Software
+(1) Hardware : Devices such as the main computer unit and peripheral devices.
+<Examples> CPU, memory, storage, etc.
+(2) (1Software) : Programs and data that operate on hardware.
+[1] (2System software) : Software necessary for operating the hardware.
+[2] (3Operating system (OS)) : A type of system software responsible for the basic functions of a
+computer. An OS has management functions such as task
+management, memory management, and file management.
+<Examples> Windows, macOS, Android OS, etc.
+[3] (4Application software) : Software that operates on top of system software. Also known as
+application software.
+<Examples> Word processing software, spreadsheet software, etc.
+(3) (5Device driver) : A program that controls communication between a connected device and software on a
+computer. Also known simply as a “driver.”
+For the following statements A to D about an OS, mark “○” if the statement is appropriate, and “×” if it is
+inappropriate.
+A Software used to perform specific tasks.
+B Smartphones do not come equipped with an OS.
+C A type of system software essential for operating the hardware.
+D Application software cannot run without system software.
+Explanation
+A: An explanation about application software. Therefore, ×
+B: Smartphones are equipped with an OS. For example, iPhones are equipped with iOS, while Android
+phones run on Android OS. Therefore, ×
+C: An OS is a type of system software responsible for the basic functions of a computer. Therefore, ○
+D: Application software is software that operates on top of system software. Therefore, ○
+Warm Up

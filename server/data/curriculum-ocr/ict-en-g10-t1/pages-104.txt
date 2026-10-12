@@ -1,0 +1,40 @@
+104
+Choose the term that best fits into the blanks in the following sentences from the options A to D below, and
+answer using the letters.
+(1) A unique identification number equivalent to an address assigned to devices on an information and
+communication network is referred to as an ( ).
+(2) A common set of rules within an information and communication network is referred to as a ( ).
+A IP address B TCP/IP C Protocol D Route
+Answer the following questions.
+(1) Choose the most closely related options for the following sentences from the options A to D below, and
+answer using the letters.
+[1] A protocol that emphasizes sending data in real time. Used for voice calls and streaming video.
+[2] Data that is divided when communicating over a network.
+[3] Protocols used on the internet. Divided into four layers.
+[4] A protocol that divides the data to be sent into packets and retransmits any packets that are lost during
+transmission.
+A TCP/IP B TCP C Packet D UDP
+(2) The layers in TCP/IP for data communication over the internet are summarized in the following table.
+Choose the function that best fits into the blanks [1] to [4] from the options A to D below, and answer
+using the letters.
+Layer Layer names Main functions Examples of protocols
+Four layers Application layer ( [1] ) HTTP, SMTP, etc.
+Three layers Transport layer ( [2] ) TCP, UDP, etc.
+Two layers Internet layer ( [3] ) IP, etc.
+One layer Network interface layer ( [4] ) Ethernet, etc.
+A Physical connection, interaction between devices
+B Communication between applications
+C IP address allocation, routing decision
+D Communication control, error detection, and data retransmission
+(3) The following statements describe the mechanism of data communication on the internet. Answer the
+following questions.
+1) Divide the data you want to send into ( A ).
+2) Assign the ( B ) of the sender or recipient to the header of each packet.
+3) Select the optimal communication route for each packet and deliver it to its destination.
+4) If there any packets are missing upon receipt, a retransmission is requested. The packets are
+then rearranged in order to complete the data in its entirety.
+[1] Complete the sentences by filling in the blanks A and B with the appropriate terms.
+[2] Answer with the appropriate term for the underlined section.
+Exercise
+1
+2

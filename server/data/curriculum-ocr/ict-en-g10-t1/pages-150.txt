@@ -1,0 +1,36 @@
+150Warm Up
+Using spreadsheet software, as shown in the diagram below, 100 points were plotted using random numbers
+between 0 and 1 for the X and Y coordinates. The number of points that fall within the area of a quadrant of a
+circle with a radius of 1 was examined, and from this, an approximate value of pi was calculated. Answer the
+following questions.
+A B C D E F G H
+1 Simulation of approximate calculation of pi
+2 Number of
+times X-coordinate Y-coordinate Distance from the
+origin Inside-outside
+determination Probability of being inside
+a circle Pi
+3 1 0.9090 0.8882 1.6152 0 0.800 3.200
+4 2 0.6769 0.1794 0.7003 1
+5 3 0.3127 0.9045 0.9570 1
+6 4 0.4324 0.0900 0.4417 1
+7 5 0.3476 0.8694 0.9363 1
+8 6 0.7042 0.9714 1.1998 0
+9 7 0.1034 0.0875 0.1354 1
+(1) Can this model be represented as a deterministic model or a probabilistic model?
+(2) What is the term for the method that solves problems using random numbers in this way?
+(3) The following formulas are entered in cells B3, E3, G3, and H3 in the diagram. Complete the following
+formulas by filling in the blanks A to D with the appropriate answers.
+[Cell B3] = A ()
+[Cell E3] = B (D3<=1, 1, 0)
+[Cell G3] = SUM(E3:E102)/ C
+[Cell H3] = D *4
+(4) When 1,000 points were randomly plotted within a square, 750 of them fell inside a quadrant. Calculate
+the approximate value of pi in this situation.
+Explanation
+(1) Probabilistic model
+(2) Monte Carlo method
+(3) A: RAND B: IF C: 100 D: G3
+(4) Since there are 1,000 points in the entire square and 750 of them are inside the quadrant, 750
+1,000 × 4 = 3
+Therefore, the value of pi is 3

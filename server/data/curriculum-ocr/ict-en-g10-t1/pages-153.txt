@@ -1,0 +1,40 @@
+153Information Study
+Point!
+11-4 Queues
+Queues
+(1Queue) : A line formed when customers wait for a service, such as at a supermarket register or an attraction
+at a theme park.
+<Example> Queue at the register of a supermarket
+[1] Service start time
+・When there are no customers at the register (no queue)
+Service start time = Time when a customer (2arrives) at the register
+・When there is a previous customer at the register (when there is a queue)
+Service start time = Time when the previous customer (3finished) getting service
+[2] Service end time = Service start time + (4Service duration)
+[3] Waiting time = Service start time - (5Arrival time)
+Warm Up
+The following diagram represents changes in the queue at a store, with the vertical axis indicating the number
+of customers in line and the horizontal axis representing the time in minutes since the arrival of customer 1.
+The time each customer was receiving service is shaded in black, and the time they were waiting in line is
+shaded in gray. Answer the following questions.
+(1) How many minutes did it take to provide service to one customer at this store?
+(2) How many minutes after customer 1’s arrival was customer 3 able to receive service?
+(3) How many minutes did it take from when customer 4 arrived in line until they finished receiving service?
+(4) Among customers 1 to 4, who had the longest waiting time?
+(5) For how many minutes was the queue the longest?
+Explanation
+(1) The black cells represent the time when service was being received; therefore, the answer is 40 minutes.
+(2) When calculating the time between the arrival of customer 1 and the time customer 3 was able to receive
+service, 80 minutes have elapsed.
+(3) Since customer 4 started waiting in line 60 minutes later and finished receiving service 160 minutes later,
+the time it took from when customer 4 arrived in line until they finished receiving service is 100 minutes.
+(4) From the chart, the waiting times for each customer were as follows: customer 1 was 0 minutes,
+customer 2 was 20 minutes, customer 3 was 40 minutes, and customer 4 was 60 minutes. Therefore, the
+customer with the longest waiting time was customer 4.
+(5) The queue was longest during the 20-minute period from 60 minutes to 80 minutes, when customers 2, 3,
+and 4 were waiting in line.
+Customer 1
+Customer 2
+Customer 3
+Customer 4
+0 10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 (minutes later)

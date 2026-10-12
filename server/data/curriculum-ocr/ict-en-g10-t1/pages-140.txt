@@ -1,0 +1,66 @@
+140Information Study
+Point!
+10-6 Data Analysis [5]
+Regression Analysis
+(1) (1Regression analysis) : A method to investigate and
+clarify the relationship between a resulting
+value and a causal value. It is used in
+predictions and simulations.
+(2) (2Simple regression analysis) : Predicts the outcome
+variable y using the causal variable x.
+(3) (3Regression line) : Refers to the line used to
+determine predicted values in a scatter plot. A
+regression line can be expressed with the
+(4regression line equation) in the form of a first-degree function y = ax + b.
+(4) (5Least squares method) : A method used to (6minimize) the vertical error, or the (7residual), between
+the actual data points and the regression line.
+x: Mean temperature (℃)
+y: Expenditures on ice cream (in yen)
+1600
+1400
+1200
+1000 y = 37.9x + 20.332
+800
+600
+400
+200
+0
+0.0 5.0 10.0 15.0 20.0 25.0 30.0 35.0
+Warm Up
+The following scatter plot summarizes the
+relationship between the number of steps and
+the sleep duration for a student over the course
+of one month. Answer the following questions
+about this graph.
+(1) What is the term for describing the process
+of determining the equation for a straight
+line in the form y = ax + b representing the
+relationship between two variables,
+explanatory variable x and resulting
+variable y?
+(2) Complete the following sentences by filling in the blanks [1] to [3] with the appropriate items.
+When representing the relationship between two variables with a straight line, the ( [1] ) method is
+for finding the line that best fits the actual data. In the ([1]) method, a straight line is determined to
+( [2] ) the error, referred to as the ( [3] ), between each data point and the line.
+(3) The straight line in the figure represents the relationship between two variables using a straight line. If the
+equation of this line is “y = 0.0287x + 297.86,” what is the estimated sleep duration in minutes when the
+number of steps per day is 5,000? Give the answer as an integer (rounded off to the nearest whole number).
+Explanation
+(1) Simple regression analysis
+(2) [1] least squares [2] residual [3] minimize
+(3) Substituting x = 5,000 into y = 0.0287x + 297.86, we get
+y = 0.0287 × 5,000 + 297.86 = 441.36 ≈ 441
+Therefore, the sleep duration is estimated at 441 minutes.
+x: Number of steps per day
+y: Daily sleep duration (minutes)
+600
+550
+500
+450
+400
+350
+300
+250
+200
+0 2000 4000 6000 8000 10000
+y = 0.0287x + 297.86

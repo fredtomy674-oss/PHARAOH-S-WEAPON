@@ -1,0 +1,35 @@
+27
+For each of the three elements of information security, select:
+• The most appropriate description from Group A (A–C), one per element
+• All applicable potential damages from Group B (a–f) that may occur if that element is not ensured
+(1) Confidentiality (2) Integrity (3) Availability
+<Group A>
+A Ensuring uninterrupted access to information when needed.
+B Ensuring that only authorized individuals can access the information.
+C Ensuring that information has not been destroyed, tampered with, or deleted.
+<Group B>
+a Eavesdropping on the network
+b Service interruptions such as system downtime
+c Password leakage
+d Tampering with or destruction of information
+e Information leakage
+f Unauthorized use of computers or networks
+Answer the following questions.
+(1) Choose the most suitable option for the blank from the options A to G below, and answer using the letters.
+[1] A virus that displays advertisements the user did not intend to see is called ( ).
+[2] The act of illegally infiltrating a computer to tamper with, erase, or steal data is called ( ).
+[3] Software that leaks data stored on a computer to the outside is called ( ).
+[4] Malicious software including computer viruses and Trojan horses is collectively referred to as ( ).
+A Malware B Keylogger C Adware D Cracking
+E Hacking F Phishing G Spyware
+(2) Choose the one correct statement from A to D regarding computer virus infection.
+A As long as the computer is connected to a network, there is always a risk of infection by a computer
+virus.
+B If you do not connect to a computer or network and only transfer data using a USB memory stick,
+infection will not occur.
+C If you avoid accessing harmful or illegal websites, you will not get infected.
+D As long as you do not open emails, you are safe from infection, so being cautious with emails is
+sufficient.
+Exercise
+1
+2

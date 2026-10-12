@@ -1,0 +1,74 @@
+115Information Study
+Point!
+9-2 Database [2]
+Relational Database
+(1) (1Relational database (RDB)) : Database where collected data is organized and managed across
+multiple tables.
+• A spreadsheet (2table) consists of (3rows (records)) and (4columns (fields)).
+• Establishing (5relationships) between multiple tables makes it possible to eliminate duplicate data,
+which allows data to be handled with integrity.
+(2) (6SQL) : A language used in relational databases to manipulate data.
+Performs data registration, insertion, retrieval, and deletion.
+(3) Relational Database Operations (Relational Algebra Operations)
+[1] (7Selection) : Only rows that meet given conditions are extracted and displayed.
+[2] (8Projection) : Displaying only certain columns from a table.
+[3] (9Join) : Linking data from multiple tables according to specific conditions and displaying it as a
+single table.
+Badminton club
+Soccer club
+Dance club
+Club activity
+Ito ○○
+Ishida ○○
+Ando ○○
+Student name
+S2023010103
+S2023010102
+S2023010101
+Student code
+Table Column (field)
+Row (record)
+Student code Student name Club code
+S2023010101 Ando ○○ C1
+S2023010102 Ishida ○○ C2
+S2023010103 Ito ○○ C1
+S2023010104 Udagawa ○○ C1
+S2023010105 Ezawa ○○ C2
+Student code Student name Club code
+S2023010102 Ishida ○○ C2
+S2023010105 Ezawa ○○ C2
+Record for club
+code C2
+Selection
+Student code Student name Club code
+S2023010101 Ando ○○ C1
+S2023010102 Ishida ○○ C2
+S2023010103 Ito ○○ C1
+S2023010104 Udagawa ○○ C1
+S2023010105 Ezawa ○○ C2
+Student name
+Ando ○○
+Ishida ○○
+Ito ○○
+Udagawa ○○
+Ezawa ○○
+Student name
+Projection
+Student code Student name Club code
+S2023010101 Ando ○○ C1
+S2023010102 Ishida ○○ C2
+S2023010103 Ito ○○ C1
+S2023010104 Udagawa ○○ C1
+S2023010105 Ezawa ○○ C2
+Student code Student name Club code Club activity
+S2023010101 Ando ○○ C1 Dance club
+S2023010102 Ishida ○○ C2 Tennis club
+S2023010103 Ito ○○ C1 Dance club
+S2023010104 Udagawa ○○ C1 Dance club
+S2023010105 Ezawa ○○ C2 Tennis club
+Club code Club activity
+C1 Dance club
+C2 Tennis club
+Student table
+Club table
+Join

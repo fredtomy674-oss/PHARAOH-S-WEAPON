@@ -1,0 +1,24 @@
+130
+Answer the following questions.
+(1) The following data records the heights of 30 students in a class. Answer the following questions.
+168 151 168 166 183 162 167 176 161 175
+156 165 173 152 165 177 156 171 158 172
+172 148 146 167 173 155 169 180 161 163 (cm)
+[1] Create a frequency distribution table where the class interval is 145 cm to less than 150 cm, with each
+class having a width of 5 cm.
+[2] Based on the frequency distribution table created in question [1], draw a histogram.
+(2) The following data represents the daily sleep duration of 20 high school students. Answer the following
+questions.
+7 7 5 9 7 6 8 4 8 10
+3 8 6 8 9 5 8 6 8 8 (Time)
+[1] Determine the mean of the data.
+[2] Determine the median of the data.
+[3] Determine the mode of the data.
+Items A to C below describe functions available in spreadsheet software. Mark “○” if the statement is
+appropriate, and “×” if it is inappropriate.
+A The mean can be determined using the AVERAGE function in spreadsheet software.
+B The median can be determined using the MEDIAN function in spreadsheet software.
+C The mode can be determined using the SUM function in spreadsheet software.
+Exercise
+1
+2

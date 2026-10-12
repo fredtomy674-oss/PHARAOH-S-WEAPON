@@ -1,0 +1,26 @@
+129
+The following data represents the quiz scores of 20 high school students. Answer the following questions.
+3 4 9 7 6 10 5 5 7 9
+6 8 1 5 7 10 8 6 3 7 (Points)
+(1) Determine the mean of the data.
+(2) Determine the median of the data.
+(3) Determine the mode of the data.
+The following data shows the recorded daily maximum temperatures in Tokyo for February 2023. Answer the
+following questions.
+13.1 9.2 6.2 11.2 13.6 15.4 11.7 10.6 3.5 12
+14.1 16.9 10.3 10.7 7.8 9.6 10.8 15 18.5 14.7
+9.2 10.4 14.4 12.1 12.7 10.7 19.4 15 (°C)
+(1) Create a frequency distribution table where the class interval is 14°C to less than 16°C, with each class
+having a width of 2°C.
+(2) Based on the frequency distribution table created in step (1), draw a histogram.
+The following table summarizes the functions available in spreadsheet software. Choose the term that best fits
+into the blanks [1] to [3] from the options A to D below, and answer using the letters.
+Function Explanation
+( [1] ) Determines the mean.
+( [2] ) Determines the median.
+( [3] ) Determines the mode.
+A MODE B AVERAGE C MEDIAN D VARP
+Try
+1
+2
+3

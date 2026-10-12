@@ -1,0 +1,44 @@
+69Information Study
+Point!
+6-7 Digitalization of Sound
+Sound
+(1) Sound : A phenomenon transmitted through the vibration of air. Waveform (1analog) data.
+• For audio data on CDs, etc., sound is converted into (2digital) data.
+(2) (3Frequency) : The number of waves contained in one second.
+The unit is (4hertz) [Symbol: (5Hz)].
+(3) (6Period) : The time it takes for one wave to propagate. The unit
+is (7seconds).
+Digitalization of Sound
+(1) (8Pulse Code Modulation (PCM) method) : A method for digitizing audio analog data.
+Convert sound information into binary code.
+<Steps for digitizing sound using the PCM method>
+1) (9Sampling) : The horizontal axis (time) is divided at regular intervals, and the wave height
+(voltage strength) is extracted. The extracted points are referred to as (10sample
+points).
+• (11Sampling period) : The time interval used to divide when sampling.
+• (12Sampling frequency) : The number of samples taken per second.
+2) (13Quantization) : The vertical axis (voltage) is divided at regular intervals, and the wave
+heights obtained from sampling are converted to the nearest values on the
+vertical scale.
+• (14Quantization bit depth) : This determines the number of levels into which the range is
+divided during quantization.
+3) (15Encoding) : Express the quantized values in binary form.
+(2) Digitization and Data Volume
+As the sampling frequency and the quantization bit depth (16increase), the sound becomes closer to
+the original analog waveform. This causes the sound quality to (17improve); however, the amount
+of data also (18increases).
+(3) (19Sampling theorem) : If the sampling frequency exceeds (20twice) the highest frequency
+contained in the original analog waveform, the waveform of the original
+analog signal can be accurately reconstructed from the digitized data.
+1
+Voltage Time
+Period
+2
+Original waveform
+Voltage
+Time
+Voltage
+Time
+Voltage
+Time
+1) Sampling 2) Quantization 3) Encording

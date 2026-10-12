@@ -1,0 +1,30 @@
+119Information Study
+Point!
+9-3 Various Information Systems
+Information Systems
+(1) (1TPS- Transaction Processing System) : A system that records and processes the company's
+routine daily transactions
+<Example> Point of Sales (POS) System, Airline Reservation System
+(2) (2MIS - Management Information System) : A system that provides periodic reports to
+manageres to assist them in decision-making.
+<Example> Monthly Sales Reports, Inventory Reports.
+(3) (3DSS - Decision Support System): A system that supports manageres in making non-routine
+decisions through modeling and simulaions.
+<Example> "What if" Analysis, Business scenario planning
+(4) (4EIS - Executive Information System): A system that provides summarised information to
+executive level about the overall performance of the
+organization.
+<Example> Executive Dashboards, KPIs
+System Integration
+(1) (5Vertical Integration): Linking systems at different levels of the organization (such as TPS with
+MIS).
+(2) (6Horizontal Integration): Linking the systems at the same level across different departments
+(such as the sales system with the inventory system).
+Enterprise Resource Planning (ERP)
+(1) (7Enterprise Resource Planning System) : An integrated system that combines various business
+functions such as accounting, human resources, supply
+chain, and customer relationship mnagaement into a
+single system
+1
+2
+3

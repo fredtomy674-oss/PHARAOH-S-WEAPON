@@ -1,0 +1,39 @@
+8-2 IP Addresses and Domain Names 99
+8-3 Communication Protocol 101
+8-4 Mechanism of Web Pages and Emails 105
+8-5 Network Transfer Speed 109
+Chapter 9 Databases
+9-1 Database [1] 111
+9-2 Database [2] 115
+9-3 Various Information Systems 119
+Chapter 10 Data Analysis
+10-1 Types of Data and Analysis 123
+10-2 Data Analysis [1] 127
+10-3 Data Analysis [2] 131
+10-4 Data Analysis [3] 134
+10-5 Data Analysis [4] 136
+10-6 Data Analysis [5] 140
+Chapter 11 Simulations
+11-1 Modeling 142
+11-2 Simulations [1] 145
+11-3 Simulations [2] 149
+11-4 Queues 153
+Chapter 12 Programming (Python)
+12-1 Algorithm 155
+12-2 Programming Basics [1] (Python) 159
+12-3 Programming Basics [2] (Python) 163
+12-4 Application of Programming [1] (Python) 168
+12-5 Application of Programming [2] (Python) 172
+Chapter 13 AI Programming
+13-1 About Generative AI 176
+13-2 HTML, CSS 178
+13-3 HTML, JS 181
+13-4 Creating Static Web Pages 186
+13-5 Creating Dynamic Web Pages 190
+13-6 Presenting Your Website 192
+13-7 Developing a Quiz App 193
+13-8 Quiz App Review 195
+13-9 Developing a Block Breaker Game 1 196
+13-10 Developing a Block Breaker Game 2 198
+13-11 Block Breaker Summary 200
+13-12 Block Breaker Development Presentation 202

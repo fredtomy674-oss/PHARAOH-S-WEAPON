@@ -1,0 +1,31 @@
+100
+Answer the following questions.
+(1) Choose the appropriate example of an IPv4 IP address for a computer from the options A to D below, and
+answer using the letter.
+A 00.00.11.aa.bb.cc B 050-1234-5678
+C 10.123.45.67 D https://www.example.co.jp/
+(2) Fill in the blank in the following sentence with the correct term.
+An IP address that is uniquely assigned on the internet with no duplication is referred to as a ( ) IP
+address.
+(3) Choose the correct statement regarding IP addresses from the options A to D, and answer using the letter.
+A The number of IP addresses in a four-byte format like 192.168.1.1 exceeds the population of the Earth,
+which is approximately 7 billion.
+B The issue of IP address exhaustion is resolved by IPv6, which is represented using 128 bits.
+C In IPv4, addresses are represented by combining four numbers ranging from 0 to 256.
+D A global IP address can be freely used within a local network, such as within the same company.
+Answer the following questions.
+(1) Choose the appropriate example of an IPv4 IP address for a computer from the options A to D below, and
+answer using the letter.
+A saiyo@example.co.jp B 070-1234-5678
+C https://www.example.co.jp/ D 203.216.206.63
+(2) Fill in the blank in the following sentence with the correct term.
+An IP address that can be freely used within a local network, such as a LAN, is referred to as a ( )
+IP address.
+(3) Choose the correct explanation regarding DNS from the options A to D below, and answer using the letter.
+A A unique identification number assigned to devices on an information and communication network.
+B A string of characters assigned to an IP address to make it easier for humans to understand.
+C A system that maps domain names to IP addresses and vice versa.
+D An IP address that is uniquely assigned on the internet with no duplication.
+Try
+Exercise
+1

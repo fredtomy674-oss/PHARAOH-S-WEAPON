@@ -1,0 +1,37 @@
+74
+Color Representation
+(1) (17Three primary colors of light) : The three colors of red, green, and blue. When these colors of
+light are mixed, the brightness increases and approaches (18white).
+(2) (19Three primary colors of pigment) : The three colors of cyan, magenta, and yellow. Mixing
+these colors will darken them and bring them closer to (20black).
+(3) (21Additive color mixing) : A method of representing colors by combining the three primary colors
+of light. Used in televisions and computer displays.
+(4) (22Subtractive color mixing) : A method of representing colors by combining the three primary
+colors of pigment. Used in color printers.
+(5) (2324-bit full color) : Each color of red, green, and blue is represented in 256 levels (28 = 8 bits) ×
+3 = 24 bits.
+2
+Answer the following questions.
+(1) Rearrange the following steps A to C in the order of converting an image into digital data.
+A Replace the brightness levels of each region with integer values according to a fixed rule.
+B Divide the image into evenly spaced grid sections.
+C Represent integers in binary.
+(2) Choose all statements that correctly describe the digital representation of images from the options A to
+D, and answer using the letters.
+A The raster format appears as having noticeably jagged edges when the image is enlarged.
+B The raster format is suitable for expressing images with clear contours, such as logos.
+C Vector format represents images by incorporating information such as the coordinates of points and
+the thickness of lines.
+D Painting software is used to create vector graphics.
+(3) What is the data amount of a 24-bit full-color image with a resolution of 1,280 × 720 pixels in
+megabytes? For this question, assume that 1 KB = 1,000 B and 1 MB = 1,000 KB, and round your
+answer to two decimal places.
+Explanation
+(1) B → A → C
+(2) A, C
+(3) The amount of data in the image is,
+1,280 × 720 × 24 [bits] = 22,118,400 [bits]
+Since 1 B equals 8 bits, 22,118,400 ÷ 8 = 2,764,800 [B].
+1 KB = 1,000 B, 1 MB = 1,000 KB, therefore,
+2,764,800 [B] ÷ 1,000 ÷ 1,000 = 2.7648 [MB] ≈ 2.76 [MB] 2.76 MB
+Warm Up

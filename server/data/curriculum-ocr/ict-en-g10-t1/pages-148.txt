@@ -1,0 +1,30 @@
+148
+Answer the following questions.
+(1) In spreadsheet software, what are the terms for the following operations?
+[1] A method of referencing that keeps the position of the row or column of the referenced cell
+consistently fixed.
+[2] A method of referencing where the position of the referenced cell changes automatically.
+(2) In spreadsheet software, what symbol is used to make a formula always refer to the same cell, even when
+the formula is copied? Answer with the appropriate symbol.
+Using an appliance with a power consumption of 0.5 kW means that 0.5 kWh of electricity is used each hour.
+Using spreadsheet software, a table was created like the one below to simulate the relationship between usage
+time and electricity charges when the electricity cost is 10 yen/kWh. Answer the following questions.
+A B C D E ▼
+1 Simulation of electricity bills
+2 Power consumption (kW) Unit price (yen/kWh) Usage time (h) Electricity rate (in yen)
+3 0.5 10 0 0
+4 1 5
+5 2 10
+6 3 15
+7 4 20
+8
+(1) Can this model be represented as a deterministic model or a probabilistic model?
+(2) The relationship between electricity rate, usage time, unit price, and power consumption can be expressed
+as follows. Complete the following formula by filling in the blanks A to C with the appropriate terms.
+(Electricity rate) = A × B × C
+(3) The formula entered in cell E4 in the diagram is as follows. Note that cell E3 is copied and used to E7.
+Complete the following formula by filling in the blanks A to C with the appropriate answers.
+[Cell E4] = A * B * C
+Exercise
+1
+2

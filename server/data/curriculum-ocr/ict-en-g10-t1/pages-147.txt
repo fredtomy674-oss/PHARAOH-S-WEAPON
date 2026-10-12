@@ -1,0 +1,49 @@
+147
+Using spreadsheet software, a table was created like the one below to simulate the relationship between the
+inflow time and volume of water in a container when water is poured into an empty container. Answer the
+following questions.
+A B C D
+1 Water volume simulation
+2 Water inflow rate
+[L/min]
+Elapsed time
+[minutes] Water volume [L]
+3 5 0 0
+4 1 5
+5 2 10
+6 3 15
+7 4 20
+(1) Can this model be represented as a deterministic model or a probabilistic model?
+(2) The relationship among water volume, inflow rate, and elapsed time is expressed as follows. Complete the
+following formula by filling in the blanks A and B with the appropriate terms.
+(Water volume) = A × B
+(3) The formula entered in cell D3 in the diagram is as follows. Note that the formula in cell D3 is copied and
+used to D7. Complete the following formula by filling in the blanks A and B with the appropriate answers.
+[Cell D3] = A * B
+Using spreadsheet software, a table was created like the one below to simulate how the remaining balance
+changes when 1,000,000 yen is deposited with a bank. Answer the following questions. Furthermore, the
+interest generated from the principal (balance) is incorporated into the principal for the following period.
+A B C D E F
+1 Simulation of account balance
+2 Principal amount
+(in yen) Interest rate (%) Number of years Account balance
+(in yen) Interest (in yen)
+3 1,000,000 4% 0 1,000,000 0
+4 1 1,040,000 40,000
+5 2 1,081,600 41,600
+6 3 1,124,864 43,264
+7
+(1) Can this model be represented as a deterministic model or a probabilistic model?
+(2) What is the term for the method where interest generated from the principal (balance) is incorporated into
+the principal for the next period?
+(3) Complete the following formulas by filling in the blanks A and B with the appropriate terms.
+Interest = (Current balance) × A
+Next period’s balance = (Current balance) + B
+(4) The formulas below are entered in cell E4 and cell F4 in the diagram. Complete the following formulas by
+filling in the blanks A to C with the appropriate answers. Additionally, the formula in cell E4 is copied and
+used to E6, and the formula in cell F4 is copied and used to F6.
+[Cell E4] = E3 + A
+[Cell F4] = B * C
+Try
+1
+2

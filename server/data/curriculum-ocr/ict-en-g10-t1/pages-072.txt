@@ -1,0 +1,36 @@
+72
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [6] in the following sentences from the options A to I
+below, and answer using the letters.
+Sound is analog data in waveforms that are transmitted through the vibration of air. The process of
+capturing sound waveforms on a computer begins with segmenting the waveforms at regular time
+intervals. This process is called ( [1] ). The number of partitions per second is called the ([1])
+frequency. Next, convert and approximate the segmented wave heights into a continuous bar graph. This
+process is called ( [2] ). At this time, the value indicating how many levels the numbers are
+expressed in is called ( [3] ). Finally, perform ( [4] ), which uses 0s and 1s to express the value in
+binary after ([2]). This method of converting sound into digital data is called ( [5] ).
+In the case of digitizing sound, digital data converted from analog data will approximate the original
+waveform more closely if the ([1]) frequency is higher. Furthermore, the greater the ([3]), the more
+accurately the waveform can be represented numerically. However, as a result, the amount of data
+becomes ( [6] ).
+A Encoding B Sampling C Quantization D Larger E Smaller
+F Sampling period G Quantization
+bit depth
+H PCM method I MIDI format
+(2) The following statements A to D are about the sampling frequency and the number of quantization levels.
+Mark “○” if the statement is correct, and “×” if it is incorrect.
+A Sampling frequency refers to the number of times sampling occurs in one second.
+B The greater the number of levels during quantization, the larger the amount of data becomes.
+C If you want to approximate the original analog waveform more closely, it is effective to increase the
+sampling frequency and reduce the number of levels during quantization.
+D If the maximum frequency of the original analog waveform is 40 Hz, you should digitize it with a
+sampling frequency greater than 80 Hz.
+Answer the following questions. In these questions, assume that 1 KB = 1,000 B, and 1 MB = 1,000 KB.
+(1) What is the data amount for 10 seconds in kilobytes (KB) when digitizing music at a sampling frequency
+of 44,100 Hz, a quantization bit depth of 16 bits, and in 1-channel monaural?
+(2) What is the data amount for 1 minute in MB when digitizing music at a sampling frequency of 96 kHz, a
+quantization bit depth of 24 bits, and in 2-channel stereo? Round off to the nearest whole number in your
+answer.
+Exercise
+1
+2

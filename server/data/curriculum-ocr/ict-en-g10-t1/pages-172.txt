@@ -1,0 +1,35 @@
+172Information Study
+Point!
+12-5 Application of Programming [2] (Python)
+Functions
+(1) (1Function) : A set of operations performed by a computer described as a cohesive unit. A variable
+specified to receive a value within a function is referred to as an (2argument). Using
+(3return) makes it possible to pass the value resulting from the process within the function
+to the caller as a (4return value). In addition, when a function is used, it is necessary to
+perform the process of (5calling) the function.
+<Example> Example of a function with one argument: A program to find the function y = 2x
+01 def function(x): Defines a function called (6function).
+02 y = 2 * x Assigns the value from 2*x to variable “y”.
+03 return y Returns “y” as (7return value).
+04 print(function(5)) Passes “x” as 5 to the function.
+<Example> Example of a function with two arguments: A program to find the area of a triangle
+01 def area(base, height): Defines a function called “area”.
+02 S= base*height/2 Assigns the value from
+“base*height/2” to variable “S”.
+03 return S Returns “S” as the return value.
+04 print(area(10, 5)) Passes “base” as (810) and “height”
+as (95) to the function “area”.
+(2) Functions include (10built-in functions) such as “print()” that can be used without definition, and
+(11user-defined functions) that you can define.
+def [function name](Argument 1, Argument 2, …):
+[Process]
+return [return value]
+Argument
+Function name (Argument 1, Argument 2, …)
+Function Call Return value
+Definition of a
+Function
+10
+Execution result
+25
+Execution result

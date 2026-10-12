@@ -1,0 +1,47 @@
+162
+Answer the following questions.
+(1) Choose the program that displays “Nice to meet you” from the options A to D below, and answer
+using the letter.
+A print(‘Nice to meet you’) B print(Nice to meet you)
+C ‘Nice to meet you’ D Nice to meet you
+(2) Choose the program that displays “17 years old” from the options A to D below, and answer using the
+letter.
+A print(age)
+age == ‘17 years old’
+B print(age)
+age = ‘17 years old’
+C age == ‘17 years old’
+print(age)
+D age = ‘17 years old’
+print(age)
+(3) Choose the program that displays “15” from the options A to D below, and answer using the letter.
+A a = 5
+print(a % 3)
+B print(a % 3)
+a = 5
+C a = 5
+print(a * 3)
+D print(a * 3)
+a = 5
+(4) Choose the program that displays “2” from the options A to D below, and answer using the letter.
+A b == 8
+print(b // 3)
+B b = 8
+print(b // 3)
+C b == 8
+print(b ** 3)
+D b = 8
+print(b ** 3)
+(5) When the following program is executed, give the results for items [1] to [5].
+c = 9
+print(c + 2) ……[1]
+print(c - 4) ……[2]
+print(c * 2) ……[3]
+print(c // 2) ……[4]
+print(c % 2) ……[5]
+(6) What is the term for symbols such as “+” and “-” that are used in calculations? Choose one from the
+options A to D below, and answer using the letter.
+A Comparison operator B Logical operator
+C Assignment operator D Arithmetic operator
+Exercise
+1

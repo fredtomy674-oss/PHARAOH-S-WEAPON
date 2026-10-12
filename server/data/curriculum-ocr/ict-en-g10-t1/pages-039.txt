@@ -1,0 +1,38 @@
+39
+SSL / TLS
+(12SSL/TLS) : A technology used to encrypt communication between a web server and a web browser.
+The (13session key method) is used in this encryption. The URL of an encrypted web page
+begins with “(14https):// …”.
+＊ TLS (Transport Layer Security) was introduced as a more secure version of the originally used SSL
+(Secure Sockets Layer). However, since the term “SSL” became widely recognized, the combined term
+SSL/TLS is often used.
+2
+Answer the following questions.
+(1) For the following statements A to D about hash values, mark “○” if the statement is correct, or “×” if it is
+incorrect.
+A If one character in the original data is changed, only one character in the resulting hash value will
+change.
+B A digital signature is created by encrypting the hash value of the document to be sent with a private
+key.
+C It is difficult to restore the original message from its hash value.
+D Even if the documents being sent are different, the hash values obtained from the same hash function
+will always be the same.
+(2) The following sentences describe the steps of creating a digital signature. Fill in the blanks [1] to [4] with
+the appropriate terms.
+The sender generates a ( [1] ) based on the data they want to send and encrypts it using their
+( [2] ). This is called a ( [3] ), and the sender sends both the data and the digital signature to the
+recipient. The recipient decrypts the received ([3]) using the sender’s ( [4] ) to recover the original
+([1]). The recipient also generates a ([1]) from the received data using the same hash function. If the
+two ([1]) values match, it proves that the data is from the sender and has not been tampered with.
+(3) What is the name of the technology used to encrypt communication between a web server and a web
+browser?
+Explanation
+(1) A. If even a single character in the original message is different, the resulting hash value becomes
+completely different. Therefore: ×
+B ○
+C ○
+D If the message being sent is different, the resulting hash value will also be completely different even
+when using the same hash function. Therefore: ×
+(2) [1] hash value [2] private key [3] digital signature (electronic signature) [4] public key
+(3) SSL/TLS
+Warm Up

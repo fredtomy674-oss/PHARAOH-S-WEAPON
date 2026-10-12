@@ -1,0 +1,42 @@
+96
+(2) (20Packet) : A unit for dividing data into small chunks when transmitting data over a network.
+(3) (21Packet switching method) : A communication method that involves dividing the data being
+transmitted into packets for exchange.
+(4) Advantages and Disadvantages of Communication Methods
+Circuit switching method Packet switching method
+Advantages
+Once a communication path is
+established, stable communication
+can be achieved.
+Even if the network is congested, data
+can be sent gradually, so the possibility
+of being completely unable to
+communicate is low.
+Disadvantages
+The communication path is occupied
+by the user, so it is not possible to
+use the line simultaneously with
+others.
+Packets can sometimes be lost along
+the way or be affected by network
+congestion.
+Answer the following questions.
+(1) Choose one statement that is incorrect regarding network construction devices from the options A to D
+below, and answer using the letter.
+A Organizations or companies that facilitate connections to the internet are referred to as providers.
+B A network limited to areas such as within a school or a home is referred to as a WAN.
+C A device that gathers and connects multiple cables is referred to as a hub.
+D A device that relays and transfers between different networks is referred to as a router.
+(2) Choose the statement that best fits into the blanks [1] to [4] in the following table from the options A to
+D below, and answer using the letters.
+Advantages Disadvantages
+Circuit switching method [1] [2]
+Packet switching method [3] [4]
+A The line is occupied, which ensures stable communication.
+B There may be delays or loss of data during transmission.
+C Only the number of lines necessary for communication is required.
+D It is possible to handle many communications simultaneously.
+Explanation
+(1) A network limited to areas such as within a school or a home is referred to as a LAN. Therefore, B
+(2) [1] A [2] C [3] D [4] B
+Warm Up

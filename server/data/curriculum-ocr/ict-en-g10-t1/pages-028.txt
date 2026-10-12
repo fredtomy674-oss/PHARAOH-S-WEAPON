@@ -1,0 +1,52 @@
+28Information Study
+Point!
+3-2 Threats and Countermeasures in Information Security [2]
+Passwords and Authentication
+(1) Password: A string of characters used to verify that the user of a given user ID is the legitimate
+account holder.
+(2) Guidelines for creating passwords:
+• Use a string that is as (1long) as possible.
+• (2Combine) uppercase letters, lowercase letters, numbers, and symbols.
+• Do not use personal information such as your birthday, email address, or user ID.
+• Do not reuse passwords used for other services.
+(3) (3One-time-password) : A password that changes at regular intervals and can only be used once.
+(4) (4Authentification) : The process of verifying the identity of a user on a computer or network.
+(5) Types of authentication:
+Name Method Examples
+[1] (5Knowledge-based
+authentication)
+Authentication using information
+known only to the individual.
+User ID and password,
+PIN code
+[2] (6Biometric authentication
+(Biometrics))
+Authentication using physical or
+behavioral characteristics of the
+individual.
+Fingerprint, Iris, Vein pattern,
+Handwriting
+[3] (7Possession-based
+authentication)
+Authentication using an item
+that the individual possesses.
+IC card, One-time password,
+SMS-based verification
+[4] (8Two-factor authentication) : A method that combines two different types of factors from
+“knowledge,” “biometrics,” and “possession” to perform
+authentication.
+[5] (9Two-step authentication) : A method that performs authentication in two steps using two
+pieces of information from the same type of factor.
+Information Security Measures
+(1) (10Access control) : A method of limiting access to computer systems or data so that only specific
+users, verified through authentication, are allowed to use them.
+(2) (11Firewall) : A system installed at network entry points to prevent (12unauthorized access) from
+outside and to stop (13data leaks) from within.
+(3) Countermeasures against computer viruses
+• Install (14antivirus software) to remove or isolate viruses, and keep the virus definitions within
+the software up to date.
+• Always keep the operating system (OS) and application software (15updated) to prevent
+(16security holes) (vulnerabilities) in the software.
+• Regularly create (17backups) of your data.
+1
+2

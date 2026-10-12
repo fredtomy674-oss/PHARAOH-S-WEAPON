@@ -1,0 +1,61 @@
+42Information Study
+Point!
+4-1 Development of Information Technology
+Advancements in Information Technology and Future Society
+(1) Flow of Societal Development
+Name Explanation Impactful Technologies and Tools
+(1Hunter-gatherer
+society)
+• From the birth of humanity
+• A society where people live through
+hunting.
+Stone axes, bows and arrows,
+fire-starting techniques, language,
+etc.
+(2Agrarian
+society)
+• From around 13,000 BCE
+• A society where people lead a stable
+life by growing and harvesting food.
+Agricultural tools, irrigation, etc.
+(3Industrialized
+society)
+• From the mid-18th century (4post-
+industrial revolution)
+• A society where industrialization
+advanced through mass production
+using machinery, facilitated by the
+invention of the steam engine and
+electricity.
+Steam engines, industrial
+machinery, printing technology,
+etc.
+(5Information
+society)
+• From the latter half of the 20th century
+• A society where automation has been
+promoted by the advancement of
+computers.
+Computers, the internet, etc.
+(2) (6Society 5.0) : A new society where virtual space (cyberspace) and real space (physical space) are
+integrated to solve various social issues and achieve economic development.
+New Information Technologies Attracting Attention
+(1) (7Big Data) : Vast collections of data in various forms, with different characteristics and of various
+types. Data consists of three elements: data (8volume), data (9variety), and data
+(10generation/update frequency).
+(2) (11AI (Artificial Intelligence)) : A technology that uses computers to artificially mimic human
+intellectual behavior.
+<Examples> Autonomous driving, telemedicine, smart agriculture,
+smart homes, etc.
+(3) (12Machine Learning) : A technology where computers learn from large amounts of data to extract
+rules and patterns from the data.
+(4) (13IoT) : Technology that supports daily life by connecting household appliances and other items to
+the internet, thereby allowing the appliances to communicate with each other.
+• (14Smart Home) : A residence that utilizes IoT and AI technologies to provide a more comfortable
+living environment.
+(5) (15VR (Virtual Reality)) : A technology that allows users to experience an illusion of reality in a
+simulated environment.
+(6) (16AR (Augmented Reality)) : A technology that uses computer processing to enhance the real-
+world environment perceived by human senses (vision, etc.).
+1
+2

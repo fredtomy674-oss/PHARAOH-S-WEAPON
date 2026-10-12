@@ -1,0 +1,9 @@
+188
+Next, try giving the following prompt to the AI:
+“Write a simple news page using HTML and CSS.”
+1. Run the Code Copy and paste the output into WebDen and run it.
+(Note: Results will vary each time.)
+2. Customize Modify the code written by the AI. Try changing the text color, font size, background color, etc.
+3. Understand Ask the AI for an explanation:
+“Explain this code.”
+Try

@@ -1,0 +1,51 @@
+41
+Answer the following question.
+(1) The diagram below illustrates the mechanism of a digital signature. For blanks [1] to [8], choose the
+appropriate terms from the options A to H below and answer using the corresponding letters. The same
+letter may be used more than once.
+【Word Bank】 A Sender B Recipient C Shared key D Private key
+E Public key F Hash value G Digital signature H Electronic authentication
+(2) Among the options A to D below, choose the one that appropriately describes something related to an
+email with a digital signature. Answer using the corresponding letter.
+A Garbled text is more likely to occur during transmission of the email.
+B It allows you to confirm whether the email was sent from the correct sender.
+C It prevents the contents of the email from being intercepted during transmission.
+D It prevents the contents of the email from being lost.
+(3) Among the options A to D below, choose all that correctly describe functions of SSL/TLS. Answer using
+the corresponding letters.
+A SSL is the predecessor of TLS, and currently, TLS is the mainstream standard in use.
+B It is a function that restricts access to harmful or illegal websites based on certain conditions.
+C URLs that begin with “http://...” are encrypted using SSL/TLS.
+D SSL/TLS encrypts communication using a session key method that combines symmetric and public
+key encryption methods.
+Exercise
+1
+Send
+Sender
+❻
+❺
+❹
+❸
+❷❶
+Hash
+function
+Hash function
+Match!
+Plaintext
+Hello
+06fe3f3e
+06fe3f3e
+06fe3f3e
+Hello is
+Plaintext
+Digital
+signature
+Hello is
+Plaintext
+Receiver
+( [1] ) ( [4] )
+( [5] )
+( [8] )
+( [2] ) of
+( [3] )
+( [6] ) of ( [7] )

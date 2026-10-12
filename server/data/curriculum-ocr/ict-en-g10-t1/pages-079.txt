@@ -1,0 +1,43 @@
+79
+Answer the following questions. For these questions, assume that 1 KB = 1,000 B and 1 MB = 1,000 KB.
+(1) Complete the following sentences by filling in the blanks [1] and [5] with the appropriate terms.
+A video is a continuous display of still images. By displaying a series of gradually changing images,
+the phenomenon of ( [1] ) creates the illusion of movement for humans. The individual still images
+that make up a video are called ( [2] ), and the number of ([2]) displayed on the screen per second is
+referred to as the ( [3] ). The ( [4] ) the ([3]), the smoother the motion in the video appears.
+However, the amount of data of videos can become ( [5] ).
+(2) What is the data size, in megabytes, of a 1-minute video at 30 fps, where each frame is a 24-bit full-color
+still image with a resolution of 640 × 360 pixels? Assume that the video is uncompressed. Round the
+amount of data to the nearest whole number and provide the answer as an integer.
+Answer the following questions.
+(1) For the following statements A to D about data compression, mark “○” if the statement is appropriate, and
+“×” if it is inappropriate.
+A Lossless compression is a method that improves compression efficiency by allowing slight changes to
+the data, such as removing components that are less noticeable to humans.
+B Decompression is a process of restoring compressed data to its original state.
+C Data compressed using lossy compression does not result in exactly the same content as the original
+uncompressed data.
+D Data compressed using lossless compression will be exactly the same as the original data after being
+decompressed.
+(2) When 21 MB of compressed data was decompressed, it expanded to 50 MB. What is the compression
+ratio of this file?
+Answer the following questions.
+(1) Consider how to represent an image using pixels. In the case of the diagram on the
+right, the 25 pixels in the 5 × 5 grid are read one by one from the top-left, row by
+row, moving to the right. If a pixel is black, write “B”; if it is white, write “W”.
+This results in the sequence:
+“BBBBBBWWWWBBBBWBWWWWBWWWW”.
+Next, by representing consecutive characters “B” or “W” of length n (where n is
+an integer of 2 or more) as “Bn” or “Wn”, the sequence can be compressed to
+“B6W4B4WBW4BW4”. Using the same method with another 5 × 5 grid, what is the alphabet letter
+represented by the following compressed data?
+“BW3B2W3B7W3B2W3B”
+(2) What is the term for the compression method that represents repeated data by listing the data and the
+number of consecutive occurrences, as shown in (1)? Choose one from the options A to D, and answer
+using the letter.
+A Huffman coding B Codec
+C Run-length encoding D LZ encoding
+Try
+1
+2
+3

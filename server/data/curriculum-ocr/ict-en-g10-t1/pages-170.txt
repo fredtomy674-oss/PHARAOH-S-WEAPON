@@ -1,0 +1,42 @@
+170
+Answer the following questions.
+(1) For programs A to C below, give the values displayed when each is executed.
+A a = [1, 4, 9, 16, 25]
+print(a[3])
+B a = [ ]
+a.append(8)
+a.append(28)
+print(a[1])
+C a = [[‘A’, ‘B’, ‘C’, ‘D’, ‘E’],
+[‘F’, ‘G’, ‘H’, ‘I’, ‘J’],
+[‘K’, ‘L’, ‘M’, ‘N’, ‘O’]]
+print(a[2][1])
+(2) The following program finds the total of the elements in list “a”. Fill in the blanks A to C with the appropriate
+characters or numbers to complete the program.
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+sum = 0
+for i in range( A , B , 1):
+sum = sum + C
+print(sum)
+(3) The following program finds the maximum value among the elements in list “a”. Fill in the blanks A to C with
+the appropriate characters or numbers to complete the program.
+a = [7, 22, 11, 34, 17]
+max = 0
+for i in range(0, A , 1):
+if a[i] B max:
+max = C
+print(max)
+(4) Fill in the blanks A to E in the following program with the appropriate characters or numbers to complete the
+program so that it displays the “Execution result” as shown.
+a = [[‘A’, ‘B’, ‘C’, ‘D’, ‘E’],
+[‘F’, ‘G’, ‘H’, ‘I’, ‘J’]]
+for i in range( A , B , 1):
+for j in range( C , D , 1):
+print( E )
+Try
+A
+B
+C
+(Omitted)
+J
+Execution result

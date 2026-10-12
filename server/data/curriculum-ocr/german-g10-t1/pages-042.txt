@@ -1,0 +1,70 @@
+4 C Du hast aber schöne Möbel!
+
+C1 Was ist was? Ordnen Sie zu.
+der Herd ● der Schrank ● der Kühlschrank ● das Sofa ● der Tisch ●
+der Stuhl ● das Bett ● der Fernseher ● die Waschmaschine ● die Dusche ●
+die Lampe ● die Badewanne ● das Waschbecken
+
+Möbel
+1 der Schrank
+□ ...........................
+□ ...........................
+□ ...........................
+□ ...........................
+
+Elektrogeräte
+□ ...........................
+□ ...........................
+□ ...........................
+□ ...........................
+10 die Lampe
+
+das Bad
+11 die Dusche □ ........................... □ ...........................
+
+C2 Sehen Sie das Bild oben an und sprechen Sie.
+Wie gefallen Ihnen die Stühle?
+Gut. Sie sind sehr schön.
+Wie gefällt Ihnen der Herd hier?
+Nicht so gut. Er ist hässlich.
+
+sehr gut
+gut
+ganz gut
+es geht
+nicht so gut
+
+Singular
+der Stuhl
+der Schrank
+der Tisch
+die Lampe
+das Bett
+das Sofa
+—
+
+Plural
+die Stühle
+zwei Schränke
+Tische
+Lampen
+Betten
+Sofas
+Möbel
+
+Wie gefällt Ihnen der Schrank?
+Wie gefallen Ihnen die Schränke?
+
+C3 Rätsel: Was ist das?
+Suchen Sie und zeigen Sie auf dem Bild oben.
+Was ist das?
+Sie sind breit und gelb.
+Ich glaube, das sind die Stühle hier.
+
+Farben
+schwarz weiß
+grau rot
+blau gelb
+grün braun
+
+zweiundvierzig 42 LEKTION 4

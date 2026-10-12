@@ -1,0 +1,16 @@
+194
+Give the following prompt to the Generative AI:
+“Make it 3 questions.”
+Paste the outputted code into the HTML, CSS, and JavaScript tabs in WebDen and run it.
+(Note: Since using Generative AI results in different code each time, this is just one example.)
+Modify the HTML, CSS, and JavaScript code to change the number of questions.
+Give the following prompt to the Generative AI and read the explanation:
+“Explain this code.”
+Exercise
+Let’s customize the quiz app you created.
+Examples:
+• Increase the number of choices (options).
+• Display the percentage of correct answers (score).
+• Randomize the order of questions.
+etc.
+Try

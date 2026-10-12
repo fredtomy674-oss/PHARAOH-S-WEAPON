@@ -1,0 +1,20 @@
+105
+4
+cent cinq
+3 | Barre l’intrus.
+Exemple : Boxe / Tennis / Ping-pong / Football
+a) Football / Tennis / Basketball / Natation
+b) Natation / Voile / Surf / Volley
+c) Ping-pong / Tennis / Badminton / Skate
+d) Football / Snowboard / Patin à glace / Skate
+e) Surf / Skate / Natation / Tennis
+4 | Écris les pronoms (toniques ):
+a) , je n’aime pas le judo. e) , elle est très sympa.
+b) , ils vont au CDI. f) , on adore le sport.
+c) , tu es grand. g) , j'ai gagné.
+d) , il arrive à 8 heures. h) , tu es bavard.
+5 | Complète avec les formes du verbe aller et au, à l’ ou à la.
+a) Nous pharmacie. e) Je patinoire.
+b) Tu lycée. f) Vous épicerie.
+c) Je CDI. g) Il fête.
+d) Elles cinéma. h) Elle hôpital.

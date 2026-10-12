@@ -1,0 +1,17 @@
+143Warm Up
+Answer the following questions.
+(1) Choose the classification of the models most related to sentences [1] to [4] from the options A to C
+below, and answer using the letters.
+[1] The relationship between the radius and area of a circle
+[2] Outcome of a dice roll
+[3] Weather forecast
+[4] The relationship between time and distance traveled for a bicycle at a constant speed
+A Static model B Deterministic model C Probabilistic model
+(2) Choose the classification of the models most related to sentences [1] to [4] from the options A to C
+below, and answer using the letters.
+[1] Molecular model [2] Newton’s equation of motion
+[3] Flowchart of a program [4] Plastic model
+A Physical model B Diagrammatic model C Mathematical model
+Explanation
+(1) [1] A [2] C [3] C [4] B
+(2) [1] A [2] C [3] B [4] A

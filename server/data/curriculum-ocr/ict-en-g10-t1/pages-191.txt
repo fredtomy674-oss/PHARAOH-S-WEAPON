@@ -1,0 +1,25 @@
+192Information Study
+Point!
+Presenting Your Website13-6
+In this lesson, you will present the website you created in the previous class to your peers.
+Warm Up
+Prepare for your presentation by summarizing the key points of your website based on the topics below.
+1) What is the theme of your website?
+Examples:
+• A website about my hobbies.
+• A website about soccer.
+2) What did you learn about HTML?
+Examples:
+• CSS and JavaScript can be loaded into HTML using the <link> and <script> tags.
+• Assigning an id to a <button> tag allows it to be manipulated by JavaScript.
+3) What did you learn about CSS?
+Examples:
+• You can set the background color using the body selector.
+• You can customize button colors and animations using the button selector.
+4) What did you learn about JavaScript?
+Examples:
+• document.getElementById allows you to select specific elements, such as buttons or text, within the HTML.
+• addEventListener allows you to define actions to be executed when a button is clicked.
+Point!
+Present your summary to your group members.
+Try

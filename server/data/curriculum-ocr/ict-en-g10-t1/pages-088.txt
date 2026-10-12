@@ -1,0 +1,30 @@
+88
+Answer the following questions.
+(1) Choose the most appropriate explanation of the control unit, which is one of the five major components of
+a computer from the options A to D below, and answer using the letter.
+A It is a device that performs calculations.
+B It is a device that executes a computer’s instructions and issues commands to each function.
+C It is a device for temporarily storing programs and data.
+D It is a device for inputting information from external sources.
+(2) Choose the names of the devices that correspond to computer devices and peripheral devices [1] to [5]
+from the options A to E below, and answer using the letters.
+[1] Display [2] HDD [3] Keyboard
+[4] CPU [5] Main memory
+A Input device B Output device C Control unit, arithmetic unit
+D Main memory device E Secondary memory
+(3) Choose all the peripheral devices from the options A to F, and answer using the letters.
+A Display B SSD C Memory
+D CPU E Keyboard F USB memory
+(4) Choose one correct statement regarding interfaces from the options A to D below, and answer using the
+letter.
+A Devices that are not the computer itself but are used by connecting to a computer.
+B Devices such as the computer itself and peripheral devices.
+C Devices for temporarily storing programs and data.
+D A component that mediates the exchange of information. It is used for connecting the main computer
+and peripheral devices.
+(5) Choose the corresponding interface for each of the following peripheral devices [1] to [3] from the options
+A to D, and answer using the letters.
+[1] Keyboard [2] Router [3] Audio equipment
+A Ethernet B HDMI C SSD D USB
+Exercise
+1

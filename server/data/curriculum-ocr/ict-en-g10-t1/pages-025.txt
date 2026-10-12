@@ -1,0 +1,27 @@
+25Warm Up
+Answer the following questions.
+(1) Choose the one in which availability is compromised in terms of information security from the options A
+to C below.
+A A cyberattack caused a website to go down.
+B Incorrect data was entered due to a keyboard typing error.
+C Personal information was leaked due to a malware infection on the computer.
+(2) Choose all actions that constitute a violation of the Unauthorized Computer Access Law from the options
+A to D below.
+A Illegally used another person’s user ID and password to access a computer.
+B Stored a password that was obtained illegally on a computer.
+C Shared a friend’s user ID and password with someone else without the friend’s permission.
+D Published a website selling quasi-legal drugs or containing unlawful and inappropriate content.
+Explanation
+(1) Information security consists of three elements: integrity, confidentiality, and availability.
+A When information becomes unavailable, availability is compromised.
+B When information is no longer accurate, integrity is compromised.
+C When unauthorized individuals can view the information, confidentiality is compromised.
+Therefore, the correct answer is A.
+(2) A Using a computer without having access rights constitutes unauthorized access and is prohibited
+under the Unauthorized Computer Access Law.
+B Storing a password obtained illegally for the purpose of unauthorized access is prohibited under the
+Unauthorized Computer Access Law.
+C Sharing someone else’s password with a third party without valid reason or permission promotes
+unauthorized access and is also prohibited by law.
+D Publishing illegal content may fall under network-related crimes.
+Therefore, the correct answers are A, B, and C.

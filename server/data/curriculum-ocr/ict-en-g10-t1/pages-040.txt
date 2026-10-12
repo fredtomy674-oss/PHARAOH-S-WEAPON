@@ -1,0 +1,36 @@
+40
+Answer the following question.
+(1) Choose the terms that best fit into the blanks [1] to [6] from the options A to J below, and answer using the
+letters.
+To allow the recipient to verify that the data was created by the actual sender and was not tampered with
+during transmission, there is a technology called ( [1] ). A ([1]) is created by generating a ( [2] ) from
+the plaintext to be sent using a program, and then encrypting it with the ( [3] ). This is attached to the
+plaintext and sent to the recipient. The recipient decrypts the ([1]) using the ( [4] ). If the resulting ([2])
+matches the ([2]) generated from the received plaintext, it proves that the data was created by the sender and
+has not been altered. However, this alone cannot prevent impersonation. Therefore, a third-party
+organization called a ( [5] ) issues a ( [6] ) to guarantee that the public key truly belongs to the sender.
+A Sender’s private key B Sender’s public key C Sender’s shared key
+D Recipient’s private key E Recipient’s public key F Recipient’s shared key
+G Digital certificate H Digital signature I Hash value
+J Certification Authority (CA)
+(2) Choose the terms that best fit into the blanks [1] to [2] from the options A to D below, and answer using the
+letters.
+Regarding the hash function used in digital signatures: The same data is always converted into the same
+( [1] ) hash value, and it is ( [2] ) impossible to restore the original data from the converted hash value.
+A Different B Same C Possible D Impossible
+(3) Choose the terms that best fit into the blanks [1] to [6] from the options A to G below, and answer using the
+letters.
+When the beginning of a web page URL is “https://”, it means that encryption using ( [1] ) is being
+performed. In ([1]), encryption is carried out using a ( [4] ) that combines ( [2] ) and ( [3] ). In
+addition, ([1]) also helps prevent phishing to direct towards a fake website by attaching a ( [6] ) issued by
+a ( [5] ).
+A Public key encryption B Symmetric key encryption C Session key method
+D Digital certificate E Digital signature F SSL/TLS
+G Certification Authority (CA)
+(4) Among the following options A to D, choose the one that correctly describes a function of SSL/TLS. Answer
+using the corresponding letter.
+A Generates one-time passwords for user authentication on websites.
+B Encrypts communication between the web browser and the web server.
+C Filters communication to unauthorized websites.
+D Detects viruses that spread through networks.
+Try

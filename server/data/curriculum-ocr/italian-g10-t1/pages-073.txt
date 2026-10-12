@@ -1,0 +1,42 @@
+6
+Unità
+13° piano Ristorante
+12° piano Discoteca
+11° piano Bar
+10° piano Pizzeria
+7° piano Uffici
+6° piano Internet point
+5° piano Scuola di lingue
+4° piano Banca
+3° piano Negozio di cellulari
+2° piano Negozio di dischi
+1° piano Supermercato
+9° piano Biblioteca
+8° piano Cinema
+1. A quale piano sono gli uffici?
+Al .............................................................. piano.
+2. A quale piano è il supermercato?
+Al .............................................................. piano.
+3. A quale piano è la banca?
+Al .............................................................. piano.
+4. A quale piano è la pizzeria?
+Al .............................................................. piano.
+5. A quale piano è il negozio di cellulari?
+Al .............................................................. piano.
+6. A quale piano è il negozio di dischi?
+Al .............................................................. piano.
+7. A quale piano è l’Internet point?
+Al .............................................................. piano.
+8. A quale piano è la scuola di lingue?
+Al .............................................................. piano.
+9. A quale piano è la discoteca?
+Al .............................................................. piano.
+10. A quale piano è la biblioteca?
+Al .............................................................. piano.
+11. A quale piano è il bar?
+All’ .............................................................. piano.
+12. A quale piano è il ristorante?
+Al .............................................................. piano.
+3 Completate con i numeri ordinali come nell’esempio.
+A quale piano è il cinema? All’ottavo piano.
+73

@@ -1,0 +1,109 @@
+Test
+120 cent vingt
+Note : /20
+Salut, ça va ?
+a. Je m’appelle Alex.
+b. Très bien, merci
+c. Je vais au lycée.
+1
+C’est Clément,
+... ami de Zoé.
+a. un
+b. une
+c. des
+4
+Je ... Nicolas, et toi ?
+a. est
+b. m’appelle
+c. va
+2
+Nous ... les voisins
+d’Arthur.
+a. êtes
+b. sommes
+c. sont
+5
+Laura est une ...
+du lycée.
+a. amie
+b. copain
+c. voisin
+3
+Nadia est ...
+a. gourmand.
+b. bavarde.
+c. souriants.
+6
+... s’appelle ton copain ?
+a. Qui
+b. Quel
+c. Comment
+7
+Louis ... les jeux vidéo.
+a. aimez
+b. n’aime pas
+c. adorent
+15
+Karina a un sac ...
+a. rouges.
+b. vert.
+c. noire.
+18
+La ... de Martin
+est sympathique.
+a. mère
+b. amis
+c. voisin
+16
+... est le premier mois
+de l’année.
+a. Janvier
+b. Juin
+c. Juillet
+19
+Fatima ... français.
+a. regarde
+b. est
+c. parle
+17
+Pierre ... le 15 novembre.
+a. anniversaire
+b. est né
+c. a
+20
+L’anniversaire de Louis
+est le 24 ...
+a. juin
+b. euros
+c. ans
+8
+Quel âge tu ...
+a. es ?
+b. as ?
+c. vas ?
+11
+36 + 16 = ...
+a. quarante-deux.
+b. cinquante-deux.
+c. soixante-deux.
+9
+Dans la ..., il y a trois
+crayons et une gomme.
+a. sac
+b. livre
+c. trousse
+12
+Vous ... anglais ?
+a. parlez
+b. aimez
+c. parles
+13
+Sophie adore la ...
+a. foot.
+b. danse.
+c. école.
+14
+a. la
+b. le
+c. les
+10 C’est ... cahier de Jules.

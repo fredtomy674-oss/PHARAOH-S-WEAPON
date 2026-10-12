@@ -1,0 +1,78 @@
+155Information Study
+Point!
+12-1 Algorithm
+Algorithm
+(1) (1Algorithm) : A method or procedure for solving a particular problem.
+(2) Flowcharts and activity diagrams : Diagrams that represent algorithms in a visual and comprehensive way.
+[1] (2Flowchart) : Method for illustrating the flow of a single process.
+<List of Flowchart Symbols>
+Symbol Name Meaning
+(3Terminal) Start/End
+(4Display) Display on a screen, etc.
+(5Data) Data input and output
+(6Process) Operations and other
+processes
+(7Conditional
+branch)
+Branching according to
+conditions
+(8Repeat) Start of a repetition
+End of a repetition
+(9Line) Flow of data and control
+[2] (10Activity diagram) : Suitable method for representing parallel process flows.
+<List of Symbols in Activity Diagrams>
+Symbol Name
+(11Start)
+(12End)
+(13Control)
+(14Transition)
+(15Conditional branch)
+(16Parallel process)
+(17Send)
+Control Structure
+Algorithms can essentially be represented using three control structures along with input/output.
+(18Sequential structure) (19Repeating structure) (20Branching structure)
+Executes
+processes
+according to
+the order.
+Start
+Process 1
+Process 2
+End
+Repeats
+the process
+while the
+conditions
+are met.
+Loop condition
+Process 1
+Loop
+Separates
+processes
+according
+to the
+conditions. Process 1
+Condition No
+Yes
+Process 2
+1
+Figure 1: Process flow from waking up to leaving
+Wake up in the morning
+Is it sunny?
+Leave
+Bring an umbrella
+No
+Yes
+Customer ATM
+Insert card and
+enter PIN
+Confirm withdrawal
+amount
+Determine
+withdrawal
+Input withdrawal
+amount
+Withdraw cash
+Figure 2: Cash withdrawal process at an ATM
+2

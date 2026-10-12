@@ -1,0 +1,35 @@
+131Information Study
+Point!
+10-3 Data Analysis [2]
+Quartiles
+(1) (1Quartile) : The numbers that divide the data into four equal parts when arranged in ascending
+order. Quartiles are referred to as follows in ascending order: (2first quartile),
+(3second quartile), (4third quartile). The second quartile is the (5median).
+(2) Steps for determining the quartiles
+[1] Arrange the data in ascending order and determine the (6median).
+[2] With the median in [1] as the boundary, divide into two groups: (7less than or equal to the
+median) and (8greater than or equal to the median).
+[3] For each group created in [2], determine the (9median).
+Box-and-whisker Plots
+(1) (10Box-and-whisker plot) : A figure using a box and lines (whiskers) to represent the minimum
+value, first quartile, second quartile, third quartile, and maximum value
+in a single figure, as shown below.
+(2) Steps to draw a box-and-whisker plot
+[1] Determine the (11minimum value), (12maximum value), and (13quartiles), and draw five
+vertical lines representing the points.
+[2] Draw a box with the first quartile as the left edge and the third quartile as the right edge.
+[3] Draw a horizontal line from each end of the box to the minimum and maximum values.
+*A box-and-whisker plot can also be drawn vertically.
+1
+Minimum
+value
+First quartile Second quartile
+(median)
+Data arranged in ascending order
+Third quartile Maximum
+Value
+2
+Second quartile (median) Maximum
+Value
+First quartile Third quartileMinimum
+value

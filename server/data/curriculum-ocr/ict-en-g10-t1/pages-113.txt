@@ -1,0 +1,29 @@
+113
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [4] with the appropriate terms.
+Data that is managed and stored in a certain format to make it easier to use large amounts of data is
+referred to as a ( [1] ). A system that creates, operates, and manages a ([1]) is called a ( [2] ), and
+it has functions such as data consistency, integrity, independence, ( [3] ), and ( [4] ).
+(2) Choose the correct explanation for each of the terms [1] to [5] related to database management systems
+from the options A to E, and answer using the letters.
+[1] Data independence [2] Data integrity [3] Data consistency
+[4] Data availability [5] Data confidentiality
+A Setting access permissions and performing authentication for data.
+B Providing a mechanism to ensure there are no inconsistencies in the relationships between data.
+C Method where stored data is managed separately according to its use.
+D Backing up and taking other measures so that it is easier to recover data after a failure.
+E Providing a mechanism to prevent accidental revisions to or unauthorized tampering of data.
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to D
+below, and answer using the letters.
+There are several types of databases, including a ( [1] ) where collected data is organized and
+managed across multiple tables. Data that is organized in a hierarchical structure resembling a tree is
+referred to as a ( [2] ), while data expressed in a network-like structure is referred to as a ( [3] ).
+A Hierarchical database B Relational database
+C Network database D Object-oriented database
+(2) What is the term for a database with a structure like the one
+shown on the right?
+(3) What is the term for database management systems other than relational database management systems?
+Try
+1
+2

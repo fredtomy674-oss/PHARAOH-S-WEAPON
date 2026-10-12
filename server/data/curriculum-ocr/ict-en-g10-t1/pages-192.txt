@@ -1,0 +1,14 @@
+193Information Study
+Point!
+Developing a Quiz App13-7
+In this lesson, we will have the Generative AI generate code for a simple Web application using JavaScript.
+Warm Up
+Open “Copilot” and give it the following prompt:
+“Create a simple multiple-choice quiz app. Include only one question. Please provide separate code for
+HTML, CSS, and JavaScript.”
+Paste the outputted code into the HTML, CSS, and JavaScript tabs in WebDen and run it.
+(Note: Since using Generative AI results in different code each time, this is just one example.)
+Modify the HTML, CSS, and JavaScript code to change the question text or the answer.
+Give the following prompt to the Generative AI and read the explanation:
+“Explain this code.”
+Rename the Copilot chat thread to “Developing a Quiz App”.

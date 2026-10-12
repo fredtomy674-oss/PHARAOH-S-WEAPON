@@ -1,0 +1,30 @@
+58
+Answer the following questions.
+(1) Choose the number or equation that best fit into the blanks [1] to [6] from the options A to J.
+The amount of information that can be represented by 1 bit is ( [1] ) possibilities. Additionally,
+since 1 byte consists of ( [2] ) bits, the amount of information that can be represented by 1 byte is
+( [3] ) possibilities. For example, 32 bits equal ( [4] ) bytes. Additionally, 1 KB is expressed as
+( [5] ) B. To calculate how many bits are in 24 KB, you need to calculate the expression ( [6] ).
+A 1 B 2 C 4 D 8
+E 256 F 1,024 G 24 × 1,024 H 1,024 ÷ 24
+I 24 × 1,024 × 8 J 24 × 1,024 ÷ 8
+(2) Choose one option that represents the correct order of the amount of information from the options A to D
+below.
+A 1 KB < 1 MB < 1 GB < 1 TB
+B 1 KB < 1 MB < 1 TB < 1 GB
+C 1 TB < 1 KB < 1 MB < 1 GB
+D 1 KB < 1 TB < 1 MB < 1 GB
+(3) How many different combinations of designs can be created using one 100 yen coin, one 50 yen coin, and
+one 10 yen coin? Also, how many bits of information does this represent?
+(4) How many bits of information are needed to represent 16 directions?
+(5) What is the minimum number of bits needed to represent the 47 prefectures?
+Answer the following questions.
+(1) Express the following binary numbers in decimal form.
+[1] 101(2) [2] 10101(2) [3] 101101(2)
+(2) Express the following decimal number in binary.
+[1] 13 [2] 128 [3] 138
+How many photos, each with a size of 2 MB, can be stored on a 32 GB USB flash drive?
+Exercise
+1
+2
+3

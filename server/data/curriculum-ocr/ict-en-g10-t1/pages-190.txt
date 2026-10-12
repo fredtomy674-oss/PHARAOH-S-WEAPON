@@ -1,0 +1,18 @@
+191
+Copy and paste the outputted code into WebDen and run it.
+(Note: Since using Generative AI results in different code each time, this is just one example.)
+Modify the code written by the Generative AI to add more articles or change the background color depending
+on the article displayed.
+Try
+Did you understand the code created by the Generative AI?
+Take notes on the parts you don't understand and look them up.
+By using Generative AI, you can discover things outside your current programming knowledge.
+Let's deepen your programming knowledge by understanding these new concepts.
+Exercise
+Let’s try creating web pages for various purposes using Generative AI.
+Examples:
+• Popular sports ranking
+• Recommended restaurants in [Region Name]
+• Introduction to [School Name] (your school)
+• Famous tourist spots in Egypt
+etc.

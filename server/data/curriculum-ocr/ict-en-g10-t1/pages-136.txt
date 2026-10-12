@@ -1,0 +1,47 @@
+136Information Study
+Point!
+10-5 Data Analysis [4]
+Scatter Plots, Correlations, and Cross Tabulation
+(1) (1Scatter plot) : A graph that represents points on a plane using pairs of variables, x and y, as coordinates.
+[1] When there is a tendency for both corresponding x and y to increase with each other, it is referred
+to as a (2positive correlation).
+[2] When there is a tendency for one of the corresponding x and y to decrease as the other increases, it
+is referred to as a (3negative correlation).
+[3] When there is neither a positive nor a negative correlation between the corresponding x and y, it is
+referred to as (4no correlation).
+(2) (5Correlation coefficient) : An indicator to measure the strength of a correlation.
+・ The correlation coefficient r is represented by (6 -1 ≤ r ≤ 1).
+・ The correlation coefficient r indicates a stronger (7positive correlation) as it approaches 1, and a
+stronger (8negative correlation) as it approaches -1.
+・ To determine the correlation coefficient using spreadsheet software, you can use the CORREL function.
+(3) (9Causal relationship) : A relationship where one of two things is the cause and the other is the effect.
+<Example> When the temperature rises, sales of shaved ice increase.
+(4) (10Pseudo-correlation) : When two things appear to have a causal relationship, even though there is
+none.
+<Example> There is no causal relationship between “As the temperature rises,
+shaved ice sales increase” and “As the temperature rises, the number of
+heatstroke cases increases.”
+(5) (11Cross tabulation) : An aggregation method for comparing data among two or more categories.
+<Example> Agree Oppose Neither
+Male 57 97 46
+Female 73 75 52
+Total 130 172 98
+There is positive
+correlation.
+There is negative
+correlation.
+There is no
+correlation.
+x
+y
+x
+y
+x
+y
+There is negative
+correlation.
+r = －1.0 r = －0.5 r = 0 r = 0.5 r = 1.0
+There is positive
+correlation.
+There is no
+correlation.

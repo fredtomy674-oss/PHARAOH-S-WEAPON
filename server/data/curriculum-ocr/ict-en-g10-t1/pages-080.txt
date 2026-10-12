@@ -1,0 +1,38 @@
+80
+Answer the following questions. For these questions, assume that 1 KB = 1,000 B and 1 MB = 1,000 KB.
+(1) For the following statements A to D about video mechanisms, mark “○” if the statement is appropriate,
+and “×” if it is inappropriate.
+A Videos create the illusion of movement by displaying a series of still images in rapid succession,
+leveraging the afterimage phenomenon. In reality, the images themselves are not moving.
+B Each individual still image that composes a video is called a frame.
+C The number of frames displayed per second is called the frame rate. The lower the frame rate, the
+smoother the video appears.
+D When recording a video, if the resolution and frame rate settings are the same, the amount of data of a
+video recorded for 1 second and a video recorded for 60 seconds does not vary.
+(2) What is the data size, in megabytes, of a 1-second video at 60 fps, where each frame is a 24-bit full-color
+still image with a resolution of 1,920 × 1,080 pixels? Assume that the video is uncompressed, and round
+your answer to one decimal place.
+For the terms that fit in the blanks [1] to [3] in the following sentences, if the compression is lossless, answer
+with A; if the compression is lossy, answer with B.
+There are two main methods for compressing data. A compression method that allows the original data to
+be completely restored from the compressed data when decompressed is called ( [1] ). A compression
+method that does not allow for the complete restoration of the original data is called ( [2] ). For data such
+as images and videos, where the compressed data does not need to be perfectly restored and humans do not
+perceive a significant difference, ( [3] ) is used.
+Answer the following questions.
+(1) Consider how to represent an image using pixels. In the case of the diagram on the
+right, the 25 pixels in the 5 × 5 grid are read one by one from the top-left, row by
+row, moving to the right. If a pixel is black, write “B”; if it is white, write “W”.
+This results in the sequence:
+“BBBBWBWWWBBBBBWBWWBWBWWWB”.
+When “B” or “W” appears consecutively n times (where n is an integer greater
+than or equal to 2), they can be written as “Bn” or “Wn”. Using this method, the
+sequence can be compressed as “B4WBW3B5WBW2BWBW3B”. Using the same method with another 5
+× 5 grid, what is the alphabet letter represented by the following compressed data?
+“BW3BWBWBW3BW4BW4BW2”
+(2) What is the term for the compression method that represents repeated data by listing the data and the
+number of consecutive occurrences, as shown in (1)?
+Exercise
+1
+2
+3

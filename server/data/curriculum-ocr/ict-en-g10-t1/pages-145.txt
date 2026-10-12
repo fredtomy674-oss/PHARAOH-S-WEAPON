@@ -1,0 +1,63 @@
+145Information Study
+Point!
+11-2 Simulations [1]
+Methods of Referencing in Spreadsheet Software
+(1) (1Relative reference) : A method of referencing where the position of the referenced cell changes
+automatically.
+(2) (2Absolute reference) : A method of referencing that keeps the position of the row or column of
+the referred cell consistently fixed.
+By adding “(3$),” it becomes an absolute reference.
+<Example> If you copy the formula as “$C$3,” every formula will be able
+to refer to cell C3.
+Simulations
+(1) (4Simulation) : Manipulating a model in order to predict phenomena or events. Even when it is
+difficult to use actual objects, predictions can be made through simulations.
+(2) Simulations Using Spreadsheet Software
+[1] Water volume simulation
+<Example> The relationship between the time water is poured into an empty container and
+the amount of water accumulated in the container
+[Formula] Water volume = (5(Water inflow rate) × (Elapsed time))
+A B C D A B C D
+1 Simulation of water inflow rate 1 Simulation of water inflow rate
+2 Water inflow
+rate [L/min]
+Elapsed time
+[minutes]
+Water volume
+[L] 2 Water inflow
+rate [L/min]
+Elapsed time
+[minutes]
+Water volume
+[L]
+3 6 0 0 3 6 0 = $A$3*C3
+4 1 6 4 1 = $A$3*C4
+5 2 12 5 2 = $A$3*C5
+6 3 18 6 3 = $A$3*C6
+7 4 24 7 4 = $A$3*C7
+[2] Simulation of balance
+・ (6Compound interest method) : A method in which the interest generated from the principal
+(balance) is incorporated into the principal for the next period.
+[Formula] Interest = (7(Current balance) × (Interest rate))
+Next period’s balance = (8(Current balance) + (Interest))
+A B C D E F
+1 Simulation of account balance
+2 Principal amount
+(in yen) Interest rate (%) Number of years Account balance
+(in yen) Interest (in yen)
+3 1,000,000 3% 0 1,000,000 0
+4 1 1,030,000 30,000
+5 2 1,060,900 30,900
+6 3 1,092,727 31,827
+A B C D E F
+1 Simulation of account balance
+2 Principal amount
+(in yen) Interest rate (%) Number of years Account balance
+(in yen) Interest (in yen)
+3 1,000,000 3% 0 = A3 0
+4 1 = E3 + F4 = E3*$B$3
+5 2 = E4 + F5 = E4*$B$3
+6 3 = E5 + F6 = E5*$B$3
+7
+1
+2

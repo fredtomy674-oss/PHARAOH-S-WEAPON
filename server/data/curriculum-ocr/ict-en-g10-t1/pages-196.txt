@@ -1,0 +1,18 @@
+197
+Try making the following changes to the game. For this task, do not use generative AI. Try to figure out the logic and
+modify the program manually by yourself.
+• Make the ball larger.
+• Change the color of the blocks.
+• Increase the number of blocks.
+etc.
+Exercise
+Reflect on your experience modifying the program and write down what you learned.
+1) What was difficult?
+Examples:
+• I didn’t know which value to change to make the ball bigger.
+• It was hard to find where the ball was being drawn in the code.
+2) What strategies did you use?
+Examples:
+• I guessed the meaning from variable names to find relevant parts.
+• I changed values little by little and adjusted them while checking the movement.
+Try

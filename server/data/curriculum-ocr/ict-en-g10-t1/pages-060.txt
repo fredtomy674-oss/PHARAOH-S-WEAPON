@@ -1,0 +1,30 @@
+60Warm Up
+Answer the following questions.
+(1) Convert the following binary numbers to hexadecimal, and the hexadecimal numbers to binary.
+[1] 11011011(2) [2] 11110110(2) [3] 9E(16)
+(2) Convert the following hexadecimal numbers to decimal.
+[1] A5(16)
+Explanation
+(1) [1] Separate the binary number into groups of four digits starting from the least significant bit, then
+convert each group into a hexadecimal number and list them sequentially.
+1101(2) is D(16), 1011(2) is B(16), so 11011011(2) = DB(16)
+[2] 1111(2) is F(16), 0110(2) is 6(16), so 11110110(2) = F6(16)
+[3] Convert each digit into a 4-bit binary number and list them sequentially.
+9(16) is 1001(2), E(16) is 1110(2), so 9E(16) = 10011110(2)
+(2) Convert from hexadecimal to binary, and then to decimal.
+[1] A(16) is 1010(2), 5(16) is 0101(2), so A5(16) = 10100101(2)
+Therefore, 10100101(2) = 1 × 1 + 0 × 2¹ + 1 × 2² + 0 × 2³ + 0 × 2⁴ + 1 × 2⁵ + 0 × 2⁶ + 1 × 2⁷ = 165
+Answer the following questions.
+(1) Convert the following binary numbers to hexadecimal, and the hexadecimal numbers to binary.
+[1] 11010101(2) [2] 01110110(2) [3] C5(16) [4] BB(16)
+(2) Convert the following hexadecimal numbers to decimal.
+[1] 31(16) [2] C7(16) [3] 9F(16) [4] AB(16)
+Answer the following questions.
+(1) Convert the following binary numbers to hexadecimal, and the hexadecimal numbers to binary.
+[1] 01010011(2) [2] 01101100(2) [3] 10100111(2) [4] 11001001(2)
+[5] 2B(16) [6] F1(16) [7] EE(16) [8] DB(16)
+(2) Convert the following hexadecimal numbers to decimal.
+[1] 17(16) [2] C2(16) [3] 3D(16) [4] AF(16)
+Try
+Exercise
+1

@@ -1,0 +1,27 @@
+57
+Answer the following questions.
+(1) Complete the following sentences by filling in the blanks [1] to [3] with the appropriate terms and
+numbers.
+The numbers we use in our daily lives are expressed in ( [1] ), using digits from 0 to 9. There is
+also ( [2] ) using the digits 0 and 1, and the information handled by computers primarily utilizes
+([2]). However, because this unit is too small and difficult to understand, one byte, which consists of
+( [3] ) bits, is often used to represent information.
+(2) How many bits are in 5 bytes?
+(3) How many different pieces of information can be represented by 1 byte?
+(4) How many times is the amount of information in 5 bits compared to the amount of information in 3 bits?
+(5) How many MB are in 1 GB? Also, how many B is it? Answer in the form of a power of 2.
+(6) How many bits of information are needed to represent the four seasons of spring, summer, autumn, and
+winter?
+(7) How many bits of information are needed to represent a deck of 52 playing cards, excluding the jokers?
+(8) How many bits of information are needed to record all possible outcomes when tossing a coin three times?
+Answer the following questions.
+(1) Express the following binary numbers in decimal form.
+[1] 110(2) [2] 10100(2) [3] 111001(2)
+(2) Express the following decimal number in binary.
+[1] 65 [2] 106 [3] 143
+How many 4.7 GB DVDs worth of data can be stored on a 1 TB hard disk? Round your answer to the nearest
+whole number.
+Try
+1
+2
+3

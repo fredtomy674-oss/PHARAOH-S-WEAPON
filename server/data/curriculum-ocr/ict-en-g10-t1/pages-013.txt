@@ -1,0 +1,30 @@
+13Warm Up
+Answer the following questions.
+(1) Choose all the items from A to D that can be considered personal information as defined by the Act on
+the Protection of Personal Information.
+A Email address B Fingerprint data C Address of a deceased person
+D Passport number
+(2) The following statements A to D describe personal information and privacy. Mark “○” if the statement
+is appropriate, and “×” if it is inappropriate.
+A If everyone in a photo is your family member, you can upload group photos to social media
+without permission.
+B Posting information such as the economic status or health status of a person on social media
+without his premession, thinking it might aid the investigation, is not a violation of the Act on the
+Protection of Personal Information.
+C Although a driver’s license number or a National ID Number consists merely of a sequence of
+digits, it can be considered personal information because it allows for the identification of an
+individual when combined with other information.
+D It is acceptable to print a photo of your favorite celebrity on a T-shirt yourself and sell the T-shirt
+online.
+Explanation
+(1) Personal information refers to information concerning a living individual. Information about deceased
+individuals is not considered to be personal information. Therefore, A, B, and D
+(2) A Uploading a person’s photo to the internet or social media without their permission constitutes a
+violation of image rights. Therefore, ×
+B Past criminal records and medical histories are referred to as special care-required personal
+information. As a general rule, they should not be provided to third parties without the individual’s
+consent. Therefore, ×
+C Personal information refers to data related to a living individual and includes information that can
+be used to identify an individual when combined with other information. Therefore, ○
+D The likeness of famous people (such as celebrities or athletes) holds economic value, and one
+should not sell that likeness for profit without permission. Therefore, ×

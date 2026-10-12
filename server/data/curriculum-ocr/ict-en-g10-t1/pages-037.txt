@@ -1,0 +1,53 @@
+37
+Answer the following question.
+(1) The diagram illustrates the process flow of public key encryption. For blanks [1] to [10], choose the
+appropriate terms from options A to J below. Note that the same option may be used more than once.
+A Plaintext B Ciphertext C Decryption D Encryption E Encoding
+F Shared key G Public key H Private key I Sender J Recipient
+(2) For each of the following items A to D, write “S” if the statement refers to symmetric key encryption, or
+“P” if it refers to public key encryption.
+A A separate key must be prepared for each sender.
+B The same key is used by the sender for both encryption and decryption.
+C Encryption and decryption are slower compared to the other method.
+D Exchanging the key is easier compared to the other method.
+Answer the following question.
+(1) The diagram shows the process flow of symmetric key encryption. For blanks [1] to [10], choose the
+appropriate terms from the options A to J below. The same option may be used more than once.
+A Plaintext B Ciphertext C Decryption D Encryption E Encoding
+F Shared key G Public key H Private key I Sender J Recipient
+(2) Among the options A to D below, choose the one that best describes a characteristic of symmetric key
+encryption when compared to public key encryption. Answer using the corresponding letter.
+A Uses different keys for encryption and decryption.
+B Allows fast encryption and decryption.
+C Enables safer distribution of keys.
+D Makes key management easier even when communicating with many different parties.
+Try
+1
+Receiver
+Send
+Sender
+( [ 1 ] )
+( [ 2 ] )
+( [ 3 ] ) of
+( [ 4 ] )
+Hello &SA+F\Cs+A Hello&SA+F\Cs+A
+( [ 5 ] ) ( [ 6 ] )
+( [ 7 ] )
+( [ 8 ] ) of
+( [ 9 ] )
+( [ 10 ] )
+Exercise
+1
+Receiver
+Send
+Sender
+( [ 1 ] )
+( [ 2 ] )
+( [ 3 ] ) of
+( [ 4 ] )
+Hello &SA+F\Cs+A Hello&SA+F\Cs+A
+( [ 5 ] ) ( [ 6 ] )
+( [ 7 ] )
+( [ 8 ] ) of
+( [ 9 ] )
+( [ 10 ] )

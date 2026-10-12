@@ -1,0 +1,37 @@
+154
+The following diagram represents changes in the line at reception, with the vertical axis indicating the number of
+customers in line and the horizontal axis representing the time in minutes since the arrival of customer 1. The time
+each customer was receiving service is shaded in black, and the time they were waiting in line is shaded in gray.
+Answer the following questions.
+(1) What is the term for a line that forms at reception desks, registers, attractions, etc., where customers line up in
+order to receive services?
+(2) How many minutes was the wait time for customer 2?
+(3) How many minutes after the arrival of customer 1 did customer 3 arrive in the queue?
+(4) How many minutes after the arrival time of customer 1 did customer 4 finish receiving service?
+(5) Among customers 1 to 5, who had the longest waiting time?
+(6) What was the maximum length of the queue between the arrival of customer 1 and the completion of service for
+customer 5?
+The following diagram represents changes in the queue at a store, with the vertical axis indicating the number
+of customers in line and the horizontal axis representing the time in minutes since the arrival of customer 1. The
+time each customer was receiving service is shaded in black, and the time they were waiting in line is shaded in
+gray. Answer the following questions.
+(1) How many minutes is the service time per customer at this store?
+(2) How many minutes after customer 1’s arrival was customer 4 able to receive service?
+(3) How many minutes did it take from when customer 5 arrived in line until they finished receiving service?
+(4) Among customers 1 to 5, who had the longest waiting time?
+(5) For how many minutes was the queue the longest?
+Try
+Customer 1
+Customer 2
+Customer 3
+Customer 4
+Customer 5
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 (minutes later)
+Exercise
+1
+Customer 1
+Customer 2
+Customer 3
+Customer 4
+Customer 5
+0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 (minutes later)

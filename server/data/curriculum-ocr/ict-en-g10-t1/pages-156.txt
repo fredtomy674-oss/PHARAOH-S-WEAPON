@@ -1,0 +1,41 @@
+156
+Warm Up
+Answer the following questions.
+(1) What is the term for describing the order of calculations or the sequence in which things are created?
+(2) What is the term for a diagram that visually represents an algorithm and is ideal for showing the flow of
+parallel processes?
+(3) The diagram on the right is a flowchart for pedestrians indicating
+“Proceed if the signal is green; otherwise, stop.” Choose the appropriate
+option that best fits into the blanks [1] to [3] from the options A to F
+below, and answer using the letters.
+A The signal is red B Signal is yellow
+C The signal is not red D The signal is not green
+E Possible to proceed F Stop
+(4) What is the term for a control structure like (3)?
+(5) What is the programming language that is used in fields like artificial
+intelligence and statistics, and can be executed with minimal description?
+Explanation
+(1) Algorithm
+(2) Activity diagram
+(3) [1] A [2] F [3] E
+(4) Branching structure
+(5) Python
+No
+Yes
+[2] [3]
+[1]
+Programming Language
+(1) (21Programming language) : A language used for expressing algorithms in a way that can be
+understood by a computer.
+・Creating a program (source code) using a programming language is referred to as
+(22programming).
+・Programs are written using programming languages and then translated into
+a (23machine language) that can be understood by a computer.
+(2) Examples of Programming Languages
+[1] (24Python) : Language used in fields such as artificial intelligence (AI) and statistics, and can
+be executed with minimal coding.
+[2] (25JavaScript) : Language that can be confirmed only within a web browser, making it optimal
+for web-related purposes.
+[3] (26Scratch) : A visual programming language developed for educational purposes. Programming
+is possible using blocks, which is intuitive and easy to understand.
+3

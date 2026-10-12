@@ -1,0 +1,12 @@
+120Warm Up
+Answer the following questions.
+(1) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to E
+below, and answer using the letters.
+Our daily lives are supported by ( [1] ) composed of humans, computers, and other information
+and communication technology equipment. Examples include ( [2] ) where data is collected and
+managed at the time a product is sold, and ( [3] ) where data from satellites is obtained to
+determine your present location and the operation status of buses and other transportation systems.
+A POS system B Information systems C GPS (Global Positioning System)
+D ITS (Intelligent Transport System) E SNS (Social Networking Service)
+Explanation
+(1) [1] B [2] A [3] C

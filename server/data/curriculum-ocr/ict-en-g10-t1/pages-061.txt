@@ -1,0 +1,49 @@
+61Information Study
+Point!
+6-4 Digital Representation of Characters
+Digital Representation of Characters
+(1) (1Character code) : A unique numerical value assigned to each character, symbol, etc.
+(2) (2Character code system) : Summarizes the correspondence between characters and their respective
+character codes.
+[1] (3ASCII code) : Only alphanumeric characters, symbols, and control characters (symbols used to
+control the computer). No Japanese characters (kanji, hiragana, or katakana).
+Most Significant 4 Bits
+Binary 0000 0001 0010 0011 0100 0101 0110 0111
+Least Significant 4 Bits
+Binary Hexadecimal 0 1 2 3 4 5 6 7
+0000 0
+Symbols for Controlling Computers
+(Omission)
+SP 0 @ P ` p
+0001 1 ! 1 A Q a q
+0010 2 ” 2 B R b r
+0011 3 # 3 C S c s
+0100 4 $ 4 D T d t
+0101 5 % 5 E U e u
+0110 6 & 6 F V f v
+0111 7 ' 7 G W g w
+1000 8 ( 8 H X h x
+1001 9 ) 9 I Y i y
+1010 A * : J Z j z
+1011 B + ; K [ k {
+1100 C , < L ￥ l |
+1101 D - = M ] m }
+1110 E . > N ^ n ~
+1111 F / ? O _ o DEL
+<Example> Convert the string “Hello” into a binary character code and a hexadecimal character code.
+Combine the most significant 4 bits and the least significant 4 bits.
+String H e l l o
+Character code
+(binary) 01001000 01100101 01101100 01101100 01101111
+Character Code
+(hexadecimal) 48 65 6C 6C 6F
+[2] (7Unicode) : A character code standard that consolidates characters from around the world into a
+single character code. Due to differences in code assignments, there are variations
+such as UTF-8 and UTF-16.
+(3) (8Encoding) : Representing a string with character codes. The opposite is known as (9decoding).
+(4) (10Character corruption) : A phenomenon that occurs due to mismatched encoding and decoding
+methods.
+(5) (11Font) : The shape data of characters corresponding to character codes.
+<Examples> Sans-serif, Serif, Semi-cursive, etc.
+• To display characters on a computer screen or printer output, two elements are required:
+(12character code) and (13font).

@@ -1,0 +1,44 @@
+77Information Study
+Point!
+6-9 Digital Representation and Compression Technology for Videos
+Mechanism of Videos
+(1) (1Video) : An electronic medium that creates the illusion of movement by displaying a series of still
+images in succession. It utilizes the (2afterimage phenomenon), which occurs due to the
+characteristics of human vision.
+(2) (3Frame) : Each still image that composes a video.
+(3) (4Frame rate) : The number of frames displayed per second. The unit is (5fps).
+The (6higher) the frame rate number, the smoother the video will appear, and the
+(7larger) the data size will become.
+(4) How to Calculate the Amount of Video Data
+Amount of video data = (8Amount of image data [B] × Frame rate[fps] × Time [seconds])
+Data Compression
+(1) (9Compression) : A process of reducing the amount of data as much as possible while preserving the
+content of the data.
+(2) (10Decompression) : A process of restoring compressed data to its original state.
+(3) (11Compression ratio) : The extent to which data has been compressed.
+Compression ratio [%] = (12Amount of data after compression) × 100
+(13Original amount of data)
+(4) Lossless Compression and Lossy Compression
+[1] (14Lossless compression) : A compression method that allows for the complete restoration of
+the original data from the compressed data. Used for compressing
+information such as text or program data.
+[2] (15Lossy compression) : A compression method in which the original data cannot be restored
+from the compressed data. Lossy compression is used for
+compressing audio, images, and video files in a way that humans do
+not perceive a significant difference, even if those files cannot be
+perfectly restored to their original form.
+Main Types of Lossless Compression
+(1) (16Run-length encoding) : A compression method that replaces sequences of the same consecutive
+symbols with a numerical value indicating the length of the sequence. It
+is effective when there are many consecutive identical symbols.
+<Example> Before compression: “AAAAABBAAAABBBBBBBBAAAAAA” (25 characters)
+After compression: (17A5B2A4B8A6) (10 characters)
+The compression ratio is (18 10
+25 × 100 ) ＝ (1940 [%] ) .
+(2) (20Huffman coding) : A compression method that assigns shorter bit sequences to characters with
+higher frequencies of occurrence, and longer bit sequences to those with lower
+frequencies.
+1
+2
+3
+5 of “A” 2 of “B” 4 of “A” 8 of “B” 6 of “A”

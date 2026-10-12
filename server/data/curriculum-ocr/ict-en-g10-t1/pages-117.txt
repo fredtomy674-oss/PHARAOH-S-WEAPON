@@ -1,0 +1,68 @@
+117
+Answer the following questions.
+(1) Choose the appropriate name of the database where data is managed as a table from the options A to C below,
+and answer using the letter.
+A Hierarchical database B Network database
+C Relational database
+(2) Choose two appropriate names for each of the sections
+[1] to [3] in the table on the right from the options A to
+F below, and answer using the letters.
+A Spreadsheet B Row
+C Column D Field
+E Table F Record
+(3) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to D
+below, and answer using the letters.
+Searches in a relational database are conducted using relational algebra operations.
+・ The process of extracting multiple columns from a table to create a new table is referred to as ( [1] ).
+・ The process of extracting only the rows that meet given conditions to create a new table is referred to as
+( [2] ).
+・ The process of linking multiple tables based on the relationship between certain items to create a new table
+is referred to as ( [3] ).
+A Projection B Join C Selection D Normalization
+(4) For tables [1] to [3] which were created using the following two tables (Student table and Club table), choose
+the name of the operation that was performed from the options A to D below, and answer using the letters.
+A Projection B Join C Selection D Normalization
+Try
+Badminton club
+Soccer club
+Dance club
+Club activity
+Ito ○○
+Ishida ○○
+Ando ○○
+Student name
+S2023010103
+S2023010102
+S2023010101
+Student code
+[1] [2]
+[3]
+Student code Student name Club code
+S2023010101 Ando ○○ C1
+S2023010102 Ishida ○○ C2
+S2023010103 Ito ○○ C1
+S2023010104 Udagawa ○○ C1
+S2023010105 Ezawa ○○ C2
+Student table
+Student code Student name Club code
+S2023010102 Ishida ○○ C2
+S2023010105 Ezawa ○○ C2
+[2]
+Student name
+Ando ○○
+Ishida ○○
+Ito ○○
+Udagawa ○○
+Ezawa ○○
+[1]
+Club code Club activity
+C1 Dance club
+C2 Tennis club
+Club table
+Student code Student name Club code Club activity
+S2023010101 Ando ○○ C1 Dance club
+S2023010102 Ishida ○○ C2 Tennis club
+S2023010103 Ito ○○ C1 Dance club
+S2023010104 Udagawa ○○ C1 Dance club
+S2023010105 Ezawa ○○ C2 Tennis club
+[3]

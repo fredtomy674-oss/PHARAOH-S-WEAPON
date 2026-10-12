@@ -1,0 +1,41 @@
+101Information Study
+Point!
+8-3 Communication Protocol
+Communication Protocol
+(1) (1Packet) : The unit used when data is divided into small chunks to be transmitted over a network.
+Sent with a (2header) that includes the destination information.
+(2) (3Communication protocol (protocol)) : A common agreement in information and
+communication networks.
+[1] (4TCP) : A protocol that divides the data to be sent into packets, arranges the received
+packets in order, and requests the retransmission of any packets that were lost
+during communication.
+[2] (5UDP) : A protocol that emphasizes sending data in real time. Used for voice calls and
+streaming video.
+[3] (6IP) : The protocol that assigns IP addresses to deliver packets to the correct destination.
+The Mechanism of Communication in TCP/IP
+(1) (7TCP/IP) : A set of protocols used on the internet. The sending and receiving of data is controlled
+across four layers.
+<The 4-Layer Model of TCP/IP>
+Layer Layer names Main functions Examples of protocols
+Four layers (8Application layer) Communication between
+applications HTTP, SMTP, etc.
+Three layers (9Transport layer)
+Communication control,
+error detection, and data
+retransmission
+TCP, UDP, etc.
+Two layers (10Internet layer) IP address allocation and
+routing decision IP, etc.
+One layer (11Network interface
+layer)
+Physical connection,
+interaction between devices Ethernet, etc.
+(2) Mechanism of Data Communication on the internet
+1) Divide the data you want to send into (12packets).
+2) Attach the sender or recipient (13IP addresses) to the header of each packet.
+3) Select the optimal communication route for each packet (this is called (14routing)) and
+deliver it to the destination.
+4) If there any packets are missing upon receipt, a retransmission is requested. The packets are
+then rearranged in order to complete the data in its entirety.
+1
+2

@@ -1,0 +1,31 @@
+68Warm Up
+Answer the following questions.
+(1) What is the complement of the following binary number?
+[1] 1001(2) [2] 0100(2)
+(2) Use complements to perform the following binary subtractions.
+[1] 1100(2) － 0111(2) [2] 1110(2) － 1001(2)
+Explanation
+(1) [1] By inverting each digit from 0 to 1 and from 1 to 0, it becomes 0110(2).
+Finally, by adding 1, it becomes 0111(2).
+[2] By inverting each digit from 0 to 1 and from 1 to 0, it becomes 1011(2).
+Finally, by adding 1, it becomes 1100(2).
+(2) [1] The complement of the binary number 0111(2) is 1001(2), so
+1100(2) － 0111(2) ⇒ 1100(2) + 1001(2) = 10101(2)
+By ignoring the leading digit, 0101(2)
+[2] The complement of the binary number 1001(2) is 0111(2), therefore,
+1110(2) － 1001(2) ⇒ 1110(2) + 0111(2) = 10101(2)
+By ignoring the leading digit, 0101(2)
+Adding 1 causes a place value to carry over.
+Answer the following questions.
+(1) What is the complement of the following binary number?
+[1] 0101(2) [2] 1101(2) [3] 10110001(2) [4] 01001100(2)
+(2) Use complements to perform the following binary subtractions.
+[1] 1101(2) － 0110(2) [2] 1010(2) － 0111(2) [3] 1101(2) － 1010(2)
+Answer the following questions.
+(1) What is the complement of the following binary number?
+[1] 0111(2) [2] 1011(2) [3] 10011011(2) [4] 11000110(2)
+(2) Use complements to perform the following binary subtractions.
+[1] 1010(2) － 0110(2) [2] 1011(2) － 1001(2) [3] 1100(2) － 0010(2)
+Try
+Exercise
+1

@@ -1,0 +1,43 @@
+98
+Answer the following questions.
+(1) Choose the most appropriate explanation of a WAN from the options A to D below, and answer using the
+letter.
+A It can only be connected within limited buildings such as schools, companies, and homes.
+B It is possible to connect areas that are far apart.
+C It is a communication network that connects information and communication devices, such as
+computers, to exchange information with each other.
+D It is possible to interconnect networks around the world.
+(2) Choose the term that best fits into the blanks in the following sentences from the options A to D below,
+and answer using the letters.
+[1] The method of exchanging data by directly connecting cables is referred to as ( ).
+[2] The method of exchanging data using wireless radio waves instead of cables is referred to as ( ).
+[3] The device that relays and forwards data between different networks is referred to as a ( ).
+A Wired LAN B Router C Hub D Wireless LAN
+Answer the following questions.
+(1) Choose one statement that is incorrect regarding the usage patterns of networks from the options A to D
+below, and answer using the letter.
+A A server that manages data and files on a network is referred to as a file server.
+B A computer that requests various services from a server is referred to as an ISP (provider).
+C A server that accesses the internet on behalf of a user is referred to as a proxy server.
+D A method where computers are in an equal relationship, providing and receiving services to and from
+each other, is referred to as a peer-to-peer system.
+(2) Choose the term that best fits into the blanks [1] to [3] in the following sentences from the options A to D
+below, and answer using the letters.
+・ A server that handles printing processes such as copying and printing is referred to as a ( [1] ).
+・ A server that facilitates the sending and receiving of emails between computers is referred to as a
+( [2] ).
+・ The usage pattern where a server and a client connect over a network and exchange services is
+referred to as ( [3] ).
+A Client-server system B Mail server
+C Internet D Printer server
+(3) If the following statements [1] to [4] pertain to circuit switching method, answer with “A.” If the
+statements pertain to packet switching method, answer with “B.”
+[1] Once a communication path is established, stable communication can be achieved.
+[2] Since it can send data in small portions, the possibility of being unable to communicate is low, even if
+the network gets congested.
+[3] Delays, tampering, or loss may occur during data transmission.
+[4] Since you cannot use the line simultaneously with others, there is a need for a number of lines
+dedicated to communication.
+Exercise
+1
+2
