@@ -137,6 +137,18 @@ import {
   assertTreeMatchesTheBook as assertDiscoveryG1TreeMatchesBook,
 } from "./egyptDiscoveryG1T1.js";
 import {
+  EGYPT_ISLAMIC_G10_T1_UNITS,
+  lessonDocument as islamicG10LessonDocument,
+  isConsistent as isIslamicG10TreeConsistent,
+  assertTreeMatchesTheBook as assertIslamicG10TreeMatchesBook,
+} from "./egyptIslamicG10T1.js";
+import {
+  EGYPT_MATH_G1_T1_UNITS,
+  lessonDocument as mathG1LessonDocument,
+  isConsistent as isMathG1TreeConsistent,
+  assertTreeMatchesTheBook as assertMathG1TreeMatchesBook,
+} from "./egyptMathG1T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2800,6 +2812,102 @@ function verifyDiscoveryG1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Islamic Religious Education** — OFFICIAL curriculum
+ * (PHASE 117).
+ *
+ * The first term IS the Ministry textbook (`التربية الدينية الإسلامية – الصف الأول
+ * الثانوي (العام والفني)`; 112 scanned pages, Gemini OCR): its three units (إيمان
+ * وإحسان، نظرات حول الزواج في الإسلام، الإسلام والعمل الصالح) and the pages they occupy
+ * (book pages 5–65). Book page = scan index (offset 0), proven by the printed folios
+ * (scans 6 = ٦، 11 = ١١، 26 = ٢٦، 39 = ٣٩، 50 = ٥٠، 59 = ٥٩، 65 = ٦٥). The scan file holds
+ * both terms; back matter (scans 66–112) is the second term. A lesson is each printed
+ * درس; its `concepts` are the lesson's own printed «الأهداف», verbatim in Arabic.
+ */
+export const EGYPT_ISLAMIC_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "islamic-education", name: "Islamic Religious Education", nameAr: "التربية الدينية الإسلامية" },
+  curriculum: { code: "eg-g10-islamic-education", title: "التربية الدينية الإسلامية للصف الأول الثانوي" },
+  terms: [buildEgyptIslamicG10Term()],
+};
+
+/** Term 1 = the official Islamic-education book: printed unit → printed lesson. */
+function buildEgyptIslamicG10Term(): TermSeedSpec {
+  const check = verifyIslamicG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية الإسلامية (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ISLAMIC_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-isl-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: islamicG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Islamic tree verification, as one verdict. */
+function verifyIslamicG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isIslamicG10TreeConsistent();
+  const book = assertIslamicG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-1 (Grade 1) **Mathematics** — OFFICIAL curriculum (PHASE 118).
+ *
+ * The first term IS the Ministry textbook (`الرياضيات – الصف الأول الابتدائي`; 96 scanned
+ * pages, Gemini OCR): its nine chapters (الأعداد حتى 10 through العمليات التي تتضمن ٣
+ * أعداد) and the pages they occupy (book pages 6–93). Book page = scan index (offset 0),
+ * proven by the printed folios (scans 6 = ٦، 14 = ١٤، 32 = ٣٢، 44 = ٤٤، 54 = ٥٤، 68 = ٦٨،
+ * 80 = ٨٠، 93 = ٩٣) and the contents. A lesson is each printed درس; its `concepts` are
+ * the lesson's own printed activity-flow heads, verbatim in Arabic.
+ */
+export const EGYPT_MATH_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g1-math", title: "الرياضيات للصف الأول الابتدائي" },
+  terms: [buildEgyptMathG1Term()],
+};
+
+/** Term 1 = the official Primary-1 maths book: printed chapter → printed lesson. */
+function buildEgyptMathG1Term(): TermSeedSpec {
+  const check = verifyMathG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-math-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 Maths tree verification, as one verdict. */
+function verifyMathG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathG1TreeConsistent();
+  const book = assertMathG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4349,6 +4457,8 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_FRENCH_STORY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
