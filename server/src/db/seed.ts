@@ -179,6 +179,18 @@ import {
   assertTreeMatchesTheBook as assertMathG10TreeMatchesBook,
 } from "./egyptMathG10T1.js";
 import {
+  EGYPT_CHRISTIAN_G10_T1_UNITS,
+  lessonDocument as christianG10LessonDocument,
+  isConsistent as isChristianG10TreeConsistent,
+  assertTreeMatchesTheBook as assertChristianG10TreeMatchesBook,
+} from "./egyptChristianG10T1.js";
+import {
+  EGYPT_HISTORY_G10_T1_UNITS,
+  lessonDocument as historyG10LessonDocument,
+  isConsistent as isHistoryG10TreeConsistent,
+  assertTreeMatchesTheBook as assertHistoryG10TreeMatchesBook,
+} from "./egyptHistoryG10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -3184,6 +3196,103 @@ function verifyMathG10Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Christian Religious Education** — OFFICIAL curriculum
+ * (PHASE 124).
+ *
+ * The first term IS the Ministry textbook (`التربية الدينية المسيحية – الصف الأول الثانوي
+ * (العام والفني)`; 160 scanned pages, Gemini OCR): its two units (العقيدة، العبادة) and
+ * the pages they occupy (book pages 1–80). The printed page → scan page map is a constant
+ * +4, proven by the printed folios (scan 7 = ٣، scan 24 = ٢٠، scan 52 = ٤٨، scan 76 = ٧٢،
+ * scan 84 = ٨٠) and the contents. The scan file holds both terms; back matter (scans
+ * 85–160) is the second term. A lesson is each printed درس; its `concepts` are the
+ * lesson's own printed «أهداف الدرس», verbatim in Arabic.
+ */
+export const EGYPT_CHRISTIAN_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: { code: "eg-g10-christian-education", title: "التربية الدينية المسيحية للصف الأول الثانوي" },
+  terms: [buildEgyptChristianG10Term()],
+};
+
+/** Term 1 = the official Christian-education book: printed unit → printed lesson. */
+function buildEgyptChristianG10Term(): TermSeedSpec {
+  const check = verifyChristianG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية المسيحية (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_CHRISTIAN_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-chr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: christianG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Christian tree verification, as one verdict. */
+function verifyChristianG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isChristianG10TreeConsistent();
+  const book = assertChristianG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Secondary-1 (Grade 10) **History** — OFFICIAL curriculum (PHASE 125).
+ *
+ * The first term IS the Ministry textbook (التاريخ – الصف الأول الثانوي: حضارة مصر
+ * والعالم القديم; 171 scanned pages, Gemini OCR): its four units (مدخل الحضارة، مصر
+ * الفرعونية، العراق وفينيقيا، اليونان والرومان) and the pages they occupy (book pages
+ * 1–124). The printed page → scan page map is a constant +9, proven by the printed
+ * folios (scan 11 = ٢، scan 21 = ١٢، scan 77 = ٦٨، scan 123 = ١١٤، scan 133 = ١٢٤). Back
+ * matter (scans 134–171) is a separate activities booklet. A lesson is each printed
+ * درس; its `concepts` are the lesson's own printed heads, verbatim in Arabic.
+ */
+export const EGYPT_HISTORY_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "social", name: "Social Studies", nameAr: "الدراسات الاجتماعية" },
+  curriculum: { code: "eg-g10-history", title: "التاريخ للصف الأول الثانوي" },
+  terms: [buildEgyptHistoryG10Term()],
+};
+
+/** Term 1 = the official History book: printed unit → printed lesson. */
+function buildEgyptHistoryG10Term(): TermSeedSpec {
+  const check = verifyHistoryG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التاريخ (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_HISTORY_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-his-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: historyG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 History tree verification, as one verdict. */
+function verifyHistoryG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isHistoryG10TreeConsistent();
+  const book = assertHistoryG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4740,6 +4849,8 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_HISTORY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
