@@ -1,0 +1,33 @@
+تحدي معلوماتك
+لنحاول تعديل صفحة التعريف بالنفس باستخدام JavaScript.
+
+كود HTML
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Me</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="name">Adam</h1>
+</body>
+</html>
+```
+
+JavaScript كود
+
+```
+document.getElementById("name").textContent = "Omar";
+```
+
+قم بنسخ ولصق (أو كتابة) الكود في WebDen ثم قم بتشغيله.
+
+Omar
+
+النتيجة : ستلاحظ أن الاسم قد تغير.
+
+197
+الفهرس

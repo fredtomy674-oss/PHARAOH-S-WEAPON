@@ -1,0 +1,26 @@
+خطوات تغيير اسم المحادثة:
+1. انقر على القائمة الجانبية "..." (ثلاث نقاط الموجودة يمين المحادثة.
+2. اختر "Rename" (إعادة تسمية) من القائمة التي تظهر.
+3. أدخل الاسم الجديد وقم بالتأكيد.
+
+Copilot
+Discover
+Imagine
+Library
+Labs
+Conversations
+Today
+Creating Static Web Page
+Copilot
+
+Rename
+Invite
+Send a copy
+Summarize in a page
+Report a concern
+Delete
+
+Rename conv
+
+202
+الفهرس

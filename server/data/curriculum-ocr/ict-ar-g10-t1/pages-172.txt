@@ -1,0 +1,65 @@
+دراسة المعلومات
+12-2 أساسيات البرمجة [1]
+
+النقاط الرئيسية
+1. المتغيرات والبنية التسلسلية
+(1) (print) : يعرض سلسلة الأحرف أو القيمة داخل الأقواس ( ). سلسلة الأحرف محاطة بعلامات اقتباس مفردة نصف
+العرض (') او علامة تنصيص مزدوجة "" .
+*لاحظ أن القيم الرقمية لا يجب أن تُحاط بعلامات اقتباس .
+Execution Result
+Hello Khalid
+2023
+يعرض Hello khalid. print ("Hello khalid") 01
+يعرض 2023. print (2023) 02
+
+(2) (متغير) : مثل مربع لتخزين البيانات. يمكن تخزين البيانات واسترجاعها من المتغيرات. <مثال> برنامج لعرض نص
+"Cairo"
+city = 'Cairo' 01
+print (city) 02
+يخصص "Cairo" في المتغير city
+يعرض قيمة المتغير "city".
+Execution Result
+Cairo
+
+* في البرمجة ، لا يعني الرمز "=" "متساوي". بدلا من ذلك ، يعني "تعيين الجانب الأيمن ل الجانب الأيسر)".
+(3) (معامل التخصيص) : شيء مثل "=" يستخدم لتعيين قيمة إلى متغير.
+(4) (المعامل الحسابي) : رمز مثل "+" و "-" يستخدم في العمليات الحسابية.
+Arithmetic operator Meaning
+a + b (Addition)
+a - b (Subtraction)
+a * b (Multiplication)
+a / b (Division)
+a // b (Quotient)
+a % b (Remainder when a is divided by b)
+a ** b (a to the power of b)
+
+<مثال> برنامج يقوم بأربع عمليات حسابية أساسية
+01 a = 5
+02 b = 3
+03 (a + b) print
+04 (a - b) print
+05 (a * b) print
+06 (a / b) print
+07 (a // b) print
+08 (a % b) print
+09 (a ** b) print
+5 is assigned to variable a
+3 is assigned to variable b.
+Displays a + b.
+Displays a - b.
+Displays a × b.
+Displays a ÷ b.
+Displays the quotient when a is divided by b.
+Displays the remainder when a is divided by b.
+Displaysa to the power of b.
+Execution result
+8
+2
+15
+1.66666
+1
+2
+125
+
+172
+الفهرس

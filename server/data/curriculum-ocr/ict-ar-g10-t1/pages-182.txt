@@ -1,0 +1,73 @@
+دراسة المعلومات
+4-12 البرمجة التطبيقية [1]
+
+النقاط الرئيسية
+معالجة الأخطاء
+القائمة (قائمة)
+
+(1) (Array ((list) : مجموعة من عناصر البيانات مرتبة بالتسلسل. يمكن إدارة البيانات بشكل جماعي.
+Array declaration
+Adding elements to the end of an array
+<Example> Character string array
+Array of numbers
+Array name = [data0, data1, data2, ...]
+Array name.append(data)
+week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+number = [7, 22, 11, 34, 17]
+
+(2) (Element) : كل قيمة مضمونة في مصفوفة. يعرض اسم الصفيف ورقم مكانه يتيح استخدام (index) (أرقام العناصر)
+استرداد العناصر من مصفوفة. لاحظ أن index لا تبدأ من 1 ، ولكن من (40).
+a
+7
+a[0]
+22
+a[1]
+11
+a[2]
+34
+a[3]
+17
+a[4]
+
+(3) عملية القائمة : يسمح بإدارة عنصر القائمة باستخدام خط سفلي واحد.
+<مثال> تعريف القائمة وطريقة الوصول إلى العناصر استخدام متغير متغير كخط سفلي مثل في [i] يجعل من الممكن تحديد
+العناصر مع المتغير. هذا مناسب عند معالجة العناصر واحدة تلو الأخرى باستخدام عبارة "for".
+01 a = [7, 22, 11, 34, 17]
+02 for i in range(0,5,1):
+03 print(a[i])
+Declares array "a" and assigns a numerical
+value to it.
+Repeats while increasing variable i from 0
+to ( 4) in increments of 1.
+Displays elements from array "a" that
+satisfy the condition ( 6a[i]).
+Execution result
+7
+22
+11
+34
+17
+<Example> Adding an element to the end of a one-dimensional array
+01
+a = [ ]
+Declares the array "a".
+Execution result
+[1, 4, 9]
+02
+a.append(1)
+Adds ( 1) to the end of array "a".
+03
+a.append(4)
+Adds ( 4) to the end of array "a".
+04
+a.append(9)
+Adds ( 9) to the end of array "a".
+05
+print(a)
+Displays the values for array "a"
+
+(4) (مصفوفة ثانية الأبعاد) : مصفوفة تدير البيانات باستخدام الأحرف السفلاية في كل من الصف والعمود اتجاهات. سيتم
+تحديد ع نصر في الصف "i" والعمود "j" باستخدام الاثنين يكتب على النحو التالي [i][j]a
+
+182
+الفهرس

@@ -353,6 +353,12 @@ import {
   loadBookPage as loadHistoryG10Page,
 } from "../../db/egyptHistoryG10T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as ICT_AR_G10_OFFSET,
+  EGYPT_ICT_G10_AR_T1_BOOK_END,
+  allLessonRanges as ictArG10LessonRanges,
+  loadBookPage as loadIctArG10Page,
+} from "../../db/egyptIctArG10T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G8_OFFSET,
   EGYPT_ARABIC_G8_T1_BOOK_END,
   allLessonRanges as arabicG8LessonRanges,
@@ -641,6 +647,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g10-math", prefix: "l-g10-math-", offset: MATH_G10_OFFSET, bookEnd: EGYPT_MATH_G10_T1_BOOK_END, ranges: mathG10LessonRanges(), loadPage: loadMathG10Page, extras: mathG10LessonExtras() }),
   buildBook({ code: "eg-g10-christian-education", prefix: "l-g10-chr-", offset: CHRISTIAN_G10_OFFSET, bookEnd: EGYPT_CHRISTIAN_G10_T1_BOOK_END, ranges: christianG10LessonRanges(), loadPage: loadChristianG10Page, extras: christianG10LessonExtras() }),
   buildBook({ code: "eg-g10-history", prefix: "l-g10-his-", offset: HISTORY_G10_OFFSET, bookEnd: EGYPT_HISTORY_G10_T1_BOOK_END, ranges: historyG10LessonRanges(), loadPage: loadHistoryG10Page, extras: historyG10LessonExtras() }),
+  buildBook({ code: "eg-g10-ict", prefix: "l-g10-ict-", offset: ICT_AR_G10_OFFSET, bookEnd: EGYPT_ICT_G10_AR_T1_BOOK_END, ranges: ictArG10LessonRanges(), loadPage: loadIctArG10Page }),
   buildBook({ code: "eg-g8-arabic", prefix: "l-g8-ara-", offset: ARABIC_G8_OFFSET, bookEnd: EGYPT_ARABIC_G8_T1_BOOK_END, ranges: arabicG8LessonRanges(), loadPage: loadArabicG8Page, extras: arabicG8LessonExtras() }),
   buildBook({ code: "eg-g7-arabic", prefix: "l-g7-ara-", offset: ARABIC_G7_OFFSET, bookEnd: EGYPT_ARABIC_P1_T1_BOOK_END, ranges: arabicP1LessonRanges(), loadPage: loadArabicP1Page, extras: arabicP1LessonExtras() }),
   buildBook({ code: "eg-g8-english", prefix: "l-g8-eng-", offset: ENGLISH_G8_OFFSET, bookEnd: EGYPT_ENGLISH_G8_T1_BOOK_END, ranges: englishG8LessonRanges(), loadPage: loadEnglishG8Page, extras: englishG8LessonExtras() }),

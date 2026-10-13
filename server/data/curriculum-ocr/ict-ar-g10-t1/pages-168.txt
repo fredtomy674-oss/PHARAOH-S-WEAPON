@@ -1,0 +1,56 @@
+دراسة المعلومات
+12-1 الخوارزميات
+
+النقاط الرئيسية
+1. مفهوم الخوارزميات
+
+(1) الخوارزمية (Algorithm) : طريقة أو إجراء لحل مشكلة معينة.
+(2) المخططات الانسيابية ومخططات النشاط : الرسوم البيانية التي تمثل الخوارزميات بطريقة مرئية وشاملة.
+[1] (مخطط انسيابي) : طريقة لتوضيح تدفق عملية واحدة. قائمة رموز المخططات الانسيابية>
+
+| Symbol | Name | Meaning |
+| :---: | ---: | :--- |
+| <img src="data:image/png;base64,..." width="40" alt="Terminal"> | (Terminal) | Start/End |
+| <img src="data:image/png;base64,..." width="40" alt="Display"> | (Display) | Display on a screen, etc. |
+| <img src="data:image/png;base64,..." width="40" alt="Process"> | (Process) | Operations and Other Processes |
+| <img src="data:image/png;base64,..." width="40" alt="Data"> | (Data) | Data input and output |
+| <img src="data:image/png;base64,..." width="40" alt="Conditionalbranch"> | (Conditionalbranch) | Branching according to conditions |
+| <img src="data:image/png;base64,..." width="40" alt="Repeat"> | (Repeat) | Start of a repetition |
+| <img src="data:image/png;base64,..." width="40" alt=""/> | | End of a repetition |
+| <img src="data:image/png;base64,..." width="40" alt="Line"> | (Line) | Flow of data and control |
+
+Wake up in the morning
+Is it suny?
+No
+Bring an umbrella
+yes
+leave
+Figure 1. Process flow from waking up to leaving
+
+[2] (مخطط النشاط) : طريقة مناسبة لتمثيل تدفقات العملية المتوازية قائمة الرموز في مخططات النشاط>
+
+| Symbol | Name |
+| :---: | :--- |
+| <img src="data:image/png;base64,..." width="20" alt="Start"> | (Start) |
+| <img src="data:image/png;base64,..." width="20" alt="End"> | (End) |
+| <img src="data:image/png;base64,..." width="40" alt="Control"> | (Control) |
+| ↓ | (Transition) |
+| <img src="data:image/png;base64,..." width="40" alt="Conditional branch"> | (Conditional branch) |
+| <img src="data:image/png;base64,..." width="40" alt="Parallel process"> | (Parallel process) |
+| <img src="data:image/png;base64,..." width="40" alt="Send"> | (Send) |
+
+Customer
+ATM
+Insert card a
+nd enter PIN
+Confirm withdrawal
+amount
+Input withdrawal
+amount
+Determine
+withdrawal
+Withdraw cash
+Figure 2: Cash withdrawal process at an ATM
+
+168
+الفهرس

@@ -1,0 +1,34 @@
+التفاعل مع الأزرار:
+بعد ذلك، لنجرب تغيير النص من خلال النقر على زر.
+
+كود HTML:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Me</title>
+</head>
+<body>
+    <p id="name">Adam</p>
+    <button id="btn">Change Text</button>
+</body>
+</html>
+
+وكود JavaScript:
+const p = document.getElementById("name");
+const btn = document.getElementById("btn");
+
+btn.onclick = () => {
+    p.textContent = "Omar";
+};
+
+عند تشغيل الكود في WebDen والضغط على الزر: يتغير الاسم فوراً.
+
+Omar
+Change Text
+
+Adam
+Change Text
+
+198
+الفهرس

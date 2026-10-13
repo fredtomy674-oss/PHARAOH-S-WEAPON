@@ -1,0 +1,53 @@
+دراسة المعلومات
+5-12 البرمجة التطبيقية [2]
+
+النقاط الرئيسية
+1. هياكل البيانات
+(1) (الدالة - Function) : مجموعة من العمليات التي يقوم بها جهاز كمبيوتر يوصف بأنها وحدة متماسكة. المتغير المحدد ليستقبل قيمة داخل دالة يعرف باسم (argument). استخدام (return) يجعل من الممكن تمرير القيمة الناتجة عن العملية داخل الدالة إلى المتصل كـ (قيمة إرجاع return value). بالإضافة إلى ذلك ، عند استخدام دالة ، من الضروري إجراء عملية استدعاء للدالة.
+Definition of a
+Function
+def [function name] (Argument 1, Argument 2, ...) :
+[Process]
+return [return value]
+Argument
+Function name (Argument 1,
+Argument 2, ...)
+Function Call
+Return value
+<مثال> مثال على دالة ذات وسيطة واحدة: برنامج للعثور على الدالة y = 2x
+01
+def function(x):
+Defines a function called ( function).
+Execution result
+02
+y = 2 * x
+Assigns the value from 2*x to variable
+"y".
+10
+03
+return y
+Returns "y" as ( return value).
+04
+print(function(5))
+Passes "x" as 5 to the function.
+<Example> Example of a function with two arguments: A program to find the area of a triangle
+01
+def area(base, height):
+Defines a function called "area".
+Execution result
+02 S = base*height/2
+Assigns the value from “base*height/2”
+to variable "S".
+25
+03
+return S
+Returns "S" as the return value.
+04
+print(area(10, 5))
+Passes "base" as (10) and "height" as
+(5) to the function "area".
+(2) تشمل الدوال (دوال مدمجة built in function مثل ( print () التي يمكن استخدامها بدون تعريف ، و
+(دوال معرفة من قبل المستخدم) يمكنك تحديدها.
+
+186
+الفهرس

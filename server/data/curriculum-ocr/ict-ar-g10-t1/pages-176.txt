@@ -1,0 +1,42 @@
+دراسة المعلومات
+3-12 أساسيات البرمجة [2]
+النقاط الرئيسية
+1. هيكل الحلقة
+(1) يتيح استخدام عبارة (for) تنفيذ عملية بشكل متكرر . تتم كتابة عبارة "for" كما هو موضح .
+for variable in range([Variable range]):
+[Process to repeat]
+في عبارة (for) ، يتم تنفيذ الأوامر البرمجية المسبوقة بمسافة بشكل متكرر.
+(2) في عبارة (for) ، يمكن استخدام range () لتحديد مدى التكرار.
+المعنى (Meaning) طريقة الكتابة (Writing style)
+تزداد قيمة المتغير بمقدار 1، بدءًا من (0) وصولاً إلى
+.(end value - 1)
+range(end value)
+تزداد قيمة المتغير بمقدار 1، بدءًا من (start value)
+صولاً إلى (1 - end value).
+range(start value, end value)
+تزداد قيمة المتغير بمقدار (increment) المحدد، بدءًا من | range(start value, end value, increment)
+(start value) وصولاً إلى (end value - increment).
+<مثال> برنامج يعرض الأعداد الصحيحة من 0 إلى 3
+كرر المتغير "i" بزيادة 1 من 0 إلى 3.
+يعرض قيمة المتغير "i".
+for i in range (0, 4):
+01
+print (i)
+02
+<مثال> برنامج يعرض أرقاما فردية من 1 إلى 5
+Repeat variable "i" increasing by 2
+from 1 to 6.
+Displays the value of variable "i".
+for i in range(1, 7, 2): 01
+print(i) 02
+176
+الفهرس
+Execution result
+0
+1
+2
+3
+Execution result
+1
+3
+5

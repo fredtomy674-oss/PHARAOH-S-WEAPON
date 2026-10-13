@@ -1,0 +1,54 @@
+تحدي معلوماتك
+
+لنبدأ الآن بكتابة صفحة بسيطة لكتابة اسمك (للتعريف بنفسك) باستخدام لغة HTML .
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Me</title>
+</head>
+<body>
+<h1>Adam</h1>
+</body>
+</html>
+
+لنقم بنسخ ولصق (أو كتابة) الكود أعلاه داخل موقع https://webden.dev/، ثم اضغط على زر التشغيل (Run) .
+
+HTML
+5
+5
+<DOOTYPE html>
+html lang="en">
+head>
+<meta charset="UTF-8">
+<title>About Me</title>
+</head>
+<body>
+<h1>Adam</h1>
+</body>
+/html>
+html lang="en"> head> /head>
+Adam
+/html>
+
+ستظهر لك صفحة بسيطة تعرض الاسم الذي كتبته.
+
+بعد ذلك، سنقوم بتغيير لون النص وحجمه باستخدام لغة CSS.
+
+HTML Code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Me</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1 class="name">Adam</h1>
+</body>
+</html>
+
+194
+الفهرس

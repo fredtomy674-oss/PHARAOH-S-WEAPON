@@ -1,0 +1,38 @@
+2. هيكل التفرع
+(1) (عامل المقارنة-Comparison operators) : عامل يستخدم لمقارنة التعبيرات أو القيم.
+
+| Comparison operator | Meaning | Example | Meaning of the example |
+| --- | --- | --- | --- |
+| == | (Equal) 10 | x == 70 | x is equal to 70 |
+| != | (Not equal) 11 | x != 70 | x is not equal to 70 |
+| < | (Less than) 12 | x < 70 | x is less than 70 |
+| > | (Greater than) 13 | x > 70 | x is greater than 70 |
+| <= | (Less than or equal to) 14 | x <= 70 | x is less than or equal to 70 |
+| >= | (Greater than or equal to) 15 | x >= 70 | x is greater than or equal to 70 |
+
+(2) يسمح استخدام عبارات (if) بتفرع الشروط ومعالجتها كتعبيرات شرطية.
+(التعبير الشرطي- conditional expression) : تعبير يحدد ما إذا كانت الشروط قد تم استيفاؤها وإرجاع "صحيح" إذا
+تم استيفائه و "خطأ" إذا لم يكن كذلك.
+
+[1] استخدام (if ~ else) يجعل من الممكن وصف العملية التي تحدث عند عدم استيفاء الشرط.
+
+if [Conditional expression]:
+[Process when a condition is true]
+else:
+[Process when a condition is false]
+
+<Example> Program for determining pass or fail
+
+| 01 | x = 70 | Assign the value 70 to variable x. |
+| --- | --- | --- |
+| 02 | if x >= 60: | If x is 60 or greater, |
+| 03 | result = 'Pass' | If true, assign “Pass” to the variable result. |
+| 04 | else: | If not, |
+| 05 | result = 'Fail' | Assign “Fail” to the variable result. |
+| 06 | print(result) | Displays the value of the variable result. |
+
+Execution result
+Pass
+
+177
+الفهرس

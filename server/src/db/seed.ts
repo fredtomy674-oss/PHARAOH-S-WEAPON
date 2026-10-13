@@ -191,6 +191,12 @@ import {
   assertTreeMatchesTheBook as assertHistoryG10TreeMatchesBook,
 } from "./egyptHistoryG10T1.js";
 import {
+  EGYPT_ICT_G10_AR_T1_UNITS,
+  lessonDocument as ictArG10LessonDocument,
+  isConsistent as isIctArG10TreeConsistent,
+  assertTreeMatchesTheBook as assertIctArG10TreeMatchesBook,
+} from "./egyptIctArG10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -3293,6 +3299,56 @@ function verifyHistoryG10Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **ICT — Arabic edition** — OFFICIAL curriculum (PHASE 126).
+ *
+ * The first term IS the Ministry textbook (`البرمجة والذكاء الاصطناعي — مقدمة في تكنولوجيا
+ * المعلومات والاتصالات — للصف الأول الثانوي`, 2025–2026; 218 scanned pages, Gemini OCR):
+ * its thirteen chapters and the pages they occupy (book pages 7–217). Book page = scan
+ * index (offset 0), proven by the running-foot folios («8/الفهرس»، «68/الفهرس»،
+ * «125/الفهرس»، «191/الفهرس»، «217/الفهرس»). A lesson is each printed lesson; its
+ * `concepts` are the lesson's own printed heads, verbatim in Arabic.
+ */
+export const EGYPT_ICT_G10_AR_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "ict", name: "Information and Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  curriculum: { code: "eg-g10-ict", title: "تكنولوجيا المعلومات والاتصالات للصف الأول الثانوي" },
+  terms: [buildEgyptIctArG10Term()],
+};
+
+/** Term 1 = the official Arabic ICT book: printed chapter → printed lesson, as its document. */
+function buildEgyptIctArG10Term(): TermSeedSpec {
+  const check = verifyIctArG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب تكنولوجيا المعلومات (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ICT_G10_AR_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g10-ict-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: ictArG10LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 ICT AR tree verification, as one verdict. */
+function verifyIctArG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isIctArG10TreeConsistent();
+  const book = assertIctArG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4851,6 +4907,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_HISTORY_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G10_AR_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);

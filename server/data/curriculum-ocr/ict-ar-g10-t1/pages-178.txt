@@ -1,0 +1,64 @@
+[2] استخدام (if ~ elif ~ else) يجعل من الممكن تحديد شروط متعددة بالتتابع.
+
+if [Conditional expression 1]:
+] [Process when conditional expression 1 is true]
+elif [Conditional expression 2]:
+] [Process when conditional expression 1 is false and conditional expression 2 is true]
+else:
+] [Process when both conditional expression 1 and conditional expression 2 are false]
+
+<Example> Program for evaluating based on test scores
+01 x = 70
+02 if x >= 90:
+03 result = 'Grade is A'
+04 elif x >= 50:
+05 result = 'Grade is B'
+06 else:
+07 result = 'Grade is C'
+08 print(result)
+
+Assign the value 70 to variable x.
+If x is 90 or greater,
+If true, assign "Grade is A" to the variable result.
+Otherwise, if x is 50 or greater,
+Assign "Grade is B" to the variable result.
+If none of the conditions are met,
+Assign "Grade is C" to the variable result.
+Displays the value of the variable result.
+
+Execution result
+
+Grade is B
+
+اختبر معلوماتك
+أجب عن الأسئلة التالية.
+(1) (1) اختر البرنامج الذي يعرض "Grade is A" من الخيارات من A إلى D ، وأجب باستخدام رسالة.
+
+A point = 90
+if point >= 85:
+result = 'Grade is A'
+else:
+result = 'Grade is B'
+
+C point 90
+if point >= 85:
+result = 'Grade is A'
+else:
+result = 'Grade is B'
+print(result)
+
+B point = 90
+if point >= 85:
+result = 'Grade is A'
+else:
+result = 'Grade is B'
+print(result)
+
+D point 90
+if point >= 85:
+result = 'Grade is A'
+else:
+result = 'Grade is B'
+
+178
+الفهرس

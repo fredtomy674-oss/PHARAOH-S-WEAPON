@@ -1,0 +1,26 @@
+جرب بنفسك
+بعد ذلك، جرب إعطاء الأمر التالي للذكاء الاصطناعي:
+"اكتب صفحة أخبار بسيطة باستخدام HTML و CSS ".
+١. شغّل الكود: انسخ الناتج والصقه في WebDen ثم شغّله.
+
+Today's News
+
+School Festival Announced
+The annual school festival will be held next month. Students are
+preparing various events.
+
+New Library Opens
+A renovated library has opened today with more study spaces and new
+books.
+
+Sports Team Wins Tournament
+Our basketball team won the regional tournament after a tough final
+match.
+
+٢ . التخصيص: لنعدّل الكود الذي كتبه الذكاء الاصطناعي، ونجرّب تغيير لون النص، وحجم الخط، ولون الخلفية، وما إلى ذلك.
+
+٣ . الفهم: اطلب من الذكاء الاصطناعي شرحًا:
+"اشرح هذا الكود".
+
+203
+الفهرس

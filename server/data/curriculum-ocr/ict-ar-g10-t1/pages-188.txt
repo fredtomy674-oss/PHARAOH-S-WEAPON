@@ -1,0 +1,57 @@
+جرب بنفسك
+
+أجب عن الأسئلة التالية.
+(1) اختر المصطلح الذي يناسب الفراغين [1] و [2] من الخيارات من أ إلى ث .
+
+def function name ( [1] ):
+    [Process]
+    return [2]
+
+(أ) وسيطة
+(ب) قيمة الإرجاع
+(ج) مكمل
+(د) رقم عشوائي
+
+(2) في البرنامج التالي، تُستخدم الدالة "area" لحساب مساحة المثلث. أعط البرنامج الذي يناسب الفراغين A و B. أيضًا، أعط القيم المعروضة عند تنفيذ الصفين [1] و [2].
+
+def area(base, height):
+    S = A
+    B S
+a = area(10, 5)
+b = area(6, 7)
+print(a) # [1]
+print(b) # [2]
+
+(3) في البرنامج التالي، تقوم الدالة "celsius_to_fahrenheit" بتحويل درجات الحرارة من مئوية إلى فهرنهايت. أعط البرنامج الذي يناسب الفراغين A و B.
+
+def celsius_to_fahrenheit(celsius):
+    fahrenheit = (celsius * 9/5) + 32
+    return A
+temp_celsius = 25
+result = celsius_to_fahrenheit( B )
+print(result)
+
+(4) في البرنامج التالي، تُعطى درجات الاختبار كوسائط للدالة "evaluate".
+بالإضافة إلى ذلك، العلاقة بين الدرجات والتقديرات هي وفقا للجدول
+على اليمين. أعط البرنامج الذي يناسب الفراغات A إلى C.
+
+Score
+Grade
+80 or higher
+A
+50 or higher but less than 80
+B
+Less than 50
+C
+
+def evaluate(score):
+    if score A 80:
+        print('A')
+    B score C 50:
+        print('B')
+    else:
+        print('C')
+evaluate(40)
+
+188
+الفهرس

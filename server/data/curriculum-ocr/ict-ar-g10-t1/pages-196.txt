@@ -1,0 +1,29 @@
+دراسة المعلومات
+HTML, JS
+3-13
+النقاط الرئيسية
+JavaScript تُعد لغة برمجة تعمل داخل متصفحات الويب. ومن خلال دمجها في صفحات الويب، يمكنك إضفاء تفاعلية على الصفحة أو إحداث تغييرات استجابة لإجراءات المستخدم.
+من خلال تضمينها في صفحات الويب، يمكنك تحويل الصفحة إلى تفاعلية (Interactive)، بحيث تتغير وتستجيب لإجراءات المستخدم
+.(User Action)
+HTML
+Structure and Content
+«Headings, text, etc.»
+Code Example:
+<h1>My page</h1>
+<p id="text1">HELLO</p>
+<p id="text2">WORLD</p>
+JavaScript
+Manipulation
+«Moving, zooming, changing, etc.»
+Code Example:
+document.getElementById("text1").textContent
+= "GOOD MORNING";
+Browser Display
+My page
+GOOD MORNING
+WORLD
+في المثال السابق، تم تحديد الوسم (<p> tag) في لغة HTML باستخدام مُحدّد فريد id ، تستخدم لغة JavaScript هذا الـ id للوصول إلى
+تلك الفقرة وتغيير النص الموجود بداخلها. أما الخاصية textContent، فهي الأداة المستخدمة خصيصاً لتحديد (أو الوصول إلى) المحتوى
+النصي داخل أي وسم (tag).
+196
+الفهرس

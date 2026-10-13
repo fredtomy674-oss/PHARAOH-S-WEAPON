@@ -1,0 +1,33 @@
+تغيير حجم النص:
+
+کود HTML:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Me</title>
+</head>
+<body>
+    <p id="name">Adam</p>
+    <button id="btn">Change Size</button>
+</body>
+</html>
+
+. JavaScript كود
+const text = document.getElementById("name");
+const btn = document.getElementById("btn");
+
+btn.onclick = () => {
+    text.style.fontSize = 50 + "px";
+};
+
+عند الضغط على الزر : سيصبح حجم خط الاسم أكبر.
+
+Adam
+Change Size
+
+Adam
+Change Size
+
+199
+الفهرس

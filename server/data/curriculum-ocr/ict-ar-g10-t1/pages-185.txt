@@ -1,0 +1,53 @@
+تمرين
+1 أجب عن الأسئلة التالية.
+(1) بالنسبة للبرامج من A إلى C ، أعط القيم المعروضة عند تنفيذ كل منها.
+B a = ['A']
+a.append('B')
+a.append('C')
+print(a[1])
+
+A a = [0, 1, 2, 3]
+print(a[1])
+
+C a = [['Japanese', 'Mathematics', 'English'],
+        ['Social studies', 'Science', 'Information
+        studies']]
+print(a[1][2])
+
+(2) البرنامج التالي مصمم لإيجاد القيمة الدنيا بين العناصر في مصفوفة "a". املأ الفراغات A إلى C بالأحرف أو
+الأرقام المناسبة لإكمال البرنامج.
+a = [24, 43, 9, 25, 17]
+min = A
+for i in range(0, B, 1):
+    if a[i] < min:
+        min = C
+print(min)
+
+(3) البرنامج التالي يعد عدد العناصر في مصفوفة "a" التي تزيد عن 10. املأ الفراغات A إلى C بالأحرف أو
+الأرقام المناسبة لإكمال البرنامج.
+a = [12, 8, 9, 13, 11]
+count = 0
+for i in range(A, B, 1):
+    if C > 10:
+        count = count + 1
+print(count)
+
+(4) املأ الفراغات A إلى E في البرنامج التالي بالأحرف أو الأرقام المناسبة لإكمال البرنامج بحيث يعرض "نتيجة
+التنفيذ" كما هو موضح.
+
+a = [['Japanese', 'Mathematics', 'English'],
+     ['Social studies', 'Science', 'Information studies']]
+for i in range(A, B, 1):
+    for j in range(C, D, 1):
+        print(E)
+
+Execution result
+Japanese
+Mathematics
+English
+Social studies
+Science
+Information studies
+
+185
+الفهرس
