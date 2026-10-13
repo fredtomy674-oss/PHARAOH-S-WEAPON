@@ -1,0 +1,20 @@
+1
+
+l'eau à une profondeur donnée dans la mer est plus élevée que celle à la même profondeur dans un lac d'eau douce, où la proportion de sels et de particules en suspension est plus faible.
+À la surface de la mer, la pression est égale à la pression atmosphérique (P). La pression atmosphérique normale est de , ce qui correspond à 1 atm ,ce qui équivaut à (1,013× 105N/m²).
+La pression de l'eau augmente d'environ une atmosphère tous les 10 mètres de profondeur. Par exemple, à 100 mètres de profondeur, la pression exercée par l'eau est d'environ dix fois la pression atmosphérique. Ainsi, la pression totale à cette profondeur équivaut à onze fois la pression atmosphérique. La pression totale exercée en un point est donc :
+P = Pₐ + Pₑₐᵤ
+Dans les grandes profondeurs marines, la pression devient inimaginable ; néanmoins, de nombreux organismes marins sont capables de s'adapter à cette élévation de la pression de l'eau.
+L'effet de la pression sur les adaptations biologiques des organismes marins
+➔ La vessie natatoire (sac de flottabilité)
+Les organismes de surface: Les organismes qui vivent près de la surface de l'eau sont soumis à une pression relativement faible. Par conséquent, leur structure corporelle est moins robuste par rapport à celle des organismes vivant en profondeur.
+Les organismes des profondeurs intermédiaires: À des profondeurs comprises entre 200 et 1000 mètres, les organismes marins sont plus spécialisés pour faire face à l'augmentation de la pression. Par exemple, certains poissons possèdent des vessies natatoires remplies de gaz, leur permettant de contrôler leur flottabilité, de maintenir leur équilibre dans l'eau ou encore de se déplacer entre différentes profondeurs lors de leurs migrations entre les mers et les rivières, comme c'est le cas des saumons.
+Aorte dorsale
+Veine cardinale postérieure
+Vessie natatoire
+Glande à gaz
+Réseau admirable
+Figure 1-50 : La vessie natatoire
+Les organismes des grandes profondeurs:Au-delà de 2000 mètres, la pression de l'eau devient extrêmement élevée. Les organismes vivants dans ces milieux présentent souvent des structures corporelles compactes ainsi que des protéines
+
+Première secondaire 57

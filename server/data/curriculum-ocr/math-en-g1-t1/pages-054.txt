@@ -1,0 +1,25 @@
+5 4
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 5 C o m p ari n g L e n gt h s
+W h e n y o u c o m p ar e l e n gt hs, li n e u p o n e e n d.
+E x a m pl e L et’s c o m p ar e t h e l e n gt h of t h e gr e e n p e n cil a n d t h e r e d
+p e n cil.
+T h e gr e e n p e n cil is l o n g er.
+(1 ) C o m p ar e t h e l e n gt h of t h e r e d stri n g a n d t h e bl u e stri n g. W h e n y o u li n e
+u p o n e e n d, it l o o ks li k e t his: W hi c h stri n g is l o n g er ?
+(2 ) C o m p ar e t h e l e n gt h of t h e r e d p e n cil a n d t h e y ell o w p e n cil. W h e n y o u
+li n e u p o n e e n d, it l o o ks li k e t his: W hi c h p e n cil is l o n g er?
+H o w t o S ol v e
+(1 ) Bl u e stri n g (2 ) R e d p e n cil
+E v e n if t h e pl a c e y o u li n e
+u p c h a n g es, t hi n k a b o ut it
+i n t h e s a m e w a y!
+W hi c h O n e I s L o n g er ? 5 - 1

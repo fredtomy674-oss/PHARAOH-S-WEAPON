@@ -1,0 +1,24 @@
+1
+
+➔ Hydrolyse des sels (l'hydratation) :
+L'hydrolyse est une réaction qui se produit lorsque qu'un sel solide se dissout dans l'eau, formant un acide et une base, dont l'un ou les deux sont faibles.
+Base + Acide ⇌ Eau (liquide) + Sel (solide)
+
+Les sels, selon leur hydrolyse, sont classés en trois catégories :
+
+(a) Les sels acides:
+Lors de la dissolution d'un sel acide dans l'eau, il subit une hydrolyse qui entraîne une diminution de la concentration en ions hydroxyde (OH⁻) et une augmentation de la concentration en ions hydrogène (H⁺), ce qui rend la solution du sel acide.
+Exemple : dissolution du chlorure d'ammonium (NH₄Cl) dans l'eau:
+NH₄Cl(s) + H₂O(l) → NH₄OH(aq) + H⁺(aq) + Cl⁻(aq)
+
+(b) Les sels basiques:
+Lors de la dissolution d'un sel basique dans l'eau, il subit une hydrolyse qui entraîne une diminution de la concentration en ions hydrogène (H⁺) et une augmentation de la concentration en ions hydroxyde (OH⁻), ce qui rend la solution du sel basique.
+Exemple : dissolution du bicarbonate de sodium (NaHCO₃) dans l'eau :
+NaHCO₃(s) + H₂O(l) → Na⁺(aq) + OH⁻(aq) + H₂CO₃
+
+(c) Les sels neutres :
+Lors de la dissolution d'un sel neutre dans l'eau, il subit une hydrolyse qui n'affecte ni la concentration des ions hydrogène (H⁺) ni celle des ions hydroxyde (OH⁻), ce qui rend la solution du sel neutre..
+Exemple: dissolution du bicarbonate d'ammonium (NH₄HCO₃) dans l'eau:
+NH₄HCO₃(s) + H₂O(l) → H₂CO₃(aq)+ NH₄OH(aq)
+
+Première secondaire 11

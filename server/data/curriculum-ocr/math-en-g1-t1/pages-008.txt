@@ -1,0 +1,20 @@
+8
+C h a pt er 1 N u m b er s u p t o 1 0
+2
+3
+4
+5
+8
+6
+9
+7
+1 N u m b ers fr o m 1 t o 5
+O n e
+T w o
+T hr e e
+F o ur
+Fi v e
+M at c h e a c h pi ct ur e t o t h e c orr e ct n u m b er.
+• • •
+• • •
+N u m b er s fr o m 1 t o 5 1 - 2

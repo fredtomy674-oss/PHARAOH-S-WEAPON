@@ -1,0 +1,43 @@
+1
+
+Procédure de l'expérience :
+1. Étalonnage : étalonne le pH-mètre conformément aux instructions du fabricant en utilisant de l'eau distillée. Séche ensuite l'électrode avec du papier absorbant.
+2. Préparation des échantillons : numérote les gobelets selon le type d'eau (mer, rivière, puits, etc.) et places-y une petite quantité de chaque échantillon.
+3. Mesure : plonge l'électrode du pH-mètre étalonné dans l'échantillon, puis note la valeur du pH une fois la lecture est stabilisée.
+4. Répétition : répète les étapes 1 et 3 pour chaque échantillon.
+
+Mesure à l'aide de bandelettes de test :
+Si tu utilises des bandelettes de test de pH, trempe le ruban dans chaque échantillon pendant quelques secondes, puis compare la couleur obtenue avec l'échelle standard.
+
+Valeurs du pH de l'eau provenant de différentes sources (le tableau à titre indicatif seulement)
+
+14
+13
+12
+11
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+
+| Substance | Valeur du pH |
+| :--- | :--- |
+| Eau distillée (Eau pure) | 7 |
+| Eau des mers | De 7,5 à 8,4 environ |
+| Eau douce | des rivières | De 6,8 à 7,8 environ |
+| des lacs | De 7,3 à 8,5 environ |
+| Eau souterraine | De 6 à 8,5 environ |
+| Les nuages | De 4,5 à 5 environ |
+| Eau des mines | De 3 à 4 environ |
+
+Les valeurs indiquées dans le tableau sont approximatives et peuvent varier en fonction de différents facteurs environnementaux ainsi que des activités humaines dans la région, qui influencent la valeur du pH de l'eau.
+
+Première secondaire
+13

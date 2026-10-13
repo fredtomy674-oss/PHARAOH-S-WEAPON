@@ -1,0 +1,29 @@
+1 Unité 1 – L’écosystème aquatique
+
+Exemple:
+On a plongé un morceau d’aluminium de masse 200 g et d’une température de 80 °C dans une quantité d’eau, à température ambiante.
+Si la température finale du système devient 40 °C, calcule la quantité de chaleur que la quantité d’eau a gagnée, sachant que la chaleur spécifique de l’aluminium est 900 J/kg, K (supposant qu’il n’y a aucune perte thermique du système)
+Solution:
+(Remarque importante : utiliser les unités du système international)
+
+(Remarque importante : utiliser les unités du système international)
+Selon le principe de conservation de l’énergie, la quantité de la chaleur gagnée par l’eau équivaut la quantité de la chaleur perdue par le morceau d’aluminium.
+L’énergie thermique gagnée par l’eau = l’énergie thermique perdue par l’aluminium
+Qth = mc Δt = 0.2 × 900 × ( 40 - 80 ) = - 7200 J
+
+Le signe négatif ici indique que le morceau d’aluminium a perdu la quantité de la chaleur, laquelle a été transférée vers l’eau. Ainsi, la quantité de chaleur transmise à l’eau sera 7200 J.
+
+La brise de mer:
+
+L’eau se distingue par sa chaleur spécifique élevée, en raison des liaisons hydrogène entre ses molécules. Cela contribue en partie à adoucir le climat à proximité des grandes masses d’eau.
+Pendant l’été, la température d’une grande surface de la mer reste relativement basse par rapport à celle des sables et des roches de plage.
+L’air se réchauffe sur le sol, sa densité diminue et s’élève en haut. L’air plus froid au-dessus de la surface de l’eau se déplace vers le sol pour prendre sa place. Ce phénomène crée ce qu’on appelle une brise de mer, où l’air chaud monte vers le haut et l’air froid le remplace.
+
+Jour
+Air chaud
+Terre chaude
+La mer froide
+Brise de mer froide
+Figure (1-19) la brise de mer
+
+22 Sciences intégrées

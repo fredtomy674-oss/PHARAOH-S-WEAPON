@@ -1,0 +1,31 @@
+4 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 3 A d diti o n
+A d diti o n wit h Z er o
+Y o u c a n a d d 0 j ust li k e a n y ot h er n u m b er.
+W h e n y o u a d d 0 t o a n u m b er, t h e n u m b er st a ys t h e s a m e.
+E x a m pl e 2 + 0 = 2
+(1 ) L et’s d o a d diti o n.
+1 1 5 + 0 2 2 0 + 8
+(2 ) Y o u ar e p utti n g or a n g es i nt o b as k ets. Y o u p ut 3 or a n g es i n t h e first b as k et,
+a n d 0 i n t h e s e c o n d b a s k et. H o w m a n y or a n g e s di d y o u p ut i n t ot al ?
+Writ e t h e a d diti o n s e nt e n c e a n d t h e a ns w er.
+1st b as k et 2 n d b as k et
+H o w t o S ol v e
+(1 ) 1 1 5 + 0 = 5 2 2 0 + 8 = 8
+(2 ) A d diti o n s e nt e n c e: 3 + 0 = 3 A ns w er: 3 or a n g es
+2 + 0 = 2 .
+I n t h e s a m e w a y,
+0 + 2 = 2 .
+3 - 3
+T h e q u esti o n s a ys “ H o w
+m a n y ? ”, s o writ e y o ur
+a ns w er wit h “ or a n g es. ”

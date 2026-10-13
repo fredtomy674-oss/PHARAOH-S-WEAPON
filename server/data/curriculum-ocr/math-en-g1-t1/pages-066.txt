@@ -1,0 +1,19 @@
+6 6
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6 - 2 W h at W e L e ar n fr o m R e s ult s
+(1 ) W e c o u nt e d e a c h t y p e of t h e c ol or e d v e g et a bl es. L et’s a ns w er t h e q u esti o ns.
+1 1 W hi c h h as t h e m ost ?
+2 2 W hi c h h as t h e l e ast ?
+3 3 H o w m a n y t o m at o es ar e
+t h er e?
+4 4 H o w m a n y c u c u m b ers
+ar e t h er e ?
+T O M A T O E S O NI O N S C U C U M B E R S E G G P L A N T S

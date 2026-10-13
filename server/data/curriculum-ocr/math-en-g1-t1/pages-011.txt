@@ -1,0 +1,20 @@
+1 1
+1 - 3 L et’ s C o u nt! (fr o m 1 t o 5)
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Writ e t h e n u m b er f or h o w m a n y y o u s e e.
+(1 ) (2 )
+Writ e t h e n u m b er f or h o w m a n y y o u s e e.
+(1 ) (2 )
+(3 ) (4 )
+(5 )
+P oi nt t o e a c h pi ct ur e
+wit h y o ur fi n g er a n d
+s a y t h e n u m b ers!

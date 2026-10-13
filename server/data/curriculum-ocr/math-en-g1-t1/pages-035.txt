@@ -1,0 +1,26 @@
+3 5
+2
+3
+4
+5
+8
+6
+9
+7
+1
+2 - 2 W h er e I s It ?
+L o o k at t h e pi ct ur e a n d a ns w er.
+(1 ) is t h e fr o m t h e t o p.
+(2 ) is t h e fr o m t h e b ott o m.
+Ri g ht L eft
+(3 ) is t h e fr o m t h e ri g ht.
+L o o k at t h e pi ct ur e a n d a ns w er.
+(1 ) is t h e fr o m t h e b ott o m.
+(2 ) is t h e fr o m t h e t o p.
+Ri g ht L eft
+(3 ) is t h e fr o m t h e l eft.
+(4 ) is t h e fr o m t h e ri g ht.
+B ott o m
+T o p
+B ott o m
+T o p

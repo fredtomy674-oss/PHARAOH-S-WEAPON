@@ -1,0 +1,23 @@
+5 9
+2
+3
+4
+5
+8
+6
+9
+7
+1
+5 - 3 L et’ s C o m p ar e L e n gt h s
+(1 ) W hi c h is l o n g er, t h e w hit e tr ai n or t h e gr e e n tr ai n?
+(2 ) W hi c h is l o n g er, t h e gr e e n p e n cil or t h e r e d p e n cil?
+(1 ) W hi c h is l o n g er, t h e y ell o w tr ai n or t h e bl a c k tr ai n?
+(2 ) L et’s c o m p ar e t h e l e n gt h of t h e s ciss ors a n d t h e r ul er.
+1 1 H o w m a n y bl o c ks l o n g is t h e s ciss ors ?
+2 2 H o w m a n y bl o c ks l o n g is t h e r ul er ?
+3 3 W hi c h is l o n g er, t h e s ciss ors or t h e r ul er ?
+W hi c h tr ai n h a s
+m or e c arri a g es ?
+D o n’t f or g et t o c o u nt
+t h e bl o c ks t o fi n d o ut
+w hi c h o n e is l o n g er.

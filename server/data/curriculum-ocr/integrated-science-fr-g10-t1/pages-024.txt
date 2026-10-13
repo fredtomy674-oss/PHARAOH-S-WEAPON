@@ -1,0 +1,53 @@
+1
+
+La densité de l'eau et la température dans
+les régions polaires :
+
+En général, le volume
+d'un liquide augmente avec
+l'élévation de la température et
+diminue avec sa baisse. Mais
+l'eau fait exception à cette règle.
+
+Le volume
+1.0004
+1.0003
+1.0002
+1.0001
+1.0000
+0 2 4 6 8 10
+La température(°C)
+(Figure 1-15) variation du volume de l'eau avec la température
+
+Lorsque la température de
+l'eau s'élève de 0 °C à 4 °C, son
+volume diminue (les molécules
+se rapprochent) et par conséquence, sa densité augmente. La densité maximale
+de l'eau est atteinte à environ 4 °C, équivalent à 1000 kg/m³. Cependant si la
+température augmente au-dessus de 4 °C, l'eau se dilate (son volume augmente) à
+nouveau (les molécules s'éloignent) et par conséquent, sa densité diminue.
+
+Ces faits scientifiques aident à comprendre la raison du commencement de
+congélation d'un lac en surface dans les régions polaires au lieu du fond.
+
+Lorsque la température de
+l'air baisse de 4 °C à 0 °C, l'eau de
+surface du lac se dilate et devient
+moins dense que l'eau située en
+dessous. Cela signifie que lorsque
+l'eau gèle et se transforme en glace,
+elle devient moins dense. Cela est
+due au fait que les molécules d'eau
+sont plus espacées dans la glace que dans l'eau. Par conséquence, la glace flotte,
+ce qui crée une couche isolante empêchant le reste de l'eau en dessous de geler.
+Ceci permet aux organismes aquatiques de survivre dans cet environnement et
+c'est une autre raison pour laquelle l'eau constitue un habitat idéal. (figure 1-16 )
+
+0°C
+1°C
+2°C
+3°C
+4°C
+Figure (1-16) les organismes marins dans un lac gelé
+
+Première secondaire 19

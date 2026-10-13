@@ -1,0 +1,33 @@
+8 5
+7 - 6 N u m b er s Gr e at er t h a n 2 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+(1 ) C o u nt a n d writ e t h e n u m b er.
+1 1
+1 0
+1 0 1 0
+2 2
+1 0 1 0
+3 3
+1 0
+1 0 1 0
+4 4
+(2 ) Writ e t h e n u m b er.
+1 1 T w e nt y-f o ur 2 2 T hirt y-s e v e n
+(1 ) C o u nt a n d writ e t h e n u m b er.
+1 1
+1 0 1 0 1 0
+2 2
+1 0 1 0
+(2 ) L o o k at t h e c al e n d ar. Writ e t h e c orr e ct n u m b er f or e a c h of t h e bl a n ks 1 1 - 4 4 .
+S u n M o n T u e W e d T h u Fri S at
+1 1
+2 2 3 3
+4 4

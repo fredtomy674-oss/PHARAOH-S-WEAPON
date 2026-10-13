@@ -1,0 +1,27 @@
+1
+
+Dans l’atmosphère, les molécules de N₂, les molécules d’O₂ et l’oxygène atomique absorbent les photons du spectre électromagnétique dont la longueur d’onde est inférieure à 240 nm. La formation de l’ozone entraîne, quant à elle, l’absorption des photons situés dans la région ultraviolette, dont les longueurs d’onde varient entre 240 et 300 nm. Ainsi, l’ozone présent dans la stratosphère nous protège de ces photons à haute énergie.
+
+Formation de l’ozone:
+
+La molécule d’ozone (O₃) est constituée de trois atomes d’oxygène liés entre eux. Elle se forme sous l’effet des rayons ultraviolets (UV) provenant du Soleil sur les molécules d’oxygène (O₂), de la manière suivante :
+
+1- La photodissociation Elle provoque la rupture des liaisons chimiques de la molécule d’oxygène sous l’effet de l’absorption de la lumière.
+
+O=O + Photon → O + O
+
+Ainsi, les rayons ultraviolets (UV) dont la longueur d’onde est inférieure à 240 nm provoquent la rupture de la liaison covalente dans la molécule d’oxygène (O₂), ce qui entraîne la formation de deux atomes d’oxygène libres (O).
+
+O₂(gaz) + UV → (énergie) O(gaz) + O(gaz)
+
+2- l’atome d’oxygène (à l’état atomique) se lié à une molécule d’oxygène pour formetr une molécule d’ozone.
+
+O₂(gaz) + O (gaz) ⇌ O₃(gaz)
+
+La destruction de la couche d’ozone:
+
+Il s’agit d’un processus d’érosion progressive de la couche d’ozone protectrice présente dans l’atmosphère. Cette destruction est principalement due au rejet de composés chimiques contenant du chlore et du brome, tels que les chlorofluorocarbures (CFC), issus des activités industrielles.
+
+Figure (2-15) : Trou dans la couche d’ozone
+
+Première secondaire 79

@@ -1,0 +1,31 @@
+1
+
+La chaleur spécifique (c) :
+La chaleur spécifique est la quantité de chaleur que doit absorber 1 kg d'une substance pour élever sa température de 1 kelvin (K). Son unité de mesure est : J/kg·K. Son symbole est (c )
+Plus la chaleur spécifique d'une substance est élevée, plus une masse donnée de cette substance nécessite une quantité d'énergie thermique plus grande pour élever sa température d'un kelvin, comparée à la même masse d'une autre substance dont la chaleur spécifique est plus basse.
+Le tableau suivant présente la chaleur spécifique de certaines substances, dont la plupart est à température ambiante :
+
+| Substance | Température | État physique | Chaleur spécifique (J/kg·K) Joules/ Kg. kelvin |
+| :--- | :--- | :--- | :--- |
+| Glace | 0°C | Solide | 2100 |
+| Aluminium | 25°C | Solide | 900 |
+| Cuivre | 25°C | Solide | 390 |
+| Plomb | 25°C | Solide | 128 |
+| Mercure | 25°C | Liquide | 140 |
+| Eau salée | 25°C | Liquide | 3900 |
+| Eau pure | 25°C | Liquide | 4200 |
+| Vapeur d'eau | 100°C | Gaz | 2020 |
+| Air | 25°C | Gaz | 1005 |
+
+Remarque : La chaleur spécifique dépend du genre de la matière, de son état physique, de la présence d'impuretés ou des substances dissous. Remarquons aussi que l'eau a une température spécifique relativement élevée comparée aux autres matières.
+La formule pour calculer la quantité de la chaleur gagnée ou perdue par un corps (Qth) est :
+Qth = m c Δt
+m: masse du corps par unité ( kg)
+Δt: la quantité de variation de température du corps par unité (°C) ou (K)
+c: chaleur spécifique de la matière par unité (J/kg.K) ou (J/kg. °C )
+
+Exemple: Calcule la quantité de chaleur nécessaire pour élever la température de 0,3 kg de cuivre de 20 °C à 70 °C, sachant que la chaleur spécifique du cuivre = 390 J/kg. K
+Solution:
+Qth = mc Δt = 0.3 × 390 × ( 70 - 20 ) = 5850 J
+
+Première secondaire 21

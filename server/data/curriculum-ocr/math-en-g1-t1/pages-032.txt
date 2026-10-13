@@ -1,0 +1,25 @@
+3 2
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 2 W h at’ s t h e P o siti o n ?
+W h at’ s t h e P o siti o n ? 2 - 1
+4 p e o pl e fr o m t h e fr o nt
+Fr o nt B a c k
+T h e 4t h p ers o n fr o m t h e fr o nt
+Fr o nt B a c k
+Cir cl e t h e a ns w er.
+(1 ) 3 r a b bits fr o m t h e fr o nt
+Fr o nt B a c k
+(2 ) T h e 4t h p ers o n fr o m t h e b a c k
+Fr o nt B a c k
+H o w t o S ol v e
+(1 ) C o u nt fr o m t h e fr o nt (2 ) C o u nt fr o m t h e b a c k
+T h e 4 t h fr o m t h e fr o nt
+is t his o n e p ers o n!

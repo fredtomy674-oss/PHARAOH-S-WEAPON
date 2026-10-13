@@ -1,0 +1,31 @@
+1 Unité 1 – L’écosystème aquatique
+
+Le pH (potentiel hydrogène) :
+
+C’est une échelle quantitative qui exprime le degré d’acidité ou de basicité des liquides ou des solutions. Elle prend des valeurs de 0 à 14.
+Le pH exprime la relation entre les concentrations des ions hydrogène (H⁺) et des ions hydroxyde (OH⁻). Ce terme est largement utilisé dans les sciences de la chimie, de la biologie et de l’agriculture.
+
+La concentration en OH⁻ augmente
+La concentration en H⁺ augmente
+pH
+14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
+L’alcalinité augmente
+Point neutre
+L’acidité augmente
+
+L’équilibre acido-basique dans l’eau dépend de la relation entre la concentration des ions hydrogène (H⁺) et celle des ions hydroxyde (OH⁻). Dans le cas de l’eau pure, l’eau est neutre car les concentrations des deux ions sont égales et la valeur du pH est égale à 7. Si la concentration en H⁺ augmente, la solution aqueuse devient acide et la valeur du pH est inférieure à 7. Si la concentration en OH⁻ augmente, la solution aqueuse devient basique et la valeur du pH est supérieure à 7.
+
+Activité : Mesurer la variation du pH dans différentes échantillons d’eau :
+
+Pour mesurer la valeur du pH d’échantillons d’eau différents (eau de mer, eau de rivière, eau de puits), tu peux réaliser l’expérience suivante :
+Matériaux requis :
+1. Un pH-mètre ou des bandelettes de test du pH
+2. Échantillons d’eau (eau de mer, eau de rivière, eau de puits)
+3. Des gobelets pour les échantillons
+4. De l’eau distillée (pour l’étalonnage)
+5. Une tige d’agitation
+6. Des papiers absorbants
+
+Figure (1-10) Mesure du pH
+
+12 Sciences intégrées

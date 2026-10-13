@@ -1,0 +1,45 @@
+1 Unité 2 : L'atmosphère
+
+ainsi que l'Internet sans fil. Ils constituent également une partie essentielle des
+systèmes de géolocalisation mondiale (GPS) et nous fournissent des données
+précises sur le temps et le climat, ce qui permet de prévoir les catastrophes naturelles,
+de surveiller la Terre et l'espace extra-atmosphérique, et d'améliorer notre
+compréhension de la planète et de l'univers.
+Vitesse de libération:
+Il est intéressant de savoir que Mercure, la plus
+petite planète du système solaire, ne possède pas
+d'atmosphère gazeuse.
+Ainsi, une quantité énorme de rayonnement solaire
+atteint sa surface, ce qui entraîne une élévation très
+importante de sa température en raison de l'absorption
+du rayonnement reçu.
+Figure (2-10) : la planète Mercure
+Lorsque le Soleil disparaît au cours de sa rotation, la planète réémet ce
+rayonnement vers l'espace et se refroidit alors très rapidement, en l'absence d'une
+atmosphère capable de retenir la chaleur.
+Tu te demandes peut-être pourquoi la Terre conserve son atmosphère, alors
+que la planète Mercure n'en possède pas ?
+Les molécules de chaque gaz se déplacent à
+des vitesses très élevées, qui dépendent de la
+masse de la molécule et de la température.
+Figure (2-11) : Mouvement des molécules de gaz
+Naturellement, cette vitesse quadratique
+moyenne des molécules de gaz (Vrms) est d'autant
+plus grande que la masse de la molécule est faible,
+et qu'elle augmente également avec l'élévation de la température du gaz.
+Pour s'échapper de la gravité d'une planète, un corps, quelle que soit sa masse,
+doit acquérir une vitesse particulière appelée
+vitesse de libération (Ve) de la gravité de cette
+planète. Cette vitesse est une valeur constante
+pour tout corps situé sur une planète donnée.
+La vitesse de libération de la Terre est
+d'environ 11.2 km/s.
+Figure (2-12) : Échappement à la gravité
+La présence ou non d'un gaz autour d'une planète
+dépend de la relation entre la vitesse quadratique
+moyenne des molécules de gaz (Vrms) et la vitesse de libération de la planète (Ve).
+Si la vitesse effective Vrms des molécules de gaz est inférieure à la vitesse de
+libération Ve, alors les molécules de gaz ne peuvent pas s'échapper dans l'espace
+en raison de la gravité de la planète, et celle-ci conserve donc ce gaz dans son
+atmosphère.
+74 Sciences intégrées

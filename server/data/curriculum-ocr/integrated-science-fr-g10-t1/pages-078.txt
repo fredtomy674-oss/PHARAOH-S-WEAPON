@@ -1,0 +1,19 @@
+1
+
+La couche ionosphérique peut réfléchir les ondes électromagnétiques.
+Elle est donc utilisée pour les communications sans fil à longue distance, grâce à sa capacité à renvoyer les ondes radio.
+L'aurore polaire :
+L'importance de l'ionosphère ne se limite pas uniquement aux communications sans fil, elle est également responsable du phénomène des aurores polaires (Aurora).
+Ce phénomène est observé aux pôles nord et sud de la Terre. Lorsque des particules chargées à haute énergie provenant du Soleil (faisant partie du vent solaire) atteignent la Terre, elles sont influencées par le champ magnétique terrestre et attirées vers les pôles.
+Figure (2-8) : l'ionosphère
+Ces particules entrent alors en collision avec les ions et les atomes présents dans l'ionosphère. Cette collision excite les atomes qui, en retournant à leur état fondamental moins énergétique, émettent des photons lumineux de différentes longueurs d'onde, produisant ainsi les lumières brillantes visibles dans le ciel.
+
+5. L'exosphère:
+L'exosphère est la couche la plus haute de l'atmosphère terrestre. Certains scientifiques la considèrent comme la partie supérieure de la thermosphère.
+Elle s'étend d'environ 700 km jusqu'à 10000 km au-dessus de la surface de la Terre.
+Figure (2-9) : l'ionosphère
+Dans l'exosphère, certaines atomes et molécules peuvent parcourir de très grandes distances sans entrer en collision avec d'autres particules. Cela leur confère des vitesses très élevées qui leur permettent parfois d'échapper à la gravité terrestre et de s'échapper vers l'espace interplanétaire.
+En raison de sa très faible densité et de sa proximité avec l'état de vide, l'exosphère est la région idéale pour placer les satellites et les véhicules spatiaux, car ils n'y rencontrent pratiquement aucune résistance, ce qui leur permet de rester en orbite pendant de longues périodes.
+La présence des satellites a un impact direct sur notre vie quotidienne, puisqu'ils facilitent notamment les communications internationales.
+
+Première secondaire 73

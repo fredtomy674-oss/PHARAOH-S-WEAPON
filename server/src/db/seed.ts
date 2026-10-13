@@ -149,6 +149,18 @@ import {
   assertTreeMatchesTheBook as assertMathG1TreeMatchesBook,
 } from "./egyptMathG1T1.js";
 import {
+  EGYPT_INTEGRATED_SCIENCE_FR_G10_T1_UNITS,
+  lessonDocument as integratedScienceFrG10LessonDocument,
+  isConsistent as isIntegratedScienceFrG10TreeConsistent,
+  assertTreeMatchesTheBook as assertIntegratedScienceFrG10TreeMatchesBook,
+} from "./egyptIntegratedScienceFrG10T1.js";
+import {
+  EGYPT_MATH_EN_G1_T1_UNITS,
+  lessonDocument as mathEnG1LessonDocument,
+  isConsistent as isMathEnG1TreeConsistent,
+  assertTreeMatchesTheBook as assertMathEnG1TreeMatchesBook,
+} from "./egyptMathEnG1T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2908,6 +2920,104 @@ function verifyMathG1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Integrated Science — French edition** — OFFICIAL
+ * curriculum (PHASE 119).
+ *
+ * The first term IS the Ministry textbook (`SCIENCES INTÉGRÉES — PREMIÈRE ANNÉE
+ * SECONDAIRE`; 114 pages, Gemini OCR): its two units (Le système écologique aquatique,
+ * L'atmosphère) and the pages they occupy (book pages 3–108). The printed page → scan
+ * page map is a constant +5, proven by the running-head folios (scan 10 = page 5,
+ * scan 13 = page 8, scan 113 = page 108) — the same pagination as the English twin. A
+ * lesson is each printed leçon; its `concepts` are the lesson's own printed heads, in
+ * the book's own words (`Acquis/Résultat de l'apprentissage`, `Problématique abordée`,
+ * topical heads, `Exercices`), verbatim in French.
+ */
+export const EGYPT_INTEGRATED_SCIENCE_FR_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "science-fr", name: "Science (French)", nameAr: "العلوم (بالفرنسية)" },
+  curriculum: { code: "eg-g10-integrated-science-fr", title: "العلوم المتكاملة للصف الأول الثانوي (بالفرنسية)" },
+  terms: [buildEgyptIntegratedScienceFrG10Term()],
+};
+
+/** Term 1 = the official French Integrated Science book: printed unit → printed lesson. */
+function buildEgyptIntegratedScienceFrG10Term(): TermSeedSpec {
+  const check = verifyIntegratedScienceFrG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم المتكاملة (بالفرنسية) (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_INTEGRATED_SCIENCE_FR_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-isci-fr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: integratedScienceFrG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Integrated Science FR tree verification, as one verdict. */
+function verifyIntegratedScienceFrG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isIntegratedScienceFrG10TreeConsistent();
+  const book = assertIntegratedScienceFrG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-1 (Grade 1) **Mathematics (English-medium)** — OFFICIAL curriculum
+ * (PHASE 120).
+ *
+ * The first term IS the Ministry textbook (`MATHEMATICS — Primary 1 — Term 1`, 2025/2026;
+ * 96 born-digital pages, text layer already extracted): its nine chapters and the pages
+ * they occupy (book pages 6–93) — the same pagination as the Arabic twin. Book page =
+ * scan index (offset 0), proven by the printed folios (scans 6/14/32/44/54/68/80/93).
+ * A lesson is each printed lesson; its `concepts` are the lesson's own printed flow
+ * heads (`Lesson`/`Example`/`How to Solve`), verbatim in English.
+ */
+export const EGYPT_MATH_EN_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "math-en", name: "Mathematics (English)", nameAr: "الرياضيات (بالإنجليزية)" },
+  curriculum: { code: "eg-g1-math-en", title: "الرياضيات للصف الأول الابتدائي (بالإنجليزية)" },
+  terms: [buildEgyptMathEnG1Term()],
+};
+
+/** Term 1 = the official Primary-1 English maths book: printed chapter → printed lesson. */
+function buildEgyptMathEnG1Term(): TermSeedSpec {
+  const check = verifyMathEnG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالإنجليزية) (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_EN_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-math-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathEnG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 English Maths tree verification, as one verdict. */
+function verifyMathEnG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathEnG1TreeConsistent();
+  const book = assertMathEnG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4459,6 +4569,8 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_INTEGRATED_SCIENCE_FR_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_EN_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);

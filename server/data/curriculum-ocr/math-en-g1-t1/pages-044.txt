@@ -1,0 +1,25 @@
+4 4
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 4 S u btr a cti o n
+W h e n y o u t a k e 3 a w a y fr o m 5, y o u g et 2. W e c a n writ e it li k e t his:
+S u btr a cti o n s e nt e n c e: 5 – 3 = 2
+W e s a y: “ Fi v e mi n u s t hr e e i s ( e q u al s) t w o. ”
+S e nt e n c es li k e 3 – 2 or 4 – 1 ar e c all e d s u btr a cti o n .
+(1 ) W hi c h pi ct ur e s h o ws 3 – 1?
+A B C
+(2 ) L et’s d o s u btr a cti o n.
+1 1 4 – 3 2 2 5 – 2 3 3 1 0 – 1
+H o w t o S ol v e
+(1 ) C h o os e t h e pi ct ur e t h at s h o ws 3 t a k e a w a y 1. A ns w er: C
+(2 ) 1 1 4 – 3 = 1 2 2 5 – 2 = 3 3 3 1 0 – 1 = 9
+S u btr a cti o n
+si g n
+S u btr a cti o n ( P art 1) 4 - 1

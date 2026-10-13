@@ -1,0 +1,28 @@
+1 Unité 1 – L’écosystème aquatique
+
+1-4 Les solutions aqueuses et leurs propriétés
+
+Tu as appris que l’eau possède des propriétés uniques, telles que la polarité de ses molécules, les liaisons hydrogène entre elles, la capacité de dissoudre d’autres molécules polaires et des composés ioniques, ainsi qu’un point d’ébullition élevé. Mais l’eau présente dans les étendues d’eau n’est pas pure : elle est mélangée à plusieurs substances dissoutes ou en suspension. Ces substances dissoutes influencent directement les propriétés de l’eau, ce qui entraîne des changements dans les courants aquatiques et une diversité des êtres vivants.
+
+Une solution est un mélange homogène constitué d’un solvant et d’un soluté. Dans les milieux aquatiques, l’eau est généralement le solvant, tandis que le soluté peut être une substance chimique comme des sels ou d’autres matières.
+
+Les propriétés colligatives des solutions:
+
+Ce sont les propriétés d’une solution qui dépendent du nombre de molécules ou d’ions du soluté non volatil, et non pas de la nature du soluté.
+
+Parmi les propriétés colligatives des solutions, on trouve:
+
+la diminution de la pression de vapeur, l’élévation du point d’ébullition, l’abaissement du point de congélation et la pression osmotique.
+
+1. La diminution de la pression de vapeur du liquide:
+
+Supposons que nous ayons un liquide dans un ballon fermé (système fermé) à une température donnée. Certaines molécules du liquide se libèrent de sa surface et passent à l’état de vapeur, tandis qu’une partie des molécules de vapeur retourne dans le liquide. Lorsque le taux d’évaporation du liquide est égal au taux de condensation de la vapeur, de sorte que la quantité de liquide et de vapeur reste constante, on dit que le liquide et sa vapeur sont en équilibre dynamique.
+
+Figure 2-1
+Équilibre dynamique entre un liquide et sa vapeur
+
+La vapeur formée au-dessus de la surface du liquide par évaporation exerce une pression sur la surface du liquide, appelée pression de vapeur du liquide.
+
+Dans l’eau pure, les molécules de surface peuvent se libérer et passer à l’état de vapeur. Entre les molécules d’eau existent des forces d’attraction dues à la liaison hydrogène.
+
+28 Sciences intégrées

@@ -1,0 +1,19 @@
+6 7
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6 - 2 W h at W e L e ar n fr o m R e s ult s
+(2 ) W e c o u nt e d e a c h t y p e of t h e c ol or e d a ni m als. L et’s a ns w er t h e q u esti o ns.
+1 1 W hi c h h as t h e m ost ?
+2 2 W hi c h h as t h e l e ast ?
+3 3 W hi c h a ni m als h a v e t h e
+s a m e n u m b er?
+4 4 H o w m a n y c a m els ar e
+t h er e?
+LI O N S GI R A F F E S BI R D S C A M E L S

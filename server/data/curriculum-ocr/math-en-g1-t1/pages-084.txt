@@ -1,0 +1,30 @@
+8 4
+C h a pt er 7 N u m b er s Gr e at er t h a n 1 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+N u m b er s Gr e at er t h a n 2 0 7 - 6
+N u m b ers gr e at er t h a n 2 0
+E x a m pl e
+2 0 1
+2 0 a n d 1 m a k e T w e nt y - o n e
+3 0 2
+T hirt y
+3 0 a n d 2 m a k e T hirt y -t w o
+(1 ) C o u nt a n d writ e t h e n u m b er.
+1 1
+1 0
+1 0
+2 2
+(2 ) Writ e t h e n u m b er.
+1 1 T w e nt y-si x 2 2 T hirt y- ei g ht
+H o w t o S ol v e
+(1 ) 1 1 1 0 a n d 1 0 m a k e 2 0. A d d 3 m or e t o 2 0, a n d t h at m a k es 2 3 .
+2 2 1 0, 1 0, a n d 1 0 m a k e 3 0. A d d 5 m or e t o 3 0, a n d t h at m a k es 3 5 .
+(2 ) 1 1 T w e nt y ( 2 0) a n d si x ( 6) m a k e 2 6 . 2 2 T hirt y ( 3 0) a n d ei g ht ( 8) m a k e 3 8 .

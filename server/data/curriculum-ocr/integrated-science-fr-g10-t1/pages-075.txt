@@ -1,0 +1,48 @@
+1 Unité 2 : L'atmosphère
+
+➔ Et les empêche de s'échapper vers l'espace, phénomène connu sous le nom d'effet de serre L'atmosphère contient également d'autres gaz tels que : la vapeur d'eau (H₂O), le dioxyde de soufre (SO₂), l'ozone (O₃), le monoxyde de carbone (CO) et le dioxyde d'azote (NO₂).
+
+Les couches de l'atmosphère :
+L'atmosphère est divisée en plusieurs couches, chacune ayant des caractéristiques qui la distinguent. Leur ordre, en commençant depuis la surface de la Terre, est le suivant :
+1. La troposphère
+C'est la couche de l'atmosphère la plus proche de la surface de la Terre. Elle s'étend en moyenne jusqu'à environ 10 km d'altitude au-dessus du sol. Cette couche est considérée comme la plus dense de l'atmosphère.
+Dans la troposphère se produisent la plupart des phénomènes météorologiques liés au temps et au climat, tels que la formation des nuages, les précipitations, le mouvement des vents etc,
+La température moyenne à la surface de la Terre, en dessous de cette couche, est d'environ 15 °C. Dans cette couche, la température de l'air diminue avec l'altitude d'environ 6,5 °C pour chaque 1000 m. Cette baisse est due à la diminution de la pression atmosphérique avec l'élévation au-dessus de la surface terrestre, ce qui provoque la dilatation de l'air. Cette dilatation nécessite de l'énergie, prélevée sur une partie de l'énergie cinétique de ses molécules.
+Cette diminution de température se poursuit jusqu'aux limites de la tropopause, située à une altitude d'environ 11 km.
+
+Exosphère
+Thermosphère
+Mésosphère
+Stratosphère
+Troposphère
+Figure (2-3) Les couches de l'atmosphère
+
+Troposphère
+Température
+Pluies
+Neige
+Orages
+Figure (2-4) La troposphère
+
+Altitude (km)
+16
+14
+12
+10
+8
+6
+4
+2
+0
+-100 -80 -60 -40 -20 0 +20 +40 +60
+(°C) Température
+-56.5°C
+11 000 m
+Stratosphère
+Tropopause
+Troposphère
+6.5°C km-1
++15°C
+Figure (2-5) : La troposphère
+
+70 Sciences intégrées

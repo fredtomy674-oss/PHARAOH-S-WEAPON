@@ -1,0 +1,22 @@
+1 Unité 2 : L'atmosphère
+
+Deuxièmement : la pression atmosphérique (pression de l'air)
+L'atmosphère reste attirée vers la surface terrestre par la force de gravité. Cette force attire les molécules d'air vers le bas, ce qui rend l'atmosphère plus dense près de la surface terrestre. La majeure partie de la masse atmosphérique est concentrée dans la couche allant de la surface terrestre jusqu'à une altitude de 30 kilomètres. La quantité et la densité de l'air diminuent dans les couches supérieures, rendant la respiration plus difficile à haute altitude.
+Dans les régions élevées, la quantité d'oxygène disponible pour l'organisme diminue. Ce manque d'oxygène exerce une pression sur le corps, qui s'adapte de différentes manières : il réagit à la rareté de l'oxygène en augmentant la production de globules rouges, responsables du transport de l'oxygène dans le sang. Cela aide à acheminer une plus grande quantité d'oxygène disponible vers les tissus.
+La pression atmosphérique résulte du poids de la colonne d'air qui s'étend d'un point donné jusqu'à la limite de l'atmosphère et qui agit sur l'unité de surface environnante. La valeur de la pression atmosphérique varie d'un point à un autre dans l'atmosphère : elle diminue à mesure que l'on s'élève au-dessus du niveau de la mer.
+Pression atmosphérique normale:
+La pression atmosphérique normale est définie comme étant la valeur de la pression atmosphérique au niveau de la mer à 0 °C, et elle est égale à 1,013 × 10⁵ N/m². La pression atmosphérique diminue avec l'altitude par rapport au niveau de la mer.
+L'unité millibar (Millibar) est utilisée pour exprimer la pression atmosphérique sur les cartes météorologiques.
+
+Figure (2-24) le militaire ( aviateur ) a besoin de se procurer de l'oxygène à de grandes altitudes
+
+Fin de l'atmosphère
+colonne d'air de section unitaire, de hauteur égale à l'altitude de l'atmosphère
+niveau de la mer
+unité de surface
+
+Pression atmosphérique élevée
+Pression atmosphérique faible
+Niveau de la mer
+
+88 Sciences intégrées

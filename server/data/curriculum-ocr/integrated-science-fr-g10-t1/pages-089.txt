@@ -1,0 +1,48 @@
+1 Unité 2 : L'atmosphère
+
+2-3 Facteurs physiques et leur effet sur l’atmosphère
+
+Premièrement : la chaleur:
+La température est considérée comme l'un des facteurs climatiques les plus
+importants, car elle influence les autres
+facteurs tels que la pression atmosphérique, ? Pensée critique
+les vents, l'humidité, la condensation et, par
+Pourquoi la température est-elle
+conséquent, les pluies.
+plus élevée dans la partie inférieure
+Lorsque les rayons du soleil atteignent
+de la troposphère que dans sa
+la Terre, la surface terrestre, composée de
+partie supérieure?
+continents et d'eaux, se réchauffe davantage,
+puis la chaleur se transmet à l'atmosphère
+qui entoure la Terre, ce qui provoque une élévation de sa température.
+Ainsi, les couches de l'air proches de la surface terrestre sont plus chaudes que
+celles qui en sont éloignées.
+
+Mesurer la température de l›air:
+Les agences météorologiques
+mesurent régulièrement la température
+de l'air et la comparent avec celle d'autres
+régions, ainsi qu'avec les températures
+enregistrées au cours des années
+précédentes pendant la même saison
+climatique.
+
+Ces organismes utilisent l'une des
+échelles suivantes:
+1- L'échelle Celsius (t °C), qui est utilisée,
+par exemple, en Égypte.
+2- L'échelle Fahrenheit (t °F), qui est utilisée, par exemple, aux États-Unis
+d'Amérique.
+3- L'échelle Kelvin (TK), qui représente l'échelle absolue de la température, utilisée
+dans les domaines scientifiques.
+
+La relation entre les échelles de température:
+Relation entre l'échelle de température absolue TK et l'échelle Celsius tc:
+TK= tc+ 273
+La relation entre l'échelle de température Fahrenheit tf et l'échelle de température
+Celsius tc:
+tf = ( 1.8 × tc ) + 32
+
+84 Sciences intégrées

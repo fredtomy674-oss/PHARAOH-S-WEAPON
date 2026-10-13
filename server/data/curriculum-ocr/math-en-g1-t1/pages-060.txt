@@ -1,0 +1,21 @@
+6 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 6 R e pr e s e nti n g D at a
+H o w t o r e pr es e nt d at a wit h pi ct ur es:
+• W h e n y o u w a nt t o fi n d o ut t h e n u m b er of s c att er e d it e ms, li n e t h e m u p
+a n d s ort t h e m. T h at m a k es it e asi er t o u n d erst a n d.
+• W h e n r e pr es e nti n g: 1 1 M ar k e a c h o n e. 2 2 C ol or fr o m t h e b ott o m u p .
+C o u nt e a c h t y p e of t h e fr uit a n d c ol or t h e m.
+H o w t o S ol v e
+P ut a m ar k o n e a c h pi ct ur e a n d c ol or fr o m t h e b ott o m u p.
+S T R A W B E R RI E S M E L O N S O R A N G E S G R A P E S
+S T R A W B E R RI E S M E L O N S O R A N G E S
+R e pr e s e nti n g D at a wit h Pi ct ur e s 6 - 1

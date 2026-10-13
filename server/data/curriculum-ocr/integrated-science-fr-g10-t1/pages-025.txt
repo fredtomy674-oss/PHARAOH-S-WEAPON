@@ -1,0 +1,35 @@
+1 Unité 1 – L’écosystème aquatique
+
+La quantité de chaleur et la température :
+
+Il arrive souvent que l’on confonde dans la vie quotidienne les deux notions :
+« la quantité de chaleur » et « la température ». Bien qu’elles soient liées, elles sont différentes sur le plan scientifique et physique.
+
+Tout corps ou système est constitué d’un grand nombre de molécules (molécules ou atomes) entre lesquelles existent des distances intermoléculaires qui sont en mouvement constant. La somme de l’énergie potentielle résultant de la position des molécules les unes par rapport aux autres et de l’énergie cinétique résultant du mouvement des molécules est appelée énergie interne du corps ou du système.
+
+Le concept de quantité de chaleur désigne l’énergie transférée d’un corps à un autre ou à l’intérieur d’un corps lorsqu’il existe une différence de température. On mesure la quantité de chaleur en joules (J).
+
+Quant à la température, c’est une grandeur qui décrit le degré de chaleur ou de froid d’un corps ou d’un système. Elle représente la moyenne de l’énergie cinétique des molécules du corps ou du système. Son unité internationale est le kelvin (K).
+
+Afin de convertir la température en kelvins à partir de sa valeur en degré Celsius, on utilise la formule suivante :
+
+( T K = t°C + 273 )
+
+Sachant qu’une augmentation de la température de un degré Celsius (°C) équivaut son augmentation de un kelvin (K) .
+
+Lorsqu’un corps ou un système gagne une quantité d’énergie thermique, l’amplitude de vibration de ses particules augmente ainsi que leur énergie cinétique . Par conséquent, sa température augmente.
+
+La question ici est la suivante: est-ce qu’une même quantité de chaleur est nécessaire pour élever la température d’unités de masse de différentes substances d’un kelvin chacune ?
+
+20 Sciences intégrées
+
+Point d’ébullition de l’eau pure 100°C 373 K
+Point de congélation de l’eau pure 0°C 273 K
+Le zéro absolu -273°C 0 K
+Centigrade Kelvin
+Figure (1-17)
+L’échelle Kelvin et Celsius de température
+
+Lorsque l’énergie thermique d’une substance augmente, ses particules se déplacent plus rapidement.
+Figure (1-18)
+L’énergie thermique et la température

@@ -1,0 +1,26 @@
+1 6
+C h a pt er 1 N u m b er s u p t o 1 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+L et’ s C o u nt! (fr o m 6 t o 1 0)
+W h e n y o u c o u nt, p oi nt t o e a c h pi ct ur e wit h y o ur fi n g er a n d s a y t h e
+n u m b ers:
+“ O n e , t w o , t hr e e , f o ur , fi v e , si x , s e v e n , ei g ht , ni n e , t e n .”
+E x a m pl e
+•
+Writ e t h e n u m b er f or h o w m a n y y o u s e e.
+(1 ) (2 )
+H o w t o S ol v e
+P oi nt t o e a c h pi ct ur e wit h y o ur fi n g er a n d s a y t h e n u m b ers:
+“ O n e, t w o, t hr e e, f o ur, fi v e, si x, s e v e n, ei g ht, ni n e, t e n. ”
+(1 ) 9
+(2 ) 6
+O n e T w o T hr e e F o ur Fi v e Si x S e v e n
+1 - 6

@@ -1,0 +1,26 @@
+4 9
+2
+3
+4
+5
+8
+6
+9
+7
+1
+4 - 3 S u btr a cti o n wit h Z er o
+(1 ) L et’s d o s u btr a cti o n.
+1 1 1 – 0 2 2 9 – 0 3 3 6 – 1
+4 4 4 – 4 5 5 5 – 5 6 6 7 – 3
+(2 ) T h er e ar e 5 b all s i n t h e b a s k et. Y o u di d n’t t a k e a n y.
+H o w m a n y b all s ar e l ef t i n t h e b a s k e t ? Wri t e t h e
+m at h e m ati c al s e nt e n c e a n d t h e a ns w er.
+(3 ) T h er e ar e 6 bir d s. All 6 fl e w a w a y. H o w m a n y bir d s ar e l eft ? Writ e t h e
+m at h e m ati c al s e nt e n c e a n d t h e a ns w er.
+(1 ) L et’s d o s u btr a cti o n.
+1 1 3 – 0 2 2 5 – 0 3 3 8 – 2
+4 4 6 – 6 5 5 3 – 3 6 6 4 – 3
+(2 ) T h er e ar e 5 a p pl es. Y o u di d n’t e at a n y. H o w m a n y a p pl es ar e l eft? Writ e t h e
+m at h e m ati c al s e nt e n c e a n d t h e a ns w er.
+(3 ) T h er e ar e 2 pi e c e s of c a k e. Y o u at e all 2. H o w m a n y ar e l eft ? Writ e t h e
+m at h e m ati c al s e nt e n c e a n d t h e a ns w er.

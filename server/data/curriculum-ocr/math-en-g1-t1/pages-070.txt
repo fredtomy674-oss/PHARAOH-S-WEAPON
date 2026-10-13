@@ -1,0 +1,20 @@
+7 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6 - 3 L et’ s C o m p ar e R e s ult s
+(1 ) Cl ass 1 a n d Cl ass 2 s ort e d t h eir f a v orit e a ni m als. L et’s a ns w er t h e q u esti o ns.
+1 1 W hi c h cl ass h as m or e d o gs ?
+2 2 W hi c h cl ass h as m or e c a m els ?
+3 3 W hi c h a ni m al is t h e m ost i n Cl ass 1 ?
+4 4 W hi c h a ni m al h as t h e s a m e n u m b er i n b ot h cl ass es ?
+GI R A F F E S D O G S C A T S C A M E L S
+Cl ass 2
+GI R A F F E S D O G S C A T S C A M E L S
+Cl ass 1

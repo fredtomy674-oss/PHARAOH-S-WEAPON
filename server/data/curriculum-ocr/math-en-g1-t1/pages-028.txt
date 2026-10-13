@@ -1,0 +1,23 @@
+2 8
+C h a pt er 1 N u m b er s u p t o 1 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+L et’ s C o m p ar e N u m b er s
+R e vi e w of n u m b ers fr o m 1 t o 1 0
+, , , , , , , , ,
+N u m b ers g et bi g g er as y o u g o t o t h e ri g ht.
+S m all Bi g
+Cir cl e t h e bi g g er n u m b er.
+H o w t o S ol v e
+N u m b ers g et bi g g er as y o u g o t o t h e ri g ht.
+Bi g
+W hi c h is bi g g er ?
+C o u nt i n or d er fr o m 1
+a n d t hi n k!

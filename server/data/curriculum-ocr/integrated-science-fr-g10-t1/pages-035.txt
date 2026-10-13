@@ -1,0 +1,21 @@
+1 Unité 1 – L’écosystème aquatique
+
+solution, la pression de vapeur de la solution devient inférieure à celle de l’eau pure. Ainsi, le point d’ébullition de la solution est plus élevé que celui de l’eau pure sous la pression atmosphérique normale, en raison des forces d’attraction entre les molécules ou les ions du soluté et celles du solvant (l’eau). Cela nécessite une énergie supplémentaire pour vaporiser le liquide.
+
+L’élévation du point d’ébullition d’une solution est directement proportionnelle au nombre de molécules ou d’ions dissous dans la solution.
+
+3. L’abaissement du point de congélation de l’eau – point de fusion de la glace:
+Le point de congélation d’une solution aqueuse est toujours inférieur à celui de l’eau pure sous la pression atmosphérique normale, en raison des forces d’attraction entre les molécules d’eau et les molécules ou ions du soluté, qui empêchent les molécules d’eau de s’associer pour former des cristaux de glace.
+
+Dans les pays froids, on répand du sel sur les routes dans certaines zones où la température atteint des valeurs négatives (°C), afin d’empêcher la congélation de l’eau de pluie sur les routes, d’éviter le glissement des voitures et de réduire les accidents.
+
+4. L’osmose et la pression osmotique:
+L’osmose est le phénomène de passage de l’eau d’une solution diluée vers une solution concentrée à travers une membrane semi-perméable qui sépare les deux solutions.
+
+La pression osmotique est la pression qui apparaît dans une solution en raison de la différence de concentration du soluté entre ses parties. Elle entraîne le déplacement de l’eau de la solution la moins concentrée (ayant une faible pression osmotique) vers la solution la plus concentrée (ayant une pression osmotique plus élevée). (Figure 1-25).
+
+membrane semi-perméable
+molécule d'eau osmotique
+Figure 1-25) Osmose
+
+30 Sciences intégrées

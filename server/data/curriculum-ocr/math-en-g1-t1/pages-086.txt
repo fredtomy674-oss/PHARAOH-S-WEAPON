@@ -1,0 +1,73 @@
+8 6
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 8 R e a di n g t h e Cl o c k
+T h er e ar e t w o h a n ds o n a cl o c k.
+T h e s h ort h a n d s h o ws t h e h o ur . T h e l o n g h a n d s h o ws t h e mi n ut e .
+E x a m pl e 1 T h e s h ort h a n d is o n 8, a n d t h e l o n g h a n d is o n 1 2.
+It is 8 o’ cl o c k
+E x a m pl e 2 T h e s h ort h a n d is b et w e e n 8 a n d 9, a n d t h e l o n g h a n d is
+o n 6.
+•
+It is h alf p a st 8
+L et’s r e a d t h e cl o c ks.
+(1 ) 1 2
+6
+1
+2
+3
+4
+5 7
+8
+9
+1 0
+1 1
+(2 ) 1 2
+6
+1
+2
+3
+4
+5 7
+8
+9
+1 0
+1 1
+H o w t o S ol v e
+(1 ) S h ort h a n d is o n 1, l o n g h a n d is o n 1 2 It is 1 o’ cl o c k
+(2 ) S h ort h a n d is b et w e e n 5 a n d 6, l o n g h a n d is o n 6 It is h alf p ast 5
+1 2
+6
+1
+2
+3
+4
+5 7
+8
+9
+1 0
+1 1 L o n g h a n d
+S h ort h a n d
+1 2
+6
+1
+2
+3
+4
+5 7
+8
+9
+1 0
+1 1 W h e n t h e s h ort h a n d is b et w e e n t w o
+n u m b ers, r e a d t h e s m all er n u m b er.
+W h e n t h e l o n g
+h a n d is o n 6 , w e
+s a y “ h alf p ast ”.
+T elli n g Ti m e o n a Cl o c k 8 - 1

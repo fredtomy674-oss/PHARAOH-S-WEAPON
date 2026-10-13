@@ -1,0 +1,41 @@
+Exercice
+Trouve le point de congélation et le point d'ébullition de l'eau pure sur les
+échelles Kelvin et Fahrenheit et enregistrez-les dans le tableau suivant.
+\begin{tabular}{|l|c|c|c|}
+\hline Température & $\mathrm{t}_{\mathrm{c}}$ & $\mathrm{t}_{\mathrm{F}}$ & $\mathrm{T}_{\mathrm{K}}$ \\
+\hline \begin{tabular}{l} 
+Point de congélation de l'eau pure \\
+(point de fusion de la glace)
+\end{tabular} & $0^{\circ} \mathrm{C}$ & & \\
+\hline Point d'ébullition de l'eau pure & $100^{\circ} \mathrm{C}$ & & \\
+\hline
+\end{tabular}
+Mécanismes de transfert de chaleur:
+La chaleur est généralement transférée de trois manières:
+1. Conduction: La chaleur se transmet à travers un corps solide ou entre deux
+corps en contact. Elle passe de la région ayant la température la plus élevée vers
+les régions à température plus basse,
+sans que les particules du corps ne se
+déplacent. Certaines matières se
+distinguent par une bonne conductivité
+thermique comme les métaux, tandis
+que d'autres ont une conductivité
+thermique faible, comme le liège.
+2. Convection: La chaleur se transmet
+dans les fluides (liquides et gaz) par les
+courants de convection. Les parties du fluide ayant une température plus élevée
+possèdent une densité plus faible que celles à température plus basse ; les par-
+ties de plus faible densité commencent donc à s'élever à travers le fluide et sont
+remplacées par des parties plus denses.
+Avez-vous déjà vu un oiseau voler haut sans
+battre des ailes?
+Ce n'est pas seulement un spectacle
+spectaculaire ; c'est le résultat de l'exploitation par
+les oiseaux de ce qu'on appelle le vol thermique.
+Ce phénomène permet aux oiseaux de rester
+en l'air pendant de longues périodes sans battre
+constamment des ailes, économisant ainsi de
+l'énergie tout en flottant au-dessus des courants d'air chaud convectifs et en
+maintenant leur altitude.
+
+Première secondaire

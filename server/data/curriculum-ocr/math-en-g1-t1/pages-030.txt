@@ -1,0 +1,24 @@
+3 0
+C h a pt er 1 N u m b er s u p t o 1 0
+2
+3
+4
+5
+8
+6
+9
+7
+1 T h e n u m b er 0 is c all e d “ z er o ”
+Ar e t h er e a n y c ol or e d cir cl es ? !
+T h er e ar e n o c ol or e d cir cl es, a n d t h at m e a ns “ z er o ”
+Z er o
+Writ e t h e n u m b er of or a n g es.
+(1 ) (2 )
+H o w t o S ol v e
+P oi nt t o t h e pi ct ur e a n d c o u nt: “ O n e, t w o, t hr e e, f o ur, fi v e. ”
+If t h er e is n ot hi n g, writ e 0.
+(1 ) 4
+(2 ) 0
+“ Z er o ” m e a ns n ot hi n g is
+t h er e!
+T h e N u m b er Z er o

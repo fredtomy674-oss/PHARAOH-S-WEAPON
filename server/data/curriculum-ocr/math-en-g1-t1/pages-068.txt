@@ -1,0 +1,28 @@
+6 8
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 6 R e pr e s e nti n g D at a
+L et’ s C o m p ar e R e s ult s
+W h e n w e c o m p ar e t w o r es ults, w e c a n s e e t h e diff er e n c es.
+Cl ass 1 a n d Cl ass 2 s ort e d t h eir f a v orit e fr uits. L et’s a ns w er t h e q u esti o ns.
+(1 ) W hi c h cl ass h as m or e gr a p es?
+(2 ) W hi c h cl ass h as m or e m el o ns?
+(3 ) W hi c h fr uit h as t h e s a m e n u m b er i n b ot h cl ass es?
+H o w t o S ol v e
+(1 ) C o m p ar e t h e n u m b er of c ol or e d gr a p es: Cl ass 1 h as 8, Cl ass 2 h as 5.
+Cl ass 1 h as m or e gr a p es.
+(2 ) C o m p ar e t h e n u m b er of c ol or e d m el o ns: Cl ass 1 h as 5, Cl ass 2 h as 6.
+Cl ass 2 h as m or e m el o ns.
+(3 ) T h e fr uit t h at h as t h e s a m e n u m b er i n b ot h cl ass es is or a n g es . ( 2 e a c h)
+6 - 3
+S T R A W B E R RI E S M E L O N S O R A N G E S G R A P E S
+Cl ass 1
+S T R A W B E R RI E S M E L O N S O R A N G E S G R A P E S
+Cl ass 2

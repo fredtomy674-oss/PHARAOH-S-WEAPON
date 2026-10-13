@@ -1,0 +1,21 @@
+(11) La température de congélation de l’eau pure est égale à ...
+a) -273 °C b) 0 K
+a) 273 °C b) 273 K
+
+Deuxièmement : Les questions ouvertes
+(12) Une quantité d’eau pure de masse 1 kg et une température de 0 °C.
+Que se passe-t-il à sa densité dans chacune des cas suivantes :
+(A) Si on y ajoute 1 kg de l’eau pure d’une température de 0 °C ?
+(B) Si on y dissous 34 g de sel de cuisine ?
+(13) Calcule la quantité de chaleur nécessaire pour élever la température de 0,9 kg
+de cuivre à 70 °C sachant que la capacité spécifique du cuivre est égale à 390 J/
+Kg.K
+(14) Lorsqu’on fournit la même quantité de chaleur à quatre échantillons de
+masse égale, mais de substances différentes, on observe ce qui suit :
+- L’échantillon W : élévation de température de 20 °C
+- L’échantillon X : élévation de température de 40 °C
+- L’échantillon Y : élévation de température de 60 K
+- L’échantillon Z : élévation de température de 80 K
+Quelle substance a la plus grande chaleur spécifique ? Explique ta réponse..
+
+Première secondaire 27

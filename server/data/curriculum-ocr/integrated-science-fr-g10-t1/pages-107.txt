@@ -1,0 +1,24 @@
+1 Unité 2 : L'atmosphère
+
+Formation des pluies acides:
+Dans l'atmosphère, une série de réactions se produisent menant à l'acidification des pluies:
+Premièrement : La formation de l'acide sulfurique
+Le dioxyde de soufre (SO₂), émis par la combustion des combustibles fossiles contenant du soufre, réagit avec l'oxygène (O₂) pour former le trioxyde de soufre (SO₃). Cette réaction nécessite la présence de facteurs catalyseurs, comme la lumière du soleil.
+2SO₂(g) + O₂(g) → 2SO₃(g)
+Ensuite, le trioxyde de soufre (SO₃) réagit avec les gouttelettes d'eau dans les nuages pour former de l'acide sulfurique (H₂SO₄),
+un acide très fort
+SO₃(g) + H₂O(l) → H₂SO₄(aq)
+Deuxièmement : La formation de l'acide nitrique
+Les oxydes d'azote (NOₓ), qui se forment naturellement par les éclairs ou proviennent des émissions de combustion de carburants à haute température, réagissent avec l'eau (H₂O) pour produire de l'acide nitrique (HNO₃).
+2NO₂(g) + H₂O(l) → HNO₂(aq) + HNO₃(aq)
+Dans cette réaction, il se forme à la fois de l'acide nitrique et de l'acide nitreux.
+Mais en général, on peut simplifier cette réaction ainsi:
+4NO₂(g) + O₂(g) + 2H₂O(l) → 4HNO₃(aq)
+
+Les effets néfastes résultants :
+
+A. Sur la santé humaine
+➜ L'inhalation directe du SO₂ et du NO₂ cause une irritation des voies respiratoires et augmente la probabilité de crises d'asthme, de bronchite chronique et d'inflammations pulmonaires.
+➜ La formation d'ozone troposphérique (O₃) de manière secondaire à partir NOₓ et de composés organiques volatils sous l'effet de la lumière solaire. L'ozone troposphérique nuit aux poumons et réduit la capacité respiratoire
+
+102 Sciences intégrées

@@ -1,0 +1,23 @@
+1 Unité 1 – L’écosystème aquatique
+
+1-9 L’effet de la pression hydrostatique sur les êtres vivants
+
+Les organismes vivant dans les profondeurs des océans sont confrontés à un environnement extrême qui exige des adaptations uniques pour survivre, notamment la capacité de vivre sous une pression hydrostatique énorme. Comment cette pression influence-t-elle les êtres vivants des grandes profondeurs? Et comment les adaptations physiologiques aident-elles ces organismes à vivre sous l’effet de cette pression écrasante ?
+
+Les fluides sont des substances qui se caractérisent par leur capacité à s’écouler, et comprennent les liquides et les gaz. Alors que les gaz se distinguent par leur compressibilité facile et leur aptitude à occuper tout espace disponible, les liquides résistent à la compression et conservent ainsi un volume pratiquement constant.
+
+La pression en un point à l’intérieur d’un liquide au repos
+Un liquide exerce, en tout point de son intérieur, une pression égale au poids de la colonne de liquide qui se trouve au-dessus de ce point et qui agit sur l’unité de surface entourant ce point. Si un corps se trouve en ce point, il subit une force due à cette pression, perpendiculaire à sa surface.
+La force pressante exercée sur un corps – exprimée en newtons – en raison de sa présence dans un liquide se calcule selon la relation : F = P × A
+(Figure 1-48) Les forces pressantes sur un corps plongé dans un liquide.
+où P est la pression en ce point (en N/m²) et A est la surface soumise à cette pression (en m²).
+
+Figure (1-48) Les forces de pression sur un corps plongé dans un liquide
+
+La pression hydrostatique (pression de l’eau)
+La pression hydrostatique est la pression exercée par l’eau en tout point situé sous sa surface. Cette pression augmente avec la profondeur (h) à partir de la surface, en raison de l’augmentation du poids de la masse d’eau agissant sur l’unité de surface à ce point.
+La pression dans l’eau augmente également avec la densité (p) de celle-ci. Ainsi, la pression de
+
+Figure (1-49) Variation de la pression en fonction de la profondeur
+
+56 Sciences intégrées

@@ -1,0 +1,35 @@
+1
+
+Lorsqu’une substance non volatile est dissoute dans l’eau, certaines molécules ou ions du soluté occupent une partie de la surface du liquide, ce qui réduit le nombre de molécules d’eau exposées à l’évaporation à la surface. Il existe également de fortes forces d’attraction entre les molécules d’eau et les molécules ou ions du soluté, en plus des forces d’attraction entre les molécules d’eau elles-mêmes, ce qui nécessite une énergie plus grande pour les surmonter et libérer les molécules d’eau.
+
+Ainsi, le nombre de molécules d’eau susceptibles de s’évaporer diminue, et la pression de vapeur du liquide diminue également. La diminution de la pression de vapeur d’une solution est directement proportionnelle au nombre de molécules ou d’ions du soluté présents dans la solution.
+
+2. L’élévation du point d’ébullition,
+Le point d’ébullition d’un liquide est la température à laquelle sa pression de vapeur est égale à la pression atmosphérique à la surface du liquide. Ainsi, le point d’ébullition d’un liquide pur sous la pression atmosphérique normale est constant, et il s’agit d’une propriété permettant de déterminer la pureté des liquides.
+
+Le point d’ébullition de l’eau pure est de 100 °C sous la pression atmosphérique normale. Le point d’ébullition de l’eau varie en fonction de la pression exercée sur sa surface : une augmentation de la pression externe entraîne une augmentation du point d’ébullition de l’eau (comme dans une cocotte-minute), tandis qu’une diminution de la pression atmosphérique sur sa surface entraîne une baisse du point d’ébullition.
+
+En effet, à mesure que l’altitude augmente, la pression atmosphérique diminue, et par conséquent, le point d’ébullition de l’eau diminue.
+
+Lorsqu’une substance non volatile est dissoute dans l’eau pour former une
+
+Pression atmosphérique Pression atmosphérique
+pur Dissous
+(Figure 1-23) La pression de vapeur d’un liquide diminue en
+dissolvant une substance dans le liquide.
+
+Point d’ébullition de l’eau (°C)
+100
+95
+90
+85
+80
+75
+70
+0 2000 4000 6000 8000
+Hauteur (mètres)
+Figure 2-1
+(Figure 1-24) Diminution du point d’ébullition de l’eau avec
+l’altitude par rapport au niveau de la mer.
+
+Première secondaire 29

@@ -1,0 +1,23 @@
+7 3
+7 - 1 N u m b er s u p t o 2 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+(1 ) Writ e t h e n u m b er.
+1 1 2 2
+(2 ) L o o k at t h e pi ct ur e a n d a ns w er.
+B a c k Fr o nt
+1 1 H o w m a n y c hil dr e n ar e st a n di n g i n li n e ?
+2 2 W h at p ositi o n is H A S S A N fr o m t h e fr o nt ?
+(1 ) Writ e t h e n u m b er.
+1 1 2 2
+(2 ) L o o k at t h e pi ct ur e a n d a ns w er.
+B a c k Fr o nt
+1 1 H o w m a n y c hil dr e n ar e st a n di n g i n li n e ?
+2 2 W h at p ositi o n is S A R A fr o m t h e fr o nt ?

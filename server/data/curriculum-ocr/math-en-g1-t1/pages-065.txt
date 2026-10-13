@@ -1,0 +1,19 @@
+6 5
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6 - 2 W h at W e L e ar n fr o m R e s ult s
+W e c o u nt e d e a c h t y p e of t h e c ol or e d s h a p es. L et’s a ns w er t h e q u esti o ns.
+(1 ) W hi c h h as t h e m ost ?
+(2 ) W hi c h h as t h e l e ast ?
+(3 ) W hi c h s h a p es h a v e t h e
+s a m e n u m b er?
+(4 ) H o w m a n y tri a n gl es ar e
+t h er e?
+CI R C L E S T RI A N G L E S S Q U A R E S S T A R S

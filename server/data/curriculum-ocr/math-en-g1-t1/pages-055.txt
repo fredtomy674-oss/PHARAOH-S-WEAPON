@@ -1,0 +1,19 @@
+5 5
+2
+3
+4
+5
+8
+6
+9
+7
+1
+5 - 1 W hi c h O n e I s L o n g er ?
+(1 ) C o m p ar e t h e l e n gt h of t h e bl u e t o ot h br us h a n d t h e gr e e n t o ot h br us h. W h e n
+y o u li n e u p o n e e n d, it l o o ks li k e t his: W hi c h t o ot h br us h is l o n g er ?
+(2 ) C o m p ar e t h e l e n gt h of t h e y ell o w u m br ell a a n d t h e r e d u m br ell a. W h e n y o u
+li n e u p o n e e n d, it l o o ks li k e t his: W hi c h u m br ell a is l o n g er?
+(1 ) C o m p ar e t h e l e n gt h of t h e r e d ri b b o n a n d t h e gr e e n ri b b o n. W h e n y o u li n e
+u p o n e e n d, it l o o ks li k e t his: W hi c h ri b b o n is l o n g er ?
+(2 ) C o m p ar e t h e l e n gt h of t h e cr a y o n a n d t h e p e n cil. W h e n y o u li n e u p o n e
+e n d, it l o o ks li k e t his: W hi c h o n e is l o n g er ?

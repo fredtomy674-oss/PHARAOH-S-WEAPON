@@ -1,0 +1,41 @@
+1
+
+La tropopause
+
+La tropopause est une fine couche d’air située dans la partie supérieure de la troposphère. Elle agit comme une barrière ou une zone de transition entre la troposphère et la stratosphère, empêchant l’air froid de la troposphère de se mélanger avec l’air chaud de la stratosphère.
+
+La biodiversité dans la troposphère
+La troposphère est l’habitat des formes de vie les plus diversifiées de la planète Terre.
+Par biodiversité, on entend l’ensemble des organismes vivants présents dans un lieu donné, allant des plus petits microbes du sol aux plus grands animaux et plantes, terrestres ou aquatiques.
+La présence de la vie dans la troposphère est directement liée aux caractéristiques de cette couche : on y trouve de l’oxygène et du dioxyde de carbone, ainsi que de la vapeur d’eau et d’autres gaz, ce qui fournit les éléments essentiels à la vie. On y observe également une température adéquate pour le déroulement des processus biologiques, ainsi qu’une pression atmosphérique convenable pour la plupart des êtres vivants.
+L’interaction entre ces conditions environnementales et l’immense diversité des organismes fait de la troposphère la couche la plus active sur le plan biologique, et la plus essentielle pour la durabilité de la vie sur Terre.
+
+2. La stratosphère :
+Dans la stratosphère, la température reste stable jusqu’à environ 20 km d’altitude. À partir de là, elle commence à augmenter au fur et à mesure que l’on s’élève à travers la couche d’ozone, qui atteint environ 40 km. Cette élévation de température est due à l’absorption du rayonnement ultraviolet (UV) solaire par le gaz ozone.
+Les mouvements de l’air dans la stratosphère sont essentiellement horizontaux, ce qui en fait une couche privilégiée pour le vol des avions.
+
+Altitude (km)
+110
+100
+90
+80
+70
+60
+50
+40
+30
+20
+10
+0
+170 190 210 230 250 270 290
+Température (K)
+Thermosphère
+Mésopause
+Mésosphère
+Stratopause
+Stratosphère
+Tropopause
+Troposphère
+Figure (2-6) La stratosphère
+
+Première secondaire 71

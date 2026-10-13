@@ -1,0 +1,32 @@
+5 8
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 5 C o m p ari n g L e n gt h s
+Y o u c a n c o m p ar e l e n gt hs usi n g “ h o w m a n y bl o c ks l o n g. ”
+E x a m pl e
+• T h e p e n cil is 7 bl o c k s l o n g.
+• T h e cr a y o n is 5 bl o c k s l o n g.
+T h e p e n cil is l o n g er.
+(1 ) W hi c h is l o n g er, t h e y ell o w tr ai n or t h e gr e e n tr ai n ?
+(2 ) W hi c h is l o n g er, t h e t o ot h br us h or t h e t o ot h p ast e ?
+H o w t o S ol v e
+(1 ) T h e y ell o w tr ai n is 4 bl o c ks l o n g. T h e gr e e n
+tr ai n is 5 bl o c ks l o n g.
+T h e gr e e n tr ai n is l o n g er
+(2 ) T h e t o ot h br us h is 8 bl o c ks l o n g. T h e t o ot h p ast e is 6 bl o c ks l o n g.
+T h e t o ot h br us h is l o n g er
+C o u nt t h e bl o c ks t o
+m e as ur e t h e l e n gt h of t h e
+p e n cil a n d t h e cr a y o n.
+C o m p ar e t w o n u m b er s
+t o k n o w w h at is l o n g er.
+L et’ s C o m p ar e L e n gt h s 5 - 3
+Y o u c a n c o m p ar e l e n gt hs
+e v e n if t h e e n ds d o n’t li n e u p.

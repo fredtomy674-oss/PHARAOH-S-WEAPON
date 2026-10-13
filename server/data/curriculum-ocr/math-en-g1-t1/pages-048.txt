@@ -1,0 +1,30 @@
+4 8
+2
+3
+4
+5
+8
+6
+9
+7
+1
+C h a pt er 4 S u btr a cti o n
+S u btr a cti o n wit h Z er o 4 - 3
+Y o u c a n s u btr a ct 0 j ust li k e a n y ot h er n u m b er.
+W h e n y o u s u btr a ct 0 fr o m a n u m b er, t h e n u m b er st a ys t h e s a m e.
+E x a m pl e 2 – 0 = 2
+M or e e x a m pl es: 4 – 0 = 4 a n d 7 – 0 = 7
+W h e n y o u s u btr a ct a n u m b er fr o m its elf, t h e a ns w er is 0 .
+E x a m pl e 2 – 2 = 0
+M or e e x a m pl es: 1 – 1 = 0 a n d 8 – 8 = 0
+(1 ) L et’s d o s u btr a cti o n.
+1 1 2 – 0 2 2 7 – 7
+(2 ) T h er e ar e 3 or a n g es i n a b as k et. Y o u di d n’t e at a n y.
+H o w m a n y ar e l eft ? Writ e t h e s u btr a cti o n s e nt e n c e
+a n d t h e a ns w er.
+H o w t o S ol v e
+(1 ) 1 1 2 – 0 = 2 2 2 7 – 7 = 0
+(2 ) S u btr a cti o n s e nt e n c e: 3 – 0 = 3 A ns w er: 3 or a n g es
+W h e n t h e q u esti o n as ks
+“ H o w m a n y ? ”, a ns w er
+wit h “ – or a n g es. ”

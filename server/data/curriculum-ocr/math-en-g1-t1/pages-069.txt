@@ -1,0 +1,25 @@
+6 9
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6 - 3 L et’ s C o m p ar e R e s ult s
+T w o gr o u ps s ort e d s h a p e c ar ds. O n e of t h e fi v e c ar ds is t h e “ wi n ni n g c ar d. ”
+T h e gr o u p wit h m or e wi n ni n g c ar ds is t h e wi n n er. L et’s a ns w er t h e q u esti o ns.
+(1 ) W hi c h gr o u p h as m or e st ars ?
+(2 ) W hi c h c ar d h as t h e s a m e n u m b er i n b ot h gr o u ps ?
+(3 ) If t h e wi n ni n g c ar d is t h e h e art, w hi c h gr o u p is t h e wi n n er?
+(4 ) If t h e wi n ni n g c ar d is t h e tri a n gl e, w hi c h gr o u p is t h e wi n n er?
+T RI A N G L E S CI R C L E S S Q U A R E S S T A R S H E A R T S
+Gr o u p 2
+T RI A N G L E S CI R C L E S S Q U A R E S S T A R S H E A R T S
+Gr o u p 1
+R e m e m b er!
+T h e wi n ni n g gr o u p is
+t h e gr o u p wit h m or e
+wi n ni n g c ar ds!

@@ -1,0 +1,20 @@
+1 Unité 1 – L’écosystème aquatique
+
+Les organismes marins produisent du dioxyde de carbone qui se dissout dans l'eau environnante comme déchet de l'une des deux voies du métabolisme (catabolisme), s'ajoutant à une quantité de gaz dissous provenant des activités humaines telles que la pollution industrielle et la décomposition des matières organiques transportées par les eaux usées agricoles.
+
+Les plantes aquatiques et la plupart des algues obtiennent le dioxyde de carbone grâce à une propriété physique appelée diffusion, où le gaz CO₂ passe d'un milieu à concentration plus élevée du gaz vers les cellules vivantes où sa concentration est plus faible.
+
+Le gaz CO₂ est considéré comme un élément clé dans la formation des matières organiques comme les glucides, tels que le glucose, comme le montre l'équation chimique suivante :
+
+6 CO₂ + 12 H₂O  Chlorophylle / Lumière du soleil  C₆H₁₂O₆ + 6 H₂O + 6 O₂↑
+
+Solubilité des deux gaz dans l'eau
+La solubilité est la capacité d'un soluté à se dissoudre dans un solvant pour former une solution homogène à une température et une pression spécifiques. Elle peut également être définie comme la quantité maximale de soluté requise dans un certain volume de solvant pour former une solution saturée et stable à une température et une pression données. La solubilité est influencée par plusieurs facteurs, tels que la température, la pression et la nature des matériaux.
+
+Solubilité = Masse du gaz dissous / Volume de la solution
+
+La concentration de gaz oxygène dans l'air est environ 500 fois plus élevée que celle du dioxyde de carbone, mais la solubilité de l'oxygène dans l'eau est environ 50 fois inférieure à celle du dioxyde de carbone. La solubilité des deux gaz dans l'eau salée océanique est environ 20 à 30 % plus faible que leur solubilité dans l'eau douce.
+
+(Figure 1-40) Relation entre la solubilité des deux gaz O₂ et CO₂ dans l'eau et la température.
+
+44 Sciences intégrées

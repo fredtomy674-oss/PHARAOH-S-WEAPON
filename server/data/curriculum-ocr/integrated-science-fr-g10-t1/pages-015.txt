@@ -1,0 +1,25 @@
+1 Unité 1 – L’écosystème aquatique
+
+positif des molécules d’eau (les atomes d’hydrogène).
+
+Exemple pratique:
+
+Dissociation du sel de table (NaCl) dans l’eau:
+
+Lorsque des cristaux de chlorure de sodium, un composé ionique, sont ajoutés à l’eau, les molécules de chlorure de sodium se dissocient en ions (Na+) et (Cl-), entourés par les molécules d’eau, comme illustré dans la figure (1-8). L’ion sodium, chargé positivement, est entouré par la charge partielle négative des atomes d’oxygène des molécules d’eau voisines. L’ion chlorure, chargé négativement, est entouré par la charge partielle positive des atomes d’hydrogène des molécules d’eau voisines. Les ions du sel restent en solution sans se lier aux ions de l’eau. Par conséquent, la dissolution du chlorure de sodium dans l’eau n’est pas considérée comme une hydrolyse, car les ions issus de la dissociation du sel ne réagissent pas avec l’eau pour former de nouveaux acides ou bases.
+
+(Figure 1-8) Ions chlorure et sodium dans l’eau
+
+NaCl(s) H2O -> Cl-(aq) + Na+(aq)
+
+Molécules H2O
+
+Figure (1-9) Dissociation du chlorure de sodium dans l’eau
+
+L’équilibre ionique de l’eau:
+
+L’eau pure s’ionise très légèrement : une partie de ses molécules se dissocie pour former des ions hydrogène (H+), responsables de l’acidité, et des ions hydroxyde (OH-), responsables de la basicité, à des concentrations égales, ce qui rend l’eau pure neutre.
+
+H2O(l) ⇌ H+(aq) + OH-(aq)
+
+10 Sciences intégrées

@@ -1,0 +1,44 @@
+8 2
+C h a pt er 7 N u m b er s Gr e at er t h a n 1 0
+2
+3
+4
+5
+8
+6
+9
+7
+1
+A d di n g a n d S u btr a cti n g N u m b er s ( P art 2) 7 - 5
+“ A n u m b er m or e t h a n 1 0, pl u s s o m e n u m b er ”
+E x a m pl e 1 1 + 4 = 1 5
+1 0 1
+“ A n u m b er m or e t h a n 1 0, mi n u s s o m e n u m b er ”
+E x a m pl e 1 5 – 4 = 1 1
+1 0 5
+(1 ) S ol v e t h e pr o bl e ms.
+1 1 1 2 + 2 2 2 1 5 + 4
+3 3 1 6 – 1 4 4 1 9 – 7
+(2 ) Y o u h a v e 1 7 str a w b erri es. If y o u e at 3, h o w m a n y ar e l eft?
+Writ e t h e m at h e m ati c al s e nt e n c e a n d t h e a ns w er.
+H o w t o S ol v e
+(1 ) 1 1 1 2 + 2 = 1 4 2 2 1 5 + 4 = 1 9
+1 0 2 1 0 5
+3 3 1 6 – 1 = 1 5 4 4 1 9 – 7 = 1 2
+1 0 6 1 0 9
+(2 ) Si n c e w e t a k e 3 a w a y fr o m 1 7:
+S u btr a cti o n s e nt e n c e: 1 7 – 3 = 1 4 A ns w er: 1 4 str a w b erri es
+K e e p 1 0 , t h e n
+a d d 1 a n d 4
+K e e p 1 0 , t h e n
+s u btr a ct 4 fr o m 5
+K e e p 1 0 , a n d d o
+t h e m at h!
+K e e p 1 0 , t h e n
+a d d 2 a n d 2
+K e e p 1 0 , t h e n
+a d d 5 a n d 4
+K e e p 1 0 , t h e n
+s u btr a ct 1 fr o m 6
+K e e p 1 0 , t h e n
+s u btr a ct 7 fr o m 9

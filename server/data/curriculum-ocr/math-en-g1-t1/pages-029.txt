@@ -1,0 +1,21 @@
+2 9
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Cir cl e t h e bi g g er n u m b er.
+(1 ) (2 )
+Cir cl e t h e s m all er n u m b er.
+(1 ) (2 )
+Cir cl e t h e bi g g er n u m b er.
+(1 ) (2 )
+(3 ) (4 )
+Cir cl e t h e s m all er n u m b er.
+(1 ) (2 )
+(3 ) (4 )
+1 - 1 2 L et’ s C o m p ar e N u m b er s

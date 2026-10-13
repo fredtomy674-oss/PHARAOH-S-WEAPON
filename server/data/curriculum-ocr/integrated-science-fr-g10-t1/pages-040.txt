@@ -1,0 +1,24 @@
+1
+
+Substrat
+Complexe
+enzyme-substrat
+Produits
+Site actif
+Enzyme
+Enzyme
+
+(Figure 1-28) : Enzyme en tant que catalyseur
+
+Pour que les processus métaboliques se produisent dans la cellule, ils nécessitent une énergie d'activation élevée pour initier la réaction. L'énergie d'activation est la quantité minimale d'énergie nécessaire pour initier une réaction chimique. Certaines substances, comme les enzymes, agissent pour réduire l'énergie d'activation nécessaire à commencer la réaction à des niveaux plus bas et sont appelées catalyseurs ou activateurs.
+
+Les enzymes sont composées de substances protéiques spécialisées qui augmentent la vitesse des réactions chimiques dans les cellules des organismes vivants. Les enzymes fonctionnent par un mécanisme appelé « serrure et clé », où le site actif de l'enzyme se lie spécifiquement à la substance sur laquelle l'enzyme agit (le substrat), ce qui aide à convertir le substrat en produits de réaction plus efficacement. Après la réaction, l'enzyme reste inchangée, prête à catalyser une autre réaction du même type.
+
+pH optimal
+Taux d'activité enzymatique
+pH
+(Figure 1- 29 ) Courbe d'activité enzymatique
+
+Chaque enzyme possède une température et un degré d'acidité (pH) optimaux auxquels elle fonctionne le plus efficacement. Si la température ou le pH s'écarte au-dessus ou en dessous de ces valeurs optimales, l'activité de l'enzyme diminue progressivement jusqu'à s'arrêter complètement.
+
+Première secondaire 35

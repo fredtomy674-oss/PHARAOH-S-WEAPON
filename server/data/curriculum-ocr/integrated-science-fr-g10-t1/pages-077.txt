@@ -1,0 +1,25 @@
+1 Unité 2 : L'atmosphère
+
+La couche d'ozone
+La couche d'ozone constitue un bouclier indispensable pour protéger la vie et assurer la durabilité de la biosphère terrestre.
+Les molécules d'ozone (O3) absorbent la majeure partie du rayonnement ultraviolet (UV) nocif provenant du Soleil.
+Si une grande quantité de ce rayonnement atteignait la surface de la Terre, elle pourrait provoquer de graves dommages à l'ADN des cellules des êtres vivants et causer des maladies graves comme le cancer de la peau. Elle pourrait également détruire les écosystèmes terrestres et aquatiques.
+
+3. La mésosphère:
+La mésosphère s'étend d'une altitude de 50 km à 80 km au-dessus de la surface de la Terre.
+C'est la couche la plus froide de l'atmosphère, où la température peut atteindre environ -93 °C, en raison du faible nombre de molécules de gaz capables d'absorber le rayonnement solaire.
+La mésosphère joue un rôle vital dans la protection de la vie sur Terre : la plupart des météores qui pénètrent dans l'atmosphère depuis l'espace s'y consument et s'y désintègrent complètement.
+
+4. La thermosphère:
+La thermosphère s'étend d'environ 80 km au-dessus de la surface de la Terre jusqu'à une altitude pouvant atteindre 700 km.
+Dans cette couche, les gaz tels que l'azote et l'oxygène absorbent le rayonnement solaire, et la température peut dépasser 2000°C.
+
+L'ionosphère:
+Dans la partie inférieure de la thermosphère (entre 80 km et 550 km), les atomes d'oxygène et d'azote absorbent la majeure partie du rayonnement solaire de haute fréquence, tel que les rayons X et les rayons gamma.
+Sous l'effet de ce rayonnement, les atomes de gaz s'ionisent, c'est-à-dire qu'ils se transforment en particules électriquement chargées.
+C'est pourquoi cette région de la thermosphère est appelée ionosphère, car elle contient une grande quantité d'ions gazeux chargés électriquement.
+
+ionosphère
+Figure (2-7) : l'ionosphère
+
+72 Sciences intégrées

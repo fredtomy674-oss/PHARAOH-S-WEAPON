@@ -1,0 +1,16 @@
+1
+
+Le monoxyde de carbone (CO)
+Le monoxyde de carbone est un gaz incolore et inodore, généralement produit par la combustion incomplète des combustibles fossiles (comme l'essence, le charbon et le gaz naturel). Il se caractérise par une molécule capable de pénétrer rapidement des poumons vers le sang, où il entre en compétition avec l'oxygène (O₂) pour se lier aux molécules d'hémoglobine dans les globules rouges.
+La force de liaison du monoxyde de carbone avec l'hémoglobine est environ 200 à 250 fois plus élevée que celle de l'oxygène.
+Lorsqu'il se lie à l'hémoglobine, il forme un composé appelé carboxyhémoglobine (HbCO), qui est relativement stable et empêche l'oxygène de se lier à l'hémoglobine.
+La diminution de la liaison de l'oxygène avec l'hémoglobine entraîne une réduction de l'apport en oxygène aux tissus (appelée hypoxie - Hypoxia), ce qui empêche les cellules d'obtenir suffisamment l'oxygène nécessaire à la respiration cellulaire.
+Les cellules commencent alors à compter sur la respiration anaérobie, ce qui entraîne une accumulation d'acide lactique, provoquant la fatigue et la céphalée.
+Si la concentration de HbCO (carboxyhémoglobine) augment dans le sang, cela peut provoquer des symptômes graves tels que : les vertiges, la perte de conscience et les les ions cérébrales..
+Les oxydes de soufre et les oxydes d'azotes
+Les oxydes de soufre (SOₓ) dont le plus important est le dioxyde de soufre (SO₂). Il est principalement émis par la combustion du charbon et du pétrole dans les centrales électriques et les usines.
+Il est aussi généré par certaines procédures industrielles, comme le raffinage du pétrole et la fusion des métaux.
+Les oxydes d'azote (NOₓ) qui comprennent le monoxyde d'azote (NO) et le dioxyde d'azote (NO₂).
+Ces gaz sont produits en grandes quantités lors de la combustion à haute température (comme dans les moteurs des voitures, les centrales électriques et les fours industriels).
+
+Première secondaire 101
