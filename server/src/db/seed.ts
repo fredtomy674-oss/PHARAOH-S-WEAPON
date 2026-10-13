@@ -125,6 +125,18 @@ import {
   assertTreeMatchesTheBook as assertEnglishG1TreeMatchesBook,
 } from "./egyptEnglishG1T1.js";
 import {
+  EGYPT_FRENCH_STORY_G10_T1_SECTIONS,
+  lessonDocument as frenchStoryG10LessonDocument,
+  isConsistent as isFrenchStoryG10TreeConsistent,
+  assertTreeMatchesTheBook as assertFrenchStoryG10TreeMatchesBook,
+} from "./egyptFrenchStoryG10T1.js";
+import {
+  EGYPT_DISCOVERY_G1_T1_UNITS,
+  lessonDocument as discoveryG1LessonDocument,
+  isConsistent as isDiscoveryG1TreeConsistent,
+  assertTreeMatchesTheBook as assertDiscoveryG1TreeMatchesBook,
+} from "./egyptDiscoveryG1T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2691,6 +2703,103 @@ function verifyEnglishG1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **French story** — OFFICIAL-curriculum slot (PHASE 115).
+ *
+ * The first term IS the story book `Deux ans de vacances` de Jules Verne (adapt. Brigitte
+ * Faucard-Martinez, Lectures CLE en français facile, CLE–DENH; 66 pages, Gemini OCR):
+ * its eight printed chapters (CHAPITRE I–VII + ÉPILOGUE) plus the closing VOCABULAIRE
+ * and QUESTIONS POUR COMPRENDRE, and the pages they occupy (book pages 5–64). Book page
+ * = scan page − 1, proven by the printed folios (scan 6 = «- 5 -», scan 9 = «8»,
+ * scan 18 = «— 17 —», scan 34 = «33», scan 58 = «57», scan 62 = «61»). A lesson is each
+ * printed chapter/section; its `concepts` are the book's own printed heads, verbatim in
+ * French (chapters print no sub-heads, so the concept is the head itself).
+ */
+export const EGYPT_FRENCH_STORY_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  curriculum: { code: "eg-g10-french-story", title: "القصة الفرنسية للصف الأول الثانوي" },
+  terms: [buildEgyptFrenchStoryG10Term()],
+};
+
+/** Term 1 = the Verne story: printed chapter → printed chapter, as its document. */
+function buildEgyptFrenchStoryG10Term(): TermSeedSpec {
+  const check = verifyFrenchStoryG10Tree();
+  if (!check.ok) throw new Error(`شجرة القصة الفرنسية (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FRENCH_STORY_G10_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-fra-story-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: frenchStoryG10LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 French story tree verification, as one verdict. */
+function verifyFrenchStoryG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isFrenchStoryG10TreeConsistent();
+  const book = assertFrenchStoryG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-1 (Grade 1) **Discover (اكتشف)** — OFFICIAL curriculum (PHASE 116).
+ *
+ * The first term IS the Ministry textbook (`اكتشف – الصف الأول الابتدائي`; 74 scanned
+ * pages, Gemini OCR): its seven chapters across the two axes (من أكون؟ / العالم من حولي)
+ * and the pages they occupy (book pages 1–40). The printed page → scan page map is a
+ * constant +5, proven by the printed folios (scan 14 = ٩، scan 23 = ١٨، scan 31 = ٢٦،
+ * scan 41 = ٣٦، scan 55 = ٥٠، scan 69 = ٦٤) and cross-confirmed by the contents. A lesson
+ * is each printed lesson/activity; its `concepts` are the lesson's own printed activity
+ * heads, verbatim in Arabic.
+ */
+export const EGYPT_DISCOVERY_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "discovery", name: "Discovery", nameAr: "اكتشف" },
+  curriculum: { code: "eg-g1-discovery", title: "اكتشف للصف الأول الابتدائي" },
+  terms: [buildEgyptDiscoveryG1Term()],
+};
+
+/** Term 1 = the official Discover book: printed chapter → printed lesson, as its document. */
+function buildEgyptDiscoveryG1Term(): TermSeedSpec {
+  const check = verifyDiscoveryG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اكتشف (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_DISCOVERY_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-dis-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: discoveryG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 Discover tree verification, as one verdict. */
+function verifyDiscoveryG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isDiscoveryG1TreeConsistent();
+  const book = assertDiscoveryG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4238,6 +4347,8 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_FRENCH2_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_INTEGRATED_SCIENCE_EN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FRENCH_STORY_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_DISCOVERY_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);

@@ -1,0 +1,17 @@
+Golfe : bassin que forme la mer en avançant à l'intérieur des terres.
+Gouvernail : élément qui sert à régler la direction d'un bateau.
+Lame : vague.
+Lever l'ancre : partir (pour un bateau), en retirant l'ancre (énorme crochet de métal qui immobilise le bateau) / jeter l'ancre.
+Marin : toute personne qui travaille sur un bateau ; navigateur.
+Mousse : jeune garçon de moins de quinze ans qui apprend le métier de marin.
+Naufragé : personne qui a fait naufrage, c'est-à-dire dont le bateau a coulé.
+Pont (d'un bateau) : Plate-forme entourée d'une balustrade ; c'est là que se trouve la barre.
+Quai : endroit où les bateaux sont amarrés dans un port.
+Radeau : embarcation faite avec des planches de bois et des cordes.
+Récif : rocher (banc de récifs : amas, entassement de rochers).
+Tribord : côté droit d'un bateau (quand on est face à l'avant du bateau).
+Voile : morceau de toile qu'on hisse sur un bateau pour recevoir le vent et pouvoir avancer.
+Yacht : bateau de plaisance.
+Yole : embarcation légère qu'on fait avancer avec des rames.
+
+- 60 -
