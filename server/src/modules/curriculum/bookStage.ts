@@ -401,6 +401,13 @@ import {
   loadBookPage as loadArabicG8Page,
 } from "../../db/egyptArabicG8T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as ARABIC_G2_OFFSET,
+  EGYPT_ARABIC_G2_T1_BOOK_END,
+  allLessonRanges as arabicG2LessonRanges,
+  allLessonExtras as arabicG2LessonExtras,
+  loadBookPage as loadArabicG2Page,
+} from "../../db/egyptArabicG2T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G7_OFFSET,
   EGYPT_ARABIC_P1_T1_BOOK_END,
   allLessonRanges as arabicP1LessonRanges,
@@ -685,6 +692,7 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g10-ict", prefix: "l-g10-ict-", offset: ICT_AR_G10_OFFSET, bookEnd: EGYPT_ICT_G10_AR_T1_BOOK_END, ranges: ictArG10LessonRanges(), loadPage: loadIctArG10Page }),
   buildBook({ code: "eg-g2-english", prefix: "l-g2-eng-", offset: ENGLISH_G2_OFFSET, bookEnd: EGYPT_ENGLISH_G2_T1_BOOK_END, ranges: englishG2LessonRanges(), loadPage: loadEnglishG2Page, extras: englishG2LessonExtras() }),
   buildBook({ code: "eg-g1-arabic", prefix: "l-g1-ara-", offset: ARABIC_G1_OFFSET, bookEnd: EGYPT_ARABIC_G1_T1_BOOK_END, ranges: arabicG1LessonRanges(), loadPage: loadArabicG1Page, extras: arabicG1LessonExtras() }),
+  buildBook({ code: "eg-g2-arabic", prefix: "l-g2-ara-", offset: ARABIC_G2_OFFSET, bookEnd: EGYPT_ARABIC_G2_T1_BOOK_END, ranges: arabicG2LessonRanges(), loadPage: loadArabicG2Page, extras: arabicG2LessonExtras() }),
   buildBook({ code: "eg-g2-christian-education", prefix: "l-g2-chr-", offset: CHRISTIAN_G2_OFFSET, bookEnd: EGYPT_CHRISTIAN_G2_T1_BOOK_END, ranges: christianG2LessonRanges(), loadPage: loadChristianG2Page, extras: christianG2LessonExtras() }),
   buildBook({ code: "eg-kg1-discovery-en", prefix: "l-kg1-dis-en-", offset: DISCOVERY_EN_KG1_OFFSET, bookEnd: EGYPT_DISCOVERY_EN_KG1_T1_BOOK_END, ranges: discoveryEnKg1LessonRanges(), loadPage: loadDiscoveryEnKg1Page, extras: discoveryEnKg1LessonExtras() }),
   buildBook({ code: "eg-kg2-discovery-fr", prefix: "l-kg2-dis-fr-", offset: DISCOVERY_FR_KG2_OFFSET, bookEnd: EGYPT_DISCOVERY_FR_KG2_T1_BOOK_END, ranges: discoveryFrKg2LessonRanges(), loadPage: loadDiscoveryFrKg2Page, extras: discoveryFrKg2LessonExtras() }),
