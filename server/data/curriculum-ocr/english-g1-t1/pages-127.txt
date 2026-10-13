@@ -1,0 +1,29 @@
+Category Word Definition
+Food banana A long yellow fruit
+Food tomato A round red vegetable used in salads
+Descriptions clean Not dirty
+Descriptions healthy Feeling well and strong
+Nature &
+Animals farm animals Animals that live on a farm like cows
+Nature &
+Animals flower A colorful part of a plant that smells
+nice
+Nature &
+Animals
+jungle
+animals
+Animals that live in the jungle like
+monkeys
+Nature &
+Animals tiger A big wild cat with stripes
+Nature &
+Animals tree A tall plant with a trunk, branches,
+and leaves
+Nature &
+Animals umbrella A tool you hold to stay dry in the rain
+Shapes circle A round shape with no corners
+Shapes rectangle A shape with 4 sides and 4 right angles
+Shapes square A shape with 4 equal sides and 4
+corners
+Shapes triangle A shape with 3 sides and 3 corners
+127

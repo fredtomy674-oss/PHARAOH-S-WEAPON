@@ -1,0 +1,8 @@
+U n i t Unit
+2
+40
+5 Trace the following lines:
+ant
+6 Trace letter (Aa) in its uppercase and lowercase forms:
+A
+L e s s o n 4 : Lesson 4: P h o n i c s Phonics

@@ -119,6 +119,12 @@ import {
   assertTreeMatchesTheBook as assertIntegratedScienceEnG10TreeMatchesBook,
 } from "./egyptIntegratedScienceEnG10T1.js";
 import {
+  EGYPT_ENGLISH_G1_T1_SECTIONS,
+  lessonDocument as englishG1LessonDocument,
+  isConsistent as isEnglishG1TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishG1TreeMatchesBook,
+} from "./egyptEnglishG1T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -2636,6 +2642,55 @@ function verifyIntegratedScienceEnG10Tree(): { ok: boolean; problems: string[] }
 }
 
 /**
+ * Egyptian Primary-1 (Grade 1) **English** — OFFICIAL curriculum (PHASE 114).
+ *
+ * The first term IS the Ministry textbook (`Primary 1 English — Term 1`, 2025/2026;
+ * 128 born-digital pages, text layer already extracted): its six units (Welcome to My
+ * School, The Garden of Colors and Shapes, I Love My Family, My Body and My Senses,
+ * On the Farm, Animals Around Me) plus two printed Reviews, and the pages they occupy
+ * (book pages 7–125). Book page = scan index (offset 0; the book counts its cover as
+ * page 1), proven by the printed folios (scan 7 = 7، scan 42 = 42، scan 65 = 65،
+ * scan 127 = 127). A lesson is each printed lesson; its `concepts` are the lesson's own
+ * printed outcomes/skill heads, verbatim in English.
+ */
+export const EGYPT_ENGLISH_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g1-english", title: "اللغة الإنجليزية للصف الأول الابتدائي" },
+  terms: [buildEgyptEnglishG1Term()],
+};
+
+/** Term 1 = the official Primary-1 English book: printed unit/review → printed lesson. */
+function buildEgyptEnglishG1Term(): TermSeedSpec {
+  const check = verifyEnglishG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة الإنجليزية (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_G1_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: englishG1LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 English tree verification, as one verdict. */
+function verifyEnglishG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishG1TreeConsistent();
+  const book = assertEnglishG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4182,6 +4237,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ICT_G10_EN_SPEC);
   await seedCountry(db, knowledge, EGYPT_FRENCH2_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_INTEGRATED_SCIENCE_EN_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);

@@ -1,0 +1,18 @@
+U N I T UNIT
+6
+1 1 5
+in bird
+dog cat
+4 Write ✔ if the word matches the picture and ✘ if it doesn't:
+turtle
+The cat is under
+the chair.
+on
+The dog is on
+the couch.
+under
+The bird is in
+the cage.
+3 Listen, point, and ✔ :
+Th d i
+L e s s o n 3 : Lesson 3: M y P e t s My Pets

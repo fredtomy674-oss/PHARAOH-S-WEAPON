@@ -1,0 +1,21 @@
+U n i t Unit
+1
+8
+Maya:
+Hana:
+Maya:
+Hana:
+Maya:
+Hana:
+Maya:
+Hello!
+Hello! What's your name?
+My name is Maya.
+I'm Hana! Nice to meet you, Maya!
+Nice to meet you, too, Hana!
+Do you want to shake hands?
+Yes! * (They shake hands) *
+Goodbye, Hana!
+1 Listen to the following dialog.
+U n i t Unit
+1 L e s s o n 1 : Lesson 1: G r e e t i n g s Greetings

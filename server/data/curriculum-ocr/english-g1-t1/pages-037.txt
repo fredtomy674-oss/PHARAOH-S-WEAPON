@@ -1,0 +1,11 @@
+U n i t Unit
+2
+37
+4 Write ( ✔ ) if the word matches the picture:
+3 Listen, point, and write ( ✔ ) to the matching picture:
+square
+triangle circle
+rectangle
+rectangle triangle
+square circle
+L e s s o n 3 : Lesson 3: S h a p e s a n d C o l o r s Shapes and Colors

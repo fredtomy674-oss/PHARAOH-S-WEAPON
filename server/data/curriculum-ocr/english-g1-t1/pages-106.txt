@@ -1,0 +1,12 @@
+U N I T UNIT
+6
+1 0 6
+lion
+monkey
+elephant
+giraffe
+snake giraffe elephant tiger
+2 Circle the animals that belong in the jungle:
+3 Listen, point, and circle:
+4 Write ✔ if the word matches the picture and ✘ if it doesn't:
+L e s s o n 1 : Lesson 1: W e l c o m e t o t h e J u n g l e Welcome to the Jungle

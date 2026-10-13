@@ -1,0 +1,8 @@
+U n i t Unit
+2
+39
+3 Trace letter (Aa) in its uppercase and lowercase forms:
+4 Match the objects that start with the letter (Aa):
+apple
+A
+L e s s o n 4 : Lesson 4: P h o n i c s Phonics

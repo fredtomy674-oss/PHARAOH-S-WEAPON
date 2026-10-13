@@ -1,0 +1,8 @@
+U n i t Unit
+1
+14
+5 Trace the following lines:
+6 Trace letter (T t ) in its uppercase and lowercase forms:
+t iger
+T T t t
+L e s s o n 2 : Lesson 2: P h o n i c s Phonics
