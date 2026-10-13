@@ -1,0 +1,73 @@
+4-5
+Représentation graphique des fonctions
+trigonométriques
+A apprendre
+Représentation de la fonction
+sinus et déduction de ses
+propriétés.
+Représentation de la fonction
+cosinus et déduction de ses
+propriétés
+Réfléchis et discute
+Les ultrasons sont basés sur des hautes
+fréquences de longueurs d'ondes
+différentes. Ils sont utilisés dans
+l'imagerie médicale. Ils sont utilisés
+également comme radar dans les sous-
+marins travaillant dans les profondeurs
+de l'océan. La représentation de ces
+Longueur de
+l'onde
+Longueur de
+l'onde
+Longueur de l'onde
+ultrasons graphiquement permet d'étudier les propriétés des fonctions sinus
+et cosinus. Avec tes camarades, effectue le travail en groupe suivant :
+Expressions de base
+Représentation graphique de la fonction sinus
+Travail collectif
+1 Avec tes camarades, complète le tableau suivant :
+0
+sin 0
+0
+π
+6
+0,5
+3π
+6
+5π
+6
+π
+7π
+6
+9π
+6
+11π
+6
+2π
+2 Trace la courbe en joignant tous les points.
+3
+Dresse un autre tableau en utilisant les opposés des valeurs présentées
+dans le tableau précédent.
+4 Représente tous les points obtenus dans un repère.
+5 Complète la courbe représentative en joignant tous les points.
+2y
+1
+-2π
+-3
+3
+2π
+2
+-1
+-2
+6 As-tu remarqué qu'il existe des valeurs maximales et des valeurs
+minimales de cette courbe? Explique ta réponse.
+Livre de l'élève - Premier semestre
+Fonction sinus
+Fonction cosinus
+Valeur maximale
+Valeur minimale
+Matériel et moyens
+Une calculatrice scientifique
+Logiciels
+115

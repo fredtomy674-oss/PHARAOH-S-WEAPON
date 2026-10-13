@@ -1,0 +1,46 @@
+Exemple
+À retenir
+3 Détermine la mesure négative d'un angle de mesure 275°.
+Solution
+La mesure négative d'un angle de mesure (275°) = 275° - 360° = - 85°
+Vérification : |275°| + |- 85°| = 275° + 85° = 360°
+La somme des valeurs absolues de la mesure positive et de la mesure négative d'un angle orienté est égale à 360°
+
+Essaie de résoudre
+4 Détermine la mesure négative de l'angle de mesure :
+A 32°
+B 270°
+C 210°
+D 315°
+
+Exemple
+4 Détermine la mesure positive d'un angle de mesure -235°
+Solution
+La mesure positive d'un angle de mesure (-235°) = 360° - 235° = 125°
+Vérification : |-235°| + |125°| = 235° + 125° = 360°
+
+Essaie de résoudre
+5 Détermine la mesure positive de l'angle de mesure :
+A -52°
+B -126°
+C -90°
+D -320°
+6 Lien avec le sport : Un lanceur de disque tourne d'un angle de mesure 150°. Dessine cet angle en position standard.
+
+Angles équivalents :
+Observe les figures suivantes, puis détermine l'angle orienté $\theta$ en position standard dans chacune des figures suivantes. Que remarques-tu ?
+
+figure (1)
+figure (2)
+figure (3)
+figure (4)
+
+Dans les figures (2), (3) et (4), on remarque que l'angle $(\theta)$ et l'autre angle ont le même côté final $\vec{OB}$.
+
+Figure (1) : L'angle de mesure $\theta$ est en position standard
+Figure (2) : Les deux angles de mesures $\theta$ et $\theta + 360^\circ$ sont équivalents.
+Figure (3) : Les deux angles de mesures $\theta$ et $\theta + 360^\circ \times 2$ sont équivalents
+Figure (4) : Les deux angles de mesures $\theta$ et $\theta - 360^\circ$ sont équivalents.
+
+90
+Mathématiques - Première secondaire

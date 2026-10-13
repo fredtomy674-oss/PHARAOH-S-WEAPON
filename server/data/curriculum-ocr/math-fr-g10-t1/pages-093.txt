@@ -1,0 +1,68 @@
+Mesure positive et mesure négative d'un angle orienté
+Dans la figure (1), la mesure de l'angle orienté est positive si l'orientation du côté initial <span style="display:inline-block; border-top:1px solid black; padding-top:1px;">OA</span> vers le
+côté final <span style="display:inline-block; border-top:1px solid black; padding-top:1px;">OB</span> est contre le sens des aiguilles d'une montre.
+Dans la figure (2), la mesure de l'angle orienté est négative si l'orientation du côté initial <span style="display:inline-block; border-top:1px solid black; padding-top:1px;">OA</span> vers le
+côté final <span style="display:inline-block; border-top:1px solid black; padding-top:1px;">OB</span> est dans le sens des aiguilles d'une montre.
+
+<pre>                 B                                          12
+           Côté final                             9   F       Côté initial  A
+                                                                 negative
+                              Contre le sens               6
+                            des aiguilles                   Côté final
+             12            d'une montre                                       Dans le sens des
+          9   F    positive                                                   aiguilles d'une
+                                                                          B       montre
+                         Côté initial     A
+          6
+                    figure (1)                                  figure (2)
+</pre>
+
+Exemple
+
+1 Trouve la mesure de l'angle orienté $\theta$ indiqué dans chacune des figures suivantes :
+
+<pre>      A                               B                               C                               D
+                                              θ                                       θ
+                      θ                                                                                       134°
+                                             33°                             125°
+                     55°                                              θ
+              θ
+</pre>
+
+Solution
+
+On sait que la somme des mesures des angles formés autour d'un point est égale à 360°
+
+A <span style="font-size:1.1em; display:inline-block; padding:1px 4px; border:1px solid #7cb5ec; border-radius:50%; background-color:#e6f2ff; text-align:center;">θ</span> = - (360° - 55°) = - 305°
+
+B <span style="font-size:1.1em; display:inline-block; padding:1px 4px; border:1px solid #7cb5ec; border-radius:50%; background-color:#e6f2ff; text-align:center;">θ</span> = 360° - 33° = 327°
+
+C <span style="font-size:1.1em; display:inline-block; padding:1px 4px; border:1px solid #7cb5ec; border-radius:50%; background-color:#e6f2ff; text-align:center;">θ</span> = 360° - 125° = 235°
+
+D <span style="font-size:1.1em; display:inline-block; padding:1px 4px; border:1px solid #7cb5ec; border-radius:50%; background-color:#e6f2ff; text-align:center;">θ</span> = - (360° - 134°) = - 226°
+
+Essai de résoudre
+
+2 Trouve la mesure de l'angle orienté O indiqué dans chacune des figures suivantes :
+
+<pre>      A                               B                               C                               D
+                                                                                                            56°
+                             21°                                            115°
+</pre>
+
+Position d'un angle dans un repère orthogonal :
+ On partage le repère orthogonal en quatre quadrants comme
+   l'indique la figure ci-contre.
+
+<pre>                                                                                       90°
+                                                                         Deuxième     Premier
+                                                                         quadrant     quadrant
+                                                                       +                 +
+                                                                  180°                     0°
+                                                                         Troisième    Quatrième
+                                                                         quadrant     quadrant
+                                                                                       270°
+</pre>
+
+88
+Mathématiques – Première secondaire

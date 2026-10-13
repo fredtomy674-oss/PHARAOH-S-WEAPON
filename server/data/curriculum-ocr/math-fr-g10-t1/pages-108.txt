@@ -1,0 +1,33 @@
+Fonctions trigonométriques
+
+4) Si $\theta^\circ = 270^\circ = \frac{3\pi}{2}$ , alors $\text{B}(0,-1)$
+Donc $\cos 270^\circ = 0$ , $\sin 270^\circ = -1$ , $\text{tg } 270^\circ = \frac{-1}{0}$ (indéfini)
+
+Essuie de résoudre
+4 Dans chacune de figures suivantes, détermine les coordonnées du point B, puis déduis les fonctions trigonométriques des angles de mesures $30^\circ, 60^\circ, 45^\circ$
+
+Exemple
+5 Sans utiliser de calculatrice, démontre que $\sin 60^\circ \cos 30^\circ - \cos 60^\circ \sin 30^\circ = \sin^2 \frac{\pi}{3}$
+
+Solution
+On sait que $\sin 30^\circ = \frac{1}{2}$ , $\cos 30^\circ = \frac{\sqrt{3}}{2}$ , $\sin 60^\circ = \frac{\sqrt{3}}{2}$ et $\cos 60^\circ = \frac{1}{2}$
+
+$\therefore \text{Membre gauche} = \frac{\sqrt{3}}{2} \times \frac{\sqrt{3}}{2} - \frac{1}{2} \times \frac{1}{2} = \frac{3}{4} - \frac{1}{4} = \frac{1}{2}$ (1)
+
+$\therefore \frac{\pi}{4} = 45^\circ$ , $\sin 45^\circ = \frac{1}{\sqrt{2}}$
+
+$\therefore \text{Membre droit} = \sin^2 \frac{\pi}{4} = \sin^2 45^\circ = \left(\frac{1}{\sqrt{2}}\right)^2 = \frac{1}{2}$ (2)
+
+De (1) et (2), les deux membres sont égaux.
+
+Essuie de résoudre
+5 Sans utiliser de calculatrice, trouve la valeur de $3 \sin 30^\circ \sin 60^\circ - \cos 0^\circ \sec 60^\circ + \sin 270^\circ \cos^2 45^\circ$
+Réflexion critique : Soit $\theta$ la mesure d'un angle en position standard. Si $\cos \theta = \frac{-1}{2}$ et $\sin \theta = \frac{\sqrt{3}}{2}$ est-il possible que $\theta$ soit égale à $240^\circ$? Explique ta réponse.
+
+Test de compréhension
+Démontre chacune des égalités suivantes :
+A $1 - 2\sin^2 90^\circ = \cos 180^\circ$
+B $\cos \frac{\pi}{2} = \cos^2 \frac{\pi}{4} - \sin^2 \frac{\pi}{4}$
+
+Livre de l'élève - Premier semestre
+103

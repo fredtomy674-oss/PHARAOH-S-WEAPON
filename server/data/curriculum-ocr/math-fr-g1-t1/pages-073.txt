@@ -1,0 +1,25 @@
+73
+7-1 Les nombres jusqu’à 20
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+(1) Écris le nombre.
+1 2
+(2) Regarde l’image et réponds.
+Derrière Devant
+1 Combien d’enfants sont débout dans la fi le ?
+2 Quelle est la position de HASSAN de devant ?
+Exercice
+(1) Écris le nombre.
+1 2
+(2) Regarde l’image et réponds.
+Derrière Devant
+1 Combien d’enfants sont débout dans la fi le ?
+2 Quelle est la position de SARA de devant ?

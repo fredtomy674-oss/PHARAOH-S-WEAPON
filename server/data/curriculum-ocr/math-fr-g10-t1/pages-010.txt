@@ -1,0 +1,66 @@
+Introduction aux nombres complexes
+
+Puissances entières de i :
+Toutes les règles de puissance qui sont déjà étudiées s'appliquent sur le nombre i. Nous pouvons
+calculer les différentes puissances du nombre i comme suit :
+i¹ = i
+i² = -1
+i³ = i². i = -i
+i⁴ = i² x i² = -1 x (-1) = 1
+i⁵ = i⁴ x i = 1 x i = i
+De manière générale, i⁴ⁿ = 1 , i⁴ⁿ⁺¹ = i , i⁴ⁿ⁺² = -1 , i⁴ⁿ⁺³ = -i où n ∈ ℤ
+
+Exemple
+
+1 Mets chacun des nombres suivants sous la forme la plus simple :
+A i³⁰
+B i⁴³
+C i⁻⁶¹
+D i⁴ⁿ⁺¹⁹
+
+Solution
+A i³⁰ = (i⁴)⁷ x i² = 1 x (-1) = -1
+B i⁴³ = (i⁴)¹⁰ x i³ = 1 x (-i) = -i
+C i⁻⁶¹ = (i⁴)⁻¹⁶ x i³ = 1 x i³ = -i
+D i⁴ⁿ⁺¹⁹ = i⁴ⁿ x i¹⁹ = 1 x (i⁴)⁴ x i³ = 1 x i³ = -i
+
+Essai de résoudre
+
+1 Mets chacun des nombres suivants sous la forme la plus simple :
+A i²⁴
+B i³⁷
+C i⁻⁴³
+D i⁻⁵¹
+E i⁴ⁿ⁺²⁹
+F i⁴ⁿ⁺⁴²
+
+A apprendre
+
+Le nombre complexe
+
+Le nombre complexe est un nombre qu'on peut mettre sous la forme a + bi où
+a et b sont deux nombres réels et i est tel que i² = -1.
+
+La figure suivante montre les ensembles des nombres faisant parties de l'ensemble
+des nombres complexes.
+
+Le nombre complexe
+a + bi
+Partie réelle
+Partie imaginaire
+
+Nombres complexes
+
+Nombres imaginaires
+Nombres réels
+Nombres irrationnels
+Nombres rationnels
+Nombres non entiers
+Nombres entiers
+Nombres naturels
+Nombres entiers négatifs
+Nombres entiers positifs (Nombres qui servent à compter)
+Le zéro
+
+Livre de l'élève – Premier semestre
+5

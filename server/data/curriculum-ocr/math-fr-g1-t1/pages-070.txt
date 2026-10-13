@@ -1,0 +1,22 @@
+70
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6-3 Comparons les résultats
+Exercice
+(1) La classe 1 et la classe 2 ont trié leurs animaux préférés. Répondons aux
+questions.
+1 Quelle classe a le plus de chiens ?
+2 Quelle classe a le plus de chameaux ?
+3 Quel animal est le plus nombreux dans la classe 1 ?
+4 Quel animal a le même nombre dans les deux classes ?
+GIRAFES CHIENS CHATS CHAMEAUX
+Classe 2
+GIRAFES CHIENS CHATS CHAMEAUX
+Classe 1

@@ -1,0 +1,25 @@
+11 Trace la courbe représentative de la fonction $f(x)=x^{2}-9$ dans l'intervalle $[-3 ; 4]$. Du graphique, détermine le signe de $f(x)$.
+
+12 Trace la courbe représentative de la fonction $f(x)=-x^{2}+2x+4$ dans l'intervalle $[-3 ; 5]$. Du graphique, détermine le signe de $f(x)$.
+
+13 Déceler l'erreur : Si $\mathrm{f}(x)=x+1$, $\mathrm{g}(x)=1-x^{2}$, détermine l'intervalle où les deux fonctions sont simultanément positives.
+
+Réponse de Youssef
+$x=-1$, alors $f(x)=0$
+$f(x)$ est positive dans l'intervalle $]-1 ;+\infty[$
+$x=\pm 1$, alors $g(x)=0$
+$g(x)$ est positive dans l'intervalle $]-1 ; 1[$
+Donc les deux fonctions sont simultanément positives dans l'intervalle
+$]-1 ;+\infty[\cup]-1 ; 1[=]-1 ;+\infty[$
+
+Réponse d'Amira
+$x=-1$, alors $f(x)=0$
+$f(x)$ est positive dans l'intervalle $]-1 ;+\infty[$
+$x=\pm 1$, alors $g(x)=0$
+$g(x)$ est positive dans l'intervalle $]-1 ; 1[$
+Donc les deux fonctions sont simultanément positives dans l'intervalle
+$]-1 ;+\infty[\cap]-1 ; 1[=]-1 ; 1[$
+
+Laquelle des deux solutions est juste ? Représente chacune des deux fonctions graphiquement puis vérifie ta réponse
+
+28 Mathématiques - Première secondaire

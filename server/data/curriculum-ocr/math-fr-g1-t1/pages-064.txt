@@ -1,0 +1,32 @@
+64
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 6 Représenter les données
+Pointe!
+Lorsque nous représentons des données, nous pouvons voir ce qu’il y a le
+plus et ce qu’il y a le moins.
+Mise en train
+Nous avons compté chaque type de fruit colorié. Répondons aux
+questions.
+(1) Lequel a le plus ?
+(2) Lequel a le moins ?
+(3) Q u e l s f r u i t s o n t l e m ê m e
+nombre ?
+(4) Combien de raisins y a-t-il ?
+Comment résoudre
+(1) Le plus: fraises
+(2) Le moins: melons
+(3) Le même nombre: oranges et raisins
+(4) 7
+FRAISES MELONS ORANGES RAISINS
+Ce que nous apprenons des résultats 6 - 2
+Trier dans un tableau
+nous aide à voir ce qui
+est plus ou moins!

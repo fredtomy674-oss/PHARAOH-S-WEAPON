@@ -1,0 +1,34 @@
+$$\because \frac{\mathrm{AB}}{\mathrm{BC}}=\frac{7}{9} \quad \therefore \frac{\mathrm{AB}+\mathrm{BC}}{\mathrm{BC}}=\frac{7+9}{9} \quad \text { (propriété de la proportionnalité) }$$
+$$\text { Donc } \frac{48}{\mathrm{BC}}=\frac{16}{9} \quad \therefore \mathrm{BC}=27 \mathrm{~cm}, \mathrm{AB}=21 \mathrm{~cm}$$
+
+Essaie de résoudre
+2) Soit $\mathrm{ABC}$ un triangle rectangle en $\mathrm{B}$. On trace $\overrightarrow{\mathrm{AD}}$ bissectrice de $\angle \mathrm{A}$, qui coupe $\overrightarrow{\mathrm{BC}}$ en $\mathrm{D}$.
+Si la longueur de $\mathrm{BD}=24 \mathrm{~cm}, \mathrm{BA}: \mathrm{AC}=3: 5$, trouve le périmètre du triangle $\mathrm{ABC}$.
+
+Remarques importantes
+1- Dans un triangle $\mathrm{ABC}$ où $\mathrm{AB} \neq \mathrm{AC}$.
+si $\overrightarrow{\mathrm{AD}}$ est la bissectrice de $\angle \mathrm{BAC}$,
+et si $\overrightarrow{\mathrm{AE}}$ bissectrice de l'angle extérieur au triangle en A.
+alors : $\frac{\mathrm{DB}}{\mathrm{DC}}=\frac{\mathrm{AB}}{\mathrm{AC}}, \frac{\mathrm{BE}}{\mathrm{EC}}=\frac{\mathrm{AB}}{\mathrm{AC}}$
+d'où $\frac{\mathrm{DB}}{\mathrm{DC}}=\frac{\mathrm{BE}}{\mathrm{EC}}$
+Donc $\overrightarrow{\mathrm{BC}}$ est partagé intérieurement en D et extérieurement en E dans un même rapport et les deux bissectrices dans ce cas sont perpendiculaires. (Pourquoi ?)
+
+2- Si $\mathrm{AB}>\mathrm{AC}$ la bissectrice intérieure de l'angle A coupe $\overrightarrow{\mathrm{BC}}$ en D où $\mathrm{BD}>\mathrm{DC}$. tandis que la bissectrice de l'angle extérieure au triangle en A coupe $\overrightarrow{\mathrm{BC}}$ en E où $\mathrm{BE}>\mathrm{EC}$.
+
+Réflexion critique
+$>\text { Si AC augmente, que se passe-t-il pour le point D ? }$
+$>$ Si $\mathrm{AC}=\mathrm{AB}$, où se trouve le point D ? Quelle est la position de $\overrightarrow{\mathrm{AE}}$ par rapport à $\overleftrightarrow{\mathrm{BC}}$ dans ce cas ?
+$>$ Si $\mathrm{AC}>\mathrm{AB}$, quelle est la relation entre DC et DB ? Où se trouve le point E dans ce cas ? Compare ta réponse avec les réponses de tes camarades
+
+Exemple
+3) Soit $\mathrm{ABC}$ un triangle tel que $\mathrm{AB}=6 \mathrm{~cm}, \mathrm{AC}=4 \mathrm{~cm}$ et $\mathrm{BC}=5 \mathrm{~cm}$. Trace $\overrightarrow{\mathrm{AD}}$ bissectrice intérieure de $\angle \mathrm{A}$ qui coupe $\overrightarrow{\mathrm{BC}}$ en D, Trace $\overrightarrow{\mathrm{AE}}$ bissectrice de l'angle extérieure au triangle A qui coupe $\overrightarrow{\mathrm{BC}}$ en E. Calcule la longueur de $\overrightarrow{\mathrm{DE}}$.
+
+Solution
+$\because \overrightarrow{\mathrm{AD}}$ est une bissectrice intérieure de $\angle \mathrm{A}$ et $\overrightarrow{\mathrm{AE}}$ est une de l'angle bissectrice extérieure au triangle en $\angle \mathrm{A}$.
+$\therefore$ D et E partagent $\overrightarrow{\mathrm{BC}}$ intérieurement et extérieurement dans un même rapport.
+$$\text { Donc : } \frac{\mathrm{BD}}{\mathrm{DC}}=\frac{\mathrm{BE}}{\mathrm{EC}}=\frac{\mathrm{BA}}{\mathrm{AC}}$$
+$$\therefore \frac{\mathrm{BD}}{\mathrm{DC}}=\frac{\mathrm{BE}}{\mathrm{EC}}=\frac{6}{4}=\frac{3}{2}$$
+$\because \mathrm{BC}=\mathrm{BD}+\mathrm{DC}=5, \mathrm{BE}-\mathrm{EC}=\mathrm{BC}=5$
+
+78
+Mathématiques - Première secondaire

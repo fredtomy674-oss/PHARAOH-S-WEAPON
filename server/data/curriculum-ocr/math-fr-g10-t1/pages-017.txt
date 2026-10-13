@@ -1,0 +1,32 @@
+C Dans l'équation $-x^2+5x-30 = 0$ $a = -1$, $b = 5$, $c = -30$
+Le discriminant $= b^2 - ac$
+$= 25 - 4 \times (-1) \times (-30) = -95$
+$\because$ Puisque le discriminant est négatif, l'équation a deux racines complexes.
+
+Remarque que :
+
+| Le discriminant | Nombre de racines et leurs natures | Allure de la courbe |
+| :--- | :--- | :--- |
+| $b^2 - 4ac > 0$ | Deux racines réelles différentes | y' x' x y |
+| $b^2 - 4ac = 0$ | Une racine réelle double<br>Deux racines égales | y' x' x y |
+| $b^2 - 4ac < 0$ | Deux racines complexes<br>(Non réelles) | y' x' x y |
+
+Essaié de résoudre
+1 Détermine le nombre de racines de chacune des équations suivantes en précisant leurs natures :
+A $6x^2 = 19x - 15$
+B $12x - 4x^2 = 9$
+C $x(x - 2) = 5$
+D $x(x + 5) = 2(x - 7)$
+
+Exemple
+2 Démontre que les racines de l'équation $2x^2 - 3x + 2 = 0$ sont complexes et non réelles, puis utilise la formule générale pour trouver ces deux racines.
+
+Solution
+$a = 2$, $b = -3$, $c = 2$
+$\because$ Le discriminant $= b^2 - 4ac = (-3)^2 - 4 \times 2 \times 2 = 9 - 16 = -7$
+$\because$ Puisque le discriminant est négatif, l'équation a deux racines complexes (non réelles)
+La formule générale est $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+$x = \frac{-(-3) \pm \sqrt{-7}}{2 \times 2} = \frac{3 \pm \sqrt{7}i}{4}$
+Les deux racines de l'équation sont : $\frac{3}{4} + \frac{\sqrt{7}}{4}i$, $\frac{3}{4} - \frac{\sqrt{7}}{4}i$
+
+12 Mathématiques – Première secondaire

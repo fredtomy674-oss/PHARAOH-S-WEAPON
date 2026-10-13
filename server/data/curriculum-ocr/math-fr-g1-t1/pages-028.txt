@@ -1,0 +1,26 @@
+28
+Chapitre 1 Les nombers jusqu’à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Comparons les nombres
+Révision des nombres de 1 à 10
+; ; ; ; ; ; ; ; ;
+Les nombres deviennent plus grands à mesure que tu vas vers la droite.
+Petit Grand
+Mise en train
+Entoure le plus grand nombre.
+Comment résoudre
+Les nombres deviennent plus grands à mesure que tu vas vers la droite.
+Grand
+Lequel est le
+plus grand ?
+Compte dans l’ordre à partir
+de 1 et réfléchis!

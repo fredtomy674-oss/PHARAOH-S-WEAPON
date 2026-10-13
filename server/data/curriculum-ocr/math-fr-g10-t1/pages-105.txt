@@ -1,0 +1,57 @@
+Signe des fonctions trigonométriques
+
+Deuxième quadrant
+$x < 0$
+$y > 0$
+
+Le côté final de l'angle est situé au deuxième quadrant.
+Donc la fonction sinus et son inverse sont positives et les autres fonctions sont négatives
+
+Premier quadrant
+$x > 0$
+$y > 0$
+
+Le côté final de l'angle est situé au premier quadrant.
+Donc toutes les fonctions trigonométriques de l'angle.
+ayant pour côté final $\vec{\text{OB}}$ sont positives.
+
+Troisième
+quadrant
+$x < 0$
+$y < 0$
+
+Le côté final de l'angle est situé au troisième quadrant.
+Donc la fonction tangente et son inverse sont positives et les autres fonctions sont négatives.
+
+Quatrième
+quadrant
+$x > 0$
+$y < 0$
+
+Le côté final de l'angle est situé au quatrième quadrant.
+Donc la fonction cosinus et son inverse sont positives et les autres fonctions sont négatives.
+
+Nous pouvons résumer les signes de toutes fonctions trigonométriques dans le tableau suivant :
+
+| Quadrant auquel appartient le côté final de l'angle | Intervalle auquel appartient la mesure de l'angle | Signe des fonctions trigonométriques | | |
+|---|---|---|---|---|
+| | | $\sin$ et $\csc$ | $\cos$ et $\sec$ | $\tan$ et $\cot$ |
+| Premier | $]0, \frac{\pi}{2}[$ | $+$ | $+$ | $+$ |
+| Deuxième | $]\frac{\pi}{2}, \pi[$ | $+$ | $-$ | $-$ |
+| Troisième | $]\pi, \frac{3\pi}{2}[$ | $-$ | $-$ | $+$ |
+| Quatrième | $]\frac{3\pi}{2}, 2\pi[$ | $-$ | $+$ | $-$ |
+
+Exemple
+
+1 Détermine le signe de chacune des fonctions suivantes :
+A $\sin 130^\circ$
+B $\operatorname{tg} 315^\circ$
+C $\cos 650^\circ$
+D $\sec (-30^\circ)$
+
+Solution
+A L'angle de mesure $130^\circ$ est situé au deuxième quadrant
+$\therefore \sin 130^\circ$ est positif
+
+100
+Mathématiques – Première secondaire

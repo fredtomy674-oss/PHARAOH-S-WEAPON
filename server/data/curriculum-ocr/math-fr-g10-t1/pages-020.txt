@@ -1,0 +1,22 @@
+Détermination de la nature des racines d'une équation du second degré
+
+7 Déceler l'erreur : Trouve, dans ℝ, le nombre de racines de l'équation $2x^2 - 6x = 5$
+
+Réponse de Karim
+$b^2 - 4ac = (-6)^2 - 4 \times 2 (-5)$
+$= 36 + 40 = 76$
+le discriminant est positif
+il y a deux racines réelles différentes
+
+Réponse d'Ahmed
+$b^2 - 4ac = (-6)^2 - 4 \times 2 \times 5$
+$= 36 - 40 = -4$
+le discriminant est négatif
+il n'y a pas de racines réelles
+
+8 Si les racines de l'équation $x^2 + 2(k - 1)x + (2k + 1) = 0$ sont égales, trouve les valeurs réelles de $k$, puis calcule les deux racines.
+
+9 Réflexion critique : Résous, dans l'ensemble des nombres complexes, l'équation $36x^2 - 48x + 25 = 0$
+
+Livre de l'élève - Premier semestre
+15

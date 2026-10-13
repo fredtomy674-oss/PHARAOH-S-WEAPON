@@ -1,0 +1,19 @@
+Exercices 3-2
+
+1 Dans la figure ci-contre, $\vec{AD}$ est une bissectrice de $\angle A$. Complète :
+A) $\frac{BD}{DC}=$
+B) $\frac{AC}{AB}=$
+C) $\frac{BD}{BA}=$
+D) $AB \times CD=$
+
+2 Dans chacune des figures suivantes, calcule la valeur numérique de x (les longueurs sont mesurées en centimètres)
+
+3 Soit ABC un triangle de périmètre 27cm. On trace $\vec{BD}$ bissectrice de $\angle B$ qui coupe $\vec{AC}$ en D.
+Si $AD = 4\text{cm}$ et $CD = 5\text{cm}$, trouve la longueur de $\vec{AB}$, $\vec{BC}$ et $\vec{AD}$
+
+4 Dans chacune des figures suivantes, calcule la valeur numérique de x, puis calcule le périmètre du triangle ABC.
+
+5 Soit ABC un triangle tel que $AB = 8\text{cm}$, $AC = 4\text{cm}$ et $BC = 6\text{cm}$. On trace $\vec{AD}$ bissectrice de $\angle A$ qui coupe $\vec{BC}$ en D. On trace $\vec{AE}$ bissectrice de $\angle A$ extérieur au triangle ABC qui coupe $\vec{BC}$ en E. Trouve la longueur de $\vec{DE}$, $\vec{AD}$ et $\vec{AE}$.
+
+82
+Mathématiques – Première secondaire

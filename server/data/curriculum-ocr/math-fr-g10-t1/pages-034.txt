@@ -1,0 +1,49 @@
+Inéquation du second degré
+1-5
+
+L'inéquation du second degré à une inconnue :
+
+A apprendre
+
+Réfléchis et discute
+
+Tu as déjà étudié l'inéquation du premier degré à une inconnue. Tu sais que
+résoudre cette inéquation consiste à trouver toutes les valeurs de la variable
+qui vérifient l'inéquation. L'ensemble solution s'écrit sous la forme d'un
+intervalle. Peux-tu résoudre une inéquation du second degré à une inconnue ?
+
+Remarque que :
+$x^2-x-2>0$ est une inéquation du second degré tandis que $f(x)=x^2-x-2$
+est la fonction du second degré correspondante à cette inéquation.
+
+La figure ci-contre montre que :
+➤ L'ensemble solution dans $\mathbb{R}$ de
+l'inéquation
+$x^2-x-2>0$
+est $]-\infty;-1[\cup]2;+\infty[$
+
+➤ L'ensemble solution dans $\mathbb{R}$ de
+l'inéquation
+$x^2-x-2<0$ est $]-1;2[$
+
+Résolution de l'inéquation du
+second degré à une inconnue
+
+Expressions de base
+Inéquation
+
+A apprendre
+
+Résolution d'une inéquation du second
+degré à une inconnue
+
+Exemple
+1 Résous l'inéquation : $x^2-5x-6>0$
+Solution
+
+Livre de l'élève - Premier semestre
+
+Matériel et moyens
+Une calculatrice scientifique
+
+29

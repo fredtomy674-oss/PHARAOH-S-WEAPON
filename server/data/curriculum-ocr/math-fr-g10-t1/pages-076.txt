@@ -1,0 +1,35 @@
+Droites parallèles et parties proportionnelles
+
+Modélisation
+Pour chercher l'existence d'une relation, modélise le problème (pose un modèle mathématique du problème) comme suit :
+1- Trace les droites $L_{1}, L_{2}, L_{3}, L_{4}, \text{ M, M}^{`}$ telles que $L_{1} // L_{2} // L_{3} // L_{4}$ puis trace les deux droites M et $\text{ M}^{`}$ qui coupent les droites parallèles en $\text{A, B, C, D, A}^{`}, \text{ B}^{`}, \text{ C}^{`}, \text{ D}^{`}$
+respectivement comme l'indique la figure ci-contre.
+2- Mesure les longueurs des segments, puis compare les rapports suivants :
+$\frac{\text{AB}}{\text{A}^{`}\text{B}^{`}}, \frac{\text{BC}}{\text{B}^{`}\text{C}^{`}}, \frac{\text{CD}}{\text{C}^{`}\text{D}^{`}}, \frac{\text{AC}}{\text{A}^{`}\text{C}^{`}}, \dots$
+Que peux-tu déduire ?
+
+Théorème de Thalès
+Théorème Des droites parallèles découpent sur deux droites sécantes des segments homologues de longueurs proportionnelles. (La démonstration n'est pas sujet à l'examen)
+2
+
+Hypothèses : $L_{1} // L_{2} // L_{3} // L_{4}$ et M et $\text{ M}^{`}$ sont deux droites qui les coupent
+
+Conclusion : $\text{AB} : \text{BC} : \text{CD} = \text{A}^{`}\text{B}^{`} : \text{B}^{`}\text{C}^{`} : \text{C}^{`}\text{D}^{`}$
+Démonstration : Trace $\overrightarrow{\text{AF}} // \overrightarrow{\text{M}}$ qui coupe $L_{2}$ en $\text{E}$ et $L_{3}$ en $\text{F}$
+Trace $\overrightarrow{\text{BY}} // \overrightarrow{\text{M}^{`}}$ qui coupe $L_{3}$ en $\text{X}$ et $L_{4}$ en $\text{Y}$
+$\therefore \overrightarrow{\text{AA}^{`}} // \overrightarrow{\text{EB}^{`}}, \quad \overrightarrow{\text{AE}} // \overrightarrow{\text{A}^{`}\text{B}^{`}}$
+
+$\therefore \text{AEB}^{`}\text{A}^{`}$ est un parallélogramme d'où $\text{AE} = \text{A}^{`}\text{B}^{`}$
+De même : $\text{EF} = \text{B}^{`}\text{C}^{`}, \quad \text{BX} = \text{B}^{`}\text{C}^{`}, \quad \text{XY} = \text{C}^{`}\text{D}^{`}$
+Dans le triangle $\text{ACF}$ :
+$\therefore \overrightarrow{\text{BE}} // \overrightarrow{\text{CF}}$
+$\therefore \frac{\text{AB}}{\text{BC}} = \frac{\text{AE}}{\text{EF}}$
+Donc : $\frac{\text{AB}}{\text{BC}} = \frac{\text{A}^{`}\text{B}^{`}}{\text{B}^{`}\text{C}^{`}}, \quad \frac{\text{AB}}{\text{A}^{`}\text{B}^{`}} = \frac{\text{BC}}{\text{B}^{`}\text{C}^{`}}$ (permutation des moyens) (1)
+De même, dans le triangle $\text{BDY}$ :
+$\therefore \frac{\text{BC}}{\text{CD}} = \frac{\text{B}^{`}\text{C}^{`}}{\text{C}^{`}\text{D}^{`}}, \quad \frac{\text{BC}}{\text{B}^{`}\text{C}^{`}} = \frac{\text{CD}}{\text{C}^{`}\text{D}^{`}}$ (permutation des moyens) (2)
+De (1) et (2), on obtient :
+$\frac{\text{AB}}{\text{A}^{`}\text{B}^{`}} = \frac{\text{BC}}{\text{B}^{`}\text{C}^{`}} = \frac{\text{CD}}{\text{C}^{`}\text{D}^{`}}$
+$\therefore \text{AB} : \text{BC} : \text{CD} = \text{A}^{`}\text{B}^{`} : \text{B}^{`}\text{C}^{`} : \text{C}^{`}\text{D}^{`}$ Ce qu'il fallait démontrer.
+
+Livre de l'élève - Premier semestre
+71

@@ -1,0 +1,73 @@
+1 - 3
+
+Relation entre les racines d'une équation du
+second degré et les coefficients de ses termes
+
+A apprendre
+
+▸ Comment calculer la somme
+des deux racines d'une équation
+du second degré.
+
+▸ Comment calculer le produit
+des deux racines d'une équation
+du second degré.
+
+▸ Trouver une équation du second
+degré à partir d'une autre du
+second degré.
+
+Réfléchis et discute
+
+On sait que les racines de l'équation $4x^2 - 8x + 3 = 0$ sont $\frac{1}{2}$, $\frac{3}{2}$.
+La somme des racines = $\frac{1}{2} + \frac{3}{2} = \frac{1+3}{2} = 2$
+
+Le produit des deux racines = $\frac{1}{2} \times \frac{3}{2} = \frac{3}{4}$
+
+Y a-t-il une relation entre la somme des racines d'une équation et les
+coefficients de ses termes?
+
+Y a-t-il une relation entre le produit des racines d'une équation et les
+coefficients de ses termes?
+
+Expressions de base
+
+▸ Somme des deux racines
+▸ Produit des deux racines
+
+A apprendre
+
+La somme et le produit des deux rac-
+ines
+
+Les racines de l'équation $ax^2 + bx + c = 0$ sont :
+$\frac{-b + \sqrt{b^2 - 4ac}}{2a}$ et $\frac{-b - \sqrt{b^2 - 4ac}}{2a}$
+
+Si $\frac{-b + \sqrt{b^2 - 4ac}}{2a} = L$ et $\frac{-b - \sqrt{b^2 - 4ac}}{2a} = M$, alors :
+$L + M = \frac{-b}{a}$ et $LM = \frac{c}{a}$ (à démontrer)
+
+Expression orale : Dans l'équation $ax^2 + bx + c = 0$, trouve la valeur de
+$L + M$ et $LM$ dans chacun des cas suivants :
+A si $a = 1$
+B si $b = a$
+C si $a = c$
+
+Matériel et moyens
+
+▸ Une calculatrice scientifique
+
+Exemple
+
+1 Sans résoudre l'équation $2x^2 + 5x - 12 = 0$, trouve la somme et le
+produit de ses racines.
+
+Solution
+
+$a = 2$, $b = 5$, $c = -12$
+La somme des racines = $\frac{-b}{a} = \frac{-5}{2} = \frac{5}{2}$
+
+Le produit des racines = $\frac{c}{a} = \frac{-12}{2} = -6$
+
+16
+
+Mathématiques - Première secondaire

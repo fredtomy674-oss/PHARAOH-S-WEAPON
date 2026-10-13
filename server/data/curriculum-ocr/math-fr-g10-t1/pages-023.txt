@@ -1,0 +1,76 @@
+Essaię de résoudre
+4 Si (2 + i) est l'une des racines de l'équation x²-4 x + h = 0, où h ∈ R trouve
+A l'autre racine.
+B la valeur de h.
+
+A apprendre
+Former une équation du second degré en connaissant ses deux
+racines
+Soient Let M les racines de l'équation :
+En divisant les deux membres de l'équation par a :
+D'où x² - (-)x + = 0
+a
+a
+:. Let M sont les racines de l'équation et, L + M = - - et LM =
+ax² + bx + c = 0, a # 0
+.. x² +
+b
+a
+X +
+C
+a
+= 0
+b
+a
+:. L'équation du second degré ayant pour racines Let M est :
+x² - (L+M) x + LM = 0
+Exemple
+4 Forme l'équation du second degré dont les racines sont 4 et -3.
+Solution
+Soient les deux racines L et M
+:. L+ M = 4 + (-3) = 1 et LM = 4 (-3) = - 12,
+: L'équation du second degré est de la forme : x² - (L+M) x + L M = 0
+:. L'équation est :
+x² - x - 12 = 0
+Exemple
+5
+Dans chacun des cas suivants, forme l'équation du second degré dont les racines sont :
+-2 + 2i
+et
+-2-4i
+1+i
+2-i
+Solution
+Soient les deux racines Let M
+L
+=
+-2 + 2i
+1+i
+M =
+-2 - 4i
+2-i
+X
+1-i
+1-i
+4 i
+= 2i
+2
+2+ i
+- 10 i
+= - 2 i
+2+i
+5
+L+M=2i - 2i = 0
+LM = 2ix (-2i) = - 4i² = 4
+L'équation du second degré est de la forme : x² + ( L + M ) x + LM = 0
+.. L'équation est x² + 4 = 0
+Essaię de résoudre
+5 Dans chacun des cas suivants, forme l'équation du second degré dont les racines sont :
+A 3 et -5
+18
+B-9iet 9i
+Mathématiques - Première secondaire
+3
+3 + 3i
+et
+1-i

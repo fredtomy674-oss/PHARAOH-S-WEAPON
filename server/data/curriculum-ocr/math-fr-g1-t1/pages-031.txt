@@ -1,0 +1,20 @@
+31
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+Écris le nombre de fleurs.
+(1) (2)
+(3)
+Exercice
+(1) Pratiquons.
+(2) Écris le nombre de grenouilles.
+1 2
+3 4
+1-13 Le nombre zéro

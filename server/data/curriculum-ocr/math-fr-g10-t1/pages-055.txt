@@ -1,0 +1,37 @@
+Exemple
+1 Dans la figure ci-contre, ABC est un triangle, $D \in \overline{\text{AB}}$
+tel que $\frac{\text{AD}}{\text{DB}} = \frac{3}{4}$, $\vec{\text{DE}} // \vec{\text{BC}}$ qui coupe $\overline{\text{AC}}$ en E.
+Si l'aire du triangle $\text{ABC} = 784\text{ cm}^2$, trouve :
+A l'aire du tringle ADE
+B l'aire du trapèze DBCE
+
+Solution
+Dans Le triangle ADC :
+$\because \text{DE} // \text{BC}$
+$\therefore \Delta\text{ADE} \sim \Delta\text{ABC}$ (corollaire)
+$\therefore \frac{\text{A}(\Delta\text{ ADE})}{\text{A}(\Delta\text{ ABC})} = \left(\frac{\text{AD}}{\text{AB}}\right)^2$ (théorème)
+Donc $\frac{\text{A}(\Delta\text{ ADE})}{784} = \left(\frac{3}{7}\right)^2$
+$\therefore \text{A}(\Delta\text{ ADE}) = 784 \times \frac{9}{49} = 144\text{cm}^2$
+$\because \text{Aire du trapèze DBCE} = \text{aire du triangle ABC} - \text{aire du triangle ADE}$
+$\therefore \text{Aire du trapèze DBCE} = 784 - 144 = 640\text{ cm}^2$
+
+Exemple
+2 Le rapport entre les aires de deux triangles semblables est $4:9$. Si le périmètre du grand
+triangle est $90\text{ cm}$, trouve le périmètre du plus petit triangle.
+
+Solution
+Supposons que $\Delta\text{ ABC} \sim \Delta\text{ DEF}$
+$\therefore \frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \left(\frac{\text{AB}}{\text{DE}}\right)^2 = \frac{4}{9}$ d'où $\frac{\text{AB}}{\text{DE}} = \frac{2}{3}$
+$\therefore \frac{\text{Périmètre de } \Delta\text{ ABC}}{\text{Périmètre de } \Delta\text{ DEF}} = \frac{\text{AB}}{\text{DE}} = \frac{2}{3} < 1$
+$\therefore \text{Périmètre } \Delta\text{ ABC} < \text{Périmètre } \Delta\text{ DEF}$
+D'où $\frac{\text{Périmètre } (\Delta\text{ ABC})}{90} = \frac{2}{3}$
+$\therefore \text{Périmètre } \Delta\text{ ABC} = 60\text{cm}$
+
+Essaie de résoudre
+1 ABC et DEF sont deux triangles semblables et $\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \frac{3}{4}$
+A Si le périmètre du plus petit triangle est $45\sqrt{3}\text{ cm}$. calcule le périmètre du plus grand
+triangle
+B Si $\text{EF} = 28\text{ cm}$, trouve la longueur de $\overline{\text{BC}}$.
+
+50
+Mathématiques – Première secondaire

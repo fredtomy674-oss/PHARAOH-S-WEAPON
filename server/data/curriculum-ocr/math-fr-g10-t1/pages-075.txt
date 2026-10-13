@@ -1,0 +1,43 @@
+Essaie de résoudre
+
+4 Dans la figure ci-contre, $ABC$ est un triangle, $D \in \overline{AC}$,
+$\overline{DE} // \overline{AB}$ et $\overline{DF} // \overline{AE}$
+
+Dessine un diagramme qui illustre comment démontrer que
+$(CE)^2 = CF \times CB$.
+
+Exemple
+
+5 GPS: Pour déterminer le lieu C,
+les géomètres ont mesuré et préparé le schéma ci-contre.
+Calcule la distance entre les deux lieux C et A
+
+Solution
+
+$\overline{AB} \perp \overline{BD}$, $\overline{CD} \perp \overline{BD}$ $\therefore \overline{AB} // \overline{CD}$
+
+$\therefore \overleftrightarrow{AC} \cap \overleftrightarrow{BD} = \{E\}$, $\overline{AB} // \overline{CD}$
+
+$\therefore \frac{EA}{AC} = \frac{EB}{BD}$ Donc $\frac{60}{AC} = \frac{45}{45 + 105}$
+
+$\therefore \text{AC} = \frac{60 \times 150}{45} = 200 \text{ mètres.}$
+
+Essaie de résoudre
+
+5 Lutter contre la pollution: Une équipe de lutte
+contre la pollution a localisé une nappe de pétrole sur
+une plage comme l'indique la figure ci-contre. Calcule
+la longueur de la nappe.
+
+Réfléchis et discute
+
+Tu as peut être remarqué la possibilité d'utiliser le parallélisme
+d'une droite à l'un des côtés d'un triangle dans des applications
+de la vie quotidienne. La figure ci-contre montre le portail d'une
+pépinière formée par des morceaux de bois parallèles et d'autres
+qui lui sont sécantes.
+Y a-t-il une relation entre les longueurs des parties déterminées
+sur les sécantes de ces morceaux parallèles?
+
+70
+Mathématiques – Première secondaire

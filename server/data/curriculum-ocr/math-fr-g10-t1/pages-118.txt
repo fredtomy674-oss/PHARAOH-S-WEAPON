@@ -1,0 +1,52 @@
+Angles associés
+
+Exercices 4-4
+
+(1) Complète ce qui suit :
+1 $\cos\left(180^{\circ}+\theta\right)=$
+2 $\operatorname{tg}\left(180^{\circ}-\theta\right)=$
+3 $\operatorname{cosec}\left(360^{\circ}-\theta\right)=$
+4 $\sin\left(360^{\circ}+\theta\right)=$
+5 $\sin\left(90^{\circ}+\theta\right)=$
+6 $\operatorname{cotg}\left(90^{\circ}-\theta\right)=$
+7 $\sec\left(270^{\circ}+\theta\right)=$
+8 $\cos\left(270^{\circ}-\theta\right)=$
+
+(2) Complète ce qui suit par une mesure d'un angle aigu :
+9 $\sin 25^{\circ}=\cos$
+10 $\cos 67^{\circ}=\sin$
+11 $\operatorname{tg} 42^{\circ}=\operatorname{cotg}$
+12 $\operatorname{cosec} 13^{\circ}=\sec$
+13 Si $\operatorname{cotg} 2\theta=\operatorname{tg}\theta$ où $0^{\circ}<\theta<90^{\circ}$, alors $\theta=$
+14 Si $\sin 5\theta=\cos 4\theta$ où $\theta$ est un angle aigu positif, alors $\theta=$
+15 Si $\sec\theta=\sec\left(90^{\circ}-\theta\right)$, alors $\operatorname{cotg}\theta=$
+16 Si $\operatorname{tg} 2\theta=\operatorname{cotg} 3\theta$ où $\left.\theta \in\right] 0, \frac{\pi}{2}[$, alors $\theta=$
+17 Si $\cos\theta=\sin 2\theta$ où $\theta$ est la mesure positive d'un angle aigu, alors $\sin 3\theta=$
+
+(3) Questions à choix multiples :
+18 Si $\operatorname{tg}\left(180^{\circ}+1=(\theta\right.$ où $\theta$ est la plus petite mesure d'un angle aigu positif, alors $\theta$ est égal à
+A $45^{\circ}$
+B $30^{\circ}$
+C $60^{\circ}$
+D $135^{\circ}$
+
+19 Si $\cos 2\theta=\sin\theta$ où $\left.\theta \in\right] 0, \frac{\pi}{2}[$, alors $\cos 2\theta=$
+A $\frac{1}{\sqrt{3}}$
+B $\frac{1}{2}$
+C $\frac{\sqrt{3}}{2}$
+D $1$
+
+20 Si $\sin\alpha=\cos\beta$ où $\alpha$ et $\beta$ sont les mesures de deux angles aigus, alors $\operatorname{tg}(\beta+\alpha)$ est égale à
+A $\frac{1}{\sqrt{3}}$
+B $1$
+C $\sqrt{3}$
+D indéfinie
+
+21 Si $\sin 2\theta=\cos 4\theta$ où $\theta$ est un angle aigu positif, alors $\operatorname{tg}\left(90^{\circ}-3\theta\right)$ est égale à
+A $-1$
+B $\frac{1}{\sqrt{3}}$
+C $1$
+D $\sqrt{3}$
+
+Livre de l'élève - Premier semestre
+113

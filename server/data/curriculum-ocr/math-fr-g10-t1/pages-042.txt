@@ -1,0 +1,74 @@
+Similitude des polygones
+
+Exercices 2-1
+
+1 Lesquelles des pairs de polygones suivants sont semblables? Écris les polygones
+semblables en ordonnant les sommets correspondants puis détermine le coefficient de
+proportionnalité. (les longueurs sont mesurées en centimètres).
+
+A
+L
+x
+Z
+49
+30
+y
+C
+D
+28
+B
+A
+20
+B
+B
+Z
+L 110°
+7
+110°
+7
+7
+7
+y
+X
+D 70°
+10
+10
+10
+10
+A
+70°
+C
+B
+
+2 Soit un rectangle de dimensions 10 cm et 6 cm. Calcule le périmètre et l'aire d'un rectangle
+qui lui est semblable si :
+
+A le rapport de similitude est 3.
+
+B le rapport de similitude est 0.4.
+
+3 Les trois polygones suivants sont semblables. Trouve la valeur numérique du symbole
+utilisé pour la mesure.
+
+15 cm
+100°
+x
+l cm
+18 cm
+24 cm
+m cm
+80°
+y
+110°
+25 cm
+80°
+35 cm
+n cm
+z
+
+4 Soient deux rectangles semblables dont le premier a pour dimensions 8 cm et 12 cm. Le
+périmètre du second rectangle est 200 cm. Calcule la longueur du second rectangle et son
+aire.
+
+Livre de l'élève - Premier semestre
+37

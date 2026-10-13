@@ -1,0 +1,13 @@
+63
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6-1 Représenter les données avec des images
+(2) Compte chaque type de cartes d’animaux et colorie-les.
+LIONS GIRAFES OISEAUX CHAMEAUX

@@ -1,0 +1,42 @@
+Droites parallèles et parties proportionnelles
+
+Remarque que :
+$\therefore \frac{\mathrm{AD}}{\mathrm{DB}} = \frac{\mathrm{AE}}{\mathrm{EC}}$
+$\therefore \frac{\mathrm{AD} + \mathrm{DB}}{\mathrm{DB}} = \frac{\mathrm{AE} + \mathrm{EC}}{\mathrm{EC}}$
+
+Donc $\frac{\mathrm{AB}}{\mathrm{DB}} = \frac{\mathrm{AC}}{\mathrm{EC}}$
+
+Exemple
+
+1 Dans la figure ci-contre, $\mathrm{XY} // \mathrm{BC}$, $\mathrm{AX} = 16\mathrm{cm}$, $\mathrm{BX} = 12\mathrm{cm}$.
+
+A Si $\mathrm{AY} = 24\mathrm{cm}$, trouve YC.
+
+B Si $\mathrm{CY} = 21\mathrm{cm}$, trouve AC.
+
+Solution
+
+A $\because \mathrm{XY} // \mathrm{BC}$
+et $\frac{16}{12} = \frac{24}{\mathrm{YC}}$
+
+$\therefore \frac{\mathrm{AX}}{\mathrm{XB}} = \frac{\mathrm{AY}}{\mathrm{YC}}$
+$\therefore \mathrm{YC} = \frac{12 \times 24}{16} = 18\mathrm{cm}$.
+
+B $\because \mathrm{XY} // \mathrm{BC}$
+et $\frac{16 + 12}{12} = \frac{\mathrm{AC}}{21}$
+
+$\therefore \frac{\mathrm{AB}}{\mathrm{BX}} = \frac{\mathrm{AC}}{\mathrm{CY}}$
+$\therefore \mathrm{AC} = \frac{28 \times 21}{12} = 49\mathrm{cm}$.
+
+Essai de résoudre
+
+1 Dans chacune des figures suivantes, $\mathrm{DE} // \mathrm{BC}$. Trouve la valeur numérique de x (les longueurs sont mesurées en centimètres)
+
+Corollaire
+Si une droite extérieure au triangle ABC, parallèle au côté $\overline{\mathrm{BC}}$ coupe $\overleftrightarrow{\mathrm{AB}}$ et $\overleftrightarrow{\mathrm{AC}}$ en D et E respectivement (voir la figure), alors : $\frac{\mathrm{AB}}{\mathrm{DB}} = \frac{\mathrm{AC}}{\mathrm{CE}}$.
+
+D'après les propriétés des proportions :
+$\frac{\mathrm{AD}}{\mathrm{AB}} = \frac{\mathrm{AE}}{\mathrm{AC}}$, $\frac{\mathrm{AD}}{\mathrm{DB}} = \frac{\mathrm{AE}}{\mathrm{CE}}$
+
+Livre de l'élève - Premier semestre
+67

@@ -1,0 +1,38 @@
+Applications de la similitude dans le cercle
+
+Les points A, B, C, et D appartiennent-ils à un même cercle ? Explique ta réponse.
+
+Exemple
+
+4 Soit ABC un triangle tel que AB = 15 cm et AC = 12 cm. $D \in \overline{\mathrm{AB}}$ tel que AD = 4cm et $E \in \overline{\mathrm{AC}}$ tel que AC = 5cm.
+Démontre que le quadrilatère DBCE est inscriptible.
+
+Solution
+- $\mathrm{AD} \times \mathrm{AB} = 4 \times 15 = 60$,
+$\mathrm{AE} \times \mathrm{AC} = 5 \times 12 = 60$
+- $\mathrm{AD} \times \mathrm{AB} = \mathrm{AE} \times \mathrm{AC}$
+- $(\mathrm{BE}) \cap (\mathrm{CE}) = \{\mathrm{A}\}$ et $\mathrm{AD} \times \mathrm{AB} = \mathrm{AE} \times \mathrm{AC}$
+- les points D, B, C et E sont cocycliques. (Réciproque du problème type)
+d'où le quadrilatère DBCE est inscriptible
+
+Essaie de résoudre
+
+3 Dans lesquelles des figures suivantes, les points A, B, C et D sont-ils cocycliques ? Explique ta réponse.
+
+Corollaire 2
+$\text{Si } (\text{EA})^2 = \text{EB} \times \text{EC}$
+$\text{alors } \overleftrightarrow{\text{EA}} \text{ est une tangente au cercle passant}$
+$\text{par les points A, B et C.}$
+
+Exemple
+
+5 Soit ABC un triangle tel que AB = 8 cm et AC = 4 cm. $D \in \overleftrightarrow{\mathrm{AC}}$ et $D \notin \overline{\mathrm{AC}}$ tel que CD = 12cm. tel que $\overleftrightarrow{\mathrm{AB}}$ est une tangente au cercle passant par les points B, C et D.
+
+Solution
+- $\mathrm{AC} \times \mathrm{AD} = 4\ (4 + 12) = 64$,
+et $(\mathrm{AB})^2 = (8)^2 = 64$
+- $(\mathrm{AB})^2 = \mathrm{AC} \times \mathrm{AD}$
+- $\overleftrightarrow{\mathrm{AB}}$ est une tangente au cercle passant par les points B, C et D.
+
+Livre de l'élève – Premier semestre
+59

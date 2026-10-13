@@ -1,0 +1,28 @@
+54
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 5 Comparer les longueurs
+Pointe!
+Lorsque tu compares des longueurs, aligne une extrémité.
+Exemple Comparons la longueur du crayon vert et du crayon
+rouge.
+Le crayon vert est plus long.
+Mise en train
+(1) Compare la longueur du fil rouge et du fil bleu. Lorsque tu alignes une
+extrémité, cela ressemble à ceci : Quel fil est le plus long ?
+(2) Compare la longueur du crayon rouge et du crayon jaune.
+Lorsque tu alignes une extrémité, cela ressemble à ceci : Quel crayon est
+le plus long ?
+Comment résoudre
+(1) Fil bleu (2) Crayon rouge
+Même si l'endroit où tu
+alignes change, réfléchis-y
+de la même manière!
+Lequel est le plus long? 5-1

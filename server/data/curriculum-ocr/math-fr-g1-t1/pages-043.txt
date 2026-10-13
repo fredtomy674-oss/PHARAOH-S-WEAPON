@@ -1,0 +1,17 @@
+43
+2
+3
+4
+5
+8
+6
+9
+7
+1
+3-4 Créer des histoires d’addition
+Essaie
+Créons une histoire qui correspond à cette addition:
+4 + 1 = 5
+Exercice
+Créons une histoire qui correspond à cette addition:
+2 + 1 = 3

@@ -1,0 +1,23 @@
+55
+2
+3
+4
+5
+8
+6
+9
+7
+1
+5-1 Lequel est le plus long?
+Essaie
+(1) Compare la longueur de la brosse à dents bleue et de la brosse à dents
+verte. Lorsque tu alignes une extrémité, cela ressemble à ceci: Quelle brosse
+à dents est la plus longue ?
+(2) Compare la longueur du parapluie jaune et du parapluie rouge. Lorsque tu
+alignes une extrémité, cela ressemble à ceci : Quel parapluie est le plus
+long ?
+Exercice
+(1) Compare la longueur du ruban rouge et du ruban vert. Lorsque tu alignes
+une extrémité, cela ressemble à ceci : Quel ruban est le plus long ?
+(2) Compare la longueur du crayon de couleur et du crayon. Lorsque tu alignes
+une extrémité, cela ressemble à ceci : Lequel est le plus long ?

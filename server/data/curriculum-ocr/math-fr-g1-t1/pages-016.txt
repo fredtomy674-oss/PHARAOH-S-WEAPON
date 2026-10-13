@@ -1,0 +1,28 @@
+16
+Chapitre 1 Les nombres jusqu’à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Comptons! (de 6 à 10)
+Lorsque tu comptes, pointe chaque image avec ton doigt et dis les
+nombres:
+« Un , deux , trois , quatre , cinq , six , sept , huit , neuf , dix .»
+Exemple
+•
+Mise en train
+Écris le nombre correspondant à ce que tu vois.
+(1) (2)
+Comment résoudre
+Pointe chaque image avec ton doigt et dis les nombres:
+«Un, deux, trois, quatre, cinq, six, sept, huit, neuf, dix.»
+(1) 9
+(2) 6
+Un Deux Trois Quatre Cinq Six Sept
+1 - 6

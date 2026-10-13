@@ -1,0 +1,57 @@
+Droites parallèles et parties proportionnelles
+Exemple
+8 Lien avec l'industrie : On déplace les emballages
+d'engrais de la production d'une usine en les faisant
+glisser à travers un tube oblique pour que les camions
+les transportent aux centres de distribution comme
+l'indique la figure ci-contre.
+Si D, E et F sont respectivement les projections de A, B
+et C sur le sol, et si AB = 1,2m, D E = 80cm et EF = 12m,
+Trouver la longueur du tube à un mètre près.
+Solution
+D, E et F sont les projections de A, B et C sur l'horizontale,
+AD // BE // CF, AC, DF sont sécantes,
+Donc AC = 1,2 x 12,8 = 19,2 m
+0,8
+Essai de résoudre
+6 A Lien avec les constructions:
+C
+B
+F
+ED
+12 m
+80 cm
+.. AD // BE // CF
+AC = DF AC 12 + 0,8
+AB
+DE
+1,2
+0,8
+AC 19 m
+B Réflexion critique
+y
+(11,9) C
+8
+6
+(5,5) B
+4
+A (2,3)
+2
+x
+E
+F
+X
+Y
+A
+B
+C
+D
+Si AB = 180cm, EF = 2m
+AB: BC: CD=5:4:3
+Trouve la longueur de EY, et CD
+Dans la figure, calcule AB de différentes
+BC
+manières.
+As-tu obtenu le même résultat?
+Livre de l'élève - Premier semestre
+73

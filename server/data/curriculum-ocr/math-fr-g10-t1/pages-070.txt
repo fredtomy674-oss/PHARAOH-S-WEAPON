@@ -1,0 +1,26 @@
+Pont Al Salam (Canal de Suez)
+
+Leçons de l'unité
+Leçon (3 - 1): Droites parallèles et parties proportionnelles.
+Leçon (3 - 2): Bissectrice d'un angle et parties proportionnelles.
+
+Matériel utilisé
+Instruments géométriques pour tracer et pour mesurer - Une calculatrice - Logiciels - Vidéo Projecteur - Papiers quadrillés - Fil - Paire de ciseau
+
+Historique
+La mathématique est une activité intellectuelle plaisante qui ouvre et éveille l'esprit. Elle contribue à résoudre des problèmes quotidiens et des défis scientifiques en les représentant et en les modélisant à l'aide du langage mathématique et ses symboles pour les résoudre avant de les remettre dans leurs contextes matériels.
+
+Les Anciens Égyptiens se sont rendu compte de cela et ils ont construit les temples et les pyramides selon des lignes droites, les unes parallèles et les autres qui les coupent. Ils ont labouré les terres agricoles en lignes droites parallèles. Les Grecs ont emprunté la géométrie des Anciens Égyptiens et Euclide (300 av. J.-C) a construit un système géométrique complet. C'est la géométrie euclidienne. Cette géométrie est basée sur cinq axiomes dont le plus important est: l'axiome du parallélisme « Par un point extérieur à une droite donnée, ne passe qu'une unique droite qui lui est parallèle ». La géométrie euclidienne traite des formes planes (triangles, polygones, cercles) et des solides. Elle a aussi des applications dans différents domaines : construction de routes, de ponts, urbanisme, élaboration de plans qui repose sur des lignes parallèles et les lignes qui les coupent selon une proportion entre la longueur réelle et la longueur représentée sur le plan (L'échelle).
+
+Organigramme de l'unité
+Théorèmes de la proportionnalité
+Proportionnalité dans un triangle
+Théorème de Thalès
+Droite parallèle à un côté d'un triangle
+Bissectrices d'un angle d'un triangle
+Application de la vie quotidienne et liens scientifiques
+Mesures indirectes
+Sciences et espace
+Environnement et agriculture
+Géographie et géologie
+Art et culture générale

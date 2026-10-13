@@ -1,0 +1,27 @@
+59
+2
+3
+4
+5
+8
+6
+9
+7
+1
+5-3 Comparons les longueurs
+Essaie
+(1) Lequel est plus long, le train blanc ou le train vert ?
+(2) Lequel est plus long, le crayon vert ou le crayon rouge ?
+Exercice
+(1) Lequel est plus long, le train jaune ou le train noir ?
+(2) Comparons la longueur des ciseaux et de la règle.
+1 Combien de blocs fait la longueur des ciseaux ?
+2 Combien de blocs fait
+la longueur de la règle ?
+3 Lequel est plus long, les ciseaux
+ou la règle ?
+Quel train a plus
+de wagons ?
+N'oublie pas de compter
+les blocs pour savoir lequel
+est plus long.

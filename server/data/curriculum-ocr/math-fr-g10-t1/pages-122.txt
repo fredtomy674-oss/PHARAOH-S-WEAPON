@@ -1,0 +1,40 @@
+Représentation graphique des fonctions trigonométriques
+
+la valeur maximale de la fonction cosinus est égale à 1 et on l'obtient aux points d'abscisses
+$\theta = \pm 2\pi n$ où $n \in \mathbb{Z}$
+
+la valeur minimale de la fonction cosinus est égale à (- 1) et on l'obtient aux points d'abscisses
+$\theta = \pi + 2\pi n$ où $n \in \mathbb{Z}$
+
+Exemple
+(1) Lien avec la physique : A marée haute, un navire peut entrer dans un port si la profondeur de l'eau n'est pas inférieure à 10 mètres. Si le mouvement du flux et du reflux suit la relation, $p = 6\sin(15\text{ t})^\circ + 10$ où t est le temps écoulé en heures après minuit selon le système horaire de 24 heures et $p$ est la profondeur de l'eau. Trouve le nombre de fois où la profondeur de l'eau atteint 10 mètres exactement.
+Représente graphiquement la relation qui montre le changement de la profondeur de l'eau pendant le flux et le reflux durant un jour.
+
+Solution
+La relation entre t en heures et la profondeur P en mètres est
+$p = 6\sin(15\text{ t})^\circ + 10$
+$\text{Pour t} = 0 \quad p = 6\sin(15 \times 0) + 10 = 6\sin 0 + 10 = 10$
+$\text{Pour t} = 6 \quad p = 6\sin(15 \times 6) + 10 = 6\sin 90^\circ + 10 = 16$
+$\text{Pour t} = 12 \quad p = 6\sin(15 \times 12) + 10 = 6\sin 180^\circ + 10 = 10$
+$\text{Pour t} = 18 \quad p = 6\sin(15 \times 18) + 10 = 6\sin 270^\circ + 10 = 4$
+$\text{Pour t} = 24 \quad p = 6\sin(15 \times 24) + 10 = 6\sin 360^\circ + 10 = 10$
+
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{t en heures} & 0 & 6 & 12 & 18 & 24 \\
+\hline
+\textbf{P en mètres} & 10 & 16 & 10 & 4 & 10 \\
+\hline
+\end{tabular}
+
+Dans le tableau, on trouve que la profondeur de l'eau atteint 10 mètres si $\text{t} = 10$, $12 \text{ et } 24 \text{ heures}$
+
+Essaie de résoudre
+(1) Dans l'exemple précédent, trouve le nombre d'heures d'un jour pendant lesquelles le navire peut entrer dans le port
+
+Test de compréhension
+(1) Trace la courbe représentative de la fonction $y = 3\sin x$ où $x \in [0, 2\pi]$
+(2) Trace la courbe représentative de la fonction $y = 2\cos x$ où $x \in [0, 2\pi]$
+
+Livre de l'élève - Premier semestre
+117

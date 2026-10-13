@@ -1,0 +1,14 @@
+61
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6-1 Représenter les données avec des images
+Essaie
+Compte les cartes qui ont la même image et colorie-les.
+CERCLES TRIANGLES CARRÉS ÉTOILES

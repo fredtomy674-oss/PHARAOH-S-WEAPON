@@ -1,0 +1,64 @@
+Mesure en radians et mesure en degrés
+
+5 L'angle ayant pour meure en radians $\frac{7\pi}{3}$ a pour mesure en degrés
+A $105^{\circ}$
+B $210^{\circ}$
+C $420^{\circ}$
+D $840^{\circ}$
+
+6 Si la mesure d'un angle en degrés est $64^{\circ} 48^{\prime}$, alors sa mesure en radians est
+A $0,18^{\text{rad}}$
+B $0,36^{\text{rad}}$
+C $0,18\ \pi$
+D $0,36\ \pi$
+
+7 Dans un cercle de longueur de rayon $24\ \text{cm}$, la longueur de l'arc intercepté par un angle au centre de mesure $30^{\circ}$ est égale à
+A $2\pi\ \text{cm}$
+B $3\pi\ \text{cm}$
+C $4\pi\ \text{cm}$
+D $5\pi\ \text{cm}$
+
+8 Dans un cercle de longueur de rayon $15\ \text{cm}$, la mesure de l'angle au centre qui intercepte un arc de longueur $5\pi\ \text{cm}$ est égale à
+A $30^{\circ}$
+B $60^{\circ}$
+C $90^{\circ}$
+D $180^{\circ}$
+
+9 Si la mesure d'un angle dans un triangle est $75^{\circ}$ et la mesure d'un autre angle du triangle est $\frac{\pi}{4}$, alors la mesure en radians du troisième angle est
+A $\frac{\pi}{6}$
+B $\frac{\pi}{4}$
+C $\frac{\pi}{3}$
+D $\frac{5\pi}{12}$
+
+2) Réponds aux questions suivantes :
+
+10 Trouve en fonction de $\pi$, la mesure en radians de chacun des angles suivants :
+A $225^{\circ}$
+B $240^{\circ}$
+C $-135^{\circ}$
+D $300^{\circ}$
+E $390^{\circ}$
+F $780^{\circ}$
+
+11 Trouve, à un millième près, la mesure en radians de chacun des angles suivants :
+A $56,6^{\circ}$
+B $25^{\circ} 18^{\prime}$
+C $160^{\circ} 50^{\prime} 48^{\prime \prime}$
+
+12 Trouve, à une seconde près, la mesure en degrés de chacun des angles suivants :
+A $0,49^{\text{rad}}$
+B $2,27^{\text{rad}}$
+C $-3\frac{1}{2}^{\text{rad}}$
+
+13 Soit un cercle de longueur de rayon $\text{R}$. $\theta$ est la mesure de l'angle au centre qui intercepte un arc de longueur $\text{L}$.
+A Si $\text{R} = 20\ \text{cm}$ et $78 = \theta^{\circ} 15^{\prime} 20^{\prime\prime}$, alors $\text{L} =$ (à un dixième près)
+B Si $\text{L} = 27,3\ \text{cm}$ et $78 = \theta^{\circ} 0^{\prime} 24^{\prime\prime}$, alors $\text{R} =$ (à un dixième près)
+
+14 Dans un cercle, un angle au centre de mesure $150^{\circ}$ intercepte un arc de longueur $11\ \text{cm}$. Calcule la longueur du rayon du cercle (à un dixième près).
+
+15 Trouve la mesure en radians et la mesure en degrés d'un angle au centre qui intercepte un arc de longueur $8,7\ \text{cm}$ dans un cercle de rayon de longueur $4\ \text{cm}$.
+
+16 Lien avec la géométrie : Dans un triangle, la mesure d'un des angles est $60^{\circ}$ et la mesure d'un autre angle $\frac{\pi}{4}$. Trouve en radians et en degrés la mesure du troisième angle du triangle.
+
+Livre de l'élève - Premier semestre
+97

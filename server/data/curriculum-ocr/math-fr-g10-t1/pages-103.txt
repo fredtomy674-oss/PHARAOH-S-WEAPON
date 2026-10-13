@@ -1,0 +1,48 @@
+4 - 3
+Fonctions trigonométriques
+
+A apprendre
+► Cercle d'unité.
+► Fonctions trigonométriques de base.
+► Fonctions trigonométriques inverses.
+► Signe des fonctions trigonométriques.
+► Fonctions trigonométriques de certains angles particuliers
+
+Réfléchis et discute
+Tu as déjà étudié les rapports trigonométriques de base d'un angle aigu.
+Dans un triangle ABC rectangle en B, on a :
+$$\sin C = \frac{\text{Opposé}}{\text{Hypoténuse}} = \frac{\text{AB}}{\text{AC}}$$
+$$\cos C = \frac{\text{Adjacent}}{\text{Hypoténuse}} = \frac{\text{BC}}{\text{AC}}$$
+$$\operatorname{tg} C = \frac{\text{Opposé}}{\text{Adjacent}} = \frac{\text{AB}}{\text{BC}}$$
+
+Expressions de base
+► Fonction trigonométrique
+► Sinus
+► Cosinus
+► Tangente
+► Cosécante
+► Sécante
+► Cotangente
+
+1- Dans la figure ci-contre, exprime $\sin C$ de trois rapports différents.
+★ Les trois rapports sont-ils égaux ? Explique ta réponse.
+★ Que peux-tu déduire ?
+
+Remarque que :
+Les triangles $\text{BAC}$, $\text{EFC}$ et $\text{DBC}$ sont semblables. Pourquoi ?
+De la similitude des triangles, on obtient : $\frac{\text{BA}}{\text{AC}} = \frac{\text{EF}}{\text{FC}} = \frac{\text{DB}}{\text{BC}} = \sin C$ (Pourquoi ?)
+Cela signifie que le rapport trigonométrique d'un angle aigu est constant. Ce rapport ne change que si l'angle lui-même change.
+
+Materials
+► Une calculatrice scientifique
+
+2- La figure ci-contre indique un quart cercle de longueur de rayon $\text{R cm}$ où : $m(\widehat{\text{DOC}}) = \theta$
+$$\sin \theta = \frac{\text{CD}}{\text{R}}$$
+
+$\text{Si } m(\widehat{\text{DOC}})$ augmente et devient $\alpha$
+$$\text{Alors } \sin \alpha = \frac{\text{ML}}{\text{R}}$$
+
+Donc le changement de la mesure d'un angle entraine le changement de ses rapports trigonométriques.
+
+98
+Mathématiques - Première secondaire

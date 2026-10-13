@@ -1,0 +1,63 @@
+Similitude des triangles
+A
+Dans la figure ci-contre, ABC est un triangle rectangle en A et AD 1 BC
+Dans les deux triangles DBA et ABC on a:
+m ( / ADB) = m ( / CAB) = 90° et / B est commun aux deux triangles
+C
+D
+B
+.. Δ DBA ~ A ABC
+(axiome)
+(1)
+De même A DAC ~ Δ ABC
+(2)
+.. les deux triangles sont semblables à un même troisième
+.. Δ DBA ~ A DAC ~ A ABC
+Exemple
+3 ABC est un triangle rectangle en A et AD 1 BC . telque AD ∩ BC = {D}. Démontre
+que DA est une moyenne proportionnelle entre DB et DC..
+Solution
+A
+Hypothèses : Dans le triangle A ABC: m ( /A) = 90°, AD I BC.
+Conclusion: Démontre que (DA)² = DB × DC.
+Démonstration: Dans le triangle A ABC
+*.m ( / A) = 90° et AD 1 BC
+C
+B
+.. Δ DBA ~ A DAC
+(corollaire)
+DA
+DB
+..
+d'où (DA)² = DB × DC
+DC
+DA
+Essaie de résoudre
+B
+2 Dans chacune des figures suivantes, trouve la valeur numérique de x :
+B
+A
+X cm
+D
+C 8 cm
+18 cm
+A
+Exemple
+4
+Dans la figure ci-contre, ABC est un triangle rectangle en A et
+AD 1 BC Démontre que :
+A (AB)² = BC × BD
+B (AC)² = CB × CD
+Livre de l'élève – Premier semestre
+(2x + 1) cm
+4 cm
+E
+6 cm
+B
+D
+C
+A
+B
+D
+C
+41

@@ -1,0 +1,61 @@
+Relation entre les aires de deux polygones semblables
+البحر المتوسط
+بورسعيد A
+بور فؤاد
+خليج
+السويس
+B
+قناة
+C
+القوم
+السويس
+B
+D
+البلاح
+الفردان
+الإسماعيلية
+A
+Exemple
+3 Si chaque centimètre sur la carte représente 10 kilomètres en réalité, trouve à un kilomètre carré près, l'aire réelle de la surface représentée sur la carte par le triangle ABC sachant que
+(A ABC) = 6,4cm².
+Solution
+1
+Echelle = Rapport de similitude =
+10 x 105
+A (A ABC) = Le carré du rapport de similitude
+Aire réelle
+6.4
+Aire réelle
+=(10×105)²
+Aire réelle = 6,4 x 10 x 10 x 105 x 105 cm²
+~ 640 km²
+Corollaire: Deux polygones semblables peuvent être partagés en un même nombre de triangles deux à deux
+semblables.
+Remarque: Le corollaire précédent est vrai quelque
+soit le nombre de côtés dans les deux polygones semblables (deux polygones semblables
+ont le même nombre de côtés). Si le nombre de côtés d'un polygone est n côtés, il peut être
+partagé (par des diagonales tracées d'un même sommet) en (n - 2) triangles.
+Théorème
+4
+Le rapport des aires de deux polygones semblables est égal au carré du
+rapport des longueurs de deux côtés correspondants. (La démonstration n'est
+pas sujet à léxamen)
+E'
+A'
+D'
+B'
+E
+D
+C'
+A
+Hypothèses: polygone ABCDE ~ polygone A'B'C'D'E'
+2
+Conclusion:
+A (polygone ABCDE)
+AB
+A (polygone A'B'C'D'E')
+A'B'
+Livre de l'élève - Premier semestre
+B
+C
+51

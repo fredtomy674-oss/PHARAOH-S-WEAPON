@@ -1,0 +1,72 @@
+Exercices 3-1
+1 Dans la figure ci-contre, DE // BC. Complète :
+A Si AD/DB = 5/3, alors : AB/BD = ......... et CE/ED = .........
+B Si AE/AC = 4/7, alors : CE/EA = ......... et BD/AB = .........
+A
+E D
+C B
+
+2 Dans la figure ci-contre, DE // BC. Détermine les expressions correctes dans ce qui suit :
+A AB/DB = AE/EC
+B AD/AE = BD/EC
+C AB/BD = AC/AE
+D AB/BD = AC/CE
+E AC/AD = AB/AE
+F CE/BD = AC/AB
+A
+E D
+C B
+
+3 Dans chacune des figures suivantes, DE // BC. Trouve la valeur numérique de x dans chaque cas
+(les longueurs sont en centimètres).
+A
+A
+E 9 D
+x 3
+C B
+B
+A
+C
+E 10
+2x + 5
+A 12 D 8 B
+C
+B
+x²
+D
+C 5 E 4 A 5
+D
+B x D 8 A
+E
+3
+C
+x + 2
+E
+A
+24
+27
+E
+x D
+9
+C B
+F
+A
+7 D 2x + 1 B
+C
+x + 2
+E 5
+4 Dans la figure ci-contre, AB // DE et AE ∩ BD = {C}
+AC = 6cm, BC = 4cm et CD = 3cm.
+Trouve la longueur de CE
+A
+D
+3 cm
+6 cm
+4 cm
+E B
+
+5 XY ∩ ZL = {M} et XZ // LY. Si XM = 9cm, Y M = 15cm et ZL = 36 cm,
+trouve la longueur de ZM.
+
+74
+Mathématiques - Première secondaire

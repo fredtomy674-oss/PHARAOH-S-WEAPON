@@ -1,0 +1,32 @@
+48
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 4 Soustraction
+Pointe!
+Soustraction avec zéro “ 0 ” 4-3
+Tu peux soustraire 0 comme n’importe quel autre nombre.
+Lorsque tu soustrais 0 d’un nombre, le nombre reste le même.
+Exemple 2 – 0 = 2
+Plus d’exemples: 4 – 0 = 4 et 7 – 0 = 7
+Lorsque tu soustrais un nombre de lui-même, la réponse est 0 .
+Exemple 2 – 2 = 0
+Plus d’exemples: 1 – 1 = 0 et 8 – 8 = 0
+Mise en train
+(1) Faisons de la soustraction.
+1 2 – 0 2 7 – 7
+(2) Il y a 3 oranges dans un panier. Tu n’en as mangé aucune .
+Combien en reste-t-il ? Écris la phrase de soustraction et
+la réponse.
+Comment résoudre
+(1) 1 2 – 0 = 2 2 7 – 7 = 0
+(2) Phrase de soustraction: 3 – 0 = 3 Réponse: 3 oranges
+Lorsque la question
+demande “Combien ? ”, tu
+réponds. avec “ – oranges”.

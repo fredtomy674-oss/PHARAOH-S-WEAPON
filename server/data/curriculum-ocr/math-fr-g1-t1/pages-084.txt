@@ -1,0 +1,33 @@
+84
+Chapitre 7 Nombres supérieurs à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Nombres supérieurs à 20 7-6
+Nombres supérieurs à 20
+Exemple
+20 1
+20 et 1 font Vingt et un
+30 2
+Trente
+30 et 2 font Trente-deux
+Mise en train
+(1) Compte et écris le nombre.
+1
+10
+10
+2
+(2) Écris le nombre.
+1 Vingt-six 2 Trente-huit
+Comment résoudre
+(1) 1 10 et 10 font 20. Ajoute 3 de plus à 20 et cela fait 23 .
+2 10, 10 et 10 font 30. Ajoute 5 de plus à 30 et cela fait 35 .
+(2) 1 Vingt (20) et six (6) font 26 . 2 Trente (30) et huit (8) font 38 .
+3 groupes de 10 font

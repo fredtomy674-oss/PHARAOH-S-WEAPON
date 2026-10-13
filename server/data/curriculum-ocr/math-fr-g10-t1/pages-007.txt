@@ -1,0 +1,36 @@
+Algèbre
+Unité
+1
+Algèbre, relations et fonctions
+Objectifs de l'unité
+Après l'étude de l'unité, l'élève devra être capable de :
+* Trouver la somme et le produit des racines de
+l'équation du second degré à une inconnue.
+* Trouver les coefficients de certains termes d'une
+équation du second degré à une inconnue en
+connaissant l'une ou les deux de ses racines.
+* Identifier le discriminant d'une équation du second
+degré à une inconnue.
+* Trouver la nature des deux racines d'une équation
+du second degré à une inconnue en connaissant les
+coefficients de ses termes.
+* Former une équation du second degré à une
+inconnue connaissant une autre équation du second
+degré à une inconnue.
+* Trouver le signe d'une fonction.
+* Avoir des connaissances sur les nombres complexes
+(Définition d'un nombre complexe, les puissances
+de i, écrire un nombre complexe sous forme
+algébrique, égalité de deux nombres complexes)
+* Résoudre une inéquation du second degré à une
+inconnue.
+Expressions de base
+* Équation
+* Racine d'une équation
+* Coefficient d'un terme
+* Discriminant d'une équation
+* Signe d'une fonction
+* Nombre complexe
+* Nombre imaginaire
+* Les puissances d'un nombre
+* Inéquation

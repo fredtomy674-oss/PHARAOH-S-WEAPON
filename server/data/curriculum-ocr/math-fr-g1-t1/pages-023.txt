@@ -1,0 +1,22 @@
+23
+1-9 Qu’est-ce qui fait 8?
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+Quels sont les deux nombres qui font 8 ? Écris le nombre manquant dans la case.
+(1) (2)
+(3) (4)
+Exercice
+Quels sont les deux nombres qui font 8 ? Écris le nombre manquant dans la case.
+(1) (2)
+(3) (4)
+C’est exactement
+comme ce que nous
+avons fait en 6 et 7 !

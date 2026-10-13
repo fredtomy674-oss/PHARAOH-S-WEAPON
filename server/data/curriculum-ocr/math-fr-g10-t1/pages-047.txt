@@ -1,0 +1,69 @@
+Solution
+
+Dans le triangle ABC :
+
+$\because m(\angle\text{A})=90^\circ,\text{ AD}\perp\text{ BC}$
+
+$\therefore\Delta\text{ABD}\sim\Delta\text{CBA}$ (corollaire)
+
+$\therefore\frac{\text{AB}}{\text{CB}}=\frac{\text{BD}}{\text{BA}}$ , $(\text{AB})^2=\text{BC}\times\text{BD}$
+
+$\because\Delta\text{ACD}\sim\Delta\text{BCA}$ (corollairet)
+
+$\therefore\frac{\text{AC}}{\text{BC}}=\frac{\text{CD}}{\text{CA}}$ , $(\text{AC})^2=\text{CB}\times\text{CD}$
+
+Essaie de résoudre
+
+3 Trouve la distance $x$ dans chacun des cas suivants :
+
+A
+
+B
+
+Théorème 1
+
+A retenir
+
+Dans les exemples
+
+3 et 4 nous avons
+
+démontré le théorème
+
+d'Euclide déjà étudié
+
+au cycle préparatoire
+
+Si les longueurs des côtés correspondants de deux triangles sont proportionnelles
+
+alors ces deux triangles sont semblables (La démonstration n'est pas sujet à
+
+l'examen)
+
+Hypothèses : $\text{ABC}$ et $\text{DEF}$ sont deux triangles tels que $\frac{\text{AB}}{\text{DE}}=\frac{\text{BC}}{\text{EF}}=\frac{\text{CA}}{\text{FD}}$
+
+Conclusion : Démontre que $\Delta\text{ABC}\sim\Delta\text{DEF}$
+
+Démonstration : Dans le triangle $\text{ABC}$
+
+On détermine $\text{X}\in\overline{\text{AB}}$ tel que $\text{AX}=\text{DE}$
+
+On trace $\text{XY}\sslash\text{BC}$ qui coupe $\text{AC}$ en $\text{Y}$.
+
+$\because\text{XY}\sslash\text{BC}$
+
+$\therefore\Delta\text{ABC}\sim\Delta\text{AXY}$ (Corolaire (1))
+
+$\therefore\frac{\text{AB}}{\text{AX}}=\frac{\text{BC}}{\text{XY}}=\frac{\text{CA}}{\text{YA}}$
+
+$\because\text{AX}=\text{DE}$ (Construction)
+
+$\therefore\frac{\text{AB}}{\text{DE}}=\frac{\text{BC}}{\text{XY}}=\frac{\text{CA}}{\text{YA}}$ (1)
+
+$\therefore\frac{\text{AB}}{\text{DE}}=\frac{\text{BC}}{\text{EF}}=\frac{\text{CA}}{\text{FD}}$ (Hypothèse) (2)
+
+De (1) et (2) on déduit que : $\text{XY}=\text{EF}$, $\text{YA}=\text{FD}$
+
+42
+
+Mathématiques – Première secondaire

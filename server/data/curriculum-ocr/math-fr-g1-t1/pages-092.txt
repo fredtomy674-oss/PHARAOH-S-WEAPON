@@ -1,0 +1,43 @@
+92
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 9 Opérations avec 3 nombres
+Pointe!
+Lorsque tu as à la fois une addition et une soustraction, fais le calcul
+de gauche à droite.
+Exemple 8 – 3 + 2 = 7
+5
+Mise en train
+(1) Combien de chats restent ? Écris le nombre dans la case.
+Il y avait
+6 chats.
+2 chats sont rentrés
+à la maison.
+3 nouveaux chats
+sont venus.
+Phrase mathématique: 6 – + = Réponse: chats
+(2) Résous les problèmes.
+1 10 – 3 + 1 2 3 + 5 – 7 3 1 + 1 + 1 + 1
+Comment résoudre
+(1) Soustrais, puis additionne de gauche à droite:
+6 – + = Réponse: chats
+(2) 1 10 – 3 + 1 = 8 2 3 + 5 – 7 = 1 3 1 + 1 + 1 + 1= 4
+D’abord, calcule 8 - 3 .
+Puis, additionne 2
+au résultat.
+4
+2 3 7 7
+7 8
+3
+2
+Calcul avec trois nombres 9 - 3
+Même avec quatre
+nombres, va de gauche
+à droite!

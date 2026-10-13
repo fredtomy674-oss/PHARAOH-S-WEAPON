@@ -1,0 +1,17 @@
+Essuie de résoudre
+1 Trouve $\theta$ tel que $0^{\circ} < \theta < 360^{\circ}$ qui vérifie chacun des cas suivants :
+A $\cos \theta = 0,6205$
+B $\operatorname{tg} \theta = (-2,3615)$
+C $\operatorname{cosec} \theta = (-2,1036)$
+
+Test de compréhension
+1 Lien avec les jeux sportifs : Dans un parc d'attraction, la hauteur d'un toboggan est 10 mètres et sa longueur est 16 mètres, écris une fonction trigonométrique permettant de trouver la valeur de $\theta$, en degrés à un millième près.
+
+2 Voitures : En voiture, Karim se dirige ver le bas d'une descente de longueur 65 mètres et de hauteur 8 mètres. Si la descente fait avec l'horizontale un angle de mesure $\theta$ calcule en degrés la valeur de $\theta$.
+
+3 Réflexion critique : La figure ci-contre, représente un segment reliant deux points $\mathrm{A}(3,0)$, $\mathrm{B}(7,3)$, Trouve la mesure de l'angle formé entre $\overline{\mathrm{AB}}$ et l'axe des abscisses.
+
+4 Réflexion critique : La figure ci-contre, représente un segment reliant deux points $\mathrm{A}(3,0)$, $\mathrm{B}(7,3)$, Trouve la mesure de l'angle formé entre $\overline{\mathrm{AB}}$ et l'axe des abscisses.
+
+120
+Mathématiques - Première secondaire

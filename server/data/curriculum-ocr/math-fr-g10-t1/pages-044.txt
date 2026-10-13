@@ -1,0 +1,53 @@
+Similitude des triangles
+Axiome
+Deux triangles ayant deux paires d'angles correspondants
+superposables sont semblables.
+F
+C
+Dans la figure ci-contre :
+Si A = D, B = E
+alors A ABC~A DEF
+D B
+A
+Remarque que
+1- Deux triangles équilatéraux sont semblables.
+2- Deux triangles isocèles sont semblables si un angle à la base dans l'un des deux triangles
+a la même mesure qu'un angle à la base dans l'autre triangle.
+3- Deux triangles rectangles sont semblables si un angle aigu dans l'un des deux triangles a
+la même mesure qu'un angle aigu dans l' autre triangle.
+Exemple
+1 ABC est un triangle. D E AB et E E AC tels que DE // BC,
+BD = 1,2cm, AE = 3cm, AC = 4cm et DE = 4,2cm.
+A Démontre que A ADE~A ABC
+A
+B Trouve la longueur de AD et BC
+3 cm
+E
+4,2 cm
+D
+Solution
+A: DE // BC et AB est une sécante.
+-. ADE = ABC
+1 cm
+C
+B
+Dans les deux triangles ADE et ABC:
+. ADE = ABC
+(démontré)
+<DAE = BAC
+(angle commun)
+- A ADE~A ABC
+(axiome)
+B A ADE~A ABC
+AD AE _ DE
+AB AC BC
+AD 3 4,2
+AD+1,2 4 BC
+4 AD = 3(AD + 1,2)
+3 BC = 4 × 4,2
+4 AD = 3A D + 3,6
+BC = 4 x 4,2
+AD = 3,6cm
+BC = 5,6cm
+Livre de l'élève - Premier semestre
+39

@@ -1,0 +1,51 @@
+Exercices 1-1
+1 Mets sous la forme la plus simple :
+A i66
+B i-45
+C i4n + 2
+D i4n - 1
+
+2 Mets sous la forme la plus simple :
+A -18 x -12
+B 3 i x (- 2i)
+C (- 4 i) (- 6 i)
+D (- 2 i)³ (- 3 i)²
+
+3 Simplifie :
+A (3 + 2i) + (2 – 5 i)
+B (26 - 4i) - (9 - 20 i)
+C (20 + 25 i) - (9 - 20 i)
+
+4 Mets sous la forme a + bi :
+A (2 + 3 i) - (1 - 2i)
+B (1 + 2i³) (2 + 3 i5 + 4 i6)
+
+5 Mets sous la forme a + bi :
+A 2/ 1+ i
+B 4+i / i
+C 2 - 3i / 3 + i
+D (3+i)(3-i) / 3 - 4 i
+
+6 Résous chacune des équations suivantes :
+A 3x² + 12 = 0
+B 4y² + 20 = 0
+C 4z² + 72 = 0
+D 3/5 y² + 15 = 0
+
+7 Déceler l'erreur : Mets sous la forme la plus simple : (2 + 3i)² (2 – 3i)
+
+Réponse de Karim
+(2 + 3i)²(2 - 3i) = (4 + 9i²)(2 - 3i)
+= (4 – 9)(2 - 3i) = - 5 (2 - 3i)
+= - 10 + 15 i
+
+Réponse d'Ahmed
+(2 + 3i)(2 + 3i)(2 - 3i)
+= (2 + 3i) (4 - 9i²)
+= (2 + 3i) (4 + 9) = 13(2 + 3i)
+= 26 + 39 i
+
+Laquelle des deux solutions est juste ? Pourquoi ?
+
+10
+Mathématiques – Première secondaire

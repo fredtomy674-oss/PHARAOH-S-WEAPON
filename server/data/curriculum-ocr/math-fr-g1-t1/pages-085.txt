@@ -1,0 +1,35 @@
+85
+7-6 Nombres supérieurs à 20
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+(1) Compte et écris le nombre.
+1
+10
+10 10
+2
+10 10
+3
+10
+10 10
+4
+(2) Écris le nombre.
+1 Vingt-quatre 2 Trente-sept
+Exercice
+(1) Compte et écris le nombre.
+1
+10 10 10
+2
+10 10
+(2) Regarde le calendrier. Écris le nombre correct dans chaque case vide 1 - 4 .
+Dim Lun Mar Mer Jeu Ven Sam
+1
+2 3
+4

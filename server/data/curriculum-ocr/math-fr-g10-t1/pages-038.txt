@@ -1,0 +1,63 @@
+Leçons de l'unité
+
+Leçon (2 - 1): Similitude des polygones
+
+Leçon (2 - 2): Similitude des triangles
+
+Leçon (2 - 3): Relation entre les aires de deux polygones semblables
+
+Leçon (2 - 4): Application de la similitude dans le cercle
+
+Matériel utilisé
+
+Ordinateur – Vidéo projecteur - Logiciels - Papiers quadrillés - Miroir - Instruments de mesure – Calculatrice
+
+Historique
+
+Organigramme de l'unité
+
+Pour construire un bâtiment sur un terrain, nous avons besoin de faire un plan de ce bâtiment et comme il est évident qu'on ne peut pas exécuter ce plan sur un papier qui a la dimension du terrain, on a recours à un modèle réduit de la construction en utilisant une échelle et des mesures d'angles analogues à leurs correspondants en réalité.
+
+Si tu observes la figure en haut de la page, tu remarques que la nature contient des modèles qui se reproduisent de différentes grandeurs, par exemple : les feuilles d'arbres, le chou-fleur, les sinuosités du bord de la mer. L'observation de ces motifs récurrents a provoqué l'apparition d'une nouvelle géométrie depuis 40 ans environ. Cette géométrie qu'on appelle géométrie fractale et que tu étudieras plus tard, s'intéresse à l'étude des figures symétriques qui se reproduisent irrégulièrement.
+
+Similitude
+
+Similitude des polygones
+
+Similitude de deux triangles
+
+Similitude de deux polygones
+
+Polygones réguliers de même nombre de côtés
+
+Superposition d'un angle et proportionnalité des deux côtés qui la forment
+
+Angles superposables
+
+Côtés correspondants proportionnels
+
+Relation entre les périmètres et les aires de deux polygones semblables
+
+Applications de la similitude
+
+Applications quotidiennes et liens scientifiques
+
+Mesure indirecte
+
+Dans un cercle
+
+Sciences et espace
+
+Art et culture générale
+
+Tangente et sécante
+
+Cordes sécantes
+
+Environnement et agriculture
+
+Géographie et Géologie
+
+Sécantes d'un cercle
+
+Sites touristiques

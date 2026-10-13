@@ -1,0 +1,63 @@
+Exemple
+
+15 Sans utiliser de calculatrice, trouve la valeur de l'expression :
+$\sin 150^{\circ} \cos \left(-300^{\circ}\right)+\cos 930^{\circ} \operatorname{cotg} 240^{\circ}$
+
+Solution
+
+$\sin 150^{\circ}$
+$= \sin \left(180^{\circ}-30^{\circ}\right)$
+$= \sin 30^{\circ}$
+$= \frac{1}{2}$
+
+$\cos \left(-300^{\circ}\right)$
+$= \cos \left(-300^{\circ}+360^{\circ}\right)$
+$= \cos 60^{\circ}$
+$= \frac{1}{2}$
+
+$\cos 930^{\circ}$
+$= \cos \left(930^{\circ}-2 \times 360^{\circ}\right)$
+$= \cos 210^{\circ}$
+
+Donc $\cos 210^{\circ}$
+$= \cos \left(180^{\circ}+30^{\circ}\right)$
+$= -\cos 30^{\circ}$
+$= -\frac{\sqrt{3}}{2}$
+
+$\operatorname{cotg} 240^{\circ}$
+$= \operatorname{cotg}\left(180^{\circ}+60^{\circ}\right)$
+$= \operatorname{cotg} 60^{\circ}$
+$= \frac{1}{\operatorname{tg} 60^{\circ}}$
+$= \frac{1}{\sqrt{3}}$
+
+L'expression
+$= \frac{1}{2} \times \frac{1}{2}+\left(-\frac{\sqrt{3}}{2}\right) \times \frac{1}{\sqrt{3}}$
+
+$= \frac{1}{4}-\frac{1}{2}=-\frac{1}{4}$
+
+Essaie de résoudre
+
+4 Démontre que : $\sin 600^{\circ} \cos \left(-30^{\circ}\right)+\sin 150^{\circ} \cos \left(-240^{\circ}\right)=-1$
+
+4- Fonctions trigonométriques des deux angles $\theta$ et $\left(90^{\circ}-\theta\right)$
+
+La figure ci-contre indique une partie d'un cercle de centre O.
+
+L'angle de mesure $\theta$ est en position standard et a pour rayon R.
+
+De la superposition des deux triangles OAB et $\mathrm{OCB}^{\prime}$ :
+
+On a : $x^{\prime}=y \quad, \quad y^{\prime}=x$
+
+Donc on peut déduire toutes les fonctions trigonométriques reliant les deux angles $\theta$ et $\left(90^{\circ}-\theta\right)$ :
+
+$\sin \left(90^{\circ}-\theta\right)=\cos \theta \quad, \quad \operatorname{cosec}\left(90^{\circ}-\theta\right)=\sec \theta$
+$\cos \left(90^{\circ}-\theta\right)=\sin \theta \quad, \quad \sec \left(90^{\circ}-\theta\right)=\operatorname{cosec} \theta$
+$\operatorname{tg}\left(90^{\circ}-\theta\right)=\operatorname{cotg} \theta \quad, \quad \operatorname{cotg}\left(90^{\circ}-\theta\right)=\operatorname{tg} \theta$
+
+Exemple
+
+1 Si le côté final d'un angle de mesure $\theta$, en position standard, passe par le point $\left(\frac{3}{5}, \frac{4}{5}\right)$, trouve les fonctions trigonométriques : $\sin \left(90^{\circ}-\theta\right)$ et $\operatorname{cotg}\left(90^{\circ}-\theta\right)$
+
+108
+Mathématiques – Première secondaire

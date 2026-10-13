@@ -1,0 +1,42 @@
+A apprendre
+Propriétés de la fonction sinus
+Si f est une fonction telle que $f(\theta) = \sin \theta$, alors :
+* le domaine de définition de la fonction sinus est $]-\infty ; +\infty[$ et son ensemble image est $[-1, 1]$
+* la fonction cosinus est une fonction périodique de période $2\pi$ ce qui signifie qu'on peut déplacer la courbe dans l'intervalle $[0, 2\pi]$ vers la gauche ou vers la droite de $2\pi$ unités, de $4\pi$ unités, de $6\pi$ unités, ... etc.
+* la valeur maximale de la fonction sinus est égale à $1$ et on l'obtient aux points d'abscisses
+$\theta = \frac{\pi}{2} + 2\pi n$ où $n \in \mathbb{Z}$
+* la valeur minimale de la fonction sinus est égale à $-1$ et on l'obtient aux points d'abscisses
+$\theta = \frac{3\pi}{2} + 2\pi n$ où $n \in \mathbb{Z}$
+
+Représentation graphique de la fonction cosinus
+
+Travail collectif
+
+1 Avec tes camarades, complète le tableau suivant :
+
+$$\begin{array}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\theta & 0 & \frac{\pi}{6} & \frac{3\pi}{6} & \frac{5\pi}{6} & \pi & \frac{7\pi}{6} & \frac{9\pi}{6} & \frac{11\pi}{6} & 2\pi \\
+\hline
+\cos \theta & 1 & 0,8 & & & & & & & \\
+\hline
+\end{array}$$
+
+2 Trace la courbe en joignant tous les points.
+3 Dresse un autre tableau en utilisant les opposés des valeurs présentées dans le tableau précédent.
+4 Représente tous les points obtenus dans un repère.
+5 Complète la courbe représentative en joignant tous les points.
+
+$y'$
+$y$
+$x'$
+$x$
+
+A apprendre
+Propriétés de la fonction sinus
+Si f est une fonction telle que $f(\theta) = \cos \theta$ alors :
+* le domaine de définition de la fonction cosinus est $]-\infty ; +\infty[$ et son ensemble image est $[-1, 1]$
+* la fonction cosinus est une fonction périodique de période $2\pi$, ce qui signifie qu'on peut déplacer la courbe dans l'intervalle $[0, 2\pi]$ vers la gauche ou vers la droite de $2\pi$ unités, de $4\pi$ unités, de $6\pi$ unités, ... etc.
+
+116
+Mathématiques - Première secondaire

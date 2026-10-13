@@ -1,0 +1,30 @@
+24
+Chapitre 1 Les nombers jusqu’à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Qu’est-ce qui fait 9?
+Quels sont les deux nombres qui font 9 ?
+… , … et font 9
+… , … et font 9
+… , … et font 9
+… , … et font 9
+… , … et font 9
+… , … et font 9
+… , … et font 9
+… , … et font 9
+Mise en train
+Quels sont les deux nombres qui font 9 ? Écris le nombre manquant
+dans la case.
+(1) (2)
+Comment résoudre
+Dessine 9 cercles. Colorie le nombre que tu connais, puis compte le reste.
+(1) (2)
+Colorie 3 cercles. 6 ne sont pas colorés. Colorie 5 cercles. 4 ne sont pas colorés.

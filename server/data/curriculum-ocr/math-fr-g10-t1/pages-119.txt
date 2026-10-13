@@ -1,0 +1,32 @@
+22 Si $\cos \left(90^{\circ}+\theta\right)=\frac{1}{2}$ où $\theta$ est la plus petite mesure d'un angle aigu positif, alors $\theta$ est égale à
+(A) $150^{\circ}$
+(B) $210^{\circ}$
+(C) $240^{\circ}$
+(D) $330^{\circ}$
+
+(4) Réponds aux questions suivantes :
+23 Trouve les valeurs de $\theta$ où $0 \leqslant \theta<90^{\circ}$ qui vérifient ce qui suit :
+(A) $\sin \left(315+\theta^{\circ}\right)=\cos \left(25-\theta^{\circ}\right)$
+(B) $\sec \left(25+\theta^{\circ}\right)=\operatorname{cosec}\left(15+\theta^{\circ}\right)$
+(C) $\operatorname{tg}\left(20+\theta^{\circ}\right)=\operatorname{cotg}\left(330+\theta^{\circ}\right)$
+(D) $\cos \left(\frac{20+\theta^{\circ}}{2}\right)=\sin \left(\frac{40+\theta^{\circ}}{2}\right)$
+
+24 Trouve la valeur de ce qui suit :
+(A) $\sin 150^{\circ}$
+(B) $\operatorname{cosec} 225^{\circ}$
+(C) $\sec 300^{\circ}$
+(D) $\operatorname{tg} 780^{\circ}$
+
+(E) $\operatorname{cosec} \frac{11 \pi}{6}$
+(F) $\sin \frac{7 \pi}{4}$
+(H) $\operatorname{cotg} \frac{-2 \pi}{3}$
+(I) $\cos \frac{-7 \pi}{4}$
+
+25 Soit un angle de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique au point $\left(-\frac{3}{5}, \frac{4}{5}\right)$, trouve la valeur de :
+(A) $\sin \left(180^{\circ}+\theta\right)$
+(B) $\cos \left(\frac{\pi}{2}-\theta\right)$
+(C) $\operatorname{tg}\left(360^{\circ}-\theta\right)$
+(D) $\operatorname{cosec}\left(\frac{3 \pi}{2}-\theta\right)$
+
+114
+Mathématiques - Première secondaire

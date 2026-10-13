@@ -1,0 +1,151 @@
+Bissectrice d’un angle et parties proportionnelles
+
+$\vec{\mathrm{AD}}$ bissectrice de $\angle\mathrm{A}$
+
+$\angle1\equiv\angle2$
+
+$\angle1\equiv\angle4$ (alterne- internes)
+
+$\angle3\equiv\angle2$ (correspondants)
+
+$\angle3\equiv\angle4$
+
+$\overline{\mathrm{CE}}\parallel\overline{\mathrm{AD}}$
+
+$\frac{\mathrm{BD}}{\mathrm{DC}}=\frac{\mathrm{AB}}{\mathrm{AC}}$
+
+$\overline{\mathrm{AE}}\equiv\overline{\mathrm{AC}}$
+
+$\frac{\mathrm{BD}}{\mathrm{DC}}=\frac{\mathrm{AB}}{\mathrm{AC}}$
+
+Exemple
+
+1 ABC est un triangle tel que $\mathrm{AB}=8\mathrm{cm}$ , $\mathrm{AC}=6\mathrm{cm}$ et $\mathrm{BC}=7\mathrm{cm}$ , On trace $\vec{\mathrm{AD}}$ bissectrice de $\angle\mathrm{BAC}$ qui coupe $\overline{\mathrm{BC}}$ en D. Trouve la longueur de $\overline{\mathrm{DB}}$ et $\overline{\mathrm{DC}}$
+
+Solution
+
+$\because\vec{\mathrm{AD}}$ est une bissectrice de $\angle\mathrm{BAC}$
+
+$\therefore\frac{\mathrm{DB}}{\mathrm{DC}}=\frac{\mathrm{AB}}{\mathrm{AC}}$ (théorème)
+
+$\because\mathrm{AB}=8\mathrm{cm}$ , $\mathrm{AC}=6\mathrm{cm}$
+
+$\therefore\frac{\mathrm{BD}}{\mathrm{DC}}=\frac{8}{6}=\frac{4}{3}$
+
+$\because\mathrm{BC}=\mathrm{BD}+\mathrm{DC}=7\mathrm{cm}$
+
+$\therefore\frac{\mathrm{DB}}{7-\mathrm{BD}}=\frac{4}{3}$
+
+$3\mathrm{BD}=28-4\mathrm{BD}$
+
+(double produit)
+
+$7\mathrm{BD}=28$
+
+$\therefore\mathrm{BD}=4\mathrm{cm}$ , $\mathrm{CD}=3\mathrm{cm}$
+
+A
+
+$8\text{cm}$
+
+$6\text{cm}$
+
+C
+
+D
+
+B
+
+$7\text{cm}$
+
+Essai de résoudre
+
+1 Dans chacune des figures suivantes, trouve la valeur numérique de x (Les longueurs sont mesurées en centimètres)
+
+A
+
+C
+
+B
+
+A
+
+$9$
+
+$6$
+
+D
+
+$15$
+
+$x+1$
+
+B
+
+C
+
+$x+1$
+
+D
+
+$5$
+
+$8$
+
+$x+4$
+
+B
+
+A
+
+A
+
+$C$
+
+$5$
+
+$7$
+
+D
+
+$x$
+
+C
+
+$4$
+
+B
+
+Exemple
+
+2 Soit ABC un triangle. $\vec{\mathrm{DB}}$ est une bissectrice de $\angle\mathrm{B}$ qui coupe $\overline{\mathrm{AC}}$ en D, où $\mathrm{AD}=14\mathrm{cm}$ , $\mathrm{AC}=6\mathrm{cm}$ et $\mathrm{DC}=18\mathrm{cm}$. Si le périmètre du triangle $\mathrm{ABC}=80\mathrm{cm}$ , trouve la longueur de : $\overline{\mathrm{BC}}$ , $\overline{\mathrm{AC}}$.
+
+Solution
+
+B
+
+Dans le triangle ABC
+
+$\because\vec{\mathrm{BD}}$ est une bissectrice de $\angle\mathrm{B}$
+
+$\frac{\mathrm{AB}}{\mathrm{BC}}=\frac{\mathrm{AD}}{\mathrm{DC}}$
+
+$\therefore\frac{\mathrm{AB}}{\mathrm{BC}}=\frac{14}{18}=\frac{7}{9}$
+
+$\because$ le périmètre du triangle $\mathrm{ABC}=80\mathrm{cm}$ , $\mathrm{AC}=14+18=32\mathrm{cm}$
+
+$\therefore\mathrm{AB}+\mathrm{BC}=80-32=48\mathrm{cm}$
+
+C
+
+$18\text{cm}$
+
+D
+
+$14\text{cm}$
+
+A
+
+Livre de l'élève – Premier semestre
+
+77

@@ -1,0 +1,24 @@
+Exercices 4-5
+
+(1) Complète ce qui suit :
+1 L'ensemble image de la fonction f telle que f(0) = sin est
+2 L'ensemble image de la fonction f telle que f(2 = (0 sin est
+3 La valeur maximale de la fonction g telle que g(4 = (0 sin est
+4 La valeur minimale de la fonction h telle que h(3 = (0 cos est
+
+(2) Ecris l'expression algébrique de chacune des fonctions trigonométriques
+suivantes :
+
+Figure (1) : L'expression algébrique est
+Figure (2) : L'expression algébrique est
+
+(3) Réponds aux questions suivantes :
+5 Détermine la valeur maximale, la valeur minimale et l'ensemble image de chacune des fonctions
+suivantes :
+A y = sin 0
+
+B y = 3 cos 0
+
+C y = sin 0
+
+118 Mathématiques – Première secondaire

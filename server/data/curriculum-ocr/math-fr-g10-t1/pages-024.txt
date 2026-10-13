@@ -1,0 +1,61 @@
+Relation entre les racines d'une équation du second degré et les coefficients de ses termes
+
+Réflexion critique : La figure ci-contre, représente les courbes de
+plusieurs fonctions du second degré passant par les deux points (0, -2) et
+(0, 2).
+
+Trouve l'expression algébrique de chaque fonction.
+
+Former une équation du second degré connaissant une
+autre du second degré :
+
+Exemple
+
+6 Si L et M sont les racines de l'équation $2x^2 - 3x - 1 = 0$, forme une
+équation du second degré dont les racines sont $L^2$ et $M^2$.
+
+Solution
+Dans l'équation donnée, $a = 2, b = -3$ et $c = -1$: $L + M = -(\frac{-3}{2}) = \frac{3}{2}$ et $LM = (-\frac{1}{2})$
+
+Dans l'équation demandée, on sait que $L + M = \frac{3}{2}$ et $LM = -\frac{1}{2}$
+
+En utilisant la formule $L^2 + M^2 = (L + M)^2 - 2\text{ LM}$
+
+$\therefore L^2 + M^2 = (L + M)^2 - 2\text{ LM} = (\frac{3}{2})^2 - 2\times (-\frac{1}{2})$
+
+$= \frac{9}{4} + 1 = \frac{9}{4} + \frac{4}{4} = \frac{13}{4}$
+
+$\therefore L^2M^2 = (\text{LM})^2$
+$\therefore L^2M^2 = (-\frac{1}{2})^2 = \frac{1}{4}$
+
+Remarque que
+$L^2 + M^2 = (\text{L} + \text{M})^2 - 2\text{LM}$
+$(L - M)^2 = (\text{L} + \text{M})^2 - 4\text{LM}$
+
+L'équation demandée est $x^2 - (\text{somme des racines})x + \text{produit des racines} = 0$
+
+$x^2 - \frac{13}{4}x + \frac{1}{4} = 0$
+
+En multipliant les deux membres de l'équation par 4
+
+$\therefore$ L'équation demandée est : $4x^2 - 13x + 4 = 0$
+
+Essaie de résoudre
+
+6 Dans l'équation précédente $2x^2 - 3x - 1 = 0$, forme une équation du second degré dont les racines sont :
+A $\frac{1}{L}, \frac{1}{M}$
+B $\frac{L}{M}, \frac{M}{L}$
+C $L + M, LM$
+
+Test de compréhension
+
+1 Dans chacun des cas suivants, forme une équation du second degré dont les racines sont :
+A $\frac{3}{4}\text{ et } \frac{4}{3}$
+B $5\sqrt{3} \text{ et } -2\sqrt{3}$
+C $3 + \sqrt{2} \text{ i et } 3 - \sqrt{2}\text{ i}$
+
+2 Si L et M sont les racines de l'équation $x^2 + 3x - 5 = 0$, forme une équation du second degré dont les
+racines sont $L^2$ et $M^2$.
+
+Livre de l'élève - Premier semestre
+19

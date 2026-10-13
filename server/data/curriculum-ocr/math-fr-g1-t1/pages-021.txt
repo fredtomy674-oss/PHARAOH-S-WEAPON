@@ -1,0 +1,19 @@
+21
+1-8 Qu’est-ce qui fait 7?
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+Quels sont les deux nombres qui font 7 ? Écris le nombre manquant dans la case.
+(1) (2)
+(3) (4)
+Exercice
+Quels sont les deux nombres qui font 7 ? Écris le nombre manquant dans la case.
+(1) (2)
+(3) (4)

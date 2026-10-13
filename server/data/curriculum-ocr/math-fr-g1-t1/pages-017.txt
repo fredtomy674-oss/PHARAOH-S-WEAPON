@@ -1,0 +1,20 @@
+17
+1-6 Comptons! (de 6 à 10)
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+Écris le nombre correspondant à ce que tu vois.
+(1) (2)
+(3)
+Exercice
+Écris le nombre correspondant à ce que tu vois.
+(1) (2)
+(3) (4)
+(5)

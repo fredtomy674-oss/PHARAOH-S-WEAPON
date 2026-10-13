@@ -1,0 +1,38 @@
+58
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 5 Comparer les longueurs
+Pointe!
+Tu peux comparer les longueurs en utilisant “combien de blocs de long”.
+Exemple
+•Le crayon est 7 blocs de long.
+•Le crayon de couleur est 5 blocs de long.
+Le crayon est plus long.
+Mise en train
+(1) Lequel est le plus long, le train jaune ou le train vert ?
+(2) Lequel est le plus long, la brosse à dents ou le dentifrice ?
+Comment résoudre
+(1) Le train jaune est 4 blocs de long. Le
+train vert est 5 blocs de long.
+Le train vert est plus long.
+(2) La brosse à dents est 8 blocs de long. Le
+dentifrice est 6 blocs de long.
+La brosse à dents est plus longue
+Compte les blocs pour
+mesurer la longueur du
+crayon et du crayon de
+couleur.
+Compare deux nombres
+pour savoir lequel est le
+plus long.
+Comparons les longueurs 5-3
+Tu peux comparer les longueurs
+même si les extrémités ne sont
+pas alignées.

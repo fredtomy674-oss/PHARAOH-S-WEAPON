@@ -1,0 +1,20 @@
+Droites parallèles et parties proportionnelles
+
+6 Utilise la figure ci-contre pour trouver la valeur de x dans chacun
+des cas suivants :
+A AD = 4 , BD = 8 , CE = 6 et AE = x.
+B AE = x , EC = 5 , AD = x - 2 et BD = 3.
+
+7 Dans chacune des figures suivantes, a-t-on XY // BC ?
+
+8 Soit XYZ un triangle tel que XY= 14cm, XZ = 21 cm et L ∈ [XY] tel que XL = 5,6cm et
+M ∈ [XZ] tel que XM = 8,4cm. Démontre que (LM) // (YZ)
+
+9 Soit ABC un triangle, D ∈ [AB] et E ∈ [AC] tels que 5AE = 4 EC.
+Si AD = 10 cm et DB = 8cm. a-t-on [DE] // [BC] ? Explique ta réponse.
+
+10 Soit ABCD un quadrilatère dont les diagonales se coupent en E. Si AE = 6cm, BE = 13cm,
+EC = 10cm et ED = 7,8 cm. démontre que le quadrilatère ABCD est un trapèze.
+
+Livre de l'élève - Premier semestre
+75

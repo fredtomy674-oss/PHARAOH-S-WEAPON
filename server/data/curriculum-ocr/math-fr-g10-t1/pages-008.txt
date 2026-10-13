@@ -1,0 +1,50 @@
+Statut de Mohamed Bem Moussa Al Khawarizmiz
+
+Leçons de l'unité
+Leçon (1 - 1) : Introduction aux nombres complexes
+Leçon (1 - 2) : Détermination de la nature des racines d'une équation du second degré
+Leçon (1 - 3) : Relation entre les racines d'une équation du second degré et les coefficients de ses termes
+Leçon (1 - 4) : Signe d'une fonction
+Leçon (1 - 5) : Inéquation du second degré à une inconnue.
+
+Matériel utilisé
+Une calculatrice scientifique - Papiers graphiques - Ordinateur - Logiciels
+Quelques site web comme : www.phschool.com
+
+Historique
+Le mot << Algèbre >> est d'origine arabe. Il a été utilisé pour la première fois par Mohamed Bem Moussa Al Khawarizmiz (neuvième siècle à l'époque du calife abbasside Al Maamoun) dans son livre << Abrégé du calcul par la restauration et la comparaison >>. Ce livre a été traduit en plusieurs langues européennes. Dans ce livre, il propose des méthodes pour résoudre les équations et par conséquent, il est considéré le fondateur de l'Algèbre qui faisait partie de l'Arithmétique. Al Khawarizmiz a proposé de méthodes géométriques pour résoudre les équations du second degré. Ces méthodes sont en adéquation avec la méthode de complétion du trinôme carré parfait. Plusieurs savants arabes ont contribué à la résolution des équations, parmi lesquels il y a Omar Al Khayyam qui s'est intéressé à la résolution des équations du troisième degré.
+Il est important de signaler que le papyrus d'Amos (1860 A.J.) montre des solutions de problèmes qui prouvent que les égyptiens de cette époque ont trouvé une méthode pour calculer la somme des termes d'une suite arithmétique et d'une suite géométrique.
+L'Algèbre est devenue maintenant une science bien avancée. Cette science a dépassé le simple traitement des nombres pour traiter des nouvelles notions mathématiques comme les ensembles, les matrices et les vecteurs etc.
+Nous comptons sur vous, chers élèves, pour retrouver la gloire scientifique de l'époque pharaonique et l'époque islamique pendant lesquelles nos scientifiques ont contribué pour le progrès du monde entier.
+
+Organigramme de l'unité
+Algèbre, relations et fonctions
+Fonction du second degré à une inconnue
+Recherche du signe d'une fonction
+Équation du second degré
+affine
+du second degré
+constante
+Discriminant (b² - 4ac)
+Relation entre les racines d'une équation
+Résolution d'une fonction du second degré à une inconnue
+Somme des racines
+Positif
+Négatif
+Nul
+Produit des racines
+Il y a deux racines réelles différentes
+Pas de racines réelles
+Il y a deux racines égales
+Former l'équation du second degré
+Ensemble des nombres complexes
+quotidienne
+physique
+Applications générales
+Deux nombres conjugués
+Égalité de deux nombres complexes
+Propriétés des opérations
+électrique
+Calculatrice scientifique
+Utilisation de la technologie
+Logiciels de dessin

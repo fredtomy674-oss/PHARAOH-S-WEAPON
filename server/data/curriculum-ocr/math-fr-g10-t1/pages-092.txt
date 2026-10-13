@@ -1,0 +1,33 @@
+L'angle orienté
+
+Définition
+L'angle orienté est un couple de demi-droites de même origine. L'origine
+est le sommet de l'angle et les deux demi-droites sont les côtés de l'angle.
+
+Réflexion critique :
+➢ A-t-on $(\vec{\mathrm{OA}}, \vec{\mathrm{OB}})=(\vec{\mathrm{OB}}, \vec{\mathrm{OA}})$ ? Justifie ta réponse.
+
+Position standard d'un angle orienté
+On dit qu'un angle est en position standard si son sommet est le
+point d'origine dans un repère orthogonal et son côté initial est
+situé sur la partie positive de l'axe des abscisses.
+Dans la figure ci-contre, l'angle $\angle \text{AOB}$ est-il un angle orienté ?
+Explique ta réponse.
+
+Expression orale
+Dans la figure ci-contre, Lesquels des couples suivants représentent des angles orientés en position
+standard ? Explique ta réponse..
+
+A $(\vec{\mathrm{CA}}, \vec{\mathrm{CD}})$
+B $(\vec{\mathrm{OA}}, \vec{\mathrm{OE}})$
+C $(\vec{\mathrm{OE}}, \vec{\mathrm{OA}})$
+D $(\vec{\mathrm{OA}}, \vec{\mathrm{OG}})$
+E $(\vec{\mathrm{OB}}, \vec{\mathrm{OG}})$
+F $(\vec{\mathrm{OA}}, \vec{\mathrm{OB}})$
+
+Essaie de résoudre
+1 Lesquels des couples suivants est en position standard
+? Explique ta réponse..
+
+Livre de l'élève - Premier semestre
+87

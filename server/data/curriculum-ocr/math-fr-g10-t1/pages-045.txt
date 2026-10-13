@@ -1,0 +1,64 @@
+Résultats importants
+
+Corollaire 1
+Si une droite parallèle à un côté d’un triangle coupe les deux autres côtés ou les droites qui les contiennent, le triangle formé est semblable au triangle initial.
+
+A
+E
+D
+C
+B
+A
+C
+B
+E
+D
+D
+E
+A
+C
+B
+
+Si $\overleftrightarrow{DE}$ // $\overleftrightarrow{BC}$ qui coupe $\overleftrightarrow{AB}$ et $\overleftrightarrow{AC}$ en D, et E respectivement comme le montre les trois figures précédentes :
+alors $\Delta$ ADE $\sim \Delta$ ABC.
+
+Exemple
+
+2 Dans la figure ci-contre, ABC est un triangle et D $\in \overleftrightarrow{AB}$.
+On trace $\overleftrightarrow{DE}$ // $\overleftrightarrow{BC}$ qui coupe $\overleftrightarrow{AC}$ en E, $\overleftrightarrow{DF}$ // $\overleftrightarrow{AC}$ qui coupe $\overleftrightarrow{BC}$ en F. Démontre que : $\Delta$ ADE $\sim \Delta$ DBF
+
+A
+E
+D
+C
+F
+B
+
+Solution
+
+$\because$ DE // BC $\therefore \Delta$ ADE $\sim \Delta$ ABC (1)
+$\because$ DF // AC $\therefore \Delta$ DBF $\sim \Delta$ ABC (2)
+De (1) et (2) on obtient : $\Delta$ ADE $\sim \Delta$ DBF (ce qu’il fallait démontrer)
+
+Essaie de résoudre
+
+1 Dans la figure ci-contre, ABC est un triangle et D $\in \overleftrightarrow{AB}$.
+On trace $\overleftrightarrow{DE}$ // $\overleftrightarrow{BC}$ qui coupe $\overleftrightarrow{AC}$ en E, On trace $\overleftrightarrow{AX}$ qui coupe $\overleftrightarrow{DE}$ et $\overleftrightarrow{BC}$ en X et Y respectivement.
+
+A Cite trois pairs de triangles semblables.
+
+B Démontre que $\frac{DX}{BY} = \frac{XE}{YC} = \frac{DE}{BC}$.
+
+A
+E
+X
+D
+C
+Y
+B
+
+Corollaire 2
+La perpendiculaire issue du sommet de l’angle droit dans un triangle rectangle sur l’hypoténuse partage le triangle en deux triangles semblables et chacun des deux triangles obtenus est semblable au triangle initial.
+
+40
+Mathématiques – Première secondaire

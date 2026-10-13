@@ -1,0 +1,43 @@
+76
+Chapitre 7 Nombres supérieurs à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Sur une droite numérique, les nombres deviennent plus grands quand tu
+vas vers la droite .
+Plus grand
+Plus petit
+1 0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+Mise en train
+(1) Regarde la droite numérique. Jusqu’où est allé le lapin ? Écris le nombre.
+1 2
+1 0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+1
+2
+(2) Regarde la droite numérique dans (1) et écris le nombre qui va dans la
+case.
+1
+2
+Comment résoudre
+(1)
+1 9
+2 13
+(2) 1
+2
+La droite numérique
+commence à 0 .
+1 0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+1
+2
+As-tu remarqué
+que les nombres
+augmentent de 2
+à partir de 10 ?
+Droite numérique 7-3

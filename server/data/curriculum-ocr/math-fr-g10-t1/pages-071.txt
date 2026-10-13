@@ -1,0 +1,90 @@
+3 - 1
+
+Droites parallèles et parties proportionnelles
+
+A apprendre
+
+► Propriétés d'une droite parallèle
+à l'un des côtés d'un triangle.
+► Utilisation de la proportionnalité
+pour calculer des longueurs
+de segments déterminés par
+des droites parallèles et des
+sécantes.
+► Modélisation et résolution de
+problèmes de la vie quotidienne
+incluant des droites parallèles et
+leurs sécantes.
+
+Expressions de base
+
+► Parallèle
+► Milieu
+► Médiane
+► Sécante
+
+Matériel et moyens
+
+► Instruments géométriques pour
+tracer et pour mesurer
+► Ordinateur
+► Logiciels
+► Vidéo projecteur
+
+66
+
+Réfléchis et discute
+
+1- Trace un triangle ABC, Détermine un point D ∈ AB
+puis trace DE // BC qui coupe AC en E.
+
+2- Mesure les longueurs de :
+AD, DB, AE et EC
+
+3- Calcule les rapports AD / DB et AE / EC,
+
+puis compare-les. Que remarques-tu ?
+
+A
+E
+D
+C
+B
+
+Si on change la position de DE en gardant le parallélisme avec BC, la
+relation entre AD / DB et AE / EC va-t-elle changer ? Que peux-tu conclure ?
+
+Théorème
+1
+
+Si une droite est parallèle à un côté d'un triangle, elle
+découpe les deux autres côtés en segments de longueurs
+proportionnelles. (La démonstration n'est pas sujet à
+l'examen)
+
+Hypothèses : ABC est un triangle et DE // BC
+
+Conclusion : AD / DB = AE / EC
+
+Démonstration : ∵ DE // BC
+∴ △ ABC ~ △ ADE (Axiome)
+AB / AD = AC / AE (1)
+
+∵ D ∈ AB et E ∈ AC
+∴ AB = AD + DB et AC = AE + EC
+De (1) et (2) on obtient :
+AD + DB / AD = AE + EC / AE
+
+D'où : AD / AD + DB / AD = AE / AE + EC / AE
+1 + DB / AD = 1 + EC / AE
+DB / AD = EC / AE
+AD / DB = AE / EC propriété de la proportionnalité (Ce qu'il fallait démontrer)
+
+A
+D
+E
+B
+C
+(2)
+
+Mathématiques - Première secondaire

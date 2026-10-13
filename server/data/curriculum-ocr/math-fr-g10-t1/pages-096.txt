@@ -1,0 +1,59 @@
+L'angle orienté
+
+De ce qui précède, on déduit que :
+Si un angle orienté de mesure $\theta$ est en position standard, tous les angles de mesures :
+$\theta \pm 1 \times 360^{\circ} \text { ou } \quad \theta \pm 2 \times 360^{\circ} \text { ou } \quad \theta \pm 3 \times 360^{\circ} \text { ou } \dots . \text { ou } \quad \theta \pm n \times 360^{\circ} \text { où } n \in \mathbb{Z}$
+ont le même côté final et ils sont appelés angles équivalents.
+
+Exemple
+5 Détermine deux angles, l'un de mesure positive et l'autre de mesure négative, équivalents à chacun des deux angles suivants :
+A $120^{\circ}$
+B $-230^{\circ}$
+
+Solution
+A Un angle de mesure positive : $120^{\circ}+360^{\circ}=480^{\circ}$ (en ajoutant $360^{\circ}$)
+Un angle de mesure négative : $120^{\circ}-360^{\circ}=-240^{\circ}$ (en retranchant $360^{\circ}$)
+
+B Un angle de mesure positive : $-230^{\circ}+360^{\circ}=130^{\circ}$ (en ajoutant $360^{\circ}$)
+Un angle de mesure négative : $-230^{\circ}-360^{\circ}=-590^{\circ}$ (en retranchant $360^{\circ}$)
+
+Réfléchis : Y a-t-il d’autres angles équivalents de mesures positives et d’autres angles équivalents de mesures négatives ? Cite d’autres angles s’ils existent.
+
+Essai de résoudre
+7 Détermine deux angles, l’un de mesure positive et l'autre de mesure négative, équivalents à chacun des angles suivants :
+A $40^{\circ}$
+B $150^{\circ}$
+C $-125^{\circ}$
+D $-240^{\circ}$
+E $-180^{\circ}$
+
+8 Déceler l’erreur : Toutes les mesures d’angles suivantes sont équivalentes à l’angle en position standard de mesure $75^{\circ}$ sauf une :
+A $-285^{\circ}$
+B $-645^{\circ}$
+C $285^{\circ}$
+D $435^{\circ}$
+
+Test de compréhension
+1 Détermine le quadrant dans lequel se trouve chacun des angles ayant pour mesures :
+A $56^{\circ}$
+B $325^{\circ}$
+C $570^{\circ}$
+D $166^{\circ}$
+E $390^{\circ}$
+
+2 Détermine un angle de mesure négative, équivalent à chacun des angles suivants :
+A $43^{\circ}$
+B $214^{\circ}$
+C $125^{\circ}$
+D $90^{\circ}$
+E $312^{\circ}$
+
+3 Détermine un angle de mesure positive, équivalent à chacun des angles suivants :
+A $-56^{\circ}$
+B $-215^{\circ}$
+C $495^{\circ}$
+D $930^{\circ}$
+E $-450^{\circ}$
+
+Livre de l'élève - Premier semestre
+91

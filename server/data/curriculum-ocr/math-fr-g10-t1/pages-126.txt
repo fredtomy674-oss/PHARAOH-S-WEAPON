@@ -1,0 +1,53 @@
+Trouver la mesure d'un angle en connaissant l'un de ses rapports trigonométriques
+
+Exercices 4-6
+
+(1) Questions à choix multiples :
+1 Si $\sin 0,4325 = \theta$ où $\theta$ est la mesure positive d'un angle aigu, alors $\theta = $
+A $25,626^\circ$
+B $64,347^\circ$
+C $32,388^\circ$
+D $46,316^\circ$
+
+2 Si $\operatorname{tg} 1,8 = \theta$ où $90^\circ \leqslant \theta \leqslant 360^\circ$, alors $\theta = $
+A $60,945^\circ$
+B $119,055^\circ$
+C $240,945^\circ$
+D $299,055^\circ$
+
+(2) Réponds aux questions suivantes :
+1 Soit un angle de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique au point B, calcule $\cos \theta$ et $\sin \theta$ dans chacun des cas suivants :
+A $B(\frac{1}{2} ; \frac{\sqrt{3}}{2})$
+B $B(\frac{1}{\sqrt{2}} ; -\frac{1}{\sqrt{2}})$
+C $B(-\frac{6}{10} ; \frac{8}{10})$
+
+2 Soit un angle de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique au point B, calcule $\sec \theta$ et $\operatorname{cosec} \theta$ dans chacun des cas suivants :
+A $B(\frac{\sqrt{2}}{2} ; \frac{\sqrt{2}}{2})$
+B $B(-\frac{1}{\sqrt{5}} ; \frac{2}{\sqrt{5}})$
+C $B(-\frac{5}{13} ; -\frac{12}{13})$
+
+3 Soit un angle de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique au point B, calcule $\operatorname{tg} \theta$ et $\operatorname{cotg} \theta$ dans chacun des cas suivants :
+A $B(\frac{1}{\sqrt{10}} ; -\frac{3}{\sqrt{10}})$
+B $B(-\frac{3}{\sqrt{34}} ; -\frac{5}{\sqrt{34}})$
+C $B(-\frac{4}{5} ; -\frac{3}{5})$
+
+4 Soit un angle de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique au point B, calcule $\theta$ où $0^\circ < \theta < 360^\circ$ dans chacun des cas suivants :
+A $B(\frac{\sqrt{3}}{2} ; \frac{1}{2})$
+B $B(-\frac{1}{\sqrt{2}} ; \frac{1}{\sqrt{2}})$
+C $B(\frac{6}{10} ; \frac{-8}{10})$
+
+5 Trouve en degré la mesure du plus petit angle positif qui vérifie ce qui suit :
+A $\sin^{-1} 0,6$
+B $\cos^{-1} 0,436$
+C $\operatorname{tg}^{-1} 1,4552$
+D $\sec^{-1} (-2,2364)$
+E $\operatorname{cotg}^{-1} 3,6218$
+F $\operatorname{cosec}^{-1} (-1,6004)$
+
+6 Si $0^\circ \leqslant \theta \leqslant 360^\circ$, trouve la mesure de l'angle $\theta$ dans chacun des cas suivants :
+A $\sin^{-1} (0,2356)$
+B $\cos^{-1} (-0,642)$
+C $\operatorname{tg}^{-1} (-2,1456)$
+
+Livre de l'élève - Premier semestre
+121

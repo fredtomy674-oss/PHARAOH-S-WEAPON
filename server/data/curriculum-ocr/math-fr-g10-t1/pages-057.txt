@@ -1,0 +1,38 @@
+Démonstration : Des points A et A' on trace $\overline{\mathrm{AC}}$, $\overline{\mathrm{AD}}$, $\overline{\mathrm{A'C'}}$ et $\overline{\mathrm{A'D'}}$
+$\therefore$ polygone $\mathrm{ABCDE} \sim$ polygone $\mathrm{A'B'C'D'E'}$
+$\therefore$ Ils peuvent être partagés en un même nombre de triangles correspondants semblables
+(corollaire)
+On a : $\frac{\mathrm{A}(\Delta\text{ ABC})}{\mathrm{A}(\Delta\text{ A'B'C'})} = \left(\frac{\mathrm{BC}}{\mathrm{B'C'}}\right)^2$, $\frac{\mathrm{A}(\Delta\text{ ACD})}{\mathrm{A}(\Delta\text{ A'C'D'})} = \left(\frac{\mathrm{CD}}{\mathrm{C'D'}}\right)^2$, $\frac{\mathrm{A}(\Delta\text{ ADE})}{\mathrm{A}(\Delta\text{ A'D'E'})} = \left(\frac{\mathrm{DE}}{\mathrm{D'E'}}\right)^2$
+
+$\therefore \frac{\mathrm{BC}}{\mathrm{B'C'}} = \frac{\mathrm{CD}}{\mathrm{C'D'}} = \frac{\mathrm{DE}}{\mathrm{D'E'}} = \frac{\mathrm{AB}}{\mathrm{A'B'}}$ (de la similitude des deux polygones)
+
+$\therefore \frac{\mathrm{A}(\Delta\text{ ABC})}{\mathrm{A}(\Delta\text{ A'B'C'})} = \frac{\mathrm{A}(\Delta\text{ ACD})}{\mathrm{A}(\Delta\text{ A'C'D'})} = \frac{\mathrm{A}(\Delta\text{ ADE})}{\mathrm{A}(\Delta\text{ A'D'E'})} = \left(\frac{\mathrm{AB}}{\mathrm{A'B'}}\right)^2$
+D'après les propriétés de la proportionnalité :
+$\frac{\mathrm{A}(\Delta\text{ ABC}) + \mathrm{A}(\Delta\text{ ACD}) + \mathrm{A}(\Delta\text{ ADE})}{\mathrm{A}(\Delta\text{ A'B'C'}) + \mathrm{A}(\Delta\text{ A'C'D'}) + \mathrm{A}(\Delta\text{ A'D'E'})} = \left(\frac{\mathrm{AB}}{\mathrm{A'B'}}\right)^2$
+$\mathrm{D'où}\quad \frac{\mathrm{A}(\text{polygone ABCDE})}{\mathrm{A}(\text{polygone A'B'C'D'E'})} = \left(\frac{\mathrm{AB}}{\mathrm{A'B'}}\right)^2 \quad (\text{Ce qu'il fallait démontrer})$
+
+$\boxed{\text{Remarque}}$
+$\left(\frac{\mathrm{AB}}{\mathrm{A'B'}}\right)^2 = \frac{(\mathrm{AB})^2}{(\mathrm{A'B'})^2}$
+
+Essaje de résoudre
+2 A Si $\text{Polygone ABCD} \sim \text{Polygone A'B'C'D'}$ et $\frac{\mathrm{AB}}{\mathrm{A'B'}} = \frac{1}{3}$, trouve la valeur de :
+$\frac{\mathrm{A}(\text{polygone ABCD})}{\mathrm{A}(\text{polygone A'B'C'D'})}$, $\frac{\text{périmètre du polygon ABCD}}{\text{périmètre du polygone A'B'C'D'}}$
+
+B Si les deux polygones $\mathrm{ABCDE}$ et $\mathrm{A'B'C'D'E'}$ sont semblables, et si le rapport entre leurs aires est $4:25$, trouve la valeur de : $\frac{\mathrm{AB}}{\mathrm{A'B'}}$, $\frac{\text{périmètre du polygone AB CDE}}{\text{périmètre du polygone A'B'C'D'E'}}$
+
+C Si le rapport entre les périmètres de deux polygones est $1:4$ et l'aire du premier polygone est $25\text{ cm}^2$, calcule l'aire du deuxième polygone.
+
+D Si les longueurs de deux côtés correspondants dans deux polygones semblables sont $12\text{ cm}$ et $16\text{ cm}$ et si l'aire du plus petit polygone est $135\text{ cm}^2$, calcule l'aire du plus grand polygone.
+
+Exemple
+4 ABCD et $\text{XYZL}$ sont deux polygones semblables tels que $\mathrm{m}(\angle\mathrm{A}) = 40^\circ\text{ et }\mathrm{XY} = \frac{3}{4}\mathrm{AB}$, $\mathrm{CD} = 16\text{ cm}$.
+Calcule : $\mathbf{1^\circ}\text{)}\quad \mathrm{m}(\angle\mathrm{X})$
+$\mathbf{2^\circ}\text{)}\quad \text{la longueur de }\overline{\mathrm{ZL}}$
+$\mathbf{3^\circ}\text{)}\quad \mathrm{A}(\text{polygone ABCD}) : \mathrm{A}(\text{polygone X Y Z L})$
+
+Solution
+$\mathbf{1^\circ})\quad \therefore\text{polygone ABCD} \sim \text{polygone XYZL}$
+$\therefore \mathrm{m}(\angle\mathrm{A}) = \mathrm{m}(\angle\mathrm{X})\text{ d'où }\mathrm{m}(\angle\mathrm{X}) = 40^\circ\quad (\text{C.Q.F.D en } 1^\circ)$
+$\mathbf{2^\circ})\quad \therefore \mathrm{XY} = \frac{3}{4}\mathrm{AB} \quad \therefore \frac{\mathrm{AB}}{\mathrm{XY}} = \frac{4}{3}\quad (\text{propriété de la proportionnalité})$
+
+52 Mathématiques – Première secondaire

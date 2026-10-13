@@ -1,0 +1,114 @@
+Droites parallèles et parties proportionnelles
+A
+4 cm
+E
+D
+5 cm
+6 cm
+8 cm
+Exemple
+3 Dans la figure ci-contre, ABC est un triangle rectangle en A
+A Démontre que: DE // BC.
+B Trouve la longueur de BC.
+B
+C
+Solution
+A
+le triangle ADE est rectangle en A
+AD = √25 - 16 = 3cm (Théorème de Pythagore)
+3
+AD
+1
+AE
+4
+1
+=
+DB
+6
+2
+EC
+8
+2
+AD
+AE
+d'où DE // BC.
+DB
+EC
+AD
+DE
+1
+B
+AADE ~ AABC (Pourquoi ?)
+AB
+BC
+3
+5
+d'où
+BC = 15cm
+BC
+3
+Essai de résoudre
+3 Dans chacune des figures suivantes, détermine si DE // BC ou non ?
+A
+A
+B
+C
+C
+9 cm
+6 cm
+8 cm
+24 cm
+3 cm
+D
+D
+E
+E
+B
+4 cm
+A
+15 cm
+10 cm
+42 cm
+6 cm
+C
+B
+B 20 cm D 28 cm
+A
+E
+Exemple
+A
+4 ABCD est un quadrilatère X ∈ AB et Y ∈ AC tels que XY // BC,
+On trace YZ // CD qui coupe AD en Z. Démontre que XZ // BD.
+Z
+X
+Solution
+Dans le triangle ABC :
+AX
+AY
+(1)
+• XY // BC
+XB
+YC
+Y
+Dans le triangle ADC :
+AZ
+AY
+(2)
+• YZ // CD
+ZD
+YC
+D
+B
+AX
+AZ
+De (1) et (2) on a :
+XB ZD
+Dans le triangle ABD :
+AX
+AZ
+• XZ // BD
+XB
+ZD
+C
+Livre de l'élève - Premier semestre
+69

@@ -1,0 +1,37 @@
+et polygone $\mathrm{M}_{2} \sim$ polygone $\mathrm{M}_{3}$
+alors polygone $\mathrm{M}_{1} \sim$ polygone $\mathrm{M}_{2}$
+
+4- Tous les polygones réguliers ayant le même
+nombre de côtés sont semblables. Pourquoi ?
+
+Exemple
+
+2 Dans la figure ci-contre, $\Delta \mathrm{ABC} \sim \Delta \mathrm{DEF}$,
+$\mathrm{DE}=8\mathrm{~cm}, \quad \mathrm{EF}=9\mathrm{~cm}, \quad \mathrm{FD}=10\mathrm{~cm}$
+Si le périmètre du triangle $\mathrm{ABC}=81\mathrm{~cm}$, calcule
+les longueurs des côtés du triangle ABC
+
+Solution
+
+$\because \Delta \mathrm{ABC} \sim \Delta \mathrm{DEF}$
+$\therefore \frac{\mathrm{AB}}{\mathrm{DE}}=\frac{\mathrm{BC}}{\mathrm{EF}}=\frac{\mathrm{CA}}{\mathrm{FD}}=\frac{\mathrm{AB}+\mathrm{BC}+\mathrm{CA}}{\mathrm{AE}+\mathrm{EF}+\mathrm{FD}}=\frac{\text { Périmètre de } \Delta \mathrm{ABC}}{\text { Périmètre de } \Delta \mathrm{DEF}} \quad \text { (propriété de la proportionnalité)}$
+
+Donc $\frac{\mathrm{AB}}{8}=\frac{\mathrm{BC}}{9}=\frac{\mathrm{CA}}{10}=\frac{81}{27}$
+
+$\therefore \mathrm{AB}=8 \times \frac{81}{27}=24\mathrm{~cm}, \quad \mathrm{BC}=9 \times 3=27, \quad \mathrm{CA}=10 \times 3=30\mathrm{~cm}$
+
+Remarque que :
+
+Si polygone $\mathrm{P}_{1} \sim$ polygone $\mathrm{P}_{2}$, alors $\frac{\text { Périmètre du Ploygone } \mathrm{P}_{1}}{\text { Périmètre du Polygone } \mathrm{P}_{2}}=$ Rapport de similitude
+
+Rapport de similitude de deux polygones
+
+Soit $k$ le rapport de similitude du polygone $\mathrm{P}_{1}$ au polygone $\mathrm{P}_{2}$.
+Si $k>1$ le polygone $\mathrm{P}_{1}$ est un agrandissement du polygone $\mathrm{P}_{2}$.
+Si $0<k<1$ le polygone $\mathrm{P}_{1}$ est une réduction du polygone $\mathrm{P}_{2}$.
+Si $k=1$ le polygone $\mathrm{P}_{1}$ se superpose au polygone $\mathrm{P}_{2}$.
+
+D'une manière générale, on peut utiliser le rapport de similitude pour calculer des
+dimensions dans des figures semblables.
+
+36 Mathématiques - Première secondaire

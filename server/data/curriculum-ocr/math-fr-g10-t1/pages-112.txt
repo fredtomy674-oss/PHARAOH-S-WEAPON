@@ -1,0 +1,42 @@
+Angles associés
+
+2- Fonctions trigonométriques des deux angles $\theta$ et $(180^{\circ}+\theta)$
+Dans la figure ci-contre,
+$\text{B}'(x', y')$ est l'image de $\text{B}(x, y)$ par la symétrie par rapport au pont d'origine O.
+On a : $x' = -x$, et $y' = -y$ Donc :
+
+$\sin(180^{\circ}+\theta)=-\sin\theta$, $\text{cosec}(180^{\circ}+\theta)=-\text{cosec}\theta$
+$\cos(180^{\circ}+\theta)=-\cos\theta$, $\text{sec}(180^{\circ}+\theta)=-\text{sec}\theta$
+$\text{tg}(180^{\circ}+\theta)=\text{tg}\theta$, $\text{cotg}(180^{\circ}+\theta)=\text{cotg}\theta$
+
+Par exemple :
+$\sin 210^{\circ} = \sin(180^{\circ}+30^{\circ}) = -\sin 30^{\circ} = -\frac{1}{2}$
+$\cos 225^{\circ} = \cos(180^{\circ}+45^{\circ}) = -\cos 45^{\circ} = -\frac{1}{\sqrt{2}}$
+$\text{tg } 240^{\circ} = \text{tg}(180^{\circ}+60^{\circ}) = \text{tg } 60^{\circ} = \sqrt{3}$
+
+Essai de résoudre
+2 Trouve $\sin 225^{\circ}$, $\cos 210^{\circ}$, $\text{sec } 600^{\circ}$ et $\text{cotg } 225^{\circ}$.
+
+3- Fonctions trigonométriques des deux angles $\theta$ , $(360^{\circ}-\theta)$
+Dans la figure ci-contre,
+$\text{B}'(x', y')$ est l'image de $\text{B}(x, y)$ par la symétrie par rapport à l'axe des abscisses.
+On a : $x'=x$, $y'=-y$ Donc :
+
+$\sin(360^{\circ}-\theta)=-\sin\theta$, $\text{cosec}(360^{\circ}-\theta)=-\text{cosec}\theta$
+$\cos(360^{\circ}-\theta)=\cos\theta$, $\text{sec}(360^{\circ}-\theta)=\text{sec}\theta$
+$\text{tg}(360^{\circ}-\theta)=-\text{tg}\theta$, $\text{cotg}(360^{\circ}-\theta)=-\text{cotg}\theta$
+
+Par exemple :
+$\sin 330^{\circ} = \sin(360^{\circ}-30^{\circ}) = -\sin 30^{\circ} = -\frac{1}{2}$
+$\cos 315^{\circ} = \cos(360^{\circ}-45^{\circ}) = \cos 45^{\circ} = \frac{1}{\sqrt{2}}$
+
+Essai de résoudre
+3 Trouve : $\sin 315^{\circ}$, $\text{cosec } 315^{\circ}$, $\text{tg } 330^{\circ}$, $\text{tg } 300^{\circ}$
+Réflexion critique : Comment peut-on trouver
+$\sin(-45^{\circ})$, $\cos(-60^{\circ})$, $\text{tg}(-30^{\circ})$ et $\sin 690^{\circ}$.
+
+Remarque que
+Les fonctions trigonométriques des angles $(-\theta)$ et $(360^{\circ}-\theta)$ sont identiques.
+
+Livre de l'élève - Premier semestre
+107

@@ -1,0 +1,73 @@
+2 Dans lesquelles des figures suivantes, les points A, B, C et D sont-ils cocycliques ?
+Explique ta réponse. (les longueurs sont mesurées en centimètres) :
+A
+D
+E
+6
+8.4
+5
+B
+7
+C
+A
+5
+E
+3
+C
+4
+D
+B
+6
+A
+8
+D
+10
+9
+E
+12
+B
+C
+3 Dans lesquelles des figures suivantes, AB est-elle une tangente au cercle passant par les
+points B, C et D.
+A
+D
+2 cm
+4 cm
+6 cm
+B
+C
+A
+6 cm
+B
+5 cm
+D
+4 cm
+C
+A
+1 cm
+D
+B
+29 cm
+4 cm
+C
+4 Soient deux cercles sécants en A et B. C $\in$ $\overleftrightarrow{\text{AB}}$ et C $\notin$ $\overline{\text{AB}}$ , Du point C, on trace les deux
+segments $\overline{\text{CX}}$ et $\overline{\text{CY}}$ tangents au cercle en X et Y. Démontre que CX = CY.
+5 Dans la figure ci-contre, les deux cercles M et N sont tangents en E.
+$\overleftrightarrow{\text{AC}}$ est une tangente au cercle M en B et au cercle
+N en C. $\overleftrightarrow{\text{AE}}$ est une sécante aux deux cercle M et
+N en F et D respectivement.
+Si $\text{AF} = 4\text{ cm}$, $\text{FE} = 5\text{ cm}$ et $\text{ED} = 7\text{ cm}$,
+Démontre que B est le milieu de $\overline{\text{AC}}$
+62
+Mathématiques - Première secondaire
+A
+F
+M
+B
+E
+N
+7 cm
+5 cm
+4 cm
+C
+D

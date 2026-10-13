@@ -1,0 +1,48 @@
+Bissectrice d'un angle et parties proportionnelles
+
+D'après les propriétés de la proportionnalité, on obtient
+$\frac{\text{BD} + \text{DC}}{\text{DC}} = \frac{3 + 2}{2}$
+$\frac{\text{BE} - \text{EC}}{\text{EC}} = \frac{3 - 2}{2}$
+Donc on obtient $\text{DE} = \text{DC} + \text{CE}$
+$\frac{5}{\text{DC}} = \frac{5}{2} \ \therefore \ \text{DC} = 2$
+$\frac{5}{\text{EC}} = \frac{1}{2} \ \therefore \ \text{EC} = 10$
+$\text{DE} = 2 + 10 = 12\text{cm}$
+
+Calcul de la longueur de la bissectrice intérieure et la bissectrice extérieure
+d'un angle d'un triangle
+
+Problème
+type
+Si $\vec{\text{AD}}$ est une bissectrice intérieure de $\angle\text{A}$ dans un triangle $\text{ABC}$ qui coupe $\vec{\text{BC}}$ en $\text{D}$
+alors : $\text{AD} = \sqrt{\text{AB} \times \text{AC} - \text{BD} \times \text{DC}}$
+
+Hypothèses : $\text{ABC}$ est un triangle et $\vec{\text{AD}}$ est une bissectrice intérieure de $\angle\text{BAC}$ et $\vec{\text{AD}} \cap \vec{\text{BC}} = \{\text{D}\}$
+Conclusion : $(\text{AD})^2 = \text{AB} \times \text{AC} - \text{BD} \times \text{DC}$
+Démonstration : On trace un cercle passant par les sommets
+du triangle $\text{ABC}$ qui coupe $\vec{\text{AD}}$ en $\text{E}$, puis on trace $\vec{\text{BE}}$
+On a $\Delta \text{ACD} \sim \Delta \text{AEB}$ (pourquoi)? d'où $\frac{\text{AD}}{\text{AB}} = \frac{\text{AC}}{\text{AE}}$
+$\therefore \ \text{AD} \times \text{AE} = \text{AB} \times \text{AC}$
+$\text{AD} \times (\text{AD} + \text{DE}) = \text{AB} \times \text{AC}$
+$(\text{AD})^2 = \text{AB} \times \text{AC} - \text{AD} \times \text{DE}$
+$(\text{AD})^2 = \text{AB} \times \text{AC} - \text{BD} \times \text{DC}$
+Donc $\text{AD} = \sqrt{\text{AB} \times \text{AC} - \text{BD} \times \text{DC}}$
+
+Rappel
+$\text{AD} \times \text{DE} = \text{BD} \times \text{DC}$
+
+Exemple
+
+4 Soit $\text{ABC}$ un triangle tel que $\text{AB} = 27\text{cm}$ et $\text{AC} = 15\text{cm}$. Trace $\vec{\text{AD}}$ bissectrice de $\angle\text{A}$ qui coupe $\vec{\text{BC}}$
+en $\text{D}$. Si $\text{BD} = 18\text{cm}$, calcule la longueur de $\text{AD}$.
+
+Solution
+
+$\because \ \vec{\text{AD}}$ est une bissectrice intérieure de $\angle\text{BAC} \ \therefore \ \frac{\text{BD}}{\text{DC}} = \frac{\text{AB}}{\text{AC}}$
+$\text{D'où} \ \frac{18}{\text{DC}} = \frac{27}{15} \ \therefore \ \text{DC} = 10\text{cm}$
+
+$\because \ \text{AD} = \sqrt{\text{AB} \times \text{AC} - \text{BD} \times \text{DC}}$
+
+$\therefore \ \text{AD} = \sqrt{27 \times 15 - 18 \times 10} = \sqrt{225} = 15\text{cm}$
+
+Livre de l'élève - Premier semestre
+79

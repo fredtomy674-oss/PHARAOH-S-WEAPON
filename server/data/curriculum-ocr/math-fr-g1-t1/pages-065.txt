@@ -1,0 +1,20 @@
+65
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6-2 Ce que nous apprenons des résultats
+Essaie
+Nous avons compté chaque type de formes coloriées. Répondons aux
+questions.
+(1) Lequel a le plus ?
+(2) Lequel a le moins ?
+(3) Quelles formes ont le même
+nombre ?
+(4) Combien de triangles y a-t-il ?
+CERCLES TRIANGLES CARRÉS ÉTOILES

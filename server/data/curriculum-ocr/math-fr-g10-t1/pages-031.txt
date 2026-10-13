@@ -1,0 +1,42 @@
+Exemple
+
+5 Représente graphiquement la fonction f telle que f(x) = 4 x² - 4x + 1,
+puis détermine son signe.
+
+Solution
+Le discriminant est (b² - 4ac) = (-4)² - 4 x 4 x 1
+= 16 - 16 = 0
+la fonction 4x² - 4x + 1 = 0 a une racine double.
+En factorisant : (2x - 1)² = 0
+Si : 2x - 1 = 0, alors x = 1/2
+f(x) > 0 pour x ≠ 1/2 , f(x) = 0 pour x = 1/2
+
+Essai de résoudre
+5 Représente graphiquement la fonction f, telle que f(x) = -4x² - 12x - 9, puis détermine son signe
+
+Exemple
+
+6 Démontre que pour toute valeur de x ∈ ℝ, les racines de l'équation 2x² - kx + k - 3 = 0 sont réelles
+différentes.
+
+Solution
+Le discriminant (b² - 4 ac) = (-k)² - 4 x 2 x (k - 3) = k² - 8 k + 24
+Les deux racines sont réelles différentes si le discriminant est positif.
+On étudie le signe de la fonction y = k² - 8k + 24
+Le discriminant de l'équation k² - 8 k + 24 = 0 est :
+(-8)² - 4 x 1 x 24 = 64 - 96 = -32 < 0
+Donc l'équation k² - 8k + 24 = 0 n'a pas de racines réelles.
+∴ La fonction y = k² - 8k + 24 est positive pour tout x ∈ ℝ (Pourquoi ?)
+Donc le discriminant de l'équation 2x² - kx + k - 3 = 0 est positif pour tout x ∈ ℝ
+∴ Les racines de l'équation 2x² - kx + k - 3 = 0 sont réelles différentes. pour tout x ∈ ℝ
+
+Test de compréhension
+1 Détermine le signe de chacune des fonctions suivantes :
+A f(x) = 2x - 3
+B f(x) = 4 - x
+C f(x) = x² - 4
+D f(x) = 1 - x²
+E f(x) = 4 + 4x + x²
+F f(x) = 3x - 2x² + 4
+
+26 Mathématiques - Première secondaire

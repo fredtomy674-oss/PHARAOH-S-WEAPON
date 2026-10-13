@@ -1,0 +1,52 @@
+Similitude des triangles
+
+et $\Delta\text{ AXY} \cong \Delta\text{ DEF}$
+(Les côtés correspondants sont superposables)
+$\therefore \Delta\text{ DEF} \sim \Delta\text{ AXY}$
+$\because \Delta\text{ ABC} \sim \Delta\text{ AXY}$
+(Résultat démontré)
+$\therefore \Delta\text{ ABC} \sim \Delta\text{ DEF}$
+(Ce qu'il fallait démontrer)
+
+Exemple
+
+5 Dans la figure ci-contre, B, Y et C sont alignés. Démontre que :
+A $\Delta\text{ ABC} \sim \Delta\text{ XBY}$
+B $\overrightarrow{\text{BC}}$ est une bissectrice de $\angle\text{ ABX}$
+
+Solution
+A Dans les deux triangles ABC et XBY on a :
+$\frac{\text{AB}}{\text{XB}} = \frac{12}{9} = \frac{4}{3}$, $\frac{\text{BC}}{\text{BY}} = \frac{18 + 6}{18} = \frac{4}{3}$
+$\frac{\text{AC}}{\text{XY}} = \frac{18}{13.5} = \frac{4}{3}$
+Donc $\frac{\text{AC}}{\text{XY}} = \frac{\text{BC}}{\text{BY}} = \frac{\text{AB}}{\text{XB}}$ d'où les longueurs de trois côtés correspondants sont proportionnelles
+
+$\therefore \Delta\text{ ABC} \sim \Delta\text{ XBY}$
+
+B $\because \Delta\text{ ABC} \sim \Delta\text{ XBY}$
+$\therefore m(\angle\text{ ABC}) = m(\angle\text{ XBY})$
+Donc: $\overrightarrow{\text{BC}}$ est une bissectrice de $\angle\text{ ABX}$
+
+6 Dans la figure ci-contre, $\overleftrightarrow{\text{AB}} \cap \overleftrightarrow{\text{CD}} = \{\text{E}\}$ tel que $\frac{\text{AE}}{\text{CE}} = \frac{\text{BE}}{\text{DE}}$ et $\frac{\text{AC}}{\text{CE}} = \frac{\text{BD}}{\text{DE}}$
+Démontre que $\overleftrightarrow{\text{AC}} // \overleftrightarrow{\text{BD}}$
+
+Solution
+$\because \frac{\text{AE}}{\text{CE}} = \frac{\text{BE}}{\text{DE}}$
+$\therefore \frac{\text{AE}}{\text{BE}} = \frac{\text{CE}}{\text{DE}}$
+(Propriété de la proportionnalité) (1)
+
+$\because \frac{\text{AC}}{\text{CE}} = \frac{\text{BD}}{\text{DE}}$
+$\therefore \frac{\text{AC}}{\text{BD}} = \frac{\text{CE}}{\text{DE}}$
+(Propriété de la proportionnalité) (2)
+
+De (1) et (2), on déduit que $\frac{\text{AE}}{\text{BE}} = \frac{\text{CE}}{\text{DE}} = \frac{\text{CA}}{\text{DB}}$
+
+Donc $\Delta\text{ AEC} \sim \Delta\text{ BED}$
+
+$\therefore m(\angle\text{ ACE}) = m(\angle\text{ BDE})$
+
+Ces deux angles sont alterne - internes par rapport à la sécante $\overleftrightarrow{\text{CE}}$
+
+$\therefore \overleftrightarrow{\text{AC}} // \overleftrightarrow{\text{BD}}$
+
+Livre de l'élève - Premier semestre
+43

@@ -1,0 +1,52 @@
+Si a et b sont deux nombres réels, alors le nombre z où z = a + bi, est un nombre complexe. a est appelée
+la partie réelle du nombre complexe z et b est appelée la partie imaginaire du nombre complexe z
+
+Si b = 0, alors z = a est un nombre réel et si a = 0, alors z = bi est un nombre imaginaire pur
+
+Exemple
+
+2) Résoudre l'équation $9x^2 + 125 = 61$
+
+Solution
+
+$9x^2 + 125 = 61$
+$9x^2 + 125 - 125 = 61 - 125$
+$9x^2 = -64$
+$x^2 = -\frac{64}{9}$
+$x = \pm\sqrt{-\frac{64}{9}}$
+$x = \pm\sqrt{\frac{64}{9}} i = \pm\frac{8}{3}i$
+
+On ajoute (-125) à chacun des deux membres
+On simplifie
+On divise les deux membres par 9
+On calcule la racine carrée de chaque membre
+
+Essai de résoudre
+
+2) Résous chacune des équations suivantes :
+
+A $3x^2 + 27 = 0$
+B $5x^2 + 245 = 0$
+C $4x^2 + 100 = 75$
+
+Égalité de deux nombres complexes :
+
+Deux nombres complexes sont égaux si et seulement si leurs parties réelles sont égales et leurs parties
+imaginaires sont égales.
+
+Si : $a + bi = c + di$, alors : $a = c$ et $b = d$ et réciproquement.
+
+Exemple
+
+3) Trouve les valeurs de $x$ et $y$ qui vérifient l'équation : $2x - y + (x - 2y)i = 5 + i$ où $x$ et $y$ sont deux
+nombres réels et $i^2 = -1$
+
+Solution
+
+Les parties réelles sont égales et les parties imaginaires sont égales.
+$2x - y = 5$ , $x - 2y = 1$
+En résolvant le système des deux équations, on obtient
+$x = 3$ , $y = 1$
+
+6
+Mathématiques - Première secondaire

@@ -1,0 +1,147 @@
+87
+2
+3
+4
+5
+8
+6
+9
+7
+1
+8-1 Lire l’heure sur une horloge
+Essaie
+(1) Lis les horloges.
+1 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+2 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+3 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+(2) Dessine la grande aiguille.
+1 Trois heures 2 Une heure et demie 3 Six heures et demie
+12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+Exercice
+(1) Lis les horloges.
+1 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+2 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+3 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+(2) Dessine la grande aiguille.
+1 Cinq heures 2 Onze heures et demie 3 Quatre heures et demie
+12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11

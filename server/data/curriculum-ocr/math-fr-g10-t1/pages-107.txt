@@ -1,0 +1,33 @@
+Essai de résoudre
+2 Si $90^{\circ}<\theta<180^{\circ}$ et $\sin \theta=\frac{4}{5}$, trouve $\cos \theta$ et $\operatorname{tg} \theta$ où $\theta$ est un angle en position standard dans le cercle trigonométrique
+
+Exemple
+4 Soit un angle de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique au point $\mathrm{B}\left(-\frac{3}{5}, \frac{4}{5}\right)$.
+trouve tous les rapports trigonométriques de l'angle $\theta$.
+
+Solution
+$\sin \theta=\frac{4}{5} \quad, \quad \cos \theta=\frac{-3}{5}=-\frac{3}{5} \quad$ et $\quad \operatorname{tg} \theta=\frac{4}{-3}=-\frac{4}{3}$
+$\operatorname{cosec} \theta=\frac{5}{4} \quad, \quad \sec \theta=\frac{5}{-3}=-\frac{5}{3} \quad$ et $\quad \operatorname{cotg} \theta=\frac{-3}{4}=-\frac{3}{4}$
+
+Essai de résoudre
+3 Soit un angle de mesure $\theta$ en position standard. Trouve tous les rapports trigonométriques de l'angle $\theta$ sachant que son côté final coupe le cercle trigonométrique au point $\mathrm{B}$ dans chacun des cas suivants :
+A $\left(\frac{5}{13}, \frac{12}{13}\right)$
+B $\left(\frac{3}{5},-\frac{4}{5}\right)$
+C $\left(-\frac{12}{13}, \frac{5}{13}\right)$
+
+Fonctions trigonométriques de certains angles particuliers
+Dans la figure ci-contre, le cercle trigonométrique coupe les deux axes aux points
+$\mathrm{A}_{1}(1,0), \mathrm{A}_{2}(0,1), \mathrm{A}_{3}(-1,0), \mathrm{A}_{4}(0,-1)$.
+
+Soit $\theta$ la mesure de l'angle orienté AOB en position standard tel que son côté final $\overrightarrow{\mathrm{OB}}$ coupe le cercle trigonométrique en B.
+
+1) Si $\theta=0^{\circ}$ ou $\theta^{\circ}=360^{\circ}$, alors $B(1,0)$
+Donc $\cos 0^{\circ}=\cos 360^{\circ}=1 \quad, \quad \sin 0^{\circ}=\sin 360^{\circ}=0$ et $\operatorname{tg} 0^{\circ}=\operatorname{tg} 360^{\circ}=0$
+
+2) Si $\theta^{\circ}=90^{\circ}=\frac{\pi}{2}$, alors $B(0,1)$
+Donc $\cos 90^{\circ}=0 \quad, \quad \sin 90^{\circ}=1 \quad, \quad \operatorname{tg} \theta=\frac{1}{0} \quad$ (indéfini)
+
+3) Si $\theta^{\circ}=180^{\circ}=\pi$, alors $\mathrm{B}(-1,0)$
+Donc $\cos 180^{\circ}=-1 \quad, \quad \sin 180^{\circ}=0 \quad, \quad \operatorname{tg} 180^{\circ}=0$
+
+102 Mathématiques - Première secondaire

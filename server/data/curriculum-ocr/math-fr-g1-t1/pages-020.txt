@@ -1,0 +1,31 @@
+20
+Chapitre 1 Les nombres jusqu’à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Qu’est-ce qui fait 7?
+Quels sont les deux nombres qui font 7 ?
+… , … et font 7
+… , … et font 7
+… , … et font 7
+… , … et font 7
+… , … et font 7
+… , … et font 7
+Mise en train
+Quels sont les deux nombres qui font 7 ? Écris le nombre manquant
+dans la case.
+(1) (2)
+Comment résoudre
+Dessine 7 cercles. Colorie le nombre que tu connais, puis compte le reste.
+(1) (2)
+Colorie 6 cercles. 1 n’est pas
+coloré. Colorie 3 cercles. 4 ne sont pas
+colorés.
+1 - 8

@@ -1,0 +1,27 @@
+33
+2
+3
+4
+5
+8
+6
+9
+7
+1
+2-1 Quelle est la position?
+Essaie
+Entoure la réponse.
+(1) 2 chevaux de devant
+Devant Derrière
+(2) La 5 ème grenouille de devant
+Devant Derrière
+(3) La 6 ème personne de derrière
+Devant Derrière
+Exercice
+Entoure la réponse.
+(1) 4 chats de devant
+Devant Derrière
+(2) La 4 ème voiture de devant
+Devant Derrière
+(3) La 5 ème personne de derrière
+Devant Derrière

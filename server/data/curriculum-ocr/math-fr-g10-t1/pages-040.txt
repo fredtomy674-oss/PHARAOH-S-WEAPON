@@ -1,0 +1,53 @@
+Similitude des polygones
+
+Si polygone ABCD ~ polygone XYZL, alors :
+
+A $\angle\text{A}\equiv\angle\text{X}$, $\angle\text{B}\equiv\angle\text{Y}$, $\angle\text{C}\equiv\angle\text{Z}$, $\angle\text{D}\equiv\angle\text{L}$
+
+B $\frac{\text{AB}}{\text{XY}}=\frac{\text{BC}}{\text{YZ}}=\frac{\text{CD}}{\text{ZL}}=\frac{\text{DA}}{\text{LX}}=\text{K}$ (rapport de similitude) où $\text{K}\neq0$
+
+Dans ce cas, le rapport de similitude du polygone ABCD au polygone XYZL = K et le rapport de similitude du polygone XYZL au polygone ABCD = $\frac{1}{\text{K}}$
+
+Exemple
+
+1 Dans la figure ci-contre, polygone ABCD ~ polygone EFGH.
+
+A Trouve le rapport de similitude du polygone ABCD au polygone EFGH
+
+B Trouve la valeur de $x$ et $y$.
+
+Solution
+
+$\because$ polygone ABCD ~ polygone EFGH
+
+donc: $\frac{\text{AB}}{\text{EF}}=\frac{\text{BC}}{\text{FG}}=\frac{\text{CD}}{\text{GH}}=\frac{\text{DA}}{\text{HE}}=$ le rapport de similitude,
+
+$\frac{y+2}{6}=\frac{\text{BC}}{\text{FG}}=\frac{15}{x}=\frac{12}{8}$
+
+A Le coefficient de proportionnalité = $\frac{12}{8}=\frac{3}{2}$
+
+B $\frac{15}{x}=\frac{3}{2}\longrightarrow x=10\text{cm}$, $\frac{y+2}{6}=\frac{3}{2}\longrightarrow y=7\text{cm}$
+
+Réfléchis
+
+Tous les carrés sont-ils semblables ?
+
+Tous les losanges sont-ils semblables ?
+
+Tous les rectangles sont-ils semblables ?
+
+Tous les parallélogrammes sont-ils semblables ?
+
+Explique ta réponse
+
+1- Pour que deux polygones soient semblables, les deux conditions doivent être vérifiées simultanément. Une seule condition ne suffit pas.
+
+2- Deux polygones superposables sont semblables car les deux conditions de la similitude sont vérifiées. Dans ce cas, le rapport de similitude est égal à 1 mais deux polygones semblables ne sont pas nécessairement superposables comme le montre la figure ci-contre.
+
+3- Deux polygones semblables à un même troisième sont semblables.
+
+Si $\text{polygone M}_1\sim\text{polygone M}_3$
+
+Livre de l'élève - Premier semestre
+
+35

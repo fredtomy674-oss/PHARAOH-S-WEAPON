@@ -1,0 +1,46 @@
+Fonctions trigonométriques
+
+10 Soit un angle de mesure $\theta$ en position standard. Trouve toutes les fonctions trigonométriques de
+l'angle $\theta$ sachant que son côté final coupe le cercle d'unité au point donné dans chacun des cas
+suivants :
+
+A $(3\text{ a}, -4\text{ a})$ où $\text{a} > 0$
+B $(\frac{3}{2}\text{a}, -2\text{a})$ où $\frac{3\pi}{2} < \theta < 2\pi$
+
+11 Écris le signe de chacun des fonctions suivantes :
+
+A $\sin 240^\circ$
+
+B $\text{tg } 365^\circ$
+
+C $\text{cosec } 410^\circ$
+
+D $\text{cotg } \frac{9\pi}{4}$
+
+E $\text{sec } -\frac{9\pi}{4}$
+
+F $\text{tg } \frac{-20\pi}{9}$
+
+12 Trouve la valeur de ce qui suit :
+
+A $\cos \frac{\pi}{2} * \cos 0 + \sin \frac{3\pi}{2} * \sin \frac{\pi}{2}$
+
+B $\text{tg}^2 30^\circ + 2\sin^2 45^\circ + \cos^2 90^\circ$
+
+13 Déceler l'erreur : L'enseignant a demandé aux élèves de sa classe de calculer $2\sin 45^\circ$.
+
+Réponse de Karim
+$$2\sin 45^\circ = \sin 2 * 45^\circ$$
+$$= \sin 90^\circ = 1$$
+
+Réponse d'Ahmed
+$$2\sin 45^\circ = 2 * \frac{1}{\sqrt{2}} = \frac{2 * \sqrt{2}}{\sqrt{2} * \sqrt{2}}$$
+$$= \sqrt{2}$$
+
+Laquelle des deux réponses est correcte ? Pourquoi ?
+
+14 Réflexion critique : Si $\theta$ est la mesure d'un angle en position standard telle que
+$\text{cotg}l - \theta$ et $\text{cosec } \theta = \sqrt{2}$. Est-il possible que $\theta = \frac{3\pi}{4}$ ? Explique ta réponse.
+
+Livre de l'élève - Premier semestre
+105

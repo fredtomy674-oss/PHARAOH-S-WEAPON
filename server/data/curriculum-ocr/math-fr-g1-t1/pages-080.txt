@@ -1,0 +1,37 @@
+80
+Chapitre 7 Nombres supérieurs à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+“10 plus un certain nombre”
+Lorsque tu ajoutes un certain nombre (de 1 à 9) jusqu’à 10, tu
+obtiens un nombre de 11 à 19 .
+Exemple 10 et 3 font 13 •
+Phrase d’addition: 10 + 3 = 13
+“Nombres 11-19 moins un certain nombre”
+Lorsque tu soustrais les nombres (de 1 à 9) des nombres
+(de 11 à 19) dans l’ordre, tu obtiens 10 .
+Exemple 13 moins 3 fait 10 •
+Phrase de soustraction: 13 – 3 = 10
+Mise en train
+(1) Résous les problèmes.
+1 10 + 2 2 10 + 8
+3 12 – 2 4 17 – 7
+(2) Il y a 14 fraises. Tu en manges 4. Combien en reste-t-il ?
+Écris la phrase mathématique et la réponse.
+Comment résoudre
+(1) 1 10 + 2 = 12 2 10 + 8 = 18
+3 12 – 2 = 10 4 17 – 7 = 10
+(2) Tu es en train de découvrir combien il en reste. Utilise la soustraction.
+Phrase de soustraction: 14 – 4 = 10
+Réponse: 10 fraises Assure-toi d’écrire
+« pièces » après le
+nombre!
+Addition et soustraction des nombres (partie 1) 7-4

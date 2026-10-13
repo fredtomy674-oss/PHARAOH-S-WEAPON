@@ -1,0 +1,45 @@
+4-4
+Angles associés
+
+A apprendre
+▸ Relation entre les fonctions trigonométriques des deux angles $\theta$ et $180^\circ \pm \theta$
+▸ Relation entre les fonctions trigonométriques des deux angles $\theta$ et $360^\circ - \theta$
+▸ Relation entre les fonctions trigonométriques des deux angles $\theta$ et $90^\circ \pm \theta$
+▸ Relation entre les fonctions trigonométriques des deux angles $\theta$ et $270^\circ \pm \theta$
+▸ Solution générale des équations trigonométriques de la forme :
+- $\sin\alpha = \cos\beta$
+- $\sec\alpha = \csc\beta$
+- $\text{tg}\alpha = \text{cotg}\beta$
+
+Expressions de base
+▸ Deux angles associés
+
+Matériel et moyens
+▸ Une calculatrice scientifique
+
+Réfléchis et discute
+Tu as déjà étudié la symétrie axiale et ses propriétés.
+La figure ci-contre montre un angle orienté $\text{AOB}$, en position standard, de mesure $\theta$ où $0^\circ < \theta < 90^\circ$. Son côté final coupe le cercle trigonométrique au point $\text{B}(x\ ;\ y)$.
+Détermine le point $\text{B}'$ image du point $\text{B}$ par la symétrie par rapport à l'axe des ordonnées, puis écris ses coordonnées.
+Quelle est la mesure de $\angle\text{AOB}'$? $\angle\text{AOB}'$ est-il en position standard?
+
+1- Fonctions trigonométriques des deux angles $\theta$ et $(180^\circ - \theta)$
+Dans la figure ci-contre, $\text{B}'(x', y')$ est l'image de $\text{B}(x, y)$ par symétrie par rapport à l'axe des ordonnées. $x' = -x,\ y' = -y$ Donc :
+$\sin(180^\circ - \theta) = \sin\theta\ ,\ \csc(180^\circ - \theta) = \csc\theta$
+$\cos(180^\circ - \theta) = -\cos\theta\ ,\ \sec(180^\circ - \theta) = -\sec\theta$
+$\text{tg}(180^\circ - \theta) = -\text{tg}\theta\ ,\ \text{cotg}(180^\circ - \theta) = -\text{cotg}\theta$
+
+Par exemple :
+$\cos 120^\circ = \cos(180^\circ - 60^\circ) = -\cos 60^\circ = -\frac{1}{2}$
+$\sin 135^\circ = \sin(180^\circ - 45^\circ) = \sin 45^\circ = \frac{1}{\sqrt{2}}$
+
+Essai de résoudre
+1 Trouve $\text{tg } 135^\circ\ ,\ \sin 120^\circ\ ,\ \cos 150^\circ$
+Remarque que : $\theta + (180^\circ - \theta) = 180^\circ$
+On dit que les deux angles $\theta$ et $(180^\circ - \theta)$ sont associés.
+
+Définition
+Deux angles sont associés si la somme ou la différence de leurs mesures est égale à $n \times 90^\circ$ où $n \in \mathbb{Z}$.
+
+106
+Mathématiques - Première secondaire

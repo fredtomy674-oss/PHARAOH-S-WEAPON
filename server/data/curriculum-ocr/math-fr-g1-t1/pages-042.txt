@@ -1,0 +1,22 @@
+42
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 3 Addition
+Pointe!
+Créons une histoire qui correspond à cette addition:
+2 + 3 = 5
+Il y a 2 poissons noirs et 3
+poissons rouges. Combien
+y a-t-il de poissons ?
+Il y a 2 oiseaux orange
+et 3 oiseaux bleus.
+Combien y a-t-il d’oiseaux ?
+Créer des histoires d ’ addition 3-4
+Mise en train

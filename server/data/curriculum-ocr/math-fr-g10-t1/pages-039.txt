@@ -1,0 +1,58 @@
+Similitude des polygones
+2 - 1
+A apprendre
+Réfléchis et discute
+▸ Notion de la similitude.
+▸ Similitude des polygones.
+▸ La relation entre le périmètre
+de deux polybones semblable
+et le rapport de similitude.
+
+La figure ci-contre illustre
+un polygone ABCD et son
+image A'B'C'D' par une
+transformation géométrique.
+
+A Compare les mesures des
+angles correspondants :
+$\angle A$, $\angle A'$ - $\angle B$, $\angle B'$
+$\angle C$, $\angle C'$ - $\angle D$, $\angle D'$
+Que remarques-tu ?
+
+B Calcule le rapport entre les longueurs des côtés correspondants
+$\frac{A'B'}{AB}$, $\frac{B'C'}{BC}$, $\frac{C'D'}{CD}$, $\frac{D'A'}{DA}$ Que remarques-tu ?
+
+Expressions de base
+Les polygones ayant la même forme, sont appelés des polygones semblables
+même si leurs côtés correspondants ne sont pas de même longueur.
+
+Polygones semblables
+Définition
+Deux polygones ayant le même nombre de côtés sont semblables
+si leurs angles correspondants sont superposables et leurs côtés
+correspondants ont des longueurs proportionnelles.
+
+Remarque que :
+1- Dans la figure précédente, on a :
+A Les angles correspondants sont superposables :
+$\angle A' \equiv \angle A$, $\angle B' \equiv \angle B$
+$\angle C' \equiv \angle C$, $\angle D' \equiv \angle D$
+B les côtés correspondants ont des longueurs proportionnelles :
+$\frac{A'B'}{AB} = \frac{B'C'}{BC} = \frac{C'D'}{CD} = \frac{D'A'}{DA}$
+C'est pour cela qu'on peut dire que les deux figures ABCD et
+A'B'C'D' sont semblables.
+
+Matériel et moyens
+▸ Ordinateur
+▸ Vidéo projecteur
+▸ Logiciels
+▸ Papiers quadrillés
+▸ Instruments de mesure
+▸ Calculatrice
+
+2- On utilise le symbole ($\sim$) pour exprimer la similitude de deux
+polygones et on écrit leurs noms en respectant l'ordre des sommets
+correspondants pour faciliter la recherche des côtés correspondants.
+
+34
+Mathématiques - Première secondaire

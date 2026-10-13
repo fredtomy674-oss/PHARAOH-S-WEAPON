@@ -1,0 +1,29 @@
+74
+Chapitre 7 Nombres supérieurs à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Dix et un certain nombre (de 1 à 10) 7-2
+Les nombres supérieurs à 10 peuvent être séparés en 10 et un certain
+nombre .
+et et
+et et
+et et
+et et
+et et
+Mise en train
+(1) Écris le nombre de blocs cachés.
+1 15 2 13
+(2) Quel nombre va dans la case ?
+1 10 et 4 font 2 19 est 10 et
+Comment résoudre
+(1) 1 Tu vois 10 blocs. Le nombre de blocs cachés est 5 .
+2 Tu vois 3 blocs. Le nombre de blocs cachés est 10 .
+(2) 1 10 et 4 font 2 19 est 10 et

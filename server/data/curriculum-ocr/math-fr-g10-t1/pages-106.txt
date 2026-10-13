@@ -1,0 +1,57 @@
+Fonctions trigonométriques
+
+B L'angle de mesure $315^{\circ}$ est situé au quatrième quadrant
+$\therefore \operatorname{tg} 315^{\circ}$ est négatif.
+C L'angle de mesure $650^{\circ}$ est équivalent à un angle de mesure
+$650^{\circ}-360^{\circ}=290^{\circ}$
+$\therefore$ L'angle de mesure $650^{\circ}$ est situé au quatrième quadrant.
+$\therefore \cos 650^{\circ}$ est positif.
+D L'angle de mesure $\left(-30^{\circ}\right)$ est équivalent à un angle de mesure
+$-30^{\circ}+360^{\circ}=330^{\circ}$
+L'angle de mesure $\left(-30^{\circ}\right)$ est situé au quatrième quadrant.
+$\therefore \sec \left(-30^{\circ}\right)$ est positif.
+
+Essaiie de résoudre
+
+1 Détermine le signe de chacune des fonctions suivantes :
+A $\cos 210^{\circ}$
+B $\sin 740^{\circ}$
+C $\operatorname{tg}\left(-300^{\circ}\right)$
+D $\sin 1230^{\circ}$
+
+Exemple
+
+2 Soit l'angle $\angle \mathrm{AOB}$ de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique au point B, trouve les rapports trigonométriques de base de $\angle \mathrm{AOB}$ si les coordonnées du point B sont :
+A $(0 ;-1)$
+B $(\frac{1}{\sqrt{2}}, y)$
+C $(-x, x)$
+où $x>0 \quad, \quad y>0$
+
+Solution
+A $\cos \theta=0, \sin \theta=-1$ et $\operatorname{tg} \theta=\frac{-1}{0}$ (indéfini)
+B $x^{2}+y^{2}=1$ (cercle trigonométrique) en remplaçant $x$ par : $\frac{1}{\sqrt{2}}$
+$\left(\frac{1}{\sqrt{2}}\right)^{2}+y^{2}=1 \quad$ d'où
+$y^{2}=1-\frac{1}{2}=\frac{1}{2}$
+$\therefore y=\frac{1}{\sqrt{2}}>0$
+$y=-\frac{1}{\sqrt{2}}<0 \quad$ (refusée)
+$\therefore \cos \theta=\frac{1}{\sqrt{2}} \quad, \quad \sin \theta=\frac{1}{\sqrt{2}} \quad, \quad \operatorname{tg} \theta=1$
+C $(-x)^{2}+(x)^{2}=1$
+$\therefore 2 x^{2}=1$
+$\therefore x=\frac{1}{\sqrt{2}} \quad \operatorname{car} \quad x>0$
+$\therefore x=\frac{1}{\sqrt{2}} \quad, \quad y=-\frac{1}{\sqrt{2}}$
+$\therefore \cos \theta=-\frac{1}{\sqrt{2}} \quad, \quad \sin \theta=-\frac{1}{\sqrt{2}} \quad, \quad \operatorname{tg} \theta=-1$
+
+3 Si $270^{\circ}<\theta<360^{\circ}$ et $\sin \theta=-\frac{5}{13}$, trouve tous les rapports trigonométriques de base de l'angle de mesure $\theta$
+
+Solution
+Soient $\mathrm{m}(\angle \mathrm{AOB})=\theta$ où $\theta$ est situé au quatrième quadrant
+et les cordonnées du point B sont $(x, y)$
+$\therefore y=\sin \theta=-\frac{5}{13}, x=\cos \theta$ où $\cos \theta>0$
+$\therefore x^{2}+y^{2}=1$
+$\therefore \cos ^{2} \theta+\left(-\frac{5}{13}\right)^{2}=1$
+$\therefore \cos ^{2} \theta=1-\frac{25}{169}$
+$\therefore \cos ^{2} \theta=\frac{144}{169}, \cos \theta=\frac{12}{13}$ ou $\cos \theta=-\frac{12}{13}$
+$\cos \theta=\frac{12}{13} \quad$ (Pourquoi ?) $\quad \operatorname{tg} \theta=-\frac{5}{12}$
+
+Livre de l'élève - Premier semestre
+101

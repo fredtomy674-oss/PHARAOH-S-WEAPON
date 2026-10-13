@@ -1,0 +1,38 @@
+Leçons de l'unité
+Leçon (4-1): L'angle orienté
+Leçon (4-2): Mesure en radians et mesure en degrés
+Leçon (4-3): Fonctions trigonométriques
+Leçon (4-4): Angles associés
+Leçon (4-5): Représentation graphique des fonctions trigonométriques
+Leçon (4-6): Trouver la mesure d'un angle à partir d'une fonction trigonométrique
+
+Matériel utilisé
+Une calculatrice scientifique - Papiers graphiques - Ordinateur - Logiciels.
+
+Historique
+La trigonométrie est une branche des mathématiques qui traite des relations entre distances et angles dans les triangles. Cette science a prospéré, parmi les mathématiques anciennes, particulièrement dans l'astronomie à laquelle l'homme s'est intéressé pour contempler et observer le mouvement du soleil, de la lune, des étoiles et des planètes dans l'univers.
+
+Le mathématicien arabe Nosseir El-dine El-Toussi est considéré comme le premier qui a différencié la trigonométrie de l'astronomie.
+
+Les Arabes se sont beaucoup intéressés à la trigonométrie. On dit que l'expression <<< tangente >>> est décrite par le savant arabe Abu'l-Wafa Al Buzjani (940-998) au dixième siècle. Cette expression (en langue arabe) est issue de l'ombre des corps qui se constituent par les rayons de la lumière émise par le soleil.
+
+Organigramme de l'unité
+Trigonométrie
+
+Angle orienté
+Position standard d'un angle orienté
+Mesure positive
+Mesure négative
+Mesure en degrés
+Mesure en radians
+Applications physiques et de la vie quotidienne
+Technologie de l'information
+
+Fonctions trigonométriques
+Signe des fonctions trigonométriques dans les quatre quadrants
+Rapports trigonométriques des angles particuliers
+Rapports trigonométriques d'un angle
+Angles associés
+Représentation graphique des fonctions sinus et cosinus
+
+Les Arabes ont également de nombreux ajouts en trigonométrie plane et trigonométrie sphérique (relative à la surface d'une sphère) et c'est des Arabes que les Occidentaux ont adopté des idées importantes auxquelles ils ont beaucoup contribué. La trigonométrie est devenue un domaine des recherches en mathématique, et dont l'application scientifique et pratique, très diversifiée, a participé au progrès et à la prospérité de l'humanité.

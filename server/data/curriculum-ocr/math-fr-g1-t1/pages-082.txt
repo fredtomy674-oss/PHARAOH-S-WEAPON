@@ -1,0 +1,46 @@
+82
+Chapitre 7 Nombres supérieurs à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Addition et soustraction des nombres (partie 2) 7-5
+“Un nombre supérieur à 10, plus un certain nombre”
+Exemple 11 + 4 = 15
+10 1
+“Un nombre supérieur à 10, moins un certain nombre”
+Exemple 15 – 4 = 11
+10 5
+Mise en train
+(1) Résous les problèmes.
+1 12 + 2 2 15 + 4
+3 16 – 1 4 19 – 7
+(2) Tu as 17 fraises. Si tu en manges 3, combien en reste-t-il ?
+Écris la phrase mathématique et la réponse.
+Comment résoudre
+(1) 1 12 + 2 = 14 2 15 + 4 = 19
+10 2 10 5
+3 16 – 1 = 15 4 19 – 7 = 12
+10 6 10 9
+(2) Puisque nous retirons 3 de 17:
+Phrase de soustraction: 17 – 3 = 14 Réponse: 14 fraises
+Garde 10 , puis
+ajoute 1 et 4
+Garde 10 , puis
+soustrais 4 de 5
+Garde 10 et fais
+le calcul!
+Garde 10 , puis
+ajoute 2 et 2
+Garde 10 , puis
+ajoute 5 et 4
+Garde 10 , puis
+soustrais 1 de 6
+Garde 10 , puis
+soustrais 7 de 9

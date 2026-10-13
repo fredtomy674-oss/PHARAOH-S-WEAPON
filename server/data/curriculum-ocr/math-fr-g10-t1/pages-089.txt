@@ -1,0 +1,47 @@
+Unité
+4
+Trigonométrie
+
+Objectifs de l'unité
+Après l'étude de l'unité, l'élève devra être capable de:
+* Identifier un angle orienté.
+* Identifier la position standard d'un angle orienté.
+* Reconnaitre la mesure positive et la mesure négative d'un angle orienté.
+* Distinguer la nature de la mesure de l'angle (en degrés et en radians).
+* Identifier la mesure en radians de l'angle au centre dans un cercle.
+* Utiliser une calculatrice pour convertir une mesure en radian en une mesure en degrés et vis versa.
+* Identifier les fonctions trigonométriques.
+* Déterminer le signe de différentes fonctions trigonométriques dans les quatre quadrants.
+* Déduire que les ensembles d'angles équivalents ont les mêmes fonctions trigonométriques.
+* Reconnaitre les rapports trigonométriques d'un angle aigu et d'un angle quelconque.
+* Déduire les rapports trigonométriques de certains angles particuliers.
+* Reconnaitre les relations particulières ($\theta \pm 180^{\circ}$), ($\theta \pm 360^{\circ}$), ($90^{\circ} \pm \theta$) et ($270^{\circ} \pm \theta$).
+* Trouver l'ensemble solution des équations trigonométriques de la forme :
+  * $\sin ax = \cos bx$
+  * $\text{tg } ax = \text{cotg } bx$
+  * $\sec ax = \text{cosec } bx$
+* Trouver la mesure d'un angle en connaissant une valeur de l'un de ses rapports trigonométriques.
+* Identifier la représentation graphique des fonctions sinus et cosinus et déduire leurs propriétés.
+* Utiliser une calculatrice scientifique pour calculer les rapports trigonométriques de certains angles particuliers.
+* Modéliser certains phénomènes physiques et de la vie quotidienne qui sont représentés par des fonctions trigonométriques.
+* Utiliser la technologie de l'information pour reconnaitre les différentes applications des concepts de base de la trigonométrie.
+
+Expressions de base
+* Mesure en degrés
+* Mesure positive
+* Sinus
+* Cotangente
+* Mesure en radians
+* Mesure négative
+* Cosinus
+* Fonction circulaire
+* Angle orienté
+* Angles équivalents
+* Tangente
+* Angles associés
+* Radian
+* Angle quadrant
+* Cosécante
+* Position standard
+* Fonction trigonométrique
+* Sécante

@@ -1,0 +1,34 @@
+Détermination de la nature des racines d'une équation du second degré
+
+Réflexion critique : Dans l'ensemble des nombres complexes, les deux racines d'une équation du second degré sont-elles nécessairement deux nombres conjugués ? Justifie ta réponse par des exemples.
+
+Essaiie de résoudre
+
+2 Démontre que les deux racines de l'équation $7x^2 - 11x + 5 = 0$, sont complexes, puis utilise la formule générale pour trouver ces deux racines.
+
+Exemple
+
+3 Si les racines de l'équation $x^2 + 2(k - 1) x + 9 = 0$ sont égales, trouve la valeur de k, puis vérifie le résultat.
+
+Solution
+$b^2 - 4ac = 0$
+$4(k - 1)^2 - 4 \times 1 \times 9 = 0$
+$4k^2 - 8k - 32 = 0$
+$k^2 - 2k - 8 = 0$
+$(k - 4)(k + 2) = 0$
+$k = 4$ ou $k = -2$
+Vérification : si $k = 4$
+
+L'équation est : $x^2 + 6x + 9 = 0$
+Les racines de cette équation sont égales. Ce sont :
+-3 et -3
+Vérification : Si $k = -2$
+L'équation est : $x^2 - 6x + 9 = 0$
+Les racines de cette équation sont égales. Ce sont
+3 et 3.
+
+Essaiie de résoudre
+3 Si les racines de l'équation $x^2 - 2kx + 7k - 6x + 9 = 0$ sont égales, trouve les valeurs réelles de k, puis trouve les deux racines.
+
+Livre de l'élève - Premier semestre
+13

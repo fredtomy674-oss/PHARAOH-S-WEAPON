@@ -1,0 +1,46 @@
+Signe d'une fonction
+
+(2) Si $b^2 - 4ac < 0$, l'équation n'a pas de racines réelles. Dans ce cas, la fonction $f$ a le même signe que
+celui du coefficient de $x^2$, comme l'indique la figure suivante :
+
+Si $a > 0$, $f(x) > 0$
+pour tout $x \in \mathbb{R}$
+
+Si $a < 0$, $f(x) < 0$
+pour tout $x \in \mathbb{R}$
+
+Exemple
+
+4 Représente graphiquement la fonction $f$ telle que $f(x) = x^2 - 4x + 5$, puis détermine son signe.
+
+Solution
+
+Le discriminant est $(b^2 - 4 ac) = (-4)^2 - 4 \times 1 \times 5$
+$= 16 - 20 = -4 < 0$
+
+la fonction $x^2 - 4x + 5 = 0$, n'a pas de racines réelles
+
+la fonction est positive pour tout $x \in \mathbb{R}$ (car le coefficient de $x^2 > 0$)
+
+Essai de résoudre
+
+4 Représente graphiquement la fonction $f$, telle que $f(x) = -x^2 - 2x - 4$,
+puis détermine son signe.
+
+(3) Si $b^2 - 4ac = 0$ l'équation a une racine double. Soit $L$ cette racine. Dans ce cas, le signe de la fonction est
+comme suit :
+
+➤ Si $x \neq L$ la fonction a le même signe que celui de $a$.  ➤ Si $f(x) = 0$ si $x = L$
+
+La figure suivante illustre ce cas :
+
+Si $a > 0$
+$f(x) > 0$ $x \neq L$,
+$f(x) = 0$ pour $x = L$
+
+Si $a < 0$
+$f(x) < 0$ $x \neq L$,
+$f(x) = 0$ pour $x = L$
+
+Livre de l'élève - Premier semestre
+25

@@ -1,0 +1,23 @@
+Applications de la similitude dans le cercle
+
+6 Dans la figure ci-contre, $L \in [\mathrm{XY}]$ tel que $\mathrm{XL}=4\text{cm}$,
+$\mathrm{YL}=8\text{cm}$, $M \in [\mathrm{XZ}]$ tel que $\mathrm{XM}=6\text{cm}$ et $\mathrm{ZM}=2\text{cm}$
+Démontre que :
+A $\Delta\text{ XLM} \sim \Delta\text{ XZY}$
+B La figure $\text{LYZM}$ est un quadrilatère inscriptible.
+
+7 $\text{AB} \cap \text{CE} = \{\text{E}\}$, $\text{AE} = \frac{5}{12}\text{BE}$ et $\text{DE} = \frac{3}{5}\text{EC}$. si $\text{B E} = 6\text{cm}$ et $\text{C E} = 5\text{cm}$.
+démontre que les points $\text{A}$, $\text{B}$, $\text{C}$ et $\text{D}$ sont cocycliques.
+
+8 Soit $\text{ABC}$ un triangle. $\text{D} \in [\mathrm{BC}]$ tel que $\text{DB} = 5\text{cm}$ et $\text{DC} = 4\text{cm}$. si $\text{AC} = 6\text{cm}$. démontre
+que :
+A $\text{AC}$ est une tangente au cercle passant par les points $\text{A}$, $\text{B}$ et $\text{D}$.
+B $\Delta\text{ ACD} \sim \Delta\text{ BCA}$
+C $\text{A}(\Delta\text{ ABD}) : \text{A}(\Delta\text{ ABC}) = 5 : 9$
+
+9 Soient deux cercles concentriques de centre $\text{M}$ de longueurs de rayons $12\text{ cm}$ et $7\text{ cm}$. On
+trace la corde $[\text{AD}]$ dans le grand cercle qui coupe le petit cercle en $\text{B}$ et $\text{C}$ respectivement.
+Démontre que $\text{AB} \times \text{BD} = 95$
+
+Livre de l'élève - Premier semestre
+63

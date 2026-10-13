@@ -1,0 +1,43 @@
+Bissectrice d'un angle et parties proportionnelles
+
+6 Dans chacune des figures suivantes, démontre que $\overline{\mathrm{XY}} // \overline{\mathrm{BC}}$
+A
+D $6 \mathrm{~cm}$
+A
+$9 \mathrm{~cm}$
+C
+B
+$4 \mathrm{~cm}$
+X
+$6 \mathrm{~cm}$
+
+B
+D
+C
+X
+B
+A
+Y
+
+7 Dans chacune des figures suivantes, démontre que $\overrightarrow{\mathrm{BE}}$ est une bissectrice de $\angle\text{ABC}$.
+A
+A
+$5.4 \mathrm{~cm}$
+42 cm
+E
+B
+$40\text{ cm}$
+B
+E
+30 cm
+9 cm
+D
+$28\text{ cm}$
+C
+$36\text{ cm}$
+B
+D
+C
+
+Livre de l'élève - Premier semestre
+83

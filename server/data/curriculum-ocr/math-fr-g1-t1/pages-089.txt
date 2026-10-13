@@ -1,0 +1,28 @@
+89
+2
+3
+4
+5
+8
+6
+9
+7
+1
+9-1 Addition de trois nombres
+Essaie
+(1) Il y a 5 chiens. Puis 3 chiens de plus viennent. Puis 2 chiens de plus viennent.
+Combien de chiens y a-t-il au total ? Écris la phrase mathématique et la réponse .
+Il y a 5 chiens. 3 de plus viennent. Puis 2 de plus viennent.
+(2) Additionne les nombres.
+1 1 + 2 + 3 2 2 + 2 + 4 3 4 + 5 + 1
+4 7 + 3 + 2 5 8 + 2 + 4 6 5 + 7 + 6
+Exercice
+(1) Il y a 6 personnes dans le bus. Puis 4 de plus montent. Puis 3 de plus montent.
+Combien de personnes y a-t-il maintenant dans le bus ? Écris la phrase
+mathématique et la réponse.
+6 personnes sont
+dans le bus.
+4 de plus montent. 3 de plus montent.
+(2) Additionne les nombres.
+1 2 + 1 + 5 2 6 + 1 + 2 3 3 + 2 + 5
+4 4 + 6 + 4 5 1 + 9 + 8 6 4 + 8 + 7

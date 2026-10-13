@@ -1,0 +1,49 @@
+Fonctions trigonométriques
+
+Cercle trigonométrique
+Dans un repère orthogonal, le cercle ayant pour centre le point
+d'origine du repère et pour longueur de rayon l'unité de longueur
+est appelé << le cercle trigonométrique >>.
+
+★ Le cercle d'unité coupe l'axe des abscisses aux points
+A (1; 0) et B (-1; 0), Il coupe également l'axe des ordonnées
+aux points C (0; 1) et D (0; -1).
+
+★ Si (x, y) sont les coordonnées d'un point appartenant au cercle d'unité, alors :
+$x \in [-1 ; 1]$, $y \in [-1 ; 1]$.
+où $x^2 + y^2 = 1$
+Théorème de Pythagore
+
+Fonctions trigonométriques de base d'un angle
+Soit un angle orienté de mesure $\theta$, en position standard. Si le côté final de l'angle coupe le cercle
+d'unité au point B($x$, $y$). on peut définir les fonctions suivantes :
+
+1- $\text{cosinus } \theta = \text{l'abscisse du point B}$
+Donc $\cos \theta = x$
+
+2- $\text{sinus } \theta = \text{l'ordonnée du point B}$
+Donc $\sin \theta = y$
+
+3- $\text{tangente } \theta = \frac{\text{l'ordonnée du point B}}{\text{l'abscisse du point B}}$
+
+Donc $\operatorname{tg} \theta = \frac{y}{x}$ où $x \neq 0$ et par conséquent , $\operatorname{tg} \theta = \frac{\sin \theta}{\cos \theta}$ où $\cos \theta \neq 0$
+
+Remarque que : Tout point $(x, y)$ appartenant au cercle d'unité peut s'écrire sous la forme $(\cos \theta, \sin \theta)$
+Si $(\frac{3}{5}, \frac{4}{5})$ est le point d'intersection du côté final d'un angle orienté de mesure $\theta$ avec le cercle d'unité
+alors : $\cos \theta = \frac{3}{5}$ , $\sin \theta = \frac{4}{5}$ et $\operatorname{tg} \theta = \frac{4}{3}$
+
+Inverses des fonctions trigonométriques
+Soit un angle orienté de mesure $\theta$ en position standard. Si le côté final de l'angle coupe le cercle
+trigonométrique au point B($x$, $y$), on peut définir les fonctions suivantes :
+
+1- $\text{sécante } \theta$ :
+$\sec \theta = \frac{1}{x} = \frac{1}{\cos \theta}$ où $x \neq 0$
+
+2- $\text{cosécante } \theta$ :
+$\operatorname{cosec} \theta = \frac{1}{y} = \frac{1}{\sin \theta}$ où $y \neq 0$
+
+3- $\text{cotangente } \theta$ :
+$\operatorname{cotg} \theta = \frac{x}{y} = \frac{1}{\operatorname{tg} \theta}$ où $y \neq 0$
+
+Livre de l'élève - Premier semestre
+99

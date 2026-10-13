@@ -1,0 +1,16 @@
+Similitude des triangles
+B De la similitude, on a $\angle\text{BDE}\equiv\angle\text{BAC}\ \therefore\text{m}(\angle\text{BDE})=\text{m}(\angle\text{BAC})$
+$\because\angle\text{BDE}$ est extérieur au quadrilatère ACDE
+$\therefore\text{ACDE}$ est un quadrilatère inscriptible.
+
+Exemple
+8 ABC est un triangle. $\text{D}\in\overline{\text{BC}}$ tel que $(\text{AC})^2=\text{CD}\times\text{CB}$. Démontre que $\Delta\text{ACD}\sim\Delta\text{BCA}$
+
+Solution
+Dans les deux triangles ABC et DAC, $\angle\text{C}$ est commun (1)
+$\because(\text{AC})^2=\text{CD}\times\text{CB}$
+$\therefore\dfrac{\text{AC}}{\text{CB}}=\dfrac{\text{CD}}{\text{AC}}$ (2)
+De (1) et (2), on déduit que $\Delta\text{ACD}\sim\Delta\text{BCA}$ (théorème)
+
+Livre de l'élève - Premier semestre
+45

@@ -1,0 +1,71 @@
+Bissectrice d'un angle et parties proportionnelles
+
+Essai de résoudre
+5 Dans chacune des figures suivantes, démontre que : EF // BC
+
+A
+8 cm
+F
+E
+4 cm
+C
+6 cm
+B
+
+A
+C
+D
+B
+
+Cas particuliers
+1- Dans le triangle ABC:
+$\text{Si } \text{D} \in \overleftrightarrow{\text{BC}} \text{ où } \frac{\text{BD}}{\text{DC}} = \frac{\text{BA}}{\text{AC}}$
+$\text{alors : } \overleftrightarrow{\text{AD}} \text{ est une bissectrice de } \widehat{\text{BAC}}$
+
+$\text{Si } \text{E} \in \overleftrightarrow{\text{BC}} \text{ et } \text{E} \notin \text{[BC]} \text{ où } \frac{\text{BE}}{\text{EC}} = \frac{\text{BA}}{\text{AC}}$
+$\text{alors : } \overleftrightarrow{\text{AE}} \text{ est une bissectrice de } \widehat{\text{A}} \text{ extérieure au triangle ABC}$
+$\text{Ce cas est la réciproque du théorème précédent.}$
+
+F
+A
+E
+C
+B
+
+2- Dans la figure ci-contre,
+$\overleftrightarrow{\text{BE}} \text{ et } \overleftrightarrow{\text{CE}} \text{ sont des bissectrices des angles B et C qui se coupent en E}$
+$\text{où } \text{E} \in \overleftrightarrow{\text{AD}} \text{ Que peux-tu conclure ?}$
+
+A
+E
+C
+D
+B
+
+Corollaire : Les bissectrices des angles d'un triangle sont concourantes.
+
+Exemple
+
+6 Soit ABC un triangle tel que $\text{AB} = 18\text{cm}$, $\text{BC} = 15\text{cm}$ et $\text{AC} = 12\text{cm}$, $\text{D} \in \overleftrightarrow{\text{BC}} \text{ où } \text{BD} = 9\text{cm}$, On
+trace $\overleftrightarrow{\text{AE}} \perp \overleftrightarrow{\text{AD}}$ qui coupe $\overleftrightarrow{\text{BC}}$ en E. Démontre que $\overleftrightarrow{\text{AD}}$ est une bissectrice de $\widehat{\text{BAC}}$, puis calcule
+la longueur de $\overleftrightarrow{\text{CE}}$.
+
+A
+18
+12
+E
+C
+D
+B
+
+Solution
+$\text{Dans le triangle ABC : } \frac{\text{AB}}{\text{AC}} = \frac{18}{12} = \frac{3}{2}$
+$\text{CD} = \text{BC} - \text{BD} = 15 - 9 = 6\text{cm}$
+$\therefore \frac{\text{BD}}{\text{DC}} = \frac{9}{6} = \frac{3}{2}$
+$\therefore \frac{\text{BD}}{\text{DC}} = \frac{\text{AB}}{\text{AC}} \implies \overleftrightarrow{\text{AD}} \text{ est une bissectrice de } \widehat{\text{BAC}}$
+$\therefore \overleftrightarrow{\text{AE}} \perp \overleftrightarrow{\text{AD}} \text{ qui coupe } \overleftrightarrow{\text{BC}} \text{ en E}$
+$\therefore \overleftrightarrow{\text{AE}} \text{ est une bissectrice de } \widehat{\text{A}} \text{ extérieure au triangle ABC d'où } \frac{\text{BE}}{\text{EC}} = \frac{\text{AB}}{\text{AC}}$
+$\therefore \text{BE} = \text{BC} + \text{CE} \implies \frac{15 + \text{CE}}{\text{CE}} = \frac{18}{12}, \text{CE} = 30\text{cm}$
+
+Livre de l'élève - Premier semestre
+81

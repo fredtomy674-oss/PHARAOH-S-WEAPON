@@ -1,0 +1,61 @@
+2 - 4 Applications de la similitude dans le cercle
+A apprendre
+► Relation entre deux cordes
+sécantes d'un cercle.
+► Relation entre deux sécantes
+d'un cercle d'un point exté-
+rieur au cercle.
+► Relation entre la longueur
+d'une tangente à un cercle et
+les longueurs des deux parties
+d'une sécante tracées d'un
+point à l'extérieur du cercle.
+► Modélisation, résolution de
+problèmes et application à
+la vie quotidienne utilisant la
+similitude des polygones dans
+un cercle.
+
+Expressions de base
+► Corde
+► Sécante
+► Tangente
+► Diamètre
+► Tangente commune extérieu-
+rement
+► Tangente commune intérieu-
+rement
+► Cercles concentriques
+
+Réfléchis et discute
+Dans chacune des figures suivantes, il y a deux triangles semblables.
+Ecris les noms des triangles en ordonnant les sommets correspondants,
+puis déduis les côtés correspondants.
+
+figure (1)
+
+figure (2)
+
+figure (3)
+
+Dans la figure (1): Y a-t-il une relation entre EA × EB et EC × ED?
+Dans la figure (2): Y a-t-il une relation entre AE × AD et AC × AB?
+Dans la figure (3): Y a-t-il une relation entre AD × AC et (AB)²?
+
+Problème type
+Si deux droites contenant respectivement deux cordes [AB] et [CD] d'un
+cercle se coupent en un point E, alors EA × EB = EC × ED
+
+figure (1)
+
+figure (2)
+
+Pour démontrer ce résultat :
+Trace [AD] et [BC]
+
+Dans chacune des deux figures, démontre que les deux triangles
+EAD et ECB sont semblables. Par conséquent, on obtient :
+EA/EC = ED/EB ∴ EA × EB = EC × ED
+
+56
+Mathématiques - Première secondaire

@@ -1,0 +1,33 @@
+40
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 3 Addition
+Pointe!
+Addition avec zéro “0”
+Tu peux ajouter 0 comme n’importe quel autre nombre.
+Lorsque tu ajoutes 0 à un nombre, le nombre reste le même.
+Exemple 2 + 0 = 2
+Mise en train
+(1) Faisons de l’addition.
+1 5 + 0 2 0 + 8
+(2) Tu mets des oranges dans des paniers. Tu mets 3 oranges dans le premier
+panier et 0 dans le deuxième panier. Combien d’oranges as-tu mises au total ?
+Écris la phrase d’addition et la réponse .
+1 er panier 2 ème panier
+Comment résoudre
+(1) 1 5 + 0 = 5 2 0 + 8 = 8
+(2) Phrase d’addition : 3 + 0 = 3 Réponse : 3 oranges
+2 + 0 = 2 .
+De la même manière,
+0 + 2 = 2 .
+3-3
+La question demande
+“Combien ? ”, alors écris
+ta réponse avec “des oranges ”.

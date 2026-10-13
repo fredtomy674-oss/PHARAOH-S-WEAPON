@@ -1,0 +1,8 @@
+Relation entre les aires de deux polygones semblables
+
+6 Soit ABCD un parallélogramme. $\mathrm{X} \in \overleftrightarrow{\mathrm{AB}}$ et $\mathrm{X} \notin \overline{\mathrm{AB}}$, tel que $\mathrm{BX}=2\text{ AB}$, $\mathrm{Y} \in \overleftrightarrow{\mathrm{CB}}$ et $\mathrm{Y} \notin \overline{\mathrm{CB}}$,
+
+tel que $\text{BY} = 2\text{ BC}$. On trace le parallélogramme BXZY. Démontre que : $\frac{\text{A (ABCD)}}{\text{A (XBYZ)}} = \frac{1}{4}$
+
+Livre de l'élève - Premier semestre
+55

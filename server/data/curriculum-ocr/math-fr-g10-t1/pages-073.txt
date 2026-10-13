@@ -1,0 +1,64 @@
+Exemple
+
+2 Dans la figure ci-contre, $\text{CE} \cap \text{BD} = \{A\}, X \in \overline{\text{AD}}$
+
+et $Y \in \overline{\text{AE}}$ où $\text{XY} \parallel \text{BC} \parallel \text{DE}$.
+
+$\text{Si } \text{AB} = 6\text{cm}, \text{AC} = 5\text{cm}, \text{AD} = 12\text{cm}, \text{EY} = 4\text{cm}$.
+
+trouve la longueur de $\overline{\text{AE}}$ et $\text{DX}$.
+
+Solution
+
+$\because \text{ED} \parallel \text{BC}$
+
+, $\text{CE} \cap \text{BD} = \{A\}$
+
+$\therefore \frac{\text{AD}}{\text{AB}} = \frac{\text{AE}}{\text{AC}}$
+
+d'où $\frac{12}{6} = \frac{\text{AE}}{5}$
+
+$\therefore \text{AE} = 10\text{cm}$
+
+Dans le triangle AED:
+
+$\because \text{XY} \parallel \text{ED}$
+
+$\therefore \frac{\text{AE}}{\text{EY}} = \frac{\text{AD}}{\text{DX}}$
+
+d'où $\frac{10}{4} = \frac{12}{\text{DX}}$
+
+$\therefore \text{DX} = 4,8\text{cm}$
+
+Essai de résoudre
+
+2 Dans la figure ci-contre, $\text{DE} \parallel \text{AC}, \text{AE} \cap \text{CD} = \{B\}$
+
+A $\text{Si } \text{AB} = 8\text{cm}, \text{BC} = 9\text{cm}, \text{BE} = 12\text{cm}$,
+
+trouve la longueur de $\overline{\text{BD}}$.
+
+B $\text{Si } \text{AB} = 6\text{cm}, \text{BE} = 9\text{cm}, \text{CD} = 18\text{cm}$,
+
+trouve la longueur de $\overline{\text{BC}}$.
+
+Réciproque du
+théorème
+1
+
+Si une droite coupant deux côtés d'un triangle les partage en segments de longueurs
+proportionnelles, alors cette droite est parallèle au troisième côté du triangle.
+
+Dans les trois figures précédentes, ABC est un triangle. $\overleftrightarrow{\text{DE}}$ coupe $\overleftrightarrow{\text{AB}}$ en D et $\overleftrightarrow{\text{AC}}$ en E,
+
+$\text{Si } \frac{\text{AD}}{\text{DB}} = \frac{\text{AE}}{\text{EC}}$ alors $\overleftrightarrow{\text{DE}} \parallel \overleftrightarrow{\text{BC}}$
+
+Réflexion logique :
+
+Est-ce que $\triangle \text{ADE} \sim \triangle \text{ABC}$ ? Pourquoi ?
+
+- Est-ce que $\angle \text{ADE} \equiv \angle \text{B}$ ? Explique ta réponse.
+
+68
+
+Mathématiques - Première secondaire

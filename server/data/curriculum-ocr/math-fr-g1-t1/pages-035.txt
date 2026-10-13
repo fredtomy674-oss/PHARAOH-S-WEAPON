@@ -1,0 +1,28 @@
+35
+2
+3
+4
+5
+8
+6
+9
+7
+1
+2-2 Où est-ce?
+Essaie
+Regarde l’image et réponds.
+(1) est la à partir du haut.
+(2) est le à partir du bas.
+Droite Gauche
+(3) est la à partir de la droite.
+Exercice
+Regarde l’image et réponds.
+(1) est la à partir du bas.
+(2) est le à partir du haut.
+Droite Gauche
+(3) est la à partir de la gauche.
+(4) est le à partir de la droite.
+Bas
+Haut
+Bas
+Haut

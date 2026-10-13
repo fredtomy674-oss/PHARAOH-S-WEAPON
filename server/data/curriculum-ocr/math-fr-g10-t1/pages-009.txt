@@ -1,0 +1,50 @@
+Introduction aux nombres
+complexes
+1 - 1
+A apprendre
+▸ La notion du nombre imaginaire.
+▸ Les puissances de i.
+▸ La notion d’un nombre
+complexe.
+▸ Égalité de deux nombres
+complexes.
+▸ Opérations sur les nombres
+complexes.
+Réfléchis et discute
+Tu as déjà étudié plusieurs ensembles de nombres comme l’ensemble des
+nombres naturels N, l’ensemble des nombres entiers Z, l’ensemble des
+nombres rationnels Q, l’ensemble des nombres irrationnels Q et l’ensemble
+des nombres réels R. Nous avons vu que chaque ensemble est un élargissement
+de l’ensemble qui le précède pour pouvoir résoudre de nouvelles équations
+dont il est impossible de trouver une solution dans l’ensemble qui le précède.
+Maintenant si on observe l’équation x² = -1, on trouve qu’elle n’a pas de
+solution dans R, car il n’existe pas un nombre réel dont le carré est égal à (-1)
+et par conséquent, il n’existe pas un nombre réel qui vérifie l’équation d’où le
+besoin d’un nouvel ensemble de nombres. Cet ensemble est appelé l’ensemble
+des nombres complexes.
+Expressions de base
+▸ Nombre imaginaire
+▸ Nombre complexe
+La figure ci-contre montre la représentation
+graphique de la fonction y = x² + 1
+On remarque que la courbe représentative de
+la fonction ne coupe pas l’axe des abscisses et
+par conséquent, l’équation x² + 1 = 0 n’a pas
+de solutions dans R. Donc il est nécessaire de
+trouver un nouvel ensemble de nombres qui
+permet de résoudre ce type d’équations.
+A apprendre
+Le nombre imaginaire
+Tout nombre de la forme a i où a est un nombre réel et i est tel que i² = -1
+est un nombre imaginaire.
+Matériel et moyens
+▸ Une calculatrice scientifique
+Les nombres 2i, - 5i et √3 i sont des nombres imaginaires
+Donc on écrit √-3 = √3i² = ± √3 i,
+√-5 = √5 i² = ± √5 i et ainsi de suite...
+√-243 = √9² x 3 (-1) = 9√3 i
+Réflexion critique : Si a et b sont deux nombres réels négatifs, que peut-
+on dire de l’égalité √a x √b = √ab ? Justifie ta réponse par des exemples
+numériques.
+4
+Mathématiques – Première secondaire

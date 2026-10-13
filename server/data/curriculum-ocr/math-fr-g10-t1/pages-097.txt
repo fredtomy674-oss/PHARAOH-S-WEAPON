@@ -1,0 +1,41 @@
+Exercices 4-1
+
+1 Complète :
+A Un angle orienté est en position standard si
+B Deux angles orientés en position standard sont dits équivalents si
+C Un angle orienté a une mesure positive si et a une mesure négative si
+D Si le côté final d'un angle orienté est situé sur l'un des deux axes du repère, alors l'angle est
+appelé
+E Si $(\theta)$ est la mesure d'un angle orienté en position standard et $n \in \mathbb{Z}$, alors les angles de
+mesures $(\theta + n \times 360^{\circ})$ sont appelés
+F La plus petite mesure positive d'un angle de mesure $530^{\circ}$ est
+G L'angle ayant pour mesure $930^{\circ}$ est situé dans le quadrant.
+H La plus petite mesure positive d'un angle de mesure $-690^{\circ}$ est
+
+2 Lequel des angles suivants est en position standard ?
+A
+B
+C
+D
+
+3 Trouve la mesure de l'angle orienté $\theta$ indiqué dans chacune des figures suivantes :
+A
+B
+C
+D
+
+4 Détermine le quadrant dans lequel se trouve chacun des angles ayant pour mesures :
+A $24^{\circ}$
+B $215^{\circ}$
+C $-40^{\circ}$
+D $-220^{\circ}$
+E $640^{\circ}$
+
+5 Dessine en position standard chacun des angles suivants :
+A $32^{\circ}$
+B $140^{\circ}$
+C $-80^{\circ}$
+D $-110^{\circ}$
+E $-315^{\circ}$
+
+92 Mathématiques - Première secondaire

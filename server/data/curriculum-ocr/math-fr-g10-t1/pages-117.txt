@@ -1,0 +1,43 @@
+Exemple
+
+5 Résous l'équation : $\sin 2\theta = \cos\theta$
+Solution
+
+$\sin 2\theta = \cos\theta$
+$2\theta \pm \theta = \frac{\pi}{2} + 2\pi n \quad (n \in \mathbb{Z})$ de la définition de l'équation
+(1) Soit $2\theta + \theta = \frac{\pi}{2} + 2\pi n \quad \text{d'où} \quad 3\theta = \frac{\pi}{2} + 2\pi n$
+$\theta = \frac{\pi}{6} + \frac{2}{3}\pi n$ en divisant les deux membres par 3
+(2) ou $2\theta - \theta = \frac{\pi}{2} + 2\pi n \quad \text{d'où} \quad \theta = \frac{\pi}{2} + 2\pi n$
+L'ensemble solution est : $\frac{\pi}{6} + \frac{2}{3}\pi n \quad \text{ou} \quad \frac{\pi}{2} + 2\pi n$
+
+Essuie de résoudre
+
+9 Résous chacune des équations suivantes :
+
+A $\sin 4\theta = \cos 2\theta$
+B $2\sin(\frac{\pi}{2} - \theta) = 1$
+C $\cos 5\theta = \sin\theta$
+
+10 Déceler l'erreur : Dans un concours de mathématiques, l'enseignant a demandé à Karim et à
+Ziaad de trouver la valeur de $\sin(\theta - \frac{\pi}{2})$. Qui a trouvé la bonne réponse ? Explique ta réponse.
+
+Réponse de Karim
+$\sin(\theta - \frac{\pi}{2}) = \sin(2\pi + \theta - \frac{\pi}{2})$
+$= \sin(\frac{3\pi}{2} + \theta)$
+$= -\cos\theta$
+
+Réponse de Ziaad
+$\sin(\theta - \frac{\pi}{2}) = \sin[-(\frac{\pi}{2} - \theta)]$
+$= -\sin(\frac{\pi}{2} - \theta)$
+$= -(-\cos\theta) = \cos\theta$
+
+Test de compréhension
+
+Trouve toutes les valeurs de $\theta$ où $\theta \in ]0, \frac{\pi}{2}[$ qui vérifient chacune des équations suivantes :
+
+A $\sin\theta - \cos\theta = 0$
+B $\csc(\theta - \frac{\pi}{6}) = \sec\theta$
+C $2\cos(\frac{\pi}{2} - \theta) = 1$
+
+112
+Mathématiques - Première secondaire

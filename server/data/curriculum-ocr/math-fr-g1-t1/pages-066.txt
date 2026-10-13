@@ -1,0 +1,20 @@
+66
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6-2 Ce que nous apprenons des résultats
+Exercice
+(1) Nous avons compté chaque type de légumes coloriés. Répondons aux
+questions.
+1 Lequel a le plus ?
+2 Lequel a le moins ?
+3 Combien de tomates y a-t-il ?
+4 Combien de concombres
+y a-t-il ?
+TOMATES OIGNONS CONCOMBRES AUBERGINES

@@ -1,0 +1,76 @@
+Angles associés
+
+Solution
+:. sin (270° + 0) = - cos 0
+:. sec (270° + 0) = cosec 0
+
+Essaje de résoudre
+:. sin (270° + 0)
+:. sec (270° + 0)
+=
+=
+√5
+3
+3
+2
+8 Dans l'exemple précédent, calcule cotg (270° + 0) et cosec (270° + 0).
+
+Solution générale d'une équation trigonométrique de la forme
+[sin(a) = cos(β), sec(a) = cosec (β) ou tg (a) = cotg (β)]
+
+Réfléchis et discute
+
+Tu as déjà étudié que si a et ẞ sont les mesures de deux angles complémentaires (leur somme est
+égale à 90°) alors sin a = cos β, sec = cosec ẞet tg = cotg ẞ,, alors a + ẞ = 90° où a et ẞ sont
+deux angles aigus. Mais si sin 0 = cos 150°, quelles sont les valeurs attendues de 0?
+
+A apprendre
+
+1- Si sin a = cos ẞ (où a et ẞ sont les mesures de deux angles complémentaires, alors :
+sin a = sin(-ẞ) et par conséquent on obtient : a =
+sin a = sin(+ẞ) et par conséquent on obtient : a =
+En ajoutant 2 în à l'angle on obtient :
+2
+π
+2
+- β
+d'où
+α+β=
+d'où
+a - β =
+π
+2
+π
+2
+Si sin a = cos ẞ, alors a + β =
+π
++ 2 ηπ
+(où n ∈ Z), De même :
+Si cosec a = sec ẞ, alors a + β =
+π
++ 2 ηπ
+(où n ∈ Z),
+a ‡ n n et ẞ ‡ (2n+1)
+2- Si tga = cotgẞ (où a et ẞ sont les mesures de deux angles complémentaires, alors:
+tga=tg(-ẞ) et par conséquent on obtient a =
+tga=tg(-ẞ) et par conséquent on obtient a =
+En ajoutant 2 in aux deux angles et on obtient :
+π
+3π
+2
+2
+d'où a+ β =
+d'où a+ ẞ =
+π
+2
+3π
+2
+Si tga = cotg ẞ, alors a + β =
+π
+2
++ πη
+(où n ∈ Z),
+a ‡ (2n + 1)
+et ẞ + n π
+Livre de l'élève - Premier semestre
+111

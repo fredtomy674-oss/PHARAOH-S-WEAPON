@@ -1,0 +1,40 @@
+Exemple
+
+6 Dans la figure ci-contre : $\overline{\text{AB}}$ // $\overline{\text{CD}}$ // $\overline{\text{EF}}$ // $\overline{\text{XY}}$,
+$\text{AC} = 28\text{cm}$, $\text{CE} = 20\text{cm}$, $\text{DF} = 15\text{cm}$, $\text{FY} = 33\text{cm}$.
+Trouve la longueur de : $\overline{\text{BD}}$ et $\overline{\text{EX}}$
+
+Solution
+
+$\because \overline{\text{AB}}$ // $\overline{\text{CD}}$ // $\overline{\text{EF}}$ // $\overline{\text{XY}}$
+
+$\therefore \frac{\text{AC}}{\text{BD}} = \frac{\text{CE}}{\text{DF}} = \frac{\text{EX}}{\text{FY}}$
+
+$\frac{28}{\text{BD}} = \frac{20}{15} = \frac{\text{EX}}{33}$
+
+$\therefore \text{BD} = 21\text{cm}$, $\text{EX} = 44\text{cm}$.
+
+Cas particuliers
+
+1- Si les droites $\text{M}$ et $\text{M}$ se coupent en $\text{A}$
+et si $\overleftrightarrow{\text{BB}\grave{}}$ // $\overleftrightarrow{\text{CC}\grave{}}$, alors $\frac{\text{AB}}{\text{AC}} = \frac{\text{AB}\grave{}}{\text{AC}\grave{}}$
+Et réciproquement si : $\frac{\text{AB}}{\text{AC}} = \frac{\text{AB}\grave{}}{\text{AC}\grave{}}$
+alors : $\overleftrightarrow{\text{BB}\grave{}}$ // $\overleftrightarrow{\text{CC}\grave{}}$
+
+Cas particulier du théorème de Thalès
+
+2- Si des droites parallèles partagent une droite en segments de même longueur, alors elles partagent toute autre droite en segments de même longueur.
+Dans la figure ci-contre, $L_1$ // $L_2$ // $L_3$ // $L_4$ et les droites $\text{M}$ et $\text{M}\grave{}$ les coupent. Si $\text{AB} = \text{BC} = \text{CD}$, alors $\text{A}\grave{}\text{B}\grave{} = \text{B}\grave{}\text{C}\grave{} = \text{C}\grave{}\text{D}\grave{}$
+
+Exemple
+
+7 Dans la figure ci-contre, trouve la valeur numérique de $\text{x}$ et $\text{y}$.
+
+Solution
+
+$\because \overline{\text{AB}}$ // $\overline{\text{CD}}$ // $\overline{\text{EF}}$, $\text{BD} = \text{DF}$
+$\therefore \text{AC} = \text{CE}$
+Donc : $2\text{x} - 3 = \text{x} + 2 \quad \therefore \text{x} = 5$
+$\because \text{BD} = \text{DF}$, $\text{x} = 5 \quad \therefore \text{y} + 3 = 5 + 1 \quad \therefore \text{y} = 3$
+
+72 Mathématiques - Première secondaire

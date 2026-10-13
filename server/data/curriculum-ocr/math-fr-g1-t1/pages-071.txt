@@ -1,0 +1,23 @@
+71
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6-3 Comparons les résultats
+(2) Deux groupes ont trié des cartes de formes. L’une des cinq cartes est la
+"carte gagnante".
+Le groupe qui a le plus de cartes gagnantes est le gagnant. Répondons aux
+questions.
+1 Quel groupe a le plus de cœurs ?
+2 Quelle carte est la plus nombreuse dans le groupe 1 ?
+3 Si la carte gagnante est le cercle, quel groupe est le gagnant ?
+4 Si la carte gagnante est le triangle, quel groupe est le gagnant ?
+TRIANGLES CERCLES CARRÉS ÉTOILES CŒURS
+Groupe 2
+TRIANGLES CERCLES CARRÉS ÉTOILES CŒURS
+Groupe 1

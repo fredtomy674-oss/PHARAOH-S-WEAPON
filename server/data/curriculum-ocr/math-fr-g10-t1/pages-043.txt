@@ -1,0 +1,34 @@
+2-2 Similitude des triangles
+A apprendre
+► Cas de similitude de triangles.
+► Propriétés de la perpendiculaire abaissée du sommet de l'angle droit dans un triangle rectangle
+
+Expressions de base
+► Corollaire
+
+Matériel et moyens
+► Ordinateur
+► Vidéo projecteur
+► Logiciels de dessin
+► Papiers quadrillés
+► Miroir plat
+► Instruments de mesure
+► Calculatrice
+
+Réfléchis et discute
+Le Pharaon a demandé au mathématicien Thalès (600 A.JC.) De trouver la hauteur de la grande pyramide. A l'époque, il n'y avait ni appareils ni instruments ni méthodes permettant de trouver la hauteur de la pyramide directement.
+Thalès a fixé un bâton verticalement, puis il a commencé à mesurer la longueur de son ombre, puis l'a comparée à la longueur réelle du bâton jusqu'à ce qu'il ait trouvé que la longueur de l'ombre est égale à la longueur du bâton. A ce moment, il a mesuré la longueur de l'ombre de la pyramide. Cette mesure était la même que la hauteur de la pyramide.
+Si on te demande de trouver la hauteur du mât du drapeau en utilisant un bâton et une bande graduée, vas-tu attendre le moment où la longueur de l'ombre du bâton soit égale à la longueur de l'ombre du mât du drapeau ou tu peux calculer la hauteur du mât du drapeau à tout moment d'une journée ensoleillée ? Explique ta réponse.
+
+Travail coopératif
+1- Trace un triangle ABC tel que :
+$m(\angle\text{A}) = 50^\circ$, $m(\angle\text{B}) = 70^\circ$ et $\text{AB} = 4\text{cm}$
+2- Trace un triangle DEF tel que : $m(\angle\text{D}) = 50^\circ$, $m(\angle\text{E}) = 70^\circ$, $\text{DE} = 5\text{cm}$
+3- Mesure à un millimètre près les longueurs des côtés :
+$\text{AC}$, $\text{BC}$, $\text{DF}$ et $\text{EF}$
+4- Utilise ta calculatrice pour calculer les rapports $\frac{\text{AC}}{\text{DF}}$, $\frac{\text{BC}}{\text{EF}}$ et $\frac{\text{AB}}{\text{DE}}$.
+Ces rapports sont-ils égaux ? Que peux-tu déduire des deux triangles ?
+Compare tes résultats aux résultats obtenus par d'autres groupe, puis note tes remarques.
+
+38
+Mathématiques – Première secondaire

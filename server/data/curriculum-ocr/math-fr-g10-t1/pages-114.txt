@@ -1,0 +1,38 @@
+Angles associés
+
+Solution
+∵ sin (90° - θ) = cos θ
+∵ cotg (90° - θ) = tg θ
+
+Essaié de résoudre
+5 Dans l'exemple précédent, calcule cos (90° - θ) et cosec (90° - θ)
+
+∴ sin (90° - θ) = 3/5
+∴ cotg (90° - θ) = 4/3
+
+5- Fonctions trigonométriques des deux angles θ et (90° + θ)
+De la superposition des deux triangles B'C'O et OCB
+On a : y' = x , x' = -y
+
+Donc on peut déduire toutes les fonctions trigonométriques
+reliant les deux angles θ et (90° + θ) comme suit :
+sin (90° + θ) = cos θ , cosec (90° + θ) = sec θ
+cos (90° + θ) = -sin θ , sec (90° + θ) = -cosec θ
+tg (90° + θ) = -cotg θ , cotg (90° + θ) = -tg θ
+
+Exemple
+2 Si le côté final d'un angle de mesure θ, en position standard, passe par le point (1/3, 2√2/3)
+trouve les fonctions trigonométriques tg (90° + θ) et cosec (90° + θ)
+
+Solution
+∵ tg (90° + θ) = - cotg θ
+∵ cosec (90° + θ) = sec θ
+
+Essaié de résoudre
+6 Dans l'exemple précédent, calcule : sin (90° + θ) , sec (90° + θ)
+
+∴ tg (90° + θ) = - 1 / 2√2 = - √2 / 4
+∴ cosec (90° + θ) = 3
+
+Livre de l'élève - Premier semestre
+109

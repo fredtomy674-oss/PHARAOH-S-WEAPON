@@ -1,0 +1,32 @@
+91
+2
+3
+4
+5
+8
+6
+9
+7
+1
+9-2 Soustraction de trois nombres
+Essaie
+(1) Il y avait 9 biscuits. Tu as mangé 3 biscuits hier. Tu as mangé 4 biscuits aujourd’hui .
+Combien de biscuits restent-ils ? Écris la phrase mathématique et la réponse .
+Il y avait
+9 biscuits.
+Tu as mangé 3. Tu as mangé 4 de
+plus.
+(2) Soustrais les nombres.
+1 6 – 2 – 2 2 9 – 1 – 5 3 7 – 2 – 1
+4 14 – 4 – 5 5 11 – 1 – 6 6 13 – 3 – 4
+Exercice
+(1) Il y avait 10 personnes dans le bus. 5 personnes sont descendues. Puis,
+3 autres personnes sont descendues. Combien de personnes y a-t-il dans le
+bus maintenant ? Écris la phrase mathématique et la réponse.
+10 personnes étaient
+dans le bus .
+5 sont descendues. 3 de plus sont
+descendues.
+(2) Soustrais les nombres.
+1 9 – 6 – 1 2 8 – 2 – 3 3 7 – 1 – 5
+4 18 – 8 – 7 5 16 – 6 – 9 6 17 – 7 – 6

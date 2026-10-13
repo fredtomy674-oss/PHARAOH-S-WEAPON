@@ -1,0 +1,41 @@
+4 - 1 L'angle orienté
+
+A apprendre
+▸ Notion de l'angle orienté.
+▸ Position standard d'un angle orienté.
+▸ Mesure positive et mesure négative d'un angle orienté.
+▸ Position d'un angle orienté dans un repère orthogonal.
+▸ Notion des angles équivalents.
+
+Expressions de base
+▸ Mesure en degrés
+▸ Angle orienté
+▸ Position standard
+▸ Mesure positive
+▸ Mesure négative
+▸ Angle équivalent
+▸ Angle quadrant
+
+Matériel et moyens
+▸ Une calculatrice scientifique
+
+Réfléchis et discute
+Tu as déjà étudié qu'un angle est la réunion de deux demi-droites ayant une même origine. Dans la figure ci-contre, le point B est appelé « le sommet de l'angle » et les deux demi-droites $[\mathrm{BA})$ et $[\mathrm{BC})$ sont les côtés de l'angle.
+Par conséquent, $\overrightarrow{\mathrm{BA}} \cup \overrightarrow{\mathrm{BC}} = (\widehat{\mathrm{ABC}})$
+Qui s'écrit également $\widehat{\mathrm{ABC}}$.
+
+Mesure d'un angle en degrés
+Tu sais que la mesure en degrés d'un angle est basée sur le partage d'un cercle en 360 arcs de même longueur. Il en résulte :
+1- l'angle au centre dont les deux côtés passent par les deux extrémités de l'un de ces arcs a pour mesure un degré qu'on note ($1^\circ$)
+2- Chaque degré est subdivisé en 60 parties égales dont chacune est appelée « une minute qu'on note ($1'$)».
+3- Chaque minute est subdivisée en 60 parties dont chacune est appelée « une seconde » qu'on note ($1''$).
+Donc $1^\circ = 60'$ et $1' = 60''$
+
+A apprendre
+Angle orienté
+Si on observe l'ordre de présentation des deux demi-droites formant un angle, on peut les écrire sous la forme du couple ($\overrightarrow{\mathrm{OA}}, \overrightarrow{\mathrm{OB}}$)
+Le premier élément du couple $\overrightarrow{\mathrm{OA}}$ est le côté initial de l' angle et son second élément $\overrightarrow{\mathrm{OB}}$ est le côté final de l'angle ayant pour sommet O comme le montre la figure (1).
+
+Si le côté initial de l'angle est $\overrightarrow{\mathrm{OB}}$ et le côté final de l'angle est $\overrightarrow{\mathrm{OA}}$, le couple s'écrit ($\overrightarrow{\mathrm{OB}}, \overrightarrow{\mathrm{OA}}$) comme le montre la figure (2).
+
+86 Mathématiques - Première secondaire

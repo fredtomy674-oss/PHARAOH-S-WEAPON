@@ -1,0 +1,112 @@
+Bissectrice d'un angle et parties
+proportionnelles
+
+3-2
+
+Travail collectif
+
+A apprendre
+
+1- Trace un triangle ABC, puis trace $\vec{AD}$ la bissectrice de l'angle A qui
+coupe $\mathrm{BC}$ en D.
+
+► Propriétés des bissectrices des
+angles d'un triangle.
+
+2- Mesure BD, CD, AB et AC.
+
+► Utilisation de la proportionnalité
+pour calculer les longueurs des
+segments issus de la bisection
+des angles.
+
+3- Calcule les rapports $\frac{\mathrm{BD}}{\mathrm{DC}}$ et $\frac{\mathrm{BA}}{\mathrm{AC}}$, puis compare-
+les. Que remarques-tu?
+
+► Modélisation et résolution de
+problèmes de la vie quotidienne
+incluant des bissectrices d'angle
+d'un triangle.
+
+4- Répète les étapes précédentes plusieurs fois.
+Qu'est ce que tu en déduis ? Exprime le
+résultat à ta manière.
+
+C
+
+B
+
+Bissectrice d'un angle
+
+Expressions de base
+
+Théorème
+3
+
+► Bissectrice
+► Bissectrice intérieure
+► Bissectrice extérieure
+► Perpendiculaire
+
+La bissectrice intérieure d'un angle d'un triangle
+(ou la bissectrice de l'angle extérieure au triangle en
+ce sommet) partage le côté opposé intérieurement
+(ou extérieurement) en deux segments dont le rapport
+des longueurs est égal au rapport des longueurs des
+deux autres côtés du triangle. (le démonstration n'est
+pas sujet a l'exam)
+
+Figure (A)
+
+Figure (B)
+
+E
+
+A
+
+F
+
+2
+
+3
+
+3
+
+A
+
+4
+
+4
+
+B
+
+D
+
+C
+
+B
+
+C
+
+D
+
+Matériel et moyens
+
+► Instruments géométriques pour
+tracer
+
+► Ordinateur et logiciels
+► Vidéo projecteur
+
+Hypothèses : ABC est un triangle et $\vec{AD}$ est une bissectrice de $\angle\mathrm{BAC}$
+(fig (A) $\vec{\mathrm{AD}}$ est une bissectrice de l'angle, extérieure au
+sommet A fig (B))
+
+Conclusion : $\frac{\mathrm{BD}}{\mathrm{DC}}=\frac{\mathrm{AB}}{\mathrm{AC}}$
+
+Démonstration : On trace $\vec{\mathrm{CE}}/\!/\vec{\mathrm{AD}}$ qui coupe $\vec{\mathrm{BA}}$ en E. Suis le schéma
+suivant et rédige la démonstration.
+
+76
+
+Mathématiques - Première secondaire

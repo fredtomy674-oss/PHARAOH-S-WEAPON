@@ -1,0 +1,47 @@
+Relation entre les racines d'une équation du second degré et les coefficients de ses termes
+
+Essaié de résoudre
+1 Sans résoudre l'équation, trouve la somme et le produit de ses racines dans chacun des cas suivants :
+A $2x^2 + x - 6 = 0$
+B $3x^2 = 23x - 30$
+C $(2x - 3)(x + 2) = 0$
+
+Exemple
+
+2 Si le produit des racines de l'équation $2x^2 - 3x + k = 0$ est égal à 1, trouve la valeur de k, puis résous l'équation dans l'ensemble des nombres complexes.
+
+Solution
+Le produit des racines = $\frac{c}{a}$
+$\therefore \frac{k}{2} = 1$
+$\therefore k = 2$
+$a = 2, b = -3, c = 2$
+
+La formule générale est :
+$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+$= \frac{3 \pm \sqrt{9 - 16}}{4} = \frac{3 \pm \sqrt{-7}}{4} = \frac{3 \pm \sqrt{7}i}{4}$
+
+L'ensemble solution est $\{\frac{3}{4} + \frac{\sqrt{7}}{4}i \ ;\ \frac{3}{4} - \frac{\sqrt{7}}{4}i\}$
+
+Essaié de résoudre
+2 Si le produit des racines de l'équation $3x^2 + 10x - c = 0$ est égal à $\frac{-8}{3}$, trouve la valeur de c, puis résous l'équation.
+3 Si la somme des racines de l'équation $2x^2 + bx - 5 = 0$ est égale à $\frac{-3}{2}$, trouve la valeur de b, puis résous l'équation.
+
+Exemple
+
+3 Si $(1 + i)$ est l'une des racines de l'équation $x^2 - 2x + k = 0$ où $k \in \mathbb{R}$ trouve :
+A l'autre racine
+B la valeur de k.
+
+Solution
+$a = 1, b = -2, c = k$
+
+A $\because 1 + i$ est l'une des racines de l'équation
+$\therefore$ l'autre racine $= 1 - i$ car les deux racines sont conjuguées et leur somme est = 2
+
+B $\because$ Le produit des racines $= k$
+$\therefore (1 + i)(1 - i) = k$
+$\therefore 1 + 1 = k$
+$\therefore k = 2$
+
+Livre de l'élève - Premier semestre
+17

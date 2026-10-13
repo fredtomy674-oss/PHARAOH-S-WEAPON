@@ -1,0 +1,55 @@
+4 - 2
+
+Mesure en radians et mesure en degrés
+
+A apprendre
+▸ La notion de mesure en degrés.
+▸ Relation entre la mesure en degrés et la mesure en radians.
+▸ Calcul de la longueur d'un arc d'un cercle.
+
+Réfléchis et discute
+
+On sait qu'en mesure en degrés, on utilise les degrés, les minutes et les secondes. Un degré = 60 minutes et une minute = 60 secondes Y a-t-il d'autres unités de mesures d'angles?
+
+Expressions de base
+▸ Mesure en degrés
+▸ Mesure en radians
+▸ Radian
+
+Mesure en radians
+Travail collectif
+
+1- Trace un ensemble de cercles concentriques comme dans la figure ci-contre.
+
+B3
+B2
+B1
+OA1 A2 A3
+
+2- Calcule le rapport entre la longueur de chaque arc interceptant un angle au centre et la longueur du rayon de son cercle. Que remarques-tu?
+
+On remarque que : le rapport entre la longueur d'un arc et et la longueur du rayon de son cercle est constant.
+
+Donc longueur A₁ B₁ / OA₁ = longueur A₂ B₂ / OA₂ = longueur A₃ B₃ / OA₃ = constante
+
+Cette valeur constante est la mesure en radians d'un angle.
+La mesure en radians d'un angle au centre = longueur de l'arc qui intercepte l'angle / longueur du rayan du cercle
+
+Matériel et moyens
+▸ Une calculatrice scientifique
+
+Définition
+
+Si $\theta^{\text{rad}}$ la mesure d'un angle au centre d'un cercle de longueur de rayon R, intercepte un arc de longueur L, alors
+$\theta^{\text{rad}} = \frac{L}{R}$ de radian
+
+R
+L
+$\theta^{\text{rad}}$
+R
+
+De la définition précédente, on déduit que :
+$L = \theta^{\text{rad}} \times R$ et $R = \frac{L}{\theta^{\text{rad}}}$
+
+94
+Mathématiques - Première secondaire

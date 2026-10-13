@@ -161,6 +161,18 @@ import {
   assertTreeMatchesTheBook as assertMathEnG1TreeMatchesBook,
 } from "./egyptMathEnG1T1.js";
 import {
+  EGYPT_MATH_FR_G10_T1_UNITS,
+  lessonDocument as mathFrG10LessonDocument,
+  isConsistent as isMathFrG10TreeConsistent,
+  assertTreeMatchesTheBook as assertMathFrG10TreeMatchesBook,
+} from "./egyptMathFrG10T1.js";
+import {
+  EGYPT_MATH_FR_G1_T1_UNITS,
+  lessonDocument as mathFrG1LessonDocument,
+  isConsistent as isMathFrG1TreeConsistent,
+  assertTreeMatchesTheBook as assertMathFrG1TreeMatchesBook,
+} from "./egyptMathFrG1T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -3018,6 +3030,104 @@ function verifyMathEnG1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Mathematics (French-medium)** — OFFICIAL curriculum
+ * (PHASE 121).
+ *
+ * The first term IS the Ministry textbook (`Mathématiques — Première secondaire`; 129
+ * scanned pages, Gemini OCR): its four units (Algèbre/relations/fonctions, Similitude,
+ * Théorèmes de la proportion, Trigonométrie) and the pages they occupy (book pages
+ * 2–122). The scan holds FIVE pages before each book page: book N = scan N+5, i.e. a
+ * NEGATIVE offset of −5, proven by the printed folios (scan 9 = 4، scan 16 = 11،
+ * scan 39 = 34، scan 71 = 66، scan 91 = 86، scan 111 = 106، scan 127 = 122). A lesson is
+ * each printed leçon; its `concepts` are the lesson's own printed heads (objectives,
+ * definitions, theorems, worked activities), verbatim in French.
+ */
+export const EGYPT_MATH_FR_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "math-fr", name: "Mathematics (French)", nameAr: "الرياضيات (بالفرنسية)" },
+  curriculum: { code: "eg-g10-math-fr", title: "الرياضيات للصف الأول الثانوي (بالفرنسية)" },
+  terms: [buildEgyptMathFrG10Term()],
+};
+
+/** Term 1 = the official French-medium maths book: printed unit → printed lesson. */
+function buildEgyptMathFrG10Term(): TermSeedSpec {
+  const check = verifyMathFrG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالفرنسية) (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_FR_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-math-fr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathFrG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 French Maths tree verification, as one verdict. */
+function verifyMathFrG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathFrG10TreeConsistent();
+  const book = assertMathFrG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-1 (Grade 1) **Mathematics (French-medium)** — OFFICIAL curriculum
+ * (PHASE 122).
+ *
+ * The first term IS the Ministry textbook (`MATHÉMATIQUES — 1ère primaire`; 96
+ * born-digital pages, text layer already extracted): its nine chapters and the pages they
+ * occupy (book pages 6–93) — the same pagination as the English twin. Book page = scan
+ * index (offset 0), proven by the printed folios. A lesson is each printed leçon; its
+ * `concepts` are the lesson's own printed flow heads (`Leçon`/`Exemple`/`Comment
+ * résoudre`), verbatim in French.
+ */
+export const EGYPT_MATH_FR_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "math-fr", name: "Mathematics (French)", nameAr: "الرياضيات (بالفرنسية)" },
+  curriculum: { code: "eg-g1-math-fr", title: "الرياضيات للصف الأول الابتدائي (بالفرنسية)" },
+  terms: [buildEgyptMathFrG1Term()],
+};
+
+/** Term 1 = the official Primary-1 French maths book: printed chapter → printed lesson. */
+function buildEgyptMathFrG1Term(): TermSeedSpec {
+  const check = verifyMathFrG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالفرنسية) (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_FR_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-math-fr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathFrG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 French Maths tree verification, as one verdict. */
+function verifyMathFrG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathFrG1TreeConsistent();
+  const book = assertMathFrG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4571,6 +4681,8 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_INTEGRATED_SCIENCE_FR_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_FR_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_FR_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);

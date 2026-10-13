@@ -1,0 +1,43 @@
+Unité
+Géométrie
+3
+Théorèmes de la proportion
+dans un triangle
+Le temple de Hatshepsout à Louxor
+Objectifs de l'unité
+Après l'étude de l'unité, l'élève devra être capable de :
+• Identifier le théorème d'énoncé « Si une
+droite est parallèle à un côté d'un triangle, elle
+découpe les deux autres côtés en segments de
+longueurs proportionnelles », sa réciproque et
+ses corollaires.
+• Identifier le théorème de Thalès d'énoncé <<
+Des parallèles découpent sur deux droites des
+segments de longueurs proportionnelles » et ses
+cas particuliers
+• Identifier le théorème d'énoncé «La bissectrice
+intérieure (ou extérieure) d'un angle d'un
+triangle partage le côté opposé intérieurement
+(ou extérieurement) en deux segments dont le
+rapport des longueurs est égal au rapport des
+longueurs des deux autres côtés du triangle» et
+ses cas particuliers.
+• Déterminer la puissance d'un point par rapport
+à un cercle (sécantes et tangentes)
+• Déterminer les mesures des angles formés par
+l'intersection des cordes et de tangentes d'un
+cercle.
+• Résoudre des exercices portant sur la
+détermination de la longueur d'une bissectrice
+intérieure ou extérieure.
+Expressions de base
+• Rapport
+• Proportion
+• Parallèle
+• Milieu
+• Médiane
+• Sécante
+• Bissectrice
+• Bissectrice intérieure
+• Bissectrice extérieure
+• Perpendiculaire à

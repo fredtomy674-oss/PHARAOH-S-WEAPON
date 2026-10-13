@@ -1,0 +1,23 @@
+47
+2
+3
+4
+5
+8
+6
+9
+7
+1
+4-2 Soustraction (Partie 2)
+Essaie
+(1) Tu as 7 tomates. Tu manges 4. Combien en reste-t-il ? Écris la phrase
+mathématique et la réponse.
+(2) Il y a 8 voitures. 5 voitures partent. Combien en reste-t-il ? Écris la phrase
+mathématique et la réponse.
+Exercice
+(1) Il y a 9 bonbons. Tu en manges 3. Combien en reste-t-il ? Écris la phrase
+mathématique et la réponse.
+(2) Il y a 4 poissons. 2 nagent loin. Combien en reste-t-il ? Écris la phrase
+mathématique et la réponse.
+(3) Il y a 10 fleurs. Tu en enlèves 2. Combien en reste-t-il ? Écris la phrase
+mathématique et la réponse.

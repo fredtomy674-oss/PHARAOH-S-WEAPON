@@ -1,0 +1,42 @@
+6- Fonctions trigonométriques des deux angles $\theta$ et $(270^\circ - \theta)$
+De la superposition des deux triangles $\text{B}'\text{C}'\text{O}$ , $\text{OCB}$
+On a : $y' = -x$ et $x' = -y$
+
+Donc on peut déduire toutes les fonctions trigonométriques reliant
+les deux angles $\theta$ et $(270^\circ - \theta)$ comme suit :
+
+$\sin(270^\circ - \theta) = -\cos\theta$ , $\csc(270^\circ - \theta) = -\sec\theta$
+$\cos(270^\circ - \theta) = -\sin\theta$ , $\sec(270^\circ - \theta) = -\csc\theta$
+$\tan(270^\circ - \theta) = \cot\theta$ , $\cot(270^\circ - \theta) = \tan\theta$
+
+Exemple
+
+3 Si le côté final d'un angle de mesure $\theta$, en position standard, passe par le point $(\frac{\sqrt{3}}{2}, \frac{1}{2})$ trouve
+les fonctions trigonométriques : $\cos(270^\circ - \theta)$ et $\cot(270^\circ - \theta)$
+
+Solution
+
+$\because \cos(270^\circ - \theta) = -\sin\theta$ $\therefore \cos(270^\circ - \theta) = -\frac{\frac{1}{2}}{\frac{\sqrt{3}}{2}} = -\frac{1}{\sqrt{3}}$ *(Note: math correction in text transcription as it appears)*
+$\because \cot(270^\circ - \theta) = \tan\theta$ $\therefore \cot(270^\circ - \theta) = \frac{\frac{1}{2}}{\frac{\sqrt{3}}{2}} = \frac{1}{\sqrt{3}}$
+
+Essai de résoudre
+
+7 Dans l'exemple précédent, calcule $\tan(270^\circ - \theta)$ et $\csc(270^\circ - \theta)$
+
+7- Fonctions trigonométriques des deux angles $\theta$ et $(270^\circ + \theta)$
+De la superposition des deux triangles : $\text{B}'\text{C}'\text{O}$, $\text{OCB}$
+
+Donc on peut déduire toutes les fonctions trigonométriques
+reliant les deux angles $\theta$ et $(270^\circ + \theta)$ comme suit :
+
+$\sin(270^\circ + \theta) = -\cos\theta$ , $\csc(270^\circ + \theta) = -\sec\theta$
+$\cos(270^\circ + \theta) = \sin\theta$ , $\sec(270^\circ + \theta) = \csc\theta$
+$\tan(270^\circ + \theta) = -\cot\theta$ , $\cot(270^\circ + \theta) = -\tan\theta$
+
+Exemple
+
+4 Si le côté final d'un angle de mesure $\theta$, en position standard, passe par le point $(\frac{\sqrt{5}}{3}, -\frac{2}{3})$ trouve
+les fonctions trigonométriques : $\sin(270^\circ + \theta)$ et $\sec(270^\circ + \theta)$
+
+110
+Mathématiques - Première secondaire

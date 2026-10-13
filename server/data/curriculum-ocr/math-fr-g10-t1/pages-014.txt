@@ -1,0 +1,19 @@
+Introduction aux nombres complexes
+
+Exemple
+
+6 Électricité: Trouve l'intensité du courant électrique passant entre deux résistances placées en parallèle dans un circuit électrique fermé sachant que l'intensité du courant dans la première résistance est 5-3i Ampère et que l'intensité du courant dans la deuxième résistance est 2+ i Ampère (sachant que l'intensité totale du courant électrique est égale à la somme des intensités des courants passant par les deux résistances)
+
+Solution
+
+• Intensité totale du courant = somme des intensités des courants passant par les deux résistances.
+= (5-3i) + (2 + i)
+= (5 + 2) + (-3 + 1) i
+= 7 - 2i Ampère
+
+Test de compréhension
+
+1 Réflexion critique: Mets sous la forme la plus simple: (1-i)¹⁰.
+
+Livre de l'élève - Premier semestre
+9

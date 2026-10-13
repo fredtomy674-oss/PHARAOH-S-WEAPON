@@ -1,0 +1,71 @@
+L'angle orienté
+
+➤ Si l'angle orienté $\widehat{\mathrm{AOB}}$ de mesure positive ($\theta$) est en position standard, alors son côté final $\overrightarrow{\mathrm{OB}}$
+peut être situé dans l'un des quatre quadrants :
+
+Deuxième
+quadrant
+
+$90^{\circ}<\theta<180^{\circ}$
+
+Troisième
+quadrant
+
+$180^{\circ}<\theta<270^{\circ}$
+
+Premier
+quadrant
+
+$0^{\circ}<\theta<90^{\circ}$
+
+Quatrième
+quadrant
+
+$270^{\circ}<\theta<360^{\circ}$
+
+➤ Si le côté final $\overrightarrow{\mathrm{OB}}$ est situé sur l'un des deux axes, l'angle dans ce cas est appelé « Angle
+quadrant ». Par conséquent les angles des mesures $0^{\circ}$, $90^{\circ}$, $180^{\circ}$, $270^{\circ}$, $360^{\circ}$ sont des angles
+quadrants.
+
+Exemple
+
+2 Détermine le quadrant dans lequel se trouve chacun des angles ayant pour mesures :
+A $48^{\circ}$
+B $217^{\circ}$
+C $135^{\circ}$
+D $295^{\circ}$
+E $270^{\circ}$
+
+Solution
+
+A $0^{\circ}<48^{\circ}<90^{\circ}$
+B $180^{\circ}<217^{\circ}<270^{\circ}$
+C $90^{\circ}<135^{\circ}<180^{\circ}$
+D $270^{\circ}<295^{\circ}<360^{\circ}$
+E $270^{\circ}$ est un angle quadrant
+
+Il est situé dans le premier quadrant.
+Il est situé dans le troisième quadrant.
+Il est situé dans le deuxième quadrant.
+Il est situé dans le quatrième quadrant.
+
+Essai de résoudre
+
+3 Détermine le quadrant dans lequel se trouve chacun des angles ayant pour mesures :
+A $88^{\circ}$
+B $152^{\circ}$
+C $180^{\circ}$
+D $300^{\circ}$
+E $196^{\circ}$
+
+Remarque :
+
+➤ Si ($\theta^{\circ}$) est la mesure positive d'un angle orienté, alors la
+mesure négative de cet angle est ($\theta^{\circ}-360^{\circ}$)
+
+➤ Si ($-\theta^{\circ}$) est la mesure négative d'un angle orienté, alors la
+mesure positive de cet angle est ($-\theta^{\circ}+360^{\circ}$)
+
+Livre de l'élève - Premier semestre
+
+89

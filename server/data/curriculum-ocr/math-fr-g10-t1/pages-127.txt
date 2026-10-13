@@ -1,0 +1,21 @@
+7 Si $\sin \theta=\frac{1}{3}$ et $90^{\circ} \leqslant \theta \leqslant 180^{\circ}$.
+A calcule la mesure de l'angle $\theta$ à une seconde près.
+B trouve la valeur de $\cos \theta, \operatorname{tg} \theta$ et $\sec \theta$.
+
+8 Echelle: Une échelle de 5 mètres de long repose sur un mur vertical. Si la hauteur du sommet de l'échelle par rapport à la surface de la terre est égale à 3 mètres, trouve en radians la mesure de l'angle d'inclinaison de l'échelle sur l'horizontale.
+
+9 Trouve, en degrés, la mesure de l'angle $\theta$ dans chacun des cas suivants :
+A
+$5 \mathrm{~cm}$
+$8 \mathrm{~cm}$
+B
+$9 \mathrm{~cm}$
+$7 \mathrm{~cm}$
+$\theta$
+C
+$4 \mathrm{~cm}$
+$9 \mathrm{~cm}$
+$\theta$
+
+122
+Mathématiques - Première secondaire

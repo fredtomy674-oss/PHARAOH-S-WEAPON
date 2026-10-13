@@ -1,0 +1,46 @@
+Applications de la similitude dans le cercle
+
+Exemple
+
+1 Dans la figure ci-contre, $\mathrm{AB} \cap \mathrm{CD}=\{\mathrm{E}\}$,
+Si $\frac{\mathrm{EA}}{\mathrm{EB}}=\frac{4}{3}$, $\mathrm{EC}=9\mathrm{cm}$ et $\mathrm{ED}=4\mathrm{cm}$,
+trouve la longueur de $\overline{\mathrm{EB}}$
+
+Solution
+$\because \frac{\mathrm{EA}}{\mathrm{EB}}=\frac{4}{3}$
+$\therefore \mathrm{EA}=4\mathrm{k}$ et $\mathrm{EB}=3\mathrm{k}$ où $\mathrm{k} \neq 0$
+$\because \mathrm{AB} \cap \mathrm{CD}=\{\mathrm{E}\}$
+$\therefore \mathrm{EA} \times \mathrm{EB}=\mathrm{EC} \times \mathrm{ED}$
+(problème type)
+d'où : $4\mathrm{k} \times 3\mathrm{k} = 9 \times 4$
+$12\mathrm{k}^2 = 36$
+$\mathrm{k}^2 = 3$
+$\mathrm{k} = \sqrt{3}$ , $\mathrm{EB} = 3\sqrt{3}\mathrm{cm}$
+
+Essai de résoudre
+
+1 Trouve la valeur de $x$ dans chacune de figures suivantes (les longueurs sont mesurées en centimètres) :
+
+A
+B
+C
+
+Exemple
+
+2 Dans la figure ci-contre, $\overleftrightarrow{\mathrm{AB}} \cap \overleftrightarrow{\mathrm{CD}} = \{\mathrm{E}\}$, $\mathrm{AB} = 5\mathrm{cm}$,
+$\mathrm{CD} = 9\mathrm{cm}$ et $\mathrm{ED} = 3\mathrm{cm}$. Trouve la longueur de $\overline{\mathrm{BE}}$
+
+Solution
+Soit la longueur de $\mathrm{BE} = x\mathrm{cm}$.
+$\because \overleftrightarrow{\mathrm{AB}} \cap \overleftrightarrow{\mathrm{CD}} = \{\mathrm{E}\}$
+$\therefore \mathrm{EB} \times \mathrm{EA} = \mathrm{ED} \times \mathrm{EC}$
+(problème type)
+Donc: $x (x + 5) = 3 (3 + 9)$
+$x^2 + 5x - 36 = 0$
+$(x - 4) (x + 9) = 0$
+$\therefore x = 4$ , $x = -9$
+refusée
+$\therefore$ La longueur de $\overline{\mathrm{BE}} = 4\mathrm{cm}$.
+
+Livre de l'élève - Premier semestre
+57

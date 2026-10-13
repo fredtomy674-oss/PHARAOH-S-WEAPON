@@ -1,0 +1,20 @@
+L'angle orienté
+
+6 Détermine une mesure négative de chacun des angles suivants :
+A $83^{\circ}$
+C $90^{\circ}$
+E $964^{\circ}$
+
+B $136^{\circ}$
+D $264^{\circ}$
+F $1070^{\circ}$
+
+7 Détermine la plus petite mesure positive de chacun des angles suivants :
+A $-183^{\circ}$
+C $-315^{\circ}$
+
+B $-217^{\circ}$
+D $-570^{\circ}$
+
+Livre de l'élève - Premier semestre
+93

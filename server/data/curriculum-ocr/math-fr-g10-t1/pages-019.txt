@@ -1,0 +1,41 @@
+Exercices 1-2
+
+1) Questions à choix multiples
+1 Les racines de l'équation $x^2 - 4x + k = 0$ sont égales si
+A $k = 1$
+B $k = 4$
+C $k = 8$
+D $k = 16$
+
+2 Les racines de l'équation $x^2 - 2x + M = 0$ sont réelles différentes si
+A $M = 1$
+B $M > 1$
+C $M > 1$
+D $M = 4$
+
+3 Les racines de l'équation $Lx^2 - 12x + 9 = 0$ sont complexes si
+A $L < 4$
+B $L > 4$
+C $L = 4$
+D $L = 1$
+
+2) Réponds aux questions suivantes
+4 Détermine le nombre de racines et leur nature pour chacune des équations suivantes :
+A $x^2 - 2x + 5 = 0$
+B $3x^2 + 10x - 4 = 0$
+C $x^2 - 10x + 25 = 0$
+D $6x^2 - 19x + 35 = 0$
+
+5 Résous, dans l'ensemble des nombres complexes, chacune des équations suivantes en utilisant la formule générale :
+A $x^2 - 4x + 5 = 0$
+B $2x^2 + 6x + 5 = 0$
+C $3x^2 - 7x + 6 = 0$
+D $4x^2 - x + 1 = 0$
+
+6 Trouve la valeur de $k$ dans chacun des cas suivants :
+A si les racines de l'équation $x^2 + 4x + k = 0$ sont réelles différentes.
+B si les racines de l'équation $x^2 - 3x + 2 + \frac{1}{k} = 0$ sont égales.
+C si les racines de l'équation $kx^2 - 8x + 16 = 0$ sont complexes.
+
+14
+Mathématiques – Première secondaire

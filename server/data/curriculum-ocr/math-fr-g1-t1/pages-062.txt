@@ -1,0 +1,14 @@
+62
+2
+3
+4
+5
+8
+6
+9
+7
+1
+6-1 Représenter les données avec des images
+Exercice
+(1) Compte chaque type de légumes et colorie-les.
+TOMATES OIGNONS CONCOMBRES AUBERGINES

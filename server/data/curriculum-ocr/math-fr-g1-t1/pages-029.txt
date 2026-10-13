@@ -1,0 +1,23 @@
+29
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+Entoure le plus grand nombre.
+(1) (2)
+Entoure le plus petit nombre.
+(1) (2)
+Exercice
+Entoure le plus grand nombre.
+(1) (2)
+(3) (4)
+Entoure le plus petit nombre.
+(1) (2)
+(3) (4)
+1-12 Comparons les nombres

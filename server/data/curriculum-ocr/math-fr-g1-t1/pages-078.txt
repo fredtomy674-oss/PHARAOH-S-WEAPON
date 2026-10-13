@@ -1,0 +1,24 @@
+78
+2
+3
+4
+5
+8
+6
+9
+7
+1
+7-3 Droite numérique
+Exercice
+(1) Regarde la droite numérique. Jusqu’où est allé le chat ? Écris le nombre.
+1 2
+1 0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+1
+2
+(2) Entoure le plus grand nombre.
+1 2
+(3) Écris le nombre qui va dans la case.
+1
+2
+3
+4

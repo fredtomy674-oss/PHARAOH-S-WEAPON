@@ -1,0 +1,36 @@
+88
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 9 Opérations avec 3 nombres
+Pointe!
+Pour additionner trois nombres, commence de gauche à droite.
+Exemple 3 + 4 + 1 = 8
+7
+Mise en train
+(1) Combien de chats y a-t-il au total ? Écris le nombre dans la case.
+Il y a 3 chats. 2 de plus viennent. Puis 4 de plus viennent.
+Phrase d’addition: 3 + + = Réponse: chats
+(2) Additionne les nombres.
+1 5 + 1 + 3 2 7 + 2 + 1 3 2 + 8 + 5
+Comment résoudre
+(1) Additionne de la gauche: 3 + + = Réponse: chats
+(2) 1 5 + 1 + 3 = 9 2 7 + 2 + 1 = 10
+3 2 + 8 + 5 = 15
+D’abord, additionne
+3 et 4 .
+Puis, additionne 1
+au résultat.
+5
+2 4 9 9
+6 9 Nous additionnons
+toujours de gauche
+à droite!
+10
+Addition de trois nombres 9-1

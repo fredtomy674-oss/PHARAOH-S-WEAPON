@@ -1,0 +1,48 @@
+Géométrie
+
+Unité
+2
+
+Similitude
+
+Objectifs de l'unité
+
+Après l'étude de l'unité, l'élève devra être capable de :
+
+Se rappeler de tout ce qu'il a déjà étudié dans le cycle préparatoire concernant la similitude.
+Identifier la similitude de deux polygones.
+Identifier et démontrer le théorème d'énoncé « Si les longueurs des côtés correspondants de deux triangles sont proportionnelles, alors ces deux triangles sont semblables ».
+Identifier et démontrer le théorème d'énoncé « Si deux triangles ont deux paires de côtés de longueurs proportionnelles et si les angles compris entre ces deux côtés ont même mesure, alors les deux triangles sont semblables ».
+Identifier le théorème d'énoncé « Le rapport entre les aires de deux triangles semblables est égal à ...... ».
+Identifier le corollaire d'énoncé « Deux polygones semblables peuvent être partagés en ...... ».
+Identifier le théorème d'énoncé « Le rapport entre les aires de deux polygones semblables est égal à ...... ».
+Identifier le corollaire d'énoncé « Deux droites contenant respectivement deux cordes d'un cercle se coupent en un point ...... », sa réciproque et ses corollaires.
+
+Expressions de base
+
+Rapport
+Proportion
+Mesure d'angle
+Longueur
+Aire
+Produit en croix
+Extrême
+Moyen
+Polygones semblables
+Triangles semblables
+Côtés correspondants
+Angles superposables
+Polygone régulier
+Quadrilatère
+Pentagone
+Axiome
+Périmètre
+Aire d'un polygone
+Corde
+Sécante
+Tangente
+Diamètre
+Tangente commune extérieure
+Tangente commune intérieure
+Cercles concentriques
+Rapport de similitude

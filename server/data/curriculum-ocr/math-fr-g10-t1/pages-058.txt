@@ -1,0 +1,26 @@
+Relation entre les aires de deux polygones semblables
+De la similitude des deux polygones, on déduit que $\frac{\text{AB}}{\text{XY}} = \frac{\text{CD}}{\text{ZL}}$
+$\therefore \frac{4}{3} = \frac{16}{\text{ZL}}$ donc $\text{ZL} = \frac{3 \times 16}{4} = 12\text{cm} \quad (\text{C.Q.F.D en } 2^{\circ})$
+Remarque
+$\text{AB} = 4k$
+$\text{XY} = 3k$
+$k \neq 0$
+$\text{A}(\text{polygone ABCD}) : \text{A}(\text{polygone XYZL}) = (\text{AB})^2 : (\text{XY})^2$
+$= 16k^2 : 9k^2$
+$3^{\circ})$
+$= 16 : 9 \quad (\text{C.Q.F.D en } 3^{\circ})$
+Exemple
+5 Le rapport entre les périmètres de deux polygones semblables est $3 : 4$. Si la somme de leurs aires est $225\text{ cm}^2$, calcule l'aire de chaque polygone.
+Solution
+$\because$ Le rapport entre les périmètres des deux polygones $= 3 : 4$
+$\therefore$ Le rapport entre deux côtés correspondants $= 3 : 4$
+Supposons que l'aire du premier polygone $= 9\text{ x cm}^2$,
+$\therefore$ l'aire du deuxième polygone $= 16\text{ xcm}^2$
+$\therefore 9\text{x} + 16\text{x} = 225$, d'où $\text{x} = \frac{225}{9 + 16} = 9$
+$\therefore$ L'aire du premier polygone $= 9 \times 9 = 81\text{cm}^2$
+$\therefore$ L'aire du deuxième polygone $= 16 \times 9 = 144\text{cm}^2$
+Essai de résoudre
+3 Lien avec l'agriculture : Deux fermes ont la forme de deux polygones semblables. Le rapport entre les longueurs de deux côtés correspondants est $5 : 3$. Si la différence entre leurs superficies est égale à $32\text{ acres}$, trouve l'aire de chaque ferme.
+
+Livre de l'élève - Premier semestre
+53

@@ -1,0 +1,43 @@
+Détermination de la nature des racines
+d'une équation du second degré
+1 - 2
+Réfléchis et discute
+Tu as déjà étudié la résolution d'une équation du second degré à une inconnue
+dans R, Tu sais donc que cette équation peut avoir deux solutions ou une
+solution unique ou ne peut avoir aucune solution. Peux-tu trouver le nombre
+de racines (solutions) d'une équation du second degré sans la résoudre ?
+A apprendre
+Comment déterminer les racines
+d'une équation du second
+degré à une inconnue.
+A apprendre
+Le discriminant
+Les racines de l'équation $ax^2 + bx + c = 0$ où $a \neq 0$, a, b et c sont des nombres
+réels : $\frac{-b + \sqrt{b^2 - 4ac}}{2a}$ , $\frac{-b - \sqrt{b^2 - 4ac}}{2a}$
+Chacune des deux racines contient l'expression $\sqrt{b^2 - 4ac}$ .
+L'expression $b^2 - 4ac$ est appelée le discriminant de l'équation du second degré.
+Le calcul du discriminant permet de déterminer la nature des deux racines de
+l'équation.
+Expressions de base
+Racine
+Discriminant
+Exemple
+1 Détermine la nature des racines de chacune des équations suivantes :
+A $5x^2 + x - 7 = 0$
+B $x^2 - 2x + 1 = 0$
+C $-x^2 + 5x - 30 = 0$
+Solution
+Pour déterminer la nature des deux racines :
+Matériel et moyens
+A a = 5, b = 1, c = -7
+Le discriminant = $b^2 - 4ac$
+$= 1 - 4 \times 5 \times (-7) = 141$
+$\because$ Puisque le discriminant est positif, l'équation a deux racines réelles
+différentes.
+B a = 1, b = -2, c = 1
+Le discriminant = $b^2 - 4ac$
+$= 4 - 4 \times 1 \times 1 = 0$
+$\because$ Puisque le discriminant est nul, l'équation a deux racines réelles égales.
+Une calculatrice scientifique
+Livre de l'élève - Premier semestre
+11

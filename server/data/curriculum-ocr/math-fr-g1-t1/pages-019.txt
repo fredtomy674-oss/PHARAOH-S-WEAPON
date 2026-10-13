@@ -1,0 +1,23 @@
+19
+1-7 Qu’est-ce qui fait 6?
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+Quels sont les deux nombres qui font 6 ? Écris le nombre manquant
+dans la case.
+(1) (2)
+(3) (4)
+Exercice
+Quels sont les deux nombres qui font 6 ? Écris le nombre manquant
+dans la case.
+(1) (2)
+(3) (4)
+Dessine 6 cercles. Réfléchis
+et trouve la réponse !

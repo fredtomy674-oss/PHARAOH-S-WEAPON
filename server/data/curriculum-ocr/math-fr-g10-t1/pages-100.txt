@@ -1,0 +1,53 @@
+Mesure en radians et mesure en degrés
+
+L'unité de mesure dans ce cas est le radian notée ($1^{\text{rad}}$ ) et se lit (un
+radian).
+
+Définition
+Le radian
+C'est la mesure de l'angle au centre qui intercepte un arc
+de longueur égale à la longueur du rayon du cercle.
+
+Réflexion critique : La mesure en radians d'un angle au centre est-elle proportionnelle à la longueur
+de l'arc qu'il intercepte ? Explique ta réponse.
+
+Exemple
+8 La longueur du rayon d'un cercle est égale à $8\text{ cm}$. Trouve à un centième près la longueur de l'arc
+intercepté par un angle au centre de mesure $\frac{5}{12}\ \pi$.
+
+Solution
+On utilise la formule de la longueur de l'arc : $\text{L} = \theta^{\text{rad}} \times \text{R}$
+$r = 8\text{ cm}\ ,\ \theta^{\text{rad}} = \frac{5\pi}{12}$ , $\text{L} = 8 \times \frac{5\pi}{12}$ $\therefore \text{L} \simeq 10,47\text{cm}$
+
+Essaie de résoudre
+1 Détermine à un centième près, la longueur de l'arc intercepté par l'angle au centre dans chacun
+des cercles suivants :
+
+A
+$5\text{ cm}$
+
+B
+$8\text{ cm}\ \left|\frac{\pi}{3}\right.$
+
+C
+$6\text{ cm}\ \left|\frac{7\pi}{6}\right.$
+
+Relation entre la mesure en degrés et la mesure en radians d'un angle :
+
+On sait que la mesure de l'angle au centre dans un cercle est égale à la
+mesure de l'arc qu'il intercepte.
+
+Par conséquent, l'angle au centre dont la mesure en degrés est $360^{\circ}$, a pour
+longueur d'arc $2\ \pi\ \text{R}$
+
+Dans un cercle d'unité :
+$2\pi$ (en radians) est équivalent à $360^{\circ}$.
+
+D'où $\pi^{\text{rad}}$ est équivalent à $180^{\circ}$ , $1^{\text{rad}} = \frac{180^{\circ}}{\pi} \simeq 57^{\circ}\ 17' 45''$
+
+Si un angle a pour mesure en radians $\theta^{\text{rad}}$ et pour mesure en degrés $x^{\circ}$, alors :
+
+$$\frac{x^{\circ}}{180^{\circ}} = \frac{\theta^{\text{rad}}}{\pi}$$
+
+Livre de l'élève - Premier semestre
+95

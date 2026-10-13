@@ -1,0 +1,39 @@
+90
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 9 Opérations avec 3 nombres
+Pointe!
+Pour soustraire trois nombres, commence de gauche à droite.
+Exemple 8 – 1 – 2 = 5
+7
+Mise en train
+(1) Combien de chats restent ? Écris le nombre dans la case.
+Il y avait 6 chats. 1 chat est rentré à
+la maison.
+Puis 3 autres chats
+sont rentrés à la maison.
+Phrase de soustraction: 6 – – = Réponse: chats
+(2) Soustrais les nombres.
+1 7 – 4 – 2 2 8 – 5 – 1 3 12 – 2 – 3
+Comment résoudre
+(1) Soustrais de gauche à droite : 6 – – = Réponse: chats
+(2) 1 7 – 4 – 2 = 1 2 8 – 5 – 1 = 2
+3 12 – 2 – 3 = 7
+D’abord, calcule
+8 - 1 .
+Puis, soustrais 2 du
+résultat.
+5
+1 3 2 2
+3 3
+10
+Souviens-toi: Soustrais
+de gauche à droite!
+Soustraction de trois nombres 9 - 2

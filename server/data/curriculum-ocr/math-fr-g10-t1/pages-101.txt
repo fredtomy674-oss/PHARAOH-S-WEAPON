@@ -1,0 +1,66 @@
+Exemple
+
+9. Transforme $30^{\circ}$ en mesure en radians en fonction de $\pi$.
+
+Pour transformer en radians, on applique la formule $\frac{x^{\circ}}{180^{\circ}}=\frac{\theta^{\mathrm{rad}}}{\pi}$
+
+$$\theta^{\mathrm{rad}}=\frac{30^{\circ} \times \pi}{180^{\circ}}=\frac{\pi}{6}$$
+
+Exemple
+
+10. Transforme $1,2^{\mathrm{rad}}$ en mesure en degrés.
+
+Solution
+
+$$x^{\circ}=\frac{1,2 \times 180^{\circ}}{\pi}$$
+$$x^{\circ}=68,75493542=68^{\circ} 45^{\prime} 18^{\prime \prime}$$
+
+On peut utiliser la calculatrice comme suit :
+
+$$1\cdot2\times180\div\pi=$$
+
+$$68^{\circ} 45^{\prime} 17.77^{\prime \prime}$$
+
+Essaie de résoudre
+
+2. Transforme chacune des mesures en radians suivantes en mesure en degrés :
+
+A $0,7^{\mathrm{rad}}$
+
+B $1,6^{\mathrm{rad}}$
+
+C $2,05^{\mathrm{rad}}$
+
+D $-1,05^{\mathrm{rad}}$
+
+Exercices 4-2
+
+1) Questions à choix multiples :
+
+1 L'angle en position standard qui a pour mesure $60^{\circ}$ est équivalent à l'angle qui a pour mesure
+A $120^{\circ}$
+B $240^{\circ}$
+C $300^{\circ}$
+D $420^{\circ}$
+
+2 L'angle qui a pour mesure $\frac{31\pi}{6}$ se trouve dans le quadrant
+A premier
+B deuxième
+C troisième
+D quatrième
+
+3 L'angle qui a pour mesure $\frac{-9\pi}{4}$ se trouve dans le quadrant
+A premier
+B deuxième
+C troisième
+D quatrième
+
+4 Sachant que la somme des mesures des angles d'un polygone est $180^{\circ}(n-2)$ où $n$ est le nombre de côtés, la mesure en radians d'un angle d'un pentagone régulier est
+A $\frac{\pi}{3}$
+B $\frac{7\pi}{2}$
+C $\frac{3\pi}{5}$
+D $\frac{2\pi}{3}$
+
+96
+
+Mathématiques - Première secondaire

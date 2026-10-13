@@ -1,0 +1,23 @@
+77
+7-3 Droite numérique
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+(1) Entoure le plus grand nombre.
+1 2
+(2) Écris le nombre qui va dans la case.
+1
+2
+3
+(3) Utilise la droite numérique et réponds.
+1 0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+1 Quel nombre est 4 de plus que 11 ?
+2 Quel nombre est 7 de moins que 18 ?
+(4) Mets les cartes dans l’ordre du plus petit au plus grand.

@@ -1,0 +1,66 @@
+1-4 Signe d'une fonction
+
+A apprendre
+
+Etude du signe d'une fonction:
+constante - du premier degré -
+du second degré
+
+Expressions de base
+
+Signe d'une fonction
+Fonction constante
+Fonction affine (du premier
+degré)
+Fonction du second degré
+
+Matériel et moyens
+
+Une calculatrice scientifique
+
+Réfléchis et discute
+Tu as déjà étudié la représentation graphique d'une fonction du premier degré
+et d'une fonction du second degré. Tu as identifié l'allure de leurs courbes
+représentatives. Peux-tu trouver le signe de chacune de ses fonctions?
+
+Détermine le signe d'une fonction consiste à déterminer les valeurs de $x$
+pour lesquelles:
+$f(x)$ est positive c'est-à-dire $\quad f(x) > 0$
+$f(x)$ est négative c'est-à-dire $\quad f(x) < 0$
+$f(x)$ est nulle c'est-à-dire $\quad f(x) = 0$
+
+A apprendre
+
+(1) Signe d'une fonction constante
+Le signe d'une fonction constante $f$ telle que $f(x) = c$ ($c \neq 0$) est le même
+signe que celui de $c$ pour tout $x \in \mathbb{R}$.
+La figure suivante montre le signe de la fonction $f$.
+
+y  c > 0
+c
+x' x
+o
+y'
+
+La fonction est positive pour tout
+$x \in \mathbb{R}$
+
+x' x
+o
+c
+y'  c < 0
+
+La fonction est négative pour tout
+$x \in \mathbb{R}$
+
+Exemple
+
+1 Détermine le signe de chacune des fonctions suivantes:
+A $f(x) = 5$
+B $f(x) = -7$
+
+Solution
+A : $f(x) > 0$ $\therefore$ la fonction est positive pour tout $x \in \mathbb{R}$
+B : $f(x) < 0$ $\therefore$ la fonction est négative pour tout $x \in \mathbb{R}$
+
+22 Mathématiques – Première secondaire

@@ -1,0 +1,21 @@
+75
+7-2 Dix et un certain nombre (de 1 à 10)
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Essaie
+Quel nombre va dans la case ?
+(1) 10 et 9 font (2) 10 et 6 font
+(3) 17 est et 7 (4) 15 est 10 et
+(5) 12 est et 2 (6) 14 est 10 et
+Exercice
+Quel nombre va dans la case ?
+(1) 10 et 5 font (2) 10 et 8 font
+(3) 13 est et 3 (4) 16 est 10 et
+(5) 15 est et 5 (6) 20 est 10 et

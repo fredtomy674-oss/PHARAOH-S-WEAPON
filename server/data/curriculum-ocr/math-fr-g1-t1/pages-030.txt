@@ -1,0 +1,27 @@
+30
+Chapitre 1 Les nombers jusqu’à 10
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Pointe!
+Le nombre 0 est appelé “zéro”
+Y a-t-il des cercles colorés ? !
+Il n’y a pas de cercles colorés et cela signi fi e “zéro”
+Zéro
+Mise en train
+Écris le nombre d’oranges.
+(1) (2)
+Comment résoudre
+Pointe l’image et compte: «Un, deux, trois, quatre, cinq.»
+S’il n’y a rien, écris 0.
+(1) 4
+(2) 0
+“zéro” signifie que rien
+n’est là!
+Le nombre zéro

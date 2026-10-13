@@ -1,0 +1,114 @@
+Exercices 2-2
+
+1 Lesquels des cas suivants représentent deux triangles semblables. Justifie ta réponse.
+A
+D
+E
+C
+B
+A
+A
+B
+C
+50°
+D
+35°
+F
+E
+C
+E
+D
+25 cm
+20 cm
+25 cm
+30 cm
+B
+A
+D
+X
+9 cm
+7.5 cm
+Y
+Z
+4.5 cm
+M
+3 cm
+N
+5 cm
+6 cm
+L
+E
+X
+5 cm
+L
+3 cm
+Y
+3 cm
+M
+8 cm
+Z
+F
+D
+8 cm
+2 cm
+A
+E
+4 cm
+4 cm
+C
+B
+
+2 Trouve la valeur numérique du symbole utilisé pour la mesure :
+A
+A
+E
+D
+C
+B
+9 cm
+x cm
+12 cm
+15 cm
+B
+A
+C
+16 cm
+D
+9 cm
+x cm
+y cm
+B
+
+3 Dans la figure ci-contre, ABC est un triangle rectangle et $\mathrm{AD}\perp\mathrm{BC}$
+1) Complète : $\triangle\mathrm{ABC}\sim\triangle$ ............... $\sim\triangle$ ...............
+2) Si $x, y, z, l, m$ et $n$ sont les longueurs des segments indiqués
+sur la figure en centimètres, complète les proportions
+suivantes :
+A
+C
+D
+B
+Z
+x
+l
+m
+n
+A
+$\frac{x}{z}=\frac{m}{\dots\dots\dots}$
+B
+$\frac{x}{z}=\frac{l}{\dots\dots\dots}$
+C
+$\frac{m}{l}=\frac{x}{\dots\dots\dots}$
+D
+$\frac{l}{\dots\dots\dots}=\frac{\dots\dots\dots}{l}$
+E
+$\frac{x}{\dots\dots\dots}=\frac{\dots\dots\dots}{x}$
+F
+$\frac{l}{y}=\frac{\dots\dots\dots}{\dots\dots\dots}$
+G
+$\frac{l}{x}=\frac{\dots\dots\dots}{z}$
+H
+$\frac{l}{x}=\frac{\dots\dots\dots}{y}$
+
+46
+Mathématiques - Première secondaire

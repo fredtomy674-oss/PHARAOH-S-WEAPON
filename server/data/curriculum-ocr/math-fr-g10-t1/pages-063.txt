@@ -1,0 +1,77 @@
+Essaje de résoudre
+2 Trouve la valeur de x dans chacune des figures suivantes :
+A
+E
+4
+5
+D
+B
+8
+C
+A
+X
+B
+3
+D
+6
+E
+X
+2x
+C
+C
+B
+5
+D
+4
+E
+2
+A
+Corollaire
+Si E est un point exterieur a un cercle; EA est un tangente du cercle en A
+et EC coupe le cercle en D et C alors (EA) = ED x EC
+Dans la figure ci-contre, EA est une tangente au cercle et EC
+coupe le cercle en D, C
+..(EA)² = ED x EC
+E
+A
+C
+D
+Exemple
+3 Dans la figure ci-contre, EA coupe le cercle en D et C respectivement.
+Si ED = 4cm, CD = 5cm, trouve la longueur de EA
+Solution
+... EA est une tangente et EC est une sécante au cercle
+..(EA)² = ED × EC
+(corollaire)
+(EA)² = 4(4+5) = 36
+... EA = 6cm
+E
+4 cm
+D
+5 cm
+A
+C
+Réciproque du problème type
+Si deux droites contenant respectivement deux segments AB et CD se coupent en un point E
+(différent des points A, B, C et D) et si EA × EB = EC × ED, alors les points A, B, C et D
+sont cocycliques.
+Remarque que :
+EA × EB = EC × ED
+EA ED
+donc
+EC
+EB
+#A-t-on A EAD ~ A ECB? Pourquoi ?
+E
+#A-t-on m (A) = m (∠C)? Pourquoi ?
+58
+Mathématiques - Première secondaire
+D
+B
+C
+C
+A
+E
+A
+B
+D

@@ -1,0 +1,62 @@
+Exercices 4-3
+
+1) Questions à choix multiples :
+1 Soit un angle de mesure $\theta$ en position standard. Si son côté final coupe le cercle trigonométrique
+au point $(\frac{1}{2}, \frac{\sqrt{3}}{2})$, alors $\sin \theta$ est égal à
+A $\frac{1}{2}$
+B $\frac{1}{\sqrt{3}}$
+C $\frac{\sqrt{3}}{2}$
+D $\frac{2}{\sqrt{3}}$
+
+2 Si $\sin \theta = \frac{1}{2}$ où $\theta$ est un angle aigu, alors $\theta$ est égal à
+A $30^\circ$
+B $45^\circ$
+C $60^\circ$
+D $90^\circ$
+
+3 Si $\sin 1 - = \theta$ et $\cos 0 = \theta$ , alors $\theta$ est égal à
+A $\frac{\pi}{2}$
+B $\pi$
+C $\frac{3\pi}{2}$
+D $2\pi$
+
+4 Si $\operatorname{cosec} 2 = \theta$ où $\theta$ est un angle aigu, alors $\theta$ est égal à
+A $15^\circ$
+B $30^\circ$
+C $45^\circ$
+D $60^\circ$
+
+5 Si $\cos \theta = \frac{1}{2}$ et $\sin \theta = -\frac{\sqrt{3}}{2}$, alors $\theta$ est égal à
+A $\frac{2\pi}{3}$
+B $\frac{5\pi}{6}$
+C $\frac{5\pi}{3}$
+D $\frac{11\pi}{6}$
+
+6 Si $\operatorname{tg} 1 = \theta$ où $\theta$ est un angle aigu, alors $\theta$ est égal à
+A $10^\circ$
+B $30^\circ$
+C $45^\circ$
+D $60^\circ$
+
+7 $\operatorname{tg} 45^\circ + \operatorname{cotg} 45^\circ - \sec 60^\circ$ est égale à
+A Zero
+B $\frac{1}{2}$
+C $\frac{\sqrt{3}}{2}$
+D $1$
+
+8 Si $\cos \theta = \frac{\sqrt{3}}{2}$ où $\theta$ est un angle aigu, alors $\sin \theta$ est égal à
+A $\frac{1}{2}$
+B $\frac{1}{\sqrt{3}}$
+C $\frac{2}{\sqrt{3}}$
+D $\frac{\sqrt{3}}{2}$
+
+2) Réponds aux questions suivantes :
+9 Soit un angle de mesure $\theta$ en position standard. Trouve toutes les fonctions trigonométriques de
+l'angle $\theta$ sachant que son côté final coupe le cercle trigonométrique au point :
+A $(\frac{2}{3}, \frac{\sqrt{5}}{3})$
+B $(\frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2})$
+C $(\frac{\sqrt{3}}{2}, \frac{1}{2})$
+D $(-\frac{3}{5}, \frac{4}{5})$
+
+104
+Mathématiques - Première secondaire

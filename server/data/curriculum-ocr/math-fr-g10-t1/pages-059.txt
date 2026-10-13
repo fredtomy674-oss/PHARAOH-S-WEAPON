@@ -1,0 +1,48 @@
+Exercices 2-3
+
+1 Complète :
+A Si $\Delta \text{ABC} \sim \Delta \text{XYZ et AB} = 3\text{XY}$, alors $\dfrac{\text{A}(\Delta\text{XYZ})}{\text{A}(\Delta\text{ABC})} =$ ............................
+B Si $\Delta \text{ABC} \sim \Delta \text{DEF}$, $\text{A}(\Delta\text{ABC}) = 9\text{A}(\Delta\text{DEF})$ et $\text{DE} = 4\text{cm}$, alors $\text{AB} =$ ............................ cm
+
+2 Observe chacune des figures suivantes où k est une constante , puis complète :
+A
+D
+B
+C
+E
+3k
+6k
+5k
+B
+C
+A
+$\overleftrightarrow{\text{AB}} \cap \overleftrightarrow{\text{CD}} = \{\text{E}\}$
+$\text{A}(\Delta\text{ACE}) = 900\text{ cm}^2$
+Alors $\text{A}(\Delta\text{DEB}) =$ ............................ $\text{cm}^2$
+
+B
+A
+C
+D
+B
+3k
+4k
+$\text{m}(\angle\text{BAC}) = 90^{\circ}$, $\text{AD} \perp \text{BC}$
+$\text{A}(\Delta\text{ADC}) = 180\text{ cm}^2$ Alors :
+$\text{A}(\Delta\text{ABC}) =$ ............................ $\text{cm}^2$
+
+3 Soit $\text{ABC}$ un triangle. $\text{D} \in \overline{\text{AB}}$ tel que $\text{AD} = 2\text{ BD}$ et $\text{E} \in \overline{\text{AC}}$ tel que $\overline{\text{DE}} \parallel \overline{\text{BC}}$
+Si l'aire du triangle $\Delta\text{ADE} = 60\text{cm}^2$, trouve l'aire du trapèze $\text{DBCE}$.
+......................................................................................................................................................................
+......................................................................................................................................................................
+
+4 Soit $\text{ABC}$ un triangle rectangle en B. On trace les triangles équilatéraux $\text{ABX}$, $\text{BCY}$, et $\text{ACZ}$ à l'extérieur du triangle $\text{ABC}$. Démontre que $\text{A}(\Delta\text{ABX}) + \text{A}(\Delta\text{BCY}) = \text{A}(\Delta\text{ACZ})$.
+......................................................................................................................................................................
+......................................................................................................................................................................
+......................................................................................................................................................................
+
+5 Soit $\text{ABC}$ un triangle tel que $\dfrac{\text{AB}}{\text{BC}} = \dfrac{4}{3}$. On trace le cercle passant par ses sommets. Du point B on trace la tangente au cercle qui coupe $\overleftrightarrow{\text{AC}}$ en E.
+Démontre que: $\dfrac{\text{A}(\Delta\text{ABC})}{\text{A}(\Delta\text{ABE})} = \dfrac{7}{16}$
+......................................................................................................................................................................
+
+54 Mathématiques – Première secondaire

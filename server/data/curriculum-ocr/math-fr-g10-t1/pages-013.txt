@@ -1,0 +1,42 @@
+Deux nombres conjugués
+
+Les deux nombres $a + \text{i } b$ et $a - \text{i } b$ sont appelés deux nombres conjugués. Par exemple, $4 - 3\text{i}$ et $4 + 3\text{i}$
+sont deux nombres conjugués où :
+
+(1) $(4 - 3\text{i})(4 + 3\text{i}) = (4)^2 - (3\text{i})^2$
+$= 16 - 9\text{i}^2 = 16 - 9(-1) = 25$ (le résultat est un nombre réel)
+
+(2) $(4 - 3\text{i}) + (4 + 3\text{i}) = 8$ (le résultat est un nombre réel)
+
+Réflexion critique :
+
+La somme de deux nombres conjugués est-elle toujours un nombre réel ? Explique ta réponse.
+
+Le produit de deux nombres conjugués est-il toujours un nombre réel ? Explique ta réponse.
+
+Exemple
+
+(5) Trouve les valeurs de $x$ et $y$ qui vérifient l'équation :
+$\frac{(2 + \text{i})(2 - \text{i})}{3 + 4\text{i}} = x + \text{i } y$
+
+Solution
+
+$\frac{4 - \text{i}^2}{3 + 4\text{i}} = x + \text{i } y$ en développant
+
+$\frac{4 + 1}{3 + 4\text{i}} \times \frac{3 - 4\text{i}}{3 - 4\text{i}} = x + \text{i } y$ en multipliant le numérateur et le dénominateur par $(3 - 4\text{i})$
+
+$\frac{5(3 - 4\text{i})}{25} = x + \text{i } y$ en simplifiant
+
+$\frac{3}{5} - \frac{4}{5}\text{i} = x + \text{i } y$ en appliquant la règle de l'égalité de deux nombres complexes
+
+Donc $x = \frac{3}{5}$ , $y = -\frac{4}{5}$
+
+Essaie de résoudre
+
+(5) Mets les nombres suivants sous la forme la plus simple :
+A $\frac{4 - 6\text{i}}{2\text{i}}$
+B $\frac{26}{3 - 2\text{i}}$
+C $\frac{3 - \text{i}}{2 - \text{i}}$
+D $\frac{3 + 4\text{i}}{5 - 2\text{i}}$
+
+8 Mathématiques – Première secondaire

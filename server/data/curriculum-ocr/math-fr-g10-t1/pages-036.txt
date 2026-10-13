@@ -1,0 +1,28 @@
+Inéquation du second degré
+
+Exercices 1-5
+
+Trouve l'ensemble solution de chacune des inéquations suivantes :
+
+1 $x^2 \leqslant 9$
+
+2 $x^2 - 1 \leqslant 0$
+
+3 $2x - x^2 < 0$
+
+4 $x^2 + 5 \leqslant 1$
+
+5 $(x-2)(x-5) < 0$
+
+6 $(x-2)^2 \leqslant -5$
+
+7 $x^2 > 6x - 9$
+
+8 $3x^2 \leqslant 11x + 4$
+
+9 $x^2 - 4x + 4 > 0$
+
+10 $7 + x^2 - 4x < 0$
+
+Livre de l'élève - Premier semestre
+31

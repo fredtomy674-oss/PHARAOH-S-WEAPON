@@ -1,0 +1,79 @@
+Essaie de résoudre
+3 Dans chacune des figures suivantes, calcule la valeur de x et la longueur de AD (Les longueurs
+sont mesurées en centimètres) :
+A
+A
+B
+x
+4
+5
+x
+x
+C
+4
+D
+3
+B
+C
+4
+D
+6
+B
+Remarque que : Dans la figure ci-contre, AE est une bissectrice de l'angle
+extérieure de BAC qui coupe BC en E. Donc :
+AE = BE × EC - AB × AC
+Essaie de résoudre
+4 Dans chacune des figures suivantes, calcule la valeur de x et la longueur de AE (les longueurs
+sont mesurées en centimètres) :
+A
+A
+B
+x
+x
+(x + 5)
+12
+6
+9
+E
+(x + 1)
+C
+D
+B
+E
+12
+C
+4
+B
+9
+Exemple
+A
+5 Dans la figure ci-contre, AD est une médiane dans le triangle ABC.
+DX est une bissectrice de ADB, qui coupe AB en X.
+Y
+X
+DY est une bissectrice de ADC qui coupe AC en Y.
+Démontre que : XY // BC.
+#
+x
+C
+B
+D
+Solution
+AD AX
+Dans le triangle ADB: : DX est une bissectrice de ADB
+=
+(1)
+DB XB
+AD AY
+Dans le triangle ADC: : DY est une bissectrice de ADC
+=
+(2)
+DC YC
+Dans le triangle ABC: : AD est une médiane
+:: DB = DC (3)
+AX AY
+De (1), (2) et (3),
+d'où XY // BC.
+XB YC
+80
+Mathématiques - Première secondaire

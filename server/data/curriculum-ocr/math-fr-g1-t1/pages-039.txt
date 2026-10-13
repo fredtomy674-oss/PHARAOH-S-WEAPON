@@ -1,0 +1,23 @@
+39
+2
+3
+4
+5
+8
+6
+9
+7
+1
+3-2 Addition (Partie 2)
+Essaie
+(1) Il y a 2 poissons orange et 3 poissons bleus. Combien y a-t-il de poissons au total ?
+Écris la phrase mathématique et la réponse.
+(2) Il y a 6 voitures. Puis, 3 voitures de plus arrivent. Combien y a-t-il de voitures au total ?
+Écris la phrase mathématique et la réponse .
+Exercice
+(1) Il y a 3 bicyclettes rouges et 4 bicyclettes bleues. Combien y a-t-il de bicy-
+clettes au total ? Écris la phrase mathématique et la réponse.
+(2) Il y a 5 lapins. Puis, 1 lapin de plus arrive. Combien y a-t-il de lapins
+maintenant ? Écris la phrase mathématique et la réponse.
+(3) Il y a 4 bouteilles d’eau et 6 bouteilles de jus d’orange. Combien y a-t-il de
+bouteilles au total ? Écris la phrase mathématique et la réponse.

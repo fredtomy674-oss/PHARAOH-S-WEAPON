@@ -1,0 +1,77 @@
+86
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 8 Lire l ’ horloge
+Pointe!
+Il y a deux aiguilles sur une horloge.
+La petite aiguille indique l’ heure . La grande aiguille indique la minute .
+Exemple 1 La petite aiguille est sur 8 et la grande aiguille est sur 12.
+Il est 8 heures
+Exemple 2 La petite aiguille est entre 8 et 9 et la grande aiguille est
+sur 6.
+•
+Il est huit heures et demie
+Mise en train
+Lisons les horloges.
+(1) 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+(2) 12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+Comment résoudre
+(1) La petite aiguille est sur 1 et la grande aiguille est sur 12 Il est une heure
+(2) La petite aiguille est entre 5 et 6 et la grande aiguille est sur 6 Il est cinq
+heures et demie
+12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11 Grande aiguille
+Petite aiguille
+12
+6
+1
+2
+3
+4
+5 7
+8
+9
+10
+11
+Lorsque la petite aiguille est entre
+deux chiffres, lis le plus petit chiffre.
+Lorsque la grande
+aiguille est sur 6 , nous
+disons "et demie" .
+Lire l ’ heure sur une horloge 8-1

@@ -1,0 +1,70 @@
+Signe d'une fonction
+
+Essaié de résoudre
+1 Détermine le signe de chacune des fonctions suivantes :
+A $f(x) = -\frac{2}{3}$
+B $f(x) = \frac{5}{2}$
+
+(2) Signe d'une fonction du premier degré (fonction affine) :
+L'expression algébrique de la fonction $f$ est $f(x) = bx + c$, $b \neq 0$ , $x = -\frac{c}{b}$, si $f(x) = 0$
+La figure suivante montre le signe de la fonction $f$.
+
+y
+x' 0 x
+c
+b
+y'
+y
+x' 0 x
+c
+b
+y'
+signe contraire au signe de
+coefficient de x
+même signe que celui du
+coefficient de x
+f(x) 0
+x < -c
+b
+x > -c
+b
+x -∞ -c
+b
++∞
+
+Exemple
+
+2 Détermine le signe de la fonction $f(x) = x - 2$ en illustrant la réponse graphiquement :
+Solution
+L'expression algébrique de la fonction : $f(x) = x - 2$
+Le graphique de la fonction :
+Pour tracer la courbe
+Si $f(x) = 0$, alors $x = 2$
+Si $x = 0$, alors $f(x) = -2$
+Du graphique, on trouve que :
+la fonction est positive si $x > 2$
+la fonction est nulle si $x = 2$
+la fonction est négative si $x < 2$
+
+Essaié de résoudre
+2 Détermine le signe de la fonction $f(x) = -2x - 4$ en illustrant la réponse graphiquement.
+
+y'
+y
+x'
+-3
+-2
+-1
+1
+2
+3
+x
+-3
+-2
+-1
+1
+2
+3
+
+Livre de l'élève - Premier semestre
+23

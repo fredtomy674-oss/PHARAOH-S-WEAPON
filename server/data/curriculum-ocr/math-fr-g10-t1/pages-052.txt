@@ -1,0 +1,20 @@
+Similitude des triangles
+
+4 AB et DC sont deux cordes d'un cercle, $\overleftrightarrow{\text{AB}} \cap \overleftrightarrow{\text{DC}} = \{\text{E}\}$, où E est à l'extérieur du cercle. $\text{Si }\text{AB} = 4\text{cm}$, $\text{DC} = 7\text{cm}$ et $\text{BE} = 6\text{cm}$. démontre que $\Delta \text{ADE} \sim \Delta \text{CBE}$, puis trouve la longueur de $\overline{\text{CE}}$
+
+5 Soit $\Delta \text{ABC}$ un triangle tel que $\text{AC} > \text{AB}$, $\text{M} \in \overline{\text{AC}}$ tel que $\text{m}(\angle \text{ABM}) = \text{m}(\angle \text{C})$.
+Démontre que $(\text{AB})^2 = \text{AM} \times \text{AC}$.
+
+6 Soit ABC un triangle rectangle en A. On trace $\overleftrightarrow{\text{AD}} \perp \overline{\text{BC}}$ qui le coupe en D.
+$\text{Si } \frac{\text{BD}}{\text{DC}} = \frac{1}{2}$ et $\text{AD} = 6\sqrt{2}\text{ cm}$. trouve la longueur de $\overline{\text{BD}}$, $\overline{\text{AB}}$ et $\overline{\text{AC}}$.
+
+7 Dans la figure ci-contre, ABC est un triangle tel que $\text{AB} = 6\text{cm}$, $\text{BC} = 9\text{cm}$ et $\text{AC} = 7,5\text{cm}$.
+D est un point extérieur au triangle ABC
+tel que $\text{DB} = 4\text{cm}$ et $\text{DA} = 5\text{cm}$. Démontre que :
+
+A $\Delta \text{ABC} \sim \Delta \text{DBA}$
+
+B $\overleftrightarrow{\text{BA}}$ est une bissectrice de $\angle \text{DBC}$
+
+Livre de l'élève - Premier semestre
+47

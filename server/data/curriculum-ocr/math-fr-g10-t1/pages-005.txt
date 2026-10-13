@@ -1,0 +1,20 @@
+Sommaire
+
+Unité
+(1)
+Algèbre, relations et fonctions
+
+1-1 Introduction aux nombres complexes 4
+1-2 Détermination de la nature des racines d'une équation du second degré 11
+1-3 Relation entre les racines d'une équation du second degré et les coefficients de ses termes 16
+1-4 Signe d'une fonction 22
+1-5 Inéquation du second degré à une inconnue 29
+
+Unité
+(2)
+Similitude
+
+2-1 Similitude des polygones 34
+2-2 Similitude des triangles 38
+2-3 Relation entre les aires de deux polygones semblables 48
+2-4 Application de la similitude dans le cercle 56

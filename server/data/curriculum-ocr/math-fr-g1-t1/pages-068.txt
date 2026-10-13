@@ -1,0 +1,30 @@
+68
+2
+3
+4
+5
+8
+6
+9
+7
+1
+Chapitre 6 Représenter les données
+Pointe!
+Comparons les résultats
+Lorsque nous comparons deux résultats, nous pouvons voir les différences.
+Mise en train
+La classe 1 et la classe 2 ont trié leurs fruits préférés. Répondons aux questions.
+(1) Quelle classe a le plus de raisins ?
+(2) Quelle classe a le plus de melons ?
+(3) Quel fruit a le même nombre dans les deux classes ?
+Comment résoudre
+(1) Compare le nombre de raisins coloriés : La classe 1 en a 8 et la classe 2 en a 5.
+La classe 1 a plus de raisins .
+(2) Compare le nombre de melons coloriés : La classe 1 en a 5 et la classe 2 en a 6.
+La classe 2 a plus de melons.
+(3) Le fruit qui a le même nombre dans les deux classes est Les oranges . (2 chacun )
+6-3
+FRAISES MELONS ORANGES RAISINS
+Classe 1
+FRAISES MELONS ORANGES RAISINS
+Classe 2

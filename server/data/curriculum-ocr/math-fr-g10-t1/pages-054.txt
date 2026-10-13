@@ -1,0 +1,40 @@
+Relation entre les aires de deux polygones semblables
+
+Conclusion : $\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \left(\frac{\text{AB}}{\text{DE}}\right)^2 = \left(\frac{\text{BC}}{\text{EF}}\right)^2 = \left(\frac{\text{CA}}{\text{FD}}\right)^2$
+
+Démonstration : On trace $\overleftrightarrow{\text{AX}} \perp \overleftrightarrow{\text{BC}}$ tel que $\overleftrightarrow{\text{AX}} \cap \overleftrightarrow{\text{BC}} = \{\text{X}\}$,
+On trace $\overleftrightarrow{\text{DY}} \perp \overleftrightarrow{\text{EF}}$ tel que $\overleftrightarrow{\text{DY}} \cap \overleftrightarrow{\text{EF}} = \{\text{Y}\}$
+$\because \Delta\text{ ABC} \sim \Delta\text{ DEF}$
+$\therefore m(\angle\text{B}) = m(\angle\text{E})$ et $\frac{\text{AB}}{\text{DE}} = \frac{\text{BC}}{\text{EF}} = \frac{\text{CA}}{\text{FD}}$ (1)
+
+Dans les deux triangles ABX et DEY on a :
+$m(\angle\text{X}) = m(\angle\text{Y}) = 90^\circ$, $m(\angle\text{B}) = m(\angle\text{E})$
+$\therefore \Delta\text{ ABX} \sim \Delta\text{ DEY}$ (Axiome)
+
+$\because \frac{\text{AB}}{\text{DE}} = \frac{\text{AX}}{\text{DY}}$ (2)
+
+$\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \frac{\frac{1}{2}\text{ BC} \times \text{AX}}{\frac{1}{2}\text{ EF} \times \text{AY}} = \frac{\text{BC}}{\text{EF}} \times \frac{\text{AX}}{\text{DY}}$
+
+De (1) et (2) on obtient :
+$\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \frac{\text{AB}}{\text{DE}} \times \frac{\text{AB}}{\text{DE}} = \left(\frac{\text{AB}}{\text{DE}}\right)^2 = \left(\frac{\text{BC}}{\text{EF}}\right)^2 = \left(\frac{\text{CA}}{\text{FD}}\right)^2$ (Ce qu'il fallait démonter)
+
+Remarque :
+La lettre $\text{A}$ représente l'aire de la surface du polygone
+
+Remarque que : $\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \left(\frac{\text{AB}}{\text{DE}}\right)^2$, $\frac{\text{AB}}{\text{DE}} = \frac{\text{AX}}{\text{DY}}$
+D'où $\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \left(\frac{\text{AX}}{\text{DY}}\right)^2$
+
+Donc le rapport entre les aires de deux triangles semblables est égal au carré du rapport entre les longueurs de deux hauteurs correspondantes dans les deux triangles.
+
+Réflexion critique :
+1- Si $\Delta\text{ ABC} \sim \Delta\text{ DEF}$, L est le milieu de $\overline{\text{BC}}$ et M est le milieu de $\overline{\text{EF}}$.
+a-t-on $\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \left(\frac{\text{AL}}{\text{DM}}\right)^2$?
+Explique ta réponse et note tes remarques
+
+2- Si $\Delta\text{ ABC} \sim \Delta\text{ DEF}$, $\overleftrightarrow{\text{AN}}$ est une bissectrice de $\angle\text{A}$ qui coupe $\overline{\text{BC}}$ en $\text{N}$,
+$\overleftrightarrow{\text{DZ}}$ est une bissectrice de $\angle\text{D}$ qui coupe $\overline{\text{EF}}$ en $\text{Z}$.
+A-t-on $\frac{\text{A}(\Delta\text{ ABC})}{\text{A}(\Delta\text{ DEF})} = \left(\frac{\text{AN}}{\text{DZ}}\right)^2$?
+Explique ta réponse et note tes remarques
+
+Livre de l'élève - Premier semestre
+49

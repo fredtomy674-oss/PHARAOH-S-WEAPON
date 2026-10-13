@@ -1,0 +1,48 @@
+Trouver la mesure d'un angle en connaissant
+l'un de ses rapports trigonométriques
+4 - 6
+
+Réfléchis et discute
+On sait que si $y = \sin \theta$, alors on peut trouver la valeur de $y$ en connaissant
+la valeur de $\theta$. En connaissant une valeur de $y$, peut-on également trouver
+la valeur de $\theta$?
+
+A apprendre
+Si $y = \sin \theta$, alors $\theta = \sin^{-1}y$
+Par exemple, si $\theta$ est un angle aigu positif et si $y = \frac{1}{2}$,
+alors cette relation s'écrit $\theta = \sin^{-1}\frac{1}{2} = 30^\circ$
+
+Exemple
+1 Trouve $\theta$ tel que $0^\circ < \theta < 360^\circ$ qui vérifie chacun des cas suivants :
+A $\theta = \sin^{-1}0,6325$
+B $\theta = \text{cotg}^{-1}(-1,6204)$
+
+Solution
+A $\because \sin \theta > 0$
+$\therefore$ l'angle est situé au premier ou au deuxième quadrant.
+En utilisant une calculatrice :
+$\text{SHIFT} \;\; \sin^{-1} \;\; 0 \;\; . \;\; 6 \;\; 3 \;\; 2 \;\; 5 \;\; = \;\; \circ \prime \prime \prime$
+Dans le premier quadrant : $\theta = 39^\circ \; 14' \; 6''$
+Dans le deuxième quadrant : $\theta = 180^\circ - 39^\circ \; 14' \; 6'' = 140^\circ \; 45' \; 54''$
+
+B $\because \text{cotg} \;\theta < 0$
+$\therefore$ l'angle est situé au deuxième ou au quatrième quadrant.
+En utilisant une calculatrice :
+$\text{SHIFT} \;\; \tan^{-1} \;\; 1 \;\; . \;\; 6 \;\; 2 \;\; 0 \;\; 4 \;\; x^{-1} \;\; = \;\; \circ \prime \prime \prime$
+Dans le deuxième quadrant $\theta = 180^\circ - 31^\circ \; 40' \; 48'' = 148^\circ \; 19' \; 12''$
+Dans le quatrième quadrant $\theta = 360^\circ - 31^\circ \; 40' \; 48'' = 328^\circ \; 19' \; 12''$
+Peux-tu vérifier ses réponses en utilisant une calculatrice ?
+
+You will Learn
+- Trouver la mesure d'un angle
+en connaissant une fonction
+trigonométrique.
+
+Key - Terms
+- Fonction trigonométrique
+
+Learning tools
+- Fonction trigonométrique
+
+Livre de l'élève - Premier semestre
+119
