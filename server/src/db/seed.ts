@@ -173,6 +173,12 @@ import {
   assertTreeMatchesTheBook as assertMathFrG1TreeMatchesBook,
 } from "./egyptMathFrG1T1.js";
 import {
+  EGYPT_MATH_G10_T1_UNITS,
+  lessonDocument as mathG10LessonDocument,
+  isConsistent as isMathG10TreeConsistent,
+  assertTreeMatchesTheBook as assertMathG10TreeMatchesBook,
+} from "./egyptMathG10T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -3128,6 +3134,56 @@ function verifyMathFrG1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Secondary-1 (Grade 10) **Mathematics (Arabic-medium)** — OFFICIAL curriculum
+ * (PHASE 123).
+ *
+ * The first term IS the Ministry textbook (`الرياضيات – الصف الأول الثانوي`; 121 scanned
+ * pages, Gemini OCR): its four units (الجبر والعلاقات والدوال، التشابه، نظريات التناسب
+ * في المثلث، حساب المثلثات) and the pages they occupy (book pages 2–119). Two pages
+ * precede each book page (book N = scan N+2, offset −2), proven by the printed folios
+ * (scan 6 = ٤، scan 12 = ١٠، scan 34 = ٣٢، scan 64 = ٦٢، scan 92 = ٩٠، scan 118 = ١١٦،
+ * scan 121 = ١١٩) and the contents. A lesson is each printed درس; its `concepts` are
+ * the lesson's own printed heads (سوف تتعلم، تعريفات، نظريات، أنشطة محلولة), verbatim
+ * in Arabic.
+ */
+export const EGYPT_MATH_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g10-math", title: "الرياضيات للصف الأول الثانوي" },
+  terms: [buildEgyptMathG10Term()],
+};
+
+/** Term 1 = the official Arabic-medium maths book: printed unit → printed lesson. */
+function buildEgyptMathG10Term(): TermSeedSpec {
+  const check = verifyMathG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-math-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 Maths tree verification, as one verdict. */
+function verifyMathG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathG10TreeConsistent();
+  const book = assertMathG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4683,6 +4739,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_EN_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
