@@ -215,6 +215,12 @@ import {
   assertTreeMatchesTheBook as assertArabicG2TreeMatchesBook,
 } from "./egyptArabicG2T1.js";
 import {
+  EGYPT_ARABIC_G3_T1_SECTIONS,
+  lessonDocument as arabicG3LessonDocument,
+  isConsistent as isArabicG3TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicG3TreeMatchesBook,
+} from "./egyptArabicG3T1.js";
+import {
   EGYPT_CHRISTIAN_G2_T1_UNITS,
   lessonDocument as christianG2LessonDocument,
   isConsistent as isChristianG2TreeConsistent,
@@ -3531,6 +3537,55 @@ function verifyArabicG2Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Grade 3 **Arabic** — OFFICIAL curriculum (PHASE 134).
+ *
+ * The first term IS the Ministry Arabic book for Grade 3 (122 scan pages, 115 OCR'd):
+ * its three units (العمل والأمل، صفاتي الجميلة، أحب بلدي), each with four lessons, a
+ * unit evaluation and a "read with the family" page, and the pages they occupy (book
+ * pages 6–115). The printed page → scan page map is a constant +1, proven by the
+ * printed folios (scan 9 = 8 «٨»، scan 19 = 18 «١٨»، scan 111 = 110 «١١٠»، scan 116 =
+ * 115 «(١١٦)»). Front matter (scans 1–6) and back matter (scans 117–122) are not the
+ * term. A lesson is each printed lesson; its `concepts` are the lesson's own printed
+ * heads, verbatim in Arabic.
+ */
+export const EGYPT_ARABIC_G3_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-3", name: "Grade 3", nameAr: "الصف الثالث الابتدائي", levelOrder: 3 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g3-arabic", title: "اللغة العربية للصف الثالث الابتدائي" },
+  terms: [buildEgyptArabicG3Term()],
+};
+
+/** Term 1 = the official Grade-3 Arabic book: printed unit → printed lesson. */
+function buildEgyptArabicG3Term(): TermSeedSpec {
+  const check = verifyArabicG3Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية (ثالثة ابتدائي) غير متسقة:\n${check.problems.join("\n")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_G3_T1_SECTIONS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced per book so a lesson lookup can never answer from another book.
+        code: `l-g3-ara-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicG3LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-3 Arabic tree verification, as one verdict. */
+function verifyArabicG3Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicG3TreeConsistent();
+  const book = assertArabicG3TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Primary-2 (Grade 2) **Christian Religious Education** — OFFICIAL curriculum
  * (PHASE 129).
  *
@@ -5238,6 +5293,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G3_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_EN_KG1_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_FR_KG2_SPEC);
