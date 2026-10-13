@@ -215,6 +215,18 @@ import {
   assertTreeMatchesTheBook as assertChristianG2TreeMatchesBook,
 } from "./egyptChristianG2T1.js";
 import {
+  EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
+  lessonDocument as discoveryEnKg1LessonDocument,
+  isConsistent as isDiscoveryEnKg1TreeConsistent,
+  assertTreeMatchesTheBook as assertDiscoveryEnKg1TreeMatchesBook,
+} from "./egyptDiscoveryEnKg1T1.js";
+import {
+  EGYPT_DISCOVERY_FR_KG2_T1_UNITS,
+  lessonDocument as discoveryFrKg2LessonDocument,
+  isConsistent as isDiscoveryFrKg2TreeConsistent,
+  assertTreeMatchesTheBook as assertDiscoveryFrKg2TreeMatchesBook,
+} from "./egyptDiscoveryFrKg2T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -3513,6 +3525,103 @@ function verifyChristianG2Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
+ *
+ * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
+ * pages, text layer already extracted): its seven sections (Theme 1: Who Am I? with three
+ * chapters, Theme 2: World Around Me with three chapters, plus the Math Journal) and the
+ * pages they occupy (book pages 0–34). The printed page → scan page map is a constant +4,
+ * proven by the printed folios (scan 5 = 1، scan 14 = 10، scan 19 = 15، scan 23 = 19،
+ * scan 30 = 26). Back matter (scans 39–84) is Term 2. A lesson is each printed activity;
+ * its `concepts` are the activity's own printed heads, verbatim in English.
+ */
+export const EGYPT_DISCOVERY_EN_KG1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-kg1", name: "KG 1", nameAr: "رياض أطفال 1", levelOrder: -1 },
+  subject: { code: "discovery-en", name: "Discovery (English)", nameAr: "اكتشف (بالإنجليزية)" },
+  curriculum: { code: "eg-kg1-discovery-en", title: "اكتشف (بالإنجليزية) لرياض أطفال 1" },
+  terms: [buildEgyptDiscoveryEnKg1Term()],
+};
+
+/** Term 1 = the official KG1 English Discover book: printed section → printed activity. */
+function buildEgyptDiscoveryEnKg1Term(): TermSeedSpec {
+  const check = verifyDiscoveryEnKg1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اكتشف (بالإنجليزية) (رياض أطفال 1) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_DISCOVERY_EN_KG1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-kg1-dis-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: discoveryEnKg1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the KG1 English Discover tree verification, as one verdict. */
+function verifyDiscoveryEnKg1Tree(): { ok: boolean; problems: string[] } {
+  const table = isDiscoveryEnKg1TreeConsistent();
+  const book = assertDiscoveryEnKg1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian KG 2 **Discovery (French-medium)** — OFFICIAL curriculum (PHASE 131).
+ *
+ * The first term IS the Ministry Discovery book for KG 2 («PARTONS À LA DÉCOUVERTE —
+ * GRANDE SECTION»; 79 born-digital pages, text layer already extracted): its six sections
+ * (Thème 1 with three chapters, Thème 2 with two chapters, plus the Math Journal) and the
+ * pages they occupy (book pages 1–37). The printed page → scan page map is a constant +4,
+ * proven by the printed folios (scan 6 = 2، scan 14 = 10، scan 23 = 19، scan 31 = 27،
+ * scan 37 = 33) and the sommaire. Back matter (scans 42–79) is Term 2. A lesson is each
+ * printed activity; its `concepts` are the activity's own printed heads, verbatim in
+ * French.
+ */
+export const EGYPT_DISCOVERY_FR_KG2_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-kg2", name: "KG 2", nameAr: "رياض أطفال 2", levelOrder: 0 },
+  subject: { code: "discovery-fr", name: "Discovery (French)", nameAr: "اكتشف (بالفرنسية)" },
+  curriculum: { code: "eg-kg2-discovery-fr", title: "اكتشف (بالفرنسية) لرياض أطفال 2" },
+  terms: [buildEgyptDiscoveryFrKg2Term()],
+};
+
+/** Term 1 = the official KG2 French Discover book: printed section → printed activity. */
+function buildEgyptDiscoveryFrKg2Term(): TermSeedSpec {
+  const check = verifyDiscoveryFrKg2Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اكتشف (بالفرنسية) (رياض أطفال 2) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_DISCOVERY_FR_KG2_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-kg2-dis-fr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: discoveryFrKg2LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the KG2 French Discover tree verification, as one verdict. */
+function verifyDiscoveryFrKg2Tree(): { ok: boolean; problems: string[] } {
+  const table = isDiscoveryFrKg2TreeConsistent();
+  const book = assertDiscoveryFrKg2TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -5075,10 +5184,15 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G2_SPEC);
-  await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
+  await seedCountry(db, knowledge, EGYPT_DISCOVERY_EN_KG1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_DISCOVERY_FR_KG2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
-  await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);  await seedCountry(db, knowledge, EGYPT_ISLAMIC_SPEC);  await seedCountry(db, knowledge, EGYPT_ISLAMIC_G8_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G9_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G9_SPEC);

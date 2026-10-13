@@ -1,0 +1,5 @@
+40
+OBJECT PULL PUSH BOTH
+DIRECTIONS: Put an X in the column for push, pull, or both.
+HOW IT MOVES
+CHAPTER 1 : ON A ROLL

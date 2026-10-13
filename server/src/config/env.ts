@@ -58,6 +58,14 @@ export const EnvSchema = z.object({
   /** OCR of scanned files (Path A chats + Path B curriculum import): which provider reads the pages. */
   AI_OCR_PROVIDER: z.enum(["mock", "gemini"]).default("mock"),
   GEMINI_API_KEY: z.string().optional(),
+  /**
+   * Multi-key OCR pool (comma-separated keys). Quota is per project, so keys
+   * from DIFFERENT Google projects each bring their own bucket and the OCR
+   * provider rotates across them — N keys ≈ N× throughput. Keys from the same
+   * project share one bucket and add nothing. Empty = `GEMINI_API_KEY` alone
+   * (previous behaviour).
+   */
+  GEMINI_API_KEYS: z.string().default(""),
   // PHASE 42 — the pinned model names this project shipped with are retired:
   // `gemini-2.0-flash` and `text-embedding-004` answer 404 "not found", and
   // the 2.5 line answers 404 "no longer available to new users", so flipping a

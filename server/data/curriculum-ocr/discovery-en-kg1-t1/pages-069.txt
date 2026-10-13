@@ -1,0 +1,7 @@
+65
+Objects Prediction S/F
+SINK FLOAT
+DIRECTIONS: Test the objects to see if they will sink or float.
+Record your results in the chart.
+SINK OR FLOAT?
+CHAPTER 3 : A MESSAGE ACROSS THE NILE

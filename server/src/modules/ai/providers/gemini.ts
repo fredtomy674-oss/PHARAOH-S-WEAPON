@@ -599,10 +599,62 @@ const OCR_SYSTEM_PROMPT =
 
 export class GeminiOcrProvider implements OcrProvider {
   readonly id = "gemini";
+  /**
+   * Multi-key rotation: quota is per project, so keys from different projects
+   * each bring their own bucket. Calls round-robin across the pool; a key that
+   * answers 429/503 cools down (Retry-After when the upstream names one, else
+   * 60s) while the others keep serving. A single key behaves exactly as before.
+   */
+  private readonly keys: string[];
+  private readonly coolingUntil = new Map<string, number>();
+  private cursor = 0;
+
+  constructor() {
+    const extra = (config.GEMINI_API_KEYS ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+    const single = (config.GEMINI_API_KEY ?? "").trim();
+    this.keys = single && !extra.includes(single) ? [...extra, single] : extra;
+  }
+
+  /** How many API keys share this pool (1 = previous behaviour). */
+  keyPoolSize(): number {
+    return this.keys.length;
+  }
+
+  private pickKey(): string {
+    if (this.keys.length === 0) return apiKey(); // throws the canonical missing-key error
+    const now = Date.now();
+    for (let i = 0; i < this.keys.length; i++) {
+      const key = this.keys[(this.cursor + i) % this.keys.length]!;
+      if ((this.coolingUntil.get(key) ?? 0) <= now) {
+        this.cursor = (this.cursor + i + 1) % this.keys.length;
+        return key;
+      }
+    }
+    // Every key is cooling: take the one recovering soonest rather than idling.
+    let best = this.keys[0]!;
+    for (const key of this.keys) {
+      if ((this.coolingUntil.get(key) ?? 0) < (this.coolingUntil.get(best) ?? 0)) best = key;
+    }
+    return best;
+  }
+
+  private coolKey(key: string, res?: Response): void {
+    let ms = 60_000;
+    const retryAfter = res?.headers.get("retry-after");
+    if (retryAfter) {
+      const seconds = Number(retryAfter);
+      if (Number.isFinite(seconds) && seconds > 0) ms = Math.min(seconds * 1000, 300_000);
+    }
+    this.coolingUntil.set(key, Date.now() + ms);
+  }
 
   async ocr(request: OcrRequest): Promise<OcrResponse> {
     const started = Date.now();
     const model = request.model ?? config.GEMINI_OCR_MODEL;
+    const key = this.pickKey();
     const body = {
       contents: [
         {
@@ -620,7 +672,7 @@ export class GeminiOcrProvider implements OcrProvider {
     };
 
     const res = await postWithRetry(
-      `${BASE_URL}/models/${model}:generateContent?key=${apiKey()}`,
+      `${BASE_URL}/models/${model}:generateContent?key=${key}`,
       body,
       GEMINI_RETRY_ATTEMPTS,
     );
@@ -628,6 +680,7 @@ export class GeminiOcrProvider implements OcrProvider {
       throw Errors.serviceUnavailable("مزود OCR لا يجيب — حاول بعد لحظات", "AI_UPSTREAM_BUSY", { timeout: true, model, label: "مزود OCR" });
     }
     if (!res.ok) {
+      if (res.status === 429 || res.status === 503) this.coolKey(key, res);
       const detail = await res.text().catch(() => "");
       upstreamError("مزود OCR", res, detail, model);
     }

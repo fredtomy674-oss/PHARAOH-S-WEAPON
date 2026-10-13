@@ -30,10 +30,15 @@ const from = Number(process.env.FROM ?? 1);
 const to = Number(process.env.TO ?? 0);
 const CONCURRENCY = Math.max(1, Number(process.env.CONCURRENCY ?? 4));
 const KEY = process.env.GEMINI_API_KEY;
-if (!KEY) throw new Error("GEMINI_API_KEY missing");
+const EXTRA_KEYS = (process.env.GEMINI_API_KEYS ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+if (!KEY && EXTRA_KEYS.length === 0) throw new Error("GEMINI_API_KEY missing");
 
 mkdirSync(OUT_DIR, { recursive: true });
 const provider = new GeminiOcrProvider();
+console.log(`OCR key pool: ${provider.keyPoolSize()} key(s)`);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Quota is per-model, so a hard 429 on one model is answered by naming another.

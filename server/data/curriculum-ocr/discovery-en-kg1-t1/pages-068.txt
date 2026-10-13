@@ -1,0 +1,6 @@
+64
+LAND WATER AIR
+DIRECTIONS: Categorize each type of transportation into the
+categories in the table.
+TRANSPORTATION
+CHAPTER 3 : A MESSAGE ACROSS THE NILE
