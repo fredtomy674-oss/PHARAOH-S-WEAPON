@@ -197,6 +197,24 @@ import {
   assertTreeMatchesTheBook as assertIctArG10TreeMatchesBook,
 } from "./egyptIctArG10T1.js";
 import {
+  EGYPT_ENGLISH_G2_T1_SECTIONS,
+  lessonDocument as englishG2LessonDocument,
+  isConsistent as isEnglishG2TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishG2TreeMatchesBook,
+} from "./egyptEnglishG2T1.js";
+import {
+  EGYPT_ARABIC_G1_T1_UNITS,
+  lessonDocument as arabicG1LessonDocument,
+  isConsistent as isArabicG1TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicG1TreeMatchesBook,
+} from "./egyptArabicG1T1.js";
+import {
+  EGYPT_CHRISTIAN_G2_T1_UNITS,
+  lessonDocument as christianG2LessonDocument,
+  isConsistent as isChristianG2TreeConsistent,
+  assertTreeMatchesTheBook as assertChristianG2TreeMatchesBook,
+} from "./egyptChristianG2T1.js";
+import {
   EGYPT_ARABIC_G8_T1_UNITS,
   lessonDocument as arabicG8LessonDocument,
   isConsistent as isArabicG8TreeConsistent,
@@ -3349,6 +3367,152 @@ function verifyIctArG10Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-2 (Grade 2) **English** — OFFICIAL curriculum (PHASE 127).
+ *
+ * The first term IS the Ministry textbook (`Primary 2 English — Term 1`, 2025/2026;
+ * 104 born-digital pages, text layer already extracted): its six units (Let's Get
+ * Started!, Colors/Shapes/Numbers, Classroom Actions & Routines, Everyday Life, My
+ * Home, Rooms at Home) plus two printed Reviews, and the pages they occupy (book pages
+ * 5–101). Book page = scan index (offset 0), proven by the printed folios (scan 7 =
+ * «UNIT 1 1 7», scan 44 = «Review 44», scan 65 = «Lesson 1 65», scan 93 = «Review 93»).
+ * A lesson is each printed lesson; its `concepts` are the lesson's own printed
+ * outcomes, verbatim in English.
+ */
+export const EGYPT_ENGLISH_G2_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-2", name: "Grade 2", nameAr: "الصف الثاني الابتدائي", levelOrder: 2 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g2-english", title: "اللغة الإنجليزية للصف الثاني الابتدائي" },
+  terms: [buildEgyptEnglishG2Term()],
+};
+
+/** Term 1 = the official Primary-2 English book: printed unit/review → printed lesson. */
+function buildEgyptEnglishG2Term(): TermSeedSpec {
+  const check = verifyEnglishG2Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة الإنجليزية (ثانية ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_G2_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g2-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: englishG2LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-2 English tree verification, as one verdict. */
+function verifyEnglishG2Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishG2TreeConsistent();
+  const book = assertEnglishG2TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-1 (Grade 1) **Arabic Language** — OFFICIAL curriculum (PHASE 128).
+ *
+ * The first term IS the Ministry textbook (`اللغة العربية – الصف الأول الابتدائي`;
+ * 154 scanned pages, Gemini OCR): its intro sections (آداب الفصل، التهيئة) and four
+ * units (أسرتي، حيواناتي، أجزاء جسمي، مدرستي), and the pages they occupy (book pages
+ * 5–143). The printed page → scan page map is a constant +1, proven by the printed
+ * folios (scan 7 = ٦، scan 15 = ١٤، scan 46 = ٤٥، scan 83 = ٨٢، scan 141 = ١٤٠). Back
+ * matter (scans 145–154) holds the listening-story appendix (books 144–151). A lesson is
+ * each printed درس/حرف; its `concepts` are the lesson's own printed heads, verbatim in
+ * Arabic.
+ */
+export const EGYPT_ARABIC_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g1-arabic", title: "اللغة العربية للصف الأول الابتدائي" },
+  terms: [buildEgyptArabicG1Term()],
+};
+
+/** Term 1 = the official Primary-1 Arabic book: printed section → printed lesson. */
+function buildEgyptArabicG1Term(): TermSeedSpec {
+  const check = verifyArabicG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-ara-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 Arabic tree verification, as one verdict. */
+function verifyArabicG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicG1TreeConsistent();
+  const book = assertArabicG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-2 (Grade 2) **Christian Religious Education** — OFFICIAL curriculum
+ * (PHASE 129).
+ *
+ * The first term IS the Ministry textbook (`التربية الدينية المسيحية – الصف الثاني
+ * الابتدائي`; 90 born-digital pages, text layer already extracted): its three units
+ * (تدبير الله لنا، العطاء والأمانة، الله يستجيب) and the pages they occupy (book pages
+ * 5–87). Book page = scan page − 1 (offset 1), proven by the printed folios (scan 7 = 6،
+ * scan 11 = 10، scan 25 = 24، scan 59 = 58، scan 88 = 87). A lesson is each printed
+ * درس; its `concepts` are the lesson's own printed «أهداف التلميذ», verbatim in Arabic.
+ */
+export const EGYPT_CHRISTIAN_G2_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-2", name: "Grade 2", nameAr: "الصف الثاني الابتدائي", levelOrder: 2 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: { code: "eg-g2-christian-education", title: "التربية الدينية المسيحية للصف الثاني الابتدائي" },
+  terms: [buildEgyptChristianG2Term()],
+};
+
+/** Term 1 = the official Primary-2 Christian book: printed unit → printed lesson. */
+function buildEgyptChristianG2Term(): TermSeedSpec {
+  const check = verifyChristianG2Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية المسيحية (ثانية ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_CHRISTIAN_G2_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g2-chr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: christianG2LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-2 Christian tree verification, as one verdict. */
+function verifyChristianG2Tree(): { ok: boolean; problems: string[] } {
+  const table = isChristianG2TreeConsistent();
+  const book = assertChristianG2TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Preparatory-2 (Grade 8) **Arabic** — OFFICIAL curriculum (PHASE 87).
  *
  * The first term IS the Ministry textbook (2026/2027 MoE edition, 162 scan
@@ -4908,6 +5072,9 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_HISTORY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G10_AR_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);  await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
