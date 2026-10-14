@@ -1,0 +1,32 @@
+LESSON 5
+Multistep Story Problems
+
+Learning Target
+• I can solve multistep story problems involving whole numbers and the four operations.
+
+ACCESS
+Making Sense of Remainders Read the story problem, and look at the student work. Use the information provided to answer the question. Be prepared to justify your thinking.
+
+1. A baker made 140 servings of baklava for a party. If each baking tray holds 12 servings of baklava, how many trays will be needed to hold all the baklava?
+11 R 8
+12 | 140
+- 12
+20
+- 12
+8
+
+2. Mom baked a batch of 12 balah el sham. Two balah el sham fell on the floor, leaving 10 on the platter. If 4 kids split the remaining balah el sham equally, how many balah el sham will each child get?
+12
+- 2
+10
+2 R 2
+4 | 10
+- 8
+2
+
+BUILD
+Step by Step Read through the following problems and follow the prompts from your teacher.
+
+1. In one year, a textile factory used 11,650 meters of cotton, 4,950 fewer meters of silk than cotton, and 3,500 fewer meters of wool than silk. How many meters of fabric were used in all?
+
+Lesson 5: Multistep Story Problems 89

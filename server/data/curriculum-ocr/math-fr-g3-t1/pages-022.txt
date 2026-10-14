@@ -1,0 +1,45 @@
+Chapitre 2
+
+APPLICATION (suite)
+
+GUIDAGE: Observe chaque matrice d'étoiles et écris le nombre de «colonnes» et le
+nombre d'étoiles dans chaque matrice. Ensuite, trouve le total des étoiles. Utilise la
+page suivante pour illustrer la méthode que tu as utilisée pour trouver le total
+
+5.
+
+Nombre de colonnes : _________
+
+Nombre d'étoiles dans chaque
+colonne: _________
+
+Nombre total des étoiles : _________
+
+6.
+
+Nombre de colonnes : _________
+
+Nombre d'étoiles dans chaque
+colonne: _________
+
+Nombre total des étoiles : _________
+
+7.
+
+Nombre de colonnes : _________
+
+Nombre d'étoiles dans chaque
+colonne: _________
+
+Nombre total des étoiles : _________
+
+8.
+
+Nombre de colonnes : _________
+
+Nombre d'étoiles dans chaque
+colonne: _________
+
+Nombre total des étoiles : _________
+
+18 3ème PRIMAIRE

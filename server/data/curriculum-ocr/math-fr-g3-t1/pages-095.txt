@@ -1,0 +1,21 @@
+Chapitre 6
+
+GUIDAGE: Note les stratégies que tu as utilisées dans ce leçon. Si tu n'en connais aucune en lien avec les cellules du tableau, laisse ce cellule vide.
+
+| STRATÉGIES D'ADDITION | STRATÉGIES DE MULTIPLICATION |
+| :--- | :--- |
+| + 0 | × 0 |
+| + 1 | × 1 |
+| + 2 | × 2 |
+| + 3 | × 3 |
+| + 4 | × 4 |
+| + 5 | × 5 |
+| + 6 | × 6 |
+| + 7 | × 7 |
+| + 8 | × 8 |
+| + 9 | × 9 |
+| + 10 | × 10 |
+
+Quelles autres stratégies as-tu utilisées?
+
+3ème PRIMAIRE 91

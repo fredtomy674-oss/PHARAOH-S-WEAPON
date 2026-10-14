@@ -1,0 +1,28 @@
+UNIT | CONCEPT 1
+3 | Multiplying by 2-Digit Numbers
+
+Match the Model Solve each problem. First, estimate and record your estimate.
+Then, solve using the multiplication algorithm. Finally, record the letter of the
+matching model.
+
+1. 3,567 × 24
+My Estimate: _________
+Evaluate: 3,567 × 24 = _________
+Matching Model Letter: _________
+
+2. 2,521 × 74
+My Estimate: _________
+Solve: 2,521 × 74 = _________
+Matching Model Letter: _________
+
+3. 8,222 × 53
+My Estimate: _________
+Evaluate: 8,222 × 53 = _________
+Matching Model Letter: _________
+
+4. 6,209 × 33
+My Estimate: _________
+Evaluate: 6,209 × 33 = _________
+Matching Model Letter: _________
+
+76 |

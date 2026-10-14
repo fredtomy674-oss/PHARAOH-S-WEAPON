@@ -1,0 +1,21 @@
+Chapitre 1
+
+APPLICATION
+GUIDAGE: Suis les instructions de ton enseignant Puis trouver la taille des parties du fil et écris leurs longueurs en centimètres.
+
+| Numéro de parties du fil | Longueurs en centimètres |
+| :--- | :--- |
+| 1 | |
+| 2 | |
+| 3 | |
+| 4 | |
+| 5 | |
+
+Range les longueurs (en centimètres) du plus court au plus long:
+____ ____ ____ ____ ____
+
+RÉFLÉCHIS
+GUIDAGE: RÉFLÉCHIS à ton apprentissage
+utilises-tu les mesures dans ta vie quotidienne en dehors des cours de mathématiques?
+
+6 3ème PRIMAIRE

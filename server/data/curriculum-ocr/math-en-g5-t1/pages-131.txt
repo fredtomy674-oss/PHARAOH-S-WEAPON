@@ -1,0 +1,32 @@
+LESSON 2
+Numerical Expressions with
+Parentheses
+
+Learning Targets
+• I can identify how grouping symbols affect the order of
+operations.
+• I can evaluate an expression with grouping symbols.
+
+ACCESS
+Make It Smaller Work with a partner to describe how you could apply operations
+to the expressions so that they evaluate to the least possible value. You do not
+have to follow the standard order of operations.
+
+1. 10 x 4 - 3
+2. 15 ÷ 3 + 2
+3. 12 + 24 ÷ 4 + 8
+4. 34 x 28 ÷ 2 + 5
+
+BUILD
+Grouping Symbols Evaluate the set of expressions. Pay attention to the grouping
+symbols and how they change the order in which the operations are performed.
+
+Expanded Order of Operations
+1. For operations within parentheses
+a. multiply or divide from left to right
+b. add or subtract from left to right
+2. For operations outside parentheses
+a. multiply or divide from left to right
+b. add or subtract from left to right
+
+Lesson 2: Numerical Expressions with Parentheses 123

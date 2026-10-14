@@ -1,0 +1,30 @@
+CONNECT
+Writing About Math Look at the pattern and the two students' work. Then,
+respond to the prompt.
+
+Write a rule using a variable and explain your thinking.
+
+| Input | Output |
+| :--- | :--- |
+| 28 | 4 |
+| 35 | 5 |
+| 42 | 6 |
+| 49 | 7 |
+| 56 | 8 |
+
+Yahia's Work
+Rule: n x 7
+I think the rule is multiply by 7 because 4 x 7 = 28 and 5 x 7 = 35 and
+it works for each pair.
+
+Walid's Work
+Rule: n ÷ 7
+I think the rule is divide by 7 because 28 ÷ 7 = 4 and 35 ÷ 7 = 5 and
+it works for each pair.
+
+Which student is correct? Explain how you know your answer is correct.
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+Lesson 4: Identifying Numerical Patterns 131

@@ -1,0 +1,28 @@
+UNIT 1 CONCEPT 1
+Decimals to the Thousandths Place
+
+Ten is a Powerful Number Use the place value charts to solve each problem. Fill in the blanks to show how the value of each digit also changed. An example is shown.
+
+Example: 57 × 10 =
+
+Thousands | Ones | . | Decimals
+--- | --- | --- | --- | ---
+O | H | T | O | . | Tenths | Hundredths
+0 | | 5 | 7 | . | 0 | 0
+| 5 | 7 | 0 | . | 0 | 0
+
+The value of the whole number increased by a factor of 10.
+The value of the 5 increased by a factor of 10 from 50 to 500.
+The value of the 7 increased by a factor of 10 from 7 to 70.
+
+1. 57 ÷ 10 =
+
+Thousands | Ones | . | Decimals
+--- | --- | --- | --- | ---
+O | H | T | O | . | Tenths | Hundredths
+
+2. The value of the whole number ________________ (increased/decreased) by a factor of 10.
+The value of the ________________ (first digit) ________________ (increased/decreased) by a factor of 10 from ________________ to ________________.
+The value of the ________________ (second digit) ________________ (increased/decreased) by a factor of 10 from ________________ to ________________.
+
+8

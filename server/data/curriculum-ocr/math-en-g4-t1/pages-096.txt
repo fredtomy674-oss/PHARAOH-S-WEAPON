@@ -1,0 +1,29 @@
+UNIT 6
+CONCEPT 1
+Understanding Factors
+
+LESSON 2
+Prime and Composite Numbers
+
+Learning Targets
+• I can identify factors of a whole number.
+• I can explain patterns I observe in numbers that have 3, 6, or 9 as factors.
+• I can determine if a number is prime or composite.
+
+ACCESS
+Factor Riddles Listen to the riddles read by your teacher. Solve the riddles and record your answers.
+1. The number is an even number between 20 and 30. Some of its factors include 1, 2, 4, 7, and 14. What number is it?
+__________
+2. The number is an even number greater than 40. It has 10 as a factor. It is less than 60. What number is it?
+__________
+3. The number is a two-digit number. It has 5 as a factor. Its Tens digit is less than its Ones digit. One of its factor pairs is 5 and 7. What number is it?
+__________
+
+BUILD
+Numbers with Factors of 3, 6, or 9 Determine if each number has 3, 6, or 9 as a factor. Explore these patterns:
+• A number has 3 as a factor if the sum of the digits is a number that is said when skip counting by 3.
+Example: 63 has 3 as a factor because 6 + 3 = 9 and 9 is a number we say when we skip count by 3s.
+• A number has 9 as a factor if the sum of the digits is a number that is said when skip counting by 9s.
+Example: 72 has 9 as a factor because 7 + 2 = 9 and 9 is a number we say when we skip count by 9s.
+
+88

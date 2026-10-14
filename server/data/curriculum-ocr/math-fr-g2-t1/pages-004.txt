@@ -1,0 +1,75 @@
+NOM: ....................................................................
+
+CONTENTU
+
+CHAPITRE 1
+Leçon 1 La Lecture Des Données 5
+Leçon 2 L'addition Et La Presentation Des Données 6
+Leçon 3 La comparaison des données 8
+Leçon 4 La représentation et l'application des données 9
+Leçon 5 Représenter le graphique 1 11
+Leçon 6 Représenter le graphique 2 12
+Leçon 7 Représenter le graphique 10 14
+Leçon 8 le graphique en colonnes 15
+Leçon 9 Le pictogramme 16
+Leçon 10 les éléments du pictogramme 18
+
+CHAPITRE 2
+Leçon 1 Addition en multiplant 19
+Leçon 2 Addition ou soustraction par comptent 20
+Leçon 3 Addition ou soustraction de nombre 10 21
+Leçon 4 Addition ou soustraction par formes des dizaines 22
+Leçon 5 Problèmes sur l'addition 24
+Leçon 6 Problèmes sur la soustraction 25
+Leçon 7 Applications mentales sur l'addition 26
+Leçon 8 Applications mentales sur la soustraction 27
+Leçon 9 Applications mentales sur l'addition et la soustraction 28
+Leçon 10 l'addition avec l'utilisation du diagramme 120 29
+
+CHAPITRE 3
+Leçon 1 les nombres formés de 3 chiffres 30
+Leçon 2 Plus de nombres formés de 3 chiffres 31
+Leçon 3 Forme symbolique et étendue 32
+Leçon 4 La forme verbale des nombres 33
+Leçon 5 Plus de formes verbales des nombres 34
+Leçon 6 L'écriture des nombres avec des formes différentes 35
+Leçon 7 La comparaison des nombres 36
+Leçon 8 Plus de comparaison des nombres 37
+Leçon 9 L'ordre des nombres 39
+Leçon 10 Plus de l'ordre des nombres 40
+
+CHAPITRE 4
+Leçon 1 La proprieté de commutativité dans l'addition 41
+Leçon 2 plus d'applications mentales sur l'addition et la soustraction 42
+Leçon 3 décomposer les nombres aux unites et dizaines 44
+Leçon 4 L'addition sans répéter 46
+Leçon 5 La soustraction sans répéter l'addition 49
+Leçon 6 Estimer les résultats de l'addition et la soustraction 52
+Leçon 7 La comparaison entre la somme et l'estimation 53
+Leçon 8 L'addition par regroupement les unités 54
+Leçon 9 plus d'addition par regroupement les unités 56
+Leçon 10 L'addition de plus de 2 nombres par regroupement les unités 57
+
+CHAPITRE 5
+Leçon 1 Les proprietés des figures géométriques 59
+Leçon 2 le classement des figures géométriques 60
+Leçon 3 Le dessin des figures géométriques 61
+Leçon 4 La formation des images avec l'utilisation des figures géométriques 63
+Leçon 5 La mesure des longueurs par centimeters 64
+Leçon 6 L'estimation des longueurs 66
+Leçon 7 la mesure du longureur de l'arête de la figure géométrique 67
+Leçon 8 Les Caractéristiques Des Figures À 3 Dimensions 68
+Leçon 9 classification les figures gui ont 3 .dimensions 69
+Leçon 10 La formation des figures à 3 dimensions 72
+
+CHAPITRE 6
+Leçon 1 Mesurer la masse 73
+Leçon 2 unité de mesure de la masse 75
+Leçon 3 Des applications pour mesurer la masse 76
+Leçon 4 plus d'application pour mesurer la masse 79
+Leçon 5 Le temps (le matin et le soir) 82
+Leçon 6 créer une horloge 84
+Leçon 7 Le temps avec une demi-heure 85
+Leçon 8 Les Applications sur le temps 86
+Leçon 9 Le temps par minutes 87
+Leçon 10 Plus d'application sur le temps 90

@@ -1,0 +1,44 @@
+Chapitre 2
+
+LEÇON 3: DIZAINES DE MILLIERS - CENTAINES DE MILLIERS
+APPLICATION
+GUIDAGE : Retourne une carte et écris le chiffre dans l'une des cases de valeur de position. Tu peux utiliser la case «Ignorer» une fois. Après avoir écrit le chiffre, tu ne peux pas changer son emplacement. Après avoir rempli les six cases, compare les chiffres que tu as obtenus avec les chiffres de tes camarades de classe.
+But: Former le plus petit nombre dans le groupe .
+
+1er tour :
+Centaines de milliers
+Dizaines de milliers
+Milliers
+Centaines
+Dizaines
+Unités
+Ignorer
+
+2eme tour
+Centaines de milliers
+Dizaines de milliers
+Milliers
+Centaines
+Dizaines
+Unités
+Ignorer
+
+3eme tour
+Centaines de milliers
+Dizaines de milliers
+Milliers
+Centaines
+Dizaines
+Unités
+Ignorer
+
+4eme tour
+Centaines de milliers
+Dizaines de milliers
+Milliers
+Centaines
+Dizaines
+Unités
+Ignorer
+
+14 3ème PRIMAIRE

@@ -1,0 +1,11 @@
+Chapitre 5
+
+APPLICATION
+
+Walid a invité ses amis à jouer à des jeux de société. Et il avait 24 petites tables carrées qu'il voulait ordonner pour en faire une plus grande table rectangulaire.
+1ère Partie : Guidage: Dans les cases de la grille ci-dessous, dessine autant de tableaux rectangulaires que possible. Écris la largeur et la longueur, puis écris un problème pour trouver l'aire et un autre problème pour trouver le périmètre comme le montre l'exemple suivant
+Aire: 24 × 1 = 24 unités carrées
+24 Périmètre: 1 + 1 + 24 + 24 = 50 unités
+1 24 1
+
+72 3ème PRIMAIRE

@@ -1,0 +1,19 @@
+CHAPITRE 5
+
+LEÇON 1 : LES PROPRIÉTÉS DES FIGURES GÉOMÉTRIQUES
+APPLICATION
+Guidage : Détermine le nombre d'arêtes et de sommets de chaque figure.
+Dessine une étoile sur toutes les figures qui ont quatre arêtes.
+
+| Figure | Nom | Caractéristiques |
+| :--- | :--- | :--- |
+| | | le nombre d'arêtes | le nombre de sommets |
+| | Triangle | | |
+| | Carré | | |
+| | Rectangle | | |
+| | Trapèze | | |
+| | Losange | | |
+| | Pentagone | | |
+| | Hexagone | | |
+
+2ème Primaire 59

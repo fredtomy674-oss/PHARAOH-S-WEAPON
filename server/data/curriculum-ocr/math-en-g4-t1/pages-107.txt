@@ -1,0 +1,33 @@
+UNIT
+7
+
+Theme 2 | Mathematical Operations and
+Algebraic Thinking
+Unit 7
+Multiplication and
+Division: Computation
+and Relationships
+
+Video
+Container Port
+
+Unit Video Questions
+The video Container Port shows
+how goods are stored and
+transported around the world
+in arrays. Imagine you have
+to calculate how many goods
+are being transported in large
+containers.
+
+Quick Code
+egm4030
+
+How could you use multiplication to
+calculate large quantities like those in the
+shipping containers?
+
+How could you use division to group large
+quantities evenly into different containers?
+
+Unit 7: Multiplication and Division: Computation and Relationships | 99

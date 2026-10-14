@@ -1,0 +1,30 @@
+CHAPITRE 1
+
+LEÇON 5 : REPRÉSENTER LE GRAPHIQUE 1
+APPLICATION
+Guidage : Observe le graphique des « Fruits favoris » et réponds aux questions du graphique :
+
+Fruits Favoris
+
+NOMBRE DES ÉTUDIANTS
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+
+POMMES ORANGES BANANES FRAISES KIWIS POIRES
+
+1. Quel est le nombre d’étudiants qui préfère les fraises aux poires ?
+2. Quel est le nombre d’étudiants qui préfère les kiwis, pommes et oranges ?
+3. Quel est le nombre d’étudiants qui préfère les fraises aux oranges ?
+4. Quel est le nombre d’étudiants qui préfère les pommes, bananes et poires ?
+5. Quel est le nombre d’étudiants en total ont partagé l’avis sur leurs fruits favoris ?
+
+2ème Primaire 11

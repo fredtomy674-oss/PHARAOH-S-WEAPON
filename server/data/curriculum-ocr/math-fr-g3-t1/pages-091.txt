@@ -1,0 +1,22 @@
+Chapitre 6
+
+APPLICATION (SUITE)
+4ème GROUPE: Stratégie de la multiplication par 10
+GUIDAGE: Tu peux utiliser ce que tu sais sur la multiplication par 10 pour multiplier par 9 rapidement. Remarque l'exemple suivant, puis résous chaque problème et discute avec votre groupe.
+
+9 × 6
+Premièrement : dessine un modèle du problème de multiplication 6 x 10, puis barrer un ensemble de 6. Il y a maintenant 9 groupes de 6.
+6 6 6 6 6 6 6 6 6 X
+10 × 6 = 60
+60 - 6 = ____ donc 9 × 6 = ____
+
+9 × 5
+10 × 5 = ____ donc 9 × 5 = ____
+
+9 × 7
+10 × 7 = ____ donc 9 × 7 = ____
+
+9 × 3
+10 × 3 = ____ donc 9 × 3 = ____
+
+3ème PRIMAIRE 87

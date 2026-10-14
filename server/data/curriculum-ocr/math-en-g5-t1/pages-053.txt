@@ -1,0 +1,39 @@
+1. If Mariam were to solve both of these equations correctly, what would be true?
+Select the two correct answers.
+A. The value of x would be the same.
+B. The answer to 275 - 180 would be 85 km.
+C. The difference between the two lengths would be 95 km.
+D. The distance in kilometers between the gulfs would be 95 km.
+
+BUILD
+What Does the Variable Mean? Read each problem and determine what the
+variable represents.
+1. Basma wanted to write an equation with a variable to represent "12.5 plus a
+number equals 15." Which of the following would be correct?
+A. 12.5 + 15 = x
+B. 12.5 + x = 15
+C. 15 + x = 12.5
+D. x - 15 = 12.5
+2. Adham was comparing the heights of sand dunes in the northern part of
+Sinai Peninsula in meters. He wrote the equation x = 27 - 18 . What does
+the x represent?
+A. the height of one of the dunes in Sinai
+B. the sum of the heights of two dunes in Sinai
+C. the difference between the tallest and shortest sand dunes
+D. the distance between the tallest and shortest sand dunes
+3. If Farha knew that the sum of the heights of two sand dunes is 46 meters and
+one of the dunes is 18.25 m high, which equation could she write to find the
+unknown height? Select the two correct answers.
+A. 18.25 + x = 46
+C. 46 - 18.25 = x
+B. 18.25 + 46 = x
+D. x - 18.25 = 46
+4. Ehab wrote the equation 42.7 + 38.3 = x. If
+each of the numbers represents the height of
+one of the dunes, what does x represent?
+A. the height difference between the dunes
+B. the sum of the heights of both dunes
+C. the height of the taller dune
+D. the distance between the dunes
+Sand Dunes
+Lesson 1: Expressions, Equations, and Variables 45

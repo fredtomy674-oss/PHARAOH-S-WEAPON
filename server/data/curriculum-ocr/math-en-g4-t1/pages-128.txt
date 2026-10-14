@@ -1,0 +1,22 @@
+UNIT 7
+CONCEPT 2
+Dividing by 1-Digit Divisors
+
+Standard Algorithm
+
+Let's Try It Solve the problems using the standard algorithm.
+1. 454 ÷ 3 = ....................
+2. 778 ÷ 2 = ....................
+3. 368 ÷ 3 = ....................
+4. 4,858 ÷ 4 = ....................
+
+CONNECT
+Making Connections
+A train has 784 seats for passengers. If there are 7 cars on the train and each car has the same number of seats, how many passengers can sit in each car? Solve the problem using at least two different strategies.
+784 ÷ 7
+First strategy
+Second strategy
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+120

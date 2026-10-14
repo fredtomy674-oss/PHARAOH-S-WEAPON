@@ -1,0 +1,33 @@
+UNIT 7
+CONCEPT 2
+Dividing by 1-Digit Divisors
+
+LESSON 10
+The Standard Division Algorithm
+
+Learning Targets
+• I can estimate quotients using place value and patterns
+in multiplication and division.
+• I can use the standard algorithm to solve division problems.
+
+ACCESS
+Let’s Estimate Use estimation to answer the questions. Circle your answer.
+Be ready to explain your reasoning.
+Will 1,836 ÷ 3 be closer to 60 or 600?
+Will 7,158 ÷ 3 be closer to 2,000 or 3,000?
+Will 736 ÷ 4 be closer to 100 or 200?
+Will 491 ÷ 4 be closer to 120 or 150?
+
+BUILD
+Find the Similarity Estimate the quotient and then do a Quick Draw of the
+problem.
+1. 68 ÷ 4
+The quotient will be between ________ and ________.
+Quick Draw
+
+Standard Algorithm
+2. 457 ÷ 3
+The quotient will be between ________ and ________.
+Quick Draw
+
+Lesson 10: The Standard Division Algorithm | 119

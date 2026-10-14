@@ -1,0 +1,26 @@
+This problem can also be broken into two smaller rectangles.
+
+8 × (5 + 4)
+5 4
+8
+
+• The rectangles show 8 × 5 = 40 and 8 × 4 = 32. These numbers are then added to recompose the rectangle: 40 + 32 = 72.
+• 8 × 9 is therefore equivalent to 8 × (5 + 4).
+• 8 × (5 + 4) is an example of the Distributive Property because we are distributing, or multiplying, both numbers in the parentheses (5 and 4) by the number 8.
+The Distributive Property of Multiplication allows all numbers inside parentheses to be multiplied by the number outside the parentheses.
+
+1. 58 × 42 = ________
+50 8
+40 2,000 320
+2 100 16
+
+(40 × ______) + (40 × 8) + (______ × 50) + (2 × ______) = ________
+
+2.
+30 7
+20 600 140
+4 120 28
+
+(20 × 30) + (______ × ______) + (______ × ______) + (4 × 7) = ________
+
+Lesson 2: The Distributive Property of Multiplication 69

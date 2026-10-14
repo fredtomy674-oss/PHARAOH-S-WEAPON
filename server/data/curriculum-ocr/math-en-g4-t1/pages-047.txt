@@ -1,0 +1,22 @@
+UNIT
+3
+
+Theme 1 | Number Sense and Operations
+
+Unit 3
+Concepts of Measurement
+
+Video
+It’s an Ant’s Life
+
+Unit Video Questions
+The video It’s an Ant’s Life uses measurement to describe the life and work of different types of ants. Omar and Mariam are fascinated by ants and are exploring different types of anthills. They want to use measurement to compare. Because anthills vary greatly in size, they may need help converting measurements between units of length.
+
+Quick Code
+egm4027
+
+How big was the biggest ant or anthill you have ever seen?
+
+Why would Omar and Mariam need to change units of measure to compare anthills?
+
+MINISTRY OF EDUCATION AND TECHNICAL EDUCATION

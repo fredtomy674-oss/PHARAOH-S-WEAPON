@@ -1,0 +1,30 @@
+Chapitre 2
+
+3ème Tour
+Addition répétée (+)
+Multiplication (×)
+Comparaison
+————— ◯ —————
+Mon produit    Produit du collègue
+
+4ème Tour:
+Addition répétée
+Multiplication (×)
+Comparaison
+————— ◯ —————
+Mon produit    Produit du collègue
+
+5ème Tour:
+Addition répétée
+Multiplication (×)
+Comparaison
+————— ◯ —————
+Mon produit    Produit du collègue
+
+LE DÉFI: Trace un tableau de cercles et de points pour les problèmes suivants, puis
+trouve le produit
+5 × 7 =
+
+6 × 9 =
+
+3ème PRIMAIRE 21

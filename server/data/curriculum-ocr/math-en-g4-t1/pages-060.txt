@@ -1,0 +1,26 @@
+UNIT 3
+CONCEPT 2
+Measuring Time
+
+5. A worker ant went out to find food for the colony. It left at 6:30 a.m. and returned at 7:42 a.m. How long was that ant looking for food?
+
+CONNECT
+Origins of Telling Time Read the following article about why time is measured in groups of 12 and 60. Be prepared to share your thoughts about what you read.
+
+why are there 12 hours in the morning and 12 hours in the afternoon and 60 minutes in an hour and 60 seconds in a minute? Why not use a Base 10 system?
+The answer lies in those ancient civilizations. The
+Sumerians used a system of 12 and 60 starting in 3,500
+B.C. However, why Base 12 and Base 60? The reason
+actually comes from the structure of our fingers.
+The number of joints on each hand, minus the thumb,
+makes it possible to count to 12 by using the thumb.
+The division of an hour into 60 minutes and 60
+seconds was determined by astronomers using the
+Base 60 system of the Babylonians. So our units of
+time, which can seem so confusing, are linked to the
+first civilizations and our own hands.
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+52

@@ -1,0 +1,48 @@
+CHAPITRE 1
+
+LEÇON 2 : L'ADDITION ET LA PRÉSENTATION DES DONNÉES .
+APPLICATION
+Guidage : Travaille avec ton enseignant pour créer (ou concevoir) un
+graphique. Ensuite réponds aux questions concernant les données.
+
+Titre: _________________________________
+
+Nombre des étudiants
+25
+24
+23
+22
+21
+20
+19
+18
+17
+16
+15
+14
+13
+12
+11
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+Dimanche Lundi Mardi Mercredi Jeudi Vendredi Samedi
+Les jours de la semaine
+
+Mon jour préféré de la semaine
+est le ....
+_________________________________
+
+Le jour préféré de la semaine selon
+notre classe est le ....
+_________________________________
+
+6 2ème Primaire

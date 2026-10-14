@@ -1,0 +1,43 @@
+UNIT
+8
+CONCEPT 1
+Order of Operations
+
+2 + 4 x 6
+48 ÷ 4 + 9
+7 + 70 ÷ 10 - 2
+49 - 7 x 6 + 4
+8 x 3 + 6 ÷ 2
+
+24 - 8 ÷ 4 + 6
+36 ÷ 9 + 4
+99 - 10 x 9 + 7
+12 - 72 ÷ 12 + 2
+80 ÷ 10 + 6 - 3
+
+15 ÷ 5 + 4 + 1
+15 - 7 + 2 + 6
+8 x 2 + 24 - 12
+24 + 36 ÷ 6 + 2
+40 - 7 x 5 + 2
+
+8
+11
+16
+
+28
+32
+
+Other
+
+CONNECT
+
+Who Is Correct? Saleem and Sarah both solved the problem 74 - 61 + 8 x 5.
+Saleem says the answer is 105 and Sarah says the answer is 53. Who is correct?
+How do you know? Help the person who is not correct realize their mistake.
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+Lesson 1: Order of Operations
+125

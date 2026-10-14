@@ -1,0 +1,19 @@
+CHAPITRE 1
+
+LEÇON 10 : LES ÉLÈMENTS DU PICTOGRAMME
+APPLICATION
+Guidage : Utilise les données du pictogramme « Cueilles une fleur »
+pour créer (ou concevoir) un graphique en colonnes.
+
+Les éléments du graphique :
+☐ Titre
+☐ Titre horizontal
+☐ Titre vertical
+
+☐ Échelle
+☑ Catégories Nommées
+☐ Colonnes colorées
+
+LUNDI MARDI MERCREDI JEUDI VENDREDI
+
+18 2ème Primaire

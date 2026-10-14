@@ -1,0 +1,30 @@
+UNIT 2
+CONCEPT 2
+Solving Multistep Problems
+
+LESSON 4
+Bar Models, Variables, and Story Problems
+Learning Targets
+• I can use letters to represent unknown quantities in equations.
+• I can use bar models to represent and solve story problems.
+• I can solve equations that include variables.
+
+ACCESS
+Introducing Variables What does it mean to be balanced?
+Look at the image of the triangle. What do you notice about it?
+Discuss your observations with your Shoulder Partner.
+
+BUILD
+Bar Models Read the following problems. Create a bar model and an equation for each problem, and then solve.
+1. There are 5,328 ants in the colony. In the colony, 2,164 ants are females and the rest are males. How many male ants are in the colony?
+Bar Model:
+Equation: 2,164 + a = 5,398
+a = 5,398 - 2,164
+a = .............
+Solution:
+2. There are 20,000 ants in the colony. In the colony, 12,000 are females and the rest are males. How many male ants are in the colony?
+Bar Model:
+Equation:
+Solution:
+
+32

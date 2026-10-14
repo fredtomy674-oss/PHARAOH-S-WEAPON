@@ -1,0 +1,20 @@
+BUILD
+A Model Decimal There are two decimal numbers in the
+decimal model. One number is represented in yellow and
+the other is represented in green. Record the decimal
+numbers in the place value chart.
+
+Thousands | Ones | . | Decimals
+--- | --- | --- | ---
+O | H | T | O | . | Tenths | Hundredths
+
+Express the Model Write an expression to match the
+model.
++
+
+Whiteboard: Make a Model Pick a two-digit
+decimal number. Create a model of it. Record your
+partner's decimal number on your model (be sure to
+use a different color).
+
+Lesson 7: Modeling Decimal Addition 23

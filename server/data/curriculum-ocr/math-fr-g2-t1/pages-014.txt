@@ -1,0 +1,37 @@
+CHAPITRE 1
+
+LEÇON 7 : REPRÉSENTER LE GRAPHIQUE 10
+APPLICATION
+
+Guidage : Observe le graphique des « Couleurs préférées » et réponds
+aux questions concernant les données.
+La Couleur préférée pour les 200 étudiants
+
+NOMBRE DES ÉTUDIANTS
+70
+60
+50
+40
+30
+20
+10
+0
+ROUGE BLEU VERT JAUNE ORANGE ROSE
+COULEURS
+
+1. Quel est le nombre d'étudiants qui préfère le rouge le plus ? ________
+2. Quel est le nombre d'étudiants qui préfère le bleu le plus ? ________
+3. Quel est le nombre d'étudiants qui préfère le vert le plus ? ________
+4. Quel est le nombre d'étudiants qui préfère le jaune le plus ? ________
+5. Quel est le nombre d'étudiants qui préfère la couleur orange le plus ? ________
+6. Quel est le nombre d'étudiants qui préfère le rose le plus ? ________
+7. Quel est le nombre d'étudiants qui préfère le rose et le bleu (rose +
+bleu) ? ________
+8. Quel est le nombre d'étudiants qui préfère le jaune au vert (jaune –
+vert) ? ________
+9. Quel est le nombre d'étudiants qui préfère le rouge et le bleu (rouge
++ bleu) ? ________
+10. Quel est le nombre d'étudiants qui préfère le bleu à la couleur
+orange (bleu – orange) ? ________
+
+14 2ème Primaire

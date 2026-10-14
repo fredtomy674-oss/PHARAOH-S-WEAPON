@@ -1,0 +1,35 @@
+Unit 6 Factors and Multiples
+Concept 6.1 Understanding Factors
+Lesson 1 Identifying Factors of Whole Numbers. . . . . . . . . . . . . . . . . . . 86
+Lesson 2 Prime and Composite Numbers . . . . . . . . . . . . . . . . . . . . . . . . 88
+Lesson 3 Greatest Common Factor G.C.F . . . . . . . . . . . . . . . . . . . . . . . . 91
+
+Concept 6.2 Understanding Multiples
+Lesson 4 Identifying Multiples of Whole Numbers. . . . . . . . . . . . . . . . . 93
+Lesson 5 Common Multiples. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+Lesson 6 Relationships between Factors and Multiples . . . . . . . . . . . . 97
+
+Unit 7 Multiplication and Division: Computation
+and Relationships
+
+Concept 7.1 Multiplying by 1-Digit and 2-Digit Numbers
+Lesson 1 The Area Model Strategy. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+Lesson 2 The Distributive Property . . . . . . . . . . . . . . . . . . . . . . . . . . . . 102
+Lesson 3 The Partial Products Algorithm . . . . . . . . . . . . . . . . . . . . . . . 104
+Lesson 4 multiply by a one-digit number. . . . . . . . . . . . . . . . . . . . . . . 107
+Lesson 5 multiply a two-digit number by a multiple of 10 . . . . . . . . . 109
+
+Concept 7.2 Dividing by 1-Digit Divisors
+Lesson 6 Exploring Remainders . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111
+Lesson 7 Patterns in Division . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 113
+Lesson 8 The Area Model and Division . . . . . . . . . . . . . . . . . . . . . . . . 116
+Lesson 9 The Partial Quotients Algorithm. . . . . . . . . . . . . . . . . . . . . . 117
+Lesson 10 The Standard Division Algorithm . . . . . . . . . . . . . . . . . . . . 119
+Lesson 11 Division and Multiplication. . . . . . . . . . . . . . . . . . . . . . . . . . 121
+
+Unit 8 Order of Operations
+Concept 8.1 Order of Operations
+Lesson 1 Order of Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124
+Lesson 2 The Order of Operations and Story Problems . . . . . . . . . . . 126
+
+Math Term 1 | v

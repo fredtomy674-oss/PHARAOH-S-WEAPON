@@ -1,0 +1,45 @@
+UNIT 7 | CONCEPT 2
+Dividing by 1-Digit Divisors
+
+LESSON 11
+Division and Multiplication
+
+Learning Targets
+• I can use properties of place value to accurately record quotients.
+• I can use multiplication to check answers to division problems.
+
+ACCESS
+Spot the Difference Study the two division problems solved using the standard algorithm. Identify as many differences as you can between the two problems.
+
+313
+3 | 939
+- 900
+39
+- 30
+9
+- 9
+0
+
+92 R1
+3 | 277
+- 270
+7
+- 6
+1
+
+BUILD
+Place Value and the Quotient First, circle the problems you think will have a quotient with fewer digits than the dividend. Then, estimate the quotient and solve each problem using the standard algorithm for division. Think about where to place the first digit in the quotient.
+
+1. 346 ÷ 5
+The quotient is between ________ and ________.
+Solution
+
+2. 1,266 ÷ 6
+The quotient is between ________ and ________.
+Solution
+
+3. 834 ÷ 3
+The quotient is between ________ and ________.
+Solution
+
+Lesson 11: Division and Multiplication | 121

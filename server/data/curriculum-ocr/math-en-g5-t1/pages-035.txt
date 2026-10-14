@@ -1,0 +1,15 @@
+Problem 4 :
+1. Estimate the sum: 0.92 + 0.89
+
++ Whiteboard: Model the Expression Again Use two different colors to create a
+model of the expression 0.92 + 0.89.
+
+2. Record 0.92 and 0.89 in the place value chart.
+
+Thousands | Ones | . | Decimals
+--- | --- | --- | ---
+O | H | T | O | . | Tenths | Hundredths
+
+3. Evaluate: 0.92 + 0.89 = ________
+
+Lesson 7: Modeling Decimal Addition 27

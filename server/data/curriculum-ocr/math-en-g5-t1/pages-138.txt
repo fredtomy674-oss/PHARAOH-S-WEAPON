@@ -1,0 +1,41 @@
+UNIT CONCEPT 1
+6 Evaluating Numerical Expressions and Patterns
+
+3.
+Input Output
+3 12
+6 24
+9 36
+12 48
+Rule: ____________________
+
+4.
+Input Output
+5 1
+10 2
+15 3
+20 4
+25 5
+Rule: ____________________
+
+5.
+Number of Bicycles (Input) Number of Wheels (Output)
+1 2
+2 4
+3 6
+4 8
+5 10
+Rule: ____________________
+
+Challenge:
+Input Output
+2 3
+4 7
+6 11
+8 15
+10 19
+Rule: ____________________
+
+Bicycle Wheels
+
+130

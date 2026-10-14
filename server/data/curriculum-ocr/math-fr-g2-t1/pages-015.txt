@@ -1,0 +1,16 @@
+CHAPITRE 1
+
+LEÇON 8 : LE GRAPHIQUE EN COLONNES
+APPLICATION
+Guidage : Lance deux dés, trouve la somme des nombres obtenus, ensuite hachure le carré correspondant dans le graphique ci-dessous. Commence par le bas vers le haut du graphique.
+
+QUELLE EST LA SOMME LA PLUS OBTENUE DE LANCÉE
+
+NOMBRE DE LANCEMENTS
+
+2 3 4 5 6 7 8 9 10 11 12
+SOMME
+
+La somme gagnante est : .........
+
+2ème Primaire 15

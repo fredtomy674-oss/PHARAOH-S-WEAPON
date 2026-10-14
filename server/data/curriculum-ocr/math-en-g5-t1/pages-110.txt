@@ -1,0 +1,72 @@
+UNIT CONCEPT 1
+5 Multiplying Decimals
+
+Using the Standard Algorithm for Decimal Numbers Find the product for each
+multiplication problem using the standard algorithm.
+
+1. 29.35
+   x 3.4
+
+5. 8.92
+   x 0.17
+
+2. 43.2
+   x 0.24
+
+6. 1.74
+   x 35
+
+3. 2.43
+   x 6.9
+
+7. 10.21
+   x 0.64
+
+4. 12.87
+   x 7.3
+
+8. 47.8
+   x 5.2
+
+CONNECT
+Writing About Math Two students are having
+a discussion based on the student work shown
+here. Read their discussion and respond to the
+prompt.
+
+Dalal: I know the student placed the decimal
+correctly because 143.344 is close to her
+estimate of 126.
+
+Doha: I know she placed the decimal correctly
+because the final product has three decimal places
+and there are three decimal places altogether in
+both factors of the problem.
+
+Do you agree with Dalal or Doha? Can you count
+decimal places in the factors to place the decimal in
+the product? Explain your thinking.
+
+42.16
+x 3.4
+
+estimate
+42 X 3 = 126
+
+1
+42.16
+x 3.4
+16864
+126480
+143.344
+
+42.16 x 3.4
+12 3
+3 decimals
+= 143.344
+123
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+102

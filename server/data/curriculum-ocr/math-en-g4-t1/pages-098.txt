@@ -1,0 +1,32 @@
+UNIT 6
+CONCEPT 1
+Understanding Factors
+
+Prime Numbers Less than 100 Identify all of the prime numbers less than 100. Use skip counting and factor patterns to help you eliminate composite numbers.
+
+1. Circle 2 and cross out all other numbers that you say when you skip count by 2s.
+2. Circle 3 and cross out all other numbers that you say when you skip count by 3s.
+3. Circle 5 and cross out all other numbers that you say when you skip count by 5s (some are already crossed out).
+4. Circle 7 and cross out all other numbers that you say when you skip count by 7s.
+5. Circle all numbers that remain except for 1.
+
+When you are finished, the circled numbers are prime and the crossed out numbers are composite.
+
+91 92 93 94 95 96 97 98 99 100
+81 82 83 84 85 86 87 88 89 90
+71 72 73 74 75 76 77 78 79 80
+61 62 63 64 65 66 67 68 69 70
+51 52 53 54 55 56 57 58 59 60
+41 42 43 44 45 46 47 48 49 50
+31 32 33 34 35 36 37 38 39 40
+21 22 23 24 25 26 27 28 29 30
+11 12 13 14 15 16 17 18 19 20
+1 2 3 4 5 6 7 8 9 10
+
+CONNECT
+Writing About Math The seats on the new ferry will be arranged in a rectangle. Is it better for the ferry to have 48 seats or 53 seats? How do you know? Would 49 seats be a good idea? Use numbers, words, and pictures to explain your thinking.
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+90 |

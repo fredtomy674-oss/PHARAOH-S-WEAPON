@@ -1,0 +1,28 @@
+CHAPITRE 3
+
+LEÇON 1 : LES NOMBRES FORMES DE 3 CHIFFRES
+APPLICATION
+Guidage : Écris les nombres fournis par ton enseignant.
+Exemple:
+
+C
+Centaines
+3
+
+D
+Dizaines
+8
+
+U
+Unités
+5
+
+| | Centaines | Dizaines | Unités |
+| :--- | :--- | :--- | :--- |
+| 1. | Valeur : _______ | Valeur : _______ | Valeur : _______ |
+| 2. | Valeur : _______ | Valeur : _______ | Valeur : _______ |
+| 3. | Valeur : _______ | Valeur : _______ | Valeur : _______ |
+| 4. | Valeur : _______ | Valeur : _______ | Valeur : _______ |
+| 5. | Valeur : _______ | Valeur : _______ | Valeur : _______ |
+
+30 2ème Primaire

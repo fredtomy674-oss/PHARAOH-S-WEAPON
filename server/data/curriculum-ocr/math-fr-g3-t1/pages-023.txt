@@ -1,0 +1,8 @@
+Chapitre 2
+
+RÉFLÉCHIS
+GUIDAGE: Dans la matrice d'étoiles suivante, certaines étoiles ont été arrachées.
+Combien d'étoiles y avait-il dans la matrice à l'origine? Explique ta solution en utilisant
+des images, des nombres ou des mots sous la matrice d'étoiles
+
+3ème PRIMAIRE 19

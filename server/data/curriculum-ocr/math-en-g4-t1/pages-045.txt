@@ -1,0 +1,24 @@
+UNIT 2 | CONCEPT 2
+Solving Multistep Problems
+
+1. Ahmed had a pie with 340 calories for breakfast. Then, Ahmed had a glass of milk, an apple, and a chicken sandwich for lunch. The milk had 190 calories, the apple had 85 calories, and the chicken sandwich had 255 calories. If the average adult can eat 2,000 calories per day, how many more calories can Ahmed eat today?
+
+Arrange the following steps to solve the story problem:
+
+_______ I subtracted 870 from 2,000. The answer is 1,130, so Ahmed can eat 1,130 more calories today.
+
+_______ I drew a box around “how many more.”
+
+_______ I added the calories of the foods Ahmed has eaten to answer the hidden question (how many calories Ahmed has already eaten). The answer is 870 calories.
+
+_______ I circled 340 calories, 190 calories, 85 calories, 255 calories, and 2,000 calories.
+
+_______ I identified the known information (what Ahmed ate and how many calories each item had; the average adult is supposed to eat 2,000 calories per day). I identified the unknown information (how many calories Ahmed has already eaten; how many more calories Ahmed can eat).
+
+_______ I underlined “how many more calories should Ahmed eat today?”
+
+Use the problem-solving steps to solve the story problems. Remember, you will have to answer the hidden question first and then answer the main question. Be sure to show your work.
+
+2. The ant colony website hopes that a new colony with up to 173,500 will form. If a colony of 27,385 ants and a colony of 52,890 ants join the new colony, how many more ants can join?
+
+Lesson 5: Solving Multistep Story Problems with Addition and Subtraction | 37

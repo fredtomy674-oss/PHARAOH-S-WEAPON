@@ -1,0 +1,27 @@
+UNIT 7
+CONCEPT 1
+Multiplying by 1-Digit and 2-Digit Numbers
+
+Problem | Partial Products | Area Model
+--- | --- | ---
+7 x 59 | |
+624 x 4 | |
+6 x 3,293 | |
+
+Fill in the Blanks Fill in the blanks with the missing numbers.
+1. 239
+x 7
+1,400 (________ x ________)
+210 (________ x ________)
++ 63 (________ x ________)
+1,673
+
+2. 6,421
+x 6
+36,000 (________ x ________)
+(6 x 400)
+120 (6 x ________)
++ ________ (6 x 1)
+________
+
+Lesson 3: The Partial Products Algorithm | 105

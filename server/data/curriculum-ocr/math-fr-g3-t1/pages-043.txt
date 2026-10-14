@@ -1,0 +1,15 @@
+Chapitre 3
+
+LEÇON 9 : APPLICATION SUR LA DIVISION
+APPLICATION
+Exemple 1:
+GUIDAGE: Dessine une image pour t'aider dans la solution.
+Chaque chat a besoin de deux poissons pour le déjeuner.
+Combien de chats pouvons-nous nourrir si nous avons 12 poissons?
+
+GUIDAGE: Résous les problèmes suivants pour savoir combien d'animaux peuvent
+être nourris. Tu peux utiliser les éléments de comptage comme aide. Dessine et
+explique toutes les étapes de la solution
+1. L'ibis mange 3 vers. Et nous avons 18 vers. Combien d'ibis pouvons-nous nourrir?
+
+3ème PRIMAIRE 39

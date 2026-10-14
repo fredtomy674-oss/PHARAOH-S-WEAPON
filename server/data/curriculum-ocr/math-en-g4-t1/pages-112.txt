@@ -1,0 +1,21 @@
+UNIT 7
+CONCEPT 1
+Multiplying by 1-Digit and 2-Digit Numbers
+
+LESSON 3
+The Partial Products Algorithm
+
+Learning Target
+• I can use the partial products algorithm to multiply a one-digit number by a whole number with up to four digits.
+
+ACCESS
+The Amazing Race Write as many different ways as you can to represent the number 136. Use a separate box for each representation.
+
+BUILD
+Partial Products Use the area model to solve the problem. Then, copy the partial products algorithm solution modeled by your teacher.
+Example: 731 x 4
+
+Area Model
+Partial Product Algorithm
+
+104

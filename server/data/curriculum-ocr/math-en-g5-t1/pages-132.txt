@@ -1,0 +1,27 @@
+UNIT CONCEPT 1
+6 Evaluating Numerical Expressions and Patterns
+
+Set A
+1. 45.84 + 13.05 ÷ 5 + 20.32 - 1.14 × 2.1
+
+2. (45.84 + 13.05) ÷ 5 + 20.32 - 1.14 × 2.1
+
+Grouping Symbols, Advanced Evaluate the set of expressions. Pay attention to
+the grouping symbols and how they change the order in which the operations are
+performed.
+
+Advanced Order of Operations
+1. For operations within parentheses
+a. multiply or divide from left to right
+b. add or subtract from left to right
+2. For operations within brackets
+a. multiply or divide from left to right
+b. add or subtract from left to right
+3. For operations outside of parentheses or brackets
+a. multiply or divide from left to right
+b. add or subtract from left to right
+
+Set B
+1. 30 × 2.5 + 47.18 - 3.12 ÷ 0.1
+
+124

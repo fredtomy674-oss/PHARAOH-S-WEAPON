@@ -1,0 +1,41 @@
+Chapitre 6
+
+APPLICATION
+utilise la multiplication et les modèles pour trouver
+exemple
+
+2 x 10 = 20
+2 x 100=200
+2 x 1000 = 2000
+
+3 x 10 = _______
+3 x 100 = _______
+3 x 1000 = _______
+
+4 x 6 = _______
+4 x 60 = _______
+4 x 600 = _______
+4 x 6000 = _______
+
+5 x 7 = _______
+5 x 70 = _______
+5 x 700 = _______
+5 x 7000 = _______
+
+GUIDAGE: Résous les problèmes suivants. Divise les multiples de 10 en 10 multipliés par
+l'autre facteur. Par exemple, le nombre 40 est divisé en facteurs 10 et 4.
+
+Exemple:
+8 x 40
+(8 x 4) x 10 = 320
+
+3 x 90 (____ x ____) x 10 =
+4 x 80 (____ x ____) x 10 =
+9 x 20 (____ x ____) x 10 =
+6 x 30 (____ x ____) x 10 =
+8 x 50 (____ x ____) x 10 =
+7 x 30 (____ x ____) x 10 =
+6 x 70 (____ x ____) x 10 =
+5 x 40 (____ x ____) x 10 =
+
+3ème PRIMAIRE 83

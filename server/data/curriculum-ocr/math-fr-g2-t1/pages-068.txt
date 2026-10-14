@@ -1,0 +1,18 @@
+CHAPITRE 5
+
+LEÇON 8 : LES CARACTÉRISTIQUES DES FIGURES À 3 DIMENSIONS
+APPLICATION
+Guidage : Enregistre les nombres de faces, arêtes et sommets pour chaque figure à 3 dimensions.
+
+| Nom | Figure | les nombres de faces | les nombres de arêtes | les nombres de sommets |
+| :--- | :--- | :--- | :--- | :--- |
+| Pyramide à base carrée | | | | |
+| Cylindre | | | | |
+| Sphère | | | | |
+| Cube | | | | |
+| parallélépipède rectangle | | | | |
+
+Réfléchis:
+Guidage : Écris ou dessine ce que tu as appris concernant les faces, arêtes et sommets des figures à 3 dimensions.
+
+68 2 ème Primaire

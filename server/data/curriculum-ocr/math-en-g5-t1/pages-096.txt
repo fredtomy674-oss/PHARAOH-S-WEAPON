@@ -1,0 +1,29 @@
+UNIT CONCEPT 2
+4 Dividing by 2-Digit Divisors
+
+HANDS-ON
+ACTIVITY
+Keep the Leftovers
+
+6. Subtract the remainder from the original dividend to find the new dividend for Player 2. Example: 200 - 13 = 187. The new dividend is 187.
+7. Player 2 chooses from the remaining divisors and solves the division problem. Player 1 checks the solution with multiplication and addition.
+8. Take turns until the starting number is 0 or until the dividend is smaller than all of the remaining divisors.
+9. Both players find the sum of all their remainders. The player with the highest score wins.
+
+Whiteboard: Keep the Leftovers Recording Sheet
+1 2 3 4 5 6 7 8 9 10
+11 12 13 14 15 16 17 18 19 20
+
+Starting
+Number
+Equation
+Initials
+200
+
+CONNECT
+Ziad's Buttons Ziad works in a clothing factory that produces shirts. He has 100 buttons and needs 16 buttons for each shirt. After dividing, he thinks he has enough to make 6 shirts and will have 4 buttons left over. Is Ziad correct in his thinking? Why or why not? Explain your thinking.
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+88

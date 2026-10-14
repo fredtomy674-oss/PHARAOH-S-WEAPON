@@ -1,0 +1,10 @@
+CHAPITRE 6
+
+LEÇON 6:CRÉER UNE HORLOGE
+APPLICATION
+
+1-Divise le modèle en heures complètes
+2-Dessine les aiguilles des heures et des minutes.
+3-Lis les heures et écris l'heure que tu as reçue
+
+84 2 ème Primaire

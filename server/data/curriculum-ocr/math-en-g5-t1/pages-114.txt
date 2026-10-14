@@ -1,0 +1,29 @@
+UNIT CONCEPT 1
+5 Multiplying Decimals
+
+Metric Measurements as Decimals Complete the chart. Use whole numbers and
+decimals to write equivalent measurements.
+
+1. Measurements for Length
+
+| Unit of Measurement | In Millimeters | In Centimeters | In Meters |
+| :--- | :--- | :--- | :--- |
+| Millimeter | 1 | | |
+| Centimeter | | 1 | |
+| Meter | | | 1 |
+
+2. Measurements for Mass
+
+| Unit of Measurement | In Grams | In Kilograms |
+| :--- | :--- | :--- |
+| Gram | 1 | |
+| Kilogram | | 1 |
+
+3. Measurements for Capacity
+
+| Unit of Measurement | In Milliliters | In Liters |
+| :--- | :--- | :--- |
+| Milliliter | 1 | |
+| Liter | | 1 |
+
+106 |

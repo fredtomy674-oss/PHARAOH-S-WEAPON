@@ -1,0 +1,56 @@
+CHAPITRE 4
+
+LEÇON 4 : L'ADDITION SANS RÉPÉTER
+APPLICATION
+Exemple : Hassan a acheté 23 biscuits au chocolat. Il a aussi acheté 35
+biscuits à la vanille. Combien de biscuits Hassan a en total ?
+
+23 + 35 = 58
+
+Dizaines | Unités
+--- | ---
+| 
+
+Dizaines | Unités
+--- | ---
+| 
+
+Dizaines | Unités
+--- | ---
+| 
+
+23
+20 | 3
+
++
+
+35
+30 | 5
+
+=
+
+58
+50 | 8
+
+Guidage : Lis le problème et décompose pour pouvoir résoudre.
+
+1) Miryam a trouvé 68 coquillages sur la plage. Sa sœur a trouvé 21
+coquillages. Combien de coquillages on-t-elles trouvé en total ?
+
++ =
+
+Dizaines | Unités
+--- | ---
+| 
+
+Dizaines | Unités
+--- | ---
+| 
+
+Dizaines | Unités
+--- | ---
+| 
+
++ =
+
+46 2ème Primaire

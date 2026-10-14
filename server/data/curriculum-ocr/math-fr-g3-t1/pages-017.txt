@@ -1,0 +1,24 @@
+Chapitre 2
+
+4ème Etape : Compare le nombre que tu as obtenu avec les nombres de trois autres
+élèves en utilisant le signe : supérieur à (>) ou inférieur à (<).
+
+| LE NOMBRE QUE TU AS FORMÉ | > OU < | LE NOMBRE FORMÉ PAR LES AUTRES |
+| :--- | :--- | :--- |
+| | | |
+| | | |
+| | | |
+
+LE DÉFI : Mets le signe > ou < .
+
+1. 8903 _______ 9038 2. 7878 _______ 7787 3. 1342 _______ 1302
+
+4. 2345 _______ 2344 5. 6534 _______ 6544
+
+Range les nombres ci-dessus du plus petit au plus grand.
+
+_______ ; _______ ; _______ ; _______ ; _______ ; _______ ;
+
+_______ ; _______ ; _______ ; _______ ;
+
+3ème PRIMAIRE 13

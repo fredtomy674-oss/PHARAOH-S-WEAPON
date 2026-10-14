@@ -1,0 +1,19 @@
+UNIT 4
+CONCEPT 2
+Dividing by 2-Digit Divisors
+
+Let's Try It Divide using the standard algorithm for division.
+1. 32)192
+3. 22)756
+2. 65)543
+4. 46)8,014
+
+CONNECT
+Making Connections Solve the problems using the standard algorithm. Check your work using an area model.
+1. At her cafe, Rana sells cookies baked by a local bakery. She receives an order of 350 cookies. Rana packages the cookies in groups of 12 cookies per bag. Solve to find how many full bags, containing 12 cookies each, Rana can sell from her order of 350 cookies and how many cookies are left over.
+2. How could Rana package the cookies so that each bag contains the same number of cookies and she has none left over?
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+86

@@ -1,0 +1,62 @@
+NOM: --------------------------------------------------
+
+chapitre 1
+Leçon 1: Les Modèles 1
+Leçon 2: Plus de Représentations Graphique Par Colonnes 3
+Leçon 3: La Représentation Graphique Par des Points 4
+Leçon 4: La Mesure des Longueurs Par Centimètres 5
+Leçon 5: La Mesure des Longueurs Par Mètre 7
+Leçon 6: La Mesure de Longueurs Par Millimètre 9
+
+chapitre 2
+Leçon 1: Les Milliers 10
+Leçon 2: Plus de Milliers 12
+Leçon 3: Dizaines de Milliers -Centaines de Milliers 14
+Leçon 4: Les Formes Différents Pour Écrire les nombres 16
+Leçon 5: Les Matrices 17
+Leçon 6: La Multiplication 20
+Leçon 7: La Propriété du Commutative de La Multiplication 22
+
+chapitre 3
+Leçon 1: Des Problèmes de La Multiplication 25
+Leçon 2: Application Sur la Multiplication 27
+Leçon 3: Les Multiptiples de Deux Nombres 2et 3 28
+Leçon 4: Les Multiples de Deux Nombres 5 Et 10 30
+Leçon 5: Les Facteurs des Nombres en Utilisant La Matrice 32
+Leçon 6: Le Temps 33
+Leçon 7: Application sur Le Temps 34
+Leçon 8: La Division 36
+Leçon 9: Application sur La Division 39
+Leçon 10: La Relation Entre La Multiplication Et La Division 41
+
+chapitre 4
+Leçon 1: Les Polygones 43
+Leçon 2: Les Propriétés de Quadrilatères 45
+Leçon 3: L'aire 48
+Leçon 4: Des Rectangles Ont La Même Aire 50
+Leçon 5: L'aire En Utilisant Les Modèles 53
+Leçon 6: L'aire En Divisant Les Matrices 57
+Leçon 7: La Propriété de La Distributivité En Multiplication 58
+
+chapitre 5
+Leçon 1: Le Périmètre de Polygones 61
+Leçon 2: Le Périmètre Et L'aire 63
+Leçon 3: L'aire En Utilisant Les Dimensions 66
+Leçon 4: L'aire Par Des Stratégies Variés 68
+Leçon 5: Différents Périmètres Pour La Même Aire 71
+Leçon 6: Différents Aires Pour Le Même Périmètre 74
+Leçon 7: Des Applications Sur Le Périmètre Et L'aire 76
+Leçon 8: La Multiplication Par les multiples de 10 78
+
+chapitre 6
+Leçon 1: Les Modèles De La Multiplication de 10 82
+Leçon 2: Les Statégies De La Multiplication de 9 85
+Leçon 3: Les Faits De La Multiplication Et L'addition 89
+Leçon 4: La Comparaison Et L'ordre Des Nombres Avec Des Formes Différentes 92
+Leçon 5: Les Stratégies de L'addition 94
+Leçon 6: Les Stratégies de La Soustraction 96
+Leçon 7: Application Sur L'addition Et La Soustraction 98
+Leçon 8: La Capacité 101
+Leçon 9: La Lecture de La Capacité 103
+
+IV 3ème PRIMAIRE

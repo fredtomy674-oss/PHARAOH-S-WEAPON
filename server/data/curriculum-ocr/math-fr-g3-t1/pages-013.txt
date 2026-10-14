@@ -1,0 +1,15 @@
+Chapitre 1
+
+LEÇON 6: LA MESURE DE LONGUEURS PAR MILLIMÈTRE
+APPLICATION
+GUIDAGE: Mesure les parties du fil et écris leurs longueurs en millimètre
+
+| Numéro des parties du fil | Longueur en millimètre (mm) |
+| :--- | :--- |
+| 1 | |
+| 2 | |
+| 3 | |
+| 4 | |
+| 5 | |
+
+3ème PRIMAIRE 9

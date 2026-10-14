@@ -1,0 +1,35 @@
+UNIT 6 | CONCEPT 1
+Understanding Factors
+
+• A number has 6 as a factor if it has both a factor of 2 and a factor 3. This
+means it has to be even and the sum of the digits have to be a number
+said when skip counting by 3s.
+Example: 36 has 6 as a factor because it is even and because 3 + 6 = 9 and 9
+is a number we say when we skip count by 3s.
+
+Use these patterns to solve the problems.
+1. Is 3 a factor of 53? How do you know?
+
+2. Is 9 a factor of 63? How do you know?
+
+3. Is 6 a factor of 84? How do you know?
+
+Prime or Composite List all of the factors of each number. Then, write whether the
+number is prime or composite.
+
+A prime number has exactly two factors: 1 and the number itself.
+
+A composite number has more than two factors.
+
+Prime or Composite?
+1. 18
+
+2. 21
+
+3. 31
+
+4. 44
+
+5. 23
+
+Lesson 2: Prime and Composite Numbers | 89

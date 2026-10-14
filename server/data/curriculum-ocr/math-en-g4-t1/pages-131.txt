@@ -1,0 +1,32 @@
+UNIT
+8
+
+Theme 2 | Mathematical Operations and
+Algebraic Thinking
+
+Unit 8
+Order of Operations
+
+Video
+Order
+
+Unit Video Questions
+Omar and Mariam are taking a
+school trip to a factory. They learn
+how the factory makes cars. The
+guide explains the order of each
+step and why the order matters.
+After the school trip, Omar and
+Mariam want to know what else
+has an order and where the order matters.
+
+Quick Code
+egm4091
+
+What has an order in your school or home?
+Does the order matter? What happens if
+the order is changed?
+In mathematics, are there any operations in
+which order matters? What are they? Give
+examples of what happens if the order
+is changed.

@@ -1,0 +1,23 @@
+CHAPTER 5
+
+LESSON 8: ATTRIBUTES OF 3-DIMENSIONAL SHAPES
+APPLY
+
+Directions: Record the number of faces, edges, and vertices for each
+three-dimensional shape.
+
+| Name | Shape | Number of faces | Number of edges | Number of vertices |
+| :--- | :---: | :---: | :---: | :---: |
+| Square- based pyramid | ![pyramid](crop_pyramid.png) | | | |
+| Cylinder | ![cylinder](crop_cylinder.png) | | | |
+| Sphere | ![sphere](crop_sphere.png) | | | |
+| Cube | ![cube](crop_cube.png) | | | |
+| Rectangular prism | ![prism](crop_prism.png) | | | |
+
+Reflect
+
+Directions: Write or draw what you learned about the faces, edges,
+and vertices of three-dimensional shapes.
+
+68
+PRIMARY 2 - TERM 1

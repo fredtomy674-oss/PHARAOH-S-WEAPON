@@ -1,0 +1,33 @@
+UNIT 7
+CONCEPT 1
+Multiplying by 1-Digit and 2-Digit Numbers
+
+3. 2,523
+x 5
+10,000 (________________ x ________________)
+________________ (5 x 500)
+100 (5 x ________________)
++ ________________ (5 x 3)
+________________
+
+CONNECT
+Error Analysis Examine the student work that follows. Do you agree or disagree with the student's work and solution?
+
+Solve the problem using the partial products algorithm.
+
+Student's work:
+328
+x 4
+32 (8 x 4)
+8 (2 x 4)
++ 12 (3 x 4)
+52
+
+What did the student do correctly?
+What did the student do incorrectly? Why do you think they made this error?
+Try to solve the problem correctly. Explain your thinking.
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+106

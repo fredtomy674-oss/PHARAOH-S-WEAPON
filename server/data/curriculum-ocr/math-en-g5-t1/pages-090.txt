@@ -1,0 +1,72 @@
+UNIT
+4
+CONCEPT 1
+Models for Division
+A.
+31
+3,622
+- 3,100
+522
+100
+522
+- 310
+212
+10
+100+ 10+ 6 = 116 R 26
+6
+212
+- 186
+26
+B.
+1,050
+- 700
+350
+100
+50
+350
+- 350
+0
+100+ 50 = 150
+C.
+81
+9,234
+- 8,100
+1,134
+1,134
+- 810
+324
+324
+- 162
+162
+162
+- 162
+0
++
++
++
+CONNECT
+Writing About Math: Error Analysis Look at the problem, and analyze the
+student's area model. Identify what the student did incorrectly.
+Divide: 2,852 24 =
+Student's area model:
+24 2,852
+10
+2,852
+24-240
+2,612
+5
+2,612
+120
+2,492
+100
+2,492
+2,400
+92
+3
+92
+72
+20
+2,85224 = 20
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+82

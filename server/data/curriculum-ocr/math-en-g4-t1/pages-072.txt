@@ -1,0 +1,29 @@
+UNIT 4
+CONCEPT 1
+Explore Area and Perimeter
+
+LESSON 3
+Unknown Dimensions
+Learning Target
+• I can use formulas to calculate unknowns when given some dimensions of rectangles.
+
+ACCESS
+Error Analysis Analyze the student’s work and answer that follow. Identify what the student did correctly and incorrectly, and then try to solve the problem correctly.
+Amir is a myrmecologist who found a large fire ant mound. He placed string around the outside of the mound in a rectangular shape so that he could study the mound safely. The width of the rectangle was 8 meters and the length of the rectangle was 12 meters. How many square meters are roped off to study?
+Student’s Solution:
+There are 40 meters of ground to study. 8 + 8 + 12 + 12 = 40.
+
+| What did the student do correctly? | What did the student do incorrectly? Why do you think they made this error? | Try to solve the problem correctly and explain your thinking. |
+| :--- | :--- | :--- |
+| | | |
+
+BUILD
+Mystery Dimension Work with a partner to answer the questions about the rectangles.
+x units
+5 units
+Perimeter = 26 units
+
+1. What is known about this rectangle?
+2. What is unknown about this rectangle?
+
+64 |

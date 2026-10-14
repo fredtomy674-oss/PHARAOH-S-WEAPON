@@ -1,0 +1,26 @@
+UNIT 6 CONCEPT 1
+Evaluating Numerical Expressions and Patterns
+
+CONNECT
+The Right Route Ali drives a bus route through the city. His stops follow the order of operations for evaluating the expression.
+300.53 - 11.04 × 0.2 ÷ 0.01 + 13.07
+
+| STOP 1 | STOP 2 | STOP 3 | STOP 4 |
+| :--- | :--- | :--- | :--- |
+| A. 300.53 - 11.04 | E. 2.208 ÷ 0.01 | J. 57.898 ÷ 0.01 | N. 5,789.8 + 13.07 |
+| B. 11.04 × 0.2 | F. 0.2 ÷ 13.08 | K. 220.8 + 13.07 | P. 79.73 + 13.07 |
+| C. 0.2 ÷ 0.01 | G. 289.49 × 0.2 | L. 289.49 × 20 | Q. 300.53 - 233.87 |
+| D. 0.01 + 13.07 | H. 11.04 × 20 | M. 300.53 - 220.8 | R. 57.898 + 13.07 |
+
+Record the letters of the correct stops along his route to show the steps for evaluating the expression.
+1. Stop 1: ________
+3. Stop 3: ________
+2. Stop 2: ________
+4. Stop 4: ________
+
+Tour Bus
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+122

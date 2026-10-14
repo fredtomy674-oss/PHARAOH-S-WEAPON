@@ -1,0 +1,17 @@
+CHAPITRE 3
+
+Leçon 9 : L'ordre des nombres
+APPLICATION
+Guidage : Écris les nombres du plus petit au plus grand.
+17 9 2 3 8
+
+Guidage : Écris les nombres du plus petit au plus grand.
+11 156 4 23 17
+
+Guidage : Écris les nombres du plus grand au plus petit .
+4 13 29 33 23
+
+Guidage : Écris les nombres du plus grand au plus petit .
+28 4 38 241 34
+
+2ème Primaire 39

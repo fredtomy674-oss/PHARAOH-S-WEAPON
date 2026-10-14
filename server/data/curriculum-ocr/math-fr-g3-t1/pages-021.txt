@@ -1,0 +1,33 @@
+Chapitre 2
+
+LEÇON 5: LES MATRICES
+APPLICATION
+GUIDAGE: Observe chaque matrice d'étoiles et écris le nombre de «lignes» et le nombre
+d'étoiles dans chaque matrice. Ensuite, trouve le total des étoiles. Utilise la page suivante
+pour illustrer la méthode que tu as utilisée pour trouver le total
+
+1.
+Nombre de lignes: ________
+Nombre d'étoiles dans
+chaque ligne: ________
+Nombre total des étoiles ________
+
+2.
+Nombre de lignes: ________
+Nombre d'étoiles dans
+chaque ligne: ________
+Nombre total des étoiles ________
+
+3.
+Nombre de lignes: ________
+Nombre d'étoiles dans
+chaque ligne: ________
+Nombre total des étoiles ________
+
+4.
+Nombre de lignes: ________
+Nombre d'étoiles dans
+chaque ligne: ________
+Nombre total des étoiles ________
+
+3ème PRIMAIRE 17

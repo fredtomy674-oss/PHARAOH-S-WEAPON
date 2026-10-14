@@ -1,0 +1,17 @@
+How does the standard algorithm work?
+• Work from bottom to top.
+• Work from right to left.
+• Start with the Ones place.
+• Remember place value as you multiply.
+• Line up the products by place value before you add them together.
+
+Standard Multiplication Algorithm
+
+1. Fill in the area model.
+20
+6
+30
+3
+E. Final product:
+
+Lesson 3: Multiplying by a 2-digit number using the algorithm 73

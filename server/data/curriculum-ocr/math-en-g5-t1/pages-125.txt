@@ -1,0 +1,22 @@
+1. 9)121.1
+
+3. 16)62.24
+
+5. 30)589.5
+
+2. 5)51.65
+
+4. 6)73.02
+
+CONNECT
+No Hibiscus Left Over Read the problem carefully. Then, use the standard
+algorithm for division to find the quotients.
+Dalia wants to pour 20 liters of hibiscus equally into 50 cups. How much hibiscus
+(in liters) will be in each cup?
+
+Hibiscus Leaves
+
+Check Your Understanding
+Follow your teacher's instructions to complete this activity.
+
+Lesson 12: Dividing Decimals by Whole Numbers 117

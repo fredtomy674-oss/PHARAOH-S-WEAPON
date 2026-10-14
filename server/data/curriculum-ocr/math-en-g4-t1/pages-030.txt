@@ -1,0 +1,45 @@
+UNIT 1
+CONCEPT 2
+Using Place Value
+
+to the given place value. Remember to circle the digit in the place value you are
+rounding and draw an arrow to show “looking next door.” The first one is done for you.
+
+Round the numbers to the nearest Thousand.
+1. 234,432 ≈ ____________________
+2. 7,578 ≈ ____________________
+
+Round the numbers to the nearest Ten Thousand.
+3. 290,290 ≈ ____________________
+4. 7,435,026,353 ≈ ____________________
+
+Round the numbers to the nearest Million.
+5. 5,367,544 ≈ ____________________
+6. 2,453,000,601 ≈ ____________________
+
+Round the numbers to the nearest Milliard.
+7. 5,266,747,023 ≈ ____________________
+8. 10,944,352,543 ≈ ____________________
+
+CONNECT
+Which Strategy is Best? Rounding numbers can help you determine whether or
+not your answer is reasonable. Look at the two rounding examples that follow.
+47 → 40
++ 31 → + 30
+70
+Front-End
+Estimate Strategy
+47 → 50
++ 31 → + 30
+80
+Rounding Rule
+Strategy
+
+Actual Answer: 47 + 31 = 78
+
+Explain Which rounding strategy is more accurate. How do you know?
+
+Check Your Understanding
+Follow your teacher’s instructions to complete this activity.
+
+22 |

@@ -1,0 +1,13 @@
+CHAPTER 5
+
+Three-Dimensional Shape Attribute Rules
+
+Shapes with 4 or more faces
+Shapes with 0 edges, faces, or vertices
+Shapes with 1 vertex
+
+Shapes with 6 or more edges
+Shapes with at least 1 circle face
+Shapes with more than 2 faces but fewer than 6
+
+70 PRIMARY 2 - TERM 1

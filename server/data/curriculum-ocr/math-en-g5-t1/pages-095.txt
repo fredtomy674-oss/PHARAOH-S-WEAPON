@@ -1,0 +1,35 @@
+LESSON 4
+The relation between division
+and multiplication
+
+Learning Targets
+• I can use the standard algorithm to divide by a 2-digit divisor.
+• I can use multiplication to check answers to division problems.
+
+ACCESS
+Error Analysis Ayman says that 8,858 ÷ 43 = 26. Analyze Ayman's work. Do you
+agree or disagree with his solution? Explain your thinking.
+26
+43)8,858
+- 86
+258
+- 258
+0
+
+BUILD
+Keep the Leftovers
+
+Play the game with your partner to practice checking division answers using
+multiplication.
+1. Decide who goes first.
+2. Player 1 starts with 200 and chooses a divisor from the list. Players cross
+out the divisor so it cannot be used again.
+3. Player 1 solves the division problem and announces the solution.
+Example: 200 ÷ 17 = 11 R13.
+4. Player 2 uses multiplication and addition to check. Example:
+17 × 11 = 187. 187 + 13 = 200.
+5. When you and your partner agree on the solution, write the equation on
+the record sheet. Circle the remainder and write Player 1's initials next to
+the problem.
+
+Lesson 4: The relation between division and multiplication 87

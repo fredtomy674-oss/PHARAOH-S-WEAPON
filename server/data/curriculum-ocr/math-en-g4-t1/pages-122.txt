@@ -1,0 +1,30 @@
+UNIT 7
+CONCEPT 2
+Dividing by 1-Digit Divisors
+
+HANDS-ON
+ACTIVITY
+Division Array Game
+
+5. Player A’s score is the number in the “number of rows” column. If all the squares were used in the array (no remainders), then Player A’s score is double the number of rows.
+6. Keep track of the score in the chart. The player with the highest total score after 5 rounds wins.
+
+| Round | Total Number of Squares (Dividend) | Squares per Row (Divisor) | Number of Rows (Quotient) | Leftover Squares (Remainder) | Score |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Example | 23 | 4 | 5 | 3 | 5 |
+| 1 | | | | | |
+| 2 | | | | | |
+| 3 | | | | | |
+| 4 | | | | | |
+| 5 | | | | | |
+| | | | | Total Score | |
+
+BUILD
+Division Patterns Label the parts in the equation using the words divisor, dividend, and quotient. Then, look for patterns to complete the remaining problems. The first problem in the table is an example that is filled in for you.
+
+600 ÷ 3 = Answer
+600 is called the ____________________.
+3 is called the ____________________.
+The answer is called the ____________________.
+
+114

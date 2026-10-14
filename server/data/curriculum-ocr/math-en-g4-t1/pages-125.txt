@@ -1,0 +1,29 @@
+UNIT 7
+CONCEPT 2
+Dividing by 1-Digit Divisors
+
+LESSON 9
+The Partial Quotients Algorithm
+
+Learning Target
+• I can use the partial quotients algorithm to solve division problems.
+
+ACCESS
+Model Match Write the division problem that matches each area model.
+Remember to include the quotient and remainder, if there is one.
+
+1. 6
+300 60 18
+50 10 3
+
+2. 4
+4,000 1,200 400 28
+1,000 300 100 7 R3
+
+BUILD
+Partial Quotients Algorithm Solve each problem using the partial quotients algorithm. Decide who will solve each problem with your group. You will each teach each other how to solve your problem.
+
+Example
+4 | 897
+
+Lesson 9: The Partial Quotients Algorithm | 117

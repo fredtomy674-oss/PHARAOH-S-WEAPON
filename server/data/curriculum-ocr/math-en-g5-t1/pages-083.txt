@@ -1,0 +1,30 @@
+LESSON 4
+Multiplying Multi-Digit Numbers
+
+Learning Targets
+• I can multiply 4-digit numbers by 2-digit numbers using the standard algorithm.
+• I can use estimation to check the reasonableness of my answers.
+
+ACCESS
+Error Analysis Read the problem and complete the error analysis.
+
+Ashraf evaluated 357 × 36 using the standard algorithm. Analyze Ashraf's work. Identify what Ashraf did correctly and incorrectly, and then solve the problem.
+
+   1
+  34
+  357
+×  36
+-------
+ 2,142
++ 10,521
+-------
+ 12,663
+
+1. What did Ashraf do correctly?
+2. What did Ashraf do incorrectly?
+3. Try to solve the problem correctly. Explain your thinking.
+
+BUILD
+More Digits, More Fun Follow your teacher's directions to complete the learning activity.
+
+Lesson 4: Multiplying Multi-Digit Numbers 75

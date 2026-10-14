@@ -1,0 +1,26 @@
+Chapitre 2
+
+LEÇON1: LES MILLIERS
+APPLICATION
+GUIDAGE: Retourne une carte et écris le chiffre dans l'une des cases de valeur de position.
+Tu peux utiliser la case «Ignorer» une fois. Après avoir écrit le chiffre, tu ne peux pas
+changer son emplacement. Après avoir rempli les cinq cases, compare les chiffres que tu
+as obtenus avec les chiffres de tes camarades de classe
+Le but: Former le plus grand nombre dans le groupe .
+
+Exemple pour entraînement :
+Milliers | Centaines | Dizaines | Unités | Ignorer
+
+1er tour :
+Milliers | Centaines | Dizaines | Unités | Ignorer
+
+2ème tour
+Milliers | Centaines | Dizaines | Unités | Ignorer
+
+3ème tour
+Milliers | Centaines | Dizaines | Unités | Ignorer
+
+4ème tour
+Milliers | Centaines | Dizaines | Unités | Ignorer
+
+10 3ème PRIMAIRE
