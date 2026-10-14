@@ -347,6 +347,90 @@ import {
   assertTreeMatchesTheBook as assertEnglishKg2TreeMatchesBook,
 } from "./egyptEnglishKg2T1.js";
 import {
+  EGYPT_ARABIC_G4_T1_SECTIONS,
+  lessonDocument as arabicG4LessonDocument,
+  isConsistent as isArabicG4TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicG4TreeMatchesBook,
+} from "./egyptArabicG4T1.js";
+import {
+  EGYPT_MATH_G2_T1_UNITS,
+  lessonDocument as mathG2LessonDocument,
+  isConsistent as isMathG2TreeConsistent,
+  assertTreeMatchesTheBook as assertMathG2TreeMatchesBook,
+} from "./egyptMathG2T1.js";
+import {
+  EGYPT_MATH_G3_T1_UNITS,
+  lessonDocument as mathG3LessonDocument,
+  isConsistent as isMathG3TreeConsistent,
+  assertTreeMatchesTheBook as assertMathG3TreeMatchesBook,
+} from "./egyptMathG3T1.js";
+import {
+  EGYPT_ARABIC_G5_T1_SECTIONS,
+  lessonDocument as arabicG5LessonDocument,
+  isConsistent as isArabicG5TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicG5TreeMatchesBook,
+} from "./egyptArabicG5T1.js";
+import {
+  EGYPT_MATH_G4_T1_UNITS,
+  lessonDocument as mathG4LessonDocument,
+  isConsistent as isMathG4TreeConsistent,
+  assertTreeMatchesTheBook as assertMathG4TreeMatchesBook,
+} from "./egyptMathG4T1.js";
+import {
+  EGYPT_MATH_G5_T1_UNITS,
+  lessonDocument as mathG5LessonDocument,
+  isConsistent as isMathG5TreeConsistent,
+  assertTreeMatchesTheBook as assertMathG5TreeMatchesBook,
+} from "./egyptMathG5T1.js";
+import {
+  EGYPT_MATH_EN_G2_T1_UNITS,
+  lessonDocument as mathEnG2LessonDocument,
+  isConsistent as isMathEnG2TreeConsistent,
+  assertTreeMatchesTheBook as assertMathEnG2TreeMatchesBook,
+} from "./egyptMathEnG2T1.js";
+import {
+  EGYPT_SCIENCE_G4_T1_UNITS,
+  lessonDocument as scienceG4LessonDocument,
+  isConsistent as isScienceG4TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceG4TreeMatchesBook,
+} from "./egyptScienceG4T1.js";
+import {
+  EGYPT_SCIENCE_G5_T1_UNITS,
+  lessonDocument as scienceG5LessonDocument,
+  isConsistent as isScienceG5TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceG5TreeMatchesBook,
+} from "./egyptScienceG5T1.js";
+import {
+  EGYPT_MATH_EN_G4_T1_UNITS,
+  lessonDocument as mathEnG4LessonDocument,
+  isConsistent as isMathEnG4TreeConsistent,
+  assertTreeMatchesTheBook as assertMathEnG4TreeMatchesBook,
+} from "./egyptMathEnG4T1.js";
+import {
+  EGYPT_MATH_EN_G5_T1_UNITS,
+  lessonDocument as mathEnG5LessonDocument,
+  isConsistent as isMathEnG5TreeConsistent,
+  assertTreeMatchesTheBook as assertMathEnG5TreeMatchesBook,
+} from "./egyptMathEnG5T1.js";
+import {
+  EGYPT_MATH_FR_G2_T1_UNITS,
+  lessonDocument as mathFrG2LessonDocument,
+  isConsistent as isMathFrG2TreeConsistent,
+  assertTreeMatchesTheBook as assertMathFrG2TreeMatchesBook,
+} from "./egyptMathFrG2T1.js";
+import {
+  EGYPT_MATH_FR_G3_T1_UNITS,
+  lessonDocument as mathFrG3LessonDocument,
+  isConsistent as isMathFrG3TreeConsistent,
+  assertTreeMatchesTheBook as assertMathFrG3TreeMatchesBook,
+} from "./egyptMathFrG3T1.js";
+import {
+  EGYPT_SCIENCE_FR_G5_T1_UNITS,
+  lessonDocument as scienceFrG5LessonDocument,
+  isConsistent as isScienceFrG5TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceFrG5TreeMatchesBook,
+} from "./egyptScienceFrG5T1.js";
+import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
   isConsistent as isDiscoveryEnKg1TreeConsistent,
@@ -4685,6 +4769,659 @@ function verifyEnglishKg2Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-4 (Grade 4) **Arabic** — OFFICIAL curriculum (PHASE 141).
+ *
+ * The first term IS the Ministry Arabic book for Grade 4. The printed-page → scan map is
+ * a constant +1 and the term runs over printed pages 6–139 (134 pages, all with a text
+ * layer); scans 1–6 are front matter and 145–146 back matter. Books 140–143 are the
+ * listening appendix, wired as `extraBookPages` on the owning listening lessons.
+ * A lesson is each printed lesson; its `concepts` are the lesson's own printed heads,
+ * verbatim in Arabic.
+ */
+export const EGYPT_ARABIC_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g4-arabic", title: "اللغة العربية للصف الرابع الابتدائي" },
+  terms: [buildEgyptArabicG4Term()],
+};
+
+/** Term 1 = the official Grade-4 Arabic book: printed unit → printed lesson. */
+function buildEgyptArabicG4Term(): TermSeedSpec {
+  const check = verifyArabicG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_G4_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g4-ara-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicG4LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 Arabic tree verification, as one verdict. */
+function verifyArabicG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicG4TreeConsistent();
+  const book = assertArabicG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-2 (Grade 2) **Mathematics** — OFFICIAL curriculum (PHASE 141).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 2. The printed-page → scan
+ * map is a constant +4 and the term runs over printed pages 2–87 (86 pages, all with a
+ * text layer); scans 1–5 are front matter and 92 back matter. A lesson is each printed
+ * درس; its `concepts` are the lesson head plus the printed «التطبيق» and «تأمل» bands,
+ * verbatim in Arabic.
+ */
+export const EGYPT_MATH_G2_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-2", name: "Grade 2", nameAr: "الصف الثاني الابتدائي", levelOrder: 2 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g2-math", title: "الرياضيات للصف الثاني الابتدائي" },
+  terms: [buildEgyptMathG2Term()],
+};
+
+/** Term 1 = the official Grade-2 Mathematics book: printed chapter → printed lesson. */
+function buildEgyptMathG2Term(): TermSeedSpec {
+  const check = verifyMathG2Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (ثانية ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_G2_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g2-math-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathG2LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-2 Mathematics tree verification, as one verdict. */
+function verifyMathG2Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathG2TreeConsistent();
+  const book = assertMathG2TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-3 (Grade 3) **Mathematics** — OFFICIAL curriculum (PHASE 141).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 3. The printed-page → scan
+ * map is a constant +4 and the term runs over printed pages 2–107 (106 pages, all with
+ * a text layer); scans 1–5 are front matter and 112–113 back matter. A lesson is each
+ * printed درس; its `concepts` are the lesson head plus the printed activity bands,
+ * verbatim in Arabic.
+ */
+export const EGYPT_MATH_G3_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-3", name: "Grade 3", nameAr: "الصف الثالث الابتدائي", levelOrder: 3 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g3-math", title: "الرياضيات للصف الثالث الابتدائي" },
+  terms: [buildEgyptMathG3Term()],
+};
+
+/** Term 1 = the official Grade-3 Mathematics book: printed chapter → printed lesson. */
+function buildEgyptMathG3Term(): TermSeedSpec {
+  const check = verifyMathG3Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (ثالثة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_G3_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g3-math-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathG3LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-3 Mathematics tree verification, as one verdict. */
+function verifyMathG3Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathG3TreeConsistent();
+  const book = assertMathG3TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **Arabic** — OFFICIAL curriculum (PHASE 141).
+ *
+ * The first term IS the Ministry Arabic book for Grade 5. The printed-page → scan map is
+ * a constant +1 and the term runs over printed pages 6–138 (133 pages, all with a text
+ * layer); scans 1–6 are front matter and 145–146 back matter. Books 139–143 are the
+ * listening appendix, wired as `extraBookPages` on the owning listening lessons.
+ * A lesson is each printed lesson; its `concepts` are the lesson's own printed heads,
+ * verbatim in Arabic.
+ */
+export const EGYPT_ARABIC_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g5-arabic", title: "اللغة العربية للصف الخامس الابتدائي" },
+  terms: [buildEgyptArabicG5Term()],
+};
+
+/** Term 1 = the official Grade-5 Arabic book: printed unit → printed lesson. */
+function buildEgyptArabicG5Term(): TermSeedSpec {
+  const check = verifyArabicG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_G5_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-ara-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicG5LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 Arabic tree verification, as one verdict. */
+function verifyArabicG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicG5TreeConsistent();
+  const book = assertArabicG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 (Grade 4) **Mathematics** — OFFICIAL curriculum (PHASE 141).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 4. The printed-page → scan
+ * map is a constant +8 and the term runs over printed pages 3–127 (125 pages, all with
+ * a text layer); scans 1–10 are front matter and 136 back matter. A lesson is each
+ * printed درس; its `concepts` are the lesson head plus the printed activity bands,
+ * verbatim in Arabic.
+ */
+export const EGYPT_MATH_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g4-math", title: "الرياضيات للصف الرابع الابتدائي" },
+  terms: [buildEgyptMathG4Term()],
+};
+
+/** Term 1 = the official Grade-4 Mathematics book: printed unit → printed lesson. */
+function buildEgyptMathG4Term(): TermSeedSpec {
+  const check = verifyMathG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g4-math-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathG4LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 Mathematics tree verification, as one verdict. */
+function verifyMathG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathG4TreeConsistent();
+  const book = assertMathG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **Mathematics** — OFFICIAL curriculum (PHASE 141).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 5. The printed-page → scan
+ * map is a constant +11 and the term runs over printed pages 2–130 (129 pages, all with
+ * a text layer); scans 1–12 are front matter and 142 back matter. A lesson is each
+ * printed درس; its `concepts` are the lesson head plus the printed activity bands,
+ * verbatim in Arabic.
+ */
+export const EGYPT_MATH_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g5-math", title: "الرياضيات للصف الخامس الابتدائي" },
+  terms: [buildEgyptMathG5Term()],
+};
+
+/** Term 1 = the official Grade-5 Mathematics book: printed unit → printed lesson. */
+function buildEgyptMathG5Term(): TermSeedSpec {
+  const check = verifyMathG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-math-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathG5LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 Mathematics tree verification, as one verdict. */
+function verifyMathG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathG5TreeConsistent();
+  const book = assertMathG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-2 (Grade 2) **Mathematics (English-medium)** — OFFICIAL curriculum
+ * (PHASE 142).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 2. Book page = scan index
+ * (offset 0) and the term runs over printed pages 5–91 (87 pages, 73 with a text layer);
+ * scans 1–4 are front matter and 92–96 back matter. Fourteen scans never arrived; the
+ * lessons they belong to keep their contents-printed titles and ranges, and the absent
+ * pages are recorded in MISSING_SCANS. A lesson is each printed Lesson; its `concepts`
+ * are the lesson head plus the printed activity bands, verbatim in English.
+ */
+export const EGYPT_MATH_EN_G2_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-2", name: "Grade 2", nameAr: "الصف الثاني الابتدائي", levelOrder: 2 },
+  subject: { code: "math-en", name: "Mathematics (English)", nameAr: "الرياضيات (بالإنجليزية)" },
+  curriculum: { code: "eg-g2-math-en", title: "الرياضيات للصف الثاني الابتدائي (بالإنجليزية)" },
+  terms: [buildEgyptMathEnG2Term()],
+};
+
+/** Term 1 = the official Grade-2 Mathematics (English) book: printed chapter → printed lesson. */
+function buildEgyptMathEnG2Term(): TermSeedSpec {
+  const check = verifyMathEnG2Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالإنجليزية) ثانية ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_EN_G2_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g2-math-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathEnG2LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-2 Mathematics (English) tree verification, as one verdict. */
+function verifyMathEnG2Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathEnG2TreeConsistent();
+  const book = assertMathEnG2TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 (Grade 4) **Science** — OFFICIAL curriculum (PHASE 142).
+ *
+ * The first term IS the Ministry Science book for Grade 4. The printed-page → scan map
+ * is a constant +9 and the term runs over printed pages 1–117 (117 pages, all with a
+ * text layer); scans 1–9 are front matter and 127–128 back matter. A lesson is each
+ * printed درس; its `concepts` are the lesson head plus the verbatim «نشاط» heads,
+ * in Arabic.
+ */
+export const EGYPT_SCIENCE_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "science", name: "Science", nameAr: "العلوم" },
+  curriculum: { code: "eg-g4-science", title: "العلوم للصف الرابع الابتدائي" },
+  terms: [buildEgyptScienceG4Term()],
+};
+
+/** Term 1 = the official Grade-4 Science book: printed unit → printed lesson. */
+function buildEgyptScienceG4Term(): TermSeedSpec {
+  const check = verifyScienceG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g4-sci-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: scienceG4LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 Science tree verification, as one verdict. */
+function verifyScienceG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceG4TreeConsistent();
+  const book = assertScienceG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **Science** — OFFICIAL curriculum (PHASE 142).
+ *
+ * The first term IS the Ministry Science book for Grade 5. The printed-page → scan map
+ * is a constant +10 and the term runs over printed pages 1–117 (117 pages, all with a
+ * text layer); scans 1–10 are front matter and 128–129 back matter. A lesson is each
+ * printed درس; its `concepts` are the lesson head plus the verbatim «نشاط» heads,
+ * in Arabic.
+ */
+export const EGYPT_SCIENCE_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "science", name: "Science", nameAr: "العلوم" },
+  curriculum: { code: "eg-g5-science", title: "العلوم للصف الخامس الابتدائي" },
+  terms: [buildEgyptScienceG5Term()],
+};
+
+/** Term 1 = the official Grade-5 Science book: printed unit → printed lesson. */
+function buildEgyptScienceG5Term(): TermSeedSpec {
+  const check = verifyScienceG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-sci-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: scienceG5LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 Science tree verification, as one verdict. */
+function verifyScienceG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceG5TreeConsistent();
+  const book = assertScienceG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 (Grade 4) **Mathematics (English-medium)** — OFFICIAL curriculum
+ * (PHASE 142).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 4. The printed-page → scan
+ * map is a constant +8 and the term runs over printed pages 3–127 (125 pages, all with
+ * a text layer); scans 1–10 are front matter and 136–137 back matter. A lesson is each
+ * printed Lesson; its `concepts` are the lesson head plus the printed activity bands,
+ * verbatim in English.
+ */
+export const EGYPT_MATH_EN_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "math-en", name: "Mathematics (English)", nameAr: "الرياضيات (بالإنجليزية)" },
+  curriculum: { code: "eg-g4-math-en", title: "الرياضيات للصف الرابع الابتدائي (بالإنجليزية)" },
+  terms: [buildEgyptMathEnG4Term()],
+};
+
+/** Term 1 = the official Grade-4 Mathematics (English) book: printed unit → printed lesson. */
+function buildEgyptMathEnG4Term(): TermSeedSpec {
+  const check = verifyMathEnG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالإنجليزية) رابعة ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_EN_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g4-math-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathEnG4LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 Mathematics (English) tree verification, as one verdict. */
+function verifyMathEnG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathEnG4TreeConsistent();
+  const book = assertMathEnG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **Mathematics (English-medium)** — OFFICIAL curriculum
+ * (PHASE 142).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 5. The printed-page → scan
+ * map is a constant +8 and the term runs over printed pages 2–131 (130 pages, all with
+ * a text layer); scans 1–9 are front matter and 140 back matter. A lesson is each
+ * printed Lesson; its `concepts` are the lesson head plus the printed activity bands,
+ * verbatim in English.
+ */
+export const EGYPT_MATH_EN_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "math-en", name: "Mathematics (English)", nameAr: "الرياضيات (بالإنجليزية)" },
+  curriculum: { code: "eg-g5-math-en", title: "الرياضيات للصف الخامس الابتدائي (بالإنجليزية)" },
+  terms: [buildEgyptMathEnG5Term()],
+};
+
+/** Term 1 = the official Grade-5 Mathematics (English) book: printed unit → printed lesson. */
+function buildEgyptMathEnG5Term(): TermSeedSpec {
+  const check = verifyMathEnG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالإنجليزية) خامسة ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_EN_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-math-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathEnG5LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 Mathematics (English) tree verification, as one verdict. */
+function verifyMathEnG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathEnG5TreeConsistent();
+  const book = assertMathEnG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-2 (Grade 2) **Mathematics (French-medium)** — OFFICIAL curriculum
+ * (PHASE 142).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 2. Book page = scan index
+ * (offset 0) and the term runs over printed pages 5–91 (87 pages, all with a text
+ * layer); scans 1–4 are front matter and 92–96 back matter. A lesson is each printed
+ * Leçon; its `concepts` are the lesson head plus the printed «APPLICATION» and
+ * «Réfléchis» bands, verbatim in French.
+ */
+export const EGYPT_MATH_FR_G2_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-2", name: "Grade 2", nameAr: "الصف الثاني الابتدائي", levelOrder: 2 },
+  subject: { code: "math-fr", name: "Mathematics (French)", nameAr: "الرياضيات (بالفرنسية)" },
+  curriculum: { code: "eg-g2-math-fr", title: "الرياضيات للصف الثاني الابتدائي (بالفرنسية)" },
+  terms: [buildEgyptMathFrG2Term()],
+};
+
+/** Term 1 = the official Grade-2 Mathematics (French) book: printed chapter → printed lesson. */
+function buildEgyptMathFrG2Term(): TermSeedSpec {
+  const check = verifyMathFrG2Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالفرنسية) ثانية ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_FR_G2_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g2-math-fr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathFrG2LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-2 Mathematics (French) tree verification, as one verdict. */
+function verifyMathFrG2Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathFrG2TreeConsistent();
+  const book = assertMathFrG2TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-3 (Grade 3) **Mathematics (French-medium)** — OFFICIAL curriculum
+ * (PHASE 142).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 3. The printed-page → scan
+ * map is a constant +4 and the term runs over printed pages 1–106 (106 pages, all with
+ * a text layer); scans 1–4 are front matter and 111–112 back matter. A lesson is each
+ * printed Leçon; its `concepts` are the lesson head plus the printed activity bands,
+ * verbatim in French.
+ */
+export const EGYPT_MATH_FR_G3_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-3", name: "Grade 3", nameAr: "الصف الثالث الابتدائي", levelOrder: 3 },
+  subject: { code: "math-fr", name: "Mathematics (French)", nameAr: "الرياضيات (بالفرنسية)" },
+  curriculum: { code: "eg-g3-math-fr", title: "الرياضيات للصف الثالث الابتدائي (بالفرنسية)" },
+  terms: [buildEgyptMathFrG3Term()],
+};
+
+/** Term 1 = the official Grade-3 Mathematics (French) book: printed chapter → printed lesson. */
+function buildEgyptMathFrG3Term(): TermSeedSpec {
+  const check = verifyMathFrG3Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالفرنسية) ثالثة ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_FR_G3_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g3-math-fr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathFrG3LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-3 Mathematics (French) tree verification, as one verdict. */
+function verifyMathFrG3Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathFrG3TreeConsistent();
+  const book = assertMathFrG3TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **Science (French-medium)** — OFFICIAL curriculum
+ * (PHASE 142).
+ *
+ * The first term IS the Ministry Science book for Grade 5. The printed-page → scan map
+ * is a constant +11 and the term runs over printed pages 1–117 (117 pages, all with a
+ * text layer); scans 1–11 are front matter and 129–130 back matter. A lesson is each
+ * printed Leçon; its `concepts` are the lesson head plus the verbatim «Activité» heads,
+ * in French.
+ */
+export const EGYPT_SCIENCE_FR_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "science-fr", name: "Science (French)", nameAr: "العلوم (بالفرنسية)" },
+  curriculum: { code: "eg-g5-science-fr", title: "العلوم للصف الخامس الابتدائي (بالفرنسية)" },
+  terms: [buildEgyptScienceFrG5Term()],
+};
+
+/** Term 1 = the official Grade-5 Science (French) book: printed unit → printed lesson. */
+function buildEgyptScienceFrG5Term(): TermSeedSpec {
+  const check = verifyScienceFrG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم (بالفرنسية) خامسة ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_FR_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-sci-fr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: scienceFrG5LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 Science (French) tree verification, as one verdict. */
+function verifyScienceFrG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceFrG5TreeConsistent();
+  const book = assertScienceFrG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
  *
  * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
@@ -6413,6 +7150,20 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ARABIC_KG1_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_EN_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_KG2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_G2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_G3_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_EN_G2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_EN_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_EN_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_FR_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_FR_G2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_FR_G3_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
