@@ -78,9 +78,14 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
     if (unitId) listLessons(unitId).then(setLessons).catch(() => undefined);
   }, [unitId]);
 
+  // Subjects follow the picked grade: only what that grade teaches.
   useEffect(() => {
-    listSubjects().then(setSubjects).catch(() => undefined);
-  }, []);
+    if (!gradeId) {
+      setSubjects([]);
+      return;
+    }
+    listSubjects(gradeId).then(setSubjects).catch(() => undefined);
+  }, [gradeId]);
 
   /**
    * Ordered cascade (0 = country … 6 = unit). Changing a level invalidates every

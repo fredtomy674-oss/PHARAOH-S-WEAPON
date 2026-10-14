@@ -228,7 +228,86 @@ describe("PromptBuilder", () => {
   });
 
   // PHASE 48 — the room shows a real book page, so the tutor must be given it.
+  it("pins Arabic reading direction: the first letter is on the right, never the left", () => {
+    const lesson = {
+      countryNameAr: "مصر",
+      systemNameAr: "المنهج",
+      gradeNameAr: "رياض أطفال 1",
+      subjectNameAr: "اللغة العربية",
+      curriculumTitle: "المنهج",
+      termTitle: "الفصل",
+      unitTitle: "الوحدة",
+      lessonTitle: "الدرس",
+      conceptTitles: [],
+    };
+    // Arabic replies carry the direction rule (observed live: a weak model told
+    // a KG student the first letter of an Arabic line stands "on the left").
+    const ar = builder.build({
+      intent: "explanation",
+      question: "سؤال",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+    });
+    expect(ar.messages[0]!.content).toContain("من اليمين إلى اليسار");
+    expect(ar.messages[0]!.content).toContain("أول السطر");
+    // LTR reply languages must not inherit it: first means left there.
+    const en = builder.build({
+      intent: "explanation",
+      question: "question",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+      language: "en",
+    });
+    expect(en.messages[0]!.content).not.toContain("من اليمين إلى اليسار");
+  });
+
   describe("the page open in front of the student", () => {
+  it("names the stage page as a seen book page, never as an uploaded photo", () => {
+    const lesson = {
+      countryNameAr: "مصر",
+      systemNameAr: "المنهج",
+      gradeNameAr: "رياض أطفال 1",
+      subjectNameAr: "اللغة العربية",
+      curriculumTitle: "المنهج",
+      termTitle: "الفصل",
+      unitTitle: "الوحدة",
+      lessonTitle: "الدرس",
+      conceptTitles: [],
+    };
+    // The turn carries the open stage page as vision (no student upload): the
+    // prompt must say the model sees the book, not a photo the student sent.
+    const staged = builder.build({
+      intent: "explanation",
+      question: "ماذا ترى في الصورة؟",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+      hasImage: true,
+      stageImagePage: 6,
+    });
+    expect(staged.messages[0]!.content).toContain("صفحة 6");
+    expect(staged.messages[0]!.content).not.toContain("أرفق الطالب صورة");
+    // A question about what is drawn on the open page is answerable from the
+    // stage image, never redirected as off-lesson.
+    expect(staged.messages[0]!.content).toContain("ليس خارج الدرس");
+    // A genuine upload keeps the old wording.
+    const uploaded = builder.build({
+      intent: "explanation",
+      question: "ما هذا؟",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+      hasImage: true,
+    });
+    expect(uploaded.messages[0]!.content).toContain("أرفق الطالب صورة لسؤاله");
+  });
+
     const lesson = {
       countryNameAr: "مصر",
       systemNameAr: "المنهج",

@@ -357,8 +357,10 @@ export async function listGrades(systemId: string): Promise<Grade[]> {
   return res.grades;
 }
 
-export async function listSubjects(): Promise<Subject[]> {
-  const res = await api<{ subjects: Subject[] }>("/curriculum/subjects");
+export async function listSubjects(gradeId?: string): Promise<Subject[]> {
+  const res = await api<{ subjects: Subject[] }>(
+    gradeId ? `/curriculum/subjects?gradeId=${encodeURIComponent(gradeId)}` : "/curriculum/subjects",
+  );
   return res.subjects;
 }
 

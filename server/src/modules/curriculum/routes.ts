@@ -34,7 +34,17 @@ export const curriculumRoutes: FastifyPluginAsync = async (app) => {
     return { grades: await app.curriculum.listGrades(systemId) };
   });
 
-  app.get("/subjects", async () => ({ subjects: await app.curriculum.listSubjects() }));
+  app.get("/subjects", async (request) => {
+    // Optional: scoped to the picked grade, only subjects that grade teaches.
+    // Absent: the full catalog (backward compatible).
+    const query = request.query as Record<string, unknown>;
+    const raw = query.gradeId;
+    const gradeId = typeof raw === "string" && raw.length > 0 ? raw : undefined;
+    if (gradeId !== undefined && !idPattern.test(gradeId)) {
+      throw Errors.badRequest("المعامل gradeId غير صالح", "INVALID_QUERY_PARAM");
+    }
+    return { subjects: await app.curriculum.listSubjects(gradeId) };
+  });
 
   app.get("/curricula", async (request) => {
     const query = request.query as Record<string, unknown>;

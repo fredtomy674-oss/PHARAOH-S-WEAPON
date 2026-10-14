@@ -225,12 +225,15 @@ export class GeminiLLMProvider implements LLMProvider {
    */
   private buildBody(request: LLMRequest): Record<string, unknown> {
     const system = request.messages.filter((m) => m.role === "system").map((m) => m.content).join("\n\n");
-    const contents = request.messages
-      .filter((m) => m.role !== "system")
+    const nonSystem = request.messages.filter((m) => m.role !== "system");
+    const contents = nonSystem
       .map((m, i) => {
         const parts: { text?: string; inlineData?: { mimeType: string; data: string } }[] = [{ text: m.content }];
-        // Attach images to the LAST user turn (multimodal input).
-        const isLastUser = i === request.messages.length - 1 && m.role === "user";
+        // Attach images to the LAST user turn (multimodal input). The index is
+        // into the filtered (non-system) turns: comparing it against the full
+        // array length silently drops every image whenever a system message
+        // exists — i.e. on every real tutor turn.
+        const isLastUser = i === nonSystem.length - 1 && m.role === "user";
         if (isLastUser && request.images && request.images.length > 0) {
           for (const img of request.images) {
             parts.push({ inlineData: { mimeType: img.mimeType, data: img.base64 } });

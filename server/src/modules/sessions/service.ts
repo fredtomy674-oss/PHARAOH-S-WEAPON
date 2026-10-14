@@ -20,7 +20,7 @@ import type { AchievementService } from "../achievements/service.js";
 import type { SubscriptionService } from "../subscription/service.js";
 import type { DocumentInput, ImageInput } from "../ai/types.js";
 import type { CurriculumService } from "../curriculum/service.js";
-import { stageForLesson } from "../curriculum/bookStage.js";
+import { readPageImage, stageForLesson } from "../curriculum/bookStage.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import type { TutorEngine } from "../tutor/tutorEngine.js";
 import type { AuditService } from "../audit/service.js";
@@ -617,7 +617,20 @@ export class SessionService {
     // the printed page with the student's marks on it, which is exactly what the
     // tutor needs to see. It is one vision input, not a photo plus an image.
     const pictures = image ?? ink;
-    const images: ImageInput[] | undefined = pictures ? [{ mimeType: pictures.mimeType, base64: pictures.base64 }] : undefined;
+    // The tutor sees the open book page: with no attached picture but a resolved
+    // stage page, the printed page image travels as this turn's vision input, so
+    // a question about anything drawn on the page (a picture, a letter's shape
+    // or place) is answerable from sight, not from OCR text alone. An attached
+    // picture always wins: the two never mix, and the engine is told which one
+    // it got (see stageImagePage) so the prompt never claims an upload.
+    const stageImagePage = !pictures && viewingPage !== undefined ? viewingPage : undefined;
+    const stageImageBytes =
+      stageImagePage !== undefined ? readPageImage(breadcrumb.curriculum.code, stageImagePage) : null;
+    const images: ImageInput[] | undefined = pictures
+      ? [{ mimeType: pictures.mimeType, base64: pictures.base64 }]
+      : stageImageBytes
+        ? [{ mimeType: "image/jpeg", base64: stageImageBytes.toString("base64") }]
+        : undefined;
     const documents: DocumentInput[] | undefined =
       document && documentText.trim().length > 0
         ? [{ fileName: document.fileName, mimeType: document.mimeType, text: documentText }]
@@ -627,6 +640,9 @@ export class SessionService {
       session,
       question: content,
       images,
+      // The stage page the vision image shows (absent for uploads): without it
+      // the prompt would misdescribe the book as a student-uploaded photo.
+      ...(stageImageBytes && stageImagePage !== undefined ? { stageImagePage } : {}),
       documents,
       breadcrumb,
       userId: studentRow.userId,

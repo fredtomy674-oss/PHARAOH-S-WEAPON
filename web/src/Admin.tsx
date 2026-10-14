@@ -121,9 +121,17 @@ export function AdminScreen({ onBack, onLogout }: Props) {
     listCountries().then(setCountries).catch(() => setError("تعذر تحميل الدول"));
   }, []);
 
+  // Subjects follow the picked grade: only what that grade teaches.
+  // Changing the grade invalidates everything below it (same cascade as
+  // Onboarding's clearBelow: a stale subject from another grade must not stay
+  // selected while the list reloads).
   useEffect(() => {
-    listSubjects().then(setSubjects).catch(() => undefined);
-  }, []);
+    if (!gradeId) {
+      setSubjects([]);
+      return;
+    }
+    listSubjects(gradeId).then(setSubjects).catch(() => undefined);
+  }, [gradeId]);
 
   useEffect(() => {
     if (!countryId) return;
@@ -472,7 +480,7 @@ export function AdminScreen({ onBack, onLogout }: Props) {
               <div className="grid-2">
                 <label className="field">
                   <span>الصف</span>
-                  <select data-testid="select-grade" value={gradeId} onChange={(e) => setGradeId(e.target.value)}>
+                  <select data-testid="select-grade" value={gradeId} onChange={(e) => { setGradeId(e.target.value); setSubjectId(""); setCurriculumId(""); setCurricula([]); setTermId(""); setTerms([]); setUnitId(""); setUnits([]); setLessons([]); setSelectedLesson(null); }}>
                     <option value="">اختر الصف…</option>
                     {grades.map((g) => (
                       <option key={g.id} value={g.id}>

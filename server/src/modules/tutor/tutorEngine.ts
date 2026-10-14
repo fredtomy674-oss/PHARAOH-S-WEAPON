@@ -38,6 +38,14 @@ export interface TutorHandleInput {
   question: string;
   /** Photos attached to this turn (Vision: a student's photographed question). */
   images?: ImageInput[];
+  /**
+   * The printed book page the attached stage image shows (validated by the
+   * caller against the lesson's own stage). Set only when `images` carries the
+   * stage page itself rather than a student attachment: the prompt then names
+   * what the model sees truthfully instead of claiming the student uploaded a
+   * photo. An attached picture always wins, so the two never mix.
+   */
+  stageImagePage?: number;
   /** Documents attached to this turn (student-uploaded file, extracted text is untrusted). */
   documents?: DocumentInput[];
   breadcrumb: CurriculumBreadcrumb;
@@ -458,7 +466,9 @@ export class TutorEngine {
       numericOrdering: looksLikeNumericOrdering(input.question),
       hasBookPages: (input.lessonPages?.length ?? 0) > 0,
       hasInk: input.ink !== undefined,
-      hasAttachment: (input.images?.length ?? 0) > 0 || hasDocument,
+      // A stage image is the book, not an upload: it must not flip the turn
+      // into "attachment" pedagogy (it rides on nearly every staged turn).
+      hasAttachment: ((input.images?.length ?? 0) > 0 && input.stageImagePage === undefined) || hasDocument,
       questionEmpty: input.question.trim().length === 0,
       prerequisite,
       nextConcept,
@@ -487,6 +497,8 @@ export class TutorEngine {
       // PHASE 50 — an ink turn is a vision turn: the only picture is the marked
       // page, so reading it means reading the student's own marks on the book.
       hasImage: (input.images?.length ?? 0) > 0,
+      // The stage page the attached vision image shows (absent for uploads).
+      stageImagePage: input.stageImagePage,
       ink: input.ink,
       documents: input.documents,
       language,

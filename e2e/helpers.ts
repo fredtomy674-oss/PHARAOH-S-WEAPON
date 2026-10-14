@@ -374,12 +374,17 @@ export async function startFirstLesson(page: Page): Promise<void> {
  * Full onboarding walk to a specific subject: country → system → grade →
  * subject (by label) → curriculum → term → unit → first lesson. PHASE 38 uses
  * it to reach the English curriculum under the same country/grade as Math.
+ *
+ * The grade is Grade 6 by label, not by position: since subjects are scoped to
+ * the picked grade, "first grade" (KG1) no longer offers every subject, so a
+ * positional pick silently lands on the wrong book. Grade 6 teaches both Math
+ * and English, which is all this walk's callers need.
  */
 export async function startLessonOfSubject(page: Page, subjectLabel: string): Promise<void> {
   await page.getByTestId("start-lesson").click();
   await selectOptionByLabel(page, "select-country", "مصر");
   await selectFirst(page, "select-system");
-  await selectFirst(page, "select-grade");
+  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
   await selectOptionByLabel(page, "select-subject", subjectLabel);
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");

@@ -40,7 +40,7 @@ async function pickTargetLesson(page: Page): Promise<void> {
   // math book.
   await selectOptionByLabel(page, "select-country", "مصر");
   await selectFirst(page, "select-system");
-  await selectFirst(page, "select-grade");
+  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
   await selectOptionByLabel(page, "select-subject", "الرياضيات");
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");
@@ -154,7 +154,7 @@ test("A5 (PHASE 28): the admin generates questions for questionless concepts in 
   // so the walk cannot silently land on English or on Saudi Arabia.
   await selectOptionByLabel(page, "select-country", "مصر");
   await selectFirst(page, "select-system");
-  await selectFirst(page, "select-grade");
+  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
   await selectOptionByLabel(page, "select-subject", "الرياضيات");
   await selectFirst(page, "select-curriculum");
 

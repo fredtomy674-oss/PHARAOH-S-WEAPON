@@ -41,8 +41,22 @@ export class CurriculumService {
     return this.db.db.select().from(grades).where(eq(grades.educationSystemId, systemId)).orderBy(asc(grades.levelOrder));
   }
 
-  async listSubjects() {
-    return this.db.db.select().from(subjects).orderBy(asc(subjects.nameAr));
+  /**
+   * Subjects, optionally scoped to a grade. With a grade, only subjects with at
+   * least one active curriculum for that grade come back: the picker must show
+   * what the grade actually teaches, not the whole catalog (every system and
+   * country shares the subjects table). Without a grade, the full catalog.
+   */
+  async listSubjects(gradeId?: string) {
+    if (!gradeId) return this.db.db.select().from(subjects).orderBy(asc(subjects.nameAr));
+    return this.db.db
+      .selectDistinct({ id: subjects.id, code: subjects.code, name: subjects.name, nameAr: subjects.nameAr })
+      .from(subjects)
+      .innerJoin(
+        curricula,
+        and(eq(curricula.subjectId, subjects.id), eq(curricula.gradeId, gradeId), eq(curricula.isActive, true)),
+      )
+      .orderBy(asc(subjects.nameAr));
   }
 
   async listCurricula(gradeId: string, subjectId: string) {
