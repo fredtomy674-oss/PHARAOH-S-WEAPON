@@ -1,0 +1,39 @@
+Critical thinking:
+Is the sum of two conjugate numbers always a real number? explain.
+Is the product of two conjugate numbers always a real number? explain
+
+Example
+5 Find the values of $x$ and $y$ which satisfy the equation:
+$$\frac{(2+\mathrm{i})(2-\mathrm{i})}{3+4\mathrm{i}}=x+\mathrm{i}y$$
+
+Solution
+$$\frac{4-\mathrm{i}^{2}}{3+4\mathrm{i}}=x+\mathrm{i}y$$
+$$\frac{4+1}{3+4\mathrm{i}}\times\frac{3-4\mathrm{i}}{3-4\mathrm{i}}=x+\mathrm{i}y$$
+$$\frac{5(3-4\mathrm{i})}{25}=x+\mathrm{i}y$$
+$$\frac{3}{5}-\frac{4}{5}\mathrm{i}=x+\mathrm{i}y$$
+$$\text{i.e.: } x=\frac{3}{5}\text{ , } y=-\frac{4}{5}$$
+
+By removing the parentheses
+multiply up and down the L.H.S by $3 - 4\mathrm{i}$
+simplify
+apply the equality of two complex numbers
+
+Try to solve
+5 Find in the simplest form, the value of each of the following:
+
+A $\frac{4-6\mathrm{i}}{2\mathrm{i}}$
+B $\frac{26}{3-2\mathrm{i}}$
+C $\frac{3-\mathrm{i}}{2-\mathrm{i}}$
+D $\frac{3+4\mathrm{i}}{5-2\mathrm{i}}$
+
+Example
+6 Electricity: Find the total electric current intensity passing through two resistances connected on parallel in a closed circuit, if the current intensity in the first resistance is $5-3\mathrm{i}$ ampere and the second resistance is $2+\mathrm{i}$ ampere ( given that the total current intensity equals the sum of the two current intensities which passes the two resistances)
+
+Solution
+$\because$ The total electric current intensity = the sum of the two current intensities passing in the two resistances.
+$\therefore = (5 - 3\mathrm{i}) + (2 + \mathrm{i})$
+$\therefore = (5 + 2) + (-3 + 1)\mathrm{i}$
+$\therefore = 7 - 2\mathrm{i}\text{ ampere}$
+
+8
+Mathematics - First form secondary

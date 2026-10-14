@@ -1,0 +1,35 @@
+Trigonometric Functions
+
+Try to solve
+2 If 90° < θ < 180°, sin θ = 4/5 find cos θ, tan θ where θ is an angle in the standard position
+in a unit circle.
+
+Example
+4 If the angle θ is drawn in the standard position and its terminal side passes through the
+point B (-3/5, 4/5).
+then fine all trigonometric ratios of the angle θ.
+Solution
+sin θ = 4/5 , cos θ = -3/5 = -3/5 , tan θ = 4/-3 = -4/3
+csc θ = 5/4 , sec θ = 5/-3 = -5/3 , cot θ = -3/4 = -3/4
+
+Try to solve
+3 Find all trigonometric ratios of angle θ drawn in the standard postion whose terminal side
+passes through the following points:
+A (5/13, 12/13) B (3/5, -4/5) C (-12/13, 5/13)
+
+Trigonometric ratios of some special angles
+In the figure opposite: the unit circle intersected the two
+axes at the points
+A1(1, 0), A2(0, 1), A3(-1, 0), A4(0, -1).
+and θ is the measure of the directed angle A O B in the
+standard position and its terminal side OB intersects the
+unit circle at B.
+first: If θ = 0° or θ° = 360° at: B(1, 0)
+then: cos 0° = cos 360° = 1 , sin 0° = sin 360° = 0,
+tan 0° = tan 360° = 0
+second: If θ° = 90° = π/2 at: B(0, 1)
+then: cos 90° = 0 , sin 90° = 1 , tan = 1/0 (undefied)
+third: If θ° = 180° = π at: B(-1, 0)
+then: cos 180° = -1 , sin 180° = 0 , tan 180° = 0
+
+Student book - First term 99

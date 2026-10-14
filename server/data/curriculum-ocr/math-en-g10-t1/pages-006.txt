@@ -1,0 +1,39 @@
+Unit
+1
+Algebra
+Algebra, relations and
+functions
+
+Unit objectives
+
+By the end of the unit, the student should be able to:
+* Find the sum and the product of the two roots of the
+quadratic equation in one variable.
+* Find some of the coefficients of terms of the
+quadratic equation in terms of one of the two roots
+or both of them.
+* Identify the discriminant of the quadratic equation
+in one variable.
+* Investigate the type of the two roots of the
+quadratic equation in one variable in terms of the
+coefficients of its terms.
+* Form the quadratic equation in one variable
+in terms of another quadratic equation in one
+variable.
+* Investigate the sign of a function.
+* Identify the introduction of the complex numbers
+(Definition of the complex number, powers of i,
+writing the complex number in the algebraic form,
+equality of two complex numbers)
+* Solve quadratic inequalities in one variable.
+
+Key - Terms
+* Equation
+* Root of the Equation
+* Coefficient of a Term
+* Discriminant of the Equation
+* Sign of a function
+* Complex Number
+* Imaginary Number
+* Powers of a Number
+* Inequality

@@ -1,0 +1,7 @@
+PRIMARY 3 - TERM 1 33
+CHAPTER 3
+REFLECT
+Directions: Reflect what you learn, to solve the following:
+1- If we have 6 seats, what is the number of different arrays can be created?
+2- Use the arrays to find al the pairs of factors for the numbers: 6 , 12 and 24
+LESSON 5: FACTORS OF A NUMBER USING ARRAYS

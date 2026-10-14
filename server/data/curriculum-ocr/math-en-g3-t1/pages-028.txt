@@ -1,0 +1,23 @@
+PRIMARY 3 - TERM 1 24
+CHAPTER 2
+APPLY, Part 1 continued
+Number of circles:
+Number of dots:
+Total number of dots:
+× =
+circles dots product
+Number of circles:
+Number of dots:
+Total number of dots:
+× =
+circles dots product
+Number of circles:
+Number of dots:
+Total number of dots:
+× =
+circles dots product
+Number of circles:
+Number of dots:
+Total number of dots:
+× =
+circles dots product

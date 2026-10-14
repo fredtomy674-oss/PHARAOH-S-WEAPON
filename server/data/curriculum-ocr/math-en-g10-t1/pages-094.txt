@@ -1,0 +1,64 @@
+4-2
+Systems of Measuring Angle
+
+You will Learn
+
+► Concept of radian measure of
+an angle.
+► Relation between radian and
+degree measure.
+► How to find the length of an
+arc in a circle.
+
+Think and discuss
+You have known that the degree measure is divided into degrees,
+minutes, and seconds, and one degree = 60 minutes, and one minute =
+60 seconds.
+Are there other measurements for the angle?
+
+Key - Terms
+
+► Degree Measure
+► Radian Measure
+► Radian Angle
+
+Materials
+
+► Scientific calculator.
+
+Radian Measure
+
+Group work
+
+1- Draw a set of concentric circles.
+2- Find the ratio of the length of the arc and
+the length of the radius of its corresponding
+circle what do you notice?
+
+B3
+B2
+B₁
+O A₁ A2 A3
+
+We notice that the ratio of the length of the arc of any central angle,
+and the radius of its corresponding circle equals constant quantity.
+
+i.e.: $\frac{\text{length of } \text{A}_1\text{B}_1}{\text{MA}_1} = \frac{\text{length of } \text{A}_2\text{B}_2}{\text{MA}_2} = \frac{\text{length of } \text{A}_3\text{B}_3}{\text{MA}_3} = \text{constant quantity.}$
+
+and this constant is the radian measure of the angle. The radian measure
+of the central angle $(\theta^{\text{rad}}) = \frac{\text{length of the arc which the central angle subtends}}{\text{Radius of this circle}}$
+
+Definition
+If $\theta^{\text{rad}}$ is the radian measure of the
+central angle in a circle of radian
+$r$ subtends an arc of length $l$, then
+length of the arc equals the product of
+the radian measure of the central angle
+and the radius of its circle:
+$l = \theta^{\text{rad}} \times r$
+
+From the definition we deduce that:
+$l = \theta^{\text{rad}} \times r \text{ , } r = \frac{l}{\theta^{\text{rad}}}$
+
+90
+Mathematics - First form secondary

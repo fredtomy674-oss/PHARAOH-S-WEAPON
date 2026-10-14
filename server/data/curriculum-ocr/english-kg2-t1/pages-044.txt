@@ -1,0 +1,16 @@
+It's Practice Time!
+
+Trace letter Dd in its upper and lowercase forms:
+
+D D D D D D D D D D
+d d d d d d d d d d
+
+Look and say, then circle the beginning letter.
+
+d - m
+j - m
+k - m
+d - m
+
+40
+Refer to page 113 to make your own poster.

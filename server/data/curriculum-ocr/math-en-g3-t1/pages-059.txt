@@ -1,0 +1,10 @@
+PRIMARY 3 - TERM 1 55
+CHAPTER 4
+Rectangle 3:
+Total area = square units
+Rectangle 4:
+Rectangle 5:
+Rectangle 6:
+Total area = square units
+Total area = square units
+Total area = square units

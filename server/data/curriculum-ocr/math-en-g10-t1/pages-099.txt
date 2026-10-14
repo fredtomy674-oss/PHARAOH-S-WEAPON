@@ -1,0 +1,63 @@
+4-3
+Trigonometric Functions
+
+Think and discuss
+You will Learn
+You have studied before the basic trigonometric ratios of an acute angle.
+In the right angled triangle ABC at B, we get:
+A
+$\sin C = \frac{\text{opposite side}}{\text{hypotenuse}} = \frac{\text{AB}}{\text{AC}}$
+$\cos C = \frac{\text{adjacent side}}{\text{hypotenuse}} = \frac{\text{BC}}{\text{AC}}$
+C
+B
+$\tan C = \frac{\text{opposite side}}{\text{adjacent side}} = \frac{\text{AB}}{\text{BC}}$
+
+1- In the figure opposite, express $\sin C$ in three different ratios.
+* Are these ratios equal? Explain your answer.
+* What do you deduce?
+
+Notice that:
+A
+D
+F
+C
+E
+B
+Key - Terms
+The triangles $\text{BAC}$, $\text{EFC}$ and $\text{DBC}$ are similar (why?)
+From similarity, then: $\frac{\text{BA}}{\text{AC}} = \frac{\text{EF}}{\text{FC}} = \frac{\text{DB}}{\text{BC}} = \sin C$ (why?)
+i.e.: the trigonometric ratio of an acute angle is constant and does not change except the angle itself is changed.
+
+2- The figure opposite shows a quarter of a circle of radius $r\text{ cm}$
+where: $m(\angle\text{DOC}) = \theta$
+$\sin\theta = \frac{\text{CD}}{r}$
+when $m(\angle\text{DOC})$ increases to $\alpha$
+then $\sin\alpha = \frac{\text{ML}}{r}$
+i.e. The trigonometric ratio varies as the measure of its angle, which is known as the trigonometric functions.
+B
+M
+r
+C
+0
+θ
+α
+L
+D
+A
+Learning tools
+► Scientific calculator.
+► Unit circle.
+► Basic trigonometric functions
+► Reciprocals of basic trigonometric functions.
+► Signs of the trigonometric functions.
+► Trigonometric functions of some special angles.
+► Trigonometric Function
+► Sine (sin)
+► Cosine (cos)
+► Tangent (tan)
+► Cosecant (csc)
+► Secant (sec)
+► Cotangent (cot)
+
+Student book - First term
+95

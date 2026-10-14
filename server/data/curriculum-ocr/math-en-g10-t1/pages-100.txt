@@ -1,0 +1,36 @@
+The unit circle
+In any orthogonal coordinate system, a circle of centre at the
+origin point and of radius equals the unit of length is called
+a unit circle.
+★ The unit circle intersects the x -axis at the two points
+A (1, 0) and B (-1, 0), and intersects the y-axis at the two
+points C (0, 1) and D (0, -1).
+★ If (x, y) are the coordinates of any point on the unit circle:
+then x ∈ [-1, 1] , y ∈ [-1, 1].
+where x² + y² = 1
+Phythagorean theorem
+
+The basic trigonometric functions of an angle
+for any directed angle in the standard position, and its terminal side intersects the unit circle
+at the point B(x, y) and its measure θ, it is possible to define the following functions:
+1- cosine of the angle θ = x-coordinate of point B
+i.e.: cos θ = x
+2- sine of the angle θ = y- coordinate of point B
+i.e.: sin θ = y
+3- tangent of the angle θ = y-coordinate of point B / x-coordinate of point B
+i.e.: tan θ = y/x where x ≠ 0 , tan θ = sin θ / cos θ where cos θ ≠ 0
+
+Notice that: the ordered pair (x, y) of any point on the unit circle is written in the form
+(cos θ, sin θ)
+If the point C (3/5, 4/5) is the point of intersection of the terminal side of a directed angle of
+measure θ with the unit circle
+then: cos θ = 3/5 , sin θ = 4/5 and tan θ = 4/3
+
+Reciprocals of the basic trigonometric functions
+For any directed angle in the standard position and its terminal side intersects the unit circle
+at the point B(x, y) and its measure is θ, then there are the following functions :
+1- secant of the angle θ : sec θ = 1/x = 1/cos θ where x ≠ 0
+2- Cosecant of the angle θ : csc θ = 1/y = 1/sin θ where y ≠ 0
+3- Cotangent of the angle θ : cot θ = x/y = 1/tan θ where y ≠ 0
+
+96 Mathematics - First form secondary

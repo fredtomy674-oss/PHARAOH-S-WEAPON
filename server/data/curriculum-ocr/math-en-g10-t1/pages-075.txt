@@ -1,0 +1,98 @@
+Parallel Lines and Proportional Parts
+
+D
+X D 8 A
+B
+X+2
+E
+3
+C
+
+E
+A
+27
+24
+E
+X
+D
+9
+C
+B
+
+F
+C
+5
+E
+X+2
+A
+7
+D 2X+1 B
+
+4 In the figure opposite: AB // DE and AE ∩ BD = {C}
+AC = 6cm, BC = 4cm and CD = 3cm.
+Find the length AE
+
+D
+3 cm
+6 cm
+C
+4 cm
+E
+B
+A
+
+5 XY ∩ ZL = {M}, where XZ // LY. If XM = 9cm, Y M = 15cm and ZL = 36 cm,
+find the length of ZM.
+
+6 For each of the following, use the figure opposite and the given data to find the value of x:
+A AD = 4 , BD = 8 , CE = 6 and AE = x.
+B AE = x , EC = 5 , AD = x - 2 and AD = 3.
+
+A
+E
+D
+C
+F
+B
+
+7 In each of the following figures, Is XY // BC?
+A
+B
+9 cm
+15 cm
+C
+Y
+12 cm
+18 cm
+A
+
+B
+C
+45 cm
+55 cm
+A
+77 cm
+63 cm
+X
+Y
+
+C
+B
+X
+20 cm
+C
+Y
+9 cm 15 cm
+A
+
+8 XYZ is a triangle in which XY= 14cm, XZ = 21cm and L ∋ XY where XL = 5,6cm and
+M ∋ XZ where XM = 8.4cm. Prove that LM // YZ
+
+9 In the triangle ABC, D ∋ AB , E ∋ AC , and 5AE = 4 EC.
+If AD = 10 cm and DB = 8cm. Is DE // BC? Explain your answer.
+
+10 ABCD is a quadrilateral, its diagonals are intersected at E. If AE = 6cm, BE = 13cm, EF
+= 10cm and EC = 7.8 cm. prove that ABCD is a trapezium.
+
+Student book - First term
+71

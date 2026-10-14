@@ -1,0 +1,11 @@
+Count and Say:
+
+I can see
+1 train.
+
+1
+
+I can see
+1 turtle.
+
+10

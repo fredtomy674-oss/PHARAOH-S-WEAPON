@@ -1,0 +1,45 @@
+Leçon 3: Utiliser l'algorithme standard pour diviser 86
+Diviser par des diviseurs à 2 chiffres
+UNITÉ
+4
+CONCEPT 2
+Essayons Divise en utilisant l'algorithme standard de division.
+1. 192 32
+2. 543 65
+3. 756 22
+4. 8 014 46
+FAIS LES LIENS
+Établir des liens Résous les problèmes suivants à l'aide de l'algorithme standard.
+Vérifie ton travail à l'aide du modèle de l’aire ou du modèle des quotients partiels.
+1. Dans son café, Rana vend des biscuits préparés par une boulangerie locale.
+Elle reçoit une commande de 350 biscuits. Rana met chaque 12 biscuits dans
+un sac. Résous pour trouver combien de sacs pleins, contenant 12 biscuits
+chacun, Rana peut-elle vendre parmi sa commande de 350 biscuits et combien
+de biscuits lui reste-t-il?
+2. Comment Rana peut-t-elle emballer les biscuits pour que chaque sac contienne
+le même nombre et sans qu’il y ait de reste ?
+Vérifie ton acquisition
+Suis les instructions de ton enseignant pour réaliser cette activité.
+Photo Credit: Lui, Tat Mun / Shutterstock.com Leçon 3: Utiliser l'algorithme standard pour diviser 86
+Diviser par des diviseurs à 2 chiffres
+UNITÉ
+4
+CONCEPT 2
+Essayons Divise en utilisant l'algorithme standard de division.
+1. 192 32
+2. 543 65
+3. 756 22
+4. 8 014 46
+FAIS LES LIENS
+Établir des liens Résous les problèmes suivants à l'aide de l'algorithme standard.
+Vérifie ton travail à l'aide du modèle de l’aire ou du modèle des quotients partiels.
+1. Dans son café, Rana vend des biscuits préparés par une boulangerie locale.
+Elle reçoit une commande de 350 biscuits. Rana met chaque 12 biscuits dans
+un sac. Résous pour trouver combien de sacs pleins, contenant 12 biscuits
+chacun, Rana peut-elle vendre parmi sa commande de 350 biscuits et combien
+de biscuits lui reste-t-il?
+2. Comment Rana peut-t-elle emballer les biscuits pour que chaque sac contienne
+le même nombre et sans qu’il y ait de reste ?
+Vérifie ton acquisition
+Suis les instructions de ton enseignant pour réaliser cette activité.
+Photo Credit: Lui, Tat Mun / Shutterstock.com

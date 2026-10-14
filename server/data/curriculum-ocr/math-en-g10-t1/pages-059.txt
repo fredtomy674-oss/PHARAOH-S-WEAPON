@@ -1,0 +1,45 @@
+Applications of Similarity in the circle
+
+Try to solve
+2 Find the value of x in each of the following figures(lengths are measured in centimetres)
+A
+E
+4 5
+D B
+8 x
+C A
+B
+A
+3 B
+D 2x
+6 C
+E
+C
+B
+5 2
+E
+C 4
+D A
+
+Corollary
+1
+If E is a point outside the circle, EA is a tangent to the circle at A, EC cuts
+the circle at D and C, the (EA)² = EC × ED
+
+In the figure opposite: EA is a tangent to the circle
+EC intersects the circle at D, C
+∴ (EA)² = ED × EC
+
+Example
+3 In the figure opposite: EA is a tangent to the circle,
+EA intersects the circle at D and C respectively.
+where ED = 4cm, CD = 5cm, find the length of EA
+
+Solution
+∴ EA is tangent, EC is a a secant
+∴ (EA)² = ED × EC (Corollary)
+(EA)² = 4(4 + 5) = 36
+∴ EA = 6cm
+
+Student book - First term
+55

@@ -1,0 +1,51 @@
+Concept : 131 Leçon 4: Identifier les régularitésnumériques 131
+Évaluer des expressions numériques
+CONCEPT 1 UNITÉ
+6
+FAIS LES LIENS
+Écrire en maths Observe le modèle et le travail des deux élèves.
+Puis, réponds à la question.
+Écris une règle en utilisant une variable et en justifiant ta réponse..
+Entrée Sortie
+28 4
+35 5
+42 6
+49 7
+56 8
+Le travail de Yahia
+Règle : n × 7
+Je pense que la règle est une multiplication par 7 car 4 × 7 = 28 et
+5 × 7 = 35 et cela s’applique pour chaque paire.
+Le travail de Walid
+Règle : n : 7
+Je pense que la règle est une division par 7 car 28 : 7 = 4 et 35 : 7 = 5 et
+cela s’applique pour chaque paire.
+Qui parmi les deux élèves a raison ? Explique comment tu as su que ta réponse est
+correcte.
+Vérifie ton acquisition
+Suis les instructions de ton enseignant pour réaliser cette activité. Concept : 131 Leçon 4: Identifier les régularitésnumériques 131
+Évaluer des expressions numériques
+CONCEPT 1 UNITÉ
+6
+FAIS LES LIENS
+Écrire en maths Observe le modèle et le travail des deux élèves.
+Puis, réponds à la question.
+Écris une règle en utilisant une variable et en justifiant ta réponse..
+Entrée Sortie
+28 4
+35 5
+42 6
+49 7
+56 8
+Le travail de Yahia
+Règle : n × 7
+Je pense que la règle est une multiplication par 7 car 4 × 7 = 28 et
+5 × 7 = 35 et cela s’applique pour chaque paire.
+Le travail de Walid
+Règle : n : 7
+Je pense que la règle est une division par 7 car 28 : 7 = 4 et 35 : 7 = 5 et
+cela s’applique pour chaque paire.
+Qui parmi les deux élèves a raison ? Explique comment tu as su que ta réponse est
+correcte.
+Vérifie ton acquisition
+Suis les instructions de ton enseignant pour réaliser cette activité.

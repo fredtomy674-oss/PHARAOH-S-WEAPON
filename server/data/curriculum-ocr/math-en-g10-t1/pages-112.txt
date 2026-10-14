@@ -1,0 +1,28 @@
+Solution
+∴ sin (270° + θ) = - cos θ ∴ sin (270° + θ) = - √5/3
+∴ sec (270° + θ) = csc θ ∴ sec (270° + θ) = 3/2
+
+Try to solve
+8 In the previous example, find cot (270° + θ) , csc (270° + θ).
+
+General solution of trigonometric equations in the form
+[sin(α) = cos(β), sec(α) = csc (β), tan(α) = cot(β)]
+
+Think and discuss
+you have studied before that, if α and β are the measures of two complementary angles (their sum equals 90°) then sin α = cos β, sec α = cscβ, tan α = cotβ, hence α + β = 90°where α and β are two acute angles, If sin θ = cos15°then what are expected values of θ?
+
+Learn
+1- If sin α = cosβ (where α, β are the measures of two complementary angles) then:
+➢ sin α = sin( π/2 - β) hence: α = π/2 - β i.e. α + β = π/2
+➢ sin α = sin( π/2 + β) hence: α = π/2 + β i.e. α - β = π/2
+Add 2nπ (where n ∈ Z) to the angle π/2 then:
+when sinα = cosβ then α ± β = π/2 + 2nπ (n ∈ Z ), similarly:
+when csc α = secβ then α ± β = π/2 + 2nπ (n ∈ Z ), α ≠ nπ , β ≠ (2n + 1)π/2
+
+2- If tan α = cotβ (where α, β are the measure of two complementary angles) then :
+➢ tan α = tan( π/2 - β) hence: α = π/2 - β i.e. α + β = π/2
+➢ tan α = tan( 3π/2 - β) hence: α = 3π/2 - β i.e. α + β = 3π/2
+Add 2nπ (where n ∈ Z) to the two angles π/2 and 3π/2 then :
+when tan α = cotβ then α + β = π/2 + nπ (where n ∈ Z), α ≠ (2n + 1)π/2 , β ≠ nπ
+
+108 Mathematics - First form secondary

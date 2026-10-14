@@ -1,0 +1,10 @@
+Let's trace letter Ss:
+Trace:
+Ss
+
+S S S S S S S S S S
+S S S S S S S S S S
+
+sun
+star
+24

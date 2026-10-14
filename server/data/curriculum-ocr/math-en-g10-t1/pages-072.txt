@@ -1,0 +1,36 @@
+Talis' Theorem
+
+theorem 2
+Given several coplanar parallel lines and two transversals, then the lengths of the corresponding segments on the transversals are proportional.
+(Proof is not required)
+
+Given: L₁ // L₂ // L₃ // L₄ and M, M' are two transversals to them
+R.t.p : AB : BC : CD = A'B' : B'C' : C'D'
+Proof : Draw AF // M', and intersects L₂ at E , and L₃ at F,
+BY // M' and intersects L₃ at X and L₄ at Y.
+∴ AA' // EB' , AE // A'B'
+∴ AEB'A' is a parallelogram , then AE = A'B'
+Similarly: EF = B'C' , BX = B' C' , XY = C'D'
+
+In ΔACF:
+∴ BE // CF ∴ AB/BC = AE/EF
+then: AB/BC = A'B'/B'C' , AB/A'B' = BC/B'C' (exchange the means) (1)
+
+similarly ΔBDY:
+∴ BC/CD = B'C'/C'D' , BC/B'C' = CD/C'D' (exchange the means) (2)
+
+from (1) and (2) we get:
+AB/A'B' = BC/B'C' = CD/C'D'
+∴ AB : BC : CD = A'B' : B'C' : C'D' Q.E.D.
+
+Example
+6 In the figure opposite: AB // CD // EF // XY,
+AC = 28cm, CE = 20cm, DF = 15cm, FY = 33cm.
+Find the length of each of: BD and EX
+
+Solution
+∴ AB // CD // EF // XY
+∴ AC/BD = CE/DF = EX/FY
+28/BD = 20/15 = EX/33 ∴ BD = 21cm , EX = 44cm.
+
+68 Mathematics - First form secondary

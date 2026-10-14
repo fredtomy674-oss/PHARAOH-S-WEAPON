@@ -1,0 +1,6 @@
+PRIMARY 3 - TERM 1 20
+CHAPTER 2
+Directions: Look at the star array below. Some of the stars have been ripped off.
+How many stars were in the original array? Explain your thinking using pictures,
+numbers, or words in the box below the star array.
+REFLECT

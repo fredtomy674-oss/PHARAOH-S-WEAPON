@@ -1,0 +1,6 @@
+PRIMARY 3 - TERM 1 41
+CHAPTER 3
+2. Each jackal must eat 6 insects. There are 24 insects. How many jackals can be fed?
+3. Each crocodile wants to eat 5 fish. There are 25 fish. How many crocodiles can be fed?
+4. Each bull eats 2 bales of hay each day. There are 100 bales. How many bulls can
+be fed each day?

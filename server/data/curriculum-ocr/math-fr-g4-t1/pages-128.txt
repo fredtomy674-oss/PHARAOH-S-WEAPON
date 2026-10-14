@@ -1,0 +1,19 @@
+118 Division par 1 chiffre
+UNITÉ
+7
+CONCEPT 2 Crédit photo : (a) Pat Shrader / Shutterstock.com, (b) Mohamed Hakem / Shutterstock.com
+Algorithme standard
+Essayons-le Résolvez les problèmes en utilisant l’algorithme standard.
+1. 454 : 3 2. 778 : 2
+3. 368 : 3 4. 4 858 : 4
+FAIS LES LIENS
+Établir des connexions
+Un train a 784 places pour les passagers. S’il y a 7 voitures sur le
+train et chaque voiture a le même nombre de sièges, combien de
+passagers peuvent s’asseoir dans chaque voiture ? Résoudre le
+problème en utilisant au moins deux stratégies différentes.
+784 : 7
+Première stratégie
+Deuxième stratégie
+Vérifie ton acquisition
+Suis les instructions de ton enseignant pour compléter cette activité.

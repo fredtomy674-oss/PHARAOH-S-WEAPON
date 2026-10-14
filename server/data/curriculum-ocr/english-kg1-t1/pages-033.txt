@@ -1,0 +1,10 @@
+Let's trace letter Aa:
+Trace:
+Aa
+
+A
+a
+
+ant
+apple
+29

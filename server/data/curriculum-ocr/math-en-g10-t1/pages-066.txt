@@ -1,0 +1,46 @@
+3 - 1 Parallel Lines and Proportional Parts
+
+You will learn
+
+▸ Properties of the straight line which is parallel to any side of a triangle.
+▸ Use proportion in calculation of lengths and in prove relations to line segments resulting from the transversals of parallel lines.
+▸ Modelling and solving life problems including parallel lines and their transversals
+
+Key-terms
+
+▸ Parallel
+▸ Midpoint
+▸ Median
+▸ Transversal
+
+Materials
+
+▸ Geometric instruments
+▸ Computer
+▸ Graphic program
+▸ Data show
+
+Think and discuss
+
+1- Draw the triangle A B C, determine the point D ∈ AB then draw DE // BC and intersects AC at E.
+2- Find by measuring the length of each of: AD, DB, AE and EC
+3- Calculate each of the ratio AD/DB, AE/EC and compare between them, what do you notice?
+If the location of DE has been changed preserving parallelism to BC.
+Is the relation between AD/DB and AE/EC changed? What do you deduce?
+
+Theorem 1
+If a line is drawn parallel to one side of a triangle and intersects the other two sides, then it divides them into segments whose lengths are proportional.
+(Proof is not required)
+
+Given: ABC is a triangle, DE // BC
+R.t.p: AD/DB = AE/EC
+Proof: ∵ DE // BC
+∴ Δ ABC ~ Δ ADE (similarity postulate)
+then: AB/AD = AC/AE (1)
+∵ D ∈ AB, E ∈ AC
+∴ AB = AD + DB, AC = AE + EC (2)
+from (1) and (2) we get:
+(AD + DB)/AD = (AE + EC)/AE
+then: AD/AD + DB/AD = AE/AE + EC/AE
+
+62 Mathematics - First form secondary

@@ -1,0 +1,42 @@
+Unit
+Geometry 2
+Similarity
+
+Unit objectives
+By the end of the unit, the student should be able to:
+* Revise what he / she has previously studied in preparatory stage on similarity.
+* Recognize similarity of two polygons.
+* Recognize the theorem (if the length of the corresponding sides..)
+* Recognize the theorem : ( If the measure of an angle of a triangle ...)
+* Recognize the theorem ; ( the ratio between the areas of the surfaces of two similar triangle ...).
+* Recognize and deduce the fact: ( Any two similar polygons can be divided into...)
+* Recognize the theorem ; ( the ratio between the areas of the surfaces of two similar polygons...)
+* Recognize and deduce the well known problem ; (If the two lines containing the two chords in a circle are intersecting at a point then ... ) and vice versa and corollaries on it .
+
+Key - Terms
+* Ratio
+* Proportion
+* Measure of an Angle
+* Length
+* Area
+* Cross Product
+* Extreme
+* Mean
+* Similar Polygons
+* Similar Triangles
+* Corresponding Sides
+* Congruent Angles
+* Regular Polygon
+* Quadrilateral
+* Pentagon
+* Postulate/Axiom
+* Perimeter
+* Area of polygon
+* Chord
+* Secant
+* Tangent
+* Diameter
+* Common External Tangent
+* Common Internal Tangent
+* Concentric Circles
+* Similarity Ratio

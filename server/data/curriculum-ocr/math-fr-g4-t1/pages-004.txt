@@ -1,0 +1,28 @@
+iv
+Unité 6 Facteurs et multiples
+Concept 6.1 Comprendre les facteurs . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Leçon 1 Identification des facteurs de nombres entiers 8 4
+Leçon 2 Nombres premiers et composés 8 6
+Leçon 3 Le grand facteur commun (G.F.C) 89
+Concept 6.2 Comprendre les multiples . . . . . . . . . . . . . . . . . . . . . . . . . .
+Leçon 4 Identification des multiples de nombres entiers . 91
+Leçon 5 Multiples communs 93
+Leçon 6 Relations entre les facteurs et les multiples 95
+Unité 7 Multiplication et division : calcul et relations
+Concept 7.1 Multiplication par des facteurs à 1 et 2 chiffre . . . . . . . . . .
+Leçon 1 La stratégie de modéle de l’aire 98
+Leçon 2 La propriété distributive 10 0
+Leçon 3 L’algorithme des produits partiels 10 2
+Leçon 4 Multiplication à un chiffre 10 5
+Leçon 5 Multiplication à deux chiffres de 1 10 7
+Concept 7.2 Division par 1 chiffre . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Leçon 6 Explorer les restes 1 09
+Leçon 7 Modèle de la division 111
+Leçon 8 Modèle de l’aire et la division 11 4
+Leçon 9 L’algorithme des quotients partiels 11 5
+Leçon 10 L’algorithme de division standard 11 7
+Leçon 11 Division et multiplication 1 19
+Unité 8 Ordre des opérations
+Concept 8.1 Ordre des opérations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Leçon 1 Ordre des opérations 12 2
+Leçon 2 L’ordre des opérations et les problèmes de l’histoire 12 4

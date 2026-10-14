@@ -1,0 +1,14 @@
+PRIMARY 3 - TERM 1 89
+CHAPTER 6
+9 × 2
+9 × 8
+9 × 9
+10 × 2 =
+10 × 8 =
+10 × 9 =
+so 9 × 2 =
+so 9 × 8 =
+So 9 × 9 =
+CHALLENGE: A student told me that 9 × 8 = 70. They said they know that 10 × 8 = 80, so
+9 × 8 = 70 because they subtracted a 10 from 80. Are they correct? Show your thinking in
+the box below.

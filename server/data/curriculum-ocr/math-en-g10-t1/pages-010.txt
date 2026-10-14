@@ -1,0 +1,40 @@
+If a and b are two real numbers, then the number z = a + bi, is called a complex number,
+where a is called the real part of the complex numer z and b i is the imaginary part of the complex
+number z.
+
+If b = 0, then the number z = a is a pure real and if a = 0, then the number z = bi is a pure
+imaginary where b ≠ 0
+
+Example
+2 Solve the equation 9x² + 125 = 61
+Solution
+The equation 9x² + 125 = 61
+9x² + 125 - 125 = 61 - 125 add (- 125) to both sides of the equation
+9x² = - 64 simplify
+x² = - 64/9 Divide both sides by 9
+x = ± √-64/9 by taking the square root of both sides
+x = ± √64/9 i = ± 8/3 i Definition
+
+Try to solve
+2 Solve each of the following equations:
+A 3x² + 27 = 0 B 5x² + 245 = 0 C 4x² + 100 = 75
+
+Equality of two complex numbers
+Two complex numbers are equal if and only if the two real parts are equal and the two imaginary
+parts are equal.
+if: a + bi = c + di then: a = c and b = d and vice versa.
+
+Example
+3 Find the values of x and y which satisfy the equation: 2x - y + (x - 2y)i = 5 + i where x and
+y ∈ R and i² = -1
+Solution
+By equalizing the two real parts and the two imaginary parts then
+2x - y = 5 , x - 2y = 1
+Solve the equations we get x = 3 , y = 1
+
+Try to solve
+3 Find the values of x and y which satisfy each of the following equations:
+A (2x + 1) + 4y i = 5 - 12 i
+B 2x - 3 + (3y + 1) i = 7 + 10 i
+
+6 Mathematics - First form secondary

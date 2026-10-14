@@ -1,0 +1,27 @@
+R e v i e w Review
+98
+7 Reorder the letters to make a word
+r / e / o / s
+1
+e / g / u / l
+4
+h / a / t / t
+7
+m / h / b / u / t
+10
+t / h / e / t / e
+8
+n / u / s
+5
+e / o / s / n
+2
+h / i / a / c / r
+11
+h / t / s / i
+6
+h / m / a / t
+9
+b / u / c / e
+3
+t / f / h / a / r / e
+12

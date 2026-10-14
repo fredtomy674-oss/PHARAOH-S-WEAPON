@@ -1,0 +1,21 @@
+Quadratic Inequalities in one variable
+
+Exercises (1 - 5)
+
+Find the solution set of each of the following quadratic inequalities:
+
+1 x² ≤ 9
+2 x² - 1 ≤ 0
+3 2x - x² < 0
+4 x² + 5 ≤ 1
+5 (x - 2) (x - 5) < 0
+6 (x - 2)² ≤ - 5
+7 x² ≥ 6 x - 9
+8 3 x² ≤ 11 x + 4
+9 x² - 4 x + 4 > 0
+10 7 + x² - 4 x < 0
+
+General Exercises
+For more exercises, please visit the website of Ministry of Education.
+
+Student book - First term 29

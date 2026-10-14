@@ -1,0 +1,10 @@
+Let's trace letter Kk:
+Trace:
+Kk
+
+K K K K K K K K K K
+k k k k k k k k k k
+
+kiwi
+kite
+78

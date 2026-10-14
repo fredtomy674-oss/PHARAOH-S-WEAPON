@@ -1,0 +1,43 @@
+(2) Find the value of the symbol used:
+A
+x cm
+E D
+12 cm
+9 cm
+C 15 cm B
+B
+x cm y cm
+C 16 cm D 9 cm B
+
+(3) In the figure opposite: ABC is a right angled triangle, AE ⊥ BC
+First: complete: ΔABC ~ Δ .................... ~ Δ ....................
+Second: If x, y, z, l ,m and n are the lengths of the straight
+segments in centimetres, then complete the following
+proportions:
+A x/z = m/...
+B x/z = l/...
+C m/x = x/...
+D l/... = .../l
+E x/... = .../x
+F .../y = y/...
+G l/x = .../z
+H l/x = .../y
+
+(4) AB and DC are two chords in a circle, AB ∩ DC = {E}, where E lies outside the circle,
+AB = 4cm, DC = 7cm and BE = 6cm. prove that ΔADE ~ ΔCBE, then find the length of
+CE
+
+(5) In Δ ABC, AC < AB, M ∈ AC where m(∠ABM) = m (∠C).
+Prove that (AB)² = AM × AC.
+
+(6) ABC is a right angled triangle at A, AD ⊥ BC to intersect it at D . if BD/DC = 1/2,
+AD = 6√2 cm. Find the length of BD, AB and AC.
+
+(7) In the figure opposite: A B C is a triangle in which AB = 6cm ,
+BC = 9cm and AC = 7.5cm.
+D is a point outside the triangle ABC
+where D B = 4cm and DE = 5cm. Prove that:
+A Δ ABC ~ ΔDBA
+B BA bisects ∠ DBC
+
+44 Mathematics – First form secondary

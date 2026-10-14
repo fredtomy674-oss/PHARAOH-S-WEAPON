@@ -1,0 +1,40 @@
+Example
+
+9 Convert $30^{\circ}$ to radian measure in terms of $\pi$.
+To convert to radian measure we use the formula $\frac{x^{\circ}}{180^{\circ}} = \frac{\theta^{\text{rad}}}{\pi}$
+
+$$\theta^{\text{rad}} = \frac{30^{\circ} \times \pi}{180^{\circ}} = \frac{\pi}{6}$$
+
+Example
+
+10 Convert $1.2^{\text{rad}}$ to the degree measure.
+
+Solution
+
+$$x^{\circ} = \frac{1.2 \times 180^{\circ}}{\pi}$$
+$$x^{\circ} = 68.75493542 = 68^{\circ} 45' 18''$$
+
+Calculator is used as follows:
+
+Start $\rightarrow$ [1] [.] [2] [$\times$] [1] [8] [0] [$\div$] [$\pi$] [=] [$^{\circ}''$]
+
+[MATH]
+$68^{\circ} 45' 17.77''$
+
+Add to your knowledge
+
+There is another unit for measuring angle which is (Grad) and it equals $\frac{1}{200}$ of the measure of the straight angle.
+If $x$, $\theta$, $y$ are three measures of angles in degree, radian, and Grad respectively, then:
+$\frac{x^{\circ}}{180^{\circ}} = \frac{\theta^{\text{rad}}}{\pi} = \frac{y^{\text{grad}}}{200}$
+
+Try to solve
+
+2 Convert the measures of the following angles to the degree measure approximating the result to the nearest second:
+
+A $0.7^{\text{rad}}$
+B $1.6^{\text{rad}}$
+C $2.05^{\text{rad}}$
+D $-1.05^{\text{rad}}$
+
+92
+Mathematics - First form secondary

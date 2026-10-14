@@ -1,0 +1,32 @@
+The Relation Between the Areas of two Similar Polygons
+
+Example
+1 In the figure opposite: ABC is a triangle D ∈ AB
+where AD/DB = 3/4, DE // BC and intersects AC at E.
+if the area of Δ ABC = 784cm². find:
+A area of Δ ADE. B area of trapezium DBCE.
+
+Solution
+In ΔADC: ∵ DE // BC
+∴ Δ ADE ~ Δ ABC (Corollary)
+∴ a(Δ ADE) / a(Δ ABC) = (AD/AB)² (theorem)
+and a(Δ ADE) / 784 = (3/7)² ∴ a(Δ ADE) = 784 × 9/49 = 144cm²
+∵ area of trapezium DBCE = area of Δ ABC - area of Δ ADE
+∴ area of trapezium DBCE = 784 - 144 = 640cm²
+
+Example
+2 The ratio of the areas of two similar triangles equals 4 : 9. If the perimeter of the greater triangle equals 90cm, Find the perimeter of the smaller triangle.
+
+Solution
+Let Δ ABC ~ Δ DEF
+∴ a(Δ ABC) / a(Δ DEF) = (AB/DE)² = 4/9 AB/DE = 2/3
+∵ Perimeter of Δ ABC / Perimeter of Δ DEF = AB/DE = 2/3
+∴ Perimeter of (Δ ABC) / 90 = 2/3
+∴ Perimeter of Δ ABC = 60cm
+
+Try to solve
+1 ABC and DEF are two similar triangles, a(ΔABC) / a(ΔDEF) = 3/4
+A If the perimeter of smaller triangle equals 45√3 cm. Find the perimeter of the greater triangle.
+B If EF = 28cm, find the length of BC.
+
+Student book - First term 47

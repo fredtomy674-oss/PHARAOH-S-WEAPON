@@ -1,0 +1,44 @@
+1-2
+Determining the Types of Roots of a Quadratic
+Equation
+You will Learn
+► How to determine the type of
+the two roots of the quadratic
+equation
+Think and discuss
+You have previously studied how to solve the quadratic equation in one
+variable in $\mathbb{R}$, and you have known that a quadratic equation has two
+roots or a unique repeated solution, or there is no solution. Is it possible
+to find the number of roots (solutions) of the quadratic equation in $\mathbb{R}$
+without solving it?
+Key - Terms
+► Root
+► Discriminant
+Learn
+Discriminant
+The two roots of the quadratic equation $ax^2 + bx + c = 0$ where $a \neq 0$ and
+$a, b, c \in \mathbb{R}$
+are: $\displaystyle \frac{-b + \sqrt{b^2 - 4ac}}{2a}$ , $\displaystyle \frac{-b - \sqrt{b^2 - 4ac}}{2a}$
+and the two roots contain the expression $\sqrt{b^2 - 4ac}$
+the expression $b^2 - 4ac$ is called the discriminant of the quadratic equation
+and is used to determine the type of the two roots of the equation.
+Example
+Materials
+► Scientific Calculator
+1 Determine the type of the two roots of each of the following
+equations:
+A $5x^2 + x - 7 = 0$
+C $-x^2 + 5x - 30 = 0$
+B $x^2 - 2x + 1 = 0$
+Solution
+To determine the type of the two roots:
+A $a = 5 , b = 1 , c = -7$
+the discriminant = $b^2 - 4ac$
+$= 1 - 4 \times 5 (-7) = 141$
+$\because$ the discriminant is positive, $\therefore$ there are two real different roots.
+B $a = 1 , b = -2 , c = 1$
+the discriminant = $b^2 - 4ac$
+$= 4 - 4 \times 1 \times 1 = 0$
+$\because$ the discriminant equals zero, $\therefore$ the the two roots are real and equal.
+10
+Mathematics - First form secondary

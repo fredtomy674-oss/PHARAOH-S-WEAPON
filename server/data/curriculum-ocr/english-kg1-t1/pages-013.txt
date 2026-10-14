@@ -1,0 +1,7 @@
+Let's trace letter Tt:
+Trace:
+Tt
+
+train
+toys
+9

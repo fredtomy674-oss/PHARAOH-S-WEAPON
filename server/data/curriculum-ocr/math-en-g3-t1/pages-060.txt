@@ -1,0 +1,3 @@
+PRIMARY 3 - TERM 1 56
+CHAPTER 4
+CHALLENGE: Determine the total area of the following shapes.

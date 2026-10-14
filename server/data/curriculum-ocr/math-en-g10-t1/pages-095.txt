@@ -1,0 +1,33 @@
+Systems of Measuring Angle
+
+And the unit of measuring angles in the radian measure is the radian angle which is denoted by (1rad) and is read as one radian.
+Radian angle
+It is a central angle in a circle subtends an arc of length equals the radius of this circle.
+1 = rad
+
+Critical thinking: Is the measure of the central angle in a circle is proportional to the length of the opposite arc? Explain your answer.
+
+Example
+8 A circle of radius 8cm. Find to the nearest hundredth the length of the arc opposite to a central angle of measure 5/12 π.
+Solution
+Use the formula of the length of the arc: l = θrad × r
+r = 8 cm , θrad = 5π/12 , l = 5π/12 × 8 ∴ l ≃ 10.47cm
+
+Try to solve
+1 Find the length of the red arc in each of the following circles approximating the result to the nearest tenth.
+A 5 cm
+B 8 cm π/3
+C 6 cm 7π/6
+
+Relation between degree measure and radian measure:
+You have known that: measure of the central angle in a circle equals the measure of its arc.
+i.e. The central angle of degree measure 360°, then the length of its arc equals 2 π r
+In the unit circle
+2π in a radian measure is equivalent to 360° in a degree measure.
+i.e. πrad is equivalent to 180° , 1rad = 180°/π ≃ 57° 17' 45"
+If there is an angle of radian measure θrad and its degree measure x° then:
+x°/180° = θrad/π
+
+If the radius of a circle equals the unity then the circle is called the unit circle.
+
+Student book - First term 91

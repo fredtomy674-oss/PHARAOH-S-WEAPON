@@ -1,0 +1,37 @@
+15 Leçon 7: Nombres croissants et décroissants
+LEÇON 7
+Nombres croissants et décroissants
+Objectifs d’apprentissage
+• Je peux ranger des nombres sous plusieurs formes.
+• Je peux décrire les stratégies que j’utilise pour ordonner les nombres.
+ACCÈS
+Analyse des erreurs Analysez le travail de l’élève et sa réponse
+Identifiez ce que l’élève a fait correctement et incorrectement, puis
+essayez pour résoudre le problème correctement.
+Comparez les nombres ci-dessous en utilisant < , > , ou =
+89 906 100 513
+Réponse de l’élève : je pense que 89 906 > 100 513 parce que 8 est plus grand que 1.
+Qu’est-ce
+que l’élève a
+correctement fait ?
+et incorrectement
+fait? Pourquoi pensez-
+vous qu’il a fait cette
+erreur?
+Essayez de résoudre le problème
+correctement. Expliquez votre
+pensée.
+CONSTRUIS TES CONNAISSANCES
+Nombres croissants et décroissants
+Omar et Mariam ont lu sur les fourmis dans
+différentes régions. Omar a trouvé le nombre
+total de fourmis qui entrent et sortent d’une
+fourmilière chaque jour. Mariam a trouvé
+le nombre total chaque semaine. Le premier
+ensemble de données montre les nombres
+qu’Omar a trouvés dans sa région pendant 5
+jours.
+1. Énumérez les données d’Omar par ordre croissant:
+78 090 79 010 78 091 79 100 78 999
+; ; ; ;
+Fourmis montant et descendant une fourmilière

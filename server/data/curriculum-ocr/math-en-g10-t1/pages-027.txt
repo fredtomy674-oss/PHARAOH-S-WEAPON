@@ -1,0 +1,29 @@
+Sign of a Function
+Second: If: $b^2 - 4ac < 0$, then there are no real roots and the sign of the function $f$ is the same as the sign of the coefficient of $x^2$, and the following figures show that.
+If: $a > 0$
+$f(x) > 0 \forall x \in \mathbb{R}$
+If: $a < 0$
+$f(x) < 0 \forall x \in \mathbb{R}$
+
+Example
+4 Represent graphically $f$ where $f(x) = x^2 - 4x + 5$, then determine the sign of the function $f$.
+Solution
+the discriminant $(b^2 - 4ac) = (-4)^2 - 4 \times 1 \times 5$
+$= 16 - 20 = -4 < 0$
+thus, the equation $x^2 - 4x + 5 = 0$ has no real roots
+Sign of the function is positive $\forall x \in \mathbb{R}$
+(because the coefficient of $x^2 > 0$)
+Try to solve
+4 Represent graphically $f$, where $f(x) = -x^2 - 2x - 4$, then determine the sign of the function $f$.
+Third: If: $b^2 - 4a c = 0$, then there are two equal roots of the equation, let each of them equal $L$, and the sign of the function $f$ is as follows:
+➤ the same as $a$ when $x \neq L$
+➤ $f(x) = 0$ when $x = L$
+the following figures show that.
+If: $a > 0$
+$f(x) > 0 \forall x \neq L$,
+$f(x) = 0$ when $x = L$
+If: $a < 0$
+$f(x) < 0 \forall x \neq L$,
+$f(x) = 0$ when $x = L$
+
+Student book - First term 23

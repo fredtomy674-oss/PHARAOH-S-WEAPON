@@ -1,0 +1,50 @@
+2 - 1 Similarity of Polygons
+
+You will learn
+▸ Concept of similarity.
+▸ Similarity of polygons
+▸ The ratio between the perimeters of two similar polygon and the Drawing scale
+
+Key-terms
+▸ Similar Polygons
+▸ Similar Triangles
+▸ Corresponding Sides
+▸ Congruent Angles
+▸ Regular Polygon
+▸ Quadrilateral
+▸ Pentagon
+▸ Similarity Ratio
+
+Learning tools
+▸ Computer
+▸ projector
+▸ Graphic programs
+▸ Squared paper
+▸ Measuring tools
+▸ Calculator
+
+Think and discuss
+the figure opposite shows the polygon ABCD, and its image A'B'C'D' by geometric transformation.
+A Compare the measures of corresponding angles:
+∠A, ∠A' - ∠B, ∠B'
+∠C, ∠C' - ∠D, ∠D'
+What do you deduce?
+B Find the ratio of the lengths of the corresponding sides lengths
+A'B'/AB = B'C'/BC = C'D'/CD = D'A'/DA. What do you notice?
+
+When the polygons having the same shape and different in lengths of sides, then they are called similar polygons.
+
+Similar polygons
+Definition: Two polygons, having the same number of sides, are said to be similar if their corresponding angles are congruent and the lengths of their corresponding sides are proportional.
+
+Notice that:
+1- In the figure shown in "think and discuss" we get:
+A Corresponding angles are congruent:
+∠A' ≡ ∠A , ∠B' ≡ ∠B
+∠C' ≡ ∠C , ∠D' ≡ ∠D
+B Lengths of corresponding sides are proportional:
+A'B'/AB = B'C'/BC = C'D'/CD = D'A'/DA
+Thus, we can say that figure A'B'C'D' is similar to figure ABCD
+2- We use the symbol (~) to denote similarity of two polygons and write them according to the order of their corresponding vertices to make it easy to write the proportion of corresponding sides.
+
+32 Mathematics - First form secondary

@@ -1,0 +1,26 @@
+PRIMARY 3 - TERM 1 65
+CHAPTER 5
+Cattle Pen
+Perimeter = meters
+Perimeter = meters
+Perimeter = meters
+9 meters
+9 meters
+3 meters
+3 meters Area = square meters
+Area = square meters
+Area = square meters
+Duck Pen
+5 meters
+5 meters
+4 meters
+Sheep Pen
+10 meters
+10 meters
+3 meters
+3 meters
+CHALLENGE:
+1. How much fencing would you need to make ALL of these pens?
+2. How many square meters of space would the animals have if you combined ALL
+of the pens?
+APPLY, continued

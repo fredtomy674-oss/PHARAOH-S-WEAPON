@@ -1,0 +1,7 @@
+It's Practice Time!
+Trace letter Rr in its upper and lowercase forms:
+R R R R R R R R R R
+r r r r r r r r r r
+Help the pictures find their letter:
+Rr
+98

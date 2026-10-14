@@ -1,0 +1,38 @@
+Relation Between the Two Roots of the Second Degree Equation and the Coefficients of its Terms
+
+Try to solve
+1 Without solving the equation , find the sum and product of the two roots in each of the following equations :
+A 2x² + x - 6 = 0
+B 3 x² = 23x - 30
+C (2x - 3) (x + 2) = 0
+
+Example
+2 If the product of the two roots of the equation 2x² - 3x + k = 0 equals 1, find the value of k, then solve the equation.
+
+Solution
+product of the two roots = c/a ∴ k/2 = 1 ∴ k = 2
+a = 2, b = - 3, c = 2
+The general formula: x = - b ± √ b²-4ac / 2a
+= 3 ± √ 9 - 16 / 4 = 3 ± √ 7i² / 4 = 3 ± √ 7 i / 4
+The solution set of the equation is { 3/4 + √ 7/4 i , 3/4 - √ 7/4 i }
+
+Try to solve
+2 If the product of the two roots of the equation 3x² + 10x - c = 0 is -8/3, find the value of c, then solve the equation.
+3 If the sum of the two roots of the equation 2x² + bx - 5 = 0 is 3/2, find the value of b, then solve the equation.
+
+Example
+3 If (1 + i) is one of the roots of the equation x² - 2 x + a = 0 where a ∈ R , then find:
+A The other root
+B the value of a .
+
+Solution
+a = 1 , b = -2 , c = a
+A ∵ 1 + i is one of the two roots of the equation
+∴ the other root = 1 - i because the two roots are conjugate and their sum = 2
+
+B ∵ Product of the roots = a
+∴ (1 + i) (1 - i) = a
+∴ 1 + 1 = a
+∴ a = 2
+
+Student book - First term 15

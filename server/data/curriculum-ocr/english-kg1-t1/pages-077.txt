@@ -1,0 +1,10 @@
+Let's trace letter Cc:
+Trace:
+Cc
+
+C C C C C C C C C C C
+C C C C C C C C C C C
+
+cow
+cap
+73

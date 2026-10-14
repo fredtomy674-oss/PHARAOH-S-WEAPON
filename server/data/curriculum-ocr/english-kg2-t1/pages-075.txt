@@ -1,0 +1,18 @@
+It's Practice Time!
+Count and match:
+
+Saturday Sunday Monday Tuesday Wesnesday
+Thursday Friday
+
+SCHOOL BUS
+SCHOOL BUS
+SCHOOL BUS
+SCHOOL BUS
+SCHOOL BUS
+SCHOOL BUS
+
+6
+8
+7
+
+71

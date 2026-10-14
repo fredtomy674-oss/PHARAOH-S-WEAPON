@@ -1,0 +1,41 @@
+Critical thinking: If the discriminate is negative, is it necessary that the two roots of the quadratic equation in the set of complex numbers are conjugate numbers? Give an example to explain
+
+Try to solve
+2 Prove that the two roots of the equation 7x² - 11x + 5 = 0 are complex, then use the general formula to find those two roots.
+
+Example
+3 If the two roots of the equation x² + 2(k - 1) x + 9 = 0 are equal, then find the real values of K and check your answer:
+Solution
+b² - 4ac = 0
+4(k - 1)² - 4 × 1 × 9 = 0
+4k² - 8k - 32 = 0
+k² - 2k - 8 = 0
+(k - 4)(k + 2) = 0
+k = 4 or k = -2
+
+check: when k = 4
+the equation becomes: x² + 6x + 9 = 0
+and it has two equal roots which are: -3, -3
+check when k = -2
+the equation becomes: x² - 6x + 9 = 0
+and it has two equal roots which are: 3,3
+
+Try to solve
+3 If the two roots of the equation x² - 2kx + 7k - 6x + 9 = 0 are equal , then find the real values of K and then find the two roots.
+
+Exercises (1 - 2)
+
+First: Multiple choice:
+1 The two roots of the equation x² - 4x + k = 0 are equal if:
+A k = 1 B k = 4 C k = 8 D k = 16
+2 The two roots of the equation x² - 2x + M = 0 are real different if :
+A M = 1 B M > 1 C M > 1 D M = 4
+3 The two roots of the equation L x² - 12x + 9 = 0 are complex and not real if :
+A L < 4 B L > 4 C L = 4 D L = 1
+
+Second: Answer the following questions:
+4 Determine the number of roots and their types in the following quadratic equation:
+A x² - 2x + 5 = 0 B 3x² + 10x - 4 = 0
+C x² - 10x + 25 = 0 D 6x² - 19x + 35 = 0
+
+12 Mathematics - First form secondary

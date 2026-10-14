@@ -1,0 +1,8 @@
+Let's trace letter Nn:
+Trace:
+Nn
+N
+n
+nest
+night
+31

@@ -1,0 +1,29 @@
+Exercises (4 - 4)
+
+First: Complete each of the following:
+1 cos (180° + θ) = .................... 2 tan ( 180° - θ) = ....................
+3 csc (360° - θ) = .................... 4 sin (360° + θ) = ....................
+5 sin (90° + θ) = .................... 6 cot ( 90° - θ) = ....................
+7 sec ( 270° + θ) = .................... 8 cos (270° - θ) = ....................
+
+Second: Complete each of the following with a measure of an acute angle
+9 sin 25° = cos ....................° 10 cos 67° = sin ....................°
+11 tan 42° = cot ....................° 12 csc 13° = sec ....................°
+13 If cotan 2θ = tanθ where 0°<θ< 90° then m (∠ θ) = ....................
+14 If sin 5θ = cos 4θ where θ is a positive acute angle , then θ = ....................°
+15 If sec θ = sec (90° - θ), then cot θ = ....................
+16 If tan 2θ = cot 3θ where θ ∈ ]0, π/2[, then m (∠ θ)= .................... rad
+17 If cos θ = sin 2θ where θ is a positive acute angle, then sin 3θ = ....................
+
+Third: Multiple choice:
+18 If tan (180° + θ) = 1 where θ is the measure of the smallest positive angle , then measure
+of θ equals
+A 45° B 30° C 60° D 135°
+19 If cos 2θ = sinθ where θ ∈ ]0, π/2[ then cos 2θ equals
+A 1/√2 B 1/2 C √3/2 D 1
+20 If sin α = cos β where α and β are two acute angles, then tan (α + β) equals
+A 1/√3 B 1 C √3 D undefined
+21 If sin 2θ = cos 4θ where θ is a positive acute angle, then tan (90° - 3θ) equals
+A -1 B 1/√3 C 1 D √3
+
+110 Mathematics - First form secondary

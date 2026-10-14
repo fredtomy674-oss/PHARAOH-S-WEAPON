@@ -1,0 +1,30 @@
+Unit 4
+68 68
+1 Think and solve.
+A farmer has 4 boxes of apples. If each box has 32 apples ,
+then how many apples does the farmer have in total ?
+First ΙϒȤŖϒƱŖŖŏϒǷƼϒȇƱŏŖǣǫǷďƱŏϒǷƁŖϒǢȇŖǫǷƆƼƱΘϒ
+- ϒQƼȤϒƯďƱȪϒďǠǠƞŖǫ΢ϒϒ ϒϒϒϒϒϒϒϒϒϒϒϒϒϒϒϒϒϒϒϒ - QƼȤϒƯďƱȪϒŇƼȩŖǫ΢ϒ
+Then ΙϒȤŖϒǠȇǷϒǷƁŖϒ double-digit ϒƼƱϒǷƁŖϒǷƼǠΙϒďƱŏϒǷƁŖϒ single-digit on
+ǷƁŖϒŇƼǷǷƼƯΘϒ
+Finally ΙϒȤŖϒƯȇƞǷƆǠƞȪ ! ÊǷŖǠϒ͍Κ Multiply the ones with 4.
+So, 2 ones x 4 ones = 8 ones
+ÊǷŖǠϒ͐Κ Multiply the tens with 4.
+So, 3 tens x 4 ones = 12 tens
+Problem: 32 x 4 = ?
+Solution: = 128
+Answer: = 128 apples
+3 2
+X 4
+1 2 8
+ones tens
+2 It's easy ! Now, try. Solve the following math problem.
+A farmer has 3 baskets. Each basket contains 22 oranges. How
+many oranges does the farmer have in total?
+... 2
+X 3
+6 ...
+Problem: x = ?
+Solution: =
+Answer: =
+Lesson 3 Multiply It with Words!

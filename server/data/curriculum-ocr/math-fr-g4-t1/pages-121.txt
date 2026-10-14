@@ -1,0 +1,28 @@
+Leçon 7: Modèle de la division 111
+LEÇON 7
+Modèle de la division
+Objectifs d’apprentissage
+• Je peux utiliser la valeur de position, les faits de multiplication et les
+régularités avec des zéros pour diviser les multiples de 10, 100 et 1 000 par
+un chiffre diviseurs.
+ACCÈS
+Suivez les instructions pour créer des tableaux pour montrer
+la division.
+Matériel pour deux joueurs
+• Cartes numérotées 6 à 25
+• Un cube numérique à 6 faces
+• Un morceau de papier millimétré
+Objectif du jeu
+• Avoir le score total le plus élevé
+Directions
+1. Mélangez les cartes numérotées. Placez le pont avec
+les nombres vers le bas sur la table.
+2. Le joueur A pioche une carte numérique. Ce nombre
+devient le dividende.
+3. Le joueur A lance le cube numérique. Le nombre sur le cube numérique
+est le diviseur. Remplissez ce nombre de carrés par rangée sur le papier
+quadrillé jusqu’à ce que vous atteignez le dividende. Il se peut qu’il vous
+reste des carrés qui ne remplissent pas une ligne entière. Ce sont des restes.
+4. Remplissez les informations dans le tableau, y compris s’il reste des
+restes carrés.
+Jeu de tableau de division

@@ -1,0 +1,75 @@
+Example
+Add to your
+knowledge
+The sum of the
+absolute value of
+each of the positive
+and negative measure
+of the directed angle
+equals 360°
+3 Determine the negative measure of the angle whose measure 275°.
+Solution
+The negative measure of the angle (275°) = 275° – 360° = -85°
+Check: |275°| + |-85°| = 275° + 85° = 360°
+Try to solve
+4 Determine the negative measure of the angles whose measures as follows:
+A 32°
+B 270°
+C 210°
+D 315°
+Example
+4 Determine the positive measure of the angle of measure -235°
+Solution
+The positive measure of the angle (- 235°) = 360° – 235° = 125°
+Check: |-235°| + |125°| = 235° + 125° = 360°
+Try to solve
+5 Determine the positive measure of each of the following angles :
+A -52°
+B -126°
+C -90°
+D -320°
+6 Sports: One of the disc players spins by an angle of measure 150° draw the angle in the
+standard position.
+Equivalent angles
+Study the following figures and determine the directed angle (θ) in the standard position in
+each figure, what do you notice?
+y
+y'
+x'
+B
+A
+x
+O
+θ
+y
+y'
+x'
+B
+A
+x
+O
+θ
+y
+y'
+x'
+B
+A
+x
+O
+θ
+y
+y'
+x'
+B
+A
+x
+O
+θ
+figure (1) figure (2) figure (3) figure (4)
+In the figures (1), (2), (3) and (4), we notice that the angle (θ) and the angle drawn with it
+have the same side OB.
+figure (1): the angle of measure θ is in the standard position.
+figure (2): the angles θ, θ + 360° are equivalent.
+figure (3): the angles θ, θ + 2 × 360° are equivalent.
+figure (4): the angles θ, -(360° - θ) = θ – 360° are equivalent
+86 Mathematics - First form secondary

@@ -1,0 +1,7 @@
+It's Practice Time!
+Trace letter Ww in its upper and lowercase forms:
+W W W W W W W W W
+w w w w w w w w w w
+Match the pictures that begin with Ww:
+90
+Ww

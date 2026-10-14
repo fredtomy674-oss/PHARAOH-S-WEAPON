@@ -1,0 +1,11 @@
+It's Practice Time!
+
+Trace letter Oo in its upper and lowercase forms:
+
+Look and say, then circle the beginning letter.
+
+o - b
+
+m - o
+
+66

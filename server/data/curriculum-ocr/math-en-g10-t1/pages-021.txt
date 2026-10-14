@@ -1,0 +1,51 @@
+Relation Between the Two Roots of the Second Degree Equation and the Coefficients of its Terms
+
+Critical thinking: the figure opposite represents a set of parabolas
+of some quadratic function which each of them passes through the
+points (0, -2) , (0, 2).
+Find the rule of each function
+
+Forming a quadratic equation from the roots of another
+equation
+
+Example
+6 If L and M are the two roots of the equation 2x² - 3x - 1 = 0, then
+form the quadratic equation whose roots are L² and M².
+
+Solution
+The given equation: by substituting a = 2, b = -3, c = -1:
+L + M = - -3/2 = 3/2, L M = - 1/2
+The required equation by substituting L + M = 3/2, L M = - 1/2 in the formula
+∴ L² + M² = (L + M )² - 2 L M = (3/2)² - 2 (- 1/2)
+= 9/4 + 1 = 9/4 + 4/4 = 13/4
+
+∴ L²M² = (L M)²
+∴ L²M² = (- 1/2)² = 1/4
+
+Notice that
+L² + M² = (L + M)² - 2 L M
+(L - M)² = (L + M)² - 4LM
+
+By substituting in the formula of the quadratic equation:
+
+x² - (sum of the two roots) x + product of the two roots = 0
+x² - 13/4 x + 1/4 = 0 Multiply both sides of the equation by 4
+∴ The required quadratic equation is: 4 x² - 13 x + 4 = 0
+
+Try to solve
+6 In the previous equation 2x² - 3x - 1 = 0, form the quadratic equations whose each of its two
+roots are as follows:
+A 1/L , 1/M
+B L/M , M/L
+C L + M , L M
+
+Check your understanding
+1 In each of the following, form the quadratic equation whose two roots are:
+A 3/4 , 4/3
+B 5√3 , -2√3
+C 3 + √2 i , 3 - √2 i
+
+2 If L and M are the two roots of the equation x² + 3x - 5 = 0, then form the quadratic equation
+whose roots are L², M².
+
+Student book - First term 17

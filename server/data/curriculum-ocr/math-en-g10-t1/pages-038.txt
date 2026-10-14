@@ -1,0 +1,35 @@
+3- If each one of two polygons is similar to a third
+polygon, then the two polygons are similar
+If polygon M₁ ~ polygon M₃,
+polygon M₂ ~ polygon M₃
+then: polygon M₁ ~ polygon M₂
+
+4- Any two regular polygons having the same
+number of sides are similar. Why?
+
+Example
+
+2 In the figure opposite: Δ ABC ~ Δ DEF,
+DE = 8cm , EF = 9cm , FD = 10cm
+if the perimeter of Δ ABC = 81cm.
+Find the side lengths of Δ ABC.
+
+Solution
+∴ Δ ABC ~ Δ DEF
+∴ AB/DE = BC/EF = CA/FD = (AB + BC + CA) / (AE + EF + FD) = (perimeter of Δ ABC) / (perimeter of Δ DEF) (Proporites of proportion)
+and: AB/8 = BC/9 = CA/10 = 81/27
+∴ AB = 8 × 81/27 = 24cm , BC = 9 × 3 = 27 , CA = 10 × 3 = 30cm
+
+Notice that:
+If polygon M₁ ~ polygon M₂, then (perimeter of M₁) / (perimeter of M₂) = Similarity ratio (scale factor)
+
+Similarity ratio of two polygons
+
+Let K be the similarity ratio of polygon M₁ to polygon M₂
+If: K > 1 then polygon M₁ is an enlargement of polygon M₂
+0 < K < 1 then polygon M₁ is a shrinking of polygon M₂
+K = 1 then polygon M₁ is congruent to polygon M₂
+In general: you can use the similarity ratio in calculation of the dimensions of
+similar figures.
+
+34 Mathematics – First form secondary

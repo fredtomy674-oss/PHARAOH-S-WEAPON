@@ -1,0 +1,30 @@
+Determining the Types of Roots of a Quadratic Equation
+
+5 Find the solution of the following equations in the set of complex numbers using the general formula.
+A x² - 4x + 5 = 0
+B 2x² + 6x + 5 = 0
+C 3x² - 7x + 6 = 0
+D 4x² - x + 1 = 0
+
+6 Find the value of K in each of the following cases:
+A If the two roots of the equation x² + 4x + K = 0 are real different.
+B If the two roots of the equation x² - 3x + 2 + 1/K = 0 are equal.
+C If the two roots of the equation K x² - 8x + 16 = 0 are complex and not real.
+
+7 Discover the error: What is the number of solutions of the equation 2x² - 6 x = 5 in R
+
+Ahmed's answer
+b² - 4ac = (- 6)² - 4 × 2 × 5
+= 36 - 40 = - 4
+The discriminant is negative, then there is no real solutions
+
+Karim's answer
+b² - 4ac = (- 6)² - 4 × 2 (- 5)
+= 36 + 40 = 76
+the discriminant is positive, then there are two real different solutions
+
+8 If the two roots of the equation x² + 2 (K - 1) x + (2K + 1) = 0 are equal, then find the real values of K, and the two roots.
+
+9 Critical thinking: solve the equation 36x² - 48x + 25 = 0 in the set of complex numbers.
+
+Student book - First term 13

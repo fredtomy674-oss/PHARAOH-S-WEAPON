@@ -1,0 +1,5 @@
+PRIMARY 3 - TERM 1 30
+CHAPTER 3
+Directions: Reflect on your learning. Predict a number greater than 120 that would
+be a multiple of both 2 and 3. Explain why you think your prediction is correct.
+REFLECT

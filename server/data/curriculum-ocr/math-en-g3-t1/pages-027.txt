@@ -1,0 +1,28 @@
+PRIMARY 3 - TERM 1 23
+CHAPTER 2
+Number of rows:
+Number of columns:
+Total number of triangles:
+Number of rows:
+Number of columns:
+Total number of hearts:
+Number of rows:
+Number of columns:
+Total number of hearts:
+Number of rows:
+Number of columns:
+Total number of triangles:
+× =
+× = × =
+× =
+rows
+rows rows
+rows columns
+columns columns
+columns product
+product product
+product
+APPLY: Part 1
+Lesson 7: Commutative Property in Multiplication
+Directions: Solve the problems below to determine whether or not there is a
+Commutative Property of Multiplication.

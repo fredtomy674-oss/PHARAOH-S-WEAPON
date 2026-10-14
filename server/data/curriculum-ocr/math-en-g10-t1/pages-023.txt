@@ -1,0 +1,38 @@
+Relation Between the Two Roots of the Second Degree Equation and the Coefficients of its Terms
+
+11 Investigate the type of the two roots in each of the following equations, then find the solution set of each equation:
+A x² + 2x - 35 = 0
+B 2x² + 3x + 7 = 0
+C x(x - 4) + 5 = 0
+D 3x(3x - 8) + 16 = 0
+
+12 Find the value of c, if the two roots of the equation c x² - 12x + 9 = 0 are equal.
+
+13 Find the value of a, if the two roots of the equation x² - 3x + 2 + 1/a = 0 are equal.
+
+14 Find the value of c, if the two roots of the equation 3x² - 5 x + c = 0 are equal, then find the two roots.
+
+15 Find the value of K, if one a root of the equation x² + (K - 1) x - 3 = 0 is the additive inverse to the other root.
+
+16 Find the value of K, if one root of the equation 4 Kx² + 7x + K² + 4 = 0 is the multiplicative inverse to the other root.
+
+17 Form the quadratic equation whose two roots are :
+A - 2 , 4
+B - 5 i , 5 i
+C 2/3 , 3/2
+D 1 - 3i , 1 + 3i
+E 3 - 2 √2i , 3 + 2 √2i
+
+18 Find the quadratic equation in which each of the two roots is twice one of the roots of the equation 2x² - 8x + 5 = 0
+
+19 Find the quadratic equation in which each of the two roots exceeds 1 than one of the two roots of the equation : x² - 7x - 9 = 0
+
+20 Find the quadratic equation in which each of its two roots equals the square of the corresponding root of the equation : x² + 3x - 5 = 0
+
+21 If L and M are the two roots of the equation x² - 7 x + 3 = 0, then find the quadratic equation whose roots are:
+A 2 L, 2 M
+B L + 2, M + 2
+C 2/L, 2/M
+D L + M, L M
+
+Student book - First term 19

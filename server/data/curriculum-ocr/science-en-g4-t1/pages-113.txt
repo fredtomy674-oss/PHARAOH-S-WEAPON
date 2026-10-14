@@ -1,0 +1,20 @@
+1 02 102 102
+2.3 Learn What happens to objects when they
+collide with another object?
+Lesson
+2
+Basics of Speed,
+continued
+To compare the speed of one object to the speed of a second object, measure the
+distance both objects travel in a given period o f time. The object that travels the
+greater distance in the same amount of time is moving at a greater speed. If one
+runner trave l s 6 k i l ometers in 1 h our an d a secon d runner trave l s 9 k i l ometers in 1
+hour, the second runner is moving at a greater speed.
+Anot h er way to compare spee d is to see w h ic h o b ject moves a given d istance in
+the smaller amount of time. Imagine two cars racing 1000 meters. The car that
+finishes in less time is faster. It has the greater speed .
+Speed is defined as distance per unit of time. We often see speed in units o f
+k i l ometers per h our. Consi d er a car t h at trave l s 90 k i l ometers per h our. T h is car is
+faster than a car that travels 60 kilometers per hour.
+S p eed i s . . .
+Speed, continued

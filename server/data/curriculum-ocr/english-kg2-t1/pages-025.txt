@@ -1,0 +1,8 @@
+Numbers Are Fun!
+Look, count, and say:
+
+1
+1
+2
+2
+21

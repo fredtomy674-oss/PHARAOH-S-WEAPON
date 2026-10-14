@@ -1,0 +1,52 @@
+4 - 6
+
+Finding the Measure of an Angle Given the
+Value of One of its Trigonometric Ratios
+
+You will Learn
+▸ Find the measure of an angle
+given a trigonometric function.
+
+Think and discuss
+You have known that, if $y = \sin \theta$, then it is possible to find the value
+of $y$ given the angle $\theta$, and when the value of $y$ is given then, is it
+possible to find the value of $\theta$?
+
+Learn
+If $y = \sin \theta$ then $\theta = \sin^{-1} y$
+For example if $\theta$ is a positive acute angle and $y = \frac{1}{2}$,
+then this relation can be written in the form $\theta = \sin^{-1} \frac{1}{2} = 30^{\circ}$
+
+Key - Terms
+▸ Trigonometric Function
+
+Example
+1 Find $m (\angle \theta)$ where $0^{\circ} < \theta < 360^{\circ}$ which satisfies each of the
+following:
+A $\sin \theta = 0.6325$
+B $\cot \theta = (- 1.6204)$
+
+Solution
+A $\because \text{ Sine of the function} > 0$
+$\because \text{ The angle lies in the first or in the second quadrant}$.
+
+Use the calculator:
+$\text{Start} \rightarrow \boxed{\text{SHIFT}} \rightarrow \boxed{\sin^{-1}} \rightarrow \boxed{0} \rightarrow \boxed{.} \rightarrow \boxed{6} \rightarrow \boxed{3} \rightarrow \boxed{2} \rightarrow \boxed{5} \rightarrow \boxed{=} \rightarrow \boxed{^{\circ}\text{ ' }''}$
+$\text{The first quadrant: } m(\angle \theta) = 39^{\circ} 14' 6''$
+$\text{The Second quadrant: } m(\angle \theta) = 180^{\circ} - 39^{\circ} 14' 6'' = 140^{\circ} 45' 54''$
+
+Learning tools
+▸ Scientific calcualtor
+
+B $\because \text{ The co-tangent of the angle} < 0$
+$\because \text{ the angle lies in the second or in the fourth quadrant}$:
+
+Use the calculator:
+$\text{Start} \rightarrow \boxed{\text{SHIFT}} \rightarrow \boxed{\tan^{-1}} \rightarrow \boxed{1} \rightarrow \boxed{.} \rightarrow \boxed{6} \rightarrow \boxed{2} \rightarrow \boxed{0} \rightarrow \boxed{4} \rightarrow \boxed{x^{-1}} \rightarrow \boxed{=} \rightarrow \boxed{^{\circ}\text{ ' }''}$
+$\text{The second quadrant: } m(\angle \theta) = 180^{\circ} - 31^{\circ} 40' 48'' = 148^{\circ} 19' 12''$
+$\text{The fourth quadrant: } m(\angle \theta) = 360^{\circ} - 31^{\circ} 40' 48'' = 328^{\circ} 19' 12''$
+
+Is it possible to check the answer using the calculator
+
+116
+Mathematics - First form secondary

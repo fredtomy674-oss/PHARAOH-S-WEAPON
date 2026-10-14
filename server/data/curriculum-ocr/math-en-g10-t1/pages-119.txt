@@ -1,0 +1,33 @@
+Graphing Trigonometric Functions
+
+Exercises (4-5)
+
+First: complete each of the following:
+1 The range of the function f where f(θ) = sinθ is
+2 The range of the function f where f(0) =2 sinθ is
+3 The maximum value of the function f where f(θ) = 4sinθ is
+4 The minimum value of the function f where f(θ) = 3cosθ is
+
+Second: write the rule for each trigonometric function beside the corresponding
+figure to it.
+
+2
+-2π -3π -π -π 0 π π 3π 2π
+2
+Figure (1) the rule is:
+
+2
+-2π -3π -π -π 0 π π 3π 2π
+2
+Figure (2) the rule is:
+
+Third: Answer the following questions:
+5 Find the maximum and minimum values, then calculate the range of each o the following
+functions :
+A y = sinθ
+B y = 3 cosθ
+C y = sin
+3
+Student book - First term
+
+115

@@ -1,0 +1,12 @@
+Let's trace letter: Dd
+Trace:
+Dd
+
+D D D D D D D D D D D
+d d d d d d d d d d d
+
+dress
+
+desk
+
+55

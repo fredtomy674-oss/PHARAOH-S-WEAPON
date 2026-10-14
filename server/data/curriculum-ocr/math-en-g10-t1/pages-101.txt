@@ -1,0 +1,51 @@
+Trigonometric Functions
+
+Signs of the Trigonometric Functions
+Second quadrant
+$x < 0$
+$y > 0$
+The terminal side of the angle lies in the second quadrant,
+Thus, the sine and its reciprocal function are positive and the other function are negative.
+
+First quadrant
+$x > 0$
+$y > 0$
+The terminal side of the angle lies in the first quadrant.
+Thus, all trigonometric functions of the angle whose terminal side $\vec{\text{OB}}$ are positive.
+
+Third quadrant
+$x < 0$
+$y < 0$
+The terminal side of the angle lies in the third quadrant.
+Thus, the tangent and its reciprocal functions are positive and the other functions are negative.
+
+Fourth quadrant
+$x > 0$
+$y < 0$
+The terminal side of the angle lies in the fourth quadrant,
+Thus, the cosine and its reciprocal functions are positive and the other functions are negative.
+
+Summary of signs of all trigonometric ratios:
+
+| the quadrant in which the terminal side of the angle lies | the interval in which the measure of the angle belongs | signs of trigonometric functions | | |
+|---|---|---|---|---|
+| | | $\csc, \sin$ | $\cos, \sec$ | $\tan, \cot$ |
+| First | $]0, \frac{\pi}{2}[$ | $+$ | $+$ | $+$ |
+| Second | $]\frac{\pi}{2}, \pi[$ | $+$ | $-$ | $-$ |
+| Third | $]\pi, \frac{3\pi}{2}[$ | $-$ | $-$ | $+$ |
+| Fourth | $]\frac{3\pi}{2}, 2\pi[$ | $-$ | $+$ | $-$ |
+
+Example
+
+1 Determine the sign of each of the following ratios:
+A $\sin 130^{\circ}$
+B $\tan 315^{\circ}$
+C $\cos 650^{\circ}$
+D $\sec (-30^{\circ})$
+
+Solution
+A The angle of measure $130^{\circ}$ lies in the second quadrant
+$\therefore \sin 130^{\circ}$ positive
+
+Student book - First term
+97

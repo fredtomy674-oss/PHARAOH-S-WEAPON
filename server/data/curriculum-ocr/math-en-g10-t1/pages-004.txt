@@ -1,0 +1,18 @@
+Contents
+
+Unit One
+Algebra, relations and functions
+
+1 - 1 Introduction in Complex Numbers 4
+1 - 2 Determining the Types of the two Roots of a Quadratic Equation 10
+1 - 3 The Relation Between the Two Roots of the Second Degree Equation and the Coefficients of its Terms 14
+1 - 4 Sign of a Function 20
+1 - 5 Quadratic Inequalities 27
+
+Unit Two
+Similarity
+
+2 - 1 Similarity of Polygons 32
+2 - 2 Similarity of Triangles 36
+2 - 3 The Relation Between the Area of two Similar Polygons 45
+2 - 4 Applications of Similarity in the circle 53

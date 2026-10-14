@@ -1,0 +1,12 @@
+2
+COMMENT TROUVER DES OBJETS QUI BOUGENT ?
+CONSIGNES: Teste chaque objet pour voir s’il peut bouger.
+É cris Oui ou Non dans chaque case.
+CHAPITRE 2 : SE DÉPLACER DANS NOTRE ENVIRONNEMENT
+Leçon
+4
+Objet rebondit roule tourne glisse
+Le ballon
+Le cube
+Le crayon
+29

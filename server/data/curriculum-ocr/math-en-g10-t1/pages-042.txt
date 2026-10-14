@@ -1,0 +1,28 @@
+Important corollaries
+
+corollary
+1
+If a line is drawn parallel to one side of a triangle and intersects the other
+two sides or the lines containing them, then the resulting triangle is similar
+to the original triangle.
+
+If DE // BC and intersects AB and AC at D, and E respectively, as in the three previous figures:
+Then: Δ ADE ~ Δ ABC.
+
+Example
+2 In the figure opposite: ABC is a triangle, D ∈ AB, DE // BC
+and intersects AC at E, DF // AC and intersects BC at F.
+Prove that: Δ ADE ~ Δ DBF
+
+Solution
+∵ DE // BC ∴ Δ ADE ~ Δ ABC (1)
+∵ DF // AC ∴ Δ DBF ~ Δ ABC (2)
+from (1) and (2): Δ ADE ~ Δ DBF (Q.E.D)
+
+Try to solve
+1 In the figure opposite: ABC is a triangle, D ∈ AB, DE // BC and intersects
+AC at E, AX is drawn to intersect DE and BC at X and Y respectively.
+A State three pairs of similar triangles.
+B prove that: DX/BY = XE/YC = DE/BC
+
+38 Mathematics – First form secondary

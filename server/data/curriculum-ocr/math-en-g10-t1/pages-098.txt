@@ -1,0 +1,30 @@
+Second: Answer the following questions:
+10 In terms of $\pi$, find the radian measure of the following angles
+A $225^{\circ}$
+C $-135^{\circ}$
+E $390^{\circ}$
+B $240^{\circ}$
+D $300^{\circ}$
+F $780^{\circ}$
+
+(11) Find the radian measure of the following angles approximating the result to the nearest three decimal places:
+A $56.6^{\circ}$
+B $25^{\circ} 18'$
+C $160^{\circ} 50' 48''$
+
+12 Find the dgree measure of the following angles approximating the result to the nearest second:
+A $0.49^{\text{rad}}$
+B $2.27^{\text{rad}}$
+C $-3\frac{1}{2}^{\text{rad}}$
+
+(13) $\theta$ is a central angle in a circle of radius $r$ and subtends an arc of length $L$:
+A If $r=20\text{ cm}$ and $\theta=78^{\circ} 15' 20''$ then find $L$. (to the nearest tenth)
+B If $L=27.3\text{ cm}$ and $\theta=78^{\circ} 0' 24''$ then find $r$. (to the nearest tenth)
+
+(14) A central angle of measure $150^{\circ}$ and subtends an arc length $11\text{cm}$. Calculate its radius length (to the nearest tenth).
+
+(15) Find the radian and degree measure of the central angle which subtends an arc length $8.7\text{cm}$ in a circle of radius length $4\text{cm}$.
+
+(16) Geometry: the measure of an angle of a triangle is $60^{\circ}$ and the measure of another angle is $\frac{\pi}{4}$. Find the radin measure and the degree measure of the third angle.
+
+94 Mathematics - First form secondary

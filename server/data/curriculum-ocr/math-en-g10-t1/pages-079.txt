@@ -1,0 +1,38 @@
+Angle Bisectors and Proportional Parts
+
+From the properties of proportion , we get
+BD + DC / DC = 3 + 2 / 2  ,  5 / DC = 5 / 2  ∴ DC = 2
+BE - EC / EC = 3 - 2 / 2  ,  5 / EC = 1 / 2  ∴ EC = 10
+then DE = DC + CE  ,  DE = 2 + 10 = 12cm
+
+Finding the length of the interior and the exterior bisectors of an angle of a triangle
+
+well known problem
+If AD bisects ∠ A in Δ ABC internally and intersects BC at D
+then: AD = √ AB × AC - BD × DC (Proof is not required)
+
+Given: ABC is a triangle, AD bisects ∠ BAC internally, AD ∩ BC = {D}
+R.t.p.: (AD)² = AB × AC - BD × DC
+Proof: Draw a circle passes through Δ ABC
+and intersects AD at E, draw BE
+then: Δ ACD ~ Δ AEB (why)?, AD / AB = AC / AE
+∴ AD × AE = AB × AC
+AD × (AD + DE) = AB × AC
+(AD)² = AB × AC - AD × DE
+(AD)² = AB × AC - BD × DC
+i.e.: AD = √ AB × AC - BD × DC
+
+Remember
+AD × DE = BD × DC
+
+Example
+4 ABC is a triangle in which AB = 27cm, AC = 15cm. AD bisects ∠ A and intersects BC at D.
+If BD = 18cm. Calculate the length of AD.
+
+Solution
+∴ AD bisects ∠ BAC  ∴ BD / DC = AB / AC
+then 18 / DC = 27 / 15  ∴ D C = 10cm
+∴ AD = √ AB × AC - BD × DC
+∴ AD = √ 27 × 15 - 18 × 10 = √ 225 = 15 cm
+
+Student book - First term 75

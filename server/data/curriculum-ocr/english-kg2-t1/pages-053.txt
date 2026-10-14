@@ -1,0 +1,14 @@
+It's Practice Time!
+Trace letter Gg in its upper and lowercase forms:
+
+G G G G G G G G G G
+g g g g g g g g g g
+
+Look at the picture, say the word, then put a ✔ for the correct beginning letter:
+
+g m
+d m
+d m
+g j
+
+49

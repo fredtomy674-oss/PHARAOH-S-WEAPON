@@ -1,0 +1,39 @@
+Related Angles
+Example
+6 Solve the equation: sin 20 = cos θ
+Solution
+The equation: sin 20 = cos θ
+20± 0 = + 2πη
+(n ∈ Z)
+from definition of equation
+(1) either
+20+0=+2πη
+i.e.: 30= + 2πη
+0=+nn
+divide both sides by 3
+(2) or
+20-0=+2πη
+i.e.: 0 = + 2πη
+Solution of the equation: + 3n or + 2πη
+Try to solve
+9 Find the general solution of each of the following equations:
+A sin 4 0 = cos 20
+B 2 sin ( - 0) = 1
+C cos5 0 = sin 0
+10 Discover the error: In one of the mathematical competitions, the teacher asked karim
+and Ziad to find the value of sin(0-) then who of them has a correct answer? Explain
+your answer.
+karim's answer
+sin (0-) = sin (2π + 0 - )
+= sin (-n + 0)
+Ziad's answer
+sin (0-) = sin [- (-0)]
+=-sin(-0)
+=-(-cos 0) = cos 0
+Check your understanding
+Find all values of 0 where 0 € ]0, [ which satisfies each of the following equalities :
+A sin 0 - cos 0 = 0
+Bcsc (0-)=sec
+C 2cos(-0)=1
+Student book - First term
+109

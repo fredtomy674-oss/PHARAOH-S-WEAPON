@@ -1,0 +1,13 @@
+Remember With Me!
+
+Trace the following lines:
+Start from the dot.
+
+Trace the following shapes:
+Start from the dot.
+
+square
+circle
+triangle
+heart
+1

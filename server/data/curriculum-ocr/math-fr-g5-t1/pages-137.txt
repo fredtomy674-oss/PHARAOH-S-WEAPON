@@ -1,0 +1,57 @@
+Concept : 129 Leçon 4: Identifier les régularitésnumériques 129
+Évaluer des expressions numériques
+CONCEPT 1 UNITÉ
+6
+CONSTRUIS TES CONNAISSANCES
+Régularités numériques Observe chaque groupement de nombres et note s’ils
+forment une régularité numérique. Si oui, identifie la règle.
+Groupement Régularité ? (O/N) Règle
+1. 5; 10; 20; 40; 80 . . .
+2. 3; 6; 9; 15; 21; 28 . . .
+3. 1,5; 3; 4,5; 6; 7,5 . . .
+4. 5; 3; 6; 1; 7; 5 . . .
+5. 1; 3; 9; 18; 54 . . .
+6. 85; 73; 61; 49; 37 . . .
+Quelle est la règle ? Regarde chaque tableau et détermine la règle, puis utilise
+une variable pour l’écrire.
+1. Entrée Sortie
+1 8
+2 16
+3 24
+4 32
+5 40
+Règle :
+2. Entrée Sortie
+1 8
+2 9
+3 10
+4 11
+Règle : Concept : 129 Leçon 4: Identifier les régularitésnumériques 129
+Évaluer des expressions numériques
+CONCEPT 1 UNITÉ
+6
+CONSTRUIS TES CONNAISSANCES
+Régularités numériques Observe chaque groupement de nombres et note s’ils
+forment une régularité numérique. Si oui, identifie la règle.
+Groupement Régularité ? (O/N) Règle
+1. 5; 10; 20; 40; 80 . . .
+2. 3; 6; 9; 15; 21; 28 . . .
+3. 1,5; 3; 4,5; 6; 7,5 . . .
+4. 5; 3; 6; 1; 7; 5 . . .
+5. 1; 3; 9; 18; 54 . . .
+6. 85; 73; 61; 49; 37 . . .
+Quelle est la règle ? Regarde chaque tableau et détermine la règle, puis utilise
+une variable pour l’écrire.
+1. Entrée Sortie
+1 8
+2 16
+3 24
+4 32
+5 40
+Règle :
+2. Entrée Sortie
+1 8
+2 9
+3 10
+4 11
+Règle :

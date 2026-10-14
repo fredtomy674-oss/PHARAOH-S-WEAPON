@@ -1,0 +1,48 @@
+1 - 3
+
+Relation Between the Two Roots of the Second Degree
+Equation and the Coefficients of its Terms
+
+You will Learn
+▸ How to find the sum of the
+two roots of a given quadratic
+equation.
+▸ How to find the product of the
+two roots.
+▸ Finding a quadratic equation
+in terms of another quadratic
+equation
+
+Think and discuss
+We know that the two roots of the equation 4x² - 8x + 3 = 0 are 1/2 and 3/2.
+Sum of the two roots = 1/2 + 3/2 = 1+3 / 2 = 2
+Product of the two roots = 1/2 × 3/2 = 3/4
+Is there a relation between the sum of the two roots of the equation
+and coefficients of its terms?
+Is there a relation between the product of the two roots of the equation
+and coefficients of its terms?
+
+Key - Terms
+▸ Sum of Two Roots
+▸ Product of Two Roots
+
+Learn
+Sum and product of two roots
+The two roots of the quadratic equation ax² + bx + c = 0 are:
+-b + √ b²-4ac / 2a , -b - √ b²- 4ac / 2a
+let the first root be L and the other root be M then :
+L + M = -b / a (Prove that) L M = c / a (Prove that)
+Oral exercise In the quadratic equation ax² + bx + c = 0
+find L + M and L M in each of the following cases:
+A If a = 1 B If b = a C If a = c
+
+Example
+1 Without solving the equation, find the sum and the product of the
+two roots of the equation: 2x² + 5x - 12 = 0
+Solution
+a = 2 , b = 5 , c = - 12
+Sum of the two roots = -b / a = -5 / 2 = -5/2
+product of the two roots = c / a = -12 / 2 = -6
+
+14
+Mathematics - First form secondary

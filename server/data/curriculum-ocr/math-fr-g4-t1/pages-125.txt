@@ -1,0 +1,23 @@
+Leçon 9: L’algorithme des quotients partiels 115
+LEÇON 9
+L’algorithme des quotients partiels
+Objectifs d’apprentissage
+• Je peux utiliser l’algorithme des quotients partiels pour
+résoudre les problèmes de division.
+ACCÈS
+Correspondance de modèle Écrivez le problème de division
+qui correspond à chaque domaine de maquette. N’oubliez pas
+d’inclure le quotient et le reste, s’il y en a
+1.
+2.
+CONSTRUIS TES CONNAISSANCES
+Algorithme des quotients partiels Résoudre chaque problème
+en utilisant l’ algorithme des quotients partiels. Décidez qui
+résoudra chaque problème avec votre groupe. Vous apprendrez à
+chacun de résoudre votre problème.
+Exemple
+897 4
+300 60 18 6
+50 10 3
+4 000 1 200 400 28 4
+1 000 300 100 7 R3

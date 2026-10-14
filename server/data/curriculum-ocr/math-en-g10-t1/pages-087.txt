@@ -1,0 +1,32 @@
+Directed Angle
+
+Definition
+the directed angle is an ordered pair of two rays called the sides
+of the angle with a common starting point called the vertex.
+
+critical thinking:
+➤ Is ( OA , OB ) = ( OB , OA )? Explain your answer.
+
+Standard position of the directed angle
+An angle is in the standard position if its vertex is the
+origin of rectangular coordinate system, and its initial side
+lies on the positive direction of the x-axis.
+
+Is the directed angle ∠AOB in the standard position?
+Explain your answer.
+
+Oral exercises
+Which one of the following ordered pairs expresses a directed angle in its standard position?
+Explain your answer .
+A ( CA , CD )
+B ( OA , OE )
+C ( OE , OA )
+D ( OA , OG )
+E ( OB , OG )
+F ( OA , OB )
+
+Try to solve
+1 Which of the following directed angles is in the
+standard position? Explain your answer.
+
+Student book - First term 83

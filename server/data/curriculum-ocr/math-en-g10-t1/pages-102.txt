@@ -1,0 +1,99 @@
+B The angle of measure 315° lies in the fourth quadrant
+C The angle of measure 650° is equivalent to the angle of measure 650° - 360° = 290°
+.. The angle of measure 650° lies in the fourth quadrant
+D The angle of measure (-30°) is equivalent to the angle of measure - 30°+360° = 330°
+The angle of measure (-30°) lies in the fourth quadrant
+Try to solve
+1 Determine the sign of each of the following ratios:
+A cos 210°
+B sin 740°
+Ctan -300°
+Example
+2 If AOB is in the standard position and its terminal side intersects the unit circle at the
+point B and its measure is . Find the basic trigonometric ratios to the angle A O B, if the
+coordinates of the point B are as follows:
+A (0,-1)
+B
+(-11, y)
+C (-x, x)
+where x > 0
+Solution
+y > 0
+A cos 0=0, sin 0=-1,
+Bx² + y² = 1
+1
+(+)² + y²=1
+.'. y =
+√√2
+>0
+.'. cos 0 =
+C (-x)² + (x)² = 1
+then: cos 0 =
+3 If 270° < 0 < 360°,
+Solution
+tan 0 =
+(unit circle),
+then
+sin 0 =
+-1
+√2
+5
+13
+let m ( AOB) = 0 where lies in the fourth quadrant, and
+the coordinates of the point B are (x, y)
+-1
+0
+x =
+1
+√2
+tan 0 = 1
+(undefined)
+y²=1-=
+y =
+1
+< 0
+(refused)
+because x > 0
+2x² = 1
+x =
+√2
+sin 0 =
+1
+√2
+tan 0 = -1
+find all basic trigonometric ratios of 0
+y
+98
+.. y = sin 0 =
+5
+13
+x = cos 0 where cos 0 > 0
+.'. x² + y² = 1
+cos² 0 +
+512
+= 1
+13
+25
+.'. cos² 0 = 1
+169
+cos 0 =
+12
+(why?)
+13
+.'. cos² 0 =
+144
+169
+tan 0 =
+12
+5
+Mathematics - First form secondary
+cos 0 =
+12
+13
+or cos 0
+=-
+12
+13
+B(x, y)
+A
+X

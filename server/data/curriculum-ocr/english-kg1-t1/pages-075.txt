@@ -1,0 +1,10 @@
+Let's trace letter Ee:
+Trace:
+Ee
+
+E
+e
+
+egg
+eagle
+71

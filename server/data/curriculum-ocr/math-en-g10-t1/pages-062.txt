@@ -1,0 +1,43 @@
+Exercises (2 - 4)
+
+1 Use the calculator or mental math to find the numerical value of x in each of the following figures. (lengths are measured in centimetres)
+
+A
+D 8 E 4 A 3 C B
+
+B
+B 4x E 3x A 6 18 D C
+
+C
+C 7 E 6 A x B 12 D
+
+D
+E 5 B 6 D 7 A x C
+
+E
+E D 7 9 C B 10 A
+
+F
+x B 3x A C 8 D x+4 E
+
+G
+D x A 7 B 9 C
+
+H
+D 7 A 5 B x C
+
+I
+D 8 A B x C
+
+2 In which of the following figures, the points A, B, C and D Lie on a circle? Explain your answer. (the lengths are measured in centimetres)
+
+A
+A 6 E 5 C 8.4 7 D B
+
+B
+A 4 D 5 E 6 3 C B
+
+C
+A 8 D 10 9 E 12 C B
+
+58 Mathematics - First form secondary

@@ -1,0 +1,16 @@
+UNIT UNIT 6 6 101
+practice
+5
+celebrate
+6
+success
+7
+reach
+8
+2 Read and number
+5 Samer practices football.
+Laila has a plan for the future.
+Karim has a goal to be a doctor.
+Mariam celebrates passing the exam.
+You should take a step to be a better student.
+Nour tries hard to be a great swimmer.

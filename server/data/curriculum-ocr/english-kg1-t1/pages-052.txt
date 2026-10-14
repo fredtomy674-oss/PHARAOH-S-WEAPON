@@ -1,0 +1,12 @@
+Let's trace letter: Pp
+
+Trace:
+Pp
+
+P P P P P P P P P P P
+p p p p p p p p p p p
+
+pan
+pants
+
+48

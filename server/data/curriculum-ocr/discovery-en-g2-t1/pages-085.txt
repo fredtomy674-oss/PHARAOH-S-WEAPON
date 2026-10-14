@@ -1,0 +1,20 @@
+Lesson
+5
+PRIMARY 2 81
+CHAPTER 3 COMMUNICATION TOOLS
+Read the information below, and then observe the braille code.
+Record any patterns you see.
+Use the braille code to create a simple message to send to a
+friend.
+A BUMPY CODE
+A BRAILLE MESSAGE
+A special code was developed for soldiers to read messages
+in the dark. Louis Braille improved this code. He was blinded
+as a child and invented his system as a teenager. He used a
+system of raised dots, or bumps, in a three by two cell.
+1 4
+2 5
+3 6
+People read this code, called braille, by feeling the pattern of the bumps.
+Different combinations of the six bumps are created to form letters, numbers,
+punctuation, and even musical notes.

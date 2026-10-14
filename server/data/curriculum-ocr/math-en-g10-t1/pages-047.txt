@@ -1,0 +1,18 @@
+Similarity of Triangles
+
+B From similarity also ∠ BDE ≡ ∠ BAC ∴ m(∠ BDE) = m(∠ BAC)
+∴ ∠ BDE is an exterior angle of the quadrilateral ACDE
+∴ the figure ACDE is a cyclic quadrilateral.
+
+Example
+8 ABC is a triangle D ∈ BC where (AC)² = CD × CB. Prove that: Δ ACD ~ Δ BCA
+Solution
+In the two triangles ABC, DAC, ∠ C is a common angle (1)
+∴ (AC)² = CE × CB
+∴ AC/CB = CD/AC (2)
+from (1), (2) we get Δ ACD ~ Δ BCA (theorem)
+
+Exercises (2 - 2)
+1 State which of the following cases, the two triangles are similar. In case of similarity, state why they are similar?
+
+Student book - First term 43

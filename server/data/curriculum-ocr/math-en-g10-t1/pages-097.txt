@@ -1,0 +1,39 @@
+Systems of Measuring Angle
+
+Exercises (4 - 2)
+
+First: Multiple choice:
+
+1 The angle of measure 60° in the standard position is equivalent to the angle of measure:
+A 120° B 240° C 300° D 420°
+
+2 The angle of measure 31π/6 lies in the quadrant
+A First B second C third D fourth
+
+3 The angle of measure -9π/4 lies in the quadrant
+A First B second C third D fourth
+
+4 If the sum of measures of the interior angles of a regular polygon equals 180° (n - 2)
+where n is the number of its sides, then the measure of the angle of a regular pentagon in
+radian measure equals:
+A π/3 B 7π/2 C 3π/5 D 2π/3
+
+5 The angle of measure 7π/3 its degree measure equals
+A 105° B 210° C 420° D 840°
+
+6 If the degree measure of an angle is 64° 48', then its radian measure equals
+A 0.18 rad B 0.36 rad C 0.18 π D 0.36 π
+
+7 The arc length in a circle of diameter length 24 cm and opposite to a central angle of
+measure 30° is
+A 2π cm B 3π cm C 4π cm D 5π cm
+
+8 The measure of the central angle in a circle of radius length 15 cm and opposite to an arc
+length 5π cm equals
+A 30° B 60° C 90° D 180°
+
+9 If the measure of an angle of a triangle equals 75° and the measure of another angle
+equals π/4, then the radian measure of the third angle equals
+A π/6 B π/4 C π/3 D 5π/12
+
+Student book - First term 93

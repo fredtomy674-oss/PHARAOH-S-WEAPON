@@ -1,0 +1,23 @@
+PRIMARY 3 - TERM 1 67
+CHAPTER 5
+Directions: Look at the space requirements for the animals below. Then determine
+which pen each animal could use. Write the area of the pen and the name of the
+animal for each pen. Some pens might work for multiple animals.
+LESSON 3: AREA USING THE DIMENSIONS
+Goat’s area > 30 square meters Cattle’s area > 39 square meters
+Chicken’s area < 20 square meters Sheep’s area < 30 square meters but > 24 square meters
+Pen 1
+Pen 2
+Pen 3
+Animal that can use:
+Animal that can use:
+Animal that can use:
+6 meters
+6 meters
+5 meters
+6 meters 3 meters 5 meters
+Area = square meters
+Area = square meters
+Area = square meters
+Animal Pens
+APPLY

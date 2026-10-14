@@ -1,0 +1,19 @@
+Scavenger Kite-Hunt
+
+Can You Catch the Kk Kites?
+Look at all the kites in the sky. Color only the kites that have the letter Kk on them:
+
+K k
+J j
+J j
+K k
+K k
+J j
+K k
+J j
+K k
+J j
+K k
+J j
+
+19

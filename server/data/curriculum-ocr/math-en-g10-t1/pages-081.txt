@@ -1,0 +1,34 @@
+Angle Bisectors and Proportional Parts
+
+Try to solve
+5 In each of the following figures, prove that: EF // BC
+
+Special cases
+1- In Δ ABC:
+If D ∈ BC, where BD/DC = BA/AC
+then: AD bisects ∠ BAC
+
+If E ∈ BC, E ∉ BC, where BE/EC = BA/AC
+then: AE bisects the exterior angle of Δ ABC
+at A, and it is defined by the converse of the previous theorem
+
+2- In the figure opposite:
+BE, CE are bisectors of angles B and C
+intersecting at the point E ∈ AD. What do you deduce?
+
+Fact: The bisectors of angles of a triangle are concurrent.
+
+Example
+6 ABC is a triangle in which AB = 18cm, BC = 15cm, AC = 12cm, D ∈ BC, where BD = 9cm,
+AE ⊥ AD and intersects BC at E. prove that AD bisects ∠ BAC, then find the length of CE.
+
+Solution
+In Δ ABC: AB/AC = 18/12 = 3/2
+CD = BC - BD = 15 - 9 = 6cm
+∴ BD/DC = 9/6 = 3/2
+∴ BD/DC = AB/AC AD bisects ∠ BAC
+∴ AE ⊥ AD and intersects BC at E
+∴ AE bisects the exterior angle of Δ ABC at A then BE/EC = AB/AC
+∴ BE = BC + CE ∴ 15 + CE / CE = 18/12, CE = 30cm
+
+Student book - First term 77

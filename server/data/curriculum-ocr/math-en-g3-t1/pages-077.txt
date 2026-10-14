@@ -1,0 +1,13 @@
+24
+PRIMARY 3 - TERM 1 73
+CHAPTER 5
+Walid invited his friends over to play board games. He has 24 small square tables that
+he wants to arrange to make a larger rectangular table.
+APPLY
+Part 1 Directions: In the grid below, draw as many rectangular tables as you can. Label
+the width and length and then write an equation to find the area and another equation to
+find the perimeter. One rectangular table is done for you.
+24
+1 1
+Area: 24 × 1 = 24 square units
+Perimeter: 1 + 1 + 24 + 24 = 50 units

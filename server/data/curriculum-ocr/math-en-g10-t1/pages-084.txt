@@ -1,0 +1,44 @@
+Unit
+4
+Trigonometry
+
+Unit objectives
+By the end of the unit, the student should be able to:
+# Recognize the directed angle.
+# Recognize the standard position of the directed angle.
+# Recognize the positive and negative measure of the directed angle.
+# Recognize the type of measuring angle (degree and radian measures)
+# Recognize the radian measure of the central angles in circle.
+# Use the calculator to carry out the special mathematical operation, converting from the radian to the degree measure and vice versa.
+# Recognize the trian gonometric functions.
+# Determine the signs of the trigonometric functions in the four quadrants.
+# Deduce the set of equivalent angles which have the same trigonometric functions.
+# Recognize the trigonometric ratios of an acute and any angle.
+# Deduce the trigonometric ratios to some special angles.
+# Recognize the related angles (180° ± θ), (360° ± θ), (90° ± θ), and (270° ± θ)
+# Give the general solution to the trigonometric equations in the form : Sin AX = cos BX
+tan AX = cot BX Sec AX = CSC BX
+# Find the measure of an angle given one of its trigonometric ratios.
+# Recognize the graphic representation to the sine and cosine functions, and deduce the properties of each of them.
+# Use the scientific calculator to calculate the trigonometric ratios of some special angles.
+# Model some of the physical and life phenomena which are represented by the trigonometric functions.
+# Use information technology to recognize the multiple applications of the basic concepts of trigonometry.
+
+Key - Terms
+= Degree Measure
+= Radian Measure
+= Directed Angle
+= Radian
+= Standard Position
+= Positive Measure
+= Negative Measure
+= Equivalent Angle
+= Quadrant Angle
+= Trigonometric Function
+= Sine
+= Cosine
+= Tangent
+= Cosecant
+= Secant
+= Cotangent
+= Circular Function

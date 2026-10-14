@@ -1,0 +1,30 @@
+Try to solve
+2 A If polygon ABCD ~ polygon A'B'C'D', AB/A'B' = 1/3, then write the value of each of the following:
+a (polygon ABCD) / a (polygon A'B'C'D') , perimeter of polygon ABCD / perimeter of polygon A'B'C'D'
+B If the two polygons ABCDE and A'B'C'D'E' are similar and the ratio of their areas equals 4 : 25
+Then write the value of each of: AB/A'B' , perimeter of polygon ABCDE / perimeter of polygon A'B'C'D'E'
+C If the ratio of the perimeters of two similar polygons equals 1 : 4, and area of the first polygon equals 25cm². Find the area of the second polygon.
+D If the length of two corresponding sides in two similar polygons are 12cm and 16cm, and the area of the smaller polygon equals 135cm². Then find the area of the greater polygon.
+
+Example
+4 ABCD and XYZL are two similar polygons and : m(∠A) = 40°, XY = 3/4 AB, CD = 16cm.
+Calculate: first: m(∠X)
+Second: length of ZL
+third: a(polygon ABCD) : a(polygon X Y Z L)
+
+Solution
+∵ polygon ABCD ~ polygon XYZL
+∴ m(∠A) = m(∠X) then m(∠X) = 40° (first required)
+∵ XY = 3/4 A B ∴ AB/XY = 4/3 (from properties of proportion)
+From similar polygons, we get also AB/XY = CD/ZL
+∴ 4/3 = 16/ZL then ZL = (3 × 16)/4 = 12cm (second required)
+a(polygon ABCD) : a(polygon XYZL) = (AB)² : (XY)²
+= 16k² : 9k²
+= 16 : 9 (third required)
+
+Notice that
+AB = 4K
+XY = 3K
+K ≠ 0
+
+50 Mathematics - First form secondary

@@ -1,0 +1,26 @@
+Trigonometric Functions
+
+Exercises (4 - 3)
+
+First: Multiple Choice:
+1 If θ is an angle in the standard position and its terminal side passes through the point (1/2, √3/2), then sin θ equals:
+A 1/2 B 1/√3 C √3/2 D 2/√3
+2 If sin θ = 1/2 where θ is an acute angle , then m (∠ θ ) equals
+A 30° B 45° C 60° D 90°
+3 If sin θ = - 1, cos θ = 0 , then the measure of angle θ equals
+A π/2 B π C 3π/2 D 2π
+4 If csc θ = 2 where θ is the measure of an acute angle, then measure of angle θ equals
+A 15° B 30° C 45° D 60°
+5 If cos θ = 1/2, sin θ = - √3/2 , then measure of angle θ equals
+A 2π/3 B 5π/6 C 5π/3 D 11π/6
+6 If tan θ = 1 where θ is a positive acute angle, then measure of angle θ equals
+A 10° B 30° C 45° D 60°
+7 tan 45° + cot 45° - sec 60° equals
+A Zero B 1/2 C √3/2 D 1
+8 If cos θ = √3/2 where θ is an acute angle , then sin θ equals
+A 1/2 B 1/√3 C 2/√3 D √3/2
+Second: Answer the following questions:
+9 Find all trigonometric functions of angle θ drawn in the standard position and its terminal side intersects the unit circle and passes through each of the following points.
+A (2/3, √5/3) B (√2/2, √2/2) C (√3/2, 1/2) D (3/5, 4/5)
+
+Student book - First term 101

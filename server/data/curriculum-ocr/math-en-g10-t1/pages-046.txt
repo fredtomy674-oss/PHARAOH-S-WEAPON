@@ -1,0 +1,36 @@
+theorem
+2
+SAS Similarity theorem (Proof is not required)
+If an angle of one triangle is congruent to an angle of another triangle and lengths
+of the sides including those angles are in proportion, then the triangles are similar
+
+Given: ∠ A ≡ ∠ D, AB/DE = AC/DF
+R.t.p.: Δ ABC ~ Δ DEF
+Proof: take X ∈ AB where AX = DE
+draw XY // BC
+and intersect AC at Y
+∴ XY // BC ∴ Δ ABC ~ Δ AXY (Corollary) (1)
+, AB/AX = AC/AY
+∴ AB/DE = AC/EF (given) , AX = DE (construction)
+∴ AB/AX = AC/EF , AY = DF
+∴ Δ AXY ≡ Δ DEF (SAS congruency theorem)
+Δ AXY ~ Δ DEF (2)
+from (1), (2) we get: Δ ABC ~ Δ DEF Q.E.D.
+
+Example
+7 ABC is a triangle AB = 8cm, AC = 10cm, BC = 12cm, E ∈ AB where AE = 2cm, D ∈ BC
+where BD = 4cm.
+A Prove that Δ BDE ~ Δ BAC and deduce the length of DE .
+B Prove that figure ACDE is a cyclic quadrilateral.
+
+Solution
+∴ AB = 8cm, AE = 2cm ∴ BE = 6cm
+A In ΔΔ BDE, BAC,:
+∠ DBE ≡ ∠ ABC (1)
+, BD/BA = 4/8 = 1/2 , BE/BC = 6/12 = 1/2
+∴ BD/BA = BE/BC (2)
+from (1), (2) ∴ Δ BDE ~ Δ BAC (theorem)
+from similarity DE/AC = 1/2
+∴ DE = 1/2 AC , DE = 1/2 × 10 = 5cm
+
+42 Mathematics – First form secondary

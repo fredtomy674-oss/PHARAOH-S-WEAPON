@@ -1,0 +1,58 @@
+Leçon 11: Division et multiplication 119 Photo Credit: Pat Shrader / Shutterstock.com
+LEÇON 11
+Division et multiplication
+Objectifs d’apprentissage
+• Je peux utiliser les propriétés de la valeur de position pour enregistrer avec
+précision les quotients.
+• Je peux utiliser la multiplication pour vérifier les réponses des problèmes de
+division.
+ACCÈS
+Repérez la différence Étudiez les deux
+problèmes de division résolus en utilisant
+l’algorithme standard. Identifiez autant de
+différences que possible entre les deux
+problèmes.
+CONSTRUIS TES CONNAISSANCES
+Valeur de position et quotient Tout d’abord, encerclez les problèmes que vous
+pensez aura un quotient avec moins de chiffres que le dividende. Puis, estimez le
+quotient et résolvez chaque problème en utilisant l’algorithme de division. Pensez
+à l’endroit où placer le premier chiffre dans le quotient.
+1. 346 : 5
+Le quotient est compris entre et .
+Solution
+2. 1 266 : 6
+Le quotient est compris entre et .
+Solution
+3. 834 : 3
+Le quotient est compris entre et .
+Solution
+939
+900
+39
+30
+9
+9
+0
+3
+313
+277
+270
+7
+6
+1
+3
+92 R1
+939
+- 900 313
+39
+9
+- 30
+- 9
+0
+3 277
+- 270 92
+7
+1
+- 6
+3
+R1

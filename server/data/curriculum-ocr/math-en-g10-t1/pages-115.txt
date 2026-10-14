@@ -1,0 +1,36 @@
+Related Angles
+
+22 If $\cos(90^\circ + \theta) = \frac{1}{2}$ where $\theta$ is the measure of the smallest positive angle, then measure
+of angle $\theta$ equals
+(A) $150^\circ$
+(B) $210^\circ$
+(C) $240^\circ$
+(D) $330^\circ$
+
+Fourth: Answer the following question:
+
+23 Find one of the values of $\theta$ where $0 \le \theta < 90^\circ$ which satisfies each of the following:
+(A) $\sin(3\theta + 15^\circ) = \cos(2\theta - 5^\circ)$
+(B) $\sec(\theta + 25^\circ) = \csc(\theta + 15^\circ)$
+(C) $\tan(\theta + 20^\circ) = \cot(3\theta + 30^\circ)$
+(D) $\cos \frac{\theta + 20^\circ}{2} = \sin \frac{\theta + 40^\circ}{2}$
+
+24 Find the value of each of the following:
+(A) $\sin 150^\circ$
+(B) $\csc 225^\circ$
+(C) $\sec 300^\circ$
+(D) $\tan 780^\circ$
+(E) $\csc \frac{11\pi}{6}$
+(F) $\sin \frac{7\pi}{4}$
+(H) $\cot \frac{-2\pi}{3}$
+(I) $\cos \frac{-7\pi}{4}$
+
+25 If the terminal side of the angle $\theta$ drawn in the standard position intersects the unit circle
+at the point $\text{B} (-\frac{3}{5}, \frac{4}{5})$, then find:
+(A) $\sin(180^\circ + \theta)$
+(B) $\cos(\frac{\pi}{2} - \theta)$
+(C) $\tan(360^\circ - \theta)$
+(D) $\csc(\frac{3\pi}{2} - \theta)$
+
+Student book - First term
+111

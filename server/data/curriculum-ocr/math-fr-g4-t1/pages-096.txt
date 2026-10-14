@@ -1,0 +1,32 @@
+86 Comprendre les facteurs
+UNITÉ
+6
+CONCEPT 1 Crédit photo : Allexanderh / Shutterstock.com Crédit photo : (a) Allexanderh / Shutterstock.com, (b) StepanPopov / Shutterstock.com
+LEÇON 2
+Nombres premiers et composés
+Objectifs d'apprentissage
+• Je peux identifier les facteurs d'un nombre entier.
+• Je peux expliquer les régularités que j'observe dans les
+nombres qui ont 3 ; 6 ; ou 9 comme facteurs.
+• Je peux déterminer si un nombre est premier ou composé .
+ACCÈS
+É nigmes de facteurs Écoutez les énigmes lues par votre professeur.
+Résoudre les énigmes et enregistrez vos réponses.
+1. Le nombre est un nombre pair entre 20 et 30. Certains des facteurs incluent 1 ;
+2 ; 4 ; 7 et 14. De quel nombre s'agit-il?
+2. Le nombre est un nombre pair supérieur à 40. Il a 10 comme facteur. C'est
+moins de 60. De quel nombre s'agit-il ?
+3. Le nombre est un nombre à deux chiffres. Il a 5 comme facteur. Son chiffre de
+dizaine est inférieur à son chiffre des unités. L'une de ses paires de facteurs est
+5 et 7. Quel est ce numéro?
+CONSTRUIS TES CONNAISSANCES
+Nombres avec des facteurs de 3 ; 6 ou 9 Déterminez si chaque
+nombre a 3 ; 6 ou 9 comme facteur. Explorez ces modèles:
+• Un nombre a 3 comme facteur si la somme des chiffres est un nombre qui
+est dit lors du comptage par sauts par 3.
+Exemple : 63 a 3 comme facteur car 6 + 3 = 9 et 9 est un nombre que nous
+disons lorsque nous sautons le compte par 3.
+• Un nombre a 9 comme facteur si la somme des chiffres est un nombre qui
+est dit lors du comptage par sauts par 9.
+Exemple : 72 a 9 comme facteur car 7 + 2 = 9 et 9 est un nombre que nous
+disons lorsque nous sautons le compte par 9.

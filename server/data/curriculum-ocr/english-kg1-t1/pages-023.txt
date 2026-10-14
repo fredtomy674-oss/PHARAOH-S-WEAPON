@@ -1,0 +1,7 @@
+Classroom
+board
+desk
+book
+eraser
+pencil
+19

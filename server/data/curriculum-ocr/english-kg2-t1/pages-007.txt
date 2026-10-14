@@ -1,0 +1,17 @@
+My School, My Classroom
+
+Point, say, then color:
+
+school
+
+classroom
+
+board
+
+desk
+
+teacher
+
+chair
+
+3

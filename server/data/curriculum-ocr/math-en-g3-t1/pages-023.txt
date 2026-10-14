@@ -1,0 +1,21 @@
+PRIMARY 3 - TERM 1 19
+CHAPTER 2
+Directions: Look at each star array and record the number of COLUMNS and the
+number of stars in each COLUMN. Then find the total number of stars.
+APPLY, continued
+5.
+7.
+6.
+8.
+Number of column:
+Number of stars in each column:
+Total number of stars:
+Number of column:
+Number of stars in each column:
+Total number of stars:
+Number of column:
+Number of stars in each column:
+Total number of stars:
+Number of column:
+Number of stars in each column:
+Total number of stars:

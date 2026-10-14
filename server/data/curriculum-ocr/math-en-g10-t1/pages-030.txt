@@ -1,0 +1,45 @@
+Second: answer the following questions:
+
+10 In exercises from A to N, determine the sign of each of the following functions:
+A f(x) = 2
+B f(x) = 2x
+C f(x) = - 3x
+D f(x) = 2x+4
+E f(x) = 3 - 2 x
+F f(x) = x²
+G f(x) = 2x²
+H f(x) = x² - 4
+I f(x) = 1 - x²
+J f(x) = (x - 2) (x + 3)
+K f(x) = (2 x - 3)²
+L f(x) = x² - x - 2
+M f(x) = x² - 8 x + 16
+N f(x) = - 4 x² + 10 x - 25
+
+11 Graph the curve of the function f(x) = x² - 9 in the interval [ - 3, 4 ], hence determine the sign of f(x).
+
+12 Graph the curve of the function f(x) = - x² + 2 x + 4 in the interval [ - 3, 5], hence determine the sign of f(x).
+
+13 Discover the error: If f(x) = x + 1, g(x) = 1 - x², then determine the interval at which the two functions are positive together .
+
+yousof's answer
+x = - 1 makes f(x) = 0
+f(x) is positive in the interval ]- 1, ∞[,
+x = ± 1 makes g(x) = 0
+g(x) is positive in the interval ]- 1, 1[
+thus the two functions are positive together
+in the interval
+]- 1, ∞[ ∪ ]- 1, 1[ = ]- 1, ∞[
+
+Amira's answer
+x = - 1 makes f(x) = 0
+f(x) is positive in the interval ]- 1, ∞[,
+x = ± 1 makes g(x) = 0
+g(x) is positive in the interval ]- 1, 1[
+thus the two functions are positive together
+in the interval
+]- 1, ∞[ ∩ ]- 1, 1[ = ]- 1, 1[
+
+Which of the two answers is correct ? illustrate each of the two functions graphically and check your answer.
+
+26 Mathematics - First form secondary

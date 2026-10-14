@@ -1,0 +1,12 @@
+It's Practice Time!
+Count and circle the number:
+
+2 / 1
+1 / 2
+2 / 1
+
+SCHOOL BUS
+1 / 2
+2 / 1
+
+23

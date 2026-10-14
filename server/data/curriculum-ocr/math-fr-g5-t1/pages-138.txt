@@ -1,0 +1,81 @@
+130 Leçon 4: Identifier les régularitésnumériques 130
+Évaluer des expressions numériques
+CONCEPT 1 UNITÉ
+6
+130
+3. Entrée Sortie
+3 12
+6 24
+9 36
+12 48
+Règle :
+4. Entrée Sortie
+5 1
+10 2
+15 3
+20 4
+25 5
+Règle :
+5.
+Nombre de
+Bicyclettes
+(Entrée)
+Nombre de
+Roues
+(Sortie)
+1 2
+2 4
+3 6
+4 8
+5 10
+Règle :
+Défi:
+Entrée Sortie
+2 3
+4 7
+6 11
+8 15
+10 19
+Règle :
+Roues de bicyclettes
+Photo Credit: (a) Khaled ElAdawy / Shutterstock.com, (b) Cristi Lucaci / Shutterstock.com 130 Leçon 4: Identifier les régularitésnumériques 130
+Évaluer des expressions numériques
+CONCEPT 1 UNITÉ
+6
+130
+3. Entrée Sortie
+3 12
+6 24
+9 36
+12 48
+Règle :
+4. Entrée Sortie
+5 1
+10 2
+15 3
+20 4
+25 5
+Règle :
+5.
+Nombre de
+Bicyclettes
+(Entrée)
+Nombre de
+Roues
+(Sortie)
+1 2
+2 4
+3 6
+4 8
+5 10
+Règle :
+Défi:
+Entrée Sortie
+2 3
+4 7
+6 11
+8 15
+10 19
+Règle :
+Roues de bicyclettes
+Photo Credit: (a) Khaled ElAdawy / Shutterstock.com, (b) Cristi Lucaci / Shutterstock.com

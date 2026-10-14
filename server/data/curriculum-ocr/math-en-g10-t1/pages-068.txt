@@ -1,0 +1,28 @@
+Corollary If a straight line is drawn outside the triangle A B C parallel to one side of
+the triangle, say BC intersecting AB and AC at D and E, respectively as
+shown in the figures, then : AB/DB = AC/CE .
+
+and from the properties of the proportion we can deduce that:
+AD/AB = AE/AC , AD/DB = AE/CE
+
+Example
+2 In the figure opposite: CE ∩ BD = {A}, X ∈ AD
+Y ∈ AE where XY // BC // DE.
+If AB = 6cm, AC = 5cm, AE = 12cm, EY = 4cm.
+Find the length of each of AE and DX.
+
+Solution
+∵ ED // BC , CE ∩ BD = {A}
+∴ AD/AB = AE/AC and : 12/6 = AE/5 ∴ AE = 10cm
+In Δ AED:
+∵ XY // ED ∴ AE/EY = AD/DX
+and 10/4 = 12/DX ∴ DX = 4.8cm
+
+Try to solve
+2 In the figure opposite: DE // AC , AE ∩ CD = {B}
+A If: AB = 8cm, BC = 9cm, BE = 12cm.
+Find the length of BD.
+B If: AB = 6cm, BE = 9cm, CD = 18cm.
+Find the length of BC.
+
+64 Mathematics - First form secondary

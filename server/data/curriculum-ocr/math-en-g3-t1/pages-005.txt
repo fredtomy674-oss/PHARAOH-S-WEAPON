@@ -1,0 +1,56 @@
+PRIMARY 3 - TERM 1 V
+NAME:
+Chapter 1
+Lesson 1 : Patterns 2
+Lesson 2 : More of Bar Graphs 3
+Lesson 3 : Line Plot 5
+Lesson 4 : Measuring Lengths in Centimeter 6
+Lesson 5 : Measuring Lengths in Meter 8
+Lesson 6 : Measuring Lengths in Millimeter 10
+Chapter 2
+Lesson 1 : Thousands 11
+Lesson 2 : More of Thousands 13
+Lesson 3 : Ten Thousands - Hundred Thousands 15
+Lesson 4 : Numbers in Different Forms 17
+Lesson 5 : Arrays 18
+Lesson 6 : Multiplication 21
+Lesson 7 : Commutative Property in Multiplication 23
+Chapter 3
+Lesson 1 : Word Problems on Multiplication 26
+Lesson 2 : Applications on Multiplication 28
+Lesson 3 : Multiples of 2 & 3 29
+Lesson 4 : Multiples of 5 & 10 31
+Lesson 5 : Factors of a Number Using Arrays 33
+Lesson 6 : Time 34
+Lesson 7 : Applications on Time 35
+Lesson 8 : Division 37
+Lesson 9 : Applications on Division 40
+Lesson 10 : The Relation Between Multiplication and Division 42
+Chapter 4
+Lesson 1 : Polygons 44
+Lesson 2 : Properties of Quadrilaterals 46
+Lesson 3 : Area 49
+Lesson 4 : Rectangles With Equal Area 51
+Lesson 5 : Area Using Models 54
+Lesson 6 : Area By Splitting Arrays 58
+Lesson 7 : Distributive Property on Multiplication 59
+Chapter 5
+Lesson 1 : Perimeter of Polygons 62
+Lesson 2 : Perimeter and Area 64
+Lesson 3 : Area Using The Dimensions 67
+Lesson 4 : Area Using Different Strategies 69
+Lesson 5 : Different Perimeters for The Same Area 72
+Lesson 6 : Different Areas for The Same Perimeter 75
+Lesson 7 : Applications on Perimeter and Area 77
+Lesson 8 : Multiplying by Multiples of 10 80
+Chapter 6
+Lesson 1 : Patterns of Multiplying by Multiples of 10 83
+Lesson 2 : Strategies of Multiplying by 9 86
+Lesson 3: Facts on Multiplication and Addition 90
+Lesson 4 : Comparing and Ordering Numbers in Different Forms 93
+Lesson 5 : Addition Strategies 95
+Lesson 6 : Subtraction Strategies 97
+Lesson 7 : Applications on Addition and Subtraction 98
+Lesson 8 : Capacity 102
+Lesson 9 : Reading Capacity 104
+Contents

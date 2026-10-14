@@ -1,0 +1,7 @@
+Let's trace letter Ii:
+Trace:
+I i
+I I I I I I I I I I I
+i i i i i i i i i i i
+ink INK in
+14

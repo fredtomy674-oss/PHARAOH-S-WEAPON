@@ -1,0 +1,12 @@
+PRIMARY 3 - TERM 1 58
+CHAPTER 4
+5 5
+3 3
+Directions: Split the arrays below into at least 2 smaller arrays. Label the factors for
+each part. An example is shown below.
+LESSON 6: AREA BY SPLITTING ARRAYS
+Example
+Problem 1
+Problem 2
+Problem 3
+APPLY

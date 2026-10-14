@@ -1,0 +1,38 @@
+Related Angles
+
+Example
+
+1 Without using the calculator, find the value of the expression :
+sin 150° cos (-300°) + cos 930° cot 240°
+
+Solution
+sin 150° = sin (180° – 30°) = sin 30° = 1/2
+cos (-300°) = cos (-300° + 360°) = cos 60° = 1/2
+cos 930° = cos (930° – 2 × 360°) = cos 210°
+then cos 210° = cos (180° + 30°) = -cos 30° = -\frac{\sqrt{3}}{2}
+cot 240° = cot (180° + 60°) = cot 60° = \frac{1}{\tan 60^\circ} = \frac{1}{\sqrt{3}}
+the expression = \frac{1}{2} \times \frac{1}{2} + (-\frac{\sqrt{3}}{2}) \times \frac{1}{\sqrt{3}}
+= \frac{1}{4} - \frac{1}{2} = -\frac{1}{4}
+
+Try to solve
+
+4 Prove that: \sin 600^{\circ} \cos \left(-30^{\circ}\right)+\sin 150^{\circ} \cos \left(-240^{\circ}\right)=-1
+
+4- Trigonometric functions of two complementary angles \theta and \left(90^{\circ}-\theta\right)
+The figure opposite shows a part of a circle of centre O.
+The angle \theta is drawn in the standard position to a circle of radius r .
+from congruency of the two triangles OAB, OC B':
+we get: x^{\prime}=y, y^{\prime}=x
+
+Thus, it is possible to deduce all trigonometric functions of angles \theta and \left(90^{\circ}-\theta\right) as follows:
+
+\sin \left(90^{\circ}-\theta\right)=\cos \theta, \csc \left(90^{\circ}-\theta\right)=\sec \theta
+\cos \left(90^{\circ}-\theta\right)=\sin \theta, \sec \left(90^{\circ}-\theta\right)=\csc \theta
+\tan \left(90^{\circ}-\theta\right)=\cot \theta, \cot \left(90^{\circ}-\theta\right)=\tan \theta
+
+Example
+
+2 If the angle \theta is in the standard position, and its terminal side passes through the point \left(\frac{3}{5}, \frac{4}{5}\right) then find the trigonometric functions: \sin \left(90^{\circ}-\theta\right), \cot \left(90^{\circ}-\theta\right)
+
+Student book - First term
+105

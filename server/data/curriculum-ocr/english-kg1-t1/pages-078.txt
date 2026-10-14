@@ -1,0 +1,11 @@
+Count and Say:
+
+I can see
+4 sandwiches.
+
+4
+
+I can see
+4 clouds.
+
+74

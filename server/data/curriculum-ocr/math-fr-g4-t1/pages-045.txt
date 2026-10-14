@@ -1,0 +1,28 @@
+Concept : 35 Leçon5: Résoudre les problèmes en plusieurs étapes avec addition et soustraction 35
+1. Ahmed avait une tarte avec 340 calories pour le petit déjeuner. Ensuite, Ahmed
+avait un verre de lait, une pomme et un sandwich au poulet pour le déjeuner.
+Le lait contenait 190 calories, la pomme 85 calories et le sandwich au poulet
+contenait 255 calories. Si l’adulte peut consommer 2000 calories par jour,
+combien de calories de plus Ahmed peut-il manger aujourd’hui ?
+J’ai soustrait 870 à 2000 . La réponse est 1130, donc Ahmed peut
+consommer 1,130 calories de plus aujourd’hui.
+J’ai dessiné une boîte autour de “combien de plus”
+J’ai ajouté les calories des aliments qu’Ahmed a mangés pour répondre
+à la question cachée (combien de calories Ahmed a déjà mangés). La réponse
+est 870 calories .
+J’ai encerclé 340 calories, 190 calories, 85 calories, 255 calories et
+2000 calories.
+J’ai identifié les informations connues (ce qu’Ahmed a consommé et
+combien de calories chaque élément avait ; l’adulte est censé manger 2000
+calories par jour). j’ai identifié les informations inconnues (combien de calories
+Ahmed a déjà consommées; combien de calories en plus Ahmed peut-il
+manger) .
+J’ai souligné « combien de calories de plus Ahmed devrait-il
+consommer aujourd’hui ? ”
+Utilisez les étapes de résolution de problèmes pour résoudre les problèmes
+N’oubliez pas que vous devrez d’abord répondre à la question cachée et puis
+répondre à la question principale. Assurez-vous de montrer votre travail .
+2. Le site Web de la colonie de fourmis espère qu’une nouvelle colonie jusqu’à
+173 500 se formera. Si une colonie de 27 385 fourmis et une colonie de 52890
+fourmis rejoignent la nouvelle colonie, combien de fourmis supplémentaires
+peuvent rejoindre ? Photo Credit: ErikJensen / Shutterstock.com

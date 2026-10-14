@@ -1,0 +1,25 @@
+Unit
+Geometry 3
+The Triangle Proportionality Theorems
+Temple of Hatshepsut in Luxor
+
+Unit objectives
+by the end of the unit, the student should be able to:
+* Recognize the theorem : if a line is drawn parallel to one side of a triangle and intersects the other two sides , then it divides them into segments whose lengths are proportional"
+* Recognize TALIS general theorem" Given several coplanar parallel lines and two transversals..."
+* Recognize the theorem" the bisector of the interior (or exterior) angle of a triangle at any vertex divides the opposite base.
+* Find the power of a point w.r. to a circle ( secants and tangents).
+* Deduce the measures of angles resulting from the intersection of chords and the tangents in a circle .
+* Solve applications about finding the length of each of the interior and the exterior bisectors .
+
+Key - Terms
+* Ratio
+* Proportion
+* Parallel
+* Midpoint
+* Median
+* Transversal
+* Bisector
+* Interior Bisector
+* Exterior Bisector
+* Perpendicular

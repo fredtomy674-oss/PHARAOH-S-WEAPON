@@ -1,0 +1,61 @@
+116
+CONCEPT 2 UNITÉ
+5 Division des nombres décimaux
+Leçon 12: Diviser des nombres décimaux par des nombres entiers 116
+LEÇON 12
+Diviser des nombres décimaux
+par des nombres entiers
+Objectifs d’apprentissage
+• Je peux utiliser l’algorithme standard pour diviser des nombres décimaux aux
+millièmes près.
+ACCÈS
+Que signifie le reste ? Utilise l’algorithme standard de division pour trouver les
+quotients.
+1. Un éfectricien a 150 metres de fi. Il veut couper en 40 parties de taille égale.
+Quelle sera la longueur de chaque tuyau ? Combien de tuyaux lui restera-t-il ?
+2. Le conseil de la ville décide d’embellir la ville et de planter des arbres le long
+des routes. La route est de 2 050 mètres de longueur et le conseil de la ville
+a 75 arbres qu’il doit planter à des distances égales. Quelle est la distance qui
+sépare les arbres l’un de l’autre ?
+CONSTRUIS TES CONNAISSANCES
+Se débarrasser des restes Utilise l’algorithme standard pour trouver les quotients.
+Assure-toi que ta réponse ne contient pas de reste. Vérifie le caractère raisonnable
+de ta réponse.
+1. Un éfectricien a 150 metres de fi. Il veut couper en 40 parties de taille égale.
+Quelle sera la longueur de chaque tuyau ?
+2. Le conseil de la ville embellit la ville en plantant des arbres le long des routes.
+La route est de 2 050 mètres de longueur et le conseil de la ville a 75 arbres
+qu’il doit planter à des distances égales. Quelle est la distance qui sépare les
+arbres l’un de l’autre ?
+3. Imad, l’électricien, a 4,5 mètres de fil qu’il doit couper en 30 morceaux de
+même longueur. Trouve la longueur de chaque morceau de fil. 116
+CONCEPT 2 UNITÉ
+5 Division des nombres décimaux
+Leçon 12: Diviser des nombres décimaux par des nombres entiers 116
+LEÇON 12
+Diviser des nombres décimaux
+par des nombres entiers
+Objectifs d’apprentissage
+• Je peux utiliser l’algorithme standard pour diviser des nombres décimaux aux
+millièmes près.
+ACCÈS
+Que signifie le reste ? Utilise l’algorithme standard de division pour trouver les
+quotients.
+1. Un éfectricien a 150 metres de fi. Il veut couper en 40 parties de taille égale.
+Quelle sera la longueur de chaque tuyau ? Combien de tuyaux lui restera-t-il ?
+2. Le conseil de la ville décide d’embellir la ville et de planter des arbres le long
+des routes. La route est de 2 050 mètres de longueur et le conseil de la ville
+a 75 arbres qu’il doit planter à des distances égales. Quelle est la distance qui
+sépare les arbres l’un de l’autre ?
+CONSTRUIS TES CONNAISSANCES
+Se débarrasser des restes Utilise l’algorithme standard pour trouver les quotients.
+Assure-toi que ta réponse ne contient pas de reste. Vérifie le caractère raisonnable
+de ta réponse.
+1. Un éfectricien a 150 metres de fi. Il veut couper en 40 parties de taille égale.
+Quelle sera la longueur de chaque tuyau ?
+2. Le conseil de la ville embellit la ville en plantant des arbres le long des routes.
+La route est de 2 050 mètres de longueur et le conseil de la ville a 75 arbres
+qu’il doit planter à des distances égales. Quelle est la distance qui sépare les
+arbres l’un de l’autre ?
+3. Imad, l’électricien, a 4,5 mètres de fil qu’il doit couper en 30 morceaux de
+même longueur. Trouve la longueur de chaque morceau de fil.

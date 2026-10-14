@@ -1,0 +1,16 @@
+Unit
+Three The triangle proportionality theorems
+
+3 - 1 Parallel Lines and Proportional Parts 62
+3 - 2 Angle of a triangle Bisectors and Proportional Parts 72
+
+Unit
+Four Trigonometry
+
+4 - 1 Directed Angle 82
+4 - 2 Systems of Measuring Angle. (degree - radian) 90
+4 - 3 Trigonometric Functions 95
+4 - 4 Related Angles 103
+4 - 5 Graphing Trigonometric Functions 112
+4 - 6 Finding the Measure of an Angle in terms of
+the value of one of its trigomoetric ratios 116

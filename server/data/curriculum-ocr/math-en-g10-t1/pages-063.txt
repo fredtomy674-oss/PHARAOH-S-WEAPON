@@ -1,0 +1,40 @@
+Applications of Similarity in the circle
+
+3 In which of the following figures, AB is a tangent to the circle passing through the points
+B, C and D.
+A 4 cm B
+D
+6 cm
+B A 5 cm D 4 cm 6 cm C
+C B A 1 cm D 4 cm √29 cm C
+
+4 Two circles are intersected at A and B. C ∈ AB and C ∉ AB, From C, The two tangent
+segments CX and CY are drawn to the circle at X and Y respectively. Prove that CX = CY.
+
+5 In the figure opposite: M and N are two tangential circles at E.
+AC touches the circle M at B, and touches the
+circle N at C, AE intersects the two circles at F
+and D respectively,
+where AF = 4cm, FE = 5cm, ED = 7cm.
+Prove that B is the midpoint of AC
+A 4 cm F M E 5 cm B 7 cm N C D
+
+6 In the figure opposite: L ∈ XY where XL = 4cm,
+YL = 8cm, M ∈ XZ where XM = 6cm, ZM = 2cm
+Prove that:
+A Δ XLM ~ Δ XZY
+B LYZM is a cyclic quadrilateral.
+X 4 cm L 6 cm M 2 cm Z 8 cm Y
+
+7 AB ∩ CE = {E}, AE = 5/12 BE, DE = 3/5 EC. If BE = 6cm and CE = 5cm.
+prove that the points A, B, C and D lie on one circle.
+
+8 A B C is a triangle. D ∈ BC where D B = 5cm and D C = 4cm. If A C = 6cm. Prove that:
+A AC is a tangent segment to the circle passing through the points A, B and D.
+B Δ ACD ~ Δ BCA
+C Area of (Δ ABD): area of (Δ ABC) = 5 : 9
+
+9 Two concentric circles at M, their radii are 12cm, 7cm, AD is a chord in the larger circle
+to intersect the smaller circle at B and C respectively. Prove that AB × BD = 95
+
+Student book - First term 59

@@ -1,0 +1,5 @@
+It's Practice Time!
+Trace number 4:
+4 4 4 4 4 4
+Color 4 balloons:
+75

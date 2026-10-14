@@ -1,0 +1,39 @@
+Angle Bisectors and Proportional Parts
+
+AD bisects ∠A → ∠1 ≅ ∠2
+CE // AD
+→ ∠1 ≅ ∠4 (alternate)
+→ ∠3 ≅ ∠2 (corresponding)
+→ ∠3 ≅ ∠4
+→ AE ≅ AC
+→ BD/DC = AB/AC
+
+Example
+1 ABC is a triangle in which AB = 8cm, AC = 6cm, BC = 7cm, AD bisects ∠BAC and intersects BC at D. Find the length of DB, DC
+
+Solution
+∵ AD bisects ∠BAC
+∴ AB = 8cm, AC = 6cm
+∵ BC = BD + DC = 7cm
+3BD = 28 - 4 BD
+7BD = 28
+∴ DB/DC = AB/AC (theorem)
+∴ BD/DC = 8/6 = 4/3
+∴ DB/7 - BD = 4/3 (cross multiplication)
+∴ BD = 4cm, CD = 3cm
+
+Try to solve
+1 In each of the following figures, find the numerical value of x (lengths are measured in centimetres)
+
+Example
+2 ABC is a triangle. Draw DB bisects ∠B, intersects AC at D, where AD = 14cm, DC = 18cm. If the perimeter of ΔABC equals 80cm, find the length of each of: BC, AC.
+
+Solution
+In ΔABC
+∵ DB bisects ∠B
+∴ AB/BC = AD/DC
+∴ AB/BC = 14/18 = 7/9
+∵ the perimeter of ΔABC = 80cm, AC = 14 + 18 = 32cm
+∴ AB + BC = 80 - 32 = 48cm
+
+Student book - First term 73

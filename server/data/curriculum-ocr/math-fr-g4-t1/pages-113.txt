@@ -1,0 +1,18 @@
+103 Leçon 3: L'algorithme des produits partiels
+Problème Produits partiels Modèle de l'aire
+7 x 59
+624 x 4
+6 x 3 293
+Remplissez les blancs Remplissez les blancs avec les nombres manquants.
+1. 239
+x 7
+1 400 ( x )
+210 ( x )
++ 63 ( x )
+1 673
+2. 6 421
+x 6
+36 000 ( x )
+(6 x 400 )
+120 (6 x )
++ (6 x 1)

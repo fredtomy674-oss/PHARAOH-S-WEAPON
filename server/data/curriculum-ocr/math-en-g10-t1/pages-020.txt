@@ -1,0 +1,41 @@
+Try to solve
+4 If (2 + i) is one of the roots of the equation x² - 4 x + b = 0. where b ∈ R then find:
+A the other root.
+B the value of b.
+
+Learn
+Forming the quadratic equation whose two roots are known
+Let L and M be the roots of the quadratic equation: ax² + bx + c = 0, a ≠ 0
+Dividing both sides of the equation by a: ∴ x² + b/a x + c/a = 0
+i.e. x² - (-b/a) x + c/a = 0
+∴ L and M are the two roots of the quadratic equation , L + M = - b/a , LM = c/a
+∴ The quadratic equation whose roots are L and M is: x² - (L + M) x + L M = 0
+
+Example
+4 Form the quadratic equation whose two roots are 4 and -3 .
+
+Solution
+Let the two roots of the equation be l and M
+∴ L + M = 4 + (-3) = 1, L M = 4 (- 3) = - 12,
+∴ The quadratic equation formula is: x² - (L + M) x + L M = 0
+∴ The equation is: x² - x - 12 = 0
+
+Example
+5 Form the quadratic equation whose two roots are: -2+2i / 1+i and -2-4i / 2-i
+
+Solution
+Let the two roots be L and M
+L = -2 + 2i / 1 + i × 1 - i / 1 - i = 4i / 2 = 2i
+M = -2 - 4i / 2 - i × 2 + i / 2 + i = - 10i / 5 = - 2 i
+L + M = 2 i - 2i = 0
+, L M = 2 i × - 2i = - 4i² = 4
+∴ The quadratic equation whose two roots are L and M is: x² - (L + M) x + L M = 0
+∴ x² + 4 = 0
+
+Try to solve
+5 Form the quadratic equation in each of the following given its two roots:
+A 3 , -5
+B - 9i , 9 i
+C 3/i , 3 + 3i / 1 - i
+
+16 Mathematics - First form secondary

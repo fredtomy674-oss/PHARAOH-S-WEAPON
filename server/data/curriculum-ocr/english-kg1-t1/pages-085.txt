@@ -1,0 +1,11 @@
+Count and say:
+
+I can see
+5 caps.
+
+5
+
+I can see
+5 flowers.
+
+81

@@ -1,0 +1,29 @@
+Example
+4 In the figure opposite: ABC is a right angled triangle at A,
+AD ⊥ BC prove that:
+A (AB)² = BC × BD
+B (AC)² = CB × CD
+
+Solution
+In Δ ABC:
+∵ m (∠A) = 90°, AD ⊥ BC
+∴ Δ ABD ~ Δ CBA (corollary)
+∴ AB/CB = BD/BA , (AB)² = BD × BC
+, Δ ACD ~ Δ BCA (corollary)
+∴ AC/BC = CD/CA , (AC)² = CB × CD
+
+Try to solve
+3 Find the distance x in each of the following cases:
+A
+B
+
+sss Similarity theorem (Proof is not required)
+If the side lengths of two triangles are in proportion, then the two triangles are similar.
+Given: In ΔΔ ABC and DEF: AB/DE = BC/EF = CA/FD
+R.t.p. : Δ ABC ~ Δ DEF
+Proof : take X ∈ AB where AX = DE,
+Draw XY // BC and intersects AC at Y.
+∵ XY // BC
+∴ Δ ABC ~ Δ AXY (Corollary (1))
+
+40 Mathematics – First form secondary

@@ -1,0 +1,23 @@
+Unit 1 Review
+
+Trace, match, and color:
+
+K k
+
+J j
+
+30
+
+Circle what you can do:
+
+Color number 1 with red and
+number 2 with blue:
+
+1
+2
+1
+2
+2
+1
+2
+1

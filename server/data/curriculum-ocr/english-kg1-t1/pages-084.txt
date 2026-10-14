@@ -1,0 +1,11 @@
+Let's trace letter Mm:
+Trace:
+Mm
+
+M M M M M M M M M M
+m m m m m m m m m m
+
+mud
+mom
+
+80

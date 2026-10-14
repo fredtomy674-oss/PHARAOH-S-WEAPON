@@ -1,0 +1,23 @@
+Applications of Similarity in the circle
+
+Example
+5 ABC is a triangle in which AB = 8cm, AC = 4cm, D ∈ AC, D ∉ AC where CD = 12cm.
+prove that AB touches the circle which passes through the points B, C, and D
+
+Solution
+∴ AC × AD = 4 (4 + 12) = 64,
+(AB)² = (8)² = 64
+∴ (AB)² = AC × AD
+∴ AB touches the circle which passes through the points
+B, C, and D at the point B.
+
+Try to solve
+4 In which of the following figures is AB a tangent segment to the circle which passes
+through the points B, C, and D?
+
+A
+B
+C
+
+Student book - First term
+57

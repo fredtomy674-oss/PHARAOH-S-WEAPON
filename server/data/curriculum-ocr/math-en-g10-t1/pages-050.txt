@@ -1,0 +1,35 @@
+Given: Δ ABC ~ Δ DEF
+R.t.p.: a(Δ ABC) / a(Δ DEF) = (AB/DE)² = (BC/EF)² = (CA/FD)²
+Proof: Draw AX ⊥ BC where AX ∩ BC = {X},
+DY ⊥ EF where DY ∩ EF = {Y}
+∵ Δ ABC ~ Δ DEF
+∴ m(∠B) = m(∠E), AB/DE = BC/EF = CA/FD (1)
+In the two triangles ABX, DEY:
+m(∠X) = m(∠Y) = 90°, m(∠B) = m(∠E)
+∴ Δ ABX ~ Δ DEY (A A similarity postulate)
+∴ AB/DE = AX/DY (2)
+a(Δ ABC) / a(Δ DEF) = (1/2 BC × AX) / (1/2 EF × AY) = BC/EF × AX/DY
+By substituting from (1), (2), we get:
+a(Δ ABC) / a(Δ DEF) = AB/DE × AB/DE = (AB/DE)² = (BC/EF)² = (CA/FE)² Q.E.D.
+
+Notice that: a(Δ ABC) / a(Δ DEF) = (AB/DE)², AB/DE = AX/DY
+then: a(Δ ABC) / a(Δ DEF) = (AX/DY)²
+i.e. the ratio of the areas of the surfaces of two similar triangles equals the square of the ratio the lengths of any two corresponding alttitudes of the two triangles.
+
+Critical thinking:
+1- If Δ ABC ~ Δ DEF, L is the midpoint of BC, M is the midpoint of EF.
+Is a(Δ ABC) / a(Δ DEF) = (AL/DM)²?
+Explain your answer, and write your deduction.
+
+2- If Δ ABC ~ Δ DEF,
+AN bisects ∠A and intersects BC at N,
+DZ bisects ∠D and intersects EF at Z.
+Is a(Δ ABC) / a(Δ DEF) = (AN/DZ)²?
+Explain your answer, and write your deduction.
+
+46 Mathematics – First form secondary
+
+Notice
+the symbol (a) expresses
+the surface area of a
+polygon

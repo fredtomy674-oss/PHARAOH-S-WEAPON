@@ -1,0 +1,12 @@
+PRIMARY 3 - TERM 1 54
+CHAPTER 4
+Directions: Play Mystery Multiplication. Select two number cards, create an array
+using the two numbers as your factors, write the equation, and then find the product.
+LESSON 5: AREA USING MODELS
+CONNECT
+Directions: Determine the total area of each shape.
+APPLY
+Rectangle 1:
+Rectangle 2:
+Total area = square units
+Total area = square units

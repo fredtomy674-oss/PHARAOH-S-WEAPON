@@ -1,0 +1,29 @@
+Parallel Lines and Proportional Parts
+
+1 + DB/AD = 1 + EC/AE
+∴ DB/AD = EC/AE
+from the properties of proportion, we get: AD/DB = AE/EC (Q.E.D)
+Notice that:
+∴ AD/DB = AE/EC
+∴ (AD + DB)/DB = (AE + EC)/EC
+i.e.: AB/DB = AC/EC
+
+Example
+1 In the figure opposite: XY // BC, AX = 16cm, BX = 12cm.
+A If AY = 24cm, Find YC.
+B If CY = 21cm, find AC.
+
+Solution
+A ∴ XY // BC
+and: 16/12 = 24/YC
+∴ AX/XB = AY/YC
+∴ YC = (12 × 24)/16 = 18cm.
+B ∴ XY // BC
+and: (16 + 12)/12 = AC/21
+∴ AB/BX = AC/CY
+∴ AC = (28 × 21)/12 = 49cm.
+
+Try to solve
+1 In each of the following figures : DE // BC. Find the numerical value of x (lengths are measured in centimetres)
+
+Student book - First term 63

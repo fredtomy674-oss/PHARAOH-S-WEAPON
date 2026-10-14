@@ -1,0 +1,18 @@
+102 Multiplication par des facteurs à 1 et 2 chiffres
+UNITÉ
+7 CONCEPT 1 Crédit photo : erichon / Shutterstock.com
+LEÇON 3
+L'algorithme des produits partiels
+Objectifs d’apprentissage
+Je peux utiliser l' algorithme des produits partiels pour multiplier un nombre à un
+chiffre par un nombre entier jusqu'à quatre chiffres.
+ACCÈS
+La course étonnante Écrivez autant de façons différentes que vous le pouvez
+pour représenter le nombre 136. Utilisez une case distincte pour chaque
+représentation.
+CONSTRUIS TES CONNAISSANCES
+Produits partiels Utilisez le modèle de multiplication pour
+résoudre le problème. Puis, copiez la solution d'algorithme de
+produits partiels modélisée par votre prof.
+Exemple: 731 x 4
+Modèle de l'aire Algorithme de produit partiel

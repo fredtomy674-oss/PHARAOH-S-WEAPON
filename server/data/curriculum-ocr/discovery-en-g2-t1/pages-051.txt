@@ -1,0 +1,20 @@
+47 PRIMARY 2
+CHAPTER 1 THE NILE I KNOW
+West
+Run your finger along the Nile River in the direction that it flows.
+Complete the legend at the bottom of the map.
+SAY HELLO TO EGYPT
+Alexandria Port Said
+Al Mansourah
+Tanta
+Suez Cairo
+Al Fayoum
+Asyut
+Louxor
+Aswan
+LEGEND
+East
+South
+North
+Lesson
+2

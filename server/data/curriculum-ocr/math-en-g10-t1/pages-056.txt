@@ -1,0 +1,28 @@
+Exercises (2 - 3)
+
+1 Complete:
+A If Δ ABC ~ Δ XYZ, and AB = 3 XY, then area (Δ XYZ) / area (Δ ABC) = ....................
+B If Δ ABC ~ Δ DEF, area of (Δ ABC) = 9 area of (Δ DEF) and DE = 4cm, then AB = .................... cm
+
+2 Study each of the following figures, where K is constant of proportion , then complete:
+A
+AB ∩ CD = {E}
+area of (Δ ACE) = 900 cm²
+then: area of (Δ DEB) = .................... cm²
+
+B
+m (∠ BAC) = 90°, AD ⊥ BC
+area of (Δ ADC) = 180 cm² then:
+area of (Δ A BC) = .................... cm²
+
+3 ABC is a triangle, D ∈ AB where AD = 2 BD and E ∈ AC where DE // BC
+If the area of Δ ADE = 60cm², find the area of the trapezium DBCE.
+
+4 ABC is a right angled triangle at B. The equilateral triangles ABX, BCY, and ACZ are drawn . prove that : area of (ΔABX) + area of (ΔBCY) = area of (ΔACZ).
+
+5 ABC is an inscribed triangle in a circle where AB/BC = 4/3. from the point B, a tangent is drawn to the circle and intersects AC at E.
+prove that: area of (Δ ABC) / area of (Δ ABE) = 7/16
+
+6 ABCD is a parallelogram, X ∈ AB , X ∉ AB , where B X = 2 AB, Y ∈ CB , Y ∉ CB , where BY = 2 BC. the parallelogram BXZY is drawn, prove that: area of (ABCD) / area of (XBYZ) = 1/4
+
+52 Mathematics - First form secondary

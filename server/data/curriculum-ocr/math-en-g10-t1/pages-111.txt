@@ -1,0 +1,39 @@
+Related Angles
+
+6- Trigonometric functions of angles of measures $\theta$ and $(270^{\circ}-\theta)$
+From congruency of the two triangles $B'C'O$, $OCO$
+
+Thus, it is possible to deduce all trigonometric functions of the two angles $\theta$ and $(270^{\circ}-\theta)$ as follows:
+
+$\sin(270^{\circ}-\theta)=-\cos\theta$, $\csc(270^{\circ}-\theta)=-\sec\theta$
+$\cos(270^{\circ}-\theta)=-\sin\theta$, $\sec(270^{\circ}-\theta)=-\csc\theta$
+$\tan(270^{\circ}-\theta)=\cot\theta$, $\cot(270^{\circ}-\theta)=\tan\theta$
+
+Example
+
+4 If the angle $\theta$ is drawn in the standard position, its terminal side passes through the point $(-\frac{\sqrt{3}}{2}, -\frac{1}{2})$ then find the trigonometric ratios of: $\cos(270^{\circ}-\theta)$, $\cot(270^{\circ}-\theta)$
+
+Solution
+
+$\because \cos(270^{\circ}-\theta)=-\sin\theta$  $\therefore \cos(270^{\circ}-\theta)=-\frac{2}{4}=-\frac{1}{2}$
+$\because \cot(270^{\circ}-\theta)=\tan\theta$  $\therefore \cot(270^{\circ}-\theta)=\frac{2}{2\sqrt{3}}=\frac{1}{\sqrt{3}}$
+
+Try to solve
+
+7 In the previous example, find $\tan(270^{\circ}-\theta)$, $\csc(270^{\circ}-\theta)$
+
+7- Trigonometric functions of angles of measures $\theta$ and $(270^{\circ}+\theta)$
+From congruency of the two triangles: $B'C'O, O C$
+
+Thus, it is possible to deduce all trigonometric functions of angles $\theta$ and $(270^{\circ}+\theta)$ as follows:
+
+$\sin(270^{\circ}+\theta)=-\cos\theta$, $\csc(270^{\circ}+\theta)=-\sec\theta$
+$\cos(270^{\circ}+\theta)=\sin\theta$, $\sec(270^{\circ}+\theta)=\csc\theta$
+$\tan(270^{\circ}+\theta)=-\cot\theta$, $\cot(270^{\circ}+\theta)=-\tan\theta$
+
+Example
+
+5 If the angle $\theta$ is in the standard position, its terminal side passes through the point $(-\frac{\sqrt{5}}{3}, \frac{2}{3})$ then find the trigonometric ratios of: $\sin(270^{\circ}+\theta)$, $\sec(270^{\circ}+\theta)$
+
+Student book - First term
+107

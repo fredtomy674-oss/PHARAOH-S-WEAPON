@@ -1,0 +1,21 @@
+Solution
+To solve the inequality, we do the following steps:
+
+Step (1): We write the quadratic function related to the inequality as follows:
+f(x) = x² - 5x - 6
+
+Step (2): We study the sign of the function f where f(x) = x² - 5x - 6, and represent it on the number line by putting f(x) = 0
+x² - 5x - 6 = 0
+x = 6 or x = -1
+∴ (x - 6)(x + 1) = 0
+
+Step (3): We determine the intervals which satisfy the inequality x² - 5x - 6 > 0
+
+Then the solution set of the inequality is: ]-∞ ,-1[ ∪ ]6 ,∞[
+
+Try to solve
+1 Solve each of the following inequalities:
+A x² + 2x - 8 > 0
+B x² + x + 12 > 0
+
+28 Mathematics - First form secondary

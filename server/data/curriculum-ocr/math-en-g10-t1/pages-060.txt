@@ -1,0 +1,36 @@
+Converse of the well known problem
+If the two lines containing the two segments AB and CD intersect at a point E (A, B, C, D,
+and E are distinct points)
+and EA × EB = EC × ED then: the points A, B, C and D lie on a circle.
+
+Notice that:
+EA × EB = EC × ED
+then EA/EC = ED/EB
+➢ Is Δ EAD ~ Δ ECB? Why?
+➢ Is m (∠A) = m (∠C)? Why?
+➢ Do the points A, D, B and C lie on a circle? Explain your answer.
+
+Example
+4 ABC is a triangle in which AB = 15cm, AC = 12cm. D ∈ AB where A D = 4cm, E ∈ AC
+where AC = 5cm.
+Prove that the figure DBCE is a cyclic quadrilateral.
+
+Solution
+∴ AD × AB = 4 × 15 = 60,
+AE × AC = 5 × 12 = 60
+∴ AD × AB = AE × AC
+∴ BE ∩ CE = {A}, AD × AB = AE × AC
+∴ the points D, B, C and E lie on a circle (converse of the well known problem)
+then the figure DBCE is a cyclic quadrilateral
+
+Try to solve
+3 In which of the following figures, the points A, B, C and D lie on a circle? Explain your
+answer.
+
+Corollary
+2
+If (EA)² = EB × EC
+then EA is a tangent segment to the circle
+which passes through the points A, B and C.
+
+56 Mathematics - First form secondary

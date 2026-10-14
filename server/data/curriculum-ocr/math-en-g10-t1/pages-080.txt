@@ -1,0 +1,43 @@
+Try to solve
+3 In each of the following figures (lengths are measured in centimetres). Calculate the value of x and the length of AD
+
+A
+C 4 D 3 B
+A
+X 4
+
+B
+C 4 D 6 B
+A
+5 X
+
+Notice that: In the figure opposite AE bisects
+BAC externally and intersects BC at E. then:
+AE = √BE × EC - AB × AC
+
+Try to solve
+4 In each of the following figures (lengths are measured in centimetres). Calculate the value of x, and the lngth of AE
+
+A
+E 12 C 4 B
+A
+X (x + 5) 9
+
+B
+E (x + 1) C D B
+A
+6 12 9
+
+Example
+5 In the figure opposite: AD is a median in Δ ABC
+DX bisects ADB and intersects AB at X.
+DY bisects ADC and intersects AC at Y.
+Prove that : XY // BC.
+
+Solution
+In Δ ADB: ∵ DX bisects ADB ∴ AD/DB = AX/XB (1)
+In Δ ADC: ∵ DY bisects ADC ∴ AD/DC = AY/YC (2)
+In Δ ABC: ∵ AD is a median ∴ DB = DC (3)
+from (1), (2) and (3) AX/XB = AY/YC then XY // BC.
+
+76 Mathematics - First form secondary

@@ -1,0 +1,35 @@
+88 Comprendre les facteurs
+UNITÉ
+6
+CONCEPT 1 Crédit photo : Allexanderh / Shutterstock.com
+Nombres premiers inférieurs à 100 Identifiez tous les nombres premiers
+moins de 100. Utilisez le comptage par sauts et les modèles factoriels pour
+vous aider à éliminer les nombres composés.
+1. Encerclez 2 et sélectionnez tous les autres chiffres que vous
+dites lorsque vous sautez le compte par 2.
+2. Encerclez 3 et sélectionnez tous les autres chiffres que vous
+dites lorsque vous sautez le compte par 3.
+3. Encerclez 5 et sélectionnez tous les autres chiffres que vous
+dites lorsque vous comptez par 5 (certains sont déjà barrés).
+4. Encerclez 7 et sélectionnez tous les autres chiffres que vous
+dites lorsque vous sautez le compte par 7.
+5. Encerclez tous les nombres qui restent sauf 1.
+Lorsque vous avez terminé, les nombres encerclés sont premiers et les nombres
+barrés sont composés.
+FAIS LES LIENS
+Écrire sur les mathématiques Les sièges sur le nouveau ferry seront
+arrangés dans un rectangle. Est-il préférable que le ferry ait 48 places ou
+53 places ? Comment le savez-vous? 49 places serait-elle une bonne idée ?
+Utilisez des nombres, des mots et des images pour expliquer votre pensée.
+91 92 93 94 95 96 97 98 99 100
+81 82 83 84 85 86 87 88 89 90
+11 12 13 14 15 16 17 18 19 20
+1 2 3 4 5 6 7 8 9 10
+71 72 73 74 75 76 77 78 79 80
+61 62 63 64 65 66 67 68 69 70
+51 52 53 54 55 56 57 58 59 60
+41 42 43 44 45 46 47 48 49 50
+31 32 33 34 35 36 37 38 29 40
+21 22 23 24 25 26 27 28 29 30
+Vérifie ton acquisition
+Suis les instructions de ton enseignant pour compléter cette activité.

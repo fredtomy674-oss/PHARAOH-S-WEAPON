@@ -1,0 +1,11 @@
+PRIMARY 3 - TERM 1 10
+CHAPTER 1
+Directions: Measure the pieces of string and record their lengths in millimeters.
+LESSON 6: MEASURING LENGHTHS IN MILLIMETER
+APPLY
+String Number Length in mm
+1
+2
+3
+4
+5

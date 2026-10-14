@@ -1,0 +1,11 @@
+Count and Say:
+
+I can see
+2 chairs.
+
+2
+
+I can see
+2 pencils.
+
+25

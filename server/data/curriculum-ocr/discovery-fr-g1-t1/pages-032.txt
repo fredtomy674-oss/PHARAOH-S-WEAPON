@@ -1,0 +1,17 @@
+2
+CONSIGNES: Trie les animaux selon la façon dont ils bougent
+Écris le nom de ton animal préféré dans chaque groupe .
+le dauphin
+le lapin
+le hibou
+l’éléphant
+le pingouin
+le papillon
+le cricket
+Animal Marche, Court, Saute Nage Vole
+Mon animal préféré
+COMMENT SE DÉPLACENT LES ANIMAUX ?
+CHAPITRE 2 : SE DÉPLACER DANS NOTRE ENVIRONNEMENT
+Leçon
+3
+28

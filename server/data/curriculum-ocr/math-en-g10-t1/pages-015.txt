@@ -1,0 +1,34 @@
+Determining the Types of Roots of a Quadratic Equation
+
+C a = -1, b = 5, c = -30 the discriminant = b² - 4ac
+= 25 - 4 × -1 × -30 = -95
+∴ the discriminant is negative, ∴ there are two complex non real and conjugate roots.
+
+Notice that
+
+| Discriminant | The type of the two roots | Sketch of the function related to the equation |
+| :--- | :--- | :--- |
+| (b² - 4ac) > 0 | two real different roots | |
+| b² - 4ac = 0 | a real repeated root two equal roots | |
+| b² - 4ac < 0 | two complex and non real roots (Conjugate) | |
+
+Try to solve
+1 Determine the type of the two roots for each of the following equations :
+A 6x² = 19 x - 15
+B 12x - 4x² = 9
+C x (x - 2) = 5
+D x(x + 5) = 2(x - 7)
+
+Example
+2 Prove that the two roots of the equation 2x² - 3 x + 2 = 0 are complex and not real, then use the general formula to find two roots roots.
+
+Solution
+a = 2, b = - 3 and c = 2
+∴ the discriminant = b² - 4ac ∴ the discriminant = (- 3)² - 4 × 2 × 2 = 9 - 16 = - 7
+∴ the discriminant is negative ∴ there are two complex roots and not real
+
+The general formula: x = - b ± √ b² - 4ac / 2a
+x = - (-3) ± √ 7i² / 2 × 2 = 3 ± √ 7 i / 4
+The two roots of the equation are: 3/4 + √7/4 i and 3/4 - √7/4 i
+
+Student book - First term 11

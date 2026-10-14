@@ -1,0 +1,59 @@
+Try to solve
+6 Logical thinking
+y
+(11, 9) C
+8
+6
+(5, 5) B
+4
+A (2, 3)
+2
+X
+2
+4
+6
+8
+10
+From the figure , find the value of AB/BC in different methods, if possible.
+Did you get the same result ?
+
+Exercises (3 - 1)
+1 In the figure opposite: ED // BC. Complete:
+A if AD/DB = 5/3 then : AB/BD = ......... and CE/ED = .........
+B if AE/AC = 4/7 , then : CE/EA = ......... and BD/AB = .........
+A
+E D
+C B
+
+2 In the figure opposite: DE // BC. Determine the correct statements in each of the
+following:
+A AB/DB = AE/EC
+B AD/AE = BD/EC
+C AB/BD = AC/AE
+D AB/BD = AC/CE
+E AC/AD = AB/AE
+F CE/BD = AC/AB
+A
+E D
+C B
+
+3 In each of the following figures: DE // BC. Find the numerical value of x (length in centimetres).
+A
+A
+E D
+9 6
+X 3
+C B
+B
+C
+E 10
+2X + 5
+A 12 D 8 B
+C
+B
+X²
+D
+5
+C 5 E 4 A
+
+70 Mathematics - First form secondary

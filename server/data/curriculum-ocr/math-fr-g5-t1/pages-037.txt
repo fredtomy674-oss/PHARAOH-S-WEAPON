@@ -1,0 +1,83 @@
+Leçon 8 : Soustraire des nombres décimaux 29
+Additionner et soustraire des nombres décimaux
+UNITÉ
+1
+CONCEPT 2
+LEÇON 8
+Soustraire des nombres décimaux
+Objectif d’apprentissage
+• Je peux modéliser la soustraction décimale.
+ACCÈS
+La pêche dans la vallée du Nil : L’analyse de
+l’erreur Lis le paragraphe et complète l’analyse
+de l’erreur.
+Les Égyptiens pêchent depuis le début de la
+civilisation tout au long du Nil et ses affluents.
+Aujourd'hui, beaucoup de gens pêchent
+encore le long des rives et les lacs comme
+lac Nasser. Le tilapia et ses prédateurs—la
+perche du Nil, les poissons tigres et les gros
+poissons-chats peuplaient le lac. Certains
+partent même en safaris de pêche pour
+attraper les poissons incroyablement gros qui
+se sont développés dans cet environnement
+de lac d'eau douce. Cette perche du Nil
+mesure 110 centimètres de long et a plus que
+5 ans. Elle pèse 113,39 kilogrammes.
+Ce poisson-chat vundu pèse
+38,1 kilogrammes et mesure
+188 centimètres de long.
+Wafaa veut connaître la masse totale du poisson-chat vundu et celle de la perche
+du Nil de l'article précédent. Elle décide d'utiliser l'algorithme pour additionner.
+Voici le travail de Wafaa :
+1 1
+113,39
++ 3,81
+117,20
+1. Qu'est-ce que Wafaa a fait correctement ?
+2. Qu'est-ce que Wafaa a fait incorrectement ? Pourquoi penses-tu qu'elle a fait
+cette erreur ?
+3. Essaye de résoudre le problème correctement.
+Perche du Nil
+vundu poisson-chat Leçon 8 : Soustraire des nombres décimaux 29
+Additionner et soustraire des nombres décimaux
+UNITÉ
+1
+CONCEPT 2
+LEÇON 8
+Soustraire des nombres décimaux
+Objectif d’apprentissage
+• Je peux modéliser la soustraction décimale.
+ACCÈS
+La pêche dans la vallée du Nil : L’analyse de
+l’erreur Lis le paragraphe et complète l’analyse
+de l’erreur.
+Les Égyptiens pêchent depuis le début de la
+civilisation tout au long du Nil et ses affluents.
+Aujourd'hui, beaucoup de gens pêchent
+encore le long des rives et les lacs comme
+lac Nasser. Le tilapia et ses prédateurs—la
+perche du Nil, les poissons tigres et les gros
+poissons-chats peuplaient le lac. Certains
+partent même en safaris de pêche pour
+attraper les poissons incroyablement gros qui
+se sont développés dans cet environnement
+de lac d'eau douce. Cette perche du Nil
+mesure 110 centimètres de long et a plus que
+5 ans. Elle pèse 113,39 kilogrammes.
+Ce poisson-chat vundu pèse
+38,1 kilogrammes et mesure
+188 centimètres de long.
+Wafaa veut connaître la masse totale du poisson-chat vundu et celle de la perche
+du Nil de l'article précédent. Elle décide d'utiliser l'algorithme pour additionner.
+Voici le travail de Wafaa :
+1 1
+113,39
++ 3,81
+117,20
+1. Qu'est-ce que Wafaa a fait correctement ?
+2. Qu'est-ce que Wafaa a fait incorrectement ? Pourquoi penses-tu qu'elle a fait
+cette erreur ?
+3. Essaye de résoudre le problème correctement.
+Perche du Nil
+vundu poisson-chat

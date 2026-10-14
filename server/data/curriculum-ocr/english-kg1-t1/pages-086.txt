@@ -1,0 +1,5 @@
+It's Practice Time!
+Trace number 5:
+5 5 5 5 5 5
+Color 5 balloons:
+82

@@ -1,0 +1,15 @@
+Lesson
+4
+80 PRIMARY 2
+CHAPTER 3 COMMUNICATION TOOLS
+Test different objects in the classroom to see what sounds they
+make. Record the name of the object and the sound it makes. If no
+sound is observed, write “none” in the sound column.
+EXPLORING SOUNDS
+OBJECT SOUND
+Choose one or two objects, create a message, and create a
+sound pattern to communicate that message.
+DID YOU HEAR?
+The object(s) we are using is:
+Our message is:
+Our sound pattern is:

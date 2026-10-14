@@ -1,0 +1,8 @@
+Let's trace letter: Rr
+Trace:
+Rr
+R R R R R R R R R R R R
+r r r r r r r r r r r r
+robot
+rice
+57

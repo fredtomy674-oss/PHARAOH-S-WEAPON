@@ -1,0 +1,21 @@
+87 Leçon 2: Nombres premiers et composés Crédit photo : Allexanderh / Shutterstock.com
+• Un nombre a 6 comme facteur s'il a à la fois un facteur 2 et un facteur 3. Cela
+signifie qu'il doit être pair et la somme des chiffres doivent être un nombre dit
+lors du comptage par 3.
+Exemple : 36 a 6 comme facteur parce qu'il est pair et parce que 3 + 6 = 9 et
+9 est un nombre que nous disons lorsque nous sautons le compte par 3.
+Utilisez ces modèles pour résoudre les problèmes.
+1. Est-ce que 3 est un facteur de 53 ? Comment savez-vous?
+2. 9 est-il un facteur de 63 ? Comment savez-vous?
+3. Est-ce que 6 est un facteur de 84 ? Comment savez-vous?
+Premier ou composé Énumérez tous les facteurs de chaque
+nombre. Puis, écrivez si le nombre est premier ou composé.
+Un nombre premier a exactement deux facteurs : 1 et le nombre
+lui-même.
+Un nombre composé a plus de deux facteurs. Premier ou
+composé?
+1. 18
+2. 21
+3. 31
+4. 44
+5. 23

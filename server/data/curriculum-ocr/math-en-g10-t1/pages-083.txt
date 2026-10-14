@@ -1,0 +1,25 @@
+Angle Bisectors and Proportional Parts
+
+4 In each of the following figures, find the value of x then find the perimeter of Δ ABC.
+A
+C 4 D x B
+B
+C x B D
+C
+C x+3 B D 4 6 x
+
+5 ABC is a triangle in which AB = 8cm, AC = 4cm and BC = 6cm and AD bisects ∠A and intersects BC at D and AE bisects the exterior angle at A and intersects BC at E. Find the length of DE, AD and AE.
+
+6 In each of the following figures, prove that XY // BC
+A
+C B D 9 cm 6 cm 4 cm
+B
+B Y A D C X
+
+7 In each of the following figures, prove that BE bisects ∠ABC.
+A
+D 28 cm C E 42 cm 54 cm B
+B
+B D 9 cm E 30 cm 40 cm C
+
+Student book - First term 79

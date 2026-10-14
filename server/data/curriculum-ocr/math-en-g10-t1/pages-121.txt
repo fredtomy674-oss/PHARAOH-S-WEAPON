@@ -1,0 +1,18 @@
+Finding the Measure of an Angle Given the Value of One of its Trigonometric Ratios
+
+Try to solve
+1 Find $\mathrm{m}(\angle\theta)$ where $0^{\circ}<\theta<360^{\circ}$ which satisfies each of the following:
+A $\cos\theta=0.6205$
+B $\tan\theta=(-2.3615)$
+C $\csc\theta=(-2.1036)$
+
+Check your understanding
+
+1 Sports: there is a skiing game in the theme parks, if the height of one of these games is $10\text{ metres}$ and its length is $16\text{ metres}$ as in the figure opposite, write a trigonometric function you can use to find the value of the angle $\theta$, then find the value of the angle in degree to the nearest thousandth.
+
+2 Cars: Karim descends by his car down a ramp of length $65\text{m}$ and its height is $8\text{ metres}$. If the ramp makes an angle $\theta$ with the horizontal, find $\mathrm{m}(\angle\theta)$ in degree measure.
+
+3 Critical thinking: the figure opposite represent a line segment joining between the two points $\mathrm{A}(3,\,0)$, $\mathrm{B}(7,\,3)$, find the measure of the angle $\theta$ including between $\overline{\mathrm{AB}}$ and the $x$ axis.
+
+Student book - First term
+117

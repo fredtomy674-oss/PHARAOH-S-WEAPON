@@ -1,0 +1,58 @@
+An Introduction in Complex Numbers
+
+Check your understanding
+
+1 Critical thinking: Find in the simplest form (1 - i)10.
+
+Exercises (1 - 1)
+
+1 Simplify:
+A $i^{66}$
+B $i^{-45}$
+C $i^{4n + 2}$
+D $i^{4n - 1}$
+
+2 Simplify:
+A $\sqrt{-18} \times \sqrt{-12}$
+B $3\text{i}(-2\text{i})$
+C $(-4\text{i})(-6\text{i})$
+D $(-2\text{i})^3(-3\text{i})^2$
+
+3 Find in the simplest form:
+A $(3 + 2\text{i}) + (2 - 5\text{i})$
+B $(26 - 4\text{i}) - (9 - 20\text{i})$
+C $(20 + 25\text{i}) - (9 - 20\text{i})$
+
+4 Rewrite each of the following in the form $a + b\text{i}$
+A $(2 + 3\text{i}) - (1 - 2\text{i})$
+B $(1 + 2\text{i}^3)(2 + 3\text{i}^5 + 4\text{i}^6)$
+
+5 Rewrite each of the following in the form $a + b\text{i}$
+A $\frac{2}{1 + \text{i}}$
+B $\frac{4 + \text{i}}{\text{i}}$
+C $\frac{2 - 3\text{i}}{3 + \text{i}}$
+D $\frac{(3 + \text{i})(3 - \text{i})}{3 - 4\text{i}}$
+
+6 Solve each of the following equations:
+A $3x^2 + 12 = 0$
+B $4y^2 + 20 = 0$
+C $4z^2 + 72 = 0$
+D $\frac{3}{5}y^2 + 15 = 0$
+
+7 Discover the error: Find the simplest form of the expression: $(2 + 3\text{i})^2(2 - 3\text{i})$
+
+Ahmed's answer
+$(2 + 3\text{i})(2 + 3\text{i})(2 - 3\text{i})$
+$= (2 + 3\text{i})(4 - 9\text{i}^2)$
+$= (2 + 3\text{i})(4 + 9) = 13(2 + 3\text{i})$
+$= 26 + 39\text{i}$
+
+Karim's answer
+$(2 + 3\text{i})^2(2 - 3\text{i}) = (4 + 9\text{i}^2)(2 - 3\text{i})$
+$= (4 - 9)(2 - 3\text{i}) = -5(2 - 3\text{i})$
+$= -10 + 15\text{i}$
+
+Which solutions is correct ? Why?
+
+Student book - First term
+9

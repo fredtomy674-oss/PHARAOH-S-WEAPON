@@ -1,0 +1,41 @@
+Similarity of Triangles
+
+corollary
+2
+In any right triangle, the altitude to the hypotenuse separates the triangle
+into two triangles which are similar to each other and to the original triangle
+
+In the figure opposite: ABC is a right angled triangle at A, AD ⊥ BC
+Δ DBA and Δ ABC
+m (∠ ADB) = m (∠ CAB) = 90° and ∠ B is a common angle.
+∴ Δ DBA ~ Δ ABC (postulate) (1)
+Similarly Δ DAC ~ Δ ABC (2)
+∴ If each one of two triangles is similar to a third triangle, then the two triangles are similar.
+∴ Δ DBA ~ Δ DAC ~ Δ ABC
+
+Example
+3 ABC is a right angled triangle at A, AD ⊥ BC . Prove that DA is a mean proportional to
+DB and DC.
+
+Solution
+Given: Δ ABC: m (∠A) = 90°, AD ⊥ BC.
+R.T.P: prove that (DA)² = DB × DC.
+Proof: In Δ ABC
+∴ m (∠A) = 90°, AD ⊥ BC
+∴ Δ DBA ~ Δ DAC (Corollary)
+and DA/DC = DB/DA i.e. (DA)² = DB × DC
+
+Try to solve
+2 In each of the following figures, Find the numerital value of x:
+A
+B
+X cm
+C 8 cm D 18 cm A
+B
+4 cm
+E
+6 cm
+(2x + 1) cm
+D C
+
+Student book - First term 39

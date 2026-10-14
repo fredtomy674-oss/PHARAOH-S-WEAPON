@@ -1,0 +1,18 @@
+Let's Learn With a Story!
+Listen and act out the dialog with a friend:
+
+Sun Mon Tue Wed Thu Fri Sat
+1 2 3
+8 9 10
+15 16 17
+22 23 27
+
+Farida: Hi, Bassem! What day is it?
+Bassem: Today is Monday!
+Farida: Oh! Yesterday was Sunday?
+Bassem: Yes! Tomorrow is Tuesday.
+Bassem: Let's count the days!
+Farida: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday!
+Bassem: There are 7 days in the week. We did it!
+
+79

@@ -1,0 +1,52 @@
+Try to solve
+3 In each of the following figures, determine whether DE // BC or not?
+A
+E
+15 cm
+C
+9 cm
+6 cm
+D
+10 cm
+B
+B 20 cm D
+28 cm
+C
+42 cm
+24 cm
+E
+A
+C
+8 cm
+B 4 cm A
+3 cm
+D
+6 cm
+E
+
+Example
+4 ABCD is a quadrilateral in which X ∈ AB, Y ∈ AC where XY // BC,
+draw YZ // CD and intersects AD at Z. Prove that XZ // DB.
+
+Solution
+In Δ ABC:
+∵ XY // BC ∴ AX/XB = AY/YC (1)
+In Δ ADC:
+∵ YZ // CD ∴ AZ/ZD = AY/YC (2)
+from (1) and (2) we deduce that: AX/XB = AZ/DZ
+In Δ ABD:
+∵ AX/XB = AZ/ZD ∴ XZ // DB
+
+Try to solve
+4 In the figure opposite: ABC is a triangle, D ∈ AC,
+DE // AB , DF // AE
+Draw a chart which show how to prove that (CE)² = CF × CB.
+
+Example
+5 GPS: to determine the location C,
+Surveyors measure and prepare the scheme
+opposite.
+Find the distance between the location C and
+the location A.
+
+66 Mathematics - First form secondary

@@ -1,0 +1,38 @@
+∴ AB / BC = 7 / 9 ∴ (AB + BC) / BC = (7 + 9) / 9 (properties of proportion)
+then 48 / BC = 16 / 9 ∴ BC = 27cm , AB = 21cm
+
+Try to solve
+2 ABC is a right angled triangle at B. draw AD bisects ∠A, and intersects BC at D.
+If the length of BD equals 24cm, BA : AC = 3 : 5, find the perimeter of Δ ABC.
+
+Important note
+1- In the triangle ABC where AB ≠ AC:
+If AD bisects ∠BAC,
+AE bisects the exterior angle of the triangle at A.
+then: DB / DC = AB / AC , BE / EC = AB / AC
+then DB / DC = BE / EC
+i.e. BC is divided internally at D and externally at E by the same ratio
+then the two bisectors AD and AE are perpendicular. why?
+
+2- If AB > AC and the bisector of ∠A intersects BC at D where BD > DC. The bisector of
+the exterior angle of the triangle at A intersects BC at E where BE > EC.
+
+Critical thinking
+➢ What happend to the point B, when AC is enlarged?
+➢ When does the point D lie if AC = AB? and what is the position of AE w.r. to BC at then?
+➢ What is the relation between DC and DB, when AC > AB? Where does the point E lie at
+then? Compare your answer with your classmate.
+
+Example
+3 ABC is atriangle in which AB = 6 cm, AC = 4 cm , BC = 5cm. AD bisects ∠A and
+intersects BC at D, AE bisects the exterior angle at A and intersects BC at E. Calculate the
+length of DE.
+
+Solution
+∴ AD bisects ∠A and AE bisects the exterior angle at A .
+∴ D, and E divide BC internally and externally by the same ratio.
+i.e : BD / DC = BE / EC = BA / AC
+∴ BD / DC = BE / EC = 6 / 4 = 3 / 2
+∴ BC = BD + DC = 5 , BE - EC = BC = 5
+
+74 Mathematics - First form secondary

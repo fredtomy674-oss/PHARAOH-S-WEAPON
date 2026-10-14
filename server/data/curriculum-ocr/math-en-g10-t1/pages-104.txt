@@ -1,0 +1,25 @@
+fourth: If 0° = 270° = 3π/2 at: B(0, -1)
+then cos 270° = 0 , sin 270° = -1 , tan 270° = -1/0 (undefined)
+
+In the following figures, determine the coordinates of the point B for each figure and deduce the trigonometric ratios to the measures of angles: 30°, 60°, 45°
+
+Example
+5 Prove without using the calculator that: sin 60° cos 30° - cos 60° sin 30° = sin² π/4
+Solution
+You know that sin 30° = 1/2 , cos 30° = √3/2 , sin 60° = √3/2 , cos 60° = 1/2
+∴ L.H.S = √3/2 × √3/2 - 1/2 × 1/2 = 3/4 - 1/4 = 1/2 (1)
+∴ π/4 = 45° , sin 45° = 1/√2
+R.H.S = sin² π/4 = sin² 45° = (1/√2)² = 1/2 (2)
+From (1) and (2) ∴ the two sides are equal.
+
+Try to solve
+4 Find the value of: 3 sin 30° sin 60° - cos 0° sec 60° + sin 270° cos² 45°
+5 Critical thinking: If the angle θ is drawn in the standard position and cos θ = -1/2 ,
+sin θ = √3/2
+Is it possible that m(∠θ) = 240°? Explain your answer
+
+Check your understanding
+Prove that each of the following equality:
+A 1 - 2sin² 90° = cos 180° B cos π/2 = cos² π/4 - sin² π/4
+
+100 Mathematics - First form secondary

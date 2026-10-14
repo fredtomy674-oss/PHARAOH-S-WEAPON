@@ -1,0 +1,47 @@
+Lesson of the unit
+Lesson (1 - 1): An Introduction in Complex Numbers.
+Lesson (1 - 2): Determining the Types of the two Roots of a Quadratic Equation.
+Lesson (1 - 3): The Relation Between the Two Roots of the Second Degree Equation and the Coefficients of its Terms.
+Lesson (1 - 4): Sign of a Function.
+Lesson (1 - 5): Quadratic Inequalities in one unknown
+
+Materials
+Scientific Calculator - Squared paper -
+Computer- Graphic Program- Electronic sites
+such as: www.phschool.com
+
+Status of Muhamed ibn Musa Elkhawarezmi
+
+Brief History
+Algebra is an Arabic word used by Muhamed ibn Musa Elkhawarezmi ( 9th century AD, in the era of the Abbasy kalipha Elmamoon) . In his book (Algebra and AlMokabla) which contains the genuine ways to solve equation, So Elkhawarezmi is the founder of algebra after it was a part of the calculation.
+The book has been translated into European languages titled " Algebra" and taken from it the word "Algebra" And the root which we symbolized it currently by "x" ( a reference to solve a quadratic equation ). Elkhawarezmi put Geometric solutions to the quadratic equation which match with the way of completing the square. Many Arabic scientists worked with solving equations, and the best known is omar Elkayyam who concerned with solving third degree equations.
+It is worth mentioning that, it appeared in Ahmose papyrus (1860 BC), some of the problem that solutions refer that Egyptians at that time have found away to find the sum of the terms of an arithmetic and geometric sequences.
+Now , Algebra is a large degree of sophistication and abstraction. it was dealing with numbers but now it has to deal with new mathematical entities such as : sets , matrices, vectors and so on, It is hopped you - our students - to restore the scientific glory in Golden eras through Egypt pharaonic and Islamic eras, Which our scientists Carry the banner of progress and flares knowledge to the world sides.
+
+Chart of the unit
+Algebra , relations and functions
+Quadratic function in one variable
+Quadratic equations
+Discriminant
+Positive negative equal zero
+there are two real different roots
+there are no real roots
+there are two equal real roots
+set of complex numbers
+properties of operations
+equality of two complex numbers
+conjugate numbers
+Investigating the sign of a function
+Constant Quadratic Linear
+Solving quadratic inequality in one variable
+sum of roots
+product of roots
+form quadratic equations
+Life
+Physics
+Electricity
+General applications
+Scientific calculator
+Using technology
+Graphic programs
+computer

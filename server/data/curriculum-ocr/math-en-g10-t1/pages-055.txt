@@ -1,0 +1,29 @@
+The Relation Between the Areas of two Similar Polygons
+
+Example
+
+(5) The ratio of the perimeters of two similar polygons equals $3:4$, if the sum of their areas equals $225\text{cm}^2$, then find the area of each of them.
+
+Solution
+
+$\because$ The ratio of the perimeters of the two similar polygons $= 3 : 4$
+
+$\because$ The ratio of the lengths of any two corresponding sides of them $= 3 : 4$
+
+Let the area of the first polygon be $9x$,
+
+and the area of the second polygon be $16x$
+
+$\because 9x + 16x = 225$, then $x = \frac{225}{9 + 16} = 9$
+
+$\because$ area of the first polygon $= 9 \times 9 = 81\text{cm}^2$
+
+$\because$ area of the second polygon $= 16 \times 9 = 144\text{cm}^2$
+
+Try to solve
+
+(3) Agriculture: Two farms are in the form of similar polygons, the ratio of the lengths of two corresponding sides of them equals $5 : 3$, if the difference between their areas equals $32\text{feddans}$, then find the area of each farm.
+
+Student book - First term
+
+51

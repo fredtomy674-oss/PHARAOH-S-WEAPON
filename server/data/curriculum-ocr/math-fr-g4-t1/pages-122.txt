@@ -1,0 +1,43 @@
+112 Division par 1 chiffre
+UNITÉ
+7
+CONCEPT 2 Crédit photo : (a) Pat Shrader / Shutterstock.com, (b) Mohamed Hakem / Shutterstock.com
+5. Le score du joueur A est le nombre dans la colonne « nombre de
+lignes ». Je tombe les carrés ont été utilisés dans le tableau (pas de
+restes), puis le score du joueur A est le double du nombre de lignes.
+6. Gardez une trace du score dans le tableau. Le joueur avec le total le
+plus élevé score après 5 tours gagne.
+Tour
+Tour
+Le total
+Nombre
+de Carrés
+(Dividende)
+Carrés
+Par
+rangée
+(Diviseur)
+Nombre
+de lignes
+(Quotient)
+Laissé pour
+compte
+Carrés
+(Reste)
+But
+Exemple 23 4 5 3 5
+1
+2
+3
+4
+5
+Score total
+Jeu de tableau de division
+CONSTRUIS TES CONNAISSANCES
+Motifs de division Étiquetez les parties de l’équation en utilisant les mots diviseur,
+dividende et quotient. Ensuite, recherchez des modèles à compléter les problèmes
+restants. Le premier problème du tableau est un exemple qui est rempli pour vous
+600 : 3 = réponse
+600 est appelé le .
+3 est appelé le .
+La réponse s’appelle le .

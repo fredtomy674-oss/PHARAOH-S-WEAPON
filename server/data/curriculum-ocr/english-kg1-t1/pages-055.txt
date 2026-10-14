@@ -1,0 +1,9 @@
+Count and Say:
+
+I can see 3 pans.
+
+3
+
+I can see 3 helicopters.
+
+51

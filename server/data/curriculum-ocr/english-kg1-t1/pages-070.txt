@@ -1,0 +1,6 @@
+Garden
+Look, listen, and point:
+tree
+flower
+grass
+66

@@ -1,0 +1,35 @@
+An Introduction in Complex Numbers
+
+Learn
+Operations on complex numbers
+It is possible to use the commutative, associative, and distributive properties to add or multiply complex numbers as shown in the following examples:
+
+Example
+4 Find in the simplest form the result of each of the following:
+A (7 – 4i) + (2 + i)
+B (2 + 3i) (3 – 4i)
+
+Solution
+A The expression (7 – 4i) + (2 + i)
+= (7 + 2) + (-4 + 1) i Commutative and associative properties
+= 9 – 3 i Simplify
+B The expression (2 + 3i) (3 – 4i)
+= 2 (3 – 4i) + 3i (3 – 4i) Distributive property
+= 6 – 8i + 9 i – 12 i² remove the parenthesis
+= 6 – 8i + 9i + 12 where i² = - 1
+= (6 + 12) + (- 8 + 9) i = 18 + i Simplify
+
+Try to solve
+4 Find in the simplest form the result of each of the following:
+A (12 – 5i) – (7 – 9i)
+B (4 – 3i)(4 + 3i)
+C (5 – 6i)(3 + 2i)
+
+Conjugate Numbers
+The two numbers a + b i and a – b i are called conjugate numbers
+For example 4 – 3i and 4 + 3i are two conjugate numbers, where:
+1) (4 - 3i) + (4 + 3i) = (4)² – (3i)² (the result as a real number)
+= 16 – 9i² = 16 – 9(-1) = 25 (The result is a real number)
+2) (4 - 3i) + (4 + 3i) = 8 (the result a real number)
+
+Student book - First term 7

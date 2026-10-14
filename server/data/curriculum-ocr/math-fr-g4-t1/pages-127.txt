@@ -1,0 +1,25 @@
+117 Leçon 10: L’algorithme de division standard
+LEÇON 10
+L’algorithme de division standard
+Objectifs d’apprentissage
+• Je peux estimer des quotients en utilisant la valeur de
+position et les modèles dans Multiplication et division.
+• Je peux utiliser l’algorithme standard pour résoudre des
+problèmes de division.
+ACCÈS
+Estimons Utilisez l’estimation pour répondre aux questions. Entourez votre
+réponse. Soyez prêt à expliquer votre raisonnement.
+Est-ce que 1 836 : 3 est plus proche de 60 où 600?
+Est-ce que 7 158 : 3 est plus proche de 2 000 où 3 000?
+Est-ce que 736 : 4 est plus proche de 100 où 200?
+Est-ce que 491 : 4 est plus proche de 120 où 150?
+CONSTRUIS TES CONNAISSANCES
+Trouvez la similarité . Estimez le quotient, puis faites un rapide
+Tirage au sort du problème.
+1. 68 : 4
+Le quotient sera compris entre et .
+Tirer rapidement
+Algorithme standard
+2. 457 : 3
+Le quotient sera compris entre et .
+Tirer rapidement

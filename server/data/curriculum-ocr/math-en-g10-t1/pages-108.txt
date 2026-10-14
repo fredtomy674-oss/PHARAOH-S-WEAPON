@@ -1,0 +1,44 @@
+2- Trigonometric functions of angles of measures $\theta$, ($180^{\circ}+\theta$)
+In the figure opposite :
+$B'(x', y')$ is the image of the point $B(x, y)$ then
+$x' = -x$, by reflection in the origin point then $y' = -y$
+thus:
+$\sin(180^{\circ} + \theta) = -\sin\theta, \csc(180^{\circ} + \theta) = -\csc\theta$
+$\cos(180^{\circ} + \theta) = -\cos\theta, \sec(180^{\circ} + \theta) = -\sec\theta$
+$\tan(180^{\circ} + \theta) = \tan\theta, \cot(180^{\circ} + \theta) = \cot\theta$
+
+For example:
+$\sin 210^{\circ} = \sin(180^{\circ} + 30^{\circ}) = -\sin 30^{\circ} = -\frac{1}{2}$
+$\cos 225^{\circ} = \cos(180^{\circ} + 45^{\circ}) = -\cos 45^{\circ} = -\frac{1}{\sqrt{2}}$
+$\tan 240^{\circ} = \tan(180^{\circ} + 60^{\circ}) = \tan 60^{\circ} = \sqrt{3}$
+
+Try to solve
+(2) Find $\sin 225^{\circ}, \cos 210^{\circ}, \sec 600^{\circ}, \cot 225^{\circ}$.
+
+3- Trigonometric functions of angles of measures $\theta$, ($360^{\circ}-\theta$)
+In the figure opposite:
+$B'(x', y')$ is the image of the point $B(x, y)$ by reflection in the
+$x$-axis then $x' = x, y' = -y$:
+
+$\sin(360^{\circ} - \theta) = -\sin\theta, \csc(360^{\circ} - \theta) = -\csc\theta$
+$\cos(360^{\circ} - \theta) = \cos\theta, \sec(360^{\circ} - \theta) = \sec\theta$
+$\tan(360^{\circ} - \theta) = -\tan\theta, \cot(360^{\circ} - \theta) = -\cot\theta$
+
+For example:
+$\sin 330^{\circ} = \sin(360^{\circ} - 30^{\circ}) = -\sin 30^{\circ} = -\frac{1}{2}$
+$\cos 315^{\circ} = \cos(360^{\circ} - 45^{\circ}) = \cos 45^{\circ} = \frac{1}{\sqrt{2}}$
+
+Notice that
+the trigonometric
+ratios of angle $(-\theta)$
+are the same as the
+trigonometric ratios of
+angle $(360^{\circ} - \theta)$
+
+Try to solve
+(3) Find: $\sin 315^{\circ}, \csc 315^{\circ}, \tan 330^{\circ}, \tan 300^{\circ}$
+Critical thinking: How can you find the value of
+$\sin(-45^{\circ}), \cos(-60^{\circ}), \tan(-30^{\circ}), \sin 690^{\circ}$.
+
+104
+Mathematics - First form secondary

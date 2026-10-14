@@ -1,0 +1,13 @@
+PRIMARY 3 - TERM 1 68
+CHAPTER 5
+Pen 4
+Pen 5
+Animal that can use:
+Animal that can use:
+8 meters
+7 meters
+5 meters 5 meters
+Area = square meters
+Area = square meters
+CHALLENGE:
+Sketch a different pen for each animal. Be sure to label your pens’ dimensions.

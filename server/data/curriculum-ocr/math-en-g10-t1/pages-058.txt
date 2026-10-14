@@ -1,0 +1,31 @@
+Example
+1 In the figure opposite: AB ∩ CD = {E},
+if EA/EB = 4/3, EC = 9cm and ED = 4cm
+Find the length EB
+
+Solution
+∴ EA/EB = 4/3 , ∴ EC = 4K , EB = 3K where K ≠ 0
+∴ AB ∩ CD = {E} ∴ EA × EB = EC × ED (well known problem)
+then : 4K × 3K = 9 × 4
+12K² = 36
+K² = 3
+K = √3 , EB = 3√3 cm
+
+Try to solve
+1 Find the value of x in each of the following figures (lengths are measured in centimetres)
+
+Example
+2 In the figure opposite: AB ∩ CD = {E}, AB = 5cm,
+CD = 9cm, ED = 3cm. Find the length of BE
+
+Solution
+let B E = x cm.
+∴ AB ∩ CD = {E}
+∴ EB × EA = ED × EC (well known problem)
+then: x (x + 5) = 3 (3 + 9)
+x² + 5x - 36 = 0
+(x - 4) (x + 9) = 0
+∴ x = 4 , x = -9 refused
+∴ the length of BE = 4cm.
+
+54 Mathematics - First form secondary

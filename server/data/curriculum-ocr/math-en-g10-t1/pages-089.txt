@@ -1,0 +1,42 @@
+Directed Angle
+
+➢ If the directed angle ∠ AOB in the standard position and its positive measure is (θ), then its terminal side OB lies in one of the quadrants:
+
+Second
+quadrant
+90° < θ < 180°
+First
+quadrant
+0° < θ < 90°
+
+Third
+quadrant
+180° < θ < 270°
+Fourth
+quadrant
+270° < θ < 360°
+
+➢ If the terminal side OB lies on one of the two axes, then the angle called (Quadrantal angle), and the angles whose measures 0°, 90°, 180°, 270°, 360° are quadrantal angles.
+
+Example
+
+2 Determine the quadrant in which each of the following angles lies:
+A 48° B 217° C 135° D 295° E 270°
+
+Solution
+A 0° < 48° < 90° then it lies in the first quadrant.
+B 180° < 217° < 270° then it lies in the third quadrant.
+C 90° < 135° < 180° then it lies in the second quadrant.
+D 270° < 295° < 360° then it lies in the fourth quadrant.
+E 270° is a quadrantal angle.
+
+Try to solve
+3 Determine the quadrant in which each of the following angles lie:
+A 88° B 152° C 180° D 300° E 196°
+
+Note:
+➢ If (θ°) is the positive measure of the directed angle, then its negative measure equals (θ° - 360°)
+
+➢ If (- θ°) in the negative measure of the directed angle, then its positive measure equals (- θ° +360°)
+
+Student book - First term 85

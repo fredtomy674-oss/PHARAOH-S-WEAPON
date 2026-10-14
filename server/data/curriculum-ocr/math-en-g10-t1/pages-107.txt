@@ -1,0 +1,64 @@
+4 - 4
+Related Angles
+
+Think and discuss
+
+You will Learn
+▸ Relation between trigonometric
+functions of angles $\theta, 180^{\circ} \pm \theta$
+▸ Relation between trigonometric
+functions of angles $\theta, 360^{\circ}-\theta$
+▸ Relation between trigonometric
+functions of angles $\theta, 90^{\circ} \pm \theta$
+▸ Relation between trigonometric
+functions of angles $\theta, 270^{\circ} \pm \theta$
+▸ The general solution of
+trigonometric equations in the
+form:
+$\bullet \sin \alpha = \cos \beta$
+$\bullet \sec \alpha = \csc \beta$
+$\bullet \tan \alpha = \cot \beta$
+
+You have studied before the reflection and
+you have recognized its properties.
+The figure opposite shows the directed
+angle AOB in the standard position and its
+terminal side intersects the unit circle at the
+point B($x$, $y$) and its measure is $\theta$ where
+$0^{\circ} < \theta < 90^{\circ}$
+
+Determine the point $\text{B}'$ which is the image of the point B by reflection
+in the y-axis, And mention its coordinates.
+What is the measure of $\angle \text{AOB}'$? Is the angle $\angle \text{AOB}'$ in the standard
+position?
+
+Key - Terms
+▸ Related Angles
+
+1- Trigonometric functions of two supplementary angles $\theta$, $(180^{\circ}-\theta)$
+In the figure opposite, $\text{B}'(x', y')$ is the
+image of the point $\text{B}(x, y)$ by reflection in
+the y-axis, then $x'=-x$, $y'=y$ thus:
+
+$\sin(180^{\circ}-\theta) = \sin\theta, \csc(180^{\circ}-\theta) = \csc\theta$
+$\cos(180^{\circ}-\theta) = -\cos\theta, \sec(180^{\circ}-\theta) = -\sec\theta$
+$\tan(180^{\circ}-\theta) = -\tan\theta, \cot(180^{\circ}-\theta) = -\cot\theta$
+
+Learning tools
+▸ Scientific calculator
+
+For example: $\cos 120^{\circ} = \cos(180^{\circ}-60^{\circ}) = -\cos 60^{\circ} = -\frac{1}{2}$
+$\sin 135^{\circ} = \sin(180^{\circ}-45^{\circ}) = \sin 45^{\circ} = \frac{1}{\sqrt{2}}$
+
+Try to solve
+1 find $\tan 135^{\circ} \quad, \quad \sin 120^{\circ} \quad, \quad \cos 150^{\circ}$
+Notice that: $\theta + (180^{\circ}-\theta) = 180^{\circ}$
+it is said that the two angles $\theta, 180^{\circ}-\theta$ are related angles.
+
+Definition
+The related angles: are angles that the difference or
+the sum of their measures equals a whole number of
+right angles.
+
+Student book - First term
+103

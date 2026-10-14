@@ -1,0 +1,16 @@
+PRIMARY 3 - TERM 1 74
+CHAPTER 5
+Width
+(linear units) 1
+Length
+(linear units) 24
+Perimeter
+(linear units) 50
+Area
+(square units) 24
+Part 2 Directions: In the table below, record the dimensions, perimeter, and area of
+each of the rectangular tables you built.
+CHALLENGE:
+Directions: Which seating arrangement would be the best for playing games with friends?
+Why do you think so? Write your response in the box below. Use pictures, numbers, or
+words.

@@ -1,0 +1,38 @@
+Example
+5 Represent graphically f where f(x) = 4x² - 4x + 1, then determine
+the sign of the function f.
+Solution
+The discriminant (b² - 4ac) = (-4)² - 4 × 4 × 1
+= 16 - 16 = 0
+Thus, the equation 4x² - 4x + 1 = 0 has two equal roots.
+By factorization: (2x - 1)² = 0
+Put: 2x - 1 = 0 then x = 1/2
+f(x) > 0 when x ≠ 1/2 , f(x) = 0 when x = 1/2
+
+Try to solve
+5 Represent graphically f, where f(x) = - 4x² - 12x - 9, then determine the sign of the function f.
+
+Example
+6 Prove that: for all values of x ∈ R, the two roots of the equation 2x² - kx + k - 3 = 0 are real
+different.
+Solution
+The discriminant (b²-4ac) = (-k)² - 4x 2x (k - 3) = k² - 8k + 24
+The two roots of the equation are real different if the discriminant is positive.
+Investigate the sign of the expression y = k² - 8k + 24
+The discriminant of the equation k² - 8k + 24 = 0 is:
+(-8)² - 4 × 1 × 24 = 64 - 96 = -32 < 0
+Thus the equation k² - 8k + 24 = 0 has no real roots
+∴ sign of the expression y = k² - 8k + 24 is positive ∀ k ∈ R (why)?
+Then the discriminant of: 2x² - kx + k - 3 = 0 is positive ∀ x ∈ R
+∴ The two roots of the equation 2x² - kx + k - 3 = 0 are real different ∀ x ∈ R
+
+Check your understanding
+1 Determine the sign of each of the following functions:
+A f(x) = 2x - 3
+B f(x) = 4 - x
+C f(x) = x² - 4
+D f(x) = 1 - x²
+E f(x) = 4 + 4x + x²
+F f(x) = 3x - 2x² + 4
+
+24 Mathematics - First form secondary
