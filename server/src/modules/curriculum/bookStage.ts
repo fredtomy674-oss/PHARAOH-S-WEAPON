@@ -478,6 +478,55 @@ import {
   loadBookPage as loadSocialG4Page,
 } from "../../db/egyptSocialG4T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as MATH_FR_G5_OFFSET,
+  EGYPT_MATH_FR_G5_T1_BOOK_END,
+  allLessonRanges as mathFrG5LessonRanges,
+  allLessonExtras as mathFrG5LessonExtras,
+  loadBookPage as loadMathFrG5Page,
+} from "../../db/egyptMathFrG5T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as MATH_FR_G4_OFFSET,
+  EGYPT_MATH_FR_G4_T1_BOOK_END,
+  allLessonRanges as mathFrG4LessonRanges,
+  allLessonExtras as mathFrG4LessonExtras,
+  loadBookPage as loadMathFrG4Page,
+} from "../../db/egyptMathFrG4T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_EN_G4_OFFSET,
+  EGYPT_SCIENCE_EN_G4_T1_BOOK_END,
+  allLessonRanges as scienceEnG4LessonRanges,
+  allLessonExtras as scienceEnG4LessonExtras,
+  loadBookPage as loadScienceEnG4Page,
+} from "../../db/egyptScienceEnG4T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_FR_G4_OFFSET,
+  EGYPT_SCIENCE_FR_G4_T1_BOOK_END,
+  allLessonRanges as scienceFrG4LessonRanges,
+  allLessonExtras as scienceFrG4LessonExtras,
+  loadBookPage as loadScienceFrG4Page,
+} from "../../db/egyptScienceFrG4T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as ARABIC_KG2_OFFSET,
+  EGYPT_ARABIC_KG2_T1_BOOK_END,
+  allLessonRanges as arabicKg2LessonRanges,
+  allLessonExtras as arabicKg2LessonExtras,
+  loadBookPage as loadArabicKg2Page,
+} from "../../db/egyptArabicKg2T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as DISCOVERY_EN_G2_OFFSET,
+  EGYPT_DISCOVERY_EN_G2_T1_BOOK_END,
+  allLessonRanges as discoveryEnG2LessonRanges,
+  allLessonExtras as discoveryEnG2LessonExtras,
+  loadBookPage as loadDiscoveryEnG2Page,
+} from "../../db/egyptDiscoveryEnG2T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as DISCOVERY_FR_G1_OFFSET,
+  EGYPT_DISCOVERY_FR_G1_T1_BOOK_END,
+  allLessonRanges as discoveryFrG1LessonRanges,
+  allLessonExtras as discoveryFrG1LessonExtras,
+  loadBookPage as loadDiscoveryFrG1Page,
+} from "../../db/egyptDiscoveryFrG1T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G7_OFFSET,
   EGYPT_ARABIC_P1_T1_BOOK_END,
   allLessonRanges as arabicP1LessonRanges,
@@ -772,7 +821,14 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g5-social", prefix: "l-g5-soc-", offset: SOCIAL_G5_OFFSET, bookEnd: EGYPT_SOCIAL_G5_T1_BOOK_END, ranges: socialG5LessonRanges(), loadPage: loadSocialG5Page, extras: socialG5LessonExtras() }),
   buildBook({ code: "eg-g5-english", prefix: "l-g5-eng-", offset: ENGLISH_G5_OFFSET, bookEnd: EGYPT_ENGLISH_G5_T1_BOOK_END, ranges: englishG5LessonRanges(), loadPage: loadEnglishG5Page, extras: englishG5LessonExtras() }),
   buildBook({ code: "eg-g5-christian-education", prefix: "l-g5-chr-", offset: CHRISTIAN_G5_OFFSET, bookEnd: EGYPT_CHRISTIAN_G5_T1_BOOK_END, ranges: christianG5LessonRanges(), loadPage: loadChristianG5Page, extras: christianG5LessonExtras() }),
-  buildBook({ code: "eg-g4-social", prefix: "l-g4-soc-", offset: SOCIAL_G4_OFFSET, bookEnd: EGYPT_SOCIAL_G4_T1_BOOK_END, ranges: socialG4LessonRanges(), loadPage: loadSocialG4Page, extras: socialG4LessonExtras() }),  buildBook({ code: "eg-g2-christian-education", prefix: "l-g2-chr-", offset: CHRISTIAN_G2_OFFSET, bookEnd: EGYPT_CHRISTIAN_G2_T1_BOOK_END, ranges: christianG2LessonRanges(), loadPage: loadChristianG2Page, extras: christianG2LessonExtras() }),
+  buildBook({ code: "eg-g4-social", prefix: "l-g4-soc-", offset: SOCIAL_G4_OFFSET, bookEnd: EGYPT_SOCIAL_G4_T1_BOOK_END, ranges: socialG4LessonRanges(), loadPage: loadSocialG4Page, extras: socialG4LessonExtras() }),
+  buildBook({ code: "eg-g5-math-fr", prefix: "l-g5-math-fr-", offset: MATH_FR_G5_OFFSET, bookEnd: EGYPT_MATH_FR_G5_T1_BOOK_END, ranges: mathFrG5LessonRanges(), loadPage: loadMathFrG5Page, extras: mathFrG5LessonExtras() }),
+  buildBook({ code: "eg-g4-math-fr", prefix: "l-g4-math-fr-", offset: MATH_FR_G4_OFFSET, bookEnd: EGYPT_MATH_FR_G4_T1_BOOK_END, ranges: mathFrG4LessonRanges(), loadPage: loadMathFrG4Page, extras: mathFrG4LessonExtras() }),
+  buildBook({ code: "eg-g4-science-en", prefix: "l-g4-sci-en-", offset: SCIENCE_EN_G4_OFFSET, bookEnd: EGYPT_SCIENCE_EN_G4_T1_BOOK_END, ranges: scienceEnG4LessonRanges(), loadPage: loadScienceEnG4Page, extras: scienceEnG4LessonExtras() }),
+  buildBook({ code: "eg-g4-science-fr", prefix: "l-g4-sci-fr-", offset: SCIENCE_FR_G4_OFFSET, bookEnd: EGYPT_SCIENCE_FR_G4_T1_BOOK_END, ranges: scienceFrG4LessonRanges(), loadPage: loadScienceFrG4Page, extras: scienceFrG4LessonExtras() }),
+  buildBook({ code: "eg-kg2-arabic", prefix: "l-kg2-ara-", offset: ARABIC_KG2_OFFSET, bookEnd: EGYPT_ARABIC_KG2_T1_BOOK_END, ranges: arabicKg2LessonRanges(), loadPage: loadArabicKg2Page, extras: arabicKg2LessonExtras() }),
+  buildBook({ code: "eg-g2-discovery-en", prefix: "l-g2-dis-en-", offset: DISCOVERY_EN_G2_OFFSET, bookEnd: EGYPT_DISCOVERY_EN_G2_T1_BOOK_END, ranges: discoveryEnG2LessonRanges(), loadPage: loadDiscoveryEnG2Page, extras: discoveryEnG2LessonExtras() }),
+  buildBook({ code: "eg-g1-discovery-fr", prefix: "l-g1-dis-fr-", offset: DISCOVERY_FR_G1_OFFSET, bookEnd: EGYPT_DISCOVERY_FR_G1_T1_BOOK_END, ranges: discoveryFrG1LessonRanges(), loadPage: loadDiscoveryFrG1Page, extras: discoveryFrG1LessonExtras() }),  buildBook({ code: "eg-g2-christian-education", prefix: "l-g2-chr-", offset: CHRISTIAN_G2_OFFSET, bookEnd: EGYPT_CHRISTIAN_G2_T1_BOOK_END, ranges: christianG2LessonRanges(), loadPage: loadChristianG2Page, extras: christianG2LessonExtras() }),
   buildBook({ code: "eg-kg1-discovery-en", prefix: "l-kg1-dis-en-", offset: DISCOVERY_EN_KG1_OFFSET, bookEnd: EGYPT_DISCOVERY_EN_KG1_T1_BOOK_END, ranges: discoveryEnKg1LessonRanges(), loadPage: loadDiscoveryEnKg1Page, extras: discoveryEnKg1LessonExtras() }),
   buildBook({ code: "eg-kg2-discovery-fr", prefix: "l-kg2-dis-fr-", offset: DISCOVERY_FR_KG2_OFFSET, bookEnd: EGYPT_DISCOVERY_FR_KG2_T1_BOOK_END, ranges: discoveryFrKg2LessonRanges(), loadPage: loadDiscoveryFrKg2Page, extras: discoveryFrKg2LessonExtras() }),
   buildBook({ code: "eg-g8-arabic", prefix: "l-g8-ara-", offset: ARABIC_G8_OFFSET, bookEnd: EGYPT_ARABIC_G8_T1_BOOK_END, ranges: arabicG8LessonRanges(), loadPage: loadArabicG8Page, extras: arabicG8LessonExtras() }),
