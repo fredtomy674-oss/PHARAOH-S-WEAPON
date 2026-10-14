@@ -527,6 +527,34 @@ import {
   loadBookPage as loadDiscoveryFrG1Page,
 } from "../../db/egyptDiscoveryFrG1T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as ENGLISH_KG1_OFFSET,
+  EGYPT_ENGLISH_KG1_T1_BOOK_END,
+  allLessonRanges as englishKg1LessonRanges,
+  allLessonExtras as englishKg1LessonExtras,
+  loadBookPage as loadEnglishKg1Page,
+} from "../../db/egyptEnglishKg1T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as ARABIC_KG1_OFFSET,
+  EGYPT_ARABIC_KG1_T1_BOOK_END,
+  allLessonRanges as arabicKg1LessonRanges,
+  allLessonExtras as arabicKg1LessonExtras,
+  loadBookPage as loadArabicKg1Page,
+} from "../../db/egyptArabicKg1T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as DISCOVERY_EN_G1_OFFSET,
+  EGYPT_DISCOVERY_EN_G1_T1_BOOK_END,
+  allLessonRanges as discoveryEnG1LessonRanges,
+  allLessonExtras as discoveryEnG1LessonExtras,
+  loadBookPage as loadDiscoveryEnG1Page,
+} from "../../db/egyptDiscoveryEnG1T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as ENGLISH_KG2_OFFSET,
+  EGYPT_ENGLISH_KG2_T1_BOOK_END,
+  allLessonRanges as englishKg2LessonRanges,
+  allLessonExtras as englishKg2LessonExtras,
+  loadBookPage as loadEnglishKg2Page,
+} from "../../db/egyptEnglishKg2T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G7_OFFSET,
   EGYPT_ARABIC_P1_T1_BOOK_END,
   allLessonRanges as arabicP1LessonRanges,
@@ -828,7 +856,11 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g4-science-fr", prefix: "l-g4-sci-fr-", offset: SCIENCE_FR_G4_OFFSET, bookEnd: EGYPT_SCIENCE_FR_G4_T1_BOOK_END, ranges: scienceFrG4LessonRanges(), loadPage: loadScienceFrG4Page, extras: scienceFrG4LessonExtras() }),
   buildBook({ code: "eg-kg2-arabic", prefix: "l-kg2-ara-", offset: ARABIC_KG2_OFFSET, bookEnd: EGYPT_ARABIC_KG2_T1_BOOK_END, ranges: arabicKg2LessonRanges(), loadPage: loadArabicKg2Page, extras: arabicKg2LessonExtras() }),
   buildBook({ code: "eg-g2-discovery-en", prefix: "l-g2-dis-en-", offset: DISCOVERY_EN_G2_OFFSET, bookEnd: EGYPT_DISCOVERY_EN_G2_T1_BOOK_END, ranges: discoveryEnG2LessonRanges(), loadPage: loadDiscoveryEnG2Page, extras: discoveryEnG2LessonExtras() }),
-  buildBook({ code: "eg-g1-discovery-fr", prefix: "l-g1-dis-fr-", offset: DISCOVERY_FR_G1_OFFSET, bookEnd: EGYPT_DISCOVERY_FR_G1_T1_BOOK_END, ranges: discoveryFrG1LessonRanges(), loadPage: loadDiscoveryFrG1Page, extras: discoveryFrG1LessonExtras() }),  buildBook({ code: "eg-g2-christian-education", prefix: "l-g2-chr-", offset: CHRISTIAN_G2_OFFSET, bookEnd: EGYPT_CHRISTIAN_G2_T1_BOOK_END, ranges: christianG2LessonRanges(), loadPage: loadChristianG2Page, extras: christianG2LessonExtras() }),
+  buildBook({ code: "eg-g1-discovery-fr", prefix: "l-g1-dis-fr-", offset: DISCOVERY_FR_G1_OFFSET, bookEnd: EGYPT_DISCOVERY_FR_G1_T1_BOOK_END, ranges: discoveryFrG1LessonRanges(), loadPage: loadDiscoveryFrG1Page, extras: discoveryFrG1LessonExtras() }),
+  buildBook({ code: "eg-kg1-english", prefix: "l-kg1-eng-", offset: ENGLISH_KG1_OFFSET, bookEnd: EGYPT_ENGLISH_KG1_T1_BOOK_END, ranges: englishKg1LessonRanges(), loadPage: loadEnglishKg1Page, extras: englishKg1LessonExtras() }),
+  buildBook({ code: "eg-kg1-arabic", prefix: "l-kg1-ara-", offset: ARABIC_KG1_OFFSET, bookEnd: EGYPT_ARABIC_KG1_T1_BOOK_END, ranges: arabicKg1LessonRanges(), loadPage: loadArabicKg1Page, extras: arabicKg1LessonExtras() }),
+  buildBook({ code: "eg-g1-discovery-en", prefix: "l-g1-dis-en-", offset: DISCOVERY_EN_G1_OFFSET, bookEnd: EGYPT_DISCOVERY_EN_G1_T1_BOOK_END, ranges: discoveryEnG1LessonRanges(), loadPage: loadDiscoveryEnG1Page, extras: discoveryEnG1LessonExtras() }),
+  buildBook({ code: "eg-kg2-english", prefix: "l-kg2-eng-", offset: ENGLISH_KG2_OFFSET, bookEnd: EGYPT_ENGLISH_KG2_T1_BOOK_END, ranges: englishKg2LessonRanges(), loadPage: loadEnglishKg2Page, extras: englishKg2LessonExtras() }),  buildBook({ code: "eg-g2-christian-education", prefix: "l-g2-chr-", offset: CHRISTIAN_G2_OFFSET, bookEnd: EGYPT_CHRISTIAN_G2_T1_BOOK_END, ranges: christianG2LessonRanges(), loadPage: loadChristianG2Page, extras: christianG2LessonExtras() }),
   buildBook({ code: "eg-kg1-discovery-en", prefix: "l-kg1-dis-en-", offset: DISCOVERY_EN_KG1_OFFSET, bookEnd: EGYPT_DISCOVERY_EN_KG1_T1_BOOK_END, ranges: discoveryEnKg1LessonRanges(), loadPage: loadDiscoveryEnKg1Page, extras: discoveryEnKg1LessonExtras() }),
   buildBook({ code: "eg-kg2-discovery-fr", prefix: "l-kg2-dis-fr-", offset: DISCOVERY_FR_KG2_OFFSET, bookEnd: EGYPT_DISCOVERY_FR_KG2_T1_BOOK_END, ranges: discoveryFrKg2LessonRanges(), loadPage: loadDiscoveryFrKg2Page, extras: discoveryFrKg2LessonExtras() }),
   buildBook({ code: "eg-g8-arabic", prefix: "l-g8-ara-", offset: ARABIC_G8_OFFSET, bookEnd: EGYPT_ARABIC_G8_T1_BOOK_END, ranges: arabicG8LessonRanges(), loadPage: loadArabicG8Page, extras: arabicG8LessonExtras() }),

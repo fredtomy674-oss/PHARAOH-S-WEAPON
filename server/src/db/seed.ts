@@ -323,6 +323,30 @@ import {
   assertTreeMatchesTheBook as assertDiscoveryFrG1TreeMatchesBook,
 } from "./egyptDiscoveryFrG1T1.js";
 import {
+  EGYPT_ENGLISH_KG1_T1_SECTIONS,
+  lessonDocument as englishKg1LessonDocument,
+  isConsistent as isEnglishKg1TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishKg1TreeMatchesBook,
+} from "./egyptEnglishKg1T1.js";
+import {
+  EGYPT_ARABIC_KG1_T1_UNITS,
+  lessonDocument as arabicKg1LessonDocument,
+  isConsistent as isArabicKg1TreeConsistent,
+  assertTreeMatchesTheBook as assertArabicKg1TreeMatchesBook,
+} from "./egyptArabicKg1T1.js";
+import {
+  EGYPT_DISCOVERY_EN_G1_T1_UNITS,
+  lessonDocument as discoveryEnG1LessonDocument,
+  isConsistent as isDiscoveryEnG1TreeConsistent,
+  assertTreeMatchesTheBook as assertDiscoveryEnG1TreeMatchesBook,
+} from "./egyptDiscoveryEnG1T1.js";
+import {
+  EGYPT_ENGLISH_KG2_T1_SECTIONS,
+  lessonDocument as englishKg2LessonDocument,
+  isConsistent as isEnglishKg2TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishKg2TreeMatchesBook,
+} from "./egyptEnglishKg2T1.js";
+import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
   isConsistent as isDiscoveryEnKg1TreeConsistent,
@@ -4476,6 +4500,191 @@ function verifyDiscoveryFrG1Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian KG1 **English** — OFFICIAL curriculum (PHASE 140).
+ *
+ * The first term IS the Ministry English book for KG1. The printed-page → scan map is a
+ * constant +4 and the term runs over printed pages 1–94 (94 pages, all with a text
+ * layer); scans 1–4 are front matter and 99–100 back matter. The book prints no
+ * «Lesson n» heads, so each activity page is one lesson; its `concepts` are the page's
+ * own printed heads, verbatim in English.
+ */
+export const EGYPT_ENGLISH_KG1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-kg1", name: "KG 1", nameAr: "رياض أطفال 1", levelOrder: -1 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-kg1-english", title: "اللغة الإنجليزية لرياض أطفال 1" },
+  terms: [buildEgyptEnglishKg1Term()],
+};
+
+/** Term 1 = the official KG1 English book: printed section → printed lesson. */
+function buildEgyptEnglishKg1Term(): TermSeedSpec {
+  const check = verifyEnglishKg1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة الإنجليزية (رياض أطفال 1) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_KG1_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-kg1-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: englishKg1LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the KG1 English tree verification, as one verdict. */
+function verifyEnglishKg1Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishKg1TreeConsistent();
+  const book = assertEnglishKg1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian KG1 **Arabic** — OFFICIAL curriculum (PHASE 140).
+ *
+ * The first term IS the Ministry Arabic book for KG1. Book page = scan index (offset 0)
+ * and the term runs over printed pages 5–93 (89 pages, all with a text layer); scans 1–4
+ * are front matter and 96 back matter. Books 94–95 are the units' listening stories,
+ * wired as `extraBookPages` on their unit's first lesson. A lesson is each printed lesson
+ * or activity; its `concepts` are the printed heads, verbatim in Arabic.
+ */
+export const EGYPT_ARABIC_KG1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-kg1", name: "KG 1", nameAr: "رياض أطفال 1", levelOrder: -1 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-kg1-arabic", title: "اللغة العربية لرياض أطفال 1" },
+  terms: [buildEgyptArabicKg1Term()],
+};
+
+/** Term 1 = the official KG1 Arabic book: printed unit → printed lesson. */
+function buildEgyptArabicKg1Term(): TermSeedSpec {
+  const check = verifyArabicKg1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة العربية (رياض أطفال 1) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ARABIC_KG1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-kg1-ara-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: arabicKg1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the KG1 Arabic tree verification, as one verdict. */
+function verifyArabicKg1Tree(): { ok: boolean; problems: string[] } {
+  const table = isArabicKg1TreeConsistent();
+  const book = assertArabicKg1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Grade-1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 140).
+ *
+ * The first term IS the Ministry DISCOVER book for Grade 1. The printed-page → scan map
+ * is a constant +4 and the term runs over printed pages 1–40 (40 pages, all with a text
+ * layer); scans 1–4 are front matter and 45–73 back matter (the second term). A lesson is
+ * each printed activity spread; its `concepts` are the lesson's own printed heads,
+ * verbatim in English.
+ */
+export const EGYPT_DISCOVERY_EN_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "discovery-en", name: "Discovery (English)", nameAr: "اكتشف (بالإنجليزية)" },
+  curriculum: { code: "eg-g1-discovery-en", title: "اكتشف (بالإنجليزية) للصف الأول الابتدائي" },
+  terms: [buildEgyptDiscoveryEnG1Term()],
+};
+
+/** Term 1 = the official Grade-1 Discovery (English) book: printed chapter → printed lesson. */
+function buildEgyptDiscoveryEnG1Term(): TermSeedSpec {
+  const check = verifyDiscoveryEnG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اكتشف (بالإنجليزية) أولى ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_DISCOVERY_EN_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-dis-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: discoveryEnG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 Discovery (English) tree verification, as one verdict. */
+function verifyDiscoveryEnG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isDiscoveryEnG1TreeConsistent();
+  const book = assertDiscoveryEnG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian KG2 **English** — OFFICIAL curriculum (PHASE 140).
+ *
+ * The first term IS the Ministry English book for KG2. The printed-page → scan map is a
+ * constant +4 and the term runs over printed pages 1–112 (112 pages, all with a text
+ * layer); scans 1–4 are front matter and 117–124 back matter. Books 113–118 are the
+ * appendix crafts/dice/pictures, wired as `extraBookPages` on their owning lessons.
+ * A lesson is each printed Lesson head; its `concepts` are the lesson's own printed
+ * heads, verbatim in English.
+ */
+export const EGYPT_ENGLISH_KG2_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-kg2", name: "KG 2", nameAr: "رياض أطفال 2", levelOrder: 0 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-kg2-english", title: "اللغة الإنجليزية لرياض أطفال 2" },
+  terms: [buildEgyptEnglishKg2Term()],
+};
+
+/** Term 1 = the official KG2 English book: printed section → printed lesson. */
+function buildEgyptEnglishKg2Term(): TermSeedSpec {
+  const check = verifyEnglishKg2Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة الإنجليزية (رياض أطفال 2) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_KG2_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-kg2-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: englishKg2LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the KG2 English tree verification, as one verdict. */
+function verifyEnglishKg2Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishKg2TreeConsistent();
+  const book = assertEnglishKg2TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
  *
  * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
@@ -6200,6 +6409,10 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ARABIC_KG2_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_EN_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_FR_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_KG1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_KG1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_DISCOVERY_EN_G1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_KG2_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
@@ -6360,7 +6573,8 @@ async function ingestLessonDocuments(db: DbHandle, knowledge: KnowledgeService, 
           console.log(`  ↺ Document for "${lessonSpec.doc.title}" already ingested — skipped.`);
           continue;
         }
-        await knowledge.ingestText({
+        try {
+          await knowledge.ingestText({
           title: lessonSpec.doc.title,
           content: lessonSpec.doc.content,
           kind: "text",
@@ -6375,7 +6589,18 @@ async function ingestLessonDocuments(db: DbHandle, knowledge: KnowledgeService, 
             unitId: scoped.unitId,
             lessonId: scoped.lessonId,
           },
-        });
+          });
+        } catch (err) {
+          // A printed page with almost no text (e.g. a KG illustration page whose
+          // whole layer is one head word) has nothing worth retrieving: the lesson
+          // rows still seed and the page image still serves the room, but no RAG
+          // document is stored. Any other ingest error still aborts the seed.
+          if ((err as { code?: string })?.code === "EMPTY_DOCUMENT") {
+            console.log(`  ↺ Document for "${lessonSpec.doc.title}" is nearly text-free — skipped (no RAG document).`);
+            continue;
+          }
+          throw err;
+        }
         console.log(`  ✓ Ingested "${lessonSpec.doc.title}" → chunks + vectors.`);
       }
     }
