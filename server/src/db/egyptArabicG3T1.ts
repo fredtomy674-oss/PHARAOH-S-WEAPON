@@ -33,31 +33,30 @@
 // `EGYPT_ARABIC_G3_T1_BOOK_START` / `_BOOK_END` are exactly those two pages, and
 // the tiling assertion proves nothing in between is left unreachable.
 //
-// FIVE SCANS WERE NEVER PRODUCED — THE PAGES BETWEEN EXIST, THE OCR DOESN'T
-// The OCR corpus has 115 files for a 122-page book; scans 16, 25, 75, 81 and 93
-// are absent (scan 1 — the cover — and scan 121 were also never produced, both
-// outside the term). Four of the five absences fall inside a lesson range (they
-// are story / activity / evaluation pages), so the tiling is unaffected: the page
-// is still owned by exactly one lesson, it simply has no OCR text to check. The
-// fifth, book 80 (scan 81), is the **unit-3 الاستماع lesson opener** — the only
-// lesson opener the OCR lost; its head is therefore taken from the book's own
-// «الفهرس» and its page-proof check is skipped (as it is for any page with no
-// OCR text). They are listed in `MISSING_SCANS` so the gap is measured, not
-// guessed.
+// SEVEN SCANS WERE BACK-FILLED FROM THE PDF — EVERY TERM PAGE NOW HAS OCR
+// The OCR corpus once had 115 files for a 122-page book; scans 16, 25, 75, 81 and
+// 93 were absent (scan 1 — the cover — and scan 121 were also absent, both outside
+// the term). All seven were produced in the back-fill, so `MISSING_SCANS` is now
+// empty and those pages are checked like any other term page: books 15, 24, 74, 80
+// and 92. Books 24 and 92 print a correct folio. Book 15's folio the OCR misread
+// as «١٠» (a measured exception in `FOOTER_OCR_MISREADS`). Book 74 is the تقييم
+// «أَخْلَاقُنَا» page and book 80 is the «العصفور الجريء» الاستماع lesson opener —
+// neither prints a parseable folio, so each is anchored on a head the page itself
+// carries (see `FOLIO_LESS_ANCHORS`).
 //
-// THIRTY-TWO TERM PAGES PRINT NO PARSEABLE FOLIO IN THE OCR
+// THIRTY-FOUR TERM PAGES PRINT NO PARSEABLE FOLIO IN THE OCR
 // Twenty-nine carry no machine-readable number at all: the three unit openers
-// (books 6/42/79), the seven lesson openers that print only their own head
-// (7/9/22/34/43/45/58), the four نشيد/قواعد openers (17/71/72/95), the seven
+// (books 6/42/79), the eight lesson openers that print only their own head
+// (7/9/22/34/43/45/58/80), the four نشيد/قواعد openers (17/71/72/95), the seven
 // story / activity pages (11/23/47/48/60/78/84/97) and the unit-evaluation and
-// family-story pages (38/77/111). Three more print a folio the OCR misread as
+// family-story pages (38/74/77/111). Three more print a folio the OCR misread as
 // bare Latin letters — there are none in this book, so every such page is
 // anchored on a printed head that only that page carries (see
-// `FOLIO_LESS_ANCHORS`). Six further pages print a folio the OCR misread as a
-// different number («١٢» as «١٣» on book 12, «٥٣» as «100» on book 53, «٥٦» as
-// «٥١» on book 56, «٦٩» as «79» on book 69, «٧٦» as «٧١» on book 76 and «١١٢»
-// as «١١٣» on book 112); those measured values live in `FOOTER_OCR_MISREADS` so
-// the check stays strict instead of statistical.
+// `FOLIO_LESS_ANCHORS`). Seven further pages print a folio the OCR misread as a
+// different number («١٢» as «١٣» on book 12, «١٥» as «١٠» on book 15, «٥٣» as
+// «100» on book 53, «٥٦» as «٥١» on book 56, «٦٩» as «79» on book 69, «٧٦» as
+// «٧١» on book 76 and «١١٢» as «١١٣» on book 112); those measured values live in
+// `FOOTER_OCR_MISREADS` so the check stays strict instead of statistical.
 //
 // EACH LESSON'S CONCEPTS ARE THE BOOK'S OWN PRINTED HEADS
 // The book prints no per-lesson «أهداف» bullets as heads; its lesson layer is
@@ -117,7 +116,7 @@ export const EGYPT_ARABIC_G3_T1_APPENDIX = { from: 116, to: 119 } as const;
  * (each is still owned by exactly one lesson) but have no text to check; book 80
  * is the one lesson opener among them.
  */
-export const MISSING_SCANS: readonly number[] = [15, 24, 74, 80, 92];
+export const MISSING_SCANS: readonly number[] = [];
 
 /** One printed head of the textbook — becomes one concept in the app tree. */
 export interface ArabicG3T1Concept {
@@ -639,6 +638,7 @@ export function printedFooter(book: number): number | null {
  */
 export const FOOTER_OCR_MISREADS: Readonly<Record<number, number>> = {
   12: 13,
+  15: 10,
   53: 100,
   56: 51,
   69: 79,
@@ -650,9 +650,9 @@ export const FOOTER_OCR_MISREADS: Readonly<Record<number, number>> = {
  * The term pages that print no parseable folio in the OCR, each with the anchor
  * the check accepts in place of a page number. Every anchor is a head the page
  * itself prints: the three unit openers (6/42/79), the lesson openers that carry
- * only their own head (7/9/22/34/43/45/58), the نشيد/قواعد openers (17/71/72/95),
+ * only their own head (7/9/22/34/43/45/58/80), the نشيد/قواعد openers (17/71/72/95),
  * the story/activity pages (11/23/26/30/46/47/48/55/60/78/84/97) and the
- * evaluation / family-story pages (38/77/108/111).
+ * evaluation / family-story pages (38/74/77/108/111).
  */
 const FOLIO_LESS_ANCHORS: Readonly<Record<number, string>> = {
   6: "الْعَمَلُ وَالْأَمَلُ",
@@ -678,9 +678,11 @@ const FOLIO_LESS_ANCHORS: Readonly<Record<number, string>> = {
   60: "تَوَجَّهَتْ إِيمَانُ إِلَى السَّبُّورَةِ",
   71: "نَشِيد أَخْلَاقُنَا",
   72: "أَخْلَاقُنَا جَمِيلَةٌ كَالشَّمْسِ",
+  74: "أَخْلَاقُنَا",
   77: "قِصَّةٌ الرِّسَالَةُ الصَّغِيرَةُ",
   78: "بَعْدَ الْفُسْحَةِ عَادَ آدَمُ",
   79: "أُحِبُّ بَلَدِي",
+  80: "الْعُصْفُورُ الْجَرِيءُ",
   82: "صُنْدُوقُ الْابْتِكَارِ",
   84: "كَانَ الْأَطْفَالُ يُنْصِتُونَ لِسَلْمَى",
   95: "وَرَقَةٌ مِنْ التَّارِيخ",
