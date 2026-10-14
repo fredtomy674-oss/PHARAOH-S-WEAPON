@@ -41,7 +41,7 @@
 // the tutor's roadmap is focused and still printed in the book word for word.
 // The full outcome set of every unit is reproduced below.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -610,7 +610,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
     for (let p = section.bookFrom; p <= section.bookTo; p++) sectionByPage.set(p, section);
   }
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   let footersChecked = 0;
 

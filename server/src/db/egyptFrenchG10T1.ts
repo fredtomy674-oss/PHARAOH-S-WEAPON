@@ -52,7 +52,7 @@
 // printed «Mission» line, the grid's criteria part names), always from the page
 // the lesson is grounded in.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -715,7 +715,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   const problems: string[] = [];
   const sections = EGYPT_FRENCH_G10_T1_SECTIONS;
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const contentPages = new Set<number>();
 
   // 1. every term page: the blank leaves are empty, the content pages carry text

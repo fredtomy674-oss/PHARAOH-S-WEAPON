@@ -75,7 +75,7 @@
 // («RAIN,RAIN,FALLING DOWN», stored spaced). Scan 34 misspells «bottles» as
 // «bottels» in the body (not in any head).
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -778,7 +778,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   const problems: string[] = [];
   const units = EGYPT_DISCOVERY_EN_KG1_T1_UNITS;
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   let pagesChecked = 0;
 

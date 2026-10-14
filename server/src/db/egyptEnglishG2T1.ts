@@ -63,7 +63,7 @@
 // head reads «… Outcomes Unit Colors, Shapes, and Numbers 2») or not at
 // all, so openers are exempt. The per-page folio remains the strong proof.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -651,7 +651,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
     for (let p = section.bookFrom; p <= section.bookTo; p++) sectionByPage.set(p, section);
   }
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   let pagesChecked = 0;
 

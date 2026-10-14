@@ -36,7 +36,7 @@
 // Each lesson therefore carries the verbatim outcomes of the skill(s) it teaches.
 // The subject code `english` is what makes the tutor answer in English (D-042).
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -431,7 +431,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   // but not the page number or the running head, so they are exempt from steps 1–2.
   const openers = new Set(sections.filter((s) => s.kind === "unit").map((s) => s.bookFrom));
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   let footersChecked = 0;
 

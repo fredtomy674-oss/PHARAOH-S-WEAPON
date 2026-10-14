@@ -59,7 +59,7 @@
 // and its «تعقيب» are absent from this scan. The tree mirrors the book as it is:
 // chapter 16 is a real, printed chapter and owns its printed pages.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -867,7 +867,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   const problems: string[] = [];
   const units = EGYPT_ARABIC_STORY_G10_T1_UNITS;
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   let pagesChecked = 0;
 

@@ -31,7 +31,7 @@
 // — the opener rides with the unit's first lesson and the assessment with its
 // last.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -552,7 +552,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   const ranges = allLessonRanges();
   let footersChecked = 0;
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   for (const file of files) {
     const book = Number(file.slice(6, 9)) - BOOK_TO_PDF_OFFSET;

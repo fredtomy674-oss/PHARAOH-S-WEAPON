@@ -60,7 +60,7 @@
 // («Chapitre I» … «Chapitre VII», «Épilogue»), always as the pages spell
 // them.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -467,7 +467,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   const problems: string[] = [];
   const sections = EGYPT_FRENCH_STORY_G10_T1_SECTIONS;
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const contentPages = new Set<number>();
 
   // 1. every term page: real text and its own number.

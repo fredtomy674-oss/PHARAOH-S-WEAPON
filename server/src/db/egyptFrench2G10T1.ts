@@ -63,7 +63,7 @@
 //    `FOLIO_EXEMPT_PAGES`; book 8 is additionally pinned to book 9 by an explicit
 //    equality check, and the four openers still have to carry real OCR text.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -797,7 +797,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
     problems.push(`صفحة الكتاب 8: لا تطابق الصفحة 9 رغم أن الماسح كرّر الصفحة 9`);
   }
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const termPages = new Set<number>();
 
   // 1. every term page: the blank spread is empty, the others carry text and

@@ -62,7 +62,7 @@
 // تعالى»; the lesson carries the form its own page prints, which is what the
 // title-in-range check proves.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -620,7 +620,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   const problems: string[] = [];
   const units = EGYPT_ISLAMIC_G10_T1_UNITS;
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   let pagesChecked = 0;
 

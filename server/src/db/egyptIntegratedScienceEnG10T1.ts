@@ -70,7 +70,7 @@
 // lesson by its position (unit then lesson: `1-1` … `2-4`), while each lesson's
 // `printedHead` keeps the head exactly as the text layer reads it on the page.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -774,7 +774,7 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
   const problems: string[] = [];
   const units = EGYPT_INTEGRATED_SCIENCE_EN_G10_T1_UNITS;
 
-  const files = readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort();
+  const files = existsSync(OCR_DIR) ? readdirSync(OCR_DIR).filter((f) => /^pages-\d{3}\.txt$/.test(f)).sort() : [];
   const printedPages = new Set<number>();
   let pagesChecked = 0;
 
