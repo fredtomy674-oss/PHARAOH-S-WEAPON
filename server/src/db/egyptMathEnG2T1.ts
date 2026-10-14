@@ -8,8 +8,7 @@
 //
 // The curriculum tree for the Egypt `eg-g2-math-en` curriculum is rebuilt from
 // the Ministry textbook `MATHEMATICS — Primary 2 — Term 1` (96 scanned pages,
-// of which scans 010, 011, 012, 014, 016, 024, 025, 042, 043, 060, 074, 076,
-// 077 and 079 never made it into the OCR corpus). This module is the single
+// all present in the OCR corpus). This module is the single
 // source of truth for its structure: the six printed chapters of the first
 // term, every numbered lesson inside them (60 in all), and, for every lesson,
 // the book's own printed heads — the lesson head plus the activity bands the
@@ -39,27 +38,19 @@
 // opener (book 5 = scan 5) to the closing Reflect on time (book 91 = scan
 // 91): `EGYPT_MATH_EN_G2_T1_BOOK_START` / `_BOOK_END` are exactly those two
 // pages, and the tiling assertion proves nothing in between is left
-// unreachable. `pagesChecked` is therefore 87 − 14 = 73: the 87 typed pages
-// minus the 14 scans the corpus never captured.
+// unreachable. `pagesChecked` is therefore the full 87 typed pages: every
+// scan of the term is in the corpus and proves its own number.
 //
-// FOURTEEN HOLED SCANS, DOCUMENTED IN MISSING_SCANS
-// Absent scans (as scan = book numbers, the offset being zero): 010, 011,
-// 012, 014, 016, 024, 025, 042, 043, 060, 074, 076, 077, 079. A
-// genuinely-missing page inside a lesson's range stays owned by that lesson,
-// so the ranges still tile [5, 91] exactly; the step-1 page proof skips those
-// scans, and every head / title / activity proof scoped to a page the corpus
-// never captured is skipped the same way (the Contents page, scan 4, is the
-// surviving provenance for those heads). Six lessons lose their whole range
-// to the holes (1-5, 1-7, 2-5, 2-6, 4-2, 5-2) and three more lose the head
-// page while keeping a Reflect or problem tail that never carries a lesson
-// title (1-6 keeps 13, 6-3 keeps 78, 6-4 keeps 80–81); for exactly those nine
-// lessons the title-print check is satisfied through the Contents instead of
-// the missing head page. Nothing else is exempt: every present page proves
-// its own number, every surviving head is checked, and no present scan is
-// listed as missing.
+// NO MISSING SCAN
+// Every scan of the term (books 5–91) is present in the OCR corpus with a
+// readable text layer, so `MISSING_SCANS` is empty: no lesson range owns a
+// page the corpus never captured, the step-1 page proof checks every term
+// page, and every head / title / activity proof runs against the page that
+// prints it. Nothing is exempt: every present page proves its own number,
+// every surviving head is checked, and no present scan is listed as missing.
 //
 // NO FOLIO-LESS PRESENT PAGE AND NO MISREAD FOLIO
-// Every one of the 73 present term pages carries a running footer whose
+// Every one of the 87 present term pages carries a running footer whose
 // number is its own book number, so `FOOTER_OCR_MISREADS` and
 // `FOLIO_LESS_ANCHORS` are both empty. Two footers are split across lines —
 // book 45 prints «PRIMARY 2 - TERM 1» with «45» on the following line, book
@@ -79,10 +70,9 @@
 // exercises (books 10, 23, 45, 47, 50, 58, 65, 70, 80, 81, 88) print no head
 // of their own, so they carry no concept — they are still owned by their
 // lesson's range. Nothing is invented: every concept title below is a string
-// the book itself prints on the page its `bookFrom` names, except the ten
-// head concepts on pages the corpus never captured, whose wording the
-// Contents (scan 4) proves and the book's uniform «LESSON n: …» caps style
-// fixes.
+// the book itself prints on the page its `bookFrom` names. The two-part work
+// pages of lesson 4-2 print «APPLY (1)» (book 42) and «APPLY (2)» (book 43);
+// both are read as APPLY, as the other specs read suffixed bands.
 //
 // THREE GENUINE CONTENTS ANOMALIES (the pages rule in each case)
 //  1. The Contents lists lesson 3-6 «Writing Numbers in Different Forms» at
@@ -120,14 +110,11 @@ export const EGYPT_MATH_EN_G2_T1_FRONT_MATTER = { from: 1, to: 4 } as const;
 export const EGYPT_MATH_EN_G2_T1_BACK_MATTER = { from: 92, to: 96 } as const;
 
 /**
- * The term pages the OCR never produced, as scan pages (= book pages, the
- * offset being zero): 010, 011, 012, 014, 016, 024, 025, 042, 043, 060, 074,
- * 076, 077, 079. Each stays owned by its lesson's range; the checker skips
- * absent scans silently, so `pagesChecked` is 87 − 14 = 73.
+ * No term page is missing from the OCR: every scan of books 5–91 carries a
+ * readable text layer, so the checker proves every page and the list stays
+ * empty (`pagesChecked` is the full 87).
  */
-export const MISSING_SCANS: readonly number[] = [
-  10, 11, 12, 14, 16, 24, 25, 42, 43, 60, 74, 76, 77, 79,
-];
+export const MISSING_SCANS: readonly number[] = [];
 
 /** One printed head of a lesson — becomes one concept in the app tree. */
 export interface MathEnG2T1Concept {
@@ -261,6 +248,7 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         concepts: [
           lessonHead(9, "LESSON 4: REPRESENTING AND INTERPRETING DATA"),
           band(9, APPLY),
+          band(10, REFLECT),
         ],
       },
       {
@@ -270,7 +258,10 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "REPRESENTING DATA WITH A SCALE OF 1",
         printedHead: "LESSON 5: REPRESENTING DATA WITH A SCALE OF 1",
         bookFrom: 11,
-        concepts: [lessonHead(11, "LESSON 5: REPRESENTING DATA WITH A SCALE OF 1")],
+        concepts: [
+          lessonHead(11, "LESSON 5: REPRESENTING DATA WITH A SCALE OF 1"),
+          band(11, APPLY),
+        ],
       },
       {
         key: "1-6",
@@ -281,6 +272,7 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         bookFrom: 12,
         concepts: [
           lessonHead(12, "LESSON 6: REPRESENTING DATA WITH A SCALE OF 2"),
+          band(12, APPLY),
           band(13, REFLECT),
         ],
       },
@@ -291,7 +283,10 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "REPRESENTING DATA WITH A SCALE OF 10",
         printedHead: "LESSON 7: REPRESENTING DATA WITH A SCALE OF 10",
         bookFrom: 14,
-        concepts: [lessonHead(14, "LESSON 7: REPRESENTING DATA WITH A SCALE OF 10")],
+        concepts: [
+          lessonHead(14, "LESSON 7: REPRESENTING DATA WITH A SCALE OF 10"),
+          band(14, APPLY),
+        ],
       },
       {
         key: "1-8",
@@ -309,7 +304,11 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "PICTOGRAPH",
         printedHead: "LESSON 9: PICTOGRAPH",
         bookFrom: 16,
-        concepts: [lessonHead(16, "LESSON 9: PICTOGRAPH"), band(17, REFLECT)],
+        concepts: [
+          lessonHead(16, "LESSON 9: PICTOGRAPH"),
+          band(16, APPLY),
+          band(17, REFLECT),
+        ],
       },
       {
         key: "1-10",
@@ -386,7 +385,11 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "STORY PROBLEMS ON ADDING",
         printedHead: "LESSON 5: STORY PROBLEMS ON ADDING",
         bookFrom: 24,
-        concepts: [lessonHead(24, "LESSON 5: STORY PROBLEMS ON ADDING")],
+        concepts: [
+          lessonHead(24, "LESSON 5: STORY PROBLEMS ON ADDING"),
+          band(24, APPLY),
+          band(24, REFLECT),
+        ],
       },
       {
         key: "2-6",
@@ -395,7 +398,11 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "STORY PROBLEMS ON SUBTRACTING",
         printedHead: "LESSON 6: STORY PROBLEMS ON SUBTRACTING",
         bookFrom: 25,
-        concepts: [lessonHead(25, "LESSON 6: STORY PROBLEMS ON SUBTRACTING")],
+        concepts: [
+          lessonHead(25, "LESSON 6: STORY PROBLEMS ON SUBTRACTING"),
+          band(25, APPLY),
+          band(25, REFLECT),
+        ],
       },
       {
         key: "2-7",
@@ -603,6 +610,9 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         bookFrom: 42,
         concepts: [
           lessonHead(42, "LESSON 2: MORE OF MENTAL APPLICATIONS ON ADDING AND SUBTRACTING"),
+          band(42, APPLY),
+          band(43, APPLY),
+          band(43, REFLECT),
         ],
       },
       {
@@ -734,7 +744,11 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "SORTING 2-DIMENSIONAL SHAPES",
         printedHead: "LESSON 2: SORTING 2-DIMENSIONAL SHAPES",
         bookFrom: 60,
-        concepts: [lessonHead(60, "LESSON 2: SORTING 2-DIMENSIONAL SHAPES")],
+        concepts: [
+          lessonHead(60, "LESSON 2: SORTING 2-DIMENSIONAL SHAPES"),
+          band(60, APPLY),
+          band(60, REFLECT),
+        ],
       },
       {
         key: "5-3",
@@ -854,7 +868,11 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "MEASURING MASS",
         printedHead: "LESSON 1: MEASURING MASS",
         bookFrom: 73,
-        concepts: [lessonHead(73, "LESSON 1: MEASURING MASS"), band(73, APPLY)],
+        concepts: [
+          lessonHead(73, "LESSON 1: MEASURING MASS"),
+          band(73, APPLY),
+          band(74, REFLECT),
+        ],
       },
       {
         key: "6-2",
@@ -874,6 +892,7 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         bookFrom: 76,
         concepts: [
           lessonHead(76, "LESSON 3: APPLICATIONS ON MEASURING MASS"),
+          band(76, APPLY),
           band(78, REFLECT),
         ],
       },
@@ -884,7 +903,10 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
         title: "MORE APPLICATIONS ON MEASURING MASS",
         printedHead: "LESSON 4: MORE APPLICATIONS ON MEASURING MASS",
         bookFrom: 79,
-        concepts: [lessonHead(79, "LESSON 4: MORE APPLICATIONS ON MEASURING MASS")],
+        concepts: [
+          lessonHead(79, "LESSON 4: MORE APPLICATIONS ON MEASURING MASS"),
+          band(79, APPLY),
+        ],
       },
       {
         key: "6-5",
@@ -967,8 +989,7 @@ export const EGYPT_MATH_EN_G2_T1_UNITS: MathEnG2T1Section[] = [
  * or its own head page, down to the page before the next lesson starts, bounded
  * by the chapter. A band that recurs on the following page belongs to this
  * lesson, so the ranges tile [5, 91] exactly and no reachable content sits
- * outside a lesson — including the pages the holes swallowed, which stay owned
- * by their lesson.
+ * outside a lesson.
  */
 export function lessonBookRange(sectionIndex: number, lessonIndex: number): { from: number; to: number } {
   const section = EGYPT_MATH_EN_G2_T1_UNITS[sectionIndex]!;
@@ -1123,8 +1144,7 @@ export function footerCandidates(book: number): number[] {
 /**
  * The book number a content page prints in its running footer, or null. Every
  * present content page carries a footer whose number is exactly its own, which
- * is what fixes the offset; the pages the holes swallowed are listed in
- * `MISSING_SCANS` and never reach this check.
+ * is what fixes the offset.
  */
 export function printedFooter(book: number): number | null {
   const candidates = footerCandidates(book);
@@ -1239,21 +1259,19 @@ export function isConsistent(): { ok: boolean; problems: string[] } {
  * The strong check, against the book itself:
  *  1. every present term page carries real OCR text and proves its book number
  *     from its running footer (the split footers of books 45 and 68 pair
- *     explicitly); the pages in `MISSING_SCANS` carry no text layer at all and
- *     are skipped silently here;
- *  2. every chapter opener prints the chapter head and every surviving
- *     lesson's first page prints that lesson's head (a head on a swallowed
- *     page is proven by the Contents instead and skipped here);
+ *     explicitly); `MISSING_SCANS` is empty, so no term page is skipped;
+ *  2. every chapter opener prints the chapter head, every lesson's first page
+ *     prints that lesson's head, and every lesson's title is printed somewhere
+ *     in the pages it owns;
  *  3. every lesson's title and every activity's head is printed on the pages
- *     the lesson owns (the activity on its own page) — except the nine
- *     lessons whose head page the holes swallowed (1-5, 1-6, 1-7, 2-5, 2-6,
- *     4-2, 5-2, 6-3, 6-4), whose titles the Contents proves and whose
- *     surviving Reflect/problem tails never carry lesson titles;
+ *     the lesson owns (the activity on its own page) — the practice tails
+ *     that merely continue exercises (books 10, 23, 45, 47, 50, 58, 65, 70,
+ *     77, 80, 81, 88) print no head of their own and carry no concept;
  *  4. every printed page in [5, 91] is owned by exactly one lesson — no page
  *     falls between two lessons and is unreachable;
  *  5. the pages tile the term with no gap. `pagesChecked` counts every OCR'd
  *     page of the term, i.e. `_BOOK_END - _BOOK_START + 1` minus
- *     `MISSING_SCANS`.
+ *     `MISSING_SCANS` — here the full 87.
  *
  * A wrong page range is arithmetically tidy but would hide book content from the
  * tutor, so the seeder refuses to run on an unverified table.
@@ -1303,10 +1321,9 @@ export function assertTreeMatchesTheBook(): { ok: boolean; problems: string[]; p
     );
   }
 
-  // 2 + 3a. every chapter opener prints the chapter head, every surviving
-  // lesson's first page its head, and every lesson's title is printed
-  // somewhere in the pages it owns — unless the holes swallowed the head page
-  // that carries it, in which case the Contents (scan 4) is its provenance.
+  // 2 + 3a. every chapter opener prints the chapter head, every lesson's
+  // first page its head, and every lesson's title is printed somewhere in
+  // the pages it owns.
   units.forEach((unit, ui) => {
     if (loadBookPage(unit.bookFrom) && !pagePrints(unit.bookFrom, unit.printedHead)) {
       problems.push(`Section ${unit.title}: opener page ${unit.bookFrom} does not print "${unit.printedHead}"`);
