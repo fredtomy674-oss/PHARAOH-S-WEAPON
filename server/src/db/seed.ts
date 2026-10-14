@@ -203,6 +203,12 @@ import {
   assertTreeMatchesTheBook as assertEnglishG2TreeMatchesBook,
 } from "./egyptEnglishG2T1.js";
 import {
+  EGYPT_ENGLISH_G3_T1_SECTIONS,
+  lessonDocument as englishG3LessonDocument,
+  isConsistent as isEnglishG3TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishG3TreeMatchesBook,
+} from "./egyptEnglishG3T1.js";
+import {
   EGYPT_ARABIC_G1_T1_UNITS,
   lessonDocument as arabicG1LessonDocument,
   isConsistent as isArabicG1TreeConsistent,
@@ -226,6 +232,30 @@ import {
   isConsistent as isChristianG2TreeConsistent,
   assertTreeMatchesTheBook as assertChristianG2TreeMatchesBook,
 } from "./egyptChristianG2T1.js";
+import {
+  EGYPT_CHRISTIAN_G3_T1_UNITS,
+  lessonDocument as christianG3LessonDocument,
+  isConsistent as isChristianG3TreeConsistent,
+  assertTreeMatchesTheBook as assertChristianG3TreeMatchesBook,
+} from "./egyptChristianG3T1.js";
+import {
+  EGYPT_ENGLISH_G4_T1_SECTIONS,
+  lessonDocument as englishG4LessonDocument,
+  isConsistent as isEnglishG4TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishG4TreeMatchesBook,
+} from "./egyptEnglishG4T1.js";
+import {
+  EGYPT_MATH_EN_G3_T1_UNITS,
+  lessonDocument as mathEnG3LessonDocument,
+  isConsistent as isMathEnG3TreeConsistent,
+  assertTreeMatchesTheBook as assertMathEnG3TreeMatchesBook,
+} from "./egyptMathEnG3T1.js";
+import {
+  EGYPT_CHRISTIAN_G4_T1_UNITS,
+  lessonDocument as christianG4LessonDocument,
+  isConsistent as isChristianG4TreeConsistent,
+  assertTreeMatchesTheBook as assertChristianG4TreeMatchesBook,
+} from "./egyptChristianG4T1.js";
 import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
@@ -3634,6 +3664,235 @@ function verifyChristianG2Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-3 (Grade 3) **English** — OFFICIAL curriculum (PHASE 136).
+ *
+ * The first term IS the Ministry English book for Grade 3 (117 scan pages): its three
+ * units and the printed Reviews between them, and the pages they occupy (book pages
+ * 5–117). Book page = scan index (offset 0). A lesson is each printed lesson; its
+ * `concepts` are the lesson's own printed heads, verbatim in English.
+ */
+export const EGYPT_ENGLISH_G3_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-3", name: "Grade 3", nameAr: "الصف الثالث الابتدائي", levelOrder: 3 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g3-english", title: "اللغة الإنجليزية للصف الثالث الابتدائي" },
+  terms: [buildEgyptEnglishG3Term()],
+};
+
+/** Term 1 = the official Grade-3 English book: printed section → printed lesson. */
+function buildEgyptEnglishG3Term(): TermSeedSpec {
+  const check = verifyEnglishG3Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة الإنجليزية (ثالثة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_G3_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g3-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: englishG3LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-3 English tree verification, as one verdict. */
+function verifyEnglishG3Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishG3TreeConsistent();
+  const book = assertEnglishG3TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-3 (Grade 3) **Christian Religious Education** — OFFICIAL curriculum
+ * (PHASE 136).
+ *
+ * The first term IS the Ministry textbook (`التربية الدينية المسيحية – الصف الثالث
+ * الابتدائي`; 90 born-digital pages, text layer already extracted): its three units and
+ * the pages they occupy (book pages 5–86). Book page = scan page − 1 (offset 1), proven by
+ * the printed folios. A lesson is each printed درس; its `concepts` are the lesson's own
+ * printed «أهداف الدرس», verbatim in Arabic.
+ */
+export const EGYPT_CHRISTIAN_G3_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-3", name: "Grade 3", nameAr: "الصف الثالث الابتدائي", levelOrder: 3 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: { code: "eg-g3-christian-education", title: "التربية الدينية المسيحية للصف الثالث الابتدائي" },
+  terms: [buildEgyptChristianG3Term()],
+};
+
+/** Term 1 = the official Primary-3 Christian book: printed unit → printed lesson. */
+function buildEgyptChristianG3Term(): TermSeedSpec {
+  const check = verifyChristianG3Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية المسيحية (ثالثة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_CHRISTIAN_G3_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g3-chr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: christianG3LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-3 Christian tree verification, as one verdict. */
+function verifyChristianG3Tree(): { ok: boolean; problems: string[] } {
+  const table = isChristianG3TreeConsistent();
+  const book = assertChristianG3TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 (Grade 4) **English** — OFFICIAL curriculum (PHASE 136).
+ *
+ * The first term IS the Ministry English book for Grade 4. Book page = scan index
+ * (offset 0) and the term runs over printed pages 7–113 (107 pages); the pages before
+ * and after are front/back matter. A lesson is each printed lesson; its `concepts` are
+ * the lesson's own printed heads, verbatim in English.
+ */
+export const EGYPT_ENGLISH_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g4-english", title: "اللغة الإنجليزية للصف الرابع الابتدائي" },
+  terms: [buildEgyptEnglishG4Term()],
+};
+
+/** Term 1 = the official Grade-4 English book: printed section → printed lesson. */
+function buildEgyptEnglishG4Term(): TermSeedSpec {
+  const check = verifyEnglishG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة الإنجليزية (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_G4_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g4-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: englishG4LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 English tree verification, as one verdict. */
+function verifyEnglishG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishG4TreeConsistent();
+  const book = assertEnglishG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-3 (Grade 3) **Mathematics (English-medium)** — OFFICIAL curriculum
+ * (PHASE 136).
+ *
+ * The first term IS the Ministry Mathematics book for Grade 3. The printed-page → scan
+ * map is a constant +4 and the term runs over printed pages 2–107 (106 pages); the pages
+ * outside that range are front/back matter. A lesson is each printed lesson; its
+ * `concepts` are the lesson's own printed heads, verbatim in English.
+ */
+export const EGYPT_MATH_EN_G3_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-3", name: "Grade 3", nameAr: "الصف الثالث الابتدائي", levelOrder: 3 },
+  subject: { code: "math-en", name: "Mathematics (English)", nameAr: "الرياضيات (بالإنجليزية)" },
+  curriculum: { code: "eg-g3-math-en", title: "الرياضيات للصف الثالث الابتدائي (بالإنجليزية)" },
+  terms: [buildEgyptMathEnG3Term()],
+};
+
+/** Term 1 = the official Grade-3 Mathematics (English) book: printed unit → printed lesson. */
+function buildEgyptMathEnG3Term(): TermSeedSpec {
+  const check = verifyMathEnG3Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالإنجليزية) ثالثة ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_EN_G3_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g3-math-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathEnG3LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-3 Mathematics (English) tree verification, as one verdict. */
+function verifyMathEnG3Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathEnG3TreeConsistent();
+  const book = assertMathEnG3TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 (Grade 4) **Christian Religious Education** — OFFICIAL curriculum
+ * (PHASE 136).
+ *
+ * The first term IS the Ministry textbook (`التربية الدينية المسيحية` للصف الرابع
+ * الابتدائي). The printed-page → scan map is a constant +1 and the term runs over printed
+ * pages 6–92 (87 pages); scans 1–6 are front matter and 94–98 back matter. A lesson is
+ * each printed lesson; its `concepts` are the printed «أهداف الدرس» items.
+ */
+export const EGYPT_CHRISTIAN_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: { code: "eg-g4-christian-education", title: "التربية الدينية المسيحية للصف الرابع الابتدائي" },
+  terms: [buildEgyptChristianG4Term()],
+};
+
+/** Term 1 = the official Grade-4 Christian book: printed unit → printed lesson. */
+function buildEgyptChristianG4Term(): TermSeedSpec {
+  const check = verifyChristianG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية المسيحية (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_CHRISTIAN_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g4-chr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: christianG4LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 Christian tree verification, as one verdict. */
+function verifyChristianG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isChristianG4TreeConsistent();
+  const book = assertChristianG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
  *
  * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
@@ -5342,6 +5601,11 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_FRENCH_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ENGLISH_P1_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G3_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G3_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_EN_G3_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G4_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
