@@ -257,6 +257,30 @@ import {
   assertTreeMatchesTheBook as assertChristianG4TreeMatchesBook,
 } from "./egyptChristianG4T1.js";
 import {
+  EGYPT_SOCIAL_G5_T1_UNITS,
+  lessonDocument as socialG5LessonDocument,
+  isConsistent as isSocialG5TreeConsistent,
+  assertTreeMatchesTheBook as assertSocialG5TreeMatchesBook,
+} from "./egyptSocialG5T1.js";
+import {
+  EGYPT_ENGLISH_G5_T1_SECTIONS,
+  lessonDocument as englishG5LessonDocument,
+  isConsistent as isEnglishG5TreeConsistent,
+  assertTreeMatchesTheBook as assertEnglishG5TreeMatchesBook,
+} from "./egyptEnglishG5T1.js";
+import {
+  EGYPT_CHRISTIAN_G5_T1_UNITS,
+  lessonDocument as christianG5LessonDocument,
+  isConsistent as isChristianG5TreeConsistent,
+  assertTreeMatchesTheBook as assertChristianG5TreeMatchesBook,
+} from "./egyptChristianG5T1.js";
+import {
+  EGYPT_SOCIAL_G4_T1_UNITS,
+  lessonDocument as socialG4LessonDocument,
+  isConsistent as isSocialG4TreeConsistent,
+  assertTreeMatchesTheBook as assertSocialG4TreeMatchesBook,
+} from "./egyptSocialG4T1.js";
+import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
   isConsistent as isDiscoveryEnKg1TreeConsistent,
@@ -3893,6 +3917,194 @@ function verifyChristianG4Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-5 (Grade 5) **Social Studies** — OFFICIAL curriculum (PHASE 137).
+ *
+ * The first term IS the Ministry textbook (الدراسات الاجتماعية للصف الخامس الابتدائي).
+ * The printed-page → scan map is a constant +1 and the term runs over printed pages 6–95
+ * (90 pages, 87 with a text layer); scans 1–6 are front matter and 97–98 back matter.
+ * Books 7, 39 and 67 are full-page photo versos with no text layer (zero-byte scans),
+ * recorded in MISSING_SCANS and owned by their unit's first lesson. A lesson is each
+ * printed درس; its `concepts` are the printed «أهداف الدرس» items, verbatim in Arabic.
+ */
+export const EGYPT_SOCIAL_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "social", name: "Social Studies", nameAr: "الدراسات الاجتماعية" },
+  curriculum: { code: "eg-g5-social", title: "الدراسات الاجتماعية للصف الخامس الابتدائي" },
+  terms: [buildEgyptSocialG5Term()],
+};
+
+/** Term 1 = the official Grade-5 Social Studies book: printed unit → printed lesson. */
+function buildEgyptSocialG5Term(): TermSeedSpec {
+  const check = verifySocialG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الدراسات الاجتماعية (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SOCIAL_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-soc-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: socialG5LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 Social Studies tree verification, as one verdict. */
+function verifySocialG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isSocialG5TreeConsistent();
+  const book = assertSocialG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **English** — OFFICIAL curriculum (PHASE 137).
+ *
+ * The first term IS the Ministry English book for Grade 5. Book page = scan index
+ * (offset 0) and the term runs over printed pages 7–108 (102 pages, 96 with a text
+ * layer); scans 1–6 are front matter and 109–112 back matter (glossary + credits).
+ * Scans 18, 32, 48, 74, 86 and 103 are illustration spreads with no text layer,
+ * recorded in MISSING_SCANS and owned by their lesson's range. A lesson is each printed
+ * lesson; its `concepts` are the lesson's own printed heads, verbatim in English.
+ */
+export const EGYPT_ENGLISH_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g5-english", title: "اللغة الإنجليزية للصف الخامس الابتدائي" },
+  terms: [buildEgyptEnglishG5Term()],
+};
+
+/** Term 1 = the official Grade-5 English book: printed section → printed lesson. */
+function buildEgyptEnglishG5Term(): TermSeedSpec {
+  const check = verifyEnglishG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب اللغة الإنجليزية (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ENGLISH_G5_T1_SECTIONS.map((section, si) => ({
+      code: `unit-${si + 1}`,
+      title: section.title,
+      lessons: section.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-eng-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: englishG5LessonDocument(si, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 English tree verification, as one verdict. */
+function verifyEnglishG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isEnglishG5TreeConsistent();
+  const book = assertEnglishG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **Christian Religious Education** — OFFICIAL curriculum
+ * (PHASE 137).
+ *
+ * The first term IS the Ministry textbook (`التربية الدينية المسيحية` للصف الخامس
+ * الابتدائي). The printed-page → scan map is a constant +1 and the term runs over printed
+ * pages 6–94 (89 pages, all with a text layer); scans 1–6 are front matter and 96–98 back
+ * matter. Reviews and term exams ride inside their unit's last-lesson range. A lesson is
+ * each printed درس; its `concepts` are the printed «أهداف الدرس» items, verbatim in Arabic.
+ */
+export const EGYPT_CHRISTIAN_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: { code: "eg-g5-christian-education", title: "التربية الدينية المسيحية للصف الخامس الابتدائي" },
+  terms: [buildEgyptChristianG5Term()],
+};
+
+/** Term 1 = the official Grade-5 Christian book: printed unit → printed lesson. */
+function buildEgyptChristianG5Term(): TermSeedSpec {
+  const check = verifyChristianG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية المسيحية (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_CHRISTIAN_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g5-chr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: christianG5LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 Christian tree verification, as one verdict. */
+function verifyChristianG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isChristianG5TreeConsistent();
+  const book = assertChristianG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 (Grade 4) **Social Studies** — OFFICIAL curriculum (PHASE 137).
+ *
+ * The first term IS the Ministry textbook (الدراسات الاجتماعية للصف الرابع الابتدائي).
+ * The printed-page → scan map is a constant +1 and the term runs over printed pages 8–110
+ * (103 pages, all with a text layer); scans 1–8 are front matter and 112–114 back matter.
+ * The three «تقييم الوحدة» pages and the «مراجعة عامة» ride inside their unit's
+ * last-lesson range. A lesson is each printed درس; its `concepts` are the printed
+ * «أهداف الدرس» items (or the printed question instructions for assessments), verbatim.
+ */
+export const EGYPT_SOCIAL_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "social", name: "Social Studies", nameAr: "الدراسات الاجتماعية" },
+  curriculum: { code: "eg-g4-social", title: "الدراسات الاجتماعية للصف الرابع الابتدائي" },
+  terms: [buildEgyptSocialG4Term()],
+};
+
+/** Term 1 = the official Grade-4 Social Studies book: printed unit → printed lesson. */
+function buildEgyptSocialG4Term(): TermSeedSpec {
+  const check = verifySocialG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الدراسات الاجتماعية (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SOCIAL_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g4-soc-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: socialG4LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 Social Studies tree verification, as one verdict. */
+function verifySocialG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isSocialG4TreeConsistent();
+  const book = assertSocialG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
  *
  * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
@@ -5606,6 +5818,10 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ENGLISH_G4_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_G3_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SOCIAL_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SOCIAL_G4_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
