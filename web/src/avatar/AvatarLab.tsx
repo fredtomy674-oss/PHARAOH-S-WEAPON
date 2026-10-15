@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AVATAR_CHARACTERS,
   AVATAR_STATE_AR,
@@ -68,7 +68,18 @@ export function AvatarLab() {
   );
 
   const character = getCharacter(characterId) ?? AVATAR_CHARACTERS[0]!;
-  const model: string | null = fileUrl ?? character.modelUrl;
+  // Lab-only preview overrides: `?model=<url>` reviews a candidate file without
+  // bundling it, `?look=off` shows the bare model (no hijab) for comparison.
+  const queryModel = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const m = new URLSearchParams(window.location.search).get("model");
+    return m && /^[/]|^https?:/i.test(m) ? m : null;
+  }, []);
+  const applyLook = useMemo(
+    () => (typeof window === "undefined" ? true : new URLSearchParams(window.location.search).get("look") !== "off"),
+    [],
+  );
+  const model: string | null = fileUrl ?? queryModel ?? character.modelUrl;
   const sync = useMouthSync(avatarState === "speaking" || micOn);
   const labAudio = useRef<{ ctx: AudioContext | null; stream: MediaStream | null; analyser: AnalyserNode | null }>({
     ctx: null,
@@ -277,6 +288,7 @@ export function AvatarLab() {
             avatarState={avatarState}
             getMouthOpen={sync.getMouthOpen}
             reducedMotion={reducedMotion || avatarState === "off"}
+            applyLook={applyLook}
             onStatus={(s, detail) => {
               setLoadStatus(s);
               setLoadError(detail ?? "");

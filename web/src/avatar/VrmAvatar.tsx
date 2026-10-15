@@ -17,6 +17,11 @@ export interface VrmAvatarProps {
   getMouthOpen: () => number;
   /** Reduced motion: static pose, no sway/blink (mouth still follows speech). */
   reducedMotion: boolean;
+  /**
+   * Apply the "Egyptian teacher" look (procedural hijab + pose). Default true.
+   * Lab-only escape hatch (`?look=off`) for reviewing a bare candidate model.
+   */
+  applyLook?: boolean;
   onStatus: (status: AvatarLoadStatus, detail?: string) => void;
   onFps: (fps: number) => void;
 }
@@ -53,7 +58,15 @@ function relaxBindPose(vrm: VRM): void {
  * prove the pipeline). All three.js objects live inside the effect and are
  * disposed in its cleanup, so StrictMode double-mounts and unmounts are safe.
  */
-export function VrmAvatar({ model, avatarState, getMouthOpen, reducedMotion, onStatus, onFps }: VrmAvatarProps) {
+export function VrmAvatar({
+  model,
+  avatarState,
+  getMouthOpen,
+  reducedMotion,
+  applyLook = true,
+  onStatus,
+  onFps,
+}: VrmAvatarProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const stateRef = useRef<AvatarState>(avatarState);
   stateRef.current = avatarState;
@@ -167,7 +180,7 @@ export function VrmAvatar({ model, avatarState, getMouthOpen, reducedMotion, onS
       vrm = loaded;
       scene.add(vrm.scene);
       relaxBindPose(loaded);
-      applyTeacherLook(loaded);
+      if (applyLook) applyTeacherLook(loaded);
       // Frame head-and-shoulders from the model's own bounds (any height works).
       const box = new THREE.Box3().setFromObject(vrm.scene);
       const center = box.getCenter(new THREE.Vector3());
@@ -207,7 +220,7 @@ export function VrmAvatar({ model, avatarState, getMouthOpen, reducedMotion, onS
       });
       renderer.dispose();
     };
-  }, [model]);
+  }, [model, applyLook]);
 
   return <canvas ref={canvasRef} style={{ width: "100%", height: "100%", display: "block" }} />;
 }
