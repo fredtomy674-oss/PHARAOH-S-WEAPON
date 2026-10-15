@@ -1,0 +1,35 @@
+CHAPTER 3 CONNECTING PEOPLE
+
+Lesson
+7
+
+THE PARTS OF A COMPUTER
+Look at the pictures on the page. What do you know about each of these
+parts of a computer?
+
+A computer system is a set of hardware (equipment) and software (programs) that work
+together to complete a task or function. They input, output, process, and store data and
+information. The basic parts of a computer are:
+
+- The motherboard is where all the parts of a
+computer connect and communicate.
+
+- The input device is used to put data into
+the computer. The example shown here is a
+keyboard.
+
+- The central processing unit (CPU) is the brain of
+the computer. It follows commands and manages
+information. The CPU sends data to the output
+devices.
+
+- The memory stores data short term so the CPU
+can use it.
+
+- The storage device stores data, like computer
+programs, long term.
+
+- The output device allows the user to see the
+result. The example shown here is a monitor.
+
+PRIMARY 3 87

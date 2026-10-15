@@ -1,0 +1,13 @@
+Leçon 105
+Lance le dé. Trace les points dans les carrés. Écris le total dans
+le cercle.
+
++ =
+
++ =
+
++ =
+
++ =
+
+7

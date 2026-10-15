@@ -1,0 +1,15 @@
+Leçon 71
+Utilise les 10 cases pour former le nombre 10.
+
+Leçon 72
+Utilise les 10 cases pour jouer au jeu de la coupe. Forme le nombre 10.
+Ensuite trouve une autre manière de faire pour former le chiffre 10 et
+dessine-le ci-dessous.
+
+Leçon 80
+Utilise la droite des nombres (ou droite numérique) pour t'aider à
+résoudre le problème de mathématiques.
+
+0 1 2 3 4 5 6 7 8 9 10
+
+3
