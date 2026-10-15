@@ -60,3 +60,12 @@ export function isBlinkTime(elapsedMs: number, periodMs = 4200, durationMs = 150
   if (elapsedMs < 0 || periodMs <= 0 || durationMs <= 0) return false;
   return elapsedMs % periodMs < durationMs;
 }
+
+/**
+ * Per-frame blink weight. This MUST be applied every frame: blink is a pulse,
+ * so an unmapped frame has to write 0 back. (Writing only the 1 latched the
+ * eyes shut forever after the first blink — a real bug this guards.)
+ */
+export function blinkWeight(elapsedMs: number, reducedMotion: boolean): number {
+  return !reducedMotion && isBlinkTime(elapsedMs) ? 1 : 0;
+}

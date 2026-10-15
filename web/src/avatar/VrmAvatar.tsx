@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { VRMLoaderPlugin, type VRM } from "@pixiv/three-vrm";
-import { expressionForState, isBlinkTime } from "./visemeMapper.js";
+import { VRMLoaderPlugin, VRMUtils, type VRM } from "@pixiv/three-vrm";
+import { blinkWeight, expressionForState } from "./visemeMapper.js";
 import { applyTeacherLook } from "./teacherLook.js";
 import type { AvatarState } from "./avatarStates.js";
 
@@ -39,10 +39,10 @@ function relaxBindPose(vrm: VRM): void {
   const humanoid = vrm.humanoid;
   if (!humanoid) return;
   const pose: Array<[string, number, number, number]> = [
-    ["leftUpperArm", 0, 0, -1.25],
-    ["rightUpperArm", 0, 0, 1.25],
-    ["leftLowerArm", 0, 0.35, -0.18],
-    ["rightLowerArm", 0, -0.35, 0.18],
+    ["leftUpperArm", 0, 0, 1.25],
+    ["rightUpperArm", 0, 0, -1.25],
+    ["leftLowerArm", 0, 0.35, 0.18],
+    ["rightLowerArm", 0, -0.35, -0.18],
     ["leftHand", 0, 0.25, 0],
     ["rightHand", 0, -0.25, 0],
   ];
@@ -93,6 +93,9 @@ export function VrmAvatar({
 
     let disposed = false;
     let vrm: VRM | null = null;
+    // VRM 0.x faces -Z; VRMUtils.rotateVRM0 flips it (no-op for 1.0). The idle
+    // sway must rotate *around* that base yaw instead of overwriting it.
+    let baseYaw = 0;
     const clock = new THREE.Clock();
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -146,18 +149,18 @@ export function VrmAvatar({
               // Unknown preset on this model: leave it alone.
             }
           }
-          if (!motionRef.current && isBlinkTime(elapsed)) {
-            try {
-              manager.setValue("blink", 1);
-            } catch {
-              // No blink preset: fine.
-            }
+          // Blink must be written EVERY frame (blinkWeight returns 0 outside the
+          // pulse window) — writing only the 1 latched the eyes shut.
+          try {
+            manager.setValue("blink", blinkWeight(elapsed, motionRef.current));
+          } catch {
+            // No blink preset on this model: fine.
           }
         }
         // Gentle idle sway only (never positional storytelling).
         if (!motionRef.current) {
           const t = elapsed / 1000;
-          vrm.scene.rotation.y = Math.sin(t * 0.5) * 0.06;
+          vrm.scene.rotation.y = baseYaw + Math.sin(t * 0.5) * 0.06;
           vrm.scene.rotation.x = Math.sin(t * 0.34) * 0.02;
         }
         if (typeof (vrm as unknown as { update?: unknown }).update === "function") {
@@ -179,8 +182,15 @@ export function VrmAvatar({
       }
       vrm = loaded;
       scene.add(vrm.scene);
-      relaxBindPose(loaded);
-      if (applyLook) applyTeacherLook(loaded);
+      // VRM 0.x faces -Z; flip it to face the camera (no-op for VRM 1.0).
+      VRMUtils.rotateVRM0(loaded);
+      baseYaw = loaded.scene.rotation.y;
+      // Pose + hijab/clothes are one treatment: models already authored in a
+      // natural A-pose (the polished VRoid bases) must not be re-posed.
+      if (applyLook) {
+        relaxBindPose(loaded);
+        applyTeacherLook(loaded);
+      }
       // Frame head-and-shoulders from the model's own bounds (any height works).
       const box = new THREE.Box3().setFromObject(vrm.scene);
       const center = box.getCenter(new THREE.Vector3());

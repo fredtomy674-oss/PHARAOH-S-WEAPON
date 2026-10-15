@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   amplitudeToMouth,
+  blinkWeight,
   expressionForState,
   isBlinkTime,
   rms,
@@ -48,5 +49,17 @@ describe("viseme mapper", () => {
     expect(isBlinkTime(150)).toBe(false);
     expect(isBlinkTime(4200)).toBe(true);
     expect(isBlinkTime(-5)).toBe(false);
+  });
+
+  it("writes the blink weight down again outside the pulse (never latches)", () => {
+    // Regression: only ever writing 1 left the eyes shut after the first blink.
+    expect(blinkWeight(0, false)).toBe(1);
+    expect(blinkWeight(149, false)).toBe(1);
+    expect(blinkWeight(150, false)).toBe(0);
+    expect(blinkWeight(2000, false)).toBe(0);
+    expect(blinkWeight(4200, false)).toBe(1);
+    // Reduced motion: never blink at all.
+    expect(blinkWeight(0, true)).toBe(0);
+    expect(blinkWeight(4200, true)).toBe(0);
   });
 });

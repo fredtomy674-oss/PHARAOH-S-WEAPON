@@ -4,24 +4,26 @@ import type { VRM } from "@pixiv/three-vrm";
 /**
  * "Egyptian teacher" look, applied at load on top of the licensed VRM base.
  *
- * The base model's own textures are already recoloured (warm skin, near-black
- * hair, cream top) at asset-bake time; this module adds the one thing textures
- * cannot: a fitted hijab. It is generated geometry (no third-party asset), sized
- * from the model's own face bounds so it works if the base is swapped, and it is
- * parented to the model root so it rides the existing idle sway.
+ * The base (a CC0 VRoid Studio sample) already provides the professional outfit
+ * — white blouse, navy vest, navy skirt — so this module does not build clothes.
+ * It adds the one thing the base cannot express, a fitted headscarf, and hides
+ * the parts the scarf replaces (the hair and the school neck bow).
  *
- * Nothing here runs unless the Lab mounts it; the lesson room never imports it.
+ * The scarf is generated geometry (no third-party asset), sized from the model's
+ * own face bounds so it survives a base swap, and parented to the model root so
+ * it rides the existing idle sway. Nothing here runs unless the Lab mounts it;
+ * the lesson room never imports it.
  */
 
 /** Dusty mauve from the reference board. */
 const HIJAB_COLOR = 0xb0859e;
 
-/** Hide every material whose name says "hair" (front + back hair primitives). */
-function hideHair(root: THREE.Object3D): void {
+/** Hide the parts the headscarf makes redundant: the hair and the neck bow. */
+function hideReplacedParts(root: THREE.Object3D): void {
   root.traverse((obj) => {
     const material = (obj as THREE.Mesh).material as THREE.Material | THREE.Material[] | undefined;
     const list = Array.isArray(material) ? material : material ? [material] : [];
-    for (const mat of list) if (/hair/i.test(mat.name)) mat.visible = false;
+    for (const mat of list) if (/hair|accessory/i.test(mat.name)) mat.visible = false;
   });
 }
 
@@ -129,35 +131,47 @@ export function buildDrape(
 export function applyTeacherLook(vrm: VRM): THREE.Object3D[] {
   const scene = vrm.scene;
   scene.updateWorldMatrix(true, true);
-  hideHair(scene);
+  hideReplacedParts(scene);
 
   const face = findMeshByMaterial(scene, /Face_00_SKIN/i) ?? findMeshByMaterial(scene, /face/i);
   if (!face) return [];
 
-  const box = new THREE.Box3().setFromObject(face);
+  // Work in the model root's LOCAL frame: a VRM 0.x root carries a 180° yaw so
+  // it faces the camera, and geometry added as its child must not re-apply it.
+  const inverse = new THREE.Matrix4().copy(scene.matrixWorld).invert();
+  const box = new THREE.Box3().setFromObject(face).applyMatrix4(inverse);
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
+  // Rotation that turns the hood's +Z face-window toward the model's front.
+  const yaw = -scene.rotation.y;
 
-  const material = new THREE.MeshStandardMaterial({
+  // Fabric-ish material: sheen gives cloth a soft grazing highlight (a plain
+  // standard material read as plastic at this scale).
+  const material = new THREE.MeshPhysicalMaterial({
     color: HIJAB_COLOR,
-    roughness: 0.9,
+    roughness: 0.85,
     metalness: 0,
+    sheen: 1,
+    sheenRoughness: 0.7,
+    sheenColor: new THREE.Color(0xdfc9d8),
     side: THREE.DoubleSide,
   });
 
-  const rx = size.x * 0.66;
-  const ry = size.y * 0.62;
-  const rz = size.x * 0.66;
-  const centerY = center.y + size.y * 0.065;
-  const centerZ = center.z - size.x * 0.19;
-  const hood = new THREE.Mesh(buildHood(rx, ry, rz, size.x * 0.46, size.y * 0.48), material);
+  const rx = size.x * 0.62;
+  const ry = size.y * 0.58;
+  const rz = size.x * 0.62;
+  const centerY = center.y + size.y * 0.06;
+  const centerZ = center.z - size.x * 0.16;
+  const hood = new THREE.Mesh(buildHood(rx, ry, rz, size.x * 0.47, size.y * 0.55), material);
   hood.position.set(center.x, centerY, centerZ);
+  hood.rotation.y = yaw;
 
-  // Shoulder cape: eased flare with a rolled hem so the edge reads as fabric.
-  const topY = centerY - ry * 0.78;
-  const drapeHeight = size.y * 0.60;
+  // Neck/chest drape: starts under the jaw (never over the chin), hugs the neck,
+  // then flares onto the chest with a rolled hem so the edge reads as fabric.
+  const topY = centerY - ry * 0.82;
+  const drapeHeight = size.y * 0.62;
   const drape = new THREE.Mesh(
-    buildDrape(rx * 0.72, rz * 0.72, rx * 1.18, rz * 1.02, drapeHeight),
+    buildDrape(rx * 0.55, rz * 0.55, rx * 1.18, rz * 0.98, drapeHeight),
     material,
   );
   drape.position.set(center.x, topY, centerZ);

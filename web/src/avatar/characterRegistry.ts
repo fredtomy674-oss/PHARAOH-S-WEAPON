@@ -10,10 +10,12 @@
 // is approved and its source + terms are recorded below. No model of unknown
 // license is ever bundled.
 //
-// The bundled base model is a VRM 1.0 sample published by pixiv Inc. Its own
-// embedded VRM meta grants exactly the rights we need (commercial use by a
-// corporation, redistribution, modification, no credit required), so it is the
-// one file allowed in the repo. It is a licensed *base*: a bespoke Egyptian
+// The bundled base model is "Sendagaya Shino", a VRoid Studio sample character
+// whose own embedded VRM meta grants the widest possible rights: LicenseType
+// **CC0** (public domain) with allowedUserName "Everyone" and commercial usage
+// "Allow" — so it may be used, modified, and redistributed freely, including
+// inside this repository, with no attribution required. We still record the
+// source + exact metadata below. It is a licensed *base*: a bespoke Egyptian
 // teacher model can replace the file + this entry whenever it is ready, with no
 // renderer change (the file is referenced only here).
 
@@ -60,12 +62,11 @@ export const AVATAR_CHARACTERS: readonly AvatarCharacter[] = [
     descriptionAr: "معلمة مصرية بالغة بحجاب، ودودة وواثقة — الشخصية الأولى للمنصة.",
     modelUrl: teacherModelUrl,
     modelLicense: {
-      source:
-        "https://github.com/pixiv/three-vrm/blob/dev/packages/three-vrm/examples/models/VRM1_Constraint_Twist_Sample.vrm",
+      source: "https://github.com/madjin/vrm-samples/blob/HEAD/vroid/beta/Sendagaya_Shino.vrm",
       terms:
-        'VRM 1.0 embedded meta — authors: ["pixiv Inc."], copyrightInformation: "(c) 2022 pixiv Inc.", ' +
-        "licenseUrl: https://vrm.dev/licenses/1.0/, commercialUsage: corporation, avatarPermission: everyone, " +
-        "allowRedistribution: true, modification: allowModificationRedistribution, creditNotation: unnecessary.",
+        'VRM 0.x embedded meta — LicenseType: "CC0" (public domain), allowedUserName: "Everyone", ' +
+        'commercialUssageName: "Allow", violentUssageName: "Allow", sexualUssageName: "Allow". ' +
+        "CC0 waives copyright: unrestricted use, modification and redistribution, no attribution required.",
       commercialUse: "verified",
     },
     voices: [
@@ -76,7 +77,8 @@ export const AVATAR_CHARACTERS: readonly AvatarCharacter[] = [
       { language: "it", note: "بانتظار إثبات الصوت والشرح بالإيطالية فعلًا" },
     ],
     styleNotesAr:
-      "بشرة دافئة، شعر أسود، حجاب بنفسجي هادئ، قميص كريمي — إعادة تلوين مدمجة في الملف + حجاب هندسي مُلبَّس (teacherLook.ts).",
+      "حجاب بنفسجي هادئ (هندسي مُلبَّس — teacherLook.ts) فوق زيّها المهني الأصلي: بلوزة بيضاء + صديري كحلي + جيبة كحلية؛ " +
+      "يُخفى الشعر والقوس المدرسي. النموذج الأساسي عيّنة VRoid مرخّصة CC0.",
   },
 ];
 
