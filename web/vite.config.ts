@@ -18,4 +18,16 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    // Avatar Lab ships ONLY behind the flag (default off): the student bundle
+    // never changes, and removing the Lab is deleting avatar-lab.html +
+    // src/avatar* plus this block. The dev server always serves both pages so
+    // the Lab is testable without a special build.
+    rollupOptions: {
+      input: {
+        main: "index.html",
+        ...(process.env.VITE_AVATAR_LAB === "1" ? { "avatar-lab": "avatar-lab.html" } : {}),
+      },
+    },
+  },
 });
