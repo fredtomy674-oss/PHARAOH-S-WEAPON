@@ -574,9 +574,15 @@ export class TutorEngine {
       teachingAction,
     });
 
-    // PHASE 146 — a written answer the engine could not verify must not be
+    // PHASE 146 — a written answer the engine could NOT verify must not be
     // praised. The nudge says so to the model, and `isEcho` below treats unearned
     // praise exactly like a prompt mirror (an unusable reply to regenerate).
+    //
+    // Scoped to `lastAnswerCorrect === null` on purpose: when the engine has a
+    // real verdict (true OR false) the prompt STATES it, so the model is no
+    // longer guessing — and guarding the verified-wrong case would also suppress
+    // legitimate praise for a good *attempt* («أحسنت على المحاولة، لكن…»), which
+    // is a different thing from claiming the answer is right.
     const needsVerdictGuard = isAnswerTurn && lastAnswerCorrect === null;
     const verdictNudge = needsVerdictGuard
       ? " وقد أجاب الطالب للتوّ: لم يتحقّق المحرك من إجابته، فلا تقل إنها صحيحة ولا تمدحها (لا «صحيح» ولا «أحسنت») — أعد الخطوة الصحيحة أمامه واطلب منه أن يقارن إجابته بها."
