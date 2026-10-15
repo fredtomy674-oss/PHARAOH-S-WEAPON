@@ -57,7 +57,7 @@ export const AVATAR_CHARACTERS: readonly AvatarCharacter[] = [
   {
     id: "egyptian-teacher",
     nameAr: "المعلمة (مصرية)",
-    descriptionAr: "معلمة مصرية بالغة، ودودة وواثقة — الشخصية الأولى للمنصة.",
+    descriptionAr: "معلمة مصرية بالغة بحجاب، ودودة وواثقة — الشخصية الأولى للمنصة.",
     modelUrl: teacherModelUrl,
     modelLicense: {
       source:
@@ -75,7 +75,8 @@ export const AVATAR_CHARACTERS: readonly AvatarCharacter[] = [
       { language: "de" },
       { language: "it", note: "بانتظار إثبات الصوت والشرح بالإيطالية فعلًا" },
     ],
-    styleNotesAr: "ملامح طبيعية، تصميم احترافي مناسب لمنصة تعليمية عالمية.",
+    styleNotesAr:
+      "بشرة دافئة، شعر أسود، حجاب بنفسجي هادئ، قميص كريمي — إعادة تلوين مدمجة في الملف + حجاب هندسي مُلبَّس (teacherLook.ts).",
   },
 ];
 

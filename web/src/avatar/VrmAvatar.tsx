@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { VRMLoaderPlugin, type VRM } from "@pixiv/three-vrm";
 import { expressionForState, isBlinkTime } from "./visemeMapper.js";
+import { applyTeacherLook } from "./teacherLook.js";
 import type { AvatarState } from "./avatarStates.js";
 
 export type AvatarLoadStatus = "empty" | "loading" | "ready" | "error";
@@ -166,6 +167,7 @@ export function VrmAvatar({ model, avatarState, getMouthOpen, reducedMotion, onS
       vrm = loaded;
       scene.add(vrm.scene);
       relaxBindPose(loaded);
+      applyTeacherLook(loaded);
       // Frame head-and-shoulders from the model's own bounds (any height works).
       const box = new THREE.Box3().setFromObject(vrm.scene);
       const center = box.getCenter(new THREE.Vector3());
