@@ -7,10 +7,12 @@ describe("character registry", () => {
     expect(AVATAR_CHARACTERS[0]!.voices.map((v) => v.language)).toEqual(["ar", "en", "fr", "de", "it"]);
   });
 
-  it("marks the bundled slot pending until a licensed model is approved", () => {
+  it("bundles one commercially-verified model for the slot", () => {
     const character = getCharacter("egyptian-teacher")!;
-    expect(character.modelUrl).toBeNull();
-    expect(characterModelStatus(character)).toBe("pending-model");
+    expect(typeof character.modelUrl).toBe("string");
+    expect(character.modelUrl && character.modelUrl.length > 0).toBe(true);
+    expect(character.modelLicense?.commercialUse).toBe("verified");
+    expect(characterModelStatus(character)).toBe("ready");
   });
 
   it("returns null for unknown ids", () => {

@@ -21,8 +21,8 @@ import { canSpeakLanguage, speakText, type VoiceLanguage } from "../voice.js";im
  * (browser speechSynthesis via the app's own speakText, server narration via
  * the app's own fetchSpeechAudio) and never synthesizes anything on its own,
  * so every lip-sync observation here transfers to the lesson room unchanged.
- * No model file is bundled: bring a licensed .vrm via the file picker until
- * the commercial character is approved and recorded in the registry.
+ * One commercially-licensed base model ships here (recorded with its terms in
+ * the registry); the file picker overrides it locally without committing.
  */
 
 const SAMPLE_LINES: Record<VoiceLanguage, string> = {
@@ -262,8 +262,8 @@ export function AvatarLab() {
         </label>
         <p>
           حالة النموذج:{" "}
-          {characterModelStatus(character) === "ready" ? "جاهز" : "بانتظار نموذج مرخص تجاريًا"} — ملف تجريبي
-          محلي (لا يُحفظ في المستودع): <input type="file" accept=".vrm" onChange={(e) => onPickFile(e.target.files?.[0])} data-testid="lab-model-file" />
+          {characterModelStatus(character) === "ready" ? "جاهز (نموذج مرخّص مرفق)" : "بانتظار نموذج مرخص تجاريًا"} — لاستبداله
+          محليًا: <input type="file" accept=".vrm" onChange={(e) => onPickFile(e.target.files?.[0])} data-testid="lab-model-file" />
         </p>
         {loadStatus === "error" && <p role="alert">خطأ التحميل: {loadError}</p>}
         {loadStatus === "loading" && <p>جارِ تحميل النموذج…</p>}

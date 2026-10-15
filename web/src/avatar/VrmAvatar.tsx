@@ -24,6 +24,29 @@ export interface VrmAvatarProps {
 export const LOW_FPS_THRESHOLD = 25;
 
 /**
+ * Relax a VRM's bind T-pose (arms straight out) into a natural standing idle.
+ * Works on the *normalized* humanoid rig, which `vrm.update()` re-applies to the
+ * raw bones every frame — so the pose holds without touching the animation loop.
+ * Silently a no-op on a model missing these bones (never a crash).
+ */
+function relaxBindPose(vrm: VRM): void {
+  const humanoid = vrm.humanoid;
+  if (!humanoid) return;
+  const pose: Array<[string, number, number, number]> = [
+    ["leftUpperArm", 0, 0, -1.25],
+    ["rightUpperArm", 0, 0, 1.25],
+    ["leftLowerArm", 0, 0.35, -0.18],
+    ["rightLowerArm", 0, -0.35, 0.18],
+    ["leftHand", 0, 0.25, 0],
+    ["rightHand", 0, -0.25, 0],
+  ];
+  for (const [name, x, y, z] of pose) {
+    const node = humanoid.getNormalizedBoneNode(name as Parameters<typeof humanoid.getNormalizedBoneNode>[0]);
+    node?.rotation.set(x, y, z);
+  }
+}
+
+/**
  * Imperative three.js viewport (deliberately no React Three Fiber: one model,
  * one camera, no scene graph in React state — the smallest bundle that can
  * prove the pipeline). All three.js objects live inside the effect and are
@@ -142,6 +165,7 @@ export function VrmAvatar({ model, avatarState, getMouthOpen, reducedMotion, onS
       }
       vrm = loaded;
       scene.add(vrm.scene);
+      relaxBindPose(loaded);
       // Frame head-and-shoulders from the model's own bounds (any height works).
       const box = new THREE.Box3().setFromObject(vrm.scene);
       const center = box.getCenter(new THREE.Vector3());

@@ -7,6 +7,9 @@ const apiProxyTarget = process.env.VITE_API_PROXY_TARGET ?? "http://127.0.0.1:30
 
 export default defineConfig({
   plugins: [react()],
+  // The lab avatar is a .vrm (glTF-binary) imported with `?url` inside the
+  // lab-only module graph, so the student bundle never contains it.
+  assetsInclude: ["**/*.vrm"],
   server: {
     host: "127.0.0.1",
     port: 5173,

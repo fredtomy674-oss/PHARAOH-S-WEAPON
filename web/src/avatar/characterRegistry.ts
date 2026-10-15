@@ -9,6 +9,17 @@
 // its file-picker path for that character until a commercially-licensed model
 // is approved and its source + terms are recorded below. No model of unknown
 // license is ever bundled.
+//
+// The bundled base model is a VRM 1.0 sample published by pixiv Inc. Its own
+// embedded VRM meta grants exactly the rights we need (commercial use by a
+// corporation, redistribution, modification, no credit required), so it is the
+// one file allowed in the repo. It is a licensed *base*: a bespoke Egyptian
+// teacher model can replace the file + this entry whenever it is ready, with no
+// renderer change (the file is referenced only here).
+
+// Emitted by Vite only when the Lab page is in the build graph (`?url`), so the
+// student bundle never ships the model bytes.
+import teacherModelUrl from "./assets/egyptian-teacher.vrm?url";
 
 /** Reply languages the avatar can voice. `it` is probed in the Lab, not claimed. */
 export type AvatarVoiceLanguage = "ar" | "en" | "fr" | "de" | "it";
@@ -47,7 +58,16 @@ export const AVATAR_CHARACTERS: readonly AvatarCharacter[] = [
     id: "egyptian-teacher",
     nameAr: "المعلمة (مصرية)",
     descriptionAr: "معلمة مصرية بالغة، ودودة وواثقة — الشخصية الأولى للمنصة.",
-    modelUrl: null,
+    modelUrl: teacherModelUrl,
+    modelLicense: {
+      source:
+        "https://github.com/pixiv/three-vrm/blob/dev/packages/three-vrm/examples/models/VRM1_Constraint_Twist_Sample.vrm",
+      terms:
+        'VRM 1.0 embedded meta — authors: ["pixiv Inc."], copyrightInformation: "(c) 2022 pixiv Inc.", ' +
+        "licenseUrl: https://vrm.dev/licenses/1.0/, commercialUsage: corporation, avatarPermission: everyone, " +
+        "allowRedistribution: true, modification: allowModificationRedistribution, creditNotation: unnecessary.",
+      commercialUse: "verified",
+    },
     voices: [
       { language: "ar" },
       { language: "en" },
