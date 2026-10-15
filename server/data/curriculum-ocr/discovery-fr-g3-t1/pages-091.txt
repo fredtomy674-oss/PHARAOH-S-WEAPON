@@ -1,0 +1,39 @@
+CHAPITRE 2 CONNECTER LES GENS
+
+Leçon
+7
+
+LES PARTIES D'UN ORDINATEUR
+Regardez les images sur la page. Que savez-vous de chacune de ces
+parties d'un ordinateur?
+
+Un système informatique est un ensemble de matériels (équipement) et de logiciels
+(programmes) qui fonctionnent ensemble pour accomplir une tâche ou une fonction.
+Ils entrent, sortent, traitent et stockent des données et des informations. Les éléments de
+base d'un ordinateur sont:
+
+La carte-mère est l'endroit où toutes les parties
+d'un ordinateur se connectent et communiquent.
+
+• Le périphérique d'entrée est utilisé pour mettre
+des données dans l'ordinateur. L'exemple
+présenté ici est un clavier.
+
+L'unité centrale de traitement (UC) est le cerveau
+de l'ordinateur. Elle suit les commandes et gère
+les informations. L'UC envoie les données aux
+périphériques de sortie.
+
+La mémoire (RAM) stocke les données à court
+terme afin que l'UC puisse les utiliser.
+
+• Le dispositif de stockage stocke des données
+à long terme, comme des programmes
+informatiques.
+
+• Le dispositif de sortie permet à l'utilisateur de
+voir le résultat. L'exemple présenté ici est un
+moniteur.
+
+3º PRIMAIRE
+87
