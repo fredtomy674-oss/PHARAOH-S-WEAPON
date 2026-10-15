@@ -67,6 +67,17 @@ export interface BuildPromptInput {
    */
   lastQuestion?: string;
   /**
+   * PHASE 146 — the ENGINE's verdict on the student's written answer, when one
+   * could be derived (`true`/`false`); absent when the turn is not an answer
+   * turn OR when no key existed to grade against.
+   *
+   * This is the whole point of the fix: the verdict is evidence, not opinion.
+   * The prompt tells the model the verdict and forbids it from inventing a
+   * different one — and when there is no verdict it explicitly forbids praising
+   * an answer nobody verified.
+   */
+  answerVerdict?: boolean;
+  /**
    * PHASE 48 — the textbook page the student is *looking at right now*.
    *
    * The stage is not decoration: the room shows the real page, so the tutor has
@@ -284,7 +295,13 @@ export class PromptBuilder {
             ? "الطالب ينظر إلى صفحة الكتاب المفتوحة أمامه (لا نص مكتوب) — ابدأ تعليم الفكرة من الصفحة التي تراها أمامك."
             : "الطالب أرفق صورة سؤاله (لا نص مكتوب) — اقرأ الصورة وأجب وفقها."
       : isAnswerTurn
-        ? `الطالب يجيب الآن على سؤالك السابق: «${input.lastQuestion}»\nإجابته: «${input.question}»\nتصرف هكذا:\n- إن كانت إجابته رقمًا أو قيمة، فافحصها مقابل سؤالك: صحيحة → امدحه بحرارة في جملة قصيرة ثم **علّمه الخطوة التالية** فعلًا (اشرح أو اعرض مثالًا قصيرًا من الكتاب)؛ خاطئة → صححها بلطف في جملة واحدة، ثم أعد تعليم الفكرة بأسلوب مختلف.\n- إن لم يصل إلى إجابة (مثل «لا أعرف» أو «مش متأكد» أو سؤال عن طريقة الحل) فشجّعه بتلميح بسيط يعيده إلى الفكرة دون الحل المباشر، ثم أعد السؤال نفسه أو نسخة أسهل.\n- ثم واصل خطوة للأمام بتعليمٍ حقيقي، لا بسؤال جديد وحده — لا تكرر السؤال نفسه أبدًا، ولا تعامل هذه الرسالة كأنها سؤال جديد من الطالب، ولا تبدأ شرحًا جديدًا من الصفر.\n`
+        ? `الطالب يجيب الآن على سؤالك السابق: «${input.lastQuestion}»\nإجابته: «${input.question}»\n${
+            input.answerVerdict === true
+              ? "- حكم المحرك على هذه الإجابة: **صحيحة** (تحقّق آلي من مفتاح السؤال). امدحه بجملة قصيرة صادقة، ثم **علّمه الخطوة التالية** فعلًا (اشرح أو اعرض مثالًا قصيرًا من الكتاب)."
+              : input.answerVerdict === false
+                ? "- حكم المحرك على هذه الإجابة: **غير صحيحة** (تحقّق آلي من مفتاح السؤال). لا تقل إنها صحيحة ولا تمدح ما لم يفعله؛ صحّحها بلطف في جملة واحدة، ثم أعد تعليم الفكرة بأسلوب مختلف."
+                : "- لم يتحقّق المحرك من صحة هذه الإجابة (لا يوجد مفتاح لهذا السؤال)، فلا تحكم عليها ولا تمدحها: **لا تقل «صحيح» ولا «أحسنت» ولا ما يشبههما**؛ فالمدح بلا دليل يعلّم الطالب الخطأ. بدلًا من الحكم: أعد الخطوة الصحيحة أمامه باختصار من محتوى الكتاب، ثم اطلب منه أن يقارن إجابته بها ويخبرك بنفسه."
+          }\n- إن لم يصل إلى إجابة (مثل «لا أعرف» أو «مش متأكد» أو سؤال عن طريقة الحل) فشجّعه بتلميح بسيط يعيده إلى الفكرة دون الحل المباشر، ثم أعد السؤال نفسه أو نسخة أسهل.\n- ثم واصل خطوة للأمام بتعليمٍ حقيقي، لا بسؤال جديد وحده — لا تكرر السؤال نفسه أبدًا، ولا تعامل هذه الرسالة كأنها سؤال جديد من الطالب، ولا تبدأ شرحًا جديدًا من الصفر.\n`
         : input.intent === "check_understanding"
           ? `الطالب أكّد أنه **فهم** الدرس (رسالته: «${input.question}») — لا تبسّط له ولا تُعِد الشرح، فهو لم يقل إنه لم يفهم.`
           : `الطالب يسأل: «${input.question}» (نية السؤال: ${describeIntent(input.intent)})`;
@@ -382,6 +399,10 @@ export class PromptBuilder {
         // only when the question is about ordering, comparing, or placing
         // numbers/fractions: a widget for a non-numerical question is noise.
         `- إذا كان السؤال عن ترتيب أعداد أو مقارنتها أو تمثيل كسر/عدد عشري على خط، أضف إلى parts عنصرًا واحدًا فقط من هذا الشكل: { "type": "widget", "text": "جملة قصيرة تطلب تحريك الدبوس", "widget": { "kind": "numberline", "from": 0, "to": 10, "step": 1, "question": "أين يقع العدد 7؟ حرّك الدبوس ثم اضغط تحقق", "answer": 7 } } — خط واحد فقط في الرد، ولا ترسم خطًا لسؤال غير عددي.\n` +
+        // PHASE 146 — every written question carries its own key, so the ENGINE
+        // can grade the student's answer instead of the model guessing. The key
+        // is server-only: it must never appear in any text the student reads.
+        `- لكل جزء سؤال ("type":"question") أضف مفتاح إجابته المختصر في الحقل "answer"، هكذا: { "type": "question", "text": "كم ناتج ٦ × ٧؟", "answer": "42" }. هذا المفتاح للتصحيح الآلي فقط: لا تذكره داخل أي "text" ولا تلمّح إليه ولا تعتبره جزءًا من ردّك. وإن لم تكن متأكدًا من الإجابة الصحيحة فاترك الحقل فارغًا ولا تخمّنه.\n` +
         // PHASE 76 — the per-turn directive is the LAST instruction the model
         // reads before the JSON shape, because it is the one most often ignored
         // when buried earlier (observed live: «فهمت» still triggered a re-teach).
@@ -390,7 +411,7 @@ export class PromptBuilder {
         // names the task.
         `${turnLine ? turnLine + "\n" : ""}` +
         `${LANGUAGE_STYLES[language].reply}، وأعد النتيجة بصيغة JSON مطابقة تمامًا لهذا المخطط:\n` +
-        `{ "content": "الرد الكامل للمعروض", "parts": [ { "type": "text|question|hint|example", "text": "جزء" } ], "assessment": { "conceptsTouched": ["أسماء مفاهيم"], "confidence": 0-1 } }`,
+        `{ "content": "الرد الكامل للمعروض", "parts": [ { "type": "text|question|hint|example", "text": "جزء", "answer": "مفتاح إجابة جزء السؤال — للمصحح فقط، اختياري" } ], "assessment": { "conceptsTouched": ["أسماء مفاهيم"], "confidence": 0-1 } }`,
     ].join("\n");
 
     return {

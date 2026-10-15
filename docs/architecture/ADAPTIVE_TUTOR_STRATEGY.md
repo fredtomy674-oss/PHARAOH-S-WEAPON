@@ -28,7 +28,7 @@
 |---|---|---|
 | **Teaching Actions Contract** | `server/src/modules/tutor/teachingActions.ts` | عقد الإجراء التدريسي المُحدد (Zod Schema + Types). يضمن أن الإجراء واحد فقط ومعرّف بدقة قبل استدعاء النموذج. |
 | **Prerequisite Graph** | `server/src/modules/progress/prerequisites.ts` | بناء الرسم البياني للمتطلبات المسبقة من الترتيب المطبوع للمفاهيم + إتقان الطالب. |
-| **Tutor Engine** | `server/src/modules/tutor/tutorEngine.ts` | قلب المحرك. يقرر `teachingAction` حتمياً قبل استدعاء النموذج، ويحسب `lastAnswerCorrect` من أدلة حقيقية فقط (خط الأعداد حالياً). |
+| **Tutor Engine** | `server/src/modules/tutor/tutorEngine.ts` | قلب المحرك. يقرر `teachingAction` حتمياً قبل استدعاء النموذج، ويحسب `lastAnswerCorrect` من أدلة حقيقية فقط (خط الأعداد + مفتاح السؤال المكتوب — PHASE 146). |
 | **Intent Classifier** | `server/src/modules/tutor/intentClassifier.ts` | يميز نوايا الطالب بدقة (خاصة التفرقة بين `explanation` و«مش فاهم» / `confused`). |
 | **Prompt Builder** | `server/src/modules/tutor/promptBuilder.ts` | يُمرر توجيه الإجراء التدريسي (`teachingActionDirective`) إلى النموذج ليُنفذه فقط، دون اختياره. |
 | **Sessions Service** | `server/src/modules/sessions/service.ts` | يحفظ `teaching_action` كـ JSON ويُمرر `concepts` للدرس في كل دور. |
@@ -42,7 +42,7 @@ Intent Classification (+ confused flag)
 ↓
 Derive concept focus + prerequisite + nextConcept (from printed order + real mastery)
 ↓
-Evaluate lastAnswerCorrect (ONLY if real evidence exists, else null)
+Evaluate lastAnswerCorrect (ONLY if real evidence exists, else null — number line / written-answer key)
 ↓
 Decide teachingAction (Deterministic - Engine)
 ↓
@@ -58,6 +58,7 @@ Render action chip AFTER reply body (preserve streaming invariant)
 | النوع | الحالة الحالية | الخطة |
 |---|---|---|
 | **خط الأعداد (Number Line)** | **مفعّل** – يقارن `snapped pin` بـ `lastLine.answer` بفرق ε (1e-9). يستخدم دليل حقيقي. | يُحافظ عليه كما هو. |
+| **إجابة مكتوبة (Written answer)** | **مفعّل (PHASE 146)** – المعلّم يُلحق مفتاحًا (`answer`) بجزء السؤال، ويُخزَّن في `messages.question_answer` (لا يصل للواجهة أبدًا)، ويقارن المحرك نصّ الطالب به عبر `gradeTextAnswer` (تسلسل أرقام **مُرتَّب** + تغطية كلمات بطيّ «ال»). بلا مفتاح ⇒ `lastAnswerCorrect = null` و**يُمنع المدح** (حارس `assertsCorrectness`). | يُحافظ عليه؛ التصحيح حتمي ولا يستدعي النموذج. |
 | **اختيار من متعدد (MCQ)** | غير مفعّل | تفعيل تلقائي عند وجود `correctOptionIndex` مخزن في `questions`. يُحسب `lastAnswerCorrect` بدون استدعاء النموذج. |
 | **إجابة مفتوحة (Open-ended)** | غير مفعّل | يُقيّد التقييم بنصوص صفحات الدرس فقط (`book-grounded`). يُطبق شرط: **لا تحكم إلا إذا وُجد دليل صريح**، وإلا يبقى `null`. |
 | **صحيح جزئيًا (Partially Correct)** | غير موجود | إضافة تصنيف `partially_correct` لعرض أجزاء صحيحة/خاطئة بدون فرض حكم مطلق. |

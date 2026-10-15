@@ -56,6 +56,15 @@ describe("parseTutorResponse", () => {
     expect(parsed.content).toBe("مجرد نص غير منظم");
     expect(parsed.parts?.length ?? 0).toBeGreaterThan(0);
   });
+
+  it("keeps a question part's answer key so the engine can grade with it (PHASE 146)", () => {
+    const raw = JSON.stringify({
+      content: "سؤال صغير",
+      parts: [{ type: "question", text: "كم ناتج ٦ × ٧؟", answer: "42" }],
+    });
+    const part = parseTutorResponse(raw).parts?.[0];
+    expect(part).toMatchObject({ type: "question", answer: "42" });
+  });
 });
 
 describe("PromptBuilder", () => {
@@ -860,5 +869,59 @@ describe("teaching strategy (PHASE 76)", () => {
       studentName: "طالب",
     });
     expect(messages[0]!.content).not.toContain("ليست إجابةً عليه");
+  });
+});
+
+// PHASE 146 — «أجبت خطأ فقال صحيح». The verdict on a written answer is the
+// ENGINE's, never the model's opinion: the prompt states the verdict it was given
+// and forbids inventing one; with no verdict it forbids praise outright.
+describe("the written answer's verdict (PHASE 146)", () => {
+  const builder = new PromptBuilder();
+  const lesson = {
+    countryNameAr: "مصر",
+    systemNameAr: "المنهج",
+    gradeNameAr: "الصف السادس",
+    subjectNameAr: "الرياضيات",
+    curriculumTitle: "المنهج",
+    termTitle: "الفصل",
+    unitTitle: "الوحدة",
+    lessonTitle: "الجمع",
+    conceptTitles: ["الجمع"],
+  };
+  const ask = (answerVerdict?: boolean) =>
+    builder.build({
+      intent: "answer",
+      question: "13",
+      lastQuestion: "كم ناتج ٦ + ٧؟",
+      lesson,
+      chunks: [],
+      memory: emptyMemory,
+      studentName: "طالب",
+      ...(answerVerdict === undefined ? {} : { answerVerdict }),
+    });
+
+  it("states a verified-correct verdict from the engine", () => {
+    const system = ask(true).messages[0]!.content;
+    expect(system).toContain("حكم المحرك على هذه الإجابة: **صحيحة**");
+    // The old wording asked the MODEL to decide; that is the bug we removed.
+    expect(system).not.toContain("فافحصها مقابل سؤالك");
+  });
+
+  it("states a verified-wrong verdict and forbids praise", () => {
+    const system = ask(false).messages[0]!.content;
+    expect(system).toContain("حكم المحرك على هذه الإجابة: **غير صحيحة**");
+    expect(system).toContain("لا تقل إنها صحيحة ولا تمدح");
+  });
+
+  it("forbids any verdict when the engine could not grade the answer", () => {
+    const system = ask().messages[0]!.content;
+    expect(system).toContain("لم يتحقّق المحرك من صحة هذه الإجابة");
+    expect(system).toContain("لا تمدحها");
+  });
+
+  it("requires the tutor to attach an answer key to every written question", () => {
+    const system = builder.build({ intent: "explanation", question: "اشرح", lesson, chunks: [], memory: emptyMemory, studentName: "طالب" }).messages[0]!.content;
+    expect(system).toContain("أضف مفتاح إجابته المختصر في الحقل");
+    expect(system).toContain("للمصحح");
   });
 });

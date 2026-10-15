@@ -52,7 +52,45 @@ const EXERCISE_PATTERNS = [/حل\s*(لي)?\s*(هذا)?\s*(ال)?(سؤال|تمر
 
 const HINT_PATTERNS = [/تلميح/i, /هينت/i, /ساعدني/i, /عايز\s*مساعدة/i, /دلني/i, /مش\s*عايز\s*الحل\s*(كامل|مباشر)/i, /hint/i, /help me/i];
 
-const UNDERSTAND_PATTERNS = [/فهمت/i, /تمام\s*فهمت/i, /ماشي/i, /أوكي\s*فهمت/i, /واضح/i, /\bi\s*understand\b/i, /got it/i];
+/**
+ * PHASE 146 — an acknowledgement, not a sentence. The old patterns matched
+ * ANYWHERE in the message (`/واضح/`, `/فهمت/`, `/تمام/`), so «مش واضح» (I do not
+ * understand) and a student's own answer that merely mentioned understanding
+ * were both classified as «فهمت» — and the engine then told the model the
+ * student had understood, praising an answer nobody had verified. Anchored at
+ * the start, and `isAcknowledgement` below additionally requires the message to
+ * be short and to carry no value (an answer is never an acknowledgement).
+ */
+/**
+ * PHASE 146 — anchored at the START (see `isAcknowledgement`) and WITHOUT `\b`:
+ * JavaScript word boundaries are ASCII-only, so `/^فهمت\b/` never matches Arabic
+ * text and the whole pattern would be dead. `isAcknowledgement` keeps the match
+ * narrow instead (short message, no value, no answer word).
+ */
+const UNDERSTAND_PATTERNS = [
+  /^فهمت/,
+  /^تمام/,
+  /^ماشي/,
+  /^أوكي|^اوكي/,
+  /^واضح/,
+  /^حاضر/,
+  /^i\s*understand\b/i,
+  /^got\s*it\b/i,
+];
+
+/** Longest message that can still be a bare acknowledgement («تمام فهمت» ≈ 9). */
+const MAX_ACKNOWLEDGEMENT_CHARS = 30;
+
+/** True when the whole message is a short «I understand» with no answer in it. */
+function isAcknowledgement(text: string): boolean {
+  const t = text.trim();
+  if (t.length === 0 || t.length > MAX_ACKNOWLEDGEMENT_CHARS) return false;
+  // A message carrying a value or an answer word is an ANSWER, never an
+  // acknowledgement — «تمام، الإجابة ٥» must not report the student as done.
+  if (/[0-9٠-٩]/.test(t)) return false;
+  if (/إجابة|الجواب|ناتج/.test(t)) return false;
+  return UNDERSTAND_PATTERNS.some((p) => p.test(t));
+}
 
 /**
  * PHASE 45 — a reply that starts with one of these is the student asking
@@ -114,8 +152,11 @@ export function classifyIntent(question: string, opts: ClassifyOptions = {}): In
     return { intent: "exercise", confidence: 0.8, concepts };
   }
   if (HINT_PATTERNS.some((p) => p.test(text))) return { intent: "hint_request", confidence: 0.85, concepts };
-  if (UNDERSTAND_PATTERNS.some((p) => p.test(text))) return { intent: "check_understanding", confidence: 0.8, concepts };
+  // PHASE 146 — confusion is decided BEFORE «فهمت»: a student who says «مش
+  // واضح» or «مش فاهم» is not done, and treating him as done is how the tutor
+  // came to praise an answer it never verified.
   if (CONFUSED_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.8, concepts, confused: true };
+  if (isAcknowledgement(text)) return { intent: "check_understanding", confidence: 0.8, concepts };
   // PHASE 76 — an explicit teach-me-more command stays an explanation request
   // even with a question pending (see TEACH_MORE_PATTERNS).
   if (TEACH_MORE_PATTERNS.some((p) => p.test(text))) return { intent: "explanation", confidence: 0.75, concepts };

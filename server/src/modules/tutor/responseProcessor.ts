@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { NumberLineWidgetSchema } from "./widgets.js";
+import { QUESTION_ANSWER_MAX_CHARS } from "./questionKey.js";
 
 /** Structured output contract shared between builders, parsers and tests. */
 export const TutorResponseSchema = z.object({
@@ -11,6 +12,11 @@ export const TutorResponseSchema = z.object({
         z.object({
           type: z.enum(["text", "question", "hint", "example"]),
           text: z.string(),
+          // PHASE 146 — the teacher's own answer key for a `question` part. It is
+          // SERVER-ONLY: `splitReplyQuestionKey` strips it before the parts are
+          // stored/sent, and the engine grades the student's text against it, so
+          // the tutor can no longer invent a verdict for a written answer.
+          answer: z.string().max(QUESTION_ANSWER_MAX_CHARS).optional(),
         }),
         // PHASE 51 — a widget part draws an interactive line inside the reply.
         // `text` stays (a fallback line for readers that ignore widgets); the

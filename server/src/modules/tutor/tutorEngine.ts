@@ -25,6 +25,11 @@ import { PromptBuilder } from "./promptBuilder.js";
 import { parseTutorResponse, type TutorResponse } from "./responseProcessor.js";
 import { looksLikeJsonFragment, looksLikePromptEcho, regenerateEchoes } from "./echoGuard.js";
 import {
+  assertsCorrectness,
+  gradeTextAnswer,
+  splitReplyQuestionKey,
+} from "./questionKey.js";
+import {
   parseStoredWidgets,
   snapToStep,
   splitReplyWidgets,
@@ -137,6 +142,13 @@ export interface TutorHandleResult {
    */
   widgets: NumberLineWidget[];
   /**
+   * PHASE 146 — the teacher's OWN answer key for the written question this reply
+   * asked (server-only; never on the wire). The caller stores it on the tutor
+   * message so the NEXT turn can grade the student's answer against it, instead
+   * of letting the model decide whether the answer was right.
+   */
+  questionAnswer: string | null;
+  /**
    * PHASE 93/adaptive — the typed teaching action the ENGINE chose for this turn
    * (see `teachingActions.ts`). Deterministic and evaluated from evidence known
    * before the model call; the model performs it, it does not choose it.
@@ -204,6 +216,28 @@ const mirrorFallback = (language: TutorLanguage): TutorResponse => {
 };
 
 /**
+ * PHASE 146 — last-resort reply when the model keeps PRAISING an answer the
+ * engine could not verify, even after a nudged regeneration. A false «أحسنت»
+ * teaches the student something wrong, so a neutral verification move is
+ * strictly better than the model's opinion: repeat the correct step and ask the
+ * student to compare for himself. Shaped like `mirrorFallback`.
+ */
+const unverifiedAnswerFallback = (language: TutorLanguage): TutorResponse => {
+  const content: Record<TutorLanguage, string> = {
+    ar: "قبل أن نكمل، دعنا نتأكد من إجابتك: أعد قراءة الخطوة الأخيرة من الشرح ببطء، ثم أخبرني هل إجابتك تطابقها أم لا؟",
+    en: "Before we go on, let's check your answer: reread the last step slowly, then tell me whether your answer matches it.",
+    fr: "Avant de continuer, vérifions ta réponse : relis la dernière étape lentement, puis dis-moi si ta réponse y correspond.",
+    de: "Bevor wir weitermachen, prüfen wir deine Antwort: Lies den letzten Schritt langsam und sag mir, ob deine Antwort dazu passt.",
+  };
+  return {
+    content: content[language],
+    tone: "neutral",
+    parts: [{ type: "text", text: content[language] }],
+    assessment: { conceptsTouched: [], confidence: 0 },
+  };
+};
+
+/**
  * Orchestrates one tutor turn: intent → scope-guarded retrieval → memory →
  * prompt → provider → structured parse → memory/progress update.
  */
@@ -237,7 +271,12 @@ export class TutorEngine {
     // 15», «لا أعرف», «مش متأكد») fell through to `explanation` and the tutor
     // kept explaining instead of verifying the answer.
     const lastTutorRow = await this.db.db
-      .select({ content: messagesTable.content, kind: messagesTable.kind, widgets: messagesTable.widgets })
+      .select({
+        content: messagesTable.content,
+        kind: messagesTable.kind,
+        widgets: messagesTable.widgets,
+        questionAnswer: messagesTable.questionAnswer,
+      })
       .from(messagesTable)
       .where(and(eq(messagesTable.sessionId, input.session.id), eq(messagesTable.role, "tutor")))
       .orderBy(desc(messagesTable.createdAt))
@@ -275,6 +314,7 @@ export class TutorEngine {
         citedBookPages: [],
         widgets: [],
         teachingAction: { type: "explain", concept: null, reason: "safety_refusal" },
+        questionAnswer: null,
       };
     }
 
@@ -450,6 +490,15 @@ export class TutorEngine {
         lastAnswerCorrect = false;
       }
     }
+    // PHASE 146 — a WRITTEN answer is graded by the ENGINE against the key the
+    // tutor itself attached to its question (stored with the previous tutor
+    // message). This is the fix for «أجبت خطأ فقال صحيح»: the verdict is a
+    // deterministic comparison, never the model's opinion. No key → no verdict:
+    // the turn is marked unverified and the prompt forbids praise (the
+    // `assertsCorrectness` guard enforces it even if the model forgets).
+    if (isAnswerTurn && lastAnswerCorrect === null && lastTutorRow?.questionAnswer) {
+      lastAnswerCorrect = gradeTextAnswer(lastTutorRow.questionAnswer, input.question);
+    }
 
     // 5d bis) PHASE 93/adaptive — «المحرك يقرّر»: choose exactly one typed teaching
     // action from the evidence already known *before* the model is called. This
@@ -508,6 +557,10 @@ export class TutorEngine {
       // was never given"; on an answer turn the prompt builder still derives
       // `isAnswerTurn` from the intent, so nothing else changes.
       lastQuestion: pendingQuestion && lastTutorMessage ? lastTutorMessage : undefined,
+      // PHASE 146 — the ENGINE's verdict on a written answer (undefined when the
+      // turn is not an answer or no key existed). The model is told the verdict
+      // and forbidden from inventing one.
+      answerVerdict: lastAnswerCorrect ?? undefined,
       viewingPage,
       lessonPages: input.lessonPages,
       // PHASE 78 — the whole lesson book text, so the tutor explains from the
@@ -521,6 +574,13 @@ export class TutorEngine {
       teachingAction,
     });
 
+    // PHASE 146 — a written answer the engine could not verify must not be
+    // praised. The nudge says so to the model, and `isEcho` below treats unearned
+    // praise exactly like a prompt mirror (an unusable reply to regenerate).
+    const needsVerdictGuard = isAnswerTurn && lastAnswerCorrect === null;
+    const verdictNudge = needsVerdictGuard
+      ? " وقد أجاب الطالب للتوّ: لم يتحقّق المحرك من إجابته، فلا تقل إنها صحيحة ولا تمدحها (لا «صحيح» ولا «أحسنت») — أعد الخطوة الصحيحة أمامه واطلب منه أن يقارن إجابته بها."
+      : "";
     // PHASE 46 — prompt-mirror guard: a weak model occasionally answers a turn
     // by echoing the system prompt back (observed live with gemma on a fresh
     // session). Detect the mirror on the raw content and regenerate, bounded,
@@ -533,7 +593,8 @@ export class TutorEngine {
             ...m,
             content:
               `${m.content}\n\n⚠️ أجب الآن مباشرةً: لا تعِد صياغة التعليمات ولا تلخص السياق ولا تذكر أي قواعد داخلية. ` +
-              `ابدأ ردّك فورًا موجّهًا إلى الطالب، ثم علّم فعلًا: اشرح أو اخطُ خطوةً أو اعرض مثال الكتاب، وتابع الدرس من حيث وقفتما.`,
+              `ابدأ ردّك فورًا موجّهًا إلى الطالب، ثم علّم فعلًا: اشرح أو اخطُ خطوةً أو اعرض مثال الكتاب، وتابع الدرس من حيث وقفتما.` +
+              verdictNudge,
           }
         : m,
     );
@@ -552,7 +613,11 @@ export class TutorEngine {
     const isEcho = (raw: string): boolean => {
       if (looksLikePromptEcho(raw)) return true;
       const parsed = parseTutorResponse(raw).content;
-      return looksLikePromptEcho(parsed) || looksLikeJsonFragment(parsed);
+      if (looksLikePromptEcho(parsed) || looksLikeJsonFragment(parsed)) return true;
+      // PHASE 146 — a claim of correctness with no verdict behind it is as
+      // unusable as a mirror: regenerate it, and if it survives, replace it with
+      // a neutral verification line (see the fallback below).
+      return needsVerdictGuard && assertsCorrectness(parsed);
     };
     const { response: llmResponse, regens: promptEchoRegens } = await regenerateEchoes(
       async (attempt) => {
@@ -611,6 +676,18 @@ export class TutorEngine {
     if (looksLikePromptEcho(reply.content) || looksLikeJsonFragment(reply.content)) {
       reply = mirrorFallback(language);
     }
+    // PHASE 146 — the praise guard's last line of defence: a verdict the engine
+    // never produced must not reach the student as «صحيح». The reply is replaced
+    // by a neutral verification move — still a teaching move, just without an
+    // unearned verdict. The model was already told not to; this only fires if it
+    // disobeyed (and the bounded regeneration above has already been spent).
+    if (needsVerdictGuard && assertsCorrectness(reply.content)) {
+      reply = unverifiedAnswerFallback(language);
+    }
+    // PHASE 146 — the teacher's own answer key is server-only: take it out of the
+    // parts before anything stores or ships them (the room must never see it).
+    const keyed = splitReplyQuestionKey(reply.parts);
+    reply = { ...reply, parts: keyed.parts };
     // PHASE 51 — split the reply's widgets from its words: only drawable lines
     // are stored and rendered, the rest degrades to its text fallback.
     const split = splitReplyWidgets(reply.parts);
@@ -628,7 +705,7 @@ export class TutorEngine {
       void this.memory.remember(input.student.id, "preference", "lesson_pace", "يفضل المتابعة بعد التأكيد", 1).catch(() => undefined);
     }
 
-    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages, widgets: split.widgets, teachingAction };
+    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages, widgets: split.widgets, teachingAction, questionAnswer: keyed.questionAnswer };
   }
 
   /**

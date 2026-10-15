@@ -54,7 +54,7 @@ type StoredMessage = typeof messages.$inferSelect;
  * PHASE 51 — same treatment for widgets: stored with answer keys, sent without
  * them (the exercise must not answer itself in devtools).
  */
-export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets" | "teachingAction"> & {
+export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets" | "teachingAction" | "questionAnswer"> & {
   bookPages?: number[];
   widgets?: NumberLineView[];
   /**
@@ -163,6 +163,17 @@ interface TurnHooks {
   onDelta?: (text: string) => void | Promise<void>;
   /** Whatever was displayed was an internal echo and must be taken back. */
   onDiscard?: () => void | Promise<void>;
+}
+
+/**
+ * PHASE 146 — the teacher's answer key is SERVER-ONLY. The stored row carries it
+ * (the engine grades the next turn against it), but the API must never: a key in
+ * devtools is an exercise that answers itself. Same rule as the widget keys
+ * (PHASE 51) — dropped on the way out, always, never conditionally.
+ */
+function withoutQuestionAnswer<T extends { questionAnswer?: string | null }>(row: T): Omit<T, "questionAnswer"> {
+  const { questionAnswer: _questionAnswer, ...rest } = row;
+  return rest;
 }
 
 /**
@@ -307,13 +318,17 @@ export class SessionService {
       // PHASE 48 — the page references are stored with the message, so the room
       // can rebuild the tutor's page chips for a session it re-opened.
       // PHASE 51 — same for number lines: stored with keys, re-read without.
-      messages: msgs.map((m) => ({
-        ...m,
-        attachments: byMessage.get(m.id) ?? [],
-        bookPages: parseBookPages(m.bookPages),
-        widgets: widgetsForWire(parseStoredWidgets(m.widgets)),
-        teachingAction: parseTeachingActionStored(m.teachingAction),
-      })),
+      messages: msgs.map((row) => {
+        // PHASE 146 — never ship the teacher's answer key (see withoutQuestionAnswer).
+        const m = withoutQuestionAnswer(row);
+        return {
+          ...m,
+          attachments: byMessage.get(m.id) ?? [],
+          bookPages: parseBookPages(m.bookPages),
+          widgets: widgetsForWire(parseStoredWidgets(m.widgets)),
+          teachingAction: parseTeachingActionStored(m.teachingAction),
+        };
+      }),
     };
   }
 
@@ -686,6 +701,10 @@ export class SessionService {
           widgets: result.widgets.length > 0 ? JSON.stringify(result.widgets) : null,
           // PHASE 93/95 — the typed teaching move the engine chose for this turn.
           teachingAction: JSON.stringify(result.teachingAction),
+          // PHASE 146 — the teacher's own answer key for the question this reply
+          // asked (server-only; stripped from every wire view). The next turn
+          // grades the student's answer against it.
+          questionAnswer: result.questionAnswer,
           createdAt: new Date(),
         })
         .returning()
@@ -705,7 +724,7 @@ export class SessionService {
       },
       // PHASE 51 — the wire view strips the answer keys (see TutorMessageOut).
       tutorMessage: {
-        ...tutorMessage!,
+        ...withoutQuestionAnswer(tutorMessage!),
         bookPages: parseBookPages(tutorMessage!.bookPages),
         widgets: widgetsForWire(parseStoredWidgets(tutorMessage!.widgets)),
         teachingAction: parseTeachingActionStored(tutorMessage!.teachingAction),

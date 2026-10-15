@@ -412,6 +412,17 @@ export const messages = sqliteTable(
      * never chooses it. Null for user/system messages.
      */
     teachingAction: text("teaching_action"),
+    /**
+     * PHASE 146 — the teacher's own answer key for the written question this
+     * reply asked (a `question` part's `answer`, see `tutor/questionKey.ts`).
+     *
+     * It is stored so the NEXT turn can grade the student's answer
+     * deterministically — the model never sees it in the transcript and it is
+     * never sent to the browser. Null when the reply asked nothing or supplied
+     * no key; a missing key degrades honestly (no verdict → no praise) rather
+     * than letting the model invent one.
+     */
+    questionAnswer: text("question_answer"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("messages_session_idx").on(t.sessionId)],

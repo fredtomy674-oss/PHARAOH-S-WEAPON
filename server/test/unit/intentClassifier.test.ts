@@ -28,6 +28,22 @@ describe("classifyIntent", () => {
     expect(classifyIntent("مش فاهم حاجة").intent).toBe("explanation");
   });
 
+  it("reads «مش واضح» as confusion, never as «فهمت» (PHASE 146)", () => {
+    // The old unanchored `/واضح/` matched inside «مش واضح» first, so the engine
+    // told the model the student HAD understood — the root of false praise.
+    expect(classifyIntent("مش واضح").intent).toBe("explanation");
+    expect(classifyIntent("مش واضح").confused).toBe(true);
+  });
+
+  it("keeps an answer that merely mentions understanding as an ANSWER (PHASE 146)", () => {
+    const pending = { pendingQuestion: true };
+    for (const a of ["الإجابة واضحة وهي ٥", "فهمت إن الإجابة 17", "تمام، الإجابة 12"]) {
+      expect(classifyIntent(a, pending).intent).toBe("answer");
+    }
+    // A bare acknowledgement is still «فهمت».
+    expect(classifyIntent("فهمت", pending).intent).toBe("check_understanding");
+  });
+
   it("detects short answers to the tutor's pending question (PHASE 44)", () => {
     for (const a of ["9", "٥", "١٥ سم", "5000 جم", "12.5", "نعم", "لا .", "ايوه", "طبعا", "ok", "yes"]) {
       expect(classifyIntent(a).intent).toBe("answer");

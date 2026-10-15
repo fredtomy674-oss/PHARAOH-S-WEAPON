@@ -1,0 +1,1 @@
+ALTER TABLE `messages` ADD `question_answer` text;
