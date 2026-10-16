@@ -8,7 +8,7 @@ describe("character registry", () => {
   });
 
   it("bundles one commercially-verified model for the slot", () => {
-    const character = getCharacter("egyptian-teacher")!;
+    const character = getCharacter("tutor")!;
     expect(typeof character.modelUrl).toBe("string");
     expect(character.modelUrl && character.modelUrl.length > 0).toBe(true);
     expect(character.modelLicense?.commercialUse).toBe("verified");

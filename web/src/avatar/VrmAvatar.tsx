@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { VRMLoaderPlugin, VRMUtils, type VRM } from "@pixiv/three-vrm";
 import { blinkWeight, expressionForState } from "./visemeMapper.js";
-import { applyTeacherLook } from "./teacherLook.js";
+import { applyTutorLook } from "./tutorLook.js";
 import type { AvatarState } from "./avatarStates.js";
 
 export type AvatarLoadStatus = "empty" | "loading" | "ready" | "error";
@@ -185,11 +185,11 @@ export function VrmAvatar({
       // VRM 0.x faces -Z; flip it to face the camera (no-op for VRM 1.0).
       VRMUtils.rotateVRM0(loaded);
       baseYaw = loaded.scene.rotation.y;
-      // Pose + hijab/clothes are one treatment: models already authored in a
-      // natural A-pose (the polished VRoid bases) must not be re-posed.
+      // Pose + look are one treatment: the base ships in a VRoid T-pose, and
+      // the "tutor" look re-tints the hair materials (no geometry is added).
       if (applyLook) {
         relaxBindPose(loaded);
-        applyTeacherLook(loaded);
+        applyTutorLook(loaded);
       }
       // Frame head-and-shoulders from the model's own bounds (any height works).
       const box = new THREE.Box3().setFromObject(vrm.scene);
