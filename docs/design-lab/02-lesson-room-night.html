@@ -3,22 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>معمل التصميم · غرفة الدرس — هوية الفاروق</title>
+<title>معمل التصميم · غرفة الدرس — هوية الفاروق (ليل / نهار)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Cairo:wght@300..900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* ===== هوية الفاروق — لوحة الوضع الليلي (الافتراضي) ===== */
     --bg:#0A0908; --screen-a:#0F0D0A; --screen-b:#0B0A08;
     --panel:rgba(255,255,255,.05); --panel2:rgba(255,255,255,.03);
-    --line:rgba(240,235,226,.10); --line2:rgba(240,235,226,.08);
-    --ink:#F0EBE2; --muted:#B3BDB4; --cream:#F0EBE2;
+    --line:rgba(240,235,226,.12); --line2:rgba(240,235,226,.08);
+    --ink:#F0EBE2; --muted:#B3BDB4;
     --gold:#D9A95C; --gold-ink:#E8C87F; --gold-deep:#B98A41;
     --gold-soft:rgba(217,169,92,.14);
     --gold-grad:linear-gradient(135deg,#F2CD7C,var(--gold) 55%,var(--gold-deep));
+    --d1:var(--gold); --d2:#F0EBE2;
+    --frame:#12100E; --frame-line:rgba(240,235,226,.12);
+    --wb-bg:rgba(255,255,255,.035); --wb-grid:rgba(217,169,92,.07); --wb-shadow:0 14px 34px rgba(0,0,0,.4);
+    --dot-ring:#0F0D0A; --strip:linear-gradient(180deg, rgba(217,169,92,.08), transparent);
+    --shadow:0 30px 70px rgba(0,0,0,.65);
+    /* ===== نظام الخطوط: طبقتان ===== */
     --font-ui:"IBM Plex Sans Arabic", Inter, "Segoe UI", Tahoma, sans-serif;
     --font-learn:"Cairo", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-    --shadow:0 30px 70px rgba(0,0,0,.65);
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -31,7 +37,7 @@
       var(--bg);
     min-height:100vh; padding-bottom:70px;
   }
-  .board{max-width:1120px;margin:0 auto;padding:40px 22px 0;display:flex;flex-direction:column;gap:26px}
+  .board{max-width:1120px;margin:0 auto;padding:40px 22px 0;display:flex;flex-direction:column;gap:22px}
   .board-head{display:flex;flex-direction:column;gap:12px}
   .lab-badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
     background:var(--gold-soft);color:var(--gold-ink);border:1px solid rgba(217,169,92,.3);
@@ -39,24 +45,48 @@
   .lab-badge i{width:7px;height:7px;border-radius:50%;background:var(--gold);display:block}
   h1{font-size:27px;font-weight:700;margin:0;color:var(--ink)}
   h1 span{color:var(--gold)}
-  .board-sub{color:var(--muted);font-size:14px;margin:0;line-height:1.8;max-width:700px}
+  .board-sub{color:var(--muted);font-size:14px;margin:0;line-height:1.85;max-width:720px}
   .board-sub b{color:var(--ink)}
+  .theme-switch{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px}
+  .ts-label{font-size:11.5px;color:var(--muted)}
+  .ts-btn{font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);
+    background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:7px 14px}
+  .ts-btn[aria-pressed="true"]{background:var(--gold-soft);color:var(--gold-ink);border-color:rgba(217,169,92,.4)}
+  .ts-state{font-size:11.5px;color:var(--gold-ink);font-weight:600}
+  .palette-row{display:flex;gap:10px;align-items:flex-start}
+  .p-label{font-size:11px;color:var(--gold-ink);font-weight:700;padding-top:9px;width:36px;flex:none}
   .palette{display:flex;gap:9px;flex-wrap:wrap}
   .sw{display:inline-flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);
       border-radius:999px;padding:6px 12px 6px 7px;font-size:11.5px;color:var(--muted)}
   .sw i{width:17px;height:17px;border-radius:50%;display:block;border:1px solid rgba(255,255,255,.14)}
 
   .phone-wrap{display:flex;justify-content:center}
-  .phone{width:min(434px,100%);background:#12100E;border:1px solid rgba(240,235,226,.12);
+  .phone{width:min(434px,100%);background:var(--frame);border:1px solid var(--frame-line);
     border-radius:44px;padding:12px;box-shadow:var(--shadow)}
+  /* ===== الوضع النهاري الفاتح — نفس الهوية بمعكوس منضبط ===== */
+  .phone[data-theme="light"]{
+    --bg:#F7F3EB; --screen-a:#FFFDF9; --screen-b:#F7F2E9;
+    --panel:#FFFFFF; --panel2:rgba(23,20,15,.035);
+    --line:rgba(23,20,15,.13); --line2:rgba(23,20,15,.08);
+    --ink:#17140F; --muted:#5F6A60;
+    --gold-ink:#8C6424; --gold-soft:rgba(185,138,65,.12);
+    --d1:#8C6424; --d2:var(--gold-deep);
+    --frame:#EDE6D8; --frame-line:rgba(23,20,15,.14);
+    --wb-bg:#FFFFFF; --wb-grid:rgba(185,138,65,.16); --wb-shadow:0 10px 24px rgba(23,20,15,.08);
+    --dot-ring:#FFFDF9; --strip:linear-gradient(180deg, rgba(217,169,92,.14), transparent);
+    --shadow:0 30px 70px rgba(23,20,15,.18);
+  }
   .screen{border-radius:34px;overflow:hidden;border:1px solid var(--line2);
     background:linear-gradient(180deg,var(--screen-a),var(--screen-b));display:flex;flex-direction:column}
 
   /* ===== الترويسة ===== */
-  .appbar{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--panel2);border-bottom:1px solid var(--line2)}
-  .icon-btn{width:36px;height:36px;border-radius:12px;border:1px solid rgba(240,235,226,.12);
+  .appbar{display:flex;align-items:center;gap:9px;padding:12px 14px;background:var(--panel2);border-bottom:1px solid var(--line2)}
+  .icon-btn{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);
     background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:none}
   .icon-btn svg{width:18px;height:18px}
+  .ic-moon{display:none}
+  .phone[data-theme="light"] .ic-sun{display:none}
+  .phone[data-theme="light"] .ic-moon{display:block}
   .lesson-title{display:flex;flex-direction:column;line-height:1.3;flex:1;min-width:0}
   .lesson-title strong{font-size:14.5px;font-weight:700;color:var(--ink)}
   .lesson-title span{font-size:11px;color:var(--muted)}
@@ -65,12 +95,12 @@
 
   /* ===== شريط المعلّم ===== */
   .teacher-strip{display:flex;align-items:center;gap:10px;padding:11px 14px;
-    background:linear-gradient(180deg, rgba(217,169,92,.08), transparent);border-bottom:1px solid var(--line2)}
+    background:var(--strip);border-bottom:1px solid var(--line2)}
   .avatar{width:42px;height:42px;border-radius:50%;position:relative;flex:none;
     background:var(--gold-grad);
     display:grid;place-items:center;color:#140F06;font-weight:700;font-size:17px}
   .live-dot{position:absolute;bottom:-1px;left:-1px;width:11px;height:11px;border-radius:50%;
-    background:var(--gold);border:2px solid #0F0D0A}
+    background:var(--gold-ink);border:2px solid var(--dot-ring)}
   @media (prefers-reduced-motion: no-preference){
     .live-dot{animation:pulse 2.2s infinite}
     @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,169,92,.5)}55%{box-shadow:0 0 0 6px rgba(217,169,92,0)}}
@@ -78,7 +108,7 @@
   .t-info{display:flex;flex-direction:column;line-height:1.35;flex:1;min-width:0}
   .t-info strong{font-size:13.5px;color:var(--ink)}
   .t-info .state{font-size:11px;color:var(--gold-ink);font-weight:600}
-  .ghost-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(240,235,226,.14);background:transparent;
+  .ghost-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:transparent;
     color:var(--ink);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap}
   .ghost-chip svg{width:15px;height:15px}
 
@@ -86,10 +116,10 @@
 
   /* ===== سبورة المعلّم ===== */
   .whiteboard{border:1px solid var(--line);border-radius:18px;padding:14px;
-    background-color:rgba(255,255,255,.035);
-    background-image:linear-gradient(rgba(217,169,92,.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(217,169,92,.07) 1px, transparent 1px);
-    background-size:24px 24px;box-shadow:0 14px 34px rgba(0,0,0,.4)}
+    background-color:var(--wb-bg);
+    background-image:linear-gradient(var(--wb-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--wb-grid) 1px, transparent 1px);
+    background-size:24px 24px;box-shadow:var(--wb-shadow)}
   .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
   .wb-label{font-size:11px;font-weight:700;color:var(--muted)}
   .wb-step{font-size:11px;font-weight:700;color:var(--gold-ink);background:var(--gold-soft);
@@ -103,25 +133,25 @@
   .dots{height:15px;border-radius:8px;background-image:radial-gradient(circle, var(--c) 44%, transparent 52%);
     background-size:15px 15px;background-repeat:repeat-x;background-position:1px center}
   .d3{width:47px}.d5{width:77px}
-  .dg{--c:var(--gold)}.dc{--c:var(--cream)}
+  .dg{--c:var(--d1)}.dc{--c:var(--d2)}
   .res{display:inline-grid;place-items:center;min-width:32px;height:32px;padding:0 6px;border-radius:10px;
     background:var(--gold-soft);color:var(--gold-ink);font-size:15px}
   .same-tag{align-self:flex-start;background:var(--gold-soft);color:var(--gold-ink);
     font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:999px}
   .wb-tools{display:flex;align-items:center;gap:8px;margin-top:13px;padding-top:11px;border-top:1px dashed var(--line)}
-  .tool{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(240,235,226,.12);background:var(--panel2);
+  .tool{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel2);
     color:var(--ink);border-radius:999px;padding:6px 11px;font-size:11.5px;font-weight:600;font-family:inherit;cursor:pointer}
   .tool svg{width:14px;height:14px}
   .wb-hint{margin-inline-start:auto;font-size:10.5px;color:var(--muted)}
 
   /* ===== شريط المرجع ===== */
-  .book-ref{display:flex;align-items:center;gap:10px;border:1px dashed rgba(217,169,92,.45);
+  .book-ref{display:flex;align-items:center;gap:10px;border:1px dashed rgba(217,169,92,.5);
     background:var(--gold-soft);border-radius:15px;padding:10px 12px}
-  .book-ic{width:20px;height:20px;color:var(--gold);flex:none}
+  .book-ic{width:20px;height:20px;color:var(--gold-ink);flex:none}
   .book-info{display:flex;flex-direction:column;line-height:1.45;flex:1;min-width:0}
   .book-info strong{font-size:12.5px;color:var(--ink)}
   .book-info span{font-size:10.5px;color:var(--muted)}
-  .ghost-chip.sm{padding:6px 11px;font-size:11px;border-color:rgba(217,169,92,.4);color:var(--gold-ink)}
+  .ghost-chip.sm{padding:6px 11px;font-size:11px;border-color:rgba(217,169,92,.45);color:var(--gold-ink)}
 
   /* ===== الفقاعات ===== */
   .chat{display:flex;flex-direction:column;gap:11px;padding:3px 0}
@@ -148,7 +178,7 @@
   .btn-primary{flex:1;border:none;border-radius:15px;padding:12px;cursor:pointer;font-family:inherit;
     background:var(--gold-grad);color:#140F06;font-weight:700;font-size:14px;
     box-shadow:0 12px 26px rgba(217,169,92,.3)}
-  .btn-ghost{flex:1;border:1px solid rgba(240,235,226,.14);border-radius:15px;padding:12px;cursor:pointer;
+  .btn-ghost{flex:1;border:1px solid var(--line);border-radius:15px;padding:12px;cursor:pointer;
     background:var(--panel2);color:var(--ink);font-weight:600;font-size:14px;font-family:inherit}
 
   /* ===== المُدخل ===== */
@@ -170,19 +200,37 @@
 
   <header class="board-head">
     <span class="lab-badge"><i></i> معمل التصميم — النسخة النهائية (قرار المالك 2026-10-16)</span>
-    <h1>غرفة الدرس — <span>هوية الفاروق</span></h1>
-    <p class="board-sub">مثل الفاروق بالضبط: <b>الذهبي هو اللون الأساسي</b> — بلا أي ألوان جديدة، واللون <b>الهامد</b> أصبح <b>فاتحًا</b> (#B3BDB4) ليُقرأ بوضوح على الخلفية الداكنة.<br><b>نظام من طبقتين للحفاظ على «لغة تصميم واحدة»:</b> خط <b>IBM Plex Sans Arabic</b> للواجهة (اللافتات والأزرار والشرائح)، وخط <b>Cairo</b> المصري للمحتوى التعليمي (الشرح والسبورة والحوار).</p>
-    <div class="palette">
-      <span class="sw"><i style="background:#0A0908"></i> ليلي #0A0908</span>
-      <span class="sw"><i style="background:#D9A95C"></i> ذهبي أساسي #D9A95C</span>
-      <span class="sw"><i style="background:#B98A41"></i> ذهبي عميق #B98A41</span>
-      <span class="sw"><i style="background:#F0EBE2"></i> حبر فاتح #F0EBE2</span>
-      <span class="sw"><i style="background:#B3BDB4"></i> هامد فاتح #B3BDB4</span>
+    <h1>غرفة الدرس — <span>هوية الفاروق</span> · وضعان: ليل / نهار</h1>
+    <p class="board-sub">مثل الفاروق بالضبط: <b>الذهبي هو اللون الأساسي</b> في الوضعين، بلا ألوان دخيلة. <b>وضعان للعرض</b> — ليلي (الافتراضي يتبع جهاز الطالب) و<b>نهاري فاتح</b> (ورق دافئ + حبر داكن) — <b>والمبدّل حرّ للطالب</b> في كل شاشة درس.<br><b>نظام من طبقتين:</b> <b>IBM Plex Sans Arabic</b> للواجهة، و<b>Cairo</b> المصري للمحتوى التعليمي (الشرح والسبورة والحوار).</p>
+    <div class="theme-switch">
+      <span class="ts-label">معاينة الوضع:</span>
+      <button class="ts-btn" type="button" data-set-theme="dark" aria-pressed="true">ليلي</button>
+      <button class="ts-btn" type="button" data-set-theme="light" aria-pressed="false">نهاري</button>
+      <span class="ts-state" id="theme-state"></span>
+    </div>
+    <div class="palette-row">
+      <span class="p-label">ليل</span>
+      <div class="palette">
+        <span class="sw"><i style="background:#0A0908"></i> ليلي #0A0908</span>
+        <span class="sw"><i style="background:#D9A95C"></i> ذهبي أساسي #D9A95C</span>
+        <span class="sw"><i style="background:#F0EBE2"></i> حبر فاتح #F0EBE2</span>
+        <span class="sw"><i style="background:#B3BDB4"></i> هامد فاتح #B3BDB4</span>
+      </div>
+    </div>
+    <div class="palette-row">
+      <span class="p-label">نهار</span>
+      <div class="palette">
+        <span class="sw"><i style="background:#FFFDF9"></i> ورق #FFFDF9</span>
+        <span class="sw"><i style="background:#F7F3EB"></i> رملي #F7F3EB</span>
+        <span class="sw"><i style="background:#17140F"></i> حبر داكن #17140F</span>
+        <span class="sw"><i style="background:#8C6424"></i> نص ذهبي #8C6424</span>
+        <span class="sw"><i style="background:#5F6A60"></i> هامد #5F6A60</span>
+      </div>
     </div>
   </header>
 
   <div class="phone-wrap">
-    <div class="phone">
+    <div class="phone" id="phone" data-theme="dark">
       <div class="screen">
 
         <!-- الترويسة -->
@@ -195,6 +243,10 @@
             <span>رياضيات · الصف السادس الابتدائي</span>
           </div>
           <span class="progress-chip">الخطوة ٢ من ٥</span>
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="تبديل الوضع (ليلي / نهاري)" title="تبديل الوضع (ليلي / نهاري)">
+            <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"/></svg>
+            <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.6A8.6 8.6 0 019.4 4 8.6 8.6 0 1020 14.6z"/></svg>
+          </button>
           <button class="icon-btn" aria-label="المزيد">
             <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5.5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="18.5" r="1.7"/></svg>
           </button>
@@ -323,15 +375,48 @@
   </div>
 
   <div class="lab-notes">
-    <span>الذهبي أساسي — بلا أي لون خارج هوية الفاروق (قرار المالك 2026-10-16)</span>
-    <span>الهامد رُفع من #9AA69D إلى فاتح #B3BDB4 — في مواضعه نفسها (توضيح المالك)</span>
-    <span>نظام خطين (قرار المالك): Cairo للتعلّم (الشرح والسبورة والحوار) · IBM Plex Sans Arabic للواجهة</span>
-    <span>تباين WCAG على الخلفية الداكنة: ذهبي 9.27:1 · هامد فاتح 10.28:1 · حبر 16.76:1 — كلها AAA</span>
+    <span>وضعان بمبدّل حرّ للطالب (قرار المالك): ليلي + نهاري فاتح — والافتراضي يتبع جهاز الطالب</span>
+    <span>الذهبي أساسي في الوضعين — بلا أي لون خارج هوية الفاروق</span>
+    <span>النهار: ورق #FFFDF9/رملي #F7F3EB + حبر #17140F + نص ذهبي #8C6424 (للتباين على الفاتح)</span>
+    <span>نظام خطين: Cairo للتعلّم · IBM Plex Sans Arabic للواجهة</span>
     <span>شريط «كتابك — صفحة ٦/٧» مرجع لكتابك الورقي — لا يُعرض الكتاب إطلاقًا (الأطلس §١٥)</span>
-    <span>دائرة المعلّم مؤقتة — أفاتار الـVRM الحقيقي في W7</span>
     <span>نموذج ساكن للمعاينة — بلا أي كود إنتاجي</span>
   </div>
 
 </div>
+
+<script>
+  var phone = document.getElementById("phone");
+  var stateLabel = document.getElementById("theme-state");
+  var setButtons = document.querySelectorAll("[data-set-theme]");
+
+  function applyTheme(mode) {
+    if (!phone) return;
+    phone.setAttribute("data-theme", mode);
+    for (var i = 0; i < setButtons.length; i++) {
+      var b = setButtons[i];
+      b.setAttribute("aria-pressed", b.getAttribute("data-set-theme") === mode ? "true" : "false");
+    }
+    if (stateLabel) {
+      stateLabel.textContent = mode === "light" ? "الوضع الحالي: نهار (فاتح)" : "الوضع الحالي: ليل";
+    }
+  }
+
+  for (var i = 0; i < setButtons.length; i++) {
+    setButtons[i].addEventListener("click", function () {
+      applyTheme(this.getAttribute("data-set-theme"));
+    });
+  }
+
+  var toggle = document.getElementById("theme-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      applyTheme(phone && phone.getAttribute("data-theme") === "light" ? "dark" : "light");
+    });
+  }
+
+  var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  applyTheme(prefersLight ? "light" : "dark");
+</script>
 </body>
 </html>
