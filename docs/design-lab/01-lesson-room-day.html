@@ -1,0 +1,325 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معمل التصميم · غرفة الدرس — اتجاه أ «نهار دافئ»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4EFE4; --screen-a:#FDFBF5; --screen-b:#F7F2E7;
+    --panel:#FFFFFF; --line:#E8DEC8; --line2:#F0E8D6;
+    --ink:#1D2A23; --muted:#6E7C72;
+    --green:#0F6A4D; --green-deep:#0B5039; --green-soft:#E4F0EA;
+    --copper:#B8862B; --copper-ink:#8A6218; --copper-soft:#F5EAD0;
+    --shadow:0 24px 60px rgba(29,42,35,.14);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"IBM Plex Sans Arabic", Inter, "Segoe UI", Tahoma, sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1000px 520px at 88% -12%, rgba(184,134,43,.12), transparent 62%),
+      radial-gradient(760px 560px at 6% 108%, rgba(15,106,77,.10), transparent 62%),
+      var(--bg);
+    min-height:100vh; padding-bottom:70px;
+  }
+  .board{max-width:1120px;margin:0 auto;padding:40px 22px 0;display:flex;flex-direction:column;gap:26px}
+  .board-head{display:flex;flex-direction:column;gap:12px}
+  .lab-badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
+    background:var(--copper-soft);color:var(--copper-ink);border:1px solid #E4D3A8;
+    padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:600}
+  .lab-badge i{width:7px;height:7px;border-radius:50%;background:var(--copper);display:block}
+  h1{font-size:27px;font-weight:700;margin:0}
+  h1 span{color:var(--copper)}
+  .board-sub{color:var(--muted);font-size:14px;margin:0;line-height:1.8;max-width:680px}
+  .palette{display:flex;gap:9px;flex-wrap:wrap}
+  .sw{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);
+      border-radius:999px;padding:6px 12px 6px 7px;font-size:11.5px;color:var(--muted)}
+  .sw i{width:17px;height:17px;border-radius:50%;display:block;border:1px solid rgba(0,0,0,.06)}
+
+  .phone-wrap{display:flex;justify-content:center}
+  .phone{width:min(434px,100%);background:var(--panel);border:1px solid var(--line);
+    border-radius:44px;padding:12px;box-shadow:var(--shadow)}
+  .screen{border-radius:34px;overflow:hidden;border:1px solid var(--line2);
+    background:linear-gradient(180deg,var(--screen-a),var(--screen-b));display:flex;flex-direction:column}
+
+  /* ===== الترويسة ===== */
+  .appbar{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--panel);border-bottom:1px solid var(--line2)}
+  .icon-btn{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);background:transparent;
+    color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:none}
+  .icon-btn svg{width:18px;height:18px}
+  .lesson-title{display:flex;flex-direction:column;line-height:1.3;flex:1;min-width:0}
+  .lesson-title strong{font-size:14.5px;font-weight:700}
+  .lesson-title span{font-size:11px;color:var(--muted)}
+  .progress-chip{font-size:11px;font-weight:700;color:var(--green-deep);background:var(--green-soft);
+    padding:6px 11px;border-radius:999px;white-space:nowrap}
+
+  /* ===== شريط المعلّم ===== */
+  .teacher-strip{display:flex;align-items:center;gap:10px;padding:11px 14px;
+    background:linear-gradient(180deg, rgba(15,106,77,.06), transparent);border-bottom:1px solid var(--line2)}
+  .avatar{width:42px;height:42px;border-radius:50%;position:relative;flex:none;
+    background:radial-gradient(circle at 32% 28%, #3FA37B, var(--green-deep));
+    display:grid;place-items:center;color:#fff;font-weight:700;font-size:17px;
+    box-shadow:0 0 0 2px var(--copper)}
+  .live-dot{position:absolute;bottom:-1px;left:-1px;width:11px;height:11px;border-radius:50%;
+    background:#2FBF8F;border:2px solid var(--panel)}
+  @media (prefers-reduced-motion: no-preference){
+    .live-dot{animation:pulse 2.2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(47,191,143,.45)}55%{box-shadow:0 0 0 6px rgba(47,191,143,0)}}
+  }
+  .t-info{display:flex;flex-direction:column;line-height:1.35;flex:1;min-width:0}
+  .t-info strong{font-size:13.5px}
+  .t-info .state{font-size:11px;color:var(--green);font-weight:600}
+  .ghost-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:transparent;
+    color:var(--ink);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap}
+  .ghost-chip svg{width:15px;height:15px}
+
+  .stage{display:flex;flex-direction:column;gap:11px;padding:12px 14px 6px}
+
+  /* ===== سبورة المعلّم ===== */
+  .whiteboard{border:1px solid var(--line);border-radius:18px;padding:14px;
+    background-color:#FFFDF8;
+    background-image:linear-gradient(rgba(15,106,77,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,106,77,.055) 1px, transparent 1px);
+    background-size:24px 24px;box-shadow:0 10px 26px rgba(29,42,35,.07)}
+  .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .wb-label{font-size:11px;font-weight:700;color:var(--muted)}
+  .wb-step{font-size:11px;font-weight:700;color:var(--copper-ink);background:var(--copper-soft);
+    border-radius:999px;padding:4px 10px}
+  .wb-line{margin:0;font-size:15.5px;font-weight:700;line-height:1.7}
+  .eq{margin-top:12px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+  .eq-row{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px}
+  .eq-row .op{color:var(--muted);font-weight:600}
+  .dots{height:15px;border-radius:8px;background-image:radial-gradient(circle, var(--c) 44%, transparent 52%);
+    background-size:15px 15px;background-repeat:repeat-x;background-position:1px center}
+  .d3{width:47px}.d5{width:77px}
+  .cg{--c:var(--green)}.cc{--c:var(--copper)}
+  .res{display:inline-grid;place-items:center;min-width:32px;height:32px;padding:0 6px;border-radius:10px;
+    background:var(--green-soft);color:var(--green-deep);font-size:15px}
+  .same-tag{align-self:flex-start;background:var(--green-soft);color:var(--green-deep);
+    font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:999px}
+  .wb-tools{display:flex;align-items:center;gap:8px;margin-top:13px;padding-top:11px;border-top:1px dashed var(--line)}
+  .tool{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);
+    color:var(--ink);border-radius:999px;padding:6px 11px;font-size:11.5px;font-weight:600;font-family:inherit;cursor:pointer}
+  .tool svg{width:14px;height:14px}
+  .wb-hint{margin-inline-start:auto;font-size:10.5px;color:var(--muted)}
+
+  /* ===== شريط المرجع ===== */
+  .book-ref{display:flex;align-items:center;gap:10px;border:1px dashed rgba(184,134,43,.55);
+    background:var(--copper-soft);border-radius:15px;padding:10px 12px}
+  .book-ic{width:20px;height:20px;color:var(--copper);flex:none}
+  .book-info{display:flex;flex-direction:column;line-height:1.45;flex:1;min-width:0}
+  .book-info strong{font-size:12.5px}
+  .book-info span{font-size:10.5px;color:var(--muted)}
+  .ghost-chip.sm{padding:6px 11px;font-size:11px;border-color:rgba(184,134,43,.5);color:var(--copper-ink)}
+
+  /* ===== الفقاعات ===== */
+  .chat{display:flex;flex-direction:column;gap:11px;padding:3px 0}
+  .msg{display:flex;gap:8px;align-items:flex-end}
+  .msg.student{justify-content:flex-end}
+  .mini-avatar{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;
+    background:radial-gradient(circle at 32% 28%, #3FA37B, var(--green-deep));color:#fff;font-size:11px;font-weight:700}
+  .bubble{max-width:86%;background:var(--panel);border:1px solid var(--line);padding:10px 13px;
+    border-radius:16px 16px 6px 16px;font-size:13px;line-height:1.8;box-shadow:0 6px 16px rgba(29,42,35,.05)}
+  .bubble p{margin:0}
+  .msg.student .bubble{background:linear-gradient(180deg,var(--green),var(--green-deep));color:#fff;
+    border:none;border-radius:16px 16px 16px 6px;font-weight:600;box-shadow:0 8px 18px rgba(15,106,77,.25)}
+  .know-bar{display:flex;align-items:center;gap:7px;margin-top:9px;padding-top:7px;
+    border-top:1px dashed var(--line);font-size:10.5px;color:var(--muted)}
+  .know-bar .k{color:var(--copper-ink);font-weight:700}
+  .kb-listen{display:inline-flex;align-items:center;gap:4px;border:none;background:none;padding:0;
+    color:var(--copper-ink);font-weight:700;font-size:10.5px;font-family:inherit;cursor:pointer}
+  .kb-listen svg{width:13px;height:13px}
+
+  /* ===== أزرار الفهم ===== */
+  .mastery{display:flex;gap:10px;padding:3px 0 2px}
+  .btn-primary{flex:1;border:none;border-radius:15px;padding:12px;cursor:pointer;font-family:inherit;
+    background:linear-gradient(180deg,var(--green),var(--green-deep));color:#fff;font-weight:700;font-size:14px;
+    box-shadow:0 10px 22px rgba(15,106,77,.28)}
+  .btn-ghost{flex:1;border:1px solid var(--line);border-radius:15px;padding:12px;cursor:pointer;
+    background:var(--panel);color:var(--ink);font-weight:600;font-size:14px;font-family:inherit}
+
+  /* ===== المُدخل ===== */
+  .composer{display:flex;align-items:center;gap:8px;padding:11px 13px 15px;background:var(--panel);border-top:1px solid var(--line2)}
+  .field{flex:1;min-width:0;background:#F6F1E6;border:1px solid var(--line);border-radius:999px;
+    padding:11px 15px;color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .send{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;flex:none;display:grid;place-items:center;
+    background:linear-gradient(135deg,#C89A3E,var(--copper));color:#fff}
+  .send svg{width:18px;height:18px}
+
+  /* ===== ملاحظات المعمل ===== */
+  .lab-notes{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:4px}
+  .lab-notes span{font-size:11.5px;color:var(--muted);background:var(--panel);border:1px solid var(--line);
+    border-radius:999px;padding:7px 13px}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <header class="board-head">
+    <span class="lab-badge"><i></i> معمل التصميم — نموذج غير إنتاجي</span>
+    <h1>غرفة الدرس — اتجاه <span>«نهار دافئ»</span></h1>
+    <p class="board-sub">ورقي كريمي + أخضر مصري + نحاسي — حرارة تعليمية تنتمي لعائلة الفاروق. نفس الشاشة ونفس المحتوى في الاتجاهين، الهوية فقط تتغيّر.</p>
+    <div class="palette">
+      <span class="sw"><i style="background:#F4EFE4"></i> ورقي #F4EFE4</span>
+      <span class="sw"><i style="background:#0F6A4D"></i> أخضر مصري #0F6A4D</span>
+      <span class="sw"><i style="background:#B8862B"></i> نحاسي #B8862B</span>
+      <span class="sw"><i style="background:#1D2A23"></i> حبر #1D2A23</span>
+      <span class="sw"><i style="background:#E8DEC8"></i> فاصل #E8DEC8</span>
+    </div>
+  </header>
+
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="screen">
+
+        <!-- الترويسة -->
+        <header class="appbar">
+          <button class="icon-btn" aria-label="رجوع">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <div class="lesson-title">
+            <strong>خواص الجمع</strong>
+            <span>رياضيات · الصف السادس الابتدائي</span>
+          </div>
+          <span class="progress-chip">الخطوة ٢ من ٥</span>
+          <button class="icon-btn" aria-label="المزيد">
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5.5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="18.5" r="1.7"/></svg>
+          </button>
+        </header>
+
+        <!-- شريط المعلّم -->
+        <div class="teacher-strip">
+          <div class="avatar"><span>ف</span><i class="live-dot"></i></div>
+          <div class="t-info">
+            <strong>سلاح الفرعون</strong>
+            <span class="state">يشرح الآن…</span>
+          </div>
+          <button class="ghost-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6.5 9H4v6h2.5L11 19V5z"/><path d="M14.5 9.2a4.2 4.2 0 010 5.6"/></svg>
+            استمع
+          </button>
+        </div>
+
+        <div class="stage">
+
+          <!-- سبورة المعلّم -->
+          <section class="whiteboard">
+            <div class="wb-head">
+              <span class="wb-label">سبورة المعلّم</span>
+              <span class="wb-step">الخطوة ٢ — الإبدال</span>
+            </div>
+            <p class="wb-line">الترتيب لا يغيّر ناتج الجمع</p>
+            <div class="eq">
+              <div class="eq-row">
+                <span>٣</span><span class="dots d3 cg"></span>
+                <span class="op">+</span>
+                <span>٥</span><span class="dots d5 cc"></span>
+                <span class="op">=</span>
+                <span class="res">٨</span>
+              </div>
+              <div class="eq-row">
+                <span>٥</span><span class="dots d5 cc"></span>
+                <span class="op">+</span>
+                <span>٣</span><span class="dots d3 cg"></span>
+                <span class="op">=</span>
+                <span class="res">٨</span>
+              </div>
+              <span class="same-tag">نفس الناتج ✓</span>
+            </div>
+            <div class="wb-tools">
+              <button class="tool">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 013 3L8 19l-4 1z"/><path d="M14.5 6.5l3 3"/></svg>
+                قلم
+              </button>
+              <button class="tool">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20l-3-3 9-9 4.5 4.5L12.5 20H8z"/><path d="M9.5 11.5l4.5 4.5"/></svg>
+                ممحاة
+              </button>
+              <span class="wb-hint">ارسم واكتب مع المعلّم</span>
+            </div>
+          </section>
+
+          <!-- شريط المرجع -->
+          <div class="book-ref">
+            <svg class="book-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2V5z"/><path d="M4 18a2 2 0 012-2h13"/></svg>
+            <div class="book-info">
+              <strong>كتابك — صفحة ٦ من ٧</strong>
+              <span>افتح كتابك واتبع مع المعلّم خطوة بخطوة</span>
+            </div>
+            <button class="ghost-chip sm">افتح</button>
+          </div>
+
+          <!-- الفقاعات -->
+          <section class="chat">
+            <div class="msg teacher">
+              <div class="mini-avatar">ف</div>
+              <div class="bubble">
+                <p>الجمع له خاصيتان مهمتان. الأولى اسمها <strong>الإبدال</strong>: لو بدّلنا مكان العددين، الناتج لا يتغيّر أبدًا.</p>
+                <div class="know-bar">
+                  <span class="k">يستند إلى المنهج</span><span>·</span><span>كتابك صفحة ٦/٧</span><span>·</span>
+                  <button class="kb-listen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6.5 9H4v6h2.5L11 19V5z"/><path d="M14.5 9.2a4.2 4.2 0 010 5.6"/></svg>
+                    استمع
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="msg student">
+              <div class="bubble">يعني ٤ + ٩ زي ٩ + ٤؟</div>
+            </div>
+
+            <div class="msg teacher">
+              <div class="mini-avatar">ف</div>
+              <div class="bubble">
+                <p>بالظبط! جرّبها بنفسك — الناتج ١٣ في الحالتين. بصّ على السبورة: نفس الفكرة بالرسم.</p>
+                <div class="know-bar">
+                  <span class="k">يستند إلى المنهج</span><span>·</span><span>كتابك صفحة ٦/٧</span><span>·</span>
+                  <button class="kb-listen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6.5 9H4v6h2.5L11 19V5z"/><path d="M14.5 9.2a4.2 4.2 0 010 5.6"/></svg>
+                    استمع
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- أزرار الفهم -->
+          <div class="mastery">
+            <button class="btn-primary">فهمت ✓</button>
+            <button class="btn-ghost">مش فاهم</button>
+          </div>
+        </div>
+
+        <!-- المُدخل -->
+        <footer class="composer">
+          <button class="icon-btn" aria-label="صوّر صفحتك">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5a2 2 0 012-2h1.4l1.2-1.9h6.8l1.2 1.9H18a2 2 0 012 2v8.5a2 2 0 01-2 2H6a2 2 0 01-2-2V8.5z"/><circle cx="12" cy="12.8" r="3.1"/></svg>
+          </button>
+          <div class="field">اكتب سؤالك… أو صوّر صفحتك من كتابك</div>
+          <button class="icon-btn" aria-label="صوت">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3.5" width="6" height="10" rx="3"/><path d="M5.5 11a6.5 6.5 0 0013 0M12 17.5V21"/></svg>
+          </button>
+          <button class="send" aria-label="إرسال">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-6-7-2z"/><path d="M20 4l-9 8"/></svg>
+          </button>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="lab-notes">
+    <span>شريط «كتابك — صفحة ٦/٧» مرجع لكتابك الورقي — لا يُعرض الكتاب إطلاقًا (الأطلس §١٥)</span>
+    <span>دائرة المعلّم مؤقتة — أفاتار الـVRM الحقيقي في W7</span>
+    <span>نموذج ساكن للمعاينة — بلا أي كود إنتاجي</span>
+  </div>
+
+</div>
+</body>
+</html>
