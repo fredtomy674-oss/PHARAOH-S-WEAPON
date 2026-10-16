@@ -325,6 +325,18 @@ export async function login(
   await expect(page.getByTestId(expectedTestId)).toBeVisible({ timeout: 20_000 });
 }
 
+/**
+ * PHASE 156 (W2) — the home's ☰ account drawer.
+ *
+ * The rebuilt home is the student's learning journey; everything account-shaped
+ * (parent link code · preferences · logout) moved into the drawer. Opening it is
+ * now the honest first step of those journeys, so the specs say so explicitly.
+ */
+export async function openAccount(page: Page): Promise<void> {
+  await page.getByTestId("account-menu").click();
+  await expect(page.getByTestId("account-close")).toBeVisible({ timeout: 20_000 });
+}
+
 /** Picks the first real option of a dropdown (never the placeholder). Returns its value. */
 export async function selectFirst(page: Page, testId: string): Promise<string> {
   const select = page.getByTestId(testId);

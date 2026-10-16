@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { DEMO_LINK_CODE, DEMO_PARENT, login, SAFE_REFUSAL_PHRASE, sendChatMessage, startFirstLesson } from "./helpers.js";
+import { DEMO_LINK_CODE, DEMO_PARENT, login, openAccount, SAFE_REFUSAL_PHRASE, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
  * Parent dashboard (PHASE 18): a parent logs in, sees their pre-linked child,
@@ -35,6 +35,8 @@ test("P1: a parent sees their linked child and its progress dashboard", async ({
 
 test("P2: a student's home shows the parent link code", async ({ page }) => {
   await login(page);
+  // PHASE 156 — the link code lives in the ☰ account drawer now.
+  await openAccount(page);
   await expect(page.getByTestId("parent-link-card")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("link-code-value")).toHaveText(DEMO_LINK_CODE);
 });
@@ -62,6 +64,8 @@ test("P4 (PHASE 23): a parent opens a child session's metadata-only activity tim
   page.on("dialog", (d) => void d.accept());
   await page.getByTestId("end-session").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  // PHASE 156 — logout lives in the ☰ account drawer now.
+  await openAccount(page);
   await page.getByTestId("logout").click();
   await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
   await login(page, DEMO_PARENT.email, DEMO_PARENT.password, "parent-screen");
@@ -103,6 +107,8 @@ test("P5 (PHASE 35): a parent sees «آخر ممارسة» per concept after the
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 
   // 2) The parent opens the same child and reads the per-concept recency.
+  //    PHASE 156 — logout lives in the ☰ account drawer now.
+  await openAccount(page);
   await page.getByTestId("logout").click();
   await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
   await login(page, DEMO_PARENT.email, DEMO_PARENT.password, "parent-screen");

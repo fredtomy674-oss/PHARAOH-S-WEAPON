@@ -4,6 +4,7 @@ import {
   login,
   NO_RAG_PHRASE,
   NO_RETRIEVED_PLACEHOLDER,
+  openAccount,
   RAG_CONTEXT_PHRASE,
   remainingValue,
   roomLessonTitle,
@@ -110,7 +111,8 @@ test("journey: login → lesson → RAG tutor reply → re-explain → end → p
   }, demoSessionId);
   expect(endedState).toBe("ended");
 
-  // 13) Logout → back to the unauthenticated state
+  // 13) Logout → back to the unauthenticated state (PHASE 156: via ☰ drawer)
+  await openAccount(page);
   await page.getByTestId("logout").click();
   await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
 });

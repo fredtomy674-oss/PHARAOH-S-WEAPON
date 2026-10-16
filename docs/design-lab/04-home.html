@@ -1,0 +1,443 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معمل التصميم · الرئيسية — هوية الفاروق (ليل / نهار)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Cairo:wght@300..900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ===== هوية الفاروق — لوحة الوضع الليلي (الافتراضي) ===== */
+    --bg:#0A0908; --screen-a:#0F0D0A; --screen-b:#0B0A08;
+    --panel:rgba(255,255,255,.05); --panel2:rgba(255,255,255,.03);
+    --line:rgba(240,235,226,.12); --line2:rgba(240,235,226,.08);
+    --ink:#F0EBE2; --muted:#B3BDB4;
+    --gold:#D9A95C; --gold-ink:#E8C87F; --gold-deep:#B98A41;
+    --gold-soft:rgba(217,169,92,.14);
+    --gold-grad:linear-gradient(135deg,#F2CD7C,var(--gold) 55%,var(--gold-deep));
+    --ring-c:var(--gold); --dim:rgba(0,0,0,.5);
+    --frame:#12100E; --frame-line:rgba(240,235,226,.12);
+    --shadow:0 30px 70px rgba(0,0,0,.65);
+    /* ===== نظام الخطوط: طبقتان ===== */
+    --font-ui:"IBM Plex Sans Arabic", Inter, "Segoe UI", Tahoma, sans-serif;
+    --font-learn:"Cairo", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--font-ui);
+    color:var(--ink);
+    background:
+      radial-gradient(1000px 520px at 85% -12%, rgba(217,169,92,.13), transparent 62%),
+      radial-gradient(760px 560px at 6% 108%, rgba(217,169,92,.07), transparent 62%),
+      var(--bg);
+    min-height:100vh; padding-bottom:70px;
+  }
+  .board{max-width:1120px;margin:0 auto;padding:40px 22px 0;display:flex;flex-direction:column;gap:22px}
+  .board-head{display:flex;flex-direction:column;gap:12px}
+  .lab-badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
+    background:var(--gold-soft);color:var(--gold-ink);border:1px solid rgba(217,169,92,.3);
+    padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:600}
+  .lab-badge i{width:7px;height:7px;border-radius:50%;background:var(--gold);display:block}
+  h1{font-size:27px;font-weight:700;margin:0;color:var(--ink)}
+  h1 span{color:var(--gold)}
+  .board-sub{color:var(--muted);font-size:14px;margin:0;line-height:1.85;max-width:760px}
+  .board-sub b{color:var(--ink)}
+  .theme-switch{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px}
+  .ts-label{font-size:11.5px;color:var(--muted)}
+  .ts-btn{font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);
+    background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:7px 14px}
+  .ts-btn[aria-pressed="true"]{background:var(--gold-soft);color:var(--gold-ink);border-color:rgba(217,169,92,.4)}
+  .ts-state{font-size:11.5px;color:var(--gold-ink);font-weight:600}
+  .palette-row{display:flex;gap:10px;align-items:flex-start}
+  .p-label{font-size:11px;color:var(--gold-ink);font-weight:700;padding-top:9px;width:36px;flex:none}
+  .palette{display:flex;gap:9px;flex-wrap:wrap}
+  .sw{display:inline-flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);
+      border-radius:999px;padding:6px 12px 6px 7px;font-size:11.5px;color:var(--muted)}
+  .sw i{width:17px;height:17px;border-radius:50%;display:block;border:1px solid rgba(255,255,255,.14)}
+
+  .phone-wrap{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;align-items:flex-start}
+  .phone{width:min(434px,100%);background:var(--frame);border:1px solid var(--frame-line);
+    border-radius:44px;padding:12px;box-shadow:var(--shadow)}
+  /* ===== الوضع النهاري الفاتح — نفس الهوية بمعكوس منضبط ===== */
+  .phone[data-theme="light"]{
+    --bg:#F7F3EB; --screen-a:#FFFDF9; --screen-b:#F7F2E9;
+    --panel:#FFFFFF; --panel2:rgba(23,20,15,.035);
+    --line:rgba(23,20,15,.13); --line2:rgba(23,20,15,.08);
+    --ink:#17140F; --muted:#5F6A60;
+    --gold-ink:#8C6424; --gold-soft:rgba(185,138,65,.12);
+    --ring-c:var(--gold-deep); --dim:rgba(23,20,15,.4);
+    --frame:#EDE6D8; --frame-line:rgba(23,20,15,.14);
+    --shadow:0 30px 70px rgba(23,20,15,.18);
+  }
+  .screen{border-radius:34px;overflow:hidden;border:1px solid var(--line2);position:relative;
+    background:linear-gradient(180deg,var(--screen-a),var(--screen-b));display:flex;flex-direction:column}
+
+  /* ===== الترويسة ===== */
+  .appbar{display:flex;align-items:center;gap:9px;padding:12px 14px;background:var(--panel2);border-bottom:1px solid var(--line2)}
+  .icon-btn{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);
+    background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:none}
+  .icon-btn svg{width:18px;height:18px}
+  .ic-moon{display:none}
+  .phone[data-theme="light"] .ic-sun{display:none}
+  .phone[data-theme="light"] .ic-moon{display:block}
+  .brand{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+  .brand-mark{width:36px;height:36px;border-radius:12px;background:var(--gold-grad);color:#140F06;
+    display:grid;place-items:center;font-weight:800;font-size:17px;flex:none}
+  .brand-text{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+  .brand-text strong{font-size:14px;color:var(--ink)}
+  .brand-text span{font-size:10.5px;color:var(--muted)}
+
+  /* ===== الرئيسية ===== */
+  .home-body{display:flex;flex-direction:column;gap:15px;padding:15px 14px 92px}
+  .greet h2{margin:0;font-size:19.5px;font-weight:700;color:var(--ink)}
+  .greet h2 span{color:var(--gold-ink)}
+  .greet .sub{margin:4px 0 0;font-size:11.5px;color:var(--muted)}
+  .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+  .chip{font-size:11px;font-weight:600;color:var(--muted);background:var(--panel2);
+    border:1px solid var(--line);border-radius:999px;padding:5px 11px;white-space:nowrap}
+  .chip.gold{color:var(--gold-ink);background:var(--gold-soft);border-color:rgba(217,169,92,.35)}
+
+  .hero-card{border:1px solid rgba(217,169,92,.4);border-radius:20px;padding:15px;
+    background:linear-gradient(135deg, var(--gold-soft), transparent 62%), var(--panel);
+    box-shadow:0 14px 34px rgba(0,0,0,.25)}
+  .phone[data-theme="light"] .hero-card{box-shadow:0 12px 26px rgba(23,20,15,.08)}
+  .hero-card .label{font-size:11px;font-weight:700;color:var(--gold-ink);letter-spacing:.2px}
+  .hero-card h3{margin:6px 0 3px;font-size:17.5px;color:var(--ink)}
+  .hero-card p{margin:0;font-size:12px;color:var(--muted)}
+  .hero-actions{display:flex;gap:9px;margin-top:13px}
+  .btn-primary{border:none;border-radius:14px;padding:12px 16px;cursor:pointer;font-family:inherit;
+    background:var(--gold-grad);color:#140F06;font-weight:700;font-size:13.5px;flex:1;
+    box-shadow:0 12px 26px rgba(217,169,92,.3)}
+  .btn-ghost{border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;
+    background:var(--panel2);color:var(--ink);font-weight:600;font-size:13.5px;font-family:inherit;white-space:nowrap}
+
+  .sec-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+  .sec-head h4{margin:0;font-size:14.5px;color:var(--ink)}
+  .sec-head .more{font-size:11.5px;color:var(--gold-ink);font-weight:700}
+
+  .subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .subject{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:17px;
+    padding:11px;background:var(--panel2)}
+  .subject .ic{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;flex:none;
+    background:var(--gold-soft);color:var(--gold-ink)}
+  .subject .ic svg{width:19px;height:19px}
+  .subject .info{display:flex;flex-direction:column;line-height:1.4;min-width:0;flex:1}
+  .subject .info strong{font-size:12.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .subject .info span{font-size:10.5px;color:var(--muted)}
+  .ring{width:34px;height:34px;flex:none}
+
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+  .stat{background:var(--panel2);border:1px solid var(--line);border-radius:15px;padding:10px 8px;text-align:center}
+  .stat b{display:block;font-size:18px;color:var(--gold-ink)}
+  .stat span{font-size:10.5px;color:var(--muted)}
+
+  .row-list{display:flex;flex-direction:column;gap:9px}
+  .row{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:15px;
+    padding:10px 11px;background:var(--panel2)}
+  .row .grow{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;line-height:1.45}
+  .row .grow strong{font-size:12.5px;color:var(--ink)}
+  .row .grow span{font-size:10.5px;color:var(--muted)}
+  .pill{font-size:10px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap;
+    background:var(--gold-soft);color:var(--gold-ink)}
+  .pill.ok{background:rgba(217,169,92,.2)}
+  .pill.warn{background:rgba(240,235,226,.08);color:var(--muted)}
+  .mini-btn{border:1px solid rgba(217,169,92,.45);background:var(--gold-soft);color:var(--gold-ink);
+    border-radius:11px;padding:7px 11px;font-size:11px;font-weight:700;font-family:inherit;cursor:pointer;white-space:nowrap}
+  .mini-btn.ghost{border-color:var(--line);background:transparent;color:var(--ink);font-weight:600}
+
+  .fab{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;
+    border:none;border-radius:999px;padding:13px 22px;cursor:pointer;font-family:inherit;
+    background:var(--gold-grad);color:#140F06;font-weight:800;font-size:14px;
+    box-shadow:0 16px 34px rgba(217,169,92,.38)}
+  .fab svg{width:17px;height:17px}
+
+  /* ===== درج الحساب ===== */
+  .dim{position:absolute;inset:0;background:var(--dim)}
+  .drawer{position:absolute;inset-block:0;right:0;width:83%;display:flex;flex-direction:column;
+    background:linear-gradient(180deg,var(--screen-a),var(--screen-b));
+    border-inline-start:1px solid var(--line);box-shadow:-24px 0 50px rgba(0,0,0,.35);overflow:hidden}
+  .phone[data-theme="light"] .drawer{box-shadow:-24px 0 50px rgba(23,20,15,.16)}
+  .drawer-head{display:flex;align-items:center;gap:11px;padding:16px 15px;border-bottom:1px solid var(--line2);
+    background:var(--gold-soft)}
+  .avatar-lg{width:46px;height:46px;border-radius:50%;background:var(--gold-grad);color:#140F06;
+    display:grid;place-items:center;font-weight:800;font-size:19px;flex:none}
+  .drawer-head .who{display:flex;flex-direction:column;line-height:1.4;flex:1;min-width:0}
+  .drawer-head .who strong{font-size:14.5px;color:var(--ink)}
+  .drawer-head .who span{font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .drawer-body{display:flex;flex-direction:column;gap:9px;padding:13px 14px 18px;overflow:auto}
+  .drawer-sec{font-size:11px;font-weight:700;color:var(--gold-ink);margin:7px 2px 0;letter-spacing:.2px}
+  .d-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);
+    border-radius:14px;padding:10px 12px;background:var(--panel2);font-size:12px;color:var(--ink)}
+  .d-row .k{color:var(--muted);font-size:11px}
+  .d-row code{font-family:inherit;font-weight:700;color:var(--gold-ink);background:var(--gold-soft);
+    border-radius:9px;padding:4px 9px;font-size:11.5px;letter-spacing:1px}
+  .seg{display:inline-flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .seg span{font-size:10.5px;font-weight:700;color:var(--muted);border-radius:999px;padding:4px 10px}
+  .seg span.on{background:var(--gold-soft);color:var(--gold-ink)}
+  .d-link{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:14px;
+    padding:11px 12px;background:var(--panel2);color:var(--ink);font-size:12.5px;font-weight:600;
+    font-family:inherit;cursor:pointer;text-align:start;width:100%}
+  .d-link svg{width:16px;height:16px;color:var(--gold-ink);flex:none}
+  .d-link.danger{color:var(--muted)}
+  .d-link.danger svg{color:var(--muted)}
+
+  /* ===== ملاحظات المعمل ===== */
+  .lab-notes{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:4px}
+  .lab-notes span{font-size:11.5px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:7px 13px}
+  .phone-cap{text-align:center;font-size:12px;color:var(--gold-ink);font-weight:700;margin:0 0 9px}
+  .phone-col{display:flex;flex-direction:column;width:min(434px,100%)}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <header class="board-head">
+    <span class="lab-badge"><i></i> معمل التصميم — تصميم جديد لكل الصفحات (قرار المالك 2026-10-17)</span>
+    <h1>الرئيسية — <span>رحلة الطالب</span> · وضعان: ليل / نهار</h1>
+    <p class="board-sub">الصفحة القديمة كانت <b>مسودة تخطيط</b> لإثبات فاعلية المعلّم — وهذه بنيتها من جديد على مستوى غرفة الدرس: <b>قرار واحد بارز</b> («خطوتك القادمة»)، ثم <b>موادك</b> ببطاقات مصوّرة (لمستان بدل سبع قوائم)، ثم تقدّمك وخطة ممارستك وجلساتك — وكل ما هو «حسابي» انتقل إلى <b>درج ☰</b> مرتب بثلاثة أقسام.<br>نفس الهوية حرفيًا: الذهبي أساسي، وخطان (IBM Plex Sans Arabic للواجهة · Cairo للتعلّم)، والوضعان بمبدّل حرّ.</p>
+    <div class="theme-switch">
+      <span class="ts-label">معاينة الوضع:</span>
+      <button class="ts-btn" type="button" data-set-theme="dark" aria-pressed="true">ليلي</button>
+      <button class="ts-btn" type="button" data-set-theme="light" aria-pressed="false">نهاري</button>
+      <span class="ts-state" id="theme-state"></span>
+    </div>
+  </header>
+
+  <div class="phone-wrap">
+
+    <!-- ===== ١. الرئيسية ===== -->
+    <div class="phone-col">
+      <p class="phone-cap">الرئيسية — القرار الواحد ثم الرحلة</p>
+      <div class="phone" data-theme="dark">
+        <div class="screen">
+
+          <header class="appbar">
+            <span class="brand-mark">ف</span>
+            <div class="brand-text">
+              <strong>سلاح الفرعون</strong>
+              <span>معلمك الخصوصي الذكي</span>
+            </div>
+            <button class="icon-btn" data-theme-toggle type="button" aria-label="تبديل الوضع">
+              <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"/></svg>
+              <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.6A8.6 8.6 0 019.4 4 8.6 8.6 0 1020 14.6z"/></svg>
+            </button>
+            <button class="icon-btn" aria-label="الحساب والقائمة">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+            </button>
+          </header>
+
+          <div class="home-body">
+
+            <div class="greet">
+              <h2>صباح الخير، <span>يا بطل</span> 👋</h2>
+              <p class="sub">جاهز نكمّل من حيث وقفنا؟</p>
+              <div class="chips">
+                <span class="chip">الصف السادس الابتدائي · مصر</span>
+                <span class="chip gold">🔥 تعاقب ٥ أيام</span>
+              </div>
+            </div>
+
+            <!-- القرار الواحد -->
+            <section class="hero-card">
+              <span class="label">خطوتك القادمة</span>
+              <h3>أكمل من حيث توقفت</h3>
+              <p>خواص الجمع — رياضيات · كنت عند الخطوة ٢ من ٥</p>
+              <div class="hero-actions">
+                <button class="btn-primary">استئناف الجلسة</button>
+                <button class="btn-ghost">درس جديد</button>
+              </div>
+            </section>
+
+            <!-- المواد -->
+            <div class="sec-head"><h4>موادك</h4><span class="more">الكل ›</span></div>
+            <div class="subject-grid">
+              <div class="subject">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6.5 20L11 7l4.5 13M8.6 14.5h4.8"/></svg></span>
+                <span class="info"><strong>رياضيات</strong><span>إتقان ٦٢٪</span></span>
+                <svg class="ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(217,169,92,.18)" stroke-width="3.6"/><circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--ring-c)" stroke-width="3.6" stroke-linecap="round" pathLength="100" stroke-dasharray="62 100" transform="rotate(-90 18 18)"/></svg>
+              </div>
+              <div class="subject">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3h5M10.5 3v5.5L5.8 17a2 2 0 001.8 3h8.8a2 2 0 001.8-3l-4.7-8.5V3"/><path d="M7.5 14.5h9"/></svg></span>
+                <span class="info"><strong>علوم</strong><span>إتقان ٣٨٪</span></span>
+                <svg class="ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(217,169,92,.18)" stroke-width="3.6"/><circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--ring-c)" stroke-width="3.6" stroke-linecap="round" pathLength="100" stroke-dasharray="38 100" transform="rotate(-90 18 18)"/></svg>
+              </div>
+              <div class="subject">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2V5z"/><path d="M4 18a2 2 0 012-2h13"/></svg></span>
+                <span class="info"><strong>لغة عربية</strong><span>إتقان ٧٤٪</span></span>
+                <svg class="ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(217,169,92,.18)" stroke-width="3.6"/><circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--ring-c)" stroke-width="3.6" stroke-linecap="round" pathLength="100" stroke-dasharray="74 100" transform="rotate(-90 18 18)"/></svg>
+              </div>
+              <div class="subject">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.3 2.6 14.7 0 17M12 3.5c-2.6 2.3-2.6 14.7 0 17"/></svg></span>
+                <span class="info"><strong>دراسات</strong><span>ابدأ أول درس</span></span>
+                <svg class="ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(217,169,92,.18)" stroke-width="3.6"/></svg>
+              </div>
+            </div>
+
+            <!-- التقدم -->
+            <div class="sec-head"><h4>تقدّمك</h4><span class="more">التفاصيل ›</span></div>
+            <div class="stats-row">
+              <div class="stat"><b>١٢</b><span>مفهوم متتبَّع</span></div>
+              <div class="stat"><b>٣</b><span>رسالة اليوم</span></div>
+              <div class="stat"><b>٤</b><span>نقاط قوة</span></div>
+            </div>
+            <div class="row-list">
+              <div class="row">
+                <span class="grow"><strong>قابلية القسمة على ٢</strong><span>٦٨٪ · اليوم</span></span>
+                <span class="pill ok">متقدّم ↑</span>
+              </div>
+              <div class="row">
+                <span class="grow"><strong>خواص الجمع</strong><span>٤٥٪ · منذ ٣ أيام</span></span>
+                <span class="pill warn">نامٍ →</span>
+              </div>
+            </div>
+
+            <!-- خطة الممارسة -->
+            <div class="sec-head"><h4>خطة ممارستك</h4><span class="chip gold">🔥 تعاقب ٥ أيام</span></div>
+            <div class="row-list">
+              <div class="row">
+                <span class="grow"><strong>التعبيرات الرياضية <span class="pill warn">يحتاج مراجعة</span></strong><span>درس: استخدام التعبيرات الرياضية وتحليلها · لا أسئلة بعد</span></span>
+                <button class="mini-btn">توليد سؤال</button>
+              </div>
+              <div class="row">
+                <span class="grow"><strong>خواص الجمع <span class="pill">نامٍ</span></strong><span>درس: خواص الجمع · ٤ أسئلة متاحة</span></span>
+                <button class="mini-btn">تمرّن الآن</button>
+                <button class="mini-btn ghost">مقالي</button>
+              </div>
+            </div>
+
+            <!-- الجلسات -->
+            <div class="sec-head"><h4>جلساتك</h4><span class="more">الكل ›</span></div>
+            <div class="row-list">
+              <div class="row">
+                <span class="grow"><strong><span class="pill ok">مفتوحة</span> خواص الجمع</strong><span>اليوم ٤:٣٠ م · رياضيات</span></span>
+                <button class="mini-btn">متابعة</button>
+              </div>
+              <div class="row">
+                <span class="grow"><strong><span class="pill warn">منتهية</span> قابلية القسمة</strong><span>أمس ٦:١٠ م · رياضيات</span></span>
+                <button class="mini-btn ghost">ملخص الجلسة</button>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="fab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M4 12h16"/></svg>
+            ابدأ حصة
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ٢. درج الحساب ===== -->
+    <div class="phone-col">
+      <p class="phone-cap">درج الحساب (☰) — حسابي · التفضيلات · الدعم</p>
+      <div class="phone" data-theme="dark">
+        <div class="screen">
+
+          <!-- خلفية مصغّرة (الرئيسية خلف الدرج) -->
+          <header class="appbar">
+            <span class="brand-mark">ف</span>
+            <div class="brand-text"><strong>سلاح الفرعون</strong><span>معلمك الخصوصي الذكي</span></div>
+            <button class="icon-btn" aria-label="تبديل الوضع"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1"/></svg></button>
+            <button class="icon-btn" aria-label="الحساب والقائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+          </header>
+          <div class="home-body" style="opacity:.35;pointer-events:none">
+            <div class="greet"><h2>صباح الخير، <span>يا بطل</span> 👋</h2></div>
+            <section class="hero-card"><span class="label">خطوتك القادمة</span><h3>أكمل من حيث توقفت</h3><p>خواص الجمع — رياضيات</p></section>
+          </div>
+
+          <div class="dim"></div>
+
+          <aside class="drawer">
+            <div class="drawer-head">
+              <span class="avatar-lg">ب</span>
+              <div class="who">
+                <strong>يا بطل</strong>
+                <span>student@example.com</span>
+              </div>
+              <button class="icon-btn" aria-label="إغلاق">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              </button>
+            </div>
+            <div class="drawer-body">
+              <div class="drawer-sec">حسابي</div>
+              <div class="d-row"><span class="k">الباقة</span><b style="font-size:11.5px;color:var(--gold-ink)">مجانية · ٢٠ رسالة يوميًا</b></div>
+              <div class="d-row"><span class="k">كود ولي الأمر</span><code>SLH7KQ9M</code></div>
+              <button class="d-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v3a4 4 0 01-8 0V4z"/><path d="M12 11v4M9 20h6M10.5 15h3l1 5h-5l1-5z"/></svg>
+                إنجازاتي
+              </button>
+
+              <div class="drawer-sec">التفضيلات</div>
+              <div class="d-row"><span class="k">المظهر</span>
+                <span class="seg"><span>حسب جهازي</span><span class="on">ليلي</span><span>نهاري</span></span>
+              </div>
+              <div class="d-row"><span class="k">اللغة</span><span style="font-size:11.5px">العربية</span></div>
+              <div class="d-row"><span class="k">المعلّم الحيّ</span><span class="pill">قريبًا</span></div>
+
+              <div class="drawer-sec">الدعم</div>
+              <button class="d-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.6 2.6 0 014.9 1c0 1.7-2.5 2-2.5 3.4M12 16.8v.2"/></svg>
+                المساعدة والأسئلة الشائعة
+              </button>
+              <button class="d-link danger">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H6a2 2 0 00-2 2v12a2 2 0 002 2h3"/><path d="M15 8l4 4-4 4M19 12H9"/></svg>
+                خروج
+              </button>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lab-notes">
+    <span>قرار واحد بارز («خطوتك القادمة») — والباقي رحلة مرتّبة</span>
+    <span>بطاقات المواد من كتالوج المناهج الحقيقي + حلقة إتقان من بيانات الإتقان الموجودة</span>
+    <span>درج ☰ بثلاثة أقسام: حسابي · التفضيلات · الدعم — كما رُصد في الملحق ج</span>
+    <span>«ابدأ حصة» زر عائم دائم (يفتح مسار اللمستين — W3)</span>
+    <span>كل الـtestids القديمة تُغلف عند التنفيذ — الاختبارات القديمة تمر</span>
+    <span>نموذج ساكن للمعاينة — بلا أي كود إنتاجي</span>
+  </div>
+
+</div>
+
+<script>
+  var phones = document.querySelectorAll(".phone");
+  var stateLabel = document.getElementById("theme-state");
+  var setButtons = document.querySelectorAll("[data-set-theme]");
+
+  function applyTheme(mode) {
+    for (var p = 0; p < phones.length; p++) phones[p].setAttribute("data-theme", mode);
+    for (var i = 0; i < setButtons.length; i++) {
+      var b = setButtons[i];
+      b.setAttribute("aria-pressed", b.getAttribute("data-set-theme") === mode ? "true" : "false");
+    }
+    if (stateLabel) stateLabel.textContent = mode === "light" ? "الوضع الحالي: نهار (فاتح)" : "الوضع الحالي: ليل";
+  }
+
+  for (var i = 0; i < setButtons.length; i++) {
+    setButtons[i].addEventListener("click", function () {
+      applyTheme(this.getAttribute("data-set-theme"));
+    });
+  }
+
+  var toggles = document.querySelectorAll("[data-theme-toggle]");
+  for (var t = 0; t < toggles.length; t++) {
+    toggles[t].addEventListener("click", function () {
+      applyTheme(phones[0] && phones[0].getAttribute("data-theme") === "light" ? "dark" : "light");
+    });
+  }
+
+  var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  applyTheme(prefersLight ? "light" : "dark");
+</script>
+</body>
+</html>

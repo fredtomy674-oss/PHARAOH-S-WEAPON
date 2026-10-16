@@ -67,7 +67,9 @@ export default defineConfig({
       command:
         "npm run e2e:backend",
       url: `${BACKEND_URL}/api/health`,
-      timeout: 90_000,
+      // PHASE 156 — 90s was not enough on this machine (cold SQLite seed +
+      // first import); the suite failed to boot before any test ran.
+      timeout: 300_000,
       reuseExistingServer: false,
       env: backendEnv,
     },
@@ -76,7 +78,8 @@ export default defineConfig({
       command:
         "npm run dev --workspace web -- --port " + WEB_PORT + " --strictPort",
       url: WEB_URL,
-      timeout: 90_000,
+      // PHASE 156 — see the backend entry above.
+      timeout: 300_000,
       reuseExistingServer: false,
       env: { VITE_API_PROXY_TARGET: BACKEND_URL },
     },

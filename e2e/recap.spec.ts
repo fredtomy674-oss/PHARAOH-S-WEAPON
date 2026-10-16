@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { activeSessionIds, DEMO_PARENT, login, roomLessonTitle, sendChatMessage, startFirstLesson } from "./helpers.js";
+import { activeSessionIds, DEMO_PARENT, login, openAccount, roomLessonTitle, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
  * PHASE 29 (D-027) — safe session recaps:
@@ -71,6 +71,8 @@ test("R2: a parent reads the same safe recap from the session timeline", async (
   page.on("dialog", (d) => void d.accept());
   await page.getByTestId("end-session").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  // PHASE 156 — logout lives in the ☰ account drawer now.
+  await openAccount(page);
   await page.getByTestId("logout").click();
   await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
 

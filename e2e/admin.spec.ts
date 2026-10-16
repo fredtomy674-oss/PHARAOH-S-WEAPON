@@ -3,6 +3,7 @@ import {
   DEMO_STUDENT,
   docFixture,
   login,
+  openAccount,
   roomLessonTitle,
   selectFirst,
   selectOptionByLabel,
@@ -195,6 +196,8 @@ test("A6 (PHASE 34): the admin dashboard shows 14-day activity columns and the m
   page.once("dialog", (d) => void d.accept());
   await page.getByTestId("end-session").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  // PHASE 156 — logout lives in the ☰ account drawer now.
+  await openAccount(page);
   await page.getByTestId("logout").click();
   await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
 

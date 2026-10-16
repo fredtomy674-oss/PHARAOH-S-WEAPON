@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   generatePracticeQuestion,
   getMySubscription,
@@ -6,6 +6,7 @@ import {
   getPracticeQuestion,
   getSessionRecap,
   listSessions,
+  listSubjects,
   myProgress,
   submitPracticeAnswer,
   submitOpenPracticeAnswer,
@@ -15,11 +16,25 @@ import {
   type PracticeResult,
   type ProgressDetail,
   type SessionRecap,
+  type Subject,
   type SubscriptionInfo,
   type User,
 } from "./api.js";
 import { SessionRecapCard } from "./RecapCard.js";
-import { ThemeToggle } from "./components/ui/index.js";
+import { Sheet, ThemeToggle } from "./components/ui/index.js";
+
+/**
+ * PHASE 156 (W2) — الرئيسية 2.0: أُعيد بناؤها من الصفر على هوية الفاروق
+ * (المرجع البصري: docs/design-lab/04-home.html — وضعان: ليل/نهار).
+ *
+ * الرحلة: قرار واحد بارز («خطوتك القادمة») ← مواد الطالب ← تقدّمه وخطة
+ * ممارسته ← جلساته. وكل ما هو «حسابي» (كود ولي الأمر · التفضيلات · الخروج)
+ * انتقل إلى درج ☰ — أما الإنجازات فصارت زرًّا في الترويسة.
+ *
+ * العقود محفوظة حرفيًا: كل الـtestids القديمة والتدفقات كما هي (تُحدَّث
+ * الاختبارات فقط عند تغيّر تنقّل شرعي — وهنا: فتح الدرج قبل الخروج/كود ولي
+ * الأمر، عبر helpers.openAccount).
+ */
 
 interface Props {
   user: User;
@@ -62,6 +77,47 @@ function streakLabel(n: number): string {
   return "يومًا";
 }
 
+/** رمز المادة — لغة أشكال هندسية بلا صور (W0)، بلا أي لون خارج العائلة. */
+function subjectGlyph(nameAr: string) {
+  if (nameAr.includes("رياض")) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 20h16M6.5 20L11 7l4.5 13M8.6 14.5h4.8" />
+      </svg>
+    );
+  }
+  if (nameAr.includes("علوم")) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M9.5 3h5M10.5 3v5.5L5.8 17a2 2 0 001.8 3h8.8a2 2 0 001.8-3l-4.7-8.5V3" />
+        <path d="M7.5 14.5h9" />
+      </svg>
+    );
+  }
+  if (nameAr.includes("عربي") || nameAr.includes("لغ")) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2V5z" />
+        <path d="M4 18a2 2 0 012-2h13" />
+      </svg>
+    );
+  }
+  if (nameAr.includes("دراس") || nameAr.includes("اجتماع")) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M3.5 12h17M12 3.5c2.6 2.3 2.6 14.7 0 17M12 3.5c-2.6 2.3-2.6 14.7 0 17" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M8.5 12h7M12 8.5v7" />
+    </svg>
+  );
+}
+
 export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmin, onOpenAchievements }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
@@ -74,6 +130,15 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   // PHASE 29 — session recaps per ended session (undefined = not loaded yet,
   // null = loaded but empty/no recap).
   const [recaps, setRecaps] = useState<Record<string, SessionRecap | null | undefined>>({});
+  // PHASE 156 — the student's real subjects for their grade (one call), shown
+  // as cards so a lesson is two taps away instead of a long dropdown walk.
+  const [subjects, setSubjects] = useState<Subject[] | null>(null);
+  // PHASE 156 — the ☰ account drawer (parent code · preferences · logout).
+  const [accountOpen, setAccountOpen] = useState(false);
+  // PHASE 156 — a grade can hold 15 subjects; show the first six and let the
+  // student expand, so «موادك» stays a launchpad, not a wall.
+  const [subjectsExpanded, setSubjectsExpanded] = useState(false);
+  const practiceRef = useRef<HTMLElement | null>(null);
 
   function loadRecap(s: LearningSession): void {
     setRecaps((r) => ({ ...r, [s.id]: undefined }));
@@ -97,16 +162,32 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
       myProgress().then(setProgress).catch(() => undefined);
       getMySubscription().then(setSubscription).catch(() => undefined);
       refreshPlan();
+      const gradeId = user.student?.gradeId;
+      if (gradeId) {
+        listSubjects(gradeId).then(setSubjects).catch(() => undefined);
+      }
     }
   }, [user.role]);
 
   const studentName = user.student?.displayName ?? user.email;
 
   // Determine next best action using existing data
-  const latestSession = sessions && sessions.length > 0 ? sessions[0] : null;
-  const hasActiveSession = latestSession?.status === "active";
-  const pendingConcepts = plan?.filter(p => (p.availableQuestions > 0 || p.openQuestions > 0)).length ?? 0;
+  const activeSession = sessions.find((s) => s.status === "active") ?? null;
+  const pendingConcepts = plan?.filter((p) => p.availableQuestions > 0 || p.openQuestions > 0).length ?? 0;
   const needsPractice = pendingConcepts > 0;
+
+  // PHASE 156 — when practice opens, bring it into view (respecting motion).
+  const practiceOpen = practice !== null;
+  useEffect(() => {
+    if (!practiceOpen || !practiceRef.current) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    practiceRef.current.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }, [practiceOpen]);
+
+  function focusPlan(): void {
+    const el = document.querySelector('[data-testid="plan-section"]');
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   function newPracticeState(mode: "mcq" | "open"): PracticeState {
     return { mode, question: null, chosen: null, text: "", result: null, busy: false, loading: true, error: null, shownAt: Date.now() };
@@ -125,7 +206,6 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   // PHASE 28 + 30 — self-healing practice: the concept has no question of the
   // requested kind yet, so we ask the tutor's question generator to create one
   // (grounded in the lesson), then hand it straight to the practice panel.
-  // Works offline via mocks.
   async function generateAndPractice(conceptId: string, kind: "mcq" | "open" = "mcq") {
     setPractice(newPracticeState(kind));
     try {
@@ -170,150 +250,199 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   }
 
   return (
-    <div className="layout">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <strong>سلاح الفرعون</strong>
-          <span className="muted">معلمك الخصوصي الذكي</span>
-          <ThemeToggle />
-          <button className="btn ghost" onClick={onLogout} data-testid="logout">
-            خروج
+    <div className="hm-layout">
+      <header className="hm-bar">
+        <div className="hm-bar__inner">
+          {/* ☰ في البداية (يمين الشاشة في RTL) — والدرج ينزلق من اليمين. */}
+          <button
+            type="button"
+            className="hm-iconbtn"
+            data-testid="account-menu"
+            onClick={() => setAccountOpen(true)}
+            aria-label="الحساب والقائمة"
+            title="الحساب والقائمة"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h10" />
+            </svg>
           </button>
+          <span className="hm-bar__mark" aria-hidden="true">ف</span>
+          <div className="hm-bar__text">
+            <strong>سلاح الفرعون</strong>
+            <span>معلمك الخصوصي الذكي</span>
+          </div>
+          {user.role === "student" && (
+            <button
+              type="button"
+              className="hm-iconbtn"
+              data-testid="open-achievements"
+              onClick={onOpenAchievements}
+              aria-label="إنجازاتي"
+              title="إنجازاتي"
+            >
+              🏆
+            </button>
+          )}
+          <ThemeToggle />
         </div>
       </header>
 
-      <main className="container" data-testid="home-screen">
-        <section className="hero card">
-          <h2>أهلاً {studentName} 👋</h2>
-          <p className="muted">اختر درسك من المنهج وابدأ جلسة تعلّم معي. أنا أشرح، وأسأل، ونتأكد معًا أنك فهمت فعلًا.</p>
-
-          {/* Next best action inline */}
-          <div className="next-action" style={{ marginTop: '0.8rem', padding: '0.7rem 0.9rem', border: '1px dashed var(--border)', borderRadius: '10px', background: 'var(--bg)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.6rem', flexWrap: 'wrap' }}>
-              <div>
-                <div className="small muted">خطوتك القادمة</div>
-                <div style={{ fontWeight: 600 }}>
-                  {hasActiveSession ? `استئناف الجلسة النشطة` : needsPractice ? `تمرّن على نقاط ضعفك (${pendingConcepts})` : `ابدأ درسًا جديدًا`}
-                </div>
-              </div>
-              <div className="row">
-                {hasActiveSession && (
-                  <button className="btn primary" onClick={() => onResume(latestSession!)} data-testid="home-resume-inline">
-                    استئناف الجلسة
-                  </button>
-                )}
-                {!hasActiveSession && needsPractice && (
-                  <button className="btn primary" onClick={() => { const el = document.querySelector('[data-testid="plan-section"]'); el?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} data-testid="home-focus-practice-inline">
-                    عرض خطة الممارسة
-                  </button>
-                )}
-                {/* Starting a new lesson is ALWAYS available — the contextual
-                    action above is a suggestion, not a replacement. Keeping the
-                    stable `start-lesson` handler here (the pre-PHASE-78 hero
-                    button) preserves the browser suite and, more importantly,
-                    never traps a student who already has an active session. */}
-                <button
-                  className={hasActiveSession || needsPractice ? "btn ghost" : "btn primary"}
-                  onClick={onStartLesson}
-                  data-testid="start-lesson"
-                >
-                  ابدأ درسًا جديدًا
-                </button>
-              </div>
+      <main className="hm-main" data-testid="home-screen">
+        <section className="hm-greet">
+          <h2>
+            أهلاً <span>{studentName}</span> 👋
+          </h2>
+          <p className="hm-greet__sub">جاهز نكمّل من حيث وقفنا؟ أنا معك خطوة بخطوة.</p>
+          {streak > 0 && (
+            <div className="hm-chips">
+              <span className="hm-chip hm-chip--gold" data-testid="practice-streak">
+                🔥 تعاقب {streak} {streakLabel(streak)}
+              </span>
             </div>
+          )}
+        </section>
+
+        {/* القرار الواحد البارز */}
+        <section className="hm-hero">
+          <span className="hm-hero__label">خطوتك القادمة</span>
+          <h3>
+            {activeSession ? "أكمل من حيث توقفت" : needsPractice ? "تمرّن على نقاط ضعفك" : "ابدأ درسًا جديدًا"}
+          </h3>
+          <p className="hm-hero__sub">
+            {activeSession
+              ? "لديك جلسة مفتوحة — عد إليها الآن."
+              : needsPractice
+                ? `${pendingConcepts} ${pendingConcepts === 1 ? "مفهوم ينتظر" : "مفاهيم تنتظر"} التمرين في خطتك.`
+                : "اختر درسك من منهجك وابدأ جلسة تعلّم معي — أشرح، وأسأل، ونتأكد معًا أنك فهمت فعلًا."}
+          </p>
+          <div className="hm-hero__actions">
+            {activeSession && (
+              <button className="hm-btn hm-btn--primary" onClick={() => onResume(activeSession)} data-testid="home-resume-inline">
+                استئناف الجلسة
+              </button>
+            )}
+            {!activeSession && needsPractice && (
+              <button className="hm-btn hm-btn--primary" onClick={focusPlan} data-testid="home-focus-practice-inline">
+                عرض خطة الممارسة
+              </button>
+            )}
+            {/* Starting a new lesson is ALWAYS available — the contextual action
+                above is a suggestion, not a replacement. Keeping the stable
+                `start-lesson` handler here preserves the browser suite and never
+                traps a student who already has an active session. */}
+            <button
+              className={activeSession || needsPractice ? "hm-btn hm-btn--ghost" : "hm-btn hm-btn--primary"}
+              onClick={onStartLesson}
+              data-testid="start-lesson"
+            >
+              ابدأ درسًا جديدًا
+            </button>
           </div>
         </section>
 
-        {user.linkCode && (
-          <section className="card" data-testid="parent-link-card">
-            <h3>كود ولي الأمر</h3>
-            <p className="muted">شارك هذا الكود مع ولي أمرك ليطّلع على تقدّمك وجلساتك (قراءة فقط):</p>
-            <code className="link-code" data-testid="link-code-value">
-              {user.linkCode}
-            </code>
+        {/* الإدارة — للمدير فقط (الطلاب لا يرون هذا المدخل إطلاقًا) */}
+        {user.role === "admin" && (
+          <section className="hm-card" data-testid="admin-card">
+            <div className="hm-sec__head">
+              <h4>الإدارة</h4>
+            </div>
+            <p className="hm-note">استيراد ملفات المنهج (PDF/DOCX) إلى قاعدة معرفة الدروس ومتابعة المنصة.</p>
+            <div className="hm-actions">
+              <button data-testid="open-admin" className="hm-btn hm-btn--primary" onClick={onOpenAdmin}>
+                لوحة الإدارة
+              </button>
+            </div>
           </section>
         )}
 
-        {user.role === "student" && (
-          <section className="card" data-testid="subscription-card">
-            <div className="row-between">
-              <div>
-                <h3>خطتك</h3>
-                {subscription ? (
-                  <p className="muted">
-                    <span className={`pill ${subscription.plan === "premium" ? "ok-pill" : "off-pill"}`} data-testid="subscription-plan">
-                      {subscription.plan === "premium" ? "مميزة" : "مجانية"}
-                    </span>
-                    {subscription.expiresAt && (
-                      <span> — تنتهي {new Date(subscription.expiresAt).toLocaleDateString("ar-EG")}</span>
-                    )}
-                    {" "}
-                    <span data-testid="subscription-limit">
-                      {subscription.dailyLimit === 0 ? "رسائل اليوم: غير محدودة" : `رسائل اليوم: ${subscription.dailyLimit}`}
-                    </span>
-                  </p>
-                ) : (
-                  <p className="muted">خطتك مجانية — ارفعها عبر لوحة الإدارة.</p>
-                )}
-                <button className="btn ghost" onClick={onOpenAchievements} data-testid="open-achievements">
-                  🏆 إنجازاتي
+        {/* المواد — مواد الصف الحقيقية بنداء واحد (أول ست مواد + عرض الكل) */}
+        {user.role === "student" && subjects && subjects.length > 0 && (
+          <section className="hm-sec" data-testid="subjects-section">
+            <div className="hm-sec__head">
+              <h4>موادك</h4>
+              {subjects.length > 6 ? (
+                <button
+                  type="button"
+                  className="hm-btn hm-btn--ghost hm-btn--sm"
+                  data-testid="subjects-more"
+                  onClick={() => setSubjectsExpanded((v) => !v)}
+                >
+                  {subjectsExpanded ? "أقل" : `عرض الكل (${subjects.length})`}
                 </button>
-              </div>
+              ) : (
+                <span className="hm-sec__hint">اختر مادة وابدأ</span>
+              )}
+            </div>
+            <div className="hm-subjects">
+              {(subjectsExpanded ? subjects : subjects.slice(0, 6)).map((s) => (
+                <button key={s.id} type="button" className="hm-subject" data-testid="subject-card" onClick={onStartLesson}>
+                  <span className="hm-subject__icon">{subjectGlyph(s.nameAr)}</span>
+                  <span className="hm-subject__name">{s.nameAr}</span>
+                  <svg className="hm-subject__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M15 5l-7 7 7 7" />
+                  </svg>
+                </button>
+              ))}
             </div>
           </section>
         )}
 
         {progress && (
-          <section className="card" data-testid="progress-card">
-            <div className="row-between">
-              <h3>تقدّمك</h3>
-              <button className="btn ghost" onClick={() => startPractice()} data-testid="open-practice">
-                ✏️ تمرين على نقاط ضعفك
+          <section className="hm-card" data-testid="progress-card">
+            <div className="hm-sec__head">
+              <h4>تقدّمك</h4>
+              <button className="hm-btn hm-btn--soft hm-btn--sm" onClick={() => startPractice()} data-testid="open-practice">
+                ✏️ تمرين سريع
               </button>
             </div>
-            <div className="stats">
-              <div className="stat">
+
+            <div className="hm-stats">
+              <div className="hm-stat">
                 <b data-testid="stat-concepts">{progress.progress.concepts.length}</b>
-                <span className="muted">مفهوم تم تتبعه</span>
+                <span>مفهوم تم تتبعه</span>
               </div>
-              <div className="stat">
+              <div className="hm-stat">
                 <b data-testid="stat-usage-today">{progress.tutorUsageToday}</b>
-                <span className="muted">رسالة اليوم</span>
+                <span>رسالة اليوم</span>
               </div>
-              <div className="stat">
+              <div className="hm-stat">
                 <b data-testid="stat-strengths">{progress.progress.strengths.length}</b>
-                <span className="muted">نقطة قوة</span>
+                <span>نقطة قوة</span>
               </div>
             </div>
-            {progress.progress.strengths.length > 0 && (
-              <p className="muted">
-                <span className="pill ok-pill">نقاط قوتك:</span> {progress.progress.strengths.join("، ")}
-              </p>
-            )}
-            {progress.progress.weaknesses.length > 0 && (
-              <p className="muted">
-                <span className="pill warn">نقاط تحتاج تركيزًا:</span> {progress.progress.weaknesses.join("، ")}
-              </p>
+
+            {(progress.progress.strengths.length > 0 || progress.progress.weaknesses.length > 0) && (
+              <div className="hm-pills">
+                {progress.progress.strengths.length > 0 && (
+                  <span className="hm-pill">💪 نقاط قوتك: {progress.progress.strengths.join("، ")}</span>
+                )}
+                {progress.progress.weaknesses.length > 0 && (
+                  <span className="hm-pill hm-pill--warn">🎯 تحتاج تركيزًا: {progress.progress.weaknesses.join("، ")}</span>
+                )}
+              </div>
             )}
 
             {/* PHASE 24 — concept mastery with levels, decay and trajectory. */}
-            <div className="mastery-block" data-testid="mastery-section">
-              <h4>إتقان المفاهيم</h4>
+            <div className="hm-block" data-testid="mastery-section">
+              <h5 className="hm-block__title">إتقان المفاهيم</h5>
               {progress.mastery.length === 0 ? (
-                <p className="muted" data-testid="mastery-empty">
+                <p className="hm-note" data-testid="mastery-empty">
                   لا توجد مفاهيم متتبعة بعد — أجب عن تمارين لتظهر هنا.
                 </p>
               ) : (
-                <ul className="progress-list" data-testid="mastery-list">
+                <ul className="hm-list" data-testid="mastery-list">
                   {progress.mastery.map((m) => (
-                    <li key={m.conceptId} className="progress-row" data-testid="mastery-concept-row">
-                      <span>
-                        {m.title}{" "}
-                        <span className={`pill ${m.level === "mastered" || m.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="mastery-level">
+                    <li key={m.conceptId} className="hm-row" data-testid="mastery-concept-row">
+                      <span className="hm-row__main">
+                        <strong>{m.title}</strong>
+                        <span
+                          className={`hm-pill ${m.level === "mastered" || m.level === "advanced" ? "" : "hm-pill--warn"}`}
+                          data-testid="mastery-level"
+                        >
                           {m.labelAr}
                         </span>
                       </span>
-                      <span className="muted" data-testid="mastery-meta">
+                      <span className="hm-row__meta" data-testid="mastery-meta">
                         {Math.round(m.decayedMastery * 100)}% · {m.daysSinceLastPractice === 0 ? "اليوم" : `منذ ${m.daysSinceLastPractice} يوم`}{" "}
                         <span data-testid="mastery-trend">{trendArrow(m.trend)}</span>
                       </span>
@@ -324,43 +453,40 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
             </div>
 
             {/* PHASE 25 — ranked practice plan feeding the practice panel. */}
-            <div className="plan-block" data-testid="plan-section">
-              <div className="plan-head">
-                <h4>خطة ممارستك</h4>
-                {/* PHASE 32 — consecutive active days, shown when > 0. */}
-                {streak > 0 && (
-                  <span className="pill ok-pill" data-testid="practice-streak">
-                    🔥 تعاقب {streak} {streakLabel(streak)}
-                  </span>
-                )}
+            <div className="hm-block" data-testid="plan-section">
+              <div className="hm-block__head">
+                <h5 className="hm-block__title">خطة ممارستك</h5>
               </div>
               {plan === null ? (
-                <p className="muted" data-testid="plan-loading">
+                <p className="hm-note" data-testid="plan-loading">
                   جارٍ تحضير خطتك…
                 </p>
               ) : plan.length === 0 ? (
-                <p className="muted" data-testid="plan-empty">
+                <p className="hm-note" data-testid="plan-empty">
                   لا توجد مفاهيم في خطتك بعد — انضم إلى منهج دراسي لتظهر خطة ممارستك هنا.
                 </p>
               ) : (
-                <ul className="progress-list" data-testid="plan-list">
+                <ul className="hm-list" data-testid="plan-list">
                   {plan.map((item) => (
-                    <li key={item.conceptId} className="progress-row" data-testid="plan-row">
-                      <div className="plan-main">
-                        <span>
-                          {item.title}{" "}
-                          <span className={`pill ${item.level === "mastered" || item.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="plan-level">
+                    <li key={item.conceptId} className="hm-row" data-testid="plan-row">
+                      <span className="hm-row__main hm-row__main--stack">
+                        <span className="hm-row__main">
+                          <strong>{item.title}</strong>
+                          <span
+                            className={`hm-pill ${item.level === "mastered" || item.level === "advanced" ? "" : "hm-pill--warn"}`}
+                            data-testid="plan-level"
+                          >
                             {item.labelAr}
                           </span>
-                          {/* PHASE 35 (D-037 tail) — exposure is old enough
-                              that decay alone is eroding this concept. */}
+                          {/* PHASE 35 (D-037 tail) — exposure is old enough that
+                              decay alone is eroding this concept. */}
                           {item.dueForReview && (
-                            <span className="pill due-pill" data-testid="plan-due">
+                            <span className="hm-pill hm-pill--warn" data-testid="plan-due">
                               راجع قبل أن ينسى
                             </span>
                           )}
                         </span>
-                        <span className="muted" data-testid="plan-meta">
+                        <span className="hm-row__meta" data-testid="plan-meta">
                           <span data-testid="plan-lesson">{item.lessonTitle ?? "درس غير معروف"}</span> ·{" "}
                           <span data-testid="plan-questions">{item.availableQuestions} سؤال متاح</span> ·{" "}
                           {item.attempts === 0
@@ -370,97 +496,107 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                               : `منذ ${item.daysSinceLastPractice} يوم`}{" "}
                           <span data-testid="plan-trend">{trendArrow(item.trend)}</span>
                         </span>
-                      </div>
-                      <div className="plan-actions">
+                      </span>
+                      <span className="hm-row__actions">
                         {item.availableQuestions === 0 ? (
                           // PHASE 28 — no MCQ yet → generate one on demand.
-                          <button
-                            className="btn small primary"
-                            data-testid="plan-generate"
-                            onClick={() => generateAndPractice(item.conceptId)}
-                          >
+                          <button className="hm-btn hm-btn--primary hm-btn--sm" data-testid="plan-generate" onClick={() => generateAndPractice(item.conceptId)}>
                             توليد سؤال
                           </button>
                         ) : (
-                          <button
-                            className="btn small primary"
-                            data-testid="plan-practice"
-                            onClick={() => startPractice(item.conceptId)}
-                          >
+                          <button className="hm-btn hm-btn--primary hm-btn--sm" data-testid="plan-practice" onClick={() => startPractice(item.conceptId)}>
                             تمرّن الآن
                           </button>
                         )}
                         {item.openQuestions > 0 ? (
                           // PHASE 30 — an open (free-text) question exists for this concept.
-                          <button
-                            className="btn small ghost"
-                            data-testid="plan-open-practice"
-                            onClick={() => startPractice(item.conceptId, "open")}
-                          >
+                          <button className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="plan-open-practice" onClick={() => startPractice(item.conceptId, "open")}>
                             سؤال مقالي
                           </button>
                         ) : (
-                          <button
-                            className="btn small ghost"
-                            data-testid="plan-open-generate"
-                            onClick={() => generateAndPractice(item.conceptId, "open")}
-                          >
+                          <button className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="plan-open-generate" onClick={() => generateAndPractice(item.conceptId, "open")}>
                             توليد سؤال مقالي
                           </button>
                         )}
-                      </div>
+                      </span>
                     </li>
                   ))}
                 </ul>
+              )}
+            </div>
+
+            {/* PHASE 20 — خطة الطالب: شريط هادئ في ذيل بطاقة التقدّم */}
+            <div className="hm-planstrip" data-testid="subscription-card">
+              <span className="hm-drawer__k">خطتك</span>
+              {subscription ? (
+                <>
+                  <span
+                    className={`hm-pill ${subscription.plan === "premium" ? "hm-pill--gold" : "hm-pill--muted"}`}
+                    data-testid="subscription-plan"
+                  >
+                    {subscription.plan === "premium" ? "مميزة" : "مجانية"}
+                  </span>
+                  <span className="hm-row__meta" data-testid="subscription-limit">
+                    {subscription.dailyLimit === 0 ? "رسائل اليوم: غير محدودة" : `رسائل اليوم: ${subscription.dailyLimit}`}
+                    {subscription.expiresAt ? ` · تنتهي ${new Date(subscription.expiresAt).toLocaleDateString("ar-EG")}` : ""}
+                  </span>
+                </>
+              ) : (
+                <span className="hm-row__meta">خطتك مجانية — ارفعها عبر لوحة الإدارة.</span>
               )}
             </div>
           </section>
         )}
 
         {practice && (
-          <section className="card" data-testid="practice-panel">
-            <div className="row-between">
-              <h3>تمرين سريع</h3>
-              <button className="btn ghost" onClick={() => { setPractice(null); refreshPlan(); }} data-testid="practice-close">
+          <section className="hm-card hm-practice" data-testid="practice-panel" ref={practiceRef}>
+            <div className="hm-sec__head">
+              <h4>تمرين سريع</h4>
+              <button
+                className="hm-btn hm-btn--ghost hm-btn--sm"
+                onClick={() => {
+                  setPractice(null);
+                  refreshPlan();
+                }}
+                data-testid="practice-close"
+              >
                 إغلاق
               </button>
             </div>
             {practice.loading ? (
-              <p className="muted" data-testid="practice-loading">
+              <p className="hm-note" data-testid="practice-loading">
                 جارٍ تحضير سؤال لك…
               </p>
             ) : practice.error || !practice.question ? (
-              <p className="error" data-testid="practice-error">
+              <p className="hm-error" data-testid="practice-error">
                 {practice.error ?? "لا توجد أسئلة متاحة في منهجك بعد."}
               </p>
             ) : (
               <>
-                <p className="muted" data-testid="practice-concept">
+                <p className="hm-note" data-testid="practice-concept">
                   {practice.question.conceptTitle ?? "تمرين عام"} · {DIFFICULTY_LABEL[practice.question.difficulty]}
                 </p>
-                <p className="question-text" data-testid="practice-question">
+                <p className="hm-question" data-testid="practice-question">
                   {practice.question.content}
                 </p>
                 {practice.question.type === "open" ? (
                   // PHASE 30 — free-text answer for open questions.
-                  <div className="option-list">
-                    <textarea
-                      className="answer-input"
-                      data-testid="practice-open-input"
-                      rows={3}
-                      maxLength={1500}
-                      placeholder="اكتب إجابتك هنا بجملة أو جملتين…"
-                      value={practice.text}
-                      disabled={practice.busy}
-                      onChange={(e) => setPractice((p) => (p ? { ...p, text: e.target.value, result: null, chosen: null } : p))}
-                    />
-                  </div>
+                  <textarea
+                    className="hm-answer"
+                    data-testid="practice-open-input"
+                    rows={3}
+                    maxLength={1500}
+                    placeholder="اكتب إجابتك هنا بجملة أو جملتين…"
+                    value={practice.text}
+                    disabled={practice.busy}
+                    onChange={(e) => setPractice((p) => (p ? { ...p, text: e.target.value, result: null, chosen: null } : p))}
+                  />
                 ) : (
-                  <div className="option-list">
+                  <div className="hm-options">
                     {practice.question.options?.map((opt, i) => (
                       <button
                         key={i}
-                        className={`btn option ${practice.chosen === i ? "selected" : ""}`}
+                        className={`hm-option ${practice.chosen === i ? "hm-option--on" : ""}`}
                         data-testid="practice-option"
                         data-option-index={i}
                         disabled={practice.busy}
@@ -472,20 +608,20 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                   </div>
                 )}
                 {practice.result && (
-                  <p className={practice.result.correct ? "ok-text" : "warn-text"} data-testid="practice-feedback">
+                  <p className={practice.result.correct ? "hm-feedback hm-feedback--ok" : "hm-feedback hm-feedback--warn"} data-testid="practice-feedback">
                     {practice.result.feedback
                       ? practice.result.feedback
                       : practice.result.correct
                         ? "إجابة صحيحة 🎉"
                         : "إجابة غير صحيحة — راجع الشرح ثم أعد المحاولة."}
                     {practice.result.score !== null && practice.result.score !== undefined && (
-                      <span className="pill warn" data-testid="practice-score">
+                      <span className="hm-pill hm-pill--warn" data-testid="practice-score">
                         التقدير: {Math.round(practice.result.score * 100)}%
                       </span>
                     )}
                     {practice.result.mastery && (
                       <span
-                        className={`pill ${practice.result.mastery.level === "mastered" || practice.result.mastery.level === "advanced" ? "ok-pill" : "warn"}`}
+                        className={`hm-pill ${practice.result.mastery.level === "mastered" || practice.result.mastery.level === "advanced" ? "" : "hm-pill--warn"}`}
                         data-testid="practice-mastery"
                       >
                         {practice.result.mastery.labelAr} · {Math.round(practice.result.mastery.score * 100)}%
@@ -494,13 +630,13 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                   </p>
                 )}
                 {practice.result?.explanation && (
-                  <p className="muted" data-testid="practice-explanation">
+                  <p className="hm-note" data-testid="practice-explanation">
                     {practice.result.explanation}
                   </p>
                 )}
-                <div className="row-gap">
+                <div className="hm-actions">
                   <button
-                    className="btn primary"
+                    className="hm-btn hm-btn--primary"
                     data-testid="practice-submit"
                     disabled={
                       (practice.question.type === "open" ? practice.text.trim().length === 0 : practice.chosen === null) ||
@@ -511,7 +647,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
                     {practice.busy ? "…" : "تحقق من إجابتي"}
                   </button>
                   {practice.result && (
-                    <button className="btn ghost" data-testid="practice-next" onClick={nextPractice}>
+                    <button className="hm-btn hm-btn--ghost" data-testid="practice-next" onClick={nextPractice}>
                       سؤال آخر
                     </button>
                   )}
@@ -521,66 +657,121 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
           </section>
         )}
 
-        {user.role === "admin" && (
-          <section className="card" data-testid="admin-card">
-            <h3>الإدارة</h3>
-            <p className="muted">استيراد ملفات المنهج (PDF/DOCX) إلى قاعدة معرفة الدروس.</p>
-            <button data-testid="open-admin" className="btn ghost" onClick={onOpenAdmin}>
-              لوحة الإدارة
-            </button>
-          </section>
-        )}
-
-        <section className="card">
-          <h3>جلساتي السابقة</h3>
+        <section className="hm-card">
+          <div className="hm-sec__head">
+            <h4>جلساتك</h4>
+          </div>
           {sessions.length === 0 ? (
-            <p className="muted" data-testid="no-sessions">
+            <p className="hm-note" data-testid="no-sessions">
               لا توجد جلسات بعد — ابدأ أول درس لنا!
             </p>
           ) : (
             <>
-              <ul className="session-list" data-testid="session-list">
+              <ul className="hm-list" data-testid="session-list">
                 {[...sessions]
                   .sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime())
                   .slice(0, 6)
                   .map((s) => (
-                <li key={s.id} className="session-row" data-testid="session-row" data-session-id={s.id} data-session-status={s.status}>
-                  <div>
-                    <span className={`badge ${s.status === "active" ? "ok" : "off"}`}>{s.status === "active" ? "مفتوحة" : "منتهية"}</span>
-                    <span className="muted">{new Date(s.startedAt).toLocaleString("ar-EG")}</span>
-                  </div>
-                  {s.status === "active" && (
-                    <button data-testid="resume-session" className="btn small primary" onClick={() => onResume(s)}>
-                      متابعة
-                    </button>
-                  )}
-                  {s.status === "ended" && (
-                    <div className="session-recap">
-                      {recaps[s.id] === undefined ? (
-                        <button data-testid="session-recap-button" className="btn small ghost" onClick={() => loadRecap(s)}>
-                          ملخص الجلسة
-                        </button>
-                      ) : recaps[s.id] === null ? (
-                        <p className="muted" data-testid="session-recap-empty">
+                    <li key={s.id} className="hm-row hm-row--session" data-testid="session-row" data-session-id={s.id} data-session-status={s.status}>
+                      <span className="hm-row__main">
+                        <span className={`hm-badge ${s.status === "active" ? "hm-badge--on" : "hm-badge--off"}`}>
+                          {s.status === "active" ? "مفتوحة" : "منتهية"}
+                        </span>
+                        <span className="hm-row__meta">{new Date(s.startedAt).toLocaleString("ar-EG")}</span>
+                      </span>
+                      {s.status === "active" && (
+                        <span className="hm-row__actions">
+                          <button data-testid="resume-session" className="hm-btn hm-btn--primary hm-btn--sm" onClick={() => onResume(s)}>
+                            متابعة
+                          </button>
+                        </span>
+                      )}
+                      {s.status === "ended" && recaps[s.id] === undefined && (
+                        <span className="hm-row__actions">
+                          <button data-testid="session-recap-button" className="hm-btn hm-btn--ghost hm-btn--sm" onClick={() => loadRecap(s)}>
+                            ملخص الجلسة
+                          </button>
+                        </span>
+                      )}
+                      {s.status === "ended" && recaps[s.id] === null && (
+                        <p className="hm-note hm-recap-slot" data-testid="session-recap-empty">
                           لا توجد محادثة في هذه الجلسة لعرض ملخصها.
                         </p>
-                      ) : (
-                        <SessionRecapCard recap={recaps[s.id]!} />
                       )}
-                    </div>
-                  )}
-                </li>
+                      {s.status === "ended" && recaps[s.id] && (
+                        <span className="hm-recap-slot">
+                          <SessionRecapCard recap={recaps[s.id]!} />
+                        </span>
+                      )}
+                    </li>
                   ))}
-                </ul>
-                {sessions.length > 6 && (
-                  <p className="muted" data-testid="sessions-truncated">
-                    … وتوجد {sessions.length - 6} جلسات أخرى.
-                  </p>
-                )}
-              </>
+              </ul>
+              {sessions.length > 6 && (
+                <p className="hm-note" data-testid="sessions-truncated">
+                  … وتوجد {sessions.length - 6} جلسات أخرى.
+                </p>
+              )}
+            </>
           )}
         </section>
       </main>
+
+      {/* درج الحساب ☰ — كود ولي الأمر · التفضيلات · الخروج */}
+      <Sheet open={accountOpen} onClose={() => setAccountOpen(false)} className="hm-drawer">
+        <div className="hm-drawer__head">
+          <span className="hm-drawer__avatar" aria-hidden="true">
+            {studentName.trim().charAt(0) || "ط"}
+          </span>
+          <div className="hm-drawer__who">
+            <strong>{studentName}</strong>
+            <span>{user.email}</span>
+          </div>
+          <button type="button" className="hm-iconbtn" data-testid="account-close" onClick={() => setAccountOpen(false)} aria-label="إغلاق القائمة">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+        <div className="hm-drawer__body">
+          {user.linkCode && (
+            <>
+              <div className="hm-drawer__sec">حسابي</div>
+              <div className="hm-drawer__row hm-drawer__row--stack" data-testid="parent-link-card">
+                <span className="hm-drawer__line">
+                  <span className="hm-drawer__k">كود ولي الأمر</span>
+                  <code className="hm-code" data-testid="link-code-value">
+                    {user.linkCode}
+                  </code>
+                </span>
+                <span className="hm-drawer__meta">شاركه مع ولي أمرك ليطّلع على تقدّمك وجلساتك (قراءة فقط).</span>
+              </div>
+            </>
+          )}
+
+          <div className="hm-drawer__sec">التفضيلات</div>
+          <div className="hm-drawer__row">
+            <span className="hm-drawer__k">المظهر</span>
+            <ThemeToggle testId="account-theme-toggle" />
+          </div>
+          <div className="hm-drawer__row">
+            <span className="hm-drawer__k">اللغة</span>
+            <span>العربية</span>
+          </div>
+          <div className="hm-drawer__row">
+            <span className="hm-drawer__k">المعلّم الحيّ</span>
+            <span className="hm-pill hm-pill--muted">قريبًا</span>
+          </div>
+
+          <div className="hm-drawer__sec">الجلسة</div>
+          <button type="button" className="hm-drawer__link hm-drawer__link--danger" data-testid="logout" onClick={onLogout}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 4H6a2 2 0 00-2 2v12a2 2 0 002 2h3" />
+              <path d="M15 8l4 4-4 4M19 12H9" />
+            </svg>
+            خروج
+          </button>
+        </div>
+      </Sheet>
     </div>
   );
 }
