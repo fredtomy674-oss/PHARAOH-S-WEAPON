@@ -28,6 +28,12 @@ test("E1: a fresh student earns أول خطوة after their first session and se
   await page.getByTestId("input-email").fill(freshEmail);
   await page.getByTestId("input-password").fill(PASS);
   await page.getByTestId("submit-auth").click();
+
+  // PHASE 157 — registration now flows through the one-time «first run»:
+  // pick a grade card (saved to the student profile), then skip to home.
+  await expect(page.getByTestId("first-run")).toBeVisible({ timeout: 20_000 });
+  await page.locator('[data-testid^="first-run-grade-"]').first().click();
+  await page.getByTestId("first-run-skip").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 
   // PHASE 20 — the student's plan card: lazily-created free subscription.

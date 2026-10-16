@@ -343,6 +343,18 @@ export async function logout(): Promise<void> {
   await api("/auth/logout", { method: "POST" });
 }
 
+/** PHASE 157 — حفظ ملف الطالب (الصف الدراسي المختار في «أول دخول»). */
+export async function updateStudentProfile(input: {
+  displayName?: string;
+  gradeId?: string | null;
+}): Promise<{ id: string; displayName: string; gradeId: string | null }> {
+  const res = await api<{ student: { id: string; displayName: string; gradeId: string | null } }>(
+    "/profile/me/student",
+    { method: "PUT", body: input },
+  );
+  return res.student;
+}
+
 export async function listCountries(): Promise<Country[]> {
   const res = await api<{ countries: Country[] }>("/curriculum/countries");
   return res.countries;

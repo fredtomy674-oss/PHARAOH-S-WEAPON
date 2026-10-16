@@ -7,8 +7,9 @@ import { LessonRoom } from "./LessonRoom.js";
 import { AdminScreen } from "./Admin.js";
 import { ParentScreen } from "./Parent.js";
 import { AchievementsScreen } from "./Achievements.js";
+import { FirstRunScreen } from "./FirstRun.js";
 
-type Screen = "loading" | "auth" | "home" | "onboarding" | "chat" | "admin" | "achievements";
+type Screen = "loading" | "auth" | "home" | "onboarding" | "chat" | "admin" | "achievements" | "first-run";
 
 export function App() {
   const [screen, setScreen] = useState<Screen>("loading");
@@ -24,8 +25,14 @@ export function App() {
       .catch(() => setScreen("auth"));
   }, []);
 
-  const handleAuthed = (u: User) => {
+  const handleAuthed = (u: User, fresh = false) => {
     setUser(u);
+    // PHASE 157 — «أول دخول سينمائي»: مرة واحدة فقط، وبعد التسجيل فقط،
+    // ولطالب لم يُختر له صفّ بعد. تسجيل الدخول العادي لا يمر من هنا أبدًا.
+    if (fresh && u.role === "student" && !u.student?.gradeId) {
+      setScreen("first-run");
+      return;
+    }
     setScreen("home");
   };
 
@@ -65,6 +72,22 @@ export function App() {
 
   if (screen === "chat" && session) {
     return <LessonRoom user={user} session={session} onEnded={handleSessionEnded} />;
+  }
+
+  if (screen === "first-run" && user.role === "student") {
+    return (
+      <FirstRunScreen
+        user={user}
+        onStart={(u) => {
+          setUser(u);
+          setScreen("onboarding");
+        }}
+        onSkip={(u) => {
+          setUser(u);
+          setScreen("home");
+        }}
+      />
+    );
   }
 
   if (screen === "onboarding") {

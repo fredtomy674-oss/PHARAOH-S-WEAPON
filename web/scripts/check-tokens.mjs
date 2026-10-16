@@ -20,6 +20,8 @@ const TOKEN_FILE = "src/styles/tokens.css";
 const GUARDED = [
   "src/styles/ui.css",
   "src/styles/style-guide.css",
+  "src/styles/home.css",
+  "src/styles/entry.css",
   "src/components/ui/Button.tsx",
   "src/components/ui/Card.tsx",
   "src/components/ui/Chip.tsx",
