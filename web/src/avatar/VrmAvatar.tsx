@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { VRMLoaderPlugin, VRMUtils, type VRM } from "@pixiv/three-vrm";
-import { blinkWeight, expressionForState } from "./visemeMapper.js";
+import { EXPRESSION_PRESETS, expressionForState } from "./visemeMapper.js";
+import { createLifeAnimator, lifeBlinkWeight } from "./lifeLayer.js";
 import { applyTutorLook } from "./tutorLook.js";
 import type { AvatarState } from "./avatarStates.js";
 
@@ -15,10 +16,10 @@ export interface VrmAvatarProps {
   avatarState: AvatarState;
   /** Reads the current mouth openness 0..1 (analyser RMS, speech boundary pulse). */
   getMouthOpen: () => number;
-  /** Reduced motion: static pose, no sway/blink (mouth still follows speech). */
+  /** Reduced motion: static held pose, no breathing/sway/blink (mouth still follows speech). */
   reducedMotion: boolean;
   /**
-   * Apply the "Egyptian teacher" look (procedural hijab + pose). Default true.
+   * Apply the tutor treatment (life layer + pose + hair re-tint). Default true.
    * Lab-only escape hatch (`?look=off`) for reviewing a bare candidate model.
    */
   applyLook?: boolean;
@@ -28,29 +29,6 @@ export interface VrmAvatarProps {
 
 /** Below this sustained frame rate the Lab suggests the lightweight fallback. */
 export const LOW_FPS_THRESHOLD = 25;
-
-/**
- * Relax a VRM's bind T-pose (arms straight out) into a natural standing idle.
- * Works on the *normalized* humanoid rig, which `vrm.update()` re-applies to the
- * raw bones every frame — so the pose holds without touching the animation loop.
- * Silently a no-op on a model missing these bones (never a crash).
- */
-function relaxBindPose(vrm: VRM): void {
-  const humanoid = vrm.humanoid;
-  if (!humanoid) return;
-  const pose: Array<[string, number, number, number]> = [
-    ["leftUpperArm", 0, 0, 1.25],
-    ["rightUpperArm", 0, 0, -1.25],
-    ["leftLowerArm", 0, 0.35, 0.18],
-    ["rightLowerArm", 0, -0.35, -0.18],
-    ["leftHand", 0, 0.25, 0],
-    ["rightHand", 0, -0.25, 0],
-  ];
-  for (const [name, x, y, z] of pose) {
-    const node = humanoid.getNormalizedBoneNode(name as Parameters<typeof humanoid.getNormalizedBoneNode>[0]);
-    node?.rotation.set(x, y, z);
-  }
-}
 
 /**
  * Imperative three.js viewport (deliberately no React Three Fiber: one model,
@@ -93,9 +71,11 @@ export function VrmAvatar({
 
     let disposed = false;
     let vrm: VRM | null = null;
-    // VRM 0.x faces -Z; VRMUtils.rotateVRM0 flips it (no-op for 1.0). The idle
-    // sway must rotate *around* that base yaw instead of overwriting it.
-    let baseYaw = 0;
+    // The life layer owns the normalized bones. Null while a bare model is shown
+    // (`?look=off`) or before the rig has loaded.
+    let animator: ReturnType<typeof createLifeAnimator> | null = null;
+    let lastState: AvatarState = stateRef.current;
+    let tInStateMs = 0;
     const clock = new THREE.Clock();
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -140,31 +120,47 @@ export function VrmAvatar({
         const manager = vrm.expressionManager;
         if (manager) {
           // Mouth shape follows the audio envelope, never the state.
-          manager.setValue("aa", mouthRef.current());
-          manager.setValue("ih", Math.max(0, mouthRef.current() - 0.55) * 0.9);
-          for (const [name, weight] of Object.entries(expressionForState(st))) {
+          const mouth = mouthRef.current();
+          const wants: Record<string, number> = {
+            aa: mouth,
+            ih: Math.max(0, mouth - 0.55) * 0.9,
+            blink: lifeBlinkWeight(elapsed, motionRef.current),
+            ...expressionForState(st),
+          };
+          // Written EVERY frame including the zeros: the manager latches, so a
+          // stale pulse (blink) or a previous state's preset (happy after a
+          // correct answer) would otherwise stick to the face forever.
+          for (const name of EXPRESSION_PRESETS) {
             try {
-              manager.setValue(name, weight);
+              manager.setValue(name, wants[name] ?? 0);
             } catch {
               // Unknown preset on this model: leave it alone.
             }
           }
-          // Blink must be written EVERY frame (blinkWeight returns 0 outside the
-          // pulse window) — writing only the 1 latched the eyes shut.
-          try {
-            manager.setValue("blink", blinkWeight(elapsed, motionRef.current));
-          } catch {
-            // No blink preset on this model: fine.
-          }
         }
-        // Gentle idle sway only (never positional storytelling).
-        if (!motionRef.current) {
-          const t = elapsed / 1000;
-          vrm.scene.rotation.y = baseYaw + Math.sin(t * 0.5) * 0.06;
-          vrm.scene.rotation.x = Math.sin(t * 0.34) * 0.02;
+        if (animator) {
+          if (st !== lastState) {
+            lastState = st;
+            tInStateMs = 0;
+          } else {
+            tInStateMs += dt * 1000;
+          }
+          animator.update(vrm, {
+            state: st,
+            elapsedMs: elapsed,
+            tInStateMs,
+            mouthOpen: mouthRef.current(),
+            reducedMotion: motionRef.current,
+            dt,
+          });
         }
         if (typeof (vrm as unknown as { update?: unknown }).update === "function") {
-          (vrm as unknown as { update: (dt: number) => void }).update(dt);
+          // dt = 0 under reduced motion: three-vrm's spring bones early-return on
+          // a non-positive delta, so the hair stops swinging instead of drifting.
+          // `reset()` then relaxes it to its rest shape *in the current pose*, so
+          // the freeze never catches it mid-swing after a gesture.
+          (vrm as unknown as { update: (dt: number) => void }).update(motionRef.current ? 0 : dt);
+          if (motionRef.current) vrm.springBoneManager?.reset();
         }
       }
       renderer.render(scene, camera);
@@ -184,11 +180,11 @@ export function VrmAvatar({
       scene.add(vrm.scene);
       // VRM 0.x faces -Z; flip it to face the camera (no-op for VRM 1.0).
       VRMUtils.rotateVRM0(loaded);
-      baseYaw = loaded.scene.rotation.y;
-      // Pose + look are one treatment: the base ships in a VRoid T-pose, and
-      // the "tutor" look re-tints the hair materials (no geometry is added).
+      // Treatment, not identity: the base ships in a VRoid T-pose, so the life
+      // layer drives every bone (starting from the relaxed arms) and the tutor
+      // look re-tints the hair materials. No geometry is added.
       if (applyLook) {
-        relaxBindPose(loaded);
+        animator = createLifeAnimator();
         applyTutorLook(loaded);
       }
       // Frame head-and-shoulders from the model's own bounds (any height works).

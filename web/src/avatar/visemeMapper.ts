@@ -32,6 +32,27 @@ export function smoothLevel(previous: number, target: number, factor = 0.35): nu
 }
 
 /**
+ * Every VRM 1.0 expression preset the Lab writes. The renderer sets ALL of them
+ * every frame (0 when unused) because the manager latches: a preset applied for
+ * one state (`happy` on a correct answer) otherwise leaks into every later state
+ * forever — the same class of bug as the blink latch below.
+ */
+export const EXPRESSION_PRESETS = [
+  "aa",
+  "ih",
+  "ou",
+  "ee",
+  "oh",
+  "blink",
+  "happy",
+  "sad",
+  "angry",
+  "surprised",
+  "relaxed",
+  "neutral",
+] as const;
+
+/**
  * VRM expression weights for a presence state. VRM 1.0 preset names
  * (aa/ih/ou/ee/oh, blink, happy/sad/surprised/angry/relaxed/neutral).
  * Mouth shape comes from the audio envelope, never from here.

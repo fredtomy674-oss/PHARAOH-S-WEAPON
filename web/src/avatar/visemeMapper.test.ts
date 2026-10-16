@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  EXPRESSION_PRESETS,
   amplitudeToMouth,
   blinkWeight,
   expressionForState,
@@ -7,6 +8,7 @@ import {
   rms,
   smoothLevel,
 } from "./visemeMapper.js";
+import { AVATAR_STATE_AR } from "./avatarStates.js";
 
 describe("viseme mapper", () => {
   it("measures RMS energy of a sample window", () => {
@@ -61,5 +63,18 @@ describe("viseme mapper", () => {
     // Reduced motion: never blink at all.
     expect(blinkWeight(0, true)).toBe(0);
     expect(blinkWeight(4200, true)).toBe(0);
+  });
+
+  it("lists every preset a state can use, so stale ones can be cleared", () => {
+    // The renderer zeroes every preset not requested this frame; if a state's
+    // preset were missing from the list it would latch on the face forever.
+    const listed = new Set<string>(EXPRESSION_PRESETS);
+    expect(listed.has("blink")).toBe(true);
+    for (const mouth of ["aa", "ih", "ou", "ee", "oh"]) expect(listed.has(mouth)).toBe(true);
+    for (const state of Object.keys(AVATAR_STATE_AR)) {
+      for (const preset of Object.keys(expressionForState(state))) {
+        expect(listed.has(preset)).toBe(true);
+      }
+    }
   });
 });
