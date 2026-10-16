@@ -146,8 +146,14 @@ test("C: a brand-new student never sees another student's sessions", async ({ br
 /**
  * Regression (the reported "I picked country → grade → lesson and nothing
  * happened"): a failed session start used to strand the student on a card with
- * no message and no way forward. Now the failure must be VISIBLE and the picker
+ * no message and no way forward. Now the failure must be VISIBLE and the screen
  * must stay usable so the very same click can be retried.
+ *
+ * PHASE 159 — legitimate navigation change (documented in the same commit): a
+ * lesson now opens its own page first (the missing layer between the picker and
+ * the room), and the session starts from its «ابدأ حصة» button. The failure
+ * therefore surfaces on the lesson page — same contract, same testids
+ * (`onboarding-error`), same retry-the-same-click promise.
  */
 test("ON1: a failed session start explains itself and can be retried", async ({ page }) => {
   await page.goto("/");
@@ -177,20 +183,25 @@ test("ON1: a failed session start explains itself and can be retried", async ({ 
     await route.continue();
   });
 
+  // PHASE 159: the lesson opens its page; starting the session is its button.
   await lesson.click();
+  const start = page.getByTestId("lesson-start");
+  await expect(start).toBeVisible({ timeout: 20_000 });
+  await start.click();
 
   // The failure is explained, not silent.
   const error = page.getByTestId("onboarding-error");
   await expect(error).toBeVisible({ timeout: 20_000 });
   await expect(error).toContainText("الدرس لا ينتمي للمنهج المحدد");
-  // No stranded "lesson chosen" screen: no chat, and the picker is still usable.
+  // No stranded screen: no chat, the lesson page stays usable (the same button
+  // retries) and رجوع leads back to the picker.
   await expect(page.getByTestId("chat-input")).toHaveCount(0);
-  await expect(page.getByTestId("select-country")).toBeVisible();
-  await expect(page.locator('[data-testid^="lesson-"]')).not.toHaveCount(0);
+  await expect(page.getByTestId("lesson-start")).toBeVisible();
+  await expect(page.getByTestId("lesson-back")).toBeVisible();
 
   // Same click now succeeds — the student is never stuck.
   await page.unroute("**/api/sessions");
-  await lesson.click();
+  await page.getByTestId("lesson-start").click();
   await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("messages")).toBeVisible();
 
@@ -219,7 +230,9 @@ test("ON2: changing an upstream level clears the whole cascade below it", async 
   await expect(page.locator('[data-testid^="lesson-"]')).not.toHaveCount(0);
 
   // Reset the SUBJECT → curriculum/term/unit/lessons must go with it.
-  await page.getByTestId("select-subject").selectOption("");
+  // PHASE 159 — the subject step is now a card group; its «تغيير» control is
+  // the reset (one of the two reset positions this spec documents).
+  await page.getByTestId("subject-change").click();
   await expect(page.getByTestId("select-curriculum")).toHaveCount(0);
   await expect(page.getByTestId("select-term")).toHaveCount(0);
   await expect(page.getByTestId("select-unit")).toHaveCount(0);

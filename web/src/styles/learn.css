@@ -1,0 +1,605 @@
+/* ==========================================================================
+   PHASE 159 (W3) — «تعلّم» + صفحة الدرس
+   ln-* — منتقي بصري (مادة ← وحدة ← درس) وصفحة درس (مفاهيم · ابدأ حصة · اختبرني).
+   القاعدة: رموز فقط من tokens.css — لا لون/ظل/زاوية خام هنا (ملف محروس).
+   ========================================================================== */
+
+/* ------------------------------ الإطار العام ------------------------------ */
+.ln-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.ln-main {
+  width: min(860px, 94vw);
+  margin: 0 auto;
+  padding: var(--sp-4) 0 var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* ------------------------------ البطل: أكمل من حيث توقفت ------------------------------ */
+.ln-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ln-hero__label {
+  align-self: flex-start;
+  font-size: var(--fs-1);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  color: var(--primary-ink);
+  background: var(--gold-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-pill);
+  padding: 2px var(--sp-3);
+}
+
+.ln-hero h2 {
+  margin: 0;
+  font-size: var(--fs-6);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+
+.ln-hero__sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-3);
+  line-height: var(--lh-body);
+}
+
+.ln-resume {
+  margin-top: var(--sp-2);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-1);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.ln-resume__text {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-4);
+}
+
+.ln-resume__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* ------------------------------ بطاقة المنتقي ------------------------------ */
+.ln-picker .ui-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.ln-adv-toggle {
+  font: inherit;
+  font-size: var(--fs-2);
+  color: var(--primary-ink);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 6px var(--sp-3);
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.ln-adv-toggle:hover {
+  background: var(--gold-soft);
+}
+
+.ln-adv-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ------------------------------ الخيارات الأعمق ------------------------------ */
+.ln-adv {
+  display: grid;
+  gap: var(--sp-3);
+  background: var(--card-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-2);
+  padding: var(--sp-4);
+}
+
+@media (min-width: 700px) {
+  .ln-adv {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ln-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+
+.ln-field select {
+  font: inherit;
+  font-size: var(--fs-3);
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-1);
+  padding: 10px var(--sp-3);
+  min-height: 44px;
+}
+
+.ln-field select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ------------------------------ خطوة في المنتقي ------------------------------ */
+.ln-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.ln-step__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.ln-step__head h4 {
+  margin: 0;
+  font-size: var(--fs-4);
+  font-weight: var(--fw-semibold);
+  color: var(--ink);
+}
+
+.ln-step__hint {
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+
+.ln-change {
+  font: inherit;
+  font-size: var(--fs-2);
+  color: var(--primary-ink);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 36px;
+}
+
+.ln-change:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--r-1);
+}
+
+.ln-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-3);
+  line-height: var(--lh-body);
+}
+
+.ln-error {
+  margin: var(--sp-2) 0 0;
+  color: var(--danger-fg);
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-line);
+  border-radius: var(--r-2);
+  padding: var(--sp-3);
+  font-size: var(--fs-3);
+}
+
+/* ------------------------------ بطاقات المواد ------------------------------ */
+.ln-cards--subjects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+
+@media (min-width: 700px) {
+  .ln-cards--subjects {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ln-subject {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  text-align: right;
+  font: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  padding: var(--sp-3);
+  min-height: 64px;
+  cursor: pointer;
+  transition: border-color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
+}
+
+.ln-subject:hover {
+  border-color: var(--primary);
+  background: var(--card-2);
+}
+
+.ln-subject:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ln-subject--on {
+  border-color: var(--primary);
+  background: var(--gold-soft);
+}
+
+.ln-subject__icon {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: var(--primary-ink);
+  background: var(--gold-soft);
+  border-radius: var(--r-1);
+}
+
+.ln-subject__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ln-subject__name {
+  font-size: var(--fs-3);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-tight);
+}
+
+/* ------------------------------ بطاقات الوحدات ------------------------------ */
+.ln-cards--units {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ln-unit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  text-align: right;
+  font: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+  min-height: 56px;
+  cursor: pointer;
+  transition: border-color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
+}
+
+.ln-unit:hover {
+  border-color: var(--primary);
+  background: var(--card-2);
+}
+
+.ln-unit:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ln-unit--on {
+  border-color: var(--primary);
+  background: var(--gold-soft);
+}
+
+.ln-unit__title {
+  font-size: var(--fs-3);
+  font-weight: var(--fw-medium);
+}
+
+.ln-unit__go {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+}
+
+/* ------------------------------ قائمة الدروس ------------------------------ */
+.ln-lessons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ln-lesson {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  text-align: right;
+  font: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+  min-height: 56px;
+  cursor: pointer;
+  transition: border-color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
+}
+
+.ln-lesson:hover {
+  border-color: var(--primary);
+  background: var(--card-2);
+}
+
+.ln-lesson:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ln-lesson__title {
+  font-size: var(--fs-3);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-tight);
+}
+
+.ln-lesson__go {
+  flex: none;
+  font-size: var(--fs-2);
+  color: var(--primary-ink);
+}
+
+/* ==========================================================================
+   صفحة الدرس (PHASE 159)
+   ========================================================================== */
+.ln-main--lesson {
+  gap: var(--sp-4);
+}
+
+.ln-back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: var(--fs-3);
+  color: var(--muted);
+  background: none;
+  border: none;
+  padding: 6px 0;
+  cursor: pointer;
+  min-height: 40px;
+}
+
+.ln-back svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ln-back:hover {
+  color: var(--primary-ink);
+}
+
+.ln-back:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--r-1);
+}
+
+.ln-lessonhead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ln-lessonhead h2 {
+  margin: 0;
+  font-family: var(--font-learn);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+  line-height: var(--lh-tight);
+}
+
+.ln-lessonhead__place {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-3);
+}
+
+.ln-lessonhead__actions {
+  margin-top: var(--sp-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* ------------------------------ الاختبار القصير ------------------------------ */
+.ln-quiz .ui-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.ln-quiz__progress {
+  margin: 0;
+  font-size: var(--fs-2);
+  font-weight: var(--fw-semibold);
+  color: var(--primary-ink);
+}
+
+.ln-quiz__concept {
+  margin: 0;
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+
+.ln-quiz__question {
+  margin: 0;
+  font-family: var(--font-learn);
+  font-size: var(--fs-5);
+  color: var(--ink);
+  line-height: var(--lh-body);
+}
+
+.ln-quiz__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ln-option {
+  text-align: right;
+  font: inherit;
+  font-size: var(--fs-4);
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+  min-height: 52px;
+  cursor: pointer;
+  transition: border-color var(--dur-1) var(--ease-out), background var(--dur-1) var(--ease-out);
+}
+
+.ln-option:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--card-2);
+}
+
+.ln-option:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ln-option--on {
+  border-color: var(--primary);
+  background: var(--gold-soft);
+  font-weight: var(--fw-semibold);
+}
+
+.ln-option:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
+.ln-option--on:disabled {
+  opacity: 1;
+}
+
+.ln-feedback {
+  margin: 0;
+  border-radius: var(--r-2);
+  padding: var(--sp-3);
+  font-size: var(--fs-3);
+  line-height: var(--lh-body);
+}
+
+.ln-feedback--ok {
+  color: var(--ok-fg);
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-line);
+}
+
+.ln-feedback--warn {
+  color: var(--warn-fg);
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-line);
+}
+
+.ln-quiz__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.ln-quiz__result {
+  margin: 0;
+  font-size: var(--fs-6);
+  font-weight: var(--fw-bold);
+  color: var(--primary-ink);
+}
+
+/* ------------------------------ مفاهيم الدرس ------------------------------ */
+.ln-concepts .ui-card__body {
+  padding-top: 0;
+}
+
+.ln-concepts__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ln-concept {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  border-bottom: 1px solid var(--line-soft);
+  padding: var(--sp-2) 0;
+}
+
+.ln-concept:last-child {
+  border-bottom: none;
+}
+
+.ln-concept__title {
+  font-size: var(--fs-3);
+  color: var(--ink);
+  line-height: var(--lh-tight);
+}
+
+.ln-chip {
+  flex: none;
+  font-size: var(--fs-1);
+  color: var(--muted);
+  background: var(--card-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-pill);
+  padding: 2px var(--sp-3);
+  white-space: nowrap;
+}
+
+.ln-chip--ok {
+  color: var(--ok-fg);
+  background: var(--ok-bg);
+  border-color: var(--ok-line);
+}
+
+/* ------------------------------ الحركة المخفّضة ------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .ln-subject,
+  .ln-unit,
+  .ln-lesson,
+  .ln-option {
+    transition: none;
+  }
+}

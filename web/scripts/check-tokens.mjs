@@ -34,7 +34,11 @@ const GUARDED = [
   "src/components/ui/Sheet.tsx",
   "src/components/ui/ThemeToggle.tsx",
   "src/components/app/AppShell.tsx",
+  "src/components/SubjectGlyph.tsx",
   "src/StyleGuide.tsx",
+  "src/Learn.tsx",
+  "src/LessonPage.tsx",
+  "src/styles/learn.css",
 ];
 
 /** لون خام: hex أو rgb()/rgba()/hsl() — داخل var() كبديل مسموح لأنه لا يُستخدم. */

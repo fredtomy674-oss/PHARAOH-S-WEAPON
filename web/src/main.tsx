@@ -8,6 +8,7 @@ import "./styles/ui.css";
 import "./styles/home.css";
 import "./styles/app.css";
 import "./styles/entry.css";
+import "./styles/learn.css";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("root element missing");

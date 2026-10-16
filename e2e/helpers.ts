@@ -337,32 +337,85 @@ export async function openAccount(page: Page): Promise<void> {
   await expect(page.getByTestId("account-close")).toBeVisible({ timeout: 20_000 });
 }
 
-/** Picks the first real option of a dropdown (never the placeholder). Returns its value. */
+/**
+ * PHASE 159 — the picker is no longer a row of <select>s: subject and unit are
+ * visual card groups, and the deeper steps (country/system/grade/curriculum/
+ * term) live inside the collapsible «خيارات أعمق» panel. A control that is not
+ * visible yet is not missing — it is collapsed; open the panel first. The admin
+ * screen's own picker has no panel and keeps working untouched.
+ */
+async function revealPickerControl(page: Page, testId: string): Promise<Locator> {
+  const control = page.getByTestId(testId);
+  if (await control.isVisible().catch(() => false)) return control;
+  const panel = page.getByTestId("advanced-options");
+  if (!(await panel.isVisible().catch(() => false))) {
+    const toggle = page.getByTestId("advanced-toggle");
+    if ((await toggle.count()) > 0) await toggle.click();
+  }
+  return control;
+}
+
+/**
+ * Picks the first real option of a picker step. PHASE 159 dual mode: a native
+ * <select> (the admin picker and the deeper steps) or a card group (the visual
+ * steps — options carry data-value). Returns the picked value either way.
+ */
 export async function selectFirst(page: Page, testId: string): Promise<string> {
-  const select = page.getByTestId(testId);
-  await expect(select).toBeVisible({ timeout: 20_000 });
-  const firstOption = select.locator("option").nth(1);
-  await expect(firstOption).toBeAttached({ timeout: 20_000 });
-  const value = await firstOption.getAttribute("value");
-  expect(value, `expected a selectable option in ${testId}`).toBeTruthy();
-  await select.selectOption(value!);
+  const control = await revealPickerControl(page, testId);
+  await expect(control).toBeVisible({ timeout: 20_000 });
+  const tagName = await control.evaluate((node) => node.tagName.toLowerCase()).catch(() => "");
+  if (tagName === "select") {
+    const firstOption = control.locator("option").nth(1);
+    await expect(firstOption).toBeAttached({ timeout: 20_000 });
+    const value = await firstOption.getAttribute("value");
+    expect(value, `expected a selectable option in ${testId}`).toBeTruthy();
+    await control.selectOption(value!);
+    return value!;
+  }
+  const card = control.locator("[data-value]").first();
+  await expect(card).toBeVisible({ timeout: 20_000 });
+  const value = await card.getAttribute("data-value");
+  expect(value, `expected a selectable card in ${testId}`).toBeTruthy();
+  await card.click();
   return value!;
 }
 
 /**
- * Selects a dropdown option by its displayed label — deterministic even when
- * the option ordering changes (e.g. multi-country seeds: PHASE 16 adds Saudi,
+ * Selects a picker option by its displayed label — deterministic even when the
+ * option ordering changes (e.g. multi-country seeds: PHASE 16 adds Saudi,
  * which sorts ahead of Egypt alphabetically, so "first option" is no longer مصر).
+ * PHASE 159: works on <select> options and on card groups alike.
  */
 export async function selectOptionByLabel(page: Page, testId: string, label: string): Promise<string> {
-  const select = page.getByTestId(testId);
-  await expect(select).toBeVisible({ timeout: 20_000 });
-  const option = select.locator("option", { hasText: label }).first();
-  await expect(option).toBeAttached({ timeout: 20_000 });
-  const value = await option.getAttribute("value");
-  expect(value, `expected a "${label}" option in ${testId}`).toBeTruthy();
-  await select.selectOption(value!);
+  const control = await revealPickerControl(page, testId);
+  await expect(control).toBeVisible({ timeout: 20_000 });
+  const tagName = await control.evaluate((node) => node.tagName.toLowerCase()).catch(() => "");
+  if (tagName === "select") {
+    const option = control.locator("option", { hasText: label }).first();
+    await expect(option).toBeAttached({ timeout: 20_000 });
+    const value = await option.getAttribute("value");
+    expect(value, `expected a "${label}" option in ${testId}`).toBeTruthy();
+    await control.selectOption(value!);
+    return value!;
+  }
+  const card = control.locator("[data-value]", { hasText: label }).first();
+  await expect(card).toBeVisible({ timeout: 20_000 });
+  const value = await card.getAttribute("data-value");
+  expect(value, `expected a "${label}" card in ${testId}`).toBeTruthy();
+  await card.click();
   return value!;
+}
+
+/**
+ * PHASE 159 — a lesson now opens its own page first (the missing layer between
+ * the picker and the room); the session starts from its «ابدأ حصة» button.
+ * Every caller of the walk helpers below stays unchanged.
+ */
+async function openLessonRoom(page: Page): Promise<void> {
+  const start = page.getByTestId("lesson-start");
+  await expect(start).toBeVisible({ timeout: 20_000 });
+  await start.click();
+  await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
 }
 
 /** Full onboarding walk: country → system → grade → subject → curriculum → term → unit → first lesson. */
@@ -379,7 +432,7 @@ export async function startFirstLesson(page: Page): Promise<void> {
   const firstLesson = page.locator('[data-testid^="lesson-"]').first();
   await expect(firstLesson).toBeVisible({ timeout: 20_000 });
   await firstLesson.click();
-  await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
+  await openLessonRoom(page);
 }
 
 /**
@@ -405,7 +458,7 @@ export async function startLessonOfSubject(page: Page, subjectLabel: string): Pr
   const firstLesson = page.locator('[data-testid^="lesson-"]').first();
   await expect(firstLesson).toBeVisible({ timeout: 20_000 });
   await firstLesson.click();
-  await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
+  await openLessonRoom(page);
 }
 
 /**
@@ -446,5 +499,28 @@ export async function activeSessionIds(page: Page): Promise<string[]> {
     const res = await fetch("/api/sessions");
     const data = (await res.json()) as { sessions: Array<{ id: string; status: string }> };
     return data.sessions.filter((s) => s.status === "active").map((s) => s.id);
+  });
+}
+
+/**
+ * PHASE 159 — ends every session still open for the logged-in student through
+ * the app's own API (CSRF header included). A spec that asserts the hub's
+ * «first card» (open session vs last lesson) depends on the student's real
+ * session state, and specs that ran before it may have left sessions open —
+ * the slate must not depend on spec order.
+ */
+export async function endAllActiveSessions(page: Page): Promise<number> {
+  return page.evaluate(async () => {
+    const csrf = localStorage.getItem("alfarouq_csrf") ?? "";
+    const res = await fetch("/api/sessions");
+    const data = (await res.json()) as { sessions: Array<{ id: string; status: string }> };
+    const active = data.sessions.filter((s) => s.status === "active");
+    for (const s of active) {
+      await fetch(`/api/sessions/${encodeURIComponent(s.id)}/end`, {
+        method: "POST",
+        headers: { "x-csrf-token": csrf },
+      });
+    }
+    return active.length;
   });
 }
