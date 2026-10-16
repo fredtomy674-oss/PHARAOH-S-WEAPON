@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>خريطة التطبيق 2.0 — الرؤية الشاملة | معمل التصميم</title>
+<style>
+  /* ============ هوية الفاروق — رموز مصغّرة (نفس قيم tokens.css) ============ */
+  :root{
+    --bg:#0A0908; --card:#141210; --card-2:#1B1815; --line:#2A2620; --line-soft:#221F1A;
+    --ink:#F0EBE2; --muted:#B3BDB4;
+    --gold:#D9A95C; --gold-deep:#B98A41; --gold-soft:rgba(217,169,92,.13); --on-gold:#140F06;
+    --ok-bg:rgba(217,169,92,.10); --ok-line:rgba(217,169,92,.32);
+    --sage:#B3BDB4; --sage-soft:rgba(179,189,180,.10); --sage-line:rgba(179,189,180,.25);
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+    --font-ui:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+    --font-learn:"Cairo","Segoe UI",Tahoma,sans-serif;
+  }
+  [data-theme="light"]{
+    --bg:#FFFDF9; --card:#FFFFFF; --card-2:#F7F3EB; --line:#E7DFD2; --line-soft:#EFE9DE;
+    --ink:#17140F; --muted:#5F6A60;
+    --gold:#8C6424; --gold-deep:#A47B2F; --gold-soft:rgba(140,100,36,.10); --on-gold:#FFFDF9;
+    --ok-bg:rgba(140,100,36,.08); --ok-line:rgba(140,100,36,.28);
+    --sage:#5F6A60; --sage-soft:rgba(95,106,96,.08); --sage-line:rgba(95,106,96,.22);
+    --shadow:0 10px 28px rgba(23,20,15,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-ui); line-height:1.75;
+    background-image:
+      radial-gradient(900px 480px at 88% -10%, var(--gold-soft), transparent 62%),
+      radial-gradient(700px 520px at 4% 108%, var(--gold-soft), transparent 60%);
+  }
+  .wrap{width:min(1020px,94vw); margin:0 auto; padding:28px 0 64px}
+  header.hero{display:flex; flex-direction:column; gap:10px; padding:26px 0 6px}
+  .brandline{display:flex; align-items:center; gap:10px}
+  .mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+        color:var(--on-gold);display:grid;place-items:center;font-family:var(--font-learn);font-weight:800;font-size:1.15rem}
+  .brandline b{font-size:.95rem; color:var(--muted); letter-spacing:.3px}
+  h1{margin:6px 0 0; font-size:clamp(1.55rem,3.2vw,2.35rem); font-weight:800}
+  h1 span{color:var(--gold)}
+  .sub{margin:0; color:var(--muted); font-size:1rem; max-width:70ch}
+  #themeBtn{position:absolute; inset-inline-end:max(3vw,calc((100vw - 1020px)/2)); top:30px;
+    width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);
+    cursor:pointer;font-size:1.1rem; display:grid; place-items:center}
+  h2{font-size:1.2rem; margin:34px 0 14px; display:flex; align-items:center; gap:10px}
+  h2::before{content:""; width:10px;height:10px;border-radius:3px;background:var(--gold); flex:none}
+
+  /* المساحات */
+  .spaces{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
+  .space{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px 18px 14px; box-shadow:var(--shadow);
+         display:flex; flex-direction:column; gap:8px}
+  .space .badge{align-self:flex-start; font-size:.72rem; font-weight:700; border-radius:999px; padding:3px 11px;
+         background:var(--sage-soft); color:var(--sage); border:1px solid var(--sage-line)}
+  .space.done{border-color:var(--ok-line); background:linear-gradient(135deg,var(--gold-soft),transparent 60%),var(--card)}
+  .space.done .badge{background:var(--ok-bg); color:var(--gold); border-color:var(--ok-line)}
+  .space.crown{border-color:var(--ok-line); background:linear-gradient(150deg,var(--gold-soft),transparent 55%),var(--card)}
+  .space.crown .badge{background:var(--ok-bg); color:var(--gold); border-color:var(--ok-line)}
+  .space h3{margin:2px 0 0; font-size:1.25rem; font-weight:800}
+  .space .q{margin:0; color:var(--gold); font-size:.9rem; font-weight:700}
+  .space ul{margin:6px 0 0; padding:0 18px 0 0; color:var(--muted); font-size:.88rem}
+  .space li{margin:3px 0}
+
+  /* الرحلة */
+  .flowline{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+  .stepchip{background:var(--card-2); border:1px solid var(--line); border-radius:999px; padding:7px 15px; font-size:.88rem; font-weight:600}
+  .stepchip.gold{background:var(--ok-bg); border-color:var(--ok-line); color:var(--gold)}
+  .arrow{color:var(--muted); font-size:1rem}
+  .flownote{color:var(--muted); font-size:.85rem; margin-top:8px}
+
+  /* الأدوار */
+  .roles{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px}
+  .role{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px; box-shadow:var(--shadow)}
+  .role h3{margin:0 0 6px; font-size:1.1rem}
+  .role .tag{font-size:.72rem; font-weight:700; color:var(--gold); background:var(--ok-bg); border:1px solid var(--ok-line); border-radius:999px; padding:2px 10px; margin-inline-start:8px}
+  .role p{margin:6px 0 0; color:var(--muted); font-size:.88rem}
+  .privacy{margin-top:10px; font-size:.8rem; color:var(--sage); background:var(--sage-soft); border:1px solid var(--sage-line); border-radius:12px; padding:8px 12px}
+
+  /* الإضافات */
+  .adds{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px}
+  .add{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 15px; display:flex; flex-direction:column; gap:6px}
+  .add b{font-size:.95rem}
+  .add span{color:var(--muted); font-size:.82rem}
+  .wave{align-self:flex-start; font-size:.7rem; font-weight:800; letter-spacing:.4px; color:var(--on-gold);
+        background:linear-gradient(135deg,var(--gold),var(--gold-deep)); border-radius:999px; padding:2px 10px}
+  .wave.soft{color:var(--gold); background:var(--ok-bg); border:1px solid var(--ok-line)}
+
+  /* الترتيب */
+  .order{display:flex; flex-direction:column; gap:8px; counter-reset:step}
+  .orow{display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:10px 14px}
+  .orow .num{counter-increment:step; flex:none; width:34px;height:34px;border-radius:10px; display:grid;place-items:center;
+        background:var(--ok-bg); border:1px solid var(--ok-line); color:var(--gold); font-weight:800; font-size:.85rem}
+  .orow b{font-size:.95rem}
+  .orow span{color:var(--muted); font-size:.83rem; margin-inline-start:auto; text-align:left}
+  .orow.cur{border-color:var(--ok-line); background:linear-gradient(135deg,var(--gold-soft),transparent 65%),var(--card)}
+
+  /* المبادئ */
+  footer{margin-top:36px; border-top:1px solid var(--line-soft); padding-top:18px; color:var(--muted); font-size:.85rem}
+  footer .pill{display:inline-block; background:var(--card-2); border:1px solid var(--line); border-radius:999px; padding:4px 12px; margin:3px 4px 3px 0}
+  footer .gold{color:var(--gold); border-color:var(--ok-line); background:var(--ok-bg); font-weight:700}
+
+  @media (prefers-reduced-motion: no-preference){
+    .space,.role,.add{transition:transform .18s ease, border-color .18s ease}
+    .space:hover,.role:hover,.add:hover{transform:translateY(-2px); border-color:var(--ok-line)}
+  }
+  @media (max-width:640px){ #themeBtn{position:fixed; top:14px; inset-inline-end:14px; z-index:9} }
+</style>
+</head>
+<body>
+<button id="themeBtn" aria-label="تبديل الوضع" title="تبديل الوضع">☀️</button>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brandline"><span class="mark">ف</span><b>الفاروق AI — معمل التصميم</b></div>
+    <h1>خريطة التطبيق <span>2.0</span> — الرؤية الشاملة</h1>
+    <p class="sub">ثلاثة أسئلة للطالب تصير ثلاث مساحات، تتوّجها غرفة الحصة، ويحيط بها مركز الأسرة وغرفة العمليات — وعشرة إضافات فوق البناء. المرجع التنفيذي: <b>docs/architecture/APP_ARCHITECTURE_2.0.md</b></p>
+  </header>
+
+  <main>
+    <section>
+      <h2>عالم الطالب — ثلاث مساحات وسؤال واحد لكل واحدة</h2>
+      <div class="spaces">
+        <article class="space done">
+          <span class="badge">✅ منفّذة — PHASE 156</span>
+          <h3>اليوم</h3>
+          <p class="q">ماذا أفعل الآن؟</p>
+          <ul>
+            <li>ترويسة ☰ · 🏆 · مبدّل الوضع</li>
+            <li>بطل بقرار واحد (استئناف / ضعفك / ابدأ درسًا)</li>
+            <li>موادك (٦ + عرض الكل) · تقدّمك والباقة</li>
+            <li>تمرين سريع · جلساتك · درج الحساب</li>
+          </ul>
+        </article>
+        <article class="space">
+          <span class="badge">W3 — قادمة</span>
+          <h3>تعلّم</h3>
+          <p class="q">ماذا أدرس؟</p>
+          <ul>
+            <li>أكمل من حيث توقفت</li>
+            <li>اختيار بصري بلمستين: مادة ← وحدة ← درس</li>
+            <li>صفحة الدرس: المصادر الستة + إتقان المفاهيم</li>
+            <li>«ابدأ حصة ▶» و«اختبرني 🎯»</li>
+          </ul>
+        </article>
+        <article class="space">
+          <span class="badge">W6 — قادمة</span>
+          <h3>رحلتي</h3>
+          <p class="q">كيف أتقدّم؟</p>
+          <ul>
+            <li>حديقتي على النيل — نمو بالإتقان فقط</li>
+            <li>إتقاني (قوة/ضعف) · إنجازاتي (١٢ شارة)</li>
+            <li>سجل جلساتي + ملخص الجلسة الآمن</li>
+            <li>دفتر أخطائي — راجع هذه بنقرة</li>
+          </ul>
+        </article>
+        <article class="space crown">
+          <span class="badge">02 — تبقى كما هي + W7 لاحقًا</span>
+          <h3>غرفة الحصة</h3>
+          <p class="q">أين أتعلّم؟</p>
+          <ul>
+            <li>سبورة المعلّم + «كتابك — صفحة X من Y»</li>
+            <li>فهمت / مش فاهم · سرد صوتي حقيقي</li>
+            <li>لاحقًا: المعلّم الحيّ (lazy — صفر بايتات لمن أطفأه)</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>الرحلة الكاملة</h2>
+      <div class="flowline">
+        <span class="stepchip">الافتتاح</span><span class="arrow">←</span>
+        <span class="stepchip">أول دخول (سينمائي)</span><span class="arrow">←</span>
+        <span class="stepchip">اليوم</span><span class="arrow">←</span>
+        <span class="stepchip">تعلّم</span><span class="arrow">←</span>
+        <span class="stepchip">صفحة الدرس</span><span class="arrow">←</span>
+        <span class="stepchip gold">غرفة الحصة</span>
+      </div>
+      <p class="flownote">الهدف المقيس: من فتح التطبيق إلى أول درس مفتوح ≤ ٦٠ ثانية — «أول ٦٠ ثانية» لحظة انبهار موثقة بلقطات.</p>
+    </section>
+
+    <section>
+      <h2>الأسرة والإدارة</h2>
+      <div class="roles">
+        <article class="role">
+          <h3>مركز ولي الأمر <span class="tag">W9</span></h3>
+          <p><b>رسالة المعلّم الأسبوعية</b> (توليد حتمي من بيانات التقرير) · «كيف أساعد ابني هذا الأسبوع؟» ٣ توصيات · خريطة إتقان حيّة · أبنائي · جلسات · كود الربط.</p>
+          <div class="privacy">🔒 وصفِي فقط — لا نقرأ محادثات ابنك. صفر نصوص محادثات في كل شاشاته.</div>
+        </article>
+        <article class="role">
+          <h3>غرفة العمليات <span class="tag">إعادة تصميم</span></h3>
+          <p>نظرة عامة · الاتجاهات (١٤ يومًا) · المناهج والاستيراد · الذكاء والاستهلاك · الاشتراكات · OCR — بنفس القدرات وكل الـtestids بلا مساس.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>الإضافات فوق البناء</h2>
+      <div class="adds">
+        <div class="add"><span class="wave">W5</span><b>المصادر الذكية الستة</b><span>ملخص · تعريفات · بطاقات · أخطاء شائعة · أمثلة · مراجعة — توليد حتمي ١٠٠٪ من كتبنا</span></div>
+        <div class="add"><span class="wave">W5</span><b>أنواع البطاقات + عدّاداتها</b><span>🧠 احفظ · 💡 افهم · ⚠️ خلي بالك · 🔗 اربط · 📖 تذكّر</span></div>
+        <div class="add"><span class="wave">W6</span><b>حديقتي على النيل</b><span>نمو هادئ بالإتقان الحقيقي فقط — بلا كازينو، بلا شراء بالوقت</span></div>
+        <div class="add"><span class="wave">W6</span><b>دفتر أخطائي</b><span>أخطاء التقييم تصير فرصة مراجعة بنقرة</span></div>
+        <div class="add"><span class="wave">W3</span><b>اختبرني على الدرس</b><span>اختبار قصير مقيّد بالمفاهيم — تصحيح حتمي ونتيجة</span></div>
+        <div class="add"><span class="wave">157</span><b>أول دخول سينمائي</b><span>ترحيب المعلّم + اختيار الصف ببطاقات — مرة واحدة في العمر</span></div>
+        <div class="add"><span class="wave">W7</span><b>المعلّم الحيّ</b><span>حالات حقيقية من المحرك + فم على صوت الخادم + إشارة «افتح كتابك صفحة ٦»</span></div>
+        <div class="add"><span class="wave">W9</span><b>رسالة المعلّم الأسبوعية</b><span>أنجز… · يحتاج نظرة… · خطوة واحدة تساعد</span></div>
+        <div class="add"><span class="wave">W8</span><b>PWA</b><span>تثبيت على أندرويد + shell أوفلاين — توزيع بلا متجر</span></div>
+        <div class="add"><span class="wave soft">عابر</span><b>تنقّل موحّد + درج مشترك</b><span>اليوم · تعلّم · رحلتي + ☰ — تصميم واحد يوحّد المساحات</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>ترتيب التنفيذ</h2>
+      <div class="order">
+        <div class="orow cur"><span class="num">✓</span><b>156 — الرئيسية 2.0</b><span>مدفوعة ✅</span></div>
+        <div class="orow"><span class="num">157</span><b>الافتتاح + أول دخول</b><span>Auth 2.0 + ترحيب وصف</span></div>
+        <div class="orow"><span class="num">158</span><b>القشرة + التنقّل الموحّد</b><span>AppNav + ترويسة ودرج مشتركان</span></div>
+        <div class="orow"><span class="num">159</span><b>تعلّم (W3)</b><span>منتقي بصري + صفحة الدرس</span></div>
+        <div class="orow"><span class="num">160</span><b>المصادر (W5)</b><span>الوحدة الخادمية + التبويبات الستة</span></div>
+        <div class="orow"><span class="num">161</span><b>رحلتي (W6)</b><span>حديقة + إتقان + إنجازات + دفتر أخطائي</span></div>
+        <div class="orow"><span class="num">162</span><b>المعلّم الحيّ (W7)</b><span>الغرفة + اليوم + التفضيلات</span></div>
+        <div class="orow"><span class="num">163</span><b>مركز ولي الأمر (W9)</b><span>رسالة المعلّم + التوصيات</span></div>
+        <div class="orow"><span class="num">164</span><b>غرفة العمليات</b><span>إعادة تصميم الإدارة</span></div>
+        <div class="orow"><span class="num">165</span><b>PWA (W8)</b><span>تثبيت + أوفلاين</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <b>المبادئ الحاكمة:</b><br>
+    <span class="pill gold">المحرك يقرّر والذكاء يعلّم</span>
+    <span class="pill">كل data-testid باقٍ</span>
+    <span class="pill">RTL أولًا · AA · reduced-motion</span>
+    <span class="pill">بلا حائط دفع مبكر</span>
+    <span class="pill">المرجع لا النسخ</span>
+    <span class="pill">صفر نصوص محادثات للأسرة</span>
+    <span class="pill">صفر خدمات مدفوعة</span>
+    <span class="pill">الحضور الهادئ — ثلاث طبقات وحركة ذات معنى</span>
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var root=document.documentElement, btn=document.getElementById("themeBtn");
+    function apply(t){ root.setAttribute("data-theme",t); btn.textContent = t==="dark" ? "☀️" : "🌙"; }
+    var saved=null; try{ saved=localStorage.getItem("farouq_lab_theme"); }catch(e){}
+    apply(saved || "dark");
+    btn.addEventListener("click", function(){
+      var next = root.getAttribute("data-theme")==="dark" ? "light" : "dark";
+      apply(next); try{ localStorage.setItem("farouq_lab_theme", next); }catch(e){}
+    });
+  })();
+</script>
+</body>
+</html>
