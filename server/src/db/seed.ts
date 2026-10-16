@@ -233,6 +233,12 @@ import {
   assertTreeMatchesTheBook as assertChristianG2TreeMatchesBook,
 } from "./egyptChristianG2T1.js";
 import {
+  EGYPT_CHRISTIAN_G1_T1_UNITS,
+  lessonDocument as christianG1LessonDocument,
+  isConsistent as isChristianG1TreeConsistent,
+  assertTreeMatchesTheBook as assertChristianG1TreeMatchesBook,
+} from "./egyptChristianG1T1.js";
+import {
   EGYPT_CHRISTIAN_G3_T1_UNITS,
   lessonDocument as christianG3LessonDocument,
   isConsistent as isChristianG3TreeConsistent,
@@ -485,6 +491,12 @@ import {
   assertTreeMatchesTheBook as assertIslamicG2TreeMatchesBook,
 } from "./egyptIslamicG2T1.js";
 import {
+  EGYPT_ISLAMIC_G1_T1_UNITS,
+  lessonDocument as islamicG1LessonDocument,
+  isConsistent as isIslamicG1TreeConsistent,
+  assertTreeMatchesTheBook as assertIslamicG1TreeMatchesBook,
+} from "./egyptIslamicG1T1.js";
+import {
   EGYPT_ISLAMIC_G5_T1_UNITS,
   lessonDocument as islamicG5LessonDocument,
   isConsistent as isIslamicG5TreeConsistent,
@@ -520,6 +532,18 @@ import {
   isConsistent as isIctTreeConsistent,
   assertTreeMatchesTheBook as assertIctTreeMatchesBook,
 } from "./egyptIctT1.js";
+import {
+  EGYPT_ICT_G4_T1_UNITS,
+  lessonDocument as ictG4LessonDocument,
+  isConsistent as isIctG4TreeConsistent,
+  assertTreeMatchesTheBook as assertIctG4TreeMatchesBook,
+} from "./egyptIctG4T1.js";
+import {
+  EGYPT_ICT_G5_T1_UNITS,
+  lessonDocument as ictG5LessonDocument,
+  isConsistent as isIctG5TreeConsistent,
+  assertTreeMatchesTheBook as assertIctG5TreeMatchesBook,
+} from "./egyptIctG5T1.js";
 import {
   EGYPT_ICT_G9_T1_UNITS,
   lessonDocument as ictG9LessonDocument,
@@ -3904,6 +3928,57 @@ function verifyChristianG2Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-1 (Grade 1) **Christian Religious Education** — OFFICIAL curriculum
+ * (PHASE 149).
+ *
+ * The first term IS the Ministry textbook (التربية الدينية المسيحية للصف الأول
+ * الابتدائي, 88 scan pages, first term only). Book page = scan index (offset 0) and the
+ * term runs over printed pages 5–87; scans 1–4 are front matter (cover, blank, مقدمة,
+ * محتويات الكتاب) and scan 88 is the credits page. The three units tile those pages
+ * exactly, each unit's closing «مراجعة» and the term's «اختبارات» ride inside their
+ * unit's last-lesson range, and the three unit openers are the only pages whose folio
+ * the scan does not carry (each is verified against the unit name it prints). A lesson
+ * is each printed درس; its `title` is the index entry the unit's own opener prints and
+ * its `concepts` are the printed «أهداف الدرس» items, verbatim in Arabic.
+ */
+export const EGYPT_CHRISTIAN_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: { code: "eg-g1-christian-education", title: "التربية الدينية المسيحية للصف الأول الابتدائي" },
+  terms: [buildEgyptChristianG1Term()],
+};
+
+/** Term 1 = the official Grade-1 Christian book: printed unit → printed lesson. */
+function buildEgyptChristianG1Term(): TermSeedSpec {
+  const check = verifyChristianG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية المسيحية (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_CHRISTIAN_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-chr-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: christianG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 Christian tree verification, as one verdict. */
+function verifyChristianG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isChristianG1TreeConsistent();
+  const book = assertChristianG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Primary-3 (Grade 3) **English** — OFFICIAL curriculum (PHASE 136).
  *
  * The first term IS the Ministry English book for Grade 3 (117 scan pages): its three
@@ -5906,6 +5981,60 @@ function verifyIslamicG2Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-1 (Grade 1) **Islamic Religious Education** — OFFICIAL curriculum
+ * (PHASE 149).
+ *
+ * The first term IS the Ministry textbook (التربية الدينية الإسلامية للصف الأول
+ * الابتدائي, 88 scan pages, first term only). Book page = scan index (offset 0) and the
+ * term runs over printed pages 7–87; scans 1–6 are front matter (cover, blank, مقدمة,
+ * فهرس) and scan 88 is the credits page. The three units (اللَّهُ رَبِّي، لِمَاذَا
+ * خَلَقَنَا اللهُ؟، اللَّهُ مَعَنَا) tile those pages exactly: each unit's opener rides
+ * with the unit's first lesson, its closing review and the term's final assessment ride
+ * with the unit's last lesson, and each unit's Quran slot keeps its part (ب)
+ * («مِنْ سُوَرِ التِّلَاوَةِ وَالْحِفْظِ» — bare surah text with no head and no objectives)
+ * inside the Quran lesson, exactly as the Grade-2 book of the same series does. Six pages
+ * whose folio the scan does not carry are named and anchored in the module's
+ * `FOLIO_ANCHORS`. A lesson is each printed درس; its `concepts` are the lesson's own
+ * printed «الْأَهْدَافُ» items, verbatim in Arabic.
+ */
+export const EGYPT_ISLAMIC_G1_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-1", name: "Grade 1", nameAr: "الصف الأول الابتدائي", levelOrder: 1 },
+  subject: { code: "islamic-education", name: "Islamic Religious Education", nameAr: "التربية الدينية الإسلامية" },
+  curriculum: { code: "eg-g1-islamic-education", title: "التربية الدينية الإسلامية للصف الأول الابتدائي" },
+  terms: [buildEgyptIslamicG1Term()],
+};
+
+/** Term 1 = the official Grade-1 Islamic book: printed unit → printed lesson. */
+function buildEgyptIslamicG1Term(): TermSeedSpec {
+  const check = verifyIslamicG1Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب التربية الدينية الإسلامية (أولى ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ISLAMIC_G1_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g1-isl-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: islamicG1LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-1 Islamic tree verification, as one verdict. */
+function verifyIslamicG1Tree(): { ok: boolean; problems: string[] } {
+  const table = isIslamicG1TreeConsistent();
+  const book = assertIslamicG1TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian Primary-5 (Grade 5) **Islamic Religious Education** — OFFICIAL curriculum
  * (PHASE 143).
  *
@@ -6206,6 +6335,121 @@ function buildEgyptIctT1Term(): TermSeedSpec {
 function verifyIctTree(): { ok: boolean; problems: string[] } {
   const table = isIctTreeConsistent();
   const book = assertIctTreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 (Grade 4) **Information and Communication Technology** —
+ * OFFICIAL curriculum (PHASE 149).
+ *
+ * The first term IS the Ministry textbook (`ICT_ARABIC_Prim4_TR1.pdf`, 2026/2027
+ * MoE edition, 55 PDF pages): its 2 units and 12 lessons exactly as the book's
+ * قائمة المحتويات (book page 3) prints them, each grounded on the OCR text of the
+ * four printed pages the book gives it (server/data/curriculum-ocr/ict-g4-t1/).
+ * Every lesson's concepts are the book's printed «أهداف الدرس» verbatim, and
+ * `assertTreeMatchesTheBook` proves they are on the lesson's objectives page. There
+ * is no second term yet: its book has not been imported, and a hand-written
+ * stand-in would misrepresent it.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers, the
+ * lesson titles, the objectives text and the tiling. Seeding refuses to run on an
+ * unverified table.
+ */
+export const EGYPT_ICT_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "ict", name: "Information and Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  curriculum: { code: "eg-g4-ict", title: "تكنولوجيا المعلومات والاتصالات للصف الرابع الابتدائي" },
+  terms: [buildEgyptIctG4Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptIctG4Term(): TermSeedSpec {
+  const check = verifyIctG4Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب تكنولوجيا المعلومات (رابع) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ICT_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g4-ict-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: ictG4LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 ICT tree verification, as one verdict. */
+function verifyIctG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isIctG4TreeConsistent();
+  const book = assertIctG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 (Grade 5) **Information and Communication Technology** —
+ * OFFICIAL curriculum (PHASE 149).
+ *
+ * The first term IS the Ministry textbook (`ICT_ARABIC_Prim5_TR1.pdf`, 2026/2027
+ * MoE edition, 46 PDF pages): its 2 units and 12 lessons exactly as the book's
+ * فهرس الموضوعات (book page 5) prints them, each grounded on the OCR text of the
+ * pages the book prints for it (server/data/curriculum-ocr/ict-g5-t1/). Every
+ * lesson's concepts are the book's printed «نواتج التعلم» verbatim, on the same
+ * page that carries its title. There is no second term yet: its book has not been
+ * imported, and a hand-written stand-in would misrepresent it.
+ *
+ * The tree is verified before seeding: `isConsistent` checks its invariants and
+ * `assertTreeMatchesTheBook` proves the page mapping from the printed footers, the
+ * lesson titles, the objectives text and the tiling. Seeding refuses to run on an
+ * unverified table.
+ */
+export const EGYPT_ICT_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "ict", name: "Information and Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  curriculum: { code: "eg-g5-ict", title: "تكنولوجيا المعلومات والاتصالات للصف الخامس الابتدائي" },
+  terms: [buildEgyptIctG5Term()],
+};
+
+/** Term 1 = the official book: unit → lesson, the whole lesson as its document. */
+function buildEgyptIctG5Term(): TermSeedSpec {
+  const check = verifyIctG5Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب تكنولوجيا المعلومات (خامس) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_ICT_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          // Namespaced so codes stay unique across every seeded curriculum.
+          code: `l-g5-ict-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: ictG5LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 ICT tree verification, as one verdict. */
+function verifyIctG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isIctG5TreeConsistent();
+  const book = assertIctG5TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -7662,10 +7906,13 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ARABIC_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G3_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_EN_KG1_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_FR_KG2_SPEC);
   await seedCountry(db, knowledge, EGYPT_ARABIC_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G5_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G8_EN_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G9_SPEC);
@@ -7753,6 +8000,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G4_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G3_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G2_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G5_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
