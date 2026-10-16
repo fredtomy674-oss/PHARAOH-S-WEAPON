@@ -1,21 +1,26 @@
 /**
- * PHASE 50 — «لوح الحبر»: the student draws on the printed page with a finger.
+ * PHASE 50 — «لوح الحبر» — W2: the surface is the teacher's BOARD now.
+ *
+ * The student draws on the board with a finger, and his marks travel with his
+ * question as one picture. (Until W2 the surface was the printed page itself;
+ * the book is never shown any more — الأطلس §١٥ «المرجع لا النسخ» — so the
+ * board is the honest place for a student's marks.)
  *
  * The vocabulary is deliberately small — a mark is a mark:
  *
  *   • `InkStroke` is one finger-down-to-up gesture: a tool, a colour, a width
  *     (all in CSS pixels at drawing time) and the points of the path, stored in
- *     *normalized* coordinates (0..1 of the page) so a stroke drawn on a phone
+ *     *normalized* coordinates (0..1 of the board) so a stroke drawn on a phone
  *     replays exactly on a desktop and on the composited picture we send;
  *   • `drawStrokes` replays strokes on any 2D context at any pixel size — the
  *     overlay canvas on screen and the export canvas use the same function, so
  *     what the student sees is what the tutor gets;
- *   • `composeInkPage` paints the printed page with the marks over it and
- *     returns a JPEG data-URL capped in width, because the raw 1500-px page plus
+ *   • `composeInkBoard` paints the board surface with the marks over it and
+ *     returns a JPEG data-URL capped in width, because the raw board plus
  *     strokes would make every marked question a multi-megabyte upload.
  *
- * No dependencies, no colour picker, no brush engine: a student pointing at a
- * line needs one honest pen, not Photoshop.
+ * No dependencies, no colour picker, no brush engine: a student drawing his
+ * question needs one honest pen, not Photoshop.
  */
 
 export type InkTool = "pen" | "eraser";
@@ -46,17 +51,17 @@ export interface InkStroke {
   points: InkPoint[];
 }
 
-/** The one honest pen: a warm red that reads on white paper and on figures. */
+/** The one honest pen: a warm red that reads on the board in both themes. */
 export const INK_COLOR = "#d92626";
-/** A fingertip-wide line, in CSS pixels on the page the student sees. */
+/** A fingertip-wide line, in CSS pixels on the board the student sees. */
 export const INK_WIDTH_CSS = 5;
-/** How far the eraser reaches, as a fraction of the page width. */
+/** How far the eraser reaches, as a fraction of the board width. */
 export const ERASER_RADIUS = 0.03;
 
-/** The stored width for a pen on a page laid out `pageCssWidth` wide. */
-export function inkWidthFor(pageCssWidth: number): number {
-  if (!(pageCssWidth > 0)) return 0;
-  return INK_WIDTH_CSS / pageCssWidth;
+/** The stored width for a pen on a board laid out `boardCssWidth` wide. */
+export function inkWidthFor(boardCssWidth: number): number {
+  if (!(boardCssWidth > 0)) return 0;
+  return INK_WIDTH_CSS / boardCssWidth;
 }
 
 /** A stroke with fewer than two points is a tap, not a mark — keep it anyway. */
@@ -85,17 +90,18 @@ export function drawStrokes(
   ctx.save();
   for (const stroke of strokes) {
     if (!isDrawable(stroke)) continue;
-    // PHASE 56 — the eraser is a SPONGE, not a white pen: painting the page
-    // white with a page-wide stroke looked like a red/white flash and read as
+    // PHASE 56 — the eraser is a SPONGE, not a white pen: painting the surface
+    // white with a board-wide stroke looked like a red/white flash and read as
     // a bug. It draws its own reach as a ring, so the student sees the
     // footprint they are about to lift, and it never persists (an eraser
-    // gesture removes strokes, it does not add one).
+    // gesture removes strokes, it does not add one). The ring is a neutral grey
+    // because the board itself is light in the day theme and dark at night.
     if (stroke.tool === "eraser") {
       const r = ERASER_RADIUS * width;
       for (const p of stroke.points) {
         ctx.beginPath();
         ctx.arc(p.x * width, p.y * height, r, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(22, 32, 46, 0.55)";
+        ctx.strokeStyle = "rgba(130, 130, 130, 0.85)";
         ctx.lineWidth = 2;
         ctx.setLineDash([5, 4]);
         ctx.stroke();
@@ -115,15 +121,12 @@ export function drawStrokes(
   ctx.restore();
 }
 
-function loadImage(url: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    // Same-origin page: no CORS taint, so the canvas stays exportable.
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("تعذر تحميل صفحة الكتاب"));
-    img.src = url;
-  });
-}
+/**
+ * The board's frame on screen (CSS `aspect-ratio: 4 / 3`). The export keeps
+ * the same frame, so a circle the student drew is a circle in the picture the
+ * tutor reads — the overlay and the export agree by construction.
+ */
+export const BOARD_ASPECT = 4 / 3;
 
 export interface ComposedInk {
   dataUrl: string;
@@ -132,28 +135,28 @@ export interface ComposedInk {
 }
 
 /**
- * Paint the printed page with the student's marks over it. The export is a
- * JPEG at most `maxWidth` wide — a marked question must travel like a photo,
- * not like a print file. Throws when the page itself cannot be loaded: sending
- * marks without their page would show the tutor a finger pointing at nothing.
+ * Paint the board surface with the student's marks over it. The export is a
+ * JPEG at most `maxWidth` wide — a marked board must travel like a photo, not
+ * like a print file.
+ *
+ * `surface` is the board's own colour as the student sees it (the board
+ * follows the room's theme, and the room reads it off the live element);
+ * whiteboard white is the honest fallback.
  */
-export async function composeInkPage(
-  pageUrl: string,
+export async function composeInkBoard(
   strokes: InkStroke[],
+  surface = "#ffffff",
   maxWidth = 1100,
 ): Promise<ComposedInk> {
-  const img = await loadImage(pageUrl);
-  const scale = Math.min(1, maxWidth / img.naturalWidth);
-  const width = Math.max(1, Math.round(img.naturalWidth * scale));
-  const height = Math.max(1, Math.round(img.naturalHeight * scale));
+  const width = Math.max(1, Math.round(maxWidth));
+  const height = Math.max(1, Math.round(width / BOARD_ASPECT));
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("تعذر تجهيز الصفحة للرسم");
-  ctx.fillStyle = "#ffffff";
+  if (!ctx) throw new Error("تعذر تجهيز السبورة للرسم");
+  ctx.fillStyle = surface;
   ctx.fillRect(0, 0, width, height);
-  ctx.drawImage(img, 0, 0, width, height);
   // Normalized coordinates replay 1:1 at any size — the overlay and the export
   // agree by construction.
   drawStrokes(ctx, strokes, width, height);

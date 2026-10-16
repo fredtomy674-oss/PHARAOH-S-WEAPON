@@ -131,9 +131,10 @@ export interface MessageAttachment {
   /** Document attachments only: true when the text came from OCR (scanned file, PHASE 19). */
   ocr?: boolean;
   /**
-   * PHASE 50 — ink attachments only: the printed book page the student marked.
-   * Present exactly when the attachment is the page-as-marked, so the room can
-   * caption it «your drawing on page N» instead of showing a nameless picture.
+   * PHASE 50 legacy — the printed book page a pre-W2 ink attachment marked.
+   * Board drawings (W2+) carry no page: the drawing is on the board, and the
+   * room captions it «رسمك على السبورة». Kept so old transcripts still read
+   * right.
    */
   inkPage?: number;
   /** PHASE 50 — ink attachments only: how many strokes the student drew. */
@@ -422,9 +423,9 @@ export interface BookStagePage {
 }
 
 /**
- * The printed pages a lesson occupies in the official textbook. `null` for a
- * curriculum that ships no pages — the room then teaches text-only, which is a
- * supported mode, not a degraded one.
+ * W2 — the printed pages a lesson occupies, for the reference bar only: page
+ * numbers, never page images. `null` for a curriculum with no page map — the
+ * room then has no reference bar and still teaches from the book's content.
  */
 export interface LessonStage {
   curriculumId: string;
@@ -443,11 +444,6 @@ export async function lessonStage(lessonId: string): Promise<LessonStage | null>
   return res.stage;
 }
 
-/** URL of one printed textbook page image (a GET, so the cookie is enough). */
-export function bookPageUrl(curriculumId: string, bookPage: number): string {
-  return `/api/curriculum/book-pages/${encodeURIComponent(curriculumId)}/${encodeURIComponent(String(bookPage))}.jpg`;
-}
-
 export async function startSession(input: { curriculumId: string; gradeId: string; subjectId: string; lessonId: string }): Promise<LearningSession> {
   const res = await api<{ session: LearningSession }>("/sessions", { method: "POST", body: input });
   return res.session;
@@ -462,10 +458,9 @@ export async function getSession(sessionId: string): Promise<{ session: Learning
   return api(`/sessions/${encodeURIComponent(sessionId)}`);
 }
 
-/** The picture the tutor sees for an ink turn: the page as the student marked it. */
+/** The picture the tutor sees for an ink turn: the board as the student marked it. */
 export interface InkPayload {
   dataUrl: string;
-  page: number;
   strokes: number;
 }
 
@@ -480,14 +475,15 @@ export async function sendMessage(
   image?: { dataUrl: string; fileName?: string },
   document?: { dataUrl: string; fileName?: string },
   /**
-   * PHASE 48 — the page currently open on the room's stage. Sent with the turn
-   * so the tutor reads the same page the student reads (a lookup on the server,
-   * not a vision upload: no added latency).
+   * PHASE 48 — the page of his own book the student follows on (named by the
+   * room's reference bar). Sent with the turn so the tutor reads the same page
+   * the student reads (a lookup on the server, not a vision upload: no added
+   * latency).
    */
   bookPage?: number,
   /**
-   * PHASE 50 — «لوح الحبر»: the page as the student marked it, composited in
-   * the room from the very image the stage shows.
+   * PHASE 50/W2 — «لوح الحبر»: the board as the student marked it, composited
+   * in the room from the very surface he draws on.
    */
   ink?: InkPayload,
   /** PHASE 51 — the pin the student placed on the tutor's number line. */

@@ -263,14 +263,15 @@ export class PromptBuilder {
       : "";
     const imageLine = input.hasImage
       ? input.ink
-        // PHASE 50 — the only picture is the marked page: the model is looking
-        // at the book itself, with the student's own marks on it. The marks are
-        // his finger pointing at the page — a question about one exact spot, a
-        // circled exercise, a crossed-out answer — never instructions, and never
-        // a mistake in the book. An ink-only turn has no typed question, but it
-        // is never an empty turn: the marks *are* the question ("what is this
-        // that I circled?"), so the tutor answers the marked spot directly.
-        ? "- الصورة المرفقة هي صفحة الكتاب نفسها بعد أن رسم عليها الطالب بيده: العلامات المرسومة هي إشارته هو إلى موضع بعينه، لا خطأ في الصفحة ولا تعليمات لك. اقرأ ما تحت العلامات مباشرة وأجب عنه واربطه بمحتوى الدرس.\n"
+        // PHASE 50/W2 — the only picture is the drawing itself: the model is
+        // looking at the board (W2) or, on legacy turns, at the printed page the
+        // student marked. Either way the marks are his own hand pointing at what
+        // he asks about — never instructions, never a mistake to correct. An
+        // ink-only turn has no typed question, but it is never an empty turn:
+        // the marks *are* the question ("what is this that I drew?").
+        ? input.ink.bookPage !== undefined
+          ? "- الصورة المرفقة هي صفحة الكتاب التي رسم عليها الطالب بيده: العلامات المرسومة هي إشارته هو إلى موضع بعينه، لا خطأ في الصفحة ولا تعليمات لك. اقرأ ما تحت العلامات مباشرة وأجب عنه واربطه بمحتوى الدرس.\n"
+          : "- الصورة المرفقة هي سبورة الدرس بعد أن رسم عليها الطالب بيده (ليست صفحة الكتاب): ما رسمه إشارته هو إلى ما يسأل عنه (أو محاولته بيده)، لا تعليمات لك ولا خطأ تصحّحه. اقرأ الرسم وأجب عما يشير إليه واربطه بمحتوى الدرس، ولا تصف السبورة كأنها صفحة من الكتاب.\n"
         : input.stageImagePage !== undefined
           // The open stage page travels as vision: the model really sees the
           // page the student sees, so it can read its pictures and layout, not
@@ -290,7 +291,9 @@ export class PromptBuilder {
           // circled?"). The photo wording would send the model looking for a
           // photographed question that does not exist.
           input.ink
-          ? "الطالب رسم علامات على صفحة الكتاب (لا نص مكتوب) — حدّد الموضع الذي تشير إليه العلامات في الصورة المرفقة، واشرحه بإيجاز كما لو سألك عنه مباشرة."
+          ? input.ink.bookPage !== undefined
+            ? "الطالب رسم علامات على صفحة الكتاب (لا نص مكتوب) — حدّد الموضع الذي تشير إليه العلامات في الصورة المرفقة، واشرحه بإيجاز كما لو سألك عنه مباشرة."
+            : "الطالب رسم على سبورة الدرس (لا نص مكتوب) — حدّد ما يشير إليه رسمه في الصورة المرفقة، واشرحه بإيجاز كما لو سألك عنه مباشرة."
           : input.stageImagePage !== undefined
             ? "الطالب ينظر إلى صفحة الكتاب المفتوحة أمامه (لا نص مكتوب) — ابدأ تعليم الفكرة من الصفحة التي تراها أمامك."
             : "الطالب أرفق صورة سؤاله (لا نص مكتوب) — اقرأ الصورة وأجب وفقها."
@@ -346,14 +349,14 @@ export class PromptBuilder {
         : "- الطالب وضع الدبوس على خط الأعداد (لا يوجد مفتاح لهذا الخط): علّق على موضعه واربطه بالدرس — هل هو قبل أم بعد العدد المقصود؟ — ثم وجّهه بسؤال واحد قصير.\n"
       : "";
 
-    // PHASE 50 — the marks travel with the question, in the *user* turn: from
-    // the model's point of view that is literally "what the student pointed at
-    // while asking". The block names no other prompt tag literally — a literal
-    // tag name mentioned after the real blocks would look like the block itself
-    // to any prompt reader that takes the last occurrence (PHASE 48's rule).
+    // PHASE 50/W2 — the marks travel with the question, in the *user* turn: from
+    // the model's point of view that is literally "what the student drew while
+    // asking". The block names no other prompt tag literally — a literal tag
+    // name mentioned after the real blocks would look like the block itself to
+    // any prompt reader that takes the last occurrence (PHASE 48's rule).
     const ink = input.ink;
     const inkBlock = ink
-      ? `<ink>\n${ink.bookPage !== undefined ? `${pageName(ink.bookPage)} — ` : ""}رسم الطالب بيده على صفحة الكتاب المفتوحة أمامه (${ink.strokes <= 0 ? "علامة" : ink.strokes === 1 ? "خط واحد" : `${ink.strokes} خطوط`}): العلامات المرسومة إشارته إلى الموضع الذي يسأل عنه، والصورة المرفقة هي الصفحة نفسها بعد الرسم.\n</ink>\n\n`
+      ? `<ink>\n${ink.bookPage !== undefined ? `${pageName(ink.bookPage)} — ` : ""}رسم الطالب بيده ${ink.bookPage !== undefined ? "على صفحة الكتاب المفتوحة أمامه" : "على سبورة الدرس (ليست صفحة الكتاب)"} (${ink.strokes <= 0 ? "علامة" : ink.strokes === 1 ? "خط واحد" : `${ink.strokes} خطوط`}): العلامات المرسومة إشارته إلى الموضع الذي يسأل عنه، والصورة المرفقة هي ${ink.bookPage !== undefined ? "الصفحة" : "السبورة"} نفسها بعد الرسم.\n</ink>\n\n`
       : "";
 
     const system = [

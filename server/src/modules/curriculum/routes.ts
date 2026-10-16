@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
 import { Errors } from "../../utils/errors.js";
 import { resolveTutorLanguage } from "../tutor/language.js";
-import { readPageImage, stageForLesson } from "./bookStage.js";
+import { stageForLesson } from "./bookStage.js";
 
 function requireQuery(query: Record<string, unknown>, name: string, pattern?: RegExp): string {
   const value = query[name];
@@ -100,23 +100,8 @@ export const curriculumRoutes: FastifyPluginAsync = async (app) => {
     return { stage: stageForLesson(curriculum.code, lesson.code) };
   });
 
-  /**
-   * One textbook page image, addressed by its *printed* page number so the URL
-   * the client shows the student ("صفحة 12") is the number on the paper, and by
-   * the curriculum code, because each book keeps its own scan pages.
-   */
-  app.get("/book-pages/:curriculumCode/:bookPage.jpg", async (request, reply) => {
-    const { curriculumCode, bookPage } = request.params as { curriculumCode: string; bookPage: string };
-    if (!/^[a-z0-9][a-z0-9-]{0,63}$/.test(curriculumCode)) {
-      throw Errors.badRequest("معرّف المنهج غير صالح", "INVALID_CURRICULUM");
-    }
-    if (!/^\d{1,3}$/.test(bookPage)) {
-      throw Errors.badRequest("رقم الصفحة غير صالح", "INVALID_PAGE");
-    }
-    const image = readPageImage(curriculumCode, Number(bookPage));
-    if (!image) throw Errors.notFound("صفحة الكتاب غير متاحة");
-    // Textbook pages never change for a given edition: cache them hard.
-    reply.header("cache-control", "public, max-age=86400, immutable");
-    return reply.type("image/jpeg").send(image);
-  });
+  // W2 — «المرجع لا النسخ» (الأطلس §١٥): the book-pages image service is gone.
+  // The room names the page («كتابك — صفحة ٦ من ٧») and the student opens his
+  // own copy. The page IMAGES stay internal to the tutor (vision/OCR read them
+  // server-side — see `readPageImage` callers in the sessions service).
 };

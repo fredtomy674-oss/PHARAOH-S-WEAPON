@@ -1351,85 +1351,148 @@ p {
   }
 }
 
-/* ----- the stage: the official page ----- */
-.room-stage {
+/* ----- W2 — سبورة المعلّم: the stage is the board, not the book ----- */
+.room-board {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.5rem;
   min-height: 0;
 }
 
-.room-page {
+.room-board-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.room-board-label {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--room-teal-deep);
+}
+
+.room-board-chip {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--room-teal-deep);
+  background: var(--gold-soft);
+  border: 1px solid var(--ok-line);
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The surface the student draws on: a real board — a fixed 4:3 frame whose
+   colour the ink export keeps (see composeInkBoard), so the picture the tutor
+   reads is the board the student drew on. The ratio is never clamped: the
+   export's frame and the screen's frame must agree by construction. The width
+   is capped so the board + tools + reference bar all fit above the fold. */
+.room-board-surface {
   position: relative;
-  flex: 1;
-  min-height: 240px;
-  display: grid;
-  place-items: center;
-  /* PHASE 56 — the page and its toolbar are ONE centred stack: without this
-     the two auto rows stretch apart and the toolbar drifts to the floor of
-     the panel, far from the page it controls. */
-  align-content: center;
-  row-gap: 0.5rem;
-  padding: clamp(0.6rem, 1.6vw, 1.1rem);
-  border-radius: 22px;
-  background: linear-gradient(180deg, var(--card), var(--room-paper));
-  border: 1px solid var(--room-line);
-  box-shadow:
-    0 1px 0 var(--card) inset,
-    0 18px 46px rgba(23, 20, 15, 0.1);
+  width: min(100%, 480px);
+  margin-inline: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  background-color: var(--board-bg);
+  background-image:
+    linear-gradient(var(--board-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--board-grid) 1px, transparent 1px);
+  background-size: 26px 26px;
+  border: 1px solid var(--board-edge);
+  box-shadow: var(--shadow-2);
   overflow: hidden;
 }
 
-/* A soft pool of light, as if the page were lit on a real desk. */
-.room-page::after {
-  content: "";
+.room-board-note {
+  margin: 0;
+  text-align: center;
+}
+
+/* The canvas is the board: absolutely filling its surface, the surface's own
+   box and nothing else. */
+.ink-canvas {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  background: radial-gradient(60% 45% at 50% 0%, var(--gold-soft), transparent 70%);
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
 }
 
-/* PHASE 50/56 — «لوح الحبر»: the sheet shrink-wraps the page image and
-   contains nothing else, and the drawing canvas fills the sheet — never the
-   padded stage. Normalized stroke coordinates are relative to this box on
-   screen and to the page pixels in the composited picture, so a mark cannot
-   drift between the two. (Measured: with the toolbar inside the sheet, the
-   sheet was 58×62px bigger than the image and the canvas covered the tools.) */
-.room-sheet {
-  position: relative;
-  line-height: 0;
-  max-width: 100%;
+/* ----- شريط المرجع (W2): «كتابك — صفحة ٦ من ٧» — مرجع بلا نسخ ----- */
+.room-book-ref {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px dashed var(--ok-line);
+  border-radius: 16px;
+  background: var(--gold-soft);
 }
 
-.room-sheet img {
-  max-width: 100%;
-  max-height: min(62vh, 720px);
-  object-fit: contain;
-  border-radius: 10px;
-  filter: saturate(1.03) contrast(1.02);
+.room-book-ref-icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  color: var(--room-teal-deep);
 }
 
-/* PHASE 56 — the phone room, measured on a 390×844 screen.
- *
- * Three defects, all numbers from the running app:
- *
- *  • PHASE 54's phone cap (`max-height: 40vh`) sat ABOVE this rule with equal
- *    specificity, so it never applied: the page rendered at 494px of an 844px
- *    screen — 59% of the phone for one page of the book, and the conversation
- *    pushed a full screen down. The cap is restored where it can win, and the
- *    page is back to the 40vh PHASE 54 asked for.
- *  • The ribbon wrapped to four lines of text (206px = a quarter of the screen).
- *    The lesson title and the breadcrumb are now one line each with an ellipsis,
- *    and the page counter is hidden because the stage's own navigation already
- *    says «صفحة الافتتاح · إلى 13» right below it.
- *  • The stage note explained the page in a fourth line of prose; on a phone the
- *    ink toolbar and the page's own caption say the same thing more briefly.
- */
+.room-book-ref-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.room-book-ref-info strong {
+  font-family: var(--font-learn);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--room-ink);
+}
+
+.room-book-ref-info span {
+  font-size: 0.78rem;
+  color: var(--room-muted);
+}
+
+.room-book-ref-chip {
+  flex: none;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--room-teal-deep);
+  background: none;
+  border: 1px solid var(--ok-line);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  min-height: 2rem;
+  cursor: pointer;
+}
+
+.room-book-ref-chip:hover {
+  background: var(--gold-soft);
+}
+
+.room-book-ref-chip:focus-visible {
+  outline: 2px solid var(--room-teal-deep);
+  outline-offset: 2px;
+}
+
+.room-book-ref-pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+/* PHASE 56 — the phone room, measured on a 390×844 screen: the ribbon's title
+   and breadcrumb are one line each with an ellipsis. */
 @media (max-width: 1000px) {
-  .room-sheet img {
-    max-height: 40vh;
-  }
-
   .room-ribbon-where {
     min-width: 0;
     flex: 1 1 12rem;
@@ -1441,30 +1504,10 @@ p {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
-  /* Duplicated by `.room-stage-nav`, which sits directly under the page. */
-  .room-ribbon-facts [data-testid="room-page-fact"] {
-    display: none;
-  }
-
-  .room-stage-note {
-    display: none;
-  }
 }
 
-/* The canvas is the page: absolutely filling `.room-sheet`, which is now the
-   image's exact box. */
-.ink-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  cursor: crosshair;
-}
-
-/* PHASE 56 — a grid item of `.room-page` beneath the sheet: one centred bar,
-   never inside the page's own box. */
+/* PHASE 56 — one centred bar beneath the drawing surface, never inside its own
+   box (W2 — the surface is the board). */
 .ink-tools {
   display: flex;
   align-items: center;
@@ -1698,135 +1741,6 @@ p {
   font-weight: 800;
 }
 
-.room-stage-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-}
-
-.room-stage-nav .btn {
-  font-size: 1.25rem;
-  line-height: 1;
-  min-width: 3rem;
-  min-height: 2.75rem;
-  padding: 0.25rem 0.85rem;
-  border-radius: 14px;
-}
-
-.room-stage-count {
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  color: var(--room-teal-deep);
-  background: rgba(185, 138, 65, 0.08);
-  border: 1px solid rgba(185, 138, 65, 0.16);
-  border-radius: 999px;
-  padding: 0.2rem 0.85rem;
-  font-size: 0.85rem;
-}
-
-/* The filmstrip: a peek at the whole span of the lesson's pages. */
-.room-filmstrip {
-  display: flex;
-  gap: 0.45rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.room-thumb {
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  border-radius: 12px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-/* A keyboard traveler lands on the same ring a mouse traveler sees. */
-.room-thumb:hover {
-  transform: translateY(-2px);
-}
-
-.room-thumb:focus-visible {
-  outline: 2px solid var(--room-teal-deep);
-  outline-offset: 3px;
-}
-
-/* The filmstrip sheets are their own component (room-thumb-sheet): they must
-   never share the stage sheet's class — a shared name once shrank the main
-   page to thumbnail size. */
-.room-thumb-sheet {
-  position: relative;
-  width: 64px;
-  opacity: 0.55;
-  transition: opacity 0.18s ease, transform 0.18s ease;
-}
-
-.room-thumb-sheet.active {
-  opacity: 1;
-  transform: translateY(-3px);
-}
-
-/* PHASE 48 — a page the tutor's last answer was built from: the filmstrip
-   becomes a map of the explanation, so "where is he talking from" is visible
-   without moving the student off the page he chose. */
-.room-thumb-sheet.cited::after {
-  content: "";
-  position: absolute;
-  inset: -3px;
-  border-radius: 10px;
-  border: 2px solid var(--room-gold);
-  box-shadow: 0 0 0 3px rgba(217, 169, 92, 0.22);
-  pointer-events: none;
-}
-
-.room-sheet-mark {
-  position: absolute;
-  top: -5px;
-  inset-inline-end: -5px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--room-gold);
-  box-shadow: 0 2px 5px rgba(23, 20, 15, 0.25);
-}
-
-.room-cited-note {
-  text-align: center;
-  margin: 0;
-  color: var(--room-ink);
-  opacity: 0.8;
-}
-
-.room-thumb-sheet img {
-  width: 100%;
-  display: block;
-  border-radius: 7px;
-  border: 1px solid var(--room-line);
-  background: var(--card);
-  box-shadow: 0 4px 10px rgba(23, 20, 15, 0.08);
-}
-
-.room-thumb-sheet.active img {
-  border-color: var(--room-teal);
-  box-shadow: 0 6px 16px rgba(185, 138, 65, 0.22);
-}
-
-.room-thumb-label {
-  display: block;
-  text-align: center;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--room-teal-deep);
-  margin-top: 0.2rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.room-stage-note {
-  text-align: center;
-  margin: 0;
-}
-
 /* PHASE 95 — «خريطة المفاهيم»: the lesson's concept order with real mastery. */
 .room-concept-map {
   margin: 0.6rem auto 0;
@@ -1928,21 +1842,23 @@ p {
   color: var(--room-muted, #5b6b64);
 }
 
-/* PHASE 48 — the pages an answer came from, as places on the shared stage.
-   A chip that reads like a page corner, not a link: the book is the interface.
-   PHASE 54 — a finger-sized row with air around it, so chips never crowd. */
+/* W2 — the pages an answer was built from, as a REFERENCE row under the bubble:
+   «يستند إلى المنهج · كتابك: صفحة ٦» — a place in the student's own copy,
+   never a page of the book itself. */
 .room-refs {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem;
   margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--room-line);
 }
 
 .room-refs-label {
   font-size: 0.76rem;
   font-weight: 700;
-  color: var(--room-muted);
+  color: var(--room-teal-deep);
   letter-spacing: 0.01em;
 }
 
@@ -1972,7 +1888,7 @@ p {
   outline-offset: 2px;
 }
 
-/* The page the student is already on: nothing to jump to, so say so quietly. */
+/* The page the bar already names: nothing to jump to, so say so quietly. */
 .room-ref.current {
   background: var(--room-teal);
   border-color: var(--room-teal-deep);
@@ -1982,27 +1898,6 @@ p {
 
 .room-ref.current:hover {
   transform: none;
-}
-
-/* A lesson with no rasterized book is a supported mode, not an error. */
-.room-no-book {
-  flex: 1;
-  min-height: 220px;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  text-align: center;
-  gap: 0.2rem;
-  padding: 1.5rem;
-  border-radius: 22px;
-  background: linear-gradient(180deg, var(--card), var(--room-paper));
-  border: 1px solid var(--room-line);
-  box-shadow: 0 14px 34px rgba(23, 20, 15, 0.07);
-}
-
-.room-no-book-icon {
-  font-size: 2.6rem;
-  filter: saturate(0.9);
 }
 
 /* ----- the live side: presence + captions ----- */

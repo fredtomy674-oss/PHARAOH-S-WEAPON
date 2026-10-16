@@ -34,7 +34,8 @@ function toHex(color: string): string {
 async function openRoomWithReply(page: Page): Promise<void> {
   await login(page);
   await startLessonOfSubject(page, "الرياضيات");
-  await expect(page.getByTestId("stage-image")).toBeVisible({ timeout: 20_000 });
+  // W2 — the room opens on the teacher's board.
+  await expect(page.getByTestId("board")).toBeVisible({ timeout: 20_000 });
   await sendChatMessage(page, "اشرح لي الدرس");
   await expect(page.getByTestId("msg-tutor").first()).toContainText("تلميح", { timeout: 30_000 });
 }
@@ -62,7 +63,7 @@ test("DESIGN1: no horizontal overflow, readable type, sufficient contrast", asyn
 
   const colors = await page.evaluate(() => {
     const body = document.querySelector('[data-testid="msg-tutor"] .room-caption-body') as HTMLElement;
-    const muted = document.querySelector(".room-stage-note") as HTMLElement;
+    const muted = document.querySelector(".room-board-note") as HTMLElement;
     const bcs = getComputedStyle(body);
     const mcs = getComputedStyle(muted);
     return {
@@ -102,8 +103,7 @@ test("DESIGN2: touch targets and phone width", async ({ page }) => {
       out[name] = Math.round(Math.min(r.width, r.height));
     };
     grab("send", '[data-testid="send-message"]');
-    grab("thumb", ".room-thumb");
-    grab("stageNext", '[data-testid="stage-next"]');
+    grab("refToggle", '[data-testid="book-ref-toggle"]');
     grab("inkPen", '[data-testid="ink-pen"]');
     grab("speak", '[data-testid="speak-reply"]');
     return out;

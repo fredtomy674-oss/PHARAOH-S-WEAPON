@@ -1,28 +1,29 @@
-// PHASE 48 — «غرفة الدرس» (the lesson room).
+// W2 — «غرفة الدرس» (the lesson room).
 //
 // The session used to be a chat: bubbles, a composer, a 🔊 button per reply.
 // That is a *transport*, not a lesson. The room keeps every one of those
 // behaviours (they are the product's contract with its tests and its users) but
 // stages them like a classroom:
 //
-//   • the official textbook page is the STAGE — the page the lesson occupies,
-//     shown as the page the student can turn to, never a description of it;
+//   • the STAGE is the teacher's board (W2) — the student draws and writes on
+//     it, and every mark travels with his next question. The textbook itself is
+//     never shown (الأطلس §١٥ «المرجع لا النسخ»): the room names the page
+//     («كتابك — صفحة ٦ من ٧») and the student opens his own copy;
 //   • a ribbon shows where the student stands in the curriculum (unit, concept,
-//     page position, mastery) — progress in the book, not a chat counter;
+//     mastery) — progress in the book, not a chat counter;
 //   • the AI tutor is a PRESENCE, not a human avatar: an honest, modern pulse
 //     that is thinking / speaking / listening, because this collaboration is
 //     exactly that — the student's own book plus an AI that teaches from it;
 //   • the dialogue is a CAPTION STREAM, the way a spoken lesson is captioned,
 //     so the student reads what it hears instead of scrolling a chat log.
 //
-// Every data-testid from the previous chat screen is preserved on purpose: the
-// room is a presentation change, and nothing about behaviour or accessibility
-// may regress with it.
+// The chat screen's data-testids are preserved on purpose (the book stage's own
+// testids went with the stage itself): the room is a presentation change, and
+// nothing about behaviour or accessibility may regress with it.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   attachmentUrl,
-  bookPageUrl,
   endSession,
   fetchSpeechAudio,
   getPrerequisites,
@@ -58,7 +59,7 @@ import {
 } from "./voice.js";
 import InkBoard from "./InkBoard.js";
 import InkTools from "./InkTools.js";
-import { composeInkPage, type InkStroke, type InkTool } from "./ink.js";
+import { composeInkBoard, type InkStroke, type InkTool } from "./ink.js";
 import { createNarrator, type Narrator } from "./narrator.js";
 import { createStreamedAudio, type AudioPiece, type StreamedAudio } from "./audioStream.js";
 import NumberLine from "./NumberLine.js";
@@ -158,7 +159,7 @@ function optimisticMessage(
   content: string,
   image: string | null | undefined,
   doc: PendingDocument | null,
-  ink?: { page: number; strokes: number } | null,
+  ink?: { strokes: number } | null,
 ): Message {
   const visual = doc || image || ink;
   const attachments: Message["attachments"] = visual
@@ -167,10 +168,10 @@ function optimisticMessage(
           id: "pending",
           messageId: "pending",
           mimeType: doc ? "application/octet-stream" : "image/jpeg",
-          fileName: doc ? doc.name : image ? "صورة السؤال" : `صفحة ${ink!.page} مُعلَّمة`,
+          fileName: doc ? doc.name : image ? "صورة السؤال" : "رسم على السبورة",
           sizeBytes: doc ? doc.size : Math.round(((image ?? "").length || 200_000) * 0.75),
           ocr: false,
-          ...(ink ? { inkPage: ink.page, inkStrokes: ink.strokes } : {}),
+          ...(ink ? { inkStrokes: ink.strokes } : {}),
         },
       ]
     : undefined;
@@ -194,23 +195,6 @@ function optimisticMessage(
  */
 function pageLabel(bookPage: number): string {
   return bookPage === 0 ? "صفحة الافتتاح" : `صفحة ${bookPage}`;
-}
-
-/** One printed page of the book, as the room shows it. */
-function PageSheet({ curriculumId, bookPage, active, cited = false }: { curriculumId: string; bookPage: number; active: boolean; cited?: boolean }) {
-  return (
-    <div className={`room-thumb-sheet${active ? " active" : ""}${cited ? " cited" : ""}`}>
-      <img
-        src={bookPageUrl(curriculumId, bookPage)}
-        alt={`${pageLabel(bookPage)} من كتاب الوزارة`}
-        loading="lazy"
-        decoding="async"
-        data-testid={active ? "stage-page" : "stage-thumb"}
-      />
-      <span className="room-thumb-label">{bookPage === 0 ? "افتتاح" : bookPage}</span>
-      {cited && <span className="room-sheet-mark" aria-hidden="true" />}
-    </div>
-  );
 }
 
 /**
@@ -238,33 +222,25 @@ export function LessonRoom({ session, onEnded }: Props) {
   const [tripwire, setTripwire] = useState(false);
   const [listening, setListening] = useState(false);
   const [speaking, setSpeaking] = useState(false);
-  // PHASE 48 — the stage: the textbook pages this lesson occupies.
+  // W2 — the lesson's place in the printed book: a REFERENCE, never a display.
+  // The room names the page («كتابك — صفحة ٦ من ٧»); it never shows the book.
   const [stage, setStage] = useState<LessonStage | null>(null);
-  const [pageIndex, setPageIndex] = useState(0);
-  // PHASE 50 — «لوح الحبر»: the student's own marks on the open page. They
-  // travel with his next question (page + marks composited into one picture),
-  // and the board is cleared once the tutor has them.
+  // The page of his own copy the student follows on. The tutor's page
+  // references move it; it travels with each question as the reading reference.
+  const [refPage, setRefPage] = useState<number | null>(null);
+  // The page chips («الصفحات») under the reference bar, open on demand.
+  const [refPagesOpen, setRefPagesOpen] = useState(false);
+  // PHASE 50 — «لوح الحبر»: the student's own marks on the board. They travel
+  // with his next question (marks composited into one picture), and the board
+  // is cleared once the tutor has them.
   const [inkStrokes, setInkStrokes] = useState<InkStroke[]>([]);
   const [inkReset, setInkReset] = useState(0);
-  // PHASE 56 — the chosen tool lives in the room because the toolbar now sits
-  // outside the page sheet, next to the board it drives.
+  // PHASE 56 — the chosen tool lives in the room because the toolbar sits
+  // beside the board it drives.
   const [inkTool, setInkTool] = useState<InkTool>("pen");
-  // The board is only drawable once the page image has laid out: the sheet
-  // shrink-wraps the image, so beforehand the canvas is zero-sized.
-  const [pageReady, setPageReady] = useState(false);
-  const stageImgRef = useRef<HTMLImageElement>(null);
-  // A new page starts unready; a cached-complete image is ready immediately,
-  // otherwise the <img> onLoad below flips it when the bytes arrive. The marks go
-  // with it: PHASE 50's rule, now the room's to keep (PHASE 56 made the board
-  // controlled), so a circle drawn on page 0 can never travel to page 1.
-  useEffect(() => {
-    const img = stageImgRef.current;
-    setPageReady(!!img && img.complete && img.naturalWidth > 0);
-    setInkStrokes([]);
-    setInkReset((n) => n + 1);
-  }, [pageIndex]);
-  // PHASE 48 — pages the latest answer was grounded in; marked on the filmstrip.
-  const [citedPages, setCitedPages] = useState<number[]>([]);
+  // The board surface whose colour the exported picture keeps, so the picture
+  // the tutor reads is the board the student drew on.
+  const boardRef = useRef<HTMLDivElement | null>(null);
   // PHASE 49 — the turn in flight: the student's own words (shown the moment he
   // presses send) and the part of the tutor's answer written so far. Replaced by
   // the stored pair when the turn ends, so nothing shown here is ever the record.
@@ -312,10 +288,14 @@ export function LessonRoom({ session, onEnded }: Props) {
         setTutorLanguage(replyLanguage);
       })
       .catch(() => undefined);
-    // The stage is optional by design: a lesson with no rasterized book must
-    // still open, as a text-only room.
+    // The lesson's page map is a REFERENCE (W2): the printed pages this lesson
+    // occupies, so the room can say «كتابك — صفحة ٦ من ٧». No map → no bar; the
+    // room still teaches from the book's content.
     lessonStage(session.lessonId)
-      .then(setStage)
+      .then((s) => {
+        setStage(s);
+        setRefPage(s?.fromBookPage ?? null);
+      })
       .catch(() => setStage(null));
     // The ribbon's mastery chip: the concept this lesson teaches, and how much
     // of it the student already owns. Both are best-effort decoration.
@@ -343,8 +323,8 @@ export function LessonRoom({ session, onEnded }: Props) {
     if (box) box.scrollTop = box.scrollHeight;
     // Only a reply that arrives while the room is in use may move the page
     // (a phone scrolls the document, so the newest line has to be brought into
-    // view). While the room is still opening, the student must land on the book
-    // page — that is what the room is for.
+    // view). While the room is still opening, the student must land on the
+    // board — that is what the room is for.
     if (roomOpening.current) return;
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, pending, live]);
@@ -361,34 +341,17 @@ export function LessonRoom({ session, onEnded }: Props) {
   const presence: PresenceState = listening ? "listening" : speaking ? "speaking" : pending ? "thinking" : "idle";
 
   const pages = stage?.pages ?? [];
-  const currentPage = pages[pageIndex];
-  // The lesson's pages as a filmstrip: a peek at the whole span, so the
-  // student can see where they are inside the concept.
-  const filmstrip = useMemo(() => {
-    if (pages.length <= 6) return pages;
-    const start = Math.min(Math.max(pageIndex - 2, 0), pages.length - 5);
-    return pages.slice(start, start + 5);
-  }, [pages, pageIndex]);
-
-  const step = (delta: number) => {
-    setPageIndex((prev) => {
-      const next = prev + delta;
-      if (next < 0 || next >= pages.length) return prev;
-      return next;
-    });
-  };
-
-  /** Jump the stage to one printed page (used by the tutor's page references). */
-  const goToBookPage = useCallback(
-    (bookPage: number) => {
-      const index = pages.findIndex((p) => p.bookPage === bookPage);
-      if (index >= 0) setPageIndex(index);
-    },
-    [pages],
-  );
-
-  /** The printed page the student is looking at right now (null without a book). */
-  const openBookPage = stage?.hasImages ? (currentPage?.bookPage ?? null) : null;
+  /** Move the reference bar to one printed page (the tutor's refs, page chips). */
+  const goToBookPage = useCallback((bookPage: number) => {
+    setRefPage(bookPage);
+    setRefPagesOpen(false);
+  }, []);
+  /** The concept the board is teaching right now — the engine's own move, or the
+      lesson's first concept. The board's chip; never an invented fact. */
+  const boardConcept = useMemo(() => {
+    const lastAction = [...messages].reverse().find((m) => m.role === "tutor" && m.teachingAction)?.teachingAction;
+    return lastAction?.concept ?? conceptMap?.nodes[0]?.title ?? null;
+  }, [messages, conceptMap]);
 
   /**
    * PHASE 40 (D-044) — read a reply aloud with the *browser's* own voice: the
@@ -619,34 +582,36 @@ export function LessonRoom({ session, onEnded }: Props) {
 
   const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, speakReply = false, widget: { value: number } | null = null) => {
     const text = content.trim();
-    // PHASE 50 — marks on the open page travel with the question automatically:
-    // the student drew them *as* his question, so asking must never leave them
+    // PHASE 50 — marks on the board travel with the question automatically: the
+    // student drew them *as* his question, so asking must never leave them
     // behind. A photo and marks are mutually exclusive (one visual per turn) —
     // the composer already enforces "last act wins", this is the backstop.
-    const marks = !image && !doc && openBookPage !== null ? inkStrokes : [];
+    const marks = !image && !doc ? inkStrokes : [];
     if ((!text && !image && !doc && !widget && marks.length === 0) || pending) return;
     // The room has finished opening: from now on a reply may bring itself into
     // view (PHASE 56 — measured, the opening itself must not move the page).
     roomOpening.current = false;
     setPending(true);
     setError(null);
-    // The picture the tutor sees is the page *as marked*: composited here, from
-    // the same image the stage shows, so pointing cannot drift between screen
-    // and model.
-    let ink: { dataUrl: string; page: number; strokes: number } | undefined;
-    if (marks.length > 0 && openBookPage !== null && stage) {
+    // The picture the tutor sees is the board *as marked*: composited here from
+    // the same surface the student draws on — its colour included, so the two
+    // views agree. Never a screenshot of the whole app.
+    let ink: { dataUrl: string; strokes: number } | undefined;
+    if (marks.length > 0) {
       try {
-        const composed = await composeInkPage(bookPageUrl(stage.curriculumId, openBookPage), marks);
-        ink = { dataUrl: composed.dataUrl, page: openBookPage, strokes: marks.length };
+        const surface = boardRef.current ? getComputedStyle(boardRef.current).backgroundColor : "";
+        const composed = await composeInkBoard(marks, surface || undefined);
+        ink = { dataUrl: composed.dataUrl, strokes: marks.length };
       } catch {
         setPending(false);
-        setError("تعذر إرفاق الصفحة المرسومة — تحقق من الاتصال وحاول مرة أخرى");
+        setError("تعذر إرفاق رسمك — تحقق من الاتصال وحاول مرة أخرى");
         return;
       }
     }
-    // PHASE 48 — the open page travels with the turn, so the tutor reads the
-    // same page before answering instead of describing a page he never saw.
-    const onPage = openBookPage ?? undefined;
+    // PHASE 48 — the page of his own book the student follows on travels with
+    // the turn, so the tutor reads the same page before answering. It is a
+    // reference the room named, never a page it showed (W2).
+    const onPage = refPage ?? undefined;
     const page = onPage !== undefined ? { bookPage: onPage } : {};
     const pin = widget ? { widget: { value: widget.value } } : {};
     // PHASE 57 — whose voice reads this reply. When this machine has a voice for
@@ -674,7 +639,7 @@ export function LessonRoom({ session, onEnded }: Props) {
       // tutor thinking instead of a waiting cursor. The student's own words
       // appear immediately: they are already stored by the time the first word
       // of the answer exists, and waiting would move the wait onto him.
-      setLive({ user: optimisticMessage(session.id, text, image, doc, ink ? { page: ink.page, strokes: ink.strokes } : null), text: "" });
+      setLive({ user: optimisticMessage(session.id, text, image, doc, ink ? { strokes: ink.strokes } : null), text: "" });
       // The live path is an improvement, never a new way for a turn to fail: if
       // the stream cannot even start (a buffering proxy, an old browser, a dead
       // socket) the question is simply asked the old way instead. The retry is
@@ -760,12 +725,12 @@ export function LessonRoom({ session, onEnded }: Props) {
       });
       setLive(null);
       setMessages((m) => [...m, turn.userMessage, turn.tutorMessage]);
-      // PHASE 48 — the pages this answer was built from. They are marked on the
-      // filmstrip instead of turning the stage for him: the student owns the
-      // page he is looking at, and the tutor's answer often *describes* the open
-      // page while citing evidence from another one — yanking the stage would
-      // contradict the very words he just read.
-      setCitedPages(turn.tutorMessage.bookPages ?? []);
+      // PHASE 48/W2 — the pages this answer was built from are a REFERENCE: the
+      // bar moves to the first page the answer cites, and the other cited pages
+      // stay visible on the bubble itself. The student opens his own copy — the
+      // room never shows the book, and it never yanks a page out from under him.
+      const cited = turn.tutorMessage.bookPages ?? [];
+      if (cited.length > 0) setRefPage(cited[0]!);
       setRemaining(turn.remainingBudget);
       if (turn.safetyTripwire) setTripwire(true);
       // Only clear the composer when it still holds the text we just sent —
@@ -774,7 +739,7 @@ export function LessonRoom({ session, onEnded }: Props) {
       setPreview(null);
       setDocFile(null);
       // The marks reached the tutor with this question — clear the board so the
-      // next question starts from a clean page.
+      // next question starts from a clean board.
       if (ink) setInkReset((n) => n + 1);
       // PHASE 56/57 — how this turn ends being heard, in the order that gives the
       // student a voice soonest: this machine's own sentence by sentence when it
@@ -868,7 +833,7 @@ export function LessonRoom({ session, onEnded }: Props) {
     reader.onload = () => {
       setPreview(typeof reader.result === "string" ? reader.result : null);
       setDocFile(null);
-      // One visual per turn: a picked photo replaces the page marks.
+      // One visual per turn: a picked photo replaces the board marks.
       setInkStrokes([]);
       setInkReset((n) => n + 1);
     };
@@ -935,11 +900,6 @@ export function LessonRoom({ session, onEnded }: Props) {
           )}
         </div>
         <div className="room-ribbon-facts">
-          {stage && stage.hasImages && currentPage && (
-            <span className="room-fact" data-testid="room-page-fact">
-              📖 {pageLabel(currentPage.bookPage)} من كتاب الوزارة
-            </span>
-          )}
           {mastery !== null && (
             <span className="room-fact" data-testid="room-mastery">
               ✦ إتقانك {mastery}%
@@ -961,111 +921,74 @@ export function LessonRoom({ session, onEnded }: Props) {
       </header>
 
       <div className="room-body">
-        {/* ---- the stage: the official page this lesson occupies ---- */}
-        <section className="room-stage" data-testid="book-stage">
-          {stage?.hasImages && currentPage ? (
-            <>
-              <div className="room-page">
-                <div className="room-sheet">
-                  <img
-                    ref={stageImgRef}
-                    src={bookPageUrl(stage.curriculumId, currentPage.bookPage)}
-                    alt={`${pageLabel(currentPage.bookPage)} من كتاب الوزارة`}
-                    data-testid="stage-image"
-                    onLoad={(e) => {
-                      // Cached pages may already be complete before React
-                      // attaches: trust dimensions, not the event alone.
-                      const img = e.currentTarget;
-                      if (img.naturalWidth > 0) setPageReady(true);
-                    }}
-                  />
-                  {/* PHASE 50/56 — «لوح الحبر»: the student draws on the page
-                      itself, so his finger can point at the exact line he asks
-                      about. The canvas is the only thing inside the sheet (its
-                      exact box), and the toolbar sits beside it — measured: a
-                      toolbar inside the sheet pushed the drawing surface off
-                      the page. */}
-                  <InkBoard
-                    pageKey={currentPage.bookPage}
-                    resetToken={inkReset}
-                    ready={pageReady}
-                    strokes={inkStrokes}
-                    tool={inkTool}
-                    onChange={onInkChange}
-                  />
-                </div>
-                <InkTools
-                  tool={inkTool}
-                  onTool={setInkTool}
-                  count={inkStrokes.length}
-                  ready={pageReady}
-                  onClear={() => onInkChange([])}
-                />
+        {/* ---- W2 — سبورة المعلّم: the stage is the board. The student draws
+            and writes on it, and every mark travels with his next question.
+            The book is a REFERENCE the bar names («كتابك — صفحة ٦ من ٧»),
+            never a page the room shows (الأطلس §١٥ «المرجع لا النسخ»). ---- */}
+        <section className="room-board" data-testid="board">
+          <div className="room-board-head">
+            <span className="room-board-label">سبورة المعلّم</span>
+            {boardConcept && (
+              <span className="room-board-chip" data-testid="board-concept">
+                {boardConcept}
+              </span>
+            )}
+          </div>
+          <div className="room-board-surface" data-testid="board-surface" ref={boardRef}>
+            {/* PHASE 50/56 — «لوح الحبر»: the student draws on the board itself,
+                so his finger can write and point. The canvas is the surface's
+                only child (its exact box), and the toolbar sits beside it. */}
+            <InkBoard resetToken={inkReset} strokes={inkStrokes} tool={inkTool} onChange={onInkChange} />
+          </div>
+          <InkTools tool={inkTool} onTool={setInkTool} count={inkStrokes.length} onClear={() => onInkChange([])} />
+          <p className="room-board-note muted small">ارسم واكتب مع المعلّم — كل علاماتك تصل إليه مع سؤالك.</p>
+          {stage && refPage !== null && (
+            <div className="room-book-ref" data-testid="book-ref">
+              <svg
+                className="room-book-ref-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2V5z" />
+                <path d="M4 18a2 2 0 012-2h13" />
+              </svg>
+              <div className="room-book-ref-info">
+                <strong data-testid="book-ref-page">
+                  كتابك — {pageLabel(refPage)} من {stage.toBookPage}
+                </strong>
+                <span>افتح كتابك واتبع مع المعلّم خطوة بخطوة</span>
               </div>
-              <div className="room-stage-nav">
+              {pages.length > 1 && (
                 <button
-                  data-testid="stage-prev"
-                  className="btn small ghost"
-                  aria-label="الصفحة السابقة"
-                  disabled={pageIndex === 0}
-                  onClick={() => step(-1)}
+                  type="button"
+                  className="room-book-ref-chip"
+                  data-testid="book-ref-toggle"
+                  aria-expanded={refPagesOpen}
+                  onClick={() => setRefPagesOpen((v) => !v)}
                 >
-                  ›
+                  الصفحات
                 </button>
-                <span className="room-stage-count" data-testid="stage-position">
-                  {pageLabel(currentPage.bookPage)} · {pageIndex + 1}/{pages.length}
-                </span>
-                <button
-                  data-testid="stage-next"
-                  className="btn small ghost"
-                  aria-label="الصفحة التالية"
-                  disabled={pageIndex >= pages.length - 1}
-                  onClick={() => step(1)}
-                >
-                  ‹
-                </button>
-              </div>
-              <div className="room-filmstrip" data-testid="stage-filmstrip">
-                {filmstrip.map((p) => (
-                  <button
-                    key={p.bookPage}
-                    type="button"
-                    className="room-thumb"
-                    aria-label={`اذهب إلى صفحة ${p.bookPage}`}
-                    aria-current={p.bookPage === currentPage.bookPage}
-                    onClick={() => setPageIndex(pages.findIndex((x) => x.bookPage === p.bookPage))}
-                  >
-                    <PageSheet
-                      curriculumId={stage.curriculumId}
-                      bookPage={p.bookPage}
-                      active={p.bookPage === currentPage.bookPage}
-                      cited={citedPages.includes(p.bookPage)}
-                    />
-                  </button>
-                ))}
-              </div>
-              {citedPages.length > 0 && (
-                <p className="room-cited-note muted small" data-testid="room-cited">
-                  ✦ استند المعلّم إلى {citedPages.map(pageLabel).join("، ")} من الكتاب
-                </p>
               )}
-              <p className="room-stage-note muted small">
-                الصفحة من <strong>كتاب الوزارة</strong> — وكل ما يقوله المعلّم مبنيّ عليها. المعلّم يقرأ معك الصفحة المفتوحة، ويشير لك إلى الصفحة التي يريدها.
-              </p>
-            </>
-          ) : (
-            <div className="room-no-book" data-testid="stage-absent">
-              <div className="room-no-book-icon" aria-hidden="true">
-                📘
-              </div>
-              <p>
-                <strong>{b ? b.lesson.title : "الدرس"}</strong>
-              </p>
-              <p className="muted small">
-                {stage
-                  ? "صور الكتاب غير متاحة على هذا الجهاز — الشرح نصّي من محتوى الكتاب."
-                  : "هذا الدرس لا يُعرض من كتاب مطبوع — الشرح نصّي."}
-              </p>
+            </div>
+          )}
+          {stage && refPagesOpen && pages.length > 1 && (
+            <div className="room-book-ref-pages" data-testid="book-ref-pages">
+              {pages.map((p) => (
+                <button
+                  key={p.bookPage}
+                  type="button"
+                  className={`room-ref${p.bookPage === refPage ? " current" : ""}`}
+                  aria-current={p.bookPage === refPage}
+                  onClick={() => goToBookPage(p.bookPage)}
+                >
+                  {pageLabel(p.bookPage)}
+                </button>
+              ))}
             </div>
           )}
         </section>
@@ -1146,9 +1069,7 @@ export function LessonRoom({ session, onEnded }: Props) {
             {messages.length === 0 && !live && (
               <div className="center room-captions-empty">
                 <p className="muted">
-                  {stage?.hasImages
-                    ? "ابدأ الحصة: اسأل بصوتك أو اكتب سؤالك — كل إجابة مبنيّة على صفحة الكتاب المفتوحة."
-                    : "ابدأ الحصة: اسألني عن أي شيء في درسنا."}
+                  ابدأ الحصة: اسأل بصوتك أو اكتب سؤالك — المعلّم يعرف كتابك صفحة بصفحة، وهو معك الآن.
                 </p>
                 <div className="primary-action-block">
                   <button
@@ -1190,13 +1111,14 @@ export function LessonRoom({ session, onEnded }: Props) {
                               data-testid="msg-attachment"
                               className="bubble-image"
                               src={attachmentUrl(m.sessionId, a.id)}
-                              alt={a.inkPage !== undefined ? "الصفحة بعد رسم الطالب عليها" : "صورة السؤال المرفق"}
+                              alt={a.inkStrokes !== undefined || a.inkPage !== undefined ? "السبورة بعد رسم الطالب عليها" : "صورة السؤال المرفق"}
                             />
-                            {/* PHASE 50 — a marked page is not a photo: the caption
-                                says which page he drew on, in his own book's terms. */}
-                            {a.inkPage !== undefined && (
+                            {/* PHASE 50/W2 — a drawing is not a photo: the caption
+                                names where he drew — his board, or (legacy) the
+                                page of his own book. */}
+                            {(a.inkStrokes !== undefined || a.inkPage !== undefined) && (
                               <figcaption data-testid="msg-ink-caption" className="bubble-ink-caption">
-                                ✏️ رسمك على {pageLabel(a.inkPage)}
+                                ✏️ {a.inkPage !== undefined ? `رسمك على ${pageLabel(a.inkPage)}` : "رسمك على السبورة"}
                               </figcaption>
                             )}
                           </figure>
@@ -1243,18 +1165,19 @@ export function LessonRoom({ session, onEnded }: Props) {
                     m.widgets?.map((w, i) => (
                       <NumberLine key={`${m.id}-w${i}`} line={w} verifying={pending} onVerify={verifyPin} />
                     ))}
-                  {/* PHASE 48 — where this answer came from, as a place, not a
-                      footnote: one tap turns the stage to that exact page. */}
-                  {m.role === "tutor" && m.bookPages && m.bookPages.length > 0 && stage?.hasImages && (
+                  {/* PHASE 48/W2 — where this answer came from: a REFERENCE to the
+                      student's own copy, never the book itself. One tap moves
+                      the bar to that exact page. */}
+                  {m.role === "tutor" && m.bookPages && m.bookPages.length > 0 && stage && (
                     <div className="room-refs" data-testid="tutor-pages">
-                      <span className="room-refs-label">الصفحات:</span>
+                      <span className="room-refs-label">يستند إلى المنهج · كتابك:</span>
                       {m.bookPages.slice(0, 4).map((p) => (
                         <button
                           key={p}
                           type="button"
-                          className={`room-ref${p === openBookPage ? " current" : ""}`}
-                          aria-label={`اعرض ${pageLabel(p)}`}
-                          aria-current={p === openBookPage}
+                          className={`room-ref${p === refPage ? " current" : ""}`}
+                          aria-label={`كتابك — ${pageLabel(p)}`}
+                          aria-current={p === refPage}
                           onClick={() => goToBookPage(p)}
                         >
                           {pageLabel(p)}
@@ -1349,7 +1272,7 @@ export function LessonRoom({ session, onEnded }: Props) {
         {inkStrokes.length > 0 && !preview && (
           <div className="attachment-preview" data-testid="ink-pending">
             <span className="document-preview-name">
-              ✏️ {inkStrokes.length === 1 ? "علامة على الصفحة" : `${inkStrokes.length} علامات على الصفحة`} ستُرسل مع سؤالك
+              ✏️ {inkStrokes.length === 1 ? "علامة على السبورة" : `${inkStrokes.length} علامات على السبورة`} ستُرسل مع سؤالك
             </span>
             <button
               data-testid="ink-drop"
@@ -1412,11 +1335,11 @@ export function LessonRoom({ session, onEnded }: Props) {
               data-testid="attach-image"
               type="button"
               className="btn small ghost"
-              aria-label="إرفاق صورة سؤال"
+              aria-label="صوّر صفحتك من كتابك"
               disabled={pending}
               onClick={() => fileRef.current?.click()}
             >
-              📷 صورة سؤال
+              📷 صوّر صفحتك
             </button>
             <button
               data-testid="attach-document"
@@ -1435,11 +1358,11 @@ export function LessonRoom({ session, onEnded }: Props) {
               aria-label="رسالتك"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="اسأل معلمك…"
+              placeholder="اكتب سؤالك… أو صوّر صفحتك من كتابك"
               maxLength={4000}
               // Keyboard focus without yanking the scroll: the student opens
-              // the room on the book (the stage), not on the composer. A plain
-              // autoFocus would scroll the page past the book on load.
+              // the room on the board (the stage), not on the composer. A plain
+              // autoFocus would scroll the page past the board on load.
               ref={(el) => el?.focus({ preventScroll: true })}
             />
             <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview && !docFile && inkStrokes.length === 0)}>

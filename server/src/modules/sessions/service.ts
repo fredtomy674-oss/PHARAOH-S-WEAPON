@@ -525,9 +525,9 @@ export class SessionService {
     }
     const docInfo = document ? { text: documentText, truncated: ocrUsed ? ocrTruncated : document.truncated } : null;
 
-    // PHASE 48/50 — which pages of the Ministry book this turn is about, resolved
-    // BEFORE anything is written: the marked page is stored *on* the attachment,
-    // and a session without a lesson must fail without leaving a half-turn behind.
+    // PHASE 48/W2 — the page of his own book this turn is about is resolved
+    // BEFORE anything is written (a session without a lesson must fail without
+    // leaving a half-turn behind).
     const breadcrumb = session.lessonId
       ? await this.curriculum.lessonBreadcrumb(session.lessonId)
       : null;
@@ -543,9 +543,10 @@ export class SessionService {
     // it by one shared rule (see resolveBookPage).
     const stage = stageForLesson(breadcrumb.curriculum.code, breadcrumb.lesson.code);
     const viewingPage = resolveBookPage(stage, input.bookPage);
-    // PHASE 50 — the page the student's own marks are on, resolved by the same
-    // rule. An unmarked page (no stage, or a page this lesson does not own) is
-    // not a lie to punish: the marks still travel as a picture.
+    // PHASE 50 legacy — a pre-W2 ink turn named the printed page its marks were
+    // on; board drawings (W2) carry no page at all. Resolved by the same rule
+    // when present: an unknown page is not a lie to punish — the marks still
+    // travel as a picture.
     const inkPage = resolveBookPage(stage, input.ink?.page);
     const strokeCount = ink ? clampStrokes(input.ink?.strokes) : 0;
 
@@ -586,7 +587,7 @@ export class SessionService {
             sessionId: session.id,
             mimeType: ink.mimeType,
             // A readable name is the difference between an auditable record and a
-            // wall of hashes — this attachment *is* a page of the Ministry book.
+            // wall of hashes — this attachment *is* the student's own drawing.
             fileName: inkBookName(inkPage),
             sizeBytes: ink.sizeBytes,
             sha256: ink.sha256,
@@ -628,8 +629,8 @@ export class SessionService {
       });
     }
 
-    // PHASE 50 — an ink turn reaches the model as a picture too: the bytes are
-    // the printed page with the student's marks on it, which is exactly what the
+    // PHASE 50/W2 — an ink turn reaches the model as a picture too: the bytes
+    // are the board with the student's marks on it, which is exactly what the
     // tutor needs to see. It is one vision input, not a photo plus an image.
     const pictures = image ?? ink;
     // The tutor sees the open book page: with no attached picture but a resolved
@@ -1043,9 +1044,11 @@ function clampStrokes(strokes: number | undefined): number {
   return Math.max(0, Math.min(MAX_INK_STROKES, Math.round(strokes)));
 }
 
-/** A readable file name for a marked-up page — the record should read like a lesson. */
+/** A readable file name for a drawing — the record should read like a lesson. */
 function inkBookName(inkPage: number | undefined): string {
-  return inkPage === undefined ? "صفحة-مُعلَّمة.jpg" : `صفحة-${inkPage}-مُعلَّمة.jpg`;
+  // Legacy (pre-W2) drawings marked a printed page; board drawings (W2+) name
+  // the board itself.
+  return inkPage === undefined ? "رسم-على-السبورة.jpg" : `صفحة-${inkPage}-مُعلَّمة.jpg`;
 }
 
 
