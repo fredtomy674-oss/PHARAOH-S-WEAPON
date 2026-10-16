@@ -1,0 +1,60 @@
+Applications of Similarity in the circle
+2 - 4
+
+You will learn
+▸ The relation between two inter-
+secting chords in a circle.
+▸ The relation between two se-
+cants to the circle from a point
+outside it.
+▸ The relation between the length
+of a tangent and the lengths
+of the two parts of a secant to
+the circle drawn from a point
+outside it.
+▸ Modeling, solving problems,
+and life applications using simili-
+arity of polygons in a circle.
+
+Key-term
+▸ Chord
+▸ Secant
+▸ Tangent
+▸ Diameter
+▸ Common External Tangent
+▸ Common Internal Tangent
+▸ Concentric Circles
+
+Think and discuss
+
+In each of the following figures, two similar triangles. Write the two triangles in order of their corresponding congruent angles, and deduce the proportion of their corresponding sides.
+
+D A E C B
+figure (1)
+
+E D C B A
+figure (2)
+
+D C B A
+figure (3)
+
+➤ In figure (1): Is there a relation between EA × EB and EC × ED?
+➤ In figure (2): Is there a relation between AE × AD and AC × AB?
+➤ In figure (3): Is there a relation between AD × AC and (AB)² ?
+
+Well known problem
+If the two lines containing the two chords AB, CD of a circle are intersecting at the point E, then EA × EB = EC × ED
+
+C A E B D
+figure (1)
+
+E B A D C
+figure (2)
+
+To deduce that:
+➤ Draw AD and BC
+➤ In each of the two figures, prove that the two triangles are similar:
+then $\frac{\text{EA}}{\text{EC}} = \frac{\text{ED}}{\text{EB}}$ $\quad \therefore \text{EA} \times \text{EB} = \text{EC} \times \text{ED}$
+
+Student book - First term
+53

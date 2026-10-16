@@ -1,0 +1,40 @@
+1 - 4
+Sign of a Function
+You will Learn
+Investigate the sign of:
+constant function - Linear
+function - quadratic function.
+Think and discuss
+You have studied before the graphic representation of a linear and
+quadratic functions, and recognized the general figure of the curve of
+each function, can you investigate the sign of each of these functions?
+We mean by investigating the sign of the function to determine the
+values of the variable $x$ (domain of $x$) at which the values of the
+function f are as follows:
+Positive, means    $f(x) > 0$
+negative, means    $f(x) < 0$
+equal to zero, means    $f(x) = 0$
+Learn
+First: Sign of the Constant Function
+Sign of the constant function $f$ where $f(x) = c (c \neq 0)$ is the same as
+the sign of $c \forall x \in \mathbb{R}$.
+and the following figure shows the sign of the function f.
+Key - Terms
+$y$    $y$
+$c > 0$
+Sign of a function
+$c$    $c$
+Constant Function
+$o$    $o$
+Linear Function
+$x$    $x$
+$c < 0$
+Quadratic Function
+the function is positive $\forall x \in \mathbb{R}$    the function is negative $\forall x \in \mathbb{R}$
+Example    Materials
+1 Determine the sign of each of the following functions:    Scientific Calculator
+A $f(x) = 5$    B $f(x) = -7$
+Solution
+A $\because f(x) > 0$    $\therefore$ Sign of the function is positive $\forall x \in \mathbb{R}$
+B $\because f(x) < 0$    $\therefore$ Sign of the function is negative $\forall x \in \mathbb{R}$
+Mathematics - First form secondary    20

@@ -1,0 +1,23 @@
+Finding the Measure of an Angle Given the Value of One of its Trigonometric Ratios
+5 Use the degree measure to find the smallest positive angle which satisfies each of the
+following:
+A sin⁻¹ 0.6                 B cos⁻¹ 0.436                C tan⁻¹ 1.4552
+D sec⁻¹ (− 2.2364)           E cot⁻¹ 3.6218               F csc⁻¹ (−1.6004)
+6 If 0° ⩽ θ ⩽ 360°, then find the measure of angle θ in each of the following:
+A sin⁻¹ (0.2356)            B cos⁻¹ (− 0.642)            C tan⁻¹ (− 2.1456)
+7 If sin θ = 1/3 and 90° ⩽ θ ⩽ 180°.
+A Calculate the measure of angle θ to the nearest second
+B Find the value of cos θ , tanθ and secθ .
+8 Ladder: A ladder of length 5 metres rests on a wall , if the
+height of the ladder from the ground is 3 metres. Find in     5m
+radian the measure of the angle of inclination of the ladder to
+the horizontal.                                               3 m
+θ°
+9 Find the degree measure of angle θ in each of the following figures:
+A               B               C
+9 cm
+8 cm            7 cm            4 cm
+θ               9 cm               θ
+5 cm
+Student book – First term
+119

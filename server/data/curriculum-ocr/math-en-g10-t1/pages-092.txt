@@ -1,0 +1,23 @@
+Exercises (4 - 1)
+1 Complete:
+A A directed angle is in the standard position if ................................................................
+B It is said that the directed angles in the standard position are equivalent if ....................................
+C A directed angle is positive , if the rotation of the angle .................................... and is negative,
+if the rotation of the angle ....................................
+D If the terminal side of the directed angle lies on one of the coordinate axes, then it is
+called ....................................
+E If (θ) is the measure of a directed angle in the standard position and n ∈ Z , then
+(θ + n × 360°) is called .................................... angles.
+F The smallest positive measure of the angle whose measure 530° is ....................................
+G The angle whose measure 930° lies in the .................................... quadrant.
+H The smallest positive measure of the angle whose measure –690° is ....................................
+2 Which of the following directed angles is in the standard position
+A          B          C          D
+y          y          y          y
+x'      O      x          x'      O      x          x'      O      x          x'      O      x
+y'          y'          y'          y'
+3 Find the measure of the directed angle θ in each of the following figures:
+A          B          C          D
+θ      54°          θ          θ      125°          θ      59°
+....................................          ....................................          ....................................
+88          Mathematics – First form secondary

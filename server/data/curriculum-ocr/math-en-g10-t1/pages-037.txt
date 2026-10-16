@@ -1,0 +1,33 @@
+Similarity of Polygons
+If polygon ABCD ~ polygon XYZL then:
+A ∠A ≡ ∠X, ∠B ≡ ∠Y, ∠C ≡ ∠Z, ∠D ≡ ∠L A B C D
+B AB/XY = BC/YZ = CD/ZL = DA/LX = K (similarity ratio), K ≠ 0 ↓ ↓ ↓ ↓
+The scale factor of similarity of polygon ABCD to polygon XYZL X Y Z L
+equals K, and scale factor of similarity of polygon XYZL to
+polygon ABCD equals
+1/K
+Example
+1 In the figure opposite: polygon ABCD ~ polygon EFGH.
+C
+A Find the scale factor of similarity of 15 cm G
+polygon ABCD to polygon EFGH. D X cm
+H
+B Find the values of x and y. 12 cm 8 cm
+Solution X X
+∵ polygon ABCD ~ polygon EFGH A (y + 2) B E 6 cm F
+then: AB/EF = BC/FG = CD/GH = DA/HE = similarity ratio,
+(y + 2)/6 = BC/FG = 15/x = 12/8
+A Scale factor = 12/8 = 3/2
+B 15/x = 3/2 → x = 10cm , (y + 2)/6 = 3/2 → y = 7cm
+Think
+Are all squares similar? Are all rhombuses similar?
+Are all rectangles similar? Are all parallelogrames similar? Explain your answer.
+Notice that
+1- For two polygons to be similar, the two conditions must m₂ m₁
+be satisfied simultaneously, and the fulfilment of one of
+them only is not sufficient. polygon m₁ ≡ polygon m₂
+2- If two polygons are congruent, then they are similar (polygon
+M₁ ~ polygon M₂) and the scale factor is then equal 1, and
+two simialr polygons need not be congruent (polygon M₃ ≢ m₄ m₃
+polygon M₄) as in the figure opposite. polygon m₃ ~ polygon m₄
+Student book – First term 33

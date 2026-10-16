@@ -1,0 +1,26 @@
+البحر المتوسط Example
+بور فؤاد بورسعيد A ③ If every 1 cm on the map represents 10 kilometres.
+خليج الطينة بحيرة المنزلة find the real area which the triangle ABC represents
+الطينة to the nearest square kilometre,
+B If a(Δ ABC) = 6.4cm².
+قناة Solution
+C السويس القنطرة Drawing scale = similarity ratio = 1 / (10 × 10⁵)
+سيناء البلاح area of Δ ABC / real area = square of similarity ratio
+الفردان 6.4 / real area = (1 / (10 × 10⁵))²
+E the real area = 6.4 × 10 × 10 × 10⁵ × 10⁵ cm²
+D الإسماعيلية أبو صوير ≃ 640 km²
+سرابيوم
+F أبو سلطان
+البحيرة المرة الكبرى
+Fact: Two similar polygon can be divided into the
+same number of triangles, each is similar to the
+corresponding one.
+Note: the fact mentioned above is valid regardless the
+number of the sides of the two similar polygons (have
+always the same number of sides). Any polygon of n
+sides can be divided into (n-2) triangles.
+D D'
+E E'
+C C'
+B A B' A'
+Mathematics – First form secondary 48

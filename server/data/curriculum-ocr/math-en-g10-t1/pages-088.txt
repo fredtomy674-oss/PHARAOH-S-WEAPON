@@ -1,0 +1,38 @@
+Positive and negative measures of a directed angle
+In figure (1) the directed angle, resulting from an anticlockwise rotation has a positive
+measure.
+In figure (2) the directed angle, resulting from a clockwise rotation has a negative measure.
+
+12 12
+terminal side anticlockwise 9 initial side A
+9 positive 6 terminal side B negative
+6 initial side A terminal side B clockwise
+figure (1) figure (2)
+
+Example
+1 Find the measure of the directed angle θ in each of the following figure:
+A B C D
+θ 55° θ 33° θ 125° θ 134°
+
+Solution
+We know that the sum of measures of accumulative angles around a point equals 360°
+A Direction of the angle θ is a clockwise direction m(∠θ) = – (360° – 55°) = – 305°
+B Direction of the angle θ is an anticlockwise direction m(∠θ) = 360° – 33° = 327°
+C Direction of the angle θ is an anticlockwise direction m(∠θ) = 360° – 125° = 235°
+D Direction of the angle θ is a clockwise direction m(∠θ) = – (360° – 134°) = – 226°
+
+Try to solve
+2 Find the measure of the directed angle O in each of the following figures:
+A B C D
+θ 21' θ θ 115° θ 56°
+
+Angle's position in the orthogonal coordinate plane:
+The orthogonal coordinate plane is divided into four 90°
+quadrants as in the figure opposite. second First
+quadrant quadrant
+180° 0°
+Third Fourth
+quadrant quadrant
+270°
+
+84 Mathematics – First form secondary

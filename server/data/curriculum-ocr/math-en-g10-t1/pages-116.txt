@@ -1,0 +1,42 @@
+4 - 5
+Graphing Trigonometric Functions
+You will Learn
+▸ Graph the sine function , and
+deduce its properties.
+▸ Graph the cosine function, and
+deduce its properties.
+Think and discuss
+Ultrasound depend on high
+frequencies, differ in wave length,
+as used in medical photography
+Wave length
+Wave length
+Wave length
+and submarines use it as a radar
+works in the depths of the ocean.
+When these waves are represented
+Graphically to know the properties of the sine function and cosine
+function, work in group with your classmate the following:
+Graphical representation of the sine function
+Key - Terms
+▸ Sine Function
+▸ Cosine Function
+▸ Maximum Value
+▸ Minimum Value
+Group work
+1  Complete the following table:
+| θ | 0 | π/6 | 3π/6 | 5π/6 | π | 7π/6 | 9π/6 | 11π/6 | 2 π |
+| sin θ | 0 | 0,5 | | | | | | | |
+2  Draw the curve by connecting its all points.
+3  Construct another table uses the additive inverse of the given
+values in the previous table.
+4  Determine all points which you have got on the coordinates
+lattice.
+5  Complete drawing the curve by connecting all its points.
+Learning tools
+▸ Graphic calculator .
+▸ Computer
+▸ Graphic programs.
+6  Are you notice the existence of maximum or minimum values to
+this curve? explain your answer.
+112            Mathematics – First form secondary

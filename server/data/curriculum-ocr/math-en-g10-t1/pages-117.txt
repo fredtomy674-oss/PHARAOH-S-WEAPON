@@ -1,0 +1,43 @@
+Graphing Trigonometric Functions
+Learn
+Properties of the sine function
+In the function $f$ where $f(\theta) = \sin\theta$ then:
+★ The domain of the sine function is $]-\infty, \infty[$, and its range $[-1, 1]$
+★ The sine function is periodic with period $2\pi$ i.e. it is possible to shift the curve in the
+interval $[0, 2\pi]$ to the right or to the left $2\pi$ unit, $4\pi$ unit, $6\pi$ unit, ... and so on.
+★ The maximum value of the sine function equals $1$ and takes place at the points
+$\theta = \frac{\pi}{2} + 2\,n\pi$
+$n \in \mathbb{Z}$
+★ The minimum value of the sine function equals $-1$ and takes place at the points
+$\theta = \frac{3\pi}{2} + 2\,n\pi$
+$n \in \mathbb{Z}$
+Graphical representation of the cosine function
+Group work
+1 Complete the following table with your classmate:
+$\theta$
+0
+$\frac{\pi}{6}$
+$\frac{3\pi}{6}$
+$\frac{5\pi}{6}$
+$\pi$
+$\frac{7\pi}{6}$
+$\frac{9\pi}{6}$
+$\frac{11\pi}{6}$
+$2\pi$
+$\cos\theta$
+$0,8$
+$1$
+2 Draw the curve by connecting all its points.
+3 Construct another table uses the additive inverse of the given values in the previous table.
+4 Determine all points which you have got on the coordinates lattice.
+5 Complete drawing the curve by connecting all its points.
+$x'$
+$2\pi$
+$y'$
+Learn
+Properties of the cosine function
+In the function $f$ where $f(\theta) = \cos\theta$ then:
+★ The domain of the cosine function is $]-\infty, \infty[$, and its range is $[-1, 1]$
+★ The cosine function is periodic with period $2\pi$, it is possible to shift the curve in the
+interval $[0, 2\pi]$ to the right or to the left $2\pi$ unit, $4\pi$ unit, $6\pi$ unit, ... and so on.
+113 Student book - First term

@@ -1,0 +1,28 @@
+Angle Bisectors and Proportional Parts 3 - 2
+You will learn
+Group work Properties of bisectors of angles
+of triangles .
+1- Draw the triangle ABC, and draw $\overrightarrow{AD}$ to intersect $\overline{BC}$ at D. Use proportion to calculate
+2- Measure each of $\overline{BD}$, $\overline{CD}$, $\overline{AB}$, $\overline{AC}$. the lengths of line segments
+3- Calculate each of the two ratios $\frac{BD}{DC}$, $\frac{BA}{AC}$ resulting from bisecting an
+and compare between them. angle in a triangle.
+What do you deduce? Modelling and solving life
+4- Repeat the previous work many times. problems including bisectors of
+Does your deduction verify? Express angles of triangle
+your deduction.
+Key-terms Bisector of an Angle of a Triangle
+theorem 3
+Bisector The bisector of the interior or exterior angle of a
+Interior Bisector triangle at any vertex divides the opposite base of the
+Exterior Bisector triangle internally or externally into two parts the
+Perpendicular ratio of their lengths is equal to ratio of the lengths of
+the other two sides of the triangle.
+(Proof is not required)
+Figure (B) Figure (A)
+Materials
+Geometric instruments for Given: ABC is a triangle, $\overrightarrow{AD}$ bisects $\angle$ BAC
+drawing. (internally in figure A , externally in figure B).
+Computer and Graph programs. R.t.p. : $\frac{BD}{DC} = \frac{AB}{AC}$
+Data show. Proof : Draw $\overrightarrow{CE} // \overrightarrow{AD}$ and intersects $\overrightarrow{BA}$ at E. Follow the following
+chart and write the proof.
+Mathematics – First form secondary 72

@@ -179,6 +179,12 @@ import {
   assertTreeMatchesTheBook as assertMathG10TreeMatchesBook,
 } from "./egyptMathG10T1.js";
 import {
+  EGYPT_MATH_EN_G10_T1_UNITS,
+  lessonDocument as mathEnG10LessonDocument,
+  isConsistent as isMathEnG10TreeConsistent,
+  assertTreeMatchesTheBook as assertMathEnG10TreeMatchesBook,
+} from "./egyptMathEnG10T1.js";
+import {
   EGYPT_CHRISTIAN_G10_T1_UNITS,
   lessonDocument as christianG10LessonDocument,
   isConsistent as isChristianG10TreeConsistent,
@@ -3600,6 +3606,56 @@ function buildEgyptMathG10Term(): TermSeedSpec {
 function verifyMathG10Tree(): { ok: boolean; problems: string[] } {
   const table = isMathG10TreeConsistent();
   const book = assertMathG10TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Secondary-1 (Grade 10) **Mathematics (English-medium)** — OFFICIAL curriculum
+ * (PHASE 154).
+ *
+ * The first term IS the Ministry textbook (`Mathematics — First form secondary`, First
+ * term; 123 scanned pages, Gemini OCR): its four units (Algebra, relations and
+ * functions، Similarity، The Triangle Proportionality Theorems، Trigonometry) and the
+ * pages they occupy (book pages 2–119). The scan holds four pages before each book
+ * page: book N = scan N+4, i.e. an offset of +4, proven by the printed folios (scan 8 =
+ * 4, scan 14 = 10, scan 50 = 46, scan 73 = 69, scan 90 = 86, scan 123 = 119). A lesson
+ * is each printed lesson; its `concepts` are the lesson's own printed heads (You will
+ * Learn، definitions، theorems، worked activities), verbatim in English.
+ */
+export const EGYPT_MATH_EN_G10_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-10", name: "Grade 10", nameAr: "الصف الأول الثانوي", levelOrder: 10 },
+  subject: { code: "math-en", name: "Mathematics (English)", nameAr: "الرياضيات (بالإنجليزية)" },
+  curriculum: { code: "eg-g10-math-en", title: "الرياضيات للصف الأول الثانوي (بالإنجليزية)" },
+  terms: [buildEgyptMathEnG10Term()],
+};
+
+/** Term 1 = the official English-medium maths book: printed unit → printed lesson. */
+function buildEgyptMathEnG10Term(): TermSeedSpec {
+  const check = verifyMathEnG10Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب الرياضيات (بالإنجليزية) (أولى ثانوي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_MATH_EN_G10_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes are unique across every seeded curriculum.
+        code: `l-g10-math-en-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts.map((concept) => `${concept.kind}: ${concept.title}`),
+        doc: { title: lesson.title, content: mathEnG10LessonDocument(ui, li) },
+      })),
+    })),
+  };
+}
+
+/** Both halves of the Grade-10 English Maths tree verification, as one verdict. */
+function verifyMathEnG10Tree(): { ok: boolean; problems: string[] } {
+  const table = isMathEnG10TreeConsistent();
+  const book = assertMathEnG10TreeMatchesBook();
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
@@ -8618,6 +8674,7 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_G10_SPEC);
+  await seedCountry(db, knowledge, EGYPT_MATH_EN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_HISTORY_G10_SPEC);
   await seedCountry(db, knowledge, EGYPT_ICT_G10_AR_SPEC);
@@ -8737,7 +8794,7 @@ async function main(): Promise<void> {
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Family/Farming/Libraries skills for Grades 4–6) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Secondary-1 Mathematics Arabic/English/French + Family/Farming/Libraries skills for Grades 4–6) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**

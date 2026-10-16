@@ -1,0 +1,20 @@
+10 If θ is the measure of the directed angle in the standard position and its terminal side
+intersects the unit circle at the given point, find all trigonometric function of the angle θ
+in each of the following cases :
+A (3 a, – 4a) where a > 0 B (3/2 a, –2a) where 3π/2 < θ < 2π
+11 Determine the sign of each of the following trigonometric function:
+A sin 240° B tan 365° C csc 410°
+.................................................... .................................................... ....................................................
+D cot 9π/4 E sec – 9π/4 F tan -20π/9
+.................................................... .................................................... ....................................................
+12 Find the value of each of the following:
+A cos π/2 × cos 0 + sin 3π/2 × sin π/2
+B tan² 30° + 2 sin² 45° + cos² 90°
+13 Discover the error: The teacher asked the students to find the value of 2 sin 45°.
+Karim's answer Ahmed's answer
+2 sin 45° = sin 2 × 45° 2 sin 45 = 2 × 1/√2 = 2/√2 × √2/√2
+= sin 90° = 1 = √2
+Which of the two answers is correct? why?
+14 Critical thinking: If θ is an angle drawn in the standard position where cot θ = – 1 and
+csc θ = √2. Is it possible that m(∠ θ) = 3π/4? Explain your answer.
+102 Mathematics – First form secondary

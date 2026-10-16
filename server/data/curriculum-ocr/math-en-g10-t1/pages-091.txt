@@ -1,0 +1,41 @@
+Directed Angle
+
+From the previous, we deduce that:
+When drawing a directed angle $\theta$ in the standard position , then all angles whose measures :
+$\theta \pm 1 \times 360^\circ$ or $\theta \pm 2 \times 360^\circ$ or $\theta \pm 3 \times 360^\circ$ or.... or $\theta + \text{n} \times 360^\circ$ where $\text{n} \in \text{Z}$
+have the same terminal side are called equivalent angles.
+
+Example
+
+5 Find a positive and a negative measure of an angle co-terminal with each of the following angles:
+A 120° B -230°
+
+Solution
+A An angle of positive measure: 120° + 360° = 480° (add 360°)
+An angle of negative measure: 120° - 360° = -240° (subtract 360°)
+
+B An angle of positive measure: -230° + 360° = 130° (add 360°)
+An angle of negative measure: -230° - 360° = -590° (subtract 360°)
+
+Think: Are there other angles of positive measure and others of negative measure? Mention some of these angles if exist.
+
+Try to solve
+7 Find a positive and a negative measures of an angle co-terminal with each of the following angles:
+A 40° B 150° C -125° D -240° E -180°
+
+8 Discover the error: all the measures of the following angles are equivalent to the angle of measure 75° in the standard position except:
+A -285° B -645° C 285° D 435°
+
+Check your understanding
+
+1 Determine the quadrant in which each of the following angles lies:
+A 56° B 325° C 570° D 166° E 390°
+
+2 Determine a negative measure of each of the following angles of measures:
+A 43° B 214° C 125° D 90 ° E 312°
+
+3 Determine the smallest positive measure of each of the following angles:
+A -56° B -215° C 495° D 930° E -450°
+
+Student book - First term
+87

@@ -1,0 +1,29 @@
+1 - 5
+Quadratic Inequalities in one variable
+You will Learn
+Think and discuss
+Solving the quadratic inequality
+in one variable.
+You have studied before the first degree inequality in one variable , and
+you have known that solving the inequality means, finding all values of
+the unknown which satisfy this inequality, and is written in the form of an
+interval. can you solve the second degree inequality in one variable?
+Notice that:
+x² – x – 2 > 0 is a second degree inequality as shown in the figure opposite
+while f(x) = x² – x – 2
+is the quadratic function related with this inequality.
+From the figure opposite, we get:
+Key - Terms
+The solution set of the inequality
+Inequality x² - x - 2 > 0 in ℝ
+is ]-∞, -1[ ∪ ]2, ∞[
+The solution set of the inequality
+x² - x - 2 < 0 in ℝ is ]-1, 2[
+Learn
+Solving the quadratic inequality in one variable
+Example
+Materials
+1 Solve the inequality: x² – 5x – 6 > 0
+Scientific calculator
+Student book - First term
+27

@@ -1,0 +1,31 @@
+★ The maximum value of the cosine function equals 1 and takes place at the points
+θ = ±2 nπ          n ∈ Z
+★ The minimum value of the sine function equals - 1 and takes place at the points
+θ = π ± 2nπ          n ∈ Z
+Example
+1 Physics: It is possible to the ships entering the port, if the level of water is high as a result
+of the movement of the ebb and tide , where the depth of water is at least 10 metres. The
+movement of ebb and tide in that day is given by the relation, S = 6 sin (15 n)° + 10 where
+n is the time elapsed after the mid-night in hours according to (24 hours system). How
+many times did the depth of water completely reach 10 metres in the port. Draw a graph
+representation to show how the depth of water vary with the movement of ebb and tide
+during the day.
+Solution
+The relation between the time (n) in hours and the depth of water (s) in metres
+from the relation: S = 6 sin (15 n)° + 10
+when n = 0  S = 6 sin (15 × 0) + 10 = 6 sin 0 + 10 = 10
+when n = 6  S = 6 sin (15 × 6) + 10 = 6 sin 90° + 10 = 16
+when n = 12  S = 6 sin (15 × 12) + 10 = 6 sin 180° + 10 = 10
+when n = 18  S = 6 sin (15 × 18) + 10 = 6 sin 270° + 10 = 4
+when n = 24  S = 6 sin (15 × 24) + 10 = 6 sin 360° + 10 = 10
+| n in hours | 0 | 6 | 12 | 18 | 24 |
+| S in metres | 10 | 16 | 10 | 4 | 10 |
+From the table we get : the depth of water reaches 10 metres
+when n = 10, 12, 24 hours
+Try to solve
+1 In the previous example , How many hours during the day at which the ship can able to
+enter the port?
+Check your understanding
+1 Draw the graph of the function   y = 3 sin x   where x ∈ [0, 2π]
+2 Draw the graph of the function   y = 2cosx   where x ∈ [0, 2π]
+114       Mathematics – First form secondary

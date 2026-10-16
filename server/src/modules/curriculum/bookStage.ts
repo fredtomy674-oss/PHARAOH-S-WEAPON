@@ -339,6 +339,13 @@ import {
   loadBookPage as loadMathG10Page,
 } from "../../db/egyptMathG10T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as MATH_EN_G10_OFFSET,
+  EGYPT_MATH_EN_G10_T1_BOOK_END,
+  allLessonRanges as mathEnG10LessonRanges,
+  allLessonExtras as mathEnG10LessonExtras,
+  loadBookPage as loadMathEnG10Page,
+} from "../../db/egyptMathEnG10T1.js";
+import {
   BOOK_TO_PDF_OFFSET as CHRISTIAN_G10_OFFSET,
   EGYPT_CHRISTIAN_G10_T1_BOOK_END,
   allLessonRanges as christianG10LessonRanges,
@@ -1100,9 +1107,16 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g1-math", prefix: "l-g1-math-", offset: MATH_G1_OFFSET, bookEnd: EGYPT_MATH_G1_T1_BOOK_END, ranges: mathG1LessonRanges(), loadPage: loadMathG1Page, extras: mathG1LessonExtras() }),
   buildBook({ code: "eg-g10-integrated-science-fr", prefix: "l-g10-isci-fr-", offset: INTEGRATED_SCIENCE_FR_G10_OFFSET, bookEnd: EGYPT_INTEGRATED_SCIENCE_FR_G10_T1_BOOK_END, ranges: integratedScienceFrG10LessonRanges(), loadPage: loadIntegratedScienceFrG10Page, extras: integratedScienceFrG10LessonExtras() }),
   buildBook({ code: "eg-g1-math-en", prefix: "l-g1-math-en-", offset: MATH_EN_G1_OFFSET, bookEnd: EGYPT_MATH_EN_G1_T1_BOOK_END, ranges: mathEnG1LessonRanges(), loadPage: loadMathEnG1Page, extras: mathEnG1LessonExtras() }),
-  buildBook({ code: "eg-g10-math-fr", prefix: "l-g10-math-fr-", offset: MATH_FR_G10_OFFSET, bookEnd: EGYPT_MATH_FR_G10_T1_BOOK_END, ranges: mathFrG10LessonRanges(), loadPage: loadMathFrG10Page, extras: mathFrG10LessonExtras() }),
+  // PHASE 154 — the G10 Arabic and French maths twins export their offset with
+  // the historical «book − scan» sign (their own loadBookPage reads
+  // `book − OFFSET`), while the stage adds the raw offset; negate both here so
+  // the printed page finds the scan that holds it (book 4 = scan 6 / scan 9).
+  // The English book — the family's newest member — exports the modern
+  // «scan − book» sign and is used raw.
+  buildBook({ code: "eg-g10-math-fr", prefix: "l-g10-math-fr-", offset: -MATH_FR_G10_OFFSET, bookEnd: EGYPT_MATH_FR_G10_T1_BOOK_END, ranges: mathFrG10LessonRanges(), loadPage: loadMathFrG10Page, extras: mathFrG10LessonExtras() }),
   buildBook({ code: "eg-g1-math-fr", prefix: "l-g1-math-fr-", offset: MATH_FR_G1_OFFSET, bookEnd: EGYPT_MATH_FR_G1_T1_BOOK_END, ranges: mathFrG1LessonRanges(), loadPage: loadMathFrG1Page, extras: mathFrG1LessonExtras() }),
-  buildBook({ code: "eg-g10-math", prefix: "l-g10-math-", offset: MATH_G10_OFFSET, bookEnd: EGYPT_MATH_G10_T1_BOOK_END, ranges: mathG10LessonRanges(), loadPage: loadMathG10Page, extras: mathG10LessonExtras() }),
+  buildBook({ code: "eg-g10-math", prefix: "l-g10-math-", offset: -MATH_G10_OFFSET, bookEnd: EGYPT_MATH_G10_T1_BOOK_END, ranges: mathG10LessonRanges(), loadPage: loadMathG10Page, extras: mathG10LessonExtras() }),
+  buildBook({ code: "eg-g10-math-en", prefix: "l-g10-math-en-", offset: MATH_EN_G10_OFFSET, bookEnd: EGYPT_MATH_EN_G10_T1_BOOK_END, ranges: mathEnG10LessonRanges(), loadPage: loadMathEnG10Page, extras: mathEnG10LessonExtras() }),
   buildBook({ code: "eg-g10-christian-education", prefix: "l-g10-chr-", offset: CHRISTIAN_G10_OFFSET, bookEnd: EGYPT_CHRISTIAN_G10_T1_BOOK_END, ranges: christianG10LessonRanges(), loadPage: loadChristianG10Page, extras: christianG10LessonExtras() }),
   buildBook({ code: "eg-g10-history", prefix: "l-g10-his-", offset: HISTORY_G10_OFFSET, bookEnd: EGYPT_HISTORY_G10_T1_BOOK_END, ranges: historyG10LessonRanges(), loadPage: loadHistoryG10Page, extras: historyG10LessonExtras() }),
   buildBook({ code: "eg-g10-ict", prefix: "l-g10-ict-", offset: ICT_AR_G10_OFFSET, bookEnd: EGYPT_ICT_G10_AR_T1_BOOK_END, ranges: ictArG10LessonRanges(), loadPage: loadIctArG10Page }),

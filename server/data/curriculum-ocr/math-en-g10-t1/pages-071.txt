@@ -1,0 +1,44 @@
+Parallel Lines and Proportional Parts
+Solution
+AB ⊥ BD, CD ⊥ BD ∴ AB // CD
+∵ AC ∩ BD = {E} , AB // CD
+∴ EA/AC = EB/BD then 60/AC = 45 / (45 + 105)
+∴ AC = (60 × 150) / 45 = 200 metres.
+Try to solve
+5 Pollution Control: A team of pollution control
+determined the location of an oil spot on one of
+the beaches as in the figure opposite. Calclate the
+length of the oil spot.
+A B C
+33 m
+130 m
+E 39 m
+D
+Think and discuss
+You have noticed the possibility of using a parallel line to
+one of the sides of a triangle in many life applications.
+The figure opposite shows a door of one of the plant nurseries
+made from wooden parallel pieces and other transversals to
+them.
+Is there a relation between the lengths of intercepted parts of
+these parallel pieces?
+Modeling
+To investigate the existence of a relation or not, make a model to the problem (make a
+mathematical model to the problem) as follows:
+1- Draw the lines L₁ // L₂ // L₃ // L₄ and M, M' are two transversals to them
+at A, B, C, D and A', B', C', D'
+as in the figure opposite.
+M' M
+A' A
+L₁
+B' B
+L₂
+C' C
+L₃
+D' D
+L₄
+2- Measure the lengths of line segments, and compare
+the following ratios:
+AB/A'B' , BC/B'C' , CD/C'D' , AC/A'C'
+What do you deduce?
+Student book – First term 67

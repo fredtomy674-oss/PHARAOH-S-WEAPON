@@ -1,0 +1,38 @@
+Parallel Lines and Proportional Parts
+Special cases
+1- If the two lines M , M' intersect at the point A
+and: BB' // CC', then: AB/AC = AB'/AC'
+and conversely: If: AB/AC = AB'/AC'
+then: BB' // CC'
+C' B M A C B' M'
+Talis's Special theorem
+2- If the lengths of the segments on the transversals are equal,
+then the lengths of the segments on any other transversal
+will be also equal.
+In the figure opposite L1 // L2 // L3 // L4 and M, M' are two
+transversals to them and AB = BC = CD then: A'B' = B'C' = C'D'
+M' M A' A L1 B' B L2 C' C L3 D' D L4
+Example
+7 In te figure opposite , find the numerical value of x and y.
+x + 2 2x - 3 E C A F x + 1 D x + 3 B
+Solution
+∵ AB // CD // EF , BD = DF
+∴ AC = CE
+then: 2x - 3 = x + 2 ∴ x = 5
+∵ BD = DF , x = 5 ∴ y + 3 = 5 + 1 ∴ y = 3
+Example
+8 Industry: Fertilizer packages produced from
+one of the factories are transfered by sliding on
+a tube that is inclined and carried on to trucks
+to the centre of distributions as in the figure
+opposite.
+If D, E and F are the projections of the points A, B
+and C on the horizontal respectively, AB = 1.2m,
+DE = 80cm , EF = 12m. Find the length of the
+tube to the nearest metre .
+C B A F 12 m D 80 cm
+Solution
+∵ D, E and F are projections to the points A, B and C on the horizontal ∴ AD // BE // CF
+∵ AD // BE // CF , AC , DF are two transversals to them ∴ AC/AB = DF/DE : AC/1.2 = (12 + 0.8) / 0.8
+∴ AC = (1.2 × 12.8) / 0.8 = 19.2 m ∴ A C ≃ 19 metres
+Student book – First term 69

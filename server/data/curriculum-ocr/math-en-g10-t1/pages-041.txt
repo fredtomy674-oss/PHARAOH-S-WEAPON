@@ -1,0 +1,44 @@
+Similarity of Triangles
+Postulate
+AA similarity postulate
+If two angles of one triangle are congruent to their two corresponding
+angles of another triangle, then the two triangles are similar
+In the figure opposite:
+F
+C
+If ∠ A ≡ ∠ D , ∠ B ≡ ∠ E
+then Δ ABC ~ Δ DEF
+x x
+E D B A
+Notice that
+1- Any two equilateral triangles are similar
+2- Two isosceles triangles are similar if the measure of one of the two base angles in one of
+them is equal to the measure of one of the two base angles in the other . or if the measures
+of their vertex angles are equal.
+3- Two right triangles are similar if the measure of one of the two acute angles in one of
+them is equal to the measure of one of the two acute angles in the other.
+Example
+1 In the triangle ABC, D ∈ AB and E ∈ AC where DE // BC ,
+BD = 1.2cm , AE = 3cm , AC = 4cm and DE = 4.2cm.
+A Prove that Δ ADE ~ Δ ABC
+B Find the length of: AD and BC
+A
+Solution
+3 cm
+A ∵ DE // BC and AB is a transversal to both of them.
+4.2 cm
+∴ ∠ ADE ≡ ∠ ABC
+E D
+in the two triangles ADE, ABC
+1 cm 1.2 cm
+C B
+∵ ∠ ADE ≡ ∠ ABC (proved)
+∠ DAE ≡ ∠ BAC (common angle)
+∴ Δ ADE ~ Δ ABC (postulate)
+B ∵ Δ ADE ~ Δ ABC
+∴ AD / AB = AE / AC = DE / BC then,
+3 / 4 = 4.2 / BC AD / (AD + 1.2) =
+3 BC = 4 × 4.2 , 4 AD = 3(AD + 1.2)
+= (4 × 4.2) / 3 = 3A D + 3.6
+BC = 5.6cm AD = 3.6cm
+Student book – First term 37

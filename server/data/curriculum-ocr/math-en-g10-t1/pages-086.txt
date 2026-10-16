@@ -1,0 +1,45 @@
+4 - 1 Directed Angle
+You will Learn
+Concept of directed angle.
+Standard position of directed angle.
+Positive and negative measure of the directed angle.
+Position of the directed angle in the coordinates plane.
+Concept of the equivalent angles.
+Think and discuss
+The angle has been defined before as the union of two rays with a common vertex.
+In the figure opposite, the common point B is called «Vertex» of the angle and the two rays $\vec{BA}$ and $\vec{BC}$ are called "sides" of the angle.
+i.e.: $\vec{BA}$ $\cup$ $\vec{BC}$ = ($\angle$ABC)
+and is written as $\hat{ABC}$ .
+C
+B A
+Key - Terms
+Degree Measure
+Degree Measure System
+Directed angle
+You have known that the degree measure depends on dividing the circle into 360 equal arcs in length, then:
+Standard Position
+1- The central angle subtends one of these arcs, its measure equals one degree (1°)
+Positive measure
+2- Each degree is subdivided into 60 equal divisions , each division in called a minute and is denoted by (1')
+Negative measure
+3- Each minute is subdivided into 60 equal divisions, each division is called " a second" and is denoted by (1")
+Equivalent Angle
+Quadrantal Angle
+i.e.: 1° = 60' and 1' = 60"
+Learn
+Directed Angle
+Materials
+We shall now put a further emphasis on the order of the two rays forming the angle, then it is written in the form of an ordered pair ($\vec{OA}$ , $\vec{OB}$) where $\vec{OA}$ is the initial side and $\vec{OB}$ is the terminal side of the angle of vertex O as in figure (1) .
+Scientific calculator.
+B
+Terminal side
+O A
+initial side
+Figure (1)
+If the initial side is $\vec{OB}$ and the terminal side is $\vec{OA}$ , then it is writtern as ( $\vec{OB}$, $\vec{OA}$ ) in figure (2)).
+B
+initial side
+O A
+Terminal side
+Figure (2)
+82 Mathematics – First form secondary

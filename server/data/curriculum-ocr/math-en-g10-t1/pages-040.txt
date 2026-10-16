@@ -1,0 +1,59 @@
+2 - 2
+Similarity of Triangles
+You will learn
+Cases of similarity of triangles.
+Properties of the perpendicular
+drawn from the vertex of the
+right angle to the hypotenuse of
+the right angled triangle
+Think and discuss
+sunrays
+height of the pyramid
+stick
+shadow of stick
+length of the
+pyramid's shadow
+One of the kings
+of pharaohs asked
+the mathematician
+THALES (600BC),
+to measure the
+height of the great
+pyramid, there were
+no equipments or
+machineries or a way to find the height of the pyramid directly.
+Thales fixed a vertical stick and start to measure the shadow of
+the stick and compare it with the length of the stick itself, until the
+length of the shadow of the stick equals the real length of the stick.
+He measured the length of the pyramid's shadow, it was equal to the
+height of the pyramid.
+Key-terms
+Postulate/Axiom
+If you are asked to measure the height of a flagpole using a stick and
+a measuring tape. Do you wait until the length of the stick's shadow
+equals to the length of the stick or can you measure the flagpole's
+height at any time in a sunny day? Explain you answer.
+Group work
+1- Draw $\triangle$ ABC in which: m($\angle$A) = 50°, m
+($\angle$B) = 70° and AB = 4cm
+2- Draw $\triangle$ DEF in which: m($\angle$D) = 50°, m
+($\angle$E) = 70°, DE = 5cm
+C
+70°                  50°
+B       4 cm       A
+Learning tools
+Computer
+projector
+Graphic programs
+Squared paper
+Mirror
+Measuring tools
+Calculator
+3- Find by measuring to the nearest millimetre, the length of:
+$\overline{\text{AC}}$, $\overline{\text{BC}}$, $\overline{\text{DF}}$ and $\overline{\text{EF}}$
+4- Use the calculator to find the ratios $\frac{\text{AC}}{\text{DF}} = \frac{\text{BC}}{\text{EF}} = \frac{\text{AB}}{\text{DE}}$
+Are the ratios equal? What do you deduce about these two triangles?
+Compare the results you obtained with the results obtained by the
+other groups and write your comment.
+36
+Mathematics - First form secondary

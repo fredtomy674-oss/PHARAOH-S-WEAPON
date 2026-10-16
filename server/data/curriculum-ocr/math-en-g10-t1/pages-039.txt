@@ -1,0 +1,51 @@
+Similarity of Polygons
+
+Exercises (2 - 1)
+
+1 Show which of the following pairs of polygons are similar, write the similar polygons
+in order of their corresponding vertices and determine the scale factor of similarity (side
+lengths are estimated in centimetres).
+
+A
+L x
+30
+Z
+49
+y
+D A
+C 20
+28 B
+B
+Z
+7 7
+L 110° 110° y
+7 7
+X
+A
+10 10
+D 70° 70° B
+10 10
+C
+
+2 The dimensions of a rectangle are 10cm and 6cm. Find the perimeter and the area of
+another rectangle similar to it if:
+A Scale factor equals 3.
+B Scale factor equals 0.4
+
+3 The following three polygons are similar: Find the numerical value of the symbol used.
+x° 100°
+15 cm 18 cm
+l cm
+m cm
+80°
+24 cm
+y°
+110°
+25 cm n cm
+80° Z°
+35 cm
+
+4 Two similar rectangles, the dimensions of the first are 8cm, 12cm and the perimeter of the
+second is 200cm. Find the length of the second rectangle and its area.
+
+35 Student book – First term

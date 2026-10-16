@@ -367,3 +367,36 @@ describe("the lesson's whole printed text (PHASE 78)", () => {
     }
   });
 });
+
+// PHASE 154 — the G10 maths family: the Arabic and French books export their
+// offset with the historical «book − scan» sign while the stage adds the raw
+// offset, so the registry negates them; the English book closes the family with
+// the modern «scan − book» sign and is used raw. The printed page must resolve
+// to the scan that actually holds it, or the room shows the wrong paper.
+describe("the G10 maths family maps every printed page to its own scan", () => {
+  it("sends the printed page to the scan that holds it, for all three mediums", () => {
+    // Book 4 (lesson 1-1's head page) = scan 6 (Arabic), 9 (French), 8 (English).
+    expect(bookPageToPdfPage("eg-g10-math", 4)).toBe(6);
+    expect(bookPageToPdfPage("eg-g10-math-fr", 4)).toBe(9);
+    expect(bookPageToPdfPage("eg-g10-math-en", 4)).toBe(8);
+    // The end of the term: book 119 = scan 121 / 124 / 123.
+    expect(bookPageToPdfPage("eg-g10-math", 119)).toBe(121);
+    expect(bookPageToPdfPage("eg-g10-math-fr", 119)).toBe(124);
+    expect(bookPageToPdfPage("eg-g10-math-en", 119)).toBe(123);
+  });
+
+  it("stages each medium's first and last lesson on its own scans", () => {
+    const first = stageForLesson("eg-g10-math-en", "l-g10-math-en-1-1")!;
+    expect(first.fromBookPage).toBe(2);
+    expect(first.pages[0]!.pdfPage).toBe(6);
+    const lastEn = stageForLesson("eg-g10-math-en", "l-g10-math-en-4-6")!;
+    expect(lastEn.toBookPage).toBe(119);
+    expect(lastEn.pages.at(-1)!.pdfPage).toBe(123);
+    // The twins' own lesson namespaces resolve through the same registry with
+    // their own scan shift (the check is self-relative so it pins the sign).
+    const ar = stageForLesson("eg-g10-math", "l-g10-math-1-1")!;
+    expect(ar.pages[0]!.pdfPage).toBe(ar.pages[0]!.bookPage + 2);
+    const fr = stageForLesson("eg-g10-math-fr", "l-g10-math-fr-1-1")!;
+    expect(fr.pages[0]!.pdfPage).toBe(fr.pages[0]!.bookPage + 5);
+  });
+});
