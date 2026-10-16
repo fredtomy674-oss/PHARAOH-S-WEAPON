@@ -54,7 +54,9 @@ Thumbs.db
 .idea/
 .vscode/
 
-# PHASE 155-study — local reference screenshots for the faheem-ai UX study
-# (captured from the live app via LDPlayer/adb + our own app via Playwright;
-#  binaries are evidence, not source — the study doc describes every shot).
+# PHASE 155-study — local reference screenshots for the competitor UX studies
+# (faheem-ai + madrasatna-plus, captured live via LDPlayer/adb, plus our own
+#  app via Playwright; binaries are evidence, not source — the study doc
+#  describes every shot).
 docs/research/faheem-shots/
+docs/research/madrasatna-shots/
