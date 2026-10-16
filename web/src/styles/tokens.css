@@ -211,6 +211,9 @@
   --glow: 0 10px 26px rgba(217, 169, 92, 0.22);
   --focus-ring: 0 0 0 3px rgba(217, 169, 92, 0.45);
   --overlay: rgba(0, 0, 0, 0.6);
+  --frost: rgba(20, 18, 14, 0.85);
+  --frost-strong: rgba(20, 18, 14, 0.95);
+  --frost-soft: rgba(20, 18, 14, 0.55);
 
   --ok-bg: rgba(217, 169, 92, 0.16);
   --ok-fg: var(--gold-text-on-dark);

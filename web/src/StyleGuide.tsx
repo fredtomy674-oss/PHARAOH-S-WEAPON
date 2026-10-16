@@ -101,9 +101,11 @@ const TOKEN_KEYS = [
   "--night",
   "--paper",
   "--sage",
+  "--frost",
 ] as const;
 
 const SWATCHES: Array<{ key: string; label: string }> = [
+  { key: "--frost", label: "سطح ضبابي (شرائط ولوحات)" },
   { key: "--bg", label: "خلفية الصفحة" },
   { key: "--card", label: "سطح البطاقة" },
   { key: "--card-2", label: "سطح ثانوي" },
