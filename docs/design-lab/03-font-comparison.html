@@ -1,0 +1,283 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معمل التصميم · نموذج ٣ — مقارنة خطوط التعلّم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Cairo:wght@300..900&family=Noto+Sans+Arabic:wght@300..800&family=Almarai:wght@300;400;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0908; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.03);
+    --line:rgba(240,235,226,.10); --line2:rgba(240,235,226,.07);
+    --ink:#F0EBE2; --muted:#B3BDB4;
+    --gold:#D9A95C; --gold-ink:#E8C87F; --gold-soft:rgba(217,169,92,.14);
+    --gold-grad:linear-gradient(135deg,#F2CD7C,var(--gold) 55%,#B98A41);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;color:var(--ink);
+    background:radial-gradient(900px 480px at 88% -10%, rgba(217,169,92,.12), transparent 62%),var(--bg);
+    min-height:100vh;padding-bottom:70px}
+  .f-plex{font-family:"IBM Plex Sans Arabic",sans-serif}
+  .f-cairo{font-family:"Cairo",sans-serif}
+  .f-noto{font-family:"Noto Sans Arabic",sans-serif}
+  .f-almarai{font-family:"Almarai",sans-serif}
+  .f-amiri{font-family:"Amiri",serif}
+  .wrap{max-width:900px;margin:0 auto;padding:34px 20px 0;display:flex;flex-direction:column;gap:20px}
+  .head{display:flex;flex-direction:column;gap:11px}
+  .badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:var(--gold-soft);
+    color:var(--gold-ink);border:1px solid rgba(217,169,92,.3);padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:600}
+  .badge i{width:7px;height:7px;border-radius:50%;background:var(--gold);display:block}
+  h1{font-size:25px;font-weight:700;margin:0;line-height:1.4}
+  h1 span{color:var(--gold)}
+  .sub{color:var(--muted);font-size:13.5px;line-height:1.85;margin:0}
+  .sub b{color:var(--ink)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chips span{font-size:11.5px;color:var(--muted);border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:6px 12px}
+  h2{font-size:16.5px;margin:8px 0 0;color:var(--ink)}
+  h2 small{color:var(--muted);font-weight:400;font-size:12px;display:block;margin-top:5px;line-height:1.7}
+
+  .quick{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel2)}
+  .quick .row{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-bottom:1px solid var(--line2)}
+  .quick .row:last-child{border-bottom:none}
+  .quick .name{font-size:10.5px;color:var(--gold-ink);font-weight:700}
+  .quick .line{font-size:13px;line-height:1.95}
+
+  .card{border:1px solid var(--line);border-radius:18px;background:var(--panel2);padding:16px;display:flex;flex-direction:column;gap:12px}
+  .card-head{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+  .card-head strong{font-size:16px}
+  .role{font-size:10.5px;font-weight:700;color:var(--gold-ink);background:var(--gold-soft);border-radius:999px;padding:4px 10px}
+  .role.grey{color:var(--muted);background:var(--panel)}
+  .prov{font-size:11px;color:var(--muted);width:100%}
+  .spec{display:flex;flex-direction:column;gap:10px}
+  .item{display:flex;flex-direction:column;gap:4px;border-top:1px dashed var(--line);padding-top:9px}
+  .item.first{border-top:none;padding-top:0}
+  .lbl{font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;font-size:10px;color:var(--muted)}
+  .big{font-size:16px;line-height:1.95}
+  .uni{font-size:14px;line-height:1.95}
+  .nums{font-size:15px;line-height:2}
+  .s11{font-size:11px}.s12{font-size:12px}.s13{font-size:13px}
+  .sizes{display:flex;flex-direction:column;gap:5px}
+  .ui{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .chip{font-size:11.5px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink)}
+  .btn{font-size:12.5px;font-weight:700;border-radius:12px;padding:9px 14px;background:var(--gold-grad);color:#140F06}
+  .bubble{background:var(--gold-grad);color:#140F06;font-weight:600;font-size:12.5px;border-radius:14px 14px 14px 5px;padding:9px 12px}
+  .note{font-size:11.5px;color:var(--muted);line-height:1.85;border-top:1px solid var(--line);padding-top:9px}
+  .note b{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{border-bottom:1px solid var(--line2);padding:9px 10px;text-align:right}
+  th{color:var(--gold-ink);font-size:11px;font-weight:700;background:var(--panel2)}
+  td:first-child{color:var(--ink);font-weight:600}
+  .stats{font-size:12px;color:var(--muted);margin:0;line-height:1.8}
+  .verdict{border:1px solid rgba(217,169,92,.35);background:var(--gold-soft);border-radius:16px;padding:16px;font-size:13px;line-height:1.95}
+  .verdict b{color:var(--gold-ink)}
+  .verdict p{margin:0 0 9px}
+  .verdict p:last-child{margin:0}
+  .notes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .notes span{font-size:11px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <span class="badge"><i></i> معمل التصميم — نموذج ٣ · غير إنتاجي</span>
+    <h1>خط التعلّم — أي خط يقرأه الطالب بسهولة؟</h1>
+    <p class="sub">نفس الشاشة ونفس المحتوى بهوية الفاروق المعتمدة — <b>الخط هو المتغيّر الوحيد</b>. نقيس خمسة أمور تهمّ التعليم فعلًا: وضوح جسم الحرف، بروز التشكيل، تمييز الحروف المتشابهة، القراءة في المقاسات الصغيرة (١١–١٣px)، والأرقام العربية-الهندية.</p>
+    <div class="chips">
+      <span>٥ خطوط</span><span>كلها مفتوحة OFL</span><span>التشكيل</span><span>الحروف المتشابهة</span><span>المقاسات ١١–١٣px</span><span>الأرقام ٠–٩</span>
+    </div>
+  </header>
+
+  <h2>اختبار سريع — نفس السطر بمقاس ١٣px
+    <small>هذا هو الحكم الحقيقي: هل يُقرأ بلا جهد على هاتف؟</small>
+  </h2>
+  <div class="quick">
+    <div class="row"><span class="name">IBM Plex Sans Arabic — الحالي</span><span class="line f-plex">الترتيب لا يغيّر ناتج الجمع: ٣ + ٥ = ٥ + ٣</span></div>
+    <div class="row"><span class="name">Cairo — مصري</span><span class="line f-cairo">الترتيب لا يغيّر ناتج الجمع: ٣ + ٥ = ٥ + ٣</span></div>
+    <div class="row"><span class="name">Noto Sans Arabic</span><span class="line f-noto">الترتيب لا يغيّر ناتج الجمع: ٣ + ٥ = ٥ + ٣</span></div>
+    <div class="row"><span class="name">Almarai</span><span class="line f-almarai">الترتيب لا يغيّر ناتج الجمع: ٣ + ٥ = ٥ + ٣</span></div>
+    <div class="row"><span class="name">Amiri — نسخ تقليدي</span><span class="line f-amiri">الترتيب لا يغيّر ناتج الجمع: ٣ + ٥ = ٥ + ٣</span></div>
+  </div>
+
+  <h2>البطاقات — كل خط في سياق التعلّم
+    <small>نفس المحتوى ونفس الخلفية الذهبية الداكنة؛ الخط هو المتغيّر الوحيد.</small>
+  </h2>
+
+  <div class="card">
+    <div class="card-head">
+      <strong>IBM Plex Sans Arabic</strong>
+      <span class="role grey">الحالي — هوية العائلة</span>
+      <span class="prov">IBM (مايك أبينك وفريقه) · OFL · مصمَّم أساسًا لبيئات الواجهات UI</span>
+    </div>
+    <div class="spec f-plex">
+      <div class="item first"><span class="lbl">شرح بالتشكيل الكامل</span><span class="big">الترتيبُ لا يُغيّرُ ناتجَ الجمعِ.</span></div>
+      <div class="item"><span class="lbl">حروف متشابهة</span><span class="uni">ب ت ث · ج ح خ · د ذ · ر ز · س ش · ص ض · ط ظ · ع غ · ف ق</span></div>
+      <div class="item"><span class="lbl">أرقام عربية-هندية</span><span class="nums">٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ · ٣ + ٥ = ٨ · صفحة ٦/٧</span></div>
+      <div class="item"><span class="lbl">مقاسات صغيرة (١١ / ١٢ / ١٣)</span><span class="sizes"><span class="s11">افتح كتابك صفحة ٦</span><span class="s12">افتح كتابك صفحة ٦</span><span class="s13">افتح كتابك صفحة ٦</span></span></div>
+      <div class="item"><span class="lbl">واجهة مصغّرة</span><span class="ui"><span class="chip">استمع</span><span class="btn">فهمت ✓</span><span class="chip">مش فاهم</span><span class="bubble">يعني ٤ + ٩ زي ٩ + ٤؟</span></span></div>
+    </div>
+    <p class="note">خط واجهات بامتياز. <b>لكن</b>: جسم الحرف أصغر من امتداد الألف، والتشكيل رقيق ومتقارب — يعمل جيدًا للأزرار واللافتات، وأقل راحة لنص قرائي طويل عند طفل في الصفوف الأولى.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <strong>Cairo</strong>
+      <span class="role">مرشّح أول</span>
+      <span class="prov">محمد جابر (القاهرة) · OFL · «عدّادات مفتوحة وسواعد قصيرة» بتوصيفه الرسمي</span>
+    </div>
+    <div class="spec f-cairo">
+      <div class="item first"><span class="lbl">شرح بالتشكيل الكامل</span><span class="big">الترتيبُ لا يُغيّرُ ناتجَ الجمعِ.</span></div>
+      <div class="item"><span class="lbl">حروف متشابهة</span><span class="uni">ب ت ث · ج ح خ · د ذ · ر ز · س ش · ص ض · ط ظ · ع غ · ف ق</span></div>
+      <div class="item"><span class="lbl">أرقام عربية-هندية</span><span class="nums">٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ · ٣ + ٥ = ٨ · صفحة ٦/٧</span></div>
+      <div class="item"><span class="lbl">مقاسات صغيرة (١١ / ١٢ / ١٣)</span><span class="sizes"><span class="s11">افتح كتابك صفحة ٦</span><span class="s12">افتح كتابك صفحة ٦</span><span class="s13">افتح كتابك صفحة ٦</span></span></div>
+      <div class="item"><span class="lbl">واجهة مصغّرة</span><span class="ui"><span class="chip">استمع</span><span class="btn">فهمت ✓</span><span class="chip">مش فاهم</span><span class="bubble">يعني ٤ + ٩ زي ٩ + ٤؟</span></span></div>
+    </div>
+    <p class="note"><b>مصري</b> ومفتوح. جسم حرفي كبير وسطوع واضح في المقاسات الصغيرة، ودّي بلا طفولية. يصلح للواجهة والمحتوى معًا — أفضل توازن بين الانتماء والوضوح.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <strong>Noto Sans Arabic</strong>
+      <span class="role">بطل الوضوح</span>
+      <span class="prov">Google / Monotype · OFL · مصمَّم للوضوح على الشاشات عبر اللغات</span>
+    </div>
+    <div class="spec f-noto">
+      <div class="item first"><span class="lbl">شرح بالتشكيل الكامل</span><span class="big">الترتيبُ لا يُغيّرُ ناتجَ الجمعِ.</span></div>
+      <div class="item"><span class="lbl">حروف متشابهة</span><span class="uni">ب ت ث · ج ح خ · د ذ · ر ز · س ش · ص ض · ط ظ · ع غ · ف ق</span></div>
+      <div class="item"><span class="lbl">أرقام عربية-هندية</span><span class="nums">٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ · ٣ + ٥ = ٨ · صفحة ٦/٧</span></div>
+      <div class="item"><span class="lbl">مقاسات صغيرة (١١ / ١٢ / ١٣)</span><span class="sizes"><span class="s11">افتح كتابك صفحة ٦</span><span class="s12">افتح كتابك صفحة ٦</span><span class="s13">افتح كتابك صفحة ٦</span></span></div>
+      <div class="item"><span class="lbl">واجهة مصغّرة</span><span class="ui"><span class="chip">استمع</span><span class="btn">فهمت ✓</span><span class="chip">مش فاهم</span><span class="bubble">يعني ٤ + ٩ زي ٩ + ٤؟</span></span></div>
+    </div>
+    <p class="note">من أقوى الخيارات في المقاسات الصغيرة جدًا، ومحايد جدًا. عيبه الوحيد: أبرد شخصية — لا يحمل «حرارة تعليمية» مثل Cairo.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <strong>Almarai</strong>
+      <span class="role">مصمَّم للوضوح</span>
+      <span class="prov">Boutros Fonts · OFL · صُنع أصلًا ليكون عالي الوضوح في النصوص</span>
+    </div>
+    <div class="spec f-almarai">
+      <div class="item first"><span class="lbl">شرح بالتشكيل الكامل</span><span class="big">الترتيبُ لا يُغيّرُ ناتجَ الجمعِ.</span></div>
+      <div class="item"><span class="lbl">حروف متشابهة</span><span class="uni">ب ت ث · ج ح خ · د ذ · ر ز · س ش · ص ض · ط ظ · ع غ · ف ق</span></div>
+      <div class="item"><span class="lbl">أرقام عربية-هندية</span><span class="nums">٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ · ٣ + ٥ = ٨ · صفحة ٦/٧</span></div>
+      <div class="item"><span class="lbl">مقاسات صغيرة (١١ / ١٢ / ١٣)</span><span class="sizes"><span class="s11">افتح كتابك صفحة ٦</span><span class="s12">افتح كتابك صفحة ٦</span><span class="s13">افتح كتابك صفحة ٦</span></span></div>
+      <div class="item"><span class="lbl">واجهة مصغّرة</span><span class="ui"><span class="chip">استمع</span><span class="btn">فهمت ✓</span><span class="chip">مش فاهم</span><span class="bubble">يعني ٤ + ٩ زي ٩ + ٤؟</span></span></div>
+    </div>
+    <p class="note">أحرف عريضة ومتنفّسة — مريح جدًا للنصوص. أثقل قليلًا في العناوين الكبيرة ويحتاج ضبط أوزان.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <strong>Amiri</strong>
+      <span class="role">نسخ تقليدي — نصوص قرائية</span>
+      <span class="prov">خالد حسني · OFL · نسخ مستوحى من مطبعة بولاق (القاهرة)</span>
+    </div>
+    <div class="spec f-amiri">
+      <div class="item first"><span class="lbl">شرح بالتشكيل الكامل</span><span class="big">الترتيبُ لا يُغيّرُ ناتجَ الجمعِ.</span></div>
+      <div class="item"><span class="lbl">حروف متشابهة</span><span class="uni">ب ت ث · ج ح خ · د ذ · ر ز · س ش · ص ض · ط ظ · ع غ · ف ق</span></div>
+      <div class="item"><span class="lbl">أرقام عربية-هندية</span><span class="nums">٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ · ٣ + ٥ = ٨ · صفحة ٦/٧</span></div>
+      <div class="item"><span class="lbl">مقاسات صغيرة (١١ / ١٢ / ١٣)</span><span class="sizes"><span class="s11">افتح كتابك صفحة ٦</span><span class="s12">افتح كتابك صفحة ٦</span><span class="s13">افتح كتابك صفحة ٦</span></span></div>
+      <div class="item"><span class="lbl">واجهة مصغّرة</span><span class="ui"><span class="chip">استمع</span><span class="btn">فهمت ✓</span><span class="chip">مش فاهم</span><span class="bubble">يعني ٤ + ٩ زي ٩ + ٤؟</span></span></div>
+    </div>
+    <p class="note">أجمل شكل للتشكيل وأقرب إحساس للكتاب المدرسي — لكنه يحتاج مقاسًا أكبر (١٦px+) ويفشل في المقاسات الصغيرة، ولا يصلح للواجهات إطلاقًا.</p>
+  </div>
+
+  <h2>قياسات فعلية — تحسبها هذه الصفحة في متصفحك
+    <small>القياس نسبي عند ١٠٠px؛ المهم النسب لا الأرقام المطلقة.</small>
+  </h2>
+  <table>
+    <thead>
+      <tr><th>الخط</th><th>جسم الحرف ÷ الألف</th><th>بروز التشكيل ÷ الجسم</th><th>عرض السطر</th></tr>
+    </thead>
+    <tbody id="metrics-body"></tbody>
+  </table>
+  <p class="stats" id="verdict-stats">…</p>
+
+  <div class="verdict">
+    <p><b>رأيي المهني:</b> IBM Plex Sans Arabic ممتاز للواجهة، لكنه <b>لا يكفي وحده للتعلّم</b> — فهو مصمَّم لهوية IBM وبيئات الواجهات، بجسم حرفي أصغر وتشكيل رقيق.</p>
+    <p><b>المقترح:</b> نظام من طبقتين — خط العائلة للواجهة (اللافتات والأزرار والشرائح)، وخط محتوى دافئ عالي الوضوح للتعلّم: <b>Cairo</b> أولًا (مصري ومفتوح)، ثم <b>Noto Sans Arabic</b> أو <b>Almarai</b> كبديل وضوح، مع <b>Amiri</b> للنصوص القرائية الطويلة إن أردنا إحساس الكتاب المدرسي.</p>
+    <p>كل المرشّحين <b>مفتوحون (OFL)</b> — بلا أي تكلفة، وقابلون للاستضافة الذاتية مثل خط العائلة الحالي.</p>
+  </div>
+
+  <div class="notes">
+    <span>نموذج ساكن غير إنتاجي — لا يُستورد في web/</span>
+    <span>بهوية الفاروق المعتمدة: #0A0908 · #D9A95C</span>
+    <span>القرار للمالك بالعين قبل تثبيت أي توكنز في W0</span>
+  </div>
+
+</div>
+
+<script>
+var FONTS = [
+  { name: "IBM Plex Sans Arabic", css: "IBM Plex Sans Arabic" },
+  { name: "Cairo", css: "Cairo" },
+  { name: "Noto Sans Arabic", css: "Noto Sans Arabic" },
+  { name: "Almarai", css: "Almarai" },
+  { name: "Amiri", css: "Amiri" }
+];
+
+function measureFonts() {
+  var tbody = document.getElementById("metrics-body");
+  if (!tbody) return;
+  var ctx = document.createElement("canvas").getContext("2d");
+  var rows = [];
+  var i = 0;
+
+  function step() {
+    if (i >= FONTS.length) { render(); return; }
+    var f = FONTS[i];
+    var done = function () {
+      ctx.font = "400 100px \"" + f.css + "\"";
+      var body = ctx.measureText("\u0633").actualBoundingBoxAscent;
+      var alef = ctx.measureText("\u0627").actualBoundingBoxAscent;
+      var fatha = ctx.measureText("\u0633\u064E").actualBoundingBoxAscent;
+      var width = ctx.measureText("\u0627\u0644\u062A\u0631\u062A\u064A\u0628 \u0644\u0627 \u064A\u063A\u064A\u0631 \u0646\u0627\u062A\u062C \u0627\u0644\u062C\u0645\u0639").width;
+      rows.push({
+        name: f.name,
+        body: Math.round(body / alef * 100),
+        diac: Math.round((fatha - body) / body * 100),
+        width: Math.round(width)
+      });
+      i = i + 1;
+      step();
+    };
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load("400 100px \"" + f.css + "\"").then(done, done);
+    } else { done(); }
+  }
+
+  function render() {
+    for (var k = 0; k < rows.length; k++) {
+      var r = rows[k];
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = r.name;
+      var c2 = document.createElement("td"); c2.textContent = r.body + "٪";
+      var c3 = document.createElement("td"); c3.textContent = r.diac + "٪";
+      var c4 = document.createElement("td"); c4.textContent = r.width + "px";
+      tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3); tr.appendChild(c4);
+      tbody.appendChild(tr);
+    }
+    var bestBody = rows.slice().sort(function (a, b) { return b.body - a.body; })[0];
+    var bestDiac = rows.slice().sort(function (a, b) { return b.diac - a.diac; })[0];
+    var stats = document.getElementById("verdict-stats");
+    if (stats && bestBody && bestDiac) {
+      stats.textContent = "الأكبر جسمًا: " + bestBody.name + " (" + bestBody.body + "٪) · الأبرز تشكيلًا: " + bestDiac.name + " (" + bestDiac.diac + "٪) — قياس فعلي في متصفحك، لا تقدير.";
+    }
+  }
+
+  step();
+}
+
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(measureFonts);
+} else {
+  measureFonts();
+}
+</script>
+</body>
+</html>
