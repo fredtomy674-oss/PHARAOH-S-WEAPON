@@ -539,6 +539,24 @@ import {
   assertTreeMatchesTheBook as assertLibrariesG4TreeMatchesBook,
 } from "./egyptLibrariesG4T1.js";
 import {
+  EGYPT_FAMILY_G5_T1_UNITS,
+  lessonDocument as familyG5LessonDocument,
+  isConsistent as isFamilyG5TreeConsistent,
+  assertTreeMatchesTheBook as assertFamilyG5TreeMatchesBook,
+} from "./egyptFamilyG5T1.js";
+import {
+  EGYPT_FARMING_G5_T1_UNITS,
+  lessonDocument as farmingG5LessonDocument,
+  isConsistent as isFarmingG5TreeConsistent,
+  assertTreeMatchesTheBook as assertFarmingG5TreeMatchesBook,
+} from "./egyptFarmingG5T1.js";
+import {
+  EGYPT_LIBRARIES_G5_T1_UNITS,
+  lessonDocument as librariesG5LessonDocument,
+  isConsistent as isLibrariesG5TreeConsistent,
+  assertTreeMatchesTheBook as assertLibrariesG5TreeMatchesBook,
+} from "./egyptLibrariesG5T1.js";
+import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
   isConsistent as isDiscoveryEnKg1TreeConsistent,
@@ -6451,6 +6469,188 @@ function verifyLibrariesG4Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-5 «مهارات إدارة الأسرة (الاقتصاد المنزلي سابقًا)» — OFFICIAL
+ * curriculum (PHASE 152).
+ *
+ * The first term IS the Ministry student book for Grade 5 (56 scanned pages,
+ * 42 printed teaching pages). The tree keeps the book's own two units («تحدي
+ * وإرادة», «بيدي أصنع الفرق») and six lessons, each grounded on the pages its
+ * title page opens. Paper page → scan page is PIECEWISE: folios 5–25 are
+ * printed 1:1, printed page 26 is a blank leaf the MoE PDF never carried, and
+ * everything after it shifts by one (scan 26 = folio 27's opener page … scan
+ * 46 = folio 47). The book's own فهرس corroborates the shift where it can be
+ * checked (unit 2 starts at 27; المراجع lands on 48 = scan 47). Pages 48–57
+ * are back matter (المراجع + إرشادات مهنية). Every claim is re-proved against
+ * the book's own printed folios, titles and objectives before seeding; a
+ * mismatch refuses the run.
+ */
+export const EGYPT_FAMILY_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: {
+    code: "family",
+    name: "Family Management and Entrepreneurship Skills",
+    nameAr: "مهارات إدارة الأسرة وريادة الأعمال",
+  },
+  curriculum: {
+    code: "eg-g5-family",
+    title: "مهارات إدارة الأسرة (الاقتصاد المنزلي سابقًا) للصف الخامس الابتدائي",
+  },
+  terms: [buildEgyptFamilyG5Term()],
+};
+
+/** Term 1 = the official Grade-5 «مهارات إدارة الأسرة» book: printed unit → printed lesson. */
+function buildEgyptFamilyG5Term(): TermSeedSpec {
+  const check = verifyFamilyG5Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب مهارات إدارة الأسرة (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FAMILY_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g5-fam-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: familyG5LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 «مهارات إدارة الأسرة» tree verification, as one verdict. */
+function verifyFamilyG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isFamilyG5TreeConsistent();
+  const book = assertFamilyG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 «مهارات الزراعة» — OFFICIAL curriculum (PHASE 152).
+ *
+ * The first term IS the Ministry student book for Grade 5 (35 scanned pages,
+ * 31 printed teaching pages). The tree keeps the book's own three units
+ * («الزراعة المستدامة», «الصناعات الغذائية», «الألبان») and six lessons, each
+ * grounded on the pages its title page opens. Book page == scan page here
+ * (the printed folios prove it page by page, with the same two known OCR chip
+ * misreads folded as in the Grade-4 book: «ه»=٥ on page 5 and «V»=٧ on page 7),
+ * and the book's own فهرس rows (7, 12, 16, 22, 27, 32) agree. Every claim is
+ * re-proved against the book's own printed folios, titles and objectives
+ * before seeding; a mismatch refuses the run.
+ */
+export const EGYPT_FARMING_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: {
+    code: "farming",
+    name: "Agriculture and Entrepreneurship Skills",
+    nameAr: "مهارات الزراعة وريادة الأعمال",
+  },
+  curriculum: {
+    code: "eg-g5-farming",
+    title: "مهارات الزراعة للصف الخامس الابتدائي",
+  },
+  terms: [buildEgyptFarmingG5Term()],
+};
+
+/** Term 1 = the official Grade-5 «مهارات الزراعة» book: printed unit → printed lesson. */
+function buildEgyptFarmingG5Term(): TermSeedSpec {
+  const check = verifyFarmingG5Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب مهارات الزراعة (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FARMING_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g5-farm-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: farmingG5LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 «مهارات الزراعة» tree verification, as one verdict. */
+function verifyFarmingG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isFarmingG5TreeConsistent();
+  const book = assertFarmingG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-5 «المكتبات» — OFFICIAL curriculum (PHASE 152).
+ *
+ * The first term IS the Ministry student book for Grade 5 (21 spread scans:
+ * cover + 20 two-page spreads — scan n carries printed pages 2n−2|2n−1).
+ * The app stores one container unit titled with the book's own name and the
+ * twelve lessons inside it, each grounded on the pages its title page opens
+ * (5, 8, 11, … 38). The book's own فهرس pairs every title with that same page,
+ * and every readable folio on a spread belongs to that spread's two pages —
+ * both facts are re-proved before seeding. Pages 41 (the last spread's facing
+ * half) lies beyond the curriculum's last page 40; a mismatch refuses the run.
+ */
+export const EGYPT_LIBRARIES_G5_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-5", name: "Grade 5", nameAr: "الصف الخامس الابتدائي", levelOrder: 5 },
+  subject: { code: "libraries", name: "Libraries and Research Skills", nameAr: "المكتبات ومهارات البحث" },
+  curriculum: {
+    code: "eg-g5-libraries",
+    title: "المكتبات للصف الخامس الابتدائي",
+  },
+  terms: [buildEgyptLibrariesG5Term()],
+};
+
+/** Term 1 = the official Grade-5 «المكتبات» book: one container unit → twelve printed lessons. */
+function buildEgyptLibrariesG5Term(): TermSeedSpec {
+  const check = verifyLibrariesG5Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب المكتبات (خامسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_LIBRARIES_G5_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g5-lib-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: librariesG5LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-5 «المكتبات» tree verification, as one verdict. */
+function verifyLibrariesG5Tree(): { ok: boolean; problems: string[] } {
+  const table = isLibrariesG5TreeConsistent();
+  const book = assertLibrariesG5TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+
+/**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
  *
  * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
@@ -8328,11 +8528,14 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_FAMILY_G4_SPEC);
   await seedCountry(db, knowledge, EGYPT_FARMING_G4_SPEC);
   await seedCountry(db, knowledge, EGYPT_LIBRARIES_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FAMILY_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FARMING_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_LIBRARIES_G5_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Family/Farming/Libraries skills) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Family/Farming/Libraries skills for Grades 4–5) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**
