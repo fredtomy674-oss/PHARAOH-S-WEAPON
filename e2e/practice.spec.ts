@@ -99,18 +99,22 @@ test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمر�
 });
 
 /**
- * PR4 (PHASE 28; re-anchored in PHASE 48): the concept that ships with zero
- * seeded questions. Its plan row offers generate-on-demand, the grounded
- * generated stem («أي العبارات التالية وردت في الدرس») lands in the practice
- * panel, and answering tracks the concept in إتقان المفاهيم after a reload.
+ * PR4 (PHASE 28; re-anchored in PHASE 48, re-anchored again in PHASE 158): the
+ * concept that ships with zero seeded questions. Its plan row offers
+ * generate-on-demand, the grounded generated stem («أي العبارات التالية وردت
+ * في الدرس») lands in the practice panel, and answering tracks the concept in
+ * إتقان المفاهيم after a reload.
  *
  * PHASE 48: the anchor concept used to be «مقارنة الكسور», a lesson of the old
  * hand-built tree. PHASE 47 replaced Egypt's tree with the official Ministry
- * textbook, so that lesson no longer exists — the test now anchors on
- * «التعبيرات الرياضية» (استخدام التعبيرات الرياضية وتحليلها), a real concept of
- * the official book that still ships with no seeded question, i.e. the exact
- * case this test exists to cover. Testing a concept the book does not contain
- * would have let the whole PHASE 28 feature rot unnoticed.
+ * textbook, so that lesson no longer exists.
+ *
+ * PHASE 158: the PHASE 48 anchor matched the *lesson* name «استخدام التعبيرات
+ * الرياضية وتحليلها» — a lesson of grade 5, outside the demo student's enrolled
+ * curricula, so its row never existed in the plan. The test now anchors on
+ * «أستطيع أن أستخدم متغيراً في تعبير رياضي للتعبير عن بيانات متعددة», a real
+ * concept of the enrolled grade-6 book that ships with no seeded question,
+ * i.e. the exact case this test exists to cover.
  *
  * It is also now *self-sufficient*: the old flow leaned on admin.spec's A5
  * having generated a question for the anchor concept in the shared E2E database,
@@ -119,11 +123,13 @@ test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمر�
  * ready-to-practice button admin's bulk pass may have created), so it proves the
  * generate → practise → mastery chain on its own in either ordering.
  */
-test("PR4 (PHASE 28): the student reaches a grounded question for التعبيرات الرياضية and is tracked", async ({ page }) => {
+test("PR4 (PHASE 28): the student reaches a grounded question for تعبير رياضي with a variable and is tracked", async ({ page }) => {
   await login(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
 
-  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "التعبيرات الرياضية" });
+  const row = page
+    .locator('[data-testid="plan-row"]')
+    .filter({ hasText: "أستطيع أن أستخدم متغيراً في تعبير رياضي للتعبير عن بيانات متعددة" });
   await expect(row).toBeVisible({ timeout: 20_000 });
 
   // The concept ships with zero seeded questions, so the row's primary action is
@@ -151,7 +157,7 @@ test("PR4 (PHASE 28): the student reaches a grounded question for التعبير
   // Reload: the concept is now tracked in the mastery summary.
   await page.reload();
   await expect(page.getByTestId("mastery-section")).toBeVisible({ timeout: 20_000 });
-  await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "التعبيرات الرياضية" })).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "أستطيع أن أستخدم متغيراً في تعبير رياضي" })).toBeVisible({ timeout: 20_000 });
 });
 
 /**

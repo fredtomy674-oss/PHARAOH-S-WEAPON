@@ -8,6 +8,7 @@ import { AdminScreen } from "./Admin.js";
 import { ParentScreen } from "./Parent.js";
 import { AchievementsScreen } from "./Achievements.js";
 import { FirstRunScreen } from "./FirstRun.js";
+import { AppShell, type StudentTab } from "./components/app/AppShell.js";
 
 type Screen = "loading" | "auth" | "home" | "onboarding" | "chat" | "admin" | "achievements" | "first-run";
 
@@ -58,6 +59,13 @@ export function App() {
     setScreen("home");
   };
 
+  /** PHASE 158 — تنقّل المساحات الثلاث: اليوم · تعلّم · رحلتي. */
+  const handleNavigate = (tab: StudentTab) => {
+    if (tab === "today") setScreen("home");
+    else if (tab === "learn") setScreen("onboarding");
+    else setScreen("achievements");
+  };
+
   if (screen === "loading") {
     return (
       <div className="center-screen">
@@ -91,7 +99,17 @@ export function App() {
   }
 
   if (screen === "onboarding") {
-    return <OnboardingScreen user={user} onStarted={handleSessionStarted} onBack={() => setScreen("home")} />;
+    return (
+      <AppShell
+        user={user}
+        active="learn"
+        onNavigate={handleNavigate}
+        onLogout={handleLogout}
+        onOpenAchievements={() => setScreen("achievements")}
+      >
+        <OnboardingScreen user={user} onStarted={handleSessionStarted} />
+      </AppShell>
+    );
   }
 
   if (screen === "admin" && user.role === "admin") {
@@ -99,7 +117,17 @@ export function App() {
   }
 
   if (screen === "achievements" && user.role === "student") {
-    return <AchievementsScreen user={user} onBack={() => setScreen("home")} />;
+    return (
+      <AppShell
+        user={user}
+        active="journey"
+        onNavigate={handleNavigate}
+        onLogout={handleLogout}
+        onOpenAchievements={() => setScreen("achievements")}
+      >
+        <AchievementsScreen user={user} onBack={() => setScreen("home")} />
+      </AppShell>
+    );
   }
 
   if (user.role === "parent") {
@@ -107,16 +135,22 @@ export function App() {
   }
 
   return (
-    <HomeScreen
+    <AppShell
       user={user}
-      onStartLesson={() => setScreen("onboarding")}
-      onResume={(s) => {
-        setSession(s);
-        setScreen("chat");
-      }}
+      active="today"
+      onNavigate={handleNavigate}
       onLogout={handleLogout}
-      onOpenAdmin={() => setScreen("admin")}
       onOpenAchievements={() => setScreen("achievements")}
-    />
+    >
+      <HomeScreen
+        user={user}
+        onStartLesson={() => setScreen("onboarding")}
+        onResume={(s) => {
+          setSession(s);
+          setScreen("chat");
+        }}
+        onOpenAdmin={() => setScreen("admin")}
+      />
+    </AppShell>
   );
 }

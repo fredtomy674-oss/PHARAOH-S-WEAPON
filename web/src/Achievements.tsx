@@ -22,17 +22,13 @@ export function AchievementsScreen({ user, onBack }: Props) {
 
   return (
     <div className="layout">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <strong>سلاح الفرعون</strong>
-          <span className="muted">🏆 إنجازاتي</span>
-          <button className="btn ghost" onClick={onBack} data-testid="achievements-back">
-            عودة
-          </button>
-        </div>
-      </header>
-
       <main className="container" data-testid="achievements-screen">
+        <p>
+          <button className="btn ghost" onClick={onBack} data-testid="achievements-back">
+            عودة للرئيسية
+          </button>
+        </p>
+
         <section className="hero card">
           <h2>🏆 إنجازات {user.student?.displayName ?? user.email}</h2>
           {data && (

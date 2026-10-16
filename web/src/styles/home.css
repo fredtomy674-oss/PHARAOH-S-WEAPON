@@ -6,90 +6,14 @@
    ========================================================================== */
 
 /* ------------------------------ الإطار العام ------------------------------ */
+/* الترويسة والدرج والتنقّل صارت في القشرة الموحّدة app.css (PHASE 158). */
 .hm-layout {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background:
-    radial-gradient(1000px 520px at 88% -12%, var(--gold-soft), transparent 62%),
-    radial-gradient(760px 560px at 4% 108%, var(--gold-soft), transparent 60%),
-    var(--bg);
 }
 
-/* ------------------------------ الترويسة ------------------------------ */
-.hm-bar {
-  position: sticky;
-  top: 0;
-  z-index: var(--z-sticky);
-  background: var(--frost);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line-soft);
-}
-.hm-bar__inner {
-  width: min(860px, 94vw);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: 10px 0;
-}
-.hm-bar__mark {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--r-2);
-  background: var(--gold-grad);
-  color: var(--on-gold);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-learn);
-  font-weight: 800;
-  font-size: 1.1rem;
-  flex: none;
-}
-.hm-bar__text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.3;
-  flex: 1;
-  min-width: 0;
-}
-.hm-bar__text strong {
-  font-size: var(--fs-4);
-  color: var(--ink);
-}
-.hm-bar__text span {
-  font-size: var(--fs-1);
-  color: var(--muted);
-}
-
-.hm-iconbtn {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--r-2);
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  flex: none;
-  font-size: 1.05rem;
-  font-family: inherit;
-  transition:
-    border-color var(--dur-2) var(--ease-out),
-    background-color var(--dur-2) var(--ease-out);
-}
-.hm-iconbtn svg {
-  width: 18px;
-  height: 18px;
-}
-.hm-iconbtn:hover {
-  border-color: var(--ok-line);
-}
-.hm-iconbtn:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-}
+/* ------------------------------ الترويسة والتنقّل ------------------------------ */
+/* انتقلت إلى القشرة الموحّدة app.css (PHASE 158): .app-bar · .app-nav · .app-iconbtn. */
 
 /* ------------------------------ العمود الرئيسي ------------------------------ */
 .hm-main {
@@ -568,163 +492,13 @@
 }
 
 /* ------------------------------ درج الحساب ☰ ------------------------------ */
-/* اللوحة السفلية تتحوّل إلى درج جانبي من اليمين (اتجاه RTL: البداية يمينًا). */
-.hm-drawer {
-  align-self: stretch;
-  margin: calc(-1 * var(--sp-3));
-  margin-inline-end: auto;
-  width: min(380px, 92vw);
-  max-height: none;
-  border-radius: 0;
-  border: 0;
-  border-inline-end: 1px solid var(--line);
-  padding: 0;
-  gap: 0;
-  overflow: auto;
-}
-.hm-drawer .ui-sheet__grip {
-  display: none;
-}
-.hm-drawer .ui-sheet__body {
-  padding: 0;
-}
-.hm-drawer__head {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-4);
-  background: var(--gold-soft);
-  border-bottom: 1px solid var(--line-soft);
-}
-.hm-drawer__avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: var(--gold-grad);
-  color: var(--on-gold);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-learn);
-  font-weight: 800;
-  font-size: var(--fs-5);
-  flex: none;
-}
-.hm-drawer__who {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.4;
-  flex: 1;
-  min-width: 0;
-}
-.hm-drawer__who strong {
-  font-size: var(--fs-4);
-  color: var(--ink);
-}
-.hm-drawer__who span {
-  font-size: var(--fs-1);
-  color: var(--muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.hm-drawer__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-  padding: var(--sp-3) var(--sp-4) var(--sp-5);
-}
-.hm-drawer__sec {
-  font-size: var(--fs-1);
-  font-weight: var(--fw-bold);
-  color: var(--primary-ink);
-  padding: var(--sp-3) var(--sp-1) var(--sp-1);
-}
-.hm-drawer__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-2);
-  background: var(--card-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-2);
-  padding: 11px 12px;
-  font-size: var(--fs-3);
-}
-.hm-drawer__row--stack {
-  flex-direction: column;
-  align-items: stretch;
-  gap: var(--sp-1);
-}
-.hm-drawer__line {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-2);
-}
-.hm-drawer__k {
-  color: var(--muted);
-  font-size: var(--fs-2);
-}
-.hm-drawer__meta {
-  color: var(--muted);
-  font-size: var(--fs-1);
-  line-height: 1.6;
-}
-.hm-drawer__link {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  width: 100%;
-  background: var(--card-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-2);
-  padding: 12px;
-  color: var(--ink);
-  font-family: inherit;
-  font-size: var(--fs-3);
-  font-weight: var(--fw-semibold);
-  cursor: pointer;
-  text-align: start;
-  transition: border-color var(--dur-2) var(--ease-out);
-}
-.hm-drawer__link svg {
-  width: 17px;
-  height: 17px;
-  color: var(--primary-ink);
-  flex: none;
-}
-.hm-drawer__link:hover {
-  border-color: var(--ok-line);
-}
-.hm-drawer__link:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-}
-.hm-drawer__link--danger {
-  color: var(--danger-fg);
-}
-.hm-drawer__link--danger svg {
-  color: var(--danger-fg);
-}
-.hm-code {
-  font-family: var(--font-mono);
-  font-weight: var(--fw-bold);
-  color: var(--primary-ink);
-  background: var(--gold-soft);
-  border: 1px solid var(--ok-line);
-  border-radius: var(--r-1);
-  padding: 4px 10px;
-  letter-spacing: 1px;
-  font-size: var(--fs-2);
-}
+/* انتقل إلى القشرة الموحّدة app.css (PHASE 158): .app-drawer* · .app-code · .app-pill-muted. */
 
 /* ------------------------------ حركة محترمة ------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   .hm-btn,
   .hm-subject,
-  .hm-option,
-  .hm-iconbtn,
-  .hm-drawer__link {
+  .hm-option {
     transition: none;
   }
   .hm-btn--primary:hover:not(:disabled),

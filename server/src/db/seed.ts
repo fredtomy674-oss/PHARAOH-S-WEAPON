@@ -8991,6 +8991,13 @@ async function ingestLessonDocuments(db: DbHandle, knowledge: KnowledgeService, 
 // intentionally has none — proof the practice scope is truly per-curriculum.
 // PHASE 30 — demo OPEN (free-text) questions for the same curriculum, with a
 // hidden `answerKey` the server grades via the `grade_open` AI operation.
+// PHASE 158 — every `conceptTitle` below is the objective title of a concept
+// of the PHASE 47 official Ministry book. The titles used to name the old
+// hand-built tree, so after the book swap the lookup found nothing and all
+// fifteen seeded questions shipped with `conceptId = null`: the plan counted
+// zero questions per concept, seeded practice could not move mastery, and the
+// seeded open question had no concept to be practised from. The ensure
+// functions also repair that link in place on databases seeded before the swap.
 // ---------------------------------------------------------------------------
 
 interface DemoQuestionSpec {
@@ -9015,7 +9022,7 @@ interface DemoOpenQuestionSpec {
 const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أستخدم تحليل العدد إلى عوامل أولية في إيجاد العامل المشترك الأكبر والمضاعف المشترك الأصغر",
     difficulty: "medium",
     content: "ما القاسم المشترك الأكبر للعددين 12 و18؟",
     options: ["3", "6", "9", "2"],
@@ -9024,7 +9031,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أستخدم المضاعف المشترك الأصغر لتكوين مقام مشترك",
     difficulty: "medium",
     content: "ما المضاعف المشترك الأصغر للعددين 4 و6؟",
     options: ["12", "24", "18", "6"],
@@ -9033,7 +9040,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أستخدم تحليل العدد إلى عوامل أولية في إيجاد العامل المشترك الأكبر والمضاعف المشترك الأصغر",
     difficulty: "easy",
     content: "بعد تبسيط الكسر 8/12 يصبح:",
     options: ["2/3", "4/6", "3/4", "1/2"],
@@ -9042,7 +9049,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أحلل عمليتي جمع الكسور الاعتيادية وطرحها وأوجد ناتج هاتين العمليتين",
     difficulty: "easy",
     content: "ما ناتج 1/4 + 2/4؟",
     options: ["3/4", "3/8", "2/4", "1/2"],
@@ -9051,7 +9058,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أستخدم تحليل العدد إلى عوامل أولية في إيجاد العامل المشترك الأكبر والمضاعف المشترك الأصغر",
     difficulty: "easy",
     content: "ما العدد الأولي من بين الأعداد التالية؟",
     options: ["9", "15", "17", "21"],
@@ -9060,7 +9067,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-2",
-    conceptTitle: "استكشاف خط الأعداد",
+    conceptTitle: "أستطيع أن أحدد النقاط التي تمثل الأعداد الموجبة والسالبة على خط الأعداد",
     difficulty: "easy",
     content: "على خط الأعداد، يقع الكسر 1/2 بين:",
     options: ["0 و1", "1 و2", "−1 و0", "−2 و−1"],
@@ -9069,7 +9076,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-3-2",
-    conceptTitle: "تفسير القيمة المطلقة واستخدامها",
+    conceptTitle: "أستطيع أن أفهم معنى القيمة المطلقة على خط الأعداد",
     difficulty: "easy",
     content: "ما قيمة |−5|؟",
     options: ["5", "−5", "0", "10"],
@@ -9078,7 +9085,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-2-3",
-    conceptTitle: "المقادير الجبرية والأسس",
+    conceptTitle: "أستطيع أن أضع التعبيرات العددية التي تتضمن أُسسًا في أبسط صورة",
     difficulty: "easy",
     content: "ما قيمة 2³؟",
     options: ["8", "6", "9", "4"],
@@ -9087,7 +9094,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-4",
-    conceptTitle: "كتابة المعادلات والمتباينات واستراتيجيات حلها",
+    conceptTitle: "أستطيع أن أستخدم ميزانًا ذي كفتين لتمثيل المعادلات الجبرية وحلها",
     difficulty: "easy",
     content: "ما حل المعادلة س + 7 = 15؟",
     options: ["8", "22", "7", "15"],
@@ -9096,7 +9103,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-6",
-    conceptTitle: "جمع البيانات وتمثيلها وتطبيقات عليها",
+    conceptTitle: "أستطيع أن أحسب الوسيط وملخص الخمس نقاط لمجموعة البيانات، وأصف كيفية تمثيل هذه القيم في مخطط الصندوق",
     difficulty: "medium",
     content: "ما المتوسط الحسابي للدرجات 7، 8، 9، 6، 10؟",
     options: ["8", "7", "9", "40"],
@@ -9105,7 +9112,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-7",
-    conceptTitle: "استكشاف مقاييس النزعة المركزية والانتشار",
+    conceptTitle: "أستطيع أن أحدد كيفية مساعدة القيم المتطرفة وشكل الرسم البياني على تحديد ما إذا كان الوسط الحسابي أم الوسيط مقياسًا أفضل للنزعة المركزية",
     difficulty: "medium",
     content: "ما الوسيط للقيم 4، 7، 9، 11، 15؟",
     options: ["9", "7", "11", "15"],
@@ -9122,7 +9129,7 @@ const EGYPT_DEMO_QUESTIONS: DemoQuestionSpec[] = [
 const EGYPT_DEMO_OPEN_QUESTIONS: DemoOpenQuestionSpec[] = [
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أستخدم تحليل العدد إلى عوامل أولية في إيجاد العامل المشترك الأكبر والمضاعف المشترك الأصغر",
     difficulty: "easy",
     content: "اكتب الكسر المبسّط للكسر 8/12.",
     answerKey: "2/3",
@@ -9130,7 +9137,7 @@ const EGYPT_DEMO_OPEN_QUESTIONS: DemoOpenQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أستنتج قابلية القسمة على 2 ، 3 ، 4 ، 5 ، 10 ، 6",
     difficulty: "easy",
     content: "اكتب العدد الأولي الزوجي الوحيد.",
     answerKey: "2",
@@ -9138,7 +9145,7 @@ const EGYPT_DEMO_OPEN_QUESTIONS: DemoOpenQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-1",
-    conceptTitle: "قابلية القسمة والعامل المشترك الأكبر والمضاعف المشترك الأصغر",
+    conceptTitle: "أستطيع أن أستنتج قابلية القسمة على 2 ، 3 ، 4 ، 5 ، 10 ، 6",
     difficulty: "medium",
     content: "ما ناتج 78 ÷ 3 بالقسمة المطولة؟ اكتب إجابتك.",
     answerKey: "26",
@@ -9146,7 +9153,7 @@ const EGYPT_DEMO_OPEN_QUESTIONS: DemoOpenQuestionSpec[] = [
   },
   {
     lessonCode: "l-con-1-4",
-    conceptTitle: "كتابة المعادلات والمتباينات واستراتيجيات حلها",
+    conceptTitle: "أستطيع أن أستخدم ميزانًا ذي كفتين لتمثيل المعادلات الجبرية وحلها",
     difficulty: "medium",
     content: "ما حل المعادلة س + 5 = 20؟ اكتب القيمة.",
     answerKey: "15",
@@ -9195,15 +9202,25 @@ async function ensureDemoQuestions(db: DbHandle, seeded: Seeded, specs: DemoQues
     if (!scoped) continue;
     const lessonId = scoped.lessonId;
     if (!q.options[q.correctIndex]) continue;
-    const existing = await db.db
-      .select({ id: questions.id })
-      .from(questions)
-      .where(and(eq(questions.lessonId, lessonId), eq(questions.content, q.content)))
-      .limit(1);
-    if (existing.length > 0) continue;
     const conceptId = q.conceptTitle
       ? (await db.db.select({ id: concepts.id }).from(concepts).where(and(eq(concepts.lessonId, lessonId), eq(concepts.title, q.conceptTitle))).limit(1).get())?.id ?? null
       : null;
+    const existing = await db.db
+      .select({ id: questions.id, conceptId: questions.conceptId })
+      .from(questions)
+      .where(and(eq(questions.lessonId, lessonId), eq(questions.content, q.content)))
+      .limit(1)
+      .get();
+    if (existing) {
+      // PHASE 158 — a database seeded before the PHASE 47 book swap holds this
+      // question with `conceptId = null` (its old concept title no longer
+      // exists). Repair the link in place instead of leaving it dead forever.
+      if (conceptId && existing.conceptId !== conceptId) {
+        await db.db.update(questions).set({ conceptId }).where(eq(questions.id, existing.id));
+        console.log(`  ↺ Re-linked practice question "${q.content}"`);
+      }
+      continue;
+    }
     await db.db.insert(questions).values({
       id: newId("q"),
       curriculumId: seeded.curriculumId,
@@ -9227,15 +9244,25 @@ async function ensureDemoOpenQuestions(db: DbHandle, seeded: Seeded, specs: Demo
     const scoped = seeded.lessons[q.lessonCode];
     if (!scoped) continue;
     const lessonId = scoped.lessonId;
-    const existing = await db.db
-      .select({ id: questions.id })
-      .from(questions)
-      .where(and(eq(questions.lessonId, lessonId), eq(questions.content, q.content)))
-      .limit(1);
-    if (existing.length > 0) continue;
     const conceptId = q.conceptTitle
       ? (await db.db.select({ id: concepts.id }).from(concepts).where(and(eq(concepts.lessonId, lessonId), eq(concepts.title, q.conceptTitle))).limit(1).get())?.id ?? null
       : null;
+    const existing = await db.db
+      .select({ id: questions.id, conceptId: questions.conceptId })
+      .from(questions)
+      .where(and(eq(questions.lessonId, lessonId), eq(questions.content, q.content)))
+      .limit(1)
+      .get();
+    if (existing) {
+      // PHASE 158 — same in-place repair as `ensureDemoQuestions`: a question
+      // seeded before the PHASE 47 book swap is re-linked to the concept of
+      // the official book that now owns its lesson.
+      if (conceptId && existing.conceptId !== conceptId) {
+        await db.db.update(questions).set({ conceptId }).where(eq(questions.id, existing.id));
+        console.log(`  ↺ Re-linked practice open question "${q.content}"`);
+      }
+      continue;
+    }
     await db.db.insert(questions).values({
       id: newId("q"),
       curriculumId: seeded.curriculumId,

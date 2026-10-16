@@ -16,12 +16,18 @@ test("O1 (PHASE 30): answering a seeded open question grades via the LLM with no
   await login(page);
 
   // 1) The plan offers the seeded open question for the divisibility concept.
-  // PHASE 48: the concept's official name (PHASE 47) is «قابلية القسمة والعامل
-  // المشترك الأكبر والمضاعف المشترك الأصغر»; the lesson used to be called
-  // «تبسيط الكسور». The seeded open question and its deterministic key ("2/3")
-  // are unchanged — only the printed name of the concept it belongs to.
+  // PHASE 48: the seeded open question and its deterministic key ("2/3") are
+  // unchanged; PHASE 47 only renamed the tree around it. PHASE 158: the row is
+  // now matched by the exact objective title of the concept that owns the
+  // question. Every concept of «المفهوم 1-1: قابلية القسمة والعامل المشترك
+  // الأكبر والمضاعف المشترك الأصغر» carries its own objective title while the
+  // row also prints the lesson name, so the old «قابلية القسمة» filter matched
+  // six rows and tripped strict mode. The seed re-links its demo questions to
+  // the book's concepts (the link was lost when PHASE 47 replaced the old tree).
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
-  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "قابلية القسمة" });
+  const row = page
+    .locator('[data-testid="plan-row"]')
+    .filter({ hasText: "أستطيع أن أستخدم تحليل العدد إلى عوامل أولية في إيجاد العامل المشترك الأكبر والمضاعف المشترك الأصغر" });
   await expect(row).toBeVisible({ timeout: 20_000 });
   await row.getByTestId("plan-open-practice").click();
 
@@ -49,12 +55,16 @@ test("O2 (PHASE 30): self-healing open question generation + free-text grading",
   await login(page);
 
   // A concept with no seeded open question offers «توليد سؤال مقالي».
-  // PHASE 48: the anchor is «استكشاف خط الأعداد» (l-con-1-2), a real concept of
-  // the official Ministry book (PHASE 47) that ships with no seeded open
-  // question — the exact self-healing case this test exists to cover. It used to
-  // be «الطرح مع الاستلاف», a lesson of the old hand-built tree.
+  // PHASE 48: the anchor is a real concept of the official Ministry book
+  // (PHASE 47) that ships with no seeded open question — the exact self-healing
+  // case this test exists to cover. It used to be «الطرح مع الاستلاف», a lesson
+  // of the old hand-built tree. PHASE 158: matched by the exact objective title
+  // of that concept — the lesson «استكشاف خط الأعداد» holds four concepts, so
+  // the old lesson-name filter matched four rows and tripped strict mode.
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
-  const row = page.locator('[data-testid="plan-row"]').filter({ hasText: "استكشاف خط الأعداد" });
+  const row = page
+    .locator('[data-testid="plan-row"]')
+    .filter({ hasText: "أستطيع أن أدرك أن خط الأعداد يمكن أن يتضمن الأعداد السالبة التي يمكن استخدامها لتمثيل مواقف حياتية" });
   await expect(row).toBeVisible({ timeout: 20_000 });
   await row.getByTestId("plan-open-generate").click();
 

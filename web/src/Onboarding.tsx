@@ -26,10 +26,9 @@ import {
 interface Props {
   user: User;
   onStarted: (s: LearningSession) => void;
-  onBack: () => void;
 }
 
-export function OnboardingScreen({ onStarted, onBack }: Props) {
+export function OnboardingScreen({ onStarted }: Props) {
   const [countries, setCountries] = useState<Country[]>([]);
   const [systems, setSystems] = useState<EduSystem[]>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
@@ -146,16 +145,12 @@ export function OnboardingScreen({ onStarted, onBack }: Props) {
 
   return (
     <div className="layout">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <strong>اختر درسك</strong>
-          <button className="btn ghost" onClick={onBack}>
-            الرئيسية
-          </button>
-        </div>
-      </header>
-
       <main className="container">
+        <section className="hero card">
+          <h2>اختر درسك</h2>
+          <p className="muted">حدّد الصف والمادة والوحدة — ثم اختر الدرس لتبدأ مع معلّمك جلسةً جديدة.</p>
+        </section>
+
         {error && (
           <p data-testid="onboarding-error" className="error-text">
             {error}

@@ -21,7 +21,6 @@ import {
   type User,
 } from "./api.js";
 import { SessionRecapCard } from "./RecapCard.js";
-import { Sheet, ThemeToggle } from "./components/ui/index.js";
 
 /**
  * PHASE 156 (W2) — الرئيسية 2.0: أُعيد بناؤها من الصفر على هوية الفاروق
@@ -29,7 +28,8 @@ import { Sheet, ThemeToggle } from "./components/ui/index.js";
  *
  * الرحلة: قرار واحد بارز («خطوتك القادمة») ← مواد الطالب ← تقدّمه وخطة
  * ممارسته ← جلساته. وكل ما هو «حسابي» (كود ولي الأمر · التفضيلات · الخروج)
- * انتقل إلى درج ☰ — أما الإنجازات فصارت زرًّا في الترويسة.
+ * يسكن درج ☰ — والترويسة والدرج والتنقّل كلها في القشرة الموحّدة AppShell
+ * (PHASE 158) التي تغلّف هذه الشاشة مع شقيقتيها (تعلّم · رحلتي).
  *
  * العقود محفوظة حرفيًا: كل الـtestids القديمة والتدفقات كما هي (تُحدَّث
  * الاختبارات فقط عند تغيّر تنقّل شرعي — وهنا: فتح الدرج قبل الخروج/كود ولي
@@ -40,9 +40,7 @@ interface Props {
   user: User;
   onStartLesson: () => void;
   onResume: (s: LearningSession) => void;
-  onLogout: () => void;
   onOpenAdmin: () => void;
-  onOpenAchievements: () => void;
 }
 
 interface PracticeState {
@@ -118,7 +116,7 @@ function subjectGlyph(nameAr: string) {
   );
 }
 
-export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmin, onOpenAchievements }: Props) {
+export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
@@ -133,8 +131,6 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
   // PHASE 156 — the student's real subjects for their grade (one call), shown
   // as cards so a lesson is two taps away instead of a long dropdown walk.
   const [subjects, setSubjects] = useState<Subject[] | null>(null);
-  // PHASE 156 — the ☰ account drawer (parent code · preferences · logout).
-  const [accountOpen, setAccountOpen] = useState(false);
   // PHASE 156 — a grade can hold 15 subjects; show the first six and let the
   // student expand, so «موادك» stays a launchpad, not a wall.
   const [subjectsExpanded, setSubjectsExpanded] = useState(false);
@@ -251,42 +247,6 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
   return (
     <div className="hm-layout">
-      <header className="hm-bar">
-        <div className="hm-bar__inner">
-          {/* ☰ في البداية (يمين الشاشة في RTL) — والدرج ينزلق من اليمين. */}
-          <button
-            type="button"
-            className="hm-iconbtn"
-            data-testid="account-menu"
-            onClick={() => setAccountOpen(true)}
-            aria-label="الحساب والقائمة"
-            title="الحساب والقائمة"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h10" />
-            </svg>
-          </button>
-          <span className="hm-bar__mark" aria-hidden="true">ف</span>
-          <div className="hm-bar__text">
-            <strong>سلاح الفرعون</strong>
-            <span>معلمك الخصوصي الذكي</span>
-          </div>
-          {user.role === "student" && (
-            <button
-              type="button"
-              className="hm-iconbtn"
-              data-testid="open-achievements"
-              onClick={onOpenAchievements}
-              aria-label="إنجازاتي"
-              title="إنجازاتي"
-            >
-              🏆
-            </button>
-          )}
-          <ThemeToggle />
-        </div>
-      </header>
-
       <main className="hm-main" data-testid="home-screen">
         <section className="hm-greet">
           <h2>
@@ -527,7 +487,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
 
             {/* PHASE 20 — خطة الطالب: شريط هادئ في ذيل بطاقة التقدّم */}
             <div className="hm-planstrip" data-testid="subscription-card">
-              <span className="hm-drawer__k">خطتك</span>
+              <span className="hm-row__meta">خطتك</span>
               {subscription ? (
                 <>
                   <span
@@ -715,63 +675,6 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
           )}
         </section>
       </main>
-
-      {/* درج الحساب ☰ — كود ولي الأمر · التفضيلات · الخروج */}
-      <Sheet open={accountOpen} onClose={() => setAccountOpen(false)} className="hm-drawer">
-        <div className="hm-drawer__head">
-          <span className="hm-drawer__avatar" aria-hidden="true">
-            {studentName.trim().charAt(0) || "ط"}
-          </span>
-          <div className="hm-drawer__who">
-            <strong>{studentName}</strong>
-            <span>{user.email}</span>
-          </div>
-          <button type="button" className="hm-iconbtn" data-testid="account-close" onClick={() => setAccountOpen(false)} aria-label="إغلاق القائمة">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-        </div>
-        <div className="hm-drawer__body">
-          {user.linkCode && (
-            <>
-              <div className="hm-drawer__sec">حسابي</div>
-              <div className="hm-drawer__row hm-drawer__row--stack" data-testid="parent-link-card">
-                <span className="hm-drawer__line">
-                  <span className="hm-drawer__k">كود ولي الأمر</span>
-                  <code className="hm-code" data-testid="link-code-value">
-                    {user.linkCode}
-                  </code>
-                </span>
-                <span className="hm-drawer__meta">شاركه مع ولي أمرك ليطّلع على تقدّمك وجلساتك (قراءة فقط).</span>
-              </div>
-            </>
-          )}
-
-          <div className="hm-drawer__sec">التفضيلات</div>
-          <div className="hm-drawer__row">
-            <span className="hm-drawer__k">المظهر</span>
-            <ThemeToggle testId="account-theme-toggle" />
-          </div>
-          <div className="hm-drawer__row">
-            <span className="hm-drawer__k">اللغة</span>
-            <span>العربية</span>
-          </div>
-          <div className="hm-drawer__row">
-            <span className="hm-drawer__k">المعلّم الحيّ</span>
-            <span className="hm-pill hm-pill--muted">قريبًا</span>
-          </div>
-
-          <div className="hm-drawer__sec">الجلسة</div>
-          <button type="button" className="hm-drawer__link hm-drawer__link--danger" data-testid="logout" onClick={onLogout}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9 4H6a2 2 0 00-2 2v12a2 2 0 002 2h3" />
-              <path d="M15 8l4 4-4 4M19 12H9" />
-            </svg>
-            خروج
-          </button>
-        </div>
-      </Sheet>
     </div>
   );
 }

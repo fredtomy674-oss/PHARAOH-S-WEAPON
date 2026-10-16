@@ -22,6 +22,7 @@ const GUARDED = [
   "src/styles/style-guide.css",
   "src/styles/home.css",
   "src/styles/entry.css",
+  "src/styles/app.css",
   "src/components/ui/Button.tsx",
   "src/components/ui/Card.tsx",
   "src/components/ui/Chip.tsx",
@@ -32,6 +33,7 @@ const GUARDED = [
   "src/components/ui/RingProgress.tsx",
   "src/components/ui/Sheet.tsx",
   "src/components/ui/ThemeToggle.tsx",
+  "src/components/app/AppShell.tsx",
   "src/StyleGuide.tsx",
 ];
 

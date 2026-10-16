@@ -260,8 +260,9 @@ test("A5: with no server voice the app falls back to the browser voice", async (
 
 /**
  * Worst case with the fallback: no server voice AND no Arabic voice installed.
- * The student still gets sound plus a plain, actionable message — the notice
- * now describes the only situation it can still help with.
+ * PHASE 78 decided the honest outcome: an Arabic reply is never handed to the
+ * machine's default English voice. The room stays silent — no wrong-language
+ * audio — and states plainly how to add the voice.
  */
 test("A6: no server voice and no voice for the language is stated plainly", async ({ page }) => {
   // Only an English voice is installed — an Arabic lesson on this machine.
@@ -271,18 +272,15 @@ test("A6: no server voice and no voice for the language is stated plainly", asyn
   await startFirstLesson(page);
 
   await sendChatMessage(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
-  const reply = await tutorReplyText(page);
+  await tutorReplyText(page);
   await page.getByTestId("speak-reply").first().click();
 
-  // The utterance still carries the right language tag (so any engine that can
-  // speak Arabic will use it)...
-  // Polled, not read once: the reply first goes to the server (which answers 503
-  // here), so the browser's voice starts a moment after the click.
-  await expect.poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 15_000 }).toBe(1);
-  const state = await voiceTestState(page);
-  expect(state.spoken[0].text).toBe(reply);
-  expect(state.spoken[0].lang).toBe("ar-EG");
-  // ...and the student gets an actionable message rather than wrong audio.
-  await expect(page.getByTestId("chat-error")).toContainText("لا يوجد صوت العربية");
+  // The server answers 503 and the fallback refuses to read Arabic in the
+  // machine's English voice: nothing is spoken, and the student gets the
+  // actionable notice instead of wrong-language audio.
+  await expect(page.getByTestId("chat-error")).toContainText("لا يوجد صوت العربية", { timeout: 15_000 });
   await expect(page.getByTestId("chat-error")).toContainText("Language options");
+  const state = await voiceTestState(page);
+  expect(state.spoken.length).toBe(0);
+  expect(state.audio.plays).toBe(0);
 });

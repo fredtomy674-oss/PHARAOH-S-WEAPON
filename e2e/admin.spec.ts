@@ -141,9 +141,14 @@ test("A4: the admin dashboard shows the subscription funnel and AI usage/savings
  * that describes the *old* hand-built Egypt tree (35 concepts, 12 seeded). The
  * PHASE 47 official Ministry book has a different shape, so the count moved and
  * the assertion rotted. A magic number is the wrong contract for "cover the
- * gaps": the test now asserts the invariants that actually matter — at least one
- * question was generated, already-covered concepts were skipped rather than
- * duplicated, and nothing failed.
+ * gaps".
+ *
+ * PHASE 158: the "covered concepts were skipped" half of that contract was
+ * still pinned to the seed's shape — on a fresh database this curriculum starts
+ * with no seeded coverage at all, so the first pass legitimately skips nothing
+ * and the assertion was red by construction. The test now proves idempotency
+ * itself: the first pass must fill gaps, and an immediate second pass over the
+ * same curriculum must generate nothing and skip every concept it just covered.
  */
 test("A5 (PHASE 28): the admin generates questions for questionless concepts in the chosen curriculum", async ({ page }) => {
   await login(page, ADMIN.email, ADMIN.password);
@@ -165,16 +170,27 @@ test("A5 (PHASE 28): the admin generates questions for questionless concepts in 
 
   const result = page.getByTestId("admin-gen-result");
   await expect(result).toBeVisible({ timeout: 30_000 });
-  const report = await result.innerText();
+  const first = await result.innerText();
 
-  // Invariants, not a magic total: gaps were filled, covered concepts were left
-  // alone, and the generator reported no failures.
-  const generated = Number(report.match(/تم توليد\s+(\d+)/)?.[1] ?? "0");
-  const skipped = Number(report.match(/تخطّى\s+(\d+)/)?.[1] ?? "0");
-  const failed = Number(report.match(/فشل\s+(\d+)/)?.[1] ?? "-1");
-  expect(generated, `unexpected generation report: ${report}`).toBeGreaterThan(0);
-  expect(skipped, `expected already-covered concepts to be skipped: ${report}`).toBeGreaterThan(0);
-  expect(failed, `generation reported failures: ${report}`).toBe(0);
+  // Pass 1 — gaps were filled and nothing failed.
+  const generated = Number(first.match(/تم توليد\s+(\d+)/)?.[1] ?? "0");
+  const failed = Number(first.match(/فشل\s+(\d+)/)?.[1] ?? "-1");
+  expect(generated, `unexpected generation report: ${first}`).toBeGreaterThan(0);
+  expect(failed, `generation reported failures: ${first}`).toBe(0);
+
+  // Pass 2 — the generator is idempotent: every concept is covered now, so it
+  // generates nothing and skips all of them. Polled, because the first report
+  // stays on screen until the new run replaces it.
+  await generate.click();
+  await expect
+    .poll(async () => Number((await result.innerText({ timeout: 10_000 }).catch(() => "")).match(/تم توليد\s+(\d+)/)?.[1] ?? "-1"), {
+      timeout: 30_000,
+    })
+    .toBe(0);
+  const second = await result.innerText();
+  const skipped = Number(second.match(/تخطّى\s+(\d+)/)?.[1] ?? "0");
+  expect(skipped, `expected already-covered concepts to be skipped: ${second}`).toBeGreaterThan(0);
+  expect(Number(second.match(/فشل\s+(\d+)/)?.[1] ?? "-1"), `generation reported failures: ${second}`).toBe(0);
 });
 
 test("A6 (PHASE 34): the admin dashboard shows 14-day activity columns and the most-active lessons", async ({ page }) => {
