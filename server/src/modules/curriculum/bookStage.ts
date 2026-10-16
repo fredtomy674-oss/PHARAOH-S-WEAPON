@@ -744,6 +744,18 @@ import {
   loadBookPage as loadScienceFrG5Page,
 } from "../../db/egyptScienceFrG5T1.js";
 import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_EN_G6_OFFSET,
+  EGYPT_SCIENCE_EN_G6_T1_BOOK_END,
+  allConceptRanges as scienceEnG6ConceptRanges,
+  loadBookPage as loadScienceEnG6Page,
+} from "../../db/egyptScienceEnG6T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as SCIENCE_FR_G6_OFFSET,
+  EGYPT_SCIENCE_FR_G6_T1_BOOK_END,
+  allConceptRanges as scienceFrG6ConceptRanges,
+  loadBookPage as loadScienceFrG6Page,
+} from "../../db/egyptScienceFrG6T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G7_OFFSET,
   EGYPT_ARABIC_P1_T1_BOOK_END,
   allLessonRanges as arabicP1LessonRanges,
@@ -1076,6 +1088,8 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g4-math-en", prefix: "l-g4-math-en-", offset: MATH_EN_G4_OFFSET, bookEnd: EGYPT_MATH_EN_G4_T1_BOOK_END, ranges: mathEnG4LessonRanges(), loadPage: loadMathEnG4Page, extras: mathEnG4LessonExtras() }),
   buildBook({ code: "eg-g5-math-en", prefix: "l-g5-math-en-", offset: MATH_EN_G5_OFFSET, bookEnd: EGYPT_MATH_EN_G5_T1_BOOK_END, ranges: mathEnG5LessonRanges(), loadPage: loadMathEnG5Page, extras: mathEnG5LessonExtras() }),
   buildBook({ code: "eg-g5-science-fr", prefix: "l-g5-sci-fr-", offset: SCIENCE_FR_G5_OFFSET, bookEnd: EGYPT_SCIENCE_FR_G5_T1_BOOK_END, ranges: scienceFrG5LessonRanges(), loadPage: loadScienceFrG5Page, extras: scienceFrG5LessonExtras() }),
+  buildBook({ code: "eg-g6-science-en", prefix: "l-g6-sci-en-", offset: SCIENCE_EN_G6_OFFSET, bookEnd: EGYPT_SCIENCE_EN_G6_T1_BOOK_END, ranges: scienceEnG6ConceptRanges(), loadPage: loadScienceEnG6Page }),
+  buildBook({ code: "eg-g6-science-fr", prefix: "l-g6-sci-fr-", offset: SCIENCE_FR_G6_OFFSET, bookEnd: EGYPT_SCIENCE_FR_G6_T1_BOOK_END, ranges: scienceFrG6ConceptRanges(), loadPage: loadScienceFrG6Page }),
   buildBook({ code: "eg-g2-math-fr", prefix: "l-g2-math-fr-", offset: MATH_FR_G2_OFFSET, bookEnd: EGYPT_MATH_FR_G2_T1_BOOK_END, ranges: mathFrG2LessonRanges(), loadPage: loadMathFrG2Page, extras: mathFrG2LessonExtras() }),
   buildBook({ code: "eg-g3-math-fr", prefix: "l-g3-math-fr-", offset: MATH_FR_G3_OFFSET, bookEnd: EGYPT_MATH_FR_G3_T1_BOOK_END, ranges: mathFrG3LessonRanges(), loadPage: loadMathFrG3Page, extras: mathFrG3LessonExtras() }),
   buildBook({ code: "eg-kg2-discovery", prefix: "l-kg2-dis-", offset: DISCOVERY_KG2_OFFSET, bookEnd: EGYPT_DISCOVERY_KG2_T1_BOOK_END, ranges: discoveryKg2LessonRanges(), loadPage: loadDiscoveryKg2Page, extras: discoveryKg2LessonExtras() }),

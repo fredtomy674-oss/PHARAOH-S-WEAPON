@@ -509,6 +509,18 @@ import {
   assertTreeMatchesTheBook as assertScienceFrG5TreeMatchesBook,
 } from "./egyptScienceFrG5T1.js";
 import {
+  EGYPT_SCIENCE_EN_G6_T1_UNITS,
+  conceptDocument as scienceEnG6ConceptDocument,
+  isConsistent as isScienceEnG6TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceEnG6TreeMatchesBook,
+} from "./egyptScienceEnG6T1.js";
+import {
+  EGYPT_SCIENCE_FR_G6_T1_UNITS,
+  conceptDocument as scienceFrG6ConceptDocument,
+  isConsistent as isScienceFrG6TreeConsistent,
+  assertTreeMatchesTheBook as assertScienceFrG6TreeMatchesBook,
+} from "./egyptScienceFrG6T1.js";
+import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
   isConsistent as isDiscoveryEnKg1TreeConsistent,
@@ -6130,6 +6142,116 @@ function verifyScienceFrG5Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-6 Science (**English-medium**) — OFFICIAL curriculum
+ * (PHASE 150).
+ *
+ * The first term IS the Ministry Science (English) book for Grade 6 (the
+ * Discovery Education edition, 86 content pages OCR'd). The tree keeps the
+ * book's own ten printed chapters and, inside them, its twenty-two printed
+ * concepts; each concept is one app lesson grounded in the pages the book
+ * prints for it. The page table is self-proving: `isConsistent` checks its
+ * invariants and `assertTreeMatchesTheBook` re-reads every printed page to
+ * confirm the folio, the concept's opener head and its printed «Point!»
+ * learning topics. A wrong range would silently hide book content from the
+ * tutor, so seeding refuses to run on an unverified table.
+ */
+export const EGYPT_SCIENCE_EN_G6_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "science-en", name: "Science (English)", nameAr: "العلوم (بالإنجليزية)" },
+  curriculum: { code: "eg-g6-science-en", title: "العلوم للصف السادس الابتدائي (بالإنجليزية)" },
+  terms: [buildEgyptScienceEnG6Term()],
+};
+
+/** Term 1 = the official Grade-6 Science (English) book: printed chapter → printed concept. */
+function buildEgyptScienceEnG6Term(): TermSeedSpec {
+  const check = verifyScienceEnG6Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم (بالإنجليزية) سادسة ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_EN_G6_T1_UNITS.map((chapter, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: chapter.title,
+      lessons: chapter.concepts.map((concept, ci) => {
+        const title = `Concept ${concept.key}: ${concept.title}`;
+        return {
+          // Namespaced: the science book prints the same «chapter-concept» labels
+          // as its Arabic twin, so a bare `l-con-1-2` would collide across books.
+          code: `l-g6-sci-en-${concept.key}`,
+          title,
+          concepts: concept.concepts,
+          doc: { title, content: scienceEnG6ConceptDocument(ui, ci) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-6 Science (English) tree verification, as one verdict. */
+function verifyScienceEnG6Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceEnG6TreeConsistent();
+  const book = assertScienceEnG6TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-6 Science (**French-medium**) — OFFICIAL curriculum
+ * (PHASE 150).
+ *
+ * The first term IS the Ministry Science (French) book for Grade 6 (the
+ * Discovery Education edition, 86 content pages OCR'd) — the same book as the
+ * English and Arabic twins, with the same pagination. The tree keeps the book's
+ * own ten printed chapters (from its «Sommaire») and its twenty-two printed
+ * concepts; each concept is one app lesson grounded in the pages the book
+ * prints for it. The page table is self-proving: `isConsistent` checks its
+ * invariants and `assertTreeMatchesTheBook` re-reads every printed page to
+ * confirm the folio, the concept's opener head and its printed «Apprends»
+ * learning topics. A wrong range would silently hide book content from the
+ * tutor, so seeding refuses to run on an unverified table.
+ */
+export const EGYPT_SCIENCE_FR_G6_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "science-fr", name: "Science (French)", nameAr: "العلوم (بالفرنسية)" },
+  curriculum: { code: "eg-g6-science-fr", title: "العلوم للصف السادس الابتدائي (بالفرنسية)" },
+  terms: [buildEgyptScienceFrG6Term()],
+};
+
+/** Term 1 = the official Grade-6 Science (French) book: printed chapter → printed concept. */
+function buildEgyptScienceFrG6Term(): TermSeedSpec {
+  const check = verifyScienceFrG6Tree();
+  if (!check.ok) throw new Error(`شجرة كتاب العلوم (بالفرنسية) سادسة ابتدائي غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_SCIENCE_FR_G6_T1_UNITS.map((chapter, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: chapter.title,
+      lessons: chapter.concepts.map((concept, ci) => {
+        const title = `Concept ${concept.key} : ${concept.title}`;
+        return {
+          // Namespaced so codes are unique across every seeded curriculum.
+          code: `l-g6-sci-fr-${concept.key}`,
+          title,
+          concepts: concept.concepts,
+          doc: { title, content: scienceFrG6ConceptDocument(ui, ci) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-6 Science (French) tree verification, as one verdict. */
+function verifyScienceFrG6Tree(): { ok: boolean; problems: string[] } {
+  const table = isScienceFrG6TreeConsistent();
+  const book = assertScienceFrG6TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
  *
  * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
@@ -7988,6 +8110,8 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_MATH_EN_G4_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_EN_G5_SPEC);
   await seedCountry(db, knowledge, EGYPT_SCIENCE_FR_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_EN_G6_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SCIENCE_FR_G6_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_MATH_FR_G3_SPEC);
   await seedCountry(db, knowledge, EGYPT_DISCOVERY_KG2_SPEC);

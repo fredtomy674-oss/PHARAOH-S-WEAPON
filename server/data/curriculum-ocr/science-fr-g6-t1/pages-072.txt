@@ -1,0 +1,26 @@
+Allons plus loin
+Regardons les chaînes alimentaires en Égypte :
+
+Algues
+Tilapia du Nil
+Perche du Nil
+Crocodile du Nil
+
+Graines d'arbustes
+Gerboise
+Vipère
+Fennec
+
+Papyrus
+(producteur)
+Criquet
+(consommateur
+primaire)
+Grenouille
+(consommateur
+secondaire)
+Oiseau
+(consommateur
+tertiaire - super-prédateur)
+
+71
