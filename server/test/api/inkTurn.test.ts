@@ -20,6 +20,10 @@ const TINY_PNG =
  * PHASE 50 — «لوح الحبر»: the student draws on the printed page, and the tutor
  * sees the page as he marked it.
  *
+ * W2: the room's client now draws on the teacher's board (no page at all), so a
+ * page-less ink turn is named «رسم-على-السبورة.jpg» and the prompt calls it a
+ * board; the page-marked path below stays for compatibility.
+ *
  * The contract worth protecting: a marked-page turn is stored as a picture of
  * *that page* (readable file name, printed page number, stroke count), the
  * tutor is told the marks are the student's own pointer, and a forged page
@@ -143,9 +147,11 @@ describe("ink turn (marked book page) — API", () => {
     };
     const att = turn.userMessage.attachments[0]!;
     // The marks still travel as a picture; only the unowned page claim is dropped.
+    // W2: with no page behind it, the drawing is what it always was on the screen —
+    // a board drawing — so the file says so instead of claiming a page.
     expect(att.inkPage).toBeUndefined();
     expect(att.inkStrokes).toBe(2);
-    expect(att.fileName).toBe("صفحة-مُعلَّمة.jpg");
+    expect(att.fileName).toBe("رسم-على-السبورة.jpg");
   });
 
   it("records nothing on a lesson with no book at all", async () => {
