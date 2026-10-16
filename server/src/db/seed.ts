@@ -521,6 +521,24 @@ import {
   assertTreeMatchesTheBook as assertScienceFrG6TreeMatchesBook,
 } from "./egyptScienceFrG6T1.js";
 import {
+  EGYPT_FAMILY_G4_T1_UNITS,
+  lessonDocument as familyG4LessonDocument,
+  isConsistent as isFamilyG4TreeConsistent,
+  assertTreeMatchesTheBook as assertFamilyG4TreeMatchesBook,
+} from "./egyptFamilyG4T1.js";
+import {
+  EGYPT_FARMING_G4_T1_UNITS,
+  lessonDocument as farmingG4LessonDocument,
+  isConsistent as isFarmingG4TreeConsistent,
+  assertTreeMatchesTheBook as assertFarmingG4TreeMatchesBook,
+} from "./egyptFarmingG4T1.js";
+import {
+  EGYPT_LIBRARIES_G4_T1_UNITS,
+  lessonDocument as librariesG4LessonDocument,
+  isConsistent as isLibrariesG4TreeConsistent,
+  assertTreeMatchesTheBook as assertLibrariesG4TreeMatchesBook,
+} from "./egyptLibrariesG4T1.js";
+import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
   isConsistent as isDiscoveryEnKg1TreeConsistent,
@@ -6252,6 +6270,187 @@ function verifyScienceFrG6Tree(): { ok: boolean; problems: string[] } {
 }
 
 /**
+ * Egyptian Primary-4 «مهارات إدارة الأسرة وريادة الأعمال» — OFFICIAL curriculum
+ * (PHASE 151).
+ *
+ * The first term IS the Ministry student book for Grade 4 (64 scanned pages, 52
+ * printed teaching pages). The tree keeps the book's own two units («فن ومهارة»,
+ * «مهارة وإبداع») and six lessons, each grounded on the pages its title page
+ * opens. The printed folios skip 25 and 33 (see the page-model note in
+ * egyptFamilyG4T1.ts): those two print pages have no scan, remain owned by their
+ * lesson's range, and the stage shows them as unavailable images. The last ten
+ * printed pages are back matter (المراجع وإرشادات مهنية) and lie beyond
+ * BOOK_END. Every unit/lesson/page claim is re-proved against the book's own
+ * printed folios, titles and objectives before seeding; a mismatch refuses the
+ * run.
+ */
+export const EGYPT_FAMILY_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: {
+    code: "family",
+    name: "Family Management and Entrepreneurship Skills",
+    nameAr: "مهارات إدارة الأسرة وريادة الأعمال",
+  },
+  curriculum: {
+    code: "eg-g4-family",
+    title: "مهارات إدارة الأسرة وريادة الأعمال للصف الرابع الابتدائي",
+  },
+  terms: [buildEgyptFamilyG4Term()],
+};
+
+/** Term 1 = the official Grade-4 «مهارات إدارة الأسرة» book: printed unit → printed lesson. */
+function buildEgyptFamilyG4Term(): TermSeedSpec {
+  const check = verifyFamilyG4Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب مهارات إدارة الأسرة (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FAMILY_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g4-fam-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: familyG4LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 «مهارات إدارة الأسرة» tree verification, as one verdict. */
+function verifyFamilyG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isFamilyG4TreeConsistent();
+  const book = assertFamilyG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 «مهارات الزراعة وريادة الأعمال» — OFFICIAL curriculum
+ * (PHASE 151).
+ *
+ * The first term IS the Ministry student book for Grade 4 (33 scanned pages,
+ * 29 printed teaching pages). The tree keeps the book's own three units
+ * («نباتات الزينة», «الصناعات الغذائية», «الاستدامة في الزراعة») and six
+ * lessons, each grounded on the pages its title page opens. Book page == scan
+ * page here (the printed folios prove it page by page, with two known OCR chip
+ * misreads folded: «ه»=٥ on page 5 and «V»=٧ on page 7). Every unit/lesson/page
+ * claim is re-proved against the book's own printed folios, titles and
+ * objectives before seeding; a mismatch refuses the run.
+ */
+export const EGYPT_FARMING_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: {
+    code: "farming",
+    name: "Agriculture and Entrepreneurship Skills",
+    nameAr: "مهارات الزراعة وريادة الأعمال",
+  },
+  curriculum: {
+    code: "eg-g4-farming",
+    title: "مهارات الزراعة وريادة الأعمال للصف الرابع الابتدائي",
+  },
+  terms: [buildEgyptFarmingG4Term()],
+};
+
+/** Term 1 = the official Grade-4 «مهارات الزراعة» book: printed unit → printed lesson. */
+function buildEgyptFarmingG4Term(): TermSeedSpec {
+  const check = verifyFarmingG4Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب مهارات الزراعة (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FARMING_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g4-farm-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: farmingG4LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 «مهارات الزراعة» tree verification, as one verdict. */
+function verifyFarmingG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isFarmingG4TreeConsistent();
+  const book = assertFarmingG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-4 «المكتبات ومهارات البحث» — OFFICIAL curriculum (PHASE 151).
+ *
+ * The first term IS the Ministry student book for Grade 4 (40 scanned pages, 35
+ * printed teaching pages). This book prints NO units: the syllabus is a flat
+ * list of twelve «دروس», so the app stores one container unit titled with the
+ * book's own name and the twelve lessons inside it, each grounded on the pages
+ * its title page opens (5, 8, 11, … 37). Book page == scan page (the printed
+ * folios prove it page by page); scan 40 is a decorative end page with no text
+ * and is not part of the curriculum. Every lesson/page claim is re-proved
+ * against the book's own printed folios, titles and objectives before seeding;
+ * a mismatch refuses the run.
+ */
+export const EGYPT_LIBRARIES_G4_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-4", name: "Grade 4", nameAr: "الصف الرابع الابتدائي", levelOrder: 4 },
+  subject: { code: "libraries", name: "Libraries and Research Skills", nameAr: "المكتبات ومهارات البحث" },
+  curriculum: {
+    code: "eg-g4-libraries",
+    title: "المكتبات ومهارات البحث للصف الرابع الابتدائي",
+  },
+  terms: [buildEgyptLibrariesG4Term()],
+};
+
+/** Term 1 = the official Grade-4 «المكتبات ومهارات البحث» book: one container unit → twelve printed lessons. */
+function buildEgyptLibrariesG4Term(): TermSeedSpec {
+  const check = verifyLibrariesG4Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب المكتبات ومهارات البحث (رابعة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_LIBRARIES_G4_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g4-lib-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: librariesG4LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-4 «المكتبات ومهارات البحث» tree verification, as one verdict. */
+function verifyLibrariesG4Tree(): { ok: boolean; problems: string[] } {
+  const table = isLibrariesG4TreeConsistent();
+  const book = assertLibrariesG4TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
  *
  * The first term IS the Ministry Discovery book for KG 1 (English-medium; 84 born-digital
@@ -8126,11 +8325,14 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G2_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G1_SPEC);
   await seedCountry(db, knowledge, EGYPT_ISLAMIC_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FAMILY_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FARMING_G4_SPEC);
+  await seedCountry(db, knowledge, EGYPT_LIBRARIES_G4_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Family/Farming/Libraries skills) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**
