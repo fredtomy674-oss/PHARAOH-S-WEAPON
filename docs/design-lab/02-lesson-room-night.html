@@ -6,7 +6,7 @@
 <title>معمل التصميم · غرفة الدرس — هوية الفاروق</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Cairo:wght@300..900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0A0908; --screen-a:#0F0D0A; --screen-b:#0B0A08;
@@ -16,12 +16,14 @@
     --gold:#D9A95C; --gold-ink:#E8C87F; --gold-deep:#B98A41;
     --gold-soft:rgba(217,169,92,.14);
     --gold-grad:linear-gradient(135deg,#F2CD7C,var(--gold) 55%,var(--gold-deep));
+    --font-ui:"IBM Plex Sans Arabic", Inter, "Segoe UI", Tahoma, sans-serif;
+    --font-learn:"Cairo", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
     --shadow:0 30px 70px rgba(0,0,0,.65);
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
-    font-family:"IBM Plex Sans Arabic", Inter, "Segoe UI", Tahoma, sans-serif;
+    font-family:var(--font-ui);
     color:var(--ink);
     background:
       radial-gradient(1000px 520px at 85% -12%, rgba(217,169,92,.13), transparent 62%),
@@ -37,7 +39,8 @@
   .lab-badge i{width:7px;height:7px;border-radius:50%;background:var(--gold);display:block}
   h1{font-size:27px;font-weight:700;margin:0;color:var(--ink)}
   h1 span{color:var(--gold)}
-  .board-sub{color:var(--muted);font-size:14px;margin:0;line-height:1.8;max-width:680px}
+  .board-sub{color:var(--muted);font-size:14px;margin:0;line-height:1.8;max-width:700px}
+  .board-sub b{color:var(--ink)}
   .palette{display:flex;gap:9px;flex-wrap:wrap}
   .sw{display:inline-flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);
       border-radius:999px;padding:6px 12px 6px 7px;font-size:11.5px;color:var(--muted)}
@@ -91,8 +94,10 @@
   .wb-label{font-size:11px;font-weight:700;color:var(--muted)}
   .wb-step{font-size:11px;font-weight:700;color:var(--gold-ink);background:var(--gold-soft);
     border-radius:999px;padding:4px 10px}
-  .wb-line{margin:0;font-size:15.5px;font-weight:700;line-height:1.7;color:var(--ink)}
-  .eq{margin-top:12px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+  .wb-line{margin:0;font-size:15.5px;font-weight:700;line-height:1.75;color:var(--ink);
+    font-family:var(--font-learn)}
+  .eq{margin-top:12px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;
+    font-family:var(--font-learn)}
   .eq-row{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:var(--ink)}
   .eq-row .op{color:var(--muted);font-weight:600}
   .dots{height:15px;border-radius:8px;background-image:radial-gradient(circle, var(--c) 44%, transparent 52%);
@@ -125,12 +130,14 @@
   .mini-avatar{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;
     background:var(--gold-grad);color:#140F06;font-size:11px;font-weight:700}
   .bubble{max-width:86%;background:var(--panel);border:1px solid var(--line);padding:10px 13px;
-    border-radius:16px 16px 6px 16px;font-size:13px;line-height:1.8;color:var(--ink)}
+    border-radius:16px 16px 6px 16px;font-size:13px;line-height:1.85;color:var(--ink);
+    font-family:var(--font-learn)}
   .bubble p{margin:0}
   .msg.student .bubble{background:var(--gold-grad);color:#140F06;
     border:none;border-radius:16px 16px 16px 6px;font-weight:600;box-shadow:0 10px 24px rgba(217,169,92,.25)}
   .know-bar{display:flex;align-items:center;gap:7px;margin-top:9px;padding-top:7px;
-    border-top:1px dashed var(--line);font-size:10.5px;color:var(--muted)}
+    border-top:1px dashed var(--line);font-size:10.5px;color:var(--muted);
+    font-family:var(--font-ui)}
   .know-bar .k{color:var(--gold-ink);font-weight:700}
   .kb-listen{display:inline-flex;align-items:center;gap:4px;border:none;background:none;padding:0;
     color:var(--gold-ink);font-weight:700;font-size:10.5px;font-family:inherit;cursor:pointer}
@@ -164,7 +171,7 @@
   <header class="board-head">
     <span class="lab-badge"><i></i> معمل التصميم — النسخة النهائية (قرار المالك 2026-10-16)</span>
     <h1>غرفة الدرس — <span>هوية الفاروق</span></h1>
-    <p class="board-sub">مثل الفاروق بالضبط: <b>الذهبي هو اللون الأساسي</b> — بلا أي ألوان جديدة. واللون <b>الهامد</b> أصبح <b>فاتحًا</b> (#B3BDB4) ليُقرأ بوضوح على الخلفية الداكنة — داكن <b>#0A0908</b> + ذهبي <b>#D9A95C</b> + حبر <b>#F0EBE2</b>، بخط IBM Plex Sans Arabic.</p>
+    <p class="board-sub">مثل الفاروق بالضبط: <b>الذهبي هو اللون الأساسي</b> — بلا أي ألوان جديدة، واللون <b>الهامد</b> أصبح <b>فاتحًا</b> (#B3BDB4) ليُقرأ بوضوح على الخلفية الداكنة.<br><b>نظام من طبقتين للحفاظ على «لغة تصميم واحدة»:</b> خط <b>IBM Plex Sans Arabic</b> للواجهة (اللافتات والأزرار والشرائح)، وخط <b>Cairo</b> المصري للمحتوى التعليمي (الشرح والسبورة والحوار).</p>
     <div class="palette">
       <span class="sw"><i style="background:#0A0908"></i> ليلي #0A0908</span>
       <span class="sw"><i style="background:#D9A95C"></i> ذهبي أساسي #D9A95C</span>
@@ -318,6 +325,7 @@
   <div class="lab-notes">
     <span>الذهبي أساسي — بلا أي لون خارج هوية الفاروق (قرار المالك 2026-10-16)</span>
     <span>الهامد رُفع من #9AA69D إلى فاتح #B3BDB4 — في مواضعه نفسها (توضيح المالك)</span>
+    <span>نظام خطين (قرار المالك): Cairo للتعلّم (الشرح والسبورة والحوار) · IBM Plex Sans Arabic للواجهة</span>
     <span>تباين WCAG على الخلفية الداكنة: ذهبي 9.27:1 · هامد فاتح 10.28:1 · حبر 16.76:1 — كلها AAA</span>
     <span>شريط «كتابك — صفحة ٦/٧» مرجع لكتابك الورقي — لا يُعرض الكتاب إطلاقًا (الأطلس §١٥)</span>
     <span>دائرة المعلّم مؤقتة — أفاتار الـVRM الحقيقي في W7</span>
