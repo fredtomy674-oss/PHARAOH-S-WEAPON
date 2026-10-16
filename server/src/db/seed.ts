@@ -557,6 +557,24 @@ import {
   assertTreeMatchesTheBook as assertLibrariesG5TreeMatchesBook,
 } from "./egyptLibrariesG5T1.js";
 import {
+  EGYPT_FAMILY_G6_T1_UNITS,
+  lessonDocument as familyG6LessonDocument,
+  isConsistent as isFamilyG6TreeConsistent,
+  assertTreeMatchesTheBook as assertFamilyG6TreeMatchesBook,
+} from "./egyptFamilyG6T1.js";
+import {
+  EGYPT_FARMING_G6_T1_UNITS,
+  lessonDocument as farmingG6LessonDocument,
+  isConsistent as isFarmingG6TreeConsistent,
+  assertTreeMatchesTheBook as assertFarmingG6TreeMatchesBook,
+} from "./egyptFarmingG6T1.js";
+import {
+  EGYPT_LIBRARIES_G6_T1_UNITS,
+  lessonDocument as librariesG6LessonDocument,
+  isConsistent as isLibrariesG6TreeConsistent,
+  assertTreeMatchesTheBook as assertLibrariesG6TreeMatchesBook,
+} from "./egyptLibrariesG6T1.js";
+import {
   EGYPT_DISCOVERY_EN_KG1_T1_UNITS,
   lessonDocument as discoveryEnKg1LessonDocument,
   isConsistent as isDiscoveryEnKg1TreeConsistent,
@@ -6649,6 +6667,187 @@ function verifyLibrariesG5Tree(): { ok: boolean; problems: string[] } {
   return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
 }
 
+/**
+ * Egyptian Primary-6 «مهارات إدارة الأسرة» — OFFICIAL curriculum (PHASE 153).
+ *
+ * The first term IS the Ministry student book for Grade 6 (52 scans; printed
+ * pages 5–43 are the curriculum, 44–53 back matter). The tree keeps the book's
+ * own two units («بيئتي مسئوليتي», «تراث مجتمعنا») and six lessons. Its page
+ * model is piecewise like the Grade-5 book of the series: folios 1–23 print
+ * 1:1, printed page 24 is the blank leaf the PDF never carried, and everything
+ * after shifts by one (scan 24 = the unit-2 opener, labeled 25; scan 25 =
+ * lesson 2-1's title page, labeled 26). The unit-2 opener reprints unit 1's
+ * wordmark — a production error; the book's فهرس and running heads print
+ * «تراث مجتمعنا», the name the tree uses. Every claim — folios, titles,
+ * objectives — is re-proved against the book before seeding; a mismatch
+ * refuses the run.
+ */
+export const EGYPT_FAMILY_G6_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: {
+    code: "family",
+    name: "Family Management and Entrepreneurship Skills",
+    nameAr: "مهارات إدارة الأسرة وريادة الأعمال",
+  },
+  curriculum: {
+    code: "eg-g6-family",
+    title: "مهارات إدارة الأسرة (الاقتصاد المنزلي سابقًا) للصف السادس الابتدائي",
+  },
+  terms: [buildEgyptFamilyG6Term()],
+};
+
+/** Term 1 = the official Grade-6 «مهارات إدارة الأسرة» book: printed unit → printed lesson. */
+function buildEgyptFamilyG6Term(): TermSeedSpec {
+  const check = verifyFamilyG6Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب مهارات إدارة الأسرة (سادسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FAMILY_G6_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g6-fam-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: familyG6LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-6 «مهارات إدارة الأسرة» tree verification, as one verdict. */
+function verifyFamilyG6Tree(): { ok: boolean; problems: string[] } {
+  const table = isFamilyG6TreeConsistent();
+  const book = assertFamilyG6TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-6 «مهارات الزراعة» — OFFICIAL curriculum (PHASE 153).
+ *
+ * The first term IS the Ministry student book for Grade 6 (41 scans, all
+ * teaching: front matter is pages 1–5, and the book has no back matter — the
+ * last lesson ends on page 41). The tree keeps the book's own five units
+ * («نباتات الزينة», «الصناعات الغذائية», «الألبان», «الزراعة المستدامة»,
+ * «نحل العسل») and six lessons, numbered continuously «الأول»…«السادس». Book
+ * page == scan page here (the printed folios prove it page by page; the one
+ * OCR chip misread, «ه»=٥ on the frontispiece, is folded). Every claim —
+ * folios, titles, objectives — is re-proved against the book before seeding;
+ * a mismatch refuses the run.
+ */
+export const EGYPT_FARMING_G6_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: {
+    code: "farming",
+    name: "Agriculture and Entrepreneurship Skills",
+    nameAr: "مهارات الزراعة وريادة الأعمال",
+  },
+  curriculum: {
+    code: "eg-g6-farming",
+    title: "مهارات الزراعة للصف السادس الابتدائي",
+  },
+  terms: [buildEgyptFarmingG6Term()],
+};
+
+/** Term 1 = the official Grade-6 «مهارات الزراعة» book: printed unit → printed lesson. */
+function buildEgyptFarmingG6Term(): TermSeedSpec {
+  const check = verifyFarmingG6Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب مهارات الزراعة (سادسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_FARMING_G6_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g6-farm-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: farmingG6LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-6 «مهارات الزراعة» tree verification, as one verdict. */
+function verifyFarmingG6Tree(): { ok: boolean; problems: string[] } {
+  const table = isFarmingG6TreeConsistent();
+  const book = assertFarmingG6TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
+/**
+ * Egyptian Primary-6 «المكتبات» — OFFICIAL curriculum (PHASE 153).
+ *
+ * The first term IS the Ministry student book for Grade 6 (42 single-page
+ * scans — unlike the Grade-5 book of the series, one scan per printed page).
+ * The app stores one container unit titled with the book's own name and the
+ * twelve lessons inside it, each grounded on the pages its title page opens
+ * (5, 8, 11, … 39). The book's فهرس rows lag the printed folios by one page
+ * for most lessons (a draft-era table; lessons 7–10 match), so each row must
+ * name its lesson within one page of the printed truth — and the folios the
+ * pages themselves carry win. Every claim is re-proved before seeding; a
+ * mismatch refuses the run.
+ */
+export const EGYPT_LIBRARIES_G6_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-6", name: "Grade 6", nameAr: "الصف السادس الابتدائي", levelOrder: 6 },
+  subject: { code: "libraries", name: "Libraries and Research Skills", nameAr: "المكتبات ومهارات البحث" },
+  curriculum: {
+    code: "eg-g6-libraries",
+    title: "المكتبات للصف السادس الابتدائي",
+  },
+  terms: [buildEgyptLibrariesG6Term()],
+};
+
+/** Term 1 = the official Grade-6 «المكتبات» book: one container unit → twelve printed lessons. */
+function buildEgyptLibrariesG6Term(): TermSeedSpec {
+  const check = verifyLibrariesG6Tree();
+  if (!check.ok) {
+    throw new Error(`شجرة كتاب المكتبات (سادسة ابتدائي) غير متسقة:\n- ${check.problems.join("\n- ")}`);
+  }
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: EGYPT_LIBRARIES_G6_T1_UNITS.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => {
+        const title = `الدرس ${lesson.ordinal}: ${lesson.title}`;
+        return {
+          code: `l-g6-lib-${lesson.key}`,
+          title,
+          concepts: lesson.concepts,
+          doc: { title, content: librariesG6LessonDocument(ui, li) },
+        };
+      }),
+    })),
+  };
+}
+
+/** Both halves of the Grade-6 «المكتبات» tree verification, as one verdict. */
+function verifyLibrariesG6Tree(): { ok: boolean; problems: string[] } {
+  const table = isLibrariesG6TreeConsistent();
+  const book = assertLibrariesG6TreeMatchesBook();
+  return { ok: table.ok && book.ok, problems: [...table.problems, ...book.problems] };
+}
+
 
 /**
  * Egyptian KG 1 **Discovery (English-medium)** — OFFICIAL curriculum (PHASE 130).
@@ -8531,11 +8730,14 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_FAMILY_G5_SPEC);
   await seedCountry(db, knowledge, EGYPT_FARMING_G5_SPEC);
   await seedCountry(db, knowledge, EGYPT_LIBRARIES_G5_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FAMILY_G6_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FARMING_G6_SPEC);
+  await seedCountry(db, knowledge, EGYPT_LIBRARIES_G6_SPEC);
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Family/Farming/Libraries skills for Grades 4–5) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Family/Farming/Libraries skills for Grades 4–6) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**

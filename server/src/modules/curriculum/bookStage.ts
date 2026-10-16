@@ -792,6 +792,24 @@ import {
   bookToPdfPage as librariesG5BookToPdfPage,
 } from "../../db/egyptLibrariesG5T1.js";
 import {
+  EGYPT_FAMILY_G6_T1_BOOK_END,
+  allLessonRanges as familyG6LessonRanges,
+  loadBookPage as loadFamilyG6Page,
+  bookToPdfPage as familyG6BookToPdfPage,
+} from "../../db/egyptFamilyG6T1.js";
+import {
+  BOOK_TO_PDF_OFFSET as FARMING_G6_OFFSET,
+  EGYPT_FARMING_G6_T1_BOOK_END,
+  allLessonRanges as farmingG6LessonRanges,
+  loadBookPage as loadFarmingG6Page,
+} from "../../db/egyptFarmingG6T1.js";
+import {
+  EGYPT_LIBRARIES_G6_T1_BOOK_END,
+  allLessonRanges as librariesG6LessonRanges,
+  loadBookPage as loadLibrariesG6Page,
+  bookToPdfPage as librariesG6BookToPdfPage,
+} from "../../db/egyptLibrariesG6T1.js";
+import {
   BOOK_TO_PDF_OFFSET as ARABIC_G7_OFFSET,
   EGYPT_ARABIC_P1_T1_BOOK_END,
   allLessonRanges as arabicP1LessonRanges,
@@ -1137,6 +1155,14 @@ const STAGE_BOOKS: StageBook[] = [
   buildBook({ code: "eg-g5-family", prefix: "l-g5-fam-", offset: 0, bookToPdf: familyG5BookToPdfPage, bookEnd: EGYPT_FAMILY_G5_T1_BOOK_END, ranges: familyG5LessonRanges(), loadPage: loadFamilyG5Page }),
   buildBook({ code: "eg-g5-farming", prefix: "l-g5-farm-", offset: FARMING_G5_OFFSET, bookEnd: EGYPT_FARMING_G5_T1_BOOK_END, ranges: farmingG5LessonRanges(), loadPage: loadFarmingG5Page }),
   buildBook({ code: "eg-g5-libraries", prefix: "l-g5-lib-", offset: 0, bookToPdf: librariesG5BookToPdfPage, bookEnd: EGYPT_LIBRARIES_G5_T1_BOOK_END, ranges: librariesG5LessonRanges(), loadPage: loadLibrariesG5Page }),
+
+  // PHASE 153 — the Grade-6 «مهارات» books. Same page models as their Grade-5
+  // siblings: the family book skips printed page 24 (the blank leaf before the
+  // unit-2 opener — no scan exists), the farming book prints 1:1, and the
+  // libraries book is one scan per page.
+  buildBook({ code: "eg-g6-family", prefix: "l-g6-fam-", offset: 0, bookToPdf: familyG6BookToPdfPage, bookEnd: EGYPT_FAMILY_G6_T1_BOOK_END, ranges: familyG6LessonRanges(), loadPage: loadFamilyG6Page }),
+  buildBook({ code: "eg-g6-farming", prefix: "l-g6-farm-", offset: FARMING_G6_OFFSET, bookEnd: EGYPT_FARMING_G6_T1_BOOK_END, ranges: farmingG6LessonRanges(), loadPage: loadFarmingG6Page }),
+  buildBook({ code: "eg-g6-libraries", prefix: "l-g6-lib-", offset: 0, bookToPdf: librariesG6BookToPdfPage, bookEnd: EGYPT_LIBRARIES_G6_T1_BOOK_END, ranges: librariesG6LessonRanges(), loadPage: loadLibrariesG6Page }),
   buildBook({ code: "eg-g2-math-fr", prefix: "l-g2-math-fr-", offset: MATH_FR_G2_OFFSET, bookEnd: EGYPT_MATH_FR_G2_T1_BOOK_END, ranges: mathFrG2LessonRanges(), loadPage: loadMathFrG2Page, extras: mathFrG2LessonExtras() }),
   buildBook({ code: "eg-g3-math-fr", prefix: "l-g3-math-fr-", offset: MATH_FR_G3_OFFSET, bookEnd: EGYPT_MATH_FR_G3_T1_BOOK_END, ranges: mathFrG3LessonRanges(), loadPage: loadMathFrG3Page, extras: mathFrG3LessonExtras() }),
   buildBook({ code: "eg-kg2-discovery", prefix: "l-kg2-dis-", offset: DISCOVERY_KG2_OFFSET, bookEnd: EGYPT_DISCOVERY_KG2_T1_BOOK_END, ranges: discoveryKg2LessonRanges(), loadPage: loadDiscoveryKg2Page, extras: discoveryKg2LessonExtras() }),
