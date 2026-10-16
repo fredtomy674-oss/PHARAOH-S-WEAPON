@@ -1,0 +1,456 @@
+/* ==========================================================================
+   مكتبة المكوّنات الأساسية (W0) — رموز التصميم فقط، بلا أي لون/ظل خام.
+   المرجع البصري: docs/design-lab/02-lesson-room-night.html
+   ========================================================================== */
+
+/* ------------------------------ زر --------------------------------------- */
+.ui-btn {
+  font-family: var(--font-ui);
+  font-weight: var(--fw-semibold);
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  transition:
+    transform var(--dur-1) var(--ease-out),
+    box-shadow var(--dur-2) var(--ease-out),
+    background-color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out);
+}
+
+.ui-btn--sm {
+  padding: 7px 14px;
+  font-size: var(--fs-2);
+  min-height: 36px;
+}
+.ui-btn--md {
+  padding: 10px 18px;
+  font-size: var(--fs-3);
+  min-height: 44px;
+}
+.ui-btn--lg {
+  padding: 14px 24px;
+  font-size: var(--fs-4);
+  min-height: 52px;
+}
+
+.ui-btn--primary {
+  background-image: var(--gold-grad);
+  color: var(--on-primary);
+  box-shadow: var(--glow);
+}
+.ui-btn--ghost {
+  background: var(--card);
+  color: var(--ink);
+  border-color: var(--line);
+  box-shadow: var(--shadow-1);
+}
+.ui-btn--quiet {
+  background: transparent;
+  color: var(--primary-ink);
+}
+
+.ui-btn--block {
+  width: 100%;
+}
+
+.ui-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.ui-btn:active {
+  transform: translateY(1px);
+}
+.ui-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+.ui-btn__icon {
+  display: inline-flex;
+}
+.ui-btn__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ui-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+}
+
+/* ------------------------------ بطاقة ------------------------------------ */
+.ui-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-1);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.ui-card--elevated {
+  box-shadow: var(--shadow-2);
+}
+.ui-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.ui-card__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.ui-card__title {
+  margin: 0;
+  font-size: var(--fs-5);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.ui-card__hint {
+  margin: 0;
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+.ui-card__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex: none;
+}
+.ui-card__body {
+  min-width: 0;
+}
+.ui-card__foot {
+  border-top: 1px solid var(--line-soft);
+  padding-top: var(--sp-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+/* ------------------------------ شرائح ------------------------------------ */
+.ui-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  border-radius: var(--r-pill);
+  padding: 5px 12px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-2);
+  font-weight: var(--fw-semibold);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.ui-chip--soft {
+  background: var(--gold-soft);
+  color: var(--primary-ink);
+}
+.ui-chip--outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.ui-chip--gold {
+  background-image: var(--gold-grad);
+  color: var(--on-primary);
+}
+.ui-chip--action {
+  cursor: pointer;
+}
+.ui-chip--action:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.ui-chip__icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ------------------------------ وسوم ------------------------------------- */
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+  font-size: var(--fs-1);
+  font-weight: var(--fw-bold);
+  border: 1px solid transparent;
+}
+.ui-badge--gold {
+  background: var(--gold-soft);
+  color: var(--primary-ink);
+}
+.ui-badge--ok {
+  background: var(--ok-bg);
+  color: var(--ok-fg);
+  border-color: var(--ok-line);
+}
+.ui-badge--warn {
+  background: var(--warn-bg);
+  color: var(--warn-fg);
+  border-color: var(--warn-line);
+}
+.ui-badge--danger {
+  background: var(--danger-bg);
+  color: var(--danger-fg);
+  border-color: var(--danger-line);
+}
+.ui-badge--muted {
+  background: var(--card-2);
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+/* ------------------------------ مربع رمزي -------------------------------- */
+.ui-tile {
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--r-3);
+  border: 1px solid transparent;
+  flex: none;
+}
+.ui-tile--md {
+  width: 44px;
+  height: 44px;
+}
+.ui-tile--lg {
+  width: 56px;
+  height: 56px;
+}
+.ui-tile svg {
+  width: 22px;
+  height: 22px;
+}
+.ui-tile--gold {
+  background: var(--gold-soft);
+  color: var(--primary-ink);
+}
+.ui-tile--deep {
+  background-image: var(--gold-grad);
+  color: var(--on-primary);
+}
+.ui-tile--sage {
+  background: var(--card-2);
+  color: var(--muted);
+  border-color: var(--line);
+}
+.ui-tile--paper {
+  background: var(--card);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.ui-tile--night {
+  background: var(--night);
+  color: var(--gold);
+  border-color: var(--line);
+}
+
+/* ------------------------------ رقم ومعناه -------------------------------- */
+.ui-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  padding: var(--sp-3) var(--sp-4);
+  min-width: 0;
+}
+.ui-stat__icon {
+  color: var(--primary-ink);
+}
+.ui-stat__icon svg {
+  width: 18px;
+  height: 18px;
+}
+.ui-stat__value {
+  font-size: var(--fs-6);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+  line-height: var(--lh-tight);
+}
+.ui-stat__label {
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+.ui-stat__hint {
+  font-size: var(--fs-1);
+  color: var(--primary-ink);
+  font-weight: var(--fw-semibold);
+}
+
+/* ------------------------------ حالة فراغ -------------------------------- */
+.ui-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+  padding: var(--sp-6) var(--sp-4);
+  background: var(--card-2);
+  border: 1px dashed var(--line);
+  border-radius: var(--r-4);
+}
+.ui-empty__icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-3);
+  background: var(--gold-soft);
+  color: var(--primary-ink);
+}
+.ui-empty__icon svg {
+  width: 26px;
+  height: 26px;
+}
+.ui-empty__title {
+  margin: 0;
+  font-size: var(--fs-4);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.ui-empty__note {
+  margin: 0;
+  font-size: var(--fs-2);
+  color: var(--muted);
+  max-width: 34ch;
+  line-height: var(--lh-body);
+}
+
+/* ------------------------------ حلقة ------------------------------------- */
+.ui-ring {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.ui-ring__figure {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.ui-ring__track {
+  stroke: var(--line);
+}
+.ui-ring__bar {
+  stroke: var(--accent);
+}
+.ui-ring__center {
+  position: absolute;
+  font-size: var(--fs-5);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.ui-ring__caption {
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+
+/* ------------------------------ لوحة سفلية -------------------------------- */
+.ui-sheet {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  z-index: var(--z-overlay);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--sp-3);
+}
+.ui-sheet__panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-3);
+  width: min(560px, 100%);
+  max-height: 82vh;
+  overflow: auto;
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  z-index: var(--z-sheet);
+}
+.ui-sheet__panel:focus {
+  outline: none;
+}
+.ui-sheet__grip {
+  align-self: center;
+  width: 44px;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+}
+.ui-sheet__title {
+  margin: 0;
+  font-size: var(--fs-5);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.ui-sheet__foot {
+  border-top: 1px solid var(--line-soft);
+  padding-top: var(--sp-3);
+  display: flex;
+  gap: var(--sp-2);
+  justify-content: flex-end;
+}
+
+/* ------------------------------ مبدّل المظهر ------------------------------ */
+.ui-theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-2);
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--primary-ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex: none;
+  transition:
+    background-color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out);
+}
+.ui-theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.ui-theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ui-theme-toggle:hover {
+    border-color: var(--accent);
+  }
+}
+
+/* ------------------------------ مساعدات ---------------------------------- */
+.ui-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.ui-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+.ui-grid {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}

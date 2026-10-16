@@ -1,0 +1,223 @@
+/* صفحة دليل الأنماط (W0) — داخلية للمطور فقط. رموز فقط، بلا لون خام. */
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: var(--lh-body);
+}
+
+.sg-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: var(--sp-5) var(--sp-4) var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.sg-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+}
+.sg-head__titles {
+  flex: 1;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.sg-head h1 {
+  margin: 0;
+  font-size: var(--fs-6);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.sg-head p {
+  margin: 0;
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+
+.sg-seg {
+  display: inline-flex;
+  gap: var(--sp-1);
+  padding: var(--sp-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card);
+}
+.sg-seg button {
+  font-family: var(--font-ui);
+  font-size: var(--fs-2);
+  font-weight: var(--fw-semibold);
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.sg-seg button[aria-pressed="true"] {
+  background: var(--gold-soft);
+  color: var(--primary-ink);
+}
+
+.sg-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.sg-section > h2 {
+  margin: 0;
+  font-size: var(--fs-5);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.sg-section > h2::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-pill);
+  background-image: var(--gold-grad);
+  display: block;
+}
+.sg-section > p {
+  margin: 0;
+  font-size: var(--fs-2);
+  color: var(--muted);
+  line-height: var(--lh-body);
+}
+
+.sg-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--sp-3);
+}
+.sg-swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--card);
+  padding: var(--sp-2) var(--sp-3);
+  min-width: 0;
+}
+.sg-swatch i {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-1);
+  border: 1px solid var(--line);
+  flex: none;
+}
+.sg-swatch b {
+  display: block;
+  font-size: var(--fs-2);
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+}
+.sg-swatch span {
+  display: block;
+  font-size: var(--fs-1);
+  color: var(--muted);
+  direction: ltr;
+  text-align: start;
+  font-family: var(--font-mono);
+}
+
+.sg-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  font-size: var(--fs-2);
+}
+.sg-table th,
+.sg-table td {
+  text-align: start;
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--line-soft);
+}
+.sg-table th {
+  color: var(--muted);
+  font-weight: var(--fw-semibold);
+  background: var(--card-2);
+}
+.sg-table td {
+  color: var(--ink);
+}
+.sg-table tr:last-child td {
+  border-bottom: none;
+}
+.sg-ratio {
+  font-family: var(--font-mono);
+  direction: ltr;
+  display: inline-block;
+}
+
+.sg-type {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  padding: var(--sp-4);
+}
+.sg-type__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-3);
+  border-bottom: 1px dashed var(--line-soft);
+  padding-bottom: var(--sp-3);
+}
+.sg-type__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.sg-type__tag {
+  font-family: var(--font-mono);
+  direction: ltr;
+  font-size: var(--fs-1);
+  color: var(--muted);
+  min-width: 150px;
+}
+.sg-learn {
+  font-family: var(--font-learn);
+}
+.sg-ui {
+  font-family: var(--font-ui);
+}
+
+.sg-demo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  padding: var(--sp-4);
+}
+.sg-demo--column {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.sg-note {
+  font-size: var(--fs-1);
+  color: var(--muted);
+  line-height: var(--lh-body);
+}

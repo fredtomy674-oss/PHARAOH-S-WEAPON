@@ -1,0 +1,224 @@
+/* ==========================================================================
+   سلاح الفرعون — رموز التصميم (W0)
+   مصدر واحد للحقيقة البصرية: هوية الفاروق (ليل / نهار) — بلا أي لون خارج العائلة.
+   قاعدة W0: لا يُكتب لون/ظل/زاوية خام خارج هذا الملف في الشاشات المهاجَرة.
+   المرجع البصري المعتمد: docs/design-lab/02-lesson-room-night.html
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ١) الخطوط — OFL، مستضافة ذاتيًا من /fonts (بلا CDN، بلا خدمات مدفوعة)
+   نظام من طبقتين (قرار المالك): Plex Sans Arabic للواجهة · Cairo للمحتوى التعليمي
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/IBMPlexSansArabic-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/IBMPlexSansArabic-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/IBMPlexSansArabic-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/IBMPlexSansArabic-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cairo";
+  src: url("/fonts/Cairo-Variable.ttf") format("truetype");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Variable.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ------------------------------------------------------------------------
+     ٢) العائلة البصرية الثابتة (لا تتغيّر بين الوضعين)
+     ------------------------------------------------------------------------ */
+  --night: #0a0908;          /* ليل */
+  --gold: #d9a95c;           /* الذهبي الأساسي */
+  --gold-deep: #b98a41;      /* ذهبي عميق */
+  --gold-bright: #f2cd7c;    /* ذهبي مضيء (أعلى التدرّج) */
+  --gold-text-on-light: #8c6424;
+  --gold-text-on-dark: #e8c87f;
+  --on-gold: #140f06;        /* النص فوق الذهبي — ٨.٩:١ */
+  --paper: #f0ebe2;          /* حبر فاتح */
+  --sage: #b3bdb4;           /* هامد فاتح */
+
+  /* ------------------------------------------------------------------------
+     ٣) الخطوط
+     ------------------------------------------------------------------------ */
+  --font-ui: "IBM Plex Sans Arabic", "Space Grotesk", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --font-learn: "Cairo", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --font-latin: "Space Grotesk", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+
+  /* ------------------------------------------------------------------------
+     ٤) مقياس النص
+     ------------------------------------------------------------------------ */
+  --fs-1: 0.75rem;
+  --fs-2: 0.8125rem;
+  --fs-3: 0.875rem;
+  --fs-4: 1rem;
+  --fs-5: 1.125rem;
+  --fs-6: 1.375rem;
+  --fs-7: 1.75rem;
+  --fs-8: 2.25rem;
+  --lh-tight: 1.35;
+  --lh-body: 1.75;
+  --lh-loose: 1.95;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ------------------------------------------------------------------------
+     ٥) المسافات (شبكة ٤)
+     ------------------------------------------------------------------------ */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  /* ------------------------------------------------------------------------
+     ٦) الزوايا
+     ------------------------------------------------------------------------ */
+  --r-1: 8px;
+  --r-2: 12px;
+  --r-3: 16px;
+  --r-4: 24px;
+  --r-pill: 999px;
+
+  /* ------------------------------------------------------------------------
+     ٧) الحركة (تُحترم prefers-reduced-motion في الشاشات)
+     ------------------------------------------------------------------------ */
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ------------------------------------------------------------------------
+     ٨) الطبقات
+     ------------------------------------------------------------------------ */
+  --z-base: 0;
+  --z-sticky: 10;
+  --z-sheet: 40;
+  --z-overlay: 50;
+  --z-toast: 60;
+
+  /* ========================================================================
+     الوضع النهاري (الافتراضي) — ورق دافئ + حبر داكن + ذهبي أساسي
+     ======================================================================== */
+  color-scheme: light;
+
+  --bg: #f7f3eb;
+  --bg-2: #fbf8f2;
+  --card: #fffdf9;
+  --card-2: #f7f2e9;
+  --ink: #17140f;
+  --muted: #5f6a60;
+
+  --primary: var(--gold);
+  --primary-ink: var(--gold-text-on-light);
+  --on-primary: var(--on-gold);
+  --accent: var(--gold-deep);
+  --gold-soft: rgba(185, 138, 65, 0.12);
+  --gold-grad: linear-gradient(135deg, var(--gold-bright), var(--gold) 55%, var(--gold-deep));
+
+  --line: rgba(23, 20, 15, 0.13);
+  --line-soft: rgba(23, 20, 15, 0.07);
+
+  --shadow-1: 0 1px 2px rgba(23, 20, 15, 0.05), 0 6px 18px rgba(23, 20, 15, 0.06);
+  --shadow-2: 0 10px 30px rgba(23, 20, 15, 0.1);
+  --shadow-3: 0 24px 60px rgba(23, 20, 15, 0.16);
+  --glow: 0 10px 24px rgba(217, 169, 92, 0.28);
+  --focus-ring: 0 0 0 3px rgba(185, 138, 65, 0.35);
+  --overlay: rgba(23, 20, 15, 0.42);
+  --frost: rgba(255, 253, 249, 0.85);
+  --frost-strong: rgba(255, 253, 249, 0.95);
+  --frost-soft: rgba(255, 253, 249, 0.55);
+
+  --ok-bg: rgba(185, 138, 65, 0.12);
+  --ok-fg: #6b4e1e;
+  --ok-line: rgba(185, 138, 65, 0.38);
+  --warn-bg: #fdf1dd;
+  --warn-fg: #8a5a0b;
+  --warn-line: #f0d9a8;
+  --danger-bg: #fdecec;
+  --danger-fg: #b91c1c;
+  --danger-line: #f3c1c1;
+
+  /* ---- أسماء قديمة (جسر مؤقت حتى تكتمل هجرة W1–W4) ---- */
+  --primary-dark: var(--primary-ink);
+  --border: var(--line);
+  --radius: 16px;
+  --shadow: var(--shadow-1);
+  --warn: var(--warn-fg);
+  --danger: var(--danger-fg);
+}
+
+/* ==========================================================================
+   الوضع الليلي — أسطح الليل + الذهبي أساسي + هامد فاتح للنص الثانوي
+   (يُفعَّل بـ data-theme="dark" على <html> — يختاره الطالب أو يتبع نظامه)
+   ========================================================================== */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0a0908;
+  --bg-2: #0f0d0a;
+  --card: #14120e;
+  --card-2: #100e0b;
+  --ink: #f0ebe2;
+  --muted: #b3bdb4;
+
+  --primary: var(--gold);
+  --primary-ink: var(--gold-text-on-dark);
+  --on-primary: var(--on-gold);
+  --accent: var(--gold);
+  --gold-soft: rgba(217, 169, 92, 0.14);
+
+  --line: rgba(240, 235, 226, 0.12);
+  --line-soft: rgba(240, 235, 226, 0.07);
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 14px 36px rgba(0, 0, 0, 0.5);
+  --shadow-3: 0 30px 70px rgba(0, 0, 0, 0.65);
+  --glow: 0 10px 26px rgba(217, 169, 92, 0.22);
+  --focus-ring: 0 0 0 3px rgba(217, 169, 92, 0.45);
+  --overlay: rgba(0, 0, 0, 0.6);
+
+  --ok-bg: rgba(217, 169, 92, 0.16);
+  --ok-fg: var(--gold-text-on-dark);
+  --ok-line: rgba(217, 169, 92, 0.35);
+  --warn-bg: rgba(232, 155, 60, 0.14);
+  --warn-fg: #f0c27b;
+  --warn-line: rgba(232, 155, 60, 0.35);
+  --danger-bg: rgba(220, 80, 80, 0.14);
+  --danger-fg: #f2a9a9;
+  --danger-line: rgba(220, 80, 80, 0.35);
+}

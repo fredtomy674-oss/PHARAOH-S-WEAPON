@@ -64,6 +64,7 @@ import { createStreamedAudio, type AudioPiece, type StreamedAudio } from "./audi
 import NumberLine from "./NumberLine.js";
 import FormattedText from "./FormattedText.js";
 import { previewText, stripMarkdown } from "./format.js";
+import { ThemeToggle } from "./components/ui/index.js";
 
 interface Props {
   user: User;
@@ -949,6 +950,7 @@ export function LessonRoom({ session, onEnded }: Props) {
               متبقي اليوم: {remaining}
             </span>
           )}
+          <ThemeToggle testId="room-theme-toggle" />
           <button data-testid="end-session" className="btn small ghost" onClick={end}>
             إنهاء الحصة
           </button>

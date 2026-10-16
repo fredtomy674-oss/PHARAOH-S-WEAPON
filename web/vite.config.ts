@@ -22,14 +22,15 @@ export default defineConfig({
     },
   },
   build: {
-    // Avatar Lab ships ONLY behind the flag (default off): the student bundle
-    // never changes, and removing the Lab is deleting avatar-lab.html +
-    // src/avatar* plus this block. The dev server always serves both pages so
-    // the Lab is testable without a special build.
+    // Dev-only pages ship ONLY behind their flags (default off): the student
+    // bundle never changes, and removing a lab is deleting its HTML entry +
+    // its src modules plus this block. The dev server always serves them so
+    // they are testable without a special build.
     rollupOptions: {
       input: {
         main: "index.html",
         ...(process.env.VITE_AVATAR_LAB === "1" ? { "avatar-lab": "avatar-lab.html" } : {}),
+        ...(process.env.VITE_STYLE_GUIDE === "1" ? { "style-guide": "style-guide.html" } : {}),
       },
     },
   },

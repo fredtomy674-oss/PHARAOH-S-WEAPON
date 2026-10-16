@@ -1,17 +1,4 @@
-:root {
-  --bg: #f6f4ee;
-  --card: #ffffff;
-  --ink: #1d2433;
-  --muted: #6b7280;
-  --primary: #0e7c5b;
-  --primary-dark: #0a5f46;
-  --accent: #e2b93a;
-  --warn: #b45309;
-  --danger: #b91c1c;
-  --border: #e5e0d4;
-  --radius: 14px;
-  --shadow: 0 6px 24px rgba(29, 36, 51, 0.08);
-}
+/* الرموز انتقلت إلى styles/tokens.css (W0) — مصدر واحد للحقيقة البصرية */
 
 * {
   box-sizing: border-box;
@@ -25,7 +12,7 @@ body,
 }
 
 body {
-  font-family: "Segoe UI", "Tahoma", "Cairo", system-ui, sans-serif;
+  font-family: var(--font-ui);
   background: var(--bg);
   color: var(--ink);
   line-height: 1.7;
@@ -108,7 +95,7 @@ p {
 
 .btn.primary {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .btn.primary:hover:not(:disabled) {
@@ -132,15 +119,15 @@ p {
 }
 
 .btn.ok {
-  background: #e7f6ee;
+  background: var(--ok-bg);
   color: var(--primary-dark);
-  border: 1px solid #bfe3d2;
+  border: 1px solid var(--ok-line);
 }
 
 .btn.warn {
-  background: #fdf1dd;
+  background: var(--warn-bg);
   color: var(--warn);
-  border: 1px solid #f0d9a8;
+  border: 1px solid var(--warn-line);
 }
 
 .btn.block {
@@ -168,7 +155,7 @@ p {
   margin: 0 auto 0.5rem;
   border-radius: 18px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: #fff;
+  color: var(--on-primary);
   font-size: 2rem;
   font-weight: 700;
   display: grid;
@@ -206,7 +193,7 @@ p {
   background: var(--card);
   color: var(--ink);
   font-weight: 600;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-1);
 }
 
 /* ----- Fields ----- */
@@ -228,7 +215,7 @@ p {
   border-radius: 10px;
   font-family: inherit;
   font-size: 0.95rem;
-  background: #fff;
+  background: var(--card);
   color: var(--ink);
 }
 
@@ -288,7 +275,7 @@ p {
   padding: 0.8rem 1rem;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: #f0faf6;
+  background: var(--gold-soft);
   text-align: center;
 }
 @media (max-width: 520px) {
@@ -330,7 +317,7 @@ p {
 }
 
 .pill {
-  background: #fdf1dd;
+  background: var(--warn-bg);
   color: var(--warn);
   border-radius: 999px;
   padding: 0.1rem 0.6rem;
@@ -338,15 +325,15 @@ p {
 }
 
 .pill.ok-pill {
-  background: #e7f6ee;
+  background: var(--ok-bg);
   color: var(--primary-dark);
 }
 
 /* PHASE 35 (D-037 tail) — «راجع قبل أن ينسى»: an amber urgency hint, distinct
    from the plain level pill so a stale concept reads as an action, not a grade. */
 .pill.due-pill {
-  background: #fdecc8;
-  color: #8a5a00;
+  background: var(--warn-bg);
+  color: var(--warn-fg);
   font-weight: 600;
 }
 
@@ -358,12 +345,12 @@ p {
 }
 
 .badge.ok {
-  background: #e7f6ee;
+  background: var(--ok-bg);
   color: var(--primary-dark);
 }
 
 .badge.off {
-  background: #eee;
+  background: var(--card-2);
   color: var(--muted);
 }
 
@@ -393,7 +380,7 @@ p {
 }
 
 .recap-panel {
-  background: var(--panel, #f7faf9);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 0.8rem 1rem;
@@ -416,10 +403,10 @@ p {
 /* ----- Parent dashboard (PHASE 18) ----- */
 .link-code {
   display: inline-block;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 1.25rem;
   letter-spacing: 0.15em;
-  background: #f0faf6;
+  background: var(--gold-soft);
   border: 1px dashed var(--primary);
   color: var(--primary-dark);
   border-radius: 10px;
@@ -442,8 +429,8 @@ p {
 }
 
 .error {
-  background: #fdecec;
-  border: 1px solid #f3c1c1;
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-line);
   color: var(--danger);
   border-radius: 10px;
   padding: 0.4rem 1rem;
@@ -452,8 +439,8 @@ p {
 }
 
 .ok {
-  background: #e7f6ee;
-  border: 1px solid #bfe5cf;
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-line);
   color: var(--primary-dark);
   border-radius: 10px;
   padding: 0.4rem 1rem;
@@ -617,7 +604,7 @@ p {
 
 .btn.option.selected {
   border-color: var(--primary);
-  background: #eafaf4;
+  background: var(--gold-soft);
 }
 
 .btn.option:disabled {
@@ -626,7 +613,7 @@ p {
 }
 
 .ok-text {
-  color: var(--ok, #1a7f4b);
+  color: var(--ok-fg);
   font-weight: 600;
 }
 
@@ -655,7 +642,7 @@ p {
 
 .lesson-item:hover:not(:disabled) {
   border-color: var(--primary);
-  background: #f0faf6;
+  background: var(--gold-soft);
 }
 
 /* ----- Chat ----- */
@@ -715,8 +702,8 @@ p {
 
 .notice {
   align-self: center;
-  background: #fdf1dd;
-  border: 1px solid #f0d9a8;
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-line);
   color: var(--warn);
   border-radius: 10px;
   padding: 0.4rem 1rem;
@@ -725,8 +712,8 @@ p {
 }
 
 .notice.error {
-  background: #fdecec;
-  border-color: #f3c1c1;
+  background: var(--danger-bg);
+  border-color: var(--danger-line);
   color: var(--danger);
 }
 
@@ -764,7 +751,7 @@ p {
 
 .msg.theirs .bubble {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   border-color: var(--primary);
 }
 
@@ -778,9 +765,9 @@ p {
   display: inline-block;
   font-size: 0.72rem;
   font-weight: 800;
-  background: rgba(14, 124, 91, 0.1);
-  color: var(--room-teal-deep, #0a4f3c);
-  border: 1px solid rgba(14, 124, 91, 0.22);
+  background: rgba(185, 138, 65, 0.1);
+  color: var(--room-teal-deep, var(--primary-ink));
+  border: 1px solid rgba(185, 138, 65, 0.22);
   border-radius: 999px;
   padding: 0.1rem 0.55rem;
   margin-inline-end: 0.45rem;
@@ -788,8 +775,8 @@ p {
 }
 
 .bubble .kind-tag {
-  background: rgba(255, 255, 255, 0.25);
-  color: #ffe9b3;
+  background: rgba(20, 15, 6, 0.14);
+  color: var(--on-primary);
 }
 
 /* PHASE 93/95 — the engine's teaching move, as a legible chip on the reply. */
@@ -800,9 +787,9 @@ p {
   gap: 0.25rem;
   font-size: 0.72rem;
   font-weight: 800;
-  background: rgba(99, 91, 255, 0.12);
-  color: #3b2fb5;
-  border: 1px solid rgba(99, 91, 255, 0.28);
+  background: var(--gold-soft);
+  color: var(--primary-ink);
+  border: 1px solid rgba(185, 138, 65, 0.28);
   border-radius: 999px;
   padding: 0.12rem 0.6rem;
   margin-top: 0.5rem;
@@ -824,7 +811,7 @@ p {
 }
 
 .typing {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--on-primary);
   font-style: italic;
 }
 
@@ -875,7 +862,7 @@ p {
 
 /* --- PHASE 20 — subscriptions & achievements --- */
 .pill.off-pill {
-  background: #eee;
+  background: var(--card-2);
   color: var(--muted);
 }
 
@@ -977,7 +964,7 @@ p {
   max-height: 200px;
   border-radius: 12px;
   border: 1px solid var(--room-line);
-  box-shadow: 0 4px 12px rgba(22, 32, 46, 0.1);
+  box-shadow: 0 4px 12px rgba(23, 20, 15, 0.1);
   display: block;
 }
 
@@ -987,7 +974,7 @@ p {
   gap: 0.35rem;
   max-width: 100%;
   padding: 0.35rem 0.6rem;
-  background: #fdf6e3;
+  background: var(--gold-soft);
   border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 0.85rem;
@@ -1005,10 +992,10 @@ p {
   display: block;
   margin-top: 0.3rem;
   padding: 0.15rem 0.45rem;
-  background: #e8f0fe;
-  border: 1px dashed #4f83cc;
+  background: var(--gold-soft);
+  border: 1px dashed var(--primary-ink);
   border-radius: 8px;
-  color: #1d4ed8;
+  color: var(--primary-ink);
   font-size: 0.75rem;
   font-weight: 600;
 }
@@ -1020,7 +1007,7 @@ p {
 
 /* --- Voice conversation (سؤال بصوت) --- */
 .voice-btn.active {
-  background: #fdecec;
+  background: var(--danger-bg);
   border-color: var(--danger);
   color: var(--danger);
 }
@@ -1029,8 +1016,8 @@ p {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background: #e7f6ee;
-  border: 1px solid #bfe3d2;
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-line);
   color: var(--primary-dark);
   border-radius: 10px;
   padding: 0.4rem 0.6rem;
@@ -1038,20 +1025,20 @@ p {
 }
 
 .voice-status.speaking {
-  background: #fdf1dd;
-  border-color: #f0d9a8;
+  background: var(--warn-bg);
+  border-color: var(--warn-line);
   color: var(--warn);
 }
 
 .speak-btn {
   margin-top: 0.4rem;
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.45);
-  color: #fff;
+  background: var(--gold-soft);
+  border-color: var(--line);
+  color: var(--on-primary);
 }
 
 .speak-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(185, 138, 65, 0.2);
 }
 
 /* PHASE 54 — the room's bubbles are paper, not midnight: the global speak
@@ -1060,21 +1047,21 @@ p {
 .room-caption-body .speak-btn {
   margin-top: 0.6rem;
   min-height: 2.5rem;
-  background: rgba(14, 124, 91, 0.07);
-  border: 1px solid rgba(14, 124, 91, 0.25);
+  background: rgba(185, 138, 65, 0.07);
+  border: 1px solid rgba(185, 138, 65, 0.25);
   color: var(--room-teal-deep);
   font-weight: 700;
   border-radius: 12px;
 }
 
 .room-caption-body .speak-btn:hover:not(:disabled) {
-  background: rgba(14, 124, 91, 0.13);
+  background: rgba(185, 138, 65, 0.13);
 }
 
 /* --- Admin dashboard (استيراد ملفات المنهج) --- */
 .admin-success {
-  background: #e7f6ee;
-  border: 1px solid #bfe3d2;
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-line);
   color: var(--primary-dark);
   border-radius: 10px;
   padding: 0.5rem 0.9rem;
@@ -1094,8 +1081,8 @@ p {
 }
 
 .admin-selected {
-  background: #f0faf6;
-  border: 1px solid #bfe3d2;
+  background: var(--gold-soft);
+  border: 1px solid var(--ok-line);
   border-radius: 10px;
   padding: 0.45rem 0.8rem;
   font-size: 0.95rem;
@@ -1103,7 +1090,7 @@ p {
 
 .lesson-item.selected {
   border-color: var(--primary);
-  background: #e7f6ee;
+  background: var(--ok-bg);
   font-weight: 600;
 }
 
@@ -1125,7 +1112,7 @@ p {
 }
 
 .admin-stat {
-  background: #fffdf6;
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 14px;
@@ -1136,7 +1123,7 @@ p {
 
 .admin-stat b {
   font-size: 1.5rem;
-  color: var(--accent, #b8860b);
+  color: var(--accent, var(--gold-deep));
   line-height: 1;
 }
 
@@ -1156,7 +1143,7 @@ p {
 
 .admin-chart {
   margin: 0;
-  background: #fffdf6;
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 14px;
@@ -1190,7 +1177,7 @@ p {
 .admin-bar {
   width: 100%;
   max-width: 22px;
-  background: var(--accent, #b8860b);
+  background: var(--accent, var(--gold-deep));
   border-radius: 3px 3px 0 0;
   /* Height is set inline as a % of the row so a zero-day still shows a stub. */
   min-height: 3px;
@@ -1217,7 +1204,7 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  background: #fffdf6;
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 8px 12px;
@@ -1244,7 +1231,7 @@ p {
 }
 
 .admin-table tr[data-testid="admin-doc-row"]:hover {
-  background: #faf8f2;
+  background: var(--card-2);
 }
 /* ==========================================================================
    PHASE 48 — «غرفة الدرس» (the lesson room)
@@ -1259,21 +1246,21 @@ p {
    ========================================================================== */
 
 .room {
-  --room-ink: #16202e;
-  --room-teal: #0e7c5b;
-  --room-teal-deep: #0a4f3c;
-  --room-gold: #e2b93a;
-  --room-paper: #fffdf8;
-  --room-line: rgba(22, 32, 46, 0.1);
-  --room-muted: #5f6b78;
+  --room-ink: var(--ink);
+  --room-teal: var(--primary);
+  --room-teal-deep: var(--primary-ink);
+  --room-gold: var(--gold);
+  --room-paper: var(--card);
+  --room-line: var(--line);
+  --room-muted: var(--muted);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   color: var(--room-ink);
   background:
-    radial-gradient(1100px 620px at 88% -12%, rgba(226, 185, 58, 0.16), transparent 62%),
-    radial-gradient(900px 560px at 6% 4%, rgba(14, 124, 91, 0.14), transparent 58%),
-    linear-gradient(180deg, #fbf9f4 0%, #f4f1e9 58%, #eef0ea 100%);
+    radial-gradient(1100px 620px at 88% -12%, var(--gold-soft), transparent 62%),
+    radial-gradient(900px 560px at 6% 4%, rgba(185, 138, 65, 0.14), transparent 58%),
+    linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 58%, var(--card-2) 100%);
   background-attachment: fixed;
 }
 
@@ -1300,7 +1287,7 @@ p {
   gap: 1rem;
   flex-wrap: wrap;
   padding: 0.7rem clamp(0.9rem, 2.5vw, 1.8rem);
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--frost);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--room-line);
@@ -1330,8 +1317,8 @@ p {
   gap: 0.35rem;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  background: rgba(14, 124, 91, 0.09);
-  border: 1px solid rgba(14, 124, 91, 0.18);
+  background: rgba(185, 138, 65, 0.09);
+  border: 1px solid rgba(185, 138, 65, 0.18);
   color: var(--room-teal-deep);
   font-size: 0.8rem;
   font-weight: 600;
@@ -1385,11 +1372,11 @@ p {
   row-gap: 0.5rem;
   padding: clamp(0.6rem, 1.6vw, 1.1rem);
   border-radius: 22px;
-  background: linear-gradient(180deg, #ffffff, var(--room-paper));
+  background: linear-gradient(180deg, var(--card), var(--room-paper));
   border: 1px solid var(--room-line);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 18px 46px rgba(22, 32, 46, 0.1);
+    0 1px 0 var(--card) inset,
+    0 18px 46px rgba(23, 20, 15, 0.1);
   overflow: hidden;
 }
 
@@ -1399,7 +1386,7 @@ p {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(60% 45% at 50% 0%, rgba(226, 185, 58, 0.12), transparent 70%);
+  background: radial-gradient(60% 45% at 50% 0%, var(--gold-soft), transparent 70%);
 }
 
 /* PHASE 50/56 — «لوح الحبر»: the sheet shrink-wraps the page image and
@@ -1489,10 +1476,10 @@ p {
   margin-top: 0.5rem;
   padding: 0.35rem 0.55rem;
   line-height: 1.4;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--frost-strong);
   border: 1px solid var(--room-line);
   border-radius: 999px;
-  box-shadow: 0 6px 18px rgba(22, 32, 46, 0.08);
+  box-shadow: 0 6px 18px rgba(23, 20, 15, 0.08);
   max-width: 100%;
 }
 
@@ -1502,9 +1489,9 @@ p {
 }
 
 .ink-tools .btn.active {
-  background: rgba(217, 38, 38, 0.12);
-  border-color: rgba(217, 38, 38, 0.4);
-  color: #a11d1d;
+  background: var(--danger-bg);
+  border-color: var(--danger-line);
+  color: var(--danger-fg);
 }
 
 .ink-tools .muted {
@@ -1523,8 +1510,8 @@ p {
   font-size: 0.82rem;
   font-weight: 800;
   color: var(--room-teal-deep);
-  background: rgba(14, 124, 91, 0.08);
-  border: 1px solid rgba(14, 124, 91, 0.16);
+  background: rgba(185, 138, 65, 0.08);
+  border: 1px solid rgba(185, 138, 65, 0.16);
   border-radius: 999px;
   padding: 0.2rem 0.7rem;
   width: fit-content;
@@ -1591,8 +1578,8 @@ p {
 .room-caption-body code {
   direction: ltr;
   unicode-bidi: embed;
-  background: rgba(22, 32, 46, 0.07);
-  border: 1px solid rgba(22, 32, 46, 0.09);
+  background: var(--line-soft);
+  border: 1px solid var(--line);
   border-radius: 6px;
   padding: 0 0.35rem;
   font-size: 0.86em;
@@ -1606,9 +1593,9 @@ p {
   margin-top: 0.65rem;
   padding: 0.75rem 0.85rem 0.7rem;
   border-radius: 16px;
-  background: linear-gradient(180deg, #ffffff, var(--room-paper));
+  background: linear-gradient(180deg, var(--card), var(--room-paper));
   border: 1px solid var(--room-line);
-  box-shadow: 0 4px 14px rgba(22, 32, 46, 0.05);
+  box-shadow: 0 4px 14px rgba(23, 20, 15, 0.05);
 }
 
 .numberline-question {
@@ -1652,13 +1639,13 @@ p {
 
 .nl-marker {
   fill: var(--room-gold);
-  stroke: #8a6d1c;
+  stroke: var(--primary-ink);
   stroke-width: 1;
 }
 
 .nl-marker-label {
   font-size: 12px;
-  fill: #8a6d1c;
+  fill: var(--primary-ink);
   font-weight: 700;
 }
 
@@ -1670,7 +1657,7 @@ p {
 
 .nl-pin-head {
   fill: #d92626;
-  stroke: #ffffff;
+  stroke: var(--card);
   stroke-width: 2.5;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
@@ -1678,7 +1665,7 @@ p {
 .nl-pin-value {
   font-size: 12px;
   font-weight: 800;
-  fill: #ffffff;
+  fill: var(--card);
   pointer-events: none;
 }
 
@@ -1687,7 +1674,7 @@ p {
 }
 
 .nl-pin:focus .nl-pin-head {
-  stroke: #7a1010;
+  stroke: var(--danger-fg);
   stroke-width: 3.5;
 }
 
@@ -1731,8 +1718,8 @@ p {
   font-variant-numeric: tabular-nums;
   font-weight: 700;
   color: var(--room-teal-deep);
-  background: rgba(14, 124, 91, 0.08);
-  border: 1px solid rgba(14, 124, 91, 0.16);
+  background: rgba(185, 138, 65, 0.08);
+  border: 1px solid rgba(185, 138, 65, 0.16);
   border-radius: 999px;
   padding: 0.2rem 0.85rem;
   font-size: 0.85rem;
@@ -1789,7 +1776,7 @@ p {
   inset: -3px;
   border-radius: 10px;
   border: 2px solid var(--room-gold);
-  box-shadow: 0 0 0 3px rgba(226, 185, 58, 0.22);
+  box-shadow: 0 0 0 3px rgba(217, 169, 92, 0.22);
   pointer-events: none;
 }
 
@@ -1801,7 +1788,7 @@ p {
   height: 12px;
   border-radius: 50%;
   background: var(--room-gold);
-  box-shadow: 0 2px 5px rgba(22, 32, 46, 0.25);
+  box-shadow: 0 2px 5px rgba(23, 20, 15, 0.25);
 }
 
 .room-cited-note {
@@ -1816,13 +1803,13 @@ p {
   display: block;
   border-radius: 7px;
   border: 1px solid var(--room-line);
-  background: #fff;
-  box-shadow: 0 4px 10px rgba(22, 32, 46, 0.08);
+  background: var(--card);
+  box-shadow: 0 4px 10px rgba(23, 20, 15, 0.08);
 }
 
 .room-thumb-sheet.active img {
   border-color: var(--room-teal);
-  box-shadow: 0 6px 16px rgba(14, 124, 91, 0.22);
+  box-shadow: 0 6px 16px rgba(185, 138, 65, 0.22);
 }
 
 .room-thumb-label {
@@ -1845,7 +1832,7 @@ p {
   margin: 0.6rem auto 0;
   width: min(760px, 100%);
   background: var(--room-paper, #fffdf7);
-  border: 1px solid var(--room-line, rgba(10, 79, 60, 0.16));
+  border: 1px solid var(--room-line, rgba(185, 138, 65, 0.16));
   border-radius: 16px;
   padding: 0.8rem 0.9rem;
 }
@@ -1856,7 +1843,7 @@ p {
   align-items: baseline;
   gap: 0.4rem 0.6rem;
   margin-bottom: 0.5rem;
-  color: var(--room-teal-deep, #0a4f3c);
+  color: var(--room-teal-deep, var(--primary-ink));
 }
 
 .room-concept-list {
@@ -1875,7 +1862,7 @@ p {
   gap: 0.5rem;
   padding: 0.35rem 0.5rem;
   border-radius: 10px;
-  background: rgba(14, 124, 91, 0.05);
+  background: rgba(185, 138, 65, 0.05);
 }
 
 .room-concept-step {
@@ -1886,8 +1873,8 @@ p {
   border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 800;
-  background: rgba(14, 124, 91, 0.14);
-  color: var(--room-teal-deep, #0a4f3c);
+  background: rgba(185, 138, 65, 0.14);
+  color: var(--room-teal-deep, var(--primary-ink));
 }
 
 .room-concept-title {
@@ -1910,7 +1897,7 @@ p {
   width: 74px;
   height: 7px;
   border-radius: 999px;
-  background: rgba(10, 79, 60, 0.14);
+  background: rgba(185, 138, 65, 0.14);
   overflow: hidden;
 }
 
@@ -1918,21 +1905,21 @@ p {
   display: block;
   height: 100%;
   border-radius: 999px;
-  background: var(--room-teal, #0e7c5b);
+  background: var(--room-teal, var(--primary));
 }
 
 .room-concept-node[data-level="needs_review"] .room-concept-bar > i {
-  background: #c0392b;
+  background: var(--danger-fg);
 }
 
 .room-concept-node[data-level="developing"] .room-concept-bar > i {
-  background: #d98a1f;
+  background: var(--warn-fg);
 }
 
 .room-concept-pct {
   font-weight: 800;
   font-variant-numeric: tabular-nums;
-  color: var(--room-teal-deep, #0a4f3c);
+  color: var(--room-teal-deep, var(--primary-ink));
 }
 
 .room-concept-band {
@@ -1971,7 +1958,7 @@ p {
   color: var(--room-ink);
   background: var(--room-paper);
   border: 1px solid var(--room-line);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 0 0 1px var(--card);
   transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
 }
 
@@ -1989,7 +1976,7 @@ p {
 .room-ref.current {
   background: var(--room-teal);
   border-color: var(--room-teal-deep);
-  color: #fff;
+  color: var(--on-primary);
   cursor: default;
 }
 
@@ -2008,9 +1995,9 @@ p {
   gap: 0.2rem;
   padding: 1.5rem;
   border-radius: 22px;
-  background: linear-gradient(180deg, #ffffff, var(--room-paper));
+  background: linear-gradient(180deg, var(--card), var(--room-paper));
   border: 1px solid var(--room-line);
-  box-shadow: 0 14px 34px rgba(22, 32, 46, 0.07);
+  box-shadow: 0 14px 34px rgba(23, 20, 15, 0.07);
 }
 
 .room-no-book-icon {
@@ -2037,9 +2024,9 @@ p {
   column-gap: 0.85rem;
   padding: 0.65rem 0.95rem;
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.7));
+  background: linear-gradient(180deg, var(--frost-strong), var(--frost));
   border: 1px solid var(--room-line);
-  box-shadow: 0 10px 26px rgba(22, 32, 46, 0.06);
+  box-shadow: 0 10px 26px rgba(23, 20, 15, 0.06);
 }
 
 .room-presence-text {
@@ -2074,8 +2061,8 @@ p {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: conic-gradient(from 210deg, #0e7c5b, #14a37a, #e2b93a, #0e7c5b);
-  box-shadow: 0 0 16px rgba(14, 124, 91, 0.5);
+  background: conic-gradient(from 210deg, var(--primary), var(--gold-deep), var(--gold-deep), var(--primary));
+  box-shadow: 0 0 16px rgba(185, 138, 65, 0.5);
   animation: room-breathe 4.5s ease-in-out infinite;
 }
 
@@ -2083,7 +2070,7 @@ p {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px solid rgba(14, 124, 91, 0.28);
+  border: 2px solid rgba(185, 138, 65, 0.28);
   opacity: 0;
 }
 
@@ -2095,18 +2082,18 @@ p {
 .room-orb[data-state="speaking"] .room-orb-ring,
 .room-orb[data-state="listening"] .room-orb-ring {
   animation: room-ring 1.8s ease-out infinite;
-  border-color: rgba(226, 185, 58, 0.6);
+  border-color: rgba(217, 169, 92, 0.6);
 }
 
 .room-orb[data-state="speaking"] .room-orb-core {
   animation: room-pulse 0.9s ease-in-out infinite;
-  background: conic-gradient(from 210deg, #e2b93a, #0e7c5b, #14a37a, #e2b93a);
-  box-shadow: 0 0 20px rgba(226, 185, 58, 0.55);
+  background: conic-gradient(from 210deg, var(--gold-deep), var(--primary), var(--gold-deep), var(--gold-deep));
+  box-shadow: 0 0 20px rgba(217, 169, 92, 0.55);
 }
 
 .room-orb[data-state="listening"] .room-orb-core {
   animation: room-pulse 1.4s ease-in-out infinite;
-  background: conic-gradient(from 210deg, #14a37a, #0e7c5b, #0a4f3c, #14a37a);
+  background: conic-gradient(from 210deg, var(--gold-deep), var(--primary), var(--primary-ink), var(--gold-deep));
 }
 
 @keyframes room-breathe {
@@ -2142,9 +2129,9 @@ p {
   gap: 0.7rem;
   padding: 1rem 1.05rem;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--frost);
   border: 1px solid var(--room-line);
-  box-shadow: 0 10px 26px rgba(22, 32, 46, 0.05);
+  box-shadow: 0 10px 26px rgba(23, 20, 15, 0.05);
 }
 
 .room-captions-empty {
@@ -2168,11 +2155,11 @@ p {
 }
 
 .room-caption.theirs .room-caption-body {
-  background: linear-gradient(180deg, #ffffff, #f6fbf8);
-  border: 1px solid rgba(14, 124, 91, 0.22);
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(185, 138, 65, 0.22);
   border-inline-start: 4px solid var(--room-teal);
   border-radius: 18px;
-  box-shadow: 0 8px 22px rgba(22, 32, 46, 0.06);
+  box-shadow: 0 8px 22px rgba(23, 20, 15, 0.06);
   max-width: min(54ch, 100%);
   font-size: 1.02rem;
   line-height: 1.9;
@@ -2183,8 +2170,8 @@ p {
 }
 
 .room-caption.mine .room-caption-body {
-  background: rgba(226, 185, 58, 0.16);
-  border: 1px solid rgba(226, 185, 58, 0.42);
+  background: var(--gold-soft);
+  border: 1px solid rgba(217, 169, 92, 0.42);
   border-radius: 18px;
   max-width: min(40ch, 100%);
   font-size: 0.95rem;
@@ -2192,6 +2179,8 @@ p {
 }
 
 .room-caption-body {
+  /* المحتوى التعليمي بخط التعلّم (Cairo) — قرار المالك: نظام من طبقتين */
+  font-family: var(--font-learn);
   padding: 0.85rem 1.05rem;
   min-width: 0;
   /* Long strings (links, repeated letters) must wrap, never widen the room. */
@@ -2267,7 +2256,7 @@ p {
   position: sticky;
   bottom: 0;
   padding: 0.7rem 0 1rem;
-  background: linear-gradient(180deg, rgba(251, 249, 244, 0.55), rgba(251, 249, 244, 0.95) 45%);
+  background: linear-gradient(180deg, var(--frost-soft), var(--frost-strong) 45%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--room-line);
@@ -2307,7 +2296,7 @@ p {
 .room-footer .composer-tools .btn {
   min-height: 2.5rem;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--frost);
 }
 
 .room-footer .composer-main {
@@ -2322,13 +2311,13 @@ p {
   padding: 0.8rem 1.05rem;
   border: 1.5px solid var(--room-line);
   border-radius: 16px;
-  background: #fff;
+  background: var(--card);
   font-family: inherit;
   /* 16px: anything smaller makes mobile Safari zoom on focus. */
   font-size: 1rem;
   line-height: 1.6;
   color: var(--room-ink);
-  box-shadow: 0 2px 10px rgba(22, 32, 46, 0.05);
+  box-shadow: 0 2px 10px rgba(23, 20, 15, 0.05);
 }
 
 .room-footer .composer-main input::placeholder {
@@ -2339,7 +2328,7 @@ p {
   outline: 2px solid var(--room-teal);
   outline-offset: 1px;
   border-color: var(--room-teal);
-  box-shadow: 0 0 0 4px rgba(14, 124, 91, 0.12);
+  box-shadow: 0 0 0 4px rgba(185, 138, 65, 0.12);
 }
 
 .room-footer .composer-main .btn.primary {
@@ -2348,8 +2337,8 @@ p {
   border-radius: 16px;
   font-weight: 800;
   font-size: 1rem;
-  background: linear-gradient(180deg, #11936b, var(--room-teal));
-  box-shadow: 0 6px 16px rgba(14, 124, 91, 0.28);
+  background: linear-gradient(180deg, var(--gold-deep), var(--room-teal));
+  box-shadow: 0 6px 16px rgba(185, 138, 65, 0.28);
 }
 
 .room-footer .composer-main .btn.primary:hover:not(:disabled) {
@@ -2367,10 +2356,10 @@ p {
   gap: 0.6rem;
   padding: 0.5rem 0.7rem;
   margin-bottom: 0.55rem;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--frost);
   border: 1px solid var(--room-line);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(22, 32, 46, 0.05);
+  box-shadow: 0 4px 12px rgba(23, 20, 15, 0.05);
 }
 
 .room-footer .attachment-preview .btn {
@@ -2387,8 +2376,8 @@ p {
   padding: 0.55rem 0.8rem;
   margin-bottom: 0.55rem;
   border-radius: 14px;
-  background: rgba(14, 124, 91, 0.07);
-  border: 1px solid rgba(14, 124, 91, 0.2);
+  background: rgba(185, 138, 65, 0.07);
+  border: 1px solid rgba(185, 138, 65, 0.2);
   color: var(--room-teal-deep);
   font-size: 0.88rem;
   font-weight: 600;
@@ -2439,8 +2428,8 @@ p {
 }
 
 .weekly-report .weekly-actions {
-  background: rgba(14, 124, 91, 0.07);
-  border: 1px solid rgba(14, 124, 91, 0.2);
+  background: rgba(185, 138, 65, 0.07);
+  border: 1px solid rgba(185, 138, 65, 0.2);
   border-radius: 12px;
   padding: 0.7rem 0.9rem;
 }

@@ -19,6 +19,7 @@ import {
   type User,
 } from "./api.js";
 import { SessionRecapCard } from "./RecapCard.js";
+import { ThemeToggle } from "./components/ui/index.js";
 
 interface Props {
   user: User;
@@ -174,6 +175,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onLogout, onOpenAdmi
         <div className="topbar-inner">
           <strong>سلاح الفرعون</strong>
           <span className="muted">معلمك الخصوصي الذكي</span>
+          <ThemeToggle />
           <button className="btn ghost" onClick={onLogout} data-testid="logout">
             خروج
           </button>
