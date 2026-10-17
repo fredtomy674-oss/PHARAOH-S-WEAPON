@@ -20,6 +20,10 @@ const E2E_DB = path.join(os.tmpdir(), "alfarouq-e2e.sqlite");
 
 const BACKEND_URL = `http://127.0.0.1:${BACKEND_PORT}`;
 const WEB_URL = `http://localhost:${WEB_PORT}`;
+// PHASE 165 (W8) — البناء الحقيقي (dist + preview): الـservice worker يُسجَّل في
+// الإنتاج فقط، فهذا الخادم هو المكان الوحيد الذي يُختبر فيه التثبيت والأوفلاين.
+const PWA_PORT = Number(process.env.E2E_PWA_PORT ?? 5175);
+const PWA_URL = `http://127.0.0.1:${PWA_PORT}`;
 
 const backendEnv = {
   PORT: String(BACKEND_PORT),
@@ -79,6 +83,20 @@ export default defineConfig({
         "npm run dev --workspace web -- --port " + WEB_PORT + " --strictPort",
       url: WEB_URL,
       // PHASE 156 — see the backend entry above.
+      timeout: 300_000,
+      reuseExistingServer: false,
+      env: { VITE_API_PROXY_TARGET: BACKEND_URL },
+    },
+    {
+      // PHASE 165 — the shipped build + preview server: here and only here the
+      // service worker registers (production-only), so the PWA spec tests the
+      // real installable app instead of a dev approximation. The build runs
+      // inside the boot command, so a failing build fails the suite loudly.
+      command:
+        "npm run build --workspace web && npm run preview --workspace web -- --port " +
+        PWA_PORT +
+        " --strictPort",
+      url: `${PWA_URL}/`,
       timeout: 300_000,
       reuseExistingServer: false,
       env: { VITE_API_PROXY_TARGET: BACKEND_URL },

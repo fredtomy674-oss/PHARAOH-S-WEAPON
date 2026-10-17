@@ -5,6 +5,14 @@ import react from "@vitejs/plugin-react";
 // test backend (VITE_API_PROXY_TARGET) so tests never touch dev data.
 const apiProxyTarget = process.env.VITE_API_PROXY_TARGET ?? "http://127.0.0.1:3001";
 
+// Dev server and preview serve the same API contract, so they share one rule.
+const apiProxy = {
+  "/api": {
+    target: apiProxyTarget,
+    changeOrigin: true,
+  },
+};
+
 export default defineConfig({
   plugins: [react()],
   // The lab avatar is a .vrm (glTF-binary) imported with `?url` inside the
@@ -14,12 +22,14 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 5173,
     strictPort: true,
-    proxy: {
-      "/api": {
-        target: apiProxyTarget,
-        changeOrigin: true,
-      },
-    },
+    proxy: apiProxy,
+  },
+  // PHASE 165 (W8) — الاختبار والإثبات على البناء الحقيقي: preview يخدم dist
+  // بنفس بروكسي الـAPI. التسجيل (registerPwa) في الإنتاج فقط، فهنا وحدها
+  // تعمل القوقعة فعلًا — وبيئة HMR لا تُقاصّ أبدًا بكاش قديم.
+  preview: {
+    host: "127.0.0.1",
+    proxy: apiProxy,
   },
   build: {
     // Dev-only pages ship ONLY behind their flags (default off): the student

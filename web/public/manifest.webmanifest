@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "سلاح الفرعون — معلّمك الخصوصي الذكي",
+  "short_name": "سلاح الفرعون",
+  "description": "مدرّس خصوصي تفاعلي بالذكاء الاصطناعي — من المنهج الرسمي، بخطة تعلّم شخصية لكل طالب.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0908",
+  "theme_color": "#0A0908",
+  "categories": ["education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

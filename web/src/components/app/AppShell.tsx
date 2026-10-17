@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
-import { Sheet, ThemeToggle } from "../ui/index.js";
+import { Button, Sheet, ThemeToggle } from "../ui/index.js";
+import { useInstallOffer } from "../../pwa/install.js";
 import { useLiveTeacherPref, writeLiveTeacherPref } from "../../liveTeacherPref.js";
 import type { User } from "../../api.js";
 
@@ -37,6 +38,8 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
   // PHASE 162 (W7.5) — قرار «المعلّم الحيّ» يُقرأ هنا ويُقلب فورًا: الغرفة
   // المفتوحة تتلقى التغيير في نفس اللحظة (اشتراك محلي واحد).
   const liveTeacherOn = useLiveTeacherPref();
+  // PHASE 165 (W8) — التثبيت يُعرض حين يعرضه المتصفح وحده (أو تلميح iOS).
+  const install = useInstallOffer();
 
   return (
     <div className="app-shell">
@@ -167,6 +170,22 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
             <span className="app-drawer__k">اللغة</span>
             <span>العربية</span>
           </div>
+          {install.kind === "button" && (
+            <div className="app-drawer__row">
+              <span className="app-drawer__k">ثبّت التطبيق</span>
+              <Button size="sm" data-testid="install-app" onClick={() => void install.install()}>
+                تثبيت
+              </Button>
+            </div>
+          )}
+          {install.kind === "ios-hint" && (
+            <div className="app-drawer__row app-drawer__row--stack" data-testid="install-ios-hint">
+              <span className="app-drawer__k">ثبّت التطبيق</span>
+              <span className="app-drawer__meta">
+                من سفاري: زر المشاركة ← «إضافة إلى الشاشة الرئيسية» — فيفتح كتطبيق بلا متجر.
+              </span>
+            </div>
+          )}
           {isStudent && (
             <div className="app-drawer__row">
               <span className="app-drawer__k">المعلّم الحيّ</span>

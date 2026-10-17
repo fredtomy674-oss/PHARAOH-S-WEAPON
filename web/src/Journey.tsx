@@ -298,51 +298,56 @@ export function JourneyScreen({ user, onBack }: Props) {
           </div>
         </header>
 
-        <section className="jn-power" data-testid="journey-power" data-level={strength.level}>
-          <div className="jn-ring" role="img" aria-label={`قوة التعلم ${strength.score} من 100`}>
-            <svg viewBox="0 0 100 100" aria-hidden="true">
-              <circle className="jn-ring__track" cx="50" cy="50" r={RING_R} />
-              <circle
-                className="jn-ring__fill"
-                cx="50"
-                cy="50"
-                r={RING_R}
-                strokeDasharray={RING_C}
-                strokeDashoffset={RING_C * (1 - strength.score / 100)}
-              />
-            </svg>
-            <span className="jn-ring__score" data-testid="journey-strength-score">
-              <b className="jn-ring__num">{strength.score}</b>
-              <span className="jn-muted">من 100</span>
-            </span>
-          </div>
-          <div className="jn-power__body">
-            <span className="jn-power__level" data-testid="journey-strength-level">
-              ⚡ المستوى {strength.level} · {strength.levelNameAr}
-            </span>
-            <p className="jn-power__sub">
-              {strength.practiced > 0
-                ? `${strength.mastered} من ${strength.practiced} مفهومًا تدرّبت عليها وصلت حدّ الإتقان — والباقي على الطريق.`
-                : "قوّتك تبدأ من أول تمرين — أجب سؤالًا واحدًا وتنطلق الواحة."}
-            </p>
-            {strength.nextLevelAt !== null ? (
-              <>
-                <div className="jn-power__bar" aria-hidden="true">
-                  <span
-                    className="jn-power__fill"
-                    style={{ width: `${Math.round(strengthProgress(strength) * 100)}%` }}
-                  />
-                </div>
-                <span className="jn-power__next">
-                  إلى المستوى {strength.level + 1} «{STRENGTH_LEVELS[strength.level]?.name}»: بقي{" "}
-                  {strength.nextLevelAt - strength.score} نقطة
-                </span>
-              </>
-            ) : (
-              <span className="jn-power__next">القمة! حافظ على واحتك خالدة.</span>
-            )}
-          </div>
-        </section>
+        {/* PHASE 165 — لا صفر كاذب: «قوة التعلم» ترسم برقمها الحقيقي أول ما تصل
+            بيانات الإتقان؛ كانت ترسم 0 لحظة التحميل ثم تقفز للرقم الحقيقي —
+            وهو سباق أخفق به JN3 حيًّا، وعقدُه ينصّ «رقم صادق». */}
+        {progress !== null && (
+          <section className="jn-power" data-testid="journey-power" data-level={strength.level}>
+            <div className="jn-ring" role="img" aria-label={`قوة التعلم ${strength.score} من 100`}>
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle className="jn-ring__track" cx="50" cy="50" r={RING_R} />
+                <circle
+                  className="jn-ring__fill"
+                  cx="50"
+                  cy="50"
+                  r={RING_R}
+                  strokeDasharray={RING_C}
+                  strokeDashoffset={RING_C * (1 - strength.score / 100)}
+                />
+              </svg>
+              <span className="jn-ring__score" data-testid="journey-strength-score">
+                <b className="jn-ring__num">{strength.score}</b>
+                <span className="jn-muted">من 100</span>
+              </span>
+            </div>
+            <div className="jn-power__body">
+              <span className="jn-power__level" data-testid="journey-strength-level">
+                ⚡ المستوى {strength.level} · {strength.levelNameAr}
+              </span>
+              <p className="jn-power__sub">
+                {strength.practiced > 0
+                  ? `${strength.mastered} من ${strength.practiced} مفهومًا تدرّبت عليها وصلت حدّ الإتقان — والباقي على الطريق.`
+                  : "قوّتك تبدأ من أول تمرين — أجب سؤالًا واحدًا وتنطلق الواحة."}
+              </p>
+              {strength.nextLevelAt !== null ? (
+                <>
+                  <div className="jn-power__bar" aria-hidden="true">
+                    <span
+                      className="jn-power__fill"
+                      style={{ width: `${Math.round(strengthProgress(strength) * 100)}%` }}
+                    />
+                  </div>
+                  <span className="jn-power__next">
+                    إلى المستوى {strength.level + 1} «{STRENGTH_LEVELS[strength.level]?.name}»: بقي{" "}
+                    {strength.nextLevelAt - strength.score} نقطة
+                  </span>
+                </>
+              ) : (
+                <span className="jn-power__next">القمة! حافظ على واحتك خالدة.</span>
+              )}
+            </div>
+          </section>
+        )}
 
         <Card
           className="jn-card jn-card--goals"
