@@ -318,6 +318,35 @@ export interface SpeakResult {
   missingVoice: boolean;
 }
 
+// -------------------------------------------------- the watchdog (PHASE 166) --
+
+/** How long an utterance may stay silent before it counts as not started. */
+const WATCH_START_MS = 2000;
+
+/**
+ * A generous upper bound for a spoken line (Arabic TTS is slow; measured
+ * replies run around 60–90 ms per character). Only a dead utterance is ever
+ * cancelled, so the bound errs large on purpose.
+ */
+function watchEndMs(textLength: number): number {
+  return Math.min(30_000, Math.max(4_000, textLength * 110 + 3000));
+}
+
+/** Bumped by every cancel: a watchdog left over from a cancelled attempt dies. */
+let speechEpoch = 0;
+
+/** The local engine proved wedged on this page session (see `speakText`). */
+let localVoiceFailed = false;
+
+/**
+ * True once the local engine has been declared wedged: callers stop asking it
+ * to speak and fall back (the room asks the server for a voice; the narrator
+ * reports `broken`). Sticky per page load — the revive already failed twice.
+ */
+export function localVoiceWedged(): boolean {
+  return localVoiceFailed;
+}
+
 /**
  * True when this machine can read `language` aloud with a voice that actually
  * speaks it.
@@ -344,6 +373,23 @@ export function canSpeakLanguage(language: VoiceLanguage): boolean {
  * utterance ends or errors. Returns the utterance (caller tracks it to ignore
  * stale end-events from cancelled earlier utterances) plus whether the machine
  * has a voice for the language, or `utterance: null` if TTS is unavailable.
+ *
+ * PHASE 166 — the watchdog. On some phones (Android Chrome especially) the
+ * engine accepts an utterance and then goes silent forever: no `start`, no
+ * `end`, no error — and every later sentence queues behind it. That is the
+ * owner-reported «بعد أول 3 ردود الاستماع لا يعمل» on the local path: it is not
+ * the quota, it is a wedged engine. So every utterance is watched:
+ *
+ *  • no start within a short budget, or no end within a generous estimate of
+ *    its duration → `cancel()` + `resume()` (the documented revive) and the
+ *    same sentence is handed over exactly once more;
+ *  • still nothing → the engine is declared wedged for this page session
+ *    (`localVoiceWedged()`), the line reports done (a queue must never freeze)
+ *    and every later caller gets `utterance: null` and falls back — the room
+ *    to the server's voice, the narrator to `broken`.
+ *
+ * The estimate is deliberately generous (Arabic TTS is slow): a healthy
+ * utterance is never cut short, only a dead one is revived.
  */
 export function speakText(
   text: string,
@@ -353,38 +399,102 @@ export function speakText(
   if (!ttsSupported()) return { utterance: null, missingVoice: false };
   const trimmed = text.trim();
   if (!trimmed) return { utterance: null, missingVoice: false };
+  // A wedged engine gets no more attempts this session: the caller may fall
+  // back (see the doc above). A page reload clears it.
+  if (localVoiceFailed) return { utterance: null, missingVoice: false };
 
   const synth = window.speechSynthesis;
   synth.cancel();
+  const epoch = ++speechEpoch;
 
   const voices = primeVoices(synth);
   const voice = pickVoice(voices, language);
+  const missingVoice = voices.length > 0 && voice === null;
 
-  const utterance = new SpeechSynthesisUtterance(trimmed);
-  // The tag is the contract every engine honours; attaching the voice object
-  // is a best-effort extra (some engines reject foreign voice objects, and
-  // the E2E stubs expose plain objects rather than SpeechSynthesisVoices).
-  utterance.lang = voice?.lang ?? speechTag(language);
-  if (voice) {
-    try {
-      utterance.voice = voice;
-    } catch {
-      // Keep the explicit `lang` — that alone selects the right language.
+  let settled = false;
+  let started = false;
+  let retried = false;
+  let timer = 0;
+  let firstUtterance: SpeechSynthesisUtterance | null = null;
+
+  const finish = () => {
+    if (settled) return;
+    settled = true;
+    window.clearTimeout(timer);
+    onDone();
+  };
+
+  const arm = () => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(
+      () => {
+        // A cancelled attempt's watchdog (student pressed stop, next sentence
+        // arrived) must never revive anything.
+        if (settled || epoch !== speechEpoch) return;
+        if (!retried) {
+          retried = true;
+          started = false;
+          try {
+            synth.cancel();
+            synth.resume();
+          } catch {
+            /* some engines refuse resume; the retry itself may still work */
+          }
+          speak();
+          return;
+        }
+        localVoiceFailed = true;
+        finish();
+      },
+      started ? watchEndMs(trimmed.length) : WATCH_START_MS,
+    );
+  };
+
+  const speak = () => {
+    const utterance = new SpeechSynthesisUtterance(trimmed);
+    // The tag is the contract every engine honours; attaching the voice object
+    // is a best-effort extra (some engines reject foreign voice objects, and
+    // the E2E stubs expose plain objects rather than SpeechSynthesisVoices).
+    utterance.lang = voice?.lang ?? speechTag(language);
+    if (voice) {
+      try {
+        utterance.voice = voice;
+      } catch {
+        // Keep the explicit `lang` — that alone selects the right language.
+      }
     }
-  }
-  utterance.onend = () => onDone();
-  utterance.onerror = () => onDone();
+    utterance.onstart = () => {
+      started = true;
+      arm();
+    };
+    // Some engines report progress only through boundary events (the same
+    // events drive the avatar's mouth): either one proves it is running.
+    utterance.onboundary = () => {
+      started = true;
+      arm();
+    };
+    utterance.onend = finish;
+    utterance.onerror = finish;
+    if (firstUtterance === null) firstUtterance = utterance;
+    try {
+      synth.speak(utterance);
+    } catch {
+      localVoiceFailed = true;
+      finish();
+      return;
+    }
+    arm();
+  };
 
-  try {
-    synth.speak(utterance);
-  } catch {
-    return { utterance: null, missingVoice: false };
-  }
-  return { utterance, missingVoice: voices.length > 0 && voice === null };
+  speak();
+  return { utterance: firstUtterance, missingVoice };
 }
 
 /** Stops whatever the browser is currently reading aloud. */
 export function stopSpeaking(): void {
+  // Invalidate every pending watchdog: nothing may revive what the student
+  // just silenced.
+  speechEpoch += 1;
   stopAudio();
   if (typeof window !== "undefined" && "speechSynthesis" in window) {
     window.speechSynthesis.cancel();

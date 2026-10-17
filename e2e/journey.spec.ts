@@ -66,7 +66,11 @@ test("journey: login → lesson → RAG tutor reply → re-explain → end → p
   const remaining = page.getByTestId("remaining-budget");
   await expect(remaining).toBeVisible();
   const afterFirst = await remainingValue(remaining);
-  expect(afterFirst).toBeLessThan(50);
+  // PHASE 166 — the ceiling itself is a backend knob (the E2E run raises it: see
+  // playwright.config.ts), so the invariant is "positive and already below the
+  // ceiling", never a hard-coded number; the real contract is the decrement.
+  expect(afterFirst).toBeGreaterThan(0);
+  expect(afterFirst).toBeLessThan(200);
 
   // remember the session id of THIS journey (via the browser through the proxy)
   const activesAfterFirst = await activeSessionIds(page);

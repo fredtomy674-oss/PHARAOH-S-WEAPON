@@ -31,6 +31,13 @@ export const TutorResponseSchema = z.object({
     )
     .optional()
     .default([]),
+  /**
+   * PHASE 166 — what this reply writes on the classroom board (see
+   * `tutor/board.ts`). Deliberately `unknown`: a malformed board must NEVER
+   * fail the whole envelope (that would dump raw JSON on the student), so the
+   * shape is checked by `sanitizeBoard` after the reply itself has parsed.
+   */
+  board: z.unknown().optional(),
   assessment: z
     .object({
       conceptsTouched: z.array(z.string()).optional().default([]),

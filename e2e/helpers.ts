@@ -41,6 +41,12 @@ export const OCR_MARKER = "نص الصفحة الممسوحة ضوئيًا";
 /** Start of the tutor's safe-refusal reply (prompt-injection tripwire). */
 export const SAFE_REFUSAL_PHRASE = "أنا هنا لمساعدتك في درسنا فقط";
 
+/** PHASE 166 — the title the offline teacher writes on the classroom board (server `mock.ts`). */
+export const BOARD_TITLE_MARKER = "خلاصة الدرس";
+
+/** PHASE 166 — the auto-read preference key (see web `autoReadPref.ts`). */
+export const AUTO_READ_KEY = "alfarouq_auto_read";
+
 /**
  * PHASE 38/D-042 — English counterparts, emitted by the mock provider only when
  * the session's subject is a foreign-language curriculum.
@@ -78,6 +84,11 @@ export interface VoiceTestState {
   spoken: Array<{ text: string; lang: string }>;
   /** How many times speechSynthesis.cancel() was called. */
   cancelCount: number;
+  /**
+   * PHASE 166 — how many times speechSynthesis.resume() was called: the room's
+   * watchdog revives a wedged engine with cancel+resume before it ever gives up.
+   */
+  resumeCount: number;
   /** The `lang` the app asked dictation to use (D-043: follows the lesson). */
   recognitionLang: string;
   /** PHASE 40/D-044 — server-generated audio: how it actually played. */
@@ -119,9 +130,10 @@ export async function installVoiceStubs(
   page: Page,
   transcript: string = STT_TRANSCRIPT,
   voices: StubVoice[] = STUB_VOICES,
+  opts: { stallFirst?: boolean } = {},
 ): Promise<void> {
-  await page.addInitScript((opts: { transcript: string; voices: StubVoice[] }) => {
-    const state: VoiceTestState = { spoken: [], cancelCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 } };
+  await page.addInitScript((opts: { transcript: string; voices: StubVoice[]; stallFirst?: boolean }) => {
+    const state: VoiceTestState = { spoken: [], cancelCount: 0, resumeCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 } };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
 
     // PHASE 57 — progressive server voice. The real Web Audio pipeline is used
@@ -214,10 +226,20 @@ export async function installVoiceStubs(
           localService: true,
           voiceURI: `test-${v.lang}`,
         })),
-      speak(u: { text: string; lang: string; onend?: () => void; onerror?: () => void }): void {
+      speak(u: { text: string; lang: string; onstart?: () => void; onend?: () => void; onerror?: () => void }): void {
         pending.length = 0;
         state.spoken.push({ text: u.text, lang: u.lang });
         pending.push(u);
+        // PHASE 166 — `stallFirst` models the owner-reported mobile wedge: the
+        // FIRST utterance is accepted and then goes completely silent — no
+        // start, no end, no error — and only the room's revive (cancel +
+        // resume + one more hand-over) gets the reading moving again. Every
+        // later utterance behaves normally.
+        if (opts.stallFirst && state.spoken.length === 1) return;
+        // A real engine announces `start` (Chrome does), and the room's
+        // watchdog uses exactly that signal to tell "running" from "wedged",
+        // so the stub announces it too.
+        if (typeof u.onstart === "function") u.onstart();
         // PHASE 56 — an utterance must END for the next one to start: the room now
         // reads a reply sentence by sentence (see `narrator.ts`), so a stub that
         // never ends its utterance would stall the queue after the first sentence
@@ -234,6 +256,9 @@ export async function installVoiceStubs(
         state.cancelCount += 1;
         pending.length = 0;
       },
+      resume(): void {
+        state.resumeCount += 1;
+      },
       paused: false,
       pendingSpeech: pending,
       get speaking(): boolean {
@@ -245,7 +270,7 @@ export async function installVoiceStubs(
       configurable: true,
       writable: true,
     });
-  }, { transcript, voices });
+  }, { transcript, voices, stallFirst: opts.stallFirst });
 }
 
 /** Reads the recorded voice-test state (only meaningful after installVoiceStubs). */
@@ -316,9 +341,17 @@ export async function login(
   email = DEMO_STUDENT.email,
   password = DEMO_STUDENT.password,
   expectedTestId = "home-screen",
+  opts: { keepAutoRead?: boolean } = {},
 ): Promise<void> {
   await page.goto("/");
   await expect(page.getByTestId("input-email")).toBeVisible({ timeout: 20_000 });
+  // PHASE 166 — the auto-read preference ships ON (every reply is spoken). The
+  // suites that are not ABOUT sound stay deterministic by switching it off in
+  // localStorage before the room ever opens; a spec that tests the sound
+  // behaviour passes `keepAutoRead: true` and gets the shipping default.
+  if (!opts.keepAutoRead) {
+    await page.evaluate((key) => localStorage.setItem(key, "0"), AUTO_READ_KEY);
+  }
   await page.getByTestId("input-email").fill(email);
   await page.getByTestId("input-password").fill(password);
   await page.getByTestId("submit-auth").click();

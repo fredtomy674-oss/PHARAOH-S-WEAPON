@@ -423,6 +423,14 @@ export const messages = sqliteTable(
      * than letting the model invent one.
      */
     questionAnswer: text("question_answer"),
+    /**
+     * PHASE 166 — «سبورة الفصل»: what this reply WROTE on the board, as JSON
+     * (see `tutor/board.ts`): a short title and up to six short lines. Stored
+     * so a reopened room shows the same board the student saw live and so the
+     * write-up stays auditable. Null when the turn wrote nothing (refusals,
+     * degraded replies, or a model that skipped the field).
+     */
+    board: text("board"),
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("messages_session_idx").on(t.sessionId)],

@@ -137,6 +137,9 @@ export class MockLLMProvider implements LLMProvider {
         content: text,
         tone: "friendly",
         parts: mirror ? [{ type: "text", text }] : [{ type: "text", text: tutorText }, ...widgetParts],
+        // PHASE 166 — every real reply also writes the classroom board. The mirror
+        // probe stays board-less on purpose: it is a prompt echo, not a lesson.
+        ...(mirror ? {} : { board: buildMockBoard(context, language) }),
         assessment: { conceptsTouched: [], confidence: 0.5 },
       });
       return { content, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(content), latencyMs: Date.now() - started };
@@ -282,6 +285,50 @@ function splitFacts(context: string): string[] {
   return (context.split(/[.!؟؛\n]+/)
     .map((s) => s.trim())
     .filter((s) => s.length >= 8 && !s.includes("غير موجود")));
+}
+
+/**
+ * PHASE 166 — the board the offline tutor writes.
+ *
+ * Stable by construction (the API and E2E suites assert the round-trip): the
+ * title is a fixed marker, the first line is a verbatim fact from the retrieved
+ * lesson (never an invented one), and the remaining lines describe the method.
+ * The reply language decides the wording, exactly as the prompt instructs the
+ * real model to.
+ */
+export const BOARD_TITLE_MARKERS: Record<TutorLanguage, string> = {
+  ar: "خلاصة الدرس",
+  en: "Lesson summary",
+  fr: "Résumé de la leçon",
+  de: "Zusammenfassung der Lektion",
+};
+
+/** The Arabic marker, re-exported for tests/E2E that read the board by text. */
+export const BOARD_TITLE_MARKER = BOARD_TITLE_MARKERS.ar;
+
+const BOARD_STEPS: Record<TutorLanguage, string[]> = {
+  ar: ["نبدأ بالمثال المحلول في الدرس", "ثم نحل معًا خطوة بخطوة"],
+  en: ["We start with the solved example", "Then we solve it step by step"],
+  fr: ["On commence par l'exemple résolu", "Puis on résout pas à pas"],
+  de: ["Wir beginnen mit dem gelösten Beispiel", "Dann lösen wir Schritt für Schritt"],
+};
+
+export interface MockBoardLine {
+  kind: "point" | "step";
+  text: string;
+}
+
+export interface MockBoardJson {
+  title: string;
+  lines: MockBoardLine[];
+}
+
+export function buildMockBoard(context: string, language: TutorLanguage): MockBoardJson {
+  const lines: MockBoardLine[] = [];
+  const facts = splitFacts(context);
+  if (facts.length > 0) lines.push({ kind: "point", text: facts[0]!.slice(0, 60) });
+  for (const step of BOARD_STEPS[language]) lines.push({ kind: "step", text: step });
+  return { title: BOARD_TITLE_MARKERS[language], lines };
 }
 
 export function buildMockQuestion(context: string, conceptTitle: string | null): MockQuestionJson {

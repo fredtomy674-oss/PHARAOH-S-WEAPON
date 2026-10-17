@@ -6,6 +6,7 @@ import { newId } from "../../utils/ids.js";
 import { Errors } from "../../utils/errors.js";
 import { safeParseAssessment } from "../progress/mastery.js";
 import { parseTeachingAction, type TeachingAction } from "../tutor/teachingActions.js";
+import { boardForWire, parseStoredBoard, type TutorBoard } from "../tutor/board.js";
 import {
   buildRecapMetadataBlock,
   buildSessionRecap,
@@ -54,7 +55,7 @@ type StoredMessage = typeof messages.$inferSelect;
  * PHASE 51 — same treatment for widgets: stored with answer keys, sent without
  * them (the exercise must not answer itself in devtools).
  */
-export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets" | "teachingAction" | "questionAnswer"> & {
+export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets" | "teachingAction" | "questionAnswer" | "board"> & {
   bookPages?: number[];
   widgets?: NumberLineView[];
   /**
@@ -63,6 +64,11 @@ export type TutorMessageOut = Omit<StoredMessage, "bookPages" | "widgets" | "tea
    * or on a non-teaching message.
    */
   teachingAction?: TeachingAction;
+  /**
+   * PHASE 166 — what this reply wrote on the classroom board (title + short
+   * lines), decoded from the stored JSON. Absent when the turn wrote nothing.
+   */
+  board?: TutorBoard;
 };
 
 /** What one student turn is made of (identical for the buffered and live paths). */
@@ -327,6 +333,8 @@ export class SessionService {
           bookPages: parseBookPages(m.bookPages),
           widgets: widgetsForWire(parseStoredWidgets(m.widgets)),
           teachingAction: parseTeachingActionStored(m.teachingAction),
+          // PHASE 166 — the board this reply wrote, so a reopened room shows it.
+          board: boardForWire(parseStoredBoard(m.board)),
         };
       }),
     };
@@ -706,6 +714,9 @@ export class SessionService {
           // asked (server-only; stripped from every wire view). The next turn
           // grades the student's answer against it.
           questionAnswer: result.questionAnswer,
+          // PHASE 166 — what this reply wrote on the board. No keys live here
+          // (the prompt forbids them), so stored and wire share one shape.
+          board: result.board ? JSON.stringify(result.board) : null,
           createdAt: new Date(),
         })
         .returning()
@@ -729,6 +740,7 @@ export class SessionService {
         bookPages: parseBookPages(tutorMessage!.bookPages),
         widgets: widgetsForWire(parseStoredWidgets(tutorMessage!.widgets)),
         teachingAction: parseTeachingActionStored(tutorMessage!.teachingAction),
+        board: boardForWire(parseStoredBoard(tutorMessage!.board)),
       },
       contextChunkCount: result.contextChunkCount,
       // PHASE 48 — the pages this answer is built on, so the room can offer

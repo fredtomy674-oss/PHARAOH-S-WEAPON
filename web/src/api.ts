@@ -182,6 +182,26 @@ export interface Message {
    * chooses it.
    */
   teachingAction?: TeachingAction;
+  /**
+   * PHASE 166 — tutor replies only: what the reply wrote on the classroom
+   * board (a short title and its lines, see server `tutor/board.ts`). Stored
+   * server-side, so a reopened room shows the same board the student saw live.
+   */
+  board?: TutorBoard;
+}
+
+/** PHASE 166 — one chalk line of the board, with what it IS (see BoardChalk). */
+export type BoardLineKind = "point" | "step" | "example" | "answer" | "note";
+
+export interface BoardLine {
+  kind: BoardLineKind;
+  text: string;
+}
+
+/** PHASE 166 — the board one tutor reply wrote: a short title plus its lines. */
+export interface TutorBoard {
+  title: string | null;
+  lines: BoardLine[];
 }
 
 /** The teaching-action contract, mirrored from the server (display subset). */

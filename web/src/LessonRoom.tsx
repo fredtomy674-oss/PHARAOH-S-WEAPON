@@ -48,6 +48,7 @@ import {
 } from "./api.js";
 import {
   canSpeakLanguage,
+  localVoiceWedged,
   missingVoiceNotice,
   playAudioBlob,
   speakText,
@@ -58,6 +59,7 @@ import {
   type SttHandle,
 } from "./voice.js";
 import InkBoard from "./InkBoard.js";
+import BoardChalk from "./BoardChalk.js";
 import InkTools from "./InkTools.js";
 import { composeInkBoard, type InkStroke, type InkTool } from "./ink.js";
 import { createNarrator, type Narrator } from "./narrator.js";
@@ -68,6 +70,7 @@ import { previewText, stripMarkdown } from "./format.js";
 import { ThemeToggle } from "./components/ui/index.js";
 import { LiveTeacher } from "./LiveTeacher.js";
 import { useLiveTeacherPref } from "./liveTeacherPref.js";
+import { useAutoReadPref, writeAutoReadPref } from "./autoReadPref.js";
 import { createMouthReader } from "./avatar/mouthReader.js";
 import { nextState, verdictEventFromReason, type AvatarEvent, type AvatarState } from "./avatar/avatarStates.js";
 
@@ -259,6 +262,11 @@ export function LessonRoom({ session, onEnded }: Props) {
   // الثماني + قارئ الفم. الآلة نفسها محضة ومختبَرة — الغرفة تُطلق أحداثًا
   // حقيقية فقط، وما لا حدث له لا يُعرض (الصمت لا يُفسَّر).
   const liveTeacherOn = useLiveTeacherPref();
+  // PHASE 166 — «القراءة التلقائية»: كل رد يُسمع فور وصوله — طلب المالك
+  // الصريح («اريد ان يكون الرد تلقائى مستمع بدون الحاجه الى الضغط على زر
+  // الاستماع») — وزر 🔊 في كل رسالة يبقى «الاستماع مرة أخرى». تفضيل محلي،
+  // افتراضيًا مفتوح، وإطفاؤه قرار الطالب وحده.
+  const autoRead = useAutoReadPref();
   const [teacherState, setTeacherState] = useState<AvatarState>("idle");
   const [mouth] = useState(createMouthReader);
   const fireTeacher = useCallback((event: AvatarEvent) => {
@@ -415,13 +423,30 @@ export function LessonRoom({ session, onEnded }: Props) {
   }, [messages, conceptMap]);
 
   /**
+   * PHASE 166 — what the teacher is writing on the board: the newest tutor
+   * reply that brought a write-up. A new reply wipes and rewrites it, the way
+   * a classroom board is used while the lesson moves on; every earlier draft
+   * stays in the transcript. Keyed by its message, so arriving chalk replays
+   * its `chalk-in` animation without ever touching an old line.
+   */
+  const activeBoard = useMemo(() => {
+    for (let i = messages.length - 1; i >= 0; i -= 1) {
+      const m = messages[i];
+      if (m?.role === "tutor" && m.board && (m.board.lines.length > 0 || m.board.title)) {
+        return { key: m.id, board: m.board };
+      }
+    }
+    return null;
+  }, [messages]);
+
+  /**
    * PHASE 40 (D-044) — read a reply aloud with the *browser's* own voice: the
    * fallback for when the server has no voice. The missing-voice notice fires
    * only here, because only here does the machine's voice decide what is
    * actually heard.
    */
   const speakLocally = (text: string) => {
-    if (!ttsSupported()) return;
+    if (!ttsSupported() || localVoiceWedged()) return;
     // PHASE 78 — never hand the reply to the machine's default voice just because
     // it has no voice for this language: speechSynthesis then reads the text with
     // whatever it has (usually en-US), so an Arabic reply is *heard* in English —
@@ -458,6 +483,9 @@ export function LessonRoom({ session, onEnded }: Props) {
       onSpeaking: setSpeaking,
       speak: (text, onDone) => {
         if (!ttsSupported()) return { started: false, missingVoice: false };
+        // PHASE 166 — a wedged engine (the watchdog declared it): stop asking.
+        // The room reads the reply from the server's voice instead.
+        if (localVoiceWedged()) return { started: false, missingVoice: false };
         // PHASE 56 — ask BEFORE speaking: `speakText` reports a missing voice only
         // after handing the text over, so without this the very first sentence of
         // an Arabic reply would be read aloud in the machine's English voice.
@@ -658,8 +686,14 @@ export function LessonRoom({ session, onEnded }: Props) {
     setListening(true);
   };
 
-  const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, speakReply = false, widget: { value: number } | null = null) => {
+  const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, widget: { value: number } | null = null) => {
     const text = content.trim();
+    // PHASE 166 — who hears this reply: the auto-read preference (ON by
+    // default — the owner asked for every reply to be heard without pressing
+    // anything) or a question that arrived through the microphone. The 🔊
+    // button on any message stays "listen again".
+    const speakReply = autoRead || voiceTurnRef.current;
+    voiceTurnRef.current = false;
     // PHASE 50 — marks on the board travel with the question automatically: the
     // student drew them *as* his question, so asking must never leave them
     // behind. A photo and marks are mutually exclusive (one visual per turn) —
@@ -692,15 +726,17 @@ export function LessonRoom({ session, onEnded }: Props) {
     const onPage = refPage ?? undefined;
     const page = onPage !== undefined ? { bookPage: onPage } : {};
     const pin = widget ? { widget: { value: widget.value } } : {};
-    // PHASE 57 — whose voice reads this reply. When this machine has a voice for
-    // the reply's language (the normal machine), it speaks each sentence as it
+    // PHASE 57/166 — whose voice reads this reply. When this machine has a voice
+    // for the reply's language (the normal machine), it speaks each sentence as it
     // arrives — instant, and free. When it does not, the SERVER narrates the turn
     // as it is written and the pieces arrive on the same stream as the text. Only
-    // one of the two is ever asked for: narration is paid per character.
-    const localVoice = speakReply && ttsSupported() && canSpeakLanguage(tutorLanguage);
+    // one of the two is ever asked for: narration is paid per character. An
+    // engine the watchdog has declared wedged is never asked again — the server
+    // (or nothing, honestly) reads instead.
+    const localVoice = speakReply && ttsSupported() && canSpeakLanguage(tutorLanguage) && !localVoiceWedged();
     // PHASE 57 — so the server narrates this turn only when this machine cannot
-    // speak it, and only for a voice turn: narration is paid per character, so a
-    // question the student typed is never paid for twice. Every question shape
+    // speak it, and only when someone is meant to hear it (PHASE 166: the
+    // auto-read preference, or a voice-asked question). Every question shape
     // carries the flag, because whether the answer is read aloud has never
     // depended on the photo, document or ink that came with the question.
     const askServer = speakReply && !localVoice;
@@ -889,7 +925,7 @@ export function LessonRoom({ session, onEnded }: Props) {
    */
   const verifyPin = (value: number) => {
     const shown = String(Math.round(value * 1e6) / 1e6);
-    void send(`وضعت الدبوس عند ${shown}`, null, null, false, { value });
+    void send(`وضعت الدبوس عند ${shown}`, null, null, { value });
   };
 
   const onInkChange = useCallback((list: InkStroke[]) => {
@@ -1013,13 +1049,19 @@ export function LessonRoom({ session, onEnded }: Props) {
             )}
           </div>
           <div className="room-board-surface" data-testid="board-surface" ref={boardRef}>
+            {/* PHASE 166 — طباشير المعلّم: what the reply wrote on the board.
+                It sits UNDER the ink canvas (which still covers the surface's
+                exact box and stays its only interactive child): the student
+                draws over the teacher's writing the way he would in class. */}
+            {activeBoard && <BoardChalk key={activeBoard.key} board={activeBoard.board} />}
             {/* PHASE 50/56 — «لوح الحبر»: the student draws on the board itself,
-                so his finger can write and point. The canvas is the surface's
-                only child (its exact box), and the toolbar sits beside it. */}
+                so his finger can write and point. The toolbar sits beside it. */}
             <InkBoard resetToken={inkReset} strokes={inkStrokes} tool={inkTool} onChange={onInkChange} />
           </div>
           <InkTools tool={inkTool} onTool={setInkTool} count={inkStrokes.length} onClear={() => onInkChange([])} />
-          <p className="room-board-note muted small">ارسم واكتب مع المعلّم — كل علاماتك تصل إليه مع سؤالك.</p>
+          <p className="room-board-note muted small">
+            المعلّم يكتب أهم ما في الدرس على السبورة، وارسم واكتب معه — كل علاماتك تصل إليه مع سؤالك.
+          </p>
           {stage && refPage !== null && (
             <div className="room-book-ref" data-testid="book-ref">
               <svg
@@ -1334,10 +1376,10 @@ export function LessonRoom({ session, onEnded }: Props) {
       {/* ---- the composer: the only place the student acts ---- */}
       <footer className="room-footer">
         <div className="quick-row">
-          <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅", null, null, false)}>
+          <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅")}>
             فهمت
           </button>
-          <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك", null, null, false)}>
+          <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك")}>
             مش فاهم
           </button>
         </div>
@@ -1385,9 +1427,7 @@ export function LessonRoom({ session, onEnded }: Props) {
           className="composer"
           onSubmit={(e) => {
             e.preventDefault();
-            const speakReply = voiceTurnRef.current;
-            voiceTurnRef.current = false;
-            void send(input, preview, docFile, speakReply);
+            void send(input, preview, docFile);
           }}
         >
           <input
@@ -1443,6 +1483,19 @@ export function LessonRoom({ session, onEnded }: Props) {
               onClick={() => docRef.current?.click()}
             >
               📄 ملف سؤال
+            </button>
+            {/* PHASE 166 — «القراءة التلقائية»: كل رد يُسمع فور وصوله (افتراضيًا
+                مفتوح — طلب المالك)، والزر يطفيها متى شاء الطالب. */}
+            <button
+              data-testid="auto-read-toggle"
+              type="button"
+              className={`btn small ghost auto-read-btn${autoRead ? " active" : ""}`}
+              aria-label="قراءة ردود المعلّم تلقائيًا"
+              aria-pressed={autoRead}
+              title={autoRead ? "كل رد يُقرأ تلقائيًا — اضغط لكتم القراءة" : "القراءة التلقائية متوقفة — اضغط لتشغيلها"}
+              onClick={() => writeAutoReadPref(!autoRead)}
+            >
+              {autoRead ? "🔊" : "🔇"} قراءة تلقائية
             </button>
           </div>
           <div className="composer-main">

@@ -9,6 +9,7 @@ import {
   sendChatMessage,
   startFirstLesson,
   STT_TRANSCRIPT,
+  STUB_VOICES,
   voiceTestState,
 } from "./helpers.js";
 
@@ -17,13 +18,18 @@ import {
  * Web Speech APIs themselves cannot be automated with real audio, so this suite
  * injects deterministic stubs (installVoiceStubs) and exercises the real UI:
  * mic → transcript appears in the input for review → edit → send through the
- * real server → tutor reply → spoken aloud (auto after a voice turn, or via 🔊
- * on the bubble) → stoppable. Text chat + Vision stay untouched.
+ * real server → tutor reply → spoken aloud (PHASE 166: EVERY reply, by default,
+ * via the auto-read preference — a voice turn spoke before it too; and the 🔊
+ * button on any bubble is "listen again") → stoppable. Text chat + Vision stay
+ * untouched.
  *
  * PHASE 40 (D-044): the reply is now *heard* through the server's own voice —
  * the E2E backend runs a deterministic local speech provider — and the browser
  * voice is the fallback (forced with a 503 in A4/A6). Both paths are asserted,
  * because both are real deployments.
+ *
+ * PHASE 166: `login` switches the auto-read preference OFF unless a spec asks
+ * for `keepAutoRead: true`, so only the specs ABOUT sound (A2, A8) hear it.
  */
 test.describe.configure({ mode: "serial" });
 
@@ -94,47 +100,76 @@ test("A1: a voice question is transcribed, editable, sent, and the tutor reply i
   expect((await voiceTestState(page)).spoken).toHaveLength(afterStop.spoken.length);
 });
 
-test("A2: a typed question does not auto-speak; the 🔊 button speaks a reply and stop works", async ({ page }) => {
+/**
+ * PHASE 166 — «القراءة التلقائية»: the owner asked in so many words that every
+ * reply be heard without pressing anything («اريد ان يكون الرد تلقائى مستمع
+ * بدون الحاجه الى الضغط على زر الاستماع»), and that 🔊 become "listen again".
+ * This test walks the whole contract on the shipping default.
+ */
+test("A2: every reply is read aloud automatically; the switch silences it; 🔊 replays from the server", async ({ page }) => {
   await installVoiceStubs(page);
-  await login(page);
+  // The other suites ask `login` for deterministic silence; this one keeps the
+  // shipping default (auto-read ON) because that IS the behaviour under test.
+  await login(page, undefined, undefined, "home-screen", { keepAutoRead: true });
   await startFirstLesson(page);
 
-  // Typed (not voiced) question → no auto-speak.
+  // The switch ships ON and tells assistive tech so.
+  const toggle = page.getByTestId("auto-read-toggle");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+
+  // Typed (not voiced) question → the reply is read aloud anyway, sentence by
+  // sentence, by this machine's own voice — with no button pressed.
   await sendChatMessage(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
   const reply = await tutorReplyText(page);
   expect(reply).toContain(RAG_CONTEXT_PHRASE);
-  let state = await voiceTestState(page);
-  expect(state.spoken).toHaveLength(0);
-  expect(state.audio.plays).toBe(0);
-  await expect(page.getByTestId("speak-status")).toHaveCount(0);
-
-  // Manual listen: the 🔊 button on the tutor bubble speaks that reply.
-  await page.getByTestId("speak-reply").first().click();
-  // PHASE 57 — measured: this button used to stay silent for the whole reply's
-  // audio (6.9–7.7s for a 160-character reply) before a note played. It now asks
-  // for the reply's voice *sentence by sentence*, so the counter moves as soon as
-  // the first sentence exists (~3s, and near-instant on a repeat press because
-  // each sentence is cached).
-  await expect.poll(async () => (await voiceTestState(page)).pieces.started, { timeout: 15_000 }).toBeGreaterThan(0);
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
-  state = await voiceTestState(page);
-  // Every piece the server sent was really decoded and played: no silent piece,
-  // and no waiting for the whole-reply blob that this path replaces.
-  expect(state.pieces.decodeFailures).toBe(0);
+  await expect
+    .poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 15_000 })
+    .toBeGreaterThan(0);
+  let state = await voiceTestState(page);
+  expect(state.spoken[0]!.lang).toBe("ar-EG");
+  expect(state.spoken[0]!.text).not.toContain("**");
+  // This machine has the voice: the server was never asked (narration is paid).
   expect(state.audio.plays).toBe(0);
-  // Narration never nags the student — the server has a voice, so the machine's
-  // voices are irrelevant to whether the reply can be heard.
-  await expect(page.getByTestId("chat-error")).toHaveCount(0);
 
-  // Stop the reading: the scheduled pieces are silenced, and the queue that
-  // would have played the rest of the reply is dropped with them.
-  const stoppedBefore = state.pieces.stopped;
+  // The automatic reading is stoppable like any other.
+  const cancelsBefore = state.cancelCount;
   await page.getByTestId("stop-tts").click();
   await expect(page.getByTestId("speak-status")).toHaveCount(0);
   const afterStop = await voiceTestState(page);
-  expect(afterStop.pieces.stopped).toBeGreaterThan(stoppedBefore);
-  // Nothing that had not started may start after the stop.
-  const startedAtStop = afterStop.pieces.started;
+  expect(afterStop.cancelCount).toBeGreaterThan(cancelsBefore);
+  await page.waitForTimeout(600);
+  expect((await voiceTestState(page)).spoken).toHaveLength(afterStop.spoken.length);
+
+  // A student who wants silence turns the switch off — and the next reply is
+  // really silent: nothing spoken, nothing played, no status.
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  const silentBefore = (await voiceTestState(page)).spoken.length;
+  await sendChatMessage(page, "أعد الشرح باختصار من فضلك");
+  await expect(page.getByTestId("msg-tutor")).toHaveCount(2, { timeout: 30_000 });
+  await page.waitForTimeout(800);
+  const silentAfter = await voiceTestState(page);
+  expect(silentAfter.spoken.length).toBe(silentBefore);
+  expect(silentAfter.audio.plays).toBe(0);
+  await expect(page.getByTestId("speak-status")).toHaveCount(0);
+
+  // 🔊 on any reply remains "listen again": the server's voice, sentence by
+  // sentence (PHASE 57) — and it is stoppable.
+  await page.getByTestId("speak-reply").last().click();
+  await expect.poll(async () => (await voiceTestState(page)).pieces.started, { timeout: 15_000 }).toBeGreaterThan(0);
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 15_000 });
+  state = await voiceTestState(page);
+  expect(state.pieces.decodeFailures).toBe(0);
+  expect(state.audio.plays).toBe(0);
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
+
+  const stoppedBefore = state.pieces.stopped;
+  await page.getByTestId("stop-tts").click();
+  await expect(page.getByTestId("speak-status")).toHaveCount(0);
+  const afterStop2 = await voiceTestState(page);
+  expect(afterStop2.pieces.stopped).toBeGreaterThan(stoppedBefore);
+  const startedAtStop = afterStop2.pieces.started;
   await page.waitForTimeout(600);
   expect((await voiceTestState(page)).pieces.started).toBe(startedAtStop);
 });
@@ -283,4 +318,40 @@ test("A6: no server voice and no voice for the language is stated plainly", asyn
   const state = await voiceTestState(page);
   expect(state.spoken.length).toBe(0);
   expect(state.audio.plays).toBe(0);
+});
+
+/**
+ * PHASE 166 — the defect behind the owner's «بعد أول 3 ردود الاستماع لا يعمل»:
+ * mobile engines sometimes accept an utterance and then go silent forever — no
+ * start event, no end event, no error — and every later sentence queues behind
+ * it. The room now watches every utterance: it revives the engine once (cancel
+ * + resume + one more hand-over) and only then declares it wedged. This test
+ * models exactly that engine — the FIRST utterance is accepted and stays
+ * completely silent.
+ */
+test("A8: an utterance that never starts or ends is revived, not left frozen", async ({ page }) => {
+  await installVoiceStubs(page, STT_TRANSCRIPT, STUB_VOICES, { stallFirst: true });
+  await login(page, undefined, undefined, "home-screen", { keepAutoRead: true });
+  await startFirstLesson(page);
+
+  await sendChatMessage(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
+  await tutorReplyText(page);
+
+  // The first utterance stalls; within the watch budget the engine is revived
+  // (cancel + resume) and the same sentence is handed over again.
+  await expect
+    .poll(async () => (await voiceTestState(page)).resumeCount, { timeout: 25_000 })
+    .toBeGreaterThan(0);
+  const firstTwo = await voiceTestState(page);
+  expect(firstTwo.spoken.length).toBeGreaterThanOrEqual(2);
+
+  // And the reply keeps being read after the revival: the queue is not frozen,
+  // the reading is in the lesson's own language — this is the part the old room
+  // got wrong (it went silent for every later reply).
+  await expect
+    .poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 25_000 })
+    .toBeGreaterThan(2);
+  const state = await voiceTestState(page);
+  expect(state.spoken[0]!.lang).toBe("ar-EG");
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
 });

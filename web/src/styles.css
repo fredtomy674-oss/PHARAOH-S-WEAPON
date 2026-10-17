@@ -1423,6 +1423,107 @@ p {
   cursor: crosshair;
 }
 
+/* ----- PHASE 166 — طباشير المعلّم: ما يكتبه على السبورة -----
+   A non-interactive layer UNDER the ink canvas (the canvas stays the only
+   drawing child): chalk is read and drawn over, never a touch target. The
+   text colour is `--ink`, so it flips with the theme the same way the board
+   background does (paper in light, near-black in dark). */
+.board-chalk {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 1rem;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--ink);
+  font-family: var(--font-learn, inherit);
+}
+
+.board-chalk-title {
+  font-weight: 800;
+  font-size: clamp(0.85rem, 0.5rem + 1.2vw, 1.05rem);
+  color: var(--room-teal-deep);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
+  border-bottom: 2px dashed var(--board-grid);
+  /* Chalk of a title: a touch wider letter-spacing, like writing on a board. */
+  letter-spacing: 0.01em;
+}
+
+.board-chalk-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  min-height: 0;
+}
+
+.board-chalk-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-size: clamp(0.76rem, 0.45rem + 1.05vw, 0.95rem);
+  line-height: 1.5;
+  animation: chalk-in 0.45s ease both;
+}
+
+.board-chalk-mark {
+  flex: none;
+  min-width: 1.1em;
+  text-align: center;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.board-chalk-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Kinds are marked, not coloured walls: one accent each, the text stays ink. */
+.board-chalk-line[data-kind="example"] .board-chalk-mark,
+.board-chalk-line[data-kind="answer"] .board-chalk-mark {
+  color: var(--room-teal-deep);
+}
+
+.board-chalk-line[data-kind="answer"] .board-chalk-text {
+  font-weight: 700;
+}
+
+.board-chalk-line[data-kind="note"] .board-chalk-text {
+  color: var(--muted);
+}
+
+@keyframes chalk-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Calm by default: no motion, the chalk simply is there. */
+@media (prefers-reduced-motion: reduce) {
+  .board-chalk-line {
+    animation: none;
+  }
+}
+
+/* PHASE 166 — the auto-read switch: ON reads as the calm green state. */
+.auto-read-btn.active {
+  background: var(--ok-bg);
+  border-color: var(--ok-line);
+  color: var(--primary-dark);
+}
+
 /* ----- شريط المرجع (W2): «كتابك — صفحة ٦ من ٧» — مرجع بلا نسخ ----- */
 .room-book-ref {
   display: flex;

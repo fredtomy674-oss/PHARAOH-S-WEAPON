@@ -28,7 +28,11 @@ const PWA_URL = `http://127.0.0.1:${PWA_PORT}`;
 const backendEnv = {
   PORT: String(BACKEND_PORT),
   DB_FILE: E2E_DB,
-  DAILY_MESSAGE_LIMIT: "50",
+  // PHASE 166 — raised from 50: the suite grew past the old ceiling in a single
+  // run (auto-read, board and stall-recovery specs each send real turns) and the
+  // student-level daily cap started refusing late tests. The cap itself is a
+  // product default, not a contract any test asserts beyond "it decreases".
+  DAILY_MESSAGE_LIMIT: "200",
   // The E2E suite intentionally raises the per-minute rate limit: automated
   // browsers + health polling easily exceed the dev default of 120/min.
   RATE_LIMIT_MAX: "1000",

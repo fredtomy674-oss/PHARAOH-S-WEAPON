@@ -23,6 +23,7 @@ import { resolveTutorLanguage, type TutorLanguage } from "./language.js";
 import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
 import { parseTutorResponse, type TutorResponse } from "./responseProcessor.js";
+import { sanitizeBoard, type TutorBoard } from "./board.js";
 import { looksLikeJsonFragment, looksLikePromptEcho, regenerateEchoes } from "./echoGuard.js";
 import {
   assertsCorrectness,
@@ -148,6 +149,13 @@ export interface TutorHandleResult {
    * of letting the model decide whether the answer was right.
    */
   questionAnswer: string | null;
+  /**
+   * PHASE 166 — «سبورة الفصل»: what this reply wrote on the classroom board
+   * (title + short lines), already sanitized (`tutor/board.ts`). Stored on the
+   * tutor message and shown on the board; null when the turn wrote nothing
+   * (safety refusals, degraded replies).
+   */
+  board: TutorBoard | null;
   /**
    * PHASE 93/adaptive — the typed teaching action the ENGINE chose for this turn
    * (see `teachingActions.ts`). Deterministic and evaluated from evidence known
@@ -315,6 +323,8 @@ export class TutorEngine {
         widgets: [],
         teachingAction: { type: "explain", concept: null, reason: "safety_refusal" },
         questionAnswer: null,
+        // A refusal teaches nothing: the board (like the action) stays untouched.
+        board: null,
       };
     }
 
@@ -711,7 +721,21 @@ export class TutorEngine {
       void this.memory.remember(input.student.id, "preference", "lesson_pace", "يفضل المتابعة بعد التأكيد", 1).catch(() => undefined);
     }
 
-    return { reply, intent, contextChunkCount: retrieveResult.chunks.length, memory, usedMock: this.ai.providers.llm.id === "mock", promptEchoRegens, citedBookPages, widgets: split.widgets, teachingAction, questionAnswer: keyed.questionAnswer };
+    return {
+      reply,
+      intent,
+      contextChunkCount: retrieveResult.chunks.length,
+      memory,
+      usedMock: this.ai.providers.llm.id === "mock",
+      promptEchoRegens,
+      citedBookPages,
+      widgets: split.widgets,
+      teachingAction,
+      questionAnswer: keyed.questionAnswer,
+      // PHASE 166 — what this reply wrote on the board, sanitized before anything
+      // stores or ships it (a model may send prose here; the board has caps).
+      board: sanitizeBoard(reply.board),
+    };
   }
 
   /**
