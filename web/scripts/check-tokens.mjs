@@ -43,6 +43,10 @@ const GUARDED = [
   "src/styles/journey.css",
   "src/Journey.tsx",
   "src/journey/NileGarden.tsx",
+  "src/styles/liveTeacher.css",
+  "src/LiveTeacher.tsx",
+  "src/TeacherMascot.tsx",
+  "src/avatar/LiveAvatarStage.tsx",
 ];
 
 /** لون خام: hex أو rgb()/rgba()/hsl() — داخل var() كبديل مسموح لأنه لا يُستخدم. */

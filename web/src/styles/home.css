@@ -273,6 +273,12 @@
   color: var(--ok-fg);
   border: 1px solid var(--ok-line);
   white-space: nowrap;
+  /* PHASE 162 (إصلاح حيّ) — نقطة قوة واحدة طويلة جدًا كانت توسّع الصفحة كلها
+     أفقيًا (nowrap بلا سقف عرض). الشريحة تبقى سطرًا واحدًا بسقف عرض حاويتها،
+     والفائض يُقتطع بثلاث نقاط — لا تجاوز أفقي أبدًا مهما طالت البيانات. */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .hm-pill--warn {
   background: var(--warn-bg);

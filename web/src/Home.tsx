@@ -22,6 +22,8 @@ import {
 } from "./api.js";
 import { SessionRecapCard } from "./RecapCard.js";
 import { SubjectGlyph } from "./components/SubjectGlyph.js";
+import { TeacherMascot } from "./TeacherMascot.js";
+import { useLiveTeacherPref } from "./liveTeacherPref.js";
 
 /**
  * PHASE 156 (W2) — الرئيسية 2.0: أُعيد بناؤها من الصفر على هوية الفاروق
@@ -94,6 +96,9 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
   // PHASE 156 — a grade can hold 15 subjects; show the first six and let the
   // student expand, so «موادك» stays a launchpad, not a wall.
   const [subjectsExpanded, setSubjectsExpanded] = useState(false);
+  // PHASE 162 (W7.4) — بطاقة «المعلّم الحيّ» تقرأ المفتاح نفسه الحقيقي: لا
+  // وعد بما ليس مفعّلًا، ولا حالة مصطنعة.
+  const liveTeacherOn = useLiveTeacherPref();
   const practiceRef = useRef<HTMLElement | null>(null);
 
   function loadRecap(s: LearningSession): void {
@@ -259,6 +264,32 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
             </button>
           </div>
         </section>
+
+        {/* PHASE 162 (W7.4) — بطاقة المعلّم الحيّ: حضور هادئ في الرئيسية،
+            وحالته من المفتاح نفسه (مفعّل/مطفأ) — بلا وعد بما ليس مفعّلًا. */}
+        {user.role === "student" && (
+          <section className="hm-card w7-home" data-testid="home-teacher-card" data-enabled={liveTeacherOn ? "1" : "0"}>
+            <div className="w7-home__row">
+              <TeacherMascot className="w7-home__art" label={null} />
+              <div className="w7-home__text">
+                <h4>معلّمك الحيّ</h4>
+                <p className="hm-note" data-testid="home-teacher-note">
+                  {liveTeacherOn
+                    ? "جاهز في غرفة الدرس — يشرح بصوته ويشير إلى صفحة كتابك."
+                    : "مطفأ — شغّله من قائمة الحساب ☰ في أي وقت."}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="hm-btn hm-btn--ghost hm-btn--sm"
+                data-testid="home-teacher-open"
+                onClick={activeSession ? () => onResume(activeSession) : onStartLesson}
+              >
+                {activeSession ? "استئناف الحصة" : "ابدأ حصة"}
+              </button>
+            </div>
+          </section>
+        )}
 
         {/* الإدارة — للمدير فقط (الطلاب لا يرون هذا المدخل إطلاقًا) */}
         {user.role === "admin" && (

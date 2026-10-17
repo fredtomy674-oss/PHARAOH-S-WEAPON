@@ -1,0 +1,282 @@
+/* PHASE 162 (W7) — أنماط «المعلّم الحيّ»: اللوحة في الغرفة · المفتاح في الدرج · بطاقة الرئيسية.
+   ملف محروس (web/scripts/check-tokens.mjs): لا قيمة لونية/ظل خام هنا — الرموز فقط.
+   الموضع على سطح المكتب: `.room-body` شبكة عمودين، والصف الثاني في العمود الثاني
+   مقعد فارغ أصلًا (تحت خريطة المفاهيم، بجانب الحوار) — اللوحة تسكنه بلا تحريك أي عنصر قائم. */
+
+/* ── اللوحة في غرفة الدرس ─────────────────────────────────── */
+
+.w7-panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-1);
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+  align-self: start;
+}
+
+@media (min-width: 1001px) {
+  .room-body .w7-panel {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+.w7-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.w7-head__mascot {
+  width: 40px;
+  height: 40px;
+  color: var(--gold-deep);
+  flex: none;
+}
+
+.w7-head__who {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+  margin-inline-end: auto;
+}
+
+.w7-head__who strong {
+  font-size: var(--fs-4);
+  color: var(--ink);
+}
+
+.w7-state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+
+.w7-state__dot {
+  width: var(--sp-2);
+  height: var(--sp-2);
+  border-radius: var(--r-pill);
+  background: var(--muted);
+  flex: none;
+}
+
+/* حالة الحضور الحيّة — من الرموز، وفي الوضعين */
+.w7-state[data-state="listening"] {
+  color: var(--nile-2);
+}
+.w7-state[data-state="listening"] .w7-state__dot {
+  background: var(--nile-2);
+}
+.w7-state[data-state="thinking"],
+.w7-state[data-state="partial"] {
+  color: var(--ok-fg);
+}
+.w7-state[data-state="thinking"] .w7-state__dot,
+.w7-state[data-state="partial"] .w7-state__dot {
+  background: var(--gold);
+}
+.w7-state[data-state="speaking"] {
+  color: var(--ok-fg);
+}
+.w7-state[data-state="speaking"] .w7-state__dot {
+  background: var(--gold-bright);
+}
+.w7-state[data-state="correct"] {
+  color: var(--ok-fg);
+}
+.w7-state[data-state="correct"] .w7-state__dot {
+  background: var(--ok-fg);
+}
+.w7-state[data-state="incorrect"] {
+  color: var(--danger-fg);
+}
+.w7-state[data-state="incorrect"] .w7-state__dot {
+  background: var(--danger-fg);
+}
+
+.w7-ref {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 40px;
+  padding-inline: var(--sp-3);
+  border: 1px solid var(--ok-line);
+  border-radius: var(--r-pill);
+  background: var(--ok-bg);
+  color: var(--ok-fg);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  cursor: pointer;
+}
+.w7-ref:hover {
+  box-shadow: var(--shadow-1);
+}
+.w7-ref:focus-visible,
+.w7-open:focus-visible,
+.w7-switch:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.w7-open {
+  min-height: 40px;
+  padding-inline: var(--sp-4);
+  border: 1px solid var(--ok-line);
+  border-radius: var(--r-pill);
+  background: var(--gold-grad);
+  color: var(--on-gold);
+  font-weight: 800;
+  font-size: var(--fs-3);
+  cursor: pointer;
+}
+.w7-open:hover {
+  box-shadow: var(--shadow-1);
+}
+
+/* ── المسرح: رسوم ثلاثية الأبعاد أو البديل الثابت ─────────── */
+
+.w7-stage {
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: linear-gradient(180deg, var(--nile-1), var(--card-2));
+  padding: var(--sp-3);
+  display: flex;
+  justify-content: center;
+}
+
+.w7-stage__note {
+  margin: var(--sp-3) 0;
+  font-size: var(--fs-2);
+  color: var(--muted);
+}
+
+.w7-av {
+  position: relative;
+  width: min(100%, 360px);
+  aspect-ratio: 4 / 3;
+  max-height: 250px;
+  border-radius: var(--r-2);
+  overflow: hidden;
+  background: var(--nile-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.w7-av[data-fallback="1"] {
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4);
+  text-align: center;
+}
+
+.w7-av__art {
+  width: 88px;
+  height: 88px;
+  color: var(--gold-deep);
+  opacity: 0.9;
+  flex: none;
+}
+
+.w7-av__note {
+  margin: 0;
+  font-size: var(--fs-2);
+  color: var(--muted);
+  max-width: 30ch;
+}
+
+/* ── المفتاح في درج الحساب ────────────────────────────────── */
+
+.w7-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 40px;
+  padding-inline: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--card-2);
+  color: var(--muted);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  cursor: pointer;
+}
+.w7-switch[data-on="1"] {
+  color: var(--ok-fg);
+  border-color: var(--ok-line);
+  background: var(--ok-bg);
+}
+
+.w7-switch__thumb {
+  width: 34px;
+  height: 20px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+  position: relative;
+  flex: none;
+  transition: background 0.15s ease;
+}
+.w7-switch__thumb::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--r-pill);
+  background: var(--card);
+  transition: inset-inline-start 0.15s ease;
+}
+.w7-switch[data-on="1"] .w7-switch__thumb {
+  background: var(--gold);
+}
+.w7-switch[data-on="1"] .w7-switch__thumb::after {
+  inset-inline-start: 16px;
+}
+
+/* ── بطاقة الرئيسية ──────────────────────────────────────── */
+
+.w7-home__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.w7-home__art {
+  width: 48px;
+  height: 48px;
+  color: var(--gold-deep);
+  flex: none;
+}
+
+.w7-home__text {
+  flex: 1 1 12rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.w7-home__text h4 {
+  margin: 0;
+  font-size: var(--fs-4);
+  color: var(--ink);
+}
+
+/* ── احترام تقليل الحركة ─────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .w7-switch__thumb,
+  .w7-switch__thumb::after {
+    transition: none;
+  }
+}

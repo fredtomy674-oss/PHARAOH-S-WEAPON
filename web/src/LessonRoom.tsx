@@ -66,6 +66,10 @@ import NumberLine from "./NumberLine.js";
 import FormattedText from "./FormattedText.js";
 import { previewText, stripMarkdown } from "./format.js";
 import { ThemeToggle } from "./components/ui/index.js";
+import { LiveTeacher } from "./LiveTeacher.js";
+import { useLiveTeacherPref } from "./liveTeacherPref.js";
+import { createMouthReader } from "./avatar/mouthReader.js";
+import { nextState, verdictEventFromReason, type AvatarEvent, type AvatarState } from "./avatar/avatarStates.js";
 
 interface Props {
   user: User;
@@ -251,6 +255,15 @@ export function LessonRoom({ session, onEnded }: Props) {
    * the ribbon chip and the «خريطة المفاهيم» panel both read from it.
    */
   const [conceptMap, setConceptMap] = useState<PrerequisiteGraph | null>(null);
+  // PHASE 162 (W7) — «المعلّم الحيّ»: قرار الطالب (تفضيل محلي) + آلة الحالات
+  // الثماني + قارئ الفم. الآلة نفسها محضة ومختبَرة — الغرفة تُطلق أحداثًا
+  // حقيقية فقط، وما لا حدث له لا يُعرض (الصمت لا يُفسَّر).
+  const liveTeacherOn = useLiveTeacherPref();
+  const [teacherState, setTeacherState] = useState<AvatarState>("idle");
+  const [mouth] = useState(createMouthReader);
+  const fireTeacher = useCallback((event: AvatarEvent) => {
+    setTeacherState((state) => nextState(state, event));
+  }, []);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const captionsRef = useRef<HTMLDivElement | null>(null);
   // PHASE 56 — measured on a 390×844 phone: the room opened 651px down the
@@ -340,6 +353,54 @@ export function LessonRoom({ session, onEnded }: Props) {
 
   const presence: PresenceState = listening ? "listening" : speaking ? "speaking" : pending ? "thinking" : "idle";
 
+  // PHASE 162 (W7.2) — ربط الحالات الثماني بأحداث المحرك الحقيقية.
+  // كل حدث خارج حالته no-op، فإعادة التوفيق تصل إلى ثباتها في جولة أو جولتين
+  // (تساوي الحالة يُوقف setState). الأولوية: الصوت، ثم التفكير، ثم الاستماع.
+  useEffect(() => {
+    if (speaking) fireTeacher("audio-start");
+    else if (pending) fireTeacher("thinking-start");
+    else {
+      // انتهى الدور بلا صوت: «التفكير» ينتهي بحدثه الخاص، والصوت كذلك.
+      fireTeacher("reply-done");
+      fireTeacher("audio-end");
+    }
+    if (listening) fireTeacher("mic-open");
+    else fireTeacher("mic-close");
+  }, [speaking, pending, listening, teacherState, fireTeacher]);
+
+  // إطفاء/تشغيل المفتاح — فورًا وفي نفس الجلسة (التفضيل يشترك مع الغرفة).
+  useEffect(() => {
+    fireTeacher(liveTeacherOn ? "toggle-on" : "toggle-off");
+  }, [liveTeacherOn, fireTeacher]);
+
+  // الحكم يصل كسبب على «الإجراء التعليمي» الأخير؛ ويُقرأ لكل رسالة معلّم
+  // جديدة مرة واحدة. رسالة تحمل إجراءً تعليميًا بلا حكم (تلميح، شرح…) سببها
+  // لا يطابق ولا حكم — فلا تُطلق شيئًا. دخول الغرفة ليس حدثًا جديدًا.
+  const lastVerdict = useMemo(() => {
+    for (let i = messages.length - 1; i >= 0; i -= 1) {
+      const m = messages[i];
+      if (m?.role === "tutor") {
+        return { key: `${m.id}:${m.teachingAction?.reason ?? ""}`, event: verdictEventFromReason(m.teachingAction?.reason) };
+      }
+    }
+    return null;
+  }, [messages]);
+  const lastVerdictKey = useRef<string | null>(null);
+  useEffect(() => {
+    if (!lastVerdict) return;
+    const previous = lastVerdictKey.current;
+    lastVerdictKey.current = lastVerdict.key;
+    if (previous === null || previous === lastVerdict.key) return;
+    if (lastVerdict.event) fireTeacher(lastVerdict.event);
+  }, [lastVerdict, fireTeacher]);
+
+  // وضع الحكم يُعرض لحظته ثم تمضي الحصة (توقيت عرض حكم حقيقي — لا ابتداع).
+  useEffect(() => {
+    if (teacherState !== "correct" && teacherState !== "partial" && teacherState !== "incorrect") return;
+    const timer = window.setTimeout(() => fireTeacher("verdict-settle"), 3200);
+    return () => window.clearTimeout(timer);
+  }, [teacherState, fireTeacher]);
+
   const pages = stage?.pages ?? [];
   /** Move the reference bar to one printed page (the tutor's refs, page chips). */
   const goToBookPage = useCallback((bookPage: number) => {
@@ -377,6 +438,8 @@ export function LessonRoom({ session, onEnded }: Props) {
     });
     if (!utterance) return;
     activeUtterance.current = utterance;
+    // PHASE 162 — وضع المتصفح التقريبي: حدود الكلمات نبضات حقيقية للفم.
+    utterance.addEventListener("boundary", () => mouth.pulse());
     setSpeaking(true);
     if (missingVoice) setError(missingVoiceNotice(tutorLanguage));
   };
@@ -406,7 +469,10 @@ export function LessonRoom({ session, onEnded }: Props) {
           }
           onDone();
         });
-        if (utterance) activeUtterance.current = utterance;
+        if (utterance) {
+          activeUtterance.current = utterance;
+          utterance.addEventListener("boundary", () => mouth.pulse());
+        }
         return { started: !!utterance, missingVoice };
       },
     });
@@ -423,6 +489,8 @@ export function LessonRoom({ session, onEnded }: Props) {
     streamedRef.current = null;
     narratorRef.current?.stop();
     narratorRef.current = null;
+    // PHASE 162 — لا مظروف صوت بعد الآن: الفم يعود مغلقًا بتدرّج.
+    mouth.setAnalyser(null);
     stopSpeaking();
     activeUtterance.current = null;
     setSpeaking(false);
@@ -450,15 +518,25 @@ export function LessonRoom({ session, onEnded }: Props) {
       if (token !== speechToken.current) return;
       streamedRef.current?.stop();
       streamedRef.current = null;
+      // PHASE 162 — الصوت توقّف: لا مظروف يُقرأ بعد الآن.
+      mouth.setAnalyser(null);
       setSpeaking(false);
       fallback();
     };
     const player = createStreamedAudio({
       onStart: () => {
-        if (token === speechToken.current) setSpeaking(true);
+        if (token === speechToken.current) {
+          setSpeaking(true);
+          // PHASE 162 (W7.2) — الفم يزامن الـWAV الخادمي نفسه: نُقرأ نفس
+          // الرسم البياني الذي يُسمعه الطالب (مظروف حقيقي، لا إيقاع مُصنَّع).
+          mouth.setAnalyser(player.analyser);
+        }
       },
       onDone: () => {
-        if (token === speechToken.current) setSpeaking(false);
+        if (token === speechToken.current) {
+          mouth.setAnalyser(null);
+          setSpeaking(false);
+        }
       },
       onError: abandon,
     });
@@ -1034,6 +1112,21 @@ export function LessonRoom({ session, onEnded }: Props) {
               ))}
             </ol>
           </section>
+        )}
+
+        {/* PHASE 162 (W7) — «المعلّم الحيّ»: لوحة قابلة للطيّ تسكن المقعد
+            الفارغ أصلًا (الصف الثاني يسار على سطح المكتب). إطفاء المفتاح
+            يُخفيها كاملة — ولا يُحمَّل منها بايت واحد (المسرح ثلاثي الأبعاد
+            يأتي كسولًا عند فتح اللوحة فقط). */}
+        {liveTeacherOn && (
+          <LiveTeacher
+            state={teacherState}
+            mouth={mouth}
+            reference={
+              stage && refPage !== null ? { page: refPage, label: pageLabel(refPage), total: stage.toBookPage } : null
+            }
+            onOpenReference={goToBookPage}
+          />
         )}
 
         {/* ---- the dialogue: a live caption stream, plus the tutor's presence ---- */}

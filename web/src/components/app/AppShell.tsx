@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Sheet, ThemeToggle } from "../ui/index.js";
+import { useLiveTeacherPref, writeLiveTeacherPref } from "../../liveTeacherPref.js";
 import type { User } from "../../api.js";
 
 /** مساحات الطالب الثلاث — السؤال الذي تجيب كل مساحة عنه. */
@@ -30,6 +31,9 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
   const [accountOpen, setAccountOpen] = useState(false);
   const studentName = user.student?.displayName ?? user.email;
   const isStudent = user.role === "student";
+  // PHASE 162 (W7.5) — قرار «المعلّم الحيّ» يُقرأ هنا ويُقلب فورًا: الغرفة
+  // المفتوحة تتلقى التغيير في نفس اللحظة (اشتراك محلي واحد).
+  const liveTeacherOn = useLiveTeacherPref();
 
   return (
     <div className="app-shell">
@@ -162,7 +166,19 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
           </div>
           <div className="app-drawer__row">
             <span className="app-drawer__k">المعلّم الحيّ</span>
-            <span className="app-pill-muted">قريبًا</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={liveTeacherOn}
+              className="w7-switch"
+              data-testid="live-teacher-toggle"
+              data-on={liveTeacherOn ? "1" : "0"}
+              aria-label={liveTeacherOn ? "إطفاء المعلّم الحيّ" : "تشغيل المعلّم الحيّ"}
+              onClick={() => writeLiveTeacherPref(!liveTeacherOn)}
+            >
+              <span className="w7-switch__thumb" aria-hidden="true" />
+              <span className="w7-switch__state">{liveTeacherOn ? "مفعّل" : "مطفأ"}</span>
+            </button>
           </div>
 
           <div className="app-drawer__sec">الجلسة</div>

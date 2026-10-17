@@ -44,6 +44,12 @@ export interface StreamedAudio {
    * anything is fetched, so the caller can fall back without waiting.
    */
   readonly usable: boolean;
+  /**
+   * PHASE 162 — the live waveform tap for the teacher's mouth: the same audio
+   * graph the room already plays through, exposed instead of duplicated. Null
+   * when Web Audio keeps sources off an analyser (never the case when usable).
+   */
+  readonly analyser: AnalyserNode | null;
   /** Hands over one piece. Never blocks; pieces may arrive in any order. */
   push: (piece: AudioPiece) => void;
   /** No more pieces are coming. */
@@ -78,10 +84,22 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
     // No Web Audio at all: the caller is inside a click handler and can fall back
     // before it returns, so no reply is ever left waiting on a queue that was
     // never going to play.
-    return { usable: false, push: () => {}, end: () => {}, stop: () => {} };
+    return { usable: false, analyser: null, push: () => {}, end: () => {}, stop: () => {} };
   }
 
   const ctx = new Ctor();
+  // PHASE 162 — one analyser in the path, so the mouth can read the very
+  // waveform the room is playing (the Lab proved this tap; the room reuses it).
+  let analyser: AnalyserNode | null = null;
+  try {
+    const maybe = ctx as AudioContext & { createAnalyser?: () => AnalyserNode };
+    if (typeof maybe.createAnalyser === "function") {
+      analyser = maybe.createAnalyser();
+      analyser.connect(ctx.destination);
+    }
+  } catch {
+    analyser = null;
+  }
   // Decoded pieces waiting for their turn, keyed by sequence number.
   const decoded = new Map<number, AudioBuffer>();
   const sources = new Set<AudioBufferSourceNode>();
@@ -145,7 +163,7 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
       const at = Math.max(nextAt, ctx.currentTime + FIRST_PIECE_MARGIN_S);
       const source = ctx.createBufferSource();
       source.buffer = buffer;
-      source.connect(ctx.destination);
+      source.connect(analyser ?? ctx.destination);
       source.onended = () => {
         sources.delete(source);
         playing -= 1;
@@ -181,6 +199,7 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
 
   return {
     usable: true,
+    analyser,
     push: (piece) => {
       if (stopped || failed || finished) return;
       decoding += 1;
