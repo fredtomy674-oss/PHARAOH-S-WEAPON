@@ -149,7 +149,13 @@ export function App() {
   }
 
   if (screen === "admin" && user.role === "admin") {
-    return <AdminScreen user={user} onBack={() => setScreen("home")} onLogout={handleLogout} />;
+    // PHASE 164 — غرفة العمليات تحت القشرة الموحّدة (ترويسة + درج حساب:
+    // المظهر والخروج)، بلا شريط تنقّل طلابي — كمركز ولي الأمر (PHASE 163).
+    return (
+      <AppShell user={user} onLogout={handleLogout}>
+        <AdminScreen onBack={() => setScreen("home")} />
+      </AppShell>
+    );
   }
 
   if (screen === "achievements" && user.role === "student") {

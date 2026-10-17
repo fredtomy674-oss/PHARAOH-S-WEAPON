@@ -1,0 +1,403 @@
+/* ==========================================================================
+   PHASE 164 — «غرفة العمليات» (Admin / Ops Room)
+   ao-* — نبض المنصة · الاشتراكات · الذكاء الاصطناعي · النشاط الزمني ·
+   استيراد المناهج وتوليد الأسئلة · المستندات والاشتراكات (جداول نظيفة).
+   القاعدة: رموز فقط من tokens.css — لا لون/ظل خام هنا (ملف محروس).
+   بلا حركة خاصة — لا حاجة لاستثناء prefers-reduced-motion.
+   ========================================================================== */
+
+/* ------------------------------ الإطار العام ------------------------------ */
+.ao-main {
+  width: min(1080px, 94vw);
+  margin: 0 auto;
+  padding: var(--sp-4) 0 var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* ------------------------------ البطل ------------------------------ */
+.ao-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.ao-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.ao-hero__title {
+  margin: 0;
+  font-size: var(--fs-7);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+
+.ao-hero__sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-3);
+  line-height: var(--lh-body);
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------ شبكات المؤشرات ------------------------------ */
+.ao-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--sp-2);
+}
+
+.ao-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--sp-2);
+}
+
+.ao-duo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--sp-4);
+  align-items: start;
+}
+
+/* ------------------------------ الرسوم الزمنية ------------------------------ */
+.ao-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-3);
+}
+
+.ao-chart {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-2);
+  background: var(--card-2);
+}
+
+.ao-chart figcaption {
+  color: var(--muted);
+  font-size: var(--fs-2);
+}
+
+/* أعمدة CSS خالصة — بلا مكتبة رسوم (D-021)، وRTL-safe (عمود لكل يوم). */
+.ao-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 110px;
+  padding-top: var(--sp-1);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.ao-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  min-width: 0;
+}
+
+.ao-bar {
+  width: 100%;
+  max-width: 22px;
+  min-height: 3px;
+  background: var(--gold);
+  border-radius: var(--r-1) var(--r-1) 0 0;
+}
+
+.ao-bar-label {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: var(--fs-1);
+  white-space: nowrap;
+}
+
+/* ------------------------------ الدروس الأكثر نشاطًا ------------------------------ */
+.ao-sub {
+  margin: 0;
+  font-size: var(--fs-4);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+
+.ao-ranks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.ao-rank {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-2);
+  background: var(--card-2);
+  font-size: var(--fs-3);
+}
+
+.ao-rank__title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.ao-rank__count {
+  flex: none;
+  color: var(--primary-ink);
+}
+
+.ao-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-3);
+  line-height: var(--lh-body);
+}
+
+/* ------------------------------ النماذج ------------------------------ */
+.ao-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.ao-grid2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sp-3);
+}
+
+.ao-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: var(--fs-2);
+}
+
+.ao-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-3);
+}
+
+.ao-input:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: var(--focus-ring);
+}
+
+.ao-input--file {
+  padding: var(--sp-2) var(--sp-3);
+}
+
+.ao-hint {
+  color: var(--muted);
+  font-size: var(--fs-2);
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------ نطاق الدرس ------------------------------ */
+.ao-scope {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px dashed var(--line);
+  border-radius: var(--r-2);
+  background: var(--frost-soft);
+}
+
+.ao-scope__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--sp-3);
+}
+
+.ao-picked {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--ok-line);
+  border-radius: var(--r-2);
+  background: var(--ok-bg);
+  color: var(--ok-fg);
+  font-size: var(--fs-3);
+  overflow-wrap: anywhere;
+}
+
+.ao-lessons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--sp-2);
+}
+
+.ao-lesson {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-3);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ao-lesson:hover {
+  border-color: var(--gold);
+}
+
+.ao-lesson:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ao-lesson--on {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  font-weight: var(--fw-semibold);
+}
+
+.ao-lesson__title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ao-lesson__hint {
+  flex: none;
+  color: var(--muted);
+  font-size: var(--fs-2);
+}
+
+/* ------------------------------ الأزرار والملاحظات ------------------------------ */
+.ao-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.ao-note {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-2);
+  background: var(--card-2);
+  color: var(--ink);
+  font-size: var(--fs-3);
+  overflow-wrap: anywhere;
+}
+
+.ao-note--ok {
+  border-color: var(--ok-line);
+  background: var(--ok-bg);
+  color: var(--ok-fg);
+}
+
+.ao-note--err {
+  border-color: var(--danger-line);
+  background: var(--danger-bg);
+  color: var(--danger-fg);
+}
+
+/* ------------------------------ الجداول ------------------------------ */
+.ao-tablewrap {
+  overflow-x: auto;
+}
+
+.ao-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: var(--fs-3);
+}
+
+.ao-table th,
+.ao-table td {
+  text-align: start;
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.ao-table th {
+  color: var(--muted);
+  font-size: var(--fs-2);
+  font-weight: var(--fw-semibold);
+}
+
+.ao-table tbody tr:hover {
+  background: var(--card-2);
+}
+
+.ao-student {
+  display: block;
+  color: var(--ink);
+}
+
+.ao-student__mail {
+  display: block;
+  color: var(--muted);
+  font-size: var(--fs-2);
+  overflow-wrap: anywhere;
+}
+
+.ao-muted {
+  color: var(--muted);
+  font-size: var(--fs-2);
+}
+
+.ao-plan {
+  font-weight: var(--fw-semibold);
+  color: var(--muted);
+}
+
+.ao-plan--premium {
+  color: var(--primary-ink);
+}
+
+/* ------------------------------ جوال ------------------------------ */
+@media (max-width: 700px) {
+  .ao-hero {
+    align-items: flex-start;
+  }
+
+  .ao-bar-label {
+    display: none;
+  }
+}

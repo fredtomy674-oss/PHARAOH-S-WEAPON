@@ -236,3 +236,40 @@ test("A6 (PHASE 34): the admin dashboard shows 14-day activity columns and the m
   await expect(topLessons.getByTestId("admin-trend-top-lesson").first()).toBeVisible({ timeout: 20_000 });
   await expect(topLessons).toContainText(lessonTitle);
 });
+
+/**
+ * PHASE 164 — غرفة العمليات: إعادة التصميم الكاملة تحت القشرة الموحّدة.
+ *
+ * العقد هنا هو *التكامل* لا التصميم: كل الأقسام حيّة في اللوحة الجديدة،
+ * والقشرة تعمل (☰ يفتح الدرج وفيه الخروج — قدرة الإدارة على الخروج لم
+ * تُفقد برحيل ترويستها القديمة)، ولا شريط تنقّل طلابي للإدارة.
+ */
+test("A7 (PHASE 164): the operations room opens under the unified shell with every section live", async ({ page }) => {
+  await login(page, ADMIN.email, ADMIN.password);
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("open-admin").click();
+  await expect(page.getByTestId("admin-screen")).toBeVisible({ timeout: 20_000 });
+
+  // البطل: الشاشة تعرّف نفسها كغرفة عمليات.
+  await expect(page.getByTestId("admin-screen")).toContainText("غرفة العمليات");
+
+  // القشرة الموحّدة: درج الحساب موجود (ومنه الخروج) — ولا شريط تنقّل طلابي.
+  await page.getByTestId("account-menu").click();
+  await expect(page.getByTestId("logout")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("account-close").click();
+  await expect(page.getByTestId("nav-today")).toHaveCount(0);
+
+  // كل أقسام اللوحة حيّة — بلا قسم ميت في التصميم الجديد.
+  for (const id of [
+    "admin-stats",
+    "admin-stats-subscriptions",
+    "admin-stats-ai",
+    "admin-stats-trends",
+    "admin-import",
+    "admin-question-gen",
+    "admin-documents",
+    "admin-subscriptions",
+  ]) {
+    await expect(page.getByTestId(id)).toBeVisible({ timeout: 20_000 });
+  }
+});

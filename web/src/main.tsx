@@ -13,6 +13,7 @@ import "./styles/sources.css";
 import "./styles/journey.css";
 import "./styles/liveTeacher.css";
 import "./styles/parent.css";
+import "./styles/admin.css";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("root element missing");

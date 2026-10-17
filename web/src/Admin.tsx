@@ -28,13 +28,11 @@ import {
   type Subject,
   type Term,
   type Unit,
-  type User,
 } from "./api.js";
+import { Button, Card, EmptyState, StatTile } from "./components/ui/index.js";
 
 interface Props {
-  user: User;
   onBack: () => void;
-  onLogout: () => void;
 }
 
 const KIND_LABEL: Record<string, string> = {
@@ -49,6 +47,14 @@ const ACCEPTED = ".pdf,.docx,.txt,.md,application/pdf,application/vnd.openxmlfor
 // Mirrors the server cap (MAX_CURRICULUM_FILE_KB default 20480) for a friendlier UX error.
 const MAX_CURRICULUM_FILE_BYTES = 20 * 1024 * 1024;
 
+/** حالة الاشتراك بالعربية — المعروفة تُترجم، والمجهولة تُعرض كما هي (بلا تخمين). */
+const STATUS_LABEL: Record<string, string> = {
+  active: "نشطة",
+  canceled: "ملغاة",
+  expired: "منتهية",
+  trialing: "تجريبية",
+};
+
 /** PHASE 34 — bar height in % relative to the window peak; a floor keeps zero-days visible. */
 function barHeight(count: number, series: ReadonlyArray<{ count: number }>): string {
   const peak = Math.max(1, ...series.map((d) => d.count));
@@ -60,7 +66,16 @@ function dayLabel(day: string): string {
   return `${day.slice(8, 10)}/${day.slice(5, 7)}`;
 }
 
-export function AdminScreen({ onBack, onLogout }: Props) {
+/**
+ * غرفة العمليات (PHASE 164) — إعادة تصميم لوحة الإدارة كاملة بنفس الأقسام
+ * والقدرات: نبض المنصة · الاشتراكات · الذكاء الاصطناعي · النشاط الزمني ·
+ * استيراد المناهج · توليد الأسئلة · المستندات والاشتراكات.
+ *
+ * العقود الصارمة (A1–A6 · O2 · E2) حرفية: كل testid وكل نص تنتظره الاختبارات
+ * بقي كما هو — التغيير تصميم وحده، تحت القشرة الموحّدة (AppShell) كمركز ولي
+ * الأمر: ترويسة واحدة ودرج حساب واحد (المظهر/الخروج)، بلا شريط تنقّل طلابي.
+ */
+export function AdminScreen({ onBack }: Props) {
   const [countries, setCountries] = useState<Country[]>([]);
   const [systems, setSystems] = useState<EduSystem[]>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
@@ -240,219 +255,228 @@ export function AdminScreen({ onBack, onLogout }: Props) {
   };
 
   return (
-    <div className="layout" data-testid="admin-screen">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <strong>لوحة الإدارة — قاعدة المعرفة</strong>
-          <span className="muted">استيراد ملفات المنهج (PDF/DOCX) وربطها بالدروس</span>
-          <button className="btn ghost" onClick={onBack}>
-            الرئيسية
-          </button>
-          <button className="btn ghost" onClick={onLogout} data-testid="logout">
-            خروج
-          </button>
+    <div className="ao-main" data-testid="admin-screen">
+      <header className="ao-hero">
+        <div className="ao-hero__text">
+          <h1 className="ao-hero__title">غرفة العمليات</h1>
+          <p className="ao-hero__sub">
+            قاعدة المعرفة · الاستيراد · المؤشرات · الاشتراكات — كل ما يشغّل المنصة في شاشة واحدة.
+          </p>
         </div>
+        <Button variant="ghost" onClick={onBack}>
+          الرئيسية
+        </Button>
       </header>
 
-      <main className="container">
-        {stats && (
-          <section className="card" data-testid="admin-stats">
-            <h3>إحصاءات سريعة</h3>
-            <div className="admin-stats-grid">
-              <div className="admin-stat" data-testid="admin-stat-users">
-                <b>{stats.users.total}</b>
-                <span>مستخدم</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-students">
-                <b>{stats.users.students}</b>
-                <span>طالب</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-sessions">
-                <b>{stats.sessions.total}</b>
-                <span>جلسة ({stats.sessions.active} نشطة)</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-messages">
-                <b>{stats.messages.total}</b>
-                <span>رسالة ({stats.messages.tutor} رد مدرس)</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-documents">
-                <b>{stats.documents.ready}</b>
-                <span>مستند جاهز ({stats.documents.total})</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-chunks">
-                <b>{stats.chunks}</b>
-                <span>مقطع معرفي</span>
-              </div>
-            </div>
-          </section>
-        )}
+      {stats && (
+        <section className="ao-kpis" data-testid="admin-stats" aria-label="نبض المنصة">
+          <StatTile testId="admin-stat-users" value={stats.users.total} label="مستخدم" />
+          <StatTile testId="admin-stat-students" value={stats.users.students} label="طالب" />
+          <StatTile
+            testId="admin-stat-sessions"
+            value={stats.sessions.total}
+            label="جلسة"
+            hint={`${stats.sessions.active} نشطة الآن`}
+          />
+          <StatTile
+            testId="admin-stat-messages"
+            value={stats.messages.total}
+            label="رسالة"
+            hint={`${stats.messages.tutor} من المعلّم`}
+          />
+          <StatTile
+            testId="admin-stat-documents"
+            value={stats.documents.ready}
+            label="مستند جاهز"
+            hint={`من ${stats.documents.total}`}
+          />
+          <StatTile testId="admin-stat-chunks" value={stats.chunks} label="مقطع معرفي" />
+        </section>
+      )}
 
-        {stats && (
-          <section className="card" data-testid="admin-stats-subscriptions">
-            <h3>الاشتراكات — نظرة سريعة</h3>
-            <div className="admin-stats-grid">
-              <div className="admin-stat" data-testid="admin-stat-subs-total">
-                <b>{stats.subscriptions.total}</b>
-                <span>طالب مسجّل</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-subs-premium">
-                <b>{stats.subscriptions.premium}</b>
-                <span>خطة مميزة</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-subs-active">
-                <b>{stats.subscriptions.active}</b>
-                <span>مميزة سارية فعليًا</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-subs-conversion">
-                <b>{stats.subscriptions.conversionRate}%</b>
-                <span>معدل التحويل</span>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {stats && (
-          <section className="card" data-testid="admin-stats-ai">
-            <h3>الذكاء الاصطناعي — الاستخدام والوفورات</h3>
-            <div className="admin-stats-grid">
-              <div className="admin-stat" data-testid="admin-stat-ai-calls">
-                <b>{stats.ai.calls}</b>
-                <span>نداء ذكاء اصطناعي</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-ai-tokens">
-                <b>{stats.ai.tokens.toLocaleString("en-US")}</b>
-                <span>رمز (توكن)</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-ai-cost">
-                <b>${stats.ai.costUsd.toFixed(4)}</b>
-                <span>تكلفة فعلية</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-ai-cache-hit">
-                <b>{stats.ai.cache.hitRate}%</b>
-                <span>إصابة الكاش ({stats.ai.cache.hits})</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-ai-savings">
-                <b>${stats.ai.estimatedSavingsUsd.toFixed(4)}</b>
-                <span>وفورات تقديرية ({stats.ai.estimatedSavingsTokens.toLocaleString("en-US")} توكن)</span>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {stats && (
-          <section className="card" data-testid="admin-stats-trends">
-            <h3>النشاط الزمني — آخر {stats.trends.days} يومًا</h3>
-            <div className="admin-stats-grid">
-              <div className="admin-stat" data-testid="admin-stat-trend-sessions">
-                <b>{stats.trends.totals.sessions}</b>
-                <span>جلسة ({stats.trends.activeDays} يوم نشط)</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-trend-messages">
-                <b>{stats.trends.totals.messages}</b>
-                <span>رسالة</span>
-              </div>
-              <div className="admin-stat" data-testid="admin-stat-trend-ai-calls">
-                <b>{stats.trends.totals.aiCalls}</b>
-                <span>نداء ذكاء اصطناعي (${stats.trends.totals.aiCostUsd.toFixed(4)})</span>
-              </div>
-            </div>
-
-            {/* Pure-CSS daily bar charts — no charting dependency (D-021 tail). */}
-            <div className="admin-charts">
-              <figure className="admin-chart" data-testid="admin-trend-chart-sessions">
-                <figcaption>الجلسات / اليوم</figcaption>
-                <div className="admin-bars" data-testid="admin-trend-bars-sessions">
-                  {stats.trends.sessionsByDay.map((d) => (
-                    <div className="admin-bar-col" key={d.day} title={`${d.day}: ${d.count} جلسة`} data-testid="admin-trend-bar">
-                      <div className="admin-bar" style={{ height: barHeight(d.count, stats.trends.sessionsByDay) }} />
-                      <span className="admin-bar-label">{dayLabel(d.day)}</span>
-                    </div>
-                  ))}
-                </div>
-              </figure>
-
-              <figure className="admin-chart" data-testid="admin-trend-chart-messages">
-                <figcaption>الرسائل / اليوم</figcaption>
-                <div className="admin-bars" data-testid="admin-trend-bars-messages">
-                  {stats.trends.messagesByDay.map((d) => (
-                    <div className="admin-bar-col" key={d.day} title={`${d.day}: ${d.count} رسالة`} data-testid="admin-trend-bar">
-                      <div className="admin-bar" style={{ height: barHeight(d.count, stats.trends.messagesByDay) }} />
-                      <span className="admin-bar-label">{dayLabel(d.day)}</span>
-                    </div>
-                  ))}
-                </div>
-              </figure>
-            </div>
-
-            <h4>الدروس الأكثر نشاطًا</h4>
-            {stats.trends.topLessons.length === 0 ? (
-              <p className="muted" data-testid="admin-trend-no-lessons">
-                لا جلسات على دروس بعد.
-              </p>
-            ) : (
-              <ol className="admin-top-lessons" data-testid="admin-trend-top-lessons">
-                {stats.trends.topLessons.map((l) => (
-                  <li key={l.lessonId} data-testid="admin-trend-top-lesson">
-                    <span className="admin-top-lesson-title">{l.title || "(درس محذوف)"}</span>
-                    <b>{l.sessions}</b>
-                  </li>
-                ))}
-              </ol>
-            )}
-          </section>
-        )}
-
-        <section className="card">
-          <h2>استيراد ملف منهجي</h2>
-          <p className="muted">اختَر الدرس ثم ارفع ملف الدرس — يُستخرج نصه ويُضاف إلى قاعدة المعرفة الخاصة بذلك الدرس فقط.</p>
-
-          {error && (
-            <p data-testid="admin-upload-error" className="error-text">
-              {error}
-            </p>
-          )}
-
-          {result && (
-            <p data-testid="admin-upload-result" className="admin-success">
-              ✓ تم استيراد الملف بنجاح — {result.chunkCount} مقطع معرفي
-            </p>
-          )}
-
-          <div className="admin-fields">
-            <label className="field">
-              <span>الملف (PDF / DOCX / نص)</span>
-              <input
-                data-testid="admin-file-input"
-                type="file"
-                accept={ACCEPTED}
-                ref={fileRef}
-                onChange={onFileChange}
+      {stats && (
+        <div className="ao-duo">
+          <Card data-testid="admin-stats-subscriptions" title="الاشتراكات" hint="نظرة سريعة — بلا بوابة دفع في MVP">
+            <div className="ao-stats">
+              <StatTile testId="admin-stat-subs-total" value={stats.subscriptions.total} label="طالب مسجّل" />
+              <StatTile testId="admin-stat-subs-premium" value={stats.subscriptions.premium} label="خطة مميزة" />
+              <StatTile
+                testId="admin-stat-subs-active"
+                value={stats.subscriptions.active}
+                label="مميزة سارية فعليًا"
               />
-            </label>
-
-            <div className="grid-2">
-              <label className="field">
-                <span>العنوان (اختياري — يُستخدم اسم الملف إن تُرك)</span>
-                <input data-testid="admin-title-input" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={200} placeholder="مثال: درس الضرب والقسمة — ملخص" />
-              </label>
-              <label className="field">
-                <span>المصدر (اختياري)</span>
-                <input data-testid="admin-source-input" value={source} onChange={(e) => setSource(e.target.value)} maxLength={300} placeholder="مثال: كتاب الوزارة 2026" />
-              </label>
+              <StatTile
+                testId="admin-stat-subs-conversion"
+                value={`${stats.subscriptions.conversionRate}%`}
+                label="معدل التحويل"
+              />
             </div>
+          </Card>
 
-            {file && (
-              <p className="muted small">
-                الملف المحدد: {file.name} ({Math.ceil(file.size / 1024)} ك.ب)
-              </p>
-            )}
+          <Card data-testid="admin-stats-ai" title="الذكاء الاصطناعي" hint="الاستخدام والوفورات — أرقام حقيقية بلا فاتورة مفاجئة">
+            <div className="ao-stats">
+              <StatTile testId="admin-stat-ai-calls" value={stats.ai.calls} label="نداء ذكاء اصطناعي" />
+              <StatTile
+                testId="admin-stat-ai-tokens"
+                value={stats.ai.tokens.toLocaleString("en-US")}
+                label="رمز (توكن)"
+              />
+              <StatTile testId="admin-stat-ai-cost" value={`$${stats.ai.costUsd.toFixed(4)}`} label="تكلفة فعلية" />
+              <StatTile
+                testId="admin-stat-ai-cache-hit"
+                value={`${stats.ai.cache.hitRate}%`}
+                label={`إصابة الكاش (${stats.ai.cache.hits})`}
+              />
+              <StatTile
+                testId="admin-stat-ai-savings"
+                value={`$${stats.ai.estimatedSavingsUsd.toFixed(4)}`}
+                label="وفورات تقديرية"
+                hint={`${stats.ai.estimatedSavingsTokens.toLocaleString("en-US")} توكن`}
+              />
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {stats && (
+        <Card
+          data-testid="admin-stats-trends"
+          title={`النشاط الزمني — آخر ${stats.trends.days} يومًا`}
+          hint="الجلسات والرسائل والذكاء الاصطناعي، مجمّعة يوميًا (UTC)"
+        >
+          <div className="ao-stats">
+            <StatTile
+              testId="admin-stat-trend-sessions"
+              value={stats.trends.totals.sessions}
+              label="جلسة"
+              hint={`${stats.trends.activeDays} يوم نشط`}
+            />
+            <StatTile testId="admin-stat-trend-messages" value={stats.trends.totals.messages} label="رسالة" />
+            <StatTile
+              testId="admin-stat-trend-ai-calls"
+              value={stats.trends.totals.aiCalls}
+              label="نداء ذكاء اصطناعي"
+              hint={`$${stats.trends.totals.aiCostUsd.toFixed(4)}`}
+            />
           </div>
 
-          <h3 className="admin-scope-title">نطاق الدرس</h3>
-          <section className="picker">
-            <label className="field">
+          {/* Pure-CSS daily bar charts — no charting dependency (D-021 tail). */}
+          <div className="ao-charts">
+            <figure className="ao-chart" data-testid="admin-trend-chart-sessions">
+              <figcaption>الجلسات / اليوم</figcaption>
+              <div className="ao-bars" data-testid="admin-trend-bars-sessions">
+                {stats.trends.sessionsByDay.map((d) => (
+                  <div className="ao-bar-col" key={d.day} title={`${d.day}: ${d.count} جلسة`} data-testid="admin-trend-bar">
+                    <div className="ao-bar" style={{ height: barHeight(d.count, stats.trends.sessionsByDay) }} />
+                    <span className="ao-bar-label">{dayLabel(d.day)}</span>
+                  </div>
+                ))}
+              </div>
+            </figure>
+
+            <figure className="ao-chart" data-testid="admin-trend-chart-messages">
+              <figcaption>الرسائل / اليوم</figcaption>
+              <div className="ao-bars" data-testid="admin-trend-bars-messages">
+                {stats.trends.messagesByDay.map((d) => (
+                  <div className="ao-bar-col" key={d.day} title={`${d.day}: ${d.count} رسالة`} data-testid="admin-trend-bar">
+                    <div className="ao-bar" style={{ height: barHeight(d.count, stats.trends.messagesByDay) }} />
+                    <span className="ao-bar-label">{dayLabel(d.day)}</span>
+                  </div>
+                ))}
+              </div>
+            </figure>
+          </div>
+
+          <h4 className="ao-sub">الدروس الأكثر نشاطًا</h4>
+          {stats.trends.topLessons.length === 0 ? (
+            <p className="ao-empty" data-testid="admin-trend-no-lessons">
+              لا جلسات على دروس بعد.
+            </p>
+          ) : (
+            <ol className="ao-ranks" data-testid="admin-trend-top-lessons">
+              {stats.trends.topLessons.map((l) => (
+                <li className="ao-rank" key={l.lessonId} data-testid="admin-trend-top-lesson">
+                  <span className="ao-rank__title">{l.title || "(درس محذوف)"}</span>
+                  <b className="ao-rank__count">{l.sessions}</b>
+                </li>
+              ))}
+            </ol>
+          )}
+        </Card>
+      )}
+
+      <Card
+        data-testid="admin-import"
+        title="استيراد ملف منهجي"
+        hint="اختَر الدرس ثم ارفع ملفه — يُستخرج نصه ويُضاف إلى قاعدة المعرفة الخاصة بذلك الدرس فقط."
+      >
+        {error && (
+          <p data-testid="admin-upload-error" className="ao-note ao-note--err">
+            {error}
+          </p>
+        )}
+
+        {result && (
+          <p data-testid="admin-upload-result" className="ao-note ao-note--ok">
+            ✓ تم استيراد الملف بنجاح — {result.chunkCount} مقطع معرفي
+          </p>
+        )}
+
+        <div className="ao-form">
+          <label className="ao-field">
+            <span>الملف (PDF / DOCX / نص)</span>
+            <input
+              className="ao-input ao-input--file"
+              data-testid="admin-file-input"
+              type="file"
+              accept={ACCEPTED}
+              ref={fileRef}
+              onChange={onFileChange}
+            />
+            {file && (
+              <span className="ao-hint">
+                الملف المحدد: {file.name} ({Math.ceil(file.size / 1024)} ك.ب)
+              </span>
+            )}
+          </label>
+
+          <div className="ao-grid2">
+            <label className="ao-field">
+              <span>العنوان (اختياري — يُستخدم اسم الملف إن تُرك)</span>
+              <input
+                className="ao-input"
+                data-testid="admin-title-input"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                maxLength={200}
+                placeholder="مثال: درس الضرب والقسمة — ملخص"
+              />
+            </label>
+            <label className="ao-field">
+              <span>المصدر (اختياري)</span>
+              <input
+                className="ao-input"
+                data-testid="admin-source-input"
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+                maxLength={300}
+                placeholder="مثال: كتاب الوزارة 2026"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="ao-scope">
+          <h4 className="ao-sub">نطاق الدرس</h4>
+          <div className="ao-scope__grid">
+            <label className="ao-field">
               <span>الدولة</span>
-              <select data-testid="select-country" value={countryId} onChange={(e) => setCountryId(e.target.value)}>
+              <select
+                className="ao-input"
+                data-testid="select-country"
+                value={countryId}
+                onChange={(e) => setCountryId(e.target.value)}
+              >
                 <option value="">اختر الدولة…</option>
                 {countries.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -463,9 +487,14 @@ export function AdminScreen({ onBack, onLogout }: Props) {
             </label>
 
             {countryId && (
-              <label className="field">
+              <label className="ao-field">
                 <span>النظام التعليمي</span>
-                <select data-testid="select-system" value={systemId} onChange={(e) => setSystemId(e.target.value)}>
+                <select
+                  className="ao-input"
+                  data-testid="select-system"
+                  value={systemId}
+                  onChange={(e) => setSystemId(e.target.value)}
+                >
                   <option value="">اختر النظام…</option>
                   {systems.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -477,10 +506,26 @@ export function AdminScreen({ onBack, onLogout }: Props) {
             )}
 
             {systemId && (
-              <div className="grid-2">
-                <label className="field">
+              <>
+                <label className="ao-field">
                   <span>الصف</span>
-                  <select data-testid="select-grade" value={gradeId} onChange={(e) => { setGradeId(e.target.value); setSubjectId(""); setCurriculumId(""); setCurricula([]); setTermId(""); setTerms([]); setUnitId(""); setUnits([]); setLessons([]); setSelectedLesson(null); }}>
+                  <select
+                    className="ao-input"
+                    data-testid="select-grade"
+                    value={gradeId}
+                    onChange={(e) => {
+                      setGradeId(e.target.value);
+                      setSubjectId("");
+                      setCurriculumId("");
+                      setCurricula([]);
+                      setTermId("");
+                      setTerms([]);
+                      setUnitId("");
+                      setUnits([]);
+                      setLessons([]);
+                      setSelectedLesson(null);
+                    }}
+                  >
                     <option value="">اختر الصف…</option>
                     {grades.map((g) => (
                       <option key={g.id} value={g.id}>
@@ -489,9 +534,14 @@ export function AdminScreen({ onBack, onLogout }: Props) {
                     ))}
                   </select>
                 </label>
-                <label className="field">
+                <label className="ao-field">
                   <span>المادة</span>
-                  <select data-testid="select-subject" value={subjectId} onChange={(e) => setSubjectId(e.target.value)}>
+                  <select
+                    className="ao-input"
+                    data-testid="select-subject"
+                    value={subjectId}
+                    onChange={(e) => setSubjectId(e.target.value)}
+                  >
                     <option value="">اختر المادة…</option>
                     {subjects.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -500,13 +550,18 @@ export function AdminScreen({ onBack, onLogout }: Props) {
                     ))}
                   </select>
                 </label>
-              </div>
+              </>
             )}
 
             {gradeId && subjectId && (
-              <label className="field">
+              <label className="ao-field">
                 <span>المنهج</span>
-                <select data-testid="select-curriculum" value={curriculumId} onChange={(e) => setCurriculumId(e.target.value)}>
+                <select
+                  className="ao-input"
+                  data-testid="select-curriculum"
+                  value={curriculumId}
+                  onChange={(e) => setCurriculumId(e.target.value)}
+                >
                   <option value="">اختر المنهج…</option>
                   {curricula.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -518,9 +573,14 @@ export function AdminScreen({ onBack, onLogout }: Props) {
             )}
 
             {curriculumId && (
-              <label className="field">
+              <label className="ao-field">
                 <span>الفصل الدراسي</span>
-                <select data-testid="select-term" value={termId} onChange={(e) => setTermId(e.target.value)}>
+                <select
+                  className="ao-input"
+                  data-testid="select-term"
+                  value={termId}
+                  onChange={(e) => setTermId(e.target.value)}
+                >
                   <option value="">اختر الفصل…</option>
                   {terms.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -532,9 +592,14 @@ export function AdminScreen({ onBack, onLogout }: Props) {
             )}
 
             {termId && (
-              <label className="field">
+              <label className="ao-field">
                 <span>الوحدة</span>
-                <select data-testid="select-unit" value={unitId} onChange={(e) => setUnitId(e.target.value)}>
+                <select
+                  className="ao-input"
+                  data-testid="select-unit"
+                  value={unitId}
+                  onChange={(e) => setUnitId(e.target.value)}
+                >
                   <option value="">اختر الوحدة…</option>
                   {units.map((u) => (
                     <option key={u.id} value={u.id}>
@@ -544,75 +609,78 @@ export function AdminScreen({ onBack, onLogout }: Props) {
                 </select>
               </label>
             )}
-          </section>
+          </div>
 
           {lessons.length > 0 && (
-            <section>
-              <h3 className="admin-scope-title">اختر الدرس الهدف</h3>
+            <>
+              <h4 className="ao-sub">اختر الدرس الهدف</h4>
               {selectedLesson && (
-                <p data-testid="admin-selected-lesson" className="admin-selected">
+                <p data-testid="admin-selected-lesson" className="ao-picked">
                   الدرس المحدد: <b>{selectedLesson.title}</b>
                 </p>
               )}
-              <ul className="lesson-list">
+              <ul className="ao-lessons">
                 {lessons.map((l) => (
                   <li key={l.id}>
                     <button
-                      className={selectedLesson?.id === l.id ? "lesson-item selected" : "lesson-item"}
+                      type="button"
+                      className={selectedLesson?.id === l.id ? "ao-lesson ao-lesson--on" : "ao-lesson"}
                       data-testid={`lesson-${l.id}`}
                       onClick={() => setSelectedLesson(l)}
                     >
-                      <span>{l.title}</span>
-                      <span className="muted small">{selectedLesson?.id === l.id ? "✓" : "تحديد"}</span>
+                      <span className="ao-lesson__title">{l.title}</span>
+                      <span className="ao-lesson__hint">{selectedLesson?.id === l.id ? "✓" : "تحديد"}</span>
                     </button>
                   </li>
                 ))}
               </ul>
-            </section>
+            </>
           )}
+        </div>
 
-          <div className="row-gap admin-actions">
-            <button
-              data-testid="admin-submit-upload"
-              className="btn primary big"
-              disabled={!canUpload}
-              onClick={upload}
-            >
-              {busy ? "جارِ الاستيراد…" : "استيراد الملف للمنهج"}
-            </button>
-          </div>
-        </section>
+        <div className="ao-actions">
+          <Button data-testid="admin-submit-upload" size="lg" disabled={!canUpload} onClick={upload}>
+            {busy ? "جارِ الاستيراد…" : "استيراد الملف للمنهج"}
+          </Button>
+        </div>
+      </Card>
 
-        <section className="card" data-testid="admin-question-gen">
-          <h3>توليد أسئلة بالمفهوم (LLM)</h3>
-          <p className="muted">
-            يولّد سؤال اختيار من متعدد واحدًا لكل مفهوم بلا أسئلة في المنهج المحدد، معتمدًا على مقاطع الدروس
-            (نمط تجريبي يعمل دون اتصال عبر مزوّد افتراضي).
+      <Card
+        data-testid="admin-question-gen"
+        title="توليد أسئلة بالمفهوم (LLM)"
+        hint="سؤال اختيار من متعدد لكل مفهوم بلا أسئلة في المنهج المحدد، من مقاطع الدروس (نمط تجريبي يعمل دون اتصال عبر مزوّد افتراضي)."
+      >
+        <div className="ao-actions">
+          <Button
+            data-testid="admin-gen-questions"
+            disabled={!curriculumId || genBusy}
+            onClick={runGenerate}
+          >
+            {genBusy ? "جارِ التوليد…" : "توليد أسئلة للمنهج المحدد"}
+          </Button>
+        </div>
+        {genError && (
+          <p className="ao-note ao-note--err" data-testid="admin-gen-error">
+            {genError}
           </p>
-          <div className="row-gap admin-actions">
-            <button
-              data-testid="admin-gen-questions"
-              className="btn primary"
-              disabled={!curriculumId || genBusy}
-              onClick={runGenerate}
-            >
-              {genBusy ? "جارِ التوليد…" : "توليد أسئلة للمنهج المحدد"}
-            </button>
-          </div>
-          {genError && <p className="error" data-testid="admin-gen-error">{genError}</p>}
-          {genResult && (
-            <p className="muted" data-testid="admin-gen-result">
-              تم توليد {genResult.generated} سؤالًا، وتخطّى {genResult.skipped} مفاهيم مغطّاة، وفشل {genResult.failed}.
-            </p>
-          )}
-        </section>
+        )}
+        {genResult && (
+          <p className="ao-note" data-testid="admin-gen-result">
+            تم توليد {genResult.generated} سؤالًا، وتخطّى {genResult.skipped} مفاهيم مغطّاة، وفشل {genResult.failed}.
+          </p>
+        )}
+      </Card>
 
-        <section className="card" data-testid="admin-documents">
-          <h3>المستندات المستوردة ({documents.length})</h3>
-          {documents.length === 0 ? (
-            <p className="muted">لا توجد مستندات مستوردة بعد.</p>
-          ) : (
-            <table className="admin-table">
+      <Card data-testid="admin-documents" title={`المستندات المستوردة (${documents.length})`}>
+        {documents.length === 0 ? (
+          <EmptyState
+            icon="🗂️"
+            title="لا توجد مستندات مستوردة بعد"
+            note="ارفع أول ملف منهجي من بطاقة الاستيراد أعلاه — وسيظهر هنا فور قبوله."
+          />
+        ) : (
+          <div className="ao-tablewrap">
+            <table className="ao-table">
               <thead>
                 <tr>
                   <th>العنوان</th>
@@ -629,22 +697,30 @@ export function AdminScreen({ onBack, onLogout }: Props) {
                     <td>{KIND_LABEL[d.kind] ?? d.kind}</td>
                     <td>{d.lessonTitle ?? "—"}</td>
                     <td>{d.chunkCount}</td>
-                    <td className="muted small">{new Date(d.createdAt).toLocaleDateString("ar-EG")}</td>
+                    <td className="ao-muted">{new Date(d.createdAt).toLocaleDateString("ar-EG")}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          )}
-        </section>
+          </div>
+        )}
+      </Card>
 
-        <section className="card" data-testid="admin-subscriptions">
-          <h3>الاشتراكات ({subscriptions.length})</h3>
-          <p className="muted">إدارة الخطط يدويًا (فوترة بلا بوابة دفع في MVP) — «مميزة» ترفع حد الرسائل اليومي للطالب.</p>
-          {subError && <p className="error-text">{subError}</p>}
-          {subscriptions.length === 0 ? (
-            <p className="muted">لا توجد اشتراكات بعد — تنشأ تلقائيًا عند أول نشاط لكل طالب.</p>
-          ) : (
-            <table className="admin-table">
+      <Card
+        data-testid="admin-subscriptions"
+        title={`الاشتراكات (${subscriptions.length})`}
+        hint="إدارة الخطط يدويًا (فوترة بلا بوابة دفع في MVP) — «مميزة» ترفع حد الرسائل اليومي للطالب."
+      >
+        {subError && <p className="ao-note ao-note--err">{subError}</p>}
+        {subscriptions.length === 0 ? (
+          <EmptyState
+            icon="🧾"
+            title="لا توجد اشتراكات بعد"
+            note="تنشأ تلقائيًا عند أول نشاط لكل طالب — وتُدار من هنا يدويًا."
+          />
+        ) : (
+          <div className="ao-tablewrap">
+            <table className="ao-table">
               <thead>
                 <tr>
                   <th>الطالب</th>
@@ -658,42 +734,48 @@ export function AdminScreen({ onBack, onLogout }: Props) {
                 {subscriptions.map((s) => (
                   <tr key={s.studentId} data-testid="admin-sub-row" data-student-id={s.studentId} data-plan={s.plan}>
                     <td>
-                      <b>{s.studentName ?? s.studentEmail}</b>
-                      <span className="muted small block">{s.studentEmail}</span>
+                      <b className="ao-student">{s.studentName ?? s.studentEmail}</b>
+                      <span className="ao-student__mail">{s.studentEmail}</span>
                     </td>
                     <td>
-                      <span data-testid={`sub-plan-${s.studentId}`}>{s.plan === "premium" ? "مميزة" : "مجانية"}</span>
+                      <span
+                        className={s.plan === "premium" ? "ao-plan ao-plan--premium" : "ao-plan"}
+                        data-testid={`sub-plan-${s.studentId}`}
+                      >
+                        {s.plan === "premium" ? "مميزة" : "مجانية"}
+                      </span>
                     </td>
-                    <td className="muted small">{s.status}</td>
-                    <td className="muted small">{new Date(s.startedAt).toLocaleDateString("ar-EG")}</td>
+                    <td className="ao-muted">{STATUS_LABEL[s.status] ?? s.status}</td>
+                    <td className="ao-muted">{new Date(s.startedAt).toLocaleDateString("ar-EG")}</td>
                     <td>
                       {s.plan === "premium" ? (
-                        <button
+                        <Button
                           data-testid={`sub-downgrade-${s.studentId}`}
-                          className="btn small ghost"
+                          variant="ghost"
+                          size="sm"
                           disabled={subBusy === s.studentId}
                           onClick={() => grantPlan(s.studentId, "free")}
                         >
                           {subBusy === s.studentId ? "…" : "إلغاء المميزة"}
-                        </button>
+                        </Button>
                       ) : (
-                        <button
+                        <Button
                           data-testid={`sub-upgrade-${s.studentId}`}
-                          className="btn small primary"
+                          size="sm"
                           disabled={subBusy === s.studentId}
                           onClick={() => grantPlan(s.studentId, "premium")}
                         >
                           {subBusy === s.studentId ? "…" : "ترقية إلى مميزة"}
-                        </button>
+                        </Button>
                       )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          )}
-        </section>
-      </main>
+          </div>
+        )}
+      </Card>
     </div>
   );
 }
