@@ -6,10 +6,12 @@ import { login, selectFirst, selectOptionByLabel } from "./helpers.js";
  * إنجازاتي بنفس العقود · سجل جلساتي · دفتر أخطائي).
  *
  * ملف مستقل عن `journey.spec.ts` (عقود الجلسة والعزل منذ المراحل الأولى) —
- * هذان الاختباران يخصّان المساحة نفسها:
+ * هذه الاختبارات تخصّ المساحة نفسها:
  * JN1 يثبّت الهيكل والحتمية الحيّة: نفس بيانات الإتقان ⇒ نفس زرع الحديقة.
  * JN2 يثبّت الحلقة الوحيدة الجديدة: إجابة خاطئة تدخل «دفتر أخطائي»،
  * و«راجع هذه» يفتح تمرينًا مقيّدًا بالمفهوم نفسه.
+ * JN3 (PHASE 161.1) يثبّت «قوة التعلم» و«أهدافي الآن»: رقم صادق 0..100
+ * ثابت عبر الزيارة، و«تدرّب الآن» في الهدف يفتح تمرينًا على مفهومه نفسه.
  */
 
 const G6_MATH_UNIT = "الوحدة الأولى: قابلية القسمة والعوامل والمضاعفات";
@@ -107,4 +109,50 @@ test("JN2 (PHASE 161): خطأ في الاختبار يدخل الدفتر و«ر
   await expect(page.getByTestId("journey-practice-feedback")).toBeVisible({ timeout: 20_000 });
   // المفهوم متتبَّع دائمًا هنا ⇒ شريحة الإتقان تظهر مع النتيجة.
   await expect(page.getByTestId("journey-practice-mastery")).toBeVisible();
+});
+
+test("JN3 (PHASE 161.1): «قوة التعلم» صادقة وحتمية — و«تدرّب الآن» يفتح تمرين الهدف نفسه", async ({ page }) => {
+  await login(page);
+
+  // نصنع إتقانًا حقيقيًا أولًا: سؤال واحد من اختبار درس الرياضيات يربط المفهوم بالطالب.
+  await page.getByTestId("start-lesson").click();
+  await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
+  await openG6MathLesson(page);
+  await page.getByTestId("lesson-quiz-open").click();
+  await expect(page.getByTestId("quiz-question")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("quiz-option").first().click();
+  await page.getByTestId("quiz-submit").click();
+  await expect(page.getByTestId("quiz-feedback")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("quiz-close").click();
+  await expect(page.getByTestId("quiz-panel")).toHaveCount(0);
+
+  // «قوة التعلم»: رقم صادق داخل 0..100 وشارة مستوى ظاهرة.
+  await page.getByTestId("nav-journey").click();
+  await expect(page.getByTestId("achievements-screen")).toBeVisible({ timeout: 20_000 });
+  const score = page.getByTestId("journey-strength-score");
+  await expect(score).toBeVisible({ timeout: 20_000 });
+  const scoreText = (await score.innerText()).trim();
+  const digits = scoreText.match(/\d+/);
+  expect(digits, "رقم قوة التعلم لم يظهر").not.toBeNull();
+  const value = Number(digits![0]);
+  expect(value).toBeGreaterThanOrEqual(0);
+  expect(value).toBeLessThanOrEqual(100);
+  await expect(page.getByTestId("journey-strength-level")).toBeVisible();
+
+  // «أهدافي الآن»: هدف مفهوم واحد على الأقل بزر «تدرّب الآن» يفتح تمرينًا عليه.
+  await expect(page.getByTestId("journey-goals")).toBeVisible();
+  const cta = page.getByTestId("journey-goal-cta").first();
+  await expect(cta).toBeVisible({ timeout: 20_000 });
+  await cta.click();
+  await expect(page.getByTestId("journey-practice")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("journey-practice")).toHaveAttribute("data-source", "goal");
+  await expect(page.getByTestId("journey-practice-question")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("journey-practice-close").click();
+  await expect(page.getByTestId("journey-practice")).toHaveCount(0);
+
+  // حتمية حيّة: إعادة الزيارة بنفس البيانات ⇒ نفس الرقم بالضبط.
+  await page.reload();
+  await page.getByTestId("nav-journey").click();
+  await expect(page.getByTestId("journey-strength-score")).toBeVisible({ timeout: 20_000 });
+  expect((await page.getByTestId("journey-strength-score").innerText()).trim()).toBe(scoreText);
 });

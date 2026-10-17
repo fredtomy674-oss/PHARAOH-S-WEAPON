@@ -1,8 +1,8 @@
 /* ==========================================================================
-   PHASE 161 (W6) — «رحلتي»
-   jn-* — حديقة النيل الحتمية · إتقاني · الإنجازات · سجل الجلسات · دفتر الأخطاء.
+   PHASE 161 (W6) + PHASE 161.1 — «رحلتي»
+   jn-* — واحة النيل 2.0 · قوة التعلم · أهدافي · إتقاني · الإنجازات · الجلسات · الدفتر.
    القاعدة: رموز فقط من tokens.css — لا لون/ظل/زاوية خام هنا (ملف محروس).
-   الحديقة ساكنة بالتصميم — لا حركة، فـ prefers-reduced-motion محترم بالوراثة.
+   الحركة زينة فقط — كلها تسقط عند prefers-reduced-motion (آخر الملف).
    ========================================================================== */
 
 /* ------------------------------ الإطار العام ------------------------------ */
@@ -67,6 +67,182 @@
   font-weight: var(--fw-semibold);
 }
 
+/* ------------------------------ قوة التعلم (PHASE 161.1) ------------------------------ */
+.jn-power {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  border: 1px solid var(--gold);
+  border-radius: var(--r-3);
+  background: linear-gradient(135deg, var(--sky-1), var(--sky-2));
+  box-shadow: var(--shadow-2);
+}
+
+.jn-ring {
+  position: relative;
+  flex-shrink: 0;
+  width: 108px;
+  height: 108px;
+  display: grid;
+  place-items: center;
+}
+
+.jn-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.jn-ring__track {
+  fill: none;
+  stroke: var(--frost-strong);
+  stroke-width: 8;
+}
+
+.jn-ring__fill {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px var(--glow-gold));
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.jn-ring__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.jn-ring__num {
+  font-size: var(--fs-6);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+
+.jn-power__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.jn-power__level {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px var(--sp-3);
+  border-radius: var(--r-pill);
+  background: var(--gold);
+  color: var(--on-primary);
+  font-size: var(--fs-2);
+  font-weight: var(--fw-bold);
+  box-shadow: var(--glow);
+}
+
+.jn-power__sub {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-2);
+  line-height: var(--lh-body);
+}
+
+.jn-power__bar {
+  width: 100%;
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--frost-soft);
+  overflow: hidden;
+}
+
+.jn-power__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--gold-bright), var(--gold-deep));
+  box-shadow: var(--glow);
+  transition: width 0.6s ease;
+}
+
+.jn-power__next {
+  color: var(--muted);
+  font-size: var(--fs-1);
+}
+
+/* ------------------------------ أهدافي (PHASE 161.1) ------------------------------ */
+.jn-goals {
+  list-style: none;
+  display: grid;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+}
+
+.jn-goal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-2);
+  background: var(--card-2);
+}
+
+.jn-goal[data-kind="milestone"] {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+}
+
+.jn-goal__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+
+.jn-goal__title {
+  color: var(--ink);
+  font-size: var(--fs-3);
+  font-weight: var(--fw-bold);
+}
+
+.jn-goal__pct {
+  color: var(--primary-ink);
+  font-size: var(--fs-2);
+  font-weight: var(--fw-bold);
+}
+
+.jn-goal__detail {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-2);
+  line-height: var(--lh-body);
+}
+
+.jn-goal__bar {
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--line-soft);
+  overflow: hidden;
+}
+
+.jn-goal__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--leaf-2), var(--gold));
+  transition: width 0.5s ease;
+}
+
+.jn-goal .ui-btn {
+  align-self: flex-start;
+}
+
 /* ------------------------------ البطاقات ------------------------------ */
 .jn-card .ui-card__body {
   display: flex;
@@ -106,28 +282,69 @@
   height: auto;
 }
 
+.jn-sky {
+  fill: url(#jn-sky-grad);
+}
+
 .jn-sun {
-  fill: var(--gold-bright);
-  opacity: 0.9;
+  fill: url(#jn-sun-grad);
+}
+
+.jn-sun-glow {
+  fill: var(--sun-glow);
+  filter: blur(14px);
+  animation: jn-breathe 7s ease-in-out infinite alternate;
+}
+
+.jn-sun-rays {
+  fill: none;
+  stroke: var(--sun-2);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 14;
+  opacity: 0.8;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: jn-spin 40s linear infinite;
+}
+
+.jn-star {
+  display: none;
+  fill: var(--star);
+}
+
+:root[data-theme="dark"] .jn-star {
+  display: block;
+  opacity: 0.85;
+  animation: jn-twinkle 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 240ms);
 }
 
 .jn-bird {
   fill: none;
-  stroke: var(--muted);
+  stroke: var(--ink);
   stroke-width: 2;
   stroke-linecap: round;
+  opacity: 0.7;
+  animation: jn-fly 5.5s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 900ms);
+}
+
+.jn-dune {
+  fill: var(--dune);
+  opacity: 0.9;
 }
 
 .jn-bank {
-  fill: var(--sand);
+  fill: url(#jn-sand-grad);
 }
 
 .jn-water {
-  fill: var(--nile-1);
+  fill: url(#jn-water-grad);
 }
 
 .jn-water[data-level="0"] {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .jn-water[data-level="1"] {
@@ -138,12 +355,22 @@
   opacity: 0.85;
 }
 
+.jn-shine {
+  fill: none;
+  stroke: var(--foam);
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0.45;
+}
+
 .jn-wave {
   fill: none;
-  stroke: var(--nile-2);
+  stroke: var(--foam);
   stroke-width: 2;
   stroke-linecap: round;
-  opacity: 0.55;
+  opacity: 0.6;
+  animation: jn-river 6s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -2.6s);
 }
 
 .jn-plant .jn-g__trunk,
@@ -157,7 +384,7 @@
 }
 
 .jn-plant .jn-g__trunk {
-  stroke: var(--gold-deep);
+  stroke: var(--palm-trunk);
 }
 
 .jn-plant .jn-g__frond,
@@ -170,7 +397,9 @@
 }
 
 .jn-plant .jn-g__petal {
-  fill: var(--gold);
+  fill: var(--lotus-1);
+  stroke: var(--lotus-2);
+  stroke-width: 1.4;
 }
 
 .jn-plant .jn-g__leaf {
@@ -178,13 +407,38 @@
   opacity: 0.55;
 }
 
-.jn-plant .jn-g__date,
-.jn-plant .jn-g__bud {
+.jn-plant .jn-g__date {
   fill: var(--gold-deep);
 }
 
 .jn-plant .jn-g__bud {
   fill: var(--leaf-2);
+}
+
+/* نخلة متقنة تُضيء الواحة بهالة */
+.jn-halo {
+  fill: var(--glow-leaf);
+  filter: blur(10px);
+  opacity: 0.5;
+}
+
+:root[data-theme="dark"] .jn-halo {
+  opacity: 0.85;
+}
+
+/* الإنبات المتتابع والتمايل — مجموعتان متداخلتان كي لا يتصادم التحويل */
+.jn-plant__grow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: jn-grow 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+  animation-delay: calc(var(--i) * 70ms);
+}
+
+.jn-plant__sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: jn-sway 4.8s ease-in-out infinite alternate;
+  animation-delay: calc(0.8s + var(--i) * 70ms);
 }
 
 .jn-legend {
@@ -220,7 +474,7 @@
 }
 
 .jn-dot--lotus {
-  background: var(--nile-2);
+  background: var(--lotus-1);
 }
 
 .jn-dot--sprout {
@@ -312,6 +566,37 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-1);
+}
+
+/* PHASE 161.1 — سقف واقتطاع لشرائح المفاهيم: عناوين طويلة لا توسّع الجوال
+   (نفس عائلة إصلاح hm-pill في الرئيسية — التُقط حيًّا في فحص تجاوز الجوال).
+   السلسلة كاملة: المجموعة والحاوية ينكمان، فالغلاف، فالشريحة، فالنص. */
+.jn-traits__group {
+  min-width: 0;
+}
+
+.jn-traits__chips {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.jn-traits__chips > span {
+  display: inline-flex;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.jn-traits__chips .ui-chip {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.jn-traits__chips .jn-chip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 /* ------------------------------ سجل الجلسات ------------------------------ */
@@ -569,6 +854,21 @@
     width: min(860px, 96vw);
   }
 
+  .jn-power {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .jn-power__body {
+    align-items: center;
+  }
+
+  .jn-goal__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
   .jn-mastery__item {
     flex-direction: column;
     align-items: flex-start;
@@ -579,5 +879,113 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--sp-2);
+  }
+}
+
+/* ------------------------------ الحركة (PHASE 161.1) ------------------------------ */
+.jn-feedback--good {
+  animation: jn-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.35);
+}
+
+@keyframes jn-grow {
+  from {
+    transform: scale(0.15);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes jn-sway {
+  from {
+    transform: rotate(-1.6deg);
+  }
+
+  to {
+    transform: rotate(1.6deg);
+  }
+}
+
+@keyframes jn-river {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-38px);
+  }
+}
+
+@keyframes jn-twinkle {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes jn-breathe {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 0.95;
+  }
+}
+
+@keyframes jn-fly {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes jn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes jn-pop {
+  from {
+    transform: scale(0.96);
+  }
+
+  60% {
+    transform: scale(1.02);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* الحركة زينة — من طلب الهدوء يحصل عليه كاملةً */
+@media (prefers-reduced-motion: reduce) {
+  .jn-sun-glow,
+  .jn-sun-rays,
+  .jn-bird,
+  .jn-star,
+  .jn-wave,
+  .jn-plant__grow,
+  .jn-plant__sway,
+  .jn-feedback--good {
+    animation: none;
+  }
+
+  .jn-ring__fill,
+  .jn-power__fill,
+  .jn-goal__fill {
+    transition: none;
   }
 }

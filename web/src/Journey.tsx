@@ -19,7 +19,9 @@ import {
 } from "./api.js";
 import { Button, Card, Chip } from "./components/ui/index.js";
 import { growGarden, type GardenConceptInput } from "./journey/garden.js";
+import { nextGoals } from "./journey/goals.js";
 import { NileGarden } from "./journey/NileGarden.js";
+import { learningStrength, strengthProgress, STRENGTH_LEVELS } from "./journey/strength.js";
 
 interface Props {
   user: User;
@@ -28,6 +30,10 @@ interface Props {
 
 /** PHASE 161 (W6) — how many past sessions the log shows. */
 const SESSION_LIMIT = 6;
+
+/** PHASE 161.1 — حلقة «قوة التعلم»: نصف القطر في وحدة viewBox = 100. */
+const RING_R = 42;
+const RING_C = 2 * Math.PI * RING_R;
 
 /** Arabic count of repetitions: مرة واحدة · مرتان · N مرات · N مرة. */
 function timesLabel(n: number): string {
@@ -46,6 +52,8 @@ function minutesLabel(a: LearningSession): string {
 interface JourneyPractice {
   conceptId: string;
   conceptTitle: string | null;
+  /** PHASE 161.1 — من أين فُتح التمرين: «تدرّب الآن» في هدف، أو «راجع هذه» في الدفتر. */
+  source: "mistake" | "goal";
   question: PracticeQuestion | null;
   loading: boolean;
   chosen: number | null;
@@ -125,6 +133,10 @@ export function JourneyScreen({ user, onBack }: Props) {
     return growGarden(concepts);
   }, [progress]);
 
+  // PHASE 161.1 — قوة التعلم وأهدافي: كلها من بيانات الإتقان الحقيقية فقط.
+  const strength = useMemo(() => learningStrength(progress?.mastery ?? []), [progress]);
+  const goals = useMemo(() => nextGoals(progress?.mastery ?? []), [progress]);
+
   const masterySorted = useMemo(
     () => [...(progress?.mastery ?? [])].sort((a, b) => b.decayedMastery - a.decayedMastery),
     [progress],
@@ -139,11 +151,11 @@ export function JourneyScreen({ user, onBack }: Props) {
       .catch(() => undefined);
   };
 
-  const openPractice = (item: MistakeItem) => {
-    if (!item.conceptId) return;
+  const openPractice = (conceptId: string, conceptTitle: string | null, source: JourneyPractice["source"]) => {
     setPractice({
-      conceptId: item.conceptId,
-      conceptTitle: item.conceptTitle,
+      conceptId,
+      conceptTitle,
+      source,
       question: null,
       loading: true,
       chosen: null,
@@ -152,17 +164,17 @@ export function JourneyScreen({ user, onBack }: Props) {
       error: null,
       shownAt: Date.now(),
     });
-    getPracticeQuestion(item.conceptId, "mcq")
+    getPracticeQuestion(conceptId, "mcq")
       .then((q) =>
         setPractice((p) =>
-          p && p.conceptId === item.conceptId
+          p && p.conceptId === conceptId
             ? { ...p, loading: false, question: q, error: q ? null : "لا يوجد سؤال جاهز لهذا المفهوم بعد." }
             : p,
         ),
       )
       .catch(() =>
         setPractice((p) =>
-          p && p.conceptId === item.conceptId ? { ...p, loading: false, error: "تعذّر تحميل السؤال — حاول مرة أخرى." } : p,
+          p && p.conceptId === conceptId ? { ...p, loading: false, error: "تعذّر تحميل السؤال — حاول مرة أخرى." } : p,
         ),
       );
   };
@@ -186,6 +198,77 @@ export function JourneyScreen({ user, onBack }: Props) {
 
   const name = user.student?.displayName ?? user.email;
 
+  /** PHASE 161.1 — لوحة تمرين واحدة تظهر في البطاقة التي فُتحت منها: «أهدافي» أو «دفتر أخطائي». */
+  const renderPractice = () => {
+    if (!practice) return null;
+    return (
+      <div
+        className="jn-practice"
+        data-testid="journey-practice"
+        data-concept={practice.conceptId}
+        data-source={practice.source}
+      >
+        <div className="jn-practice__head">
+          <span className="jn-practice__title">تمرين مراجعة — {practice.conceptTitle ?? "المفهوم"}</span>
+          <Button variant="quiet" size="sm" onClick={() => setPractice(null)} data-testid="journey-practice-close">
+            إغلاق ✕
+          </Button>
+        </div>
+
+        {practice.loading && <p className="jn-empty">…نجهّز سؤالًا</p>}
+        {practice.error && <p className="jn-empty" data-testid="journey-practice-error">{practice.error}</p>}
+
+        {practice.question && !practice.result && (
+          <>
+            <p className="jn-practice__question" data-testid="journey-practice-question">
+              {practice.question.content}
+            </p>
+            <ul className="jn-practice__options">
+              {(practice.question.options ?? []).map((opt, i) => (
+                <li key={`${practice.question!.id}-${i}`}>
+                  <button
+                    type="button"
+                    className={`jn-option ${practice.chosen === i ? "jn-option--picked" : ""}`}
+                    onClick={() => setPractice((p) => (p ? { ...p, chosen: i } : p))}
+                    disabled={practice.busy}
+                    data-testid="journey-practice-option"
+                  >
+                    {opt}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <Button
+              onClick={submitPractice}
+              disabled={practice.chosen === null || practice.busy}
+              data-testid="journey-practice-submit"
+            >
+              {practice.busy ? "…" : "تحقّق ✓"}
+            </Button>
+          </>
+        )}
+
+        {practice.result && (
+          <div
+            className={`jn-feedback ${practice.result.correct ? "jn-feedback--good" : "jn-feedback--weak"}`}
+            data-testid="journey-practice-feedback"
+            data-correct={practice.result.correct}
+          >
+            <b>{practice.result.correct ? "أحسنت! إجابة صحيحة." : "إجابة غير صحيحة — راجع الشرح ثم تابع."}</b>
+            {practice.result.explanation && <p className="jn-feedback__why">{practice.result.explanation}</p>}
+            {practice.result.mastery && (
+              <span data-testid="journey-practice-mastery">
+                <Chip tone="outline">
+                  {practice.result.mastery.labelAr} · {Math.round(practice.result.mastery.decayedScore * 100)}%
+                </Chip>
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="jn-layout">
       <main className="jn-main" data-testid="achievements-screen">
@@ -197,10 +280,10 @@ export function JourneyScreen({ user, onBack }: Props) {
 
         <header className="jn-hero">
           <h2 className="jn-hero__title" data-testid="journey-title">
-            🌱 رحلتي
+            ⚡ رحلتي
           </h2>
           <p className="jn-hero__sub">
-            يا {name}، حديقتك تنمو كلما تقوّى إتقانك — وكل خطأ هنا فرصة لتقفز من جديد.
+            يا {name} — هنا يُكتب دليل قوّتك: كل رقم في هذه الصفحة كسبته بجهدك، وكل هدف يناديك خطوة أعلى.
           </p>
           <div className="jn-hero__stats">
             <span className="jn-stat" data-testid="journey-stat-mastered">
@@ -215,10 +298,95 @@ export function JourneyScreen({ user, onBack }: Props) {
           </div>
         </header>
 
+        <section className="jn-power" data-testid="journey-power" data-level={strength.level}>
+          <div className="jn-ring" role="img" aria-label={`قوة التعلم ${strength.score} من 100`}>
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <circle className="jn-ring__track" cx="50" cy="50" r={RING_R} />
+              <circle
+                className="jn-ring__fill"
+                cx="50"
+                cy="50"
+                r={RING_R}
+                strokeDasharray={RING_C}
+                strokeDashoffset={RING_C * (1 - strength.score / 100)}
+              />
+            </svg>
+            <span className="jn-ring__score" data-testid="journey-strength-score">
+              <b className="jn-ring__num">{strength.score}</b>
+              <span className="jn-muted">من 100</span>
+            </span>
+          </div>
+          <div className="jn-power__body">
+            <span className="jn-power__level" data-testid="journey-strength-level">
+              ⚡ المستوى {strength.level} · {strength.levelNameAr}
+            </span>
+            <p className="jn-power__sub">
+              {strength.practiced > 0
+                ? `${strength.mastered} من ${strength.practiced} مفهومًا تدرّبت عليها وصلت حدّ الإتقان — والباقي على الطريق.`
+                : "قوّتك تبدأ من أول تمرين — أجب سؤالًا واحدًا وتنطلق الواحة."}
+            </p>
+            {strength.nextLevelAt !== null ? (
+              <>
+                <div className="jn-power__bar" aria-hidden="true">
+                  <span
+                    className="jn-power__fill"
+                    style={{ width: `${Math.round(strengthProgress(strength) * 100)}%` }}
+                  />
+                </div>
+                <span className="jn-power__next">
+                  إلى المستوى {strength.level + 1} «{STRENGTH_LEVELS[strength.level]?.name}»: بقي{" "}
+                  {strength.nextLevelAt - strength.score} نقطة
+                </span>
+              </>
+            ) : (
+              <span className="jn-power__next">القمة! حافظ على واحتك خالدة.</span>
+            )}
+          </div>
+        </section>
+
+        <Card
+          className="jn-card jn-card--goals"
+          title="🎯 أهدافي الآن"
+          hint="أهداف حقيقية من إتقانك — وكل هدف مفهوم معه «تدرّب الآن» يفتح تمرينًا عليه فورًا."
+          data-testid="journey-goals"
+        >
+          {goals.length > 0 ? (
+            <ul className="jn-goals">
+              {goals.map((g) => (
+                <li key={g.id} className="jn-goal" data-kind={g.kind} data-testid="journey-goal">
+                  <div className="jn-goal__head">
+                    <span className="jn-goal__title">{g.title}</span>
+                    <span className="jn-goal__pct">{Math.round(g.progress * 100)}%</span>
+                  </div>
+                  <p className="jn-goal__detail">{g.detail}</p>
+                  <div className="jn-goal__bar" aria-hidden="true">
+                    <span className="jn-goal__fill" style={{ width: `${Math.round(g.progress * 100)}%` }} />
+                  </div>
+                  {g.conceptId && (
+                    <Button
+                      size="sm"
+                      onClick={() => openPractice(g.conceptId!, g.conceptTitle ?? null, "goal")}
+                      data-testid="journey-goal-cta"
+                    >
+                      تدرّب الآن ⚡
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="jn-empty" data-testid="journey-goals-empty">
+              لا أهداف بعد — أول تمرين يفتح أول هدف هنا.
+            </p>
+          )}
+
+          {practice?.source === "goal" && renderPractice()}
+        </Card>
+
         <Card
           className="jn-card jn-card--garden"
-          title="🌴 حديقتي على النيل"
-          hint="كل مفهوم تتقنه يُنبت نخلة — والإتقان الأعمق يطول أمامك. نفس الإتقان = نفس الحديقة، دائمًا."
+          title="🌴 واحة إتقاني على النيل"
+          hint="كل نخلة هنا مفهوم أتقنته فعلًا — والواحة تكبر مع كل خطوة. نفس الإتقان = نفس الواحة، دائمًا."
         >
           <NileGarden garden={garden} />
           <ul className="jn-legend" data-testid="garden-legend">
@@ -237,12 +405,12 @@ export function JourneyScreen({ user, onBack }: Props) {
           </ul>
           {garden.plants.length === 0 && (
             <p className="jn-empty" data-testid="journey-garden-empty">
-              الحديقة بانتظارك — ابدأ جلسة أو تمرينًا وسيظهر أول برعم هنا.
+              الواحة بانتظارك — ابدأ جلسة أو تمرينًا وسيظهر أول برعم هنا.
             </p>
           )}
         </Card>
 
-        <Card className="jn-card" title="📈 إتقاني" hint="خريطة مفاهيمك بالألوان الهادئة — من هنا تعرف أين تقف بالضبط."
+        <Card className="jn-card" title="📈 إتقاني" hint="قوة كل مفهوم بالأرقام — من هنا تعرف بالضبط أين تقف، وخطوتك القادمة."
           data-testid="journey-mastery">
           {masterySorted.length > 0 ? (
             <ul className="jn-mastery">
@@ -271,7 +439,7 @@ export function JourneyScreen({ user, onBack }: Props) {
                     {progress.progress.strengths.map((s) => (
                       <span key={s.conceptId} data-testid="journey-strength">
                         <Chip tone="gold" icon="💪">
-                          {s.title}
+                          <span className="jn-chip-text">{s.title}</span>
                         </Chip>
                       </span>
                     ))}
@@ -285,7 +453,7 @@ export function JourneyScreen({ user, onBack }: Props) {
                     {progress.progress.weaknesses.map((w) => (
                       <span key={w.conceptId} data-testid="journey-weakness">
                         <Chip tone="outline" icon="🔎">
-                          {w.title}
+                          <span className="jn-chip-text">{w.title}</span>
                         </Chip>
                       </span>
                     ))}
@@ -400,7 +568,7 @@ export function JourneyScreen({ user, onBack }: Props) {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => openPractice(m)}
+                      onClick={() => m.conceptId && openPractice(m.conceptId, m.conceptTitle, "mistake")}
                       disabled={!m.conceptId}
                       data-testid="journey-mistake-review"
                     >
@@ -416,67 +584,7 @@ export function JourneyScreen({ user, onBack }: Props) {
             </p>
           )}
 
-          {practice && (
-            <div className="jn-practice" data-testid="journey-practice" data-concept={practice.conceptId}>
-              <div className="jn-practice__head">
-                <span className="jn-practice__title">تمرين مراجعة — {practice.conceptTitle ?? "المفهوم"}</span>
-                <Button variant="quiet" size="sm" onClick={() => setPractice(null)} data-testid="journey-practice-close">
-                  إغلاق ✕
-                </Button>
-              </div>
-
-              {practice.loading && <p className="jn-empty">…نجهّز سؤالًا</p>}
-              {practice.error && <p className="jn-empty" data-testid="journey-practice-error">{practice.error}</p>}
-
-              {practice.question && !practice.result && (
-                <>
-                  <p className="jn-practice__question" data-testid="journey-practice-question">
-                    {practice.question.content}
-                  </p>
-                  <ul className="jn-practice__options">
-                    {(practice.question.options ?? []).map((opt, i) => (
-                      <li key={`${practice.question!.id}-${i}`}>
-                        <button
-                          type="button"
-                          className={`jn-option ${practice.chosen === i ? "jn-option--picked" : ""}`}
-                          onClick={() => setPractice((p) => (p ? { ...p, chosen: i } : p))}
-                          disabled={practice.busy}
-                          data-testid="journey-practice-option"
-                        >
-                          {opt}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button
-                    onClick={submitPractice}
-                    disabled={practice.chosen === null || practice.busy}
-                    data-testid="journey-practice-submit"
-                  >
-                    {practice.busy ? "…" : "تحقّق ✓"}
-                  </Button>
-                </>
-              )}
-
-              {practice.result && (
-                <div
-                  className={`jn-feedback ${practice.result.correct ? "jn-feedback--good" : "jn-feedback--weak"}`}
-                  data-testid="journey-practice-feedback"
-                  data-correct={practice.result.correct}
-                >
-                  <b>{practice.result.correct ? "أحسنت! إجابة صحيحة." : "إجابة غير صحيحة — راجع الشرح ثم تابع."}</b>
-                  {practice.result.explanation && <p className="jn-feedback__why">{practice.result.explanation}</p>}
-                  {practice.result.mastery && (
-                    <span data-testid="journey-practice-mastery">
-                      <Chip tone="outline">
-                        {practice.result.mastery.labelAr} · {Math.round(practice.result.mastery.decayedScore * 100)}%
-                      </Chip>
-                    </span>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
+          {practice?.source === "mistake" && renderPractice()}
         </Card>
       </main>
     </div>

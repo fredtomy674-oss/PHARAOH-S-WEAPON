@@ -172,12 +172,29 @@
   --ok-fg: #6b4e1e;
   --ok-line: rgba(185, 138, 65, 0.38);
 
-  /* ---- حديقة النيل (W6): تيل النيل وأخضر البردي — هادئان مع الذهبي ---- */
-  --nile-1: #e7f0ee;
-  --nile-2: #3f7f8c;
-  --leaf-1: #5c7a4a;
-  --leaf-2: #7d9a63;
-  --sand: #efe4cf;
+  /* ---- واحة النيل 2.0 (PHASE 161.1): سماء ذهبية + نيل فيروزي + زمرد مشرق ---- */
+  --sky-1: #ffdf9e;
+  --sky-2: #bfe9e2;
+  --dune: #e9cf92;
+  --water-1: #33a9ba;
+  --water-2: #0b5f72;
+  --foam: #eafbf8;
+  --leaf-1: #1f9d63;
+  --leaf-2: #57cc8d;
+  --leaf-3: #14724a;
+  --palm-trunk: #a9742f;
+  --lotus-1: #ef7aa4;
+  --lotus-2: #fbc4d8;
+  --sand: #f4e3bb;
+  --sand-2: #e2c489;
+  --sun-1: #ffe08a;
+  --sun-2: #f59e0b;
+  --sun-glow: rgba(245, 158, 11, 0.35);
+  --glow-gold: rgba(245, 158, 11, 0.45);
+  --glow-leaf: rgba(31, 157, 99, 0.35);
+  --star: #ffe9a8;
+  --nile-1: #d9f2ef; /* جسر W6: خلفية مسرح المعلّم الحيّ */
+  --nile-2: #22a0b0; /* جسر W6: موجات/لمسات المعلّم */
   --warn-bg: #fdf1dd;
   --warn-fg: #8a5a0b;
   --warn-line: #f0d9a8;
@@ -236,12 +253,29 @@
   --ok-fg: var(--gold-text-on-dark);
   --ok-line: rgba(217, 169, 92, 0.35);
 
-  /* ---- حديقة النيل (W6): ليلٌ أعمق للماء وأخضر أفتح للورق ---- */
-  --nile-1: #10262b;
-  --nile-2: #4f98a6;
-  --leaf-1: #7ba267;
-  --leaf-2: #9dbf85;
-  --sand: #2a2418;
+  /* ---- واحة النيل 2.0 (PHASE 161.1): ليل فيروزي يتوهّج كالواحة ---- */
+  --sky-1: #081d29;
+  --sky-2: #10374a;
+  --dune: #1a4052;
+  --water-1: #17869b;
+  --water-2: #062733;
+  --foam: #9fe8e0;
+  --leaf-1: #3fd68f;
+  --leaf-2: #8ff0b8;
+  --leaf-3: #1f9a63;
+  --palm-trunk: #cf9c50;
+  --lotus-1: #f27fae;
+  --lotus-2: #ffc1da;
+  --sand: #2e2a1a;
+  --sand-2: #443d28;
+  --sun-1: #fdf3cf;
+  --sun-2: #e6cf8d;
+  --sun-glow: rgba(253, 243, 207, 0.28);
+  --glow-gold: rgba(255, 214, 110, 0.4);
+  --glow-leaf: rgba(63, 214, 143, 0.35);
+  --star: #ffe9a8;
+  --nile-1: #0e2733; /* جسر W6: خلفية مسرح المعلّم الحيّ */
+  --nile-2: #4f98a6; /* جسر W6: موجات/لمسات المعلّم */
   --warn-bg: rgba(232, 155, 60, 0.14);
   --warn-fg: #f0c27b;
   --warn-line: rgba(232, 155, 60, 0.35);
