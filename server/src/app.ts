@@ -15,6 +15,7 @@ import { curriculumRoutes } from "./modules/curriculum/routes.js";
 import { sessionsRoutes } from "./modules/sessions/routes.js";
 import { progressRoutes } from "./modules/progress/routes.js";
 import { practiceRoutes } from "./modules/practice/routes.js";
+import { sourcesRoutes } from "./modules/sources/routes.js";
 import { adminRoutes } from "./modules/admin/routes.js";
 import { parentRoutes } from "./modules/parent/routes.js";
 import { subscriptionRoutes } from "./modules/subscription/routes.js";
@@ -153,6 +154,8 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
       await api.register(subscriptionRoutes, { prefix: "/me" });
       await api.register(achievementsRoutes, { prefix: "/achievements" });
       await api.register(practiceRoutes, { prefix: "/practice" });
+      // PHASE 160 (W5) — the lesson's six study sources (deterministic, cached).
+      await api.register(sourcesRoutes, { prefix: "/lessons" });
     },
     { prefix: "/api" },
   );

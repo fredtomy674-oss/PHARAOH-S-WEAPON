@@ -4,6 +4,8 @@ import {
   generatePracticeQuestion,
   getPracticeQuestion,
   lessonBreadcrumb,
+  lessonSources,
+  lessonStage,
   listConcepts,
   myProgress,
   startSession,
@@ -11,9 +13,13 @@ import {
   type Breadcrumb,
   type Concept,
   type LearningSession,
+  type LessonSources,
+  type LessonStage,
   type MasteryConcept,
   type PracticeQuestion,
   type PracticeResult,
+  type SourceCardType,
+  type SourceItem,
 } from "./api.js";
 import { Button, Card } from "./components/ui/index.js";
 
@@ -52,6 +58,111 @@ interface QuizState {
 /** «اختبار قصير» — حد أقصى لأسئلة الجلسة الواحدة. */
 const QUIZ_MAX_QUESTIONS = 6;
 
+// --- PHASE 160 (W5) — المصادر الستة ------------------------------------------
+
+type SourceTabId = "summary" | "definitions" | "cards" | "errors" | "examples" | "review";
+
+const SOURCE_TABS: Array<{ id: SourceTabId; label: string }> = [
+  { id: "summary", label: "ملخص" },
+  { id: "definitions", label: "تعريفات" },
+  { id: "cards", label: "بطاقات" },
+  { id: "errors", label: "أخطاء شائعة" },
+  { id: "examples", label: "أمثلة" },
+  { id: "review", label: "مراجعة" },
+];
+
+const CARD_META: Record<SourceCardType, { icon: string; label: string }> = {
+  memorise: { icon: "🧠", label: "احفظ" },
+  understand: { icon: "💡", label: "افهم" },
+  watch: { icon: "⚠️", label: "خلي بالك" },
+  connect: { icon: "🔗", label: "اربط" },
+  remember: { icon: "📖", label: "تذكّر" },
+};
+
+const SOURCE_EMPTY: Record<SourceTabId, string> = {
+  summary: "لا يوجد نص كتابي لهذا الدرس بعد — تُبنى المصادر من صفحات كتابك حين تتوفر.",
+  definitions: "لم يضع الكتاب تعريفًا صريحًا في هذا الدرس — تظهر هنا التعريفات التي يكتبها بنفسه.",
+  cards: "لا بطاقات من كتابك في هذا الدرس بعد.",
+  errors: "لا أخطاء مرصودة على هذا الدرس بعد — واصل التدريب وسيظهر هنا ما يتكرر خطؤه.",
+  examples: "لم يعرض الكتاب أمثلة موسومة في هذا الدرس.",
+  review: "لا عناصر مراجعة لهذا الدرس بعد.",
+};
+
+/** صياغة عدد المرات بالعربية: مرة واحدة · مرتان · N مرات · N مرة. */
+function timesLabel(n: number): string {
+  if (n === 1) return "مرة واحدة";
+  if (n === 2) return "مرتان";
+  return n <= 10 ? `${n} مرات` : `${n} مرة`;
+}
+
+/** لوحة التبويب النشط — البيانات كلها وصلت مرة واحدة، فالتبديل فوري. */
+function SourcePanel({ sources, tab }: { sources: LessonSources; tab: SourceTabId }) {
+  const items: SourceItem[] =
+    tab === "summary"
+      ? sources.summary
+      : tab === "definitions"
+        ? sources.definitions
+        : tab === "cards"
+          ? sources.cards
+          : tab === "errors"
+            ? sources.errors
+            : tab === "examples"
+              ? sources.examples
+              : sources.review;
+
+  return (
+    <div data-testid="sources-panel" data-tab={tab}>
+      {tab === "cards" && sources.cards.length > 0 && (
+        <div className="ln-counts" data-testid="source-counts">
+          {(Object.keys(CARD_META) as SourceCardType[]).map((type) =>
+            sources.cardCounts[type] ? (
+              <span key={type} className={`ln-count ln-count--${type}`} data-testid="source-count" data-card={type}>
+                {CARD_META[type].icon} {CARD_META[type].label} {sources.cardCounts[type]}
+              </span>
+            ) : null,
+          )}
+        </div>
+      )}
+
+      {items.length === 0 ? (
+        <p className="ln-note" data-testid="sources-empty">
+          {SOURCE_EMPTY[tab]}
+        </p>
+      ) : (
+        <ul className="ln-src-list">
+          {items.map((item, i) => (
+            <li key={`${item.kind}-${i}`} className="ln-src" data-testid="source-item" data-kind={item.kind} data-card={item.card ?? undefined}>
+              <div className="ln-src__head">
+                {item.card && (
+                  <span className={`ln-src__card ln-src__card--${item.card}`}>
+                    {CARD_META[item.card].icon} {CARD_META[item.card].label}
+                  </span>
+                )}
+                {item.term && <strong className="ln-src__term">{item.term}</strong>}
+              </div>
+              <p className="ln-src__text">{item.text}</p>
+              {item.wrong !== undefined && (
+                <p className="ln-src__wrong">
+                  الخطأ المتكرر: «{item.wrong}» — {timesLabel(item.count ?? 1)}
+                </p>
+              )}
+              {typeof item.page === "number" && (
+                <span className="ln-src__page" data-testid="source-page">
+                  صفحة {item.page}
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {tab === "review" && items.length > 0 && (
+        <p className="ln-note ln-src__hint">جاهز؟ اضغط «اختبرني 🎯» بالأعلى واختبر نفسك في مفاهيم الدرس.</p>
+      )}
+    </div>
+  );
+}
+
 export function LessonPage({ lessonId, onBack, onStarted }: Props) {
   const [bc, setBc] = useState<Breadcrumb["breadcrumb"] | null>(null);
   const [concepts, setConcepts] = useState<Concept[]>([]);
@@ -59,6 +170,10 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [quiz, setQuiz] = useState<QuizState | null>(null);
+  const [stage, setStage] = useState<LessonStage | null>(null);
+  const [sources, setSources] = useState<LessonSources | null>(null);
+  const [sourcesFailed, setSourcesFailed] = useState(false);
+  const [tab, setTab] = useState<SourceTabId>("summary");
 
   function refreshMastery(): void {
     myProgress()
@@ -71,12 +186,22 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
     setConcepts([]);
     setQuiz(null);
     setError(null);
+    setStage(null);
+    setSources(null);
+    setSourcesFailed(false);
+    setTab("summary");
     lessonBreadcrumb(lessonId)
       .then(setBc)
       .catch(() => setError("تعذر تحميل بيانات الدرس."));
     listConcepts(lessonId)
       .then(setConcepts)
       .catch(() => setConcepts([]));
+    lessonStage(lessonId)
+      .then(setStage)
+      .catch(() => undefined);
+    lessonSources(lessonId)
+      .then(setSources)
+      .catch(() => setSourcesFailed(true));
     refreshMastery();
   }, [lessonId]);
 
@@ -138,6 +263,13 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
       const elapsed = Math.max(1, Math.min(600, Math.round((Date.now() - quiz.shownAt) / 1000)));
       const result = await submitPracticeAnswer(q.id, quiz.chosen, elapsed);
       setQuiz((s) => (s ? { ...s, busy: false, result, correct: s.correct + (result.correct ? 1 : 0) } : s));
+      // الخطأ الجديد يصير «خطأ شائعًا» مرصودًا فورًا — نحدّث المصادر بدل
+      // إبقائها على جلب الصفحة الأول (التبويب يبقى حيًّا بعد كل إجابة خاطئة).
+      if (!result.correct) {
+        lessonSources(lessonId)
+          .then(setSources)
+          .catch(() => undefined);
+      }
     } catch {
       setQuiz((s) => (s ? { ...s, busy: false, error: "تعذر إرسال الإجابة." } : s));
     }
@@ -181,6 +313,13 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
               <p className="ln-lessonhead__place" data-testid="lesson-place">
                 {bc.subject.nameAr} · {bc.unit.title} · {bc.term.title}
               </p>
+              {stage && (
+                <span className="ln-bookchip" data-testid="lesson-book-pages">
+                  {stage.fromBookPage === stage.toBookPage
+                    ? `كتابك — صفحة ${stage.fromBookPage}`
+                    : `كتابك — صفحات ${stage.fromBookPage}–${stage.toBookPage}`}
+                </span>
+              )}
             </>
           ) : (
             <h2 data-testid="lesson-loading" className="ln-note">
@@ -341,6 +480,43 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
               })}
             </ul>
           )}
+        </Card>
+
+        <Card
+          className="ln-sources"
+          title="مصادر الدرس"
+          hint="كل سطر هنا من كتابك — ومع كل سطر صفحته. لا اختراع ولا تخمين."
+        >
+          <section data-testid="lesson-sources">
+            <div className="ln-tabs" role="tablist" data-testid="sources-tabs">
+              {SOURCE_TABS.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === t.id}
+                  className={tab === t.id ? "ln-tab ln-tab--on" : "ln-tab"}
+                  data-testid="source-tab"
+                  data-tab={t.id}
+                  onClick={() => setTab(t.id)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            {sourcesFailed ? (
+              <p className="ln-error" data-testid="sources-error">
+                تعذّر تجميع مصادر الدرس الآن — حاول مرة أخرى.
+              </p>
+            ) : !sources ? (
+              <p className="ln-note" data-testid="sources-loading">
+                نجمع مصادر درسك من كتابك…
+              </p>
+            ) : (
+              <SourcePanel sources={sources} tab={tab} />
+            )}
+          </section>
         </Card>
       </main>
     </div>

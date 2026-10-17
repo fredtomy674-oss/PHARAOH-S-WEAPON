@@ -1,0 +1,185 @@
+/* ==========================================================================
+   PHASE 160 (W5) — «مصادر الدرس» (ln-src-* / ln-tab*)
+   التبويبات الستة: ملخص · تعريفات · بطاقات · أخطاء شائعة · أمثلة · مراجعة.
+   القاعدة: رموز فقط من tokens.css — لا لون/ظل/زاوية خام هنا (ملف محروس).
+   ========================================================================== */
+
+/* ------------------------------ شريحة المرجع في الرأس ------------------------------ */
+.ln-bookchip {
+  align-self: flex-start;
+  font-size: var(--fs-1);
+  font-weight: var(--fw-semibold);
+  color: var(--primary-ink);
+  background: var(--gold-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-pill);
+  padding: 2px var(--sp-3);
+}
+
+/* ------------------------------ التبويبات ------------------------------ */
+.ln-sources .ui-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.ln-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.ln-tab {
+  font: inherit;
+  font-size: var(--fs-2);
+  font-weight: var(--fw-semibold);
+  color: var(--ink);
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 6px var(--sp-4);
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.ln-tab:hover {
+  background: var(--gold-soft);
+}
+
+.ln-tab:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.ln-tab--on {
+  color: var(--primary-ink);
+  background: var(--gold-soft);
+  border-color: var(--ok-line);
+}
+
+/* ------------------------------ عدّادات أنواع البطاقات ------------------------------ */
+.ln-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.ln-count {
+  font-size: var(--fs-2);
+  font-weight: var(--fw-semibold);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 2px var(--sp-3);
+}
+
+/* ------------------------------ قائمة البطاقات ------------------------------ */
+.ln-src-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.ln-src {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  background: var(--card-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.ln-src__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.ln-src__card {
+  font-size: var(--fs-1);
+  font-weight: var(--fw-semibold);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-pill);
+  padding: 2px var(--sp-2);
+}
+
+.ln-src__term {
+  font-size: var(--fs-3);
+  color: var(--primary-ink);
+}
+
+.ln-src__text {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-3);
+  line-height: var(--lh-body);
+}
+
+.ln-src__wrong {
+  margin: 0;
+  font-size: var(--fs-2);
+  color: var(--warn-fg);
+}
+
+.ln-src__page {
+  align-self: flex-start;
+  font-size: var(--fs-1);
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-pill);
+  padding: 1px var(--sp-2);
+}
+
+.ln-src__hint {
+  margin-top: var(--sp-3);
+}
+
+/* ------------------------------ ألوان الفئات تحكم البطاقة والعدّاد ------------------------------ */
+.ln-src__card--memorise,
+.ln-count--memorise {
+  color: var(--ok-fg);
+  background: var(--ok-bg);
+  border-color: var(--ok-line);
+}
+
+.ln-src__card--understand,
+.ln-count--understand {
+  color: var(--primary-ink);
+  background: var(--gold-soft);
+  border-color: var(--line-soft);
+}
+
+.ln-src__card--watch,
+.ln-count--watch {
+  color: var(--warn-fg);
+  background: var(--warn-bg);
+  border-color: var(--warn-line);
+}
+
+.ln-src__card--connect,
+.ln-count--connect {
+  color: var(--ink);
+  background: var(--card);
+  border-color: var(--line);
+}
+
+.ln-src__card--remember,
+.ln-count--remember {
+  color: var(--muted);
+  background: var(--card);
+  border-color: var(--line-soft);
+}
+
+@media (min-width: 900px) {
+  .ln-src-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}

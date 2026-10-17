@@ -456,6 +456,47 @@ export async function lessonStage(lessonId: string): Promise<LessonStage | null>
   return res.stage;
 }
 
+// --- PHASE 160 (W5) — «مصادر الدرس» -----------------------------------------
+
+export type SourceCardType = "memorise" | "understand" | "watch" | "connect" | "remember";
+
+export interface SourceItem {
+  kind: string;
+  text: string;
+  /** Printed book page the line came from (book-derived items only). */
+  page?: number;
+  /** For definitions: the term the sentence defines, when the sentence names it. */
+  term?: string;
+  /** For observed errors: the wrong answer students actually picked. */
+  wrong?: string;
+  /** For observed errors: how many times it was picked (aggregate, no names). */
+  count?: number;
+  /** For cards: the card's type. */
+  card?: SourceCardType;
+}
+
+/**
+ * W5 — the lesson's six study tabs, built on the server deterministically from
+ * the lesson's own printed pages. Every book-derived line carries its page;
+ * nothing here is invented.
+ */
+export interface LessonSources {
+  hasBookText: boolean;
+  pageRange: { from: number; to: number } | null;
+  summary: SourceItem[];
+  definitions: SourceItem[];
+  cards: SourceItem[];
+  cardCounts: Partial<Record<SourceCardType, number>>;
+  errors: SourceItem[];
+  examples: SourceItem[];
+  review: SourceItem[];
+}
+
+export async function lessonSources(lessonId: string): Promise<LessonSources> {
+  const res = await api<{ sources: LessonSources }>(`/lessons/${encodeURIComponent(lessonId)}/sources`);
+  return res.sources;
+}
+
 export async function startSession(input: { curriculumId: string; gradeId: string; subjectId: string; lessonId: string }): Promise<LearningSession> {
   const res = await api<{ session: LearningSession }>("/sessions", { method: "POST", body: input });
   return res.session;
