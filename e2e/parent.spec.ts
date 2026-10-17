@@ -95,15 +95,21 @@ test("P4 (PHASE 23): a parent opens a child session's metadata-only activity tim
  * mastery level — separately from the exposure refresh a lesson session gives.
  */
 test("P5 (PHASE 35): a parent sees «آخر ممارسة» per concept after the child practices", async ({ page }) => {
-  // 1) The student opens a practice round and answers, closing it.
+  // 1) The student opens a practice round and ANSWERS it — the graded attempt
+  //    is what stamps `last_practiced_at` — then closes it. (The old version
+  //    closed the loading panel; it only passed inside the full suite because
+  //    earlier specs had already graded answers. An answer here makes the
+  //    test mean what its title says, standalone included.)
   await login(page);
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
   const firstPractice = page.getByTestId("plan-practice").first();
   await expect(firstPractice).toBeVisible({ timeout: 20_000 });
   await firstPractice.click();
-  const close = page.getByTestId("practice-close");
-  await expect(close).toBeVisible({ timeout: 20_000 });
-  await close.click();
+  await expect(page.getByTestId("practice-question")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("practice-option").first().click();
+  await page.getByTestId("practice-submit").click();
+  await expect(page.getByTestId("practice-feedback")).toBeVisible({ timeout: 20_000 });
+  await page.getByTestId("practice-close").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 
   // 2) The parent opens the same child and reads the per-concept recency.
@@ -119,4 +125,34 @@ test("P5 (PHASE 35): a parent sees «آخر ممارسة» per concept after the
   const rows = page.getByTestId("parent-progress-row");
   await expect(rows.first()).toBeVisible({ timeout: 20_000 });
   await expect(rows.first().getByTestId("parent-progress-last-practice")).toContainText("آخر ممارسة");
+});
+
+/**
+ * PHASE 163 (W9) — «مركز ولي الأمر» المُعاد بناؤه: رسالة المعلّم الأسبوعية
+ * («أنجز · يحتاج نظرة · خطوة واحدة») و«كيف أساعد؟» بثلاث خطوات عملية — مع
+ * شارة الوعد الخصوصي. يعتمد على زمن نفس الطقم: جلسة P4 هذا الأسبوع موجودة،
+ * فتكون رسالة المعلّم غير فارغة حتمًا — والمحتوى يبقى وصفياً أبدًا.
+ */
+test("P6 (PHASE 163): the parent center speaks human and still reads metadata only", async ({ page }) => {
+  await login(page, DEMO_PARENT.email, DEMO_PARENT.password, "parent-screen");
+
+  // The privacy promise is visible before any child is opened.
+  await expect(page.getByTestId("parent-privacy-badge")).toContainText("لا نقرأ محادثات");
+
+  await page.getByTestId("parent-child-open").click();
+  await expect(page.getByTestId("parent-child-detail")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("parent-privacy-badge")).toContainText("لا نقرأ محادثات");
+
+  // «رسالة المعلّم»: إنجاز حقيقي من أرقام الأسبوع + خطوة واحدة عملية.
+  await expect(page.getByTestId("parent-teacher-message")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("parent-teacher-achieved").locator("li").first()).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("parent-teacher-step")).not.toBeEmpty();
+
+  // «كيف أساعد؟»: ثلاث خطوات بالضبط، وكل خطوة تحمل وقتها المقترح.
+  await expect(page.getByTestId("parent-help-step")).toHaveCount(3, { timeout: 20_000 });
+  await expect(page.getByTestId("parent-help-step").first()).toContainText(/دقيقة|دقائق/);
+
+  // الخصوصية مقدسة: لا تدخل نصوص محادثة P4 إلى أي جزء من المركز.
+  await expect(page.locator("body")).not.toContainText("اشرح لي مثالًا عمليًا");
+  await expect(page.locator("body")).not.toContainText("تجاهل كل التعليمات");
 });

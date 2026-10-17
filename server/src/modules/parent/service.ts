@@ -21,8 +21,13 @@ import { Errors } from "../../utils/errors.js";
 import { safeParseAssessment } from "../progress/mastery.js";
 import {
   buildWeeklyReport,
-  type ParentWeeklyReport,
 } from "./weeklyReport.js";
+import {
+  buildHelpPlan,
+  buildTeacherMessage,
+  type ParentWeeklyDigest,
+  type WeakConceptHint,
+} from "./teacherMessage.js";
 
 export interface ChildSummary {
   studentId: string;
@@ -352,7 +357,7 @@ export class ParentService {
    * CONTENT is never selected here. `now` is injectable so the window and the
    * streak are deterministic in tests.
    */
-  async weeklyReport(userId: string, studentId: string, now: Date = new Date(), days = 7): Promise<ParentWeeklyReport> {
+  async weeklyReport(userId: string, studentId: string, now: Date = new Date(), days = 7): Promise<ParentWeeklyDigest> {
     const parent = await this.requireParent(userId);
     const link = await this.db.db
       .select()
@@ -434,6 +439,14 @@ export class ParentService {
       days,
     });
 
+    // PHASE 163 — الطبقة البشرية: «رسالة المعلّم» + خطة المساعدة الثلاثية،
+    // من نفس بيانات التقرير + أضعف المفاهيم المتتبَّعة (بلا أي جدول جديد).
+    const weakConcepts: WeakConceptHint[] = mastery
+      .filter((m) => m.decayedMastery < 0.6)
+      .sort((a, b) => a.decayedMastery - b.decayedMastery || a.title.localeCompare(b.title, "ar"))
+      .slice(0, 3)
+      .map((m) => ({ title: m.title, mastery: m.decayedMastery, labelAr: m.labelAr }));
+
     return {
       child: {
         studentId,
@@ -442,6 +455,8 @@ export class ParentService {
       },
       window: { from: windowStart, to: now, days },
       ...report,
+      teacherMessage: buildTeacherMessage(summary.displayName, report, weakConcepts),
+      helpPlan: buildHelpPlan(summary.displayName, report, weakConcepts),
     };
   }
 

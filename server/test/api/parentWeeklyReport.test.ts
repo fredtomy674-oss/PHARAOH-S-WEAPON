@@ -29,6 +29,8 @@ interface WeeklyReportShape {
   headline: string;
   highlights: string[];
   parentActions: string[];
+  teacherMessage: { achieved: string[]; attention: string | null; step: string };
+  helpPlan: Array<{ title: string; detail: string; minutes: number }>;
 }
 
 /**
@@ -141,6 +143,23 @@ describe("parent weekly digest (GET /api/parent/children/:id/weekly-report) — 
     expect(report.focus.improving).toHaveLength(1);
     expect(report.highlights.some((h) => h.includes("مقارنة الكسور"))).toBe(true);
     expect(report.parentActions.some((a) => a.includes("مقارنة الكسور"))).toBe(true);
+  });
+
+  it("speaks human (PHASE 163): a teacher message and exactly three help steps — still metadata-only", async () => {
+    const report = ((await getReport()).json() as { report: WeeklyReportShape }).report;
+
+    // «رسالة المعلّم»: إنجاز حقيقي + نقطة الانتباه الحقيقية (مقارنة الكسور أخطأ فيها مرتين أعلاه).
+    expect(report.teacherMessage.achieved.length).toBeGreaterThan(0);
+    expect(report.teacherMessage.attention).toContain("مقارنة الكسور");
+    expect(report.teacherMessage.step.length).toBeGreaterThan(0);
+
+    // «كيف أساعد؟»: ثلاث خطوات بالضبط، أولها المفهوم الأضعف، وكلها بوقت مقترح.
+    expect(report.helpPlan).toHaveLength(3);
+    expect(report.helpPlan[0]!.title).toContain("مقارنة الكسور");
+    for (const step of report.helpPlan) expect(step.minutes).toBeGreaterThan(0);
+
+    // الخصوصية تُصان في الطبقة البشرية الجديدة أيضًا: صفر نصوص محادثات.
+    expect(JSON.stringify(report)).not.toContain(SECRET_MESSAGE);
   });
 
   it("counts only activity inside the window", async () => {

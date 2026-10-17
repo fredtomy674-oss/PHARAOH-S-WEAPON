@@ -15,6 +15,7 @@ import {
   type SessionRecap,
   type User,
 } from "./api.js";
+import { Button, Card, Chip } from "./components/ui/index.js";
 import { SessionRecapCard } from "./RecapCard.js";
 
 const KIND_LABEL: Record<string, string> = {
@@ -26,16 +27,34 @@ const KIND_LABEL: Record<string, string> = {
   system: "نظام",
 };
 
+/**
+ * عدد صحيح بصيغة عربية سليمة: ١ ⇒ forms.one (بلا رقم) · ٢ ⇒ forms.two ·
+ * ٣–١٠ ⇒ جمع القلة · ١١+ ⇒ مفرد منصوب. (٠ يقع على «many» — «0 جلسة» مقروءة.)
+ */
+function arCount(n: number, forms: { one: string; two: string; few: string; many: string }): string {
+  if (n === 1) return forms.one;
+  if (n === 2) return forms.two;
+  if (n <= 10) return `${n} ${forms.few}`;
+  return `${n} ${forms.many}`;
+}
+
+const SESSIONS_WORD = { one: "جلسة واحدة", two: "جلستان", few: "جلسات", many: "جلسة" };
+const MINUTES_WORD = { one: "دقيقة واحدة", two: "دقيقتان", few: "دقائق", many: "دقيقة" };
+const ASK_WORD = { one: "سؤال واحد", two: "سؤالان", few: "أسئلة", many: "سؤالًا" };
+const REPLY_WORD = { one: "رد واحد", two: "ردان", few: "ردود", many: "ردًا" };
+
 interface Props {
   user: User;
-  onLogout: () => void;
 }
 
 /**
- * Parent dashboard (PHASE 18): a read-only window into linked children's
- * progress and session summaries. Built on the student's sharing code.
+ * PHASE 163 (W9) — «مركز ولي الأمر»: إعادة بناء كاملة لواجهة PHASE 18/23/35/93
+ * بالهوية الجديدة — نفس البيانات ونفس العقود (`parent-*` كلها حرفية) لكن بسرد
+ * بشري مطمئن: رسالة المعلّم الأسبوعية، «كيف أساعد؟» بثلاث خطوات، خريطة إتقان
+ * حيّة، وتقرير أسبوعي — وكلها من بيانات وصفية فقط: صفر نصوص محادثات، وشارة
+ * صريحة بذلك. الجلسات وتفاصيلها (الخط الزمني الآمن) كما هي بعقودها.
  */
-export function ParentScreen({ user, onLogout }: Props) {
+export function ParentScreen({ user }: Props) {
   const [children, setChildren] = useState<ParentChild[]>([]);
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -46,7 +65,8 @@ export function ParentScreen({ user, onLogout }: Props) {
   const [detailError, setDetailError] = useState<string | null>(null);
   const [sessionDetail, setSessionDetail] = useState<ParentSessionDetail | null>(null);
   const [sessionDetailError, setSessionDetailError] = useState<string | null>(null);
-  // PHASE 93 — the child's weekly digest (periodic parent update).
+  // PHASE 93 — the child's weekly digest; PHASE 163 adds the human layer
+  // (teacher message + help plan) on the same payload.
   const [weekly, setWeekly] = useState<ParentWeeklyReport | null>(null);
   const [weeklyError, setWeeklyError] = useState<string | null>(null);
   const [weeklyLoading, setWeeklyLoading] = useState(false);
@@ -144,392 +164,479 @@ export function ParentScreen({ user, onLogout }: Props) {
     }
   };
 
+  // ------------------------------ تفاصيل الجلسة ------------------------------
   if (sessionDetail) {
     const s = sessionDetail.session;
     return (
-      <div className="layout">
-        <header className="topbar">
-          <div className="topbar-inner">
-            <strong>سلاح الفرعون</strong>
-            <span className="muted">تفاصيل الجلسة — {detail?.child.displayName ?? ""}</span>
-            <button className="btn ghost" onClick={() => setSessionDetail(null)} data-testid="parent-session-back">
-              عودة للتقدم
-            </button>
-            <button className="btn ghost" onClick={onLogout} data-testid="logout">
-              خروج
-            </button>
-          </div>
-        </header>
-
-        <main className="container" data-testid="parent-session-detail">
-          <section className="hero card">
-            <h2>
-              <span className={`badge ${s.status === "active" ? "ok" : "off"}`}>{s.status === "active" ? "مفتوحة" : "منتهية"}</span>{" "}
-              {s.lessonTitle ?? "درس غير محدد"}
-            </h2>
-            <p className="muted">
-              {new Date(s.startedAt).toLocaleString("ar-EG")}
-              {s.endedAt ? ` → ${new Date(s.endedAt).toLocaleString("ar-EG")}` : ""} · {s.durationMinutes} دقيقة ·{" "}
-              {s.userMessages} سؤالًا · {s.tutorMessages} ردًا
-              {s.endedReason && s.endedReason !== "user_request" ? ` · النهاية: ${s.endedReason}` : ""}
-            </p>
-            {sessionDetailError && (
-              <p className="error" data-testid="parent-session-error">
-                {sessionDetailError}
-              </p>
-            )}
-          </section>
-
-          {sessionDetail.safety.flaggedTurns > 0 && (
-            <section className="card warn" data-testid="parent-safety-warning">
-              <h3>⚠️ تنبيه سلامة</h3>
-              <p className="muted">
-                {sessionDetail.safety.flaggedTurns} محاولة/رد محجوب لأسلوب يتجاوز قواعد النظام أثناء هذه الجلسة — راجعتها
-                المعلّم وردّت بأمان.
-              </p>
-            </section>
-          )}
-
-          <section className="card">
-            <h3>مفاهيم عُرضت في الجلسة</h3>
-            {sessionDetail.concepts.length === 0 ? (
-              <p className="muted" data-testid="parent-session-concepts-empty">
-                لا توجد تقييمات مفاهيم مسجّلة في هذه الجلسة.
-              </p>
-            ) : (
-              <ul className="progress-list" data-testid="parent-session-concepts">
-                {sessionDetail.concepts.map((c) => (
-                  <li key={c.conceptId} className="progress-row">
-                    <span>{c.title}</span>
-                    <span className="muted">
-                      {c.correct}/{c.attempts} إجابات صحيحة
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-
-          <section className="card">
-            <h3>ملخص الجلسة الآمن</h3>
-            <p className="muted">عنوان الدرس والأعداد والمفاهيم فقط — لا تعرض نصوص المحادثة أبدًا.</p>
-            {parentRecapState === "idle" && (
-              <button className="btn small primary" data-testid="parent-recap-button" onClick={loadParentRecap}>
-                عرض الملخص
-              </button>
-            )}
-            {parentRecapState === "loading" && (
-              <p className="muted" data-testid="parent-recap-loading">
-                جارٍ إعداد الملخص…
-              </p>
-            )}
-            {parentRecapState === "loaded" &&
-              (parentRecap === null ? (
-                <p className="muted" data-testid="parent-recap-empty">
-                  لا توجد محادثة في هذه الجلسة لعرض ملخصها.
-                </p>
-              ) : (
-                <SessionRecapCard recap={parentRecap} testIdPrefix="parent-" />
-              ))}
-          </section>
-
-          <section className="card">
-            <h3>النشاط (بيانات وصفية فقط — بلا نصوص)</h3>
-            <ul className="session-list" data-testid="parent-timeline">
-              {sessionDetail.timeline.map((entry) => (
-                <li key={entry.id} className="session-row" data-testid="parent-timeline-entry">
-                  <div>
-                    <span className={`badge ${entry.role === "user" ? "ok" : "off"}`}>
-                      {entry.role === "user" ? "رسالة الطالب" : entry.role === "tutor" ? "إجابة المعلّم" : "نظام"}
-                    </span>
-                    <b>{KIND_LABEL[entry.kind] ?? entry.kind}</b>
-                    <span className="muted">{new Date(entry.createdAt).toLocaleTimeString("ar-EG")}</span>
-                    {entry.safetyFlagged && <span className="pill warn" data-testid="parent-flag-badge">محجوب (أمان)</span>}
-                  </div>
-                  {entry.attachments.length > 0 && (
-                    <div className="muted">
-                      {entry.attachments.map((a) => (
-                        <span key={a.id} className="pill" data-testid="parent-attachment-chip">
-                          {a.itemKind === "image" ? "🖼️ صورة" : "📄 مستند"}: {a.fileName ?? a.mimeType}
-                          {a.ocrApplied ? " (نص ممسوح ضوئيًا)" : ""}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        </main>
-      </div>
-    );
-  }
-
-  if (detail) {
-    return (
-      <div className="layout">
-        <header className="topbar">
-          <div className="topbar-inner">
-            <strong>سلاح الفرعون</strong>
-            <span className="muted">حساب ولي الأمر — {detail.child.displayName}</span>
-            <button className="btn ghost" onClick={() => setDetail(null)} data-testid="parent-back">
-              عودة
-            </button>
-            <button className="btn ghost" onClick={onLogout} data-testid="logout">
-              خروج
-            </button>
-          </div>
-        </header>
-
-        <main className="container" data-testid="parent-child-detail">
-          <section className="hero card">
-            <h2>تقدّم {detail.child.displayName}</h2>
-            <p className="muted">
-              {detail.child.gradeNameAr ?? "بدون تحديد صف"} · {detail.child.curricula.join("، ")} · {detail.child.sessionCount}{" "}
-              جلسة
-            </p>
-            {detailError && (
-              <p className="error" data-testid="parent-detail-error">
-                {detailError}
-              </p>
-            )}
-          </section>
-
-          {weeklyError && (
-            <p className="error" data-testid="parent-weekly-error">
-              {weeklyError}
-            </p>
-          )}
-          {weeklyLoading && !weekly && (
-            <section className="card" data-testid="parent-weekly-loading">
-              <h3>تقرير الأسبوع</h3>
-              <p className="muted">جارٍ إعداد تقرير الأسبوع…</p>
-            </section>
-          )}
-          {weekly && (
-            <section className="card weekly-report" data-testid="parent-weekly-report">
-              <h3>تقرير الأسبوع · آخر {weekly.window.days} أيام</h3>
-              <p className="weekly-headline" data-testid="parent-weekly-headline">
-                {weekly.headline}
-              </p>
-              <div className="weekly-stats" data-testid="parent-weekly-stats">
-                <div className="weekly-stat">
-                  <span className="weekly-stat-value" data-testid="parent-weekly-sessions">
-                    {weekly.activity.sessions}
-                  </span>
-                  <span className="muted small">جلسات</span>
-                </div>
-                <div className="weekly-stat">
-                  <span className="weekly-stat-value" data-testid="parent-weekly-minutes">
-                    {weekly.activity.studyMinutes}
-                  </span>
-                  <span className="muted small">دقيقة تعلّم</span>
-                </div>
-                <div className="weekly-stat">
-                  <span className="weekly-stat-value" data-testid="parent-weekly-activedays">
-                    {weekly.activity.activeDays}
-                  </span>
-                  <span className="muted small">أيام نشاط</span>
-                </div>
-                <div className="weekly-stat">
-                  <span className="weekly-stat-value" data-testid="parent-weekly-streak">
-                    {weekly.streak.currentDays}
-                  </span>
-                  <span className="muted small">أيام متتالية</span>
-                </div>
-              </div>
-              {weekly.highlights.length > 0 && (
-                <ul className="weekly-highlights" data-testid="parent-weekly-highlights">
-                  {weekly.highlights.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
-              )}
-              {weekly.parentActions.length > 0 && (
-                <div className="weekly-actions" data-testid="parent-weekly-actions">
-                  <h4>ماذا تفعل هذا الأسبوع؟</h4>
-                  <ul>
-                    {weekly.parentActions.map((a, i) => (
-                      <li key={i}>{a}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {weekly.focus.needsWork.length > 0 && (
-                <p className="muted" data-testid="parent-weekly-needswork">
-                  <span className="pill warn">تحتاج دعمًا هذا الأسبوع:</span>{" "}
-                  {weekly.focus.needsWork.map((c) => `${c.title} (${Math.round(c.accuracy * 100)}%)`).join("، ")}
-                </p>
-              )}
-            </section>
-          )}
-
-          <section className="card" data-testid="parent-progress-card">
-            <h3>التقدّم حسب المفاهيم</h3>
-            {detail.progress.concepts.length === 0 ? (
-              <p className="muted" data-testid="parent-progress-empty">
-                لا توجد بيانات تقدّم بعد.
-              </p>
-            ) : (
-              <ul className="progress-list" data-testid="parent-progress-list">
-                {detail.progress.concepts.map((c) => (
-                  <li key={c.conceptId} className="progress-row" data-testid="parent-progress-row">
-                    <span>{c.title}</span>
-                    <span className="progress-row-meta">
-                      <span className={`pill ${c.level === "mastered" || c.level === "advanced" ? "ok-pill" : "warn"}`} data-testid="parent-progress-level">
-                        {c.labelAr} · {Math.round(c.mastery * 100)}%
-                      </span>
-                      {/* PHASE 35 (D-037 tail) — «آخر ممارسة» counts graded
-                          answers only, so a parent can tell real practice from
-                          mere exposure to a lesson. */}
-                      <span className="muted practice-recency" data-testid="parent-progress-last-practice">
-                        {c.daysSinceRealPractice === 0 ? "آخر ممارسة اليوم" : `آخر ممارسة منذ ${c.daysSinceRealPractice} يوم`}
-                      </span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {detail.progress.strengths.length > 0 && (
-              <p className="muted">
-                <span className="pill ok-pill">نقاط قوة:</span> {detail.progress.strengths.join("، ")}
-              </p>
-            )}
-            {detail.progress.weaknesses.length > 0 && (
-              <p className="muted">
-                <span className="pill warn">تحتاج تركيزًا:</span> {detail.progress.weaknesses.join("، ")}
-              </p>
-            )}
-          </section>
-
-          <section className="card">
-            <h3>الجلسات</h3>
-            {detail.sessions.length === 0 ? (
-              <p className="muted" data-testid="parent-sessions-empty">
-                لا توجد جلسات بعد.
-              </p>
-            ) : (
-              <ul className="session-list" data-testid="parent-sessions-list">
-                {detail.sessions.map((s) => (
-                  <li key={s.id} className="session-row" data-testid="parent-session-row">
-                    <div>
-                      <span className={`badge ${s.status === "active" ? "ok" : "off"}`}>
-                        {s.status === "active" ? "مفتوحة" : "منتهية"}
-                      </span>
-                      <b>{s.lessonTitle ?? "درس غير محدد"}</b>
-                      <span className="muted">{new Date(s.startedAt).toLocaleString("ar-EG")}</span>
-                    </div>
-                    <div className="row-actions">
-                      <div className="muted" data-testid="parent-session-counts">
-                        رسائل: {s.totalMessages} ({s.userMessages} سؤالًا · {s.tutorMessages} ردًا)
-                      </div>
-                      <button className="btn small primary" data-testid="parent-session-open" onClick={() => openSession(detail.child, s)}>
-                        التفاصيل
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        </main>
-      </div>
-    );
-  }
-
-  return (
-    <div className="layout">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <strong>سلاح الفرعون</strong>
-          <span className="muted">لوحة ولي الأمر</span>
-          <button className="btn ghost" onClick={onLogout} data-testid="logout">
-            خروج
-          </button>
+      <main className="pc-main" data-testid="parent-session-detail">
+        <div className="pc-topbar">
+          <Button variant="ghost" size="sm" data-testid="parent-session-back" onClick={() => setSessionDetail(null)}>
+            → عودة للتقدّم
+          </Button>
         </div>
-      </header>
 
-      <main className="container" data-testid="parent-screen">
-        <section className="hero card">
-          <h2>أهلاً {user.email} 👋</h2>
-          <p className="muted">تابع تقدّم أبنائك بقراءة فقط: المفاهيم التي أتقنوها، الجلسات ونشاطها الزمني والوقت المستثمر — دون الاطلاع على نصوص المحادثات.</p>
-        </section>
-
-        <section className="card">
-          <h3>ربط طالب جديد</h3>
-          <p className="muted">اسأل الطالب عن «كود ولي الأمر» الظاهر في صفحته الرئيسية ثم أدخله هنا.</p>
-          <div className="row">
-            <input
-              data-testid="parent-link-code-input"
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") void handleLink();
-              }}
-              placeholder="مثال: SLH7KQ9M"
-              maxLength={32}
-              disabled={busy}
-            />
-            <button
-              className="btn primary"
-              data-testid="parent-link-submit"
-              onClick={handleLink}
-              disabled={busy || code.trim().length === 0}
-            >
-              ربط
-            </button>
+        <header className="pc-lead">
+          <h1 className="pc-lead__title">{s.lessonTitle ?? "درس غير محدد"}</h1>
+          <div className="pc-hero__meta">
+            <span className={`pc-status ${s.status === "active" ? "pc-status--on" : "pc-status--off"}`}>
+              {s.status === "active" ? "مفتوحة" : "منتهية"}
+            </span>
+            <Chip>{new Date(s.startedAt).toLocaleString("ar-EG")}</Chip>
+            {s.endedAt && <Chip>حتى {new Date(s.endedAt).toLocaleString("ar-EG")}</Chip>}
+            <Chip>{arCount(s.durationMinutes, MINUTES_WORD)}</Chip>
+            <Chip>
+              {arCount(s.userMessages, ASK_WORD)} · {arCount(s.tutorMessages, REPLY_WORD)}
+            </Chip>
+            {s.endedReason && s.endedReason !== "user_request" && <Chip>النهاية: {s.endedReason}</Chip>}
           </div>
-          {linkError && (
-            <p className="error" data-testid="parent-link-error">
-              {linkError}
+          <p className="pc-lead__sub">
+            {detail?.child.displayName ?? ""} — هذه الصفحة وصفية فقط: الأعداد والمفاهيم والزمن، ولا تعرض نصوص المحادثة أبدًا.
+          </p>
+          {sessionDetailError && (
+            <p className="pc-error" data-testid="parent-session-error">
+              {sessionDetailError}
             </p>
           )}
-          {linkMessage && (
-            <p className="ok" data-testid="parent-link-success">
-              {linkMessage}
-            </p>
-          )}
-        </section>
+        </header>
 
-        <section className="card">
-          <h3>أبنائي</h3>
-          {listError && (
-            <p className="error" data-testid="parent-list-error">
-              {listError}
+        {sessionDetail.safety.flaggedTurns > 0 && (
+          <section className="pc-safety" data-testid="parent-safety-warning">
+            <h3 className="pc-safety__title">⚠️ تنبيه سلامة</h3>
+            <p className="pc-safety__text">
+              {sessionDetail.safety.flaggedTurns} محاولة/رد محجوب لأسلوب يتجاوز قواعد النظام أثناء هذه الجلسة — راجعتها المعلّم
+              وردّت بأمان.
             </p>
-          )}
-          {children.length === 0 ? (
-            <p className="muted" data-testid="parent-no-children">
-              لا يوجد أبناء مربوطون بعد — أدخل كود ربط أحد الطلاب أعلاه.
+          </section>
+        )}
+
+        <Card title="مفاهيم عُرضت في الجلسة">
+          {sessionDetail.concepts.length === 0 ? (
+            <p className="pc-empty" data-testid="parent-session-concepts-empty">
+              لا توجد تقييمات مفاهيم مسجّلة في هذه الجلسة.
             </p>
           ) : (
-            <ul className="child-list" data-testid="parent-children-list">
-              {children.map((c) => (
-                <li key={c.studentId} className="child-row" data-testid="parent-child-row" data-student-id={c.studentId}>
+            <ul className="pc-rows" data-testid="parent-session-concepts">
+              {sessionDetail.concepts.map((c) => (
+                <li key={c.conceptId} className="pc-row">
+                  <span className="pc-row__title">{c.title}</span>
+                  <span className="pc-row__meta">
+                    <span className="pc-recency">
+                      {c.correct}/{c.attempts} إجابات صحيحة
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+
+        <Card title="ملخص الجلسة الآمن" hint="عنوان الدرس والأعداد والمفاهيم فقط — لا تعرض نصوص المحادثة أبدًا.">
+          {parentRecapState === "idle" && (
+            <Button size="sm" data-testid="parent-recap-button" onClick={loadParentRecap}>
+              عرض الملخص
+            </Button>
+          )}
+          {parentRecapState === "loading" && (
+            <p className="pc-empty" data-testid="parent-recap-loading">
+              جارٍ إعداد الملخص…
+            </p>
+          )}
+          {parentRecapState === "loaded" &&
+            (parentRecap === null ? (
+              <p className="pc-empty" data-testid="parent-recap-empty">
+                لا توجد محادثة في هذه الجلسة لعرض ملخصها.
+              </p>
+            ) : (
+              <SessionRecapCard recap={parentRecap} testIdPrefix="parent-" />
+            ))}
+        </Card>
+
+        <Card title="النشاط" hint="سجل وصفي فقط — الأدوار والأزمنة والمرفقات، بلا نصوص.">
+          <ul className="pc-timeline" data-testid="parent-timeline">
+            {sessionDetail.timeline.map((entry) => (
+              <li key={entry.id} className="pc-timeline__entry" data-testid="parent-timeline-entry">
+                <div className="pc-timeline__line">
+                  <span
+                    className={`pc-role ${
+                      entry.role === "user" ? "pc-role--user" : entry.role === "tutor" ? "pc-role--tutor" : "pc-role--system"
+                    }`}
+                  >
+                    {entry.role === "user" ? "رسالة الطالب" : entry.role === "tutor" ? "إجابة المعلّم" : "نظام"}
+                  </span>
+                  <span className="pc-timeline__kind">{KIND_LABEL[entry.kind] ?? entry.kind}</span>
+                  <span className="pc-timeline__when">{new Date(entry.createdAt).toLocaleTimeString("ar-EG")}</span>
+                  {entry.safetyFlagged && (
+                    <span className="pc-flag" data-testid="parent-flag-badge">
+                      محجوب (أمان)
+                    </span>
+                  )}
+                </div>
+                {entry.attachments.length > 0 && (
                   <div>
-                    <b>{c.displayName}</b>
-                    <span className="muted">
-                      {c.gradeNameAr ?? "بدون صف"} · {c.curricula.length > 0 ? c.curricula.join("، ") : "بدون مناهج"}
-                    </span>
-                    <span className="muted">
-                      {c.sessionCount} جلسة
-                      {c.lastSession ? ` · آخرها: ${c.lastSession.lessonTitle ?? "—"}` : ""}
-                    </span>
+                    {entry.attachments.map((a) => (
+                      <span key={a.id} className="pc-attach" data-testid="parent-attachment-chip">
+                        {a.itemKind === "image" ? "🖼️ صورة" : "📄 مستند"}: {a.fileName ?? a.mimeType}
+                        {a.ocrApplied ? " (نص ممسوح ضوئيًا)" : ""}
+                      </span>
+                    ))}
                   </div>
-                  <div className="row-actions">
-                    <button className="btn small primary" data-testid="parent-child-open" onClick={() => openChild(c)}>
-                      عرض التقدم
-                    </button>
-                    <button className="btn small ghost" data-testid="parent-child-unlink" onClick={() => handleUnlink(c)}>
-                      إلغاء الربط
-                    </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </main>
+    );
+  }
+
+  // ------------------------------ تقدّم ابن/ابنة ------------------------------
+  if (detail) {
+    return (
+      <main className="pc-main" data-testid="parent-child-detail">
+        <div className="pc-topbar">
+          <Button variant="ghost" size="sm" data-testid="parent-back" onClick={() => setDetail(null)}>
+            → عودة لمركز ولي الأمر
+          </Button>
+        </div>
+
+        <header className="pc-lead">
+          <h1 className="pc-lead__title">تقدّم {detail.child.displayName}</h1>
+          <span className="pc-privacy" data-testid="parent-privacy-badge">
+            🛡️ وصفية فقط — لا نقرأ محادثات ابنك
+          </span>
+          <p className="pc-lead__sub">
+            كل ما هنا مبني على البيانات الوصفية: الأعداد، المفاهيم، الإتقان والزمن. المحادثات تبقى بين الطالب والمعلّم.
+          </p>
+        </header>
+
+        <Card>
+          <div className="pc-hero__meta">
+            <Chip tone="gold">{detail.child.gradeNameAr ?? "بدون تحديد صف"}</Chip>
+            {/* نفس المنهج قد يُسجَّل أكثر من مرة في البيانات (تسجيل مزدوج) —
+                نعرضه مرة واحدة: لا مفتاح React مكرر ولا تكرار بصري. */}
+            {[...new Set(detail.child.curricula)].map((c) => (
+              <Chip key={c}>{c}</Chip>
+            ))}
+            <Chip>{arCount(detail.child.sessionCount, SESSIONS_WORD)}</Chip>
+          </div>
+          {detailError && (
+            <p className="pc-error" data-testid="parent-detail-error">
+              {detailError}
+            </p>
+          )}
+        </Card>
+
+        {weeklyError && (
+          <p className="pc-error" data-testid="parent-weekly-error">
+            {weeklyError}
+          </p>
+        )}
+        {weeklyLoading && !weekly && (
+          <Card data-testid="parent-weekly-loading">
+            <p className="pc-empty">جارٍ إعداد رسالة المعلّم وتقرير الأسبوع…</p>
+          </Card>
+        )}
+
+        {/* رسالة المعلّم — إنجاز الأسبوع · نقطة تحتاج نظرة · خطوة واحدة */}
+        {weekly && (
+          <section className="pc-letter" data-testid="parent-teacher-message">
+            <span className="pc-letter__from">
+              <span aria-hidden="true">✉️</span> رسالة المعلّم — آخر {weekly.window.days} أيام
+            </span>
+            {weekly.teacherMessage.achieved.length > 0 && (
+              <div className="pc-letter__sec">
+                <span className="pc-letter__label">أنجز {detail.child.displayName}:</span>
+                <ul className="pc-letter__list" data-testid="parent-teacher-achieved">
+                  {weekly.teacherMessage.achieved.map((line, i) => (
+                    <li key={i}>{line}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {weekly.teacherMessage.attention && (
+              <p className="pc-letter__attention" data-testid="parent-teacher-attention">
+                ⚠️ {weekly.teacherMessage.attention}
+              </p>
+            )}
+            <div className="pc-letter__step">
+              <span className="pc-letter__step-icon" aria-hidden="true">
+                🎯
+              </span>
+              <span className="pc-letter__step-text" data-testid="parent-teacher-step">
+                {weekly.teacherMessage.step}
+              </span>
+            </div>
+          </section>
+        )}
+
+        {/* كيف أساعد؟ — ثلاث خطوات عملية حتمية من أرقام الأسبوع */}
+        {weekly && (
+          <Card
+            title={`كيف أساعد ${detail.child.displayName} هذا الأسبوع؟`}
+            hint="ثلاث خطوات عملية من أرقام الأسبوع — بلا نصوص محادثات."
+          >
+            <ol className="pc-help" data-testid="parent-help-plan">
+              {weekly.helpPlan.map((s, i) => (
+                <li key={i} className="pc-help__step" data-testid="parent-help-step">
+                  <span className="pc-help__num" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                  <div className="pc-help__body">
+                    <span className="pc-help__title">{s.title}</span>
+                    <p className="pc-help__detail">{s.detail}</p>
+                    <span className="pc-help__mins">⏱ {arCount(s.minutes, MINUTES_WORD)}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Card>
+        )}
+
+        {/* تقرير الأسبوع — نفس أرقام PHASE 93 بنفس العقود */}
+        {weekly && (
+          <Card data-testid="parent-weekly-report" title={`تقرير الأسبوع · آخر ${weekly.window.days} أيام`}>
+            <p className="pc-weekly__headline" data-testid="parent-weekly-headline">
+              {weekly.headline}
+            </p>
+            <div className="pc-stats" data-testid="parent-weekly-stats">
+              <div className="pc-stat">
+                <span className="pc-stat__value" data-testid="parent-weekly-sessions">
+                  {weekly.activity.sessions}
+                </span>
+                <span className="pc-stat__label">جلسات</span>
+              </div>
+              <div className="pc-stat">
+                <span className="pc-stat__value" data-testid="parent-weekly-minutes">
+                  {weekly.activity.studyMinutes}
+                </span>
+                <span className="pc-stat__label">دقيقة تعلّم</span>
+              </div>
+              <div className="pc-stat">
+                <span className="pc-stat__value" data-testid="parent-weekly-activedays">
+                  {weekly.activity.activeDays}
+                </span>
+                <span className="pc-stat__label">أيام نشاط</span>
+              </div>
+              <div className="pc-stat">
+                <span className="pc-stat__value" data-testid="parent-weekly-streak">
+                  {weekly.streak.currentDays}
+                </span>
+                <span className="pc-stat__label">أيام متتالية</span>
+              </div>
+            </div>
+            {weekly.highlights.length > 0 && (
+              <ul className="pc-bullets" data-testid="parent-weekly-highlights">
+                {weekly.highlights.map((h, i) => (
+                  <li key={i}>{h}</li>
+                ))}
+              </ul>
+            )}
+            {weekly.parentActions.length > 0 && (
+              <div className="pc-actions" data-testid="parent-weekly-actions">
+                <h4 className="pc-actions__title">ماذا تفعل هذا الأسبوع؟</h4>
+                <ul className="pc-bullets">
+                  {weekly.parentActions.map((a, i) => (
+                    <li key={i}>{a}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {weekly.focus.needsWork.length > 0 && (
+              <p className="pc-hint" data-testid="parent-weekly-needswork">
+                <span className="pc-hint__key">تحتاج دعمًا هذا الأسبوع:</span>{" "}
+                {weekly.focus.needsWork.map((c) => `${c.title} (${Math.round(c.accuracy * 100)}%)`).join("، ")}
+              </p>
+            )}
+          </Card>
+        )}
+
+        {/* خريطة الإتقان — شريط توزيع حيّ فوق صفوف المفاهيم القائمة */}
+        <Card data-testid="parent-progress-card" title="خريطة الإتقان">
+          {weekly && weekly.masteryLevels.strong + weekly.masteryLevels.developing + weekly.masteryLevels.weak > 0 && (
+            <div className="pc-map" data-testid="parent-mastery-map">
+              <div
+                className="pc-map__bar"
+                role="img"
+                aria-label={`${weekly.masteryLevels.strong} متقن · ${weekly.masteryLevels.developing} في الطريق · ${weekly.masteryLevels.weak} يحتاج دعمًا`}
+              >
+                <span className="pc-map__seg pc-map__seg--strong" style={{ flexGrow: weekly.masteryLevels.strong }} />
+                <span className="pc-map__seg pc-map__seg--developing" style={{ flexGrow: weekly.masteryLevels.developing }} />
+                <span className="pc-map__seg pc-map__seg--weak" style={{ flexGrow: weekly.masteryLevels.weak }} />
+              </div>
+              <div className="pc-map__legend">
+                <span>
+                  <span className="pc-dot pc-dot--strong" aria-hidden="true" />
+                  متقن: {weekly.masteryLevels.strong}
+                </span>
+                <span>
+                  <span className="pc-dot pc-dot--developing" aria-hidden="true" />
+                  في الطريق: {weekly.masteryLevels.developing}
+                </span>
+                <span>
+                  <span className="pc-dot pc-dot--weak" aria-hidden="true" />
+                  يحتاج دعمًا: {weekly.masteryLevels.weak}
+                </span>
+              </div>
+            </div>
+          )}
+          {detail.progress.concepts.length === 0 ? (
+            <p className="pc-empty" data-testid="parent-progress-empty">
+              لا توجد بيانات تقدّم بعد.
+            </p>
+          ) : (
+            <ul className="pc-rows" data-testid="parent-progress-list">
+              {detail.progress.concepts.map((c) => (
+                <li key={c.conceptId} className="pc-row" data-testid="parent-progress-row">
+                  <span className="pc-row__title">{c.title}</span>
+                  <span className="pc-row__meta">
+                    <span
+                      className={`pc-level ${c.level === "mastered" || c.level === "advanced" ? "pc-level--ok" : "pc-level--warn"}`}
+                      data-testid="parent-progress-level"
+                    >
+                      {c.labelAr} · {Math.round(c.mastery * 100)}%
+                    </span>
+                    {/* PHASE 35 (D-037 tail) — «آخر ممارسة» counts graded
+                        answers only, so a parent can tell real practice from
+                        mere exposure to a lesson. */}
+                    <span className="pc-recency" data-testid="parent-progress-last-practice">
+                      {c.daysSinceRealPractice === 0 ? "آخر ممارسة اليوم" : `آخر ممارسة منذ ${c.daysSinceRealPractice} يوم`}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {detail.progress.strengths.length > 0 && (
+            <p className="pc-hint">
+              <span className="pc-hint__key">نقاط قوة:</span> {detail.progress.strengths.join("، ")}
+            </p>
+          )}
+          {detail.progress.weaknesses.length > 0 && (
+            <p className="pc-hint">
+              <span className="pc-hint__key">تحتاج تركيزًا:</span> {detail.progress.weaknesses.join("، ")}
+            </p>
+          )}
+        </Card>
+
+        {/* الجلسات */}
+        <Card title="الجلسات" hint="بيانات وصفية فقط — الأعداد والتواريخ، بلا نصوص.">
+          {detail.sessions.length === 0 ? (
+            <p className="pc-empty" data-testid="parent-sessions-empty">
+              لا توجد جلسات بعد.
+            </p>
+          ) : (
+            <ul className="pc-sessions" data-testid="parent-sessions-list">
+              {detail.sessions.map((s) => (
+                <li key={s.id} className="pc-session" data-testid="parent-session-row">
+                  <div className="pc-session__text">
+                    <span className={`pc-status ${s.status === "active" ? "pc-status--on" : "pc-status--off"}`}>
+                      {s.status === "active" ? "مفتوحة" : "منتهية"}
+                    </span>
+                    <span className="pc-session__title">{s.lessonTitle ?? "درس غير محدد"}</span>
+                    <span className="pc-session__when">{new Date(s.startedAt).toLocaleString("ar-EG")}</span>
+                  </div>
+                  <div className="pc-session__side">
+                    <span className="pc-session__counts" data-testid="parent-session-counts">
+                      رسائل: {s.totalMessages} ({arCount(s.userMessages, ASK_WORD)} · {arCount(s.tutorMessages, REPLY_WORD)})
+                    </span>
+                    <Button size="sm" data-testid="parent-session-open" onClick={() => openSession(detail.child, s)}>
+                      التفاصيل
+                    </Button>
                   </div>
                 </li>
               ))}
             </ul>
           )}
-        </section>
+        </Card>
       </main>
-    </div>
+    );
+  }
+
+  // ------------------------------ مركز ولي الأمر ------------------------------
+  return (
+    <main className="pc-main" data-testid="parent-screen">
+      <header className="pc-lead">
+        <h1 className="pc-lead__title">مركز ولي الأمر</h1>
+        <span className="pc-privacy" data-testid="parent-privacy-badge">
+          🛡️ وصفية فقط — لا نقرأ محادثات ابنك
+        </span>
+        <p className="pc-lead__sub">
+          أهلاً {user.email} 👋 — تابع تقدّم أبنائك بقراءة فقط: رسالة المعلّم الأسبوعية، خريطة الإتقان، والجلسات — دون الاطلاع على
+          نصوص المحادثات.
+        </p>
+      </header>
+
+      <Card title="ربط طالب جديد" hint="اسأل الطالب عن «كود ولي الأمر» الظاهر في درج حسابه ☰ ثم أدخله هنا.">
+        <div className="pc-field">
+          <input
+            className="pc-input"
+            data-testid="parent-link-code-input"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") void handleLink();
+            }}
+            placeholder="مثال: SLH7KQ9M"
+            maxLength={32}
+            disabled={busy}
+            aria-label="كود ربط الطالب"
+          />
+          <Button data-testid="parent-link-submit" onClick={handleLink} disabled={busy || code.trim().length === 0}>
+            ربط
+          </Button>
+        </div>
+        {linkError && (
+          <p className="pc-error" data-testid="parent-link-error">
+            {linkError}
+          </p>
+        )}
+        {linkMessage && (
+          <p className="pc-ok" data-testid="parent-link-success">
+            {linkMessage}
+          </p>
+        )}
+      </Card>
+
+      <Card title="أبنائي" hint="كل شيء هنا بقراءة فقط — والتفاصيل وصفية أبدًا.">
+        {listError && (
+          <p className="pc-error" data-testid="parent-list-error">
+            {listError}
+          </p>
+        )}
+        {children.length === 0 ? (
+          <p className="pc-empty" data-testid="parent-no-children">
+            لا يوجد أبناء مربوطون بعد — أدخل كود ربط أحد الطلاب أعلاه.
+          </p>
+        ) : (
+          <ul className="pc-children" data-testid="parent-children-list">
+            {children.map((c) => (
+              <li key={c.studentId} className="pc-child" data-testid="parent-child-row" data-student-id={c.studentId}>
+                <span className="pc-child__avatar" aria-hidden="true">
+                  {c.displayName.trim().charAt(0) || "ط"}
+                </span>
+                <div className="pc-child__text">
+                  <span className="pc-child__name">{c.displayName}</span>
+                  <span className="pc-child__meta">
+                    {c.gradeNameAr ?? "بدون صف"} · {c.curricula.length > 0 ? [...new Set(c.curricula)].join("، ") : "بدون مناهج"}
+                  </span>
+                  <span className="pc-child__meta">
+                    {arCount(c.sessionCount, SESSIONS_WORD)}
+                    {c.lastSession ? ` · آخرها: ${c.lastSession.lessonTitle ?? "—"}` : ""}
+                  </span>
+                </div>
+                <div className="pc-child__actions">
+                  <Button size="sm" data-testid="parent-child-open" onClick={() => openChild(c)}>
+                    عرض التقدّم
+                  </Button>
+                  <Button size="sm" variant="ghost" data-testid="parent-child-unlink" onClick={() => handleUnlink(c)}>
+                    إلغاء الربط
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Card>
+    </main>
   );
 }

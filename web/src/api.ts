@@ -1133,6 +1133,20 @@ export interface ParentWeeklyFocusConcept {
   labelAr: string | null;
 }
 
+/** PHASE 163 (W9) — «رسالة المعلّم»: ملخّص بشري حتمي من بيانات التقرير. */
+export interface TeacherWeeklyMessage {
+  achieved: string[];
+  attention: string | null;
+  step: string;
+}
+
+/** PHASE 163 (W9) — خطوة عملية واحدة في «كيف أساعد ابني هذا الأسبوع؟». */
+export interface ParentHelpStep {
+  title: string;
+  detail: string;
+  minutes: number;
+}
+
 export interface ParentWeeklyReport {
   child: { studentId: string; displayName: string; gradeNameAr: string | null };
   window: { from: string; to: string; days: number };
@@ -1153,6 +1167,9 @@ export interface ParentWeeklyReport {
   headline: string;
   highlights: string[];
   parentActions: string[];
+  /** PHASE 163 — الطبقة البشرية (تُعرض في «مركز ولي الأمر» الجديد). */
+  teacherMessage: TeacherWeeklyMessage;
+  helpPlan: ParentHelpStep[];
 }
 
 export async function getParentWeeklyReport(studentId: string, days = 7): Promise<ParentWeeklyReport> {

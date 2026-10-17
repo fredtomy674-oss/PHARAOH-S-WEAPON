@@ -8,9 +8,9 @@ export type StudentTab = "today" | "learn" | "journey";
 
 interface Props {
   user: User;
-  /** المساحة المفتوحة الآن (تُبرز تبويبها في التنقّل). */
-  active: StudentTab;
-  onNavigate: (tab: StudentTab) => void;
+  /** المساحة المفتوحة الآن (تُبرز تبويبها في التنقّل) — للطلاب فقط. */
+  active?: StudentTab;
+  onNavigate?: (tab: StudentTab) => void;
   onLogout: () => void;
   onOpenAchievements?: () => void;
   children: ReactNode;
@@ -22,6 +22,9 @@ interface Props {
  *
  * التنقّل: جوال ← شريط سفلي ثابت (إبهام أولًا) · سطح مكتب ← شريط علوي لاصق
  * تحت الترويسة. عنصر واحد لكل testid — لا نسخ.
+ *
+ * PHASE 163 — تُستخدم أيضًا لـ«مركز ولي الأمر»: بلا تنقّل سفلي وبلا صف
+ * «المعلّم الحيّ» — تلك تفضيلات الطالب وحده.
  *
  * العقود كما في الرئيسية 2.0 حرفيًا: `account-menu` · `open-achievements` ·
  * `account-close` · `parent-link-card` · `link-code-value` ·
@@ -83,7 +86,7 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
               className={active === "today" ? "app-nav__tab app-nav__tab--on" : "app-nav__tab"}
               data-testid="nav-today"
               aria-current={active === "today" ? "page" : undefined}
-              onClick={() => onNavigate("today")}
+              onClick={() => onNavigate?.("today")}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 10.2L12 4.5l7 5.7" />
@@ -96,7 +99,7 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
               className={active === "learn" ? "app-nav__tab app-nav__tab--on" : "app-nav__tab"}
               data-testid="nav-learn"
               aria-current={active === "learn" ? "page" : undefined}
-              onClick={() => onNavigate("learn")}
+              onClick={() => onNavigate?.("learn")}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M12 6.4C10.5 5 8.6 4.5 6.2 4.5H4.5v12.6h1.7c2.4 0 4.3.5 5.8 1.9 1.5-1.4 3.4-1.9 5.8-1.9h1.7V4.5h-1.7c-2.4 0-4.3.5-5.8 1.9z" />
@@ -109,7 +112,7 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
               className={active === "journey" ? "app-nav__tab app-nav__tab--on" : "app-nav__tab"}
               data-testid="nav-journey"
               aria-current={active === "journey" ? "page" : undefined}
-              onClick={() => onNavigate("journey")}
+              onClick={() => onNavigate?.("journey")}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 21V4" />
@@ -164,22 +167,24 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
             <span className="app-drawer__k">اللغة</span>
             <span>العربية</span>
           </div>
-          <div className="app-drawer__row">
-            <span className="app-drawer__k">المعلّم الحيّ</span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={liveTeacherOn}
-              className="w7-switch"
-              data-testid="live-teacher-toggle"
-              data-on={liveTeacherOn ? "1" : "0"}
-              aria-label={liveTeacherOn ? "إطفاء المعلّم الحيّ" : "تشغيل المعلّم الحيّ"}
-              onClick={() => writeLiveTeacherPref(!liveTeacherOn)}
-            >
-              <span className="w7-switch__thumb" aria-hidden="true" />
-              <span className="w7-switch__state">{liveTeacherOn ? "مفعّل" : "مطفأ"}</span>
-            </button>
-          </div>
+          {isStudent && (
+            <div className="app-drawer__row">
+              <span className="app-drawer__k">المعلّم الحيّ</span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={liveTeacherOn}
+                className="w7-switch"
+                data-testid="live-teacher-toggle"
+                data-on={liveTeacherOn ? "1" : "0"}
+                aria-label={liveTeacherOn ? "إطفاء المعلّم الحيّ" : "تشغيل المعلّم الحيّ"}
+                onClick={() => writeLiveTeacherPref(!liveTeacherOn)}
+              >
+                <span className="w7-switch__thumb" aria-hidden="true" />
+                <span className="w7-switch__state">{liveTeacherOn ? "مفعّل" : "مطفأ"}</span>
+              </button>
+            </div>
+          )}
 
           <div className="app-drawer__sec">الجلسة</div>
           <button type="button" className="app-drawer__link app-drawer__link--danger" data-testid="logout" onClick={onLogout}>

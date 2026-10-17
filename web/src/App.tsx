@@ -167,7 +167,13 @@ export function App() {
   }
 
   if (user.role === "parent") {
-    return <ParentScreen user={user} onLogout={handleLogout} />;
+    // PHASE 163 (W9) — مركز ولي الأمر تحت القشرة الموحّدة (ترويسة + درج حساب:
+    // المظهر والخروج)، بلا شريط تنقّل طلابي.
+    return (
+      <AppShell user={user} onLogout={handleLogout}>
+        <ParentScreen user={user} />
+      </AppShell>
+    );
   }
 
   return (

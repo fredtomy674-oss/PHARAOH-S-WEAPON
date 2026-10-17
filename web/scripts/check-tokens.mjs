@@ -47,6 +47,8 @@ const GUARDED = [
   "src/LiveTeacher.tsx",
   "src/TeacherMascot.tsx",
   "src/avatar/LiveAvatarStage.tsx",
+  "src/styles/parent.css",
+  "src/Parent.tsx",
 ];
 
 /** لون خام: hex أو rgb()/rgba()/hsl() — داخل var() كبديل مسموح لأنه لا يُستخدم. */
