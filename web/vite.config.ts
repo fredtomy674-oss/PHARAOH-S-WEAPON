@@ -30,6 +30,14 @@ export default defineConfig({
   preview: {
     host: "127.0.0.1",
     proxy: apiProxy,
+    // Beta/demo tunnels (e.g. `cloudflared tunnel --url`) keep the tunnel
+    // hostname in the Host header, which the host check would reject. Local
+    // hosts and IPs stay allowed by default; extend the list when the
+    // production hostname is known (VITE_PREVIEW_ALLOWED_HOSTS=a.com,b.com).
+    allowedHosts: (process.env.VITE_PREVIEW_ALLOWED_HOSTS ?? ".trycloudflare.com")
+      .split(",")
+      .map((h) => h.trim())
+      .filter(Boolean),
   },
   build: {
     // Dev-only pages ship ONLY behind their flags (default off): the student
