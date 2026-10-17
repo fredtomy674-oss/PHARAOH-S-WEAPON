@@ -239,6 +239,13 @@ export interface ProgressConcept {
   lastSeenAt: string;
 }
 
+// PHASE 161 — نقاط القوة/الضعف كائنات (مفهوم + إتقان)، لا نصوص: هكذا يرسلها الخادم.
+export interface ProgressTrait {
+  conceptId: string;
+  title: string;
+  mastery: number;
+}
+
 // PHASE 24 — one concept's mastery summary (level, decay, trend).
 export type MasteryLevel = "mastered" | "advanced" | "developing" | "needs_review";
 
@@ -261,8 +268,8 @@ export interface ProgressDetail {
   progress: {
     concepts: ProgressConcept[];
     /** مفاهيم يتقنها الطالب — تصبح أكثر دقة بعد عدة محاولات. */
-    strengths: string[];
-    weaknesses: string[];
+    strengths: ProgressTrait[];
+    weaknesses: ProgressTrait[];
   };
   mastery: MasteryConcept[];
   tutorUsageToday: number;
@@ -828,6 +835,28 @@ export async function getSessionRecap(sessionId: string): Promise<SessionRecap |
 
 export async function myProgress(): Promise<ProgressDetail> {
   return api<ProgressDetail>("/progress/me");
+}
+
+// PHASE 161 (W6) — «دفتر أخطائي»: the student's own recent wrong MCQ picks,
+// grouped per question. Own data only; carries no conversation content.
+export interface MistakeItem {
+  questionId: string;
+  question: string;
+  /** The wrong option picked most recently. */
+  chosen: string;
+  /** How many times this question was answered wrong. */
+  count: number;
+  conceptId: string | null;
+  conceptTitle: string | null;
+  lessonId: string | null;
+  lessonTitle: string | null;
+  /** ISO timestamp of the most recent wrong pick. */
+  lastAt: string;
+}
+
+export async function myMistakes(): Promise<MistakeItem[]> {
+  const res = await api<{ mistakes: MistakeItem[] }>("/progress/me/mistakes");
+  return res.mistakes;
 }
 
 // --- Prerequisite graph (PHASE 95) -----------------------------------------

@@ -40,6 +40,9 @@ const GUARDED = [
   "src/LessonPage.tsx",
   "src/styles/learn.css",
   "src/styles/sources.css",
+  "src/styles/journey.css",
+  "src/Journey.tsx",
+  "src/journey/NileGarden.tsx",
 ];
 
 /** لون خام: hex أو rgb()/rgba()/hsl() — داخل var() كبديل مسموح لأنه لا يُستخدم. */

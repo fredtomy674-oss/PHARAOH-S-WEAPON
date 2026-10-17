@@ -334,10 +334,10 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
             {(progress.progress.strengths.length > 0 || progress.progress.weaknesses.length > 0) && (
               <div className="hm-pills">
                 {progress.progress.strengths.length > 0 && (
-                  <span className="hm-pill">💪 نقاط قوتك: {progress.progress.strengths.join("، ")}</span>
+                  <span className="hm-pill">💪 نقاط قوتك: {progress.progress.strengths.map((s) => s.title).join("، ")}</span>
                 )}
                 {progress.progress.weaknesses.length > 0 && (
-                  <span className="hm-pill hm-pill--warn">🎯 تحتاج تركيزًا: {progress.progress.weaknesses.join("، ")}</span>
+                  <span className="hm-pill hm-pill--warn">🎯 تحتاج تركيزًا: {progress.progress.weaknesses.map((w) => w.title).join("، ")}</span>
                 )}
               </div>
             )}

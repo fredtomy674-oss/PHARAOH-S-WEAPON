@@ -7,7 +7,7 @@ import { LessonPage } from "./LessonPage.js";
 import { LessonRoom } from "./LessonRoom.js";
 import { AdminScreen } from "./Admin.js";
 import { ParentScreen } from "./Parent.js";
-import { AchievementsScreen } from "./Achievements.js";
+import { JourneyScreen } from "./Journey.js";
 import { FirstRunScreen } from "./FirstRun.js";
 import { AppShell, type StudentTab } from "./components/app/AppShell.js";
 
@@ -161,7 +161,7 @@ export function App() {
         onLogout={handleLogout}
         onOpenAchievements={() => setScreen("achievements")}
       >
-        <AchievementsScreen user={user} onBack={() => setScreen("home")} />
+        <JourneyScreen user={user} onBack={() => setScreen("home")} />
       </AppShell>
     );
   }

@@ -171,6 +171,13 @@
   --ok-bg: rgba(185, 138, 65, 0.12);
   --ok-fg: #6b4e1e;
   --ok-line: rgba(185, 138, 65, 0.38);
+
+  /* ---- حديقة النيل (W6): تيل النيل وأخضر البردي — هادئان مع الذهبي ---- */
+  --nile-1: #e7f0ee;
+  --nile-2: #3f7f8c;
+  --leaf-1: #5c7a4a;
+  --leaf-2: #7d9a63;
+  --sand: #efe4cf;
   --warn-bg: #fdf1dd;
   --warn-fg: #8a5a0b;
   --warn-line: #f0d9a8;
@@ -228,6 +235,13 @@
   --ok-bg: rgba(217, 169, 92, 0.16);
   --ok-fg: var(--gold-text-on-dark);
   --ok-line: rgba(217, 169, 92, 0.35);
+
+  /* ---- حديقة النيل (W6): ليلٌ أعمق للماء وأخضر أفتح للورق ---- */
+  --nile-1: #10262b;
+  --nile-2: #4f98a6;
+  --leaf-1: #7ba267;
+  --leaf-2: #9dbf85;
+  --sand: #2a2418;
   --warn-bg: rgba(232, 155, 60, 0.14);
   --warn-fg: #f0c27b;
   --warn-line: rgba(232, 155, 60, 0.35);
