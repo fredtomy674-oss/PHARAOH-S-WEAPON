@@ -62,25 +62,56 @@ export function speechTag(language: VoiceLanguage): string {
 }
 
 /**
- * Actionable notice for a machine with no voice for the lesson language — the
- * browser then reads the text with some other voice, which is exactly the
- * "the tutor talks in English" confusion this phase removes.
- *
- * The wording names the Windows path because that is where a real blocked
- * student lands, and a notice that does not say *where* to act is just an
- * apology. Verified on a machine that ships a single en-US voice: without the
- * Arabic pack the browser genuinely cannot pronounce Arabic, and no amount of
- * application code changes that.
+ * PHASE 172 — which machine the student is holding, for notices that must name
+ * a path he can actually walk. The owner's phone presented the tutor going
+ * silent and then read instructions for opening Windows settings — a phone
+ * cannot follow that, so a notice that does not know the device is just an
+ * apology. Kept a pure string function (clock- and DOM-injected) so every
+ * platform's wording is unit-testable.
  */
-export function missingVoiceNotice(language: VoiceLanguage): string {
+export type VoicePlatform = "android" | "ios" | "desktop";
+
+export function voicePlatform(): VoicePlatform {
+  if (typeof navigator === "undefined") return "desktop";
+  const ua = navigator.userAgent;
+  if (/android/i.test(ua)) return "android";
+  // iPadOS reports itself as macOS — the touch points are what expose it.
+  if (/iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && "ontouchend" in navigator)) return "ios";
+  return "desktop";
+}
+
+/**
+ * Actionable notice for a machine with no voice for the lesson language. The
+ * room never falls back to a wrong-language voice (PHASE 78), so the honest
+ * outcome is the written reply plus this notice — and the fix is free on every
+ * platform it names (PHASE 172: the phone paths were missing, and on the
+ * owner's Android the free install is the whole difference between the tutor
+ * speaking and the tutor being mute).
+ */
+export function missingVoiceNotice(language: VoiceLanguage, platform: VoicePlatform = voicePlatform()): string {
   const name = LANGUAGE_NAME_AR[language] ?? LANGUAGE_NAME_AR.ar;
   const win = LANGUAGE_WIN[language] ?? LANGUAGE_WIN.ar;
+  const steps =
+    platform === "android"
+      ? "الإعدادات ← النظام ← اللغات والإدخال ← تحويل النصّ إلى كلام ← محرك Google ← ⚙ إعدادات المحرك ← تثبيت بيانات الصوت ← «العربية»"
+      : platform === "ios"
+        ? "الإعدادات ← إمكانية الوصول ← المحتوى المنطوق ← الأصوات ← «العربية»"
+        : `ويندوز: Time & language ← Language & region ← ${win} ← Language options ← Speech`;
   return (
-    `لا يوجد صوت ${name} مثبّت على هذا الجهاز، فقد يُنطق الردّ بصوت آخر. ` +
-    `أضِفه من إعدادات نظامك (ويندوز: Time & language ← Language & region ← ${win} ← Language options ← Speech) ` +
+    `لا يوجد صوت ${name} مثبّت على هذا الجهاز، ولن يُسمع الردّ حتى يُثبَّت (التثبيت مجاني). ` +
+    `أضِفه من: ${steps} ` +
     `ثم أعد تشغيل المتصفح. ونصّ الردّ متاح دائمًا في الفقاعة.`
   );
 }
+
+/**
+ * PHASE 172 — the second half of the truth when the server's voice is also
+ * down (the narration quota): saying only "no voice on this machine" would
+ * hide that the cloud voice was asked for and refused. Shown together with
+ * `missingVoiceNotice` when both facts are known.
+ */
+export const SERVER_VOICE_DOWN_NOTE =
+  "وصوت المعلّم السحابي غير متاح حاليًا (انتهى رصيد النطق على الخادم) — التثبيت المجاني أعلاه يعمل بلا رصيد.";
 
 export interface SttCallbacks {
   /** Fired once with the accumulated final transcript when recognition ends. */
@@ -334,8 +365,16 @@ export interface SpeakResult {
 
 // -------------------------------------------------- the watchdog (PHASE 166) --
 
-/** How long an utterance may stay silent before it counts as not started. */
-const WATCH_START_MS = 2000;
+/**
+ * How long an utterance may stay silent before it counts as not started.
+ *
+ * PHASE 172 — 2000 → 3000: on the owner's phone, a start that was merely slow
+ * (a cold TTS service after the previous sentence) fell inside the old budget,
+ * so the watchdog cancelled a healthy sentence and handed it over again — the
+ * audible «يتوقف ثم يستمر» that was reported. A truly dead utterance still
+ * gets its revive; it just waits one more breath for a living one to prove it.
+ */
+const WATCH_START_MS = 3000;
 
 /**
  * PHASE 167 — the breath the engine gets between cancelling a reading and the
@@ -391,6 +430,30 @@ export function localVoiceWedged(): boolean {
  */
 export function resetLocalVoice(): void {
   localVoiceFailed = false;
+}
+
+/**
+ * PHASE 172 — one honest record of the voice decision, written by the room on
+ * every turn: WHICH path will read this reply and WHY. The stutter and the
+ * silence were both diagnosed from outside this time; the next phone test
+ * should not need a guessing game — `window.__voiceDiag` answers it.
+ */
+export interface VoiceDiag {
+  /** The browser has speechSynthesis at all. */
+  tts: boolean;
+  /** How many voices the browser lists (0 = still loading, not "none"). */
+  voices: number;
+  /** A voice for the lesson language is listed. */
+  arabic: boolean;
+  /** The engine was declared wedged on this page load. */
+  wedged: boolean;
+  /** Who reads the reply: this machine, the server, or nobody. */
+  path: "local" | "server" | "none";
+}
+
+export function setVoiceDiag(info: VoiceDiag): void {
+  if (typeof window === "undefined") return;
+  (window as unknown as { __voiceDiag?: VoiceDiag }).__voiceDiag = info;
 }
 
 /**
@@ -462,7 +525,16 @@ export function speakText(
   // wedge Android Chrome. Cancel only what is actually queued (the engine's own
   // flags, plus this module's — they stick on the phones this phase is about),
   // and let `launch` do every hand-over in a later task.
-  const wasBusy = engineBusyFlag || !!(synth.speaking || synth.pending);
+  //
+  // PHASE 172 — only a reading THIS MODULE knows is still in the air justifies
+  // a cancel. The engine's own flags lie on exactly the phones this module
+  // exists for: after a natural end `speaking`/`pending` often stay true for a
+  // beat, and the cancel + 260ms breath they used to buy was paid at EVERY
+  // sentence boundary — heard as the stutter «يتوقف ثم يستمر ثم يتوقف» on the
+  // owner's phone. `engineBusyFlag` is this module's own honest bookkeeping:
+  // set at hand-over, cleared by `finish` (whether the end was natural or a
+  // failure) and by `stopSpeaking`.
+  const wasBusy = engineBusyFlag;
   engineBusyFlag = true;
   if (wasBusy) synth.cancel();
   const epoch = ++speechEpoch;
@@ -754,6 +826,17 @@ const LIVE_TUTOR_WINDOW = 800;
 /** A student talking without a pause still gets a turn at this bound. */
 export const LIVE_MAX_UTTERANCE_MS = 20_000;
 
+/**
+ * PHASE 172 — …and at this much text, whatever the clock says. The message
+ * route refuses content past 4000 characters, and a live utterance is spoken
+ * words: releasing at 700 keeps every turn inside the ordinary length of a
+ * child's question and makes an engine that streams fragments for minutes
+ * (background noise, a long reading) unable to grow one giant turn — the
+ * shape that produced the server's «content must NOT have more than 4000
+ * characters» rejections in the wild.
+ */
+export const LIVE_MAX_UTTERANCE_CHARS = 700;
+
 /** The breath before a recognition session Chrome ended is reopened. */
 const LIVE_RESTART_GAP_MS = 500;
 
@@ -769,6 +852,8 @@ export interface LiveUtteranceOptions {
   silenceMs?: number;
   /** Longest one utterance may run before it is released anyway. */
   maxMs?: number;
+  /** Longest one utterance's text may grow before it is released anyway. */
+  maxChars?: number;
 }
 
 /**
@@ -791,10 +876,12 @@ export class LiveUtteranceTracker {
   private releasedAt = 0;
   private readonly silenceMs: number;
   private readonly maxMs: number;
+  private readonly maxChars: number;
 
   constructor(opts: LiveUtteranceOptions = {}) {
     this.silenceMs = opts.silenceMs ?? LIVE_SILENCE_MS;
     this.maxMs = opts.maxMs ?? LIVE_MAX_UTTERANCE_MS;
+    this.maxChars = opts.maxChars ?? LIVE_MAX_UTTERANCE_CHARS;
   }
 
   /** The utterance as it stands right now (for a live caption). */
@@ -835,7 +922,9 @@ export class LiveUtteranceTracker {
 
   /**
    * The clock moved: returns the utterance when the student has been silent
-   * for `silenceMs`, or talking for `maxMs` without a pause.
+   * for `silenceMs`, or talking for `maxMs` without a pause, or when the text
+   * itself has grown to `maxChars` (PHASE 172 — a bounded question beats a
+   * refused one).
    */
   tick(now: number): string | null {
     if (!this.active) return null;
@@ -845,7 +934,11 @@ export class LiveUtteranceTracker {
       if (now - this.startedAt >= this.maxMs) this.reset();
       return null;
     }
-    if (now - this.lastResultAt >= this.silenceMs || now - this.startedAt >= this.maxMs) {
+    if (
+      now - this.lastResultAt >= this.silenceMs ||
+      now - this.startedAt >= this.maxMs ||
+      text.length >= this.maxChars
+    ) {
       this.reset();
       this.released = text;
       this.releasedAt = now;
@@ -937,6 +1030,16 @@ const MIC_PROBE_MAX_THRESHOLD = 0.09;
 /** …nor lower than this — a silent room must not trigger on nothing. */
 const MIC_PROBE_MIN_THRESHOLD = 0.035;
 
+/**
+ * PHASE 172 — the breath the recognizer gets before the probe asks for the
+ * microphone. Both requests land on the same device at mode start; when they
+ * race, Android Chrome can hand the microphone to one of them and leave the
+ * other hearing nothing — the owner's «المحادثة الحيّة لا تعمل» (the mode
+ * opens, and no word ever arrives). The words alone still carry the mode;
+ * the probe joins once the session is up.
+ */
+const MIC_PROBE_START_DELAY_MS = 900;
+
 type MicProbeWindow = Window & {
   AudioContext?: typeof AudioContext;
   webkitAudioContext?: typeof AudioContext;
@@ -966,90 +1069,99 @@ export function startMicProbe(handlers: MicProbeHandlers): MicProbeHandle | null
   let stream: MediaStream | null = null;
   let context: AudioContext | null = null;
   let timer = 0;
+  let openTimer = 0;
 
   const stop = (): void => {
     stopped = true;
+    window.clearTimeout(openTimer);
     window.clearInterval(timer);
     stream?.getTracks().forEach((track) => track.stop());
     if (context && context.state !== "closed") void context.close().catch(() => undefined);
   };
 
-  media
-    .getUserMedia({
-      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 },
-    })
-    .then((opened) => {
-      if (stopped) {
-        opened.getTracks().forEach((track) => track.stop());
-        return;
-      }
-      stream = opened;
-      const ctx = new Ctx();
-      context = ctx;
-      // A suspended context processes nothing; the toggle that opened the mode
-      // was a real press, so resuming here is allowed.
-      if (ctx.state === "suspended") void ctx.resume().catch(() => undefined);
-      const analyser = ctx.createAnalyser();
-      analyser.fftSize = 512;
-      ctx.createMediaStreamSource(opened).connect(analyser);
-      const frame = new Uint8Array(analyser.fftSize);
-      // The floor adapts to the quiet of THIS room (and to whatever the echo
-      // cancellation leaves behind): a fixed threshold would be deaf in a
-      // quiet room and deafened by echo in a loud one.
-      let floor = 0.01;
-      let above = 0;
-      let below = 0;
-      let inVoice = false;
-      let voiceAt = 0;
-
-      timer = window.setInterval(() => {
-        if (stopped) return;
-        analyser.getByteTimeDomainData(frame);
-        let sum = 0;
-        for (let i = 0; i < frame.length; i++) {
-          const v = ((frame[i] ?? 128) - 128) / 128;
-          sum += v * v;
-        }
-        const rms = Math.sqrt(sum / frame.length);
-        const threshold = Math.max(
-          MIC_PROBE_MIN_THRESHOLD,
-          Math.min(MIC_PROBE_MAX_THRESHOLD, floor * 2.5),
-        );
-        if (rms < threshold) floor = floor * 0.98 + rms * 0.02;
-        if (!inVoice) {
-          if (rms >= threshold) {
-            above += 1;
-            if (above >= MIC_PROBE_START_FRAMES) {
-              inVoice = true;
-              above = 0;
-              below = 0;
-              voiceAt = Date.now();
-              handlers.onVoiceStart();
-            }
-          } else {
-            above = 0;
-          }
+  // PHASE 172 — see `MIC_PROBE_START_DELAY_MS`: the recognizer's own request
+  // goes first, the probe follows once the session is up. The seam path above
+  // answered instantly on purpose — a suite that drives events by hand has no
+  // real microphone to race.
+  openTimer = window.setTimeout(() => {
+    if (stopped) return;
+    media
+      .getUserMedia({
+        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 },
+      })
+      .then((opened) => {
+        if (stopped) {
+          opened.getTracks().forEach((track) => track.stop());
           return;
         }
-        if (rms < threshold * 0.7) {
-          below += 1;
-          if (below >= MIC_PROBE_END_FRAMES && Date.now() - voiceAt >= 250) {
-            inVoice = false;
-            below = 0;
-            handlers.onVoiceEnd();
+        stream = opened;
+        const ctx = new Ctx();
+        context = ctx;
+        // A suspended context processes nothing; the toggle that opened the mode
+        // was a real press, so resuming here is allowed.
+        if (ctx.state === "suspended") void ctx.resume().catch(() => undefined);
+        const analyser = ctx.createAnalyser();
+        analyser.fftSize = 512;
+        ctx.createMediaStreamSource(opened).connect(analyser);
+        const frame = new Uint8Array(analyser.fftSize);
+        // The floor adapts to the quiet of THIS room (and to whatever the echo
+        // cancellation leaves behind): a fixed threshold would be deaf in a
+        // quiet room and deafened by echo in a loud one.
+        let floor = 0.01;
+        let above = 0;
+        let below = 0;
+        let inVoice = false;
+        let voiceAt = 0;
+
+        timer = window.setInterval(() => {
+          if (stopped) return;
+          analyser.getByteTimeDomainData(frame);
+          let sum = 0;
+          for (let i = 0; i < frame.length; i++) {
+            const v = ((frame[i] ?? 128) - 128) / 128;
+            sum += v * v;
           }
-        } else {
-          below = 0;
+          const rms = Math.sqrt(sum / frame.length);
+          const threshold = Math.max(
+            MIC_PROBE_MIN_THRESHOLD,
+            Math.min(MIC_PROBE_MAX_THRESHOLD, floor * 2.5),
+          );
+          if (rms < threshold) floor = floor * 0.98 + rms * 0.02;
+          if (!inVoice) {
+            if (rms >= threshold) {
+              above += 1;
+              if (above >= MIC_PROBE_START_FRAMES) {
+                inVoice = true;
+                above = 0;
+                below = 0;
+                voiceAt = Date.now();
+                handlers.onVoiceStart();
+              }
+            } else {
+              above = 0;
+            }
+            return;
+          }
+          if (rms < threshold * 0.7) {
+            below += 1;
+            if (below >= MIC_PROBE_END_FRAMES && Date.now() - voiceAt >= 250) {
+              inVoice = false;
+              below = 0;
+              handlers.onVoiceEnd();
+            }
+          } else {
+            below = 0;
+          }
+        }, MIC_PROBE_TICK_MS);
+      })
+      .catch(() => {
+        try {
+          handlers.onError();
+        } catch {
+          /* the probe's absence must never break the conversation */
         }
-      }, MIC_PROBE_TICK_MS);
-    })
-    .catch(() => {
-      try {
-        handlers.onError();
-      } catch {
-        /* the probe's absence must never break the conversation */
-      }
-    });
+      });
+  }, MIC_PROBE_START_DELAY_MS);
 
   return { stop };
 }

@@ -52,6 +52,8 @@ import {
   missingVoiceNotice,
   playAudioBlob,
   resetLocalVoice,
+  SERVER_VOICE_DOWN_NOTE,
+  setVoiceDiag,
   speakText,
   speechRecognitionSupported,
   startLiveConversation,
@@ -89,6 +91,14 @@ const KIND_LABEL: Record<string, string> = {
   example: "مثال",
   text: "",
 };
+
+/**
+ * PHASE 172 — the message route's own contract (server: maxLength 4000). The
+ * room enforces it BEFORE anything is sent: the mic dictation, a long paste or
+ * any other path must get a sentence a child can act on — never the server's
+ * English validation error, and never a turn that dies mid-flight.
+ */
+const MESSAGE_MAX_CHARS = 4000;
 
 /**
  * PHASE 93/95 — what the ENGINE decided the tutor should do this turn, shown to
@@ -489,8 +499,12 @@ export function LessonRoom({ session, onEnded }: Props) {
    * fallback for when the server has no voice. The missing-voice notice fires
    * only here, because only here does the machine's voice decide what is
    * actually heard.
+   *
+   * PHASE 172 — `serverFailed` joins the two facts when both are known (this
+   * machine has no voice AND the cloud voice refused this very turn): one
+   * honest notice with a free fix, instead of two half-truths or silence.
    */
-  const speakLocally = (text: string) => {
+  const speakLocally = (text: string, serverFailed = false) => {
     if (!ttsSupported()) return;
     // PHASE 169 — these words are about to be in the air: the live
     // conversation's echo rules must know them (see `echoGuard.ts`).
@@ -509,7 +523,7 @@ export function LessonRoom({ session, onEnded }: Props) {
     // too, or a server-voice outage turns every Arabic reply into English. Silent
     // plus the actionable notice is the honest outcome.
     if (!canSpeakLanguage(tutorLanguage)) {
-      setError(missingVoiceNotice(tutorLanguage));
+      setError(missingVoiceNotice(tutorLanguage) + (serverFailed ? ` ${SERVER_VOICE_DOWN_NOTE}` : ""));
       return;
     }
     const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
@@ -670,7 +684,9 @@ export function LessonRoom({ session, onEnded }: Props) {
     stopReading();
     const token = speechToken.current;
     // Spoken words, not syntax: the bubble may hold **bold** and lists.
-    const withLocalVoice = () => speakLocally(stripMarkdown(message.content));
+    // PHASE 172 — `serverFailed` = the server itself reported (503) that it has
+    // no voice: joining it to the missing-voice notice tells the whole truth.
+    const withLocalVoice = (serverFailed = false) => speakLocally(stripMarkdown(message.content), serverFailed);
     /** The whole reply's audio in one piece, then the machine's own voice. */
     const buffered = async () => {
       try {
@@ -694,7 +710,7 @@ export function LessonRoom({ session, onEnded }: Props) {
           setError(err instanceof ApiError ? err.message : "تعذّر تحضير الصوت");
           return;
         }
-        withLocalVoice();
+        withLocalVoice(true);
       }
     };
     const abort = new AbortController();
@@ -754,7 +770,15 @@ export function LessonRoom({ session, onEnded }: Props) {
     const handle = startTranscription({
       onTranscript: (transcript) => {
         voiceTurnRef.current = true;
-        setInput((prev) => (prev ? `${prev.trimEnd()} ${transcript}` : transcript));
+        // PHASE 172 — dictation appends past the composer's own maxLength (the
+        // attribute constrains typing, not setState): the cap lives here too,
+        // so a long dictation can never build a message the route will refuse.
+        setInput((prev) => {
+          const joined = prev ? `${prev.trimEnd()} ${transcript}` : transcript;
+          if (joined.length <= MESSAGE_MAX_CHARS) return joined;
+          setError("وصل النصّ إلى الحدّ الأقصى (4000 حرف) — أرسل ما لديك ثم أكمل");
+          return joined.slice(0, MESSAGE_MAX_CHARS);
+        });
       },
       onEnd: () => setListening(false),
       onError: (message) => {
@@ -772,6 +796,14 @@ export function LessonRoom({ session, onEnded }: Props) {
 
   const send = async (content: string, image?: string | null, doc: PendingDocument | null = null, widget: { value: number } | null = null) => {
     const text = content.trim();
+    // PHASE 172 — the route's contract, enforced HERE: any path that still
+    // built an over-long text (a paste, a future composer) is told in words a
+    // child can act on, and nothing travels. Proved necessary in the wild: the
+    // api log shows the exact English rejection this prevents.
+    if (text.length > MESSAGE_MAX_CHARS) {
+      setError("الرسالة أطول من المسموح (4000 حرف) — اختصرها ثم أرسلها");
+      return;
+    }
     // PHASE 166 — who hears this reply: the auto-read preference (ON by
     // default — the owner asked for every reply to be heard without pressing
     // anything) or a question that arrived through the microphone. The 🔊
@@ -824,6 +856,20 @@ export function LessonRoom({ session, onEnded }: Props) {
     // carries the flag, because whether the answer is read aloud has never
     // depended on the photo, document or ink that came with the question.
     const askServer = speakReply && !localVoice;
+    // PHASE 172 — one honest record of the decision (window.__voiceDiag): the
+    // stutter and the silence were diagnosed from outside this time; the next
+    // phone test should not be a guessing game.
+    try {
+      setVoiceDiag({
+        tts: ttsSupported(),
+        voices: ttsSupported() ? window.speechSynthesis.getVoices().length : 0,
+        arabic: canSpeakLanguage(tutorLanguage),
+        wedged: localVoiceWedged(),
+        path: localVoice ? "local" : askServer ? "server" : "none",
+      });
+    } catch {
+      /* a diagnostic must never cost a turn */
+    }
     const voice = askServer ? { speak: true } : {};
     const body = doc
       ? { content: text, document: { dataUrl: doc.dataUrl, fileName: doc.name }, ...page, ...pin, ...voice }
@@ -914,6 +960,13 @@ export function LessonRoom({ session, onEnded }: Props) {
         },
       }).catch((err) => {
         if (arrived) throw err;
+        // PHASE 172 — a refusal the server already PUT IN WRITING (validation,
+        // auth, any 4xx) must never be re-sent through the buffered route: the
+        // same request is refused twice (the api log shows exactly that pair,
+        // 16ms apart, for one over-long message) and the student still hears
+        // nothing true. Only a transport-level failure — the stream never
+        // became a stream — earns the old way.
+        if (err instanceof ApiError && err.status < 500) throw err;
         return sendMessage(
           session.id,
           text,
@@ -952,6 +1005,14 @@ export function LessonRoom({ session, onEnded }: Props) {
         if (streamed && !serverSilent && !streamBroken && !retracted && serverHeard > 0) {
           // Every piece has arrived: the last one plays without waiting.
           streamed.end();
+        } else if (serverSilent) {
+          // PHASE 172 — the server itself reported, on this very turn, that it
+          // has no voice (`audio-end ok:false`): asking the two slower routes
+          // would only re-pay the refusal and stretch the silence. The honest
+          // local outcome — read it here, or say exactly what is missing — is
+          // decided at once.
+          streamed?.stop();
+          speakLocally(stripMarkdown(turn.tutorMessage.content), true);
         } else {
           // Nothing was heard from the server — it said so, or never spoke at all.
           // The stored reply is read instead, so the answer is never lost.
@@ -1640,6 +1701,15 @@ export function LessonRoom({ session, onEnded }: Props) {
               </p>
             )}
           </div>
+          {/* PHASE 172 — errors were invisible inside the immersive mode (the
+              room's own notice line sits behind it), so a tutor that could not
+              speak told the child nothing at all. The notice now appears where
+              he is looking. */}
+          {error && (
+            <p className="voice-notice" data-testid="voice-notice" role="alert">
+              {error}
+            </p>
+          )}
           <div className="voice-controls">
             {speaking && (
               <button

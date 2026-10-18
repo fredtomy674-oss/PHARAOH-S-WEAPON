@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { LIVE_MAX_UTTERANCE_MS, LIVE_SILENCE_MS, LiveUtteranceTracker } from "./voice.js";
+import { LIVE_MAX_UTTERANCE_CHARS, LIVE_MAX_UTTERANCE_MS, LIVE_SILENCE_MS, LiveUtteranceTracker } from "./voice.js";
 
 /**
  * PHASE 168 — the segmentation behind «المحادثة الحيّة»: fragments in, whole
@@ -46,6 +46,21 @@ describe("PHASE 168 — live utterance segmentation", () => {
     // The exported constants are the ones the mode actually runs with.
     expect(LIVE_SILENCE_MS).toBe(900);
     expect(LIVE_MAX_UTTERANCE_MS).toBe(20_000);
+    expect(LIVE_MAX_UTTERANCE_CHARS).toBe(700);
+  });
+
+  it("PHASE 172 — a runaway transcript is bounded by its text, not only by the clock", () => {
+    // An engine that keeps reporting fragments (room noise, the speaker's own
+    // echo) must not be able to grow one giant turn: the message route refuses
+    // content past 4000 characters, and the api log shows exactly that refusal
+    // reaching a real student. The character bound releases far earlier.
+    const tracker = new LiveUtteranceTracker({ silenceMs: 1000, maxMs: 60_000, maxChars: 20 });
+    tracker.noteFinal("أ ب ج د ه و ز", 0); // a burst began, 13 characters
+    expect(tracker.tick(10)).toBeNull();
+    tracker.noteFinal("ح ط ي ك", 20); // now 21 characters
+    // Released by the text, long before the silence and the clock would allow.
+    expect(tracker.tick(30)).toBe("أ ب ج د ه و ز ح ط ي ك");
+    expect(tracker.tick(40)).toBeNull();
   });
 
   it("flush ends the utterance now — and nothing said is not an utterance", () => {

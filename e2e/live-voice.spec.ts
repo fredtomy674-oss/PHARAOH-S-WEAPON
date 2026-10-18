@@ -224,3 +224,35 @@ test("B4: the conversation opens in the immersive «وضع المحادثة» �
   await expect(page.getByTestId("live-hud")).toHaveCount(0);
   await expect(page.getByTestId("live-conversation-toggle")).toHaveAttribute("aria-pressed", "false");
 });
+
+test("B5: a failure inside the immersive mode is stated where the child is looking", async ({ page }) => {
+  await installVoiceStubs(page, undefined, undefined, { live: true });
+  await login(page);
+  await startFirstLesson(page);
+
+  await page.getByTestId("live-conversation-toggle").click();
+  await expect(page.getByTestId("voice-focus")).toBeVisible({ timeout: 10_000 });
+  await waitLiveReady(page);
+
+  // The turn itself is refused — a busy server, an outage. Before PHASE 172 the
+  // room's notice line sat BEHIND the full-screen mode: the child saw a
+  // conversation that simply "does not work" and was told nothing at all.
+  const refuse = (route: import("@playwright/test").Route) =>
+    route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: JSON.stringify({ error: { code: "BUSY", message: "المعلّم مشغول الآن — حاول بعد لحظات" } }),
+    });
+  await page.route("**/api/sessions/*/messages/stream", refuse);
+  await page.route("**/api/sessions/*/messages", refuse);
+
+  await pushMicVoice(page, true);
+  await pushLiveUtterance(page, "اشرح لي الجمع");
+  await pushMicVoice(page, false);
+
+  // The words were heard and the send was refused: the reason must be visible
+  // inside the mode itself — same notice, same words as the room's own line.
+  await expect(page.getByTestId("voice-notice")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("voice-notice")).toContainText("مشغول");
+  await expect(page.getByTestId("voice-focus")).toBeVisible();
+});

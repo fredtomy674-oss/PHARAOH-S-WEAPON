@@ -132,3 +132,64 @@ describe("PHASE 169 — the narrator starts on the first clause", () => {
     expect(h.spoken).toEqual(["جملة قصيرة."]);
   });
 });
+
+describe("PHASE 172 — one breath between sentences, not one per sentence", () => {
+  function harness(): {
+    narrator: ReturnType<typeof createNarrator>;
+    spoken: string[];
+    chunks: string[];
+    finishChunk: () => void;
+  } {
+    const spoken: string[] = [];
+    const chunks: string[] = [];
+    const done: Array<() => void> = [];
+    const narrator = createNarrator({
+      onSpeaking: () => undefined,
+      onChunk: (t) => chunks.push(t),
+      speak: (text: string, onDone: () => void): SpeakAttempt => {
+        spoken.push(text);
+        done.push(onDone);
+        return { started: true, missingVoice: false };
+      },
+    });
+    return {
+      narrator,
+      spoken,
+      chunks,
+      finishChunk: () => {
+        done.shift()?.();
+      },
+    };
+  }
+
+  it("joins sentences that are already waiting — identical words, one hand-over", () => {
+    const h = harness();
+    h.narrator.feed("أولا نقرأ. ثانيا نجمع. ثالثا نطرح.");
+    // The burst arrived at once: the voice starts on the same first words, and
+    // everything already waiting rides the same hand-over — no engine breath
+    // between the sentences is paid at all.
+    expect(h.spoken).toEqual(["أولا نقرأ. ثانيا نجمع. ثالثا نطرح."]);
+    // The echo rules heard exactly the same words, in the same order.
+    expect(h.chunks).toEqual(["أولا نقرأ. ثانيا نجمع. ثالثا نطرح."]);
+  });
+
+  it("never joins what is still arriving — a sentence goes out when its turn comes", () => {
+    const h = harness();
+    h.narrator.feed("الجمع بسيط! والطرح");
+    expect(h.spoken).toEqual(["الجمع بسيط!"]);
+    h.narrator.feed("الجمع بسيط! والطرح سهل.");
+    h.finishChunk();
+    expect(h.spoken).toEqual(["الجمع بسيط!", "والطرح سهل."]);
+  });
+
+  it("keeps long sentences apart — the bound is a breath budget, not a blender", () => {
+    const long = "ا".repeat(130);
+    const h = harness();
+    h.narrator.feed(`نبدأ. ${long}. ${long}.`);
+    // The short opener and the first long sentence fit the budget together…
+    expect(h.spoken).toEqual([`نبدأ. ${long}.`]);
+    // …but the third sentence would blow past it and keeps its own hand-over.
+    h.finishChunk();
+    expect(h.spoken).toEqual([`نبدأ. ${long}.`, `${long}.`]);
+  });
+});

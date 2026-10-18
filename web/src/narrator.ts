@@ -60,6 +60,16 @@ export const FIRST_CHUNK_MIN = 8;
 export const FIRST_CHUNK_MAX = 48;
 
 /**
+ * PHASE 172 — sentences that are already WAITING when the voice goes idle are
+ * joined into one hand-over, up to this length. Every hand-over costs the
+ * engine a breath; on the owner's phone those breaths were heard as «يتوقف
+ * ثم يستمر» between sentences. Joining cannot delay the start — only text the
+ * voice was going to read anyway is joined, and only while it is already
+ * queued — so the first sound is as fast as before and the speech flows.
+ */
+export const NARRATOR_MERGE_MAX = 220;
+
+/**
  * The reply's very first words, released before the first sentence is
  * complete. One ascending scan, and the FIRST thing that qualifies wins:
  * a real sentence end (speak it whole); a comma/؛/: pause at or past
@@ -142,6 +152,15 @@ export function createNarrator(deps: NarratorDeps): Narrator {
   const pump = (): void => {
     if (stopped) return;
     if (busy || broken) return;
+    // PHASE 172 — join what is already waiting (see NARRATOR_MERGE_MAX): fewer
+    // hand-overs, fewer engine breaths between sentences, identical words in
+    // identical order, and nothing joined that is not already in the queue.
+    while (queue.length >= 2) {
+      const first = queue[0]!;
+      const second = queue[1]!;
+      if (first.text.length + second.text.length + 1 > NARRATOR_MERGE_MAX) break;
+      queue.splice(0, 2, { text: `${first.text} ${second.text}`, end: second.end });
+    }
     const next = queue.shift();
     if (next === undefined) {
       deps.onSpeaking(false);

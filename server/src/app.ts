@@ -104,6 +104,24 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
         },
       });
     }
+    // PHASE 172 — a request the schema refused is usually the student's own
+    // message being too long: answer in Arabic that names the act, and keep
+    // the English schema text server-side as a warning — the api log carried
+    // «body/content must NOT have more than 4000 characters» as an "unhandled
+    // error" while a child was simply telling a long story.
+    const validation = (error as { validation?: Array<{ instancePath?: string; keyword?: string }> }).validation;
+    if (Array.isArray(validation) && validation.length > 0) {
+      const tooLong = validation.some((v) => v.keyword === "maxLength");
+      request.log.warn({ paths: validation.map((v) => v.instancePath) }, "request refused by schema");
+      return reply.code(400).send({
+        error: {
+          code: "BAD_REQUEST",
+          message: tooLong
+            ? "الرسالة أطول من المسموح (4000 حرف) — اختصرها ثم أرسل"
+            : "الطلب غير مكتمل أو غير صالح — راجع ما أرسلته وحاول مرة أخرى",
+        },
+      });
+    }
     // Fastify validation / unknown errors.
     request.log.error({ err: error }, "unhandled error");
     const statusCode = (error as { statusCode?: number }).statusCode;

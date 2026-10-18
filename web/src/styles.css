@@ -2770,6 +2770,22 @@ p {
   color: var(--room-muted);
 }
 
+/* PHASE 172 — the room's honesty line, inside the immersive mode: when the
+   tutor cannot speak (no voice / no quota) the child must read it where he is
+   looking, not behind an overlay. Same tokens as the room's error notice. */
+.voice-notice {
+  align-self: center;
+  margin: 0;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--danger-line);
+  border-radius: 10px;
+  background: var(--danger-bg);
+  color: var(--danger);
+  font-size: 0.95rem;
+  line-height: 1.9;
+  text-align: center;
+}
+
 .voice-controls {
   display: flex;
   flex-wrap: wrap;

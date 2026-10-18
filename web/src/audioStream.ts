@@ -73,6 +73,19 @@ function decodeBase64(base64: string): Uint8Array {
  */
 const FIRST_PIECE_MARGIN_S = 0.06;
 
+/**
+ * PHASE 172 — the lead the player waits for before its first piece. The server
+ * synthesizes sentence by sentence and the pieces ride the reply's own stream;
+ * when synthesis trails real time, a player that starts on the very first
+ * piece runs dry between EVERY sentence — heard on the owner's phone as
+ * «يتوقف ثم يستمر ثم يتوقف… عند النقط». Waiting until a second or so of audio
+ * is buffered (or the stream has ended, or this hard bound has passed) turns
+ * those sentence boundaries back into speech. The bound stays short so a
+ * genuine one-liner still starts almost at once.
+ */
+const LEAD_S = 1.0;
+const LEAD_HARD_WAIT_MS = 1200;
+
 export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAudio {
   type AudioContextCtor = new () => AudioContext;
   const Ctor: AudioContextCtor | undefined =
@@ -113,6 +126,9 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
   /** Pieces still to decode, and the number still to play. */
   let decoding = 0;
   let playing = 0;
+  /** PHASE 172 — when the first decoded piece landed, for the lead's hard bound. */
+  let firstDecodedAt = 0;
+  let leadTimer = 0;
 
   let closed = false;
   /**
@@ -134,6 +150,7 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
   const giveUp = (): void => {
     if (failed || stopped) return;
     failed = true;
+    window.clearTimeout(leadTimer);
     for (const source of sources) {
       try {
         source.onended = null;
@@ -148,9 +165,34 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
     handlers.onError();
   };
 
+  /** PHASE 172 — seconds of contiguous audio already decoded from `nextSeq`. */
+  const bufferedAhead = (): number => {
+    let ahead = 0;
+    for (let i = nextSeq; ; i += 1) {
+      const buffer = decoded.get(i);
+      if (!buffer) return ahead;
+      ahead += buffer.duration;
+    }
+  };
+
   /** Schedules every consecutive decoded piece; the first gap stops the drain. */
   const drain = (): void => {
     if (stopped || failed) return;
+    // PHASE 172 — the lead (see LEAD_S): do not start on a single piece until
+    // the stream has ended or the hard bound has passed; a first start that
+    // outruns synthesis is how every later sentence became a pause.
+    if (!started && !finished) {
+      const waited = firstDecodedAt === 0 ? 0 : Date.now() - firstDecodedAt;
+      if (bufferedAhead() < LEAD_S && waited < LEAD_HARD_WAIT_MS) {
+        if (firstDecodedAt > 0 && leadTimer === 0) {
+          leadTimer = window.setTimeout(() => {
+            leadTimer = 0;
+            drain();
+          }, LEAD_HARD_WAIT_MS - waited);
+        }
+        return;
+      }
+    }
     for (;;) {
       const buffer = decoded.get(nextSeq);
       if (!buffer) return;
@@ -209,6 +251,7 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
           decoding -= 1;
           if (stopped || failed) return;
           decoded.set(piece.seq, buffer);
+          if (firstDecodedAt === 0) firstDecodedAt = Date.now();
           drain();
           if (finished && playing === 0 && decoding === 0 && decoded.size === 0) handlers.onDone();
         },
@@ -221,12 +264,16 @@ export function createStreamedAudio(handlers: StreamedAudioHandlers): StreamedAu
     end: () => {
       if (stopped || failed || finished) return;
       finished = true;
+      // PHASE 172 — the lead may be holding decoded pieces back; the stream is
+      // over, so nothing is left to wait for: schedule them now.
+      drain();
       // Everything is already scheduled unless a piece is still decoding.
       if (playing === 0 && decoding === 0 && decoded.size === 0) handlers.onDone();
     },
     stop: () => {
       if (stopped) return;
       stopped = true;
+      window.clearTimeout(leadTimer);
       for (const source of sources) {
         try {
           source.onended = null;
