@@ -51,6 +51,7 @@ import {
   localVoiceWedged,
   missingVoiceNotice,
   playAudioBlob,
+  resetLocalVoice,
   speakText,
   speechRecognitionSupported,
   startTranscription,
@@ -284,6 +285,9 @@ export function LessonRoom({ session, onEnded }: Props) {
   const docRef = useRef<HTMLInputElement | null>(null);
   const sttRef = useRef<SttHandle | null>(null);
   const activeUtterance = useRef<SpeechSynthesisUtterance | null>(null);
+  // PHASE 167 — the wedged-engine notice fires once per room, not once per
+  // reply: it is a state of the page, not of any single answer.
+  const wedgedNoticeShown = useRef(false);
   // Bumped on every press/stop: a fetch that comes back late must not start
   // playing a reply the student already moved on from.
   const speechToken = useRef(0);
@@ -440,13 +444,32 @@ export function LessonRoom({ session, onEnded }: Props) {
   }, [messages]);
 
   /**
+   * PHASE 167 — the honest end of a wedged engine. The old room answered the
+   * wedge with silence: replies stopped being read, and the 🔊 button went dead
+   * with no word of explanation. The engine is genuinely wedged for this page
+   * load, so the room says so — once per room — with the one act that really
+   * clears a wedge: a reload.
+   */
+  const showWedgedNotice = () => {
+    if (wedgedNoticeShown.current) return;
+    wedgedNoticeShown.current = true;
+    setError("تعطّل صوت هذا الجهاز في المتصفح — أعد تحديث الصفحة (اسحب للأسفل) ليعود الصوت");
+  };
+
+  /**
    * PHASE 40 (D-044) — read a reply aloud with the *browser's* own voice: the
    * fallback for when the server has no voice. The missing-voice notice fires
    * only here, because only here does the machine's voice decide what is
    * actually heard.
    */
   const speakLocally = (text: string) => {
-    if (!ttsSupported() || localVoiceWedged()) return;
+    if (!ttsSupported()) return;
+    // PHASE 167 — a wedged engine used to answer with silence: the 🔊 button
+    // looked identical on a dead machine and a muted one. Never pretend again.
+    if (localVoiceWedged()) {
+      showWedgedNotice();
+      return;
+    }
     // PHASE 78 — never hand the reply to the machine's default voice just because
     // it has no voice for this language: speechSynthesis then reads the text with
     // whatever it has (usually en-US), so an Arabic reply is *heard* in English —
@@ -460,6 +483,9 @@ export function LessonRoom({ session, onEnded }: Props) {
     }
     const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
       if (activeUtterance.current === utterance) setSpeaking(false);
+      // PHASE 167 — the attempt may have just died of the wedge (the watchdog
+      // set it while trying): the silence that remains gets its explanation.
+      if (localVoiceWedged()) showWedgedNotice();
     });
     if (!utterance) return;
     activeUtterance.current = utterance;
@@ -495,6 +521,9 @@ export function LessonRoom({ session, onEnded }: Props) {
             activeUtterance.current = null;
             setSpeaking(false);
           }
+          // PHASE 167 — whichever attempt dies of the wedge (the narrator's own
+          // sentences included), the silence gets its one honest explanation.
+          if (localVoiceWedged()) showWedgedNotice();
           onDone();
         });
         if (utterance) {
@@ -887,7 +916,13 @@ export function LessonRoom({ session, onEnded }: Props) {
         void speak({ ...turn.tutorMessage, content });
       }
       if (streamedRef.current === streamed) streamedRef.current = null;
-      if (narratorRef.current === narrator) narratorRef.current = null;
+      // PHASE 167 — a working narrator may still be reading the tail `finish`
+      // queued after the turn ended. Clearing the ref here used to orphan it:
+      // a later 🔊 could no longer silence it, and its next sentence raced the
+      // new reading to the same engine — the loser was cancelled mid-wedge, so
+      // a genuinely wedged engine could die without anyone saying why. The ref
+      // is replaced by the next turn's narrator anyway.
+      if (narratorRef.current === narrator && (!narrator || narrator.broken)) narratorRef.current = null;
     } catch (err) {
       setLive(null);
       // PHASE 57 — a turn that failed mid-stream may already have started talking
@@ -1326,7 +1361,13 @@ export function LessonRoom({ session, onEnded }: Props) {
                       type="button"
                       className="btn small speak-btn"
                       aria-label="الاستماع إلى الرد"
-                      onClick={() => void speak(m)}
+                      // PHASE 167 — «استمع» is an explicit ask, and the one
+                      // moment a wedged engine honestly deserves a fresh hand:
+                      // it is re-armed, not pressed into a dead button.
+                      onClick={() => {
+                        resetLocalVoice();
+                        void speak(m);
+                      }}
                     >
                       🔊 استمع
                     </button>
@@ -1493,7 +1534,13 @@ export function LessonRoom({ session, onEnded }: Props) {
               aria-label="قراءة ردود المعلّم تلقائيًا"
               aria-pressed={autoRead}
               title={autoRead ? "كل رد يُقرأ تلقائيًا — اضغط لكتم القراءة" : "القراءة التلقائية متوقفة — اضغط لتشغيلها"}
-              onClick={() => writeAutoReadPref(!autoRead)}
+              onClick={() => {
+                const next = !autoRead;
+                // PHASE 167 — switching the reading back on is an explicit ask
+                // for the voice: give a wedged engine a fresh chance.
+                if (next) resetLocalVoice();
+                writeAutoReadPref(next);
+              }}
             >
               {autoRead ? "🔊" : "🔇"} قراءة تلقائية
             </button>

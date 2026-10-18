@@ -130,9 +130,9 @@ export async function installVoiceStubs(
   page: Page,
   transcript: string = STT_TRANSCRIPT,
   voices: StubVoice[] = STUB_VOICES,
-  opts: { stallFirst?: boolean } = {},
+  opts: { stallFirst?: boolean; stallAlways?: boolean } = {},
 ): Promise<void> {
-  await page.addInitScript((opts: { transcript: string; voices: StubVoice[]; stallFirst?: boolean }) => {
+  await page.addInitScript((opts: { transcript: string; voices: StubVoice[]; stallFirst?: boolean; stallAlways?: boolean }) => {
     const state: VoiceTestState = { spoken: [], cancelCount: 0, resumeCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 } };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
 
@@ -234,7 +234,9 @@ export async function installVoiceStubs(
         // FIRST utterance is accepted and then goes completely silent — no
         // start, no end, no error — and only the room's revive (cancel +
         // resume + one more hand-over) gets the reading moving again. Every
-        // later utterance behaves normally.
+        // later utterance behaves normally. PHASE 167 — `stallAlways` models
+        // the engine that never answers at all, no matter how many revives.
+        if (opts.stallAlways) return;
         if (opts.stallFirst && state.spoken.length === 1) return;
         // A real engine announces `start` (Chrome does), and the room's
         // watchdog uses exactly that signal to tell "running" from "wedged",
@@ -270,7 +272,7 @@ export async function installVoiceStubs(
       configurable: true,
       writable: true,
     });
-  }, { transcript, voices, stallFirst: opts.stallFirst });
+  }, { transcript, voices, stallFirst: opts.stallFirst, stallAlways: opts.stallAlways });
 }
 
 /** Reads the recorded voice-test state (only meaningful after installVoiceStubs). */

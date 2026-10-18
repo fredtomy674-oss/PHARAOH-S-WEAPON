@@ -324,10 +324,10 @@ test("A6: no server voice and no voice for the language is stated plainly", asyn
  * PHASE 166 — the defect behind the owner's «بعد أول 3 ردود الاستماع لا يعمل»:
  * mobile engines sometimes accept an utterance and then go silent forever — no
  * start event, no end event, no error — and every later sentence queues behind
- * it. The room now watches every utterance: it revives the engine once (cancel
- * + resume + one more hand-over) and only then declares it wedged. This test
- * models exactly that engine — the FIRST utterance is accepted and stays
- * completely silent.
+ * it. The room now watches every utterance: it revives the engine (cancel +
+ * resume + a hand-over in a later task, PHASE 167) and only then declares it
+ * wedged. This test models exactly that engine — the FIRST utterance is
+ * accepted and stays completely silent.
  */
 test("A8: an utterance that never starts or ends is revived, not left frozen", async ({ page }) => {
   await installVoiceStubs(page, STT_TRANSCRIPT, STUB_VOICES, { stallFirst: true });
@@ -338,12 +338,15 @@ test("A8: an utterance that never starts or ends is revived, not left frozen", a
   await tutorReplyText(page);
 
   // The first utterance stalls; within the watch budget the engine is revived
-  // (cancel + resume) and the same sentence is handed over again.
+  // (cancel + resume) and the same sentence is handed over again — after the
+  // PHASE 167 gap, so the re-hand is polled for instead of assumed to have
+  // happened the instant `resume` was counted.
   await expect
     .poll(async () => (await voiceTestState(page)).resumeCount, { timeout: 25_000 })
     .toBeGreaterThan(0);
-  const firstTwo = await voiceTestState(page);
-  expect(firstTwo.spoken.length).toBeGreaterThanOrEqual(2);
+  await expect
+    .poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 25_000 })
+    .toBeGreaterThanOrEqual(2);
 
   // And the reply keeps being read after the revival: the queue is not frozen,
   // the reading is in the lesson's own language — this is the part the old room
@@ -354,4 +357,40 @@ test("A8: an utterance that never starts or ends is revived, not left frozen", a
   const state = await voiceTestState(page);
   expect(state.spoken[0]!.lang).toBe("ar-EG");
   await expect(page.getByTestId("chat-error")).toHaveCount(0);
+});
+
+/**
+ * PHASE 167 — the engine that never answers at all, no matter how many times
+ * it is asked. The old room spent one same-task revive on it, declared it
+ * wedged and went silent for the rest of the session — the 🔊 button included,
+ * which could never say why. Now: both revive rounds hand the sentence over in
+ * later tasks (the Android-safe way), the wedge is stated honestly instead of
+ * pretended, and an explicit press re-arms the engine.
+ */
+test("A9: a permanently dead engine is stated honestly, and 🔊 re-arms it", async ({ page }) => {
+  await installVoiceStubs(page, STT_TRANSCRIPT, STUB_VOICES, { stallAlways: true });
+  await forceNoServerSpeech(page);
+  await login(page, undefined, undefined, "home-screen", { keepAutoRead: true });
+  await startFirstLesson(page);
+
+  await sendChatMessage(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
+  await tutorReplyText(page);
+
+  // Both revive rounds are spent on the first sentence (cancel + resume twice),
+  // each re-hand in a later task — not the old same-task hand-over.
+  await expect
+    .poll(async () => (await voiceTestState(page)).resumeCount, { timeout: 40_000 })
+    .toBeGreaterThanOrEqual(2);
+
+  // 🔊 is not a dead button on a wedged engine: the press re-arms the local
+  // voice, and the reply is handed to it again.
+  const before = await voiceTestState(page);
+  await page.getByTestId("speak-reply").last().click();
+  await expect
+    .poll(async () => (await voiceTestState(page)).resumeCount, { timeout: 40_000 })
+    .toBeGreaterThan(before.resumeCount);
+
+  // What remains silent is explained once — with the one act that really clears
+  // a wedged engine: a reload. No more unexplained silence.
+  await expect(page.getByTestId("chat-error")).toContainText("أعد تحديث الصفحة", { timeout: 40_000 });
 });

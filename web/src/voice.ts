@@ -324,6 +324,17 @@ export interface SpeakResult {
 const WATCH_START_MS = 2000;
 
 /**
+ * PHASE 167 — the breath the engine gets between cancelling a reading and the
+ * next hand-over. `cancel()` immediately followed by `speak()` in the same
+ * task is what wedges Chrome on Android (the owner's «بعد ردّين ثلاثة الاستماع
+ * لا يعمل»): a later task, a few hundred ms apart, keeps it alive.
+ */
+const CANCEL_GAP_MS = 260;
+
+/** The second revive's rest: longer, because the first gap did not save it. */
+const REVIVE_GAP_2_MS = 700;
+
+/**
  * A generous upper bound for a spoken line (Arabic TTS is slow; measured
  * replies run around 60–90 ms per character). Only a dead utterance is ever
  * cancelled, so the bound errs large on purpose.
@@ -335,6 +346,15 @@ function watchEndMs(textLength: number): number {
 /** Bumped by every cancel: a watchdog left over from a cancelled attempt dies. */
 let speechEpoch = 0;
 
+/**
+ * True while a hand-over from this module is queued or being spoken. The
+ * engine's own flags lie on exactly the phones this watchdog exists for
+ * (`speaking` sticks true after a cancel), so a later `speakText` must also
+ * know that *this module* just handed something over — otherwise it would
+ * `speak()` straight into the previous, still-fresh utterance.
+ */
+let engineBusyFlag = false;
+
 /** The local engine proved wedged on this page session (see `speakText`). */
 let localVoiceFailed = false;
 
@@ -345,6 +365,18 @@ let localVoiceFailed = false;
  */
 export function localVoiceWedged(): boolean {
   return localVoiceFailed;
+}
+
+/**
+ * PHASE 167 — an engine declared wedged gets a fresh chance when the *student*
+ * asks for the voice: pressing 🔊 «استمع مرة أخرى», or switching «القراءة
+ * التلقائية» back on. The wedge is a property of this page load, and an
+ * explicit press is exactly the moment a new attempt is honest — never
+ * automatic (an automatic retry every turn would re-pay the silence every
+ * turn), and never silent.
+ */
+export function resetLocalVoice(): void {
+  localVoiceFailed = false;
 }
 
 /**
@@ -382,14 +414,21 @@ export function canSpeakLanguage(language: VoiceLanguage): boolean {
  *
  *  • no start within a short budget, or no end within a generous estimate of
  *    its duration → `cancel()` + `resume()` (the documented revive) and the
- *    same sentence is handed over exactly once more;
+ *    same sentence is handed over again — up to twice (PHASE 167);
  *  • still nothing → the engine is declared wedged for this page session
  *    (`localVoiceWedged()`), the line reports done (a queue must never freeze)
  *    and every later caller gets `utterance: null` and falls back — the room
- *    to the server's voice, the narrator to `broken`.
+ *    to the server's voice, the narrator to `broken`. An explicit press
+ *    (`resetLocalVoice`) re-arms it; a reload certainly does.
  *
  * The estimate is deliberately generous (Arabic TTS is slow): a healthy
  * utterance is never cut short, only a dead one is revived.
+ *
+ * PHASE 167 — why the revive used to fail on the exact phones it was written
+ * for: the re-hand happened in the same task as `cancel()`, and that is itself
+ * the wedge trigger on Android Chrome. Every hand-over now happens in a later
+ * task after a real gap (`launch`) — including the first one, because the race
+ * was there from the very first sentence.
  */
 export function speakText(
   text: string,
@@ -404,7 +443,14 @@ export function speakText(
   if (localVoiceFailed) return { utterance: null, missingVoice: false };
 
   const synth = window.speechSynthesis;
-  synth.cancel();
+  // PHASE 167 — never `cancel()` into an idle engine, and never hand a new
+  // sentence over in the same task as the cancel: both are documented ways to
+  // wedge Android Chrome. Cancel only what is actually queued (the engine's own
+  // flags, plus this module's — they stick on the phones this phase is about),
+  // and let `launch` do every hand-over in a later task.
+  const wasBusy = engineBusyFlag || !!(synth.speaking || synth.pending);
+  engineBusyFlag = true;
+  if (wasBusy) synth.cancel();
   const epoch = ++speechEpoch;
 
   const voices = primeVoices(synth);
@@ -413,15 +459,43 @@ export function speakText(
 
   let settled = false;
   let started = false;
-  let retried = false;
+  /** Revive rounds already spent on this sentence (PHASE 167: up to two). */
+  let retries = 0;
   let timer = 0;
+  let launchTimer = 0;
   let firstUtterance: SpeechSynthesisUtterance | null = null;
+  /** Built but not yet handed over (the first sentence is pre-built, below). */
+  let prebuilt: SpeechSynthesisUtterance | null = null;
 
   const finish = () => {
     if (settled) return;
     settled = true;
     window.clearTimeout(timer);
+    window.clearTimeout(launchTimer);
+    // Only the newest attempt may clear the module-wide busy flag: an older
+    // attempt finishing late must not un-arm the one that cancelled it.
+    if (epoch === speechEpoch) engineBusyFlag = false;
     onDone();
+  };
+
+  /**
+   * PHASE 167 — hand a sentence to the engine in a later task, after `gap` ms.
+   * Leaving the current task is what keeps a re-hand after a cancel alive on
+   * Android; the guards are what keep a silenced sentence from ever starting
+   * late (a stop bumps `speechEpoch`).
+   */
+  const launch = (gap: number) => {
+    window.clearTimeout(launchTimer);
+    launchTimer = window.setTimeout(() => {
+      if (settled) return;
+      if (epoch !== speechEpoch) {
+        // Silenced before it ever reached the engine: report it over so a
+        // queue waiting on this attempt cannot freeze (the retract path).
+        finish();
+        return;
+      }
+      speak();
+    }, gap);
   };
 
   const arm = () => {
@@ -431,8 +505,8 @@ export function speakText(
         // A cancelled attempt's watchdog (student pressed stop, next sentence
         // arrived) must never revive anything.
         if (settled || epoch !== speechEpoch) return;
-        if (!retried) {
-          retried = true;
+        if (retries < 2) {
+          retries += 1;
           started = false;
           try {
             synth.cancel();
@@ -440,7 +514,9 @@ export function speakText(
           } catch {
             /* some engines refuse resume; the retry itself may still work */
           }
-          speak();
+          // PHASE 167 — a revive only deserves the name when the engine gets a
+          // real breath: the re-hand goes out in a later task, after the gap.
+          launch(retries === 1 ? CANCEL_GAP_MS : REVIVE_GAP_2_MS);
           return;
         }
         localVoiceFailed = true;
@@ -450,7 +526,7 @@ export function speakText(
     );
   };
 
-  const speak = () => {
+  const build = (): SpeechSynthesisUtterance => {
     const utterance = new SpeechSynthesisUtterance(trimmed);
     // The tag is the contract every engine honours; attaching the voice object
     // is a best-effort extra (some engines reject foreign voice objects, and
@@ -476,6 +552,12 @@ export function speakText(
     utterance.onend = finish;
     utterance.onerror = finish;
     if (firstUtterance === null) firstUtterance = utterance;
+    return utterance;
+  };
+
+  const speak = () => {
+    const utterance = prebuilt ?? build();
+    prebuilt = null;
     try {
       synth.speak(utterance);
     } catch {
@@ -486,7 +568,10 @@ export function speakText(
     arm();
   };
 
-  speak();
+  // The first sentence is built NOW, so `firstUtterance` is the real object the
+  // caller tracks even though the hand-over itself waits out the gap.
+  prebuilt = build();
+  launch(wasBusy ? CANCEL_GAP_MS : 0);
   return { utterance: firstUtterance, missingVoice };
 }
 
@@ -495,6 +580,7 @@ export function stopSpeaking(): void {
   // Invalidate every pending watchdog: nothing may revive what the student
   // just silenced.
   speechEpoch += 1;
+  engineBusyFlag = false;
   stopAudio();
   if (typeof window !== "undefined" && "speechSynthesis" in window) {
     window.speechSynthesis.cancel();
