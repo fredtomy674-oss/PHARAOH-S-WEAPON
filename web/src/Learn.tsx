@@ -56,13 +56,15 @@ function readLastPick(): { subjectId: string; unitId: string } | null {
 
 interface Props {
   user: User;
+  /** PHASE 178 — مادةٌ محدّدة قادمة من الرئيسية (بطاقة «موادك»). */
+  initialSubjectId?: string;
   onResume: (s: LearningSession) => void;
   onOpenLesson: (lessonId: string) => void;
   /** PHASE 159 — اختيار الصف من «خيارات أعمق» يُحفظ في ملف الطالب (كما في أول دخول). */
   onGradeChange?: (gradeId: string) => void;
 }
 
-export function LearnScreen({ user, onResume, onOpenLesson, onGradeChange }: Props) {
+export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, onGradeChange }: Props) {
   const [countries, setCountries] = useState<Country[]>([]);
   const [systems, setSystems] = useState<EduSystem[]>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
@@ -90,6 +92,8 @@ export function LearnScreen({ user, onResume, onOpenLesson, onGradeChange }: Pro
    * مواد الصف السابق في الطريق) — فلا تُكتب حالة قديمة فوق الجديدة.
    */
   const loadSeq = useRef(0);
+  /** PHASE 178 — اختيار الطفل مادةً بنفسه يقفز إلى وحداتها؛ الاستعادة الصامتة لا تقفز. */
+  const userPickedRef = useRef(false);
 
   useEffect(() => {
     listCountries().then(setCountries).catch(() => undefined);
@@ -110,13 +114,24 @@ export function LearnScreen({ user, onResume, onOpenLesson, onGradeChange }: Pro
       listSubjects(saved)
         .then((list) => {
           setSubjects(list);
-          // «آخر اختيار» — العودة المباشرة لمادة الزيارة السابقة ووحدتها (W3).
-          const last = readLastPick();
+          // PHASE 178 — مادةٌ جاءت من الرئيسية تسبق «آخر اختيار»: الطفل طلب
+          // رياضيات صراحةً الآن؛ وإلا نعود لآخر جلسة كما كان (W3).
+          const fromHome = initialSubjectId && list.some((s) => s.id === initialSubjectId) ? initialSubjectId : "";
+          const last = fromHome ? { subjectId: fromHome, unitId: "" } : readLastPick();
           if (last && list.some((s) => s.id === last.subjectId)) void pickSubject(last.subjectId, saved, last.unitId);
         })
         .catch(() => setSubjects([]));
     }
   }, []);
+
+  useEffect(() => {
+    if (!userPickedRef.current || units.length === 0) return;
+    userPickedRef.current = false;
+    const el = document.querySelector('[data-testid="select-unit"]');
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+  }, [units]);
 
   /**
    * تصفير متسلسل (0 = دولة … 6 = وحدة) — تغيير مستوى يُبطل كل ما تحته، تمامًا
@@ -450,7 +465,10 @@ export function LearnScreen({ user, onResume, onOpenLesson, onGradeChange }: Pro
                     data-value={s.id}
                     data-testid="subject-option"
                     aria-pressed={subjectId === s.id}
-                    onClick={() => void pickSubject(s.id)}
+                    onClick={() => {
+                      userPickedRef.current = true;
+                      void pickSubject(s.id);
+                    }}
                   >
                     <span className="ln-subject__icon">
                       <SubjectGlyph nameAr={s.nameAr} />

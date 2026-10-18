@@ -43,6 +43,8 @@ import { useLiveTeacherPref } from "./liveTeacherPref.js";
 interface Props {
   user: User;
   onStartLesson: () => void;
+  /** PHASE 178 — بطاقة المادة تفتح «تعلّم» وهي محدّدة: لا عودة إلى الصفر. */
+  onOpenSubject: (subjectId: string) => void;
   onResume: (s: LearningSession) => void;
   onOpenAdmin: () => void;
 }
@@ -79,7 +81,7 @@ function streakLabel(n: number): string {
   return "يومًا";
 }
 
-export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props) {
+export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpenAdmin }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
@@ -256,6 +258,11 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
           )}
         </section>
 
+        {/* PHASE 178 — عمودان على الشاشات العريضة: «مسار الطفل» يمينًا
+            (قرار ← معلّم ← مواد) و«لوحة المتابعة» يسارًا (تقدّم ← تمرين ←
+            جلسات). على الجوال يبقى الترتيب نفسه عموديًا — لا نقل ولا حذف. */}
+        <div className="hm-cols">
+          <div className="hm-col hm-col--main">
         {/* القرار الواحد البارز */}
         <section className="hm-hero">
           <span className="hm-hero__label">خطوتك القادمة</span>
@@ -343,7 +350,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
             </div>
             <div className="hm-subjects">
               {(subjectsExpanded ? subjects : subjects.slice(0, 6)).map((s) => (
-                <button key={s.id} type="button" className="hm-subject" data-testid="subject-card" onClick={onStartLesson}>
+                <button key={s.id} type="button" className="hm-subject" data-testid="subject-card" onClick={() => onOpenSubject(s.id)}>
                   <span className="hm-subject__icon"><SubjectGlyph nameAr={s.nameAr} /></span>
                   <span className="hm-subject__name">{s.nameAr}</span>
                   <svg className="hm-subject__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -355,8 +362,10 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
           </section>
         )}
 
+          </div>
+          <div className="hm-col hm-col--rail">
         {progress && (
-          <section className="hm-card" data-testid="progress-card">
+          <section className="hm-card hm-card--progress" data-testid="progress-card">
             <div className="hm-sec__head">
               <h4>تقدّمك</h4>
               <button className="hm-btn hm-btn--soft hm-btn--sm" onClick={() => startPractice()} data-testid="open-practice">
@@ -625,7 +634,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
           </section>
         )}
 
-        <section className="hm-card">
+        <section className="hm-card hm-card--sessions">
           <div className="hm-sec__head">
             <h4>جلساتك</h4>
           </div>
@@ -685,6 +694,8 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
             </>
           )}
         </section>
+          </div>
+        </div>
       </main>
     </div>
   );

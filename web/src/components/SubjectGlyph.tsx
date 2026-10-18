@@ -4,43 +4,139 @@ import type { ReactElement } from "react";
  * رمز المادة — لغة أشكال هندسية بلا صور (W0)، بلا أي لون خارج العائلة
  * (الخط يرث currentColor). مستخرج من الرئيسية 2.0 (PHASE 156) ليستخدمه
  * منتقي «تعلّم» (PHASE 159) بنفس الشكل — مصدر واحد للرمز.
+ *
+ * PHASE 178 — كان الافتراضي «دائرة وفيها +»: يقرأه الطفل زرَّ إضافةٍ لا مادةً،
+ * وكانت ٢٠ مادة من ٢٧ تتقاسمه (اكتشف · التربية الدينية · المكتبات · المهارات
+ * المهنية…). الآن لكل عائلة مادة رمزها الدلالي، والافتراضي كتابٌ مفتوح
+ * (مادةٌ بلا رمز خاص ليست «إضافة»). الترتيب مقصود: اللغة الأجنبية تُفحص قبل
+ * «لغ» حتى لا يبتلعها رمز العربية، و«اكتشف» قبل غيرها.
  */
 export function SubjectGlyph({ nameAr }: { nameAr: string }): ReactElement {
-  if (nameAr.includes("رياض")) {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  const svg = (children: ReactElement): ReactElement => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {children}
+    </svg>
+  );
+
+  // اللغات الأجنبية (الإنجليزية/الفرنسية/الألمانية/الإسبانية/الإيطالية) — فقاعة كلام.
+  if (/الإنجليزية|الفرنسية|الألمانية|الإسبانية|الإيطالية/.test(nameAr)) {
+    return svg(
+      <>
+        <path d="M20 11.5a7.5 7.5 0 01-8 7.5 8.6 8.6 0 01-3-.55L4 20l1.2-4.1A7.4 7.4 0 014 11.5 7.5 7.5 0 0112 4a7.5 7.5 0 018 7.5z" />
+        <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" />
+      </>,
+    );
+  }
+  // «اكتشف» (منهج الرياضيات/العلوم الموحّد في المرحلة الابتدائية) — بوصلة.
+  if (nameAr.includes("اكتشف")) {
+    return svg(
+      <>
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M14.8 9.2l-1.9 4.4-4.4 1.9 1.9-4.4 4.4-1.9z" />
+      </>,
+    );
+  }
+  // تكنولوجيا المعلومات والاتصالات — شاشة.
+  if (nameAr.includes("تكنولوجيا") || nameAr.includes("معلومات")) {
+    return svg(
+      <>
+        <rect x="3.5" y="5" width="17" height="11.5" rx="2" />
+        <path d="M9 20h6M12 16.5V20" />
+      </>,
+    );
+  }
+  // التربية الدينية (الإسلامية/المسيحية) — كتابٌ وقبة.
+  if (nameAr.includes("دينية")) {
+    return svg(
+      <>
+        <path d="M12 4c2.4 1.6 3.5 3.7 3.5 6H8.5C8.5 7.7 9.6 5.6 12 4z" />
+        <path d="M6 10h12M5 10v7M19 10v7M4 17h16M8 20h8" />
+      </>,
+    );
+  }
+  // التربية المسرحية — قناعان.
+  if (nameAr.includes("مسرحية")) {
+    return svg(
+      <>
+        <path d="M4 5h7v6a3.5 3.5 0 01-7 0V5zM4 8h7" />
+        <path d="M13 9h7v6a3.5 3.5 0 01-7 0V9zM13 12h7" />
+        <path d="M6 13.5h.01M9 13.5h.01M15 16.5h.01M18 16.5h.01" />
+      </>,
+    );
+  }
+  // الإعلام التربوي — مكبّر صوت.
+  if (nameAr.includes("إعلام") || nameAr.includes("الإعلام")) {
+    return svg(
+      <>
+        <path d="M3.5 10v4h2l2 3h3v-3h2l6-3V7l-6 3h-9z" />
+        <path d="M18.5 8.5c1 .8 1 6.2 0 7" />
+      </>,
+    );
+  }
+  // الفلسفة والمنطق — مصباح فكرة.
+  if (nameAr.includes("فلسفة") || nameAr.includes("منطق")) {
+    return svg(
+      <>
+        <path d="M9 18h6M10 21h4" />
+        <path d="M12 3a6 6 0 00-3.3 11c.5.3.8.9.8 1.5h5c0-.6.3-1.2.8-1.5A6 6 0 0012 3z" />
+      </>,
+    );
+  }
+  // المكتبات ومهارات البحث — رفّ كتب.
+  if (nameAr.includes("مكتبات") || nameAr.includes("بحث")) {
+    return svg(
+      <>
+        <path d="M4 4.5h3.5V20H4zM9.5 4.5H13V20H9.5z" />
+        <path d="M15.2 5.2l3.4-.9 4 15.7-3.4.9z" />
+      </>,
+    );
+  }
+  // المهارات المهنية (إدارة الأسرة/الزراعة/الصناعة) — برعم.
+  if (nameAr.includes("مهارات")) {
+    return svg(
+      <>
+        <path d="M12 20V11" />
+        <path d="M12 11c0-3.3 2.2-5.5 5.5-5.5 0 3.3-2.2 5.5-5.5 5.5z" />
+        <path d="M12 14c0-3.3-2.2-5.5-5.5-5.5 0 3.3 2.2 5.5 5.5 5.5z" />
+      </>,
+    );
+  }
+  if (nameAr.includes("رياض") && !nameAr.includes("رياض أطفال")) {
+    return svg(
+      <>
         <path d="M4 20h16M6.5 20L11 7l4.5 13M8.6 14.5h4.8" />
-      </svg>
+      </>,
     );
   }
   if (nameAr.includes("علوم")) {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    return svg(
+      <>
         <path d="M9.5 3h5M10.5 3v5.5L5.8 17a2 2 0 001.8 3h8.8a2 2 0 001.8-3l-4.7-8.5V3" />
         <path d="M7.5 14.5h9" />
-      </svg>
+      </>,
     );
   }
   if (nameAr.includes("عربي") || nameAr.includes("لغ")) {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    return svg(
+      <>
         <path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2V5z" />
         <path d="M4 18a2 2 0 012-2h13" />
-      </svg>
+      </>,
     );
   }
   if (nameAr.includes("دراس") || nameAr.includes("اجتماع")) {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    return svg(
+      <>
         <circle cx="12" cy="12" r="8.5" />
         <path d="M3.5 12h17M12 3.5c2.6 2.3 2.6 14.7 0 17M12 3.5c-2.6 2.3-2.6 14.7 0 17" />
-      </svg>
+      </>,
     );
   }
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="8.5" />
-      <path d="M8.5 12h7M12 8.5v7" />
-    </svg>
+  // الافتراضي: كتاب مفتوح — لا «+» التي تُقرأ زر إضافة.
+  return svg(
+    <>
+      <path d="M12 6.5C10.4 5 8.2 4.5 5.5 4.5H4v13h1.5c2.7 0 4.9.5 6.5 2 1.6-1.5 3.8-2 6.5-2H20v-13h-1.5c-2.7 0-4.9.5-6.5 2z" />
+      <path d="M12 6.5v13" />
+    </>,
   );
 }

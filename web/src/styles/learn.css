@@ -212,6 +212,15 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--sp-2);
 }
+/* PHASE 178 — على الشاشة العريضة ثلاث بطاقات في الصف: الصفحة تستغل العرض. */
+@media (min-width: 900px) {
+  .ln-main {
+    width: min(1040px, 94vw);
+  }
+  .ln-cards--subjects {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 
 @media (min-width: 700px) {
   .ln-cards--subjects {

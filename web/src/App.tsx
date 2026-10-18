@@ -19,6 +19,8 @@ export function App() {
   const [session, setSession] = useState<LearningSession | null>(null);
   /** PHASE 159 — الدرس المفتوح في صفحة الدرس (الطبقة بين «تعلّم» والغرفة). */
   const [lessonId, setLessonId] = useState("");
+  /** PHASE 178 — مادةٌ قادمة من الرئيسية تُحدَّد مسبقًا في «تعلّم» (فتح مباشر). */
+  const [learnSubjectId, setLearnSubjectId] = useState("");
 
   useEffect(() => {
     whoami()
@@ -65,8 +67,22 @@ export function App() {
   /** PHASE 158 — تنقّل المساحات الثلاث: اليوم · تعلّم · رحلتي. */
   const handleNavigate = (tab: StudentTab) => {
     if (tab === "today") setScreen("home");
-    else if (tab === "learn") setScreen("learn");
-    else setScreen("achievements");
+    else if (tab === "learn") {
+      // PHASE 178 — التنقّل العام يفتح المادة الأخيرة لا مادةً معلّقة من الرئيسية.
+      setLearnSubjectId("");
+      setScreen("learn");
+    } else setScreen("achievements");
+  };
+
+  /** PHASE 178 — «رياضيات» من الرئيسية = «تعلّم» ومادتها محدّدة، بلمسة واحدة. */
+  const handleOpenSubject = (subjectId: string) => {
+    setLearnSubjectId(subjectId);
+    setScreen("learn");
+  };
+
+  const handleStartLesson = () => {
+    setLearnSubjectId("");
+    setScreen("learn");
   };
 
   /** PHASE 159 — فتح صفحة درس من منتقي «تعلّم» أو من بطاقة «آخر درس». */
@@ -118,6 +134,7 @@ export function App() {
       >
         <LearnScreen
           user={user}
+          initialSubjectId={learnSubjectId}
           onResume={(s) => {
             setSession(s);
             setScreen("chat");
@@ -192,7 +209,8 @@ export function App() {
     >
       <HomeScreen
         user={user}
-        onStartLesson={() => setScreen("learn")}
+        onStartLesson={handleStartLesson}
+        onOpenSubject={handleOpenSubject}
         onResume={(s) => {
           setSession(s);
           setScreen("chat");

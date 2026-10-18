@@ -25,6 +25,33 @@
   gap: var(--sp-4);
 }
 
+/* ------------------------------ العمودان (PHASE 178) ------------------------------ */
+/* على الجوال: نفس الترتيب عموديًا (مسار الطفل ثم لوحة المتابعة). على الشاشة
+   العريضة: مسارٌ يمينًا ولوحة متابعة يسارًا — الرئيسية تشغل العرض بدل شريط
+   ضيّق في المنتصف. لا نقل ولا حذف لأي عنصر. */
+.hm-cols {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.hm-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+@media (min-width: 1080px) {
+  .hm-main {
+    width: min(1180px, 94vw);
+  }
+  .hm-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+    gap: var(--sp-4) var(--sp-5);
+    align-items: start;
+  }
+}
+
 /* ------------------------------ الترحيب ------------------------------ */
 .hm-greet h2 {
   margin: 0;

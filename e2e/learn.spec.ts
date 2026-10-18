@@ -141,3 +141,30 @@ test("LE3 (PHASE 159): the hub's first card follows the real session state — l
   await page.getByTestId("end-session").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 });
+
+test("LE4 (PHASE 178): «موادك» on the home opens «تعلّم» with that subject already selected", async ({ page }) => {
+  await login(page);
+  // The same G6 grade the picker helper uses above, so the card set is known.
+  await page.getByTestId("nav-learn").click();
+  await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
+  await selectOptionByLabel(page, "select-country", "مصر");
+  await selectFirst(page, "select-system");
+  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
+  await page.getByTestId("nav-today").click();
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+
+  // The card names a subject — it must land ON it, not at the top of the picker.
+  const mathCard = page.getByTestId("subject-card").filter({ hasText: "الرياضيات" }).first();
+  if (!(await mathCard.isVisible().catch(() => false))) {
+    const more = page.getByTestId("subjects-more");
+    if ((await more.count()) > 0) await more.click();
+  }
+  await expect(mathCard).toBeVisible({ timeout: 20_000 });
+  await mathCard.click();
+
+  await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
+  await expect(page.locator('[data-testid="subject-option"][aria-pressed="true"] .ln-subject__name')).toHaveText("الرياضيات", {
+    timeout: 20_000,
+  });
+  await expect(page.getByTestId("unit-option").filter({ hasText: G6_MATH_UNIT })).toBeVisible({ timeout: 20_000 });
+});

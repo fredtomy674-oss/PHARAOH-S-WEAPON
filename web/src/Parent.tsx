@@ -43,6 +43,19 @@ const MINUTES_WORD = { one: "دقيقة واحدة", two: "دقيقتان", few:
 const ASK_WORD = { one: "سؤال واحد", two: "سؤالان", few: "أسئلة", many: "سؤالًا" };
 const REPLY_WORD = { one: "رد واحد", two: "ردان", few: "ردود", many: "ردًا" };
 
+/**
+ * PHASE 178 — جدول المناهج كان يُلقى كاملًا في سطر واحد (طالب تجريبي واحد:
+ * ٤٥ تسجيلًا = جدار نصّ يتجاوز الشاشة). نعرض اسمين ثم عدّادًا — والقائمة
+ * الكاملة تبقى متاحة في `title` (يقرأها قارئ الشاشة واللمسة المطوّلة).
+ */
+function summarizeCurricula(list: string[], max = 2): { text: string; full: string } {
+  const names = [...new Set(list)];
+  const full = names.join("، ");
+  if (names.length === 0) return { text: "بدون مناهج", full: "" };
+  if (names.length <= max) return { text: full, full };
+  return { text: `${names.slice(0, max).join("، ")} +${names.length - max} أخرى`, full };
+}
+
 interface Props {
   user: User;
 }
@@ -314,9 +327,17 @@ export function ParentScreen({ user }: Props) {
             <Chip tone="gold">{detail.child.gradeNameAr ?? "بدون تحديد صف"}</Chip>
             {/* نفس المنهج قد يُسجَّل أكثر من مرة في البيانات (تسجيل مزدوج) —
                 نعرضه مرة واحدة: لا مفتاح React مكرر ولا تكرار بصري. */}
-            {[...new Set(detail.child.curricula)].map((c) => (
-              <Chip key={c}>{c}</Chip>
-            ))}
+            {(() => {
+              const names = [...new Set(detail.child.curricula)];
+              return (
+                <>
+                  {names.slice(0, 3).map((c) => (
+                    <Chip key={c}>{c}</Chip>
+                  ))}
+                  {names.length > 3 && <Chip>+{names.length - 3}</Chip>}
+                </>
+              );
+            })()}
             <Chip>{arCount(detail.child.sessionCount, SESSIONS_WORD)}</Chip>
           </div>
           {detailError && (
@@ -609,7 +630,9 @@ export function ParentScreen({ user }: Props) {
           </p>
         ) : (
           <ul className="pc-children" data-testid="parent-children-list">
-            {children.map((c) => (
+            {children.map((c) => {
+              const curricula = summarizeCurricula(c.curricula);
+              return (
               <li key={c.studentId} className="pc-child" data-testid="parent-child-row" data-student-id={c.studentId}>
                 <span className="pc-child__avatar" aria-hidden="true">
                   {c.displayName.trim().charAt(0) || "ط"}
@@ -617,7 +640,7 @@ export function ParentScreen({ user }: Props) {
                 <div className="pc-child__text">
                   <span className="pc-child__name">{c.displayName}</span>
                   <span className="pc-child__meta">
-                    {c.gradeNameAr ?? "بدون صف"} · {c.curricula.length > 0 ? [...new Set(c.curricula)].join("، ") : "بدون مناهج"}
+                    {c.gradeNameAr ?? "بدون صف"} · <span title={curricula.full}>{curricula.text}</span>
                   </span>
                   <span className="pc-child__meta">
                     {arCount(c.sessionCount, SESSIONS_WORD)}
@@ -633,7 +656,8 @@ export function ParentScreen({ user }: Props) {
                   </Button>
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ul>
         )}
       </Card>
