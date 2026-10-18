@@ -124,6 +124,17 @@ export interface VoiceTestState {
    * going up is the receipt that it did.
    */
   liveSessions: number;
+  /**
+   * PHASE 175 — how many times the page even *asked* for the echo probe. On
+   * touch-first devices the answer must be zero: the probe's second claim on
+   * one microphone is what left the words unheard there.
+   */
+  micProbeCalls: number;
+  /**
+   * PHASE 175 — the shape of the last live session the app opened:
+   * `continuous = false` is the dictation shape touch-first devices get.
+   */
+  liveContinuous: boolean | null;
 }
 
 /**
@@ -145,6 +156,9 @@ export interface VoiceTestState {
  *  PHASE 169: the live shape also exposes `__liveMicProbe` (the echo-cancelled
  *  probe seam of `voice.ts`), driven by `pushMicVoice` — so "the student's own
  *  voice" is a fact the spec states, never a timing guess.
+ *  PHASE 175: the live shape records whether the app even asked for the probe
+ *  (`micProbeCalls`) and the session's own shape (`liveContinuous`), and a
+ *  single-utterance session ends on its final the way Chrome's does.
  *  The recorded state is exposed as `window.__voiceTest` for assertions.
  */
 export async function installVoiceStubs(
@@ -154,7 +168,7 @@ export async function installVoiceStubs(
   opts: { stallFirst?: boolean; stallAlways?: boolean; live?: boolean } = {},
 ): Promise<void> {
   await page.addInitScript((opts: { transcript: string; voices: StubVoice[]; stallFirst?: boolean; stallAlways?: boolean; live?: boolean }) => {
-    const state: VoiceTestState = { spoken: [], cancelCount: 0, resumeCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 }, micProbeStops: 0, liveSessions: 0 };
+    const state: VoiceTestState = { spoken: [], cancelCount: 0, resumeCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 }, micProbeStops: 0, liveSessions: 0, micProbeCalls: 0, liveContinuous: null };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
 
     // PHASE 57 — progressive server voice. The real Web Audio pipeline is used
@@ -241,8 +255,12 @@ export async function installVoiceStubs(
       start(): void {
         // The app sets `lang` after construction — record what it asked for.
         state.recognitionLang = this.lang;
-        if (opts.live && this.continuous) {
+        // PHASE 175 — live sessions come in two shapes: continuous (desktop)
+        // and single-utterance (touch-first devices, the dictation shape).
+        // Both wait for fragments the spec pushes.
+        if (opts.live) {
           state.liveSessions += 1;
+          state.liveContinuous = this.continuous;
           liveRec = this;
           return;
         }
@@ -259,6 +277,15 @@ export async function installVoiceStubs(
         const results = new Array(index + 1);
         results[index] = { isFinal, 0: { transcript: text } };
         this.onresult?.({ resultIndex: index, results });
+        // PHASE 175 — a single-utterance session ends on its own final,
+        // exactly like Chrome's; the app must reopen it for the next turn.
+        if (opts.live && isFinal && !this.continuous && liveRec === this) {
+          setTimeout(() => {
+            if (liveRec !== this) return;
+            liveRec = null;
+            if (typeof this.onend === "function") this.onend();
+          }, 30);
+        }
       }
       /** PHASE 174 — one recognition error, exactly as an engine reports it. */
       fail(code: string): void {
@@ -275,6 +302,7 @@ export async function installVoiceStubs(
         onVoiceStart: () => void;
         onVoiceEnd: () => void;
       }) => {
+        state.micProbeCalls += 1;
         micProbe = handlers;
         return {
           stop: () => {

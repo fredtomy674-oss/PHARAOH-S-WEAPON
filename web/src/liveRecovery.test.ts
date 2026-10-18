@@ -69,14 +69,19 @@ const callsOf = (): { callbacks: LiveConversationCallbacks; calls: { live: strin
 };
 
 let probeStops = 0;
+let probeRequests = 0;
 
 beforeEach(() => {
   vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "setInterval", "clearInterval", "Date"] });
   made = [];
   probeStops = 0;
+  probeRequests = 0;
   g.window = g;
   g.SpeechRecognition = FakeSpeechRecognition;
-  g.__liveMicProbe = () => ({ stop: () => { probeStops += 1; } });
+  g.__liveMicProbe = () => {
+    probeRequests += 1;
+    return { stop: () => { probeStops += 1; } };
+  };
 });
 
 const setOracle = (getUserMedia: ((constraints: unknown) => Promise<unknown>) | undefined): void => {
@@ -86,12 +91,22 @@ const setOracle = (getUserMedia: ((constraints: unknown) => Promise<unknown>) | 
   });
 };
 
+/** PHASE 175 — `navigator.maxTouchPoints`, the touch-first tell. */
+const setTouchPoints = (points: number | null): void => {
+  if (points === null) {
+    delete (globalThis.navigator as unknown as Record<string, unknown>).maxTouchPoints;
+    return;
+  }
+  Object.defineProperty(globalThis.navigator, "maxTouchPoints", { value: points, configurable: true });
+};
+
 afterEach(() => {
   vi.useRealTimers();
   delete g.window;
   delete g.SpeechRecognition;
   delete g.__liveMicProbe;
   setOracle(undefined);
+  setTouchPoints(null);
 });
 
 describe("PHASE 174 — a capture failure drops the probe, never the mode", () => {
@@ -197,5 +212,69 @@ describe("PHASE 174 — the first permission refusal gets one retry behind the o
     expect(calls.errors).toHaveLength(1);
     expect(calls.errors[0]).toContain("غير مسموح");
     expect(calls.ends).toBe(1);
+  });
+});
+
+describe("PHASE 175 — «أذن واحدة»: a touch-first device listens like the dictation key", () => {
+  it("opens a single-utterance session and never asks for the probe", () => {
+    setTouchPoints(1);
+    const { callbacks } = callsOf();
+    const handle = startLiveConversation(callbacks)!;
+    expect(made.length).toBe(1);
+    // The dictation shape the owner's phone proved it can hear…
+    expect(made[0].continuous).toBe(false);
+    expect(made[0].interimResults).toBe(true);
+    // …and no probe beside it: on this device class the second claim on the
+    // microphone is what left the words unheard.
+    expect(probeRequests).toBe(0);
+    expect(probeStops).toBe(0);
+    handle.stop();
+  });
+
+  it("a desktop keeps the continuous session and the probe", () => {
+    setTouchPoints(0);
+    const { callbacks } = callsOf();
+    const handle = startLiveConversation(callbacks)!;
+    expect(made[0].continuous).toBe(true);
+    expect(probeRequests).toBe(1);
+    handle.stop();
+    expect(probeStops).toBe(1);
+  });
+
+  it("a word-less nine seconds clear the field once — probe dropped, session rebuilt — and the words that follow still land", async () => {
+    setTouchPoints(0);
+    const { callbacks, calls } = callsOf();
+    const handle = startLiveConversation(callbacks)!;
+    expect(made.length).toBe(1);
+
+    await vi.advanceTimersByTimeAsync(8_999);
+    expect(probeStops).toBe(0); // not a moment before the nine
+    await vi.advanceTimersByTimeAsync(2);
+    expect(probeStops).toBe(1); // the field is cleared at the ninth second
+    await vi.advanceTimersByTimeAsync(600);
+    expect(made.length).toBe(2); // …and the session is rebuilt
+
+    // The child speaks — the hint's own advice — and the fresh session carries
+    // the whole turn: the rescue is invisible except for the words landing.
+    made[1].onresult?.(finalAt(0, "اشرح لي الجمع مع إعادة التجميع"));
+    await vi.advanceTimersByTimeAsync(1_200);
+    expect(calls.utterances).toEqual(["اشرح لي الجمع مع إعادة التجميع"]);
+    expect(calls.errors).toEqual([]);
+
+    // One shot per session: another quiet stretch changes nothing.
+    await vi.advanceTimersByTimeAsync(20_000);
+    expect(probeStops).toBe(1);
+    expect(made.length).toBe(2);
+    handle.stop();
+  });
+
+  it("a touch device has nothing to clear — its sessions cycle on their own and no restart is forced", async () => {
+    setTouchPoints(1);
+    const { callbacks } = callsOf();
+    const handle = startLiveConversation(callbacks)!;
+    await vi.advanceTimersByTimeAsync(9_500);
+    expect(probeStops).toBe(0);
+    expect(made.length).toBe(1); // no reset churn on the phone recipe
+    handle.stop();
   });
 });

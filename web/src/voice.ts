@@ -1191,6 +1191,47 @@ export function startMicProbe(handlers: MicProbeHandlers): MicProbeHandle | null
   return { stop };
 }
 
+// ------------------------------------- one ear at a time (PHASE 175) ---------
+
+/**
+ * PHASE 175 — «أذن واحدة»: does live mode have to listen *exactly* the way
+ * the dictation key listens?
+ *
+ * The owner's phone settled it: the mic key on the question box transcribes
+ * his Arabic perfectly, while live mode — a continuously-running session with
+ * the echo probe holding the same microphone beside it — opens, says
+ * «أسمعك», and hears nothing at all: no word, no error, only the 174 hint.
+ * Two differences, one device class. Phones and tablets hand their microphone
+ * to ONE of the two requesters and leave the other silent (PHASE 172's own
+ * observed rule), and single-utterance sessions are the shape mobile engines
+ * are actually built around (Safari has no continuous mode at all, and
+ * Android usually ends a continuous session after its first result anyway).
+ *
+ * So on touch-first devices live mode listens like the dictation that is
+ * proved to work there: one session at a time (`continuous = false`, reopened
+ * on every natural end) and no probe beside it. The words carry the mode —
+ * the probe's jobs fall back to the text rules of `echoGuard.ts`: two novel
+ * words still yield the floor, still send and still answer; only the one-word
+ * interruption waits for a second word instead of the probe's evidence.
+ */
+export function listensLikeDictation(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const uaData = (navigator as { userAgentData?: { mobile?: boolean } }).userAgentData;
+  if (uaData?.mobile === true) return true;
+  return navigator.maxTouchPoints > 0;
+}
+
+/**
+ * PHASE 175 — …and a silence with no error is cleared once, like a capture
+ * failure: this many word-less milliseconds after the mode opened — the same
+ * moment the room's «لم أسمعك بعد» hint appears — a mode that has never heard
+ * a single fragment drops its probe and rebuilds the recognition session,
+ * silently. If the child then speaks, as the hint asks, the field is already
+ * fresh. One shot per session; touch devices never start a probe and their
+ * sessions cycle on their own, so nothing happens there.
+ */
+const LIVE_QUIET_RESCUE_MS = 9000;
+
 export interface LiveConversationCallbacks {
   /** The current utterance so far, live (empty string once it is released). */
   onLive: (text: string) => void;
@@ -1251,6 +1292,11 @@ export function startLiveConversation(
   // PHASE 174 — bounded recovery budgets (see the LIVE_*_RETRY_* constants).
   let captureRetries = 0;
   let permissionRetried = false;
+  // PHASE 175 — the device's listening shape, decided once (see
+  // `listensLikeDictation`), and the quiet rescue's own state.
+  const dictationShape = listensLikeDictation();
+  const openedAt = Date.now();
+  let rescued = false;
 
   // PHASE 169 — the tutor's side of the conversation, as the room reports it.
   let tutorText = "";
@@ -1307,16 +1353,21 @@ export function startLiveConversation(
     callbacks.onUtterance(text);
   };
 
-  const probe = startMicProbe({
-    onVoiceStart: () => {
-      lastUserVoiceAt = Date.now();
-      userVoiceEndAt = null;
-    },
-    onVoiceEnd: () => {
-      userVoiceEndAt = Date.now();
-    },
-    onError: () => undefined, // word rules alone still carry the mode
-  });
+  // PHASE 175 — on a touch-first device there is no probe at all: its second
+  // claim on the microphone is exactly what left the words unheard there, and
+  // the word rules carry the whole mode (see `listensLikeDictation`).
+  let probe = dictationShape
+    ? null
+    : startMicProbe({
+        onVoiceStart: () => {
+          lastUserVoiceAt = Date.now();
+          userVoiceEndAt = null;
+        },
+        onVoiceEnd: () => {
+          userVoiceEndAt = Date.now();
+        },
+        onError: () => undefined, // word rules alone still carry the mode
+      });
 
   const fatal = (message: string | null): void => {
     if (!active) return;
@@ -1335,7 +1386,9 @@ export function startLiveConversation(
     const rec = new Ctor();
     current = rec;
     rec.lang = speechTag(language);
-    rec.continuous = true;
+    // PHASE 175 — the dictation shape on touch-first devices (see
+    // `listensLikeDictation`): one utterance per session, reopened on end.
+    rec.continuous = !dictationShape;
     rec.interimResults = true;
     rec.maxAlternatives = 1;
     // Indices already counted as final: real engines may re-deliver an
@@ -1459,6 +1512,25 @@ export function startLiveConversation(
   tickTimer = window.setInterval(() => {
     if (!active) return;
     const now = Date.now();
+    // PHASE 175 — the quiet rescue (see `LIVE_QUIET_RESCUE_MS`): at the very
+    // moment the room admits «لم أسمعك بعد», a mode that has never heard one
+    // fragment clears the field — the probe goes and the session is rebuilt —
+    // so the child's next words, the ones the hint asks for, start fresh.
+    // (A capture failure gets the same treatment from the 174 ladder; this is
+    // its silent sibling — the death with no error.)
+    if (!rescued && probe && lastFragmentAt === 0 && now - openedAt >= LIVE_QUIET_RESCUE_MS) {
+      rescued = true;
+      probe.stop();
+      probe = null;
+      const rec = current;
+      if (rec) {
+        try {
+          rec.stop();
+        } catch {
+          /* already closed */
+        }
+      }
+    }
     // PHASE 169 — the student's voice ended (the probe heard it stop) and no
     // newer fragment arrived: release now, without waiting out the full
     // silence window. This is the felt latency of a reply.

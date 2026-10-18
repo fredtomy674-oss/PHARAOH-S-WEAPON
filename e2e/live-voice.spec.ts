@@ -291,3 +291,82 @@ test("B6: a capture hiccup drops the probe, never the mode — the recognizer re
   await expect(page.getByTestId("voice-user-caption")).toContainText("خطوات الجمع", { timeout: 15_000 });
   await expect(page.getByTestId("voice-tutor-caption")).toContainText(/\S/, { timeout: 25_000 });
 });
+
+test("B7: a touch device listens like its dictation — single-utterance sessions, no probe, and the words still arrive", async ({ browser }) => {
+  // PHASE 175 — the owner's phone: the dictation key transcribes his speech
+  // perfectly while live mode heard nothing. The difference is the shape —
+  // live held TWO claims on one microphone (a continuous session + the echo
+  // probe) where dictation holds one, single-utterance, session. A phone is
+  // therefore the honest way to run this contract: touch-first, dictation
+  // shape, and (on a real device) no probe at all.
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    hasTouch: true,
+  });
+  await context.addInitScript(() => {
+    try {
+      Object.defineProperty(navigator, "maxTouchPoints", { get: () => 1, configurable: true });
+    } catch {
+      /* the environment forbids the override — hasTouch alone already says touch */
+    }
+  });
+  const page = await context.newPage();
+  await installVoiceStubs(page, undefined, undefined, { live: true });
+  await login(page);
+  await startFirstLesson(page);
+
+  await page.getByTestId("live-conversation-toggle").click();
+  await expect(page.getByTestId("voice-focus")).toBeVisible({ timeout: 10_000 });
+  await waitLiveReady(page);
+
+  // The phone recipe, stated as facts: the session is a single-utterance one
+  // (dictation's own shape) and the probe was never even requested.
+  const opened = await voiceTestState(page);
+  expect(opened.liveContinuous).toBe(false);
+  expect(opened.micProbeCalls).toBe(0);
+
+  // The words arrive, show as his caption, and go out by themselves…
+  await pushLiveInterim(page, "اشرح لي الجمع");
+  await expect(page.getByTestId("live-interim")).toContainText("الجمع");
+  await pushLiveUtterance(page, "اشرح لي الجمع مع إعادة التجميع");
+  await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 15_000 });
+
+  // …the single-utterance session ends on its own final the way Chrome's do,
+  // and the mode reopens it by itself — the session count is the receipt.
+  await expect.poll(() => liveSessionCount(page), { timeout: 10_000 }).toBeGreaterThan(1);
+
+  // The tutor answers in his own voice and the microphone is still open.
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "speaking");
+  expect(await isLiveReady(page)).toBe(true);
+  await context.close();
+});
+
+test("B8: nine word-less seconds clear the field once — the probe goes and the session is rebuilt", async ({ page }) => {
+  await installVoiceStubs(page, undefined, undefined, { live: true });
+  await login(page);
+  await startFirstLesson(page);
+
+  await page.getByTestId("live-conversation-toggle").click();
+  await expect(page.getByTestId("voice-focus")).toBeVisible({ timeout: 10_000 });
+  await waitLiveReady(page);
+
+  const sessionsBefore = await liveSessionCount(page);
+  expect((await voiceTestState(page)).micProbeStops).toBe(0);
+
+  // PHASE 175 — the death with no error: the mode opens, the child speaks,
+  // and not one fragment ever arrives. At the exact moment the screen admits
+  // «لم أسمعك بعد», the session clears the field behind the scenes — probe
+  // released, recognizer rebuilt — so the next words start fresh.
+  await expect(page.getByTestId("live-mic-hint")).toBeVisible({ timeout: 12_000 });
+  await expect.poll(() => liveSessionCount(page), { timeout: 10_000 }).toBeGreaterThan(sessionsBefore);
+  expect((await voiceTestState(page)).micProbeStops).toBeGreaterThan(0);
+
+  // …and the fresh session carries the words that follow, all the way to the
+  // tutor's voice — the rescue is invisible except for the answer.
+  await pushLiveInterim(page, "اشرح لي الجمع");
+  await expect(page.getByTestId("live-interim")).toContainText("الجمع");
+  await pushLiveUtterance(page, "اشرح لي الجمع مع إعادة التجميع");
+  await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
+});
