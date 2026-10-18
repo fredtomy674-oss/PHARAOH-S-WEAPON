@@ -1030,6 +1030,59 @@ p {
   color: var(--warn);
 }
 
+/* PHASE 168 — «المحادثة الحيّة»: سطر حالة واحد ثابت — لا نبض ولا وميض، فما
+   لا يتحرك لا يحتاج استثناء prefers-reduced-motion أصلًا. */
+.live-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-line);
+  color: var(--primary-dark);
+  border-radius: 10px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.live-bar[data-state="speaking"] {
+  background: var(--warn-bg);
+  border-color: var(--warn-line);
+  color: var(--warn);
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ok-fg);
+}
+
+.live-bar[data-state="speaking"] .live-dot {
+  background: var(--warn);
+}
+
+.live-bar[data-state="thinking"] .live-dot {
+  background: var(--primary);
+}
+
+.live-interim {
+  opacity: 0.85;
+  font-style: italic;
+  word-break: break-word;
+}
+
+.live-bar .btn {
+  margin-inline-start: auto;
+}
+
+.live-toggle.active {
+  background: var(--ok-bg);
+  border-color: var(--ok-line);
+  color: var(--primary-dark);
+}
+
 .speak-btn {
   margin-top: 0.4rem;
   background: var(--gold-soft);

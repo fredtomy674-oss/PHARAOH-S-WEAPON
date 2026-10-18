@@ -119,6 +119,8 @@ interface RecognitionResult {
 
 interface RecognitionResultEvent {
   results: ArrayLike<RecognitionResult>;
+  /** First result changed in this event (real engines); may be absent. */
+  resultIndex?: number;
 }
 
 type SpeechSynthWindow = Window & {
@@ -676,4 +678,330 @@ export function stopAudio(): void {
     URL.revokeObjectURL(currentAudioUrl);
     currentAudioUrl = null;
   }
+}
+
+// --------------------------------------- live conversation (PHASE 168) --
+
+/**
+ * PHASE 168 — «المحادثة الحيّة»: one open microphone, not a button per question.
+ *
+ * `startTranscription` above is deliberately one-shot: press, speak, review,
+ * send. The owner asked for the other shape — a conversation where the tutor
+ * hears while the student talks, answers while the answer is still being
+ * written, yields the moment the student speaks again, and never asks him to
+ * touch anything between turns.
+ *
+ * Three pieces of behaviour turn the browser's continuous Recognition into
+ * that conversation, and all three live here (the room only decides what a
+ * completed utterance means — it sends it):
+ *
+ *  • segmentation — a continuous session reports fragments; the tracker below
+ *    gathers them into whole utterances that end on a short silence;
+ *  • barge-in — the first fragment of a new utterance is announced at once, so
+ *    the room can silence the tutor's voice before the student is even done;
+ *  • survival — Chrome ends recognition on its own (its silence timer, a ~60s
+ *    cap). A conversation must not die with it: the session is reopened
+ *    invisibly, unless the *student* ended the mode.
+ */
+
+/** The silence that ends the student's utterance and releases it, in ms. */
+export const LIVE_SILENCE_MS = 1200;
+
+/** A student talking without a pause still gets a turn at this bound. */
+export const LIVE_MAX_UTTERANCE_MS = 20_000;
+
+/** The breath before a recognition session Chrome ended is reopened. */
+const LIVE_RESTART_GAP_MS = 500;
+
+/**
+ * A late final that merely re-reports what was just released is the same
+ * question, not a new one: engines can finalize a phrase right after its
+ * interim was released, and sending both would ask the tutor twice.
+ */
+const LIVE_ECHO_MS = 2500;
+
+export interface LiveUtteranceOptions {
+  /** Silence that ends an utterance (default `LIVE_SILENCE_MS`). */
+  silenceMs?: number;
+  /** Longest one utterance may run before it is released anyway. */
+  maxMs?: number;
+}
+
+/**
+ * Turns a stream of recognition fragments into whole utterances.
+ *
+ * Pure and clock-injected on purpose: the segmentation rules (when a burst
+ * began, when it ended, what text it contains) are the part worth unit-testing,
+ * and they do not need a browser to be true. No word is invented here — the
+ * utterance is exactly the text the engine reported, finals plus the interim
+ * tail that was on screen when the silence arrived.
+ */
+export class LiveUtteranceTracker {
+  private finals = "";
+  private interim = "";
+  private active = false;
+  private startedAt = 0;
+  private lastResultAt = 0;
+  /** The last utterance released, and when — for the echo guard. */
+  private released = "";
+  private releasedAt = 0;
+  private readonly silenceMs: number;
+  private readonly maxMs: number;
+
+  constructor(opts: LiveUtteranceOptions = {}) {
+    this.silenceMs = opts.silenceMs ?? LIVE_SILENCE_MS;
+    this.maxMs = opts.maxMs ?? LIVE_MAX_UTTERANCE_MS;
+  }
+
+  /** The utterance as it stands right now (for a live caption). */
+  get live(): string {
+    return [this.finals, this.interim]
+      .map((t) => this.normalize(t))
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  /**
+   * A final fragment arrived. Returns true when it opened a NEW utterance —
+   * the moment the tutor's voice must yield.
+   */
+  noteFinal(text: string, now: number): boolean {
+    const t = this.normalize(text);
+    // The engine can report the *final* of a phrase just after its interim was
+    // released (the silence arrived first): that is the same question again,
+    // not a new one.
+    if (!this.active && t && this.isEcho(t, now)) return false;
+    const began = this.note(now);
+    if (t) this.finals = this.finals ? `${this.finals} ${t}` : t;
+    // A final replaces the interim tail it finalizes: only the NEXT interim is
+    // a new phrase. Without this, a phrase whose interim was already shown
+    // would appear twice in the same utterance.
+    this.interim = "";
+    return began;
+  }
+
+  /** An interim fragment arrived (the same utterance, still being refined). */
+  noteInterim(text: string, now: number): boolean {
+    const t = this.normalize(text);
+    if (!this.active && t && this.isEcho(t, now)) return false;
+    const began = this.note(now);
+    this.interim = t;
+    return began;
+  }
+
+  /**
+   * The clock moved: returns the utterance when the student has been silent
+   * for `silenceMs`, or talking for `maxMs` without a pause.
+   */
+  tick(now: number): string | null {
+    if (!this.active) return null;
+    const text = this.live;
+    if (!text) {
+      // A burst that never produced words (engine noise): drop it at the bound.
+      if (now - this.startedAt >= this.maxMs) this.reset();
+      return null;
+    }
+    if (now - this.lastResultAt >= this.silenceMs || now - this.startedAt >= this.maxMs) {
+      this.reset();
+      this.released = text;
+      this.releasedAt = now;
+      return text;
+    }
+    return null;
+  }
+
+  /** Ends the utterance right now (the recognition session closed). */
+  flush(now: number = Date.now()): string | null {
+    if (!this.active) return null;
+    const text = this.live;
+    this.reset();
+    if (!text) return null;
+    this.released = text;
+    this.releasedAt = now;
+    return text;
+  }
+
+  private note(now: number): boolean {
+    const began = !this.active;
+    if (began) {
+      this.active = true;
+      this.startedAt = now;
+    }
+    this.lastResultAt = now;
+    return began;
+  }
+
+  private normalize(text: string): string {
+    return text.replace(/\s+/g, " ").trim();
+  }
+
+  private isEcho(text: string, now: number): boolean {
+    return (
+      this.released !== "" &&
+      now >= this.releasedAt &&
+      now - this.releasedAt <= LIVE_ECHO_MS &&
+      text === this.released
+    );
+  }
+
+  private reset(): void {
+    this.active = false;
+    this.finals = "";
+    this.interim = "";
+    this.startedAt = 0;
+    this.lastResultAt = 0;
+  }
+}
+
+export interface LiveConversationCallbacks {
+  /** The current utterance so far, live (empty string once it is released). */
+  onLive: (text: string) => void;
+  /**
+   * A new utterance began — the student started talking. Fired once per
+   * utterance, on its first fragment: the room makes the tutor's voice yield
+   * here, because a student who interrupts must not wait for his own sentence
+   * to be complete before being heard.
+   */
+  onSpeech: () => void;
+  /** A whole utterance, released by the silence (or the bound) that ended it. */
+  onUtterance: (text: string) => void;
+  /** A fatal recognition error (permission, capture, network). */
+  onError: (message: string | null) => void;
+  /** Recognition is fully stopped (student ended the mode, or it failed). */
+  onEnd: () => void;
+}
+
+export interface LiveConversationHandle {
+  /** Ends the live session; whatever was half-spoken is dropped, not sent. */
+  stop: () => void;
+}
+
+/**
+ * One continuous recognition session, kept alive across the browser's own
+ * endings, reporting whole utterances as the student speaks them.
+ *
+ * Errors are read the way the mode works: "aborted" is our own stop, and
+ * "no-speech" is exactly the quiet this session waits for — neither is news.
+ * Everything else (permission, capture, network) ends the mode honestly
+ * through `onError`, because a session that looks alive while hearing nothing
+ * is worse than a notice.
+ */
+export function startLiveConversation(
+  callbacks: LiveConversationCallbacks,
+  language: VoiceLanguage = "ar",
+): LiveConversationHandle | null {
+  const Ctor = recognitionCtor();
+  if (!Ctor) return null;
+
+  let active = true;
+  let current: RecognitionLike | null = null;
+  const tracker = new LiveUtteranceTracker();
+  let tickTimer = 0;
+  let restartTimer = 0;
+
+  const emit = (text: string) => {
+    callbacks.onLive("");
+    if (text) callbacks.onUtterance(text);
+  };
+
+  const fatal = (message: string | null): void => {
+    if (!active) return;
+    active = false;
+    current = null;
+    window.clearInterval(tickTimer);
+    window.clearTimeout(restartTimer);
+    callbacks.onError(message);
+    callbacks.onEnd();
+  };
+
+  /** Opens one recognition session; `onend` decides whether another follows. */
+  const open = (): void => {
+    if (!active) return;
+    const rec = new Ctor();
+    current = rec;
+    rec.lang = speechTag(language);
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.maxAlternatives = 1;
+    // Indices already counted as final: real engines may re-deliver an
+    // unchanged final result, and words must never be appended twice.
+    const countedFinals = new Set<number>();
+
+    rec.onresult = (event) => {
+      if (!active) return;
+      const now = Date.now();
+      let began = false;
+      const results = event.results;
+      const from = Math.max(0, event.resultIndex ?? 0);
+      for (let i = from; i < results.length; i++) {
+        const item = results[i];
+        // A sparse result list (the E2E stub, some engines) simply has no
+        // fragment at this index — never an error.
+        if (!item) continue;
+        const text = item[0]?.transcript ?? "";
+        if (item.isFinal) {
+          if (countedFinals.has(i)) continue;
+          countedFinals.add(i);
+          began = tracker.noteFinal(text, now) || began;
+        } else {
+          began = tracker.noteInterim(text, now) || began;
+        }
+      }
+      if (began) callbacks.onSpeech();
+      callbacks.onLive(tracker.live);
+    };
+
+    rec.onerror = (event) => {
+      if (!active) return;
+      if (event.error === "aborted") return; // our own stop — `onend` closes it
+      if (event.error === "no-speech") return; // the quiet the tracker waits for
+      fatal(STT_ERROR_MESSAGES[event.error] ?? null);
+    };
+
+    rec.onend = () => {
+      if (current !== rec) return; // a late end from an older session
+      current = null;
+      if (!active) return;
+      // The session ended (Chrome's own silence timer, the ~60s cap): release
+      // what was heard — it was an utterance — and reopen after a breath.
+      const whole = tracker.flush();
+      if (whole) emit(whole);
+      restartTimer = window.setTimeout(open, LIVE_RESTART_GAP_MS);
+    };
+
+    try {
+      rec.start();
+    } catch {
+      fatal("تعذر بدء التعرف على الكلام — أعد المحاولة");
+    }
+  };
+
+  tickTimer = window.setInterval(() => {
+    if (!active) return;
+    const whole = tracker.tick(Date.now());
+    if (whole) emit(whole);
+  }, 250);
+
+  open();
+
+  return {
+    stop: () => {
+      if (!active) return;
+      active = false;
+      window.clearInterval(tickTimer);
+      window.clearTimeout(restartTimer);
+      // Half-spoken text is dropped: ending the mode is not a question.
+      tracker.flush();
+      const rec = current;
+      current = null;
+      if (rec) {
+        try {
+          rec.stop();
+        } catch {
+          /* already closed */
+        }
+      }
+      callbacks.onEnd();
+    },
+  };
 }

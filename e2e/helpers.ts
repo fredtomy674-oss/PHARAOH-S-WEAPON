@@ -119,9 +119,15 @@ export interface VoiceTestState {
  * flows can be automated without a real microphone or audio output:
  *  - SpeechRecognition: emits exactly ONE final result with `transcript`, then
  *    `onend` (mimics Chrome after a short pause on a spoken sentence), and
- *    records the `lang` the app asked to dictate in (D-043).
+ *    records the `lang` the app asked to dictate in (D-043). PHASE 168:
+ *    `opts.live` makes the stub live-capable instead — a continuous session
+ *    that waits for fragments the spec pushes via `window.__speechPush`
+ *    (`pushLiveUtterance`/`pushLiveInterim` below), exactly the way a real
+ *    engine reports them (growing result list, advancing resultIndex).
  *  - speechSynthesis: exposes `voices` (both languages by default) and records
- *    every spoken utterance + every cancel; plays no real audio.
+ *    every spoken utterance + every cancel; plays no real audio. PHASE 168:
+ *    `freezeLiveSpeech` holds the current utterance open, so barge-in is
+ *    proved rather than timed.
  *  - <audio>: records play/pause/ended and the last src, so the server-audio
  *    path (PHASE 40/D-044) can be asserted as really played and really stopped.
  *  The recorded state is exposed as `window.__voiceTest` for assertions.
@@ -130,9 +136,9 @@ export async function installVoiceStubs(
   page: Page,
   transcript: string = STT_TRANSCRIPT,
   voices: StubVoice[] = STUB_VOICES,
-  opts: { stallFirst?: boolean; stallAlways?: boolean } = {},
+  opts: { stallFirst?: boolean; stallAlways?: boolean; live?: boolean } = {},
 ): Promise<void> {
-  await page.addInitScript((opts: { transcript: string; voices: StubVoice[]; stallFirst?: boolean; stallAlways?: boolean }) => {
+  await page.addInitScript((opts: { transcript: string; voices: StubVoice[]; stallFirst?: boolean; stallAlways?: boolean; live?: boolean }) => {
     const state: VoiceTestState = { spoken: [], cancelCount: 0, resumeCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 } };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
 
@@ -190,7 +196,15 @@ export async function installVoiceStubs(
       };
     }
 
-    // One-shot SpeechRecognition: one final result, then end.
+    // PHASE 168 — holds the current spoken utterance open (see freeze below).
+    let frozenSpeech = false;
+
+    // SpeechRecognition: one-shot by default (one final result, then end).
+    // PHASE 168 — with `opts.live` a continuous session waits for fragments the
+    // spec pushes through `window.__speechPush` instead of speaking on a timer.
+    let liveRec: {
+      push: (text: string, isFinal: boolean) => void;
+    } | null = null;
     class FakeSpeechRecognition {
       lang = "ar-EG";
       continuous = false;
@@ -199,9 +213,15 @@ export async function installVoiceStubs(
       onresult: ((event: unknown) => void) | null = null;
       onerror: ((event: unknown) => void) | null = null;
       onend: (() => void) | null = null;
+      /** Index of the next fragment, like an engine's growing result list. */
+      private cursor = 0;
       start(): void {
         // The app sets `lang` after construction — record what it asked for.
         state.recognitionLang = this.lang;
+        if (opts.live && this.continuous) {
+          liveRec = this;
+          return;
+        }
         setTimeout(() => {
           if (typeof this.onresult === "function") {
             this.onresult({ results: [{ isFinal: true, 0: { transcript: opts.transcript } }] });
@@ -209,11 +229,32 @@ export async function installVoiceStubs(
           if (typeof this.onend === "function") this.onend();
         }, 400);
       }
+      /** One fragment, shaped exactly the way a real engine reports them. */
+      push(text: string, isFinal: boolean): void {
+        const index = this.cursor++;
+        const results = new Array(index + 1);
+        results[index] = { isFinal, 0: { transcript: text } };
+        this.onresult?.({ resultIndex: index, results });
+      }
       stop(): void {
+        if (liveRec === this) liveRec = null;
         if (typeof this.onend === "function") this.onend();
       }
     }
     (window as unknown as { SpeechRecognition: unknown }).SpeechRecognition = FakeSpeechRecognition;
+    if (opts.live) {
+      (window as unknown as { __speechPush?: unknown }).__speechPush = {
+        ready: () => liveRec !== null,
+        final: (text: string) => liveRec?.push(text, true),
+        interim: (text: string) => liveRec?.push(text, false),
+        freeze: () => {
+          frozenSpeech = true;
+        },
+        unfreeze: () => {
+          frozenSpeech = false;
+        },
+      };
+    }
 
     // Recording speechSynthesis: no real audio.
     const pending: Array<{ text: string; lang: string }> = [];
@@ -250,9 +291,16 @@ export async function installVoiceStubs(
         // that ended instantly would let the whole reply be "spoken" before a
         // test could look at it.
         const duration = Math.min(3000, Math.max(500, u.text.length * 25));
-        setTimeout(() => {
+        const finish = (): void => {
+          // PHASE 168 — frozen speech stays open, so a barge-in test can prove
+          // that only the room's own stop silences it.
+          if (frozenSpeech) {
+            setTimeout(finish, 100);
+            return;
+          }
           if (pending[0] === u) u.onend?.();
-        }, duration);
+        };
+        setTimeout(finish, duration);
       },
       cancel(): void {
         state.cancelCount += 1;
@@ -272,12 +320,58 @@ export async function installVoiceStubs(
       configurable: true,
       writable: true,
     });
-  }, { transcript, voices, stallFirst: opts.stallFirst, stallAlways: opts.stallAlways });
+  }, { transcript, voices, stallFirst: opts.stallFirst, stallAlways: opts.stallAlways, live: opts.live });
 }
 
 /** Reads the recorded voice-test state (only meaningful after installVoiceStubs). */
 export async function voiceTestState(page: Page): Promise<VoiceTestState> {
   return page.evaluate(() => (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest);
+}
+
+/**
+ * PHASE 168 — speaks one fragment into the *live* recognition stub
+ * (`installVoiceStubs(..., { live: true })`). A final fragment is what an
+ * engine reports when a phrase has settled; the conversation releases the
+ * whole utterance after its silence and the room sends it.
+ */
+export async function pushLiveUtterance(page: Page, text: string): Promise<void> {
+  await page.evaluate((value: string) => {
+    const wnd = window as unknown as { __speechPush?: { final: (t: string) => void } };
+    wnd.__speechPush?.final(value);
+  }, text);
+}
+
+/** An interim fragment — the words as they are still being recognized. */
+export async function pushLiveInterim(page: Page, text: string): Promise<void> {
+  await page.evaluate((value: string) => {
+    const wnd = window as unknown as { __speechPush?: { interim: (t: string) => void } };
+    wnd.__speechPush?.interim(value);
+  }, text);
+}
+
+/** Waits until a live recognition session is actually open (mode toggled on). */
+export async function waitLiveReady(page: Page): Promise<void> {
+  await expect
+    .poll(
+      async () =>
+        page.evaluate(() => {
+          const wnd = window as unknown as { __speechPush?: { ready: () => boolean } };
+          return wnd.__speechPush?.ready() ?? false;
+        }),
+      { timeout: 5_000 },
+    )
+    .toBe(true);
+}
+
+/**
+ * Holds the current spoken utterance open so barge-in is proved, not timed:
+ * with the engine frozen, only the room's own stop can silence it.
+ */
+export async function freezeLiveSpeech(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    const wnd = window as unknown as { __speechPush?: { freeze: () => void } };
+    wnd.__speechPush?.freeze();
+  });
 }
 
 /**

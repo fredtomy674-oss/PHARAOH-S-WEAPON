@@ -54,9 +54,11 @@ import {
   resetLocalVoice,
   speakText,
   speechRecognitionSupported,
+  startLiveConversation,
   startTranscription,
   stopSpeaking,
   ttsSupported,
+  type LiveConversationHandle,
   type SttHandle,
 } from "./voice.js";
 import InkBoard from "./InkBoard.js";
@@ -230,6 +232,11 @@ export function LessonRoom({ session, onEnded }: Props) {
   const [tripwire, setTripwire] = useState(false);
   const [listening, setListening] = useState(false);
   const [speaking, setSpeaking] = useState(false);
+  // PHASE 168 — «المحادثة الحيّة»: جلسة استماع واحدة مفتوحة بدل ضغطة لكل سؤال
+  // (القواعد نفسها في `voice.ts`). `conversation` يفتحها وينهيها، و`convLive`
+  // هو نصّ ما يُسمع الآن — الشريط لا يعرض غير الكلام نفسه.
+  const [conversation, setConversation] = useState(false);
+  const [convLive, setConvLive] = useState("");
   // W2 — the lesson's place in the printed book: a REFERENCE, never a display.
   // The room names the page («كتابك — صفحة ٦ من ٧»); it never shows the book.
   const [stage, setStage] = useState<LessonStage | null>(null);
@@ -292,6 +299,12 @@ export function LessonRoom({ session, onEnded }: Props) {
   // playing a reply the student already moved on from.
   const speechToken = useRef(0);
   const voiceTurnRef = useRef(false);
+  // PHASE 168 — مرايا النداءات الحيّة: جلسة الاستماع تعيش أطول من أي رسم،
+  // فتصلها `send` و`stopReading` و`pending` الحالية دائمًا عبر هذه المراجع.
+  const pendingRef = useRef(false);
+  const convQueued = useRef<string | null>(null);
+  const sendRef = useRef<((text: string) => void) | null>(null);
+  const stopReadingRef = useRef<() => void>(() => undefined);
   // PHASE 56 — the reply being heard while it is still arriving (see
   // `narrator.ts`): it speaks each sentence the moment it is complete, and
   // reports `broken` when this machine has no voice for Arabic so the room can
@@ -686,7 +699,28 @@ export function LessonRoom({ session, onEnded }: Props) {
     );
   };
 
+  /**
+   * PHASE 168 — «المحادثة الحيّة»: زر واحد يفتح جلسة استماع مستمرة. كل ما يُقال
+   * بعد صمت قصير يُرسل وحده، والرد يُقرأ وهو يُكتب، ومقاطعة الطالب تُسكت صوت
+   * المعلّم في الحال — بلا ضغطة واحدة بين الدورين. والضغط مرة أخرى ينهيها.
+   */
+  const toggleConversation = () => {
+    if (conversation) {
+      setConversation(false);
+      return;
+    }
+    if (!speechRecognitionSupported()) {
+      setError("التعرف على الكلام غير مدعوم في هذا المتصفح — جرّب Chrome أو Edge");
+      return;
+    }
+    setError(null);
+    setConversation(true);
+  };
+
   const toggleTranscription = () => {
+    // One microphone: live mode owns it while open (the button is disabled
+    // there too — this is the backstop).
+    if (conversation) return;
     if (listening) {
       sttRef.current?.stop();
       return;
@@ -942,6 +976,79 @@ export function LessonRoom({ session, onEnded }: Props) {
       setPending(false);
     }
   };
+
+  // PHASE 168 — keep the live callbacks reading the room's *current*
+  // send/stop/pending (no dependency list on purpose: refreshed after every
+  // render, and the callbacks fire long after it).
+  useEffect(() => {
+    sendRef.current = (text: string) => void send(text);
+  });
+  useEffect(() => {
+    stopReadingRef.current = stopReading;
+  });
+  useEffect(() => {
+    pendingRef.current = pending;
+  }, [pending]);
+
+  // PHASE 168 — the one session behind «المحادثة الحيّة»: opened when the mode
+  // is on, closed when it ends (or the lesson's reply language changes, so the
+  // engine hears the right language).
+  useEffect(() => {
+    if (!conversation) return;
+    // One microphone: a one-shot dictation running beside live mode would
+    // fight it for the mic.
+    sttRef.current?.stop();
+    const handle: LiveConversationHandle | null = startLiveConversation(
+      {
+        onLive: (text) => setConvLive(text),
+        // Barge-in: only when the tutor actually holds the floor — never
+        // cancel into an idle engine (the PHASE 167 wedge lesson).
+        onSpeech: () => {
+          if (narratorRef.current || streamedRef.current || activeUtterance.current) {
+            stopReadingRef.current();
+          }
+        },
+        onUtterance: (text) => {
+          setConvLive("");
+          if (pendingRef.current) {
+            // The tutor is still answering: the question is kept and sent the
+            // moment the room is free — one question, the latest one.
+            convQueued.current = text;
+            return;
+          }
+          voiceTurnRef.current = true;
+          sendRef.current?.(text);
+        },
+        onError: (message) => {
+          setConversation(false);
+          if (message) setError(message);
+        },
+        onEnd: () => undefined,
+      },
+      tutorLanguage,
+    );
+    if (!handle) {
+      setConversation(false);
+      setError("تعذر بدء المحادثة الحيّة — أعد المحاولة");
+      return;
+    }
+    return () => {
+      handle.stop();
+      convQueued.current = null;
+      setConvLive("");
+    };
+  }, [conversation, tutorLanguage]);
+
+  // PHASE 168 — a question heard while the tutor was answering goes out the
+  // moment the turn ends, so the conversation flows with nothing pressed.
+  useEffect(() => {
+    if (pending || !conversation) return;
+    const queued = convQueued.current;
+    if (!queued) return;
+    convQueued.current = null;
+    voiceTurnRef.current = true;
+    sendRef.current?.(queued);
+  }, [pending, conversation]);
 
   /** Re-reads the transcript from the server (used after a half-finished turn). */
   const syncMessages = async () => {
@@ -1416,6 +1523,32 @@ export function LessonRoom({ session, onEnded }: Props) {
 
       {/* ---- the composer: the only place the student acts ---- */}
       <footer className="room-footer">
+        {/* PHASE 168 — «المحادثة الحيّة»: سطر حالة واحد هادئ (لا نبض ولا وميض،
+            فلا حاجة لاستثناء حركة)، وعين الطالب على الدرس لا على الأزرار. */}
+        {conversation && (
+          <div
+            className="live-bar"
+            data-testid="live-hud"
+            data-state={speaking ? "speaking" : pending ? "thinking" : "listening"}
+          >
+            <span className="live-dot" aria-hidden="true" />
+            <span className="live-label" data-testid="live-state" aria-live="polite">
+              {speaking
+                ? "🔊 المعلّم يتكلّم — تكلّم متى شئت فيصمت فورًا"
+                : pending
+                  ? "🧠 المعلّم يجهّز الردّ…"
+                  : "🎙️ أسمعك… تكلّم بحرية"}
+            </span>
+            {convLive && (
+              <span className="live-interim" data-testid="live-interim" dir="auto">
+                «{convLive}»
+              </span>
+            )}
+            <button data-testid="live-exit" type="button" className="btn small ghost" onClick={toggleConversation}>
+              ⏹ إنهاء المحادثة
+            </button>
+          </div>
+        )}
         <div className="quick-row">
           <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅")}>
             فهمت
@@ -1494,13 +1627,31 @@ export function LessonRoom({ session, onEnded }: Props) {
             }}
           />
           <div className="composer-tools">
+            {/* PHASE 168 — «المحادثة الحيّة»: طلب المالك الصريح — المعلّم يسمع
+                ويتكلم في جلسة واحدة بلا رسائل متقطعة («محادثة حية… يسمع و
+                يفهم و يرد خلال المحادثة»). */}
+            <button
+              data-testid="live-conversation-toggle"
+              type="button"
+              className={`btn small ghost live-toggle${conversation ? " active" : ""}`}
+              aria-label="محادثة صوتية حيّة مع المعلّم — يسمع ويتكلم بلا أزرار"
+              aria-pressed={conversation}
+              title={
+                conversation
+                  ? "المحادثة الحيّة مفتوحة — اضغط لإنهائها"
+                  : "افتح محادثة حيّة: تكلّم بحرية فيرد المعلّم دون أي زر"
+              }
+              onClick={toggleConversation}
+            >
+              {conversation ? "🟢" : "🗣️"} محادثة حيّة
+            </button>
             <button
               data-testid="voice-input"
               type="button"
               className={`btn small ghost voice-btn${listening ? " active" : ""}`}
               aria-label="التحدث بدل الكتابة"
               aria-pressed={listening}
-              disabled={pending}
+              disabled={pending || conversation}
               onClick={toggleTranscription}
             >
               {listening ? "🔴" : "🎙️"} سؤال بصوت
