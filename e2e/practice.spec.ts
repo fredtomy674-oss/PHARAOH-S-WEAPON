@@ -181,6 +181,9 @@ test("PR5 (PHASE 33): ending a lesson session keeps the practice plan healthy", 
   // Back home: the plan (and the recency path behind it) is still healthy.
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  // PHASE 170 — wait for the plan itself, not just its card: the card renders
+  // its loading state first, so an immediate count could read a half-loaded plan.
+  await expect(page.getByTestId("plan-row").first()).toBeVisible({ timeout: 20_000 });
   expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
 });
 
@@ -193,6 +196,9 @@ test("PR5 (PHASE 33): ending a lesson session keeps the practice plan healthy", 
 test("PR6 (PHASE 35): the plan shows no «راجع قبل أن ينسى» flag right after practice", async ({ page }) => {
   await login(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  // PHASE 170 — wait for the plan itself, not just its card: the card renders
+  // its loading state first, so an immediate count could read a half-loaded plan.
+  await expect(page.getByTestId("plan-row").first()).toBeVisible({ timeout: 20_000 });
   expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
 
   // Every row renders its level; the due pill is reserved for stale concepts.

@@ -242,36 +242,6 @@
   inset-inline-start: 16px;
 }
 
-/* ── بطاقة الرئيسية ──────────────────────────────────────── */
-
-.w7-home__row {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
-  flex-wrap: wrap;
-}
-
-.w7-home__art {
-  width: 48px;
-  height: 48px;
-  color: var(--gold-deep);
-  flex: none;
-}
-
-.w7-home__text {
-  flex: 1 1 12rem;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-1);
-}
-
-.w7-home__text h4 {
-  margin: 0;
-  font-size: var(--fs-4);
-  color: var(--ink);
-}
-
 /* ── احترام تقليل الحركة ─────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {

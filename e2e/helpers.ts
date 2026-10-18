@@ -651,6 +651,19 @@ export async function sendChatMessage(
   await page.getByTestId("send-message").click();
 }
 
+/**
+ * PHASE 170 — the room's secondary tools («سؤال بصوت» · «صوّر صفحتك» ·
+ * «ملف سؤال» · «قراءة تلقائية») now live behind one «أدوات» button, so a spec
+ * that drives them opens the sheet first. Idempotent: if the sheet is already
+ * open, nothing happens.
+ */
+export async function openRoomTools(page: Page): Promise<void> {
+  const voice = page.getByTestId("voice-input");
+  if (await voice.isVisible().catch(() => false)) return;
+  await page.getByTestId("room-tools-toggle").click();
+  await expect(voice).toBeVisible({ timeout: 5_000 });
+}
+
 export async function remainingValue(locator: Locator): Promise<number> {
   const text = (await locator.textContent()) ?? "";
   const match = text.match(/متبقي اليوم:\s*(\d+)/);

@@ -512,3 +512,53 @@
     transform: none;
   }
 }
+
+/* ==========================================================================
+   PHASE 170 — «الواجهة الهادئة»: الرئيسية تنفّس
+   بطاقة الحضور تصير سطرًا، والمواد بطاقات أكبر لأصابع الصغار.
+   ========================================================================== */
+
+.hm-teacher-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-3);
+  padding: 8px 12px;
+}
+
+.hm-teacher-strip__art {
+  width: 40px;
+  height: 40px;
+  color: var(--gold-deep);
+  flex: none;
+}
+
+.hm-teacher-strip .hm-note {
+  font-size: var(--fs-2);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .hm-subjects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hm-subject {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 14px 12px;
+  }
+  .hm-subject__name {
+    white-space: normal;
+    font-size: var(--fs-3);
+  }
+  .hm-subject__icon {
+    width: 46px;
+    height: 46px;
+  }
+  .hm-subject__go {
+    display: none;
+  }
+}

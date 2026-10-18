@@ -1612,11 +1612,6 @@ p {
   color: var(--room-ink);
 }
 
-.room-book-ref-info span {
-  font-size: 0.78rem;
-  color: var(--room-muted);
-}
-
 .room-book-ref-chip {
   flex: none;
   font: inherit;
@@ -2093,11 +2088,6 @@ p {
   letter-spacing: -0.01em;
 }
 
-.room-presence-why {
-  grid-area: why;
-  margin: 0;
-}
-
 /* The orb: the AI is a presence, not a human face — honest by design. */
 .room-orb {
   grid-area: orb;
@@ -2301,8 +2291,11 @@ p {
 
 /* ----- the composer: the student's one place to act -----
    PHASE 54 — two calm rows instead of one crowded one: tools above, the
-   question below. The footer centers on the room's own measure so its edges
-   agree with the stage and the captions instead of bleeding full-width. */
+   question below. PHASE 170 — the secondary tools moved into one «أدوات»
+   sheet: the row keeps the primary action (المحادثة الحيّة), the two quick
+   answers, and the sheet's door. The footer centers on the room's own
+   measure so its edges agree with the stage and the captions instead of
+   bleeding full-width. */
 .room-footer {
   position: sticky;
   bottom: 0;
@@ -2322,6 +2315,7 @@ p {
   display: flex;
   gap: 0.5rem;
   justify-content: flex-start;
+  align-items: stretch;
   flex-wrap: wrap;
   margin-bottom: 0.55rem;
 }
@@ -2332,22 +2326,60 @@ p {
   font-weight: 700;
 }
 
+/* PHASE 170 — «المحادثة الحيّة» هي الفعل البارز في الذيل: حبّة ذهبية هادئة
+   تكبر عن جاراتها قليلًا، بلا أن تنافس زر الإرسال. */
+.room-footer .quick-row .live-toggle {
+  background: var(--gold-soft);
+  border-color: var(--ok-line);
+  color: var(--primary-ink);
+  padding-inline: 1rem;
+}
+
+.room-footer .quick-row .live-toggle.active {
+  background: var(--ok-bg);
+  border-color: var(--ok-line);
+  color: var(--primary-ink);
+}
+
+/* PHASE 170 — «أدوات» يسكن الطرف الآخر: بابٌ واحد للثانوي كله. */
+.room-footer .quick-row .room-tools-toggle {
+  margin-inline-start: auto;
+}
+
+/* PHASE 170 — ورقة «الأدوات»: الأدوات الثانوية في مكان واحد مُسمّى، بنفس
+   الأزرار ومعرّفاتها — بابٌ يُفتح بضغطة ويُغلق بضغطة. */
+.room-footer .room-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+  padding: 0.6rem;
+  background: var(--frost);
+  border: 1px solid var(--room-line);
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(23, 20, 15, 0.06);
+}
+
+.room-footer .room-tools .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.room-footer .room-tools .btn.active {
+  background: var(--gold-soft);
+  border-color: var(--ok-line);
+  color: var(--primary-ink);
+}
+
 .room-footer .composer {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-}
-
-.room-footer .composer-tools {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.room-footer .composer-tools .btn {
-  min-height: 2.5rem;
-  border-radius: 12px;
-  background: var(--frost);
 }
 
 .room-footer .composer-main {
@@ -2499,4 +2531,91 @@ p {
   .weekly-stats {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* ==========================================================================
+   PHASE 170 — «الغرفة الهادئة»: الشريط والحضور والخريطة
+   فعل رئيسي واحد بارز، والثانوي خلف زر «أدوات» — نقلٌ لا حذف، وبنفس المعرّفات.
+   ========================================================================== */
+
+/* ----- الشريط: صفّان صغيران وأزرار صامتة ----- */
+.room-ribbon {
+  gap: 0.5rem 0.75rem;
+  padding-block: 0.55rem;
+}
+
+.room-ribbon-where strong {
+  font-size: 1rem;
+}
+
+.room-ribbon-facts .btn {
+  min-height: 2.1rem;
+}
+
+.room-ribbon-icon {
+  padding-inline: 0.65rem;
+}
+
+/* ----- الحضور: سطر واحد؛ الأورب والشعاع فقط، بلا شرح تحت المسمّى ----- */
+.room-presence {
+  grid-template-areas: "orb name";
+  padding: 0.5rem 0.85rem;
+  border-radius: 16px;
+}
+
+.room-orb {
+  width: 34px;
+  height: 34px;
+}
+
+.room-orb-core {
+  width: 20px;
+  height: 20px;
+}
+
+/* ----- خريطة المفاهيم: شريط خطوات أفقي هادئ بدل عمود طويل ----- */
+.room-concept-map {
+  padding: 0.55rem 0.7rem;
+}
+
+.room-concept-head {
+  margin-bottom: 0.4rem;
+}
+
+.room-concept-list {
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 0.4rem;
+  padding-bottom: 0.15rem;
+  scrollbar-width: thin;
+}
+
+.room-concept-node {
+  flex: 0 0 auto;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "step title"
+    "step progress";
+  row-gap: 0.1rem;
+  column-gap: 0.45rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.room-concept-step {
+  grid-area: step;
+}
+
+.room-concept-title {
+  grid-area: title;
+  max-width: 12rem;
+  font-size: 0.9rem;
+}
+
+.room-concept-progress {
+  grid-area: progress;
+  justify-self: start;
+}
+
+.room-concept-bar {
+  width: 54px;
 }

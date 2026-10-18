@@ -245,6 +245,9 @@ export function LessonRoom({ session, onEnded }: Props) {
   const [refPage, setRefPage] = useState<number | null>(null);
   // The page chips («الصفحات») under the reference bar, open on demand.
   const [refPagesOpen, setRefPagesOpen] = useState(false);
+  // PHASE 170 — «الأدوات»: الأدوات الثانوية تسكن ورقة واحدة تُفتح بضغطة، فلا
+  // يزاحم فعلًا رئيسيًا واحدًا في الذيل (نقلٌ لا حذف — نفس المعرّفات).
+  const [toolsOpen, setToolsOpen] = useState(false);
   // PHASE 50 — «لوح الحبر»: the student's own marks on the board. They travel
   // with his next question (marks composited into one picture), and the board
   // is cleared once the tutor has them.
@@ -1173,21 +1176,18 @@ export function LessonRoom({ session, onEnded }: Props) {
       {/* ---- the ribbon: where the student stands in the book ---- */}
       <header className="room-ribbon" data-testid="room-ribbon">
         <div className="room-ribbon-where">
-          <div>
-            <strong data-testid="room-lesson-title">{b ? b.lesson.title : "الجلسة"}</strong>
-            <div className="muted small" data-testid="lesson-context-line">
-              {b ? `${b.grade.nameAr} • ${b.subject.nameAr} • ${b.unit.title}` : ""}
-            </div>
+          <strong data-testid="room-lesson-title">{b ? b.lesson.title : "الجلسة"}</strong>
+          <div className="muted small" data-testid="lesson-context-line">
+            {b ? `${b.grade.nameAr} • ${b.subject.nameAr} • ${b.unit.title}` : ""}
           </div>
-          {/* PHASE 38/D-042 — say out loud which language the tutor will use, so
-              a student in a language curriculum is not surprised by the reply. */}
+        </div>
+        <div className="room-ribbon-facts">
+          {/* PHASE 38/D-042 — الشريط يقول باللسان أي لغة سيتكلم بها المعلّم. */}
           {b && (
             <span className="lang-chip" data-testid="tutor-language">
               {TUTOR_LANGUAGE_LABEL[tutorLanguage]}
             </span>
           )}
-        </div>
-        <div className="room-ribbon-facts">
           {mastery !== null && (
             <span className="room-fact" data-testid="room-mastery">
               ✦ إتقانك {mastery}%
@@ -1199,11 +1199,20 @@ export function LessonRoom({ session, onEnded }: Props) {
             </span>
           )}
           <ThemeToggle testId="room-theme-toggle" />
+          {/* PHASE 170 — «الرئيسية» صارت أيقونة هادئة: خروجٌ بلا إنهاء، بينما
+              تبقى كلمة «إنهاء الحصة» واضحة لمن أنهى فعلًا. المعرّف نفسه،
+              والشكل وحده تغيّر. */}
+          <button
+            className="btn small ghost room-ribbon-icon"
+            onClick={onEnded}
+            data-testid="return-home-compact"
+            aria-label="العودة للرئيسية"
+            title="العودة للرئيسية"
+          >
+            🏠
+          </button>
           <button data-testid="end-session" className="btn small ghost" onClick={end}>
             إنهاء الحصة
-          </button>
-          <button className="btn small ghost" onClick={onEnded} data-testid="return-home-compact">
-            الرئيسية
           </button>
         </div>
       </header>
@@ -1234,7 +1243,7 @@ export function LessonRoom({ session, onEnded }: Props) {
           </div>
           <InkTools tool={inkTool} onTool={setInkTool} count={inkStrokes.length} onClear={() => onInkChange([])} />
           <p className="room-board-note muted small">
-            المعلّم يكتب أهم ما في الدرس على السبورة، وارسم واكتب معه — كل علاماتك تصل إليه مع سؤالك.
+            اكتب وارسم مع المعلّم — كل علاماتك تصل إليه مع سؤالك.
           </p>
           {stage && refPage !== null && (
             <div className="room-book-ref" data-testid="book-ref">
@@ -1255,7 +1264,6 @@ export function LessonRoom({ session, onEnded }: Props) {
                 <strong data-testid="book-ref-page">
                   كتابك — {pageLabel(refPage)} من {stage.toBookPage}
                 </strong>
-                <span>افتح كتابك واتبع مع المعلّم خطوة بخطوة</span>
               </div>
               {pages.length > 1 && (
                 <button
@@ -1295,7 +1303,6 @@ export function LessonRoom({ session, onEnded }: Props) {
           <section className="room-concept-map" data-testid="concept-map" aria-label="خريطة المفاهيم">
             <div className="room-concept-head">
               <strong>🗺️ خريطة المفاهيم</strong>
-              <span className="muted small">ترتيب الدرس حسب الكتاب — وإتقانك لكل فكرة</span>
             </div>
             <ol className="room-concept-list">
               {conceptMap.nodes.map((n, i) => (
@@ -1358,9 +1365,6 @@ export function LessonRoom({ session, onEnded }: Props) {
                 {PRESENCE_LABEL[presence]}
               </span>
             </div>
-            <p className="room-presence-why muted small">
-              ذكي + كتابك + معلّمك البشري — نتعلّم معًا.
-            </p>
           </div>
 
           {tripwire && (
@@ -1596,14 +1600,103 @@ export function LessonRoom({ session, onEnded }: Props) {
             </button>
           </div>
         )}
+        {/* PHASE 170 — ذيل واحد هادئ: فعل رئيسي واحد (المحادثة الحيّة) + جوابا
+            الطفل السريعان + زر «أدوات» واحد يضمّ الثانوي كله — نقلٌ لا حذف،
+            وكل المعرّفات القديمة باقية كما هي. */}
         <div className="quick-row">
+          <button
+            data-testid="live-conversation-toggle"
+            type="button"
+            className={`btn small ghost live-toggle${conversation ? " active" : ""}`}
+            aria-label="محادثة صوتية حيّة مع المعلّم — يسمع ويتكلم بلا أزرار"
+            aria-pressed={conversation}
+            title={
+              conversation
+                ? "المحادثة الحيّة مفتوحة — اضغط لإنهائها"
+                : "افتح محادثة حيّة: تكلّم بحرية فيرد المعلّم دون أي زر"
+            }
+            onClick={() => {
+              setToolsOpen(false);
+              toggleConversation();
+            }}
+          >
+            {conversation ? "🟢" : "🎙️"} محادثة حيّة
+          </button>
           <button data-testid="btn-understood" className="btn small ok" disabled={pending} onClick={() => send("فهمت ✅")}>
             فهمت
           </button>
           <button data-testid="btn-confused" className="btn small warn" disabled={pending} onClick={() => send("مش فاهم، اشرح بطريقة أسهل من فضلك")}>
             مش فاهم
           </button>
+          <button
+            data-testid="room-tools-toggle"
+            type="button"
+            className={`btn small ghost room-tools-toggle${toolsOpen ? " active" : ""}`}
+            aria-expanded={toolsOpen}
+            aria-label="أدوات إضافية: صوت، صورة، ملف، قراءة"
+            title="أدوات إضافية"
+            onClick={() => setToolsOpen((v) => !v)}
+          >
+            🧰 <span className="room-tools-toggle-label">أدوات</span>
+          </button>
         </div>
+        {toolsOpen && (
+          <div className="room-tools" data-testid="room-tools">
+            <button
+              data-testid="voice-input"
+              type="button"
+              className={`btn small ghost voice-btn${listening ? " active" : ""}`}
+              aria-label="التحدث بدل الكتابة"
+              aria-pressed={listening}
+              disabled={pending || conversation}
+              onClick={() => {
+                setToolsOpen(false);
+                toggleTranscription();
+              }}
+            >
+              {listening ? "🔴" : "🎙️"} سؤال بصوت
+            </button>
+            <button
+              data-testid="attach-image"
+              type="button"
+              className="btn small ghost"
+              aria-label="صوّر صفحتك من كتابك"
+              disabled={pending}
+              onClick={() => fileRef.current?.click()}
+            >
+              📷 صوّر صفحتك
+            </button>
+            <button
+              data-testid="attach-document"
+              type="button"
+              className="btn small ghost"
+              aria-label="إرفاق ملف سؤال"
+              disabled={pending}
+              onClick={() => docRef.current?.click()}
+            >
+              📄 ملف سؤال
+            </button>
+            {/* PHASE 166 — «القراءة التلقائية»: كل رد يُسمع فور وصوله (افتراضيًا
+                مفتوح — طلب المالك)، والزر يطفيها متى شاء الطالب. */}
+            <button
+              data-testid="auto-read-toggle"
+              type="button"
+              className={`btn small ghost auto-read-btn${autoRead ? " active" : ""}`}
+              aria-label="قراءة ردود المعلّم تلقائيًا"
+              aria-pressed={autoRead}
+              title={autoRead ? "كل رد يُقرأ تلقائيًا — اضغط لكتم القراءة" : "القراءة التلقائية متوقفة — اضغط لتشغيلها"}
+              onClick={() => {
+                const next = !autoRead;
+                // PHASE 167 — switching the reading back on is an explicit ask
+                // for the voice: give a wedged engine a fresh chance.
+                if (next) resetLocalVoice();
+                writeAutoReadPref(next);
+              }}
+            >
+              {autoRead ? "🔊" : "🔇"} قراءة تلقائية
+            </button>
+          </div>
+        )}
         {preview && (
           <div className="attachment-preview" data-testid="image-preview">
             <img className="attachment-preview-img" src={preview} alt="معاينة الصورة المرفقة" />
@@ -1673,76 +1766,6 @@ export function LessonRoom({ session, onEnded }: Props) {
               e.target.value = "";
             }}
           />
-          <div className="composer-tools">
-            {/* PHASE 168 — «المحادثة الحيّة»: طلب المالك الصريح — المعلّم يسمع
-                ويتكلم في جلسة واحدة بلا رسائل متقطعة («محادثة حية… يسمع و
-                يفهم و يرد خلال المحادثة»). */}
-            <button
-              data-testid="live-conversation-toggle"
-              type="button"
-              className={`btn small ghost live-toggle${conversation ? " active" : ""}`}
-              aria-label="محادثة صوتية حيّة مع المعلّم — يسمع ويتكلم بلا أزرار"
-              aria-pressed={conversation}
-              title={
-                conversation
-                  ? "المحادثة الحيّة مفتوحة — اضغط لإنهائها"
-                  : "افتح محادثة حيّة: تكلّم بحرية فيرد المعلّم دون أي زر"
-              }
-              onClick={toggleConversation}
-            >
-              {conversation ? "🟢" : "🗣️"} محادثة حيّة
-            </button>
-            <button
-              data-testid="voice-input"
-              type="button"
-              className={`btn small ghost voice-btn${listening ? " active" : ""}`}
-              aria-label="التحدث بدل الكتابة"
-              aria-pressed={listening}
-              disabled={pending || conversation}
-              onClick={toggleTranscription}
-            >
-              {listening ? "🔴" : "🎙️"} سؤال بصوت
-            </button>
-            <button
-              data-testid="attach-image"
-              type="button"
-              className="btn small ghost"
-              aria-label="صوّر صفحتك من كتابك"
-              disabled={pending}
-              onClick={() => fileRef.current?.click()}
-            >
-              📷 صوّر صفحتك
-            </button>
-            <button
-              data-testid="attach-document"
-              type="button"
-              className="btn small ghost"
-              aria-label="إرفاق ملف سؤال"
-              disabled={pending}
-              onClick={() => docRef.current?.click()}
-            >
-              📄 ملف سؤال
-            </button>
-            {/* PHASE 166 — «القراءة التلقائية»: كل رد يُسمع فور وصوله (افتراضيًا
-                مفتوح — طلب المالك)، والزر يطفيها متى شاء الطالب. */}
-            <button
-              data-testid="auto-read-toggle"
-              type="button"
-              className={`btn small ghost auto-read-btn${autoRead ? " active" : ""}`}
-              aria-label="قراءة ردود المعلّم تلقائيًا"
-              aria-pressed={autoRead}
-              title={autoRead ? "كل رد يُقرأ تلقائيًا — اضغط لكتم القراءة" : "القراءة التلقائية متوقفة — اضغط لتشغيلها"}
-              onClick={() => {
-                const next = !autoRead;
-                // PHASE 167 — switching the reading back on is an explicit ask
-                // for the voice: give a wedged engine a fresh chance.
-                if (next) resetLocalVoice();
-                writeAutoReadPref(next);
-              }}
-            >
-              {autoRead ? "🔊" : "🔇"} قراءة تلقائية
-            </button>
-          </div>
           <div className="composer-main">
             <input
               data-testid="chat-input"

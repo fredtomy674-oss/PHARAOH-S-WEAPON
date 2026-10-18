@@ -5,6 +5,7 @@ import {
   getPracticePlan,
   getPracticeQuestion,
   getSessionRecap,
+  lessonBreadcrumb,
   listSessions,
   listSubjects,
   myProgress,
@@ -93,6 +94,9 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
   // PHASE 156 — the student's real subjects for their grade (one call), shown
   // as cards so a lesson is two taps away instead of a long dropdown walk.
   const [subjects, setSubjects] = useState<Subject[] | null>(null);
+  // PHASE 170 — اسم الدرس لكل جلسة حديثة (٦ صفوف): الطفل يقرأ «جلسته» باسم
+  // درسها، لا بتاريخ خام وحده.
+  const [sessionTitles, setSessionTitles] = useState<Record<string, string>>({});
   // PHASE 156 — a grade can hold 15 subjects; show the first six and let the
   // student expand, so «موادك» stays a launchpad, not a wall.
   const [subjectsExpanded, setSubjectsExpanded] = useState(false);
@@ -129,6 +133,31 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
       }
     }
   }, [user.role]);
+
+  // PHASE 170 — أسماء دروس الجلسات المعروضة: طلب واحد لكل درس، والفشل يعني
+  // سطرًا ودودًا («درسك») لا صفًا مكسورًا.
+  useEffect(() => {
+    const newest = [...sessions]
+      .sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime())
+      .slice(0, 6);
+    if (newest.length === 0) return;
+    let alive = true;
+    Promise.all(
+      newest.map((s) =>
+        lessonBreadcrumb(s.lessonId)
+          .then((bb) => [s.id, bb.lesson.title] as const)
+          .catch(() => null),
+      ),
+    ).then((pairs) => {
+      if (!alive) return;
+      const map: Record<string, string> = {};
+      for (const p of pairs) if (p) map[p[0]] = p[1];
+      setSessionTitles(map);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [sessions]);
 
   const studentName = user.student?.displayName ?? user.email;
 
@@ -238,7 +267,7 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
               ? "لديك جلسة مفتوحة — عد إليها الآن."
               : needsPractice
                 ? `${pendingConcepts} ${pendingConcepts === 1 ? "مفهوم ينتظر" : "مفاهيم تنتظر"} التمرين في خطتك.`
-                : "اختر درسك من منهجك وابدأ جلسة تعلّم معي — أشرح، وأسأل، ونتأكد معًا أنك فهمت فعلًا."}
+                : "اختر درسك وابدأ معي — أشرح، وأسأل، ونتأكد معًا أنك فهمت."}
           </p>
           <div className="hm-hero__actions">
             {activeSession && (
@@ -265,29 +294,17 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
           </div>
         </section>
 
-        {/* PHASE 162 (W7.4) — بطاقة المعلّم الحيّ: حضور هادئ في الرئيسية،
-            وحالته من المفتاح نفسه (مفعّل/مطفأ) — بلا وعد بما ليس مفعّلًا. */}
+        {/* PHASE 162 (W7.4) + PHASE 170 — «المعلّم الحيّ» صار سطرًا هادئًا:
+            الحضور نفسه (نفس المفتاح ونفس الصدق) بلا زر يزاحم قرار البطاقة
+            الرئيسية التي فوقه. */}
         {user.role === "student" && (
-          <section className="hm-card w7-home" data-testid="home-teacher-card" data-enabled={liveTeacherOn ? "1" : "0"}>
-            <div className="w7-home__row">
-              <TeacherMascot className="w7-home__art" label={null} />
-              <div className="w7-home__text">
-                <h4>معلّمك الحيّ</h4>
-                <p className="hm-note" data-testid="home-teacher-note">
-                  {liveTeacherOn
-                    ? "جاهز في غرفة الدرس — يشرح بصوته ويشير إلى صفحة كتابك."
-                    : "مطفأ — شغّله من قائمة الحساب ☰ في أي وقت."}
-                </p>
-              </div>
-              <button
-                type="button"
-                className="hm-btn hm-btn--ghost hm-btn--sm"
-                data-testid="home-teacher-open"
-                onClick={activeSession ? () => onResume(activeSession) : onStartLesson}
-              >
-                {activeSession ? "استئناف الحصة" : "ابدأ حصة"}
-              </button>
-            </div>
+          <section className="hm-teacher-strip" data-testid="home-teacher-card" data-enabled={liveTeacherOn ? "1" : "0"}>
+            <TeacherMascot className="hm-teacher-strip__art" label={null} />
+            <p className="hm-note" data-testid="home-teacher-note">
+              {liveTeacherOn
+                ? "معلّمك الحيّ جاهز في غرفة الدرس — يشرح بصوته ويشير إلى صفحة كتابك."
+                : "المعلّم الحيّ مطفأ — شغّله من قائمة الحساب ☰ في أي وقت."}
+            </p>
           </section>
         )}
 
@@ -624,15 +641,18 @@ export function HomeScreen({ user, onStartLesson, onResume, onOpenAdmin }: Props
                   .slice(0, 6)
                   .map((s) => (
                     <li key={s.id} className="hm-row hm-row--session" data-testid="session-row" data-session-id={s.id} data-session-status={s.status}>
-                      <span className="hm-row__main">
-                        <span className={`hm-badge ${s.status === "active" ? "hm-badge--on" : "hm-badge--off"}`}>
-                          {s.status === "active" ? "مفتوحة" : "منتهية"}
+                      <span className="hm-row__main hm-row__main--stack">
+                        <span className="hm-row__main">
+                          <span className={`hm-badge ${s.status === "active" ? "hm-badge--on" : "hm-badge--off"}`}>
+                            {s.status === "active" ? "مفتوحة" : "منتهية"}
+                          </span>
+                          <strong>{sessionTitles[s.id] ?? "درسك"}</strong>
                         </span>
                         <span className="hm-row__meta">{new Date(s.startedAt).toLocaleString("ar-EG")}</span>
                       </span>
                       {s.status === "active" && (
                         <span className="hm-row__actions">
-                          <button data-testid="resume-session" className="hm-btn hm-btn--primary hm-btn--sm" onClick={() => onResume(s)}>
+                          <button data-testid="resume-session" className="hm-btn hm-btn--soft hm-btn--sm" onClick={() => onResume(s)}>
                             متابعة
                           </button>
                         </span>

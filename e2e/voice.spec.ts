@@ -5,6 +5,7 @@ import {
   login,
   NO_RAG_PHRASE,
   NO_RETRIEVED_PLACEHOLDER,
+  openRoomTools,
   RAG_CONTEXT_PHRASE,
   sendChatMessage,
   startFirstLesson,
@@ -51,6 +52,8 @@ test("A1: a voice question is transcribed, editable, sent, and the tutor reply i
   await login(page);
   await startFirstLesson(page);
 
+  // PHASE 170 — the mic lives in the room's «أدوات» sheet now.
+  await openRoomTools(page);
   // Ask by voice: the mic button starts listening, then transcribes into the
   // input for review.
   await page.getByTestId("voice-input").click();
@@ -113,6 +116,8 @@ test("A2: every reply is read aloud automatically; the switch silences it; 🔊 
   await login(page, undefined, undefined, "home-screen", { keepAutoRead: true });
   await startFirstLesson(page);
 
+  // PHASE 170 — the auto-read switch lives in the «أدوات» sheet now.
+  await openRoomTools(page);
   // The switch ships ON and tells assistive tech so.
   const toggle = page.getByTestId("auto-read-toggle");
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
@@ -195,6 +200,7 @@ test("A3: browsers without SpeechRecognition show a clear, actionable error", as
   await login(page);
   await startFirstLesson(page);
 
+  await openRoomTools(page);
   await page.getByTestId("voice-input").click();
   await expect(page.getByTestId("chat-error")).toContainText("غير مدعوم");
   await expect(page.getByTestId("voice-listening")).toHaveCount(0);
@@ -247,6 +253,8 @@ test("A7: a voice-asked turn on a machine with no Arabic voice is narrated by th
   await login(page);
   await startFirstLesson(page);
 
+  // PHASE 170 — the mic lives in the room's «أدوات» sheet now.
+  await openRoomTools(page);
   // Ask by voice, so the room tries to narrate the reply as it arrives.
   await page.getByTestId("voice-input").click();
   await expect(page.getByTestId("chat-input")).toHaveValue(STT_TRANSCRIPT, { timeout: 10_000 });

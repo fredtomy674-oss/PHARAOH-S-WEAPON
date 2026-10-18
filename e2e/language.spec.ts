@@ -8,6 +8,7 @@ import {
   installVoiceStubs,
   login,
   NO_RAG_PHRASE,
+  openRoomTools,
   RAG_CONTEXT_PHRASE,
   SAFE_REFUSAL_EN_PHRASE,
   SAFE_REFUSAL_PHRASE,
@@ -98,6 +99,8 @@ test("LN2: the voice layer follows the lesson — English dictation, English nar
   await login(page);
   await startLessonOfSubject(page, "اللغة الإنجليزية");
 
+  // PHASE 170 — the mic lives in the room's «أدوات» sheet now.
+  await openRoomTools(page);
   // Dictation listens in the lesson's language, not in hardcoded Arabic.
   await page.getByTestId("voice-input").click();
   await expect(page.getByTestId("chat-input")).toHaveValue(STT_TRANSCRIPT_EN, { timeout: 10_000 });
