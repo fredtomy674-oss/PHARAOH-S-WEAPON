@@ -108,8 +108,11 @@ export const EnvSchema = z.object({
   // والصوت عندنا ولا يثبّت الطالب شيئًا.
   // "none" (default) = off: the browser voice is used, exactly as before.
   // Set to "gemini" once (with GEMINI_API_KEY) and every student hears Arabic.
+  // "edge" (PHASE 173) = the key-less free voice: the Microsoft Edge Read Aloud
+  // endpoint, no API key and no bill — the demo's default since every Gemini
+  // TTS model exhausted its free quota at once (2026-10-18).
   // "stub" generates a deterministic local WAV — for the E2E suite only.
-  SPEECH_PROVIDER: z.enum(["none", "stub", "gemini"]).default("none"),
+  SPEECH_PROVIDER: z.enum(["none", "stub", "gemini", "edge"]).default("none"),
   GEMINI_TTS_MODEL: z.string().default("gemini-2.5-flash-preview-tts"),
   /** PHASE 44 — ordered failover list for TTS (comma-separated). Preview TTS
    *  models carry small per-model quotas and can 429/503 mid-afternoon; every

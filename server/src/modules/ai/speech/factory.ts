@@ -1,9 +1,10 @@
 import { config } from "../../../config/env.js";
+import { EdgeSpeechProvider } from "./providers/edgeSpeech.js";
 import { GeminiSpeechProvider } from "./providers/geminiSpeech.js";
 import { StubSpeechProvider } from "./providers/stubSpeech.js";
 import type { SpeechProvider } from "./types.js";
 
-export type SpeechProviderKind = "none" | "stub" | "gemini";
+export type SpeechProviderKind = "none" | "stub" | "gemini" | "edge";
 
 /**
  * Resolves the speech provider from configuration (PHASE 40 / D-044).
@@ -17,6 +18,8 @@ export function createSpeechProvider(kind: SpeechProviderKind = config.SPEECH_PR
   switch (kind) {
     case "gemini":
       return new GeminiSpeechProvider();
+    case "edge":
+      return new EdgeSpeechProvider();
     case "stub":
       return new StubSpeechProvider();
     case "none":

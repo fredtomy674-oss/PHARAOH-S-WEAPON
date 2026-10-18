@@ -76,7 +76,9 @@ export class SpeechService {
       throw Errors.badRequest("لا يوجد نصّ للنطق", "SPEECH_EMPTY_TEXT");
     }
 
-    const key = `${request.language}:${config.GEMINI_TTS_MODEL}:${config.GEMINI_TTS_VOICE}:${sha256Hex(text)}`;
+    // The provider id is part of the key: switching engines (gemini ↔ edge, or
+    // a quota fallback) must never serve another engine's bytes for the same text.
+    const key = `${provider.id}:${request.language}:${config.GEMINI_TTS_MODEL}:${config.GEMINI_TTS_VOICE}:${sha256Hex(text)}`;
     const hit = this.cache.get(key);
     if (hit) return { ...hit, cached: true };
 
