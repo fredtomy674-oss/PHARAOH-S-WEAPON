@@ -3,6 +3,7 @@ import {
   classifyLiveUtterance,
   normalizeForMatch,
   novelTokenCount,
+  numberValue,
   shouldYieldFloor,
   tokenizeForMatch,
   visibleLiveCaption,
@@ -241,5 +242,112 @@ describe("PHASE 176 — the words decide, even when the clock is wrong", () => {
     expect(
       visibleLiveCaption({ text: "لحظة يا استاذ ما فهمت", tutorText: reply, tutorAudible: true }),
     ).toBe(true);
+  });
+});
+
+/**
+ * PHASE 177 — the owner's third round, verbatim from the database: the 176
+ * rules were right about shares and wrong about two facts. «رقم اثنان ستجد
+ * تمرينا يوتيوب» — his tutor's own reply read back with «اثنان» heard for the
+ * written «٢» — scored EXACTLY 40% new words, the boundary the genuine twin
+ * «اشرح لي الجمع بإعادة التجميع» also sits on; numbers now compare as values,
+ * so the echo falls to 1/5 while the genuine question keeps its 40%. And «تجد
+ * في اول السطر عباره من اكون» — 0% new words — was answered at 00:02 because
+ * every clock in the room had failed; the verbatim rule no longer needs one.
+ */
+describe("PHASE 177 — the number heard, and the sentence that needs no clock", () => {
+  // The tutor's 23:59:40 reply, verbatim from the owner's session.
+  const reply =
+    "في صفحة رقم ٢ من كتابك، ننتقل إلى أنشطة ممتعة تتحدث عن الفواكه والخضراوات التي تغذي أجسامنا وتجعلنا أقوياء. لو فتحت صفحة رقم ٢ ستجد تمرينًا يطلب منك أن ترسم وتلون ما تحب من الفاكهة والخضراوات المذكورة في أول السطر مثل: عِنَب، وموز، وطماطم، وجزر. تمامًا مثلما نأكل التفاح الطازج في طابور الصباح لنشحن طاقتنا للحراسة واللعب، تمنحنا هذه الأطعمة النشاط.";
+
+  it("numbers compare as numbers, digits or words", () => {
+    expect(numberValue("٢")).toBe(2);
+    expect(numberValue("2")).toBe(2);
+    expect(numberValue("اثنان")).toBe(2);
+    expect(numberValue("ثمانيه")).toBe(8);
+    expect(numberValue("سبعه")).toBe(7);
+    expect(numberValue("رقم")).toBeNull();
+    expect(novelTokenCount("رقم اثنان", "صفحة رقم ٢ ورقم 2")).toBe(0);
+    expect(novelTokenCount("ثمانيه سبعه", "صفحة 8 وصفحة 7")).toBe(0);
+    expect(novelTokenCount("خمسه", "صفحة 4")).toBe(1);
+  });
+
+  it("the echoed slice «رقم اثنان…» is the tutor, mid-speech", () => {
+    // 23:59:59 — the leak that sat exactly on the 40% boundary.
+    expect(
+      classifyLiveUtterance({
+        text: "رقم اثنان ستجد تمرينا يوتيوب",
+        tutorText: reply,
+        tutorAudible: true,
+        tutorRecent: true,
+        userVoice: false,
+      }),
+    ).toBe("echo");
+  });
+
+  it("the genuine twin on the same boundary stays the student's", () => {
+    // The exact string from the 176 block: 2 novel in 5 — the reason the share
+    // boundary itself must never move.
+    expect(
+      classifyLiveUtterance({
+        text: "اشرح لي الجمع بإعادة التجميع",
+        tutorText: "الجمع بإعادة التجميع يعني أن نجمع العشرات أولا ثم الوحدات. هذه خطوة مهمة",
+        tutorAudible: true,
+        tutorRecent: true,
+        userVoice: false,
+      }),
+    ).toBe("user");
+  });
+
+  it("four words or more, all the tutor's, is the tutor even with no clock left", () => {
+    // 00:02:00 — 0% new words, sent while the room believed nobody spoke.
+    expect(
+      classifyLiveUtterance({
+        text: "تجد في اول السطر عباره من اكون",
+        tutorText:
+          "بالتأكيد يا بطل، فأنت تفهم الفكرة بجمال وروعة! في صفحة رقم ١ من كتابك، تجد في أول السطر عبارة «من أكون؟»، وتليها في وسط السطر عبارة «الفصل الأول»، وتستقر في آخر السطر عبارة «صورتي الشخصية». عندما نتأمل هذه الصفحة، نعرف أن كل منا له وجه مميز وجميل، وعينان تريان الدنيا، وفم نبتسم به لأصدقائنا في الفصل.",
+        tutorAudible: false,
+        tutorRecent: false,
+        tutorContext: true,
+        userVoice: false,
+      }),
+    ).toBe("echo");
+  });
+
+  it("the late echo with two slips is the tutor while the floor is honest", () => {
+    // 00:01:44 — 2 slips in 24 words (8%): caught by the share, once the room
+    // reports its true floor (`roomSpeaking` / the claim count in the room).
+    expect(
+      classifyLiveUtterance({
+        text: "كانك تمسك بيدك ورقه بيضاء لترسم عليها وجهك الجميل بعينين وثمن جميلين تماما مثلما ترسم مشكلته على السبوره في الفصل ليعرف اصدقائك من انت",
+        tutorText:
+          "تدلّنا صفحة رقم ١ في كتابك على بداية المحور الأول بعبارة «من أكون؟»، وتحتها في آخر السطر عبارة «الفصل الأول صورتي الشخصية». فكّر في الأمر كأنك تمسك بيدك ورقة بيضاء لترسم عليها وجهك الجميل بعينين وفم جميلين، تمامًا مثلما ترسم شكلك على السبورة في الفصل ليعرف أصدقاؤك من أنت.",
+        tutorAudible: true,
+        tutorRecent: true,
+        userVoice: false,
+      }),
+    ).toBe("echo");
+  });
+
+  it("his genuine questions from the same session still pass", () => {
+    for (const text of ["مش فاهم", "ممكن تكلميني", "ماشي كمل الشرح"]) {
+      expect(
+        classifyLiveUtterance({ text, tutorText: reply, tutorAudible: true, tutorRecent: true, userVoice: false }),
+      ).toBe("user");
+    }
+  });
+
+  it("short lesson-vocabulary answers are not dragged in by the verbatim rule", () => {
+    // Two words of the lesson's own answer are exactly what a child says back.
+    expect(
+      classifyLiveUtterance({
+        text: "صورتي الشخصيه",
+        tutorText: "وتستقر في آخر السطر عبارة «صورتي الشخصية». عندما نتأمل هذه الصفحة",
+        tutorAudible: false,
+        tutorRecent: false,
+        tutorContext: true,
+        userVoice: false,
+      }),
+    ).toBe("user");
   });
 });

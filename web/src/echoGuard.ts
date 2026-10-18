@@ -47,6 +47,28 @@
 //    the last seconds-to-20s, a mostly-its-words transcript is its voice, at
 //    whatever moment the recognizer chose to report it.
 
+// PHASE 177 — the owner's third loop (build 176, in the same session as 176's
+// own fix) proved two more doors, and both are closed here without loosening
+// the rules the twins demand:
+//
+//  • «رقم اثنان ستجد تمرينا يوتيوب» — a verbatim slice of the tutor's reply
+//    («صفحة رقم ٢ ستجد تمرينًا…») that scored EXACTLY 40% new words, because
+//    the recognizer heard «اثنان» where the tutor's text writes «٢». The share
+//    boundary itself is sacred: «اشرح لي الجمع بإعادة التجميع» — a genuine
+//    question built from the lesson's own words — also scores exactly 40% and
+//    must stay the student's. So numbers now compare as NUMBERS (digits or
+//    words, Arabic-Indic or ASCII), and this echo drops to 1 new word in 5.
+//  • «تجد في اول السطر عباره من اكون» — 0% new words, and still answered
+//    itself at 00:02 because the room's speaking flag had gone false while a
+//    voice was audibly in the air (the live note stream and the actual audio
+//    had drifted apart). The verbatim rule below no longer needs any flag:
+//    four words or more, every one of them the tutor's recent words, is the
+//    tutor — a child does not ask a question in the tutor's own sentence.
+//
+// The room-side repair (one honest floor, one voice at a time, the words fed
+// on every reading path) lives in `LessonRoom.tsx` / `voice.ts`; the rules
+// here stay pure and provable without a browser.
+
 export type UtteranceVerdict = "user" | "echo";
 
 /**
@@ -89,8 +111,61 @@ export function tokenizeForMatch(text: string): string[] {
  * below — «من» must not swallow «منزل»), the fused prefixes و/ن/ت/ي peel off,
  * and a definite article never changes a word («الزهور» is «زهور»).
  */
+/**
+ * PHASE 177 — the number a token carries, digits or words: «2», «٢», «اثنان»,
+ * «ثمانيه», «سبعه»… The tutor writes page numbers as digits («صفحة رقم ٨»)
+ * while the phone's recognizer reports the words it hears («ثمانيه») — the
+ * exact slip that put the owner's echo at the 40% boundary. Numbers match as
+ * values; anything else is not a number.
+ */
+const NUMBER_WORDS: Record<string, number> = {
+  صفر: 0,
+  زيرو: 0,
+  واحد: 1,
+  واحده: 1,
+  اثنان: 2,
+  اثنين: 2,
+  اثنتان: 2,
+  اثنتين: 2,
+  اتنين: 2,
+  ثلاثه: 3,
+  ثلاث: 3,
+  تلاته: 3,
+  اربعه: 4,
+  اربع: 4,
+  خمسه: 5,
+  خمس: 5,
+  سته: 6,
+  ست: 6,
+  سبعه: 7,
+  سبع: 7,
+  ثمانيه: 8,
+  ثمان: 8,
+  تمانيه: 8,
+  تسعه: 9,
+  تسع: 9,
+  عشره: 10,
+  عشر: 10,
+};
+
+/** ٠١٢٣٤٥٦٧٨٩ — the map is its index. */
+const ARABIC_INDIC = "\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669";
+
+export function numberValue(token: string): number | null {
+  const ascii = token.replace(/[\u0660-\u0669]/g, (d) => String(ARABIC_INDIC.indexOf(d)));
+  if (/^\d{1,3}$/.test(ascii)) return Number.parseInt(ascii, 10);
+  const word = NUMBER_WORDS[token];
+  return word === undefined ? null : word;
+}
+
 function sameToken(a: string, b: string): boolean {
   if (a === b) return true;
+  // PHASE 177 — «اثنان» and «٢» are one word to the ear that heard it.
+  const na = numberValue(a);
+  if (na !== null) {
+    const nb = numberValue(b);
+    return nb !== null && na === nb;
+  }
   const shorter = Math.min(a.length, b.length);
   if (shorter >= 4 && a.slice(0, 4) === b.slice(0, 4)) return true;
   if (shorter >= 3 && (a.startsWith(b) || b.startsWith(a))) return true;
@@ -135,6 +210,12 @@ export interface UtteranceSignals {
    * holds while a clock agrees is not a rule.
    */
   tutorRecent: boolean;
+  /**
+   * PHASE 177 — the tutor spoke within the last minute: the long window the
+   * verbatim rule (`novel === 0` and four words or more) uses when every other
+   * clock in the room failed. See `LIVE_TUTOR_CONTEXT_MS` in `voice.ts`.
+   */
+  tutorContext?: boolean;
   /** The echo-cancelled probe heard the student's own voice in that window. */
   userVoice: boolean;
 }
@@ -144,6 +225,9 @@ export interface UtteranceSignals {
  *
  *  • the tutor spoke recently and this transcript is mostly ITS words → the
  *    tutor, however late the recognizer reported it (the loop-killer);
+ *  • four words or more, all of them the tutor's (PHASE 177) → the tutor even
+ *    when every clock failed — a question is never phrased in the tutor's own
+ *    sentence;
  *  • the tutor was silent through the window → the student, no questions asked
  *    — with the words seed above, short real answers survive time that would
  *    once have swallowed them;
@@ -164,6 +248,16 @@ export function classifyLiveUtterance(signals: UtteranceSignals): UtteranceVerdi
   // (5×1 ≥ 2×2), and «نعم» as a one-word answer keeps its chance — it only
   // falls back to the probe's evidence like any other single word.
   if (signals.tutorRecent && novel * 5 < tokens.length * 2) return "echo";
+  // PHASE 177 — «الكلمة الحرفية»: four words or more, EVERY one of them the
+  // tutor's recent words, is the tutor's echo however late it arrives — no
+  // child asks a question in the tutor's own sentence, and the owner's phone
+  // produced exactly this shape while the speaking flag lied («تجد في اول
+  // السطر عباره من اكون», 0% new words). Unlike the share rule this one does
+  // not need `tutorRecent` to be true — only that the tutor spoke within the
+  // long window (`tutorContext`). Short utterances stay out: a two-word answer
+  // like «صورتي الشخصية» is the lesson's real vocabulary, and «نعم» is a
+  // word of its own.
+  if (signals.tutorContext && novel === 0 && tokens.length >= 4) return "echo";
   if (!signals.tutorAudible) return "user";
   if (novel === 0) return "echo";
   if (novel >= 2) return "user";

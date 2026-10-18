@@ -342,6 +342,28 @@ export function LessonRoom({ session, onEnded }: Props) {
   // The session outlives renders (its effect must not depend on `speaking`),
   // so the floor's current value is mirrored here for it to read at open.
   const speakingRef = useRef(false);
+  /**
+   * PHASE 177 — «صوت واحد»: the floor is a COUNT of what is actually in the
+   * air, not a boolean the last player to finish happens to set. The owner's
+   * phone heard «معلمين… واحد بيتكلم كلام مختلف»: an old turn's audio outlived
+   * its turn, finished late, and cleared `speaking` while the new voice was
+   * still talking — so the live session believed the tutor was silent, showed
+   * its words as the student's, and answered itself. Every voice path now
+   * claims the floor when it truly starts and releases its own claim when its
+   * sound ends; `speechToken` invalidates the claims of anything a `stopReading`
+   * has silenced, so a stale "end" can never close a newer voice's floor.
+   */
+  const voiceCount = useRef(0);
+  const claimVoice = (): number => {
+    voiceCount.current += 1;
+    setSpeaking(true);
+    return speechToken.current;
+  };
+  const releaseVoice = (epoch: number): void => {
+    if (epoch !== speechToken.current) return;
+    voiceCount.current = Math.max(0, voiceCount.current - 1);
+    if (voiceCount.current === 0) setSpeaking(false);
+  };
   // PHASE 56 — the reply being heard while it is still arriving (see
   // `narrator.ts`): it speaks each sentence the moment it is complete, and
   // reports `broken` when this machine has no voice for Arabic so the room can
@@ -538,17 +560,24 @@ export function LessonRoom({ session, onEnded }: Props) {
       setError(missingVoiceNotice(tutorLanguage) + (serverFailed ? ` ${SERVER_VOICE_DOWN_NOTE}` : ""));
       return;
     }
+    // PHASE 177 — this reading claims the room's floor at its true start and
+    // releases it at its own end (see `claimVoice`).
+    let floorClaim: number | null = null;
     const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
-      if (activeUtterance.current === utterance) setSpeaking(false);
+      if (floorClaim !== null) {
+        releaseVoice(floorClaim);
+        floorClaim = null;
+      }
+      if (activeUtterance.current === utterance) activeUtterance.current = null;
       // PHASE 167 — the attempt may have just died of the wedge (the watchdog
       // set it while trying): the silence that remains gets its explanation.
       if (localVoiceWedged()) showWedgedNotice();
     });
     if (!utterance) return;
     activeUtterance.current = utterance;
+    floorClaim = claimVoice();
     // PHASE 162 — وضع المتصفح التقريبي: حدود الكلمات نبضات حقيقية للفم.
     utterance.addEventListener("boundary", () => mouth.pulse());
-    setSpeaking(true);
     if (missingVoice) setError(missingVoiceNotice(tutorLanguage));
   };
 
@@ -563,7 +592,11 @@ export function LessonRoom({ session, onEnded }: Props) {
    */
   const createProgressiveNarrator = (): Narrator =>
     createNarrator({
-      onSpeaking: setSpeaking,
+      // PHASE 177 — the floor's claims live in `speak` below: one per chunk,
+      // paired with that chunk's true end. The narrator's own presence report
+      // would double-claim (it opens once per chunk, closes once per queue),
+      // so it is not wired to the floor any more.
+      onSpeaking: () => undefined,
       // PHASE 169 — each spoken chunk lands in the live session's matching
       // window, exactly when the voice gets it.
       onChunk: (text) => convHandleRef.current?.noteTutorText(text),
@@ -576,11 +609,14 @@ export function LessonRoom({ session, onEnded }: Props) {
         // after handing the text over, so without this the very first sentence of
         // an Arabic reply would be read aloud in the machine's English voice.
         if (!canSpeakLanguage(tutorLanguage)) return { started: false, missingVoice: true };
+        // PHASE 177 — this sentence's own claim on the floor (see `claimVoice`).
+        let floorClaim: number | null = null;
         const { utterance, missingVoice } = speakText(text, tutorLanguage, () => {
-          if (activeUtterance.current === utterance) {
-            activeUtterance.current = null;
-            setSpeaking(false);
+          if (floorClaim !== null) {
+            releaseVoice(floorClaim);
+            floorClaim = null;
           }
+          if (activeUtterance.current === utterance) activeUtterance.current = null;
           // PHASE 167 — whichever attempt dies of the wedge (the narrator's own
           // sentences included), the silence gets its one honest explanation.
           if (localVoiceWedged()) showWedgedNotice();
@@ -588,6 +624,7 @@ export function LessonRoom({ session, onEnded }: Props) {
         });
         if (utterance) {
           activeUtterance.current = utterance;
+          floorClaim = claimVoice();
           utterance.addEventListener("boundary", () => mouth.pulse());
         }
         return { started: !!utterance, missingVoice };
@@ -610,6 +647,9 @@ export function LessonRoom({ session, onEnded }: Props) {
     mouth.setAnalyser(null);
     stopSpeaking();
     activeUtterance.current = null;
+    // PHASE 177 — every claim died with its source above, and the epoch bump
+    // silences their late "end" callbacks: the floor is truly empty.
+    voiceCount.current = 0;
     setSpeaking(false);
   };
 
@@ -630,6 +670,15 @@ export function LessonRoom({ session, onEnded }: Props) {
     open: (emit: (piece: AudioPiece) => void) => Promise<boolean>,
     fallback: () => void,
   ): Promise<boolean> => {
+    // PHASE 177 — the player's claim on the floor, opened at its true start
+    // and closed at its own end (or released here when it is silenced).
+    let floorClaim: number | null = null;
+    const releaseFloor = (): void => {
+      if (floorClaim !== null) {
+        releaseVoice(floorClaim);
+        floorClaim = null;
+      }
+    };
     const abandon = (): void => {
       // A stop the student asked for is not a failure to recover from.
       if (token !== speechToken.current) return;
@@ -637,23 +686,22 @@ export function LessonRoom({ session, onEnded }: Props) {
       streamedRef.current = null;
       // PHASE 162 — الصوت توقّف: لا مظروف يُقرأ بعد الآن.
       mouth.setAnalyser(null);
-      setSpeaking(false);
+      releaseFloor();
       fallback();
     };
     const player = createStreamedAudio({
       onStart: () => {
-        if (token === speechToken.current) {
-          setSpeaking(true);
-          // PHASE 162 (W7.2) — الفم يزامن الـWAV الخادمي نفسه: نُقرأ نفس
-          // الرسم البياني الذي يُسمعه الطالب (مظروف حقيقي، لا إيقاع مُصنَّع).
-          mouth.setAnalyser(player.analyser);
-        }
+        // PHASE 177 — audible is audible: the floor opens here whatever a
+        // token guard would say — an epoch'd claim, not a guard, keeps the
+        // bookkeeping honest against stale ends.
+        if (floorClaim === null) floorClaim = claimVoice();
+        // PHASE 162 (W7.2) — الفم يزامن الـWAV الخادمي نفسه: نُقرأ نفس
+        // الرسم البياني الذي يُسمعه الطالب (مظروف حقيقي، لا إيقاع مُصنَّع).
+        mouth.setAnalyser(player.analyser);
       },
       onDone: () => {
-        if (token === speechToken.current) {
-          mouth.setAnalyser(null);
-          setSpeaking(false);
-        }
+        mouth.setAnalyser(null);
+        releaseFloor();
       },
       onError: abandon,
     });
@@ -694,6 +742,12 @@ export function LessonRoom({ session, onEnded }: Props) {
    */
   const speak = async (message: Message) => {
     stopReading();
+    // PHASE 177 — the words about to be in the air enter the live session's
+    // matching window HERE, once, whichever voice ends up reading them: the
+    // streamed server player and the buffered blob used to feed nothing, so an
+    // echoed sentence read through them looked 100% new (the owner's phone
+    // answered itself twice that way).
+    convHandleRef.current?.noteTutorText(stripMarkdown(message.content));
     const token = speechToken.current;
     // Spoken words, not syntax: the bubble may hold **bold** and lists.
     // PHASE 172 — `serverFailed` = the server itself reported (503) that it has
@@ -704,14 +758,24 @@ export function LessonRoom({ session, onEnded }: Props) {
       try {
         const blob = await fetchSpeechAudio(session.id, message.id);
         if (token !== speechToken.current) return;
+        // PHASE 177 — the blob is a voice in the air like any other: claim at
+        // its start, release at its end (or at a fallback that replaces it).
+        let floorClaim: number | null = null;
+        const releaseFloor = (): void => {
+          if (floorClaim !== null) {
+            releaseVoice(floorClaim);
+            floorClaim = null;
+          }
+        };
         const handle = playAudioBlob(blob, {
           onStart: () => {
-            if (token === speechToken.current) setSpeaking(true);
+            if (floorClaim === null) floorClaim = claimVoice();
           },
           onDone: () => {
-            if (token === speechToken.current) setSpeaking(false);
+            releaseFloor();
           },
           onError: () => {
+            releaseFloor();
             if (token === speechToken.current) withLocalVoice();
           },
         });
@@ -828,6 +892,13 @@ export function LessonRoom({ session, onEnded }: Props) {
     // the composer already enforces "last act wins", this is the backstop.
     const marks = !image && !doc ? inkStrokes : [];
     if ((!text && !image && !doc && !widget && marks.length === 0) || pending) return;
+    // PHASE 177 — «صوت واحد»: a new turn silences whatever is still in the
+    // air, immediately. The owner heard it the other way: «المعلمين» — an
+    // echoed question sent mid-reply started a SECOND voice while the first
+    // reply was still reading, because nothing stopped it (the barge below
+    // only fires when the words look like his, and an echo never does).
+    // One voice at a time, whichever turn asked next.
+    stopReading();
     // The room has finished opening: from now on a reply may bring itself into
     // view (PHASE 56 — measured, the opening itself must not move the page).
     roomOpening.current = false;
@@ -890,6 +961,15 @@ export function LessonRoom({ session, onEnded }: Props) {
         : ink
           ? { content: text, ink, ...page, ...pin, ...voice }
           : { content: text, ...page, ...pin, ...voice };
+    // PHASE 177 — this turn's server-voice claim on the floor, visible to both
+    // the discard path and the catch below (see the player in the try).
+    let sendFloorClaim: number | null = null;
+    const releaseSendFloor = (): void => {
+      if (sendFloorClaim !== null) {
+        releaseVoice(sendFloorClaim);
+        sendFloorClaim = null;
+      }
+    };
     try {
       // PHASE 49 — the reply is written as it is thought, so the room shows a
       // tutor thinking instead of a waiting cursor. The student's own words
@@ -917,8 +997,12 @@ export function LessonRoom({ session, onEnded }: Props) {
       let retracted = false;
       if (askServer) {
         const player = createStreamedAudio({
-          onStart: () => setSpeaking(true),
-          onDone: () => setSpeaking(false),
+          onStart: () => {
+            if (sendFloorClaim === null) sendFloorClaim = claimVoice();
+          },
+          onDone: () => {
+            releaseSendFloor();
+          },
           onError: () => {
             // The queue cannot play what it was given; the stored reply is read
             // by `speak` below instead, which walks the same paths in order.
@@ -967,6 +1051,9 @@ export function LessonRoom({ session, onEnded }: Props) {
           // PHASE 57 — a server cannot unsend audio it has already released, so the
           // queue is silenced here and the corrected reply is read in full below.
           streamed?.stop();
+          // PHASE 177 — the silenced player's floor claim dies with it (its
+          // `stop` detaches the callbacks that would have closed it).
+          releaseSendFloor();
           narrator?.retract();
           setLive((l) => (l ? { ...l, text: "" } : l));
         },
@@ -1024,11 +1111,16 @@ export function LessonRoom({ session, onEnded }: Props) {
           // local outcome — read it here, or say exactly what is missing — is
           // decided at once.
           streamed?.stop();
+          // PHASE 177 — a hand-stopped player's floor claim dies here (its
+          // callbacks were detached by `stop`).
+          releaseSendFloor();
           speakLocally(stripMarkdown(turn.tutorMessage.content), true);
         } else {
           // Nothing was heard from the server — it said so, or never spoke at all.
           // The stored reply is read instead, so the answer is never lost.
           streamed?.stop();
+          // `speak` resets the floor itself (stopReading), so the claim goes
+          // with it.
           void speak(turn.tutorMessage);
         }
       } else if (narrator && !narrator.broken) {
@@ -1046,7 +1138,11 @@ export function LessonRoom({ session, onEnded }: Props) {
         const content = gap && !gap.heardNothing && gap.tail.trim() ? gap.tail : turn.tutorMessage.content;
         void speak({ ...turn.tutorMessage, content });
       }
-      if (streamedRef.current === streamed) streamedRef.current = null;
+      // PHASE 177 — the player STAYS on the ref while any of its audio could
+      // still be in the air: a backlogged queue plays on after the turn's
+      // pieces have all arrived, and a ref cleared here made that tail
+      // unstoppable — the first half of the owner's «صوتان مختلفان». The next
+      // turn's player replaces it, and `stopReading` stops whatever it finds.
       // PHASE 167 — a working narrator may still be reading the tail `finish`
       // queued after the turn ended. Clearing the ref here used to orphan it:
       // a later 🔊 could no longer silence it, and its next sentence raced the
@@ -1062,9 +1158,18 @@ export function LessonRoom({ session, onEnded }: Props) {
       // else the room is reading — an older reply on 🔊 — is theirs to lose.
       streamedRef.current?.stop();
       streamedRef.current = null;
+      // PHASE 177 — a stopped player's claim dies with it (its callbacks were
+      // detached by `stop`); the narrator's late cancellation callbacks release
+      // theirs through the claim epoch.
+      releaseSendFloor();
       narratorRef.current?.stop();
       narratorRef.current = null;
       stopSpeaking();
+      // The turn's own voice is all gone — and with `send` silencing older
+      // readings at its start, no other voice exists to keep the floor: empty
+      // it here (releases clamp, so a late callback changes nothing).
+      voiceCount.current = 0;
+      setSpeaking(false);
       // A turn that failed mid-stream may still have been stored on the server,
       // so the room is re-read rather than left disagreeing with the database.
       await syncMessages();
@@ -1135,6 +1240,10 @@ export function LessonRoom({ session, onEnded }: Props) {
           if (message) setError(message);
         },
         onEnd: () => undefined,
+        // PHASE 177 — «هل الصوت في الهواء الآن؟»: the live session reads the
+        // room's floor directly (see `roomSpeaking` in `voice.ts`). The note*
+        // timeline stays as the history; this cannot drift from the audio.
+        roomSpeaking: () => speakingRef.current,
       },
       tutorLanguage,
     );

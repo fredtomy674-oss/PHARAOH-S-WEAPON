@@ -370,3 +370,49 @@ test("B8: nine word-less seconds clear the field once — the probe goes and the
   await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 15_000 });
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
 });
+
+test("B9: a new turn silences the old reading — one voice at a time, whichever turn asked next", async ({ page }) => {
+  await installVoiceStubs(page, undefined, undefined, { live: true });
+  await login(page);
+  await startFirstLesson(page);
+
+  await page.getByTestId("live-conversation-toggle").click();
+  await expect(page.getByTestId("voice-focus")).toBeVisible({ timeout: 10_000 });
+  // The strip is where a typed question happens: the same room, the same
+  // microphone — the child may type while the tutor talks.
+  await page.getByTestId("voice-focus-minimize").click();
+  await expect(page.getByTestId("live-hud")).toBeVisible();
+  await waitLiveReady(page);
+  // Frozen from before the first utterance: the reading never ends on its own,
+  // so only the room's own stop can silence it (as in B1).
+  await freezeLiveSpeech(page);
+
+  await pushLiveUtterance(page, "اشرح لي الجمع مع إعادة التجميع");
+  await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "speaking");
+  expect((await voiceTestState(page)).spoken.length).toBeGreaterThan(0);
+
+  // PHASE 177 — «صوت واحد»: the owner heard «معلمين… واحد بيتكلم كلام مختلف».
+  // An echoed question (or any later turn) used to start a SECOND voice while
+  // the first reading was still in the air, because only a spoken interruption
+  // ever stopped it. A new turn silences it now, before anything else happens.
+  const cancelsBefore = (await voiceTestState(page)).cancelCount;
+  await page.getByTestId("chat-input").fill("اشرح بمثال آخر من الكتاب");
+  await page.getByTestId("send-message").click();
+  await expect(page.getByTestId("speak-status")).toHaveCount(0, { timeout: 5_000 });
+  await expect(page.getByTestId("live-hud")).not.toHaveAttribute("data-state", "speaking");
+  expect((await voiceTestState(page)).cancelCount).toBeGreaterThan(cancelsBefore);
+
+  // The typed turn itself is not lost to the stop: it goes out and is answered.
+  await expect(page.getByTestId("msg-user")).toHaveCount(2, { timeout: 20_000 });
+  await expect(page.getByTestId("msg-tutor")).toHaveCount(2, { timeout: 30_000 });
+
+  // …and the conversation's own voice returns for the next spoken question:
+  // the silence was a stop, not a wedge.
+  await pushLiveUtterance(page, "ما هي خطوات الجمع؟");
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 25_000 });
+
+  await page.getByTestId("live-exit").click();
+  await expect(page.getByTestId("live-hud")).toHaveCount(0);
+});

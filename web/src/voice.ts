@@ -836,6 +836,18 @@ const LIVE_TUTOR_TAIL_MS = 1500;
  */
 const LIVE_TUTOR_RECENT_MS = 20_000;
 
+/**
+ * PHASE 177 — how long the tutor's words answer for the verbatim rule: a
+ * transcript of four words or more made ENTIRELY of the tutor's words is its
+ * echo even here (see `classifyLiveUtterance`). The owner's phone kept
+ * producing exactly that shape while the room's speaking flag lied — «تجد في
+ * اول السطر عباره من اكون», 0% new words, answered itself seconds later. Long
+ * enough to survive a recognizer that reports a minute late, and every note
+ * of the tutor's words or voice refreshes it (`noteTutorText` /
+ * `noteTutorSpeaking`).
+ */
+const LIVE_TUTOR_CONTEXT_MS = 60_000;
+
 /** PHASE 169 — the rolling window of tutor speech kept for word matching. */
 const LIVE_TUTOR_WINDOW = 800;
 
@@ -1261,6 +1273,12 @@ export interface LiveConversationCallbacks {
   onError: (message: string | null) => void;
   /** Recognition is fully stopped (student ended the mode, or it failed). */
   onEnd: () => void;
+  /**
+   * PHASE 177 — the room's live floor, read at the instant a decision is made
+   * («is the tutor's voice in the air right now?»). Optional: the note*
+   * timeline alone still carries every engine that does not supply it.
+   */
+  roomSpeaking?: () => boolean;
 }
 
 export interface LiveConversationHandle {
@@ -1315,6 +1333,10 @@ export function startLiveConversation(
   let tutorText = "";
   let tutorSpeaking = false;
   let tutorSpeechEndAt: number | null = null;
+  // PHASE 177 — the newest proof the tutor's voice or words were in the air.
+  // Both notes stamp it, so the verbatim rule still has a clock even when the
+  // room's speaking flag is the broken thing (the owner's phone).
+  let lastTutorSignalAt = 0;
   // …and the student's side, as the echo-cancelled probe hears it.
   let lastUserVoiceAt = 0;
   let userVoiceEndAt: number | null = null;
@@ -1328,11 +1350,28 @@ export function startLiveConversation(
     const t = text.replace(/\s+/g, " ").trim();
     if (!t) return;
     tutorText = `${tutorText} ${t}`.trim().slice(-LIVE_TUTOR_WINDOW);
+    // PHASE 177 — words about to be in the air are their own clock.
+    lastTutorSignalAt = Date.now();
   };
 
   const noteTutorSpeaking = (speaking: boolean): void => {
     tutorSpeaking = speaking;
     if (!speaking) tutorSpeechEndAt = Date.now();
+    lastTutorSignalAt = Date.now();
+  };
+
+  /**
+   * PHASE 177 — «هل صوت المعلّم في الهواء الآن؟» asked of the room itself, at
+   * this instant. The note* timeline above is the history; this is the present,
+   * and it cannot lag a render or survive a stopped player: the room's floor
+   * is a count of what is actually sounding (see `LessonRoom.tsx`).
+   */
+  const roomNowSpeaking = (): boolean => {
+    try {
+      return callbacks.roomSpeaking?.() === true;
+    } catch {
+      return false;
+    }
   };
 
   /**
@@ -1354,15 +1393,28 @@ export function startLiveConversation(
     userVoiceEndAt = null;
     callbacks.onLive("");
     if (!text) return;
+    const roomNow = roomNowSpeaking();
     const verdict = classifyLiveUtterance({
       text,
       tutorText,
-      tutorAudible: tutorAudibleDuring(start),
+      tutorAudible: tutorAudibleDuring(start) || roomNow,
       // PHASE 176 — the tutor's words stay "the live context" for tens of
       // seconds, not just the 1.5s tail: the phone's recognizer reports the
       // speaker late, and a mostly-tutor transcript is the tutor whenever it
       // arrives (see `LIVE_TUTOR_RECENT_MS`).
-      tutorRecent: tutorSpeaking || (tutorSpeechEndAt !== null && Date.now() - tutorSpeechEndAt <= LIVE_TUTOR_RECENT_MS),
+      // PHASE 177 — the room's own floor joins it (the flag the note stream
+      // copies can drift from the audio that actually sounds), and so does the
+      // newest note of any kind: words fed at a player's start count even when
+      // the speaking flag never did.
+      tutorRecent:
+        tutorSpeaking ||
+        roomNow ||
+        Date.now() - Math.max(tutorSpeechEndAt ?? 0, lastTutorSignalAt) <= LIVE_TUTOR_RECENT_MS,
+      // PHASE 177 — the long window for the verbatim rule («الكلمة الحرفية»).
+      tutorContext:
+        tutorSpeaking ||
+        roomNow ||
+        Date.now() - Math.max(tutorSpeechEndAt ?? 0, lastTutorSignalAt) <= LIVE_TUTOR_CONTEXT_MS,
       userVoice: lastUserVoiceAt >= start - 250,
     });
     // The tutor's own voice, read back through the speaker: dropped in
@@ -1444,7 +1496,7 @@ export function startLiveConversation(
       // probe's voice. The tutor's own echoed words never yield — those are
       // the words that used to stop it after two or three (the reported
       // defect); without new words there is nothing to answer.
-      if (live && !yielded && tutorAudibleDuring(windowStart || now)) {
+      if (live && !yielded && (tutorAudibleDuring(windowStart || now) || roomNowSpeaking())) {
         if (
           shouldYieldFloor({
             text: live,
@@ -1457,7 +1509,7 @@ export function startLiveConversation(
         }
       }
       // The caption is the student's words only: echo never appears as his.
-      if (live && visibleLiveCaption({ text: live, tutorText, tutorAudible: tutorSpeaking })) {
+      if (live && visibleLiveCaption({ text: live, tutorText, tutorAudible: tutorSpeaking || roomNowSpeaking() })) {
         callbacks.onLive(live);
       } else {
         callbacks.onLive("");
