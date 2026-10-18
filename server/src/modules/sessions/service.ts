@@ -369,39 +369,60 @@ export class SessionService {
     // The language is resolved here, from the very same rule the 🔊 route uses
     // (D-042: the tutor writes in the curriculum's language), so the narration
     // and the stored reply can never disagree about which language this is.
+    // PHASE 171 — the language resolves *while* the turn runs instead of before
+    // it: it needs a session read and a breadcrumb read, and every millisecond
+    // spent waiting for them is silence the student hears (the owner's bar is
+    // ChatGPT/Grok). The narrator is built the instant the answer exists; text
+    // that streams before it is kept and handed over on creation, so nothing is
+    // ever spoken twice or lost.
     let narrator: ProgressNarrator | null = null;
-    if (input.speakReply && this.speech.available) {
-      try {
-        const language = await this.replyLanguage(input.sessionId, input.studentId);
-        // Same reason as the 🔊 route: the turn itself always answers, so a voice
-        // failure is invisible to the student by design — and invisible to the
-        // operator unless it is said here.
-        narrator = this.createProgressNarrator(language, emit, (reason) => {
-          this.log.warn(
-            { err: reason, sessionId: input.sessionId },
-            "live narration failed; the client will read the reply with its own voice",
-          );
-        });
-      } catch {
-        // No language, no narration: the text turn is what matters, and the
-        // client keeps whatever fallback it already had.
-        narrator = null;
-      }
-    }
+    let bufferedNarration = "";
+    const languagePromise: Promise<SpeechLanguage | null> =
+      input.speakReply && this.speech.available
+        ? this.replyLanguage(input.sessionId, input.studentId).catch(() => null)
+        : Promise.resolve(null);
     try {
-      const result = await this.runTurn(input, {
+      const turnPromise = this.runTurn(input, {
         onUserMessage: (message) => emit({ type: "user", message }),
         onDelta: (text) => {
           emit({ type: "delta", text });
-          narrator?.push(text);
+          if (narrator) narrator.push(text);
+          else bufferedNarration += text;
         },
         onDiscard: () => {
           emit({ type: "discard" });
           // Words taken back must not be synthesized: they are not going to be
           // heard, and the corrected answer takes their place.
+          bufferedNarration = "";
           narrator?.retract();
         },
       });
+      // The rejection is awaited below either way; this only keeps a fast
+      // failure from ever looking unhandled while the language resolves.
+      void turnPromise.catch(() => undefined);
+      const language = await languagePromise;
+      if (language) {
+        try {
+          // Same reason as the 🔊 route: the turn itself always answers, so a
+          // voice failure is invisible to the student by design — and invisible
+          // to the operator unless it is said here.
+          narrator = this.createProgressNarrator(language, emit, (reason) => {
+            this.log.warn(
+              { err: reason, sessionId: input.sessionId },
+              "live narration failed; the client will read the reply with its own voice",
+            );
+          });
+          if (bufferedNarration) {
+            narrator.push(bufferedNarration);
+            bufferedNarration = "";
+          }
+        } catch {
+          // No language, no narration: the text turn is what matters, and the
+          // client keeps whatever fallback it already had.
+          narrator = null;
+        }
+      }
+      const result = await turnPromise;
       // PHASE 57 — the text is the answer, so it is released first: `done` carries
       // the stored reply and the room shows it now, without waiting for the voice
       // to catch up. The narration's tail is then awaited here, which keeps the

@@ -170,3 +170,57 @@ test("B3: a browser without SpeechRecognition says so and stays silent", async (
   await expect(page.getByTestId("live-hud")).toHaveCount(0);
   await expect(page.getByTestId("live-conversation-toggle")).toHaveAttribute("aria-pressed", "false");
 });
+
+test("B4: the conversation opens in the immersive «وضع المحادثة» — minimize keeps it alive, and the captions stay honest", async ({ page }) => {
+  await installVoiceStubs(page, undefined, undefined, { live: true });
+  await login(page);
+  await startFirstLesson(page);
+
+  await page.getByTestId("live-conversation-toggle").click();
+  // PHASE 171 — the mode opens full-screen (the ChatGPT-like first impression
+  // the owner asked for): the orb, the same honest state line, and the same
+  // testids the strip always carried — one place at a time.
+  await expect(page.getByTestId("voice-focus")).toBeVisible({ timeout: 10_000 });
+  await expect(page.getByTestId("voice-orb")).toBeVisible();
+  await expect(page.getByTestId("live-hud")).toBeVisible();
+  await expect(page.getByTestId("live-state")).toContainText("أسمعك");
+  await waitLiveReady(page);
+  // Frozen from before the first utterance: the reading stays open, so the
+  // «قاطِعني» moment below is the room's stop, not a natural end (as in B1).
+  await freezeLiveSpeech(page);
+
+  // «للغرفة» folds it back to the calm strip — the microphone never closes.
+  await page.getByTestId("voice-focus-minimize").click();
+  await expect(page.getByTestId("voice-focus")).toHaveCount(0);
+  await expect(page.getByTestId("live-hud")).toBeVisible();
+  expect(await isLiveReady(page)).toBe(true);
+
+  // And the strip's own door brings the full mode back.
+  await page.getByTestId("voice-focus-expand").click();
+  await expect(page.getByTestId("voice-focus")).toBeVisible();
+
+  // A spoken question: its words appear as the student's own caption…
+  await pushMicVoice(page, true);
+  await pushLiveInterim(page, "ما هي خطوات الجمع");
+  await expect(page.getByTestId("live-interim")).toContainText("خطوات الجمع");
+  await pushLiveUtterance(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
+  await pushMicVoice(page, false);
+  await expect(page.getByTestId("voice-user-caption")).toContainText("خطوات الجمع", { timeout: 15_000 });
+
+  // …and the tutor's answer writes itself while it streams.
+  await expect(page.getByTestId("voice-tutor-caption")).toContainText(/\S/, { timeout: 25_000 });
+
+  // A real interruption is answered visibly: the flash says he was heard —
+  // the mic stays open (PHASE 169) and the tutor yields.
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "speaking");
+  await pushMicVoice(page, true);
+  await pushLiveInterim(page, "لحظة أستاذ");
+  await expect(page.getByTestId("voice-barge")).toBeVisible({ timeout: 5_000 });
+  await pushMicVoice(page, false);
+
+  await page.getByTestId("live-exit").click();
+  await expect(page.getByTestId("voice-focus")).toHaveCount(0);
+  await expect(page.getByTestId("live-hud")).toHaveCount(0);
+  await expect(page.getByTestId("live-conversation-toggle")).toHaveAttribute("aria-pressed", "false");
+});

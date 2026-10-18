@@ -237,6 +237,11 @@ export function LessonRoom({ session, onEnded }: Props) {
   // هو نصّ ما يُسمع الآن — الشريط لا يعرض غير الكلام نفسه.
   const [conversation, setConversation] = useState(false);
   const [convLive, setConvLive] = useState("");
+  // PHASE 171 — «وضع المحادثة»: الواجهة الغامرة تُفتح مع المحادثة (كرة حالة
+  // وكابشن الطرفين وأزرارها — علّم المالك: نفس احترافية ChatGPT/Grok)، وزر
+  // «للغرفة» يصغّرها والمحادثة لا تنقطع. `bargeAt` وميض صادق للحظة المقاطعة.
+  const [voiceFocusOpen, setVoiceFocusOpen] = useState(false);
+  const [bargeAt, setBargeAt] = useState(0);
   // W2 — the lesson's place in the printed book: a REFERENCE, never a display.
   // The room names the page («كتابك — صفحة ٦ من ٧»); it never shows the book.
   const [stage, setStage] = useState<LessonStage | null>(null);
@@ -1033,7 +1038,10 @@ export function LessonRoom({ session, onEnded }: Props) {
         // PHASE 169 — the student is interrupting with his own words: yield
         // the floor now. Only when the tutor actually holds it — never cancel
         // into an idle engine (the PHASE 167 wedge lesson).
+        // PHASE 171 — and the room says it visibly («قاطعته — أسمعك»): being
+        // heard must never feel like being ignored.
         onBargeIn: () => {
+          setBargeAt(Date.now());
           if (narratorRef.current || streamedRef.current || activeUtterance.current) {
             stopReadingRef.current();
           }
@@ -1073,6 +1081,20 @@ export function LessonRoom({ session, onEnded }: Props) {
       setConvLive("");
     };
   }, [conversation, tutorLanguage]);
+
+  // PHASE 171 — المحادثة تفتح على وضعها الغامر، وتغلقه مع انتهائها؛ و«للغرفة»
+  // قرارُ داخل الجلسة لا يعيده الفتح من جديد (التصغير يبقى حتى يكبّره الطالب).
+  useEffect(() => {
+    setVoiceFocusOpen(conversation);
+    if (!conversation) setBargeAt(0);
+  }, [conversation]);
+
+  // وميض المقاطعة يذوب وحده — إشارة عابرة، لا عنصر دائم يزاحم الحالة.
+  useEffect(() => {
+    if (!bargeAt) return;
+    const id = window.setTimeout(() => setBargeAt(0), 1800);
+    return () => window.clearTimeout(id);
+  }, [bargeAt]);
 
   // PHASE 168 — a question heard while the tutor was answering goes out the
   // moment the turn ends, so the conversation flows with nothing pressed.
@@ -1170,6 +1192,9 @@ export function LessonRoom({ session, onEnded }: Props) {
   };
 
   const b = bc;
+  // PHASE 171 — آخر ردّ للمعلّم: كابشنٌ يظهر وهو يُقرأ حتى بعد وصول النصّ كاملًا
+  // (الشريط نفسه يقول «يتكلّم»؛ الكابشن يقول ماذا يقول).
+  const lastTutorContent = [...messages].reverse().find((m) => m.role === "tutor")?.content ?? "";
 
   return (
     <div className="room" data-testid="room">
@@ -1557,11 +1582,90 @@ export function LessonRoom({ session, onEnded }: Props) {
         </section>
       </div>
 
+      {/* PHASE 171 — «وضع المحادثة»: الواجهة الغامرة للمحادثة الحيّة (مثال
+          المالك: ChatGPT/Grok). المعرّفات القديمة نفسها تعيش هنا حين يكون
+          الوضع مفتوحًا — تبديل مكان لا حذف، والعقد نفسه يُختبر من حيث ينظر
+          الطفل. الكرة تقول الدور بصريًا، والكابشنات تقول الكلمات. */}
+      {conversation && voiceFocusOpen && (
+        <div className="voice-mode" data-testid="voice-focus" role="dialog" aria-label="المحادثة الحيّة مع المعلّم">
+          <div className="voice-mode-head">
+            <span className="voice-mode-title">📖 {b ? b.lesson.title : "الجلسة"}</span>
+            <button
+              data-testid="voice-focus-minimize"
+              type="button"
+              className="btn small ghost"
+              aria-label="تصغير والعودة إلى الغرفة — المحادثة تبقى مفتوحة"
+              onClick={() => setVoiceFocusOpen(false)}
+            >
+              ⬇ للغرفة
+            </button>
+          </div>
+          <div
+            className="voice-stage"
+            data-testid="live-hud"
+            data-state={speaking ? "speaking" : pending ? "thinking" : "listening"}
+          >
+            <div
+              className={`voice-orb ${speaking ? "is-speaking" : pending ? "is-thinking" : "is-listening"}`}
+              data-testid="voice-orb"
+              aria-hidden="true"
+            >
+              <span className="voice-orb-emoji">{speaking ? "🔊" : pending ? "🧠" : "🎙️"}</span>
+            </div>
+            <span className="voice-state" data-testid="live-state" aria-live="polite">
+              {speaking
+                ? "🔊 المعلّم يتكلّم — تكلّم فيصمت ويستمع"
+                : pending
+                  ? "🧠 المعلّم يجهّز الردّ…"
+                  : "🎙️ أسمعك… تكلّم بحرية"}
+            </span>
+            {bargeAt > 0 && (
+              <p className="voice-barge" data-testid="voice-barge">
+                ✋ قاطعته — أسمعك الآن
+              </p>
+            )}
+            {convLive && (
+              <p className="voice-caption mine" data-testid="live-interim" dir="auto">
+                «{convLive}»
+              </p>
+            )}
+            {!convLive && live?.user && (
+              <p className="voice-caption user-said" data-testid="voice-user-caption" dir="auto">
+                قلتَ: {live.user.content}
+              </p>
+            )}
+            {(live?.text || speaking) && (
+              <p className="voice-caption tutor-said" data-testid="voice-tutor-caption" dir="auto">
+                {previewText(live?.text ?? "") || (speaking ? previewText(lastTutorContent) : "")}
+              </p>
+            )}
+          </div>
+          <div className="voice-controls">
+            {speaking && (
+              <button
+                data-testid="live-interrupt"
+                type="button"
+                className="btn ghost"
+                aria-label="قاطِع المعلّم وأسكته الآن"
+                onClick={() => stopReadingRef.current()}
+              >
+                ✋ قاطِعني
+              </button>
+            )}
+            <button data-testid="live-exit" type="button" className="btn ghost" onClick={toggleConversation}>
+              ⏹ إنهاء المحادثة
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ---- the composer: the only place the student acts ---- */}
       <footer className="room-footer">
         {/* PHASE 168 — «المحادثة الحيّة»: سطر حالة واحد هادئ (لا نبض ولا وميض،
-            فلا حاجة لاستثناء حركة)، وعين الطالب على الدرس لا على الأزرار. */}
-        {conversation && (
+            فلا حاجة لاستثناء حركة)، وعين الطالب على الدرس لا على الأزرار.
+            PHASE 171 — هذا هو الشريط حين يكون الوضع مصغّرًا («للغرفة»)؛ وزر
+            «كبّر» يعيد الشاشة الغامرة، والمحادثة لا تنقطع بينهما. */}
+        {conversation && !voiceFocusOpen && (
           <div
             className="live-bar"
             data-testid="live-hud"
@@ -1595,6 +1699,15 @@ export function LessonRoom({ session, onEnded }: Props) {
                 ✋ قاطِعني
               </button>
             )}
+            <button
+              data-testid="voice-focus-expand"
+              type="button"
+              className="btn small ghost"
+              aria-label="كبّر وضع المحادثة — كرة الحالة والكابشنات"
+              onClick={() => setVoiceFocusOpen(true)}
+            >
+              ⛶ كبّر
+            </button>
             <button data-testid="live-exit" type="button" className="btn small ghost" onClick={toggleConversation}>
               ⏹ إنهاء المحادثة
             </button>
