@@ -7,4 +7,4 @@
  * (`main.tsx` → GET /api/health?v=…), so the server can always answer "which
  * build is talking to me right now?".
  */
-export const APP_BUILD = "175";
+export const APP_BUILD = "176";

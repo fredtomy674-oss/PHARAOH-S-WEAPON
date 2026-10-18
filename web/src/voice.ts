@@ -823,6 +823,19 @@ const LIVE_VAD_TAIL_MS = 350;
  */
 const LIVE_TUTOR_TAIL_MS = 1500;
 
+/**
+ * PHASE 176 — how long the tutor's words stay "the live context" for the
+ * words rule. The owner's phone proved 1.5s is not the recognizer's memory:
+ * it reports the speaker's words seconds after the audio ends (the echoed
+ * sentence «الصفحه طفلا وطفله جميلين يلعبان…» reached the server ~13s after
+ * its reply began, with the audio already over — 1 false word in 25). Within
+ * this window a transcript that is mostly the tutor's words is the tutor,
+ * whenever it arrives; the share test keeps real speech (short answers except
+ * one-word ones, questions, interruptions) out of it. Bounded at 20s so a
+ * student answering from memory later is never judged against stale words.
+ */
+const LIVE_TUTOR_RECENT_MS = 20_000;
+
 /** PHASE 169 — the rolling window of tutor speech kept for word matching. */
 const LIVE_TUTOR_WINDOW = 800;
 
@@ -1345,6 +1358,11 @@ export function startLiveConversation(
       text,
       tutorText,
       tutorAudible: tutorAudibleDuring(start),
+      // PHASE 176 — the tutor's words stay "the live context" for tens of
+      // seconds, not just the 1.5s tail: the phone's recognizer reports the
+      // speaker late, and a mostly-tutor transcript is the tutor whenever it
+      // arrives (see `LIVE_TUTOR_RECENT_MS`).
+      tutorRecent: tutorSpeaking || (tutorSpeechEndAt !== null && Date.now() - tutorSpeechEndAt <= LIVE_TUTOR_RECENT_MS),
       userVoice: lastUserVoiceAt >= start - 250,
     });
     // The tutor's own voice, read back through the speaker: dropped in
