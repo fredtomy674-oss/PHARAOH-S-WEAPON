@@ -130,6 +130,9 @@ export interface VoiceTestState {
  *    proved rather than timed.
  *  - <audio>: records play/pause/ended and the last src, so the server-audio
  *    path (PHASE 40/D-044) can be asserted as really played and really stopped.
+ *  PHASE 169: the live shape also exposes `__liveMicProbe` (the echo-cancelled
+ *  probe seam of `voice.ts`), driven by `pushMicVoice` — so "the student's own
+ *  voice" is a fact the spec states, never a timing guess.
  *  The recorded state is exposed as `window.__voiceTest` for assertions.
  */
 export async function installVoiceStubs(
@@ -199,6 +202,11 @@ export async function installVoiceStubs(
     // PHASE 168 — holds the current spoken utterance open (see freeze below).
     let frozenSpeech = false;
 
+    // PHASE 169 — the echo-cancelled mic probe seam: `voice.ts` asks for it
+    // before touching real `getUserMedia`, so the specs announce "the
+    // student's voice" exactly when they mean to (`pushMicVoice`).
+    let micProbe: { onVoiceStart: () => void; onVoiceEnd: () => void } | null = null;
+
     // SpeechRecognition: one-shot by default (one final result, then end).
     // PHASE 168 — with `opts.live` a continuous session waits for fragments the
     // spec pushes through `window.__speechPush` instead of speaking on a timer.
@@ -243,10 +251,25 @@ export async function installVoiceStubs(
     }
     (window as unknown as { SpeechRecognition: unknown }).SpeechRecognition = FakeSpeechRecognition;
     if (opts.live) {
+      (window as unknown as { __liveMicProbe?: unknown }).__liveMicProbe = (handlers: {
+        onVoiceStart: () => void;
+        onVoiceEnd: () => void;
+      }) => {
+        micProbe = handlers;
+        return {
+          stop: () => {
+            micProbe = null;
+          },
+        };
+      };
       (window as unknown as { __speechPush?: unknown }).__speechPush = {
         ready: () => liveRec !== null,
         final: (text: string) => liveRec?.push(text, true),
         interim: (text: string) => liveRec?.push(text, false),
+        voice: (on: boolean) => {
+          if (on) micProbe?.onVoiceStart();
+          else micProbe?.onVoiceEnd();
+        },
         freeze: () => {
           frozenSpeech = true;
         },
@@ -349,18 +372,30 @@ export async function pushLiveInterim(page: Page, text: string): Promise<void> {
   }, text);
 }
 
+/**
+ * PHASE 169 — the student's own voice, as the echo-cancelled probe reports it:
+ * `true` when his voice starts, `false` when it stops. This is the evidence
+ * that lets the echo rules trust an interruption the words alone look
+ * ambiguous about.
+ */
+export async function pushMicVoice(page: Page, on: boolean): Promise<void> {
+  await page.evaluate((value: boolean) => {
+    const wnd = window as unknown as { __speechPush?: { voice: (on: boolean) => void } };
+    wnd.__speechPush?.voice(value);
+  }, on);
+}
+
+/** PHASE 168/169 — is a live recognition session actually open right now? */
+export async function isLiveReady(page: Page): Promise<boolean> {
+  return page.evaluate(() => {
+    const wnd = window as unknown as { __speechPush?: { ready: () => boolean } };
+    return wnd.__speechPush?.ready() ?? false;
+  });
+}
+
 /** Waits until a live recognition session is actually open (mode toggled on). */
 export async function waitLiveReady(page: Page): Promise<void> {
-  await expect
-    .poll(
-      async () =>
-        page.evaluate(() => {
-          const wnd = window as unknown as { __speechPush?: { ready: () => boolean } };
-          return wnd.__speechPush?.ready() ?? false;
-        }),
-      { timeout: 5_000 },
-    )
-    .toBe(true);
+  await expect.poll(async () => isLiveReady(page), { timeout: 5_000 }).toBe(true);
 }
 
 /**

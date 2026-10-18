@@ -2,33 +2,39 @@ import { expect, test } from "@playwright/test";
 import {
   freezeLiveSpeech,
   installVoiceStubs,
+  isLiveReady,
   login,
   pushLiveInterim,
   pushLiveUtterance,
+  pushMicVoice,
   startFirstLesson,
   voiceTestState,
   waitLiveReady,
 } from "./helpers.js";
 
 /**
- * PHASE 168 — «المحادثة الحيّة»: one open microphone for the whole lesson.
+ * PHASE 168/169 — «المحادثة الحيّة»: one open microphone for the whole lesson.
  *
  * The owner asked in so many words («محادثة حيه… يسمع و يفهم و يرد خلال
- * المحادثة») after measuring ~7s between question and answer — and asked that
- * the student stop being distracted by a press per turn. Here the student
- * speaks, pauses, and the room sends by itself; the tutor's voice answers while
- * the answer is still being written (the PHASE 56/57 machinery, unchanged), and
- * yields the instant the student speaks again.
+ * المحادثة») after measuring ~7s between question and answer — and then asked
+ * for the other half (PHASE 169): the microphone must NOT close while the
+ * tutor speaks («اريد المحادثة تفاعلية… الطالب ممكن يقاطع المعلم اثناء الشرح…
+ * ويتم استثناء صوت المعلم فقط») — the interruption is a spoken act, and only
+ * the tutor's own voice must be excluded. His phone proved why that needs
+ * rules: the open mic heard the phone's speaker, «transcribed» the tutor as
+ * the student, and the tutor answered itself in a loop.
  *
  * The Web Speech APIs cannot be automated with real audio, so this suite drives
  * the same deterministic stubs as voice.spec.ts — with `live: true`, which
  * models a *continuous* session fed fragment by fragment
- * (`pushLiveUtterance`/`pushLiveInterim`), and `freezeLiveSpeech`, which holds
- * one spoken utterance open so barge-in is proved rather than timed.
+ * (`pushLiveUtterance`/`pushLiveInterim`) and the echo-cancelled probe
+ * (`pushMicVoice`), and `freezeLiveSpeech`, which holds one spoken utterance
+ * open so that both halves of the phase are PROVED rather than timed: the echo
+ * must not silence the tutor, and the student's own words must.
  */
 test.describe.configure({ mode: "serial" });
 
-test("B1: live mode sends on silence, speaks the reply as it streams, and yields on barge-in", async ({ page }) => {
+test("B1: the tutor's own echo is never a question — and a real interruption still silences it", async ({ page }) => {
   await installVoiceStubs(page, undefined, undefined, { live: true });
   // Auto-read is OFF (login's default): every sound in this test is the live
   // conversation itself — a conversation is spoken by design, not by preference.
@@ -41,44 +47,66 @@ test("B1: live mode sends on silence, speaks the reply as it streams, and yields
   await expect(page.getByTestId("live-conversation-toggle")).toHaveAttribute("aria-pressed", "true");
   await waitLiveReady(page);
   // Hold the tutor's voice open *from before it ever starts*: with the engine
-  // frozen, the only thing that can silence this reading is the student's own
-  // voice — barge-in is then proved, not timed.
+  // frozen, only the room's own stop can silence this reading.
   await freezeLiveSpeech(page);
 
-  // The student just talks — fragments arrive, the caption follows the words
-  // as they are recognized...
   const question = "اشرح لي الجمع مع إعادة التجميع";
   await pushLiveInterim(page, "اشرح لي");
   await expect(page.getByTestId("live-interim")).toContainText("اشرح لي");
-  // ...and after the silence the utterance goes out by itself: the student's
-  // own bubble is proof, and nothing was pressed to produce it.
+  // The utterance goes out by itself on the silence: the student's own bubble
+  // is proof, and nothing was pressed to produce it.
   await pushLiveUtterance(page, question);
   await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 10_000 });
   expect((await voiceTestState(page)).recognitionLang).toBe("ar-EG");
 
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "speaking");
-  // The reply is genuinely heard while the room is still on the same turn:
-  // this machine's own voice reads it sentence by sentence (PHASE 56), so the
-  // server was never asked to synthesize anything.
+  // PHASE 169 — the microphone stays OPEN while the tutor speaks: full duplex
+  // on purpose. Echo is excluded by rules, never by closing the mic.
+  expect(await isLiveReady(page)).toBe(true);
+  await expect(page.getByTestId("live-interrupt")).toBeVisible();
   await expect.poll(async () => (await voiceTestState(page)).spoken.length, { timeout: 20_000 }).toBeGreaterThan(0);
   const heard = await voiceTestState(page);
   expect(heard.spoken[0]!.lang).toBe("ar-EG");
   expect(heard.audio.plays).toBe(0);
 
-  // The student interrupts mid-sentence: the voice must yield at once — the
-  // frozen engine proves the silence is the room's stop, not a natural end.
-  const cancelsBefore = heard.cancelCount;
-  await pushLiveInterim(page, "لحظة");
+  // ---- the echo attack: the phone's speaker reads the tutor's own words back
+  // into the open microphone — exactly what the owner's phone did.
+  const cancelsBeforeEcho = heard.cancelCount;
+  const echo = heard.spoken[0]!.text;
+  await pushLiveInterim(page, echo);
+  // The words are the tutor's, so they never appear as the student's caption…
+  await expect(page.getByTestId("live-interim")).toHaveCount(0);
+  await pushLiveUtterance(page, echo);
+  // …and after the silence window releases them they are dropped silently:
+  // no question is sent, and the tutor never stops reading.
+  await page.waitForTimeout(1_600);
+  await expect(page.getByTestId("msg-user")).toHaveCount(1);
+  await expect(page.getByTestId("speak-status")).toBeVisible();
+  expect((await voiceTestState(page)).cancelCount).toBe(cancelsBeforeEcho);
+
+  // ---- a real interruption: the student's voice, with words that are not the
+  // tutor's. The voice yields at once — the frozen engine proves the silence
+  // is the room's stop, not a natural end.
+  await pushMicVoice(page, true);
+  await pushLiveInterim(page, "لحظة أستاذ");
   await expect(page.getByTestId("speak-status")).toHaveCount(0, { timeout: 5_000 });
-  expect((await voiceTestState(page)).cancelCount).toBeGreaterThan(cancelsBefore);
+  expect((await voiceTestState(page)).cancelCount).toBeGreaterThan(cancelsBeforeEcho);
   await expect(page.getByTestId("live-hud")).not.toHaveAttribute("data-state", "speaking");
+  await pushLiveUtterance(page, "لحظة أستاذ");
+  await pushLiveUtterance(page, "اشرح بمثال أسهل");
+  await pushMicVoice(page, false);
 
   // The interruption became the next question — same voice, no buttons.
-  await pushLiveUtterance(page, "اشرح بمثال");
   await expect(page.getByTestId("msg-user")).toHaveCount(2, { timeout: 20_000 });
-  await expect(page.getByTestId("msg-user").nth(1).locator("p")).toHaveText("اشرح بمثال");
-  await expect(page.getByTestId("msg-user").first().locator("p")).toHaveText(question);
+  await expect(page.getByTestId("msg-user").nth(1).locator("p")).toContainText("اشرح بمثال أسهل");
+
+  // The spoken act is the interruption; the tap stays as the guaranteed one.
+  await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
+  const cancelsBeforeTap = (await voiceTestState(page)).cancelCount;
+  await page.getByTestId("live-interrupt").click();
+  await expect(page.getByTestId("speak-status")).toHaveCount(0, { timeout: 5_000 });
+  expect((await voiceTestState(page)).cancelCount).toBeGreaterThan(cancelsBeforeTap);
 
   // The student ends the mode himself: the strip goes and the mic closes.
   await page.getByTestId("live-exit").click();
@@ -93,13 +121,18 @@ test("B2: back-to-back questions flow without touching anything", async ({ page 
   await page.getByTestId("live-conversation-toggle").click();
   await waitLiveReady(page);
 
+  await pushMicVoice(page, true);
   await pushLiveUtterance(page, "ما هي خطوات الجمع مع إعادة التجميع؟");
+  await pushMicVoice(page, false);
   await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 15_000 });
 
-  // The student asks the next thing while the tutor is still working: the
-  // question is kept and sent the moment the room is free (or directly, if the
-  // turn already ended) — either way it is never lost, and nothing is pressed.
+  // The student asks the next thing while the tutor is still working: the mic
+  // is still open (PHASE 169), so the words are heard and kept, then sent the
+  // moment the room is free — or directly, if the turn already ended. Either
+  // way nothing is pressed and nothing is lost.
+  await pushMicVoice(page, true);
   await pushLiveUtterance(page, "لماذا نجمّع العشرات؟");
+  await pushMicVoice(page, false);
   await expect(page.getByTestId("msg-user")).toHaveCount(2, { timeout: 25_000 });
   await expect(page.getByTestId("msg-user").nth(1).locator("p")).toHaveText("لماذا نجمّع العشرات؟");
 

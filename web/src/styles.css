@@ -1073,7 +1073,9 @@ p {
   word-break: break-word;
 }
 
-.live-bar .btn {
+/* PHASE 169 — «قاطِعني» joins «إنهاء المحادثة» while the tutor speaks: only the
+   last button is pushed to the far edge, so the pair sits together. */
+.live-bar > .btn:last-child {
   margin-inline-start: auto;
 }
 

@@ -305,6 +305,13 @@ export function LessonRoom({ session, onEnded }: Props) {
   const convQueued = useRef<string | null>(null);
   const sendRef = useRef<((text: string) => void) | null>(null);
   const stopReadingRef = useRef<() => void>(() => undefined);
+  // PHASE 169 — the live session itself, so the room can report the tutor's
+  // floor (`noteTutorSpeaking`) and its words (`noteTutorText`) to it: the
+  // echo rules tell the tutor's own voice from the student's with them.
+  const convHandleRef = useRef<LiveConversationHandle | null>(null);
+  // The session outlives renders (its effect must not depend on `speaking`),
+  // so the floor's current value is mirrored here for it to read at open.
+  const speakingRef = useRef(false);
   // PHASE 56 — the reply being heard while it is still arriving (see
   // `narrator.ts`): it speaks each sentence the moment it is complete, and
   // reports `broken` when this machine has no voice for Arabic so the room can
@@ -477,6 +484,9 @@ export function LessonRoom({ session, onEnded }: Props) {
    */
   const speakLocally = (text: string) => {
     if (!ttsSupported()) return;
+    // PHASE 169 — these words are about to be in the air: the live
+    // conversation's echo rules must know them (see `echoGuard.ts`).
+    convHandleRef.current?.noteTutorText(text);
     // PHASE 167 — a wedged engine used to answer with silence: the 🔊 button
     // looked identical on a dead machine and a muted one. Never pretend again.
     if (localVoiceWedged()) {
@@ -520,6 +530,9 @@ export function LessonRoom({ session, onEnded }: Props) {
   const createProgressiveNarrator = (): Narrator =>
     createNarrator({
       onSpeaking: setSpeaking,
+      // PHASE 169 — each spoken chunk lands in the live session's matching
+      // window, exactly when the voice gets it.
+      onChunk: (text) => convHandleRef.current?.noteTutorText(text),
       speak: (text, onDone) => {
         if (!ttsSupported()) return { started: false, missingVoice: false };
         // PHASE 166 — a wedged engine (the watchdog declared it): stop asking.
@@ -863,6 +876,9 @@ export function LessonRoom({ session, onEnded }: Props) {
             // Only text the room is showing is ever spoken, so what is heard and
             // what is read cannot disagree.
             narrator?.feed(text);
+            // PHASE 169 — the turn read by the SERVER's voice (no narrator):
+            // its words still enter the live session's matching window.
+            if (!narrator) convHandleRef.current?.noteTutorText(chunk);
             return l ? { ...l, text } : l;
           });
         },
@@ -990,9 +1006,19 @@ export function LessonRoom({ session, onEnded }: Props) {
     pendingRef.current = pending;
   }, [pending]);
 
+  // PHASE 169 — the echo rules need the tutor's floor as a timeline ("was the
+  // tutor audible while these words were being said?"): every change of the
+  // room's own speaking flag is reported to the live session.
+  useEffect(() => {
+    speakingRef.current = speaking;
+    convHandleRef.current?.noteTutorSpeaking(speaking);
+  }, [speaking]);
+
   // PHASE 168 — the one session behind «المحادثة الحيّة»: opened when the mode
   // is on, closed when it ends (or the lesson's reply language changes, so the
-  // engine hears the right language).
+  // engine hears the right language). The microphone stays open through the
+  // whole exchange (PHASE 169) — the tutor's own voice is excluded by the echo
+  // rules inside the session, not by closing the mic.
   useEffect(() => {
     if (!conversation) return;
     // One microphone: a one-shot dictation running beside live mode would
@@ -1001,9 +1027,10 @@ export function LessonRoom({ session, onEnded }: Props) {
     const handle: LiveConversationHandle | null = startLiveConversation(
       {
         onLive: (text) => setConvLive(text),
-        // Barge-in: only when the tutor actually holds the floor — never
-        // cancel into an idle engine (the PHASE 167 wedge lesson).
-        onSpeech: () => {
+        // PHASE 169 — the student is interrupting with his own words: yield
+        // the floor now. Only when the tutor actually holds it — never cancel
+        // into an idle engine (the PHASE 167 wedge lesson).
+        onBargeIn: () => {
           if (narratorRef.current || streamedRef.current || activeUtterance.current) {
             stopReadingRef.current();
           }
@@ -1032,7 +1059,12 @@ export function LessonRoom({ session, onEnded }: Props) {
       setError("تعذر بدء المحادثة الحيّة — أعد المحاولة");
       return;
     }
+    convHandleRef.current = handle;
+    // The room may already be speaking while the mode opens (auto-read): the
+    // session needs that floor state from its first moment.
+    handle.noteTutorSpeaking(speakingRef.current);
     return () => {
+      if (convHandleRef.current === handle) convHandleRef.current = null;
       handle.stop();
       convQueued.current = null;
       setConvLive("");
@@ -1534,7 +1566,7 @@ export function LessonRoom({ session, onEnded }: Props) {
             <span className="live-dot" aria-hidden="true" />
             <span className="live-label" data-testid="live-state" aria-live="polite">
               {speaking
-                ? "🔊 المعلّم يتكلّم — تكلّم متى شئت فيصمت فورًا"
+                ? "🔊 المعلّم يتكلّم — تكلّم فيصمت ويستمع"
                 : pending
                   ? "🧠 المعلّم يجهّز الردّ…"
                   : "🎙️ أسمعك… تكلّم بحرية"}
@@ -1543,6 +1575,21 @@ export function LessonRoom({ session, onEnded }: Props) {
               <span className="live-interim" data-testid="live-interim" dir="auto">
                 «{convLive}»
               </span>
+            )}
+            {/* PHASE 169 — interrupting stays a spoken act (say new words and
+                the tutor yields); this is the same act for a room where the
+                phone's microphone cannot prove the voice, and the guaranteed
+                way out of any sound the student does not want. */}
+            {speaking && (
+              <button
+                data-testid="live-interrupt"
+                type="button"
+                className="btn small ghost"
+                aria-label="قاطِع المعلّم وأسكته الآن"
+                onClick={() => stopReadingRef.current()}
+              >
+                ✋ قاطِعني
+              </button>
             )}
             <button data-testid="live-exit" type="button" className="btn small ghost" onClick={toggleConversation}>
               ⏹ إنهاء المحادثة

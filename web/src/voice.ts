@@ -16,6 +16,8 @@
 // something fails. Dictation stays browser-native — Chrome already recognizes
 // Arabic without any installed voice.
 
+import { classifyLiveUtterance, shouldYieldFloor, visibleLiveCaption } from "./echoGuard.js";
+
 /**
  * PHASE 39 (D-043) — the *spoken* layer follows the same language as the
  * written reply (PHASE 38/D-042): a language curriculum is dictated and
@@ -239,17 +241,27 @@ export interface Sentence {
   end: number;
 }
 
+/**
+ * Does the character at `i` end a sentence? Two guards Arabic maths actually
+ * needs: `2.5` is a number, not an ending, and a point only ends a sentence
+ * when whitespace (or the end) follows it — which also keeps abbreviations and
+ * file names from cutting a sentence. Exported because the narrator's fast
+ * start (PHASE 169) must agree with it exactly.
+ */
+export function isSentenceEnd(text: string, i: number): boolean {
+  const ch = text[i];
+  if (ch === undefined || !/[.!?؟…\n]/.test(ch)) return false;
+  if (ch === "." && /\d/.test(text[i - 1] ?? "") && /\d/.test(text[i + 1] ?? "")) return false;
+  const next = text[i + 1];
+  if (ch === "." && next !== undefined && !/\s/.test(next)) return false;
+  return true;
+}
+
 export function splitSentences(text: string, limit = 140): { ready: Sentence[]; rest: string } {
   const ready: Sentence[] = [];
   let start = 0;
   for (let i = 0; i < text.length; i++) {
-    const ch = text[i]!;
-    if (!/[.!?؟…\n]/.test(ch)) continue;
-    if (ch === "." && /\d/.test(text[i - 1] ?? "") && /\d/.test(text[i + 1] ?? "")) continue;
-    // A point only ends a sentence when whitespace (or the end) follows it —
-    // this also keeps abbreviations and file names from cutting a sentence.
-    const next = text[i + 1];
-    if (ch === "." && next !== undefined && !/\s/.test(next)) continue;
+    if (!isSentenceEnd(text, i)) continue;
     const cut = i + 1;
     const chunk = text.slice(start, cut).trim();
     // `end` is an offset into `text`, not into the trimmed chunk: the narrator
@@ -688,24 +700,56 @@ export function stopAudio(): void {
  * `startTranscription` above is deliberately one-shot: press, speak, review,
  * send. The owner asked for the other shape — a conversation where the tutor
  * hears while the student talks, answers while the answer is still being
- * written, yields the moment the student speaks again, and never asks him to
- * touch anything between turns.
- *
- * Three pieces of behaviour turn the browser's continuous Recognition into
- * that conversation, and all three live here (the room only decides what a
- * completed utterance means — it sends it):
+ * written, and never asks him to touch anything between turns. PHASE 169 kept
+ * the microphone open for the whole exchange — the owner's own words: «اريد
+ * المحادثة تفاعلية… الطالب ممكن يقاطع المعلم اثناء الشرح… ويتم استثناء صوت
+ * المعلم فقط» — so the pieces of behaviour here are:
  *
  *  • segmentation — a continuous session reports fragments; the tracker below
- *    gathers them into whole utterances that end on a short silence;
- *  • barge-in — the first fragment of a new utterance is announced at once, so
- *    the room can silence the tutor's voice before the student is even done;
+ *    gathers them into whole utterances that end on a short silence, or sooner
+ *    on the end of the student's voice as the echo-cancelled probe hears it;
+ *  • echo exclusion — that same open microphone also hears the phone's
+ *    speaker: the tutor's words arrive as transcripts «كأني أنا الذي أتكلم»
+ *    and used to be sent back to it, in a loop. Every utterance is now judged
+ *    against two independent facts (`echoGuard.ts`): the words themselves
+ *    (the tutor's text is KNOWN — its own sentence can never become a
+ *    question) and the probe's echo-cancelled level (a real voice over the
+ *    tutor's). Echo is dropped in silence — never sent, never shown;
+ *  • yield — while the tutor holds the floor, a fragment of NEW words (not the
+ *    tutor's) announces barge-in at once, so the room silences the voice
+ *    before the student is even done — interrupting stays a spoken act;
  *  • survival — Chrome ends recognition on its own (its silence timer, a ~60s
  *    cap). A conversation must not die with it: the session is reopened
  *    invisibly, unless the *student* ended the mode.
  */
 
-/** The silence that ends the student's utterance and releases it, in ms. */
-export const LIVE_SILENCE_MS = 1200;
+/**
+ * The silence that ends the student's utterance and releases it, in ms.
+ * PHASE 169 — 1200 → 900: with the echo rules carrying the safety, this wait
+ * is pure felt latency between the student stopping and the tutor starting.
+ */
+export const LIVE_SILENCE_MS = 900;
+
+/** The tracker's clock: 250 → 150ms (PHASE 169), so a release lands sooner. */
+const LIVE_TICK_MS = 150;
+
+/**
+ * PHASE 169 — the student's voice stopped (the probe heard it end) and the
+ * recognizer has settled: release after this short tail instead of waiting out
+ * the full silence window.
+ */
+const LIVE_VAD_TAIL_MS = 350;
+
+/**
+ * PHASE 169 — how long after the tutor's voice stops its words may still be
+ * in flight through the recognizer (engines report with a delay): an utterance
+ * that started this close to the tutor's last word is judged by the echo
+ * rules, not trusted blindly.
+ */
+const LIVE_TUTOR_TAIL_MS = 1500;
+
+/** PHASE 169 — the rolling window of tutor speech kept for word matching. */
+const LIVE_TUTOR_WINDOW = 800;
 
 /** A student talking without a pause still gets a turn at this bound. */
 export const LIVE_MAX_UTTERANCE_MS = 20_000;
@@ -853,16 +897,173 @@ export class LiveUtteranceTracker {
   }
 }
 
+// ------------------------------------------------- the mic probe (PHASE 169) --
+
+/**
+ * The echo-cancelled probe: one `getUserMedia` stream of the SAME microphone
+ * the recognizer listens to, with the browser's own echo cancellation on. The
+ * tutor's voice plays from this page, so the browser subtracts it from the
+ * probe — a level above the calibrated floor therefore means the STUDENT is
+ * speaking. That is the one signal the recognizer's transcripts cannot give:
+ * the Web Speech API offers no way to hand it a stream we cleaned ourselves,
+ * so the probe's evidence is kept as a *separate* fact for `echoGuard.ts` to
+ * weigh, never as a replacement for the words.
+ *
+ * Kept deliberately small: it only reports when the student's voice begins and
+ * ends. Privacy: the audio never leaves this function — only levels are read,
+ * and only two events come out.
+ */
+export interface MicProbeHandlers {
+  /** The student's own voice just started (post-cancellation level). */
+  onVoiceStart: () => void;
+  /** The student's voice stopped (a short quiet, hysteresis included). */
+  onVoiceEnd: () => void;
+  /** No probe on this machine (no permission, no Web Audio): word rules only. */
+  onError: () => void;
+}
+
+export interface MicProbeHandle {
+  stop: () => void;
+}
+
+/** The probe's clock, in ms — fast enough for barge-in to feel instant. */
+const MIC_PROBE_TICK_MS = 120;
+/** Consecutive frames above the floor before a voice counts as started. */
+const MIC_PROBE_START_FRAMES = 2;
+/** Consecutive quiet frames before it counts as done (mid-sentence breath ≠ end). */
+const MIC_PROBE_END_FRAMES = 4;
+/** The floor never asks for more than this — a loud-echo room must still pass. */
+const MIC_PROBE_MAX_THRESHOLD = 0.09;
+/** …nor lower than this — a silent room must not trigger on nothing. */
+const MIC_PROBE_MIN_THRESHOLD = 0.035;
+
+type MicProbeWindow = Window & {
+  AudioContext?: typeof AudioContext;
+  webkitAudioContext?: typeof AudioContext;
+  /**
+   * PHASE 169 test seam, the same shape as the E2E recognition stubs: the
+   * deterministic suites install it to announce "the student's voice" exactly
+   * when they mean to; a real page never has it.
+   */
+  __liveMicProbe?: (handlers: MicProbeHandlers) => MicProbeHandle;
+};
+
+/**
+ * Starts the probe, or returns null when this machine cannot run one — the
+ * mode then runs on the word rules alone: slower to trust an interruption,
+ * but never wrong about the tutor's own voice.
+ */
+export function startMicProbe(handlers: MicProbeHandlers): MicProbeHandle | null {
+  if (typeof window === "undefined" || typeof navigator === "undefined") return null;
+  const win = window as MicProbeWindow;
+  if (typeof win.__liveMicProbe === "function") return win.__liveMicProbe(handlers);
+
+  const media = navigator.mediaDevices;
+  const Ctx = win.AudioContext ?? win.webkitAudioContext;
+  if (!media?.getUserMedia || typeof Ctx === "undefined") return null;
+
+  let stopped = false;
+  let stream: MediaStream | null = null;
+  let context: AudioContext | null = null;
+  let timer = 0;
+
+  const stop = (): void => {
+    stopped = true;
+    window.clearInterval(timer);
+    stream?.getTracks().forEach((track) => track.stop());
+    if (context && context.state !== "closed") void context.close().catch(() => undefined);
+  };
+
+  media
+    .getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 },
+    })
+    .then((opened) => {
+      if (stopped) {
+        opened.getTracks().forEach((track) => track.stop());
+        return;
+      }
+      stream = opened;
+      const ctx = new Ctx();
+      context = ctx;
+      // A suspended context processes nothing; the toggle that opened the mode
+      // was a real press, so resuming here is allowed.
+      if (ctx.state === "suspended") void ctx.resume().catch(() => undefined);
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 512;
+      ctx.createMediaStreamSource(opened).connect(analyser);
+      const frame = new Uint8Array(analyser.fftSize);
+      // The floor adapts to the quiet of THIS room (and to whatever the echo
+      // cancellation leaves behind): a fixed threshold would be deaf in a
+      // quiet room and deafened by echo in a loud one.
+      let floor = 0.01;
+      let above = 0;
+      let below = 0;
+      let inVoice = false;
+      let voiceAt = 0;
+
+      timer = window.setInterval(() => {
+        if (stopped) return;
+        analyser.getByteTimeDomainData(frame);
+        let sum = 0;
+        for (let i = 0; i < frame.length; i++) {
+          const v = ((frame[i] ?? 128) - 128) / 128;
+          sum += v * v;
+        }
+        const rms = Math.sqrt(sum / frame.length);
+        const threshold = Math.max(
+          MIC_PROBE_MIN_THRESHOLD,
+          Math.min(MIC_PROBE_MAX_THRESHOLD, floor * 2.5),
+        );
+        if (rms < threshold) floor = floor * 0.98 + rms * 0.02;
+        if (!inVoice) {
+          if (rms >= threshold) {
+            above += 1;
+            if (above >= MIC_PROBE_START_FRAMES) {
+              inVoice = true;
+              above = 0;
+              below = 0;
+              voiceAt = Date.now();
+              handlers.onVoiceStart();
+            }
+          } else {
+            above = 0;
+          }
+          return;
+        }
+        if (rms < threshold * 0.7) {
+          below += 1;
+          if (below >= MIC_PROBE_END_FRAMES && Date.now() - voiceAt >= 250) {
+            inVoice = false;
+            below = 0;
+            handlers.onVoiceEnd();
+          }
+        } else {
+          below = 0;
+        }
+      }, MIC_PROBE_TICK_MS);
+    })
+    .catch(() => {
+      try {
+        handlers.onError();
+      } catch {
+        /* the probe's absence must never break the conversation */
+      }
+    });
+
+  return { stop };
+}
+
 export interface LiveConversationCallbacks {
   /** The current utterance so far, live (empty string once it is released). */
   onLive: (text: string) => void;
   /**
-   * A new utterance began — the student started talking. Fired once per
-   * utterance, on its first fragment: the room makes the tutor's voice yield
-   * here, because a student who interrupts must not wait for his own sentence
-   * to be complete before being heard.
+   * PHASE 169 — the student is interrupting: his own words (not the tutor's
+   * echo) are in the air while the tutor speaks. Fired once per utterance, as
+   * soon as that is clear, so the room silences the voice before the student
+   * is even done.
    */
-  onSpeech: () => void;
+  onBargeIn: () => void;
   /** A whole utterance, released by the silence (or the bound) that ended it. */
   onUtterance: (text: string) => void;
   /** A fatal recognition error (permission, capture, network). */
@@ -874,11 +1075,20 @@ export interface LiveConversationCallbacks {
 export interface LiveConversationHandle {
   /** Ends the live session; whatever was half-spoken is dropped, not sent. */
   stop: () => void;
+  /**
+   * PHASE 169 — the room reports the tutor's floor: true while its voice holds
+   * the air. The echo rules need this timeline ("was the tutor audible during
+   * this utterance?") to tell the student's words from the speaker's.
+   */
+  noteTutorSpeaking: (speaking: boolean) => void;
+  /** Every chunk the tutor is about to say, for the word-matching window. */
+  noteTutorText: (text: string) => void;
 }
 
 /**
  * One continuous recognition session, kept alive across the browser's own
- * endings, reporting whole utterances as the student speaks them.
+ * endings, reporting whole utterances as the student speaks them — with the
+ * tutor's own voice excluded by the PHASE 169 rules above.
  *
  * Errors are read the way the mode works: "aborted" is our own stop, and
  * "no-speech" is exactly the quiet this session waits for — neither is news.
@@ -899,10 +1109,71 @@ export function startLiveConversation(
   let tickTimer = 0;
   let restartTimer = 0;
 
-  const emit = (text: string) => {
-    callbacks.onLive("");
-    if (text) callbacks.onUtterance(text);
+  // PHASE 169 — the tutor's side of the conversation, as the room reports it.
+  let tutorText = "";
+  let tutorSpeaking = false;
+  let tutorSpeechEndAt: number | null = null;
+  // …and the student's side, as the echo-cancelled probe hears it.
+  let lastUserVoiceAt = 0;
+  let userVoiceEndAt: number | null = null;
+  // The utterance on the table: when it began, and whether the room was already
+  // told to yield for it (interrupting is one act, announced once).
+  let windowStart = 0;
+  let yielded = false;
+  let lastFragmentAt = 0;
+
+  const noteTutorText = (text: string): void => {
+    const t = text.replace(/\s+/g, " ").trim();
+    if (!t) return;
+    tutorText = `${tutorText} ${t}`.trim().slice(-LIVE_TUTOR_WINDOW);
   };
+
+  const noteTutorSpeaking = (speaking: boolean): void => {
+    tutorSpeaking = speaking;
+    if (!speaking) tutorSpeechEndAt = Date.now();
+  };
+
+  /**
+   * Was the tutor's voice in the air during an utterance that began at
+   * `start`? True while it speaks, and for a tail after it stops — the
+   * recognizer reports with a delay, so the tutor's last words can still
+   * arrive (and be "said") after its voice is already silent.
+   */
+  const tutorAudibleDuring = (start: number): boolean => {
+    if (tutorSpeaking) return true;
+    return tutorSpeechEndAt !== null && tutorSpeechEndAt >= start - LIVE_TUTOR_TAIL_MS;
+  };
+
+  /** Releases a finished utterance, after the echo rules had their say. */
+  const release = (text: string | null): void => {
+    const start = windowStart;
+    windowStart = 0;
+    yielded = false;
+    userVoiceEndAt = null;
+    callbacks.onLive("");
+    if (!text) return;
+    const verdict = classifyLiveUtterance({
+      text,
+      tutorText,
+      tutorAudible: tutorAudibleDuring(start),
+      userVoice: lastUserVoiceAt >= start - 250,
+    });
+    // The tutor's own voice, read back through the speaker: dropped in
+    // silence — never sent as a question, never shown as the student's words.
+    if (verdict === "echo") return;
+    callbacks.onUtterance(text);
+  };
+
+  const probe = startMicProbe({
+    onVoiceStart: () => {
+      lastUserVoiceAt = Date.now();
+      userVoiceEndAt = null;
+    },
+    onVoiceEnd: () => {
+      userVoiceEndAt = Date.now();
+    },
+    onError: () => undefined, // word rules alone still carry the mode
+  });
 
   const fatal = (message: string | null): void => {
     if (!active) return;
@@ -910,6 +1181,7 @@ export function startLiveConversation(
     current = null;
     window.clearInterval(tickTimer);
     window.clearTimeout(restartTimer);
+    probe?.stop();
     callbacks.onError(message);
     callbacks.onEnd();
   };
@@ -947,8 +1219,35 @@ export function startLiveConversation(
           began = tracker.noteInterim(text, now) || began;
         }
       }
-      if (began) callbacks.onSpeech();
-      callbacks.onLive(tracker.live);
+      if (began) {
+        windowStart = now;
+        yielded = false;
+      }
+      lastFragmentAt = now;
+      const live = tracker.live;
+      // PHASE 169 — yield the floor the moment the words say "this is the
+      // student": two words that are not the tutor's, or one word plus the
+      // probe's voice. The tutor's own echoed words never yield — those are
+      // the words that used to stop it after two or three (the reported
+      // defect); without new words there is nothing to answer.
+      if (live && !yielded && tutorAudibleDuring(windowStart || now)) {
+        if (
+          shouldYieldFloor({
+            text: live,
+            tutorText,
+            userVoiceRecently: now - lastUserVoiceAt <= 1500,
+          })
+        ) {
+          yielded = true;
+          callbacks.onBargeIn();
+        }
+      }
+      // The caption is the student's words only: echo never appears as his.
+      if (live && visibleLiveCaption({ text: live, tutorText, tutorAudible: tutorSpeaking })) {
+        callbacks.onLive(live);
+      } else {
+        callbacks.onLive("");
+      }
     };
 
     rec.onerror = (event) => {
@@ -963,9 +1262,9 @@ export function startLiveConversation(
       current = null;
       if (!active) return;
       // The session ended (Chrome's own silence timer, the ~60s cap): release
-      // what was heard — it was an utterance — and reopen after a breath.
-      const whole = tracker.flush();
-      if (whole) emit(whole);
+      // what was heard — it was an utterance (the echo rules still judge it) —
+      // and reopen after a breath.
+      release(tracker.flush());
       restartTimer = window.setTimeout(open, LIVE_RESTART_GAP_MS);
     };
 
@@ -978,9 +1277,21 @@ export function startLiveConversation(
 
   tickTimer = window.setInterval(() => {
     if (!active) return;
-    const whole = tracker.tick(Date.now());
-    if (whole) emit(whole);
-  }, 250);
+    const now = Date.now();
+    // PHASE 169 — the student's voice ended (the probe heard it stop) and no
+    // newer fragment arrived: release now, without waiting out the full
+    // silence window. This is the felt latency of a reply.
+    if (
+      userVoiceEndAt !== null &&
+      now - userVoiceEndAt >= LIVE_VAD_TAIL_MS &&
+      lastFragmentAt <= userVoiceEndAt + 250
+    ) {
+      release(tracker.flush(now));
+      return;
+    }
+    const whole = tracker.tick(now);
+    if (whole) release(whole);
+  }, LIVE_TICK_MS);
 
   open();
 
@@ -992,6 +1303,7 @@ export function startLiveConversation(
       window.clearTimeout(restartTimer);
       // Half-spoken text is dropped: ending the mode is not a question.
       tracker.flush();
+      probe?.stop();
       const rec = current;
       current = null;
       if (rec) {
@@ -1003,5 +1315,7 @@ export function startLiveConversation(
       }
       callbacks.onEnd();
     },
+    noteTutorSpeaking,
+    noteTutorText,
   };
 }

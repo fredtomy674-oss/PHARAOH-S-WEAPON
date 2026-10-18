@@ -44,7 +44,7 @@ describe("PHASE 168 — live utterance segmentation", () => {
     tracker.noteFinal("طويلة", 9_900);
     expect(tracker.tick(10_000)).toBe("قصة طويلة");
     // The exported constants are the ones the mode actually runs with.
-    expect(LIVE_SILENCE_MS).toBe(1200);
+    expect(LIVE_SILENCE_MS).toBe(900);
     expect(LIVE_MAX_UTTERANCE_MS).toBe(20_000);
   });
 

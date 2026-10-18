@@ -1,5 +1,5 @@
 import { stripMarkdown } from "./format.js";
-import { splitSentences } from "./voice.js";
+import { isSentenceEnd, splitSentences } from "./voice.js";
 
 /**
  * PHASE 56 — hearing the tutor while the tutor is still talking.
@@ -23,6 +23,12 @@ import { splitSentences } from "./voice.js";
  *    narrator forgets those words and keeps serving the turn: words that were
  *    taken back must not stay in the air, and must not cost the student the
  *    corrected answer either.
+ *
+ * PHASE 169 — the first words no longer wait for the first full sentence (see
+ * `fastSpokenChunk`): a natural Arabic sentence can run past 40 characters, so
+ * "wait for the period" was a second or more of silence before the voice
+ * started. Only the FIRST chunk is cut early; everything after it keeps the
+ * whole-sentence rule, and the words are the same words, in the same order.
  */
 
 /** What one utterance attempt told us. */
@@ -39,6 +45,41 @@ export interface Unheard {
   tail: string;
   /** True when nothing at all was heard, so the whole reply is still owed. */
   heardNothing: boolean;
+}
+
+/**
+ * PHASE 169 — a first chunk shorter than this is a stutter, not speech: no
+ * pause before `FIRST_CHUNK_MIN` is worth cutting for.
+ */
+export const FIRST_CHUNK_MIN = 8;
+
+/**
+ * PHASE 169 — even a reply with no pause at all must start by this point: the
+ * first chunk is cut at the last space inside this window.
+ */
+export const FIRST_CHUNK_MAX = 48;
+
+/**
+ * The reply's very first words, released before the first sentence is
+ * complete. One ascending scan, and the FIRST thing that qualifies wins:
+ * a real sentence end (speak it whole); a comma/؛/: pause at or past
+ * `FIRST_CHUNK_MIN`; and if nothing paused inside `FIRST_CHUNK_MAX`, the
+ * last space at the window's edge — never inside a word. Returns null while
+ * the text is still too short to cut safely; the next `feed` brings more.
+ */
+export function fastSpokenChunk(text: string): string | null {
+  if (!text) return null;
+  for (let i = 0; i < text.length; i++) {
+    if (isSentenceEnd(text, i)) return text.slice(0, i + 1);
+    if (i >= FIRST_CHUNK_MIN && "،؛:".includes(text[i]!)) return text.slice(0, i + 1);
+    // Nothing paused in the whole window: the voice starts on the words that
+    // exist instead of waiting for a pause that may still be far away.
+    if (i >= FIRST_CHUNK_MAX) {
+      const space = text.lastIndexOf(" ", i);
+      return space >= FIRST_CHUNK_MIN ? text.slice(0, space) : null;
+    }
+  }
+  return null;
 }
 
 export interface Narrator {
@@ -64,6 +105,12 @@ export interface NarratorDeps {
   speak: (text: string, onDone: () => void) => SpeakAttempt;
   /** Presence: is the room speaking right now? */
   onSpeaking: (speaking: boolean) => void;
+  /**
+   * PHASE 169 — the words of a chunk, told to the room the instant it is
+   * handed to the voice. The live conversation keeps them as the matching
+   * window that tells the tutor's own voice from the student's (`echoGuard`).
+   */
+  onChunk?: (text: string) => void;
 }
 
 export function createNarrator(deps: NarratorDeps): Narrator {
@@ -84,6 +131,13 @@ export function createNarrator(deps: NarratorDeps): Narrator {
   let busy = false;
   let broken = false;
   let stopped = false;
+  /**
+   * PHASE 169 — true once anything has been queued for the voice. The fast
+   * first chunk exists only for the FIRST words of a turn: after they are on
+   * their way, the whole-sentence rule is what the reply deserves. Reset by
+   * `retract` — words taken back make the corrected reply start over.
+   */
+  let started = false;
 
   const pump = (): void => {
     if (stopped) return;
@@ -95,6 +149,9 @@ export function createNarrator(deps: NarratorDeps): Narrator {
     }
     busy = true;
     deps.onSpeaking(true);
+    // PHASE 169 — the moment the voice gets these words, the room's matching
+    // window (the live conversation's echo rules) must know them.
+    deps.onChunk?.(next.text);
     const attempt = deps.speak(next.text, () => {
       busy = false;
       pump();
@@ -114,12 +171,32 @@ export function createNarrator(deps: NarratorDeps): Narrator {
   /** Speak every complete sentence of `text` that has not been spoken yet. */
   const take = (text: string): void => {
     if (stopped || broken) return;
-    const fresh = text.slice(consumed);
+    let fresh = text.slice(consumed);
+    // PHASE 169 — the very first words do not wait for the first full
+    // sentence: a fast chunk (see `fastSpokenChunk`) starts the voice while
+    // the rest of the sentence is still being written. The remainder of the
+    // reply is served by the ordinary whole-sentence rule below.
+    if (!started && fresh) {
+      const first = fastSpokenChunk(fresh);
+      if (first !== null) {
+        const words = stripMarkdown(first).trim();
+        if (words) queue.push({ text: words, end: consumed + first.length });
+        started = true;
+        consumed += first.length;
+        fresh = text.slice(consumed);
+      }
+    }
     const { ready, rest } = splitSentences(fresh);
-    if (ready.length === 0) return;
+    if (ready.length === 0) {
+      pump();
+      return;
+    }
     for (const sentence of ready) {
       const words = stripMarkdown(sentence.text).trim();
-      if (words) queue.push({ text: words, end: consumed + sentence.end });
+      if (words) {
+        queue.push({ text: words, end: consumed + sentence.end });
+        started = true;
+      }
     }
     consumed = text.length - rest.length;
     pump();
@@ -134,7 +211,10 @@ export function createNarrator(deps: NarratorDeps): Narrator {
       const tail = fullText.slice(Math.min(consumed, fullText.length));
       consumed = fullText.length;
       const words = stripMarkdown(tail).trim();
-      if (words) queue.push({ text: words, end: fullText.length });
+      if (words) {
+        queue.push({ text: words, end: fullText.length });
+        started = true;
+      }
       pump();
     },
     retract(): void {
@@ -143,6 +223,7 @@ export function createNarrator(deps: NarratorDeps): Narrator {
       consumed = 0;
       heard = 0;
       queue = [];
+      started = false;
       pump();
     },
     stop(): void {
