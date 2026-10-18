@@ -112,6 +112,18 @@ export interface VoiceTestState {
     stopped: number;
     decodeFailures: number;
   };
+  /**
+   * PHASE 174 — how many times the live session dropped the echo probe. A
+   * capture-class recognition error must clear the field (the probe is the
+   * one other consumer) and reopen the recognizer instead of ending the mode.
+   */
+  micProbeStops: number;
+  /**
+   * PHASE 174 — how many live recognition sessions have opened. After a
+   * capture-class failure the ladder rebuilds the session, and this count
+   * going up is the receipt that it did.
+   */
+  liveSessions: number;
 }
 
 /**
@@ -142,7 +154,7 @@ export async function installVoiceStubs(
   opts: { stallFirst?: boolean; stallAlways?: boolean; live?: boolean } = {},
 ): Promise<void> {
   await page.addInitScript((opts: { transcript: string; voices: StubVoice[]; stallFirst?: boolean; stallAlways?: boolean; live?: boolean }) => {
-    const state: VoiceTestState = { spoken: [], cancelCount: 0, resumeCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 } };
+    const state: VoiceTestState = { spoken: [], cancelCount: 0, resumeCount: 0, recognitionLang: "", audio: { plays: 0, pauses: 0, ended: 0, lastSrc: "" }, pieces: { started: 0, stopped: 0, decodeFailures: 0 }, micProbeStops: 0, liveSessions: 0 };
     (window as unknown as { __voiceTest: VoiceTestState }).__voiceTest = state;
 
     // PHASE 57 — progressive server voice. The real Web Audio pipeline is used
@@ -210,8 +222,11 @@ export async function installVoiceStubs(
     // SpeechRecognition: one-shot by default (one final result, then end).
     // PHASE 168 — with `opts.live` a continuous session waits for fragments the
     // spec pushes through `window.__speechPush` instead of speaking on a timer.
+    // PHASE 174 — `error` pushes a recognition error through the same window,
+    // so the recovery ladder is driven by the spec, not by timing.
     let liveRec: {
       push: (text: string, isFinal: boolean) => void;
+      fail: (code: string) => void;
     } | null = null;
     class FakeSpeechRecognition {
       lang = "ar-EG";
@@ -227,6 +242,7 @@ export async function installVoiceStubs(
         // The app sets `lang` after construction — record what it asked for.
         state.recognitionLang = this.lang;
         if (opts.live && this.continuous) {
+          state.liveSessions += 1;
           liveRec = this;
           return;
         }
@@ -244,6 +260,10 @@ export async function installVoiceStubs(
         results[index] = { isFinal, 0: { transcript: text } };
         this.onresult?.({ resultIndex: index, results });
       }
+      /** PHASE 174 — one recognition error, exactly as an engine reports it. */
+      fail(code: string): void {
+        this.onerror?.({ error: code });
+      }
       stop(): void {
         if (liveRec === this) liveRec = null;
         if (typeof this.onend === "function") this.onend();
@@ -258,6 +278,7 @@ export async function installVoiceStubs(
         micProbe = handlers;
         return {
           stop: () => {
+            state.micProbeStops += 1;
             micProbe = null;
           },
         };
@@ -266,6 +287,8 @@ export async function installVoiceStubs(
         ready: () => liveRec !== null,
         final: (text: string) => liveRec?.push(text, true),
         interim: (text: string) => liveRec?.push(text, false),
+        // PHASE 174 — one recognition error (`error("audio-capture")` etc.).
+        error: (code: string) => liveRec?.fail(code),
         voice: (on: boolean) => {
           if (on) micProbe?.onVoiceStart();
           else micProbe?.onVoiceEnd();
@@ -396,6 +419,11 @@ export async function isLiveReady(page: Page): Promise<boolean> {
 /** Waits until a live recognition session is actually open (mode toggled on). */
 export async function waitLiveReady(page: Page): Promise<void> {
   await expect.poll(async () => isLiveReady(page), { timeout: 5_000 }).toBe(true);
+}
+
+/** PHASE 174 — how many live recognition sessions have opened so far. */
+export async function liveSessionCount(page: Page): Promise<number> {
+  return page.evaluate(() => (window as unknown as { __voiceTest?: { liveSessions?: number } }).__voiceTest?.liveSessions ?? 0);
 }
 
 /**

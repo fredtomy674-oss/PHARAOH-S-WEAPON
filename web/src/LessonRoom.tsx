@@ -229,6 +229,14 @@ const TUTOR_LANGUAGE_LABEL: Record<TutorLanguage, string> = {
   de: "🏰 الشرح بالألمانية",
 };
 
+/**
+ * PHASE 174 — how long the open mode may stay word-less before the screen says
+ * what to check. Silence has one honest reading («the microphone is not
+ * reaching me») and one instruction that fixes it; a page that only says
+ * «أسمعك» while hearing nothing IS the defect the owner reported.
+ */
+const MIC_QUIET_HINT_MS = 9000;
+
 export function LessonRoom({ session, onEnded }: Props) {
   const [bc, setBc] = useState<Breadcrumb["breadcrumb"] | null>(null);
   const [tutorLanguage, setTutorLanguage] = useState<TutorLanguage>("ar");
@@ -252,6 +260,10 @@ export function LessonRoom({ session, onEnded }: Props) {
   // «للغرفة» يصغّرها والمحادثة لا تنقطع. `bargeAt` وميض صادق للحظة المقاطعة.
   const [voiceFocusOpen, setVoiceFocusOpen] = useState(false);
   const [bargeAt, setBargeAt] = useState(0);
+  // PHASE 174 — «لم أسمعك بعد»: يظهر فقط إن مضت ثوانٍ منذ فتح المحادثة ولم
+  // تصل كلمة واحدة — تلميح صادق لا زينة (اقرأ `MIC_QUIET_HINT_MS`).
+  const [micQuietHint, setMicQuietHint] = useState(false);
+  const heardWordsRef = useRef(false);
   // W2 — the lesson's place in the printed book: a REFERENCE, never a display.
   // The room names the page («كتابك — صفحة ٦ من ٧»); it never shows the book.
   const [stage, setStage] = useState<LessonStage | null>(null);
@@ -1143,6 +1155,29 @@ export function LessonRoom({ session, onEnded }: Props) {
     };
   }, [conversation, tutorLanguage]);
 
+  // PHASE 174 — the words heard in this mode session, as a one-way latch: the
+  // hint appears only when NO word has ever arrived since the mode opened.
+  useEffect(() => {
+    if (convLive) {
+      heardWordsRef.current = true;
+      setMicQuietHint(false);
+    }
+  }, [convLive]);
+
+  // …and one timer per open: nine word-less seconds later the screen states
+  // the check instead of playing «أسمعك» into the void.
+  useEffect(() => {
+    if (!conversation) {
+      heardWordsRef.current = false;
+      setMicQuietHint(false);
+      return;
+    }
+    const timer = window.setTimeout(() => {
+      if (!heardWordsRef.current) setMicQuietHint(true);
+    }, MIC_QUIET_HINT_MS);
+    return () => window.clearTimeout(timer);
+  }, [conversation]);
+
   // PHASE 171 — المحادثة تفتح على وضعها الغامر، وتغلقه مع انتهائها؛ و«للغرفة»
   // قرارُ داخل الجلسة لا يعيده الفتح من جديد (التصغير يبقى حتى يكبّره الطالب).
   useEffect(() => {
@@ -1683,6 +1718,11 @@ export function LessonRoom({ session, onEnded }: Props) {
             {bargeAt > 0 && (
               <p className="voice-barge" data-testid="voice-barge">
                 ✋ قاطعته — أسمعك الآن
+              </p>
+            )}
+            {micQuietHint && !convLive && !speaking && !pending && !error && (
+              <p className="voice-hint" data-testid="live-mic-hint">
+                🎙️ لم أسمعك بعد — تأكد من السماح بالميكروفون، ثم تحدّث مرة أخرى
               </p>
             )}
             {convLive && (

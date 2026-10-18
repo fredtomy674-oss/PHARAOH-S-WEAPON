@@ -176,7 +176,10 @@ const STT_ERROR_MESSAGES: Record<string, string> = {
     "الميكروفون غير مسموح — اسمح بالوصول إليه من إعدادات المتصفح ثم أعد المحاولة",
   "service-not-allowed": "الميكروفون غير مسموح بهذه الخدمة",
   "no-speech": "لم نسمع صوتًا — حاول التحدث مرة أخرى",
-  "audio-capture": "تعذر الوصول إلى الميكروفون — تأكد من توصيله",
+  // PHASE 174 — the failure this text names most often is a busy device (a
+  // call, a voice note recording, another tab holding the microphone), on a
+  // phone far more often than on a desktop.
+  "audio-capture": "تعذر الوصول إلى الميكروفون — تأكد من أنه غير مستخدم في تطبيق آخر ثم أعد المحاولة",
   network: "تعذر الاتصال بخدمة التعرف على الكلام — تحقق من اتصالك بالإنترنت",
   "language-not-supported": "اللغة المحددة غير مدعومة في هذا المتصفح",
 };
@@ -841,6 +844,28 @@ export const LIVE_MAX_UTTERANCE_CHARS = 700;
 const LIVE_RESTART_GAP_MS = 500;
 
 /**
+ * PHASE 174 — the words come first. A capture-class failure ("audio-capture")
+ * means the microphone could not be opened, and the one consumer this page
+ * owns on that device is the echo probe: it joins every live session. The
+ * probe is an enhancement (barge-in speed and the early release); the
+ * recognizer IS the mode. When a capture fails, the probe is dropped for good
+ * and the recognizer reopens — and only a capture that fails without the probe
+ * this many times is fatal. The owner's phone ended the whole mode on those
+ * errors, which reads to a parent as «المحادثة الحيّة لا تعمل».
+ */
+const LIVE_CAPTURE_RETRY_LIMIT = 2;
+
+/** A longer breath after a capture-class failure — the device needs the beat. */
+const LIVE_CAPTURE_RETRY_GAP_MS = 800;
+
+/**
+ * …and after `getUserMedia` confirms the permission was in fact granted (the
+ * Android first-run race: the grant lands just after the recognizer's own
+ * request was refused).
+ */
+const LIVE_PERMISSION_RETRY_GAP_MS = 1200;
+
+/**
  * A late final that merely re-reports what was just released is the same
  * question, not a new one: engines can finalize a phrase right after its
  * interim was released, and sending both would ask the tutor twice.
@@ -1204,9 +1229,12 @@ export interface LiveConversationHandle {
  *
  * Errors are read the way the mode works: "aborted" is our own stop, and
  * "no-speech" is exactly the quiet this session waits for — neither is news.
- * Everything else (permission, capture, network) ends the mode honestly
- * through `onError`, because a session that looks alive while hearing nothing
- * is worse than a notice.
+ * PHASE 174 — a capture-class failure gets the field cleared first (the probe
+ * goes), and the first-ever permission refusal gets one retry behind a
+ * `getUserMedia` oracle. What is left — a capture that fails twice with no
+ * probe beside it, a refusal the oracle cannot lift, an unreachable service —
+ * still ends the mode honestly through `onError`, because a session that
+ * looks alive while hearing nothing is worse than a notice.
  */
 export function startLiveConversation(
   callbacks: LiveConversationCallbacks,
@@ -1220,6 +1248,9 @@ export function startLiveConversation(
   const tracker = new LiveUtteranceTracker();
   let tickTimer = 0;
   let restartTimer = 0;
+  // PHASE 174 — bounded recovery budgets (see the LIVE_*_RETRY_* constants).
+  let captureRetries = 0;
+  let permissionRetried = false;
 
   // PHASE 169 — the tutor's side of the conversation, as the room reports it.
   let tutorText = "";
@@ -1366,6 +1397,44 @@ export function startLiveConversation(
       if (!active) return;
       if (event.error === "aborted") return; // our own stop — `onend` closes it
       if (event.error === "no-speech") return; // the quiet the tracker waits for
+      // PHASE 174 — the words come first (see the constants): a capture failure
+      // clears the field — the probe is dropped for good — and reopens the
+      // recognizer; only a capture that keeps failing alone is fatal.
+      if (event.error === "audio-capture" && captureRetries < LIVE_CAPTURE_RETRY_LIMIT) {
+        captureRetries += 1;
+        current = null;
+        // Whatever the failed session still holds must not feed the tracker:
+        // its late results are dead air, not the student.
+        rec.onresult = null;
+        probe?.stop();
+        window.clearTimeout(restartTimer);
+        restartTimer = window.setTimeout(open, LIVE_CAPTURE_RETRY_GAP_MS);
+        return;
+      }
+      // The first-ever refusal may be the Android grant race — the recognizer
+      // asked before the permission settled. `getUserMedia` is the oracle: it
+      // resolves exactly when the phone now allows the microphone, and it
+      // rejects when the student (or the platform) really said no.
+      if (event.error === "not-allowed" && !permissionRetried) {
+        permissionRetried = true;
+        current = null;
+        // The refused session is dead; only the reopened one may speak.
+        rec.onresult = null;
+        window.clearTimeout(restartTimer);
+        const media = typeof navigator !== "undefined" ? navigator.mediaDevices : undefined;
+        if (!media?.getUserMedia) {
+          fatal(STT_ERROR_MESSAGES[event.error] ?? null);
+          return;
+        }
+        media
+          .getUserMedia({ audio: true })
+          .then((stream) => {
+            stream.getTracks().forEach((track) => track.stop());
+            if (active) restartTimer = window.setTimeout(open, LIVE_PERMISSION_RETRY_GAP_MS);
+          })
+          .catch(() => fatal(STT_ERROR_MESSAGES[event.error] ?? null));
+        return;
+      }
       fatal(STT_ERROR_MESSAGES[event.error] ?? null);
     };
 

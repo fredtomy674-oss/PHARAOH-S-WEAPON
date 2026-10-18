@@ -3,6 +3,7 @@ import {
   freezeLiveSpeech,
   installVoiceStubs,
   isLiveReady,
+  liveSessionCount,
   login,
   pushLiveInterim,
   pushLiveUtterance,
@@ -255,4 +256,38 @@ test("B5: a failure inside the immersive mode is stated where the child is looki
   await expect(page.getByTestId("voice-notice")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("voice-notice")).toContainText("مشغول");
   await expect(page.getByTestId("voice-focus")).toBeVisible();
+});
+
+test("B6: a capture hiccup drops the probe, never the mode — the recognizer reopens and the words still arrive", async ({ page }) => {
+  await installVoiceStubs(page, undefined, undefined, { live: true });
+  await login(page);
+  await startFirstLesson(page);
+
+  await page.getByTestId("live-conversation-toggle").click();
+  await expect(page.getByTestId("voice-focus")).toBeVisible({ timeout: 10_000 });
+  await waitLiveReady(page);
+
+  // PHASE 174 — the owner's phone ended the whole mode exactly here: the
+  // recognizer's capture failed ("audio-capture" — the error this project
+  // reproduced on a machine with no microphone) and the old code read it as
+  // final. The echo probe is the page's only other consumer of that same
+  // microphone, and it is an enhancement — so the ladder drops it and
+  // reopens the recognizer: the words are the mode.
+  const sessionsBefore = await liveSessionCount(page);
+  await page.evaluate(() => {
+    (window as unknown as { __speechPush: { error: (code: string) => void } }).__speechPush.error("audio-capture");
+  });
+
+  // The mode must NOT end, no error line may appear, and a fresh recognition
+  // session must open — the receipt that the ladder ran.
+  await expect(page.getByTestId("voice-focus")).toBeVisible();
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
+  await expect.poll(() => liveSessionCount(page), { timeout: 5_000 }).toBeGreaterThan(sessionsBefore);
+  expect((await voiceTestState(page)).micProbeStops).toBeGreaterThan(0);
+
+  // …and the words still reach the tutor and are answered: the probe's
+  // absence costs a little latency, never the turn.
+  await pushLiveUtterance(page, "ما هي خطوات الجمع");
+  await expect(page.getByTestId("voice-user-caption")).toContainText("خطوات الجمع", { timeout: 15_000 });
+  await expect(page.getByTestId("voice-tutor-caption")).toContainText(/\S/, { timeout: 25_000 });
 });

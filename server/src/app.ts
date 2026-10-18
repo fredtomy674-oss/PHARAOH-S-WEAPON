@@ -20,6 +20,7 @@ import { adminRoutes } from "./modules/admin/routes.js";
 import { parentRoutes } from "./modules/parent/routes.js";
 import { subscriptionRoutes } from "./modules/subscription/routes.js";
 import { achievementsRoutes } from "./modules/achievements/routes.js";
+import { lastClientBuild, recordClientBuild } from "./clientBuilds.js";
 
 export interface BuildAppOptions {
   forceProvider?: "mock" | "gemini";
@@ -147,21 +148,28 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
   // --- Routes --------------------------------------------------------------
   await app.register(
     async (api) => {
-      api.get("/health", async () => ({
-        status: "ok",
-        provider: api.ai.providers.llm.id,
-        // PHASE 41 (D-045) — the embedding provider is reported too, because
-        // "real answers" needs BOTH: a real LLM reading vectors that were
-        // actually built by the real embedder. A corpus embedded by the mock
-        // provider returns meaningless neighbors no matter which LLM answers.
-        embeddings: api.ai.providers.embeddings.id,
-        // PHASE 40 (D-044) — "none" means the server has no voice of its own
-        // and students read replies with the voices on their own machine.
-        speech: api.speech.providerId(),
-        speechCache: api.speech.cacheStats(),
-        cache: api.ai.cacheStats(),
-        time: new Date().toISOString(),
-      }));
+      api.get("/health", async (request) => {
+        // PHASE 174 — a page load reports its own build here (`?v=…`), and the
+        // sighting answers the one question a phone kept refusing to answer:
+        // which bundle is really running on the device right now?
+        recordClientBuild((request.query as Record<string, unknown> | undefined)?.v);
+        return {
+          status: "ok",
+          provider: api.ai.providers.llm.id,
+          // PHASE 41 (D-045) — the embedding provider is reported too, because
+          // "real answers" needs BOTH: a real LLM reading vectors that were
+          // actually built by the real embedder. A corpus embedded by the mock
+          // provider returns meaningless neighbors no matter which LLM answers.
+          embeddings: api.ai.providers.embeddings.id,
+          // PHASE 40 (D-044) — "none" means the server has no voice of its own
+          // and students read replies with the voices on their own machine.
+          speech: api.speech.providerId(),
+          speechCache: api.speech.cacheStats(),
+          cache: api.ai.cacheStats(),
+          client: lastClientBuild(),
+          time: new Date().toISOString(),
+        };
+      });
       await api.register(authRoutes, { prefix: "/auth" });
       await api.register(profileRoutes, { prefix: "/profile" });
       await api.register(curriculumRoutes, { prefix: "/curriculum" });

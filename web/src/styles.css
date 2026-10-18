@@ -2770,6 +2770,17 @@ p {
   color: var(--room-muted);
 }
 
+/* PHASE 174 — «لم أسمعك بعد»: the line that turns an unexplained silence
+   into one clear check (the microphone permission) after seconds without a
+   single word since the mode opened. Muted on purpose: guidance, not alarm. */
+.voice-hint {
+  margin: 0;
+  max-width: 30rem;
+  font-size: var(--fs-2);
+  color: var(--room-muted);
+  text-align: center;
+}
+
 /* PHASE 172 — the room's honesty line, inside the immersive mode: when the
    tutor cannot speak (no voice / no quota) the child must read it where he is
    looking, not behind an overlay. Same tokens as the room's error notice. */
