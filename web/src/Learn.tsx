@@ -39,20 +39,7 @@ import { SubjectGlyph } from "./components/SubjectGlyph.js";
  * (تغيّر تنقّل شرعي موثَّق).
  */
 
-const LAST_PICK_KEY = "alfarouq_last_pick";
-
-/** «آخر اختيار» (W3): المادة والوحدة اللتان كان عليهما الطالب — للعودة المباشرة. */
-function readLastPick(): { subjectId: string; unitId: string } | null {
-  try {
-    const raw = localStorage.getItem(LAST_PICK_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as { subjectId?: unknown; unitId?: unknown };
-    if (typeof parsed.subjectId !== "string") return null;
-    return { subjectId: parsed.subjectId, unitId: typeof parsed.unitId === "string" ? parsed.unitId : "" };
-  } catch {
-    return null;
-  }
-}
+import { clearLastPick, readLastPick, saveLastPick } from "./learnPrefs.js";
 
 interface Props {
   user: User;
@@ -151,7 +138,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
     }
     if (level <= 2) {
       setSubjectId("");
-      localStorage.removeItem(LAST_PICK_KEY);
+      clearLastPick();
     }
     if (level <= 3) {
       setCurriculumId("");
@@ -197,7 +184,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
     setLessons([]);
     // ملاحظة StrictMode: التهيئة تُشغَّل مرتين في التطوير، والحفظ يجب أن يكون
     // idempotent — وإلا محت القراءة الثانية وحدةَ الاستعادة قبل تطبيقها.
-    localStorage.setItem(LAST_PICK_KEY, JSON.stringify({ subjectId: id, unitId: restoreUnitId }));
+    saveLastPick({ subjectId: id, unitId: restoreUnitId });
     if (!gid) return;
     try {
       const list = await listCurricula(gid, id);
@@ -230,7 +217,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
     const seq = ++loadSeq.current;
     setUnitId(id);
     setLessons([]);
-    localStorage.setItem(LAST_PICK_KEY, JSON.stringify({ subjectId: sid, unitId: id }));
+    saveLastPick({ subjectId: sid, unitId: id });
     try {
       const list = await listLessons(id);
       if (seq !== loadSeq.current) return;

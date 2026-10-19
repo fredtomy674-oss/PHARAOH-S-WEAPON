@@ -8,6 +8,8 @@ export interface User {
   role: string;
   createdAt: string;
   student?: { id: string; displayName: string; gradeId: string | null };
+  /** PHASE 179 — the student's grade name (null until onboarding picks one). */
+  gradeNameAr?: string | null;
   /** Student only: the sharing code a parent enters to link/observe them (PHASE 18). */
   linkCode?: string | null;
 }
@@ -974,6 +976,9 @@ export interface PracticePlanItem {
   title: string;
   lessonId: string | null;
   lessonTitle: string | null;
+  /** PHASE 179 — the subject this concept belongs to (current grade only). */
+  subjectId: string | null;
+  subjectNameAr: string | null;
   mastery: number;
   decayedMastery: number;
   level: MasteryLevel;

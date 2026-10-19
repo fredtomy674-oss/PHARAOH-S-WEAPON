@@ -2106,10 +2106,11 @@ export function LessonRoom({ session, onEnded }: Props) {
               onChange={(e) => setInput(e.target.value)}
               placeholder="اكتب سؤالك… أو صوّر صفحتك من كتابك"
               maxLength={4000}
-              // Keyboard focus without yanking the scroll: the student opens
-              // the room on the board (the stage), not on the composer. A plain
-              // autoFocus would scroll the page past the board on load.
-              ref={(el) => el?.focus({ preventScroll: true })}
+              // PHASE 179 — no focus on mount. This ref callback ran on EVERY
+              // render and popped the phone keyboard the moment the room
+              // opened (covering the board before the child saw it). The
+              // keyboard now appears only when the student taps the field;
+              // voice stays the primary way to talk.
             />
             <button data-testid="send-message" className="btn primary" disabled={pending || (!input.trim() && !preview && !docFile && inkStrokes.length === 0)}>
               إرسال

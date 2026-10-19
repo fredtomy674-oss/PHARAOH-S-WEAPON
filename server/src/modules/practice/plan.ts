@@ -13,6 +13,9 @@ export interface PracticePlanItem {
   title: string;
   lessonId: string | null;
   lessonTitle: string | null;
+  /** PHASE 179 — the subject this concept really belongs to (for the weekly plan). */
+  subjectId: string | null;
+  subjectNameAr: string | null;
   /** Raw persisted mastery (tutor-memory value, no decay). */
   mastery: number;
   /** Read-side Ebbinghaus-decayed score the ranking is built on. */

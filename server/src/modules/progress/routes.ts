@@ -12,10 +12,13 @@ export const progressRoutes: FastifyPluginAsync = async (app) => {
     if (auth.user.role !== "student" || !auth.student) {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "التقدم مخصص لحسابات الطلاب" } });
     }
-    const detail = await app.memory.progressDetail(auth.student.id);
+    // PHASE 179 — the progress surface is the CURRENT grade's, not every row
+    // the child ever touched (the home's «كل المواد والصفوف» scatter).
+    const gradeId = auth.student.gradeId ?? null;
+    const detail = await app.memory.progressDetail(auth.student.id, undefined, gradeId);
     return {
       progress: detail,
-      mastery: await app.memory.masterySummary(auth.student.id),
+      mastery: await app.memory.masterySummary(auth.student.id, new Date(), gradeId),
       tutorUsageToday: await app.ai.usage.countTutorCallsForUserToday(auth.user.id),
     };
   });

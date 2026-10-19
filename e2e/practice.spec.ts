@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login, sendChatMessage, startFirstLesson } from "./helpers.js";
+import { ensureG6Grade, login, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
  * PHASE 24 — concept mastery + practice loop, end to end: the demo student
@@ -12,6 +12,7 @@ test.describe.configure({ mode: "serial" });
 
 test("PR1 (PHASE 24): practicing a question updates concept mastery on the student home", async ({ page }) => {
   await login(page);
+  await ensureG6Grade(page);
 
   // 1) Open the practice panel from the progress card.
   await expect(page.getByTestId("open-practice")).toBeVisible({ timeout: 20_000 });
@@ -51,6 +52,7 @@ test("PR1 (PHASE 24): practicing a question updates concept mastery on the stude
  */
 test("PR2 (PHASE 25): the practice plan ranks weak concepts and opens scoped practice", async ({ page }) => {
   await login(page);
+  await ensureG6Grade(page);
 
   // 1) The plan section rendered with at least one ranked concept.
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
@@ -82,6 +84,7 @@ test("PR2 (PHASE 25): the practice plan ranks weak concepts and opens scoped pra
  */
 test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمرين while أول إتقان stays locked", async ({ page }) => {
   await login(page);
+  await ensureG6Grade(page);
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 
   await page.getByTestId("open-achievements").click();
@@ -125,7 +128,12 @@ test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمر�
  */
 test("PR4 (PHASE 28): the student reaches a grounded question for تعبير رياضي with a variable and is tracked", async ({ page }) => {
   await login(page);
+  await ensureG6Grade(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+
+  // PHASE 179 — the home shows the three most important plan steps first.
+  const planMore = page.getByTestId("plan-more");
+  if ((await planMore.count()) > 0) await planMore.click();
 
   const row = page
     .locator('[data-testid="plan-row"]')
@@ -168,6 +176,7 @@ test("PR4 (PHASE 28): the student reaches a grounded question for تعبير ر�
  */
 test("PR5 (PHASE 33): ending a lesson session keeps the practice plan healthy", async ({ page }) => {
   await login(page);
+  await ensureG6Grade(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
   expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
 
@@ -195,6 +204,7 @@ test("PR5 (PHASE 33): ending a lesson session keeps the practice plan healthy", 
  */
 test("PR6 (PHASE 35): the plan shows no «راجع قبل أن ينسى» flag right after practice", async ({ page }) => {
   await login(page);
+  await ensureG6Grade(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
   // PHASE 170 — wait for the plan itself, not just its card: the card renders
   // its loading state first, so an immediate count could read a half-loaded plan.

@@ -682,6 +682,37 @@ export async function startLessonOfSubject(page: Page, subjectLabel: string): Pr
 }
 
 /**
+ * PHASE 179 — practice is scoped to the student's CURRENT grade. The seeded
+ * question bank belongs to the Egyptian Grade-6 books, while the generic
+ * onboarding walk starts in the first grade (KG1) — which has curated
+ * activities but no seeded MCQs. A practice spec must therefore make Grade 6
+ * the student's real grade first (idempotent: a no-op when it already is).
+ */
+export async function ensureG6Grade(page: Page): Promise<void> {
+  const chip = page.getByTestId("grade-chip");
+  const chipText = (await chip.isVisible().catch(() => false)) ? await chip.innerText() : "";
+  if (chipText.includes("الصف السادس")) return;
+
+  await page.getByTestId("start-lesson").click();
+  await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
+  // The deeper steps are chained: country → system → grade. The grade control
+  // is not even rendered until the first two exist.
+  await selectOptionByLabel(page, "select-country", "مصر");
+  await selectFirst(page, "select-system");
+  const saved = page.waitForResponse(
+    (r) => r.url().includes("/api/profile/me/student") && r.request().method() === "PUT" && r.ok(),
+    { timeout: 30_000 },
+  );
+  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
+  await saved;
+  await page
+    .getByRole("navigation", { name: "مساحات التعلّم" })
+    .getByRole("button", { name: "اليوم" })
+    .click();
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+}
+
+/**
  * The lesson title the room's ribbon is currently showing.
  *
  * The ribbon renders a «الجلسة» placeholder until the breadcrumb request

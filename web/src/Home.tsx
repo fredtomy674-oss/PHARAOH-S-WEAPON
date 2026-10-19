@@ -25,6 +25,8 @@ import { SessionRecapCard } from "./RecapCard.js";
 import { SubjectGlyph } from "./components/SubjectGlyph.js";
 import { TeacherMascot } from "./TeacherMascot.js";
 import { useLiveTeacherPref } from "./liveTeacherPref.js";
+import { readLastPick, weeklyPracticeItem } from "./learnPrefs.js";
+import { learningStrength, strengthProgress } from "./journey/strength.js";
 
 /**
  * PHASE 156 (W2) — الرئيسية 2.0: أُعيد بناؤها من الصفر على هوية الفاروق
@@ -81,6 +83,39 @@ function streakLabel(n: number): string {
   return "يومًا";
 }
 
+/** PHASE 179 — حلقة «مستواك الآن» (نفس هندسة رحلتي: viewBox 100). */
+const RING_R = 42;
+const RING_C = 2 * Math.PI * RING_R;
+
+/**
+ * PHASE 179 — ترتيب مواد الصف: المواد الأساسية أولًا، ثم المواد ذات
+ * الوسيط اللغوي الموازي («الرياضيات (بالإنجليزية)»…) في الآخر. قبل ذلك
+ * كان الترتيب الأبجدي يدفن العربية والإنجليزية والعلوم خلف «عرض الكل».
+ */
+const CORE_SUBJECT_ORDER: ReadonlyArray<string> = [
+  "اللغة العربية",
+  "اللغة الإنجليزية",
+  "الرياضيات",
+  "العلوم",
+  "الدراسات الاجتماعية",
+  "التربية الدينية الإسلامية",
+  "التربية الدينية المسيحية",
+];
+
+function subjectOrder(nameAr: string): number {
+  const idx = CORE_SUBJECT_ORDER.indexOf(nameAr);
+  if (idx >= 0) return idx;
+  // النسخة اللغوية الموازية للمادة نفسها تُعرض بعد كل المواد الأساسية.
+  return /\((?:بالإنجليزية|بالفرنسية)\)/.test(nameAr) ? 90 : 50;
+}
+
+/** «مفهومٌ واحد» · «مفهومان» · «N مفاهيم» · «N مفهومًا» — بصيغة عربية سليمة. */
+function conceptsLabel(n: number): string {
+  if (n === 1) return "مفهوم واحد";
+  if (n === 2) return "مفهومان";
+  return n <= 10 ? `${n} مفاهيم` : `${n} مفهومًا`;
+}
+
 export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpenAdmin }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
@@ -102,6 +137,11 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
   // PHASE 156 — a grade can hold 15 subjects; show the first six and let the
   // student expand, so «موادك» stays a launchpad, not a wall.
   const [subjectsExpanded, setSubjectsExpanded] = useState(false);
+  // PHASE 179 — «خطتي» تُبنى على المادة التي يعمل عليها الطفل فعلًا (آخر اختيار)
+  // وعلى مفاهيم صفّه وحده (الخادم يقصّها) — لا مواد صفوف أخرى.
+  const [lastPick] = useState(() => readLastPick());
+  const [planExpanded, setPlanExpanded] = useState(false);
+  const [masteryExpanded, setMasteryExpanded] = useState(false);
   // PHASE 162 (W7.4) — بطاقة «المعلّم الحيّ» تقرأ المفتاح نفسه الحقيقي: لا
   // وعد بما ليس مفعّلًا، ولا حالة مصطنعة.
   const liveTeacherOn = useLiveTeacherPref();
@@ -123,10 +163,15 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
       .catch(() => undefined);
   }
 
+  /** PHASE 179 — المؤشر الحيّ: بعد كل إجابة يُعاد حساب قوة التعلم فورًا. */
+  function refreshProgress(): void {
+    myProgress().then(setProgress).catch(() => undefined);
+  }
+
   useEffect(() => {
     listSessions().then(setSessions).catch(() => undefined);
     if (user.role === "student") {
-      myProgress().then(setProgress).catch(() => undefined);
+      refreshProgress();
       getMySubscription().then(setSubscription).catch(() => undefined);
       refreshPlan();
       const gradeId = user.student?.gradeId;
@@ -165,8 +210,32 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
 
   // Determine next best action using existing data
   const activeSession = sessions.find((s) => s.status === "active") ?? null;
-  const pendingConcepts = plan?.filter((p) => p.availableQuestions > 0 || p.openQuestions > 0).length ?? 0;
-  const needsPractice = pendingConcepts > 0;
+  const practicablePlan = (plan ?? []).filter((p) => p.availableQuestions > 0 || p.openQuestions > 0);
+  const needsPractice = practicablePlan.length > 0;
+
+  // PHASE 179 — «مؤشر حيّ»: قوة التعلم من الإتقان المتدهور الحقيقي (لا عدّ
+  // أهداف مكتملة)، وخطة أسبوع من ثلاث خطوات ملموسة على صفّ الطفل وحده.
+  const strength = learningStrength(progress?.mastery ?? []);
+  const strengthPct = Math.round(strengthProgress(strength) * 100);
+  const weeklyItem = weeklyPracticeItem(plan ?? []);
+  const dueItem = practicablePlan.find((p) => p.dueForReview) ?? null;
+  const dueCount = practicablePlan.filter((p) => p.dueForReview).length;
+  const fullPlan = plan ?? [];
+  const weakItem = fullPlan[0] ?? null;
+  const focusSubjectId = lastPick?.subjectId ?? weeklyItem?.subjectId ?? weakItem?.subjectId ?? "";
+  const focusSubjectName = subjects?.find((s) => s.id === focusSubjectId)?.nameAr ?? "";
+  const gradeLabel = user.gradeNameAr ?? "";
+  // «تدرّب» يجب أن يفتح نوع السؤال الموجود فعلًا: مفاهيم كثيرة لها سؤال مقالي
+  // فقط — طلب MCQ لها كان يفتح لوحة فارغة («لا توجد أسئلة»).
+  const weeklyMode: "mcq" | "open" =
+    weeklyItem && weeklyItem.availableQuestions === 0 && weeklyItem.openQuestions > 0 ? "open" : "mcq";
+  const reviewMode: "mcq" | "open" =
+    dueItem && dueItem.availableQuestions === 0 && dueItem.openQuestions > 0 ? "open" : "mcq";
+  const orderedSubjects = [...(subjects ?? [])].sort(
+    (a, b) => subjectOrder(a.nameAr) - subjectOrder(b.nameAr) || a.nameAr.localeCompare(b.nameAr, "ar"),
+  );
+  const shownMastery = masteryExpanded ? progress?.mastery ?? [] : (progress?.mastery ?? []).slice(0, 4);
+  const shownPlan = planExpanded ? fullPlan : fullPlan.slice(0, 3);
 
   // PHASE 156 — when practice opens, bring it into view (respecting motion).
   const practiceOpen = practice !== null;
@@ -235,6 +304,8 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
           ? await submitOpenPracticeAnswer(practice.question.id, practice.text)
           : await submitPracticeAnswer(practice.question.id, practice.chosen as number, timeTakenSeconds);
       setPractice((p) => (p ? { ...p, busy: false, result } : p));
+      // المؤشر والخطة يتغيران الآن — لا انتظارًا لإعادة تحميل الصفحة.
+      refreshProgress();
       refreshPlan();
     } catch {
       setPractice((p) => (p ? { ...p, busy: false, error: "تعذر إرسال الإجابة." } : p));
@@ -249,11 +320,18 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
             أهلاً <span>{studentName}</span> 👋
           </h2>
           <p className="hm-greet__sub">جاهز نكمّل من حيث وقفنا؟ أنا معك خطوة بخطوة.</p>
-          {streak > 0 && (
+          {(gradeLabel || streak > 0) && (
             <div className="hm-chips">
-              <span className="hm-chip hm-chip--gold" data-testid="practice-streak">
-                🔥 تعاقب {streak} {streakLabel(streak)}
-              </span>
+              {gradeLabel && (
+                <span className="hm-chip" data-testid="grade-chip">
+                  🎓 {gradeLabel}
+                </span>
+              )}
+              {streak > 0 && (
+                <span className="hm-chip hm-chip--gold" data-testid="practice-streak">
+                  🔥 تعاقب {streak} {streakLabel(streak)}
+                </span>
+              )}
             </div>
           )}
         </section>
@@ -273,7 +351,7 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
             {activeSession
               ? "لديك جلسة مفتوحة — عد إليها الآن."
               : needsPractice
-                ? `${pendingConcepts} ${pendingConcepts === 1 ? "مفهوم ينتظر" : "مفاهيم تنتظر"} التمرين في خطتك.`
+                ? "خطة صفّك جاهزة — ابدأ بأول خطوة في «خطة هذا الأسبوع»."
                 : "اختر درسك وابدأ معي — أشرح، وأسأل، ونتأكد معًا أنك فهمت."}
           </p>
           <div className="hm-hero__actions">
@@ -334,22 +412,22 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
         {user.role === "student" && subjects && subjects.length > 0 && (
           <section className="hm-sec" data-testid="subjects-section">
             <div className="hm-sec__head">
-              <h4>موادك</h4>
-              {subjects.length > 6 ? (
+              <h4>مواد صفّك</h4>
+              {orderedSubjects.length > 6 ? (
                 <button
                   type="button"
                   className="hm-btn hm-btn--ghost hm-btn--sm"
                   data-testid="subjects-more"
                   onClick={() => setSubjectsExpanded((v) => !v)}
                 >
-                  {subjectsExpanded ? "أقل" : `عرض الكل (${subjects.length})`}
+                  {subjectsExpanded ? "أقل" : `عرض الكل (${orderedSubjects.length})`}
                 </button>
               ) : (
-                <span className="hm-sec__hint">اختر مادة وابدأ</span>
+                <span className="hm-sec__hint">{gradeLabel || "اختر مادة وابدأ"}</span>
               )}
             </div>
             <div className="hm-subjects">
-              {(subjectsExpanded ? subjects : subjects.slice(0, 6)).map((s) => (
+              {(subjectsExpanded ? orderedSubjects : orderedSubjects.slice(0, 6)).map((s) => (
                 <button key={s.id} type="button" className="hm-subject" data-testid="subject-card" onClick={() => onOpenSubject(s.id)}>
                   <span className="hm-subject__icon"><SubjectGlyph nameAr={s.nameAr} /></span>
                   <span className="hm-subject__name">{s.nameAr}</span>
@@ -364,19 +442,138 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
 
           </div>
           <div className="hm-col hm-col--rail">
+        {/* PHASE 179 — «خطة هذا الأسبوع»: ثلاث خطوات ملموسة من بيانات صفّ
+            الطفل نفسه (درس ↔ تدريب ↔ مراجعة). ليست قائمة مهام ولا عدّ أهداف:
+            كل خطوة تفتح الفعل الحقيقي مباشرة. */}
+        {user.role === "student" && (
+          <section className="hm-card hm-card--week" data-testid="weekly-plan">
+            <div className="hm-sec__head">
+              <h4>خطة هذا الأسبوع</h4>
+              <span className="hm-sec__hint">{gradeLabel || "منهج صفّك"}</span>
+            </div>
+            <ol className="hm-week">
+              <li className="hm-week__step" data-testid="weekly-step-lesson">
+                <span className="hm-week__num" aria-hidden="true">١</span>
+                <div className="hm-week__text">
+                  <strong>{focusSubjectName ? `أكمل التعلّم في ${focusSubjectName}` : "اختر مادتك الأولى"}</strong>
+                  <span>{focusSubjectName ? "من حيث توقفت — خطوة واحدة تكفي." : "مواد صفّك جاهزة في «تعلّم»."}</span>
+                </div>
+                <button
+                  type="button"
+                  className="hm-btn hm-btn--soft hm-btn--sm"
+                  data-testid="weekly-lesson-cta"
+                  onClick={() => (focusSubjectId ? onOpenSubject(focusSubjectId) : onStartLesson())}
+                >
+                  {focusSubjectName ? "أكمل" : "اختر"}
+                </button>
+              </li>
+              <li className="hm-week__step" data-testid="weekly-step-practice">
+                <span className="hm-week__num" aria-hidden="true">٢</span>
+                <div className="hm-week__text">
+                  <strong>
+                    {weeklyItem
+                      ? `تدرّب على: ${weeklyItem.title}`
+                      : weakItem
+                        ? `ولّد سؤالًا على: ${weakItem.title}`
+                        : "لا خطة بعد — ابدأ درسًا"}
+                  </strong>
+                  <span>
+                    {weeklyItem?.subjectNameAr ??
+                      weakItem?.subjectNameAr ??
+                      (weakItem ? "أول سؤال في هذه المادة يولّده معلّمك." : "أول درس يبني خطتك تلقائيًا.")}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  className="hm-btn hm-btn--soft hm-btn--sm"
+                  data-testid="weekly-practice-cta"
+                  onClick={() => {
+                    if (weeklyItem) void startPractice(weeklyItem.conceptId, weeklyMode);
+                    else if (weakItem) void generateAndPractice(weakItem.conceptId);
+                    else onStartLesson();
+                  }}
+                >
+                  {weeklyItem ? "تدرّب" : weakItem ? "ولّد" : "ابدأ"}
+                </button>
+              </li>
+              <li className="hm-week__step" data-testid="weekly-step-review">
+                <span className="hm-week__num" aria-hidden="true">٣</span>
+                <div className="hm-week__text">
+                  <strong>{dueItem ? `راجع: ${dueItem.title}` : "المراجعة عندما تستحق"}</strong>
+                  <span>
+                    {dueItem
+                      ? `${conceptsLabel(dueCount)} مستحقة قبل أن تُنسى`
+                      : "لا شيء مستحق الآن — تابع درسك ولا تحمل همًّا."}
+                  </span>
+                </div>
+                {dueItem ? (
+                  <button
+                    type="button"
+                    className="hm-btn hm-btn--ghost hm-btn--sm"
+                    data-testid="weekly-review-cta"
+                    onClick={() => void startPractice(dueItem.conceptId, reviewMode)}
+                  >
+                    راجع
+                  </button>
+                ) : (
+                  <span className="hm-week__done" aria-hidden="true">✓</span>
+                )}
+              </li>
+            </ol>
+          </section>
+        )}
         {progress && (
           <section className="hm-card hm-card--progress" data-testid="progress-card">
             <div className="hm-sec__head">
-              <h4>تقدّمك</h4>
+              <h4>مستواك الآن</h4>
               <button className="hm-btn hm-btn--soft hm-btn--sm" onClick={() => startPractice()} data-testid="open-practice">
                 ✏️ تمرين سريع
               </button>
             </div>
 
+            {/* PHASE 179 — مؤشر حيّ: قوة التعلم من الإتقان المتدهور + نسبة
+                المفاهيم المتقنة، لا من عدد الأهداف المكتملة. */}
+            <div className="hm-level" data-testid="level-card">
+              <div className="hm-ring" role="img" aria-label={`قوة التعلم ${strength.score} من 100`}>
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <circle className="hm-ring__track" cx="50" cy="50" r={RING_R} />
+                  <circle
+                    className="hm-ring__value"
+                    cx="50"
+                    cy="50"
+                    r={RING_R}
+                    strokeDasharray={RING_C}
+                    strokeDashoffset={RING_C * (1 - strength.score / 100)}
+                  />
+                </svg>
+                <div className="hm-ring__center">
+                  <b data-testid="strength-score">{strength.score}</b>
+                  <span>من ١٠٠</span>
+                </div>
+              </div>
+              <div className="hm-level__text">
+                <span className="hm-level__eyebrow">قوة التعلم</span>
+                <strong data-testid="strength-level">{strength.levelNameAr}</strong>
+                <p>
+                  {strength.practiced === 0
+                    ? "لم تُسجَّل إجابات بعد — أول تمرين يحرّك المؤشر."
+                    : `${strength.mastered} ${conceptsLabel(strength.mastered)} في «متقن» · ${strength.practiced} تمّت ممارستها.`}
+                </p>
+                <div className="hm-level__bar" aria-hidden="true">
+                  <span style={{ width: `${strengthPct}%` }} />
+                </div>
+                <span className="hm-level__next">
+                  {strength.nextLevelAt === null
+                    ? "أعلى مستوى — حافظ عليه"
+                    : `بعد ${strength.nextLevelAt - strength.score} نقطة للمستوى التالي`}
+                </span>
+              </div>
+            </div>
+
             <div className="hm-stats">
               <div className="hm-stat">
                 <b data-testid="stat-concepts">{progress.progress.concepts.length}</b>
-                <span>مفهوم تم تتبعه</span>
+                <span>مفاهيم متتبَّعة</span>
               </div>
               <div className="hm-stat">
                 <b data-testid="stat-usage-today">{progress.tutorUsageToday}</b>
@@ -401,14 +598,26 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
 
             {/* PHASE 24 — concept mastery with levels, decay and trajectory. */}
             <div className="hm-block" data-testid="mastery-section">
-              <h5 className="hm-block__title">إتقان المفاهيم</h5>
+              <div className="hm-block__head">
+                <h5 className="hm-block__title">إتقان المفاهيم</h5>
+                {progress.mastery.length > 4 && (
+                  <button
+                    type="button"
+                    className="hm-btn hm-btn--ghost hm-btn--sm"
+                    data-testid="mastery-more"
+                    onClick={() => setMasteryExpanded((v) => !v)}
+                  >
+                    {masteryExpanded ? "أقل" : `عرض الكل (${progress.mastery.length})`}
+                  </button>
+                )}
+              </div>
               {progress.mastery.length === 0 ? (
                 <p className="hm-note" data-testid="mastery-empty">
                   لا توجد مفاهيم متتبعة بعد — أجب عن تمارين لتظهر هنا.
                 </p>
               ) : (
                 <ul className="hm-list" data-testid="mastery-list">
-                  {progress.mastery.map((m) => (
+                  {shownMastery.map((m) => (
                     <li key={m.conceptId} className="hm-row" data-testid="mastery-concept-row">
                       <span className="hm-row__main">
                         <strong>{m.title}</strong>
@@ -433,6 +642,16 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
             <div className="hm-block" data-testid="plan-section">
               <div className="hm-block__head">
                 <h5 className="hm-block__title">خطة ممارستك</h5>
+                {fullPlan.length > 3 && (
+                  <button
+                    type="button"
+                    className="hm-btn hm-btn--ghost hm-btn--sm"
+                    data-testid="plan-more"
+                    onClick={() => setPlanExpanded((v) => !v)}
+                  >
+                    {planExpanded ? "أقل" : `عرض الكل (${fullPlan.length})`}
+                  </button>
+                )}
               </div>
               {plan === null ? (
                 <p className="hm-note" data-testid="plan-loading">
@@ -444,7 +663,7 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                 </p>
               ) : (
                 <ul className="hm-list" data-testid="plan-list">
-                  {plan.map((item) => (
+                  {shownPlan.map((item) => (
                     <li key={item.conceptId} className="hm-row" data-testid="plan-row">
                       <span className="hm-row__main hm-row__main--stack">
                         <span className="hm-row__main">

@@ -4,10 +4,14 @@ import { config } from "../../config/env.js";
 import {
   assessments,
   concepts,
+  curricula,
   learningSessions,
+  lessons,
   sessionRecaps,
   studentMemories,
   studentProgress,
+  terms,
+  units,
 } from "../../db/schema.js";
 import { newId } from "../../utils/ids.js";
 import { daysBetween, decayMastery, describeMastery, masteryTrend, round2, safeParseAssessment, timeScaledDelta, type MasteryLevel, type MasteryTrend, type QuestionDifficulty } from "../progress/mastery.js";
@@ -220,23 +224,49 @@ export class MemoryService {
     });
   }
 
-  async progressDetail(studentId: string, conceptId?: string) {
-    const rows = await this.db.db
-      .select({
-        conceptId: studentProgress.conceptId,
-        mastery: studentProgress.mastery,
-        attempts: studentProgress.attempts,
-        correct: studentProgress.correct,
-        lastSeenAt: studentProgress.lastSeenAt,
-        // PHASE 35 — real practice recency (D-037 tail): NULL for legacy rows
-        // that predate the column, and for concepts only ever READ (exposure).
-        lastPracticedAt: studentProgress.lastPracticedAt,
-        conceptTitle: concepts.title,
-        conceptCode: concepts.code,
-      })
-      .from(studentProgress)
-      .innerJoin(concepts, eq(studentProgress.conceptId, concepts.id))
-      .where(conceptId ? and(eq(studentProgress.studentId, studentId), eq(studentProgress.conceptId, conceptId)) : eq(studentProgress.studentId, studentId));
+  /**
+   * PHASE 179 — «صفّك وحدك»: the progress surface can be scoped to ONE grade.
+   * A child who once opened a sixth-grade lesson keeps those mastery rows
+   * forever; showing them beside today's grade is exactly the scatter the
+   * owner reported (exercises from every subject and grade on the home).
+   *
+   * The grade is proven through the concept's real ancestry:
+   * concept → lesson → unit → term → curriculum → grade. The joins are added
+   * ONLY when a grade is requested, so every existing caller (tutor memory,
+   * tests that build concepts without a full tree) keeps its old behaviour.
+   */
+  async progressDetail(studentId: string, conceptId?: string, gradeId?: string | null) {
+    const shape = {
+      conceptId: studentProgress.conceptId,
+      mastery: studentProgress.mastery,
+      attempts: studentProgress.attempts,
+      correct: studentProgress.correct,
+      lastSeenAt: studentProgress.lastSeenAt,
+      // PHASE 35 — real practice recency (D-037 tail): NULL for legacy rows
+      // that predate the column, and for concepts only ever READ (exposure).
+      lastPracticedAt: studentProgress.lastPracticedAt,
+      conceptTitle: concepts.title,
+      conceptCode: concepts.code,
+    };
+    const conditions = [eq(studentProgress.studentId, studentId)];
+    if (conceptId) conditions.push(eq(studentProgress.conceptId, conceptId));
+    if (gradeId) conditions.push(eq(curricula.gradeId, gradeId));
+
+    const rows = gradeId
+      ? await this.db.db
+          .select(shape)
+          .from(studentProgress)
+          .innerJoin(concepts, eq(studentProgress.conceptId, concepts.id))
+          .innerJoin(lessons, eq(concepts.lessonId, lessons.id))
+          .innerJoin(units, eq(lessons.unitId, units.id))
+          .innerJoin(terms, eq(units.termId, terms.id))
+          .innerJoin(curricula, eq(terms.curriculumId, curricula.id))
+          .where(and(...conditions))
+      : await this.db.db
+          .select(shape)
+          .from(studentProgress)
+          .innerJoin(concepts, eq(studentProgress.conceptId, concepts.id))
+          .where(and(...conditions));
     const strengths = rows.filter((r) => r.mastery >= 0.6).map((r) => ({ conceptId: r.conceptId, title: r.conceptTitle, mastery: r.mastery }));
     const weaknesses = rows.filter((r) => r.mastery < 0.6).map((r) => ({ conceptId: r.conceptId, title: r.conceptTitle, mastery: r.mastery }));
     return { concepts: rows, strengths, weaknesses };
@@ -257,8 +287,8 @@ export class MemoryService {
    * the parent dashboard. Decay is applied only here (and in practice feedback)
    * so long-term memory for the tutor prompt keeps the raw value.
    */
-  async masterySummary(studentId: string, now: Date = new Date()): Promise<MasteryConceptSummary[]> {
-    const { concepts: rows } = await this.progressDetail(studentId);
+  async masterySummary(studentId: string, now: Date = new Date(), gradeId?: string | null): Promise<MasteryConceptSummary[]> {
+    const { concepts: rows } = await this.progressDetail(studentId, undefined, gradeId);
     const eventsByConcept = new Map<string, Array<{ correct: boolean }>>();
     const assessmentRows = await this.db.db
       .select()

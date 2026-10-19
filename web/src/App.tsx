@@ -144,7 +144,12 @@ export function App() {
             // PHASE 159 — الصف المختار صار جزءًا من ملف الطالب (كأول دخول)،
             // فيعود المنتقي إليه مباشرة في الزيارة القادمة.
             setUser((u) => (u && u.student ? { ...u, student: { ...u.student, gradeId: gid } } : u));
-            void updateStudentProfile({ gradeId: gid }).catch(() => undefined);
+            // PHASE 179 — اسم الصف يُحدَّث معه فورًا (شارة «مواد صفّك» والخطة)
+            // فلا تبقى الشارة على صف قديم بعد تغييره من «خيارات أعمق».
+            void updateStudentProfile({ gradeId: gid })
+              .then(() => whoami())
+              .then((u) => setUser(u))
+              .catch(() => undefined);
           }}
         />
       </AppShell>

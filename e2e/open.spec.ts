@@ -25,6 +25,10 @@ test("O1 (PHASE 30): answering a seeded open question grades via the LLM with no
   // six rows and tripped strict mode. The seed re-links its demo questions to
   // the book's concepts (the link was lost when PHASE 47 replaced the old tree).
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  // PHASE 179 — the home shows the three most important plan steps; the full
+  // plan (which O1/O2 target by concept) is one tap away.
+  const planMore = page.getByTestId("plan-more");
+  if ((await planMore.count()) > 0) await planMore.click();
   const row = page
     .locator('[data-testid="plan-row"]')
     .filter({ hasText: "أستطيع أن أستخدم تحليل العدد إلى عوامل أولية في إيجاد العامل المشترك الأكبر والمضاعف المشترك الأصغر" });
@@ -62,6 +66,9 @@ test("O2 (PHASE 30): self-healing open question generation + free-text grading",
   // of that concept — the lesson «استكشاف خط الأعداد» holds four concepts, so
   // the old lesson-name filter matched four rows and tripped strict mode.
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  // PHASE 179 — expand the (now top-three) plan before matching a deep concept.
+  const planMore = page.getByTestId("plan-more");
+  if ((await planMore.count()) > 0) await planMore.click();
   const row = page
     .locator('[data-testid="plan-row"]')
     .filter({ hasText: "أستطيع أن أدرك أن خط الأعداد يمكن أن يتضمن الأعداد السالبة التي يمكن استخدامها لتمثيل مواقف حياتية" });

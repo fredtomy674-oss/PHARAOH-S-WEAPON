@@ -32,8 +32,9 @@ import {
 export interface ChildSummary {
   studentId: string;
   displayName: string;
+  gradeId: string | null;
   gradeNameAr: string | null;
-  /** Titles of the child's active enrolled curricula. */
+  /** Titles of the child's active enrolled curricula IN THE CHILD'S GRADE. */
   curricula: string[];
   lastSession: {
     id: string;
@@ -193,8 +194,10 @@ export class ParentService {
     if (!link) throw Errors.notFound("الطالب غير مربوط بحسابك");
 
     const summary = await this.childSummaryOf(studentId);
-    const detail = await this.memory.progressDetail(studentId);
-    const mastery = await this.memory.masterySummary(studentId);
+    // PHASE 179 — the parent sees the child's CURRENT grade, never historical
+    // rows from grades the child moved past.
+    const detail = await this.memory.progressDetail(studentId, undefined, summary.gradeId);
+    const mastery = await this.memory.masterySummary(studentId, new Date(), summary.gradeId);
 
     return {
       child: {
@@ -415,7 +418,7 @@ export class ParentService {
     }
 
     // Current mastery gives each focus concept a title + level, and the tally.
-    const mastery = await this.memory.masterySummary(studentId, now);
+    const mastery = await this.memory.masterySummary(studentId, now, summary.gradeId);
     const conceptMetaById: Map<string, { title: string; mastery: number | null; labelAr: string | null }> = new Map(
       mastery.map((m) => [m.conceptId, { title: m.title, mastery: m.mastery, labelAr: m.labelAr }]),
     );
@@ -472,7 +475,15 @@ export class ParentService {
       .select({ title: curricula.title })
       .from(curriculumEnrollments)
       .innerJoin(curricula, eq(curriculumEnrollments.curriculumId, curricula.id))
-      .where(and(eq(curriculumEnrollments.studentId, studentId), eq(curriculumEnrollments.isActive, true)));
+      .where(
+        and(
+          eq(curriculumEnrollments.studentId, studentId),
+          eq(curriculumEnrollments.isActive, true),
+          // PHASE 179 — «تخصيص المناهج»: a KG child's list must not include a
+          // sixth-grade book they once opened in a demo/test session.
+          child.gradeId ? eq(curricula.gradeId, child.gradeId) : undefined,
+        ),
+      );
 
     const latest = await this.db.db
       .select()
@@ -496,6 +507,7 @@ export class ParentService {
     return {
       studentId,
       displayName: child.displayName,
+      gradeId: child.gradeId ?? null,
       gradeNameAr: grade?.nameAr ?? null,
       curricula: enrollments.map((e) => e.title),
       lastSession: latest

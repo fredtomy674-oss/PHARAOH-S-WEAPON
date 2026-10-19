@@ -589,3 +589,163 @@
     display: none;
   }
 }
+
+
+/* -------------------- مستواك الآن + خطة الأسبوع (PHASE 179) -------------------- */
+.hm-level {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--card-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-4);
+  padding: var(--sp-3);
+}
+.hm-ring {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  flex: 0 0 auto;
+}
+.hm-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.hm-ring__track {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 9;
+}
+.hm-ring__value {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--dur-2) var(--ease-out);
+}
+.hm-ring__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+.hm-ring__center b {
+  font-size: var(--fs-6);
+  color: var(--primary-ink);
+}
+.hm-ring__center span {
+  font-size: var(--fs-1);
+  color: var(--muted);
+}
+.hm-level__text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.hm-level__eyebrow {
+  font-size: var(--fs-1);
+  color: var(--muted);
+  font-weight: var(--fw-semibold);
+}
+.hm-level__text strong {
+  font-size: var(--fs-4);
+  color: var(--ink);
+}
+.hm-level__text p {
+  margin: 0;
+  font-size: var(--fs-1);
+  color: var(--muted);
+  line-height: var(--lh-body);
+}
+.hm-level__bar {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+  overflow: hidden;
+  margin-top: 4px;
+}
+.hm-level__bar span {
+  display: block;
+  height: 100%;
+  background: var(--gold-grad);
+  border-radius: inherit;
+  transition: width var(--dur-2) var(--ease-out);
+}
+.hm-level__next {
+  font-size: var(--fs-1);
+  color: var(--muted);
+}
+
+.hm-card--week .hm-sec__head {
+  align-items: baseline;
+}
+.hm-week {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.hm-week__step {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 9px 10px;
+  background: var(--card-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-3);
+}
+.hm-week__num {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--primary-ink);
+  font-size: var(--fs-1);
+  font-weight: var(--fw-bold);
+}
+.hm-week__text {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.hm-week__text strong {
+  font-size: var(--fs-2);
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hm-week__text span {
+  font-size: var(--fs-1);
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hm-week__done {
+  color: var(--ok-fg);
+  font-weight: var(--fw-bold);
+  padding-inline: var(--sp-1);
+}
+@media (max-width: 420px) {
+  .hm-level {
+    align-items: flex-start;
+  }
+  .hm-ring {
+    width: 88px;
+    height: 88px;
+  }
+}

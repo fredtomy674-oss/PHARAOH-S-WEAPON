@@ -115,6 +115,9 @@ test("LE3 (PHASE 159): the hub's first card follows the real session state — l
   await openG6MathLesson(page);
   await page.getByTestId("lesson-start").click();
   await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
+  // PHASE 179 — الدخول إلى الغرفة لا يفتح كيبورد الهاتف: اللوحة أولًا،
+  // والكتابة عند لمس الحقل فقط.
+  await expect(page.getByTestId("chat-input")).not.toBeFocused();
   await page.getByTestId("end-session").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 
@@ -152,6 +155,13 @@ test("LE4 (PHASE 178): «موادك» on the home opens «تعلّم» with that
   await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
   await page.getByTestId("nav-today").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+
+  // PHASE 179 — الصفحة تعلن صفّها وتعرض مؤشرًا حيًّا وخطة أسبوع، لا قائمة
+  // أهداف. الثلاثة موجودة قبل أي تمرين (حتى لو كانت القيم صفرًا).
+  await expect(page.getByTestId("weekly-plan")).toBeVisible();
+  await expect(page.getByTestId("weekly-step-lesson")).toBeVisible();
+  await expect(page.getByTestId("weekly-step-practice")).toBeVisible();
+  await expect(page.getByTestId("weekly-step-review")).toBeVisible();
 
   // The card names a subject — it must land ON it, not at the top of the picker.
   const mathCard = page.getByTestId("subject-card").filter({ hasText: "الرياضيات" }).first();

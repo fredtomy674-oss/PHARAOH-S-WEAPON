@@ -1,6 +1,18 @@
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import type { Db } from "../../db/index.js";
-import { answers, chunks, concepts, curriculumEnrollments, lessons, questions, terms, units } from "../../db/schema.js";
+import {
+  answers,
+  chunks,
+  concepts,
+  curricula,
+  curriculumEnrollments,
+  lessons,
+  questions,
+  students,
+  subjects,
+  terms,
+  units,
+} from "../../db/schema.js";
 import type { MemoryService } from "../tutor/memoryService.js";
 import { describeMastery, type MasteryLevel } from "../progress/mastery.js";
 import type { AchievementService } from "../achievements/service.js";
@@ -109,12 +121,34 @@ export class PracticeService {
     private readonly ai: AiService,
   ) {}
 
-  /** Curricula the student is actively enrolled in (practice scope). */
+  /** PHASE 179 — the student's current grade; null for legacy profiles without one. */
+  private async gradeIdOf(studentId: string): Promise<string | null> {
+    const row = await this.db.db.select({ gradeId: students.gradeId }).from(students).where(eq(students.id, studentId)).get();
+    return row?.gradeId ?? null;
+  }
+
+  /**
+   * Curricula the student is actively enrolled in (practice scope).
+   *
+   * PHASE 179 — «صفّك وحدك»: enrollment rows are historical (every lesson ever
+   * started adds one). A child who once opened a sixth-grade lesson kept it in
+   * every future plan, so the home showed exercises from every subject and
+   * grade. When the student HAS a grade, only that grade's curricula qualify;
+   * students without a grade keep the old all-enrollments behaviour.
+   */
   private async enrolledCurriculumIds(studentId: string): Promise<string[]> {
+    const gradeId = await this.gradeIdOf(studentId);
     const rows = await this.db.db
       .select({ curriculumId: curriculumEnrollments.curriculumId })
       .from(curriculumEnrollments)
-      .where(and(eq(curriculumEnrollments.studentId, studentId), eq(curriculumEnrollments.isActive, true)));
+      .innerJoin(curricula, eq(curriculumEnrollments.curriculumId, curricula.id))
+      .where(
+        and(
+          eq(curriculumEnrollments.studentId, studentId),
+          eq(curriculumEnrollments.isActive, true),
+          gradeId ? eq(curricula.gradeId, gradeId) : undefined,
+        ),
+      );
     return rows.map((r) => r.curriculumId);
   }
 
@@ -140,7 +174,7 @@ export class PracticeService {
       return row ? await this.toPublic(row) : null;
     }
 
-    const { concepts: rows } = await this.memory.progressDetail(studentId);
+    const { concepts: rows } = await this.memory.progressDetail(studentId, undefined, await this.gradeIdOf(studentId));
     const ordered = [...rows].sort((a, b) => a.mastery - b.mastery);
     for (const c of ordered) {
       const row = await this.db.db
@@ -333,7 +367,9 @@ export class PracticeService {
    * as a plan" item deferred from D-028.
    */
   async planFor(studentId: string): Promise<PracticePlanItem[]> {
-    const summaries = await this.memory.masterySummary(studentId);
+    // PHASE 179 — the plan is measured on the student's CURRENT grade only.
+    const gradeId = await this.gradeIdOf(studentId);
+    const summaries = await this.memory.masterySummary(studentId, new Date(), gradeId);
     const enrolled = await this.enrolledCurriculumIds(studentId);
 
     // PHASE 28 — every concept of the student's enrolled curricula is part of
@@ -349,26 +385,52 @@ export class PracticeService {
               title: concepts.title,
               lessonId: lessons.id,
               lessonTitle: lessons.title,
+              curriculumId: curricula.id,
+              subjectId: subjects.id,
+              subjectNameAr: subjects.nameAr,
             })
             .from(concepts)
             .innerJoin(lessons, eq(concepts.lessonId, lessons.id))
             .innerJoin(units, eq(lessons.unitId, units.id))
             .innerJoin(terms, eq(units.termId, terms.id))
+            .innerJoin(curricula, eq(terms.curriculumId, curricula.id))
+            .innerJoin(subjects, eq(curricula.subjectId, subjects.id))
             .where(inArray(terms.curriculumId, enrolled))
             .all()
         : [];
 
     const conceptIds = [...new Set([...summaries.map((s) => s.conceptId), ...allConcepts.map((c) => c.conceptId)])];
 
-    const lessonInfo = new Map<string, { lessonId: string; lessonTitle: string }>();
-    const nameRows = await this.db.db
-      .select({ conceptId: concepts.id, lessonId: concepts.lessonId, lessonTitle: lessons.title })
-      .from(concepts)
-      .innerJoin(lessons, eq(concepts.lessonId, lessons.id))
-      .where(inArray(concepts.id, conceptIds))
-      .all();
-    for (const row of nameRows) {
-      lessonInfo.set(row.conceptId, { lessonId: row.lessonId, lessonTitle: row.lessonTitle });
+    // PHASE 179 — one info map (lesson + subject) so every row can say WHICH
+    // subject it belongs to; the home uses it to keep the weekly plan concrete.
+    const infoByConcept = new Map<
+      string,
+      { lessonId: string; lessonTitle: string; subjectId: string | null; subjectNameAr: string | null }
+    >();
+    for (const c of allConcepts) {
+      infoByConcept.set(c.conceptId, {
+        lessonId: c.lessonId,
+        lessonTitle: c.lessonTitle,
+        subjectId: c.subjectId,
+        subjectNameAr: c.subjectNameAr,
+      });
+    }
+    const missingIds = conceptIds.filter((id) => !infoByConcept.has(id));
+    if (missingIds.length > 0) {
+      const nameRows = await this.db.db
+        .select({ conceptId: concepts.id, lessonId: concepts.lessonId, lessonTitle: lessons.title })
+        .from(concepts)
+        .innerJoin(lessons, eq(concepts.lessonId, lessons.id))
+        .where(inArray(concepts.id, missingIds))
+        .all();
+      for (const row of nameRows) {
+        infoByConcept.set(row.conceptId, {
+          lessonId: row.lessonId,
+          lessonTitle: row.lessonTitle,
+          subjectId: null,
+          subjectNameAr: null,
+        });
+      }
     }
 
     const available = new Map<string, number>();
@@ -405,8 +467,10 @@ export class PracticeService {
       conceptId: s.conceptId,
       code: s.code,
       title: s.title,
-      lessonId: lessonInfo.get(s.conceptId)?.lessonId ?? null,
-      lessonTitle: lessonInfo.get(s.conceptId)?.lessonTitle ?? null,
+      lessonId: infoByConcept.get(s.conceptId)?.lessonId ?? null,
+      lessonTitle: infoByConcept.get(s.conceptId)?.lessonTitle ?? null,
+      subjectId: infoByConcept.get(s.conceptId)?.subjectId ?? null,
+      subjectNameAr: infoByConcept.get(s.conceptId)?.subjectNameAr ?? null,
       mastery: s.mastery,
       decayedMastery: s.decayedMastery,
       level: s.level,
@@ -431,6 +495,8 @@ export class PracticeService {
         title: c.title,
         lessonId: c.lessonId,
         lessonTitle: c.lessonTitle,
+        subjectId: c.subjectId,
+        subjectNameAr: c.subjectNameAr,
         mastery: 0,
         decayedMastery: 0,
         level,
