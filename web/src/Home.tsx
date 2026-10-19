@@ -25,6 +25,7 @@ import { SessionRecapCard } from "./RecapCard.js";
 import { SubjectGlyph } from "./components/SubjectGlyph.js";
 import { TeacherMascot } from "./TeacherMascot.js";
 import { useLiveTeacherPref } from "./liveTeacherPref.js";
+import { useStudentManager } from "./components/app/StudentManager.js";
 import { readLastPick, weeklyPracticeItem } from "./learnPrefs.js";
 import { learningStrength, strengthProgress } from "./journey/strength.js";
 
@@ -139,12 +140,13 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
   const [subjectsExpanded, setSubjectsExpanded] = useState(false);
   // PHASE 179 — «خطتي» تُبنى على المادة التي يعمل عليها الطفل فعلًا (آخر اختيار)
   // وعلى مفاهيم صفّه وحده (الخادم يقصّها) — لا مواد صفوف أخرى.
-  const [lastPick] = useState(() => readLastPick());
+  const [lastPick] = useState(() => readLastPick(user.student?.id));
   const [planExpanded, setPlanExpanded] = useState(false);
   const [masteryExpanded, setMasteryExpanded] = useState(false);
   // PHASE 162 (W7.4) — بطاقة «المعلّم الحيّ» تقرأ المفتاح نفسه الحقيقي: لا
   // وعد بما ليس مفعّلًا، ولا حالة مصطنعة.
   const liveTeacherOn = useLiveTeacherPref();
+  const { open: openStudentManager } = useStudentManager();
   const practiceRef = useRef<HTMLElement | null>(null);
 
   function loadRecap(s: LearningSession): void {
@@ -320,7 +322,7 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
             أهلاً <span>{studentName}</span> 👋
           </h2>
           <p className="hm-greet__sub">جاهز نكمّل من حيث وقفنا؟ أنا معك خطوة بخطوة.</p>
-          {(gradeLabel || streak > 0) && (
+          {(gradeLabel || streak > 0 || (user.students?.length ?? 0) > 1) && (
             <div className="hm-chips">
               {gradeLabel && (
                 <span className="hm-chip" data-testid="grade-chip">
@@ -331,6 +333,16 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                 <span className="hm-chip hm-chip--gold" data-testid="practice-streak">
                   🔥 تعاقب {streak} {streakLabel(streak)}
                 </span>
+              )}
+              {gradeLabel && (
+                <button type="button" className="hm-chip hm-chip--action" data-testid="change-curriculum" onClick={() => openStudentManager("grade")}>
+                  تغيير المنهج
+                </button>
+              )}
+              {(user.students?.length ?? 0) > 1 && (
+                <button type="button" className="hm-chip hm-chip--action" data-testid="student-switch" onClick={() => openStudentManager("switch")}>
+                  🔁 تبديل الطالب
+                </button>
               )}
             </div>
           )}

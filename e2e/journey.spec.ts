@@ -9,7 +9,6 @@ import {
   remainingValue,
   roomLessonTitle,
   selectFirst,
-  selectOptionByLabel,
   sendChatMessage,
   startFirstLesson,
 } from "./helpers.js";
@@ -133,9 +132,17 @@ test("C: a brand-new student never sees another student's sessions", async ({ br
     data: { email, password: "isolation-pass-123", displayName: "طالب عزل" },
   });
   expect(register.ok()).toBeTruthy();
+  // An API registration does not write the browser's localStorage; first-run
+  // saves name + grade with a CSRF-protected PUT, so seed the token it returns.
+  const registered = (await register.json()) as { csrfToken: string };
+  await context.addInitScript((token) => localStorage.setItem("alfarouq_csrf", token), registered.csrfToken);
 
-  // UI level: the home screen shows no sessions at all (nothing from other students).
+  // UI level: PHASE 180 requires name + grade before any student screen, then
+  // the home shows no sessions at all (nothing from other students).
   await page.goto("/");
+  await expect(page.getByTestId("first-run")).toBeVisible({ timeout: 20_000 });
+  await page.locator('[data-testid^="first-run-grade-"]').first().click();
+  await page.getByTestId("first-run-skip").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("no-sessions")).toBeVisible();
   await expect(page.getByTestId("session-list")).toHaveCount(0);
@@ -163,9 +170,7 @@ test("ON1: a failed session start explains itself and can be retried", async ({ 
   await page.goto("/");
   await login(page);
   await page.getByTestId("start-lesson").click();
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
-  await selectFirst(page, "select-grade");
+  await expect(page.getByTestId("learn-grade-chip")).toBeVisible();
   await selectFirst(page, "select-subject");
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");
@@ -224,9 +229,7 @@ test("ON2: changing an upstream level clears the whole cascade below it", async 
   await page.goto("/");
   await login(page);
   await page.getByTestId("start-lesson").click();
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
-  await selectFirst(page, "select-grade");
+  await expect(page.getByTestId("learn-grade-chip")).toBeVisible();
   await selectFirst(page, "select-subject");
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");
@@ -241,18 +244,17 @@ test("ON2: changing an upstream level clears the whole cascade below it", async 
   await expect(page.getByTestId("select-term")).toHaveCount(0);
   await expect(page.getByTestId("select-unit")).toHaveCount(0);
   await expect(page.locator('[data-testid^="lesson-"]')).toHaveCount(0);
-  // Levels above it are untouched (the system/grade are still valid).
-  await expect(page.getByTestId("select-system")).toBeVisible();
-  await expect(page.getByTestId("select-grade")).toBeVisible();
+  // Levels above it are untouched: the child's grade stays visible and locked,
+  // and the Learn picker never offers a country/system/grade control again.
+  await expect(page.getByTestId("learn-grade-chip")).toContainText("الصف السادس");
+  await expect(page.getByTestId("select-country")).toHaveCount(0);
+  await expect(page.getByTestId("select-system")).toHaveCount(0);
+  await expect(page.getByTestId("select-grade")).toHaveCount(0);
 
-  // Re-pick, then change the COUNTRY → everything below must clear too.
+  // Re-pick the cascade under the locked grade; it still works end to end.
   await selectFirst(page, "select-subject");
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");
   await selectFirst(page, "select-unit");
   await expect(page.locator('[data-testid^="lesson-"]')).not.toHaveCount(0);
-  await selectOptionByLabel(page, "select-country", "السعودية");
-  await expect(page.getByTestId("select-system")).toHaveValue("");
-  await expect(page.getByTestId("select-grade")).toHaveCount(0);
-  await expect(page.locator('[data-testid^="lesson-"]')).toHaveCount(0);
 });

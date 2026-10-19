@@ -638,12 +638,15 @@ async function openLessonRoom(page: Page): Promise<void> {
   await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 20_000 });
 }
 
-/** Full onboarding walk: country → system → grade → subject → curriculum → term → unit → first lesson. */
+/**
+ * Full onboarding walk (PHASE 180): the grade is locked to the active child,
+ * so the walk starts at the subject: subject → curriculum → term → unit →
+ * first lesson.
+ */
 export async function startFirstLesson(page: Page): Promise<void> {
   await page.getByTestId("start-lesson").click();
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
-  await selectFirst(page, "select-grade");
+  await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("learn-grade-chip")).toBeVisible();
   await selectFirst(page, "select-subject");
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");
@@ -667,9 +670,7 @@ export async function startFirstLesson(page: Page): Promise<void> {
  */
 export async function startLessonOfSubject(page: Page, subjectLabel: string): Promise<void> {
   await page.getByTestId("start-lesson").click();
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
-  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
+  await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
   await selectOptionByLabel(page, "select-subject", subjectLabel);
   await selectFirst(page, "select-curriculum");
   await selectFirst(page, "select-term");
@@ -693,23 +694,23 @@ export async function ensureG6Grade(page: Page): Promise<void> {
   const chipText = (await chip.isVisible().catch(() => false)) ? await chip.innerText() : "";
   if (chipText.includes("الصف السادس")) return;
 
-  await page.getByTestId("start-lesson").click();
-  await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
-  // The deeper steps are chained: country → system → grade. The grade control
-  // is not even rendered until the first two exist.
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
+  // PHASE 180 — the only grade path is the explicit destructive «تغيير المنهج».
+  // The seed still calls the sixth grade «الصف السادس» (not … الابتدائي).
+  await page.getByTestId("change-curriculum").click();
+  const warning = page.getByTestId("student-grade-warning");
+  await expect(warning).toBeVisible({ timeout: 20_000 });
+  const choice = page.locator('[data-testid^="student-grade-"]').filter({ hasText: "الصف السادس" }).first();
+  await expect(choice).toBeVisible({ timeout: 20_000 });
+  await choice.click();
+  await page.getByTestId("student-grade-ack").check();
   const saved = page.waitForResponse(
-    (r) => r.url().includes("/api/profile/me/student") && r.request().method() === "PUT" && r.ok(),
+    (r) => r.url().includes("/api/students/") && r.url().endsWith("/grade") && r.request().method() === "PUT" && r.ok(),
     { timeout: 30_000 },
   );
-  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
+  await page.getByTestId("student-grade-confirm").click();
   await saved;
-  await page
-    .getByRole("navigation", { name: "مساحات التعلّم" })
-    .getByRole("button", { name: "اليوم" })
-    .click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("grade-chip")).toContainText("الصف السادس");
 }
 
 /**

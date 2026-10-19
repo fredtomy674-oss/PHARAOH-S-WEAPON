@@ -165,6 +165,10 @@ test("PR4 (PHASE 28): the student reaches a grounded question for تعبير ر�
   // Reload: the concept is now tracked in the mastery summary.
   await page.reload();
   await expect(page.getByTestId("mastery-section")).toBeVisible({ timeout: 20_000 });
+  // PHASE 179 shows the four most important concepts first; expand before
+  // asserting a specific tracked row (its rank depends on earlier suite data).
+  const masteryMore = page.getByTestId("mastery-more");
+  if ((await masteryMore.count()) > 0) await masteryMore.click();
   await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "أستطيع أن أستخدم متغيراً في تعبير رياضي" })).toBeVisible({ timeout: 20_000 });
 });
 

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { endAllActiveSessions, login, selectFirst, selectOptionByLabel } from "./helpers.js";
+import { endAllActiveSessions, login, selectOptionByLabel } from "./helpers.js";
 
 /**
  * PHASE 159 (W3) — «تعلّم» وصفحة الدرس:
@@ -15,9 +15,7 @@ const G6_MATH_LESSON = "المفهوم 1-1";
  * (نفس النطاق الذي تستورده مواصفات الإدارة — فصول/وحدات بعناوين ثابتة).
  */
 async function openG6MathLesson(page: import("@playwright/test").Page): Promise<void> {
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
-  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
+  await expect(page.getByTestId("learn-grade-chip")).toContainText("الصف السادس");
   await selectOptionByLabel(page, "select-subject", "الرياضيات");
   await selectOptionByLabel(page, "select-unit", G6_MATH_UNIT);
   const lesson = page.locator('[data-testid^="lesson-"]', { hasText: G6_MATH_LESSON }).first();
@@ -33,7 +31,9 @@ test("LE1 (PHASE 159): the visual picker, the lesson page, and the direct return
 
   // المنتقي المرئي: الصف محفوظ → بطاقات المواد تظهر بلا أي خطوة أعمق،
   // والخطوات الأعمق (نظام · منهج · فصل) مطويّة فعلًا.
-  await expect(page.getByTestId("select-country")).toBeHidden();
+  await expect(page.getByTestId("learn-grade-chip")).toBeVisible();
+  await expect(page.getByTestId("select-grade")).toHaveCount(0);
+  await expect(page.getByTestId("select-country")).toHaveCount(0);
   await expect(page.getByTestId("select-subject").locator("[data-value]").first()).toBeVisible({ timeout: 20_000 });
 
   await openG6MathLesson(page);
@@ -150,9 +150,6 @@ test("LE4 (PHASE 178): «موادك» on the home opens «تعلّم» with that
   // The same G6 grade the picker helper uses above, so the card set is known.
   await page.getByTestId("nav-learn").click();
   await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
-  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
   await page.getByTestId("nav-today").click();
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
 

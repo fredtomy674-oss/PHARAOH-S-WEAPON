@@ -2,13 +2,22 @@ import type { FastifyPluginAsync } from "fastify";
 import { eq } from "drizzle-orm";
 import { students } from "../../db/schema.js";
 import { requireAuth } from "../../plugins/auth.js";
+import { Errors } from "../../utils/errors.js";
 
+/**
+ * PHASE 180 — profile edits are name-only. A grade is set once during first
+ * onboarding and may only change through `PUT /api/students/:id/grade`, which
+ * requires an explicit destructive confirmation. Keeping the old grade field
+ * here would be a silent bypass of that promise.
+ */
 export const profileRoutes: FastifyPluginAsync = async (app) => {
   const updateSchema = {
     type: "object",
     additionalProperties: false,
     properties: {
       displayName: { type: "string", minLength: 2, maxLength: 80 },
+      // Listed only so the explicit rejection below sees it: Fastify strips
+      // unknown properties, and a silent strip would hide a grade-change attempt.
       gradeId: { type: ["string", "null"], maxLength: 64 },
       countryId: { type: ["string", "null"], maxLength: 64 },
     },
@@ -19,17 +28,15 @@ export const profileRoutes: FastifyPluginAsync = async (app) => {
     if (auth.user.role !== "student" || !auth.student) {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الحساب ليس طالبًا" } });
     }
-    const body = request.body as { displayName?: string; gradeId?: string | null };
+    const body = request.body as { displayName?: string; gradeId?: string | null; countryId?: string | null };
+    if (body.gradeId !== undefined || body.countryId !== undefined) {
+      throw Errors.badRequest("تغيير الصف يتم من «تغيير المنهج» مع تأكيد مسح بيانات الطالب", "GRADE_CHANGE_GUARDED");
+    }
 
     const before = await app.db.db.select().from(students).where(eq(students.id, auth.student.id)).get();
-    const now = new Date();
     await app.db.db
       .update(students)
-      .set({
-        displayName: body.displayName ?? before?.displayName,
-        gradeId: body.gradeId === undefined ? before?.gradeId : body.gradeId,
-        updatedAt: now,
-      })
+      .set({ displayName: body.displayName ?? before?.displayName, updatedAt: new Date() })
       .where(eq(students.id, auth.student.id));
 
     await app.audit.record({
@@ -37,7 +44,7 @@ export const profileRoutes: FastifyPluginAsync = async (app) => {
       action: "profile.update",
       entityType: "student",
       entityId: auth.student.id,
-      beforeJson: JSON.stringify({ displayName: before?.displayName, gradeId: before?.gradeId }),
+      beforeJson: JSON.stringify({ displayName: before?.displayName }),
       afterJson: JSON.stringify(body),
       ip: request.ip,
     });

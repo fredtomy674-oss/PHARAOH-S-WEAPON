@@ -32,8 +32,19 @@ export const sessions = sqliteTable(
     expiresAt: ts("expires_at").notNull(),
     revokedAt: ts("revoked_at"),
     createdAt: ts("created_at").notNull(),
+    /**
+     * PHASE 180 — «طالبٌ واحد لكل جلسة»: the child this login is currently
+     * teaching. Null means «لم يُختر بعد» (a family account with several
+     * students) or a parent/admin session. Scoped to the login session, not the
+     * account, so two devices can teach two different children at once.
+     */
+    studentId: text("student_id").references(() => students.id, { onDelete: "set null" }),
   },
-  (t) => [uniqueIndex("sessions_token_hash_unique").on(t.tokenHash), index("sessions_user_idx").on(t.userId)],
+  (t) => [
+    uniqueIndex("sessions_token_hash_unique").on(t.tokenHash),
+    index("sessions_user_idx").on(t.userId),
+    index("auth_sessions_student_idx").on(t.studentId),
+  ],
 );
 
 export const students = sqliteTable(
@@ -51,7 +62,9 @@ export const students = sqliteTable(
     updatedAt: ts("updated_at").notNull(),
   },
   (t) => [
-    uniqueIndex("students_user_id_unique").on(t.userId),
+    // PHASE 180 — an account may hold several children; each row is a full
+    // profile, plan, progress history and parent report of its own.
+    index("students_user_idx").on(t.userId),
     uniqueIndex("students_parent_link_code_unique").on(t.parentLinkCode),
   ],
 );

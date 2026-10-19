@@ -20,6 +20,7 @@ import { adminRoutes } from "./modules/admin/routes.js";
 import { parentRoutes } from "./modules/parent/routes.js";
 import { subscriptionRoutes } from "./modules/subscription/routes.js";
 import { achievementsRoutes } from "./modules/achievements/routes.js";
+import { studentsRoutes } from "./modules/students/routes.js";
 import { lastClientBuild, recordClientBuild } from "./clientBuilds.js";
 
 export interface BuildAppOptions {
@@ -171,6 +172,7 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
         };
       });
       await api.register(authRoutes, { prefix: "/auth" });
+      await api.register(studentsRoutes, { prefix: "/students" });
       await api.register(profileRoutes, { prefix: "/profile" });
       await api.register(curriculumRoutes, { prefix: "/curriculum" });
       await api.register(sessionsRoutes, { prefix: "/sessions" });

@@ -3,6 +3,11 @@ import { Button, Sheet, ThemeToggle } from "../ui/index.js";
 import { useInstallOffer } from "../../pwa/install.js";
 import { useLiveTeacherPref, writeLiveTeacherPref } from "../../liveTeacherPref.js";
 import type { User } from "../../api.js";
+import {
+  StudentManagerContext,
+  StudentManagerSheet,
+  type StudentManagerMode,
+} from "./StudentManager.js";
 
 /** مساحات الطالب الثلاث — السؤال الذي تجيب كل مساحة عنه. */
 export type StudentTab = "today" | "learn" | "journey";
@@ -14,6 +19,8 @@ interface Props {
   onNavigate?: (tab: StudentTab) => void;
   onLogout: () => void;
   onOpenAchievements?: () => void;
+  /** PHASE 180 — a student was added/switched or a grade was reset. */
+  onStudentChanged?: (user: User) => void;
   children: ReactNode;
 }
 
@@ -31,8 +38,9 @@ interface Props {
  * `account-close` · `parent-link-card` · `link-code-value` ·
  * `account-theme-toggle` · `logout` — أما `theme-toggle` فمبدّل الترويسة.
  */
-export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievements, children }: Props) {
+export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievements, onStudentChanged, children }: Props) {
   const [accountOpen, setAccountOpen] = useState(false);
+  const [studentManager, setStudentManager] = useState<StudentManagerMode | null>(null);
   const studentName = user.student?.displayName ?? user.email;
   const isStudent = user.role === "student";
   // PHASE 162 (W7.5) — قرار «المعلّم الحيّ» يُقرأ هنا ويُقلب فورًا: الغرفة
@@ -41,7 +49,7 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
   // PHASE 165 (W8) — التثبيت يُعرض حين يعرضه المتصفح وحده (أو تلميح iOS).
   const install = useInstallOffer();
 
-  return (
+  const shell = (
     <div className="app-shell">
       <div className="app-head">
         <header className="app-bar">
@@ -146,6 +154,58 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
           </button>
         </div>
         <div className="app-drawer__body">
+          {isStudent && onStudentChanged && (
+            <>
+              <div className="app-drawer__sec">الطلاب</div>
+              <div className="app-drawer__row app-drawer__row--stack" data-testid="student-drawer-card">
+                <span className="app-drawer__line">
+                  <span className="app-drawer__k">{studentName}</span>
+                  <span className="app-drawer__meta">{user.gradeNameAr ?? "لم يُحدّد الصف"}</span>
+                </span>
+                <span className="app-drawer__meta">
+                  {(user.students?.length ?? 0) > 1
+                    ? "لكل طالبٍ ملفّه وخطته وتقاريره المستقلة."
+                    : "أضف أخًا أو أختًا ليصبح لكل واحدٍ ملفّه وخطته."}
+                </span>
+                <div className="app-drawer__student-actions">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    data-testid="student-switch-open"
+                    onClick={() => {
+                      setAccountOpen(false);
+                      setStudentManager("switch");
+                    }}
+                  >
+                    {user.students && user.students.length > 1 ? "تبديل الطالب" : "ملفات الطلاب"}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    data-testid="student-add-open"
+                    onClick={() => {
+                      setAccountOpen(false);
+                      setStudentManager("add");
+                    }}
+                  >
+                    + إضافة طالب
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    data-testid="change-curriculum-drawer"
+                    onClick={() => {
+                      setAccountOpen(false);
+                      setStudentManager("grade");
+                    }}
+                  >
+                    تغيير المنهج
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+
           {user.linkCode && (
             <>
               <div className="app-drawer__sec">حسابي</div>
@@ -216,5 +276,24 @@ export function AppShell({ user, active, onNavigate, onLogout, onOpenAchievement
         </div>
       </Sheet>
     </div>
+  );
+
+  if (!isStudent || !onStudentChanged) return shell;
+
+  return (
+    <StudentManagerContext.Provider value={{ open: setStudentManager }}>
+      {shell}
+      <StudentManagerSheet
+        mode={studentManager}
+        user={user}
+        onClose={() => setStudentManager(null)}
+        onModeChange={setStudentManager}
+        onChanged={(next) => {
+          setStudentManager(null);
+          onStudentChanged(next);
+          onNavigate?.("today");
+        }}
+      />
+    </StudentManagerContext.Provider>
   );
 }

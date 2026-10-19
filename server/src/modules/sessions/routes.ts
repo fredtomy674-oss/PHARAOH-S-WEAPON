@@ -104,6 +104,14 @@ export const sessionsRoutes: FastifyPluginAsync = async (app) => {
     if (auth.user.role !== "student" || !auth.student) {
       return reply.code(403).send({ error: { code: "FORBIDDEN", message: "الجلسات مخصصة لحسابات الطلاب" } });
     }
+    // PHASE 180 — a crafted request must not start a lesson from another grade.
+    // Students who have not chosen a grade yet keep the legacy behavior (tests
+    // and first-run use this path before onboarding).
+    if (auth.student.gradeId && auth.student.gradeId !== body.gradeId) {
+      return reply
+        .code(400)
+        .send({ error: { code: "GRADE_LOCKED", message: "هذا الدرس خارج صفّ الطالب الحالي" } });
+    }
     const session = await app.sessions.start({
       studentId: auth.student.id,
       curriculumId: body.curriculumId,

@@ -39,7 +39,7 @@ export const authPlugin: FastifyPluginAsync<AuthPluginOptions> = fp(async (app: 
       request.auth = undefined;
       return;
     }
-    const authUser = await authService.buildAuthUser(result.userId);
+    const authUser = await authService.buildAuthUser(result.userId, result.studentId);
     request.auth = authUser;
     request.authSessionId = result.sessionId;
     request.csrfToken = result.csrfToken;

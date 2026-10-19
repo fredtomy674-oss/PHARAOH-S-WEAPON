@@ -1,0 +1,373 @@
+/* ==========================================================================
+   PHASE 180 — «لكل طالبٍ ملفّه»
+   الطالب الحالي · مبدّل الطلاب · إضافة طالب · تغيير المنهج (تأكيد مسح)
+   ========================================================================== */
+
+/* ------------------------------- درج الحساب ------------------------------- */
+.app-drawer__student-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* --------------------------- صفحة اختيار الطالب --------------------------- */
+.sg-wrap {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+.sg-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--sp-3) + env(safe-area-inset-top)) var(--sp-4) var(--sp-3);
+}
+
+.sg-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sg-brand > div {
+  display: grid;
+  line-height: 1.25;
+}
+
+.sg-brand strong {
+  font-size: var(--fs-4);
+}
+
+.sg-brand span:last-child {
+  color: var(--muted);
+  font-size: var(--fs-1);
+}
+
+.sg-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--gold-bright), var(--gold-deep));
+  color: var(--on-gold);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.sg-main {
+  width: min(560px, 100% - 2 * var(--sp-4));
+  margin: 0 auto;
+  padding: var(--sp-4) 0 calc(var(--sp-6) + env(safe-area-inset-bottom));
+}
+
+.sg-kicker {
+  color: var(--gold-text-on-light);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .sg-kicker {
+  color: var(--gold-text-on-dark);
+}
+
+.sg-main h1 {
+  font-family: var(--font-learn);
+  font-size: clamp(1.7rem, 6vw, 2.3rem);
+  margin: 6px 0 10px;
+}
+
+.sg-lead {
+  color: var(--muted);
+  margin-bottom: var(--sp-4);
+}
+
+.sg-list {
+  display: grid;
+  gap: 10px;
+}
+
+.sg-student {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.sg-student:hover,
+.sg-student:focus-visible {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.sg-student:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.sg-avatar,
+.sm-student__avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--card-2);
+  border: 1px solid var(--ok-line);
+  color: var(--gold-text-on-light);
+  font-weight: 700;
+}
+
+[data-theme="dark"] .sg-avatar,
+[data-theme="dark"] .sm-student__avatar {
+  color: var(--gold-text-on-dark);
+}
+
+.sg-who,
+.sm-student__who {
+  display: grid;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+.sg-who strong,
+.sm-student__who strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sg-who span,
+.sm-student__who span {
+  color: var(--muted);
+  font-size: var(--fs-1);
+}
+
+.sg-go,
+.sm-student__state {
+  margin-inline-start: auto;
+  color: var(--gold-text-on-light);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .sg-go,
+[data-theme="dark"] .sm-student__state {
+  color: var(--gold-text-on-dark);
+}
+
+.sg-error,
+.sm-error {
+  color: var(--danger-fg);
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-top: var(--sp-3);
+}
+
+.sg-note,
+.sm-lead,
+.sm-muted {
+  color: var(--muted);
+  font-size: var(--fs-2);
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+
+/* ------------------------------- لوحة الطلاب ------------------------------- */
+.sm-sheet {
+  width: min(560px, 94vw);
+}
+
+.sm-field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: var(--sp-3);
+  font-weight: 600;
+}
+
+.sm-field input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card-2);
+  color: var(--ink);
+  font: inherit;
+}
+
+.sm-field input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.sm-label {
+  font-weight: 600;
+  margin: var(--sp-3) 0 8px;
+}
+
+.sm-list {
+  display: grid;
+  gap: 8px;
+}
+
+.sm-student {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.sm-student--on {
+  border-color: var(--gold);
+  background: var(--card-2);
+}
+
+.sm-student:disabled {
+  cursor: default;
+}
+
+.sm-student--on .sm-student__state {
+  color: var(--gold-text-on-light);
+}
+
+[data-theme="dark"] .sm-student--on .sm-student__state {
+  color: var(--gold-text-on-dark);
+}
+
+.sm-grades {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-height: 42vh;
+  overflow: auto;
+  padding: 2px;
+}
+
+.sm-grade {
+  padding: 11px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-2);
+  cursor: pointer;
+}
+
+.sm-grade--on {
+  border-color: var(--gold);
+  background: linear-gradient(145deg, rgba(217, 169, 92, 0.2), transparent);
+  font-weight: 600;
+}
+
+.sm-danger {
+  display: grid;
+  gap: 10px;
+  margin-top: var(--sp-4);
+  padding: 12px;
+  border: 1px solid var(--danger-line);
+  border-radius: 12px;
+  background: var(--danger-bg);
+}
+
+.sm-danger p {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-2);
+}
+
+.sm-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: var(--fs-2);
+  cursor: pointer;
+}
+
+.sm-check input {
+  margin-top: 4px;
+  accent-color: var(--danger-fg);
+}
+
+/* --------------------------- شارة نطاق التعلّم --------------------------- */
+.ln-scope {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--sp-3);
+  color: var(--muted);
+  font-size: var(--fs-2);
+}
+
+.ln-scope__change,
+.hm-chip--action {
+  border: 1px solid var(--ok-line);
+  border-radius: 999px;
+  background: var(--card-2);
+  color: var(--gold-text-on-light);
+  font: inherit;
+  font-size: var(--fs-1);
+  font-weight: 600;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+[data-theme="dark"] .ln-scope__change,
+[data-theme="dark"] .hm-chip--action {
+  color: var(--gold-text-on-dark);
+}
+
+/* ------------------------------- أول دخول ------------------------------- */
+.fr-name {
+  display: grid;
+  gap: 6px;
+  margin: 0 auto var(--sp-4);
+  width: min(420px, 100%);
+  text-align: start;
+  font-weight: 600;
+}
+
+.fr-name input {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-3);
+}
+
+.fr-name input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+@media (max-width: 420px) {
+  .sm-grades {
+    grid-template-columns: 1fr;
+  }
+}

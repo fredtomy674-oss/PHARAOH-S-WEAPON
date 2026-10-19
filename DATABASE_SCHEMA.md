@@ -1,6 +1,6 @@
 # DATABASE SCHEMA — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-24 — مرآة لـ `server/src/db/schema.ts` (المصدر الحقيقي).
+> آخر تحديث: 2026-10-19 — مرآة لـ `server/src/db/schema.ts` (المصدر الحقيقي).
 > migrations مولّدة بـ drizzle-kit ومطبقة تلقائيًا عند إقلاع السيرفر.
 
 ## 1. ملاحظة استراتيجية
@@ -14,8 +14,8 @@
 ### الهوية والوصول (`users`, `sessions`, `students`, `parents`, `profiles`, `students_parents`, `subscriptions`)
 
 - `users(id, email UNIQUE, password_hash, role: student|parent|admin, status, created_at)`
-- `sessions(id, user_id→users, token_hash, csrf_token, expires_at, created_at, revoked_at)` — جلسات قاعدة بيانات قابلة للإلغاء
-- `students(id, user_id UNIQUE, display_name, country_id?, grade_id?, birth_year?)`
+- `sessions(id, user_id→users, student_id?→students, token_hash, csrf_token, expires_at, created_at, revoked_at)` — جلسات قاعدة بيانات قابلة للإلغاء؛ `student_id` هو **الطفل النشط لهذا الدخول** (PHASE 180) و`NULL` لحساب عائلي لم يختر بعد
+- `students(id, user_id→users, display_name, country_id?, grade_id?, parent_link_code, birth_year?)` — **متعدد لكل مستخدم** (PHASE 180، حد ٨) وليس فريدًا؛ كل طفل يملك خطته وتقدّمه وجلساته وإنجازاته وكود ولي أمره
 - `parents(id, user_id UNIQUE)`
 - `profiles(id, user_id UNIQUE, locale, ui_theme, voice_enabled…)`
 - `students_parents(student_id, parent_id, relationship)` — علاقة رباعية
@@ -27,7 +27,7 @@
 - `concepts` هي أصغر وحدة معرفية وتُستخدم في Metadata/الاسترجاع والتقدم.
 - `grades`: `(education_system_id, name, level_order)` — `level_order` يسمح بمقارنة الصفوف.
 - `curricula`: `(subject_id, grade_id, version, is_active)`.
-- `curriculum_enrollments(student_id, curriculum_id)` — ما يدرسه الطالب بفعالية.
+- `curriculum_enrollments(student_id, curriculum_id)` — ما يدرسه الطالب بفعالية؛ PHASE 180: الإنشاء/الإعداد/تغيير الصف يسجّل **كل مناهج صف الطفل النشطة** تلقائيًا، والقراءة تقصّ على صفّه.
 - كل المستويات لها `code` ثابت (slug) لسهولة الهندسة والـAPI.
 
 ### المعرفة (Knowledge Base) — `documents`, `document_versions`, `chunks`
@@ -65,7 +65,7 @@
 ## 4. قيود التكامل
 
 - FK مع `ON DELETE CASCADE` للبيانات التابعة (messages/session, chunks/document).
-- Students مرتبطون بـ user عبر UNIQUE — بروفايل واحد لكل مستخدم.
+- Students مرتبطون بـ user بفهرس غير فريد (`students_user_idx`) — عدة أطفال لكل حساب عائلي، مع `auth_sessions_student_idx` لاختيار الطفل النشط في جلسة المصادقة.
 - لا UUID من العميل: كل المعرّفات تُولَّد خادميًا.
 
 ## 5. التعامل مع Postgres لاحقاً

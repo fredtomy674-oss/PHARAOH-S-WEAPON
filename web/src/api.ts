@@ -2,13 +2,23 @@
 // The session cookie is handled by the browser automatically; the CSRF token
 // is attached to every state-changing request and refreshed on login/register.
 
+export interface StudentSummary {
+  id: string;
+  displayName: string;
+  gradeId: string | null;
+  gradeNameAr: string | null;
+}
+
 export interface User {
   id: string;
   email: string;
   role: string;
   createdAt: string;
-  student?: { id: string; displayName: string; gradeId: string | null };
-  /** PHASE 179 — the student's grade name (null until onboarding picks one). */
+  /** PHASE 180 — the child this login session is teaching. */
+  student?: StudentSummary;
+  /** PHASE 180 — every child on the account (the picker + switcher source). */
+  students?: StudentSummary[];
+  /** PHASE 179 — the active student's grade name (null until onboarding). */
   gradeNameAr?: string | null;
   /** Student only: the sharing code a parent enters to link/observe them (PHASE 18). */
   linkCode?: string | null;
@@ -372,11 +382,46 @@ export async function logout(): Promise<void> {
   await api("/auth/logout", { method: "POST" });
 }
 
-/** PHASE 157 — حفظ ملف الطالب (الصف الدراسي المختار في «أول دخول»). */
-export async function updateStudentProfile(input: {
-  displayName?: string;
-  gradeId?: string | null;
-}): Promise<{ id: string; displayName: string; gradeId: string | null }> {
+/**
+ * PHASE 180 — multiple students per account.
+ * Every mutation returns the refreshed auth user (all children + active child)
+ * so the shell, Home and the account drawer switch atomically.
+ */
+export async function createStudent(input: { displayName: string; gradeId: string }): Promise<User> {
+  const res = await api<{ user: User }>("/students", { method: "POST", body: input });
+  return res.user;
+}
+
+export async function setupStudent(studentId: string, input: { displayName: string; gradeId: string }): Promise<User> {
+  const res = await api<{ user: User }>(`/students/${encodeURIComponent(studentId)}/setup`, { method: "PUT", body: input });
+  return res.user;
+}
+
+export async function activateStudent(studentId: string): Promise<User> {
+  const res = await api<{ user: User }>(`/students/${encodeURIComponent(studentId)}/activate`, { method: "POST" });
+  return res.user;
+}
+
+export async function changeStudentGrade(
+  studentId: string,
+  gradeId: string,
+): Promise<{ user: User; changed: boolean; deleted: { sessions: number; answers: number; assessments: number; progress: number } }> {
+  return api(`/students/${encodeURIComponent(studentId)}/grade`, {
+    method: "PUT",
+    body: { gradeId, confirmReset: true },
+  });
+}
+
+export async function renameStudent(studentId: string, displayName: string): Promise<User> {
+  const res = await api<{ user: User }>(`/students/${encodeURIComponent(studentId)}`, {
+    method: "PUT",
+    body: { displayName },
+  });
+  return res.user;
+}
+
+/** Name-only profile edit (kept for compatibility; grade changes use the guarded path above). */
+export async function updateStudentProfile(input: { displayName: string }): Promise<{ id: string; displayName: string; gradeId: string | null }> {
   const res = await api<{ student: { id: string; displayName: string; gradeId: string | null } }>(
     "/profile/me/student",
     { method: "PUT", body: input },

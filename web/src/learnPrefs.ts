@@ -14,10 +14,19 @@ export interface LastPick {
   unitId: string;
 }
 
+/**
+ * PHASE 180 — «آخر اختيار» لكل طالب، لا لكل متصفح. Without the id, two
+ * children on one device inherited each other's subject/unit and opened a
+ * lesson that did not belong to their grade.
+ */
+function keyFor(studentId?: string): string {
+  return studentId ? `${LAST_PICK_KEY}:${studentId}` : LAST_PICK_KEY;
+}
+
 /** «آخر اختيار» — أو null عند أول زيارة/تخزين تالف (لا استثناء للواجهة). */
-export function readLastPick(): LastPick | null {
+export function readLastPick(studentId?: string): LastPick | null {
   try {
-    const raw = localStorage.getItem(LAST_PICK_KEY);
+    const raw = localStorage.getItem(keyFor(studentId));
     if (!raw) return null;
     const parsed = JSON.parse(raw) as { subjectId?: unknown; unitId?: unknown };
     if (typeof parsed.subjectId !== "string") return null;
@@ -27,17 +36,17 @@ export function readLastPick(): LastPick | null {
   }
 }
 
-export function saveLastPick(pick: LastPick): void {
+export function saveLastPick(pick: LastPick, studentId?: string): void {
   try {
-    localStorage.setItem(LAST_PICK_KEY, JSON.stringify(pick));
+    localStorage.setItem(keyFor(studentId), JSON.stringify(pick));
   } catch {
     // التخزين المحلي قد يكون معطّلًا (وضع خاص) — لا يكسر التعلّم.
   }
 }
 
-export function clearLastPick(): void {
+export function clearLastPick(studentId?: string): void {
   try {
-    localStorage.removeItem(LAST_PICK_KEY);
+    localStorage.removeItem(keyFor(studentId));
   } catch {
     // لا شيء.
   }

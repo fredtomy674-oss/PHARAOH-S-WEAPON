@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { whoami, logout, updateStudentProfile, type User, type LearningSession } from "./api.js";
+import { whoami, logout, type User, type LearningSession } from "./api.js";
 import { AuthScreen } from "./Auth.js";
 import { HomeScreen } from "./Home.js";
 import { LearnScreen } from "./Learn.js";
@@ -9,9 +9,10 @@ import { AdminScreen } from "./Admin.js";
 import { ParentScreen } from "./Parent.js";
 import { JourneyScreen } from "./Journey.js";
 import { FirstRunScreen } from "./FirstRun.js";
+import { StudentPickerScreen } from "./StudentPicker.js";
 import { AppShell, type StudentTab } from "./components/app/AppShell.js";
 
-type Screen = "loading" | "auth" | "home" | "learn" | "lesson" | "chat" | "admin" | "achievements" | "first-run";
+type Screen = "loading" | "auth" | "home" | "learn" | "lesson" | "chat" | "admin" | "achievements";
 
 export function App() {
   const [screen, setScreen] = useState<Screen>("loading");
@@ -31,14 +32,19 @@ export function App() {
       .catch(() => setScreen("auth"));
   }, []);
 
-  const handleAuthed = (u: User, fresh = false) => {
+  const handleAuthed = (u: User) => {
     setUser(u);
-    // PHASE 157 — «أول دخول سينمائي»: مرة واحدة فقط، وبعد التسجيل فقط،
-    // ولطالب لم يُختر له صفّ بعد. تسجيل الدخول العادي لا يمر من هنا أبدًا.
-    if (fresh && u.role === "student" && !u.student?.gradeId) {
-      setScreen("first-run");
-      return;
-    }
+    // PHASE 180 — the gate below decides: pick a child first, or finish that
+    // child's name + grade. A complete profile lands on Home.
+    setScreen("home");
+  };
+
+  /** Switch/add/reset done in the shell: a clean, remounted student scope. */
+  const handleStudentChanged = (u: User) => {
+    setUser(u);
+    setSession(null);
+    setLearnSubjectId("");
+    setLessonId("");
     setScreen("home");
   };
 
@@ -103,24 +109,31 @@ export function App() {
     return <AuthScreen onAuthed={handleAuthed} />;
   }
 
-  if (screen === "chat" && session) {
-    return <LessonRoom user={user} session={session} onEnded={handleSessionEnded} />;
+  // PHASE 180 — the student gate: a family account picks a child, and a child
+  // with no grade completes name + grade before any student route is mounted.
+  if (user.role === "student") {
+    if (!user.student && (user.students?.length ?? 0) > 0) {
+      return <StudentPickerScreen user={user} onUser={handleAuthed} onLogout={handleLogout} />;
+    }
+    if (!user.student || !user.student.gradeId) {
+      return (
+        <FirstRunScreen
+          user={user}
+          onStart={(u) => {
+            setUser(u);
+            setScreen("learn");
+          }}
+          onSkip={(u) => {
+            setUser(u);
+            setScreen("home");
+          }}
+        />
+      );
+    }
   }
 
-  if (screen === "first-run" && user.role === "student") {
-    return (
-      <FirstRunScreen
-        user={user}
-        onStart={(u) => {
-          setUser(u);
-          setScreen("learn");
-        }}
-        onSkip={(u) => {
-          setUser(u);
-          setScreen("home");
-        }}
-      />
-    );
+  if (screen === "chat" && session) {
+    return <LessonRoom user={user} session={session} onEnded={handleSessionEnded} />;
   }
 
   if (screen === "learn") {
@@ -131,8 +144,10 @@ export function App() {
         onNavigate={handleNavigate}
         onLogout={handleLogout}
         onOpenAchievements={() => setScreen("achievements")}
+        onStudentChanged={handleStudentChanged}
       >
         <LearnScreen
+          key={`learn-${user.student?.id ?? "none"}-${user.student?.gradeId ?? "none"}`}
           user={user}
           initialSubjectId={learnSubjectId}
           onResume={(s) => {
@@ -140,17 +155,6 @@ export function App() {
             setScreen("chat");
           }}
           onOpenLesson={handleOpenLesson}
-          onGradeChange={(gid) => {
-            // PHASE 159 — الصف المختار صار جزءًا من ملف الطالب (كأول دخول)،
-            // فيعود المنتقي إليه مباشرة في الزيارة القادمة.
-            setUser((u) => (u && u.student ? { ...u, student: { ...u.student, gradeId: gid } } : u));
-            // PHASE 179 — اسم الصف يُحدَّث معه فورًا (شارة «مواد صفّك» والخطة)
-            // فلا تبقى الشارة على صف قديم بعد تغييره من «خيارات أعمق».
-            void updateStudentProfile({ gradeId: gid })
-              .then(() => whoami())
-              .then((u) => setUser(u))
-              .catch(() => undefined);
-          }}
         />
       </AppShell>
     );
@@ -164,6 +168,7 @@ export function App() {
         onNavigate={handleNavigate}
         onLogout={handleLogout}
         onOpenAchievements={() => setScreen("achievements")}
+        onStudentChanged={handleStudentChanged}
       >
         <LessonPage lessonId={lessonId} onBack={() => setScreen("learn")} onStarted={handleSessionStarted} />
       </AppShell>
@@ -188,8 +193,9 @@ export function App() {
         onNavigate={handleNavigate}
         onLogout={handleLogout}
         onOpenAchievements={() => setScreen("achievements")}
+        onStudentChanged={handleStudentChanged}
       >
-        <JourneyScreen user={user} onBack={() => setScreen("home")} />
+        <JourneyScreen key={`journey-${user.student?.id ?? "none"}`} user={user} onBack={() => setScreen("home")} />
       </AppShell>
     );
   }
@@ -211,8 +217,10 @@ export function App() {
       onNavigate={handleNavigate}
       onLogout={handleLogout}
       onOpenAchievements={() => setScreen("achievements")}
+      onStudentChanged={handleStudentChanged}
     >
       <HomeScreen
+        key={`home-${user.student?.id ?? "none"}-${user.student?.gradeId ?? "none"}`}
         user={user}
         onStartLesson={handleStartLesson}
         onOpenSubject={handleOpenSubject}

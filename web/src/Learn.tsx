@@ -1,19 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import {
   lessonBreadcrumb,
-  listCountries,
   listCurricula,
-  listGrades,
   listLessons,
   listSessions,
   listSubjects,
-  listSystems,
   listTerms,
   listUnits,
-  type Country,
   type Curriculum,
-  type EduSystem,
-  type Grade,
   type LearningSession,
   type Lesson,
   type Subject,
@@ -23,6 +17,7 @@ import {
 } from "./api.js";
 import { Button, Card } from "./components/ui/index.js";
 import { SubjectGlyph } from "./components/SubjectGlyph.js";
+import { useStudentManager } from "./components/app/StudentManager.js";
 
 /**
  * PHASE 159 (W3) — «تعلّم»: هدم `Onboarding.tsx` وإعادة بناء المنتقي بصريًا.
@@ -47,28 +42,27 @@ interface Props {
   initialSubjectId?: string;
   onResume: (s: LearningSession) => void;
   onOpenLesson: (lessonId: string) => void;
-  /** PHASE 159 — اختيار الصف من «خيارات أعمق» يُحفظ في ملف الطالب (كما في أول دخول). */
-  onGradeChange?: (gradeId: string) => void;
 }
 
-export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, onGradeChange }: Props) {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [systems, setSystems] = useState<EduSystem[]>([]);
-  const [grades, setGrades] = useState<Grade[]>([]);
+/**
+ * PHASE 180 — the grade is no longer a picker here. It belongs to the active
+ * child and can only change through the explicit destructive «تغيير المنهج»
+ * flow in the shell. Learn can choose curriculum/term, never another grade.
+ */
+export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson }: Props) {
+  const { open } = useStudentManager();
   const [subjects, setSubjects] = useState<Subject[] | null>(null);
   const [curricula, setCurricula] = useState<Curriculum[]>([]);
   const [terms, setTerms] = useState<Term[]>([]);
   const [units, setUnits] = useState<Unit[]>([]);
   const [lessons, setLessons] = useState<Lesson[]>([]);
 
-  const [countryId, setCountryId] = useState("");
-  const [systemId, setSystemId] = useState("");
-  const [gradeId, setGradeId] = useState(user.student?.gradeId ?? "");
+  const gradeId = user.student?.gradeId ?? "";
   const [subjectId, setSubjectId] = useState("");
   const [curriculumId, setCurriculumId] = useState("");
   const [termId, setTermId] = useState("");
   const [unitId, setUnitId] = useState("");
-  const [advancedOpen, setAdvancedOpen] = useState(!user.student?.gradeId);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
 
   // «أكمل من حيث توقفت» — من بيانات الجلسات الحقيقية.
   const [activeSession, setActiveSession] = useState<LearningSession | null>(null);
@@ -83,7 +77,6 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
   const userPickedRef = useRef(false);
 
   useEffect(() => {
-    listCountries().then(setCountries).catch(() => undefined);
     listSessions()
       .then((all) => {
         const active = all.find((s) => s.status === "active") ?? null;
@@ -104,7 +97,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
           // PHASE 178 — مادةٌ جاءت من الرئيسية تسبق «آخر اختيار»: الطفل طلب
           // رياضيات صراحةً الآن؛ وإلا نعود لآخر جلسة كما كان (W3).
           const fromHome = initialSubjectId && list.some((s) => s.id === initialSubjectId) ? initialSubjectId : "";
-          const last = fromHome ? { subjectId: fromHome, unitId: "" } : readLastPick();
+          const last = fromHome ? { subjectId: fromHome, unitId: "" } : readLastPick(user.student?.id);
           if (last && list.some((s) => s.id === last.subjectId)) void pickSubject(last.subjectId, saved, last.unitId);
         })
         .catch(() => setSubjects([]));
@@ -121,24 +114,14 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
   }, [units]);
 
   /**
-   * تصفير متسلسل (0 = دولة … 6 = وحدة) — تغيير مستوى يُبطل كل ما تحته، تمامًا
-   * كما كان في المنتقي القديم: منهج/صف قديم مع درس من نطاق آخر هو بالضبط ما
-   * يرفضه الخادم (LESSON_CURRICULUM_MISMATCH). قائمة المواد لا تُمسّ هنا:
-   * من غيّر مادته يريد رؤية بقية المواد (وحدها تغييرات الصف تُفرّغها).
+   * تصفير متسلسل (2 = مادة … 6 = وحدة) — تغيير مستوى يُبطل كل ما تحته.
+   * الصف خارج هذا المنتقي نهائيًا: لا يمكن لمنتقي الدرس أن يغيّر نطاق الطفل.
    */
   const clearBelow = (level: number) => {
     loadSeq.current += 1;
-    if (level <= 0) {
-      setSystemId("");
-      setSystems([]);
-    }
-    if (level <= 1) {
-      setGradeId("");
-      setGrades([]);
-    }
     if (level <= 2) {
       setSubjectId("");
-      clearLastPick();
+      clearLastPick(user.student?.id);
     }
     if (level <= 3) {
       setCurriculumId("");
@@ -154,18 +137,6 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
     }
     if (level <= 6) setLessons([]);
   };
-
-  /** الصف (محفوظ أو مختار) يقود المواد — وهذا كل ما يحتاجه المسار المرئي. */
-  async function loadSubjects(gid: string): Promise<void> {
-    const seq = ++loadSeq.current;
-    try {
-      const list = await listSubjects(gid);
-      if (seq !== loadSeq.current) return;
-      setSubjects(list);
-    } catch {
-      if (seq === loadSeq.current) setSubjects([]);
-    }
-  }
 
   /**
    * اختيار مادة: يُحمّل المنهج النشط ثم أول فصل ثم وحداته — بلا خطوات إضافية
@@ -184,7 +155,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
     setLessons([]);
     // ملاحظة StrictMode: التهيئة تُشغَّل مرتين في التطوير، والحفظ يجب أن يكون
     // idempotent — وإلا محت القراءة الثانية وحدةَ الاستعادة قبل تطبيقها.
-    saveLastPick({ subjectId: id, unitId: restoreUnitId });
+    saveLastPick({ subjectId: id, unitId: restoreUnitId }, user.student?.id);
     if (!gid) return;
     try {
       const list = await listCurricula(gid, id);
@@ -217,7 +188,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
     const seq = ++loadSeq.current;
     setUnitId(id);
     setLessons([]);
-    saveLastPick({ subjectId: sid, unitId: id });
+    saveLastPick({ subjectId: sid, unitId: id }, user.student?.id);
     try {
       const list = await listLessons(id);
       if (seq !== loadSeq.current) return;
@@ -226,45 +197,6 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
       // لا دروس بعد — يجرّب وحدة أخرى.
     }
   }
-
-  const pickCountry = async (id: string) => {
-    setCountryId(id);
-    clearBelow(0);
-    setSubjects([]);
-    const seq = loadSeq.current;
-    if (!id) return;
-    try {
-      const list = await listSystems(id);
-      if (seq === loadSeq.current) setSystems(list);
-    } catch {
-      // تبقى اللوحة صالحة — يجرّب دولة أخرى.
-    }
-  };
-
-  const pickSystem = async (id: string) => {
-    setSystemId(id);
-    clearBelow(1);
-    setSubjects([]);
-    const seq = loadSeq.current;
-    if (!id) return;
-    try {
-      const list = await listGrades(id);
-      if (seq === loadSeq.current) setGrades(list);
-    } catch {
-      // يجرّب نظامًا آخر.
-    }
-  };
-
-  const pickGrade = async (id: string) => {
-    setGradeId(id);
-    clearBelow(2);
-    if (id) {
-      void loadSubjects(id);
-      onGradeChange?.(id);
-    } else {
-      setSubjects([]);
-    }
-  };
 
   const pickCurriculum = async (id: string) => {
     setCurriculumId(id);
@@ -309,6 +241,12 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
           <span className="ln-hero__label">تعلّم</span>
           <h2>ماذا تدرس الآن؟</h2>
           <p className="ln-hero__sub">مواد صفّك جاهزة — اختر مادة ثم وحدة ثم درسًا، وسيفتح لك الدرس صفحته كاملة.</p>
+          <div className="ln-scope" data-testid="learn-grade-chip">
+            <span>الصف: {user.gradeNameAr ?? "غير محدد"}</span>
+            <button type="button" className="ln-scope__change" data-testid="change-curriculum" onClick={() => open("grade")}>
+              تغيير المنهج
+            </button>
+          </div>
 
           {activeSession ? (
             <div className="ln-resume" data-testid="learn-resume">
@@ -339,7 +277,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
         <Card
           className="ln-picker"
           title="اختر درسك"
-          hint="الصف محفوظ — الخطوات الأعمق (نظام · منهج · فصل) داخل «خيارات أعمق»."
+          hint="مواد صفّك وحدها — يمكنك تغيير المنهج من الزر أعلى الصفحة."
           actions={
             <button
               type="button"
@@ -354,46 +292,6 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
         >
           {advancedOpen && (
             <div className="ln-adv" data-testid="advanced-options">
-              <label className="ln-field">
-                <span>الدولة</span>
-                <select data-testid="select-country" value={countryId} onChange={(e) => void pickCountry(e.target.value)}>
-                  <option value="">اختر الدولة…</option>
-                  {countries.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.nameAr}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              {countryId && (
-                <label className="ln-field">
-                  <span>النظام التعليمي</span>
-                  <select data-testid="select-system" value={systemId} onChange={(e) => void pickSystem(e.target.value)}>
-                    <option value="">اختر النظام…</option>
-                    {systems.map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.nameAr}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              )}
-
-              {systemId && (
-                <label className="ln-field">
-                  <span>الصف</span>
-                  <select data-testid="select-grade" value={gradeId} onChange={(e) => void pickGrade(e.target.value)}>
-                    <option value="">اختر الصف…</option>
-                    {grades.map((g) => (
-                      <option key={g.id} value={g.id}>
-                        {g.nameAr}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              )}
-
               {curricula.length > 0 && (
                 <label className="ln-field">
                   <span>المنهج</span>
@@ -440,7 +338,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson, on
               </p>
             ) : subjects.length === 0 ? (
               <p className="ln-note" data-testid="subjects-empty">
-                {gradeId ? "لا توجد مواد لهذا الصف بعد." : "اختر صفّك من «خيارات أعمق» لتظهر موادك."}
+                لا توجد مواد لهذا الصف بعد.
               </p>
             ) : (
               <div className="ln-cards ln-cards--subjects">

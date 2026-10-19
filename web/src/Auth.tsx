@@ -3,11 +3,8 @@ import { login, register, ApiError, type User } from "./api.js";
 import { ThemeToggle } from "./components/ui/ThemeToggle.js";
 
 interface Props {
-  /**
-   * PHASE 157 — `fresh` يعني أن الحساب أُنشئ للتوّ (تسجيل لا دخول):
-   * الشل يستخدمها ليمرّر الطالب الجديد إلى «أول دخول سينمائي» مرة واحدة.
-   */
-  onAuthed: (user: User, fresh: boolean) => void;
+  /** PHASE 180 — the shell gate handles first-run (name + grade) itself. */
+  onAuthed: (user: User) => void;
 }
 
 /**
@@ -30,7 +27,7 @@ export function AuthScreen({ onAuthed }: Props) {
     try {
       const user =
         mode === "login" ? await login(email.trim(), password) : await register(email.trim(), password, displayName.trim());
-      onAuthed(user, mode === "register");
+      onAuthed(user);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "تعذر الاتصال بالخادم");
     } finally {

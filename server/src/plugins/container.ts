@@ -16,6 +16,7 @@ import { createReranker, createVectorStore } from "../modules/rag/factory.js";
 import { RetrievalService } from "../modules/rag/retrieval.js";
 import type { VectorStore } from "../modules/rag/types.js";
 import { SessionService } from "../modules/sessions/service.js";
+import { StudentsService } from "../modules/students/service.js";
 import { SubscriptionService } from "../modules/subscription/service.js";
 import { MemoryService } from "../modules/tutor/memoryService.js";
 import { TutorEngine } from "../modules/tutor/tutorEngine.js";
@@ -34,6 +35,7 @@ declare module "fastify" {
     memory: MemoryService;
     tutor: TutorEngine;
     sessions: SessionService;
+    students: StudentsService;
     parents: ParentService;
     subscriptions: SubscriptionService;
     achievements: AchievementService;
@@ -81,6 +83,7 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   const sessions = new SessionService(db, curriculum, tutor, memory, audit, ai, ocr, subscriptions, achievements, speech, app.log);
   const parents = new ParentService(db, memory, sessions);
   const practice = new PracticeService(db, memory, achievements, ai);
+  const studentsService = new StudentsService(db);
 
   app.decorate("db", db);
   app.decorate("ai", ai);
@@ -94,6 +97,7 @@ export const containerPlugin: FastifyPluginAsync<ContainerOptions> = fp(async (a
   app.decorate("memory", memory);
   app.decorate("tutor", tutor);
   app.decorate("sessions", sessions);
+  app.decorate("students", studentsService);
   app.decorate("parents", parents);
   app.decorate("subscriptions", subscriptions);
   app.decorate("achievements", achievements);

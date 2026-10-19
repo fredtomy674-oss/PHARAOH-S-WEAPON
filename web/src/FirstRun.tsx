@@ -1,55 +1,51 @@
 import { useEffect, useState } from "react";
 import {
   ApiError,
-  listCountries,
-  listGrades,
-  listSystems,
-  updateStudentProfile,
+  createStudent,
+  setupStudent,
   type Grade,
   type User,
 } from "./api.js";
+import { listStudentGradeChoices } from "./studentGrades.js";
 import { ThemeToggle } from "./components/ui/ThemeToggle.js";
 
 interface Props {
   user: User;
-  /** «ابدأ أول درس» — يحفظ الصف ثم يفتح منتقي الدروس مباشرة. */
+  /** «ابدأ أول درس» — يحفظ الاسم والصف ثم يفتح منتقي الدروس مباشرة. */
   onStart: (user: User) => void;
-  /** «لاحقًا» — يحفظ الصف إن اختير (أفضل جهد) ثم يعود للرئيسية. */
+  /** «لاحقًا» — يحفظ الاسم والصف (أول دخول لا يكتمل بدونهما) ثم يعود للرئيسية. */
   onSkip: (user: User) => void;
 }
 
 /**
  * أول دخول سينمائي (PHASE 157) — مرة واحدة في العمر، بعد التسجيل فقط:
- * المعلّم يرحّب بالاسم، والطالب يختار صفّه ببطاقات كبيرة (لا قوائم)،
+ * المعلّم يرحّب بالاسم، والطالب يكتب اسمه ويختار صفّه ببطاقات كبيرة (لا قوائم)،
  * فيُحفظ الصف في ملفه الشخصي ويُفتح له كتابه وموادّه.
- * الصوت تحسين تدريجي (صوت المتصفح) — والصوت الخادمي الحقيقي يأتي مع W7.
+ *
+ * PHASE 180 — «لكل طالبٍ ملفّه»: الاسم والصف يُحفظان عبر مسار الإعداد الآمن
+ * (لا يمسح بيانات)، ويُفعّل الطالب في جلسة الدخول الحالية.
  */
 export function FirstRunScreen({ user, onStart, onSkip }: Props) {
   const [grades, setGrades] = useState<Grade[] | null>(null);
   const [loadFailed, setLoadFailed] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(user.student?.gradeId ?? null);
+  const [name, setName] = useState(user.student?.displayName ?? "");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  const name = user.student?.displayName?.trim() || "يا بطل";
-  const greeting = `أهلًا ${name}! أنا سلاح الفرعون — معلّمك الخاص. سنبدأ رحلتك من هنا: اختر صفّك الدراسي، وسأجهّز لك كتابك ودروسك صفحةً صفحة.`;
+  const cleanName = name.trim();
+  const ready = cleanName.length >= 2 && Boolean(selected);
+  const greeting = `أهلاً ${cleanName || "يا بطل"}! أنا سعد — معلمك الخصوصي. سنبني معًا خطة تناسب صفّك. لكن أولًا: اكتب اسمك واختر صفّك الدراسي، وسأفتح لك كتابك وموادّه.`;
 
   useEffect(() => {
     let alive = true;
-    (async () => {
-      try {
-        const countries = await listCountries();
-        const egypt = countries.find((c) => c.nameAr === "مصر") ?? countries[0];
-        if (!egypt) throw new Error("no countries");
-        const systems = await listSystems(egypt.id);
-        const firstSystem = systems[0];
-        if (!firstSystem) throw new Error("no systems");
-        const list = await listGrades(firstSystem.id);
+    listStudentGradeChoices()
+      .then((list) => {
         if (alive) setGrades(list);
-      } catch {
+      })
+      .catch(() => {
         if (alive) setLoadFailed(true);
-      }
-    })();
+      });
     return () => {
       alive = false;
     };
@@ -64,40 +60,39 @@ export function FirstRunScreen({ user, onStart, onSkip }: Props) {
       utterance.lang = "ar-EG";
       synth.speak(utterance);
     } catch {
-      // الصوت تحسين تدريجي — فشله لا يوقف شيئًا
+      // الصوت تحسين تدريجي — فشله لا يوقف الإعداد.
     }
   };
 
-  const withSavedGrade = async (): Promise<User> => {
+  const save = async (): Promise<User> => {
     if (!selected) return user;
-    const student = await updateStudentProfile({ gradeId: selected });
-    return { ...user, student: { ...user.student, id: student.id, displayName: student.displayName, gradeId: student.gradeId } };
+    if (cleanName.length < 2) throw new ApiError("اكتب اسم الطالب أولًا", 400, "NAME_REQUIRED");
+    const input = { displayName: cleanName, gradeId: selected };
+    return user.student ? setupStudent(user.student.id, input) : createStudent(input);
   };
 
   const start = async () => {
-    if (busy || !selected) return;
+    if (busy || !ready) return;
     setBusy(true);
     setError(null);
     try {
-      const updated = await withSavedGrade();
-      onStart(updated);
+      onStart(await save());
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "تعذر حفظ الصف — حاول مرة أخرى");
+      setError(err instanceof ApiError ? err.message : "تعذّر حفظ الملف — حاول مرة أخرى");
       setBusy(false);
     }
   };
 
   const skip = async () => {
-    if (busy) return;
+    if (busy || !ready) return;
     setBusy(true);
-    // أفضل جهد: لو اختار صفًّا نحفظه، وفشل الحفظ لا يمنعه من المتابعة أبدًا.
-    let updated = user;
+    setError(null);
     try {
-      updated = await withSavedGrade();
-    } catch {
-      // يُتجاهل — يمكن اختيار الصف لاحقًا من منتقي الدروس
+      onSkip(await save());
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "تعذّر حفظ الملف — حاول مرة أخرى");
+      setBusy(false);
     }
-    onSkip(updated);
   };
 
   return (
@@ -126,12 +121,24 @@ export function FirstRunScreen({ user, onStart, onSkip }: Props) {
         </section>
 
         <section className="fr-grades">
-          <h2>اختر صفّك الدراسي</h2>
-          <p className="fr-sub">مرة واحدة فقط — وبعدها يُفتح لك كتابك وموادّك مباشرة.</p>
+          <h2>اسمك وصفّك</h2>
+          <p className="fr-sub">نحتاج الاسم الذي تحب أن نناديك به، والصف الذي تدرس فيه الآن. الصف يحدد موادك وخطتك.</p>
 
-          {grades === null && !loadFailed && <p className="fr-loading">…جارٍ تجهيز الصفوف</p>}
+          <label className="fr-name">
+            <span>اسم الطالب</span>
+            <input
+              data-testid="first-run-name"
+              value={name}
+              maxLength={80}
+              placeholder="اكتب اسمك"
+              autoComplete="name"
+              onChange={(event) => setName(event.target.value)}
+            />
+          </label>
+
+          {grades === null && !loadFailed && <p className="fr-loading">…جارٍ تحضير الصفوف</p>}
           {loadFailed && (
-            <p className="fr-error">تعذّر تحميل الصفوف الآن — يمكنك المتابعة، وسيُسألك عن صفّك عند بدء أول درس.</p>
+            <p className="fr-error">تعذّر تحميل الصفوف الآن — يمكنك المحاولة مرة أخرى بعد قليل.</p>
           )}
 
           {grades !== null && grades.length > 0 && (
@@ -162,17 +169,23 @@ export function FirstRunScreen({ user, onStart, onSkip }: Props) {
               type="button"
               className="fr-start"
               data-testid="first-run-start"
-              disabled={!selected || busy}
+              disabled={!ready || busy}
               onClick={() => void start()}
             >
               ابدأ أول درس
             </button>
-            <button type="button" className="fr-skip" data-testid="first-run-skip" disabled={busy} onClick={() => void skip()}>
+            <button
+              type="button"
+              className="fr-skip"
+              data-testid="first-run-skip"
+              disabled={!ready || busy}
+              onClick={() => void skip()}
+            >
               لاحقًا — إلى الرئيسية
             </button>
           </div>
 
-          <p className="fr-note">أول حصة كاملة مجانية — بلا بطاقة، وبلا التزام.</p>
+          <p className="fr-note">خطة صفّك وحدها ستظهر لك — لا مواد من صفوف أخرى.</p>
         </section>
       </main>
     </div>

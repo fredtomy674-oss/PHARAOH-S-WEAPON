@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login, selectFirst, selectOptionByLabel } from "./helpers.js";
+import { login, selectOptionByLabel } from "./helpers.js";
 
 /**
  * PHASE 160 (W5) — «مصادر الدرس»: التبويبات الستة (ملخص · تعريفات · بطاقات ·
@@ -15,9 +15,8 @@ const G6_MATH_LESSON = "المفهوم 1-1";
 
 /** نفس المسار الحتمي في مواصفة تعلّم (159): كتاب الرياضيات المصري للصف السادس. */
 async function openG6MathLesson(page: import("@playwright/test").Page): Promise<void> {
-  await selectOptionByLabel(page, "select-country", "مصر");
-  await selectFirst(page, "select-system");
-  await selectOptionByLabel(page, "select-grade", "الصف السادس الابتدائي");
+  // PHASE 180 — the demo child's grade is locked; Learn starts at the subject.
+  await expect(page.getByTestId("learn-grade-chip")).toContainText("الصف السادس");
   await selectOptionByLabel(page, "select-subject", "الرياضيات");
   await selectOptionByLabel(page, "select-unit", G6_MATH_UNIT);
   const lesson = page.locator('[data-testid^="lesson-"]', { hasText: G6_MATH_LESSON }).first();

@@ -1,16 +1,16 @@
 # API SPEC — AL FAROUQ AI
 
-> آخر تحديث: 2026-09-27 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
+> آخر تحديث: 2026-10-19 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
 > Base: `/api` — Auth: session cookie (`alfarouq_session`) httpOnly + CSRF header للـmutations.
 
 ## 1. المصادقة
 
 | Method | Route | الوصف | Auth |
 |---|---|---|---|
-| POST | `/api/auth/register` | إنشاء حساب، يقبل `{email,password,displayName, role?: "student"\|"parent", gradeCode?}` — `role` افتراضيًا `student`؛ للطالب صف مدرسي، للوالد حساب بدون صف | public |
-| POST | `/api/auth/login` | `{email,password}` → set cookie + CSRF | public |
+| POST | `/api/auth/register` | إنشاء حساب، يقبل `{email,password,displayName, role?: "student"\|"parent", gradeId?}` — `role` افتراضيًا `student`؛ للطالب صف مدرسي، للوالد حساب بدون صف | public |
+| POST | `/api/auth/login` | `{email,password}` → set cookie + CSRF. **PHASE 180:** الطفل الوحيد يُختار تلقائيًا، ومتعدد الأطفال يعود `student: undefined` مع `students[]` حتى تظهر شاشة الاختيار | public |
 | POST | `/api/auth/logout` | إبطال الجلسة | session |
-| GET | `/api/auth/me` | المستخدم الحالي + `student` **أو** `parent` + `linkCode` (رمز مشاركة ولي الأمر للطالب فقط — `null` للوالدين) | session |
+| GET | `/api/auth/me` | المستخدم الحالي + `student` (الطفل النشط أو غائب قبل الاختيار) + `students[]` (كل أطفال الحساب) **أو** `parent` + `linkCode` (رمز مشاركة الطفل النشط فقط — `null` للوالدين) | session |
 
 ## 2. Curriculum (مفتوح للمصادق)
 
@@ -38,8 +38,8 @@
 
 | Method | Route | الوصف |
 |---|---|---|
-| PUT | `/api/me/student` | تحديث بروفايل الطالب (grade مرن) |
-| POST | `/api/sessions` | `{curriculumId, gradeId, subjectId, lessonId?}` → ينشئ Learning Session. **PHASE 37 (توثيق فقط — بلا تغيير في السلوك)**: عند وجود `lessonId` يتحقق الخادم من اتساق النطاق: `400 LESSON_CURRICULUM_MISMATCH` («الدرس لا ينتمي للمنهج المحدد») و`400 LESSON_SCOPE_MISMATCH` («الدرس لا يطابق الصف/المادة المحددين»). الواجهة تعرض `message` القادم كما هو في المنتقي وتصفّر السلسلة النازلة عند تغيير أي مستوى أعلى فلا يقع هذا الفشل أصلًا (انظر `DECISIONS.md` D-041) |
+| PUT | `/api/profile/me/student` | **PHASE 180 — اسم فقط:** `{displayName}`. وجود `gradeId` أو `countryId` في الجسم يُرفض `400 GRADE_CHANGE_GUARDED`، لأن الصف لا يتغيّر إلا عبر مسار الطلاب أدناه |
+| POST | `/api/sessions` | `{curriculumId, gradeId, subjectId, lessonId?}` → ينشئ Learning Session. **PHASE 37 (توثيق فقط — بلا تغيير في السلوك)**: عند وجود `lessonId` يتحقق الخادم من اتساق النطاق: `400 LESSON_CURRICULUM_MISMATCH` («الدرس لا ينتمي للمنهج المحدد») و`400 LESSON_SCOPE_MISMATCH` («الدرس لا يطابق الصف/المادة المحددين»). الواجهة تعرض `message` القادم كما هو في المنتقي وتصفّر السلسلة النازلة عند تغيير أي مستوى أعلى فلا يقع هذا الفشل أصلًا (انظر `DECISIONS.md` D-041). **PHASE 180:** إن كان للطفل النشط صف، فطلب صفٍّ آخر يُرفض `400 GRADE_LOCKED` حتى لا تبدأ حصة خارج نطاقه |
 | GET | `/api/sessions` | جلساتي (مع حالة كل منها) |
 | GET | `/api/sessions/:id` | جلسة + رسائلها (مملوكة للطالب فقط) |
 | POST | `/api/sessions/:id/messages` | `{content}` → رد المدرس (RAG+AI) — **المسار العمودي الكامل**. **لغة الردّ (PHASE 38/D-042)**: تُشتقّ من مادة المنهج مرة واحدة لكل دور، فهي **عربية لأي مادة** إلا مناهج اللغات التي تُدرَّس بلغة أجنبية فتصف بالإنجليزية — ولا تتأثّر بلغة نصّ السؤال ولا ببداية الجلسة. يشمل ذلك **الرفض الآمن** (محاولة الحقن) وقراءة الصور والملفات: كلها بلغتها. ولا يتغيّر شكل الاستجابة (`tutorMessage.content`) |
@@ -55,6 +55,21 @@
 > ملخص الجلسة (§3 — PHASE 29/D-033): `SessionRecap = {headline, focus, lessonTitle, durationMinutes, userMessages, tutorMessages, attachmentCount, safetyFlagged, concepts:[{title,attempts,correct}], strengths[], suggestions[], fallback}` — العملية `recap` لا تتلقى إلا البيانات الوصفية، وحارس «لا نص حرفي» يرفض أي ناتج يعيد إنتاج رسالة (سقوط حتمي آمن بـ`fallback:true`)؛ المزوّد mock حتمي (`mock-recap`) والديناميكية تسجَّل استخدامًا (`ai_usage_logs.operation="recap"`).
 
 > مسار النطق (§3 — PHASE 40/D-044): **لماذا معرّفات لا نصّ**؟ لأنّ الخادم يقرأ الرسالة المخزّنة بنفسه بعد `getOwned`، فيستحيل أن ينطق صوتٌ مدفوعٌ نصًّا من عند الطالب، ولا أن يخالف الصوتُ الفقاعةَ فوقه. **لماذا `POST` لا `GET`**؟ لأنّ الردود طويلة (الـURL لا مكان لها) ولأنّ التوليد عملٌ له كلفة. **لماذا `503` لا `500`؟** لأنّ `503` تعني «لا صوت خادمي الآن» فيعود العميل إلى صوت جهازه بصمت، بينما أي `500` خطأ برمجيّ يستحقّ الظهور. التوليد **عند الطلب** لا لكل رسالة (لا يتولّد صوت لرسائل لم تُستنعم)، ويُخزَّن في كاش `AiCache` (32 مدخلًا، 6 ساعات) بمفتاح `(اللغة، النموذج، الصوت، sha256 للنصّ)`، ويُقتطع النصّ عند `SPEECH_MAX_CHARS` على حدّ كلمة، وتتحوّل المهلة (`SPEECH_TIMEOUT_MS`) أو أي خطأ مزوّد إلى 503. والبيانات الخام `audio/L16` تُغلَّف بترويسة RIFF داخل `speech/wav.ts` (44 بايت) لأنّ المتصفحات لا تقرؤ PCM.
+
+### 3.1 الطلاب — الحساب العائلي (PHASE 180)
+
+| Method | Route | الوصف |
+|---|---|---|
+| GET | `/api/students` | أطفال الحساب مرتّبين بتاريخ الإنشاء + الطفل النشط إن وُجد. student فقط |
+| POST | `/api/students` | `{displayName, gradeId}` → طفل جديد (حد ٨)، تسجيل مناهج صفّه النشطة، وجعله نشطًا لهذه الجلسة. `201` |
+| POST | `/api/students/:studentId/activate` | اختيار الطفل النشط **لهذه الجلسة فقط** (جهاز العائلة لا يفرض طفله على جهاز آخر) — ملكية صارمة، `404` لطفل حساب آخر |
+| PUT | `/api/students/:studentId/setup` | `{displayName, gradeId}` لأول استخدام فقط. إن كان للطفل صف بالفعل واختلف الطلب → `409 GRADE_LOCKED`؛ يفعّل الطفل ويُسجّل مناهج صفّه |
+| PUT | `/api/students/:studentId` | `{displayName}` — تغيير الاسم فقط، بلا صف |
+| PUT | `/api/students/:studentId/grade` | `{gradeId, confirmReset: true}` — المسار **الوحيد** لتغيير الصف. بلا `true` → `400 RESET_CONFIRMATION_REQUIRED`. يمسح في معاملة واحدة رسائل الطفل ومرفقاته وملخصاته وإجاباته وتقييماته وتقدّمه وذاكرته وإنجازاته وجلساته وتسجيلات مناهجه القديمة، ثم يسجّل مناهج الصف الجديد ويعيده نشطًا. الاسم/كود الوالد/الاشتراك/روابط الوالد تبقى. الرد: `{user, changed, deleted:{sessions,answers,assessments,progress}}` |
+
+> **العزل:** كل مسار يتحقق من `students.user_id = الحساب المسجّل`؛ ولا يكفي معرفة `studentId`. وكل مسار تعليمي قديم يقرأ `request.auth.student` (الطفل النشط) فيبقى نطاق الصف والخطة والتقارير تلقائيًا للطفل المختار. تغيير طفل ← مفتاح إعادة تركيب الشاشات في الويب ← لا خطة أو إتقان قديم يبقى معروضًا.
+>
+> **الوالد:** تقارير `/api/parent/*` تعرض كل طفل مرتبط بكوده واسمه وصفّه؛ ربط طفلين يعني تقريرين مستقلين. لا محتوى رسائل — بيانات وصفية فقط كما في §8.
 
 ## 4. المعرفة (إدارة) — للمستخدم admin فقط
 
