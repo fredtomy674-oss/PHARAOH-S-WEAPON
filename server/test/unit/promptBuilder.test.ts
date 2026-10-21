@@ -57,6 +57,21 @@ describe("parseTutorResponse", () => {
     expect(parsed.parts?.length ?? 0).toBeGreaterThan(0);
   });
 
+  it("strips emoji from content and every visible part (PHASE 187)", () => {
+    const raw = JSON.stringify({
+      content: "أهلاً 👋 يا بطل.\n✅ صح!\nراجع الخطوة 💡",
+      parts: [
+        { type: "text", text: "أهلاً 👋" },
+        { type: "hint", text: "تلميح 💡" },
+        { type: "question", text: "كم يساوي ٢ + ٢؟ ✅", answer: "4 ✅" },
+      ],
+    });
+    const parsed = parseTutorResponse(raw);
+    expect(parsed.content).toBe("أهلاً يا بطل.\nصح!\nراجع الخطوة");
+    expect(parsed.parts?.map((part) => part.text)).toEqual(["أهلاً", "تلميح", "كم يساوي ٢ + ٢؟"]);
+    expect(parsed.parts?.[2]).toMatchObject({ answer: "4" });
+  });
+
   it("keeps a question part's answer key so the engine can grade with it (PHASE 146)", () => {
     const raw = JSON.stringify({
       content: "سؤال صغير",

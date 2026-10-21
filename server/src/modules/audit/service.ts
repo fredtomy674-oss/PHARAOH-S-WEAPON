@@ -13,6 +13,7 @@ export interface AuditRecordInput {
     | "student.setup"
     | "student.rename"
     | "student.grade_change"
+    | "student.choices_update"
     | "document.ingest"
     | "session.start"
     | "session.end"

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { stripEmoji } from "../../utils/text.js";
 import { NumberLineWidgetSchema } from "./widgets.js";
 import { QUESTION_ANSWER_MAX_CHARS } from "./questionKey.js";
 
@@ -84,13 +85,40 @@ export function parseTutorResponse(raw: string): TutorResponse {
     try {
       const parsed = JSON.parse(candidate);
       const result = TutorResponseSchema.safeParse(parsed);
-      if (result.success) return result.data;
+      if (result.success) return cleanReply(result.data);
     } catch {
       // try next candidate
     }
   }
   // Fallback: treat the whole text as content.
-  return { content: raw.trim(), tone: "friendly", parts: [{ type: "text", text: raw.trim() }], assessment: { conceptsTouched: [], confidence: 0 } };
+  return cleanReply({
+    content: raw.trim(),
+    tone: "friendly",
+    parts: [{ type: "text", text: raw.trim() }],
+    assessment: { conceptsTouched: [], confidence: 0 },
+  });
+}
+
+/**
+ * PHASE 187 — one cleanup point for everything the student will see or hear.
+ *
+ * The model is asked not to use emoji, but prompts are not a security boundary
+ * and older replies were stored with them. Cleaning the parsed reply covers
+ * `content` and every visible `parts` line; the board is cleaned by its own
+ * sanitizer. If a reply was *only* an emoji, the first surviving part is used
+ * as the content rather than leaving an empty bubble.
+ */
+function cleanReply(reply: TutorResponse): TutorResponse {
+  const parts = reply.parts.map((part) => {
+    const text = stripEmoji(part.text).trim();
+    if (part.type !== "widget" && part.answer !== undefined) {
+      return { ...part, text, answer: stripEmoji(part.answer).trim() };
+    }
+    return { ...part, text };
+  });
+  const content = stripEmoji(reply.content).trim();
+  const firstPart = parts.map((part) => part.text).find((text) => text.length > 0);
+  return { ...reply, content: content || firstPart || "…", parts };
 }
 
 function lastBalanced(text: string): number {

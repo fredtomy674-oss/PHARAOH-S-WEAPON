@@ -114,6 +114,29 @@ describe("streamed tutor turn (PHASE 49)", () => {
     expect(byId.get(announcedTutor.id)?.content).toBe(announcedTutor.content);
   });
 
+  it("opens the lesson from the stored roadmap without waiting for a model", async () => {
+    // PHASE 186 — the start button is not a model turn. The student gets the
+    // lesson's printed roadmap immediately, even when the provider is slow.
+    const res = await ask("ابدأ الشرح");
+    const list = events(res.body);
+    expect(list[0]!.type).toBe("user");
+    expect(list.some((e) => e.type === "error")).toBe(false);
+
+    const done = list[list.length - 1]!;
+    expect(done.type).toBe("done");
+    const stored = done.tutorMessage as { content: string };
+    expect(stored.content).toContain("الجمع ضمن الأعداد حتى 999");
+    expect(stored.content).toContain("الجمع مع التجميع");
+    expect(stored.content).toContain("الخطوة القادمة:");
+    expect(done.contextChunkCount).toBe(0);
+
+    const preview = list
+      .filter((e) => e.type === "delta")
+      .map((e) => e.text as string)
+      .join("");
+    expect(preview).toBe(stored.content);
+  });
+
   it("acknowledges the student before the tutor has said anything", async () => {
     const res = await ask("سؤال ثالث");
     const list = events(res.body);

@@ -22,6 +22,8 @@
  *    line is ever resolved against a stored key.
  */
 
+import { stripEmoji } from "../../utils/text.js";
+
 /** Hard limits: a board the room cannot show is a board the model may not send. */
 export const BOARD_MAX_LINES = 6;
 export const BOARD_LINE_MAX_CHARS = 72;
@@ -48,7 +50,10 @@ function isKind(raw: unknown): raw is BoardLineKind {
 
 /** One clean line: whitespace collapsed, trimmed, capped; empty → null. */
 function cleanText(raw: string, maxChars: number): string | null {
-  const text = raw.replace(/\s+/g, " ").trim();
+  // PHASE 187 — the board is part of the reply the student sees. An emoji here
+  // would still be a pictograph on the classroom wall, so it is cleaned with the
+  // same rule as the spoken words.
+  const text = stripEmoji(raw).replace(/\s+/g, " ").trim();
   if (!text) return null;
   // Cut on a word boundary when one is near the cap, so a trimmed line does not
   // end mid-word (the room shows the board as-is; a broken word reads wrong).

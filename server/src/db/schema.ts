@@ -55,6 +55,23 @@ export const students = sqliteTable(
     displayName: text("display_name").notNull(),
     countryId: text("country_id").references(() => countries.id, { onDelete: "set null" }),
     gradeId: text("grade_id").references(() => grades.id, { onDelete: "set null" }),
+    /**
+     * PHASE 185 — «علمي ولا أدبي؟». Secondary grades split into tracks, and a
+     * child must never be enrolled in the other track's subjects. Null on grades
+     * that have no track split (all primary/preparatory grades, G10).
+     */
+    track: text("track"),
+    /**
+     * PHASE 192 — G12 language-school choices. A student studies one edition of
+     * each scientific subject, one first foreign language and one second foreign
+     * language. Null on every grade before G12; the enrollment selector falls
+     * back to the Arabic/English/French baseline when it is null.
+     */
+    studyLanguage: text("study_language"),
+    firstForeignLanguage: text("first_foreign_language"),
+    secondForeignLanguage: text("second_foreign_language"),
+    /** "islamic" or "christian"; G12 enrolls only the chosen religion book. */
+    religion: text("religion"),
     birthYear: integer("birth_year"),
     /** Sharing code a parent enters to link/observe this child (PHASE 18). */
     parentLinkCode: text("parent_link_code"),
@@ -177,9 +194,30 @@ export const curricula = sqliteTable(
     title: text("title").notNull(),
     version: text("version").notNull().default("1.0"),
     isActive: bool("is_active").notNull().default(true),
+    /**
+     * PHASE 185 — null means «مشترك بين المسارين»; otherwise this curriculum is
+     * enrolled only by a child on that track. The student's enrollment rows stay
+     * the authority for what they can open; this column is what creates them.
+     */
+    track: text("track"),
+    /**
+     * PHASE 192 — language edition metadata, only meaningful for G12 today.
+     * `language` is the book's language (ar/en/fr/de/it/es). `variantOf` is the
+     * code of the Arabic base book for the 13 language-medium editions; it is
+     * null for the base book and for independent language books.
+     * `languageRole` marks the non-subject books: first/second foreign language,
+     * the French story/workbook companions, and the Arabic grammar book.
+     */
+    language: text("language"),
+    variantOf: text("variant_of"),
+    languageRole: text("language_role"),
     createdAt: ts("created_at").notNull(),
   },
-  (t) => [uniqueIndex("curricula_code_unique").on(t.code), index("curricula_grade_subject_idx").on(t.gradeId, t.subjectId)],
+  (t) => [
+    uniqueIndex("curricula_code_unique").on(t.code),
+    index("curricula_grade_subject_idx").on(t.gradeId, t.subjectId),
+    index("curricula_variant_of_idx").on(t.variantOf),
+  ],
 );
 
 export const terms = sqliteTable(
@@ -552,6 +590,35 @@ export const assessments = sqliteTable(
     createdAt: ts("created_at").notNull(),
   },
   (t) => [index("assessments_student_idx").on(t.studentId)],
+);
+
+/**
+ * PHASE 182 — «مهامي»: a child's own homework/exam planner.
+ *
+ * This is deliberately child-scoped, not account-scoped: switching the active
+ * student switches the list, and a grade reset wipes the tasks of that child
+ * alone. It stores only what the child typed (title/kind/date/subject) — no
+ * chat text, no grades, no parent-visible transcript.
+ */
+export const studentTasks = sqliteTable(
+  "student_tasks",
+  {
+    id: id(),
+    studentId: text("student_id").notNull().references(() => students.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    kind: text("kind", { enum: ["homework", "exam"] }).notNull().default("homework"),
+    subjectId: text("subject_id").references(() => subjects.id, { onDelete: "set null" }),
+    /** Local calendar date, `YYYY-MM-DD` (no time, no timezone surprises). */
+    dueDate: text("due_date").notNull(),
+    notes: text("notes"),
+    done: bool("done").notNull().default(false),
+    createdAt: ts("created_at").notNull(),
+    updatedAt: ts("updated_at").notNull(),
+  },
+  (t) => [
+    index("student_tasks_student_due_idx").on(t.studentId, t.dueDate),
+    index("student_tasks_student_done_idx").on(t.studentId, t.done),
+  ],
 );
 
 // ---------------------------------------------------------------------------

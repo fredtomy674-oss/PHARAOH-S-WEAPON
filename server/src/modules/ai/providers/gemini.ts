@@ -24,19 +24,26 @@ const TRANSIENT_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
  * on retry) because nothing bounds a hanging attempt. Every bound below is
  * about the STUDENT's patience, not the model's comfort:
  *
- * - ATTEMPT_TIMEOUT_MS: one HTTP attempt that answers nothing in 30s is hung
- *   (measured: good calls finish ≤ 20s, bad ones stall 30–140s). Aborting it
- *   spends the budget on the next attempt instead of the void.
- * - STREAM_STALL_MS: an open stream silent for 20s is cut (fail over before
+ * - ATTEMPT_TIMEOUT_MS: one HTTP attempt that answers nothing in 12s is hung
+ *   (measured on the real G11 prompt: the fast models finish in 1.4–8.8s, while
+ *   a stalled one can sit for 30–75s). A hung attempt is abandoned immediately;
+ *   it must not consume the next model's chance to answer.
+ * - STREAM_STALL_MS: an open stream silent for 10s is cut (fail over before
  *   the first word, honest error after it).
- * - TURN_BUDGET_MS: the whole model walk gets 75s to produce its first word;
+ * - TURN_BUDGET_MS: the whole model walk gets 25s to produce its first word;
  *   past that the student is told honestly instead of watching a spinner die
  *   of old age. A FLOWING stream is exempt (only silence is cut) — cutting a
  *   reply the student is already reading would be worse than a slow finish.
+ *
+ * PHASE 186 — the old 30s/20s/75s bounds made a bad first attempt look like a
+ * frozen app: measured in a real G11 session, 73.7s passed before the first
+ * word because two 30s primary attempts finished the budget before a fallback
+ * answered. The primary is now a faster model, and a timed-out attempt fails
+ * over at once instead of being retried into the void.
  */
-const ATTEMPT_TIMEOUT_MS = 30_000;
-const STREAM_STALL_MS = 20_000;
-const TURN_BUDGET_MS = 75_000;
+const ATTEMPT_TIMEOUT_MS = 12_000;
+const STREAM_STALL_MS = 10_000;
+const TURN_BUDGET_MS = 25_000;
 
 /**
  * Attempts per call, the first one included. Three is the point where a busy
@@ -114,8 +121,10 @@ async function postWithRetry(
       });
     } catch (err) {
       clearTimeout(timer);
-      // A hung socket aborts into our hands: transient, spend the next attempt.
-      if (isAbortError(err)) continue;
+      // A hung socket is not a blip worth repeating: retrying it would spend
+      // the student's whole budget on the same silence. Return null so the
+      // caller can fail over to the next model immediately (PHASE 186).
+      if (isAbortError(err)) break;
       throw err;
     }
     clearTimeout(timer);
@@ -465,11 +474,26 @@ export class GeminiLLMProvider implements LLMProvider {
     let text = "";
     let inputTokens = 0;
     let outputTokens = 0;
+    // PHASE 186 — an open stream is not the same thing as a reply. Gemini can
+    // hold the connection and send usage/empty frames for tens of seconds while
+    // the first visible word is still far away; the per-frame stall gate below
+    // never fires because those frames keep arriving. Bound the *first word*
+    // separately, and never let a late model start past the whole turn budget.
+    const firstWordBy = Math.min(Date.now() + ATTEMPT_TIMEOUT_MS, started + TURN_BUDGET_MS);
     const frames = readSseData(res.body)[Symbol.asyncIterator]();
     for (;;) {
+      if (!text && Date.now() >= firstWordBy) {
+        throw Errors.serviceUnavailable("المعلّم اتأخر في الرد — حاول مرة أخرى", "AI_UPSTREAM_BUSY", {
+          firstWordTimeout: true,
+          model,
+        });
+      }
       let clearGate!: () => void;
+      // Before the first visible word, wait only until the first-word deadline;
+      // a steady drip of empty/usage frames must not extend the silence past it.
+      const gateMs = text ? stallMs : Math.max(1, Math.min(stallMs, firstWordBy - Date.now()));
       const gate = new Promise<typeof STALLED>((resolve) => {
-        const timer = setTimeout(() => resolve(STALLED), stallMs);
+        const timer = setTimeout(() => resolve(STALLED), gateMs);
         clearGate = () => clearTimeout(timer);
       });
       // A rejected loser would be an unhandled rejection: the stall is the

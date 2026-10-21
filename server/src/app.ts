@@ -21,6 +21,7 @@ import { parentRoutes } from "./modules/parent/routes.js";
 import { subscriptionRoutes } from "./modules/subscription/routes.js";
 import { achievementsRoutes } from "./modules/achievements/routes.js";
 import { studentsRoutes } from "./modules/students/routes.js";
+import { tasksRoutes } from "./modules/tasks/routes.js";
 import { lastClientBuild, recordClientBuild } from "./clientBuilds.js";
 
 export interface BuildAppOptions {
@@ -181,6 +182,8 @@ export async function buildApp(db: Db, opts: BuildAppOptions = {}): Promise<Fast
       await api.register(parentRoutes, { prefix: "/parent" });
       await api.register(subscriptionRoutes, { prefix: "/me" });
       await api.register(achievementsRoutes, { prefix: "/achievements" });
+      // PHASE 182 — the child's own homework/exam planner.
+      await api.register(tasksRoutes, { prefix: "/tasks" });
       await api.register(practiceRoutes, { prefix: "/practice" });
       // PHASE 160 (W5) — the lesson's six study sources (deterministic, cached).
       await api.register(sourcesRoutes, { prefix: "/lessons" });

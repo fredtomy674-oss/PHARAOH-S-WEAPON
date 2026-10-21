@@ -9,7 +9,7 @@ import { describe, expect, it } from "vitest";
 import { ReplyRelay, TutorReplyStream } from "../../src/modules/tutor/responseStream.js";
 
 const REPLY = {
-  content: "قابلية القسمة: العدد يقبل القسمة على 2 إذا كان رقم آحاده زوجيًا.\nمثال: 102 يقبل القسمة على 2 ✅",
+  content: "قابلية القسمة: العدد يقبل القسمة على 2 إذا كان رقم آحاده زوجيًا.\nمثال: 102 يقبل القسمة على 2",
   parts: [{ type: "text", text: "…" }],
   assessment: { conceptsTouched: ["قابلية القسمة"], confidence: 0.9 },
 };
@@ -142,6 +142,17 @@ describe("ReplyRelay (what the student actually sees)", () => {
   it("shows the whole reply, exactly once, in order", async () => {
     const { shown } = await relay(chunkings(REPLY_JSON, 9)[0]!);
     expect(shown).toBe(REPLY.content);
+  });
+
+  it("never streams a pictograph into the room (PHASE 187)", async () => {
+    const raw = JSON.stringify({
+      content: "أهلاً 👋 يا بطل.\n✅ صح!\n💡 **تلميح:**\nراجع الخطوة.",
+    });
+    const { shown } = await relay([raw]);
+    expect(shown).toContain("أهلاً يا بطل.");
+    expect(shown).toContain("صح!");
+    expect(shown).toContain("تلميح:");
+    expect(shown).not.toMatch(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}]/u);
   });
 
   it("holds back the tail so a short reply is not shown twice", async () => {

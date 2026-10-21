@@ -26,9 +26,16 @@ import type { SpeechLanguage, SpeechProvider, SpeechRequest } from "../types.js"
  * what keeps that a configuration change and not a rewrite.
  */
 
-/** One voice per reply language (D-042): the lesson's language is heard. */
+/**
+ * One voice per reply language (D-042): the lesson's language is heard.
+ *
+ * PHASE 187 — Arabic uses Shakir, the owner's choice after hearing the same
+ * real G11 reply in the three available Egyptian voices. It is a male teacher
+ * voice, closer to the role than the previous Salma default, and it reads the
+ * light tashkeel the tutor now writes.
+ */
 export const EDGE_VOICES: Record<SpeechLanguage, string> = {
-  ar: "ar-EG-SalmaNeural",
+  ar: "ar-EG-ShakirNeural",
   en: "en-US-AriaNeural",
   fr: "fr-FR-DeniseNeural",
   de: "de-DE-KatjaNeural",
@@ -36,6 +43,24 @@ export const EDGE_VOICES: Record<SpeechLanguage, string> = {
 
 /** MP3: every browser the room supports plays it, and WebAudio decodes it. */
 export const EDGE_MIME = "audio/mpeg";
+
+/**
+ * PHASE 188 — a small, deliberate prosody for the teacher's voice.
+ *
+ * Edge's Read Aloud endpoint is a read-aloud engine, not a conversational one;
+ * the owner's remaining complaint is that Shakir sounds hurried and flat. A
+ * slight slow-down and a touch of lower pitch make the same neural voice read
+ * like a teacher explaining rather than a newsreader racing a script. The
+ * values are intentionally conservative: a large rate/pitch change is the
+ * fastest way to make a neural voice sound *more* synthetic, not less. The
+ * other languages keep the provider's neutral defaults.
+ */
+export const EDGE_PROSODY: Record<SpeechLanguage, { rate: string; pitch: string }> = {
+  ar: { rate: "-4%", pitch: "-2Hz" },
+  en: { rate: "0%", pitch: "0Hz" },
+  fr: { rate: "0%", pitch: "0Hz" },
+  de: { rate: "0%", pitch: "0Hz" },
+};
 
 /** How long the WebSocket handshake may take before the fallback takes over. */
 const EDGE_CONNECT_TIMEOUT_MS = 10_000;
@@ -49,7 +74,10 @@ export interface EdgeAudioStream {
 
 export interface EdgeTtsConnection {
   setMetadata(voice: string, format: OUTPUT_FORMAT): Promise<void>;
-  toStream(text: string): { audioStream: EdgeAudioStream };
+  toStream(
+    text: string,
+    prosody?: { rate?: string; pitch?: string; volume?: string },
+  ): { audioStream: EdgeAudioStream };
   close(): void;
 }
 
@@ -67,7 +95,7 @@ export class EdgeSpeechProvider implements SpeechProvider {
     const tts = this.createTts();
     try {
       await tts.setMetadata(EDGE_VOICES[request.language], OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-      const audio = await collectAudio(tts.toStream(request.text).audioStream);
+      const audio = await collectAudio(tts.toStream(request.text, EDGE_PROSODY[request.language]).audioStream);
       if (audio.length === 0) {
         throw Errors.serviceUnavailable("عاد الصوت فارغًا من مزوّد edge", "SPEECH_UNAVAILABLE");
       }

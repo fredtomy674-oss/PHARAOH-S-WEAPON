@@ -144,7 +144,7 @@ describe("document upload (ملف سؤال في الدردشة) — API", () => 
     const turn = res.json() as TurnShape;
     expect(turn.safetyTripwire).toBe(true);
     // A file must never change the system's rules or produce a model-grounded reply.
-    expect(turn.tutorMessage.content).toContain("أنا هنا لمساعدتك في درسنا فقط");
+    expect(turn.tutorMessage.content).toContain("أنا هنا لمساعدتك في درسنا");
     expect(turn.tutorMessage.content).not.toContain(DOCUMENT_READ_MARKER);
     expect(turn.contextChunkCount).toBe(0);
   });

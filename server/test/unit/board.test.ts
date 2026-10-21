@@ -76,6 +76,20 @@ describe("sanitizeBoard", () => {
     expect(board!.title!.startsWith("عنوان طويل")).toBe(true);
   });
 
+  it("removes pictographs from the title and lines (PHASE 187)", () => {
+    const board = sanitizeBoard({
+      title: "خلاصة ✅",
+      lines: ["نبدأ 💡 بالمثال", { kind: "answer", text: "النتيجة 42 🎯" }],
+    });
+    expect(board).toEqual({
+      title: "خلاصة",
+      lines: [
+        { kind: "point", text: "نبدأ بالمثال" },
+        { kind: "answer", text: "النتيجة 42" },
+      ],
+    });
+  });
+
   it("drops empty lines and returns null when nothing drawable remains", () => {
     expect(sanitizeBoard({ title: "  ", lines: ["   ", { kind: "point", text: "" }, 42] })).toBeNull();
     expect(sanitizeBoard({ lines: [] })).toBeNull();

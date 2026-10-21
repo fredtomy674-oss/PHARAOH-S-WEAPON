@@ -136,6 +136,21 @@ describe("practice plan (GET /api/practice/plan) — PHASE 25", () => {
     expect(plan[0]!.availableQuestions).toBe(0); // tracked, but no enrollment → nothing counts
   });
 
+  it("returns a short first page with honest totals for Home (PHASE 182)", async () => {
+    const res = await api.app.inject({ method: "GET", url: "/api/practice/plan?limit=2", headers: csrfHeaders(student) });
+    expect(res.statusCode).toBe(200);
+    const body = res.json() as { plan: PlanRow[]; total: number; dueCount: number };
+    expect(body.plan).toHaveLength(2);
+    expect(body.total).toBe(3);
+    expect(body.dueCount).toBeGreaterThanOrEqual(0);
+    expect(body.dueCount).toBeLessThanOrEqual(3);
+
+    const all = await api.app.inject({ method: "GET", url: "/api/practice/plan", headers: csrfHeaders(student) });
+    const full = all.json() as { plan: PlanRow[]; total: number };
+    expect(full.plan).toHaveLength(3);
+    expect(full.total).toBe(3);
+  });
+
   it("blocks parents from the plan endpoint", async () => {
     const res = await api.app.inject({ method: "GET", url: "/api/practice/plan", headers: csrfHeaders(parent) });
     expect(res.statusCode).toBe(403);

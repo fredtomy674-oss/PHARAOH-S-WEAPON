@@ -34,6 +34,8 @@ import { resolveTutorLanguage } from "../tutor/language.js";
 import { parseImageDataUrl } from "./attachments.js";
 import { parseDocumentDataUrl } from "./documents.js";
 import { stripMarkdownForSpeech } from "../ai/speech/stripMarkdown.js";
+import { PEDAGOGICAL_CLOSE_LABELS } from "../tutor/pedagogicalClose.js";
+import { applyPronunciation } from "../tutor/pronunciation.js";
 import { parseStoredWidgets, PinPlacementSchema, widgetsForWire, type NumberLineView } from "../tutor/widgets.js";
 
 export interface StartSessionInput {
@@ -470,7 +472,7 @@ export class SessionService {
     onPieceFailure?: (reason: unknown) => void,
   ): ProgressNarrator {
     return new ProgressNarrator({
-      speak: (text) => this.speech.synthesize({ text, language }),
+      speak: (text) => this.speech.synthesize({ text: applyPronunciation(text, language), language }),
       emit,
       onPieceFailure,
     });
@@ -658,6 +660,49 @@ export class SessionService {
       });
     }
 
+    // PHASE 186 — the start tap is answered from the stored lesson roadmap.
+    // This is deliberately before the vision/document branch: the start button
+    // never carries an attachment, and a real question that happens to say the
+    // same words still has an attachment-free path here. No retrieval, no model,
+    // no daily-budget token spend — just the teacher opening the lesson.
+    if (content === LESSON_START_COMMAND && !image && !ink && !document && !pin) {
+      const intro = lessonOpening(
+        breadcrumb.lesson.title,
+        lessonConcepts.map((c) => c.title),
+      );
+      // Let the room paint the words immediately. The stored `done` event below
+      // repeats the same text, which is what the client keeps.
+      await hooks.onDelta?.(intro);
+      const introMessage = (
+        await this.db.db
+          .insert(messages)
+          .values({
+            id: newId("msg"),
+            sessionId: session.id,
+            role: "tutor",
+            kind: "text",
+            content: intro,
+            createdAt: new Date(),
+          })
+          .returning()
+      )[0]!;
+      return {
+        userMessage: { ...userMessage, attachments: [] },
+        tutorMessage: {
+          ...withoutQuestionAnswer(introMessage),
+          bookPages: parseBookPages(introMessage.bookPages),
+          widgets: widgetsForWire(parseStoredWidgets(introMessage.widgets)),
+          teachingAction: parseTeachingActionStored(introMessage.teachingAction),
+          board: boardForWire(parseStoredBoard(introMessage.board)),
+        },
+        contextChunkCount: 0,
+        citedBookPages: [],
+        remainingBudget: await this.remainingDaily(studentRow.id, userIdOf(studentRow)),
+        safetyTripwire: false,
+        ocrUsed,
+      };
+    }
+
     // PHASE 50/W2 — an ink turn reaches the model as a picture too: the bytes
     // are the board with the student's marks on it, which is exactly what the
     // tutor needs to see. It is one vision input, not a photo plus an image.
@@ -799,7 +844,10 @@ export class SessionService {
     const plan = await this.planSpeech(sessionId, studentId, messageId);
     // PHASE 53 — spoken words, not syntax: the stored reply may carry **bold**
     // and lists for the eye, which the voice must not read aloud.
-    return this.speech.synthesize({ text: stripMarkdownForSpeech(plan.content), language: plan.language });
+    return this.speech.synthesize({
+      text: applyPronunciation(stripMarkdownForSpeech(plan.content), plan.language),
+      language: plan.language,
+    });
   }
 
   /**
@@ -823,8 +871,9 @@ export class SessionService {
    * response (once bytes are on the wire there is no status code left to send, so
    * a wrong id has to arrive as an ordinary 404 the client can fall back from).
    * Ids only, never text (D-044): the student can never make the paid voice say
-   * something that is not in his own transcript, and the words spoken are exactly
-   * the words on the bubble.
+   * something that is not in his own transcript. The narrator may apply the
+   * curated pronunciation layer for the ear (PHASE 188), but the content is
+   * always the stored reply.
    *
    * One rule, three callers — this, the buffered 🔊 route, and the turn's own
    * narrator — so a reply can never be read in two different dialects.
@@ -1084,6 +1133,32 @@ function inkBookName(inkPage: number | undefined): string {
   return inkPage === undefined ? "رسم-على-السبورة.jpg" : `صفحة-${inkPage}-مُعلَّمة.jpg`;
 }
 
+
+/**
+ * PHASE 186 — the first tap must answer before the student can doubt the app.
+ *
+ * The start button sends this exact sentence. It used to take a full tutor turn:
+ * retrieval, prompt assembly and a model that can stall for a minute. But the
+ * lesson's printed roadmap is already stored, and the opening is a *roadmap*,
+ * not a graded answer — so it is composed here, instantly, from the same
+ * concept titles the model receives. The next turn still goes through the
+ * tutor; this only removes the cold-start wait.
+ */
+const LESSON_START_COMMAND = "ابدأ الشرح";
+
+export function lessonOpening(title: string, conceptTitles: string[]): string {
+  const topics = conceptTitles.map((t) => t.trim()).filter((t) => t.length > 0).slice(0, 4);
+  if (topics.length === 0) {
+    return `بُصّ يا بطل، درسنا النهارده «${title}». ${PEDAGOGICAL_CLOSE_LABELS.ar}: اكتب سؤالك الأول عن الدرس في سطر واحد، وأنا سأقرأه وأبدأ معك من نقطة فهمك.`;
+  }
+  const roadmap = topics.map((topic, i) => `${i + 1}. ${topic}`).join("\n");
+  return [
+    `بُصّ يا بطل، درسنا النهارده «${title}». من أهم محاوره:`,
+    roadmap,
+    "",
+    `نبدأ بأوّل فكرة: «${topics[0]}». ${PEDAGOGICAL_CLOSE_LABELS.ar}: اكتب في دفترك ما تعرفه عن الفكرة الأولى في سطرين، وأنا سأقرأه وأصححه معك قبل أن نبدأ الشرح.`,
+  ].join("\n");
+}
 
 function mapKind(reply: { parts?: Array<{ type: "text" | "hint" | "question" | "example" | "widget" }> }): "text" | "hint" | "question" | "example" {
   const hint = reply.parts?.find((p) => p.type === "hint");

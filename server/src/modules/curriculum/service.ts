@@ -14,6 +14,7 @@ import {
 } from "../../db/schema.js";
 import { Errors } from "../../utils/errors.js";
 import { newId } from "../../utils/ids.js";
+import { sortTrackCodes, trackOption, type TrackOption } from "./tracks.js";
 
 export type CurriculumBreadcrumb = {
   lesson: typeof lessons.$inferSelect;
@@ -46,9 +47,32 @@ export class CurriculumService {
    * least one active curriculum for that grade come back: the picker must show
    * what the grade actually teaches, not the whole catalog (every system and
    * country shares the subjects table). Without a grade, the full catalog.
+   *
+   * PHASE 185 — when a studentId is supplied, the list is narrowed to that
+   * child's active enrollments. This is what keeps a literature student from
+   * seeing chemistry (or a science student from seeing history) even though
+   * both curricula hang under the same grade.
    */
-  async listSubjects(gradeId?: string) {
+  async listSubjects(gradeId?: string, studentId?: string) {
     if (!gradeId) return this.db.db.select().from(subjects).orderBy(asc(subjects.nameAr));
+    if (studentId) {
+      return this.db.db
+        .selectDistinct({ id: subjects.id, code: subjects.code, name: subjects.name, nameAr: subjects.nameAr })
+        .from(subjects)
+        .innerJoin(
+          curricula,
+          and(eq(curricula.subjectId, subjects.id), eq(curricula.gradeId, gradeId), eq(curricula.isActive, true)),
+        )
+        .innerJoin(
+          curriculumEnrollments,
+          and(
+            eq(curriculumEnrollments.curriculumId, curricula.id),
+            eq(curriculumEnrollments.studentId, studentId),
+            eq(curriculumEnrollments.isActive, true),
+          ),
+        )
+        .orderBy(asc(subjects.nameAr));
+    }
     return this.db.db
       .selectDistinct({ id: subjects.id, code: subjects.code, name: subjects.name, nameAr: subjects.nameAr })
       .from(subjects)
@@ -59,12 +83,43 @@ export class CurriculumService {
       .orderBy(asc(subjects.nameAr));
   }
 
-  async listCurricula(gradeId: string, subjectId: string) {
+  async listCurricula(gradeId: string, subjectId: string, studentId?: string) {
+    if (studentId) {
+      const rows = await this.db.db
+        .select({ curriculum: curricula })
+        .from(curricula)
+        .innerJoin(
+          curriculumEnrollments,
+          and(
+            eq(curriculumEnrollments.curriculumId, curricula.id),
+            eq(curriculumEnrollments.studentId, studentId),
+            eq(curriculumEnrollments.isActive, true),
+          ),
+        )
+        .where(and(eq(curricula.gradeId, gradeId), eq(curricula.subjectId, subjectId), eq(curricula.isActive, true)))
+        .orderBy(asc(curricula.createdAt));
+      return rows.map((row) => row.curriculum);
+    }
     return this.db.db
       .select()
       .from(curricula)
       .where(and(eq(curricula.gradeId, gradeId), eq(curricula.subjectId, subjectId), eq(curricula.isActive, true)))
       .orderBy(asc(curricula.createdAt));
+  }
+
+  /**
+   * PHASE 185 — the tracks a grade actually offers, derived from its active
+   * curricula. Empty for all grades before Secondary-2.
+   */
+  async listTrackOptions(gradeId: string): Promise<TrackOption[]> {
+    const rows = await this.db.db
+      .selectDistinct({ track: curricula.track })
+      .from(curricula)
+      .where(and(eq(curricula.gradeId, gradeId), eq(curricula.isActive, true)));
+    const codes = rows
+      .map((row) => row.track)
+      .filter((track): track is string => Boolean(track));
+    return sortTrackCodes(codes).map(trackOption);
   }
 
   async listTerms(curriculumId: string) {

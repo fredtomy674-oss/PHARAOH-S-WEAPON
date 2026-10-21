@@ -1,5 +1,6 @@
 import { cyrb128, sha256Hex } from "../../../utils/ids.js";
 import { readReplyLanguageTag, type TutorLanguage } from "../../tutor/language.js";
+import { PEDAGOGICAL_CLOSE_LABELS } from "../../tutor/pedagogicalClose.js";
 import type { DocumentInput, EmbeddingProvider, EmbeddingResponse, LLMProvider, LLMResponse, LLMRequest, OcrProvider, OcrRequest, OcrResponse } from "../types.js";
 
 const MOCK_DIM = 64;
@@ -122,7 +123,7 @@ export class MockLLMProvider implements LLMProvider {
     }
 
     if (request.json) {
-      const tutorText = buildTutorText({ user: lastUser, context, images, documents, language });
+      const tutorText = withMockClose(buildTutorText({ user: lastUser, context, images, documents, language }), language);
       // PHASE 51 — the offline tutor draws a number line on demand (the E2E and
       // API suites exercise the whole widget loop with zero keys): asking for
       // «خط الأعداد» gets a real line with a hidden key, and a turn carrying a
@@ -145,7 +146,7 @@ export class MockLLMProvider implements LLMProvider {
       return { content, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(content), latencyMs: Date.now() - started };
     }
 
-    const body = buildTutorText({ user: lastUser, context, images, documents, language });
+    const body = withMockClose(buildTutorText({ user: lastUser, context, images, documents, language }), language);
     return { content: body, model: "mock-tutor", inputTokens: estimateTokens(system + lastUser), outputTokens: estimateTokens(body), latencyMs: Date.now() - started };
   }
 
@@ -213,6 +214,23 @@ export const FRENCH_REPLY_MARKER = "Je vais expliquer cette leçon en français"
 export const IMAGE_READ_MARKER_DE = "Ich habe das angehängte Bild gelesen";
 export const DOCUMENT_READ_MARKER_DE = "Ich habe die angehängte Datei gelesen";
 export const GERMAN_REPLY_MARKER = "Ich werde diese Lektion auf Deutsch erklären";
+
+/**
+ * PHASE 188 — the offline tutor obeys the same closing contract as the real
+ * one. Keeping the marker here means the streamed preview and the stored reply
+ * are identical (the deterministic close in the engine only appends when the
+ * model forgot), and the E2E suite exercises the real shape.
+ */
+const MOCK_CLOSE: Record<TutorLanguage, string> = {
+  ar: `${PEDAGOGICAL_CLOSE_LABELS.ar}: اكتب الفكرة التي فهمتها في سطر واحد، وأنا سأراجعها معك.`,
+  en: `${PEDAGOGICAL_CLOSE_LABELS.en}: write the idea you understood in one sentence, and I will review it with you.`,
+  fr: `${PEDAGOGICAL_CLOSE_LABELS.fr} : écris en une phrase l'idée que tu as comprise, et je la relirai avec toi.`,
+  de: `${PEDAGOGICAL_CLOSE_LABELS.de}: Schreibe die Idee, die du verstanden hast, in einem Satz, und ich gehe sie mit dir noch einmal durch.`,
+};
+
+function withMockClose(text: string, language: TutorLanguage): string {
+  return text.includes(PEDAGOGICAL_CLOSE_LABELS[language]) ? text : `${text}\n\n${MOCK_CLOSE[language]}`;
+}
 
 /** How many leading characters of the extracted document text are echoed into the mock reply. */
 const DOC_SNIPPET_CHARS = 60;
@@ -550,11 +568,11 @@ function buildTutorTextAr(args: {
     ? `\n\nوفقًا لمحتوى الدرس: ${context.slice(0, 900)}`
     : "\n\nلم أستطع الوصول لمحتوى الدرس في الوقت الحالي؛ راجع المدرس المباشر.";
   const imageNote = images.length > 0
-    ? `📸 ${IMAGE_READ_MARKER} (${images.length}) — سأشرح حلها اعتمادًا على درسنا خطوة بخطوة.`
+    ? `${IMAGE_READ_MARKER} (${images.length}) — سأشرح حلها اعتمادًا على درسنا خطوة بخطوة.`
     : "";
   const doc = documents[0];
   const docNote = doc
-    ? `📄 ${DOCUMENT_READ_MARKER} «${doc.fileName ?? "بدون اسم"}» — قرأته وسأشرح سؤالك اعتمادًا عليه وعلى الدرس. أهم ما ورد فيه: "${doc.text.slice(0, DOC_SNIPPET_CHARS)}".`
+    ? `${DOCUMENT_READ_MARKER} «${doc.fileName ?? "بدون اسم"}» — قرأته وسأشرح سؤالك اعتمادًا عليه وعلى الدرس. أهم ما ورد فيه: "${doc.text.slice(0, DOC_SNIPPET_CHARS)}".`
     : "";
   const parts: string[] = [];
   if (imageNote) parts.push(imageNote);
@@ -566,7 +584,7 @@ function buildTutorTextAr(args: {
   // PHASE 53 — the offline reply exercises the room's formatter like a real
   // one: bold plus a real list (textContent is unchanged by markup, so every
   // text assertion still holds).
-  parts.push("💡 **تلميح:**\n- فكّر في المثال الأول في الدرس\n- أخبرني بما توصلت إليه");
+  parts.push("**تلميح:**\n- فكّر في المثال الأول في الدرس\n- أخبرني بما توصلت إليه");
   parts.push("هل تريد أن أشرح مرة أخرى بطريقة مختلفة، أم ننتقل لسؤال للتأكد من الفهم؟");
   return parts.join("\n\n");
 }
@@ -603,7 +621,7 @@ function mockWidgetVerdict(user: string): string {
   const key = keyMatch ? Number(keyMatch[1]) : NaN;
   if (!Number.isFinite(pin)) return "لم أتبين موضع الدبوس — حرّكه على الخط ثم اضغط تحقق من جديد.";
   if (!Number.isFinite(key)) return `وضع الدبوس عند ${pin} — موضع جيد للبدء! أخبرني: هل هو قبل العدد الذي تفكر فيه أم بعده؟`;
-  if (Math.abs(pin - key) < 1e-9) return `🎯 ${WIDGET_PIN_OK_MARKER}! ممتاز يا بطل — حددت الموضع بدقة. هل ننتقل إلى تحدٍّ جديد؟`;
+  if (Math.abs(pin - key) < 1e-9) return `${WIDGET_PIN_OK_MARKER}! ممتاز يا بطل — حددت الموضع بدقة. هل ننتقل إلى تحدٍّ جديد؟`;
   return pin < key
     ? `محاولة جيدة! ${WIDGET_PIN_RIGHT_MARKER} ثم تحقق مرة أخرى.`
     : `محاولة جيدة! ${WIDGET_PIN_LEFT_MARKER} ثم تحقق مرة أخرى.`;
@@ -650,18 +668,18 @@ function buildTutorTextEn(args: {
     ? `\n\nAccording to the lesson content: ${context.slice(0, 900)}`
     : "\n\nI could not reach the lesson content right now; please check with your teacher.";
   const imageNote = images.length > 0
-    ? `📸 ${IMAGE_READ_MARKER_EN} (${images.length}) — I will explain it step by step using our lesson.`
+    ? `${IMAGE_READ_MARKER_EN} (${images.length}) — I will explain it step by step using our lesson.`
     : "";
   const doc = documents[0];
   const docNote = doc
-    ? `📄 ${DOCUMENT_READ_MARKER_EN} "${doc.fileName ?? "no name"}" — I will use it together with the lesson to answer you. The most important part: "${doc.text.slice(0, DOC_SNIPPET_CHARS)}".`
+    ? `${DOCUMENT_READ_MARKER_EN} "${doc.fileName ?? "no name"}" — I will use it together with the lesson to answer you. The most important part: "${doc.text.slice(0, DOC_SNIPPET_CHARS)}".`
     : "";
   const parts: string[] = [];
   if (imageNote) parts.push(imageNote);
   if (docNote) parts.push(docNote);
   parts.push(`${ENGLISH_REPLY_MARKER}, simply and clearly.`);
   parts.push(`Great question! It belongs to our lesson. Here it is:${contextNote}`);
-  parts.push("💡 **Hint:**\n- Try the first example in the lesson\n- Tell me what you got");
+  parts.push("**Hint:**\n- Try the first example in the lesson\n- Tell me what you got");
   parts.push("Would you like me to explain it again in a different way, or shall we try a quick question to check understanding?");
   return parts.join("\n\n");
 }
@@ -683,18 +701,18 @@ function buildTutorTextFr(args: {
     : "\n\nJe n'ai pas pu accéder au contenu de la leçon pour le moment ; vérifie auprès de ton professeur.";
   const imageNote =
     images.length > 0
-      ? `📸 ${IMAGE_READ_MARKER_FR} (${images.length}) — je vais l'expliquer pas à pas à partir de notre leçon.`
+      ? `${IMAGE_READ_MARKER_FR} (${images.length}) — je vais l'expliquer pas à pas à partir de notre leçon.`
       : "";
   const doc = documents[0];
   const docNote = doc
-    ? `📄 ${DOCUMENT_READ_MARKER_FR} « ${doc.fileName ?? "sans nom"} » — je vais l'utiliser avec la leçon pour te répondre. L'essentiel : « ${doc.text.slice(0, DOC_SNIPPET_CHARS)} ».`
+    ? `${DOCUMENT_READ_MARKER_FR} « ${doc.fileName ?? "sans nom"} » — je vais l'utiliser avec la leçon pour te répondre. L'essentiel : « ${doc.text.slice(0, DOC_SNIPPET_CHARS)} ».`
     : "";
   const parts: string[] = [];
   if (imageNote) parts.push(imageNote);
   if (docNote) parts.push(docNote);
   parts.push(`${FRENCH_REPLY_MARKER}, simplement et clairement.`);
   parts.push(`Bonne question ! Cela fait partie de notre leçon. Voici :${contextNote}`);
-  parts.push("💡 **Indice :**\n- Essaie le premier exemple de la leçon\n- Dis-moi ce que tu as trouvé");
+  parts.push("**Indice :**\n- Essaie le premier exemple de la leçon\n- Dis-moi ce que tu as trouvé");
   parts.push("Veux-tu que je réexplique autrement, ou qu'on essaie une petite question pour vérifier ta compréhension ?");
   return parts.join("\n\n");
 }
@@ -712,18 +730,18 @@ function buildTutorTextDe(args: {
     : "\n\nIch konnte gerade nicht auf den Inhalt der Lektion zugreifen; bitte frag deine Lehrkraft.";
   const imageNote =
     images.length > 0
-      ? `📸 ${IMAGE_READ_MARKER_DE} (${images.length}) — ich erkläre es Schritt für Schritt anhand unserer Lektion.`
+      ? `${IMAGE_READ_MARKER_DE} (${images.length}) — ich erkläre es Schritt für Schritt anhand unserer Lektion.`
       : "";
   const doc = documents[0];
   const docNote = doc
-    ? `📄 ${DOCUMENT_READ_MARKER_DE} „${doc.fileName ?? "ohne Namen"}“ — ich nutze sie zusammen mit der Lektion, um dir zu antworten. Das Wichtigste: „${doc.text.slice(0, DOC_SNIPPET_CHARS)}“.`
+    ? `${DOCUMENT_READ_MARKER_DE} „${doc.fileName ?? "ohne Namen"}“ — ich nutze sie zusammen mit der Lektion, um dir zu antworten. Das Wichtigste: „${doc.text.slice(0, DOC_SNIPPET_CHARS)}“.`
     : "";
   const parts: string[] = [];
   if (imageNote) parts.push(imageNote);
   if (docNote) parts.push(docNote);
   parts.push(`${GERMAN_REPLY_MARKER}, einfach und klar.`);
   parts.push(`Gute Frage! Das gehört zu unserer Lektion. Hier ist es:${contextNote}`);
-  parts.push("💡 **Tipp:**\n- Schau dir das erste Beispiel in der Lektion an\n- Sag mir, was du herausgefunden hast");
+  parts.push("**Tipp:**\n- Schau dir das erste Beispiel in der Lektion an\n- Sag mir, was du herausgefunden hast");
   parts.push("Soll ich es noch einmal anders erklären, oder machen wir eine kurze Frage, um dein Verständnis zu prüfen?");
   return parts.join("\n\n");
 }

@@ -14,7 +14,7 @@ import {
   type SaudiCorpus,
   type TestApi,
 } from "../helpers.js";
-import { answers, learningSessions } from "../../src/db/schema.js";
+import { answers, learningSessions, studentTasks } from "../../src/db/schema.js";
 import { newId } from "../../src/utils/ids.js";
 
 /**
@@ -249,6 +249,17 @@ describe("PHASE 180 — multiple students", () => {
       createdAt: new Date(),
     });
     await api.memory.recordAssessment({ studentId: session.studentId!, conceptId: corpus.conceptAId, correct: true });
+    await api.db.db.insert(studentTasks).values({
+      id: newId("task"),
+      studentId: session.studentId!,
+      title: "واجب قبل تغيير المنهج",
+      kind: "homework",
+      subjectId: corpus.subjectId,
+      dueDate: "2026-10-20",
+      done: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     const changed = await api.app.inject({
       method: "PUT",
@@ -260,12 +271,13 @@ describe("PHASE 180 — multiple students", () => {
     const changedBody = changed.json() as {
       user: { student: { gradeId: string; gradeNameAr: string | null } };
       changed: boolean;
-      deleted: { sessions: number; answers: number };
+      deleted: { sessions: number; answers: number; tasks: number };
     };
     expect(changedBody.changed).toBe(true);
     expect(changedBody.user.student.gradeId).toBe(saudi.gradeId);
     expect(changedBody.deleted.sessions).toBe(1);
     expect(changedBody.deleted.answers).toBe(1);
+    expect(changedBody.deleted.tasks).toBe(1);
 
     const count = (table: string) =>
       Number(
@@ -279,6 +291,7 @@ describe("PHASE 180 — multiple students", () => {
     expect(count("assessments")).toBe(0);
     expect(count("student_memories")).toBe(0);
     expect(count("achievements")).toBe(0);
+    expect(count("student_tasks")).toBe(0);
 
     const enrollments = api.db.sqlite
       .prepare("SELECT curriculum_id AS curriculumId FROM curriculum_enrollments WHERE student_id = ?")

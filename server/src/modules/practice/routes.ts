@@ -40,7 +40,18 @@ export const practiceRoutes: FastifyPluginAsync = async (app) => {
     }
     // PHASE 32 — the plan now reports the student's current daily streak so
     // the practice screen can show «🔥 تعاقب N أيام».
-    return { plan: await app.practice.planFor(auth.student.id), streak: await app.achievements.streakForStudent(auth.student.id) };
+    // PHASE 182 — Home asks for a small first page (`?limit=12`) and still gets
+    // the honest full totals; the dedicated plan screen asks for everything.
+    const all = await app.practice.planFor(auth.student.id);
+    const raw = (request.query as { limit?: unknown } | undefined)?.limit;
+    const numeric = typeof raw === "string" ? Number(raw) : NaN;
+    const limit = Number.isInteger(numeric) && numeric > 0 ? Math.min(numeric, 500) : 0;
+    return {
+      plan: limit > 0 ? all.slice(0, limit) : all,
+      total: all.length,
+      dueCount: all.filter((item) => item.dueForReview).length,
+      streak: await app.achievements.streakForStudent(auth.student.id),
+    };
   });
 
   // PHASE 28 + 30 — self-healing practice: generate one MCQ (kind defaults to

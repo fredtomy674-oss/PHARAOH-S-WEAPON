@@ -19,6 +19,7 @@ import type { AchievementService } from "../achievements/service.js";
 import type { AiService } from "../ai/aiService.js";
 import { Errors } from "../../utils/errors.js";
 import { newId } from "../../utils/ids.js";
+import { stageForLesson } from "../curriculum/bookStage.js";
 import { isDueForReview, sortPlan, type PracticePlanItem } from "./plan.js";
 import {
   groundingPrompt,
@@ -385,7 +386,9 @@ export class PracticeService {
               title: concepts.title,
               lessonId: lessons.id,
               lessonTitle: lessons.title,
+              lessonCode: lessons.code,
               curriculumId: curricula.id,
+              curriculumCode: curricula.code,
               subjectId: subjects.id,
               subjectNameAr: subjects.nameAr,
             })
@@ -405,14 +408,26 @@ export class PracticeService {
     // subject it belongs to; the home uses it to keep the weekly plan concrete.
     const infoByConcept = new Map<
       string,
-      { lessonId: string; lessonTitle: string; subjectId: string | null; subjectNameAr: string | null }
+      {
+        lessonId: string;
+        lessonTitle: string;
+        subjectId: string | null;
+        subjectNameAr: string | null;
+        bookPageStart: number | null;
+        bookPageEnd: number | null;
+      }
     >();
     for (const c of allConcepts) {
+      // PHASE 182 — the plan can name «درس كذا صفحة كذا» without a second
+      // round-trip: the stage map is pure and already loaded for the room.
+      const stage = stageForLesson(c.curriculumCode, c.lessonCode);
       infoByConcept.set(c.conceptId, {
         lessonId: c.lessonId,
         lessonTitle: c.lessonTitle,
         subjectId: c.subjectId,
         subjectNameAr: c.subjectNameAr,
+        bookPageStart: stage?.fromBookPage ?? null,
+        bookPageEnd: stage?.toBookPage ?? null,
       });
     }
     const missingIds = conceptIds.filter((id) => !infoByConcept.has(id));
@@ -429,6 +444,8 @@ export class PracticeService {
           lessonTitle: row.lessonTitle,
           subjectId: null,
           subjectNameAr: null,
+          bookPageStart: null,
+          bookPageEnd: null,
         });
       }
     }
@@ -469,6 +486,8 @@ export class PracticeService {
       title: s.title,
       lessonId: infoByConcept.get(s.conceptId)?.lessonId ?? null,
       lessonTitle: infoByConcept.get(s.conceptId)?.lessonTitle ?? null,
+      bookPageStart: infoByConcept.get(s.conceptId)?.bookPageStart ?? null,
+      bookPageEnd: infoByConcept.get(s.conceptId)?.bookPageEnd ?? null,
       subjectId: infoByConcept.get(s.conceptId)?.subjectId ?? null,
       subjectNameAr: infoByConcept.get(s.conceptId)?.subjectNameAr ?? null,
       mastery: s.mastery,
@@ -495,6 +514,8 @@ export class PracticeService {
         title: c.title,
         lessonId: c.lessonId,
         lessonTitle: c.lessonTitle,
+        bookPageStart: infoByConcept.get(c.conceptId)?.bookPageStart ?? null,
+        bookPageEnd: infoByConcept.get(c.conceptId)?.bookPageEnd ?? null,
         subjectId: c.subjectId,
         subjectNameAr: c.subjectNameAr,
         mastery: 0,

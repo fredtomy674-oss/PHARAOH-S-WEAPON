@@ -6,6 +6,10 @@ import { and, asc, eq } from "drizzle-orm";
 import { openDbAndMigrate } from "./index.js";
 import { AiService } from "../modules/ai/aiService.js";
 import { CurriculumService } from "../modules/curriculum/service.js";
+import {
+  selectCurriculumIds,
+  type G12Choices,
+} from "../modules/curriculum/g12Selection.js";
 import { KnowledgeService } from "../modules/knowledge/service.js";
 import { createVectorStore } from "../modules/rag/factory.js";
 import {
@@ -196,6 +200,203 @@ import {
   isConsistent as isHistoryG10TreeConsistent,
   assertTreeMatchesTheBook as assertHistoryG10TreeMatchesBook,
 } from "./egyptHistoryG10T1.js";
+import {
+  EGYPT_ARABIC_G11_T1_UNITS,
+  arabicG11LessonDocument,
+  isArabicG11TreeConsistent,
+} from "./egyptArabicG11T1.js";
+import {
+  EGYPT_ENGLISH_G11_T1_UNITS,
+  englishG11LessonDocument,
+  isEnglishG11TreeConsistent,
+} from "./egyptEnglishG11T1.js";
+import {
+  EGYPT_CHEMISTRY_G11_T1_UNITS,
+  chemistryG11LessonDocument,
+  isChemistryG11TreeConsistent,
+} from "./egyptChemistryG11T1.js";
+import {
+  EGYPT_HISTORY_G11_T1_UNITS,
+  historyG11LessonDocument,
+  isHistoryG11TreeConsistent,
+} from "./egyptHistoryG11T1.js";
+import {
+  EGYPT_PHYSICS_G11_T1_UNITS,
+  physicsG11LessonDocument,
+  isPhysicsG11TreeConsistent,
+} from "./egyptPhysicsG11T1.js";
+import {
+  EGYPT_PURE_MATH_G11_T1_UNITS,
+  pureMathG11LessonDocument,
+  isPureMathG11TreeConsistent,
+} from "./egyptPureMathG11T1.js";
+import {
+  EGYPT_GENERAL_MATH_G11_T1_UNITS,
+  generalMathG11LessonDocument,
+  isGeneralMathG11TreeConsistent,
+} from "./egyptGeneralMathG11T1.js";
+import {
+  EGYPT_GEOGRAPHY_G11_T1_UNITS,
+  geographyG11LessonDocument,
+  isGeographyG11TreeConsistent,
+} from "./egyptGeographyG11T1.js";
+import {
+  EGYPT_PSYCHOLOGY_G11_T1_UNITS,
+  psychologyG11LessonDocument,
+  isPsychologyG11TreeConsistent,
+} from "./egyptPsychologyG11T1.js";
+import {
+  EGYPT_ISLAMIC_G11_T1_UNITS,
+  islamicG11LessonDocument,
+  isIslamicG11TreeConsistent,
+} from "./egyptIslamicG11T1.js";
+import {
+  EGYPT_CHRISTIAN_G11_T1_UNITS,
+  christianG11LessonDocument,
+  isChristianG11TreeConsistent,
+} from "./egyptChristianG11T1.js";
+import {
+  EGYPT_ICT_G11_T1_UNITS,
+  ictG11LessonDocument,
+  isIctG11TreeConsistent,
+} from "./egyptIctG11T1.js";
+import {
+  EGYPT_CITIZENSHIP_G11_T1_UNITS,
+  citizenshipG11LessonDocument,
+  isCitizenshipG11TreeConsistent,
+} from "./egyptCitizenshipG11T1.js";
+import {
+  EGYPT_ARABIC_STORY_G11_T1_UNITS,
+  arabicStoryG11LessonDocument,
+  isArabicStoryG11TreeConsistent,
+} from "./egyptArabicStoryG11T1.js";
+import {
+  EGYPT_APPLIED_MATH_G11_T1_UNITS,
+  appliedMathG11LessonDocument,
+  isAppliedMathG11TreeConsistent,
+} from "./egyptAppliedMathG11T1.js";
+import {
+  EGYPT_ENGLISH2_G11_T1_UNITS,
+  english2G11LessonDocument,
+  isEnglish2G11TreeConsistent,
+} from "./egyptEnglish2G11T1.js";
+import {
+  EGYPT_FRENCH_G11_T1_UNITS,
+  frenchG11LessonDocument,
+  isFrenchG11TreeConsistent,
+} from "./egyptFrenchG11T1.js";
+import {
+  EGYPT_FRENCH2_G11_T1_UNITS,
+  french2G11LessonDocument,
+  isFrench2G11TreeConsistent,
+} from "./egyptFrench2G11T1.js";
+import {
+  EGYPT_FRENCH_STORY_G11_T1_UNITS,
+  frenchStoryG11LessonDocument,
+  isFrenchStoryG11TreeConsistent,
+} from "./egyptFrenchStoryG11T1.js";
+import {
+  EGYPT_GERMAN_G11_T1_UNITS,
+  germanG11LessonDocument,
+  isGermanG11TreeConsistent,
+} from "./egyptGermanG11T1.js";
+import {
+  EGYPT_ITALIAN_G11_T1_UNITS,
+  italianG11LessonDocument,
+  isItalianG11TreeConsistent,
+} from "./egyptItalianG11T1.js";
+import {
+  EGYPT_SPANISH_G11_T1_UNITS,
+  spanishG11LessonDocument,
+  isSpanishG11TreeConsistent,
+} from "./egyptSpanishG11T1.js";
+import {
+  EGYPT_ARABIC_G12_T1_UNITS,
+  arabicG12LessonDocument,
+  isArabicG12TreeConsistent,
+} from "./egyptArabicG12T1.js";
+import {
+  EGYPT_ARABIC_STORY_G12_T1_UNITS,
+  arabicStoryG12LessonDocument,
+  isArabicStoryG12TreeConsistent,
+} from "./egyptArabicStoryG12T1.js";
+import {
+  EGYPT_ENGLISH_G12_T1_UNITS,
+  englishG12LessonDocument,
+  isEnglishG12TreeConsistent,
+} from "./egyptEnglishG12T1.js";
+import {
+  EGYPT_ISLAMIC_G12_T1_UNITS,
+  islamicG12LessonDocument,
+  isIslamicG12TreeConsistent,
+} from "./egyptIslamicG12T1.js";
+import {
+  EGYPT_CHRISTIAN_G12_T1_UNITS,
+  christianG12LessonDocument,
+  isChristianG12TreeConsistent,
+} from "./egyptChristianG12T1.js";
+import {
+  EGYPT_ICT_G12_T1_UNITS,
+  ictG12LessonDocument,
+  isIctG12TreeConsistent,
+} from "./egyptIctG12T1.js";
+import {
+  EGYPT_NATIONAL_EDUCATION_G12_T1_UNITS,
+  nationalEducationG12LessonDocument,
+  isNationalEducationG12TreeConsistent,
+} from "./egyptNationalEducationG12T1.js";
+import {
+  EGYPT_CHEMISTRY_G12_T1_UNITS,
+  chemistryG12LessonDocument,
+  isChemistryG12TreeConsistent,
+} from "./egyptChemistryG12T1.js";
+import {
+  EGYPT_PHYSICS_G12_T1_UNITS,
+  physicsG12LessonDocument,
+  isPhysicsG12TreeConsistent,
+} from "./egyptPhysicsG12T1.js";
+import {
+  EGYPT_BIOLOGY_G12_T1_UNITS,
+  biologyG12LessonDocument,
+  isBiologyG12TreeConsistent,
+} from "./egyptBiologyG12T1.js";
+import {
+  EGYPT_PURE_MATH_G12_T1_UNITS,
+  pureMathG12LessonDocument,
+  isPureMathG12TreeConsistent,
+} from "./egyptPureMathG12T1.js";
+import {
+  EGYPT_APPLIED_MATH_G12_T1_UNITS,
+  appliedMathG12LessonDocument,
+  isAppliedMathG12TreeConsistent,
+} from "./egyptAppliedMathG12T1.js";
+import {
+  EGYPT_HISTORY_G12_T1_UNITS,
+  historyG12LessonDocument,
+  isHistoryG12TreeConsistent,
+} from "./egyptHistoryG12T1.js";
+import {
+  EGYPT_GEOGRAPHY_G12_T1_UNITS,
+  geographyG12LessonDocument,
+  isGeographyG12TreeConsistent,
+} from "./egyptGeographyG12T1.js";
+import {
+  EGYPT_PSYCHOLOGY_G12_T1_UNITS,
+  psychologyG12LessonDocument,
+  isPsychologyG12TreeConsistent,
+} from "./egyptPsychologyG12T1.js";
+import {
+  EGYPT_STATISTICS_G12_T1_UNITS,
+  statisticsG12LessonDocument,
+  isStatisticsG12TreeConsistent,
+} from "./egyptStatisticsG12T1.js";
+import {
+  EGYPT_NAHW_G12_T1_UNITS,
+  nahwG12LessonDocument,
+  isNahwG12TreeConsistent,
+} from "./egyptNahwG12T1.js";
+import { G12_LANGUAGE_BOOKS } from "./g12Languages.js";
+import { G12_VARIANT_SPECS } from "./g12Variants.js";
 import {
   EGYPT_ICT_G10_AR_T1_UNITS,
   lessonDocument as ictArG10LessonDocument,
@@ -927,7 +1128,16 @@ interface CountrySeedSpec {
    * answer in English (D-042).
    */
   subject?: { code: string; name: string; nameAr: string };
-  curriculum: { code: string; title: string };
+  /** PHASE 185 — null/absent = common to every track in the grade. */
+  curriculum: {
+    code: string;
+    title: string;
+    track?: string | null;
+    /** PHASE 192 — language edition metadata for G12 books. */
+    language?: string | null;
+    variantOf?: string | null;
+    languageRole?: string | null;
+  };
   /**
    * PHASE 43 — the whole curriculum tree. It used to be one term + one unit +
    * a flat lesson list, which is why the seeded "curriculum" was three lessons
@@ -8790,11 +9000,64 @@ async function main(): Promise<void> {
   await seedCountry(db, knowledge, EGYPT_FAMILY_G6_SPEC);
   await seedCountry(db, knowledge, EGYPT_FARMING_G6_SPEC);
   await seedCountry(db, knowledge, EGYPT_LIBRARIES_G6_SPEC);
+  // PHASE 185 — Secondary-2 first slice: common Arabic/English, science
+  // Chemistry, literature History. The grade is created by the first spec.
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHEMISTRY_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_HISTORY_G11_SPEC);
+  // PHASE 189 — core G11 Term 1 completion: science Physics/Pure Math,
+  // literature General Math/Geography/Psychology-Sociology, and the common
+  // Islamic, Christian, ICT, and Citizenship books.
+  await seedCountry(db, knowledge, EGYPT_PHYSICS_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_PURE_MATH_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_GENERAL_MATH_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_GEOGRAPHY_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_PSYCHOLOGY_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CITIZENSHIP_G11_SPEC);
+  // PHASE 190 — G11 story and language batch, plus science-track Applied Math.
+  await seedCountry(db, knowledge, EGYPT_ARABIC_STORY_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_APPLIED_MATH_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH2_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FRENCH_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FRENCH2_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_FRENCH_STORY_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_GERMAN_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ITALIAN_G11_SPEC);
+  await seedCountry(db, knowledge, EGYPT_SPANISH_G11_SPEC);
+  // PHASE 191 — G12 core Term 1: common + science + literature, with no
+  // language-medium duplicates. The grade is created by the first spec.
+  await seedCountry(db, knowledge, EGYPT_ARABIC_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ARABIC_STORY_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ENGLISH_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ISLAMIC_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHRISTIAN_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_ICT_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_NATIONAL_EDUCATION_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_CHEMISTRY_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_PHYSICS_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_BIOLOGY_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_PURE_MATH_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_APPLIED_MATH_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_HISTORY_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_GEOGRAPHY_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_PSYCHOLOGY_G12_SPEC);
+  await seedCountry(db, knowledge, EGYPT_STATISTICS_G12_SPEC);
+  // PHASE 192 — complete the G12 library: first/second foreign languages,
+  // French story and grammar, plus the 13 English/French editions of the
+  // science and mathematics books. Enrollment is filtered by the child's four
+  // choices; the books themselves are seeded once for everybody.
+  for (const spec of EGYPT_G12_EXTRA_SPECS) await seedCountry(db, knowledge, spec);
+  await syncGradeEnrollments(db, curriculum, "grade-11", "G11");
+  await syncGradeEnrollments(db, curriculum, "grade-12", "G12");
   await seedCountry(db, knowledge, SAUDI_SPEC);
   await seedUsers(db, curriculum, egypt);
 
   db.sqlite.close();
-  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Secondary-1 Mathematics Arabic/English/French + Family/Farming/Libraries skills for Grades 4–6) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
+  console.log("✓ Seed complete — Egypt (Math + English + Science + Social Studies + Arabic + ICT + Islamic & Christian Education + Math English + Math French + Secondary-1 Mathematics Arabic/English/French + Family/Farming/Libraries skills for Grades 4–6 + Secondary-2 core Arabic/English/Chemistry/History/Physics/Pure & General Mathematics/Geography/Psychology & Sociology/Islamic/Christian/ICT/Citizenship + Secondary-3 core Arabic/Story/English/Islamic/Christian/ICT/Citizenship/Chemistry/Physics/Biology/Pure & Applied Mathematics/History/Geography/Psychology & Sociology/Statistics, both with tracks) + Saudi Grade-6 Math, demo accounts, RAG corpora ready.");
 }
 
 /**
@@ -8837,10 +9100,43 @@ export async function seedCountry(db: DbHandle, knowledge: KnowledgeService, spe
     created = true;
   }
 
+  const track = spec.curriculum.track ?? null;
+  const language = spec.curriculum.language ?? null;
+  const variantOf = spec.curriculum.variantOf ?? null;
+  const languageRole = spec.curriculum.languageRole ?? null;
   let cur = await db.db.select().from(curricula).where(eq(curricula.code, spec.curriculum.code)).get();
   if (!cur) {
-    cur = { id: newId("cur"), countryId: c.id, educationSystemId: sys.id, gradeId: g.id, subjectId: subj.id, code: spec.curriculum.code, title: spec.curriculum.title, version: "1.0", isActive: true, createdAt: now };
+    cur = {
+      id: newId("cur"),
+      countryId: c.id,
+      educationSystemId: sys.id,
+      gradeId: g.id,
+      subjectId: subj.id,
+      code: spec.curriculum.code,
+      title: spec.curriculum.title,
+      version: "1.0",
+      isActive: true,
+      track,
+      language,
+      variantOf,
+      languageRole,
+      createdAt: now,
+    };
     await db.db.insert(curricula).values(cur);
+    created = true;
+  } else if (
+    cur.track !== track ||
+    cur.language !== language ||
+    cur.variantOf !== variantOf ||
+    cur.languageRole !== languageRole
+  ) {
+    // Re-seeding an existing curriculum after a track/language-edition change
+    // must converge, not leave the old association in place.
+    await db.db
+      .update(curricula)
+      .set({ track, language, variantOf, languageRole })
+      .where(eq(curricula.id, cur.id));
+    cur = { ...cur, track, language, variantOf, languageRole };
     created = true;
   }
   const lessonsMap: Record<string, SeededLesson> = {};
@@ -9280,6 +9576,736 @@ async function ensureDemoOpenQuestions(db: DbHandle, seeded: Seeded, specs: Demo
   }
 }
 
+/**
+ * PHASE 185 — Secondary-2 (G11), first term: the first slice of the new grade.
+ *
+ * The owner starts with G11 T1 and with the literary/scientific split. This
+ * slice registers four official books: Arabic and English as common subjects,
+ * Chemistry for the science track, and History for the literature track. They
+ * are enough to prove the track boundary end-to-end; the remaining G11 books
+ * are added in later batches, never as empty curricula. Each book's tree is
+ * checked before seeding, and every lesson carries an original guide.
+ */
+function buildG11Term(
+  units: typeof EGYPT_ARABIC_G11_T1_UNITS,
+  codePrefix: string,
+  document: (unitIndex: number, lessonIndex: number) => string,
+  check: () => { ok: boolean; problems: string[] },
+  label: string,
+): TermSeedSpec {
+  const result = check();
+  if (!result.ok) throw new Error(`شجرة ${label} غير متسقة:\n- ${result.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: units.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        // Namespaced so codes stay unique across every seeded curriculum.
+        code: `l-g11-${codePrefix}-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: document(ui, li) },
+      })),
+    })),
+  };
+}
+
+/**
+ * PHASE 191 — same tree contract as G11, with its own lesson-code namespace.
+ * Keeping the namespace separate means a G12 lesson can never collide with a
+ * G10/G11 lesson that happens to use the same printed title.
+ */
+function buildG12Term(
+  units: typeof EGYPT_ARABIC_G12_T1_UNITS,
+  codePrefix: string,
+  document: (unitIndex: number, lessonIndex: number) => string,
+  check: () => { ok: boolean; problems: string[] },
+  label: string,
+): TermSeedSpec {
+  const result = check();
+  if (!result.ok) throw new Error(`شجرة ${label} غير متسقة:\n- ${result.problems.join("\n- ")}`);
+  return {
+    code: "term-1",
+    title: "الفصل الدراسي الأول",
+    units: units.map((unit, ui) => ({
+      code: `unit-${ui + 1}`,
+      title: unit.title,
+      lessons: unit.lessons.map((lesson, li) => ({
+        code: `l-g12-${codePrefix}-${lesson.key}`,
+        title: lesson.title,
+        concepts: lesson.concepts,
+        doc: { title: lesson.title, content: document(ui, li) },
+      })),
+    })),
+  };
+}
+
+function makeG12Spec(input: {
+  code: string;
+  subject: { code: string; name: string; nameAr: string };
+  title: string;
+  track?: "science" | "literature";
+  units: typeof EGYPT_ARABIC_G12_T1_UNITS;
+  document: (unitIndex: number, lessonIndex: number) => string;
+  check: () => { ok: boolean; problems: string[] };
+  label: string;
+  prefix: string;
+  language?: string | null;
+  variantOf?: string | null;
+  languageRole?: string | null;
+}): CountrySeedSpec {
+  return {
+    country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+    system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+    grade: { code: "grade-12", name: "Grade 12", nameAr: "الصف الثالث الثانوي", levelOrder: 12 },
+    subject: input.subject,
+    curriculum: {
+      code: input.code,
+      title: input.title,
+      track: input.track ?? null,
+      language: input.language ?? "ar",
+      variantOf: input.variantOf ?? null,
+      languageRole: input.languageRole ?? null,
+    },
+    terms: [buildG12Term(input.units, input.prefix, input.document, input.check, input.label)],
+  };
+}
+
+export const EGYPT_ARABIC_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g11-arabic", title: "اللغة العربية للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_ARABIC_G11_T1_UNITS, "ara", arabicG11LessonDocument, isArabicG11TreeConsistent, "اللغة العربية — ثانية ثانوي")],
+};
+
+export const EGYPT_ENGLISH_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g11-english", title: "اللغة الإنجليزية للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_ENGLISH_G11_T1_UNITS, "eng", englishG11LessonDocument, isEnglishG11TreeConsistent, "English — Secondary 2")],
+};
+
+export const EGYPT_CHEMISTRY_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "chemistry", name: "Chemistry", nameAr: "الكيمياء" },
+  curriculum: { code: "eg-g11-chemistry", title: "الكيمياء للصف الثاني الثانوي", track: "science" },
+  terms: [buildG11Term(EGYPT_CHEMISTRY_G11_T1_UNITS, "chem", chemistryG11LessonDocument, isChemistryG11TreeConsistent, "الكيمياء — ثانية ثانوي")],
+};
+
+export const EGYPT_HISTORY_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "social", name: "Social Studies", nameAr: "الدراسات الاجتماعية" },
+  curriculum: { code: "eg-g11-history", title: "التاريخ للصف الثاني الثانوي", track: "literature" },
+  terms: [buildG11Term(EGYPT_HISTORY_G11_T1_UNITS, "his", historyG11LessonDocument, isHistoryG11TreeConsistent, "التاريخ — ثانية ثانوي")],
+};
+
+/**
+ * PHASE 189 — core G11 Term 1 books, second batch.
+ *
+ * The first slice proved the track boundary. This batch completes the core
+ * subjects for both tracks without adding language-medium duplicates or the
+ * second-language books (those need a student choice before enrollment):
+ * Physics and Pure Mathematics for science; General Mathematics, Development
+ * Geography, and Psychology/Sociology for literature; Islamic/Christian
+ * education, Arabic ICT, and Citizenship as common books. Every tree is checked
+ * before writing and every lesson keeps the official printed head plus an
+ * original guide.
+ */
+export const EGYPT_PHYSICS_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "physics", name: "Physics", nameAr: "الفيزياء" },
+  curriculum: { code: "eg-g11-physics", title: "الفيزياء للصف الثاني الثانوي", track: "science" },
+  terms: [buildG11Term(EGYPT_PHYSICS_G11_T1_UNITS, "phy", physicsG11LessonDocument, isPhysicsG11TreeConsistent, "الفيزياء — ثانية ثانوي")],
+};
+
+export const EGYPT_PURE_MATH_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g11-pure-math", title: "الرياضيات البحتة للصف الثاني الثانوي", track: "science" },
+  terms: [buildG11Term(EGYPT_PURE_MATH_G11_T1_UNITS, "pmath", pureMathG11LessonDocument, isPureMathG11TreeConsistent, "الرياضيات البحتة — ثانية ثانوي")],
+};
+
+export const EGYPT_GENERAL_MATH_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g11-general-math", title: "الرياضيات العامة للصف الثاني الثانوي", track: "literature" },
+  terms: [buildG11Term(EGYPT_GENERAL_MATH_G11_T1_UNITS, "gmath", generalMathG11LessonDocument, isGeneralMathG11TreeConsistent, "الرياضيات العامة — ثانية ثانوي")],
+};
+
+export const EGYPT_GEOGRAPHY_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "geography", name: "Geography", nameAr: "الجغرافيا" },
+  curriculum: { code: "eg-g11-geography", title: "جغرافيا التنمية للصف الثاني الثانوي", track: "literature" },
+  terms: [buildG11Term(EGYPT_GEOGRAPHY_G11_T1_UNITS, "geo", geographyG11LessonDocument, isGeographyG11TreeConsistent, "جغرافيا التنمية — ثانية ثانوي")],
+};
+
+export const EGYPT_PSYCHOLOGY_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "psychology-sociology", name: "Psychology and Sociology", nameAr: "علم النفس والاجتماع" },
+  curriculum: { code: "eg-g11-psychology-sociology", title: "علم النفس والاجتماع للصف الثاني الثانوي", track: "literature" },
+  terms: [buildG11Term(EGYPT_PSYCHOLOGY_G11_T1_UNITS, "psy", psychologyG11LessonDocument, isPsychologyG11TreeConsistent, "علم النفس والاجتماع — ثانية ثانوي")],
+};
+
+export const EGYPT_ISLAMIC_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "islamic-education", name: "Islamic Religious Education", nameAr: "التربية الدينية الإسلامية" },
+  curriculum: { code: "eg-g11-islamic-education", title: "التربية الدينية الإسلامية للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_ISLAMIC_G11_T1_UNITS, "isl", islamicG11LessonDocument, isIslamicG11TreeConsistent, "التربية الدينية الإسلامية — ثانية ثانوي")],
+};
+
+export const EGYPT_CHRISTIAN_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  curriculum: { code: "eg-g11-christian-education", title: "التربية الدينية المسيحية للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_CHRISTIAN_G11_T1_UNITS, "chr", christianG11LessonDocument, isChristianG11TreeConsistent, "التربية الدينية المسيحية — ثانية ثانوي")],
+};
+
+export const EGYPT_ICT_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "ict", name: "Information and Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  curriculum: { code: "eg-g11-ict", title: "تكنولوجيا المعلومات والاتصالات للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_ICT_G11_T1_UNITS, "ict", ictG11LessonDocument, isIctG11TreeConsistent, "تكنولوجيا المعلومات والاتصالات — ثانية ثانوي")],
+};
+
+export const EGYPT_CITIZENSHIP_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "citizenship", name: "Citizenship and Human Rights", nameAr: "المواطنة وحقوق الإنسان" },
+  curriculum: { code: "eg-g11-citizenship", title: "المواطنة وحقوق الإنسان للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_CITIZENSHIP_G11_T1_UNITS, "cit", citizenshipG11LessonDocument, isCitizenshipG11TreeConsistent, "المواطنة وحقوق الإنسان — ثانية ثانوي")],
+};
+
+/**
+ * PHASE 190 — the G11 language and story batch.
+ *
+ * Arabic Story is a common book; Applied Mathematics is the science-track
+ * companion to Pure Mathematics. The language books are registered as common
+ * because the app has no second-language/medium choice yet, matching the
+ * existing G10 behavior: every learner sees the language library, and the
+ * separate enrollment mechanism remains a documented follow-up. The French
+ * workbook is not a standalone curriculum; the G11 grammar entry in the
+ * Ministry index points to the G10 file and is therefore not seeded as G11.
+ */
+export const EGYPT_ARABIC_STORY_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  curriculum: { code: "eg-g11-arabic-story", title: "قصة «وا إسلاماه» للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_ARABIC_STORY_G11_T1_UNITS, "story", arabicStoryG11LessonDocument, isArabicStoryG11TreeConsistent, "قصة وا إسلاماه — ثانية ثانوي")],
+};
+
+export const EGYPT_APPLIED_MATH_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  curriculum: { code: "eg-g11-applied-math", title: "تطبيقات الرياضيات للصف الثاني الثانوي", track: "science" },
+  terms: [buildG11Term(EGYPT_APPLIED_MATH_G11_T1_UNITS, "appmath", appliedMathG11LessonDocument, isAppliedMathG11TreeConsistent, "تطبيقات الرياضيات — ثانية ثانوي")],
+};
+
+export const EGYPT_ENGLISH2_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  curriculum: { code: "eg-g11-english2", title: "اللغة الإنجليزية (لغة أجنبية ثانية) للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_ENGLISH2_G11_T1_UNITS, "eng2", english2G11LessonDocument, isEnglish2G11TreeConsistent, "English as a second foreign language — Secondary 2")],
+};
+
+export const EGYPT_FRENCH_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  curriculum: { code: "eg-g11-french", title: "اللغة الفرنسية (لغة أجنبية أولى) للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_FRENCH_G11_T1_UNITS, "fre", frenchG11LessonDocument, isFrenchG11TreeConsistent, "Français — deuxième année secondaire")],
+};
+
+export const EGYPT_FRENCH2_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  curriculum: { code: "eg-g11-french2", title: "اللغة الفرنسية (لغة أجنبية ثانية) للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_FRENCH2_G11_T1_UNITS, "fre2", french2G11LessonDocument, isFrench2G11TreeConsistent, "Français 2 — deuxième année secondaire")],
+};
+
+export const EGYPT_FRENCH_STORY_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  curriculum: { code: "eg-g11-french-story", title: "قصة La Tulipe Noire للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_FRENCH_STORY_G11_T1_UNITS, "frestory", frenchStoryG11LessonDocument, isFrenchStoryG11TreeConsistent, "La Tulipe Noire — deuxième année secondaire")],
+};
+
+export const EGYPT_GERMAN_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "german", name: "German", nameAr: "اللغة الألمانية" },
+  curriculum: { code: "eg-g11-german", title: "اللغة الألمانية (لغة أجنبية ثانية) للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_GERMAN_G11_T1_UNITS, "ger", germanG11LessonDocument, isGermanG11TreeConsistent, "Deutsch — zweite Sekundarstufe")],
+};
+
+export const EGYPT_ITALIAN_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "italian", name: "Italian", nameAr: "اللغة الإيطالية" },
+  curriculum: { code: "eg-g11-italian", title: "اللغة الإيطالية (لغة أجنبية ثانية) للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_ITALIAN_G11_T1_UNITS, "ita", italianG11LessonDocument, isItalianG11TreeConsistent, "Italiano — seconda classe secondaria")],
+};
+
+export const EGYPT_SPANISH_G11_SPEC: CountrySeedSpec = {
+  country: { code: "eg", name: "Egypt", nameAr: "مصر" },
+  system: { code: "mo-edu", name: "Ministry of Education", nameAr: "وزارة التربية والتعليم", sortOrder: 1 },
+  grade: { code: "grade-11", name: "Grade 11", nameAr: "الصف الثاني الثانوي", levelOrder: 11 },
+  subject: { code: "spanish", name: "Spanish", nameAr: "اللغة الإسبانية" },
+  curriculum: { code: "eg-g11-spanish", title: "اللغة الإسبانية (لغة أجنبية ثانية) للصف الثاني الثانوي" },
+  terms: [buildG11Term(EGYPT_SPANISH_G11_T1_UNITS, "spa", spanishG11LessonDocument, isSpanishG11TreeConsistent, "Español — segundo curso de secundaria")],
+};
+
+/**
+ * PHASE 191 — G12 core Term 1 slice.
+ *
+ * Sixteen official books: the common Arabic/story/English/religious/ICT/national
+ * books, the five science-track books, and the four literature-track books.
+ * Language-medium variants and the second foreign languages are intentionally
+ * left for a later batch because the app still needs a study-medium/choice
+ * mechanism. Every tree is checked before seeding.
+ */
+export const EGYPT_ARABIC_G12_SPEC = makeG12Spec({
+  code: "eg-g12-arabic",
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  title: "اللغة العربية للصف الثالث الثانوي",
+  units: EGYPT_ARABIC_G12_T1_UNITS,
+  document: arabicG12LessonDocument,
+  check: isArabicG12TreeConsistent,
+  label: "اللغة العربية — ثالثة ثانوي",
+  prefix: "ara",
+});
+
+export const EGYPT_ARABIC_STORY_G12_SPEC = makeG12Spec({
+  code: "eg-g12-arabic-story",
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  title: "قصة «الأيام» للصف الثالث الثانوي",
+  units: EGYPT_ARABIC_STORY_G12_T1_UNITS,
+  document: arabicStoryG12LessonDocument,
+  check: isArabicStoryG12TreeConsistent,
+  label: "قصة الأيام — ثالثة ثانوي",
+  prefix: "story",
+});
+
+export const EGYPT_ENGLISH_G12_SPEC = makeG12Spec({
+  code: "eg-g12-english",
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  title: "اللغة الإنجليزية للصف الثالث الثانوي",
+  units: EGYPT_ENGLISH_G12_T1_UNITS,
+  document: englishG12LessonDocument,
+  check: isEnglishG12TreeConsistent,
+  label: "English — Secondary 3",
+  prefix: "eng",
+  language: "en",
+  languageRole: "first",
+});
+
+export const EGYPT_ISLAMIC_G12_SPEC = makeG12Spec({
+  code: "eg-g12-islamic-education",
+  subject: { code: "islamic-education", name: "Islamic Religious Education", nameAr: "التربية الدينية الإسلامية" },
+  title: "التربية الدينية الإسلامية للصف الثالث الثانوي",
+  units: EGYPT_ISLAMIC_G12_T1_UNITS,
+  document: islamicG12LessonDocument,
+  check: isIslamicG12TreeConsistent,
+  label: "التربية الدينية الإسلامية — ثالثة ثانوي",
+  prefix: "isl",
+});
+
+export const EGYPT_CHRISTIAN_G12_SPEC = makeG12Spec({
+  code: "eg-g12-christian-education",
+  subject: { code: "christian-education", name: "Christian Religious Education", nameAr: "التربية الدينية المسيحية" },
+  title: "التربية الدينية المسيحية للصف الثالث الثانوي",
+  units: EGYPT_CHRISTIAN_G12_T1_UNITS,
+  document: christianG12LessonDocument,
+  check: isChristianG12TreeConsistent,
+  label: "التربية الدينية المسيحية — ثالثة ثانوي",
+  prefix: "chr",
+});
+
+export const EGYPT_ICT_G12_SPEC = makeG12Spec({
+  code: "eg-g12-ict",
+  subject: { code: "ict", name: "Information and Communication Technology", nameAr: "تكنولوجيا المعلومات والاتصالات" },
+  title: "تكنولوجيا المعلومات والاتصالات للصف الثالث الثانوي",
+  units: EGYPT_ICT_G12_T1_UNITS,
+  document: ictG12LessonDocument,
+  check: isIctG12TreeConsistent,
+  label: "تكنولوجيا المعلومات والاتصالات — ثالثة ثانوي",
+  prefix: "ict",
+});
+
+export const EGYPT_NATIONAL_EDUCATION_G12_SPEC = makeG12Spec({
+  code: "eg-g12-national-education",
+  subject: { code: "national-education", name: "National Education", nameAr: "التربية الوطنية" },
+  title: "التربية الوطنية للصف الثالث الثانوي",
+  units: EGYPT_NATIONAL_EDUCATION_G12_T1_UNITS,
+  document: nationalEducationG12LessonDocument,
+  check: isNationalEducationG12TreeConsistent,
+  label: "التربية الوطنية — ثالثة ثانوي",
+  prefix: "nat",
+});
+
+export const EGYPT_CHEMISTRY_G12_SPEC = makeG12Spec({
+  code: "eg-g12-chemistry",
+  subject: { code: "chemistry", name: "Chemistry", nameAr: "الكيمياء" },
+  title: "الكيمياء للصف الثالث الثانوي",
+  track: "science",
+  units: EGYPT_CHEMISTRY_G12_T1_UNITS,
+  document: chemistryG12LessonDocument,
+  check: isChemistryG12TreeConsistent,
+  label: "الكيمياء — ثالثة ثانوي",
+  prefix: "chem",
+});
+
+export const EGYPT_PHYSICS_G12_SPEC = makeG12Spec({
+  code: "eg-g12-physics",
+  subject: { code: "physics", name: "Physics", nameAr: "الفيزياء" },
+  title: "الفيزياء للصف الثالث الثانوي",
+  track: "science",
+  units: EGYPT_PHYSICS_G12_T1_UNITS,
+  document: physicsG12LessonDocument,
+  check: isPhysicsG12TreeConsistent,
+  label: "الفيزياء — ثالثة ثانوي",
+  prefix: "phy",
+});
+
+export const EGYPT_BIOLOGY_G12_SPEC = makeG12Spec({
+  code: "eg-g12-biology",
+  subject: { code: "biology", name: "Biology", nameAr: "الأحياء" },
+  title: "الأحياء للصف الثالث الثانوي",
+  track: "science",
+  units: EGYPT_BIOLOGY_G12_T1_UNITS,
+  document: biologyG12LessonDocument,
+  check: isBiologyG12TreeConsistent,
+  label: "الأحياء — ثالثة ثانوي",
+  prefix: "bio",
+});
+
+export const EGYPT_PURE_MATH_G12_SPEC = makeG12Spec({
+  code: "eg-g12-pure-math",
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  title: "الرياضيات البحتة للصف الثالث الثانوي",
+  track: "science",
+  units: EGYPT_PURE_MATH_G12_T1_UNITS,
+  document: pureMathG12LessonDocument,
+  check: isPureMathG12TreeConsistent,
+  label: "الرياضيات البحتة — ثالثة ثانوي",
+  prefix: "pmath",
+});
+
+export const EGYPT_APPLIED_MATH_G12_SPEC = makeG12Spec({
+  code: "eg-g12-applied-math",
+  subject: { code: "math", name: "Mathematics", nameAr: "الرياضيات" },
+  title: "الرياضيات التطبيقية للصف الثالث الثانوي",
+  track: "science",
+  units: EGYPT_APPLIED_MATH_G12_T1_UNITS,
+  document: appliedMathG12LessonDocument,
+  check: isAppliedMathG12TreeConsistent,
+  label: "الرياضيات التطبيقية — ثالثة ثانوي",
+  prefix: "appmath",
+});
+
+export const EGYPT_HISTORY_G12_SPEC = makeG12Spec({
+  code: "eg-g12-history",
+  subject: { code: "history", name: "History", nameAr: "التاريخ" },
+  title: "التاريخ للصف الثالث الثانوي",
+  track: "literature",
+  units: EGYPT_HISTORY_G12_T1_UNITS,
+  document: historyG12LessonDocument,
+  check: isHistoryG12TreeConsistent,
+  label: "التاريخ — ثالثة ثانوي",
+  prefix: "his",
+});
+
+export const EGYPT_GEOGRAPHY_G12_SPEC = makeG12Spec({
+  code: "eg-g12-geography",
+  subject: { code: "geography", name: "Geography", nameAr: "الجغرافيا" },
+  title: "الجغرافيا السياسية للصف الثالث الثانوي",
+  track: "literature",
+  units: EGYPT_GEOGRAPHY_G12_T1_UNITS,
+  document: geographyG12LessonDocument,
+  check: isGeographyG12TreeConsistent,
+  label: "الجغرافيا السياسية — ثالثة ثانوي",
+  prefix: "geo",
+});
+
+export const EGYPT_PSYCHOLOGY_G12_SPEC = makeG12Spec({
+  code: "eg-g12-psychology-sociology",
+  subject: { code: "psychology-sociology", name: "Psychology and Sociology", nameAr: "علم النفس والاجتماع" },
+  title: "علم النفس والاجتماع للصف الثالث الثانوي",
+  track: "literature",
+  units: EGYPT_PSYCHOLOGY_G12_T1_UNITS,
+  document: psychologyG12LessonDocument,
+  check: isPsychologyG12TreeConsistent,
+  label: "علم النفس والاجتماع — ثالثة ثانوي",
+  prefix: "psy",
+});
+
+export const EGYPT_STATISTICS_G12_SPEC = makeG12Spec({
+  code: "eg-g12-statistics",
+  subject: { code: "statistics", name: "Statistics", nameAr: "الإحصاء" },
+  title: "الإحصاء للصف الثالث الثانوي",
+  track: "literature",
+  units: EGYPT_STATISTICS_G12_T1_UNITS,
+  document: statisticsG12LessonDocument,
+  check: isStatisticsG12TreeConsistent,
+  label: "الإحصاء — ثالثة ثانوي",
+  prefix: "stat",
+});
+
+function makeG12LanguageSpec(input: {
+  code: string;
+  subject: { code: string; name: string; nameAr: string };
+  title: string;
+  language: string;
+  role: string;
+  prefix: string;
+  book: (typeof G12_LANGUAGE_BOOKS)[keyof typeof G12_LANGUAGE_BOOKS];
+  track?: "science" | "literature";
+}): CountrySeedSpec {
+  return makeG12Spec({
+    code: input.code,
+    subject: input.subject,
+    title: input.title,
+    track: input.track,
+    units: input.book.UNITS,
+    document: input.book.lessonDocument,
+    check: input.book.isTreeConsistent,
+    label: input.title,
+    prefix: input.prefix,
+    language: input.language,
+    languageRole: input.role,
+  });
+}
+
+export const EGYPT_ENGLISH2_G12_SPEC = makeG12LanguageSpec({
+  code: "eg-g12-english2",
+  subject: { code: "english", name: "English", nameAr: "اللغة الإنجليزية" },
+  title: "اللغة الإنجليزية (لغة أجنبية ثانية) للصف الثالث الثانوي",
+  language: "en",
+  role: "second",
+  prefix: "eng2",
+  book: G12_LANGUAGE_BOOKS.englishSecond,
+});
+
+export const EGYPT_FRENCH_G12_SPEC = makeG12LanguageSpec({
+  code: "eg-g12-french",
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  title: "اللغة الفرنسية (لغة أجنبية أولى) للصف الثالث الثانوي",
+  language: "fr",
+  role: "first",
+  prefix: "fre",
+  book: G12_LANGUAGE_BOOKS.frenchFirst,
+});
+
+export const EGYPT_FRENCH2_G12_SPEC = makeG12LanguageSpec({
+  code: "eg-g12-french2",
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  title: "اللغة الفرنسية (لغة أجنبية ثانية) للصف الثالث الثانوي",
+  language: "fr",
+  role: "second",
+  prefix: "fre2",
+  book: G12_LANGUAGE_BOOKS.frenchSecond,
+});
+
+export const EGYPT_FRENCH_STORY_G12_SPEC = makeG12LanguageSpec({
+  code: "eg-g12-french-story",
+  subject: { code: "french", name: "French", nameAr: "اللغة الفرنسية" },
+  title: "قصة Le Comte de Monte-Cristo للصف الثالث الثانوي",
+  language: "fr",
+  role: "story",
+  prefix: "frestory",
+  book: G12_LANGUAGE_BOOKS.frenchStory,
+});
+
+export const EGYPT_GERMAN_G12_SPEC = makeG12LanguageSpec({
+  code: "eg-g12-german",
+  subject: { code: "german", name: "German", nameAr: "اللغة الألمانية" },
+  title: "اللغة الألمانية (لغة أجنبية ثانية) للصف الثالث الثانوي",
+  language: "de",
+  role: "second",
+  prefix: "ger",
+  book: G12_LANGUAGE_BOOKS.german,
+});
+
+export const EGYPT_ITALIAN_G12_SPEC = makeG12LanguageSpec({
+  code: "eg-g12-italian",
+  subject: { code: "italian", name: "Italian", nameAr: "اللغة الإيطالية" },
+  title: "اللغة الإيطالية (لغة أجنبية ثانية) للصف الثالث الثانوي",
+  language: "it",
+  role: "second",
+  prefix: "ita",
+  book: G12_LANGUAGE_BOOKS.italian,
+});
+
+export const EGYPT_SPANISH_G12_SPEC = makeG12LanguageSpec({
+  code: "eg-g12-spanish",
+  subject: { code: "spanish", name: "Spanish", nameAr: "اللغة الإسبانية" },
+  title: "اللغة الإسبانية (لغة أجنبية ثانية) للصف الثالث الثانوي",
+  language: "es",
+  role: "second",
+  prefix: "spa",
+  book: G12_LANGUAGE_BOOKS.spanish,
+});
+
+export const EGYPT_NAHW_G12_SPEC = makeG12Spec({
+  code: "eg-g12-nahw",
+  subject: { code: "arabic", name: "Arabic", nameAr: "اللغة العربية" },
+  title: "القواعد الأساسية للنحو والصرف للصف الثالث الثانوي",
+  units: EGYPT_NAHW_G12_T1_UNITS,
+  document: nahwG12LessonDocument,
+  check: isNahwG12TreeConsistent,
+  label: "القواعد الأساسية للنحو والصرف — ثالثة ثانوي",
+  prefix: "nahw",
+  languageRole: "grammar",
+});
+
+export const EGYPT_G12_VARIANT_SEED_SPECS: CountrySeedSpec[] = G12_VARIANT_SPECS.map((variant) =>
+  makeG12Spec({
+    code: variant.code,
+    subject: { ...variant.subject },
+    title: variant.title,
+    track: variant.track ?? undefined,
+    units: variant.book.UNITS,
+    document: variant.book.lessonDocument,
+    check: variant.book.isTreeConsistent,
+    label: variant.title,
+    prefix: variant.code.replace("eg-g12-", ""),
+    language: variant.language,
+    variantOf: variant.variantOf,
+  }),
+);
+
+/** Every G12 addition after the core sixteen books. */
+export const EGYPT_G12_EXTRA_SPECS: CountrySeedSpec[] = [
+  EGYPT_ENGLISH2_G12_SPEC,
+  EGYPT_FRENCH_G12_SPEC,
+  EGYPT_FRENCH2_G12_SPEC,
+  EGYPT_FRENCH_STORY_G12_SPEC,
+  EGYPT_GERMAN_G12_SPEC,
+  EGYPT_ITALIAN_G12_SPEC,
+  EGYPT_SPANISH_G12_SPEC,
+  EGYPT_NAHW_G12_SPEC,
+  ...EGYPT_G12_VARIANT_SEED_SPECS,
+];
+
+/**
+ * PHASE 189 — repair existing grade enrollments after new books are added.
+ *
+ * Seeding a new curriculum must not leave an existing child unable to see it.
+ * This is idempotent, only adds common books plus the child's own track, and
+ * never touches the other track's books. New children still go through
+ * StudentsService.gradeCurricula(), which applies the same rule.
+ */
+async function syncGradeEnrollments(
+  db: DbHandle,
+  curriculum: CurriculumService,
+  gradeCode: string,
+  label: string,
+): Promise<void> {
+  const grade = await db.db.select({ id: grades.id, code: grades.code }).from(grades).where(eq(grades.code, gradeCode)).get();
+  if (!grade) return;
+  const learners = await db.db
+    .select({
+      id: students.id,
+      track: students.track,
+      studyLanguage: students.studyLanguage,
+      firstForeignLanguage: students.firstForeignLanguage,
+      secondForeignLanguage: students.secondForeignLanguage,
+      religion: students.religion,
+    })
+    .from(students)
+    .where(eq(students.gradeId, grade.id));
+  const books = await db.db
+    .select({
+      id: curricula.id,
+      code: curricula.code,
+      track: curricula.track,
+      subjectCode: subjects.code,
+      language: curricula.language,
+      variantOf: curricula.variantOf,
+      languageRole: curricula.languageRole,
+    })
+    .from(curricula)
+    .innerJoin(subjects, eq(curricula.subjectId, subjects.id))
+    .where(and(eq(curricula.gradeId, grade.id), eq(curricula.isActive, true)));
+
+  const isG12 = grade.code === "grade-12";
+  let added = 0;
+  for (const learner of learners) {
+    const choices: G12Choices | null =
+      isG12 &&
+      learner.studyLanguage &&
+      learner.firstForeignLanguage &&
+      learner.secondForeignLanguage &&
+      learner.religion
+        ? {
+            studyLanguage: learner.studyLanguage as G12Choices["studyLanguage"],
+            firstForeignLanguage: learner.firstForeignLanguage as G12Choices["firstForeignLanguage"],
+            secondForeignLanguage: learner.secondForeignLanguage as G12Choices["secondForeignLanguage"],
+            religion: learner.religion as G12Choices["religion"],
+          }
+        : null;
+    const selected = selectCurriculumIds(books, {
+      track: learner.track,
+      isG12,
+      choices,
+    });
+
+    // Reconcile instead of only adding: a language/track change must not leave
+    // an old edition or the other track's book enrolled next to the new plan.
+    db.sqlite
+      .prepare(
+        `DELETE FROM curriculum_enrollments
+          WHERE student_id = ?
+            AND curriculum_id IN (SELECT id FROM curricula WHERE grade_id = ?)`,
+      )
+      .run(learner.id, grade.id);
+    for (const bookId of selected) {
+      await curriculum.enroll(learner.id, bookId);
+      added += 1;
+    }
+  }
+  if (added > 0) console.log(`  ✓ ${label} enrollments repaired: ${added} enrollment(s)`);
+}
+
 async function seedUsers(db: DbHandle, curriculum: CurriculumService, seeded: Seeded): Promise<void> {
   const demoStudentEmail = process.env.SEED_STUDENT_EMAIL ?? "student@alfarouq.test";
   const demoStudentPassword = process.env.SEED_STUDENT_PASSWORD ?? "student-demo-123";
@@ -9315,7 +10341,6 @@ async function seedUsers(db: DbHandle, curriculum: CurriculumService, seeded: Se
       createdAt: now,
       updatedAt: now,
     });
-    await curriculum.enroll(studentId, seeded.curriculumId);
     console.log(`  ✓ Demo student created: ${demoStudentEmail}`);
   } else {
     console.log(`  ↺ Demo student exists: ${demoStudentEmail}`);
@@ -9329,6 +10354,19 @@ async function seedUsers(db: DbHandle, curriculum: CurriculumService, seeded: Se
         .where(eq(students.userId, studentAccount.id));
       console.log(`  ✓ Demo student parent-link code backfilled: ${demoLinkCode}`);
     }
+  }
+
+  // PHASE 185 — enrollment is now the visibility authority. The demo child was
+  // the one account enrolled in a single curriculum (G6 math) while the old UI
+  // showed every subject in the grade. Keep the demo whole, and repair an
+  // existing demo row on every seed run. G6 is track-free, so all its active
+  // curricula are common.
+  if (studentId) {
+    const demoCurricula = await db.db
+      .select({ id: curricula.id })
+      .from(curricula)
+      .where(and(eq(curricula.gradeId, seeded.gradeId), eq(curricula.isActive, true)));
+    for (const row of demoCurricula) await curriculum.enroll(studentId, row.id);
   }
 
   const adminAccount = await db.db.select().from(users).where(eq(users.email, demoAdminEmail)).get();

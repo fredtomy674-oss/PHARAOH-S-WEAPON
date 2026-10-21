@@ -163,7 +163,7 @@ describe("curriculum file import (Path B) — API", () => {
     // mode the file demanded.
     expect(turn.safetyTripwire).toBe(false);
     expect(turn.tutorMessage.content).toContain("سؤال جيد!");
-    expect(turn.tutorMessage.content).not.toContain("أنا هنا لمساعدتك في درسنا فقط");
+    expect(turn.tutorMessage.content).not.toContain("أنا هنا لمساعدتك في درسنا بس");
   });
 
   it("rejects non-admin callers with 403 (Path B endpoint too)", async () => {

@@ -3,6 +3,7 @@ import { OUTPUT_FORMAT } from "msedge-tts";
 import { createSpeechProvider } from "../../src/modules/ai/speech/factory.js";
 import {
   EDGE_MIME,
+  EDGE_PROSODY,
   EDGE_VOICES,
   EdgeSpeechProvider,
   type EdgeAudioStream,
@@ -30,17 +31,30 @@ interface Script {
 /** A fake connection: records what was asked for, replays the scripted bytes. */
 function scripted(script: Script = {}): {
   factory: () => EdgeTtsConnection;
-  calls: { voices: string[]; formats: string[]; texts: string[]; closes: number };
+  calls: {
+    voices: string[];
+    formats: string[];
+    texts: string[];
+    prosody: Array<{ rate?: string; pitch?: string; volume?: string } | undefined>;
+    closes: number;
+  };
 } {
-  const calls = { voices: [] as string[], formats: [] as string[], texts: [] as string[], closes: 0 };
+  const calls = {
+    voices: [] as string[],
+    formats: [] as string[],
+    texts: [] as string[],
+    prosody: [] as Array<{ rate?: string; pitch?: string; volume?: string } | undefined>,
+    closes: 0,
+  };
   const factory = (): EdgeTtsConnection => ({
     setMetadata: async (voice, format) => {
       calls.voices.push(voice);
       calls.formats.push(String(format));
       if (script.metadataError) throw script.metadataError;
     },
-    toStream: (text) => {
+    toStream: (text, prosody) => {
       calls.texts.push(text);
+      calls.prosody.push(prosody);
       const { stream, emit } = makeStream();
       // Emitted after the provider has attached its listeners (toStream returns
       // synchronously, then collectAudio subscribes in the same turn).
@@ -80,6 +94,18 @@ function makeStream(): { stream: EdgeAudioStream; emit: (event: string, arg?: un
 }
 
 describe("EdgeSpeechProvider — PHASE 173", () => {
+  it("uses the owner's teacher voice for Arabic (PHASE 187)", () => {
+    expect(EDGE_VOICES.ar).toBe("ar-EG-ShakirNeural");
+  });
+
+  it("asks Edge for a calmer Arabic teacher reading, without changing the other languages (PHASE 188)", async () => {
+    expect(EDGE_PROSODY.ar).toEqual({ rate: "-4%", pitch: "-2Hz" });
+    expect(EDGE_PROSODY.en).toEqual({ rate: "0%", pitch: "0Hz" });
+    const { factory, calls } = scripted({ chunks: [Buffer.from([1])] });
+    await new EdgeSpeechProvider(factory).synthesize({ text: "مرحبًا", language: "ar" });
+    expect(calls.prosody).toEqual([EDGE_PROSODY.ar]);
+  });
+
   it("speaks Arabic with its own voice and returns the MP3 bytes whole", async () => {
     const { factory, calls } = scripted({ chunks: [Buffer.from([0xff, 0xf3, 1, 2]), Buffer.from([3, 4])] });
     const result = await new EdgeSpeechProvider(factory).synthesize({ text: "مرحبًا يا بطل", language: "ar" });
@@ -88,6 +114,7 @@ describe("EdgeSpeechProvider — PHASE 173", () => {
     expect(calls.voices).toEqual([EDGE_VOICES.ar]);
     expect(calls.formats).toEqual([OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3]);
     expect(calls.texts).toEqual(["مرحبًا يا بطل"]);
+    expect(calls.prosody).toEqual([EDGE_PROSODY.ar]);
     expect(calls.closes).toBe(1);
   });
 

@@ -1,3 +1,5 @@
+import { stripEmoji } from "../../../utils/text.js";
+
 /**
  * PHASE 53 — spoken words, not syntax.
  *
@@ -9,7 +11,10 @@
  */
 export function stripMarkdownForSpeech(input: string): string {
   const blocks: string[] = [];
-  const lines = input.split("\n");
+  // PHASE 187 — speech is where an emoji becomes a spoken word. Strip it before
+  // the block grammar runs, so a bullet that was only an emoji disappears
+  // instead of being read as a name.
+  const lines = stripEmoji(input).split("\n");
   let i = 0;
   while (i < lines.length) {
     const line = lines[i]!;

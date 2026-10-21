@@ -18,6 +18,7 @@
  * finished reply: lost liveliness, never wrong or duplicated text.
  */
 
+import { stripEmoji } from "../../utils/text.js";
 import { looksLikePromptEcho } from "./echoGuard.js";
 
 const SIMPLE_ESCAPES: Record<string, string> = { n: "\n", t: "\t", r: "\r", b: "\b", f: "\f" };
@@ -371,7 +372,7 @@ export class ReplyRelay {
     }
     const tail = this.hold;
     this.hold = "";
-    if (tail) await this.hooks.onDelta(tail);
+    await this.emit(tail);
   }
 
   /** Completed lines go out; the unfinished one waits for more (or for `finish`). */
@@ -385,7 +386,21 @@ export class ReplyRelay {
     }
     const ready = this.hold.slice(0, cut + 1);
     this.hold = this.hold.slice(cut + 1);
-    await this.hooks.onDelta(ready);
+    await this.emit(ready);
+  }
+
+  /**
+   * PHASE 187 — the preview is the same reply the student will keep, so it must
+   * not carry a pictograph the voice would read aloud. The reader still works on
+   * the raw JSON (its offsets depend on it); only the released words are cleaned.
+   * A chunk that was pure emoji becomes empty and is not sent at all.
+   */
+  private async emit(text: string): Promise<void> {
+    if (!text) return;
+    const clean = stripEmoji(text);
+    // A newline-only chunk still separates what came before from what follows;
+    // a whitespace-only one has nothing to show.
+    if (clean.trim() || clean.includes("\n")) await this.hooks.onDelta(clean);
   }
 
   private async drop(): Promise<void> {

@@ -11,10 +11,21 @@ import { stripMarkdownForSpeech } from "../../src/modules/ai/speech/stripMarkdow
  * web rendering is covered by e2e/formatting.spec.ts instead.
  */
 describe("stripMarkdownForSpeech (PHASE 53)", () => {
-  it("removes bold and list markers but keeps every word", () => {
+  it("removes bold, list markers and emoji but keeps every spoken word", () => {
     expect(stripMarkdownForSpeech("سؤال جيد! سأشرح ببساطة.\n\n💡 **تلميح:**\n- فكّر في المثال الأول\n- أخبرني بما توصلت إليه")).toBe(
-      "سؤال جيد! سأشرح ببساطة.\n💡 تلميح:\nفكّر في المثال الأول\nأخبرني بما توصلت إليه",
+      "سؤال جيد! سأشرح ببساطة.\nتلميح:\nفكّر في المثال الأول\nأخبرني بما توصلت إليه",
     );
+  });
+
+  it("never lets a pictograph reach the voice (PHASE 187)", () => {
+    expect(stripMarkdownForSpeech("أهلاً 👋 يا بطل.\n✅ صح!\n❌ غلط.\n⚠️ راجع الخطوة.")).toBe(
+      "أهلاً يا بطل. صح! غلط. راجع الخطوة.",
+    );
+    // The same table also protects an old stored reply whose emoji predates the
+    // prompt rule.
+    expect(stripMarkdownForSpeech("العدد 8 يقبل القسمة 🎯")).toBe("العدد 8 يقبل القسمة");
+    // Harakat and arithmetic signs are not emoji and must survive untouched.
+    expect(stripMarkdownForSpeech("القِسْمَة على ٢ × ٣ = ٦")).toBe("القِسْمَة على ٢ × ٣ = ٦");
   });
 
   it("numbers steps and keeps code words", () => {

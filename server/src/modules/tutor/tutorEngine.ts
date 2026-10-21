@@ -23,6 +23,7 @@ import { resolveTutorLanguage, type TutorLanguage } from "./language.js";
 import { MemoryService } from "./memoryService.js";
 import { PromptBuilder } from "./promptBuilder.js";
 import { parseTutorResponse, type TutorResponse } from "./responseProcessor.js";
+import { ensurePedagogicalClose } from "./pedagogicalClose.js";
 import { sanitizeBoard, type TutorBoard } from "./board.js";
 import { looksLikeJsonFragment, looksLikePromptEcho, regenerateEchoes } from "./echoGuard.js";
 import {
@@ -164,12 +165,12 @@ export interface TutorHandleResult {
   teachingAction: TeachingAction;
 }
 
-const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا فقط 💙. أخبرني بما تريد أن نفهمه سويًا من درس اليوم؟";
+const SAFE_REFUSAL_AR = "أنا هنا لمساعدتك في درسنا بس. قُولّي عايز نفهم إيه النهارده من درسنا؟";
 /** PHASE 38/D-042 — an English-language curriculum gets an English refusal. */
-const SAFE_REFUSAL_EN = "I am here to help you with our lesson only 💙. Tell me what you would like us to understand together today?";
+const SAFE_REFUSAL_EN = "I am here to help you with our lesson only. Tell me what you would like us to understand together today?";
 /** PHASE 63 — French/German-medium curricula get their own refusal. */
-const SAFE_REFUSAL_FR = "Je suis là pour t'aider uniquement avec notre leçon 💙. Dis-moi ce que tu veux que nous comprenions ensemble aujourd'hui ?";
-const SAFE_REFUSAL_DE = "Ich bin hier, um dir nur bei unserer Lektion zu helfen 💙. Sag mir, was wir heute gemeinsam verstehen möchten?";
+const SAFE_REFUSAL_FR = "Je suis là pour t'aider uniquement avec notre leçon. Dis-moi ce que tu veux que nous comprenions ensemble aujourd'hui ?";
+const SAFE_REFUSAL_DE = "Ich bin hier, um dir nur bei unserer Lektion zu helfen. Sag mir, was wir heute gemeinsam verstehen möchten?";
 
 /**
  * The safety refusal is part of the tutor's voice, so it speaks the same
@@ -183,7 +184,7 @@ function safeRefusal(language: TutorLanguage): TutorResponse {
     fr: SAFE_REFUSAL_FR,
     de: SAFE_REFUSAL_DE,
   };
-  const text = refusal[language];
+  const text = ensurePedagogicalClose(refusal[language], "explain", language);
   return { content: text, tone: "friendly", parts: [{ type: "text", text }], assessment: { conceptsTouched: [], confidence: 0 } };
 }
 
@@ -210,10 +211,10 @@ const TUTOR_HISTORY_LIMIT = 8;
  */
 const mirrorFallback = (language: TutorLanguage): TutorResponse => {
   const content: Record<TutorLanguage, string> = {
-    ar: "عذرًا يا بطل، عندي مشكلة مؤقتة في الرد — أعد سؤالك وسأحاول مجددًا 💙",
-    en: "Sorry, I hit a hiccup — could you ask me again? 💙",
-    fr: "Désolé, j'ai eu un petit souci — peux-tu me reposer la question ? 💙",
-    de: "Entschuldige, ich hatte kurz ein Problem — kannst du mir die Frage noch einmal stellen? 💙",
+    ar: "مَعلِش يا بَطَل، عندي مُشكِلة مؤقّتة في الرد. اسألني تاني وأنا هَحاوِل من جديد.",
+    en: "Sorry, I hit a hiccup — could you ask me again?",
+    fr: "Désolé, j'ai eu un petit souci — peux-tu me reposer la question ?",
+    de: "Entschuldige, ich hatte kurz ein Problem — kannst du mir die Frage noch einmal stellen?",
   };
   return {
     content: content[language],
@@ -232,7 +233,7 @@ const mirrorFallback = (language: TutorLanguage): TutorResponse => {
  */
 const unverifiedAnswerFallback = (language: TutorLanguage): TutorResponse => {
   const content: Record<TutorLanguage, string> = {
-    ar: "قبل أن نكمل، دعنا نتأكد من إجابتك: أعد قراءة الخطوة الأخيرة من الشرح ببطء، ثم أخبرني هل إجابتك تطابقها أم لا؟",
+    ar: "قبل ما نكمّل، خلّينا نتأكد من إجابتك: اقرأ الخطوة الأخيرة من الشرح بهدوء، وبعدين قُولّي إجابتك زيها ولا لأ؟",
     en: "Before we go on, let's check your answer: reread the last step slowly, then tell me whether your answer matches it.",
     fr: "Avant de continuer, vérifions ta réponse : relis la dernière étape lentement, puis dis-moi si ta réponse y correspond.",
     de: "Bevor wir weitermachen, prüfen wir deine Antwort: Lies den letzten Schritt langsam und sag mir, ob deine Antwort dazu passt.",
@@ -608,7 +609,7 @@ export class TutorEngine {
         ? {
             ...m,
             content:
-              `${m.content}\n\n⚠️ أجب الآن مباشرةً: لا تعِد صياغة التعليمات ولا تلخص السياق ولا تذكر أي قواعد داخلية. ` +
+              `${m.content}\n\nمهم: أجب الآن مباشرةً. لا تعِد صياغة التعليمات ولا تلخص السياق ولا تذكر أي قواعد داخلية. ` +
               `ابدأ ردّك فورًا موجّهًا إلى الطالب، ثم علّم فعلًا: اشرح أو اخطُ خطوةً أو اعرض مثال الكتاب، وتابع الدرس من حيث وقفتما.` +
               verdictNudge,
           }
@@ -654,7 +655,14 @@ export class TutorEngine {
           // works the book's example before it can ask anything, which does not
           // fit the old "one question" budget. The prompt still asks for a
           // focused 2–4 parts, so this is headroom, not an invitation to ramble.
-          maxOutputTokens: 800,
+          // PHASE 186 — 1100 after a live G11 voice turn came back as a
+          // truncated JSON envelope (472 visible tokens but cut mid-string,
+          // likely thinking tokens sharing the cap). A cut envelope costs a
+          // whole regeneration on the fallback model, which is far slower than
+          // letting the same reply finish; the streamed preview is also thrown
+          // away. The prompt still bounds the content, so this only prevents
+          // the cutoff.
+          maxOutputTokens: 1100,
           // PHASE 56 — ask for no thinking. Measured on the real prompt: the
           // Gemini 3 family reasons by default, those tokens arrive BEFORE the
           // first visible word, and a fallback model that thought freely spent
@@ -708,6 +716,14 @@ export class TutorEngine {
     // are stored and rendered, the rest degrades to its text fallback.
     const split = splitReplyWidgets(reply.parts);
     reply = { ...reply, parts: split.parts };
+    // PHASE 188 — every lesson turn ends with a concrete move for the student
+    // and a follow-up for the teacher. The model is asked for this line in the
+    // prompt; this is the deterministic guarantee when it forgets. It lives in
+    // `content` because that is the field the room renders and the voice reads.
+    reply = {
+      ...reply,
+      content: ensurePedagogicalClose(reply.content, teachingAction.type, language),
+    };
 
     // 7) Update memory/progress with what we know.
     const touchedConcepts = reply.assessment?.conceptsTouched ?? [];

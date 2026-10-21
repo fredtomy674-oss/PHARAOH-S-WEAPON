@@ -326,9 +326,8 @@ describe("Gemini thinking budget (PHASE 56)", () => {
 
 /**
  * PHASE 55 — time bounds. Measured live: a tutor turn burned 181s (then 300s+
- * on retry) because a hung attempt waits forever. A hanging socket must spend
- * the budget on the next attempt, and a silent stream must be cut — never
- * watched.
+ * on retry) because a hung attempt waits forever. A hanging socket must yield
+ * to the next model at once, and a silent stream must be cut — never watched.
  */
 describe("Gemini time bounds (PHASE 55)", () => {
   const originalFallbacks = config.GEMINI_LLM_FALLBACKS;
@@ -384,8 +383,9 @@ describe("Gemini time bounds (PHASE 55)", () => {
     );
     expect(res.content).toBe("إجابة");
     expect(res.model).toBe("fallback-model");
-    // 4 hung primary attempts, then the fallback answers on its first try.
-    expect(calls).toHaveLength(5);
+    // PHASE 186 — one hung primary attempt is enough. Retrying a silent socket
+    // spends the budget on the void and delays the fallback by another timeout.
+    expect(calls).toHaveLength(2);
   });
 
   it("silence all the way down is an honest, retryable 503 — never a 500", async () => {
@@ -401,7 +401,9 @@ describe("Gemini time bounds (PHASE 55)", () => {
     expect(appErr.statusCode).toBe(503);
     expect(appErr.code).toBe("AI_UPSTREAM_BUSY");
     expect(appErr.meta).toMatchObject({ timeout: true });
-    expect(calls).toHaveLength(4);
+    // PHASE 186 — no silent retry loop; one bounded attempt, then the honest
+    // retryable error. The app no longer keeps a student waiting on a dead socket.
+    expect(calls).toHaveLength(1);
   });
 
   it("cuts a stream silent before the first word and fails over", async () => {

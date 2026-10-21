@@ -43,14 +43,32 @@ export const curriculumRoutes: FastifyPluginAsync = async (app) => {
     if (gradeId !== undefined && !idPattern.test(gradeId)) {
       throw Errors.badRequest("المعامل gradeId غير صالح", "INVALID_QUERY_PARAM");
     }
-    return { subjects: await app.curriculum.listSubjects(gradeId) };
+    // PHASE 185 — optional student scope: only that child's active enrollments.
+    // It is how the track choice becomes a hard boundary in the picker.
+    const rawStudent = query.studentId;
+    const studentId = typeof rawStudent === "string" && rawStudent.length > 0 ? rawStudent : undefined;
+    if (studentId !== undefined && !idPattern.test(studentId)) {
+      throw Errors.badRequest("المعامل studentId غير صالح", "INVALID_QUERY_PARAM");
+    }
+    return { subjects: await app.curriculum.listSubjects(gradeId, studentId) };
   });
 
   app.get("/curricula", async (request) => {
     const query = request.query as Record<string, unknown>;
     const gradeId = requireQuery(query, "gradeId", idPattern);
     const subjectId = requireQuery(query, "subjectId", idPattern);
-    return { curricula: await app.curriculum.listCurricula(gradeId, subjectId) };
+    const rawStudent = query.studentId;
+    const studentId = typeof rawStudent === "string" && rawStudent.length > 0 ? rawStudent : undefined;
+    if (studentId !== undefined && !idPattern.test(studentId)) {
+      throw Errors.badRequest("المعامل studentId غير صالح", "INVALID_QUERY_PARAM");
+    }
+    return { curricula: await app.curriculum.listCurricula(gradeId, subjectId, studentId) };
+  });
+
+  /** PHASE 185 — «علمي ولا أدبي؟»: the tracks this grade actually offers. */
+  app.get("/tracks", async (request) => {
+    const gradeId = requireQuery(request.query as Record<string, unknown>, "gradeId", idPattern);
+    return { tracks: await app.curriculum.listTrackOptions(gradeId) };
   });
 
   app.get("/terms", async (request) => {

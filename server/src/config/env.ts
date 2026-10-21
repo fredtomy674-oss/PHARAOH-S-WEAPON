@@ -71,17 +71,16 @@ export const EnvSchema = z.object({
   // the 2.5 line answers 404 "no longer available to new users", so flipping a
   // real provider on with a valid key failed on the very first call. What is
   // left is a moving target, so it was measured live instead of assumed:
-  //   gemini-3.1-flash-lite-preview   7/8 answered (the default here)
-  //   gemini-3.6-flash                5/5, then 2/3, then 429 x4
-  //   gemini-3.8-flash                2/5
-  //   gemini-flash-latest             429 / 503
+  //   gemini-3.5-flash-lite  2.4–5.3s typical, reliable JSON (the default here)
+  //   gemini-3.5-flash       6.6–8.8s, first fallback
+  //   gemini-3.6-flash       4.3s but rejected/regenerated on the real JSON
+  //                          prompt in a live G11 turn — kept last
+  //   gemini-3.1-flash-lite  503 "high demand" — not a fallback
   // A 503 is capacity and a 429 is that model's own quota; the quota is
   // per-model, so naming a different model is a real way out of a 429, which
   // is why this stays a plain env value with no allowlist in front of it.
-  // Prefer a stronger model (3.6-flash and up) on a plan with headroom; this
-  // default is the one that kept answering. A pin that retires fails loudly at
-  // the first call, never silently.
-  GEMINI_LLM_MODEL: z.string().default("gemini-3.1-flash-lite-preview"),
+  // A pin that retires fails loudly at the first call, never silently.
+  GEMINI_LLM_MODEL: z.string().default("gemini-3.5-flash-lite"),
   /**
    * PHASE 53 — ordered failover list for the tutor LLM (comma-separated model
    * names). Quota is per-model, so when the primary's bucket is exhausted
@@ -90,7 +89,7 @@ export const EnvSchema = z.object({
    * the chain without retries), so a stale list costs one quick call, not the
    * turn. Empty = primary only (previous behaviour, and what the tests pin).
    */
-  GEMINI_LLM_FALLBACKS: z.string().default(""),
+  GEMINI_LLM_FALLBACKS: z.string().default("gemini-3.5-flash,gemini-3.6-flash"),
   // PHASE 47 follow-up: gemini-embedding-001's free tier throttled the whole
   // re-embed for a full day (embed_content_free_tier_requests, limit 1000/day),
   // while gemini-embedding-2 (same 3072 dims — zero migration friction) kept
