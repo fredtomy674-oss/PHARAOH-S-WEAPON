@@ -18,9 +18,8 @@ import {
   type User,
 } from "./api.js";
 import { Button, Card, Chip } from "./components/ui/index.js";
-import { growGarden, type GardenConceptInput } from "./journey/garden.js";
 import { nextGoals } from "./journey/goals.js";
-import { NileGarden } from "./journey/NileGarden.js";
+import { JourneyChallenge } from "./journey/JourneyChallenge.js";
 import { learningStrength, strengthProgress, STRENGTH_LEVELS } from "./journey/strength.js";
 
 interface Props {
@@ -28,8 +27,11 @@ interface Props {
   onBack: () => void;
 }
 
-/** PHASE 161 (W6) — how many past sessions the log shows. */
-const SESSION_LIMIT = 6;
+/** PHASE 182 — keep the journey readable: a short first page for every list. */
+const SESSION_LIMIT = 4;
+const MASTERY_LIMIT = 5;
+const MISTAKE_LIMIT = 3;
+const LOCKED_BADGE_LIMIT = 3;
 
 /** PHASE 161.1 — حلقة «قوة التعلم»: نصف القطر في وحدة viewBox = 100. */
 const RING_R = 42;
@@ -65,10 +67,11 @@ interface JourneyPractice {
 
 /**
  * PHASE 161 (W6) — «رحلتي»: the journey space rebuilt from the old
- * achievements screen. A deterministic Nile garden grown from real mastery,
- * the concept map, the same twelve badges (same contracts), the session log
- * with its safe recap, and «دفتر أخطائي» where a wrong pick opens a practice
- * scoped to its concept.
+ * achievements screen. PHASE 183 replaces the decorative garden with
+ * «مسار القمة», an interactive map whose five checkpoints, gold trail, marker
+ * and daily mission all come from real mastery. It sits above the concept map,
+ * the same twelve badges (same contracts), the session log with its safe recap,
+ * and «دفتر أخطائي» where a wrong pick opens a practice scoped to its concept.
  */
 export function JourneyScreen({ user, onBack }: Props) {
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
@@ -79,6 +82,10 @@ export function JourneyScreen({ user, onBack }: Props) {
   const [recap, setRecap] = useState<SessionRecap | null>(null);
   const [mistakes, setMistakes] = useState<MistakeItem[] | null>(null);
   const [practice, setPractice] = useState<JourneyPractice | null>(null);
+  // PHASE 182 — details are still one tap away, but no longer the first page.
+  const [showAllMastery, setShowAllMastery] = useState(false);
+  const [showAllAchievements, setShowAllAchievements] = useState(false);
+  const [showAllMistakes, setShowAllMistakes] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -123,16 +130,6 @@ export function JourneyScreen({ user, onBack }: Props) {
     };
   }, []);
 
-  const garden = useMemo(() => {
-    const concepts: GardenConceptInput[] = (progress?.mastery ?? []).map((m) => ({
-      conceptId: m.conceptId,
-      title: m.title,
-      level: m.level,
-      mastery: m.decayedMastery,
-    }));
-    return growGarden(concepts);
-  }, [progress]);
-
   // PHASE 161.1 — قوة التعلم وأهدافي: كلها من بيانات الإتقان الحقيقية فقط.
   const strength = useMemo(() => learningStrength(progress?.mastery ?? []), [progress]);
   const goals = useMemo(() => nextGoals(progress?.mastery ?? []), [progress]);
@@ -141,6 +138,16 @@ export function JourneyScreen({ user, onBack }: Props) {
     () => [...(progress?.mastery ?? [])].sort((a, b) => b.decayedMastery - a.decayedMastery),
     [progress],
   );
+  const visibleMastery = showAllMastery ? masterySorted : masterySorted.slice(0, MASTERY_LIMIT);
+  const visibleAchievements = useMemo(() => {
+    if (!ach) return [];
+    if (showAllAchievements) return ach.achievements;
+    return [
+      ...ach.achievements.filter((a) => a.awardedAt !== null),
+      ...ach.achievements.filter((a) => a.awardedAt === null).slice(0, LOCKED_BADGE_LIMIT),
+    ];
+  }, [ach, showAllAchievements]);
+  const visibleMistakes = showAllMistakes ? mistakes ?? [] : (mistakes ?? []).slice(0, MISTAKE_LIMIT);
 
   const refreshAfterAnswer = () => {
     myProgress()
@@ -286,14 +293,14 @@ export function JourneyScreen({ user, onBack }: Props) {
             يا {name} — هنا يُكتب دليل قوّتك: كل رقم في هذه الصفحة كسبته بجهدك، وكل هدف يناديك خطوة أعلى.
           </p>
           <div className="jn-hero__stats">
+            <span className="jn-stat" data-testid="journey-stat-level">
+              🏔️ المستوى {strength.level} · {strength.levelNameAr}
+            </span>
             <span className="jn-stat" data-testid="journey-stat-mastered">
-              🌴 {garden.mastered} نخلة
+              ✅ {strength.mastered} مفهومًا متقنًا
             </span>
             <span className="jn-stat" data-testid="journey-stat-badges">
               🏆 {ach ? `${ach.earned} من ${ach.total}` : "—"} شارة
-            </span>
-            <span className="jn-stat" data-testid="journey-stat-mistakes">
-              📝 {mistakes ? mistakes.length : "—"} في دفتر الأخطاء
             </span>
           </div>
         </header>
@@ -327,7 +334,7 @@ export function JourneyScreen({ user, onBack }: Props) {
               <p className="jn-power__sub">
                 {strength.practiced > 0
                   ? `${strength.mastered} من ${strength.practiced} مفهومًا تدرّبت عليها وصلت حدّ الإتقان — والباقي على الطريق.`
-                  : "قوّتك تبدأ من أول تمرين — أجب سؤالًا واحدًا وتنطلق الواحة."}
+                  : "قوّتك تبدأ من أول تمرين — أجب سؤالًا واحدًا ليبدأ مسارك نحو القمة."}
               </p>
               {strength.nextLevelAt !== null ? (
                 <>
@@ -343,10 +350,21 @@ export function JourneyScreen({ user, onBack }: Props) {
                   </span>
                 </>
               ) : (
-                <span className="jn-power__next">القمة! حافظ على واحتك خالدة.</span>
+                <span className="jn-power__next">وصلت القمة! حافظ على إتقانك وارفع قوّتك كل يوم.</span>
               )}
             </div>
           </section>
+        )}
+
+        {progress !== null && (
+          <Card
+            className="jn-card jn-card--quest"
+            title="🏔️ مسار القمة"
+            hint="خمس محطات حقيقية من قوّتك: اختر محطة لتقرأها، واقبل التحدي لترتفع."
+            data-testid="journey-quest-card"
+          >
+            <JourneyChallenge strength={strength} goals={goals} onPractice={openPractice} />
+          </Card>
         )}
 
         <Card
@@ -388,47 +406,27 @@ export function JourneyScreen({ user, onBack }: Props) {
           {practice?.source === "goal" && renderPractice()}
         </Card>
 
-        <Card
-          className="jn-card jn-card--garden"
-          title="🌴 واحة إتقاني على النيل"
-          hint="كل نخلة هنا مفهوم أتقنته فعلًا — والواحة تكبر مع كل خطوة. نفس الإتقان = نفس الواحة، دائمًا."
-        >
-          <NileGarden garden={garden} />
-          <ul className="jn-legend" data-testid="garden-legend">
-            <li>
-              <i className="jn-dot jn-dot--palm" aria-hidden="true" /> نخلة = متقن
-            </li>
-            <li>
-              <i className="jn-dot jn-dot--papyrus" aria-hidden="true" /> بردي = متقدم
-            </li>
-            <li>
-              <i className="jn-dot jn-dot--lotus" aria-hidden="true" /> لوتس = نامٍ
-            </li>
-            <li>
-              <i className="jn-dot jn-dot--sprout" aria-hidden="true" /> شتلة = يحتاج مراجعة
-            </li>
-          </ul>
-          {garden.plants.length === 0 && (
-            <p className="jn-empty" data-testid="journey-garden-empty">
-              الواحة بانتظارك — ابدأ جلسة أو تمرينًا وسيظهر أول برعم هنا.
-            </p>
-          )}
-        </Card>
-
         <Card className="jn-card" title="📈 إتقاني" hint="قوة كل مفهوم بالأرقام — من هنا تعرف بالضبط أين تقف، وخطوتك القادمة."
           data-testid="journey-mastery">
           {masterySorted.length > 0 ? (
-            <ul className="jn-mastery">
-              {masterySorted.map((m) => (
-                <li key={m.conceptId} className="jn-mastery__item" data-testid="journey-mastery-item" data-level={m.level}>
-                  <span className="jn-mastery__title">{m.title}</span>
-                  <span className="jn-mastery__meta">
-                    <Chip tone="outline">{m.labelAr}</Chip>
-                    <span className="jn-mastery__pct">{Math.round(m.decayedMastery * 100)}%</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="jn-mastery">
+                {visibleMastery.map((m) => (
+                  <li key={m.conceptId} className="jn-mastery__item" data-testid="journey-mastery-item" data-level={m.level}>
+                    <span className="jn-mastery__title">{m.title}</span>
+                    <span className="jn-mastery__meta">
+                      <Chip tone="outline">{m.labelAr}</Chip>
+                      <span className="jn-mastery__pct">{Math.round(m.decayedMastery * 100)}%</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {masterySorted.length > MASTERY_LIMIT && (
+                <Button variant="ghost" size="sm" data-testid="mastery-show-all" onClick={() => setShowAllMastery((v) => !v)}>
+                  {showAllMastery ? "أقل" : `عرض الكل (${masterySorted.length})`}
+                </Button>
+              )}
+            </>
           ) : (
             <p className="jn-empty" data-testid="journey-mastery-empty">
               لا مفاهيم متتبَّعة بعد — أول تمرين سيرسم أول نقطة على خريطتك.
@@ -482,8 +480,9 @@ export function JourneyScreen({ user, onBack }: Props) {
           )}
           {achError && <p className="jn-empty">تعذّر تحميل الإنجازات — حاول مرة أخرى.</p>}
           {ach && (
-            <ul className="achievement-list" data-testid="achievement-list">
-              {ach.achievements.map((a) => {
+            <>
+              <ul className="achievement-list" data-testid="achievement-list">
+                {visibleAchievements.map((a) => {
                 const earned = a.awardedAt !== null;
                 return (
                   <li
@@ -507,8 +506,19 @@ export function JourneyScreen({ user, onBack }: Props) {
                     </time>
                   </li>
                 );
-              })}
-            </ul>
+                })}
+              </ul>
+              {(ach.achievements.length > visibleAchievements.length || showAllAchievements) && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  data-testid="achievements-show-all"
+                  onClick={() => setShowAllAchievements((v) => !v)}
+                >
+                  {showAllAchievements ? "أقل" : `عرض كل الشارات (${ach.achievements.length})`}
+                </Button>
+              )}
+            </>
           )}
         </Card>
 
@@ -558,9 +568,10 @@ export function JourneyScreen({ user, onBack }: Props) {
         <Card className="jn-card" title="📝 دفتر أخطائي" hint="آخر اختياراتك الخاطئة — من هنا تراجعها بنقرة تمرين على نفس المفهوم."
           data-testid="journey-mistakes">
           {mistakes && mistakes.length > 0 ? (
-            <ul className="jn-mistakes">
-              {mistakes.map((m) => (
-                <li key={m.questionId} className="jn-mistake" data-testid="journey-mistake" data-concept={m.conceptId ?? ""}>
+            <>
+              <ul className="jn-mistakes">
+                {visibleMistakes.map((m) => (
+                  <li key={m.questionId} className="jn-mistake" data-testid="journey-mistake" data-concept={m.conceptId ?? ""}>
                   <p className="jn-mistake__q">{m.question}</p>
                   <p className="jn-mistake__pick">
                     اخترت: <b>{m.chosen}</b> · <span>{timesLabel(m.count)}</span>
@@ -580,9 +591,20 @@ export function JourneyScreen({ user, onBack }: Props) {
                       راجع هذه ↩
                     </Button>
                   </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+              {(mistakes.length > MISTAKE_LIMIT || showAllMistakes) && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  data-testid="mistakes-show-all"
+                  onClick={() => setShowAllMistakes((v) => !v)}
+                >
+                  {showAllMistakes ? "أقل" : `عرض كل الأخطاء (${mistakes.length})`}
+                </Button>
+              )}
+            </>
           ) : (
             <p className="jn-empty" data-testid="journey-mistakes-empty">
               دفترك نظيف — لا أخطاء مسجَّلة بعد. وإن وقع خطأ فسنحفظه هنا للمراجعة.

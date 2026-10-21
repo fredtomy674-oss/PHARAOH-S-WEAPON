@@ -22,13 +22,13 @@ export interface LearningStrength {
   practiced: number;
 }
 
-/** عتبات المستويات — خمس درجات صاعدة حتى «واحة خالدة». */
+/** عتبات المستويات — خمس درجات صاعدة حتى «القمة». */
 export const STRENGTH_LEVELS: ReadonlyArray<{ min: number; name: string }> = [
   { min: 0, name: "بداية" },
-  { min: 20, name: "نماء" },
+  { min: 20, name: "تقدّم" },
   { min: 40, name: "صعود" },
   { min: 60, name: "إتقان" },
-  { min: 80, name: "واحة خالدة" },
+  { min: 80, name: "القمة" },
 ];
 
 const clamp01 = (n: number): number => (Number.isFinite(n) ? Math.min(Math.max(n, 0), 1) : 0);

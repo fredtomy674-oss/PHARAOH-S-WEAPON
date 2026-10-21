@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import {
   ApiError,
   createStudent,
+  listTracks,
   setupStudent,
+  type G12Choices,
   type Grade,
+  type TrackOption,
   type User,
 } from "./api.js";
 import { listStudentGradeChoices } from "./studentGrades.js";
 import { ThemeToggle } from "./components/ui/ThemeToggle.js";
+import { G12ChoiceFields } from "./components/app/G12ChoiceFields.js";
+import { isG12Grade } from "./g12Choices.js";
 
 interface Props {
   user: User;
@@ -29,12 +34,35 @@ export function FirstRunScreen({ user, onStart, onSkip }: Props) {
   const [grades, setGrades] = useState<Grade[] | null>(null);
   const [loadFailed, setLoadFailed] = useState(false);
   const [selected, setSelected] = useState<string | null>(user.student?.gradeId ?? null);
+  const [tracks, setTracks] = useState<TrackOption[]>([]);
+  const [track, setTrack] = useState<string | null>(user.student?.track ?? null);
+  const [tracksLoading, setTracksLoading] = useState(false);
+  // The grade whose track list is actually in `tracks`. Until it matches the
+  // selected grade, we do not know whether a track is required — so we do not
+  // let the child save a half-formed choice.
+  const [tracksFor, setTracksFor] = useState<string | null>(null);
+  const [choices, setChoices] = useState<G12Choices>({
+    studyLanguage: user.student?.studyLanguage ?? "ar",
+    firstForeignLanguage: user.student?.firstForeignLanguage ?? "en",
+    secondForeignLanguage: user.student?.secondForeignLanguage ?? "fr",
+    religion: user.student?.religion ?? null,
+  });
   const [name, setName] = useState(user.student?.displayName ?? "");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const cleanName = name.trim();
-  const ready = cleanName.length >= 2 && Boolean(selected);
+  const selectedGrade = grades?.find((grade) => grade.id === selected) ?? null;
+  const isG12 = isG12Grade(selectedGrade?.code);
+  const tracksKnown = Boolean(selected) && tracksFor === selected;
+  const choicesKnown = !isG12 || Boolean(choices.religion);
+  const ready =
+    cleanName.length >= 2 &&
+    Boolean(selectedGrade) &&
+    tracksKnown &&
+    !tracksLoading &&
+    (tracks.length === 0 || Boolean(track)) &&
+    choicesKnown;
   const greeting = `أهلاً ${cleanName || "يا بطل"}! أنا سعد — معلمك الخصوصي. سنبني معًا خطة تناسب صفّك. لكن أولًا: اكتب اسمك واختر صفّك الدراسي، وسأفتح لك كتابك وموادّه.`;
 
   useEffect(() => {
@@ -50,6 +78,42 @@ export function FirstRunScreen({ user, onStart, onSkip }: Props) {
       alive = false;
     };
   }, []);
+
+  // PHASE 185 — a grade may split into tracks. Ask the server for the tracks
+  // that grade actually offers; a grade with none stays exactly as before.
+  useEffect(() => {
+    if (!selected) {
+      setTracks([]);
+      setTrack(null);
+      setTracksLoading(false);
+      setTracksFor(null);
+      return;
+    }
+    let alive = true;
+    setTracksLoading(true);
+    listTracks(selected)
+      .then((list) => {
+        if (!alive) return;
+        setTracks(list);
+        setTrack((current) => {
+          if (current && list.some((option) => option.code === current)) return current;
+          return list.length === 1 ? list[0]!.code : null;
+        });
+        setTracksFor(selected);
+      })
+      .catch(() => {
+        if (!alive) return;
+        setTracks([]);
+        setTrack(null);
+        setTracksFor(selected);
+      })
+      .finally(() => {
+        if (alive) setTracksLoading(false);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [selected]);
 
   const listen = () => {
     try {
@@ -67,7 +131,15 @@ export function FirstRunScreen({ user, onStart, onSkip }: Props) {
   const save = async (): Promise<User> => {
     if (!selected) return user;
     if (cleanName.length < 2) throw new ApiError("اكتب اسم الطالب أولًا", 400, "NAME_REQUIRED");
-    const input = { displayName: cleanName, gradeId: selected };
+    if (isG12 && !choices.religion) {
+      throw new ApiError("اختر كتاب التربية الدينية لإكمال ملفك", 400, "RELIGION_REQUIRED");
+    }
+    const input = {
+      displayName: cleanName,
+      gradeId: selected,
+      ...(track ? { track } : {}),
+      ...(isG12 ? choices : {}),
+    };
     return user.student ? setupStudent(user.student.id, input) : createStudent(input);
   };
 
@@ -150,12 +222,48 @@ export function FirstRunScreen({ user, onStart, onSkip }: Props) {
                   data-testid={`first-run-grade-${g.id}`}
                   className={selected === g.id ? "fr-grade fr-grade--on" : "fr-grade"}
                   aria-pressed={selected === g.id}
-                  onClick={() => setSelected(g.id)}
+                  onClick={() => {
+                    setSelected(g.id);
+                    setError(null);
+                  }}
                 >
                   {g.nameAr}
                 </button>
               ))}
             </div>
+          )}
+
+          {tracksLoading && selected && <p className="fr-loading">…جارٍ تحضير المسارات</p>}
+
+          {tracks.length > 0 && (
+            <div className="fr-track-picker" data-testid="first-run-tracks">
+              <h3>اختر مسارك الدراسي</h3>
+              <p className="fr-sub">
+                بعض الصفوف فيها أكثر من مسار؛ كل مسار له مواده. اختر مسارك مرة واحدة، وستظهر لك مواده فقط.
+              </p>
+              <div className="fr-grid">
+                {tracks.map((option) => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    data-testid={`first-run-track-${option.code}`}
+                    className={track === option.code ? "fr-grade fr-grade--on" : "fr-grade"}
+                    aria-pressed={track === option.code}
+                    onClick={() => setTrack(option.code)}
+                  >
+                    {option.nameAr}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {isG12 && (
+            <G12ChoiceFields
+              choices={choices}
+              onChange={(patch) => setChoices((current) => ({ ...current, ...patch }))}
+              testIdPrefix="first-run"
+            />
           )}
 
           {error && (

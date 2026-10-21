@@ -4,6 +4,100 @@
    القاعدة: رموز فقط من tokens.css — لا لون/ظل/زاوية خام هنا (ملف محروس).
    ========================================================================== */
 
+/* PHASE 182 — المصادر مرجعٌ للمعلم/ولي الأمر: مطويٌّ حتى يُطلب. */
+.ln-sources__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  font: inherit;
+  text-align: start;
+  color: var(--ink);
+  background: var(--card-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-2);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+}
+
+.ln-sources__toggle-main {
+  font-size: var(--fs-3);
+  font-weight: var(--fw-semibold);
+  color: var(--primary-ink);
+}
+
+.ln-sources__toggle-note {
+  font-size: var(--fs-2);
+  color: var(--muted);
+  margin-inline-end: auto;
+}
+
+.ln-sources__chevron {
+  color: var(--muted);
+  font-size: var(--fs-2);
+}
+
+.ln-sources__body {
+  display: block;
+  margin-top: var(--sp-3);
+}
+
+.ln-sources__error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+/* PHASE 182 — pipe tables in the sources render as real tables. */
+.ln-src__tablewrap {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+}
+
+.ln-src__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-2);
+  line-height: var(--lh-body);
+}
+
+.ln-src__table th,
+.ln-src__table td {
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--line-soft);
+  text-align: start;
+  vertical-align: top;
+}
+
+.ln-src__table th {
+  color: var(--primary-ink);
+  background: var(--gold-soft);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.ln-src__table tr:last-child td {
+  border-bottom: 0;
+}
+
+.ln-src__heading {
+  margin: 0;
+  font-size: var(--fs-3);
+  font-weight: var(--fw-semibold);
+  color: var(--primary-ink);
+}
+
+.ln-src__list {
+  margin: 0;
+  padding-inline-start: var(--sp-5);
+  font-size: var(--fs-3);
+  line-height: var(--lh-body);
+}
+
 /* ------------------------------ شريحة المرجع في الرأس ------------------------------ */
 .ln-bookchip {
   align-self: flex-start;

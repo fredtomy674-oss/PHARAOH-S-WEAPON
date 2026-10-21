@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { DEMO_LINK_CODE, DEMO_PARENT, ensureG6Grade, login, openAccount, SAFE_REFUSAL_PHRASE, sendChatMessage, startFirstLesson } from "./helpers.js";
+import { DEMO_LINK_CODE, DEMO_PARENT, ensureG6Grade, login, openAccount, openFullPlan, SAFE_REFUSAL_PHRASE, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
  * Parent dashboard (PHASE 18): a parent logs in, sees their pre-linked child,
@@ -104,9 +104,9 @@ test("P5 (PHASE 35): a parent sees «آخر ممارسة» per concept after the
   await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
   await ensureG6Grade(page);
   // PHASE 179 — the home shows only the three most important plan rows; the
-  // first MCQ-ready row may sit deeper, so reveal the full plan first.
-  const planMore = page.getByTestId("plan-more");
-  if ((await planMore.count()) > 0) await planMore.click();
+  // first MCQ-ready row may sit deeper, so reveal the full plan first. PHASE 184
+  // — wait for the plan payload before checking for its button (see helper).
+  await openFullPlan(page);
   const firstPractice = page.getByTestId("plan-practice").first();
   await expect(firstPractice).toBeVisible({ timeout: 20_000 });
   await firstPractice.click();

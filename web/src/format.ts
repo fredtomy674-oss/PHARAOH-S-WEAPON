@@ -14,6 +14,28 @@
  * textContent-based test true by construction.
  */
 
+/**
+ * PHASE 187 — the room is read aloud (server voice, or the browser voice when
+ * the server voice is down), so a pictograph in a tutor reply becomes a spoken
+ * word. The server cleans new replies at the source; this is the display and
+ * old-transcript defence, and it keeps `stripMarkdown` — and therefore the
+ * browser fallback — free of the same characters.
+ */
+const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{20E3}\u{E0020}-\u{E007F}]/gu;
+
+/** Remove emoji without touching Arabic letters, harakat or arithmetic signs. */
+export function stripEmoji(input: string): string {
+  if (!input) return input;
+  return input
+    .replace(EMOJI, "")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/[ \t]+(?=[،,.!?؟؛:])/g, "")
+    .replace(/^[ \t]+/gm, "")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/^[ \t]*[-*•][ \t]*(?=\n|$)/gm, "")
+    .replace(/\n{3,}/g, "\n\n");
+}
+
 export type Span = { t: "text" | "strong" | "code"; v: string };
 
 export type Block =
@@ -29,7 +51,9 @@ const OL_RE = /^\s*(\d+)[.)]\s+(.*)$/;
 /** Split the reply into renderable blocks (blank lines separate paragraphs). */
 export function parseBlocks(input: string): Block[] {
   const blocks: Block[] = [];
-  const lines = input.split("\n");
+  // Every rendering and narration path goes through this function, so cleaning
+  // here covers the live reply, an old stored reply, and the browser voice.
+  const lines = stripEmoji(input).split("\n");
   let i = 0;
   while (i < lines.length) {
     const line = lines[i]!;

@@ -9,6 +9,7 @@ import { AdminScreen } from "./Admin.js";
 import { ParentScreen } from "./Parent.js";
 import { JourneyScreen } from "./Journey.js";
 import { FirstRunScreen } from "./FirstRun.js";
+import { g12ChoicesComplete, isG12Grade } from "./g12Choices.js";
 import { StudentPickerScreen } from "./StudentPicker.js";
 import { AppShell, type StudentTab } from "./components/app/AppShell.js";
 
@@ -115,7 +116,15 @@ export function App() {
     if (!user.student && (user.students?.length ?? 0) > 0) {
       return <StudentPickerScreen user={user} onUser={handleAuthed} onLogout={handleLogout} />;
     }
-    if (!user.student || !user.student.gradeId) {
+    const g12ChoicesMissing =
+      isG12Grade(user.student?.gradeCode) &&
+      !g12ChoicesComplete({
+        studyLanguage: user.student?.studyLanguage,
+        firstForeignLanguage: user.student?.firstForeignLanguage,
+        secondForeignLanguage: user.student?.secondForeignLanguage,
+        religion: user.student?.religion,
+      });
+    if (!user.student || !user.student.gradeId || g12ChoicesMissing) {
       return (
         <FirstRunScreen
           user={user}
@@ -229,6 +238,7 @@ export function App() {
           setScreen("chat");
         }}
         onOpenAdmin={() => setScreen("admin")}
+        onOpenJourney={() => setScreen("achievements")}
       />
     </AppShell>
   );

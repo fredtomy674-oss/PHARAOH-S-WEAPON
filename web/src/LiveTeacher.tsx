@@ -64,6 +64,13 @@ export function LiveTeacher({ state, mouth, reference, onOpenReference }: LiveTe
           {open ? "أخفِ الحركة" : "شغّل الحركة ▶"}
         </button>
       </header>
+      {/* PHASE 182 — the 3D model is optional and heavy; say so BEFORE a phone
+          downloads it. The lesson itself never depends on these bytes. */}
+      {!open && (
+        <p className="w7-size" data-testid="live-teacher-size">
+          الحركة نموذج ثلاثي الأبعاد اختياري (≈19 ميجابايت) — الحصة تعمل كاملة بدونه.
+        </p>
+      )}
       {open && (
         <div className="w7-stage" data-testid="live-teacher-stage">
           <Suspense fallback={<p className="w7-stage__note">يجهّز معلّمك…</p>}>

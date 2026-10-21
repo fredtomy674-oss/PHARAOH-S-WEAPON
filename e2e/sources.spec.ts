@@ -33,11 +33,18 @@ test("SR1 (PHASE 160): six sources from the book — every line carries its page
   await expect(page.getByTestId("learn-screen")).toBeVisible({ timeout: 20_000 });
   await openG6MathLesson(page);
 
-  // شريحة المرجع في الرأس: «كتابك — صفحات …» — مرجع لا نسخ (§15).
+  // شريحة المرجع في الرأس: «كتابك — صفحة …» — مرجع لا نسخ (§15).
   await expect(page.getByTestId("lesson-book-pages")).toBeVisible({ timeout: 20_000 });
-  await expect(page.getByTestId("lesson-book-pages")).toContainText("صفحات");
+  await expect(page.getByTestId("lesson-book-pages")).toContainText(/صفحة|صفحات/);
+  await expect(page.getByTestId("lesson-book-pages")).not.toContainText("0–");
 
-  // التبويبات الستة كلها حاضرة.
+  // PHASE 182 — المصادر مرجعٌ مطويّ للمعلم/ولي الأمر: لا تُطلب قبل الفتح.
+  await expect(page.getByTestId("sources-toggle")).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByTestId("lesson-sources")).toHaveCount(0);
+  await page.getByTestId("sources-toggle").click();
+  await expect(page.getByTestId("sources-toggle")).toHaveAttribute("aria-expanded", "true");
+
+  // التبويبات الستة كلها حاضرة بعد الفتح.
   await expect(page.getByTestId("lesson-sources")).toBeVisible({ timeout: 20_000 });
   for (const tab of SOURCE_TABS) {
     await expect(page.locator(`[data-testid="source-tab"][data-tab="${tab}"]`)).toBeVisible();
@@ -119,6 +126,8 @@ test("SR2 (PHASE 160): a wrong quiz answer becomes a مرصود «خطأ شائ�
   await page.getByTestId("quiz-close").click();
   await expect(page.getByTestId("quiz-panel")).toHaveCount(0);
 
+  // PHASE 182 — افتح مرجع المعلم أولًا، ثم «أخطاء شائعة».
+  await page.getByTestId("sources-toggle").click();
   // «أخطاء شائعة» يعرض الخطأ المرصود مجمّعًا — سؤال + خيار خاطئ + عدد، بلا أسماء.
   await page.locator('[data-testid="source-tab"][data-tab="errors"]').click();
   const observed = page.locator('[data-testid="source-item"][data-kind="observed"]');

@@ -1388,6 +1388,38 @@ p {
   padding-inline: 0.9rem;
 }
 
+/* PHASE 182 — a clear start strip above the two-column room. */
+.room-start-strip {
+  width: min(1500px, 96vw);
+  margin: 0 auto;
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  background: var(--gold-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-3);
+}
+
+.room-start-strip__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.room-start-strip__text strong {
+  color: var(--primary-ink);
+  font-size: var(--fs-2);
+}
+
+.room-start-strip__text span {
+  color: var(--muted);
+  font-size: var(--fs-1);
+}
+
 /* ----- the room body: stage + live stream ----- */
 .room-body {
   flex: 1;
@@ -2641,12 +2673,16 @@ p {
   padding: var(--sp-4);
   padding-top: max(var(--sp-4), env(safe-area-inset-top));
   padding-bottom: max(var(--sp-4), env(safe-area-inset-bottom));
-  overflow-y: auto;
+  /* PHASE 183 — only the stage scrolls; the head and the controls stay put.
+     The old whole-screen scroll let a long voice notice push «أعد الميكروفون»
+     and «إنهاء المحادثة» below the fold on the owner's phone. */
+  overflow: hidden;
   background: var(--room-paper);
 }
 
 .voice-mode-head {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
@@ -2665,12 +2701,15 @@ p {
 .voice-stage {
   flex: 1;
   min-height: 0;
+  width: 100%;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   gap: var(--sp-4);
   text-align: center;
+  overscroll-behavior: contain;
 }
 
 .voice-orb {
@@ -2770,6 +2809,16 @@ p {
   color: var(--room-muted);
 }
 
+/* PHASE 181 — the last reply stays on the voice stage after the sound ends.
+   A full answer can be long, so it scrolls inside the stage instead of
+   pushing the orb, the notice and the controls off a phone screen. */
+.voice-caption.tutor-said {
+  max-height: 32vh;
+  overflow-y: auto;
+  padding-inline: var(--sp-2);
+  text-align: start;
+}
+
 /* PHASE 174 — «لم أسمعك بعد»: the line that turns an unexplained silence
    into one clear check (the microphone permission) after seconds without a
    single word since the mode opened. Muted on purpose: guidance, not alarm. */
@@ -2786,6 +2835,8 @@ p {
    looking, not behind an overlay. Same tokens as the room's error notice. */
 .voice-notice {
   align-self: center;
+  flex: 0 0 auto;
+  width: min(34rem, 100%);
   margin: 0;
   padding: 0.55rem 1rem;
   border: 1px solid var(--danger-line);
@@ -2797,11 +2848,54 @@ p {
   text-align: center;
 }
 
+/* PHASE 183 — missing voice is a warning, not a dead end: it stays one short
+   line with the OS instructions folded away, and it never owns the screen. */
+.voice-notice--soft {
+  display: grid;
+  gap: var(--sp-2);
+  border-color: var(--warn-line);
+  background: var(--warn-bg);
+  color: var(--warn-fg);
+  text-align: start;
+}
+
+.voice-notice__line {
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.voice-notice__details summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.voice-notice__details p {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-2);
+  line-height: 1.8;
+}
+
+.voice-notice__dismiss,
+.voice-warning__dismiss {
+  justify-self: start;
+  min-height: 36px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--warn-line);
+  border-radius: var(--r-2);
+  background: transparent;
+  color: var(--warn-fg);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .voice-controls {
   display: flex;
+  flex: 0 0 auto;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--sp-3);
+  padding-top: var(--sp-2);
 }
 
 .voice-controls .btn {

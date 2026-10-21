@@ -30,20 +30,30 @@ async function openG6MathLesson(page: import("@playwright/test").Page): Promise<
   await expect(page.getByTestId("lesson-page")).toBeVisible({ timeout: 20_000 });
 }
 
-test("JN1 (PHASE 161): «رحلتي» تفتح من التنقّل — الحديقة حتمية والشـارات كما كانت", async ({ page }) => {
+test("JN1 (PHASE 183): «رحلتي» تفتح من التنقّل — مسار القمة حتمي والشارات كما كانت", async ({ page }) => {
   await login(page);
   await page.getByTestId("nav-journey").click();
   await expect(page.getByTestId("achievements-screen")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("journey-title")).toContainText("رحلتي");
 
-  // الحديقة: زرع حتمي — نقرأ عدد النباتات ثم نعيد الزيارة ونقارن.
-  const garden = page.getByTestId("journey-garden");
-  await expect(garden).toBeVisible({ timeout: 20_000 });
-  const plants = await garden.getAttribute("data-plants");
-  expect(plants, "الحديقة بلا data-plants").not.toBeNull();
+  // مسار القمة: خمس محطات حقيقية، وكل قيمها من بيانات الإتقان.
+  const challenge = page.getByTestId("journey-challenge");
+  await expect(challenge).toBeVisible({ timeout: 20_000 });
+  const level = await challenge.getAttribute("data-level");
+  const score = await challenge.getAttribute("data-score");
+  expect(level, "مسار القمة بلا data-level").not.toBeNull();
+  expect(score, "مسار القمة بلا data-score").not.toBeNull();
+  expect(await page.getByTestId("challenge-node").count()).toBe(5);
+
+  // المحطات متفاعلة: اختيار محطة يغيّر تفصيلها المعروض.
+  await page.getByTestId("challenge-node").first().click();
+  await expect(page.getByTestId("challenge-detail")).toHaveAttribute("data-level", "1");
 
   // الإنجازات: العقد القديم نفسه — 12 صفًا بشاراتها وعدّادها.
+  // PHASE 182 — أول صفحة تعرض المكسوب + 3 مقفلة؛ نفتح الكل قبل العدّ.
   await expect(page.getByTestId("achievement-list")).toBeVisible({ timeout: 20_000 });
+  const showAllBadges = page.getByTestId("achievements-show-all");
+  if ((await showAllBadges.count()) > 0) await showAllBadges.click();
   expect(await page.getByTestId("achievement-row").count()).toBe(12);
   await expect(page.getByTestId("achievements-earned")).toBeVisible();
 
@@ -52,11 +62,12 @@ test("JN1 (PHASE 161): «رحلتي» تفتح من التنقّل — الحد�
   await expect(page.getByTestId("journey-sessions")).toBeVisible();
   await expect(page.getByTestId("journey-mistakes")).toBeVisible();
 
-  // حتمية حيّة: إعادة الزيارة بنفس البيانات ⇒ نفس الزرع بالضبط.
+  // حتمية حيّة: إعادة الزيارة بنفس البيانات ⇒ نفس المستوى والنقاط بالضبط.
   await page.reload();
   await page.getByTestId("nav-journey").click();
-  await expect(page.getByTestId("journey-garden")).toBeVisible({ timeout: 20_000 });
-  expect(await page.getByTestId("journey-garden").getAttribute("data-plants")).toBe(plants);
+  await expect(page.getByTestId("journey-challenge")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("journey-challenge")).toHaveAttribute("data-level", level!);
+  await expect(page.getByTestId("journey-challenge")).toHaveAttribute("data-score", score!);
 });
 
 test("JN2 (PHASE 161): خطأ في الاختبار يدخل الدفتر و«راجع هذه» يفتح تمرينًا على المفهوم", async ({ page }) => {

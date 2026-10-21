@@ -1,0 +1,386 @@
+/* ==========================================================================
+   PHASE 183 — «مسار القمة»: interactive progress map for «رحلتي»
+   A dark, calm map with five real strength checkpoints. The gold trail, the
+   marker and the mission all read from actual mastery data; nothing here is a
+   decorative plant or a fake reward.
+   ========================================================================== */
+
+.jn-card--quest .ui-card__body {
+  gap: var(--sp-2);
+}
+
+.jn-quest {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border: 1px solid var(--quest-panel-line);
+  border-radius: var(--r-3);
+  background:
+    radial-gradient(circle at 82% 6%, var(--quest-panel), transparent 42%),
+    radial-gradient(circle at 8% 96%, var(--quest-glow), transparent 54%),
+    linear-gradient(145deg, var(--quest-bg), var(--quest-bg-2));
+  color: var(--quest-ink);
+  box-shadow: var(--shadow-2);
+}
+
+.jn-quest__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.jn-quest__eyebrow {
+  display: block;
+  color: var(--quest-muted);
+  font-size: var(--fs-1);
+  font-weight: 700;
+}
+
+.jn-quest__level {
+  display: block;
+  margin-top: 2px;
+  color: var(--quest-ink);
+  font-family: var(--font-learn);
+  font-size: var(--fs-5);
+  font-weight: 800;
+}
+
+.jn-quest__points {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  flex-shrink: 0;
+  color: var(--quest-gold);
+  direction: ltr;
+}
+
+.jn-quest__points b {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.jn-quest__points span {
+  color: var(--quest-muted);
+  font-size: var(--fs-2);
+}
+
+.jn-quest__map {
+  position: relative;
+  height: clamp(190px, 39vw, 250px);
+  margin-block: var(--sp-1);
+}
+
+.jn-quest__scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.jn-quest__contour {
+  fill: none;
+  stroke: var(--quest-line);
+  stroke-width: 0.7;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.8;
+}
+
+.jn-quest__dust {
+  fill: var(--quest-line);
+}
+
+.jn-quest__trail {
+  fill: none;
+  stroke: var(--quest-line);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 2.5 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.jn-quest__trail-fill {
+  fill: none;
+  stroke: var(--quest-gold);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 4px var(--quest-glow));
+}
+
+.jn-quest__edge {
+  position: absolute;
+  color: var(--quest-muted);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.jn-quest__edge--start {
+  inset-inline-end: 1%;
+  inset-block-end: 0;
+}
+
+.jn-quest__edge--summit {
+  inset-inline-start: 1%;
+  inset-block-start: 0;
+  color: var(--quest-gold);
+}
+
+.jn-quest__node {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.jn-quest__node-ball {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--quest-line);
+  border-radius: 50%;
+  background: var(--quest-bg);
+  color: var(--quest-ink);
+  font-size: var(--fs-2);
+  font-weight: 800;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.jn-quest__node[data-state="done"] .jn-quest__node-ball {
+  border-color: var(--quest-done);
+  background: var(--quest-done);
+  color: var(--quest-bg);
+}
+
+.jn-quest__node[data-state="next"] .jn-quest__node-ball {
+  border-color: var(--quest-gold);
+  color: var(--quest-gold);
+}
+
+.jn-quest__node[data-state="current"] .jn-quest__node-ball {
+  width: 40px;
+  height: 40px;
+  border-color: var(--quest-gold);
+  background: var(--quest-gold);
+  color: var(--quest-bg);
+  box-shadow: var(--quest-node-shadow);
+  animation: jn-quest-pulse 2.8s ease-in-out infinite;
+}
+
+.jn-quest__node[data-state="locked"] .jn-quest__node-ball {
+  color: var(--quest-future);
+  opacity: 0.62;
+}
+
+.jn-quest__node:hover .jn-quest__node-ball,
+.jn-quest__node:focus-visible .jn-quest__node-ball {
+  transform: scale(1.08);
+}
+
+.jn-quest__node:focus-visible {
+  outline: 2px solid var(--quest-gold);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.jn-quest__here {
+  position: absolute;
+  inset-block-start: calc(50% + 25px);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  color: var(--quest-gold);
+  font-size: var(--fs-1);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.jn-quest__detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--quest-panel-line);
+  border-radius: var(--r-2);
+  background: var(--quest-panel);
+}
+
+.jn-quest__detail-copy {
+  min-width: 0;
+}
+
+.jn-quest__detail-copy b {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-4);
+}
+
+.jn-quest__detail-copy p {
+  margin: var(--sp-1) 0 0;
+  color: var(--quest-muted);
+  font-size: var(--fs-2);
+  line-height: 1.7;
+}
+
+.jn-quest__band {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border: 1px solid var(--quest-panel-line);
+  border-radius: 999px;
+  color: var(--quest-gold);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.jn-quest__mission {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3);
+  border: 1px solid var(--quest-panel-line);
+  border-radius: var(--r-2);
+  background: var(--quest-panel);
+}
+
+.jn-quest__mission-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.jn-quest__mission-copy b {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-4);
+}
+
+.jn-quest__mission-copy p {
+  margin: var(--sp-1) 0 0;
+  color: var(--quest-muted);
+  font-size: var(--fs-2);
+  line-height: 1.7;
+}
+
+.jn-quest__mission-bar {
+  height: 5px;
+  margin-top: var(--sp-2);
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--quest-line);
+}
+
+.jn-quest__mission-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gold-grad);
+}
+
+.jn-quest__mission--empty {
+  justify-content: flex-start;
+}
+
+.jn-quest__cta {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0 var(--sp-4);
+  border: 0;
+  border-radius: var(--r-2);
+  background: var(--gold-grad);
+  color: var(--quest-bg);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: var(--glow);
+}
+
+.jn-quest__cta:hover {
+  filter: brightness(1.05);
+}
+
+.jn-quest__cta:focus-visible {
+  outline: 2px solid var(--quest-gold);
+  outline-offset: 3px;
+}
+
+.jn-quest__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--quest-panel-line);
+  color: var(--quest-muted);
+  font-size: var(--fs-2);
+}
+
+.jn-quest__foot b {
+  color: var(--quest-gold);
+}
+
+@keyframes jn-quest-pulse {
+  0%,
+  100% {
+    box-shadow: var(--quest-node-shadow);
+  }
+  50% {
+    box-shadow: var(--quest-node-shadow-pulse);
+  }
+}
+
+@media (max-width: 540px) {
+  .jn-quest {
+    padding: var(--sp-3);
+  }
+
+  .jn-quest__level {
+    font-size: var(--fs-4);
+  }
+
+  .jn-quest__points b {
+    font-size: 1.6rem;
+  }
+
+  .jn-quest__map {
+    height: 220px;
+  }
+
+  .jn-quest__detail {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .jn-quest__mission {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .jn-quest__cta {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jn-quest__node[data-state="current"] .jn-quest__node-ball {
+    animation: none;
+  }
+
+  .jn-quest__node-ball {
+    transition: none;
+  }
+}

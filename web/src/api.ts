@@ -2,11 +2,40 @@
 // The session cookie is handled by the browser automatically; the CSRF token
 // is attached to every state-changing request and refreshed on login/register.
 
+export type StudyLanguage = "ar" | "en" | "fr";
+export type FirstForeignLanguage = "en" | "fr";
+export type SecondForeignLanguage = "en" | "fr" | "de" | "it" | "es";
+export type ReligionChoice = "islamic" | "christian";
+
+/** PHASE 192 — the four G12 choices that decide which official editions are enrolled. */
+export interface G12Choices {
+  studyLanguage: StudyLanguage;
+  firstForeignLanguage: FirstForeignLanguage;
+  secondForeignLanguage: SecondForeignLanguage;
+  religion: ReligionChoice | null;
+}
+
+export type G12ChoiceInput = Partial<{
+  studyLanguage: StudyLanguage | null;
+  firstForeignLanguage: FirstForeignLanguage | null;
+  secondForeignLanguage: SecondForeignLanguage | null;
+  religion: ReligionChoice | null;
+}>;
+
 export interface StudentSummary {
   id: string;
   displayName: string;
   gradeId: string | null;
+  gradeCode: string | null;
   gradeNameAr: string | null;
+  /** PHASE 185 — «علمي» / «أدبي» for Secondary-2 onward; null before that. */
+  track: string | null;
+  trackNameAr: string | null;
+  /** PHASE 192 — null on grades that do not use the G12 choice model. */
+  studyLanguage: StudyLanguage | null;
+  firstForeignLanguage: FirstForeignLanguage | null;
+  secondForeignLanguage: SecondForeignLanguage | null;
+  religion: ReligionChoice | null;
 }
 
 export interface User {
@@ -49,6 +78,13 @@ export interface Grade {
   levelOrder: number;
 }
 
+/** PHASE 185 — a track the selected grade actually offers. */
+export interface TrackOption {
+  code: string;
+  name: string;
+  nameAr: string;
+}
+
 /**
  * PHASE 38/D-042 — the tutor's reply language for a curriculum. The server
  * decides it (from the subject); the client only displays it.
@@ -71,6 +107,8 @@ export interface Curriculum {
   title: string;
   version: string;
   isActive: boolean;
+  /** PHASE 185 — null = مشترك بين المسارين; otherwise science/literature. */
+  track: string | null;
   createdAt: string;
 }
 
@@ -387,13 +425,29 @@ export async function logout(): Promise<void> {
  * Every mutation returns the refreshed auth user (all children + active child)
  * so the shell, Home and the account drawer switch atomically.
  */
-export async function createStudent(input: { displayName: string; gradeId: string }): Promise<User> {
+export async function createStudent(input: {
+  displayName: string;
+  gradeId: string;
+  track?: string;
+} & G12ChoiceInput): Promise<User> {
   const res = await api<{ user: User }>("/students", { method: "POST", body: input });
   return res.user;
 }
 
-export async function setupStudent(studentId: string, input: { displayName: string; gradeId: string }): Promise<User> {
+export async function setupStudent(
+  studentId: string,
+  input: { displayName: string; gradeId: string; track?: string } & G12ChoiceInput,
+): Promise<User> {
   const res = await api<{ user: User }>(`/students/${encodeURIComponent(studentId)}/setup`, { method: "PUT", body: input });
+  return res.user;
+}
+
+/** PHASE 192 — change language/religion choices without losing learning data. */
+export async function updateStudentChoices(studentId: string, input: G12ChoiceInput): Promise<User> {
+  const res = await api<{ user: User }>(`/students/${encodeURIComponent(studentId)}/choices`, {
+    method: "PUT",
+    body: input,
+  });
   return res.user;
 }
 
@@ -405,10 +459,16 @@ export async function activateStudent(studentId: string): Promise<User> {
 export async function changeStudentGrade(
   studentId: string,
   gradeId: string,
-): Promise<{ user: User; changed: boolean; deleted: { sessions: number; answers: number; assessments: number; progress: number } }> {
+  track?: string,
+  choices?: G12ChoiceInput,
+): Promise<{
+  user: User;
+  changed: boolean;
+  deleted: { sessions: number; answers: number; assessments: number; progress: number; tasks?: number };
+}> {
   return api(`/students/${encodeURIComponent(studentId)}/grade`, {
     method: "PUT",
-    body: { gradeId, confirmReset: true },
+    body: { gradeId, track, ...choices, confirmReset: true },
   });
 }
 
@@ -444,17 +504,28 @@ export async function listGrades(systemId: string): Promise<Grade[]> {
   return res.grades;
 }
 
-export async function listSubjects(gradeId?: string): Promise<Subject[]> {
-  const res = await api<{ subjects: Subject[] }>(
-    gradeId ? `/curriculum/subjects?gradeId=${encodeURIComponent(gradeId)}` : "/curriculum/subjects",
-  );
+export async function listTracks(gradeId: string): Promise<TrackOption[]> {
+  const res = await api<{ tracks: TrackOption[] }>(`/curriculum/tracks?gradeId=${encodeURIComponent(gradeId)}`);
+  return res.tracks;
+}
+
+export async function listSubjects(gradeId?: string, studentId?: string): Promise<Subject[]> {
+  const params = new URLSearchParams();
+  if (gradeId) params.set("gradeId", gradeId);
+  if (studentId) params.set("studentId", studentId);
+  const qs = params.toString();
+  const res = await api<{ subjects: Subject[] }>(`/curriculum/subjects${qs ? `?${qs}` : ""}`);
   return res.subjects;
 }
 
-export async function listCurricula(gradeId: string, subjectId: string): Promise<Curriculum[]> {
-  const res = await api<{ curricula: Curriculum[] }>(
-    `/curriculum/curricula?gradeId=${encodeURIComponent(gradeId)}&subjectId=${encodeURIComponent(subjectId)}`,
-  );
+export async function listCurricula(
+  gradeId: string,
+  subjectId: string,
+  studentId?: string,
+): Promise<Curriculum[]> {
+  const params = new URLSearchParams({ gradeId, subjectId });
+  if (studentId) params.set("studentId", studentId);
+  const res = await api<{ curricula: Curriculum[] }>(`/curriculum/curricula?${params.toString()}`);
   return res.curricula;
 }
 
@@ -1021,6 +1092,9 @@ export interface PracticePlanItem {
   title: string;
   lessonId: string | null;
   lessonTitle: string | null;
+  /** PHASE 182 — printed book pages of the lesson (null when no book stage). */
+  bookPageStart: number | null;
+  bookPageEnd: number | null;
   /** PHASE 179 — the subject this concept belongs to (current grade only). */
   subjectId: string | null;
   subjectNameAr: string | null;
@@ -1049,11 +1123,16 @@ export interface PracticePlanItem {
  * activity streak (consecutive UTC days with any answer or session). */
 export interface PracticePlanResponse {
   plan: PracticePlanItem[];
+  /** PHASE 182 — full plan size even when `limit` returns a first page. */
+  total: number;
+  /** PHASE 182 — full count of concepts due for review (not just the page). */
+  dueCount: number;
   streak: number;
 }
 
-export async function getPracticePlan(): Promise<PracticePlanResponse> {
-  return api<PracticePlanResponse>("/practice/plan");
+/** PHASE 182 — Home asks for a small first page; the plan screen asks for all. */
+export async function getPracticePlan(limit?: number): Promise<PracticePlanResponse> {
+  return api<PracticePlanResponse>(limit && limit > 0 ? `/practice/plan?limit=${Math.min(Math.round(limit), 500)}` : "/practice/plan");
 }
 
 /** PHASE 28 + 30 — generate one MCQ (default) or open question for a questionless concept. */
@@ -1062,8 +1141,69 @@ export async function generatePracticeQuestion(conceptId: string, kind: "mcq" | 
     method: "POST",
     body: { conceptId, kind },
   });
-  if (!res.question) throw new ApiError("تعذر توليد سؤال لهذا المفهوم.", 502, "EMPTY_GENERATION");
+  if (!res.question) throw new ApiError("تعذر تحضير سؤال لهذا المفهوم.", 502, "EMPTY_GENERATION");
   return res.question;
+}
+
+// --- My homework/exams (PHASE 182) ------------------------------------------
+
+export type StudentTaskKind = "homework" | "exam";
+
+/** One child's own homework or exam reminder; dates are local `YYYY-MM-DD`. */
+export interface StudentTask {
+  id: string;
+  studentId: string;
+  title: string;
+  kind: StudentTaskKind;
+  subjectId: string | null;
+  dueDate: string;
+  notes: string | null;
+  done: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface StudentTaskInput {
+  title: string;
+  kind: StudentTaskKind;
+  dueDate: string;
+  subjectId?: string | null;
+  notes?: string | null;
+}
+
+export interface StudentTaskQuery {
+  from?: string;
+  to?: string;
+  pending?: boolean;
+  limit?: number;
+}
+
+export async function listTasks(query: StudentTaskQuery = {}): Promise<StudentTask[]> {
+  const params = new URLSearchParams();
+  if (query.from) params.set("from", query.from);
+  if (query.to) params.set("to", query.to);
+  if (query.pending) params.set("pending", "1");
+  if (query.limit) params.set("limit", String(query.limit));
+  const qs = params.toString();
+  const res = await api<{ tasks: StudentTask[] }>(`/tasks${qs ? `?${qs}` : ""}`);
+  return res.tasks;
+}
+
+export async function createTask(input: StudentTaskInput): Promise<StudentTask> {
+  const res = await api<{ task: StudentTask }>("/tasks", { method: "POST", body: input });
+  return res.task;
+}
+
+export async function updateTask(
+  id: string,
+  patch: Partial<Pick<StudentTaskInput, "title" | "kind" | "dueDate" | "subjectId" | "notes">> & { done?: boolean },
+): Promise<StudentTask> {
+  const res = await api<{ task: StudentTask }>(`/tasks/${encodeURIComponent(id)}`, { method: "PATCH", body: patch });
+  return res.task;
+}
+
+export async function deleteTask(id: string): Promise<void> {
+  await api<{ ok: true }>(`/tasks/${encodeURIComponent(id)}`, { method: "DELETE" });
 }
 
 // --- Parent dashboard (PHASE 18) -------------------------------------------

@@ -321,11 +321,19 @@ test("A6: no server voice and no voice for the language is stated plainly", asyn
   // The server answers 503 and the fallback refuses to read Arabic in the
   // machine's English voice: nothing is spoken, and the student gets the
   // actionable notice instead of wrong-language audio.
-  await expect(page.getByTestId("chat-error")).toContainText("لا يوجد صوت العربية", { timeout: 15_000 });
-  await expect(page.getByTestId("chat-error")).toContainText("Language options");
+  //
+  // PHASE 183 (D-066) — a missing device voice is a dismissible warning, not
+  // a dead `chat-error`: the room keeps listening, the reply stays written, and
+  // the note can be hidden without leaving the lesson. Assert that contract.
+  const notice = page.getByTestId("voice-warning");
+  await expect(notice).toContainText("لا يوجد صوت العربية", { timeout: 15_000 });
+  await expect(notice).toContainText("الردّ مكتوب");
   const state = await voiceTestState(page);
   expect(state.spoken.length).toBe(0);
   expect(state.audio.plays).toBe(0);
+  await expect(page.getByTestId("chat-error")).toHaveCount(0);
+  await page.getByTestId("voice-warning-dismiss").click();
+  await expect(notice).toHaveCount(0);
 });
 
 /**

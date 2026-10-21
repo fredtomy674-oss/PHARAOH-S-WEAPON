@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { ensureG6Grade, login, sendChatMessage, startFirstLesson } from "./helpers.js";
+import { ensureG6Grade, login, openFullPlan, sendChatMessage, startFirstLesson } from "./helpers.js";
 
 /**
  * PHASE 24 — concept mastery + practice loop, end to end: the demo student
@@ -33,16 +33,16 @@ test("PR1 (PHASE 24): practicing a question updates concept mastery on the stude
   expect(feedback).toMatch(/إجابة (صحيحة|غير صحيحة)/);
   await expect(page.getByTestId("practice-mastery")).toBeVisible({ timeout: 20_000 });
 
-  // 4) Reload the home screen: the concept is now tracked in "إتقان المفاهيم"
-  //    with a level badge and practice recency.
+  // 4) Reload, then open «رحلتي»: detailed mastery moved off Home in PHASE 182,
+  //    so the concept is tracked in the Journey mastery card instead.
   await page.reload();
-  await expect(page.getByTestId("mastery-section")).toBeVisible({ timeout: 20_000 });
-  await expect(page.getByTestId("mastery-list")).toBeVisible({ timeout: 20_000 });
-  const rows = page.getByTestId("mastery-concept-row");
+  await page.getByTestId("open-achievements").click();
+  await expect(page.getByTestId("journey-mastery")).toBeVisible({ timeout: 20_000 });
+  const rows = page.getByTestId("journey-mastery-item");
   await expect(rows.first()).toBeVisible({ timeout: 20_000 });
   expect(await rows.count()).toBeGreaterThanOrEqual(1);
-  await expect(page.getByTestId("mastery-level").first()).toBeVisible();
-  await expect(page.getByTestId("mastery-trend").first()).toBeVisible();
+  await expect(rows.first().locator(".jn-mastery__pct")).toBeVisible();
+  await expect(rows.first().locator(".jn-mastery__meta")).toBeVisible();
 });
 
 /**
@@ -66,9 +66,22 @@ test("PR2 (PHASE 25): the practice plan ranks weak concepts and opens scoped pra
   await expect(page.getByTestId("plan-level").first()).toBeVisible();
   await expect(page.getByTestId("plan-trend").first()).toBeVisible();
 
-  // 3) "تمرّن الآن" on the first PRACTICABLE concept opens the practice panel
+  // 3) "تدرّب الآن" on the first PRACTICABLE concept opens the practice panel
   //    with a real question, scoped to that concept (chip shows its title).
+  //    Home shows only three priorities; if none has a ready MCQ, open the full
+  //    plan and expand the subject groups. PHASE 184 — wait for the plan payload
+  //    before counting actions, or the preview can still be its loading note.
+  await expect(page.getByTestId("plan-row").first()).toBeVisible({ timeout: 20_000 });
   const practiceable = page.locator('[data-testid="plan-practice"]:not([disabled])');
+  if ((await practiceable.count()) === 0) {
+    const planMore = page.getByTestId("plan-more");
+    if ((await planMore.count()) > 0) {
+      await planMore.click();
+      const expandAll = page.getByTestId("plan-expand-all");
+      await expect(expandAll).toBeVisible({ timeout: 20_000 });
+      await expandAll.click();
+    }
+  }
   await expect(practiceable.first()).toBeVisible({ timeout: 20_000 });
   await practiceable.first().click();
   await expect(page.getByTestId("practice-panel")).toBeVisible({ timeout: 20_000 });
@@ -95,6 +108,10 @@ test("PR3 (PHASE 26): the first practice answer earns انطلاقة التمر�
   await expect(starter).toContainText("انطلاقة التمرين");
   await expect(starter).toHaveAttribute("data-earned", "true");
 
+  // PHASE 182 — first page shows earned badges + a few locked ones; open the
+  // full cabinet before asserting a specific locked badge.
+  const showAll = page.getByTestId("achievements-show-all");
+  if ((await showAll.count()) > 0) await showAll.click();
   const masteryFirst = page.locator('[data-testid="achievement-row"][data-code="mastery_first"]');
   await expect(masteryFirst).toBeVisible();
   await expect(masteryFirst).toContainText("أول إتقان");
@@ -131,9 +148,9 @@ test("PR4 (PHASE 28): the student reaches a grounded question for تعبير ر�
   await ensureG6Grade(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
 
-  // PHASE 179 — the home shows the three most important plan steps first.
-  const planMore = page.getByTestId("plan-more");
-  if ((await planMore.count()) > 0) await planMore.click();
+  // PHASE 182 — open the full plan and expand every subject group. PHASE 184 —
+  // wait for the plan payload before checking for its button (see helper).
+  await openFullPlan(page);
 
   const row = page
     .locator('[data-testid="plan-row"]')
@@ -162,14 +179,21 @@ test("PR4 (PHASE 28): the student reaches a grounded question for تعبير ر�
   await page.getByTestId("practice-submit").click();
   await expect(page.getByTestId("practice-feedback")).toBeVisible({ timeout: 20_000 });
 
-  // Reload: the concept is now tracked in the mastery summary.
+  // Reload: the concept is now tracked in «رحلتي» → «إتقاني».
   await page.reload();
-  await expect(page.getByTestId("mastery-section")).toBeVisible({ timeout: 20_000 });
-  // PHASE 179 shows the four most important concepts first; expand before
-  // asserting a specific tracked row (its rank depends on earlier suite data).
-  const masteryMore = page.getByTestId("mastery-more");
+  await page.getByTestId("open-achievements").click();
+  await expect(page.getByTestId("journey-mastery")).toBeVisible({ timeout: 20_000 });
+  // PHASE 182 — first page shows five concepts; expand before asserting a
+  // specific tracked row (its rank depends on earlier suite data). PHASE 184 —
+  // wait for the fetched list itself before asking for its expand button, or
+  // the count reads the loading state and the tap is skipped (same race as the
+  // plan helper in helpers.ts).
+  await expect(page.getByTestId("journey-mastery-item").first()).toBeVisible({ timeout: 20_000 });
+  const masteryMore = page.getByTestId("mastery-show-all");
   if ((await masteryMore.count()) > 0) await masteryMore.click();
-  await expect(page.getByTestId("mastery-concept-row").filter({ hasText: "أستطيع أن أستخدم متغيراً في تعبير رياضي" })).toBeVisible({ timeout: 20_000 });
+  await expect(
+    page.getByTestId("journey-mastery-item").filter({ hasText: "أستطيع أن أستخدم متغيراً في تعبير رياضي" }),
+  ).toBeVisible({ timeout: 20_000 });
 });
 
 /**
@@ -182,6 +206,9 @@ test("PR5 (PHASE 33): ending a lesson session keeps the practice plan healthy", 
   await login(page);
   await ensureG6Grade(page);
   await expect(page.getByTestId("plan-section")).toBeVisible({ timeout: 20_000 });
+  // PHASE 170 — wait for the plan itself, not just its card: the card renders
+  // its loading state first, so an immediate count could read a half-loaded plan.
+  await expect(page.getByTestId("plan-row").first()).toBeVisible({ timeout: 20_000 });
   expect(await page.getByTestId("plan-row").count()).toBeGreaterThanOrEqual(1);
 
   // Study a lesson through the real lesson-session flow, then end it.

@@ -246,6 +246,15 @@ export function LessonRoom({ session, onEnded }: Props) {
   const [docFile, setDocFile] = useState<PendingDocument | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // PHASE 183 — a missing device voice is not a dead conversation. It is a
+  // small, dismissible banner that leaves the live ear open; the old shared
+  // `error` slot grew to fill the phone screen and pushed every control except
+  // «إنهاء المحادثة» below the fold (the owner had to leave live mode).
+  const [voiceWarning, setVoiceWarning] = useState<{ summary: string; detail: string } | null>(null);
+  const voiceWarningShown = useRef(false);
+  // A server that answered 503 (narration quota) is not asked again every
+  // single turn: the warning said it once, and the room reads locally meanwhile.
+  const serverVoiceDownUntil = useRef(0);
   const [remaining, setRemaining] = useState<number | null>(null);
   const [tripwire, setTripwire] = useState(false);
   const [listening, setListening] = useState(false);
@@ -260,6 +269,10 @@ export function LessonRoom({ session, onEnded }: Props) {
   // «للغرفة» يصغّرها والمحادثة لا تنقطع. `bargeAt` وميض صادق للحظة المقاطعة.
   const [voiceFocusOpen, setVoiceFocusOpen] = useState(false);
   const [bargeAt, setBargeAt] = useState(0);
+  // PHASE 181 — «أعد الميكروفون»: the guaranteed human act when a phone's
+  // recognizer has gone quiet (the owner's workaround was leaving the mode and
+  // coming back). Bumping the key rebuilds the live session in place.
+  const [voiceRestartKey, setVoiceRestartKey] = useState(0);
   // PHASE 174 — «لم أسمعك بعد»: يظهر فقط إن مضت ثوانٍ منذ فتح المحادثة ولم
   // تصل كلمة واحدة — تلميح صادق لا زينة (اقرأ `MIC_QUIET_HINT_MS`).
   const [micQuietHint, setMicQuietHint] = useState(false);
@@ -529,6 +542,22 @@ export function LessonRoom({ session, onEnded }: Props) {
   };
 
   /**
+   * PHASE 183 — say a missing voice once, in one short line, with the full
+   * operating-system path behind a disclosure. This is deliberately *not*
+   * `error`: the conversation is still listening, the reply is still written,
+   * and the student must be able to dismiss the note without leaving the mode.
+   */
+  const showVoiceWarning = (serverFailed: boolean) => {
+    if (voiceWarningShown.current) return;
+    voiceWarningShown.current = true;
+    const languageName = tutorLanguage === "ar" ? "العربية" : "الإنجليزية";
+    setVoiceWarning({
+      summary: `لا يوجد صوت ${languageName} مثبّت على هذا الجهاز — الردّ مكتوب، والمحادثة تستمر في الاستماع إليك.`,
+      detail: missingVoiceNotice(tutorLanguage) + (serverFailed ? ` ${SERVER_VOICE_DOWN_NOTE}` : ""),
+    });
+  };
+
+  /**
    * PHASE 40 (D-044) — read a reply aloud with the *browser's* own voice: the
    * fallback for when the server has no voice. The missing-voice notice fires
    * only here, because only here does the machine's voice decide what is
@@ -557,7 +586,7 @@ export function LessonRoom({ session, onEnded }: Props) {
     // too, or a server-voice outage turns every Arabic reply into English. Silent
     // plus the actionable notice is the honest outcome.
     if (!canSpeakLanguage(tutorLanguage)) {
-      setError(missingVoiceNotice(tutorLanguage) + (serverFailed ? ` ${SERVER_VOICE_DOWN_NOTE}` : ""));
+      showVoiceWarning(serverFailed);
       return;
     }
     // PHASE 177 — this reading claims the room's floor at its true start and
@@ -578,7 +607,7 @@ export function LessonRoom({ session, onEnded }: Props) {
     floorClaim = claimVoice();
     // PHASE 162 — وضع المتصفح التقريبي: حدود الكلمات نبضات حقيقية للفم.
     utterance.addEventListener("boundary", () => mouth.pulse());
-    if (missingVoice) setError(missingVoiceNotice(tutorLanguage));
+    if (missingVoice) showVoiceWarning(false);
   };
 
   /**
@@ -752,7 +781,17 @@ export function LessonRoom({ session, onEnded }: Props) {
     // Spoken words, not syntax: the bubble may hold **bold** and lists.
     // PHASE 172 — `serverFailed` = the server itself reported (503) that it has
     // no voice: joining it to the missing-voice notice tells the whole truth.
-    const withLocalVoice = (serverFailed = false) => speakLocally(stripMarkdown(message.content), serverFailed);
+    const withLocalVoice = (serverFailed = false) => {
+      // A running cooldown is not extended on every local turn, or the 503\n      // would never be retried: one fixed 60-second window, then one chance.\n      if (serverFailed) {\n        serverVoiceDownUntil.current = Math.max(serverVoiceDownUntil.current, Date.now() + 60_000);\n      }
+      speakLocally(stripMarkdown(message.content), serverFailed);
+    };
+    // PHASE 183 — after a 503 the next turns do not re-ask the same dead
+    // narration service (and do not flash the same notice): read locally until
+    // the short cooldown expires, then try the server once more.
+    if (Date.now() < serverVoiceDownUntil.current) {
+      withLocalVoice(true);
+      return;
+    }
     /** The whole reply's audio in one piece, then the machine's own voice. */
     const buffered = async () => {
       try {
@@ -1244,6 +1283,11 @@ export function LessonRoom({ session, onEnded }: Props) {
         // room's floor directly (see `roomSpeaking` in `voice.ts`). The note*
         // timeline stays as the history; this cannot drift from the audio.
         roomSpeaking: () => speakingRef.current,
+        // PHASE 181 — a field that went quiet is rebuilt when it owes an end
+        // or never heard its first word, but never while the tutor is
+        // answering: the student's next words may already be waiting behind
+        // this turn.
+        roomBusy: () => pendingRef.current,
       },
       tutorLanguage,
     );
@@ -1262,7 +1306,7 @@ export function LessonRoom({ session, onEnded }: Props) {
       convQueued.current = null;
       setConvLive("");
     };
-  }, [conversation, tutorLanguage]);
+  }, [conversation, tutorLanguage, voiceRestartKey]);
 
   // PHASE 174 — the words heard in this mode session, as a one-way latch: the
   // hint appears only when NO word has ever arrived since the mode opened.
@@ -1386,6 +1430,21 @@ export function LessonRoom({ session, onEnded }: Props) {
     return `${(bytes / (1024 * 1024)).toFixed(1)} ميجابايت`;
   }, []);
 
+  /**
+   * PHASE 182 — one obvious start action, visible before the student scrolls
+   * past the board. With no typed question it asks the tutor to begin; with a
+   * question/attachment it sends exactly what the student prepared.
+   */
+  const beginLesson = () => {
+    if (!input.trim() && !preview && !docFile) {
+      const starter = "ابدأ الشرح";
+      setInput(starter);
+      setTimeout(() => send(starter), 50);
+    } else {
+      void send(input);
+    }
+  };
+
   const end = async () => {
     if (!window.confirm("إنهاء الجلسة والانتقال للرئيسية؟")) return;
     try {
@@ -1446,6 +1505,27 @@ export function LessonRoom({ session, onEnded }: Props) {
           </button>
         </div>
       </header>
+
+      {/* PHASE 182 — the start is a top-level invitation, not a button hidden
+          under the board. It disappears the moment the first turn exists. */}
+      {messages.length === 0 && !live && (
+        <div className="room-start-strip" data-testid="room-start-strip">
+          <div className="room-start-strip__text">
+            <strong>درسك جاهز — ابدأ الآن</strong>
+            <span>
+              {b ? `${b.subject.nameAr} — ${b.lesson.title}` : "معلّمك يعرف كتابك صفحة بصفحة"}
+            </span>
+          </div>
+          <button
+            className="btn primary big"
+            data-testid="lesson-start-action"
+            disabled={pending}
+            onClick={beginLesson}
+          >
+            {pending ? "جارٍ التحضير..." : "ابدأ الحصة ▶"}
+          </button>
+        </div>
+      )}
 
       <div className="room-body">
         {/* ---- W2 — سبورة المعلّم: the stage is the board. The student draws
@@ -1607,34 +1687,29 @@ export function LessonRoom({ session, onEnded }: Props) {
               {error}
             </div>
           )}
+          {voiceWarning && !error && (
+            <div data-testid="voice-warning" className="notice" role="status">
+              🔇 {voiceWarning.summary}{" "}
+              <button
+                type="button"
+                className="btn ghost voice-warning__dismiss"
+                data-testid="voice-warning-dismiss"
+                onClick={() => {
+                  setVoiceWarning(null);
+                  voiceWarningShown.current = true;
+                }}
+              >
+                إخفاء
+              </button>
+            </div>
+          )}
 
           <div className="room-captions" data-testid="messages" ref={captionsRef}>
             {messages.length === 0 && !live && (
               <div className="center room-captions-empty">
                 <p className="muted">
-                  ابدأ الحصة: اسأل بصوتك أو اكتب سؤالك — المعلّم يعرف كتابك صفحة بصفحة، وهو معك الآن.
+                  ابدأ الحصة من الأعلى، أو اكتب سؤالك هنا — المعلّم يعرف كتابك صفحة بصفحة، وهو معك الآن.
                 </p>
-                <div className="primary-action-block">
-                  <button
-                    className="btn primary big"
-                    data-testid="lesson-start-action"
-                    disabled={pending}
-                    onClick={() => {
-                      if (!input.trim() && !preview && !docFile) {
-                        const starter = "ابدأ الشرح";
-                        setInput(starter);
-                        setTimeout(() => send(starter), 50);
-                      } else {
-                        send(input);
-                      }
-                    }}
-                  >
-                    {pending ? "جارٍ التحضير..." : "ابدأ التعلم الآن"}
-                  </button>
-                  <p className="small muted" style={{ marginTop: '0.5rem' }}>
-                    {b ? `${b.subject.nameAr} — ${b.lesson.title}` : 'درس جاهز للبدء'}
-                  </p>
-                </div>
               </div>
             )}
             {messages.map((m) => (
@@ -1844,9 +1919,19 @@ export function LessonRoom({ session, onEnded }: Props) {
                 قلتَ: {live.user.content}
               </p>
             )}
-            {(live?.text || speaking) && (
-              <p className="voice-caption tutor-said" data-testid="voice-tutor-caption" dir="auto">
-                {previewText(live?.text ?? "") || (speaking ? previewText(lastTutorContent) : "")}
+            {/* PHASE 181 — the reply stays readable after its voice ends. The
+                old condition showed the caption only while the answer was
+                arriving or being read; on a phone with no voice anywhere the
+                tutor went silent AND the text vanished, exactly contradicting
+                the notice's promise that the reply is always in the bubble. */}
+            {(live?.text || lastTutorContent) && (
+              <p
+                className="voice-caption tutor-said"
+                data-testid="voice-tutor-caption"
+                data-live={live?.text ? "true" : "false"}
+                dir="auto"
+              >
+                {previewText(live?.text ?? lastTutorContent)}
               </p>
             )}
           </div>
@@ -1854,11 +1939,30 @@ export function LessonRoom({ session, onEnded }: Props) {
               room's own notice line sits behind it), so a tutor that could not
               speak told the child nothing at all. The notice now appears where
               he is looking. */}
-          {error && (
+          {error ? (
             <p className="voice-notice" data-testid="voice-notice" role="alert">
               {error}
             </p>
-          )}
+          ) : voiceWarning ? (
+            <div className="voice-notice voice-notice--soft" data-testid="voice-notice" role="status">
+              <b className="voice-notice__line">🔇 {voiceWarning.summary}</b>
+              <details className="voice-notice__details">
+                <summary>كيف أضيف صوتًا؟</summary>
+                <p>{voiceWarning.detail}</p>
+              </details>
+              <button
+                type="button"
+                className="voice-notice__dismiss"
+                data-testid="voice-notice-dismiss"
+                onClick={() => {
+                  setVoiceWarning(null);
+                  voiceWarningShown.current = true;
+                }}
+              >
+                متابعة بدون صوت
+              </button>
+            </div>
+          ) : null}
           <div className="voice-controls">
             {speaking && (
               <button
@@ -1871,6 +1975,18 @@ export function LessonRoom({ session, onEnded }: Props) {
                 ✋ قاطِعني
               </button>
             )}
+            <button
+              data-testid="live-restart-mic"
+              type="button"
+              className="btn ghost"
+              aria-label="أعد فتح الميكروفون إذا توقفت المحادثة عن السماع"
+              onClick={() => {
+                setError(null);
+                setVoiceRestartKey((key) => key + 1);
+              }}
+            >
+              🎙️ أعد الميكروفون
+            </button>
             <button data-testid="live-exit" type="button" className="btn ghost" onClick={toggleConversation}>
               ⏹ إنهاء المحادثة
             </button>
@@ -1926,6 +2042,18 @@ export function LessonRoom({ session, onEnded }: Props) {
               onClick={() => setVoiceFocusOpen(true)}
             >
               ⛶ كبّر
+            </button>
+            <button
+              data-testid="live-restart-mic"
+              type="button"
+              className="btn small ghost"
+              aria-label="أعد فتح الميكروفون إذا توقفت المحادثة عن السماع"
+              onClick={() => {
+                setError(null);
+                setVoiceRestartKey((key) => key + 1);
+              }}
+            >
+              🎙️
             </button>
             <button data-testid="live-exit" type="button" className="btn small ghost" onClick={toggleConversation}>
               ⏹ إنهاء المحادثة

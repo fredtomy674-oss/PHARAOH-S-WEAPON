@@ -39,7 +39,7 @@ export const DOCUMENT_MARKER = "قرأت الملف المرفق";
 export const OCR_MARKER = "نص الصفحة الممسوحة ضوئيًا";
 
 /** Start of the tutor's safe-refusal reply (prompt-injection tripwire). */
-export const SAFE_REFUSAL_PHRASE = "أنا هنا لمساعدتك في درسنا فقط";
+export const SAFE_REFUSAL_PHRASE = "أنا هنا لمساعدتك في درسنا بس";
 
 /** PHASE 166 — the title the offline teacher writes on the classroom board (server `mock.ts`). */
 export const BOARD_TITLE_MARKER = "خلاصة الدرس";
@@ -250,6 +250,8 @@ export async function installVoiceStubs(
       onresult: ((event: unknown) => void) | null = null;
       onerror: ((event: unknown) => void) | null = null;
       onend: (() => void) | null = null;
+      /** PHASE 181 — the engine's receipt that the microphone is live. */
+      onstart: (() => void) | null = null;
       /** Index of the next fragment, like an engine's growing result list. */
       private cursor = 0;
       start(): void {
@@ -262,6 +264,9 @@ export async function installVoiceStubs(
           state.liveSessions += 1;
           state.liveContinuous = this.continuous;
           liveRec = this;
+          // PHASE 181 — a real Chrome fires `onstart` as the microphone opens;
+          // the start watchdog uses exactly this receipt.
+          this.onstart?.();
           return;
         }
         setTimeout(() => {
@@ -543,6 +548,29 @@ export async function login(
   await page.getByTestId("input-password").fill(password);
   await page.getByTestId("submit-auth").click();
   await expect(page.getByTestId(expectedTestId)).toBeVisible({ timeout: 20_000 });
+}
+
+/**
+ * PHASE 184 — open the full practice plan without racing the Home API.
+ *
+ * PHASE 179 split the plan into a three-row Home preview plus a separate full
+ * screen. The old specs waited only for the card (`plan-section`), which renders
+ * its loading note before the plan exists, then called `count()` on `plan-more`.
+ * When the API was a beat slow the count was 0, the tap was skipped, and a deep
+ * concept was searched for in the three-row preview — an intermittent failure
+ * seen in a full run (O2/PR4) while the app itself was fine.
+ *
+ * Wait for the first real row before deciding; that row is rendered only after
+ * the plan payload arrives, in the same render that mounts `plan-more`.
+ */
+export async function openFullPlan(page: Page): Promise<void> {
+  await expect(page.getByTestId("plan-row").first()).toBeVisible({ timeout: 20_000 });
+  const planMore = page.getByTestId("plan-more");
+  if ((await planMore.count()) === 0) return;
+  await planMore.click();
+  const expandAll = page.getByTestId("plan-expand-all");
+  await expect(expandAll).toBeVisible({ timeout: 20_000 });
+  await expandAll.click();
 }
 
 /**

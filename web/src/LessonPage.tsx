@@ -22,6 +22,8 @@ import {
   type SourceItem,
 } from "./api.js";
 import { Button, Card } from "./components/ui/index.js";
+import SourceText from "./SourceText.js";
+import { bookPageLabel, bookPagesLabel } from "./bookPages.js";
 
 /**
  * PHASE 159 (W3) — صفحة الدرس: الطبقة التي كانت مفقودة بين «تعلّم» والغرفة
@@ -140,7 +142,7 @@ function SourcePanel({ sources, tab }: { sources: LessonSources; tab: SourceTabI
                 )}
                 {item.term && <strong className="ln-src__term">{item.term}</strong>}
               </div>
-              <p className="ln-src__text">{item.text}</p>
+              <SourceText text={item.text} />
               {item.wrong !== undefined && (
                 <p className="ln-src__wrong">
                   الخطأ المتكرر: «{item.wrong}» — {timesLabel(item.count ?? 1)}
@@ -148,7 +150,7 @@ function SourcePanel({ sources, tab }: { sources: LessonSources; tab: SourceTabI
               )}
               {typeof item.page === "number" && (
                 <span className="ln-src__page" data-testid="source-page">
-                  صفحة {item.page}
+                  {bookPageLabel(item.page)}
                 </span>
               )}
             </li>
@@ -173,7 +175,29 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
   const [stage, setStage] = useState<LessonStage | null>(null);
   const [sources, setSources] = useState<LessonSources | null>(null);
   const [sourcesFailed, setSourcesFailed] = useState(false);
+  const [sourcesOpen, setSourcesOpen] = useState(false);
+  const [sourcesBusy, setSourcesBusy] = useState(false);
   const [tab, setTab] = useState<SourceTabId>("summary");
+
+  /** PHASE 182 — the teacher sources are fetched only when opened. */
+  function loadSources(force = false): void {
+    if (sourcesBusy || (sources && !force)) return;
+    setSourcesBusy(true);
+    setSourcesFailed(false);
+    lessonSources(lessonId)
+      .then((next) => {
+        setSources(next);
+        setSourcesFailed(false);
+      })
+      .catch(() => setSourcesFailed(true))
+      .finally(() => setSourcesBusy(false));
+  }
+
+  function toggleSources(): void {
+    const next = !sourcesOpen;
+    setSourcesOpen(next);
+    if (next) loadSources();
+  }
 
   function refreshMastery(): void {
     myProgress()
@@ -189,6 +213,8 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
     setStage(null);
     setSources(null);
     setSourcesFailed(false);
+    setSourcesOpen(false);
+    setSourcesBusy(false);
     setTab("summary");
     lessonBreadcrumb(lessonId)
       .then(setBc)
@@ -199,9 +225,8 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
     lessonStage(lessonId)
       .then(setStage)
       .catch(() => undefined);
-    lessonSources(lessonId)
-      .then(setSources)
-      .catch(() => setSourcesFailed(true));
+    // PHASE 182 — sources load on first open (see `loadSources`), so the lesson
+    // page stays light and the student sees the lesson, not a reference dump.
     refreshMastery();
   }, [lessonId]);
 
@@ -250,7 +275,7 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
         s ? { ...s, phase: "running", questions: [q], index: 0, chosen: null, result: null, busy: false, correct: 0, shownAt: Date.now() } : s,
       );
     } catch {
-      setQuiz((s) => (s ? { ...s, busy: false, error: "تعذر توليد سؤال لهذا الدرس." } : s));
+      setQuiz((s) => (s ? { ...s, busy: false, error: "تعذر تحضير سؤال لهذا الدرس." } : s));
     }
   }
 
@@ -265,10 +290,8 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
       setQuiz((s) => (s ? { ...s, busy: false, result, correct: s.correct + (result.correct ? 1 : 0) } : s));
       // الخطأ الجديد يصير «خطأ شائعًا» مرصودًا فورًا — نحدّث المصادر بدل
       // إبقائها على جلب الصفحة الأول (التبويب يبقى حيًّا بعد كل إجابة خاطئة).
-      if (!result.correct) {
-        lessonSources(lessonId)
-          .then(setSources)
-          .catch(() => undefined);
+      if (!result.correct && sourcesOpen) {
+        loadSources(true);
       }
     } catch {
       setQuiz((s) => (s ? { ...s, busy: false, error: "تعذر إرسال الإجابة." } : s));
@@ -315,9 +338,7 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
               </p>
               {stage && (
                 <span className="ln-bookchip" data-testid="lesson-book-pages">
-                  {stage.fromBookPage === stage.toBookPage
-                    ? `كتابك — صفحة ${stage.fromBookPage}`
-                    : `كتابك — صفحات ${stage.fromBookPage}–${stage.toBookPage}`}
+                  كتابك — {bookPagesLabel(stage.fromBookPage, stage.toBookPage)}
                 </span>
               )}
             </>
@@ -367,10 +388,10 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
             {quiz.phase === "empty" && (
               <>
                 <p className="ln-note" data-testid="quiz-empty">
-                  لا توجد أسئلة جاهزة لمفاهيم هذا الدرس بعد — يمكنك توليد أول سؤال الآن.
+                  لا توجد أسئلة جاهزة لهذا الدرس بعد — سنجهّز لك أول سؤال الآن.
                 </p>
                 <Button data-testid="quiz-generate" disabled={quiz.busy} onClick={() => void generateForLesson()}>
-                  {quiz.busy ? "…" : "ولّد سؤالًا لهذا الدرس"}
+                  {quiz.busy ? "…" : "تدرّب الآن"}
                 </Button>
               </>
             )}
@@ -482,41 +503,75 @@ export function LessonPage({ lessonId, onBack, onStarted }: Props) {
           )}
         </Card>
 
+        {/* PHASE 182 — the six source tabs are a teacher/parent reference, not
+            the student's main path. They stay collapsed (and unfetched) until
+            someone deliberately opens them. */}
         <Card
           className="ln-sources"
-          title="مصادر الدرس"
-          hint="كل سطر هنا من كتابك — ومع كل سطر صفحته. لا اختراع ولا تخمين."
+          title="مصادر المعلم وولي الأمر"
+          hint="مرجع كامل من كتابك — مخفي حتى تحتاجه."
         >
-          <section data-testid="lesson-sources">
-            <div className="ln-tabs" role="tablist" data-testid="sources-tabs">
-              {SOURCE_TABS.map((t) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={tab === t.id}
-                  className={tab === t.id ? "ln-tab ln-tab--on" : "ln-tab"}
-                  data-testid="source-tab"
-                  data-tab={t.id}
-                  onClick={() => setTab(t.id)}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
+          <button
+            type="button"
+            className="ln-sources__toggle"
+            data-testid="sources-toggle"
+            aria-expanded={sourcesOpen}
+            onClick={toggleSources}
+          >
+            <span className="ln-sources__toggle-main">
+              📚 {sourcesOpen ? "إخفاء المصادر والمراجع" : "اعرض المصادر والمراجع"}
+            </span>
+            <span className="ln-sources__toggle-note">للمعلم وولي الأمر — لن يؤثر على درسك.</span>
+            <span className="ln-sources__chevron" aria-hidden="true">
+              {sourcesOpen ? "▲" : "▼"}
+            </span>
+          </button>
 
-            {sourcesFailed ? (
-              <p className="ln-error" data-testid="sources-error">
-                تعذّر تجميع مصادر الدرس الآن — حاول مرة أخرى.
-              </p>
-            ) : !sources ? (
-              <p className="ln-note" data-testid="sources-loading">
-                نجمع مصادر درسك من كتابك…
-              </p>
-            ) : (
-              <SourcePanel sources={sources} tab={tab} />
-            )}
-          </section>
+          {sourcesOpen && (
+            <section className="ln-sources__body" data-testid="lesson-sources">
+              <div className="ln-tabs" role="tablist" data-testid="sources-tabs">
+                {SOURCE_TABS.map((t) => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={tab === t.id}
+                    className={tab === t.id ? "ln-tab ln-tab--on" : "ln-tab"}
+                    data-testid="source-tab"
+                    data-tab={t.id}
+                    onClick={() => setTab(t.id)}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+
+              {sourcesFailed ? (
+                <div className="ln-sources__error">
+                  <p className="ln-error" data-testid="sources-error">
+                    تعذّر تجميع مصادر الدرس الآن — حاول مرة أخرى.
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    data-testid="sources-retry"
+                    onClick={() => {
+                      setSourcesFailed(false);
+                      loadSources(true);
+                    }}
+                  >
+                    حاول مرة أخرى
+                  </Button>
+                </div>
+              ) : !sources ? (
+                <p className="ln-note" data-testid="sources-loading">
+                  نجمع مصادر درسك من كتابك…
+                </p>
+              ) : (
+                <SourcePanel sources={sources} tab={tab} />
+              )}
+            </section>
+          )}
         </Card>
       </main>
     </div>

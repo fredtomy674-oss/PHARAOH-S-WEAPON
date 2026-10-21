@@ -54,6 +54,10 @@ test("E1: a fresh student earns أول خطوة after their first session and se
   await expect(page.getByTestId("achievements-earned")).toHaveText("1");
   const firstSteps = page.locator('[data-testid="achievement-row"][data-code="first_steps"]');
   await expect(firstSteps).toHaveAttribute("data-earned", "true");
+  // PHASE 182 — the cabinet opens earned badges + three locked ones; expand
+  // before checking the whole set (12 rows).
+  const showAll = page.getByTestId("achievements-show-all");
+  if ((await showAll.count()) > 0) await showAll.click();
   const explorer = page.locator('[data-testid="achievement-row"][data-code="explorer"]');
   await expect(explorer).toHaveAttribute("data-earned", "false");
   // PHASE 31 — the tiered mastery badges are visible and locked at 0 mastered.

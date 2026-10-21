@@ -143,6 +143,10 @@ test("B2: back-to-back questions flow without touching anything", async ({ page 
   // Once the tutor's voice is done, the strip settles back to listening —
   // the loop is open again with no press.
   await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "listening", { timeout: 30_000 });
+  // PHASE 181 — the answer's words stay on the stage after its voice ends.
+  // When the phone has no voice at all, this caption is the only way the
+  // student can read the reply the notice told him was "always in the bubble".
+  await expect(page.getByTestId("voice-tutor-caption")).toContainText(/\S/);
 });
 
 test("B3: a browser without SpeechRecognition says so and stays silent", async ({ page }) => {
@@ -328,17 +332,28 @@ test("B7: a touch device listens like its dictation — single-utterance session
   // The words arrive, show as his caption, and go out by themselves…
   await pushLiveInterim(page, "اشرح لي الجمع");
   await expect(page.getByTestId("live-interim")).toContainText("الجمع");
+  // PHASE 183 — hold the tutor's voice open, so "no reopen under the
+  // explanation" is a fact we can measure instead of a race.
+  await freezeLiveSpeech(page);
   await pushLiveUtterance(page, "اشرح لي الجمع مع إعادة التجميع");
   await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 15_000 });
-
-  // …the single-utterance session ends on its own final the way Chrome's do,
-  // and the mode reopens it by itself — the session count is the receipt.
-  await expect.poll(() => liveSessionCount(page), { timeout: 10_000 }).toBeGreaterThan(1);
-
-  // The tutor answers in his own voice and the microphone is still open.
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
   await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "speaking");
-  expect(await isLiveReady(page)).toBe(true);
+
+  // PHASE 183 — the phone's recognizer must NOT churn (its native start/end
+  // beep) while the tutor owns the floor. The count stays put through a full
+  // beat of speech…
+  const duringSpeech = await liveSessionCount(page);
+  await page.waitForTimeout(1_200);
+  expect(await liveSessionCount(page)).toBe(duringSpeech);
+
+  // …and the ear reopens by itself once the voice is over — the answer did not
+  // silently end the mode. «قاطِعني» is a real end of the tutor's floor here;
+  // the same tick that held the field reopens it.
+  await page.getByTestId("live-interrupt").click();
+  await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "listening");
+  await expect.poll(() => liveSessionCount(page), { timeout: 10_000 }).toBeGreaterThan(duringSpeech);
+  await waitLiveReady(page);
   await context.close();
 });
 
@@ -369,6 +384,77 @@ test("B8: nine word-less seconds clear the field once — the probe goes and the
   await pushLiveUtterance(page, "اشرح لي الجمع مع إعادة التجميع");
   await expect(page.getByTestId("msg-user-live")).toBeVisible({ timeout: 15_000 });
   await expect(page.getByTestId("speak-status")).toBeVisible({ timeout: 20_000 });
+
+  // PHASE 181 — the guaranteed human act: when the field still goes quiet,
+  // «أعد الميكروفون» rebuilds the session in place, without leaving the mode
+  // (the owner's workaround was exactly that exit-and-return).
+  const beforeRestart = await liveSessionCount(page);
+  await page.getByTestId("live-restart-mic").click();
+  await expect.poll(() => liveSessionCount(page), { timeout: 10_000 }).toBeGreaterThan(beforeRestart);
+  await expect(page.getByTestId("voice-focus")).toBeVisible();
+});
+
+test("B10: no voice anywhere still answers in writing — and the ear stays open", async ({ page }) => {
+  // The owner's phone: no Arabic voice installed on the device, and the
+  // server's narration refused this very turn. That must never look like a
+  // conversation that stopped: the reply is still written, and the next
+  // spoken question still reaches the tutor.
+  // The phone's real shape: speechSynthesis exists but lists only the English
+  // system voice. An empty list would mean "still loading" and the app would
+  // (correctly) try the local engine first; English-only is a proven absence
+  // of Arabic, so the server is the only voice path.
+  await installVoiceStubs(page, undefined, [{ lang: "en-US", name: "Test English Voice" }], { live: true });
+  await login(page);
+  await startFirstLesson(page);
+
+  // Keep the turn itself real, but strip its audio and make the server say it
+  // has no voice (`audio-end ok:false`) — the exact shape the room reads when
+  // both voices are unavailable.
+  let intercepted = 0;
+  await page.route("**/api/sessions/*/messages/stream", async (route) => {
+    intercepted += 1;
+    const response = await route.fetch();
+    const lines = (await response.text())
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .flatMap((line) => {
+        try {
+          const event = JSON.parse(line) as { type?: string; ok?: boolean };
+          if (event.type === "audio") return [];
+          if (event.type === "audio-end") return [JSON.stringify({ ...event, ok: false })];
+          return [line];
+        } catch {
+          return [line];
+        }
+      });
+    await route.fulfill({ response, body: lines.join("\n") + "\n" });
+  });
+
+  await page.getByTestId("live-conversation-toggle").click();
+  await expect(page.getByTestId("voice-focus")).toBeVisible({ timeout: 10_000 });
+  await waitLiveReady(page);
+
+  await pushLiveUtterance(page, "اشرح لي الجمع مع إعادة التجميع");
+  await expect.poll(() => intercepted, { timeout: 10_000 }).toBeGreaterThan(0);
+  await expect(page.getByTestId("voice-notice")).toContainText("لا يوجد صوت", { timeout: 25_000 });
+  // PHASE 183 — the warning is one dismissible line, not a dead screen: the
+  // controls stay in view, and closing the note leaves live mode exactly where
+  // it was (the owner's old workaround was exiting the mode entirely).
+  await expect(page.getByTestId("live-restart-mic")).toBeInViewport();
+  await expect(page.getByTestId("live-exit")).toBeInViewport();
+  await page.getByTestId("voice-notice-dismiss").click();
+  await expect(page.getByTestId("voice-notice")).toHaveCount(0);
+  await expect(page.getByTestId("voice-focus")).toBeVisible();
+  // PHASE 181 — the words are where the notice says they are: on the stage,
+  // not hidden behind it.
+  await expect(page.getByTestId("voice-tutor-caption")).toContainText(/\S/);
+  await expect(page.getByTestId("live-hud")).toHaveAttribute("data-state", "listening");
+
+  // The conversation did not stop: the same open ear carries the next turn.
+  await pushLiveUtterance(page, "وبعدين؟");
+  await expect(page.getByTestId("msg-user")).toHaveCount(2, { timeout: 25_000 });
+  await expect(page.getByTestId("voice-focus")).toBeVisible();
 });
 
 test("B9: a new turn silences the old reading — one voice at a time, whichever turn asked next", async ({ page }) => {

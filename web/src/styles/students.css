@@ -220,6 +220,17 @@
   margin: var(--sp-3) 0 8px;
 }
 
+.sm-tracks {
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--line);
+}
+
+.sm-tracks .sm-grades {
+  max-height: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .sm-list {
   display: grid;
   gap: 8px;
@@ -370,4 +381,79 @@
   .sm-grades {
     grid-template-columns: 1fr;
   }
+
+  .g12-choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------- PHASE 192 — G12 choices ------------------------- */
+
+.g12-choices {
+  display: grid;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+
+.g12-choices h3 {
+  margin: 0;
+  font-size: var(--fs-5);
+}
+
+.g12-choices__lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-3);
+}
+
+.g12-choice-group {
+  display: grid;
+  gap: 8px;
+}
+
+.g12-choice-group h4 {
+  margin: 0;
+  font-size: var(--fs-3);
+  color: var(--ink);
+}
+
+.g12-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.g12-choice-btn {
+  appearance: none;
+  font: inherit;
+  font-family: var(--font-learn);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-2);
+  color: var(--ink);
+  background: var(--card-2);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+
+.g12-choice-btn:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.g12-choice-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.g12-choice-btn--on {
+  border-color: var(--gold);
+  background: var(--ok-bg);
+  color: var(--primary-ink);
+  box-shadow: var(--focus-ring);
 }

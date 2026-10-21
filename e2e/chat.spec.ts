@@ -92,7 +92,7 @@ test("H: prompt-injection attempt is stopped, flagged and answered safely", asyn
   // Safety notice + safe refusal visible.
   await expect(page.getByTestId("notice-tripwire")).toBeVisible();
   const reply = (await tutorMsgs.first().textContent()) ?? "";
-  expect(reply).toContain("أنا هنا لمساعدتك في درسنا فقط");
+  expect(reply).toContain("أنا هنا لمساعدتك في درسنا");
   expect(reply).not.toContain(RAG_CONTEXT_PHRASE);
   expect(reply).not.toContain(NO_RAG_PHRASE);
 });

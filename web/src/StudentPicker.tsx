@@ -66,7 +66,10 @@ export function StudentPickerScreen({ user, onUser, onLogout }: PickerProps) {
               </span>
               <span className="sg-who">
                 <strong>{student.displayName}</strong>
-                <span>{student.gradeNameAr ?? "لم يُحدّد الصف بعد"}</span>
+                <span>
+                  {student.gradeNameAr ?? "لم يُحدّد الصف بعد"}
+                  {student.trackNameAr ? ` — ${student.trackNameAr}` : ""}
+                </span>
               </span>
               <span className="sg-go">{busyId === student.id ? "…" : "ابدأ"}</span>
             </button>

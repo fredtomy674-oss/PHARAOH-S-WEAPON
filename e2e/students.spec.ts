@@ -6,6 +6,35 @@ import { openAccount } from "./helpers.js";
  * register → first-run (name + grade) → add a second child → switch between
  * them → change the first child's grade only through the destructive warning.
  */
+test("M2: G11 asks for the track and opens only that track's subjects", async ({ page }) => {
+  const email = `e2e-g11-${Date.now()}@test.local`;
+
+  await page.goto("/");
+  await page.getByTestId("tab-register").click();
+  await page.getByTestId("input-display-name").fill("طالب ثانية ثانوي");
+  await page.getByTestId("input-email").fill(email);
+  await page.getByTestId("input-password").fill("students-pass-123");
+  await page.getByTestId("submit-auth").click();
+
+  await expect(page.getByTestId("first-run")).toBeVisible({ timeout: 20_000 });
+  await page.locator('[data-testid^="first-run-grade-"]').filter({ hasText: "الصف الثاني الثانوي" }).click();
+
+  await expect(page.getByTestId("first-run-tracks")).toBeVisible();
+  await expect(page.getByTestId("first-run-skip")).toBeDisabled();
+  await page.getByTestId("first-run-track-science").click();
+  await expect(page.getByTestId("first-run-track-science")).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByTestId("first-run-skip")).toBeEnabled();
+  await page.getByTestId("first-run-skip").click();
+
+  await expect(page.getByTestId("home-screen")).toBeVisible({ timeout: 20_000 });
+  const cards = page.getByTestId("subject-card");
+  await expect(cards).toHaveCount(3);
+  await expect(cards.filter({ hasText: "الكيمياء" })).toBeVisible();
+  await expect(cards.filter({ hasText: "اللغة العربية" })).toBeVisible();
+  await expect(cards.filter({ hasText: "اللغة الإنجليزية" })).toBeVisible();
+  await expect(cards.filter({ hasText: "الدراسات الاجتماعية" })).toHaveCount(0);
+});
+
 test("M1: a family account adds, switches, and re-scopes two children", async ({ page }) => {
   const email = `e2e-students-${Date.now()}@test.local`;
   const password = "students-pass-123";

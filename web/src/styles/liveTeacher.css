@@ -52,6 +52,13 @@
   color: var(--ink);
 }
 
+.w7-size {
+  margin: 0;
+  font-size: var(--fs-1);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .w7-state {
   display: inline-flex;
   align-items: center;

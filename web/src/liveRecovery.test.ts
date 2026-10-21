@@ -23,11 +23,14 @@ type FakeRec = {
   onresult: ((event: unknown) => void) | null;
   onerror: ((event: { error: string }) => void) | null;
   onend: (() => void) | null;
+  onstart: (() => void) | null;
   start: () => void;
   stop: () => void;
 };
 
 let made: FakeRec[] = [];
+/** PHASE 181 — how many of the next `start()` calls never acknowledge. */
+let silentStarts = 0;
 
 class FakeSpeechRecognition implements FakeRec {
   lang = "";
@@ -37,11 +40,18 @@ class FakeSpeechRecognition implements FakeRec {
   onresult: ((event: unknown) => void) | null = null;
   onerror: ((event: { error: string }) => void) | null = null;
   onend: (() => void) | null = null;
+  onstart: (() => void) | null = null;
   constructor() {
     made.push(this);
   }
   start(): void {
-    /* the session is up the moment start() returns — same as a real engine */
+    // A healthy engine acknowledges that the microphone is live; `silentStarts`
+    // models the reopened session that never gets that far.
+    if (silentStarts > 0) {
+      silentStarts -= 1;
+      return;
+    }
+    this.onstart?.();
   }
   stop(): void {
     this.onend?.();
@@ -74,6 +84,7 @@ let probeRequests = 0;
 beforeEach(() => {
   vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "setInterval", "clearInterval", "Date"] });
   made = [];
+  silentStarts = 0;
   probeStops = 0;
   probeRequests = 0;
   g.window = g;
@@ -215,6 +226,89 @@ describe("PHASE 174 — the first permission refusal gets one retry behind the o
   });
 });
 
+describe("PHASE 181 — «أذنٌ لا تنام»: a field that went quiet is rebuilt", () => {
+  it("rebuilds a session that heard its final but never called onend — no error, no ended mode", async () => {
+    setTouchPoints(1);
+    const { callbacks, calls } = callsOf();
+    const handle = startLiveConversation(callbacks)!;
+    expect(made.length).toBe(1);
+
+    // The final result really arrives and the turn is released; only the end
+    // that a single-utterance session owes is missing. That is the owner's
+    // phone: words worked, then «أسمعك» and no reaction at all.
+    made[0].onresult?.(finalAt(0, "اشرح لي الجمع"));
+    await vi.advanceTimersByTimeAsync(1_200);
+    expect(calls.utterances).toEqual(["اشرح لي الجمع"]);
+    expect(made.length).toBe(1);
+
+    // The final is the evidence; the 2.5s grace is the deadline. The field is
+    // rebuilt without an error or an ended mode.
+    await vi.advanceTimersByTimeAsync(3_200);
+    expect(made.length).toBe(2);
+    expect(calls.errors).toEqual([]);
+    expect(calls.ends).toBe(0);
+
+    // The fresh session carries the next question all the way through, and a
+    // normal end reopens it as before.
+    made[1].onresult?.(finalAt(0, "وبعدين؟"));
+    await vi.advanceTimersByTimeAsync(1_200);
+    expect(calls.utterances).toEqual(["اشرح لي الجمع", "وبعدين؟"]);
+    made[1].onend?.();
+    await vi.advanceTimersByTimeAsync(600);
+    expect(made.length).toBe(3);
+    handle.stop();
+    expect(calls.ends).toBe(1);
+  });
+
+  it("rebuilds a reopened session that never acknowledges the microphone — after a conversation proved the engine works", async () => {
+    setTouchPoints(1);
+    const { callbacks, calls } = callsOf();
+    const handle = startLiveConversation(callbacks)!;
+
+    // One working turn proves this engine can hear and ends normally.
+    made[0].onresult?.(finalAt(0, "سؤال أول"));
+    await vi.advanceTimersByTimeAsync(1_200);
+    expect(calls.utterances).toEqual(["سؤال أول"]);
+
+    // The next session opens but never fires `onstart`: the silent restart
+    // that leaves a phone on «أسمعك» with no words and no error.
+    silentStarts = 1;
+    made[0].onend?.();
+    await vi.advanceTimersByTimeAsync(600);
+    expect(made.length).toBe(2);
+
+    // Six seconds of no acknowledgement rebuild it; the replacement starts
+    // normally and carries the next turn.
+    await vi.advanceTimersByTimeAsync(7_000);
+    expect(made.length).toBe(3);
+    expect(calls.errors).toEqual([]);
+    made[2].onresult?.(finalAt(0, "سؤال ثانٍ"));
+    await vi.advanceTimersByTimeAsync(1_200);
+    expect(calls.utterances).toEqual(["سؤال أول", "سؤال ثانٍ"]);
+    handle.stop();
+    expect(calls.ends).toBe(1);
+  });
+
+  it("never replaces the field while the room is answering — only when it is free again", async () => {
+    setTouchPoints(1);
+    const { callbacks } = callsOf();
+    let busy = true;
+    callbacks.roomBusy = () => busy;
+    const handle = startLiveConversation(callbacks)!;
+    expect(made.length).toBe(1);
+
+    // The final is in, its end is overdue, but an answer owns the floor.
+    made[0].onresult?.(finalAt(0, "سؤال"));
+    await vi.advanceTimersByTimeAsync(5_000);
+    expect(made.length).toBe(1); // the answer owns the floor; the field waits
+
+    busy = false;
+    await vi.advanceTimersByTimeAsync(800);
+    expect(made.length).toBe(2); // recycled once the room is free
+    handle.stop();
+  });
+});
+
 describe("PHASE 175 — «أذن واحدة»: a touch-first device listens like the dictation key", () => {
   it("opens a single-utterance session and never asks for the probe", () => {
     setTouchPoints(1);
@@ -268,13 +362,32 @@ describe("PHASE 175 — «أذن واحدة»: a touch-first device listens like
     handle.stop();
   });
 
-  it("a touch device has nothing to clear — its sessions cycle on their own and no restart is forced", async () => {
+  it("a touch field that never acknowledged itself is rebuilt at nine seconds — no probe to drop, one shot", async () => {
     setTouchPoints(1);
-    const { callbacks } = callsOf();
+    silentStarts = 1; // the first session never fires onstart
+    const { callbacks, calls } = callsOf();
     const handle = startLiveConversation(callbacks)!;
-    await vi.advanceTimersByTimeAsync(9_500);
-    expect(probeStops).toBe(0);
-    expect(made.length).toBe(1); // no reset churn on the phone recipe
+    expect(made.length).toBe(1);
+
+    await vi.advanceTimersByTimeAsync(8_999);
+    expect(made.length).toBe(1); // not a moment before the nine
+    await vi.advanceTimersByTimeAsync(602);
+    expect(made.length).toBe(2); // the session was rebuilt in place
+    expect(probeStops).toBe(0); // the phone recipe never had a probe
+
+    // The hint's advice lands in the fresh session, and its normal end still
+    // reopens the field.
+    made[1].onresult?.(finalAt(0, "اشرح لي الجمع مع إعادة التجميع"));
+    await vi.advanceTimersByTimeAsync(1_200);
+    expect(calls.utterances).toEqual(["اشرح لي الجمع مع إعادة التجميع"]);
+    made[1].onend?.();
+    await vi.advanceTimersByTimeAsync(600);
+    expect(made.length).toBe(3);
+
+    // One quiet rescue per mode: another long silence is not churn.
+    await vi.advanceTimersByTimeAsync(20_000);
+    expect(made.length).toBe(3);
+    expect(calls.errors).toEqual([]);
     handle.stop();
   });
 });

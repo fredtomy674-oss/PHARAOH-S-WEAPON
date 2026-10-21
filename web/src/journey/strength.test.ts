@@ -68,7 +68,7 @@ describe("learningStrength — PHASE 161.1", () => {
     ]);
     expect(s.score).toBe(100);
     expect(s.level).toBe(5);
-    expect(s.levelNameAr).toBe("واحة خالدة");
+    expect(s.levelNameAr).toBe("القمة");
     expect(s.nextLevelAt).toBeNull();
   });
 
@@ -99,6 +99,6 @@ describe("learningStrength — PHASE 161.1", () => {
   });
 
   it("keeps the five level names in order", () => {
-    expect(STRENGTH_LEVELS.map((l) => l.name)).toEqual(["بداية", "نماء", "صعود", "إتقان", "واحة خالدة"]);
+    expect(STRENGTH_LEVELS.map((l) => l.name)).toEqual(["بداية", "تقدّم", "صعود", "إتقان", "القمة"]);
   });
 });

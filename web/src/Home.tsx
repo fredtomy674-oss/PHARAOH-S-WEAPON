@@ -8,6 +8,7 @@ import {
   lessonBreadcrumb,
   listSessions,
   listSubjects,
+  listTasks,
   myProgress,
   submitPracticeAnswer,
   submitOpenPracticeAnswer,
@@ -17,6 +18,7 @@ import {
   type PracticeResult,
   type ProgressDetail,
   type SessionRecap,
+  type StudentTask,
   type Subject,
   type SubscriptionInfo,
   type User,
@@ -28,6 +30,9 @@ import { useLiveTeacherPref } from "./liveTeacherPref.js";
 import { useStudentManager } from "./components/app/StudentManager.js";
 import { readLastPick, weeklyPracticeItem } from "./learnPrefs.js";
 import { learningStrength, strengthProgress } from "./journey/strength.js";
+import { PracticePlanScreen } from "./PracticePlan.js";
+import { PLAN_HOME_COUNT, needsGeneration, planPageText, planReason, trendArrow } from "./planMeta.js";
+import { dueLabel, localISODate } from "./dates.js";
 
 /**
  * PHASE 156 (W2) — الرئيسية 2.0: أُعيد بناؤها من الصفر على هوية الفاروق
@@ -50,6 +55,8 @@ interface Props {
   onOpenSubject: (subjectId: string) => void;
   onResume: (s: LearningSession) => void;
   onOpenAdmin: () => void;
+  /** PHASE 182 — detailed analytics live in Journey, not Home. */
+  onOpenJourney: () => void;
 }
 
 interface PracticeState {
@@ -71,10 +78,6 @@ const DIFFICULTY_LABEL: Record<PracticeQuestion["difficulty"], string> = {
   medium: "متوسط",
   hard: "صعب",
 };
-
-function trendArrow(t: "up" | "steady" | "down"): string {
-  return t === "up" ? "↑" : t === "down" ? "↓" : "→";
-}
 
 /** PHASE 32 — Arabic pluralization for the streak chip (1/2/3-10/11+). */
 function streakLabel(n: number): string {
@@ -117,13 +120,22 @@ function conceptsLabel(n: number): string {
   return n <= 10 ? `${n} مفاهيم` : `${n} مفهومًا`;
 }
 
-export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpenAdmin }: Props) {
+export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpenAdmin, onOpenJourney }: Props) {
   const [sessions, setSessions] = useState<LearningSession[]>([]);
   const [progress, setProgress] = useState<ProgressDetail | null>(null);
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
   const [practice, setPractice] = useState<PracticeState | null>(null);
-  // PHASE 25 — ranked practice plan (null = still loading, [] = loaded + empty).
+  // PHASE 182 — Home keeps only the first page of the plan; the dedicated
+  // screen loads the rest on demand. `null` = still loading, `[]` = empty.
   const [plan, setPlan] = useState<PracticePlanItem[] | null>(null);
+  const [planTotal, setPlanTotal] = useState(0);
+  const [dueCount, setDueCount] = useState(0);
+  const [planOpen, setPlanOpen] = useState(false);
+  const [fullPlan, setFullPlan] = useState<PracticePlanItem[] | null>(null);
+  const [planLoading, setPlanLoading] = useState(false);
+  const [planError, setPlanError] = useState<string | null>(null);
+  // PHASE 182 — the nearest homework/exam, shown as a quiet line on Home.
+  const [nextTask, setNextTask] = useState<StudentTask | null>(null);
   // PHASE 32 — the student's current daily-activity streak (days in a row).
   const [streak, setStreak] = useState(0);
   // PHASE 29 — session recaps per ended session (undefined = not loaded yet,
@@ -141,8 +153,6 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
   // PHASE 179 — «خطتي» تُبنى على المادة التي يعمل عليها الطفل فعلًا (آخر اختيار)
   // وعلى مفاهيم صفّه وحده (الخادم يقصّها) — لا مواد صفوف أخرى.
   const [lastPick] = useState(() => readLastPick(user.student?.id));
-  const [planExpanded, setPlanExpanded] = useState(false);
-  const [masteryExpanded, setMasteryExpanded] = useState(false);
   // PHASE 162 (W7.4) — بطاقة «المعلّم الحيّ» تقرأ المفتاح نفسه الحقيقي: لا
   // وعد بما ليس مفعّلًا، ولا حالة مصطنعة.
   const liveTeacherOn = useLiveTeacherPref();
@@ -157,11 +167,38 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
   }
 
   function refreshPlan(): void {
-    getPracticePlan()
+    getPracticePlan(12)
       .then((res) => {
         setPlan(res.plan);
+        setPlanTotal(res.total);
+        setDueCount(res.dueCount);
         setStreak(res.streak);
       })
+      .catch(() => undefined);
+  }
+
+  /** PHASE 182 — load the full ranked plan only when the student asks for it. */
+  function openPlan(): void {
+    setPlanOpen(true);
+    if (fullPlan !== null || planLoading) return;
+    setPlanLoading(true);
+    setPlanError(null);
+    getPracticePlan()
+      .then((res) => {
+        setFullPlan(res.plan);
+        setPlanTotal(res.total);
+        setDueCount(res.dueCount);
+        setStreak(res.streak);
+      })
+      .catch(() => setPlanError("تعذر تحميل خطتك الكاملة الآن — حاول مرة أخرى."))
+      .finally(() => setPlanLoading(false));
+  }
+
+  function refreshNextTask(): void {
+    // Pending tasks sort by due date, so an overdue homework is the real next
+    // action — not only work dated today or later.
+    listTasks({ pending: true, limit: 1 })
+      .then((rows) => setNextTask(rows[0] ?? null))
       .catch(() => undefined);
   }
 
@@ -176,9 +213,10 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
       refreshProgress();
       getMySubscription().then(setSubscription).catch(() => undefined);
       refreshPlan();
+      refreshNextTask();
       const gradeId = user.student?.gradeId;
       if (gradeId) {
-        listSubjects(gradeId).then(setSubjects).catch(() => undefined);
+        listSubjects(gradeId, user.student?.id).then(setSubjects).catch(() => undefined);
       }
     }
   }, [user.role]);
@@ -221,23 +259,17 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
   const strengthPct = Math.round(strengthProgress(strength) * 100);
   const weeklyItem = weeklyPracticeItem(plan ?? []);
   const dueItem = practicablePlan.find((p) => p.dueForReview) ?? null;
-  const dueCount = practicablePlan.filter((p) => p.dueForReview).length;
-  const fullPlan = plan ?? [];
-  const weakItem = fullPlan[0] ?? null;
+  const weakItem = plan?.[0] ?? null;
   const focusSubjectId = lastPick?.subjectId ?? weeklyItem?.subjectId ?? weakItem?.subjectId ?? "";
   const focusSubjectName = subjects?.find((s) => s.id === focusSubjectId)?.nameAr ?? "";
   const gradeLabel = user.gradeNameAr ?? "";
   // «تدرّب» يجب أن يفتح نوع السؤال الموجود فعلًا: مفاهيم كثيرة لها سؤال مقالي
   // فقط — طلب MCQ لها كان يفتح لوحة فارغة («لا توجد أسئلة»).
-  const weeklyMode: "mcq" | "open" =
-    weeklyItem && weeklyItem.availableQuestions === 0 && weeklyItem.openQuestions > 0 ? "open" : "mcq";
-  const reviewMode: "mcq" | "open" =
-    dueItem && dueItem.availableQuestions === 0 && dueItem.openQuestions > 0 ? "open" : "mcq";
   const orderedSubjects = [...(subjects ?? [])].sort(
     (a, b) => subjectOrder(a.nameAr) - subjectOrder(b.nameAr) || a.nameAr.localeCompare(b.nameAr, "ar"),
   );
-  const shownMastery = masteryExpanded ? progress?.mastery ?? [] : (progress?.mastery ?? []).slice(0, 4);
-  const shownPlan = planExpanded ? fullPlan : fullPlan.slice(0, 3);
+  const planPreview = (plan ?? []).slice(0, PLAN_HOME_COUNT);
+  const today = localISODate();
 
   // PHASE 156 — when practice opens, bring it into view (respecting motion).
   const practiceOpen = practice !== null;
@@ -248,8 +280,14 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
   }, [practiceOpen]);
 
   function focusPlan(): void {
-    const el = document.querySelector('[data-testid="plan-section"]');
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    openPlan();
+  }
+
+  /** PHASE 182 — a plan row starts practice on Home and closes the plan screen. */
+  function practiceFromPlan(conceptId: string, mode: "mcq" | "open", generate: boolean): void {
+    setPlanOpen(false);
+    if (generate) void generateAndPractice(conceptId, mode);
+    else void startPractice(conceptId, mode);
   }
 
   function newPracticeState(mode: "mcq" | "open"): PracticeState {
@@ -276,7 +314,7 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
       setPractice((p) => (p ? { ...p, question, loading: false, shownAt: Date.now() } : p));
       refreshPlan();
     } catch {
-      setPractice((p) => (p ? { ...p, loading: false, error: "تعذر توليد سؤال لهذا المفهوم." } : p));
+      setPractice((p) => (p ? { ...p, loading: false, error: "تعذر تحضير سؤال لهذا المفهوم." } : p));
     }
   }
 
@@ -314,6 +352,20 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
     }
   }
 
+  if (planOpen) {
+    return (
+      <PracticePlanScreen
+        plan={fullPlan}
+        planError={planError}
+        total={planTotal}
+        subjects={subjects ?? []}
+        onBack={() => setPlanOpen(false)}
+        onPractice={practiceFromPlan}
+        onTasksChanged={refreshNextTask}
+      />
+    );
+  }
+
   return (
     <div className="hm-layout">
       <main className="hm-main" data-testid="home-screen">
@@ -337,6 +389,16 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
               {gradeLabel && (
                 <button type="button" className="hm-chip hm-chip--action" data-testid="change-curriculum" onClick={() => openStudentManager("grade")}>
                   تغيير المنهج
+                </button>
+              )}
+              {user.student?.gradeCode === "grade-12" && (
+                <button
+                  type="button"
+                  className="hm-chip hm-chip--action"
+                  data-testid="change-choices"
+                  onClick={() => openStudentManager("choices")}
+                >
+                  اختيارات اللغة والتربية الدينية
                 </button>
               )}
               {(user.students?.length ?? 0) > 1 && (
@@ -486,13 +548,13 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                     {weeklyItem
                       ? `تدرّب على: ${weeklyItem.title}`
                       : weakItem
-                        ? `ولّد سؤالًا على: ${weakItem.title}`
+                        ? `تدرّب على: ${weakItem.title}`
                         : "لا خطة بعد — ابدأ درسًا"}
                   </strong>
                   <span>
                     {weeklyItem?.subjectNameAr ??
                       weakItem?.subjectNameAr ??
-                      (weakItem ? "أول سؤال في هذه المادة يولّده معلّمك." : "أول درس يبني خطتك تلقائيًا.")}
+                      (weakItem ? "سنجهّز لك سؤالًا مناسبًا من درسك." : "أول درس يبني خطتك تلقائيًا.")}
                   </span>
                 </div>
                 <button
@@ -500,12 +562,14 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                   className="hm-btn hm-btn--soft hm-btn--sm"
                   data-testid="weekly-practice-cta"
                   onClick={() => {
-                    if (weeklyItem) void startPractice(weeklyItem.conceptId, weeklyMode);
-                    else if (weakItem) void generateAndPractice(weakItem.conceptId);
+                    if (weeklyItem) {
+                      if (needsGeneration(weeklyItem, "mcq")) void generateAndPractice(weeklyItem.conceptId, "mcq");
+                      else void startPractice(weeklyItem.conceptId, "mcq");
+                    } else if (weakItem) void generateAndPractice(weakItem.conceptId);
                     else onStartLesson();
                   }}
                 >
-                  {weeklyItem ? "تدرّب" : weakItem ? "ولّد" : "ابدأ"}
+                  {weeklyItem || weakItem ? "تدرّب الآن" : "ابدأ"}
                 </button>
               </li>
               <li className="hm-week__step" data-testid="weekly-step-review">
@@ -523,7 +587,11 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                     type="button"
                     className="hm-btn hm-btn--ghost hm-btn--sm"
                     data-testid="weekly-review-cta"
-                    onClick={() => void startPractice(dueItem.conceptId, reviewMode)}
+                    onClick={() =>
+                      needsGeneration(dueItem, "mcq")
+                        ? void generateAndPractice(dueItem.conceptId, "mcq")
+                        : void startPractice(dueItem.conceptId, "mcq")
+                    }
                   >
                     راجع
                   </button>
@@ -532,19 +600,32 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                 )}
               </li>
             </ol>
+            <div className="hm-week__task" data-testid="home-next-task">
+              {nextTask ? (
+                <span className="hm-week__task-text">
+                  <strong>{nextTask.kind === "exam" ? "📝 امتحان" : "📚 واجب"}:</strong> {nextTask.title}
+                  <span className="hm-week__task-date"> · {dueLabel(nextTask.dueDate, today)}</span>
+                </span>
+              ) : (
+                <span className="hm-week__task-text">لا واجبات أو امتحانات قادمة — أضف ما عليك.</span>
+              )}
+              <button type="button" className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="home-tasks-open" onClick={openPlan}>
+                مهامي
+              </button>
+            </div>
           </section>
         )}
         {progress && (
           <section className="hm-card hm-card--progress" data-testid="progress-card">
             <div className="hm-sec__head">
-              <h4>مستواك الآن</h4>
+              <h4>تقدّمك</h4>
               <button className="hm-btn hm-btn--soft hm-btn--sm" onClick={() => startPractice()} data-testid="open-practice">
                 ✏️ تمرين سريع
               </button>
             </div>
 
-            {/* PHASE 179 — مؤشر حيّ: قوة التعلم من الإتقان المتدهور + نسبة
-                المفاهيم المتقنة، لا من عدد الأهداف المكتملة. */}
+            {/* PHASE 182 — a compact indicator; the detailed mastery, strengths
+                and weaknesses now live in «رحلتي». */}
             <div className="hm-level" data-testid="level-card">
               <div className="hm-ring" role="img" aria-label={`قوة التعلم ${strength.score} من 100`}>
                 <svg viewBox="0 0 100 100" aria-hidden="true">
@@ -574,11 +655,6 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                 <div className="hm-level__bar" aria-hidden="true">
                   <span style={{ width: `${strengthPct}%` }} />
                 </div>
-                <span className="hm-level__next">
-                  {strength.nextLevelAt === null
-                    ? "أعلى مستوى — حافظ عليه"
-                    : `بعد ${strength.nextLevelAt - strength.score} نقطة للمستوى التالي`}
-                </span>
               </div>
             </div>
 
@@ -597,140 +673,13 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
               </div>
             </div>
 
-            {(progress.progress.strengths.length > 0 || progress.progress.weaknesses.length > 0) && (
-              <div className="hm-pills">
-                {progress.progress.strengths.length > 0 && (
-                  <span className="hm-pill">💪 نقاط قوتك: {progress.progress.strengths.map((s) => s.title).join("، ")}</span>
-                )}
-                {progress.progress.weaknesses.length > 0 && (
-                  <span className="hm-pill hm-pill--warn">🎯 تحتاج تركيزًا: {progress.progress.weaknesses.map((w) => w.title).join("، ")}</span>
-                )}
-              </div>
-            )}
-
-            {/* PHASE 24 — concept mastery with levels, decay and trajectory. */}
-            <div className="hm-block" data-testid="mastery-section">
-              <div className="hm-block__head">
-                <h5 className="hm-block__title">إتقان المفاهيم</h5>
-                {progress.mastery.length > 4 && (
-                  <button
-                    type="button"
-                    className="hm-btn hm-btn--ghost hm-btn--sm"
-                    data-testid="mastery-more"
-                    onClick={() => setMasteryExpanded((v) => !v)}
-                  >
-                    {masteryExpanded ? "أقل" : `عرض الكل (${progress.mastery.length})`}
-                  </button>
-                )}
-              </div>
-              {progress.mastery.length === 0 ? (
-                <p className="hm-note" data-testid="mastery-empty">
-                  لا توجد مفاهيم متتبعة بعد — أجب عن تمارين لتظهر هنا.
-                </p>
-              ) : (
-                <ul className="hm-list" data-testid="mastery-list">
-                  {shownMastery.map((m) => (
-                    <li key={m.conceptId} className="hm-row" data-testid="mastery-concept-row">
-                      <span className="hm-row__main">
-                        <strong>{m.title}</strong>
-                        <span
-                          className={`hm-pill ${m.level === "mastered" || m.level === "advanced" ? "" : "hm-pill--warn"}`}
-                          data-testid="mastery-level"
-                        >
-                          {m.labelAr}
-                        </span>
-                      </span>
-                      <span className="hm-row__meta" data-testid="mastery-meta">
-                        {Math.round(m.decayedMastery * 100)}% · {m.daysSinceLastPractice === 0 ? "اليوم" : `منذ ${m.daysSinceLastPractice} يوم`}{" "}
-                        <span data-testid="mastery-trend">{trendArrow(m.trend)}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            {/* PHASE 25 — ranked practice plan feeding the practice panel. */}
-            <div className="hm-block" data-testid="plan-section">
-              <div className="hm-block__head">
-                <h5 className="hm-block__title">خطة ممارستك</h5>
-                {fullPlan.length > 3 && (
-                  <button
-                    type="button"
-                    className="hm-btn hm-btn--ghost hm-btn--sm"
-                    data-testid="plan-more"
-                    onClick={() => setPlanExpanded((v) => !v)}
-                  >
-                    {planExpanded ? "أقل" : `عرض الكل (${fullPlan.length})`}
-                  </button>
-                )}
-              </div>
-              {plan === null ? (
-                <p className="hm-note" data-testid="plan-loading">
-                  جارٍ تحضير خطتك…
-                </p>
-              ) : plan.length === 0 ? (
-                <p className="hm-note" data-testid="plan-empty">
-                  لا توجد مفاهيم في خطتك بعد — انضم إلى منهج دراسي لتظهر خطة ممارستك هنا.
-                </p>
-              ) : (
-                <ul className="hm-list" data-testid="plan-list">
-                  {shownPlan.map((item) => (
-                    <li key={item.conceptId} className="hm-row" data-testid="plan-row">
-                      <span className="hm-row__main hm-row__main--stack">
-                        <span className="hm-row__main">
-                          <strong>{item.title}</strong>
-                          <span
-                            className={`hm-pill ${item.level === "mastered" || item.level === "advanced" ? "" : "hm-pill--warn"}`}
-                            data-testid="plan-level"
-                          >
-                            {item.labelAr}
-                          </span>
-                          {/* PHASE 35 (D-037 tail) — exposure is old enough that
-                              decay alone is eroding this concept. */}
-                          {item.dueForReview && (
-                            <span className="hm-pill hm-pill--warn" data-testid="plan-due">
-                              راجع قبل أن ينسى
-                            </span>
-                          )}
-                        </span>
-                        <span className="hm-row__meta" data-testid="plan-meta">
-                          <span data-testid="plan-lesson">{item.lessonTitle ?? "درس غير معروف"}</span> ·{" "}
-                          <span data-testid="plan-questions">{item.availableQuestions} سؤال متاح</span> ·{" "}
-                          {item.attempts === 0
-                            ? "لم يُمارَس بعد"
-                            : item.daysSinceLastPractice === 0
-                              ? "اليوم"
-                              : `منذ ${item.daysSinceLastPractice} يوم`}{" "}
-                          <span data-testid="plan-trend">{trendArrow(item.trend)}</span>
-                        </span>
-                      </span>
-                      <span className="hm-row__actions">
-                        {item.availableQuestions === 0 ? (
-                          // PHASE 28 — no MCQ yet → generate one on demand.
-                          <button className="hm-btn hm-btn--primary hm-btn--sm" data-testid="plan-generate" onClick={() => generateAndPractice(item.conceptId)}>
-                            توليد سؤال
-                          </button>
-                        ) : (
-                          <button className="hm-btn hm-btn--primary hm-btn--sm" data-testid="plan-practice" onClick={() => startPractice(item.conceptId)}>
-                            تمرّن الآن
-                          </button>
-                        )}
-                        {item.openQuestions > 0 ? (
-                          // PHASE 30 — an open (free-text) question exists for this concept.
-                          <button className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="plan-open-practice" onClick={() => startPractice(item.conceptId, "open")}>
-                            سؤال مقالي
-                          </button>
-                        ) : (
-                          <button className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="plan-open-generate" onClick={() => generateAndPractice(item.conceptId, "open")}>
-                            توليد سؤال مقالي
-                          </button>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+            <div className="hm-progress-actions">
+              <button type="button" className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="home-journey-link" onClick={onOpenJourney}>
+                📊 تفاصيل رحلتي
+              </button>
+              <button type="button" className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="home-plan-link" onClick={openPlan}>
+                🗂️ خطتي كاملة
+              </button>
             </div>
 
             {/* PHASE 20 — خطة الطالب: شريط هادئ في ذيل بطاقة التقدّم */}
@@ -753,6 +702,100 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                 <span className="hm-row__meta">خطتك مجانية — ارفعها عبر لوحة الإدارة.</span>
               )}
             </div>
+          </section>
+        )}
+
+        {/* PHASE 182 — only three priorities stay on Home. The full plan is a
+            separate screen (and the reason is visible on every row). */}
+        {user.role === "student" && (
+          <section className="hm-card hm-card--plan" data-testid="plan-section">
+            <div className="hm-sec__head">
+              <h4>أولويات الممارسة</h4>
+              {planTotal > PLAN_HOME_COUNT && (
+                <button type="button" className="hm-btn hm-btn--ghost hm-btn--sm" data-testid="plan-more" onClick={openPlan}>
+                  الخطة كاملة ({planTotal})
+                </button>
+              )}
+            </div>
+            {plan === null ? (
+              <p className="hm-note" data-testid="plan-loading">
+                جارٍ تحضير خطتك…
+              </p>
+            ) : plan.length === 0 ? (
+              <p className="hm-note" data-testid="plan-empty">
+                لا توجد مفاهيم في خطتك بعد — انضم إلى منهج دراسي لتظهر خطة ممارستك هنا.
+              </p>
+            ) : (
+              <>
+                <p className="hm-note">ثلاث خطوات فقط — الباقي في «خطتي كاملة».</p>
+                <ul className="hm-list" data-testid="plan-list">
+                  {planPreview.map((item) => {
+                    const generate = needsGeneration(item, "mcq");
+                    const page = planPageText(item);
+                    return (
+                      <li key={item.conceptId} className="hm-row" data-testid="plan-row">
+                        <span className="hm-row__main hm-row__main--stack">
+                          <span className="hm-row__main">
+                            <strong>{item.title}</strong>
+                            <span
+                              className={`hm-pill ${item.level === "mastered" || item.level === "advanced" ? "" : "hm-pill--warn"}`}
+                              data-testid="plan-level"
+                            >
+                              {item.labelAr}
+                            </span>
+                            {item.dueForReview && (
+                              <span className="hm-pill hm-pill--warn" data-testid="plan-due">
+                                راجع قبل أن ينسى
+                              </span>
+                            )}
+                          </span>
+                          <span className="hm-row__meta" data-testid="plan-meta">
+                            <span data-testid="plan-lesson">{item.lessonTitle ?? "درس غير معروف"}</span>
+                            {page && (
+                              <>
+                                {" · "}
+                                <span data-testid="plan-page">{page}</span>
+                              </>
+                            )}
+                            {" · "}
+                            <span data-testid="plan-questions">{item.availableQuestions} سؤال متاح</span>
+                            {" "}
+                            <span data-testid="plan-trend">{trendArrow(item.trend)}</span>
+                          </span>
+                          <span className="hm-row__reason" data-testid="plan-reason">
+                            {planReason(item)}
+                          </span>
+                        </span>
+                        <span className="hm-row__actions">
+                          <button
+                            className="hm-btn hm-btn--primary hm-btn--sm"
+                            data-testid={generate ? "plan-generate" : "plan-practice"}
+                            onClick={() =>
+                              generate
+                                ? void generateAndPractice(item.conceptId, "mcq")
+                                : void startPractice(item.conceptId, "mcq")
+                            }
+                          >
+                            تدرّب الآن
+                          </button>
+                          <button
+                            className="hm-btn hm-btn--ghost hm-btn--sm"
+                            data-testid={item.openQuestions > 0 ? "plan-open-practice" : "plan-open-generate"}
+                            onClick={() =>
+                              item.openQuestions > 0
+                                ? void startPractice(item.conceptId, "open")
+                                : void generateAndPractice(item.conceptId, "open")
+                            }
+                          >
+                            سؤال مقالي
+                          </button>
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
+            )}
           </section>
         )}
 
@@ -878,7 +921,7 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
               <ul className="hm-list" data-testid="session-list">
                 {[...sessions]
                   .sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime())
-                  .slice(0, 6)
+                  .slice(0, 3)
                   .map((s) => (
                     <li key={s.id} className="hm-row hm-row--session" data-testid="session-row" data-session-id={s.id} data-session-status={s.status}>
                       <span className="hm-row__main hm-row__main--stack">
@@ -917,9 +960,9 @@ export function HomeScreen({ user, onStartLesson, onOpenSubject, onResume, onOpe
                     </li>
                   ))}
               </ul>
-              {sessions.length > 6 && (
+              {sessions.length > 3 && (
                 <p className="hm-note" data-testid="sessions-truncated">
-                  … وتوجد {sessions.length - 6} جلسات أخرى.
+                  … وتوجد {sessions.length - 3} جلسات أخرى — كلها في «رحلتي».
                 </p>
               )}
             </>

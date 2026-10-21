@@ -14,6 +14,8 @@ function item(over: Partial<PracticePlanItem> & { conceptId: string }): Practice
     title: `مفهوم ${over.conceptId}`,
     lessonId: null,
     lessonTitle: null,
+    bookPageStart: null,
+    bookPageEnd: null,
     subjectId: null,
     subjectNameAr: null,
     mastery: 0.2,

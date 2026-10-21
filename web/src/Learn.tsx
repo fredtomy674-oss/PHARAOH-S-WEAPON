@@ -91,7 +91,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson }: 
       .catch(() => undefined);
     const saved = user.student?.gradeId ?? "";
     if (saved) {
-      listSubjects(saved)
+      listSubjects(saved, user.student?.id)
         .then((list) => {
           setSubjects(list);
           // PHASE 178 — مادةٌ جاءت من الرئيسية تسبق «آخر اختيار»: الطفل طلب
@@ -158,7 +158,7 @@ export function LearnScreen({ user, initialSubjectId, onResume, onOpenLesson }: 
     saveLastPick({ subjectId: id, unitId: restoreUnitId }, user.student?.id);
     if (!gid) return;
     try {
-      const list = await listCurricula(gid, id);
+      const list = await listCurricula(gid, id, user.student?.id);
       if (seq !== loadSeq.current) return;
       setCurricula(list);
       const first = list.find((c) => c.isActive) ?? list[0];

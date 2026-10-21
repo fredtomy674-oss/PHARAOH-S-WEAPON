@@ -111,7 +111,7 @@ export function missingVoiceNotice(language: VoiceLanguage, platform: VoicePlatf
  * `missingVoiceNotice` when both facts are known.
  */
 export const SERVER_VOICE_DOWN_NOTE =
-  "وصوت المعلّم السحابي غير متاح حاليًا (انتهى رصيد النطق على الخادم) — التثبيت المجاني أعلاه يعمل بلا رصيد.";
+  "وصوت المعلّم السحابي غير متاح حاليًا (انتهى رصيد النطق على الخادم) — التثبيت المجاني المذكور يعمل بلا رصيد.";
 
 export interface SttCallbacks {
   /** Fired once with the accumulated final transcript when recognition ends. */
@@ -141,6 +141,8 @@ interface RecognitionLike {
   onresult: ((event: RecognitionResultEvent) => void) | null;
   onerror: ((event: { error: string }) => void) | null;
   onend: (() => void) | null;
+  /** PHASE 181 — the engine acknowledged that the microphone is live. */
+  onstart?: (() => void) | null;
   start: () => void;
   stop: () => void;
 }
@@ -869,6 +871,31 @@ export const LIVE_MAX_UTTERANCE_CHARS = 700;
 const LIVE_RESTART_GAP_MS = 500;
 
 /**
+ * PHASE 181 — «أذنٌ لا تنام»: a recognition session is a browser resource, not
+ * a promise. The owner's Android kept the screen saying «أسمعك» long after the
+ * engine had stopped delivering events at all: no result, no error, no
+ * `onend` — the session was simply gone, and only closing and reopening the
+ * mode rebuilt it.
+ *
+ * A single-utterance session has one honest contract: after its final result
+ * it must end. If `onend` does not follow within this grace, the session is
+ * wedged and is rebuilt. This is deliberately evidence-driven (a final was
+ * heard) rather than a heartbeat: restarting a healthy idle microphone every
+ * few seconds would beep and churn for no reason.
+ */
+const LIVE_FINAL_END_GRACE_MS = 2_500;
+
+/**
+ * PHASE 181 — the other silent death: a reopened session that never even
+ * starts. `onstart` is the engine's acknowledgement that the microphone is
+ * live; after a conversation has proved the engine can hear, a session that
+ * stays silent for this long is rebuilt (bounded, so an engine that simply
+ * does not emit `onstart` is not churned forever). The very first session is
+ * left to the 9s quiet rescue, where a permission prompt may still be open.
+ */
+const LIVE_START_GRACE_MS = 6_000;
+
+/**
  * PHASE 174 — the words come first. A capture-class failure ("audio-capture")
  * means the microphone could not be opened, and the one consumer this page
  * owns on that device is the echo probe: it joins every live session. The
@@ -1252,8 +1279,9 @@ export function listensLikeDictation(): boolean {
  * moment the room's «لم أسمعك بعد» hint appears — a mode that has never heard
  * a single fragment drops its probe and rebuilds the recognition session,
  * silently. If the child then speaks, as the hint asks, the field is already
- * fresh. One shot per session; touch devices never start a probe and their
- * sessions cycle on their own, so nothing happens there.
+ * fresh. One shot per session. PHASE 181 — it covers touch-first devices too,
+ * but only a session that never fired `onstart`: a field that acknowledged the
+ * microphone and is merely waiting for the child's first word is left alone.
  */
 const LIVE_QUIET_RESCUE_MS = 9000;
 
@@ -1279,6 +1307,13 @@ export interface LiveConversationCallbacks {
    * timeline alone still carries every engine that does not supply it.
    */
   roomSpeaking?: () => boolean;
+  /**
+   * PHASE 181 — the room is answering or otherwise busy. A field that has
+   * gone quiet is rebuilt only when the room is free: the student's next words
+   * may already be queued, and a restart in that gap would drop them. Same
+   * contract as `roomSpeaking`: read the present.
+   */
+  roomBusy?: () => boolean;
 }
 
 export interface LiveConversationHandle {
@@ -1328,6 +1363,18 @@ export function startLiveConversation(
   const dictationShape = listensLikeDictation();
   const openedAt = Date.now();
   let rescued = false;
+  // PHASE 181 — when the current single-utterance session reported its final
+  // result. A session that heard a final and still never called `onend` is
+  // wedged; this timestamp is the evidence the watchdog acts on.
+  let awaitingEndAt: number | null = null;
+  // …and the reopened session that never started: `onstart` is its receipt.
+  let sessionOpenedAt = openedAt;
+  let sessionStarted = false;
+  let startRetries = 0;
+  let startWatchDisabled = false;
+  // The page-lifetime listener that rebuilds a field the OS suspended while
+  // the tab was away (a phone call, the app switcher, a locked screen).
+  let visibilityHandler: (() => void) | null = null;
 
   // PHASE 169 — the tutor's side of the conversation, as the room reports it.
   let tutorText = "";
@@ -1373,6 +1420,29 @@ export function startLiveConversation(
       return false;
     }
   };
+
+  /** PHASE 181 — never recycle the field in the middle of the room's turn. */
+  const roomNowBusy = (): boolean => {
+    try {
+      return callbacks.roomBusy?.() === true;
+    } catch {
+      return false;
+    }
+  };
+
+  /**
+   * PHASE 183 — a phone's SpeechRecognition is a *dictation* session, and every
+   * `start()`/end is an audible system beep. The old loop reopened the field
+   * beside the tutor's voice, so the beep repeated through the whole
+   * explanation. On the dictation shape the field now stays closed while the
+   * tutor owns the floor (or the room is still writing); the tick below opens
+   * it again the moment the room is idle. The one unavoidable start beep
+   * remains at the beginning of the mode, where it is a real "listening"
+   * signal, not noise under the lesson.
+   */
+  const holdFieldForRoom = (): boolean =>
+    dictationShape && (tutorSpeaking || roomNowSpeaking() || roomNowBusy());
+  let holdUntilRoomIdle = false;
 
   /**
    * Was the tutor's voice in the air during an utterance that began at
@@ -1443,8 +1513,14 @@ export function startLiveConversation(
     if (!active) return;
     active = false;
     current = null;
+    awaitingEndAt = null;
+    holdUntilRoomIdle = false;
     window.clearInterval(tickTimer);
     window.clearTimeout(restartTimer);
+    if (visibilityHandler && typeof document !== "undefined") {
+      document.removeEventListener("visibilitychange", visibilityHandler);
+      visibilityHandler = null;
+    }
     probe?.stop();
     callbacks.onError(message);
     callbacks.onEnd();
@@ -1455,6 +1531,9 @@ export function startLiveConversation(
     if (!active) return;
     const rec = new Ctor();
     current = rec;
+    awaitingEndAt = null;
+    sessionOpenedAt = Date.now();
+    sessionStarted = false;
     rec.lang = speechTag(language);
     // PHASE 175 — the dictation shape on touch-first devices (see
     // `listensLikeDictation`): one utterance per session, reopened on end.
@@ -1465,10 +1544,21 @@ export function startLiveConversation(
     // unchanged final result, and words must never be appended twice.
     const countedFinals = new Set<number>();
 
+    // PHASE 181 — the engine says the microphone is live. A session that never
+    // gets this receipt after a working conversation is the silent restart the
+    // owner's phone left on «أسمعك» with no words and no error.
+    rec.onstart = () => {
+      if (current !== rec) return;
+      sessionStarted = true;
+      startRetries = 0;
+      startWatchDisabled = false;
+    };
+
     rec.onresult = (event) => {
       if (!active) return;
       const now = Date.now();
       let began = false;
+      let sawFinal = false;
       const results = event.results;
       const from = Math.max(0, event.resultIndex ?? 0);
       for (let i = from; i < results.length; i++) {
@@ -1480,8 +1570,12 @@ export function startLiveConversation(
         if (item.isFinal) {
           if (countedFinals.has(i)) continue;
           countedFinals.add(i);
+          sawFinal = true;
           began = tracker.noteFinal(text, now) || began;
         } else {
+          // A fresh interim after a final means the engine is still hearing
+          // new words: the end this session owed is no longer overdue.
+          awaitingEndAt = null;
           began = tracker.noteInterim(text, now) || began;
         }
       }
@@ -1489,6 +1583,10 @@ export function startLiveConversation(
         windowStart = now;
         yielded = false;
       }
+      // PHASE 181 — a single-utterance session owes an `onend` after its
+      // final. Stamp the last final; the tick below rebuilds a session that
+      // never pays that debt.
+      if (dictationShape && sawFinal) awaitingEndAt = now;
       lastFragmentAt = now;
       const live = tracker.live;
       // PHASE 169 — yield the floor the moment the words say "this is the
@@ -1526,12 +1624,12 @@ export function startLiveConversation(
       if (event.error === "audio-capture" && captureRetries < LIVE_CAPTURE_RETRY_LIMIT) {
         captureRetries += 1;
         current = null;
+        awaitingEndAt = null;
         // Whatever the failed session still holds must not feed the tracker:
         // its late results are dead air, not the student.
         rec.onresult = null;
         probe?.stop();
-        window.clearTimeout(restartTimer);
-        restartTimer = window.setTimeout(open, LIVE_CAPTURE_RETRY_GAP_MS);
+        scheduleOpen(LIVE_CAPTURE_RETRY_GAP_MS);
         return;
       }
       // The first-ever refusal may be the Android grant race — the recognizer
@@ -1541,6 +1639,7 @@ export function startLiveConversation(
       if (event.error === "not-allowed" && !permissionRetried) {
         permissionRetried = true;
         current = null;
+        awaitingEndAt = null;
         // The refused session is dead; only the reopened one may speak.
         rec.onresult = null;
         window.clearTimeout(restartTimer);
@@ -1553,7 +1652,7 @@ export function startLiveConversation(
           .getUserMedia({ audio: true })
           .then((stream) => {
             stream.getTracks().forEach((track) => track.stop());
-            if (active) restartTimer = window.setTimeout(open, LIVE_PERMISSION_RETRY_GAP_MS);
+            if (active) scheduleOpen(LIVE_PERMISSION_RETRY_GAP_MS);
           })
           .catch(() => fatal(STT_ERROR_MESSAGES[event.error] ?? null));
         return;
@@ -1564,12 +1663,23 @@ export function startLiveConversation(
     rec.onend = () => {
       if (current !== rec) return; // a late end from an older session
       current = null;
+      awaitingEndAt = null;
       if (!active) return;
       // The session ended (Chrome's own silence timer, the ~60s cap): release
-      // what was heard — it was an utterance (the echo rules still judge it) —
-      // and reopen after a breath.
+      // what was heard — it was an utterance (the echo rules still judge it).
+      // PHASE 183 — on a dictation-shaped phone do not reopen here: the tick
+      // does it only when the tutor's voice and the room's turn are over, so
+      // its native start/end beeps never run underneath the explanation.
       release(tracker.flush());
-      restartTimer = window.setTimeout(open, LIVE_RESTART_GAP_MS);
+      if (dictationShape) {
+        holdUntilRoomIdle = true;
+        // It is safe to *schedule* now; the timer re-checks the room before it
+        // actually starts the recognizer (see `scheduleOpen`). If the answer is
+        // already writing, the schedule is replaced by a hold.
+        if (!holdFieldForRoom()) scheduleOpen();
+        return;
+      }
+      scheduleOpen();
     };
 
     try {
@@ -1579,27 +1689,100 @@ export function startLiveConversation(
     }
   };
 
+  /**
+   * PHASE 183 — the single gate for every reopen. On the dictation shape it
+   * refuses to start a session while the tutor speaks or the room writes; the
+   * tick retries as soon as the room is idle. Desktop's continuous session is
+   * unchanged (it keeps the field open for barge-in and makes no system beep).
+   */
+  function scheduleOpen(delay = LIVE_RESTART_GAP_MS): void {
+    if (!active) return;
+    window.clearTimeout(restartTimer);
+    restartTimer = 0;
+    if (holdFieldForRoom()) {
+      holdUntilRoomIdle = true;
+      return;
+    }
+    holdUntilRoomIdle = false;
+    restartTimer = window.setTimeout(() => {
+      restartTimer = 0;
+      if (holdFieldForRoom()) {
+        holdUntilRoomIdle = true;
+        return;
+      }
+      open();
+    }, delay);
+  }
+
+  /**
+   * PHASE 181 — replace a recognition session that has gone quiet on its own.
+   * The old session's handlers are detached first: a late error from a session
+   * we deliberately abandoned must never end the mode, and its late results
+   * must never be counted twice. The tracker is untouched, so a half-heard
+   * utterance survives the swap.
+   */
+  const recycle = (): void => {
+    if (!active || !current) return;
+    const rec = current;
+    current = null;
+    window.clearTimeout(restartTimer);
+    rec.onresult = null;
+    rec.onerror = null;
+    try {
+      rec.stop();
+    } catch {
+      /* the engine already closed the session */
+    }
+    scheduleOpen();
+  };
+
+  // PHASE 181 — the OS suspends both the microphone and the recognition
+  // service while the page is away; when the student comes back, the screen
+  // must not keep claiming to listen with a session that died in the
+  // background. Rebuild it before the next word.
+  if (typeof document !== "undefined") {
+    visibilityHandler = () => {
+      if (!active || document.visibilityState !== "visible") return;
+      if (tutorSpeaking || roomNowBusy()) return;
+      recycle();
+    };
+    document.addEventListener("visibilitychange", visibilityHandler);
+  }
+
   tickTimer = window.setInterval(() => {
     if (!active) return;
     const now = Date.now();
-    // PHASE 175 — the quiet rescue (see `LIVE_QUIET_RESCUE_MS`): at the very
-    // moment the room admits «لم أسمعك بعد», a mode that has never heard one
-    // fragment clears the field — the probe goes and the session is rebuilt —
-    // so the child's next words, the ones the hint asks for, start fresh.
+    // PHASE 183 — the field was held closed under the tutor's voice (or the
+    // writing turn). Reopen it only now that both are over; this is the one
+    // place the phone's recognizer gets its next start beep.
+    if (holdUntilRoomIdle && !current && !restartTimer && !holdFieldForRoom()) {
+      holdUntilRoomIdle = false;
+      scheduleOpen();
+    }
+    // PHASE 175/181 — the quiet rescue (see `LIVE_QUIET_RESCUE_MS`): at the
+    // very moment the room admits «لم أسمعك بعد», a mode that has never heard
+    // one fragment clears the field — the probe goes and the session is
+    // rebuilt — so the child's next words, the ones the hint asks for, start
+    // fresh. PHASE 181 — touch-first devices get this too: no probe to drop,
+    // but their single-utterance session can wedge before its first word.
     // (A capture failure gets the same treatment from the 174 ladder; this is
     // its silent sibling — the death with no error.)
-    if (!rescued && probe && lastFragmentAt === 0 && now - openedAt >= LIVE_QUIET_RESCUE_MS) {
+    // On touch, this is only for a field that never acknowledged itself at
+    // all: a session that fired `onstart` and is simply waiting for the child's
+    // first word must not be beeped away at the ninth second.
+    if (
+      !rescued &&
+      lastFragmentAt === 0 &&
+      now - openedAt >= LIVE_QUIET_RESCUE_MS &&
+      (!dictationShape || !sessionStarted) &&
+      !tutorSpeaking &&
+      !roomNowSpeaking() &&
+      !roomNowBusy()
+    ) {
       rescued = true;
-      probe.stop();
+      probe?.stop();
       probe = null;
-      const rec = current;
-      if (rec) {
-        try {
-          rec.stop();
-        } catch {
-          /* already closed */
-        }
-      }
+      recycle();
     }
     // PHASE 169 — the student's voice ended (the probe heard it stop) and no
     // newer fragment arrived: release now, without waiting out the full
@@ -1612,18 +1795,68 @@ export function startLiveConversation(
       release(tracker.flush(now));
       return;
     }
+    // PHASE 181 — the silent death with no error: a single-utterance session
+    // heard a final, the mode says «أسمعك», and the engine will never call
+    // `onend`. That is the owner's phone. The final is the evidence; this
+    // grace is the debt's deadline. An utterance still in hand, the tutor's
+    // voice, or an answer being written all postpone the swap.
+    if (
+      dictationShape &&
+      current &&
+      awaitingEndAt !== null &&
+      now - awaitingEndAt >= LIVE_FINAL_END_GRACE_MS &&
+      !tracker.live &&
+      !tutorSpeaking &&
+      !roomNowBusy()
+    ) {
+      awaitingEndAt = null;
+      recycle();
+      return;
+    }
+    // PHASE 181 — the reopened session that never started. Only after this
+    // engine has heard a word at least once (the first session may still be
+    // showing a permission prompt, and the 9s quiet rescue owns that case). A
+    // session that has already delivered a fragment is alive regardless of the
+    // event; one that has not is watched, rebuilt at most twice, then left to
+    // the explicit «أعد الميكروفون» if this browser never emits `onstart`.
+    if (
+      current &&
+      !sessionStarted &&
+      !startWatchDisabled &&
+      lastFragmentAt > 0 &&
+      lastFragmentAt < sessionOpenedAt &&
+      now - sessionOpenedAt >= LIVE_START_GRACE_MS &&
+      !tracker.live &&
+      !tutorSpeaking &&
+      !roomNowBusy()
+    ) {
+      if (startRetries < 2) {
+        startRetries += 1;
+        recycle();
+        return;
+      }
+      startWatchDisabled = true;
+    }
     const whole = tracker.tick(now);
     if (whole) release(whole);
   }, LIVE_TICK_MS);
 
+  // The first session always opens: the student pressed «المحادثة الحيّة», and
+  // one start beep at that deliberate act is the mode's real "listening" signal.
+  // Only the automatic reopens wait for the tutor's floor to be free.
   open();
 
   return {
     stop: () => {
       if (!active) return;
       active = false;
+      holdUntilRoomIdle = false;
       window.clearInterval(tickTimer);
       window.clearTimeout(restartTimer);
+      if (visibilityHandler && typeof document !== "undefined") {
+        document.removeEventListener("visibilitychange", visibilityHandler);
+        visibilityHandler = null;
+      }
       // Half-spoken text is dropped: ending the mode is not a question.
       tracker.flush();
       probe?.stop();
