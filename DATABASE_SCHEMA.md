@@ -1,6 +1,6 @@
 # DATABASE SCHEMA — AL FAROUQ AI
 
-> آخر تحديث: 2026-10-19 — مرآة لـ `server/src/db/schema.ts` (المصدر الحقيقي).
+> آخر تحديث: 2026-10-21 — مرآة لـ `server/src/db/schema.ts` (المصدر الحقيقي).
 > migrations مولّدة بـ drizzle-kit ومطبقة تلقائيًا عند إقلاع السيرفر.
 
 ## 1. ملاحظة استراتيجية
@@ -15,7 +15,7 @@
 
 - `users(id, email UNIQUE, password_hash, role: student|parent|admin, status, created_at)`
 - `sessions(id, user_id→users, student_id?→students, token_hash, csrf_token, expires_at, created_at, revoked_at)` — جلسات قاعدة بيانات قابلة للإلغاء؛ `student_id` هو **الطفل النشط لهذا الدخول** (PHASE 180) و`NULL` لحساب عائلي لم يختر بعد
-- `students(id, user_id→users, display_name, country_id?, grade_id?, parent_link_code, birth_year?)` — **متعدد لكل مستخدم** (PHASE 180، حد ٨) وليس فريدًا؛ كل طفل يملك خطته وتقدّمه وجلساته وإنجازاته وكود ولي أمره
+- `students(id, user_id→users, display_name, country_id?, grade_id?, track?, study_language?, first_foreign_language?, second_foreign_language?, religion?, parent_link_code, birth_year?)` — **متعدد لكل مستخدم** (PHASE 180، حد ٨) وليس فريدًا؛ كل طفل يملك خطته وتقدّمه وجلساته وإنجازاته وكود ولي أمره. **PHASE 185:** `track` = `science`/`literature` أو `NULL` قبل الصف الثاني الثانوي؛ صفٌّ يقدّم مسارات لا يُسجَّل طفله بلا مسار. **PHASE 192:** حقول G12 الأربعة: `study_language` = `ar|en|fr`، `first_foreign_language` = `en|fr`، `second_foreign_language` = `fr|de|it|es` أو `en|de|it|es` حسب الأولى، `religion` = `islamic|christian`؛ `NULL` خارج G12 أو للصفوف القديمة، ويعمل المُحدِّد عندها بالافتراضي
 - `parents(id, user_id UNIQUE)`
 - `profiles(id, user_id UNIQUE, locale, ui_theme, voice_enabled…)`
 - `students_parents(student_id, parent_id, relationship)` — علاقة رباعية
@@ -26,8 +26,8 @@
 - تسلسل هرمي واحد، كل مستوى يشير إلى الأب.
 - `concepts` هي أصغر وحدة معرفية وتُستخدم في Metadata/الاسترجاع والتقدم.
 - `grades`: `(education_system_id, name, level_order)` — `level_order` يسمح بمقارنة الصفوف.
-- `curricula`: `(subject_id, grade_id, version, is_active)`.
-- `curriculum_enrollments(student_id, curriculum_id)` — ما يدرسه الطالب بفعالية؛ PHASE 180: الإنشاء/الإعداد/تغيير الصف يسجّل **كل مناهج صف الطفل النشطة** تلقائيًا، والقراءة تقصّ على صفّه.
+- `curricula`: `(subject_id, grade_id, version, is_active, track?, language?, variant_of?, language_role?)` — **PHASE 185:** `track = NULL` يعني مشتركًا بين المسارات، و`science`/`literature` يعني خاصًّا بمسار واحد. **PHASE 192:** `language` = `ar|en|fr|de|it|es`، و`variant_of` يشير إلى المنهج الأساسي للنسخة اللغوية (مع فهرس `curricula_variant_of_idx`)، و`language_role` = `first|second|story|grammar|workbook`. النسخ لا تُسجَّل مباشرة؛ `selectCurriculumIds` يختار نسخة واحدة لكل أساسي.
+- `curriculum_enrollments(student_id, curriculum_id)` — ما يدرسه الطالب بفعالية؛ PHASE 180: الإنشاء/الإعداد/تغيير الصف يسجّل **كل مناهج صف الطفل النشطة** تلقائيًا، والقراءة تقصّ على صفّه. **PHASE 185:** التسجيل يشمل المشترك (`track IS NULL`) + منهج مسار الطفل فقط؛ وقراءة المواد/المناهج تقصّ على التسجيلات نفسها. **PHASE 192:** لـG12 يشمل المشترك + المسار + **نسخة واحدة** من كل مادة حسب لغة الدراسة، واللغة الأولى/الثانية، والدين؛ التغيير عبر `/choices` يستبدل نسخ الصف فقط ويحفظ تقدّم النسخ القديمة.
 - كل المستويات لها `code` ثابت (slug) لسهولة الهندسة والـAPI.
 
 ### المعرفة (Knowledge Base) — `documents`, `document_versions`, `chunks`

@@ -1,6 +1,6 @@
 # API SPEC — AL FAROUQ AI
 
-> آخر تحديث: 2026-10-19 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
+> آخر تحديث: 2026-10-21 — مصدر الحقيقة: Fastify routes في `server/src/modules`. كل responses JSON.
 > Base: `/api` — Auth: session cookie (`alfarouq_session`) httpOnly + CSRF header للـmutations.
 
 ## 1. المصادقة
@@ -10,7 +10,7 @@
 | POST | `/api/auth/register` | إنشاء حساب، يقبل `{email,password,displayName, role?: "student"\|"parent", gradeId?}` — `role` افتراضيًا `student`؛ للطالب صف مدرسي، للوالد حساب بدون صف | public |
 | POST | `/api/auth/login` | `{email,password}` → set cookie + CSRF. **PHASE 180:** الطفل الوحيد يُختار تلقائيًا، ومتعدد الأطفال يعود `student: undefined` مع `students[]` حتى تظهر شاشة الاختيار | public |
 | POST | `/api/auth/logout` | إبطال الجلسة | session |
-| GET | `/api/auth/me` | المستخدم الحالي + `student` (الطفل النشط أو غائب قبل الاختيار) + `students[]` (كل أطفال الحساب) **أو** `parent` + `linkCode` (رمز مشاركة الطفل النشط فقط — `null` للوالدين) | session |
+| GET | `/api/auth/me` | المستخدم الحالي + `student` (الطفل النشط أو غائب قبل الاختيار) + `students[]` (كل أطفال الحساب) **أو** `parent` + `linkCode` (رمز مشاركة الطفل النشط فقط — `null` للوالدين). **PHASE 185:** كل طفل يحمل `track` و`trackNameAr` (`science`/«علمي» أو `literature`/«أدبي» أو `null` قبل الصف الثاني الثانوي). **PHASE 192:** كل طفل يحمل أيضًا `gradeCode` و`studyLanguage` و`firstForeignLanguage` و`secondForeignLanguage` و`religion` (`null` خارج G12) | session |
 
 ## 2. Curriculum (مفتوح للمصادق)
 
@@ -20,6 +20,9 @@
 | GET | `/api/curriculum/countries/:countryCode/education-systems` |
 | GET | `/api/curriculum/education-systems/:systemId/grades` |
 | GET | `/api/curriculum/grades/:gradeId/subjects` |
+| GET | `/api/curriculum/tracks?gradeId=` | **PHASE 185** — `{tracks:[{code,name,nameAr}]}`: المسارات التي يقدمها الصف فعلًا (من مناهجه النشطة)؛ الصف بلا مسارات يُعيد `[]` |
+| GET | `/api/curriculum/subjects?gradeId=&studentId=` | **PHASE 185** — عند تمرير `studentId` تُقصّ المواد على مناهج الطفل المسجَّلة (المشترك + مساره فقط)؛ بلا `studentId` يبقى الكتالوج العام كما هو |
+| GET | `/api/curriculum/curricula?gradeId=&subjectId=&studentId=` | **PHASE 185** — نفس القصّ على المناهج: منهج بلا `track` مشترك، ومنهج `science`/`literature` لا يظهر إلا لصاحب المسار |
 | GET | `/api/curriculum/subjects/:subjectId/curricula?gradeId=` |
 | GET | `/api/curriculum/curricula/:curriculumId/terms` |
 | GET | `/api/curriculum/curricula/:curriculumId/units` |
@@ -61,12 +64,15 @@
 | Method | Route | الوصف |
 |---|---|---|
 | GET | `/api/students` | أطفال الحساب مرتّبين بتاريخ الإنشاء + الطفل النشط إن وُجد. student فقط |
-| POST | `/api/students` | `{displayName, gradeId}` → طفل جديد (حد ٨)، تسجيل مناهج صفّه النشطة، وجعله نشطًا لهذه الجلسة. `201` |
+| POST | `/api/students` | `{displayName, gradeId, track?, studyLanguage?, firstForeignLanguage?, secondForeignLanguage?, religion?}` → طفل جديد (حد ٨)، تسجيل مناهج صفّه النشطة، وجعله نشطًا لهذه الجلسة. `201`. **PHASE 185:** صفٌّ يقدّم مسارات يتطلب `track` صريحًا (`400 TRACK_REQUIRED`)، ومسارًا غير معروض يُرفض (`400 TRACK_NOT_AVAILABLE`)؛ الصف بلا مسارات يرفض `track` (`400 TRACK_NOT_APPLICABLE`). **PHASE 192:** G12 يتطلب الاختيارات الأربعة (`400 STUDY_LANGUAGE_REQUIRED` / `FIRST_LANGUAGE_REQUIRED` / `SECOND_LANGUAGE_REQUIRED` / `RELIGION_REQUIRED`)، ويرفض القيم غير المتاحة أو الثانية المساوية للأولى (`*_NOT_AVAILABLE`) |
 | POST | `/api/students/:studentId/activate` | اختيار الطفل النشط **لهذه الجلسة فقط** (جهاز العائلة لا يفرض طفله على جهاز آخر) — ملكية صارمة، `404` لطفل حساب آخر |
-| PUT | `/api/students/:studentId/setup` | `{displayName, gradeId}` لأول استخدام فقط. إن كان للطفل صف بالفعل واختلف الطلب → `409 GRADE_LOCKED`؛ يفعّل الطفل ويُسجّل مناهج صفّه |
+| PUT | `/api/students/:studentId/setup` | `{displayName, gradeId, track?, studyLanguage?, firstForeignLanguage?, secondForeignLanguage?, religion?}` لأول استخدام فقط. إن كان للطفل صف بالفعل واختلف الطلب → `409 GRADE_LOCKED`، وتغيير المسار المحفوظ → `409 TRACK_LOCKED`. يفعّل الطفل ويُسجّل مناهج صفّه (وقواعد المسار والاختيارات كما في الإنشاء) |
+| PUT | `/api/students/:studentId/choices` | **PHASE 192** — `{studyLanguage?, firstForeignLanguage?, secondForeignLanguage?, religion?}`: تغيير اختيارات G12 فقط، مع دمج الحقول المرسلة مع المحفوظ. يعيد بناء تسجيلات نسخ الكتب **دون مسح أي تقدّم**، ويُبقي تقدّم النسخة القديمة محفوظًا للعودة إليها. `400 G12_CHOICES_NOT_APPLICABLE` خارج G12، و`400 GRADE_REQUIRED` قبل اختيار الصف. الرد: `{user}` |
 | PUT | `/api/students/:studentId` | `{displayName}` — تغيير الاسم فقط، بلا صف |
-| PUT | `/api/students/:studentId/grade` | `{gradeId, confirmReset: true}` — المسار **الوحيد** لتغيير الصف. بلا `true` → `400 RESET_CONFIRMATION_REQUIRED`. يمسح في معاملة واحدة رسائل الطفل ومرفقاته وملخصاته وإجاباته وتقييماته وتقدّمه وذاكرته وإنجازاته وجلساته وتسجيلات مناهجه القديمة، ثم يسجّل مناهج الصف الجديد ويعيده نشطًا. الاسم/كود الوالد/الاشتراك/روابط الوالد تبقى. الرد: `{user, changed, deleted:{sessions,answers,assessments,progress}}` |
+| PUT | `/api/students/:studentId/grade` | `{gradeId, track?, confirmReset: true, studyLanguage?, firstForeignLanguage?, secondForeignLanguage?, religion?}` — المسار **الوحيد** لتغيير الصف أو المسار. بلا `true` → `400 RESET_CONFIRMATION_REQUIRED`. تغيير الصف أو المسار يعيد بناء تسجيلات المناهج (المشترك + المسار الجديد + النسخ المختارة) ويمسح تاريخ التعلّم. **PHASE 192:** إن كان الصف والمسار كما هما وتغيّرت الاختيارات وحدها فلا مسح: يُستدعى تحديث الاختيارات ويعود `changed:false`. يمسح في معاملة واحدة رسائل الطفل ومرفقاته وملخصاته وإجاباته وتقييماته وتقدّمه وذاكرته وإنجازاته وجلساته ومهامه وتسجيلات مناهجه القديمة، ثم يسجّل مناهج الصف الجديد ويعيده نشطًا. الاسم/كود الوالد/الاشتراك/روابط الوالد تبقى. الرد: `{user, changed, deleted:{sessions,answers,assessments,progress,tasks}}` |
 
+> **PHASE 192 — اختيارات G12:** القيم المسموحة: `studyLanguage` = `ar|en|fr`، `firstForeignLanguage` = `en|fr`، `secondForeignLanguage` = `fr|de|it|es` عندما تكون الأولى إنجليزية و`en|de|it|es` عندما تكون فرنسية، و`religion` = `islamic|christian`. هذه الاختيارات تُخزَّن على صف الطالب وتقود `selectCurriculumIds`: كتاب واحد لكل مادة، المشترك + مسار الطالب فقط، النحو دائمًا، قصة الفرنسية عند الفرنسية أولى، وكتاب دين واحد. طالب G12 يرى 12–14 كتابًا بدل 37 نسخة.
+>
 > **العزل:** كل مسار يتحقق من `students.user_id = الحساب المسجّل`؛ ولا يكفي معرفة `studentId`. وكل مسار تعليمي قديم يقرأ `request.auth.student` (الطفل النشط) فيبقى نطاق الصف والخطة والتقارير تلقائيًا للطفل المختار. تغيير طفل ← مفتاح إعادة تركيب الشاشات في الويب ← لا خطة أو إتقان قديم يبقى معروضًا.
 >
 > **الوالد:** تقارير `/api/parent/*` تعرض كل طفل مرتبط بكوده واسمه وصفّه؛ ربط طفلين يعني تقريرين مستقلين. لا محتوى رسائل — بيانات وصفية فقط كما في §8.
@@ -187,7 +193,22 @@
 
 **قواعد وعزل**: غير مسجَّل في منهج السؤال (`curriculumEnrollments`) → `404` بلا مؤشر وجود (والسؤال لا يُخدم أصلًا عبر `question: null`)؛ ولي أمر/أدمن على أي `/api/practice/*` → `403 FORBIDDEN` (المسار مسجَّل بنطاق `student` قبل body validation)؛ غياب/خروج `optionIndex` عن حدود الخيارات أو غير عددي → `400 INVALID_OPTION`. السؤال/الخيارات/الشرح يُقرآن من `questions.optionsJson` (خادمي فقط). **PHASE 30 — نوعان من الإرسال**: `optionIndex` لـ`mcq` فقط (نص حر على MCQ → `400 INVALID_OPTION`) و`answer` لـ`open` فقط (خيار على سؤال مفتوح → `400 INVALID_ANSWER`) وكلاهما معًا → `400 INVALID_SUBMIT`؛ إجابة مفتوحة فارغة أو أطول من `1500` حرفًا → `400 INVALID_ANSWER`؛ `answerKey` يُقرأ من قاعدة البيانات خادميًا فقط (سؤال مفتوح بلا مفتاح → خطأ داخلي) — والتغذية الراجعة والدرجة/الشرح لا يعيدان المفتاح أبدًا. **التوليد (PHASE 28 + 30)**: طالب لا يملك مفهومًا (مجهول/خارج مناهجه) → `404`، مفهوم مغطّى بسؤال من نفس النوع → `409`، درس بلا مقاطع أو قالب فاشل → `503`؛ الإدارة تطلب نطاقًا واحدًا (0 أو أكثر → `400`). **السعودية بلا أسئلة تجريبية** في البذر عمدًا — إثبات نطاق التمرين لكل منهج على حدة (وتستفيد من التوليد الإداري لتغطية مفاهيمها الأربعة)؛ البذر المصري يشمـل سؤالين مفتوحين («تبسيط الكسور» مفتاحه «2/3»، «القسمة المطولة» مفتاحه «26») لجعل E2E حتمي النتيجة.
 
-## 11. فحص الحالة `/api/health`: المزوّدات الثلاثة + النطق على الخادم (PHASE 40 + 41)
+**PHASE 182 — صفحة أولى للرئيسية:** يقبل `GET /api/practice/plan?limit=N` حدًّا اختياريًّا (1..500، وبلا `limit` تُعاد الخطة كاملة). الاستجابة تحمل دائمًا `{plan, total, dueCount, streak}`: `total` إجمالي الخطة قبل القصّ و`dueCount` عدد المستحقّ للمراجعة من الإجمالي، فلا يكذب عدّاد الرئيسية حين تعرض ٣ صفوف فقط. ويضيف كل صف `subjectId`/`subjectNameAr` و`bookPageStart`/`bookPageEnd` (صفحات كتاب الطالب، و`null` إن لم يكن للكتاب مرحلة صفحات).
+
+## 11. مهام الطالب `/api/tasks` (PHASE 182)
+
+واجبات وامتحانات يحفظها الطفل بنفسه؛ **كل استعلام مقيّد بـ`student_id` من الطفل النشط في الجلسة**، وولي الأمر/الأدمن ممنوعان (`403`). التاريخ تقويمي `YYYY-MM-DD` لا طابع زمني، فلا تتحرّك مهمة يوم بسبب منطقة الخادم.
+
+| Method | Path | الوصف |
+|---|---|---|
+| GET | `/api/tasks?from=&to=&pending=1&limit=` | `{tasks, total}` مرتّبة بالتاريخ ثم الإنشاء. `from`/`to` اختياريان ويُرفض التاريخ غير الحقيقي بـ`400 INVALID_DATE`؛ `pending=1` يعيد غير المنجز فقط؛ `limit` اختياري بحد 200. |
+| POST | `/api/tasks` | `{title, kind:"homework"\|"exam", dueDate, subjectId?, notes?}` → `201 {task}`. العنوان يُشذّب ويُرفض إن قلّ عن حرفين (`INVALID_TITLE`)، والمادة غير الموجودة `INVALID_SUBJECT`. |
+| PATCH | `/api/tasks/:id` | تعديل جزئي: `title/kind/dueDate/subjectId/notes/done` → `{task}`. `404` إن لم تكن المهمة لهذا الطفل (بلا كشف وجودها لغيره). |
+| DELETE | `/api/tasks/:id` | حذف مهمة الطفل وحدها → `{ok:true}`، أو `404` إن لم تكن له. |
+
+**صف الطفل:** كل صف `{id, studentId, title, kind, subjectId, dueDate, notes, done, createdAt, updatedAt}`. `studentId` يُعاد للعميل لأنه نطاق الجلسة نفسه، ولا يسمح أي مسار بتغييره. تغيير صف الطفل يمسح مهامه مع بقية تاريخه التعليمي في المعاملة نفسها (D-063 + D-065).
+
+## 12. فحص الحالة `/api/health`: المزوّدات الثلاثة + النطق على الخادم (PHASE 40 + 41)
 
 مسار مفتوح (بلا مصادقة، وهو مُستثنى من حدّ المعدّل) يفحص المشغّل حالة الخادم بلا تخمين:
 
