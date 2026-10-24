@@ -4,13 +4,13 @@ import { looksLikeJsonFragment, looksLikePromptEcho, regenerateEchoes } from "..
 // Real transcripts of the failure observed live: gemma mirroring our own
 // system prompt (in English) instead of tutoring, on a fresh session.
 const liveEchoEnglish = `* User's Question: "كم تساوي 5 + 4؟" (How much is 5 + 4?)
-* Persona: "سلاح الفرعون" (Friendly, patient tutor for primary school).
+* Persona: "( بتاعي )" (Friendly, patient tutor for primary school).
 * Context: 6th Grade Math, Egypt, First Term, Addition and Subtraction of Natural Numbers.
 * Constraints:
 * Language: Simple Modern Standard Arabic (Fusha).`;
 
 const liveEchoEnglishVariant = `* User Question: "كم تساوي 5 + 4؟" (How much is 5 + 4?)
-* Persona: "سلاح الفرعون" (Friendly, patient tutor for 6th grade primary).
+* Persona: "( بتاعي )" (Friendly, patient tutor for 6th grade primary).
 * Constraints:
 * Response length: Max 100 words, 1-3 parts. * Structure: Explain -> Ask. * Output ...`;
 
@@ -60,7 +60,7 @@ describe("looksLikePromptEcho", () => {
     const legit = [
       "مرحبًا يا بطل! 👋 سنتعلم اليوم الجمع مع إعادة التجميع. هل يمكنك إخباري ما ناتج 14 + 18؟",
       "لا تقلق، سنراجعها معًا خطوة بخطوة. يبدو أنك نسيت الاستلاف. تخيل أن خانة الآحاد لا تتحمل أكثر من 9… هل يمكنك إخباري كم نكتب في الآحاد؟",
-      "أنا سلاح الفرعون، مدرسك الخصوصي 💙 هيا نبدأ، كم يساوي 5 + 4؟",
+      "أنا المدرس الخصوصي ( بتاعك ) 💙 هيا نبدأ، كم يساوي 5 + 4؟",
       "إجابتك صحيحة، ممتاز يا بطل! [مصدر 1] الآن جرب هذه المسألة: كم ناتج 8 + 4؟",
       "اوه، يبدو أنك اخترت حرفًا! أنا كنت أنتظر رقمًا. تذكر أن 5 + 7 = 12، جرب: 8 + 4 كم تساوي؟",
     ];

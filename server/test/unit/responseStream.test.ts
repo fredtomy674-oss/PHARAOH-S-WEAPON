@@ -214,7 +214,7 @@ describe("ReplyRelay (what the student actually sees)", () => {
     // PHASE 46 in streaming form: a weak model restates the prompt. The relay
     // must withdraw it, because those words are internal.
     const echo = JSON.stringify({
-      content: "Persona: سلاح الفرعون\nConstraints:\n- أجب بإيجاز",
+      content: "Persona: أنا المدرس الخصوصي ( بتاعك )\nConstraints:\n- أجب بإيجاز",
       parts: [],
     });
     const { shown, discarded } = await relay(chunkings(echo, 11)[0]!);

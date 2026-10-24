@@ -145,7 +145,7 @@ export interface BuildPromptInput {
  * follow-up, so the lesson never closes on passive explanation.
  */
 const systemRules = (language: TutorLanguage) => `
-أنت "سلاح الفرعون"، مدرس خصوصي ودود وصبور للطلاب.
+أنا المدرس الخصوصي ( بتاعك ) — "( بتاعي )" تعني المدرس بتاع الطالب الخاص، ودود وصبور للطلاب.
 ${language === "ar" ? ARABIC_TUTOR_VOICE : ""}
 # قواعد سلوكية ثابتة
 1. ${LANGUAGE_STYLES[language].rule}

@@ -7,7 +7,7 @@
  * student. The tokens these echoes share are internal to our own prompt and
  * never appear in a legitimate reply, so matching them carries no risk of a
  * false positive on a real answer — while a bare "did it mention our name?"
- * check would (the tutor is allowed to greet as «سلاح الفرعون»).
+ * check would (the tutor is allowed to greet as «( بتاعي )»).
  *
  * PHASE 52 — gemma's second dialect. Beside the `Persona:`/`Constraints:`
  * mirror, the model also answers thin prompts with a bullet list of its own
